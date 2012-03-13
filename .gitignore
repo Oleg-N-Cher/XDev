@@ -1,1 +1,13 @@
+*.asm
+*.bin
+*.c
+*.h
+*.ihx
+*.lk
+*.lst
+*.map
+*.noi
+*.rel
+*.sym
+*.trd
 +Git.bat
