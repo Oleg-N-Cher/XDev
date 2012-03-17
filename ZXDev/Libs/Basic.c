@@ -26,7 +26,7 @@ export void POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);
 export SYSTEM_BYTE IN (SYSTEM_ADDRESS port);
 export void OUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
 export void PRINT (INTEGER i);
-export void PRWORD (CARDINAL n);
+export void PRCARD (CARDINAL n);
 export BOOLEAN KeyPressed (void);
 export void PAUSE (CARDINAL ticks);
 export void RANDOMIZE (CARDINAL seed);
@@ -463,7 +463,7 @@ __endasm;
 }
 */
 
-void PRWORD (CARDINAL n)
+void PRCARD (CARDINAL n)
 {
   CHAR b[6], *prt;
   CARDINAL j;

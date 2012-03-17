@@ -17,7 +17,6 @@ _PEEK
 _BEEP_start
 _POINT
 _PAUSE_start
-_PRWORD_start
 _AT_end
 _Basic_Init_end
 _IN_end
@@ -32,7 +31,6 @@ _BEEP_end
 _PEEK_start
 _CIRCLE
 _PAUSE_end
-_PRWORD_end
 _POINT_start
 _SlowCircle
 _FONT
@@ -44,6 +42,7 @@ _DRAW_start
 _ATTR
 _PRSTR
 _POKE_start
+_PRCARD
 _OVER
 _INVERSE
 _BORDER
@@ -65,6 +64,7 @@ _CIRCLE_end
 _ATTR_start
 _PRSTR_start
 _SGN
+_PRCARD_start
 _OVER_start
 _INVERSE_start
 _RANDOMIZE
@@ -81,6 +81,7 @@ _INK_start
 _RND_start
 _ATTR_end
 _PRSTR_end
+_PRCARD_end
 _OVER_end
 _INVERSE_end
 _BORDER_end
@@ -102,7 +103,6 @@ _FLASH_start
 _BEEP
 _SGN_end
 _PAUSE
-_PRWORD
 _RANDOMIZE_end
 </MODULE>
 
@@ -136,7 +136,6 @@ S _PEEK Def0416
 S _BEEP_start Def06D5
 S _POINT Def01B6
 S _PAUSE_start Def0629
-S _PRWORD_start Def0585
 S _AT_end Def00E8
 S _Basic_Init_end Def000A
 S _IN_end Def0450
@@ -151,7 +150,6 @@ S _BEEP_end Def0710
 S _PEEK_start Def0416
 S _CIRCLE Def0220
 S _PAUSE_end Def064F
-S _PRWORD_end Def061E
 S _POINT_start Def01B6
 S _SlowCircle Def03F6
 S _FONT Def00F8
@@ -163,6 +161,7 @@ S _DRAW_start Def01EE
 S _ATTR Def01D2
 S _PRSTR Def010D
 S _POKE_start Def0428
+S _PRCARD Def0585
 S _OVER Def00AE
 S _INVERSE Def008D
 S _BORDER Def000A
@@ -184,6 +183,7 @@ S _CIRCLE_end Def03F6
 S _ATTR_start Def01D2
 S _PRSTR_start Def010D
 S _SGN Def06B5
+S _PRCARD_start Def0585
 S _OVER_start Def00AE
 S _INVERSE_start Def008D
 S _RANDOMIZE Def064F
@@ -200,6 +200,7 @@ S _INK_start Def001B
 S _RND_start Def0682
 S _ATTR_end Def01EE
 S _PRSTR_end Def017C
+S _PRCARD_end Def061E
 S _OVER_end Def00CF
 S _INVERSE_end Def00AE
 S _BORDER_end Def001B
@@ -221,7 +222,6 @@ S _FLASH_start Def0055
 S _BEEP Def06D5
 S _SGN_end Def06D5
 S _PAUSE Def0629
-S _PRWORD Def0585
 S _RANDOMIZE_end Def0666
 A _DATA size 0 flags 0 addr 0
 A _OVERLAY size 0 flags 0 addr 0

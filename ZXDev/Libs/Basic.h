@@ -22,7 +22,7 @@ import SYSTEM_BYTE ATTR (SHORTINT y, SHORTINT x);
 import void DRAW (SHORTINT x, SHORTINT y);
 import void CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 import void PRINT (INTEGER i);
-import void PRWORD (CARDINAL n);
+import void PRCARD (CARDINAL n);
 import void SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 import SYSTEM_BYTE PEEK (SYSTEM_ADDRESS addr);
 import void POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);
@@ -79,7 +79,7 @@ import void Basic_Quit (void);
 #define Basic_DRAW DRAW
 #define Basic_CIRCLE CIRCLE
 #define Basic_PRINT PRINT
-#define Basic_PRWORD PRWORD
+#define Basic_PRCARD PRCARD
 #define Basic_SlowCircle SlowCircle
 #define Basic_PEEK PEEK
 #define Basic_POKE POKE
