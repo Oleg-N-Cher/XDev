@@ -31,6 +31,7 @@ void HelloWorld_Main (void)
 	Basic_BRIGHT(1);
 	Basic_FLASH(1);
 	Basic_PRSTR((CHAR*)" HELLO WORLD of ZX Spectrum ! ", (LONGINT)31);
+	Basic_FLASH(0);
 	Basic_PAUSE(0);
 	Basic_Quit();
 }

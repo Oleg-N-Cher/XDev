@@ -12,23 +12,23 @@ Symbol Table
     _DRAW                                                          **** GX
     _FLASH                                                         **** GX
   0 _HelloWorld_Main                                               0000 GR
-  0 _HelloWorld_Main_end                                           0097 GR
+  0 _HelloWorld_Main_end                                           009F GR
   0 _HelloWorld_Main_start                                         0000 GR
-  0 _HelloWorld__init                                              00B6 GR
-  0 _HelloWorld__init_end                                          00B7 GR
-  0 _HelloWorld__init_start                                        00B6 GR
+  0 _HelloWorld__init                                              00BE GR
+  0 _HelloWorld__init_end                                          00BF GR
+  0 _HelloWorld__init_start                                        00BE GR
     _INK                                                           **** GX
     _PAPER                                                         **** GX
     _PAUSE                                                         **** GX
     _PLOT                                                          **** GX
     _PRSTR                                                         **** GX
-  0 __str_0                                                        0097 R
+  0 __str_0                                                        009F R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods + Flat24  (Zilog Z80 / Hitachi HD64180), page 2.
 
 Area Table
 
-   0 _CODE                                      size   B7   flags 0
+   0 _CODE                                      size   BF   flags 0
    1 _DATA                                      size    0   flags 0
    2 _OVERLAY                                   size    0   flags 0
    3 _HOME                                      size    0   flags 0
