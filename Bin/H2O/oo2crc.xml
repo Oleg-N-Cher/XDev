@@ -1,0 +1,41 @@
+<!-- -*-mode: xml-*- -->
+<configuration>
+  <options>
+    <set name='cc'>gcc</set>
+    <set name='cppflags'></set>
+    <set name='cflags'>-g -O2</set>
+    <set name='ldflags'></set>
+    <set name='libs'>-L/usr/local/lib</set>
+
+    <set name='libtool'>/usr/bin/libtool</set>
+    <set name='libdir'>/usr/local/lib</set>
+
+    <set name='install'>/usr/bin/install -c</set>
+    <set name='installProgram'>/usr/bin/install -c</set>
+    <set name='installData'>/usr/bin/install -c -m 644</set>
+    <set name='uninstall'>rm -f</set>
+    <set name='bindir'>/usr/local/bin</set>
+    <set name='oocdir'>/usr/local/lib/oo2c</set>
+
+    <set name='xsltproc'>/usr/bin/xsltproc</set>
+  </options>
+
+  <pragmas>
+    <set name='Warnings'>TRUE</set>
+    <set name='Assertions'>TRUE</set>
+    
+    <set name='IndexCheck'>TRUE</set>
+    <set name='DerefCheck'>TRUE</set>
+    <set name='OverflowCheck'>FALSE</set>  <!-- not supported -->
+    <set name='CaseSelectCheck'>TRUE</set>
+    <set name='FunctResult'>TRUE</set>
+    <set name='TypeGuard'>TRUE</set>
+    <set name='ConformantMode'>FALSE</set>  <!-- not supported -->
+  </pragmas>
+
+  <repositories>
+    <file-system>/usr/local/lib/oo2c</file-system>
+    <file-system>.</file-system>
+  </repositories>
+</configuration>
+

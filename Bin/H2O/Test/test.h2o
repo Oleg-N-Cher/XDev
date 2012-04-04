@@ -1,0 +1,24 @@
+H2O {
+  OPTIONS {
+    MapChar = "SHORTCHAR";
+    MapShort = "SHORTINT";
+    MapLong = "INTEGER";
+    MapLongLong = "LONGINT";
+    MapFloat = "SHORTREAL";
+    MapDouble = "REAL";
+    MapPointer = "ANYPR";
+  }
+
+  MODULE "test" {
+      LinkLib = "libtest.so";
+      
+  }
+
+  MODULE "mod" {
+      LinkLib = "libmod.so";
+  }
+
+}
+
+#include "test.c"
+
