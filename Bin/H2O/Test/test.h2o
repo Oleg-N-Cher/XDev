@@ -6,7 +6,7 @@ H2O {
     MapLongLong = "LONGINT";
     MapFloat = "SHORTREAL";
     MapDouble = "REAL";
-    MapPointer = "ANYPR";
+    MapPointer = "ANYPTR";
   }
 
   MODULE "test" {
