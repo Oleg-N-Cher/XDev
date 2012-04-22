@@ -180,7 +180,7 @@ TODO
     поддержку режимов IM0 и IM2. Реализовать режим IM0 стало возможно благодаря
     применению ключа SDCC --reserve-regs-iy, который запрещает компилятору
     использовать регистр IY).
-- Разобраться с файлом Ofront.par
+- Разобраться с файлом Ofront.par (насчёт поддержки беззнаковых типов)
 - Добавить сжатие целевого бинарника упаковщиком Hrust 1.3
 - Добавить подсистему для автоматической подсветки синтаксиса модулей:
   (Начать отсюда: http://forum.oberoncore.ru/viewtopic.php?f=114&t=3864 )
@@ -288,7 +288,7 @@ END Grx.
 
 1. Адаптация к технологии  ZXDev библиотек MegaBasic, Supercode, Supercode 2 и New Supercode.
 2. Адаптация к ZXDev библиотеки Sprite Pack из Z88DK ( http://www.timexsinclair.org/alvin/#SP ,    http://www.mojontwins.com/warehouse/splib2-tutorial.pdf ). Ещё посмотреть в эту сторону:
-   http://www.z88dk.org/wiki/doku.php
+   http://www.z88dk.org/wiki/doku.php  http://www.z88dk.org/wiki/doku.php?id=library:sprites:sp1
 3. Адаптация к ZXDev наработок SerzhSoft’а, в частности, “40 лучших процедур” ( http://vladik1232008.narod.ru/ZX_FORUM_40_Best_procedures.html , http://vladik1232008.narod.ru/ZX_Review11_12.html )
 4. Портирование с Hisoft Pascal библиотеки для черепашьей графики Turtle.
 5. Адаптация к ZXDev процедуры NiceType (красивый вывод текста) с моей игры Sea Fight  ( http://colossoft.anarxi.st/?go=seafight ).
@@ -330,8 +330,10 @@ Ofront - Software Templ OG - www.software-templ.com
 
 Small Device C Compiler - SDCC Team - http://sdcc.sourceforge.net/
 
-Laser Basic for ZX Spectrum - Oasis, Ocean, E.Michailov (HVG) -
-  ( http://zx.pk.ru/showthread.php?t=11615 )
+Laser Basic for ZX Spectrum - Oasis Software (Kevin Hambleton) -
+    http://www.worldofspectrum.org/infoseekid.cgi?id=0008327
+  E.Michailov (HVG) -
+    http://zx.pk.ru/showthread.php?t=11615
 PC110 Micro C (+Laser Basic lib) - Raydac Soft'93 A.G. (I.Maznitsa, E.Michailov)
 
 BIN2TRD - Copper Feet '1999 (V.Mednonogov)
