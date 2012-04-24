@@ -1,11 +1,12 @@
-License
+The FreeBSD Copyright
+Copyright 1992-2012 The FreeBSD Project. All rights reserved.
 
-1. Ofront for Windows may be used freely for any non-commercial purpose.
-2. For any commercial usage a license fee of € 100 (EUR) per developer must 
-be paid to Software Templ OEG.
-3. Ofront for Windows does not include any runtime fees.
-4. The source code of Ofront for Windows must not be used for any derived program 
-without prior permission by Software Templ OEG.
-5. Ofront for Windows and its documentation is provided "as is", without any warranty of any kind.
-Under no circumstances should Software Templ OEG be held liable for any
-damage or loss of profit that may result from using Ofront for Windows.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1.Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2.Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE FREEBSD PROJECT ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE FREEBSD PROJECT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
+
+http://www.freebsd.org/copyright/freebsd-license.html
