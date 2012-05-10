@@ -1329,23 +1329,29 @@ MODULE DevAnalyzer;
 			pos: INTEGER;	(*<< *)
 
 		PROCEDURE GetCode;
-			VAR ext: CPT.ConstExt; i, n, c: INTEGER; s: ARRAY 256 OF SHORTCHAR;
+			VAR ext: CPT.ConstExt; i, n, c: INTEGER; s, s2: POINTER TO ARRAY OF SHORTCHAR;
 		BEGIN
-			n := 0;
+			n := 0; NEW(s, 256);
 			LOOP
-				IF sym = number THEN c := CPS.intval; INC(n);
-					IF (c < 0) OR (c > 255) OR (n = 255) THEN
+				IF sym = number THEN c := CPS.intval; INC(n); i := LEN(s^);
+					IF n > i THEN	(* if overflow then increase size of array s *)
+						NEW(s2, i * 2); WHILE i > 0 DO DEC(i); s2^[i] := s^[i] END; s := s2; s2 := NIL;
+					END;
+					IF (c < 0) OR (c > 255) OR (n = MAX(INTEGER)) THEN
 						err(64); c := 1; n := 1
 					END ;
-					CPS.Get(sym); s[n] := SHORT(CHR(c))
+					CPS.Get(sym); s[n - 1] := SHORT(CHR(c))
 				END ;
 				IF sym = comma THEN CPS.Get(sym)
 				ELSIF sym = number THEN err(comma)
-				ELSE s[0] := SHORT(CHR(n)); EXIT
+				ELSE EXIT
 				END
 			END;
-			NEW(ext, n + 1); proc.conval.ext := ext; i := 0;
-			WHILE i <= n DO ext[i] := s[i]; INC(i) END;
+			IF n # 0 THEN NEW(ext, n); i := 0;
+				WHILE i < n DO ext[i] := s[i]; INC(i) END
+			ELSE ext := NIL
+			END;
+			proc.conval.ext := ext;
 			INCL(proc.conval.setval, hasBody)
 		END GetCode;
 

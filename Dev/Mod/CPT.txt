@@ -645,7 +645,7 @@ MODULE DevCPT;
 	END FPrintStr;
 
 	PROCEDURE FPrintObj*(obj: Object);
-		VAR fprint: INTEGER; f, m: SHORTINT; rval: SHORTREAL; ext: ConstExt; mod: Object; r: REAL; x: INTEGER;
+		VAR fprint, m: INTEGER; f: SHORTINT; rval: SHORTREAL; ext: ConstExt; mod: Object; r: REAL; x: INTEGER;
 	BEGIN
 		IF ~obj.fpdone THEN
 			fprint := 0; obj.fpdone := TRUE;
@@ -678,8 +678,10 @@ MODULE DevCPT;
 				FPrintSign(fprint, obj.typ, obj.link)
 			ELSIF obj.mode = CProc THEN
 				FPrintSign(fprint, obj.typ, obj.link); ext := obj.conval.ext;
-				m := ORD(ext^[0]); f := 1; DevCPM.FPrint(fprint, m);
-				WHILE f <= m DO DevCPM.FPrint(fprint, ORD(ext^[f])); INC(f) END
+				IF ext # NIL THEN m := LEN(ext^); x := 0; DevCPM.FPrint(fprint, m);
+					WHILE x < m DO DevCPM.FPrint(fprint, ORD(ext^[x])); INC(x) END
+				ELSE DevCPM.FPrint(fprint, 0);
+				END
 			ELSIF obj.mode = Typ THEN
 				FPrintStr(obj.typ); DevCPM.FPrint(fprint, obj.typ.pbfp)
 			END ;
@@ -1084,9 +1086,11 @@ MODULE DevCPT;
 				| Sipro: obj.mode := IProc
 				| Scpro: obj.mode := CProc;
 					s := DevCPM.SymRInt();
-					NEW(ext, s + 1); obj.conval.ext := ext;
-					ext^[0] := SHORT(CHR(s)); i := 1;
-					WHILE i <= s DO DevCPM.SymRCh(ext^[i]); INC(i) END
+					IF s # 0 THEN NEW(ext, s); i := 0;
+						WHILE i < s DO DevCPM.SymRCh(ext^[i]); INC(i) END
+					ELSE ext := NIL
+					END;
+					obj.conval.ext := ext;
 				END
 			ELSIF tag = Salias THEN
 				obj.mode := Typ; InStruct(obj.typ)
@@ -1438,7 +1442,7 @@ MODULE DevCPT;
 	END OutConstant;
 
 	PROCEDURE OutObj(obj: Object);
-		VAR i, j: SHORTINT; ext: ConstExt;
+		VAR i, j: INTEGER; ext: ConstExt;
 	BEGIN
 		IF obj # NIL THEN
 			OutObj(obj.left);
@@ -1483,8 +1487,10 @@ MODULE DevCPT;
 						DevCPM.SymWInt(Sipro); OutSign(obj.typ, obj.link); OutName(obj.name^)
 					| CProc:
 						DevCPM.SymWInt(Scpro); OutSign(obj.typ, obj.link); ext := obj.conval.ext;
-						j := ORD(ext^[0]); i := 1; DevCPM.SymWInt(j);
-						WHILE i <= j DO DevCPM.SymWCh(ext^[i]); INC(i) END ;
+						IF ext # NIL THEN j := LEN(ext^); i := 0; DevCPM.SymWInt(j);
+							WHILE i < j DO DevCPM.SymWCh(ext^[i]); INC(i) END
+						ELSE DevCPM.SymWInt(0)
+						END ;
 						OutName(obj.name^); portable := FALSE
 					END
 				END

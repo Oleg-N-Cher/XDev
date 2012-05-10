@@ -861,7 +861,7 @@ MODULE DevBrowser;
 	END Var;
 
 	PROCEDURE Proc (obj: DevCPT.Object);
-		VAR ext: DevCPT.ConstExt; i, m: SHORTINT;
+		VAR ext: DevCPT.ConstExt; i, m: INTEGER;
 	BEGIN
 		IF global.hideHooks & (obj.link # NIL) & (obj.link.link = NIL) & IsHook(obj.link.typ) THEN RETURN END;
 		IF global.extensioninterface THEN RETURN END;
@@ -877,11 +877,13 @@ MODULE DevBrowser;
 		IF (obj.mode = cProc) & global.hints THEN
 			Ln;
 			INC(global.level); Indent;
-			ext := obj.conval.ext; m := ORD(ext^[0]); i := 1;
-			WHILE i <= m DO
-				global.out.WriteIntForm(ORD(ext^[i]), TextMappers.hexadecimal, 3, "0", TextMappers.showBase);
-				IF i < m THEN String(", ") END;
-				INC(i)
+			ext := obj.conval.ext;
+			IF ext # NIL THEN m := LEN(ext^); i := 0;
+				WHILE i < m DO
+					global.out.WriteIntForm(ORD(ext^[i]), TextMappers.hexadecimal, 3, "0", TextMappers.showBase);
+					INC(i);
+					IF i < m THEN String(", ") END
+				END
 			END;
 			DEC(global.level)
 		END;

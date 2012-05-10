@@ -1854,8 +1854,10 @@ lx	:= LONG(SHORT(ly))	y b+	y w*	x w	*
 					Result(x.obj.link, tag)	(* use result load for first parameter *)
 				END
 			END;
-			i := 1; n := ORD(x.obj.conval.ext^[0]);
-			WHILE i <= n DO DevCPL486.GenCode(ORD(x.obj.conval.ext^[i])); INC(i) END
+			IF x.obj.conval.ext # NIL THEN
+				i := 0; n := LEN(x.obj.conval.ext^);
+				WHILE i < n DO DevCPL486.GenCode(ORD(x.obj.conval.ext^[i])); INC(i) END
+			END
 		ELSE	(* proc var *)
 			DevCPL486.GenCall(x); Free(x);
 			IF x.typ.sysflag = ccall THEN	(* remove parameters *)
