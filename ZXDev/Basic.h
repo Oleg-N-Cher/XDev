@@ -27,6 +27,10 @@ import void Basic_PRWORD (CARDINAL n);
 import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 /*import SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr);
 import void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);*/
+#define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
+#define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
+#define Basic_PEEK(addr)      (*(unsigned char*) (addr))
+#define Basic_PEEKW(addr)     (*(unsigned*) (addr))
 import SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 import void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
 import BOOLEAN Basic_KeyPressed (void);
@@ -84,6 +88,10 @@ import void Basic_Quit (void);
 #define SlowCircle Basic_SlowCircle
 /*#define PEEK Basic_PEEK
 #define POKE Basic_POKE*/
+#define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
+#define POKEW(addr,val) (*(unsigned*) (addr) = (val))
+#define PEEK(addr)      (*(unsigned char*) (addr))
+#define PEEKW(addr)     (*(unsigned*) (addr))
 #define PORTIN Basic_PORTIN
 #define PORTOUT Basic_PORTOUT
 #define KeyPressed Basic_KeyPressed
