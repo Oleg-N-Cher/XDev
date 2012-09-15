@@ -1,7 +1,7 @@
 @REM Using Libs/Basic.h
 @REM ===================
 @IF NOT EXIST Basic.h COPY /Y /B Libs\Basic.h Basic.h
-@REM IF EXIST Basic.c DEL /Q Basic.c 
+@REM IF EXIST Basic.c DEL /Q Basic.c
 
 @REM Compile TinyHello.c
 @REM ====================
