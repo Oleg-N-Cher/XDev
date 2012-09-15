@@ -1,9 +1,9 @@
-/*---------------------------------*/
+/* ------------------------------- */
 /* LASER BASIC for SDCC  >>> v3.17 */
 /* Adapted to SDCC by Oleg N. Cher */
 /*    (Vedanta software), 2011     */
 /*    Thanks to Michailov (HVG)    */
-/*---------------------------------*/
+/* ------------------------------- */
 
 #include "SYSTEM.h"
 #include "Rsrc.h"
@@ -13,79 +13,81 @@ interface
 
 export void Laser_Init (void);
 /* Functions for screen windows processing */
-export void INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-export void SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-export void AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
+export void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
+export void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+export void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
 
 /* Functions for sprites manipulations */
-export void CLSM (SHORTCARD spN);
-export void INVM (SHORTCARD spN);
-export void PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void WL1M (SHORTCARD spN);
-export void WR1M (SHORTCARD spN);
-export void WL4M (SHORTCARD spN);
-export void WR4M (SHORTCARD spN);
-export void WL8M (SHORTCARD spN);
-export void WR8M (SHORTCARD spN);
-export void SL1M (SHORTCARD spN);
-export void SR1M (SHORTCARD spN);
-export void SL4M (SHORTCARD spN);
-export void SR4M (SHORTCARD spN);
-export void SL8M (SHORTCARD spN);
-export void SR8M (SHORTCARD spN);
-export void WCRM (SHORTCARD spN, SHORTINT npx);
-export void SCRM (SHORTCARD spN, SHORTINT npx);
-export void ATOF (void);
-export void ATON (void);
-export void GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+export void Laser_CLSM (SHORTCARD spN);
+export void Laser_INVM (SHORTCARD spN);
+export void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_WL1M (SHORTCARD spN);
+export void Laser_WR1M (SHORTCARD spN);
+export void Laser_WL4M (SHORTCARD spN);
+export void Laser_WR4M (SHORTCARD spN);
+export void Laser_WL8M (SHORTCARD spN);
+export void Laser_WR8M (SHORTCARD spN);
+export void Laser_SL1M (SHORTCARD spN);
+export void Laser_SR1M (SHORTCARD spN);
+export void Laser_SL4M (SHORTCARD spN);
+export void Laser_SR4M (SHORTCARD spN);
+export void Laser_SL8M (SHORTCARD spN);
+export void Laser_SR8M (SHORTCARD spN);
+export void Laser_WCRM (SHORTCARD spN, SHORTINT npx);
+export void Laser_SCRM (SHORTCARD spN, SHORTINT npx);
+export void Laser_ATOF (void);
+export void Laser_ATON (void);
+export void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
+export void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+export void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+export void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+export void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
 
 implementation
+
+/*================================== Header ==================================*/
 
 /* Спрайты хранятся в памяти в следующем формате:
 Байт 1 - номер спрайта.
@@ -134,6 +136,7 @@ __endasm;
 void Laser_Init (void)
 {
 __asm
+  PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
   LD   HL,#scrollBuf
   LD   (#SCRL_B$),HL
   LD   HL,#sprEnd
@@ -175,659 +178,1199 @@ SPRMULT$:
   JR   SET_ADDR$
     // }
 SPREXIT$:  // }
+  POP  IX
 __endasm;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 /*-----------------------------------------*/
 /* Functions for screen windows processing */
 /*-----------------------------------------*/
-void INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Inverts the window */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL INVV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Mirroring the window */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL MIRV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Mirroring the window attributes */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL MARV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Sets the attributes of the window */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SETV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Clears the attributes of the window */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL CLSV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 1 pixel circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WL1V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 1 pixel circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WR1V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 4 pixels circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WL4V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 4 pixels circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WR4V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 8 pixels circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WL8V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 8 pixels circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL WR8V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 1 pixel */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SL1V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 1 pixel */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SR1V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 4 pixels */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SL4V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 4 pixels */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SR4V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window left by 8 pixels */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SL8V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window right by 8 pixels */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL SR8V$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx)
 /* Scrolls the window by npx pixels vertically (+Up, -Down) and circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
   CALL WCRV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx)
 /* Scrolls the window by npx pixels vertically (+Up, -Down) */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
   CALL SCRV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes left circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL AWLV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes left */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL ASLV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes right circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL AWRV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes right */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL ASRV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes up circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL ATUV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
 /* Scrolls the window attributes down circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
   CALL ATDV$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 /*-------------------------------------*/
 /* Functions for sprites manipulations */
 /*-------------------------------------*/
-void CLSM (SHORTCARD spN)
+void Laser_CLSM (SHORTCARD spN)
 /* Clears the sprite */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL CLSM$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void INVM (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_INVM (SHORTCARD spN)
 /* Inverts the sprite */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL INVM$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL PTBL$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL PTOR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL PTXR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PTND (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL PTND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL1M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL1M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WL1M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR1M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR1M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WR1M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL4M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL4M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WL4M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR4M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR4M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WR4M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WL8M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WL8M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WL8M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WR8M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WR8M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL WR8M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL1M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL1M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SL1M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR1M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR1M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SR1M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL4M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL4M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SL4M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR4M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR4M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SR4M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SL8M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SL8M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SL8M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SR8M (SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SR8M (SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   CALL SR8M$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void WCRM (SHORTCARD spN, SHORTINT npx)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_WCRM (SHORTCARD spN, SHORTINT npx)
 /* Scrolls the sprite by npx pixels vertically (+Up, -Down) and circularly */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   LD   B,5(IX)
   CALL WCRM$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void SCRM (SHORTCARD spN, SHORTINT npx)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SCRM (SHORTCARD spN, SHORTINT npx)
 /* Scrolls the sprite by npx pixels vertically (+Up, -Down) */
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   A,4(IX)
   LD   B,5(IX)
   CALL SCRM$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void ATOF (void)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ATOF (void)
 {
 __asm
   JP   ATOF$
 __endasm;
 }
 
-void ATON (void)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_ATON (void)
 {
 __asm
   JP   ATON$
 __endasm;
 }
 
-void GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL GTBL$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL GTOR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL GTXR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GTND (SHORTINT col, SHORTINT row, SHORTCARD spN)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
   CALL GTND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
   CALL PMND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
   CALL PMOR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
   CALL PMXR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
   CALL PMND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
   CALL PMAT$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
   CALL GMBL$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
   CALL GMOR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
   CALL GMXR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
   CALL GMND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   E,4(IX) /* x */
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
   CALL GMAT$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-           SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* Screen col */
   LD   B,5(IX) /* Screen row */
   LD   A,6(IX) /* Sprite number */
@@ -836,13 +1379,22 @@ __asm
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
   CALL PWBL$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-           SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* Screen col */
   LD   B,5(IX) /* Screen row */
   LD   A,6(IX) /* Sprite number */
@@ -851,13 +1403,22 @@ __asm
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
   CALL PWOR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-           SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* Screen col */
   LD   B,5(IX) /* Screen row */
   LD   A,6(IX) /* Sprite number */
@@ -866,13 +1427,22 @@ __asm
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
   CALL PWXR$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-void PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-           SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt)
 {
 __asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
   LD   C,4(IX) /* Screen col */
   LD   B,5(IX) /* Screen row */
   LD   A,6(IX) /* Sprite number */
@@ -881,23 +1451,27 @@ __asm
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
   CALL PWND$
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 
-/*------------------------------*/
+/*--------------------------------- Cut here ---------------------------------*/
+/* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
 /*        version 3.17          */
 /*            1997              */
-/*------------------------------*/
+/* ---------------------------- */
 
 /* Set video attrib */
 #define SETV_A$ 0x5C8D
 
-static void Asm_Laser (void)
+static void __Asm_Laser__ (void)
 {
 __asm
-/*------------------------------*/
+/* ---------------------------- */
 SCRL_B$: .DW #0x5B00 /* Buffer vor vertical scroll */
 SFSTRT$: .DW #0x0000 /* Sprite file start address */
 SF_END$: .DW #0x0000 /* Sprite file end address */
@@ -905,13 +1479,13 @@ SF_END$: .DW #0x0000 /* Sprite file end address */
 SCR_AC$: .DW #0x4000
 SCRA_A$: .DW #0x5800
 
-/*------------------------------*/
+/* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
 /*        version 3.17          */
 /*            1997              */
 /*          P A R T  1          */
-/*------------------------------*/
+/* ---------------------------- */
 MARV$:
   NOP
 LB_001$:
@@ -1988,21 +2562,21 @@ LB_109$:
 LB_110$:
   POP  BC
   RET
-/*------------------------------*/
+/* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*          v. 3.17             */
 /*      E N D  P A R T  1       */
-/*------------------------------*/
+/* ---------------------------- */
 
 
 
-/*------------------------------*/
+/* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
 /*        version 3.17          */
 /*            1997              */
 /*          P A R T  2          */
-/*------------------------------*/
+/* ---------------------------- */
 LB_111$:
   LD   (#LB_179$),DE
   LD   A,B
@@ -3115,10 +3689,10 @@ LB_217$:
   ADD  HL,DE
   POP  BC
   RET
-/*------------------------------*/
+/* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*          v. 3.17             */
 /*      E N D  P A R T  2       */
-/*------------------------------*/
+/* ---------------------------- */
 __endasm;
 }

@@ -13,146 +13,146 @@ interface
 
 import void Laser_Init (void);
 /* Functions for screen windows processing */
-import void INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-import void SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-import void AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
+import void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
+import void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+import void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
 
 /* Functions for sprites manipulations */
-import void CLSM (SHORTCARD spN);
-import void INVM (SHORTCARD spN);
-import void PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void WL1M (SHORTCARD spN);
-import void WR1M (SHORTCARD spN);
-import void WL4M (SHORTCARD spN);
-import void WR4M (SHORTCARD spN);
-import void WL8M (SHORTCARD spN);
-import void WR8M (SHORTCARD spN);
-import void SL1M (SHORTCARD spN);
-import void SR1M (SHORTCARD spN);
-import void SL4M (SHORTCARD spN);
-import void SR4M (SHORTCARD spN);
-import void SL8M (SHORTCARD spN);
-import void SR8M (SHORTCARD spN);
-import void WCRM (SHORTCARD spN, SHORTINT npx);
-import void SCRM (SHORTCARD spN, SHORTINT npx);
-import void ATOF (void);
-import void ATON (void);
-import void GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                  SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+import void Laser_CLSM (SHORTCARD spN);
+import void Laser_INVM (SHORTCARD spN);
+import void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_WL1M (SHORTCARD spN);
+import void Laser_WR1M (SHORTCARD spN);
+import void Laser_WL4M (SHORTCARD spN);
+import void Laser_WR4M (SHORTCARD spN);
+import void Laser_WL8M (SHORTCARD spN);
+import void Laser_WR8M (SHORTCARD spN);
+import void Laser_SL1M (SHORTCARD spN);
+import void Laser_SR1M (SHORTCARD spN);
+import void Laser_SL4M (SHORTCARD spN);
+import void Laser_SR4M (SHORTCARD spN);
+import void Laser_SL8M (SHORTCARD spN);
+import void Laser_SR8M (SHORTCARD spN);
+import void Laser_WCRM (SHORTCARD spN, SHORTINT npx);
+import void Laser_SCRM (SHORTCARD spN, SHORTINT npx);
+import void Laser_ATOF (void);
+import void Laser_ATON (void);
+import void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
+import void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
+import void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+import void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+import void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+import void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
+                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
 
 /* Functions for screen windows processing */
-#define Laser_INVV INVV
-#define Laser_MIRV MIRV
-#define Laser_MARV MARV
-#define Laser_SETV SETV
-#define Laser_CLSV CLSV
-#define Laser_WL1V WL1V
-#define Laser_WR1V WR1V
-#define Laser_WL4V WL4V
-#define Laser_WR4V WR4V
-#define Laser_WL8V WL8V
-#define Laser_WR8V WR8V
-#define Laser_SL1V SL1V
-#define Laser_SR1V SR1V
-#define Laser_SL4V SL4V
-#define Laser_SR4V SR4V
-#define Laser_SL8V SL8V
-#define Laser_SR8V SR8V
-#define Laser_WCRV WCRV
-#define Laser_SCRV SCRV
-#define Laser_AWLV AWLV
-#define Laser_ASLV ASLV
-#define Laser_AWRV AWRV
-#define Laser_ASRV ASRV
-#define Laser_ATUV ATUV
-#define Laser_ATDV ATDV
+#define INVV Laser_INVV
+#define MIRV Laser_MIRV
+#define MARV Laser_MARV
+#define SETV Laser_SETV
+#define CLSV Laser_CLSV
+#define WL1V Laser_WL1V
+#define WR1V Laser_WR1V
+#define WL4V Laser_WL4V
+#define WR4V Laser_WR4V
+#define WL8V Laser_WL8V
+#define WR8V Laser_WR8V
+#define SL1V Laser_SL1V
+#define SR1V Laser_SR1V
+#define SL4V Laser_SL4V
+#define SR4V Laser_SR4V
+#define SL8V Laser_SL8V
+#define SR8V Laser_SR8V
+#define WCRV Laser_WCRV
+#define SCRV Laser_SCRV
+#define AWLV Laser_AWLV
+#define ASLV Laser_ASLV
+#define AWRV Laser_AWRV
+#define ASRV Laser_ASRV
+#define ATUV Laser_ATUV
+#define ATDV Laser_ATDV
 
 /* Functions for sprites manipulations */
-#define Laser_CLSM CLSM
-#define Laser_INVM INVM
-#define Laser_PTBL PTBL
-#define Laser_PTOR PTOR
-#define Laser_PTXR PTXR
-#define Laser_PTND PTND
-#define Laser_WL1M WL1M
-#define Laser_WR1M WR1M
-#define Laser_WL4M WL4M
-#define Laser_WR4M WR4M
-#define Laser_WL8M WL8M
-#define Laser_WR8M WR8M
-#define Laser_SL1M SL1M
-#define Laser_SR1M SR1M
-#define Laser_SL4M SL4M
-#define Laser_SR4M SR4M
-#define Laser_SL8M SL8M
-#define Laser_SR8M SR8M
-#define Laser_WCRM WCRM
-#define Laser_SCRM SCRM
-#define Laser_ATOF ATOF
-#define Laser_ATON ATON
-#define Laser_GTBL GTBL
-#define Laser_GTOR GTOR
-#define Laser_GTXR GTXR
-#define Laser_GTND GTND
-#define Laser_PMBL PMBL
-#define Laser_PMOR PMOR
-#define Laser_PMXR PMXR
-#define Laser_PMND PMND
-#define Laser_PMAT PMAT
-#define Laser_GMBL GMBL
-#define Laser_GMOR GMOR
-#define Laser_GMXR GMXR
-#define Laser_GMND GMND
-#define Laser_GMAT GMAT
-#define Laser_PWBL PWBL
-#define Laser_PWOR PWOR
-#define Laser_PWXR PWXR
-#define Laser_PWND PWND
+#define CLSM Laser_CLSM
+#define INVM Laser_INVM
+#define PTBL Laser_PTBL
+#define PTOR Laser_PTOR
+#define PTXR Laser_PTXR
+#define PTND Laser_PTND
+#define WL1M Laser_WL1M
+#define WR1M Laser_WR1M
+#define WL4M Laser_WL4M
+#define WR4M Laser_WR4M
+#define WL8M Laser_WL8M
+#define WR8M Laser_WR8M
+#define SL1M Laser_SL1M
+#define SR1M Laser_SR1M
+#define SL4M Laser_SL4M
+#define SR4M Laser_SR4M
+#define SL8M Laser_SL8M
+#define SR8M Laser_SR8M
+#define WCRM Laser_WCRM
+#define SCRM Laser_SCRM
+#define ATOF Laser_ATOF
+#define ATON Laser_ATON
+#define GTBL Laser_GTBL
+#define GTOR Laser_GTOR
+#define GTXR Laser_GTXR
+#define GTND Laser_GTND
+#define PMBL Laser_PMBL
+#define PMOR Laser_PMOR
+#define PMXR Laser_PMXR
+#define PMND Laser_PMND
+#define PMAT Laser_PMAT
+#define GMBL Laser_GMBL
+#define GMOR Laser_GMOR
+#define GMXR Laser_GMXR
+#define GMND Laser_GMND
+#define GMAT Laser_GMAT
+#define PWBL Laser_PWBL
+#define PWOR Laser_PWOR
+#define PWXR Laser_PWXR
+#define PWND Laser_PWND
 
 #endif
 

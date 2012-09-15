@@ -87,7 +87,7 @@ __asm
 #else
   LD   A,4(IX)
 #endif
-  CALL 0x229B
+  CALL 0x229B // IX-safe
 __endasm;
 } //Basic_BORDER
 
@@ -137,16 +137,20 @@ void Basic_FLASH (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
   LD   A,#18
-  RST  16
+  RST  16 // IX-safe
   LD   A,4(IX)
   RST  16
   LD   A,(#ATTR_T$)
   LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_FLASH
 
@@ -155,7 +159,8 @@ void Basic_BRIGHT (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -165,6 +170,9 @@ __asm
   RST  16
   LD   A,(#ATTR_T$)
   LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_BRIGHT
 
@@ -173,7 +181,8 @@ void Basic_INVERSE (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -187,15 +196,19 @@ SetInvers$:
   RST  16
   LD   A,4(IX)
   RST  16
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_INVERSE
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_OVER (SHORTINT mode)
-{
+{ // !!! NEED to be checked to IX-safety
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -209,6 +222,9 @@ SetOver$:
   RST  16
   LD   A,4(IX)
   RST  16
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_OVER
 
@@ -217,19 +233,23 @@ __endasm;
 void Basic_AT (SHORTINT y, SHORTINT x)
 {
 __asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL #0x1601
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL #0x1601 // IX-safe
   LD   A,#22
   RST  16
   LD   A,4(IX) // y
   RST  16
   LD   A,5(IX) // x
   RST  16
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_AT
 #endif //Basic_ROM_OUTPUT
@@ -239,7 +259,8 @@ void Basic_AT (SHORTINT y, SHORTINT x)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   A,4(IX)
@@ -248,6 +269,9 @@ __asm
   ADD  A,L
   LD   L,A
   LD   (#23684),HL
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_AT
 #endif //Basic_ROM_OUTPUT
@@ -259,7 +283,7 @@ __asm
   LD   IY,#0x5C3A
   LD   A,(#ATTR_T$)
   PUSH AF
-  CALL 0xD6B
+  CALL 0xD6B // IX-safe
   POP  AF
   LD   (#ATTR_T$),A
 __endasm;
@@ -270,13 +294,17 @@ void Basic_FONT (SYSTEM_ADDRESS addr)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   L,4(IX)
   LD   H,5(IX)
   DEC  H
   LD   (CHAR_SET$),HL
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_FONT
 
@@ -323,7 +351,8 @@ void Basic_PRSTR_C (CHAR *str)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   L,4(IX)
@@ -393,6 +422,9 @@ p_Sy2$:
   INC  HL
   JR   pr_sta$
 pr_end$:
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PRSTR_C
 #endif //Basic_ROM_OUTPUT
@@ -430,13 +462,17 @@ void Basic_PLOT (SHORTINT x, SHORTINT y)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
   LD   C,4(IX)
   LD   B,5(IX)
   CALL #0x22E5
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PLOT
 
@@ -445,7 +481,8 @@ SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -454,6 +491,9 @@ __asm
   CALL #0x22CE
   CALL #0x2DD5
   LD   L,A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_POINT
 
@@ -462,7 +502,8 @@ SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -471,6 +512,9 @@ __asm
   CALL #0x2583
   CALL #0x2DD5
   LD   L,A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_ATTR
 
@@ -479,7 +523,8 @@ void Basic_DRAW (SHORTINT x, SHORTINT y)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
@@ -504,6 +549,9 @@ PositiveX$:
   LD   D,#0xFF
 PositiveY$:
   CALL #0x24BA
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_DRAW
 
@@ -534,7 +582,8 @@ void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD    A,4(IX) /* cx */
@@ -544,6 +593,9 @@ __asm
   LD    A,6(IX) /* radius */
   CALL  0x2D28
   CALL  0x232D
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_SlowCircle
 
@@ -552,12 +604,16 @@ SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   L,4(IX)
   LD   H,5(IX)
   LD   L,(HL)
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PEEK
 
@@ -565,13 +621,17 @@ void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   L,4(IX)
   LD   H,5(IX)
   LD   A,6(IX)
   LD   (HL),A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_POKE
 */
@@ -581,12 +641,16 @@ SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   C,4(IX)
   LD   B,5(IX)
   IN   L,(C)
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PORTIN
 
@@ -595,13 +659,17 @@ void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   C,4(IX)
   LD   B,5(IX)
   LD   A,6(IX)
   OUT  (C),A
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PORTOUT
 
@@ -632,7 +700,8 @@ void Basic_PRINT (INTEGER i)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   C,4(IX)
@@ -652,6 +721,9 @@ Positive$:
   LD   A,#2
   CALL #0x1601
   CALL #0x2DE3 // PRINT-FP
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 }
 */
@@ -674,7 +746,7 @@ void Basic_PRWORD (CARDINAL n)
 
 /*--------------------------------- Cut here ---------------------------------*/
 BOOLEAN Basic_KeyPressed (void)
-{
+{ // Check to IX-safety
 __asm
     CALL  #0x28E /* Scan keys */
     LD    L,#0   /* FALSE */
@@ -691,7 +763,8 @@ void Basic_PAUSE (CARDINAL ticks)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   C,4(IX)
@@ -711,6 +784,9 @@ Pause$:
   JR   NZ,Pause$
 EndPause$:
   DI
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_PAUSE
 
@@ -719,7 +795,8 @@ void Basic_RANDOMIZE (CARDINAL seed)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   A,R
@@ -727,6 +804,9 @@ __asm
   LD   C,A
   LD   B,5(IX)
   CALL #0x1E52
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_RANDOMIZE
 
@@ -753,7 +833,6 @@ __asm
   INC  HL
 R1$:
   LD  (#SF_RND$),HL
-  RET
 __endasm;
 } //RandBB
 
@@ -783,7 +862,8 @@ void Basic_BEEP (CARDINAL ms, SHORTINT freq)
 {
 __asm
 #ifdef __SDCC
-  LD   IX,#0xFFFE
+  PUSH IX
+  LD   IX,#0
   ADD  IX,SP
 #endif
   LD   C,4(IX)
@@ -809,6 +889,9 @@ BEPER1$:
 DO_BEEP$:
   CALL #0x3F8
   DI
+#ifdef __SDCC
+  POP  IX
+#endif
 __endasm;
 } //Basic_BEEP
 

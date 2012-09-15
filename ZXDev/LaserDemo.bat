@@ -1,12 +1,13 @@
-@REM Prepare the Basic from Ofront
-@REM =============================
-@COPY /Y /B Libs\Basic.h Basic.h
-@COPY /Y /B Libs\Laser.h Laser.h
-@IF EXIST Basic.c DEL /Q Basic.c
-@IF EXIST Laser.c DEL /Q Laser.c
+@REM Using Libs: Basic.h Laser.h
+@REM ===========================
+@IF NOT EXIST Basic.h COPY /Y /B Libs\Basic.h Basic.h
+@REM IF EXIST Basic.c DEL /Q Basic.c
+@IF NOT EXIST Laser.h COPY /Y /B Libs\Laser.h Laser.h
+@REM IF EXIST Laser.c DEL /Q Laser.c
 
-@REM Compile HelloWorld.c
-@REM ====================
+@REM Compile LaserDemo.c
+@REM ===================
+@IF EXIST ..\Ofront\Obj\LaserDemo.c COPY /Y /B ..\Ofront\Obj\LaserDemo.c
 Bin\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char -L Libs/z80 LaserDemo.c Basic.lib Laser.lib
 
 @REM Convert Intel hex format to binary
