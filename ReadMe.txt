@@ -41,10 +41,11 @@ I am interested in supporting other platforms in various ways, in adding new lib
 
 Main goals and benefits of XDev
 ===============================
-Simplicity,
-Reliability,
-Small size of the target machine code,
-The widely using of the great achievements of the European school of programming, such as safe and modular programming languages - Oberon, Oberon-2, Component Pascal.
++ Simplicity,
++ Reliability,
++ Small size of the target machine code,
++ The widely using of the great achievements of the European school of programming, such as safe
+  and modular programming languages - Oberon, Oberon-2, Component Pascal.
 
 
 Oleg N. Cher, 2012,
