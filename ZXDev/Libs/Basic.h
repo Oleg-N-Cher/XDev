@@ -47,20 +47,62 @@ import void Basic_BRIGHT_fastcall (void /* Register C */);
 #else //BRIGHT_fastcall
   #define Basic_BRIGHT(mode) __ld_c__(mode); Basic_BRIGHT_fastcall()
 #endif
-import void Basic_INVERSE (SHORTINT mode);
-import void Basic_OVER (SHORTINT mode);
+import void Basic_INVERSE_FAST (SHORTINT mode);
+import void Basic_INVERSE_ROM (SHORTINT mode);
+#ifdef ROM_OUTPUT
+  #define Basic_INVERSE Basic_INVERSE_ROM
+#else
+  #define Basic_INVERSE Basic_INVERSE_FAST
+#endif
+import void Basic_OVER_FAST (SHORTINT mode);
+import void Basic_OVER_ROM (SHORTINT mode);
+#ifdef ROM_OUTPUT
+  #define Basic_OVER Basic_OVER_ROM
+#else
+  #define Basic_OVER Basic_OVER_FAST
+#endif
+import void Basic_AT_FAST (SHORTINT y, SHORTINT x);
+import void Basic_AT_ROM (SHORTINT y, SHORTINT x);
+#ifdef ROM_OUTPUT
+  #define Basic_AT Basic_AT_ROM
+#else
+  #define Basic_AT Basic_AT_FAST
+#endif
 import void Basic_AT (SHORTINT y, SHORTINT x);
 import void Basic_CLS (void);
-import void Basic_PRSTR_C (CHAR *str);
-#define Basic_PRSTR(str,len) Basic_PRSTR_C(str)
-import void Basic_PRCHAR (CHAR ch);
+import void Basic_PRSTR_C_FAST (CHAR *str);
+import void Basic_PRSTR_C_ROM (CHAR *str);
+#ifdef ROM_OUTPUT
+  #define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM(str)
+#else
+  #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
+#endif
+import void Basic_PRCHAR_FAST (CHAR ch);
+import void Basic_PRCHAR_ROM (CHAR ch);
+#ifdef ROM_OUTPUT
+  #define Basic_PRCHAR Basic_PRCHAR_ROM
+#else
+  #define Basic_PRCHAR Basic_PRCHAR_FAST
+#endif
 import void Basic_PLOT (SHORTINT x, SHORTINT y);
 import SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 import SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 import void Basic_DRAW (SHORTINT x, SHORTINT y);
 import void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
-import void Basic_PRINT (INTEGER i);
-import void Basic_PRWORD (CARDINAL n);
+export void Basic_PRINT_FAST (INTEGER i);
+export void Basic_PRINT_ROM (INTEGER i);
+#ifdef ROM_OUTPUT
+  #define Basic_PRINT Basic_PRINT_ROM
+#else
+  #define Basic_PRINT Basic_PRINT_FAST
+#endif
+import void Basic_PRWORD_FAST (CARDINAL n);
+import void Basic_PRWORD_ROM (CARDINAL n);
+#ifdef ROM_OUTPUT
+  #define Basic_PRWORD Basic_PRWORD_ROM
+#else
+  #define Basic_PRWORD Basic_PRWORD_FAST
+#endif
 import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 /*import SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr);
 import void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);*/
@@ -73,10 +115,12 @@ import void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
 import BOOLEAN Basic_KeyPressed (void);
 import void Basic_PAUSE (CARDINAL ticks);
 import void Basic_RANDOMIZE (CARDINAL seed);
-#ifndef RND_SHORTCARD
-  import CARDINAL Basic_RND (CARDINAL min, CARDINAL max);
+import SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
+import CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
+#ifdef RND_SHORTCARD
+  #define Basic_RND Basic_RND_BYTE
 #else
-  import SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+  #define Basic_RND Basic_RND_WORD
 #endif
 import SHORTINT Basic_SGN (SHORTINT x);
 import void Basic_BEEP (CARDINAL ms, SHORTINT freq);

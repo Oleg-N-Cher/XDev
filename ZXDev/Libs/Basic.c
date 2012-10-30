@@ -12,12 +12,17 @@ export void Basic_FLASH_stdcall (SHORTINT mode);
 export void Basic_FLASH_fastcall (void /* Register C */);
 export void Basic_BRIGHT_stdcall (SHORTINT mode);
 export void Basic_BRIGHT_fastcall (void /* Register C */);
-export void Basic_INVERSE (SHORTINT mode);
-export void Basic_OVER (SHORTINT mode);
-export void Basic_AT (SHORTINT y, SHORTINT x);
+export void Basic_INVERSE_FAST (SHORTINT mode);
+export void Basic_INVERSE_ROM (SHORTINT mode);
+export void Basic_OVER_FAST (SHORTINT mode);
+export void Basic_OVER_ROM (SHORTINT mode);
+export void Basic_AT_FAST (SHORTINT y, SHORTINT x);
+export void Basic_AT_ROM (SHORTINT y, SHORTINT x);
 export void Basic_CLS (void);
-export void Basic_PRSTR_C (CHAR *str);
-export void Basic_PRCHAR (CHAR ch);
+export void Basic_PRSTR_C_FAST (CHAR *str);
+export void Basic_PRSTR_C_ROM (CHAR *str);
+export void Basic_PRCHAR_FAST (CHAR ch);
+export void Basic_PRCHAR_ROM (CHAR ch);
 export void Basic_PLOT (SHORTINT x, SHORTINT y);
 export SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
@@ -28,13 +33,15 @@ export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);*/
 export SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
-export void Basic_PRINT (INTEGER i);
-export void Basic_PRWORD (CARDINAL n);
+export void Basic_PRINT_FAST (INTEGER i);
+export void Basic_PRINT_ROM (INTEGER i);
+export void Basic_PRWORD_FAST (CARDINAL n);
+export void Basic_PRWORD_ROM (CARDINAL n);
 export BOOLEAN Basic_KeyPressed (void);
 export void Basic_PAUSE (CARDINAL ticks);
 export void Basic_RANDOMIZE (CARDINAL seed);
-export SHORTCARD Basic_RND8 (SHORTCARD min, SHORTCARD max);
-export CARDINAL Basic_RND16 (CARDINAL min, CARDINAL max);
+export SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
+export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP (CARDINAL ms, SHORTINT freq);
 export void Basic_FONT (SYSTEM_ADDRESS addr);
@@ -108,7 +115,7 @@ __asm
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
-} //Basic_INK
+} //Basic_INK_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INK_fastcall (void /* Register C */)
@@ -142,7 +149,7 @@ __asm
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
-} //Basic_PAPER
+} //Basic_PAPER_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAPER_fastcall (void /* Register C */)
@@ -179,7 +186,7 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_FLASH
+} //Basic_FLASH_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_FLASH_fastcall (void /* Register C */)
@@ -193,7 +200,7 @@ __asm
   LD   A,(#ATTR_T$)
   LD   (#SETV_A$),A
 __endasm;
-} //Basic_FLASH
+} //Basic_FLASH_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_BRIGHT_stdcall (SHORTINT mode)
@@ -215,7 +222,7 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_BRIGHT
+} //Basic_BRIGHT_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_BRIGHT_fastcall (void /* Register C */)
@@ -232,7 +239,7 @@ __endasm;
 } //Basic_BRIGHT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE (SHORTINT mode)
+void Basic_INVERSE_FAST (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
@@ -255,10 +262,32 @@ SetInvers$:
   POP  IX
 #endif
 __endasm;
-} //Basic_INVERSE
+} //Basic_INVERSE_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER (SHORTINT mode)
+void Basic_INVERSE_ROM (SHORTINT mode)
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   IY,#0x5C3A
+  LD   A,#20
+  RST  16 // IX-safe
+  LD   A,4(IX)
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //Basic_INVERSE_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_OVER_FAST (SHORTINT mode)
 { // !!! NEED to be checked to IX-safety
 __asm
 #ifdef __SDCC
@@ -281,11 +310,32 @@ SetOver$:
   POP  IX
 #endif
 __endasm;
-} //Basic_OVER
+} //Basic_OVER_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef ROM_OUTPUT
-void Basic_AT (SHORTINT y, SHORTINT x)
+void Basic_OVER_ROM (SHORTINT mode)
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   IY,#0x5C3A
+  LD   A,#21
+  RST  16 // IX-safe
+  LD   A,4(IX)
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //Basic_OVER_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_ROM (SHORTINT y, SHORTINT x)
 {
 __asm
 #ifdef __SDCC
@@ -306,11 +356,10 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_AT
-#endif //ROM_OUTPUT
+} //Basic_AT_ROM
 
-#ifndef ROM_OUTPUT
-void Basic_AT (SHORTINT y, SHORTINT x)
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_FAST (SHORTINT y, SHORTINT x)
 {
 __asm
 #ifdef __SDCC
@@ -328,8 +377,7 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_AT
-#endif //ROM_OUTPUT
+} //Basic_AT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CLS (void)
@@ -364,8 +412,7 @@ __endasm;
 } //Basic_FONT
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef ROM_OUTPUT
-void Basic_PRSTR_C (CHAR *str)
+void Basic_PRSTR_C_ROM (CHAR *str)
 {
 /*
 	INTEGER i;
@@ -398,11 +445,10 @@ PRSTR$:
   INC  BC
   JR   PRSTR$
 __endasm;
-} //Basic_PRSTR_C
-#endif //ROM_OUTPUT
+} //Basic_PRSTR_C_ROM
 
-#ifndef ROM_OUTPUT
-void Basic_PRSTR_C (CHAR *str)
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_FAST (CHAR *str)
 {
 __asm
 .globl _INV_MODE
@@ -483,12 +529,10 @@ pr_end$:
   POP  IX
 #endif
 __endasm;
-} //Basic_PRSTR_C
-#endif //ROM_OUTPUT
+} //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef ROM_OUTPUT
-void Basic_PRCHAR (CHAR ch)
+void Basic_PRCHAR_ROM (CHAR ch)
 {
 __asm
   LD   IY,#0x5C3A
@@ -503,16 +547,14 @@ __asm
 #endif
   RST  16
 __endasm;
-} //Basic_PRCHAR
-#endif //ROM_OUTPUT
+} //Basic_PRCHAR_ROM
 
-#ifndef ROM_OUTPUT
-void Basic_PRCHAR (CHAR ch)
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRCHAR_FAST (CHAR ch)
 {
   CHAR str[2];
-  str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C(str);
-} //Basic_PRCHAR
-#endif //ROM_OUTPUT
+  str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
+} //Basic_PRCHAR_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PLOT (SHORTINT x, SHORTINT y)
@@ -731,7 +773,7 @@ __endasm;
 } //Basic_PORTOUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRINT (INTEGER i)
+void Basic_PRINT_FAST (INTEGER i)
 {
   CHAR b[6], *prt;
   INTEGER j;
@@ -739,9 +781,9 @@ void Basic_PRINT (INTEGER i)
   b[5] = 0x00;
   do {
     if (i < 0) {
-      Basic_PRSTR_C("-");
+      Basic_PRSTR_C_FAST("-");
       if (i == -32768) {
-        Basic_PRSTR_C("32768");
+        Basic_PRSTR_C_FAST("32768");
         return;
       }
       i = -i;
@@ -751,8 +793,33 @@ void Basic_PRINT (INTEGER i)
     i = __DIV(i, 10);
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C(prt);
-} //Basic_PRINT
+  Basic_PRSTR_C_FAST(prt);
+} //Basic_PRINT_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRINT_ROM (INTEGER i)
+{
+  CHAR b[6], *prt;
+  INTEGER j;
+  j = 5;
+  b[5] = 0x00;
+  do {
+    if (i < 0) {
+      Basic_PRSTR_C_ROM("-");
+      if (i == -32768) {
+        Basic_PRSTR_C_ROM("32768");
+        return;
+      }
+      i = -i;
+    }
+    j -= 1;
+    b[j] = (CHAR)((int)__MOD(i, 10) + 48);
+    i = __DIV(i, 10);
+  } while (!(j == 0));
+  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
+  Basic_PRSTR_C_ROM(prt);
+} //Basic_PRINT_ROM
+
 /*
 {
 __asm
@@ -786,7 +853,7 @@ __endasm;
 */
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRWORD (CARDINAL n)
+void Basic_PRWORD_FAST (CARDINAL n)
 {
   CHAR b[6], *prt;
   CARDINAL j;
@@ -798,8 +865,24 @@ void Basic_PRWORD (CARDINAL n)
     n = n / 10;
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C(prt);
-} //Basic_PRWORD
+  Basic_PRSTR_C_FAST(prt);
+} //Basic_PRWORD_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRWORD_ROM (CARDINAL n)
+{
+  CHAR b[6], *prt;
+  CARDINAL j;
+  j = 5;
+  b[5] = 0x00;
+  do {
+    j -= 1;
+    b[j] = (CHAR)((unsigned int)__MOD(n, 10) + 48);
+    n = n / 10;
+  } while (!(j == 0));
+  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
+  Basic_PRSTR_C_ROM(prt);
+} //Basic_PRWORD_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 BOOLEAN Basic_KeyPressed (void)
@@ -871,7 +954,7 @@ __endasm;
 /* SEED_RND address */
 #define SF_RND$ 0x5C76
 
-static CARDINAL RandBB (void) /* Ripped from Beta Basic */
+CARDINAL _RandBB (void) /* Ripped from Beta Basic */
 {
 __asm
   LD   D,#0
@@ -893,17 +976,21 @@ R1$:
 __endasm;
 } //RandBB
 
-#ifndef Basic_RND_SHORTCARD
-CARDINAL Basic_RND (CARDINAL min, CARDINAL max)
+/*--------------------------------- Cut here ---------------------------------*/
+import CARDINAL _RandBB (void);
+
+SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max)
 {
-  RETURN RandBB()%(max-min+1) + min;
-} //Basic_RND
-#else
-SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max)
+  RETURN _RandBB()%(max-min+1) + min;
+} //Basic_RND_BYTE
+
+/*--------------------------------- Cut here ---------------------------------*/
+import CARDINAL _RandBB (void);
+
+CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max)
 {
-  RETURN RandBB()%(max-min+1) + min;
-} //Basic_RND
-#endif
+  RETURN _RandBB()%(max-min+1) + min;
+} //Basic_RND_WORD
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT Basic_SGN (SHORTINT x)
