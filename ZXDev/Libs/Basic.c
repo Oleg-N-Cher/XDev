@@ -246,7 +246,7 @@ __asm
   JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
   LD   A,#0x2F      /*              else poke CPL */
 SetInvers$:
-  LD   (#INV_MODE$),A
+  LD   (#_INV_MODE),A
   LD   A,#20
   RST  16
   LD   A,4(IX)
@@ -272,7 +272,7 @@ __asm
   JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
   LD   A,#0xAE    /*           else poke XOR (HL) */
 SetOver$:
-  LD   (#OVER_MODE$),A
+  LD   (#_OVER_MODE),A
   LD   A,#21
   RST  16
   LD   A,4(IX)
@@ -405,6 +405,8 @@ __endasm;
 void Basic_PRSTR_C (CHAR *str)
 {
 __asm
+.globl _INV_MODE
+.globl _OVER_MODE
 #ifdef __SDCC
   PUSH IX
   LD   IX,#0
@@ -443,9 +445,9 @@ USER_FONT$:
   LD   B,#8
 p_Sy1$:
   LD   A,(DE)
-INV_MODE$:
+_INV_MODE:
   NOP
-OVER_MODE$:
+_OVER_MODE:
   NOP
   LD   (HL),A
   INC  DE
