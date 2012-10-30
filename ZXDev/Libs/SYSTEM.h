@@ -1,6 +1,9 @@
 #ifndef SYSTEM__h
 #define SYSTEM__h
 
+/* constants */
+#define NIL	0L
+
 /* basic types */
 typedef unsigned char BOOLEAN;
 typedef unsigned char CHAR;
@@ -17,10 +20,17 @@ typedef void *SYSTEM_PTR;
 typedef unsigned int SYSTEM_ADDRESS;
 typedef unsigned char SYSTEM_BYTE;
 
+/* runtime system routines */
+extern void SYSTEM_FINI();
+#define SYSTEM_FINALL	exit(0)
+
 /* module registry */
 #define __DEFMOD	/* */
 #define __REGMOD(name, enum)	/* */
 #define __ENDMOD	/* */
+#define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
+#define __REGMAIN(name, enum)	/* */
+#define __FINI	SYSTEM_FINI(); return 0
 #define __REGCMD(name, cmd)	/* */
 
 /* SYSTEM ops */
@@ -32,7 +42,7 @@ typedef unsigned char SYSTEM_BYTE;
 #define __LSH(x, n, t)	((n)>=0? __LSHL(x, n, t): __LSHR(x, -(n), t))
 
 #define __IMPORT(name)	/* */
-#define export	extern
+#define export
 #define import	extern
 #define interface	/* */
 #define implementation	/* */
@@ -60,5 +70,10 @@ typedef unsigned char SYSTEM_BYTE;
 
 #define __ASSERT(cond, x) /* */
 #define __CASECHK /* */
+#define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
+
+/* runtime system variables */
+extern LONGINT SYSTEM_argc;
+extern LONGINT SYSTEM_argv; 
 
 #endif

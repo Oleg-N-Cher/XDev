@@ -1,14 +1,17 @@
 #include "SYSTEM.h"
-#include "Settings.h"
 #include "Basic.h"
 
 interface
 export void Basic_Init (void);
-export void Basic_BORDER (SHORTINT color);
-export void Basic_INK (SHORTINT color);
-export void Basic_PAPER (SHORTINT color);
-export void Basic_FLASH (SHORTINT mode);
-export void Basic_BRIGHT (SHORTINT mode);
+export void Basic_BORDER_stdcall (SHORTINT color);
+export void Basic_INK_stdcall (SHORTINT color);
+export void Basic_INK_fastcall (void /* Register C */);
+export void Basic_PAPER_stdcall (SHORTINT color);
+export void Basic_PAPER_fastcall (void /* Register C */);
+export void Basic_FLASH_stdcall (SHORTINT mode);
+export void Basic_FLASH_fastcall (void /* Register C */);
+export void Basic_BRIGHT_stdcall (SHORTINT mode);
+export void Basic_BRIGHT_fastcall (void /* Register C */);
 export void Basic_INVERSE (SHORTINT mode);
 export void Basic_OVER (SHORTINT mode);
 export void Basic_AT (SHORTINT y, SHORTINT x);
@@ -30,11 +33,8 @@ export void Basic_PRWORD (CARDINAL n);
 export BOOLEAN Basic_KeyPressed (void);
 export void Basic_PAUSE (CARDINAL ticks);
 export void Basic_RANDOMIZE (CARDINAL seed);
-#ifndef Basic_RND_SHORTCARD
-  export CARDINAL Basic_RND (CARDINAL min, CARDINAL max);
-#else
-  export SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
-#endif
+export SHORTCARD Basic_RND8 (SHORTCARD min, SHORTCARD max);
+export CARDINAL Basic_RND16 (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP (CARDINAL ms, SHORTINT freq);
 export void Basic_FONT (SYSTEM_ADDRESS addr);
@@ -77,7 +77,7 @@ void Basic_Init (void)
 } //Basic_Init
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BORDER (SHORTINT color)
+void Basic_BORDER_stdcall (SHORTINT color)
 {
 __asm
 #ifdef __SDCC
@@ -89,10 +89,10 @@ __asm
 #endif
   CALL 0x229B // IX-safe
 __endasm;
-} //Basic_BORDER
+} //Basic_BORDER_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK (SHORTINT color)
+void Basic_INK_stdcall (SHORTINT color)
 {
 __asm
 #ifdef __SDCC
@@ -111,7 +111,19 @@ __endasm;
 } //Basic_INK
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER (SHORTINT color)
+void Basic_INK_fastcall (void /* Register C */)
+{
+__asm
+  LD   A,(#ATTR_T$)
+  AND  #0xF8
+  OR   C
+  LD   (#SETV_A$),A
+  LD   (#ATTR_T$),A
+__endasm;
+} //Basic_INK_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAPER_stdcall (SHORTINT color)
 {
 __asm
 #ifdef __SDCC
@@ -133,7 +145,22 @@ __endasm;
 } //Basic_PAPER
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH (SHORTINT mode)
+void Basic_PAPER_fastcall (void /* Register C */)
+{
+__asm
+  LD   A,(#ATTR_T$)
+  AND  #0xC7
+  SLA  C
+  SLA  C
+  SLA  C
+  OR   C
+  LD   (#SETV_A$),A
+  LD   (#ATTR_T$),A
+__endasm;
+} //Basic_PAPER_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_FLASH_stdcall (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
@@ -155,7 +182,21 @@ __endasm;
 } //Basic_FLASH
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT (SHORTINT mode)
+void Basic_FLASH_fastcall (void /* Register C */)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#18
+  RST  16 // IX-safe
+  LD   A,C
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+__endasm;
+} //Basic_FLASH
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_BRIGHT_stdcall (SHORTINT mode)
 {
 __asm
 #ifdef __SDCC
@@ -175,6 +216,20 @@ __asm
 #endif
 __endasm;
 } //Basic_BRIGHT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_BRIGHT_fastcall (void /* Register C */)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#19
+  RST  16
+  LD   A,C
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+__endasm;
+} //Basic_BRIGHT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INVERSE (SHORTINT mode)
@@ -229,7 +284,7 @@ __endasm;
 } //Basic_OVER
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef Basic_ROM_OUTPUT
+#ifdef ROM_OUTPUT
 void Basic_AT (SHORTINT y, SHORTINT x)
 {
 __asm
@@ -252,9 +307,9 @@ __asm
 #endif
 __endasm;
 } //Basic_AT
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
-#ifndef Basic_ROM_OUTPUT
+#ifndef ROM_OUTPUT
 void Basic_AT (SHORTINT y, SHORTINT x)
 {
 __asm
@@ -274,7 +329,7 @@ __asm
 #endif
 __endasm;
 } //Basic_AT
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CLS (void)
@@ -309,7 +364,7 @@ __endasm;
 } //Basic_FONT
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef Basic_ROM_OUTPUT
+#ifdef ROM_OUTPUT
 void Basic_PRSTR_C (CHAR *str)
 {
 /*
@@ -344,9 +399,9 @@ PRSTR$:
   JR   PRSTR$
 __endasm;
 } //Basic_PRSTR_C
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
-#ifndef Basic_ROM_OUTPUT
+#ifndef ROM_OUTPUT
 void Basic_PRSTR_C (CHAR *str)
 {
 __asm
@@ -427,10 +482,10 @@ pr_end$:
 #endif
 __endasm;
 } //Basic_PRSTR_C
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-#ifdef Basic_ROM_OUTPUT
+#ifdef ROM_OUTPUT
 void Basic_PRCHAR (CHAR ch)
 {
 __asm
@@ -447,15 +502,15 @@ __asm
   RST  16
 __endasm;
 } //Basic_PRCHAR
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
-#ifndef Basic_ROM_OUTPUT
+#ifndef ROM_OUTPUT
 void Basic_PRCHAR (CHAR ch)
 {
   CHAR str[2];
   str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C(str);
 } //Basic_PRCHAR
-#endif //Basic_ROM_OUTPUT
+#endif //ROM_OUTPUT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PLOT (SHORTINT x, SHORTINT y)

@@ -7,5 +7,5 @@
 @DEL *.bin
 @DEL *.asm
 @DEL *.lk
-@attrib -H *.sbm
-@DEL *.SBM
+@ATTRIB -H *.sbm
+@DEL *.sbm

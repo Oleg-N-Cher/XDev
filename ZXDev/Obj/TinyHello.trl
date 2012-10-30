@@ -1,6 +1,6 @@
 ;my disk
 
 EXTENDED "ZXDev"
-HOBETA "Bin\Boot.$b","boot","B"
+HOBETA "..\Bin\Boot.$b","boot","B"
 BINARY "TinyHe~1.bin","Dash","C",26000
 ;end of disk

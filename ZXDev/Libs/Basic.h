@@ -2,14 +2,51 @@
 #define Basic__h
 
 #include "SYSTEM.h"
-#include "Settings.h"
+#include "BasicCfg.h"
+
+#define __hash__ #
+#define __id__(x) x
+#define __ld_a__(x) if(x==0) {__asm xor a,a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
+#define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 
 import void Basic_Init (void);
-import void Basic_BORDER (SHORTINT color);
-import void Basic_INK (SHORTINT color);
-import void Basic_PAPER (SHORTINT color);
-import void Basic_FLASH (SHORTINT mode);
-import void Basic_BRIGHT (SHORTINT mode);
+import void Basic_BORDER_stdcall (SHORTINT color);
+#ifndef BORDER_fastcall
+  #define Basic_BORDER Basic_BORDER_stdcall
+#else //BORDER_fastcall
+  #define Basic_BORDER(color) __ld_a__(color); \
+    __asm \
+    call 0x229B \
+    __endasm;
+#endif
+import void Basic_INK_stdcall (SHORTINT color);
+import void Basic_INK_fastcall (void /* Register C */);
+#ifndef INK_fastcall
+  #define Basic_INK Basic_INK_stdcall
+#else //INK_fastcall
+  #define Basic_INK(color) __ld_c__(color); Basic_INK_fastcall()
+#endif
+import void Basic_PAPER_stdcall (SHORTINT color);
+import void Basic_PAPER_fastcall (void /* Register C */);
+#ifndef PAPER_fastcall
+  #define Basic_PAPER Basic_PAPER_stdcall
+#else //PAPER_fastcall
+  #define Basic_PAPER(color) __ld_c__(color); Basic_PAPER_fastcall()
+#endif
+import void Basic_FLASH_stdcall (SHORTINT mode);
+import void Basic_FLASH_fastcall (void /* Register C */);
+#ifndef FLASH_fastcall
+  #define Basic_FLASH Basic_FLASH_stdcall
+#else //FLASH_fastcall
+  #define Basic_FLASH(mode) __ld_c__(mode); Basic_FLASH_fastcall()
+#endif
+import void Basic_BRIGHT_stdcall (SHORTINT mode);
+import void Basic_BRIGHT_fastcall (void /* Register C */);
+#ifndef BRIGHT_fastcall
+  #define Basic_BRIGHT Basic_BRIGHT_stdcall
+#else //BRIGHT_fastcall
+  #define Basic_BRIGHT(mode) __ld_c__(mode); Basic_BRIGHT_fastcall()
+#endif
 import void Basic_INVERSE (SHORTINT mode);
 import void Basic_OVER (SHORTINT mode);
 import void Basic_AT (SHORTINT y, SHORTINT x);
@@ -36,7 +73,7 @@ import void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
 import BOOLEAN Basic_KeyPressed (void);
 import void Basic_PAUSE (CARDINAL ticks);
 import void Basic_RANDOMIZE (CARDINAL seed);
-#ifndef Basic_RND_SHORTCARD
+#ifndef RND_SHORTCARD
   import CARDINAL Basic_RND (CARDINAL min, CARDINAL max);
 #else
   import SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
