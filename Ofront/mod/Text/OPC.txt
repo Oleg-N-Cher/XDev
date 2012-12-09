@@ -266,7 +266,7 @@ IF starsLevel > 10 THEN HALT(99) END ;
 		LOOP
 			IF ((typ^.strobj = NIL) OR (typ^.comp = DynArr) OR Undefined(typ^.strobj)) & (typ^.comp # Record)
 				& (typ^.form # NoTyp) & ~((typ^.form = Pointer) & (typ^.BaseTyp^.comp = DynArr)) THEN
-				IF typ = typ^.BaseTyp THEN typ := prev; EXIT END;
+				IF typ = typ^.BaseTyp THEN OPM.WriteString(prev^.strobj^.name); EXIT END;
 				prev := typ; typ := typ^.BaseTyp
 			ELSE EXIT
 			END;
