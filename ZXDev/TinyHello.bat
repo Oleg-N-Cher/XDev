@@ -8,7 +8,7 @@
 @IF EXIST %obj%\TinyHello.h @DEL %obj%\TinyHello.h
 @IF EXIST %obj%\TinyHello.sym @DEL %obj%\TinyHello.sym
 @IF EXIST %obj%\TinyHello.c @MOVE /Y %obj%\TinyHello.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char -I %libs% -L %libs%/z80 TinyHello.c Basic.lib
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char -I "." -I %libs% -L %libs%/z80 TinyHello.c Basic.lib
 
 @REM Convert Intel hex format to binary
 @REM ==================================
