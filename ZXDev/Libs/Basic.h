@@ -74,8 +74,10 @@ import void Basic_PRSTR_C_FAST (CHAR *str);
 import void Basic_PRSTR_C_ROM (CHAR *str);
 #ifdef ROM_OUTPUT
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM(str)
+  #define PRSTR Basic_PRSTR_C_ROM
 #else
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
+  #define PRSTR Basic_PRSTR_C_FAST
 #endif
 import void Basic_PRCHAR_FAST (CHAR ch);
 import void Basic_PRCHAR_ROM (CHAR ch);
@@ -127,6 +129,7 @@ import void Basic_BEEP (CARDINAL ms, SHORTINT freq);
 import void Basic_FONT (SYSTEM_ADDRESS addr);
 import void Basic_Reset (void);
 import void Basic_Quit (void);
+#define Basic__init()
 
 #define Black 0
 #define Blue 1
@@ -157,7 +160,6 @@ import void Basic_Quit (void);
 #define OVER Basic_OVER
 #define AT Basic_AT
 #define CLS Basic_CLS
-#define PRSTR Basic_PRSTR
 #define PRCHAR Basic_PRCHAR
 #define PLOT Basic_PLOT
 #define POINT Basic_POINT
