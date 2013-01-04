@@ -84,6 +84,7 @@ import void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
                         SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
 import void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
                         SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+#define Laser__init()
 
 /* Functions for screen windows processing */
 #define INVV Laser_INVV

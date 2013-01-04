@@ -8,7 +8,7 @@
 @IF EXIST %obj%\LaserDemo.h @DEL %obj%\LaserDemo.h
 @IF EXIST %obj%\LaserDemo.sym @DEL %obj%\LaserDemo.sym
 @IF EXIST %obj%\LaserDemo.c @MOVE /Y %obj%\LaserDemo.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I %libs% -L %libs%/z80 LaserDemo.c Basic.lib Laser.lib
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %libs% -L %libs%/z80 LaserDemo.c Basic.lib Laser.lib
 
 @REM Convert Intel hex format to binary
 @REM ==================================
