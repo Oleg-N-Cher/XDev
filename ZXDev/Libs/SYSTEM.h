@@ -21,6 +21,7 @@ typedef unsigned int SYSTEM_ADDRESS;
 typedef unsigned char SYSTEM_BYTE;
 
 /* runtime system routines */
+#define SYSTEM_INCREF(proc) proc
 extern void SYSTEM_FINI();
 #define SYSTEM_FINALL	exit(0)
 
@@ -41,12 +42,11 @@ extern void SYSTEM_FINI();
 #define __LSHR(x, n, t)	((t)((unsigned)(x)>>(n)))
 #define __LSH(x, n, t)	((n)>=0? __LSHL(x, n, t): __LSHR(x, -(n), t))
 
-#define __IMPORT(name)	/* */
+#define __IMPORT(name)	SYSTEM_INCREF(name##__init())
 #define export
 #define import	extern
-#define interface	/* */
-#define implementation	/* */
-#define RETURN return
+#define interface
+#define implementation
 
 #define __TDESC(t, m, n) \
 	static struct t##__desc {\
