@@ -1,9 +1,11 @@
-Bin/ant
+Games
 gpcp-JVM
 Rose
 Samurai
 Sdl
 Sym/Sdl.osf
+ZXDev/Bin/MakeZX
+ZXDev/Libs/include
 *.dll
 *.asm
 *.bin
