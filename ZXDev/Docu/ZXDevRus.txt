@@ -231,7 +231,7 @@ BINARY "имя_модуля.bin","Dash","C",26000
    a) не использовать присваивания вида:
 
    TYPE
-     Card = RECORD suit*, rank*: INTEGER END;
+     Card = RECORD suit, rank: INTEGER END;
    VAR
      a, b: Card;
    BEGIN
@@ -409,6 +409,7 @@ END Grx.
  (в качестве демонстрации технологии ZXDev), можно также портировать демонстрашку из поставки Laser Basic'а.
 7. Порт игры Laser Cube с Laser Basic на Оберон-2 с целью её ускорения.
 8. Порт игры Dark Woods для ZX Spectrum ( http://zx.pk.ru/showthread.php?t=18457 ).
+9. Адаптация для ZXDev библиотек Hisoft C и HL ZX Forth.
 
 Следует предпринять и такие шаги:
 
