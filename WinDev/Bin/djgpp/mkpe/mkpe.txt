@@ -1,0 +1,29 @@
+Make Win32 PE executable with GNU C/C++ compiller.
+DOS+CWSDPMI. Freeware, GPL. Содержит файлы и утилиты для создания Windows приложений DJGPP GNU C++ компилятором. Утилиты в предствленные в этом пакете позволят вам использовать все функции Windows API . Более того DLL2S может создавать линкуемые .a библиотеки из любых неизвестных рание .DLL-ей.
+
+http://smallsrv.com/mkpe/
+
+                Win32 PE executable with DJGPP GNU C/C++ compiller.
+
+                     Make PE and DLL to .a librares utilites.
+
+    This package contents files and utilites to create Windows executable with DJGPP GNU C++ compiller. This package doesn't content standart C and C++ libraries ported to Windows. Many of DOS DJGPP library's function will not work into Windows application.
+    Utilites in this package allow you to use all Windows API functions. In many case it is enough. You can release all functions you need your self.
+    Nay it can make linkable .a library from any .DLL unknown beffor. But it doesn't generate function descriptions and doesn't generate valid header. DLL2S create header with function's names, but it doesn't know how many arguments are used with each function. To create application your need API description and valid headers files. If you haven't header, you may edit generated .h file, but you must know how many incomming argument are used with functions.
+    Application made with this utilites may be very nice. It might be fast and small. For example totally functionality HTTP server with SSI, CGI, and ISA API supporting have only 18 Kb !!! (First version has 8 Kb). Also see other examples. Forget-me-not. This free distributed program is for remind you about something. It can beep or execute any program in defined time. Size of executable 9 Kb. Source code also avilable, and it may be a sample, how to make program with this utilites.
+
+    Note. This system is copatible with GNU C++ 2.95, but for my programs I use GNU C++ 2.81, because it supports good inline assembler. Vice standart "string.h" I've used "mstring.h" inline assembler's realization of these library. For frequently used short function it may largely optimise the program. The "mstring.h" also distributed with this package.
+
+M. Feoktistov
+
+
+c:\>banner.exe
+Command line rules for ever!
+
+c:\>
+c:\>cd win\system
+c:\win\system>dll2a.exe user32.dll
+All right! 286 - functions stored.
+c:\win\system>cd c:\my
+c:\my>gcc t.cpp -Zpe -luser32
+c:\my>
