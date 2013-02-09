@@ -1,42 +1,56 @@
+/*  Ofront 1.2 -xtspkae */
+#include "SYSTEM.h"
 #include "Console.h"
-#include <string.h>
-#include <windows.h>
+
+export void Console_WriteCh (CHAR ch);
+export void Console_WriteInt (LONGINT n);
+export void Console_WriteLn (void);
+export void Console_WriteStr (CHAR *str, LONGINT str__len);
+export void Console_WriteStrLn (CHAR *str, LONGINT str__len);
+
+#include <stdio.h>
+#define Console_writeCh(ch)	printf("%c", ch)
+#define Console_writeInt(n)	printf("%ld", n)
+#define Console_writeLInt(n)	printf("%lld", n)
+#define Console_writeLn()	printf("\n")
+#define Console_writeStr(str, str__len)	printf("%s", str)
+#define Console_writeStrLn(str, str__len)	printf("%s\n", str)
 
 /*================================== Header ==================================*/
-
-/*
-void Console_WriteCh (const char ch)
+void Console_WriteInt (LONGINT n)
 {
-  printf("%c", ch);
-}
-
-void Console_WriteStr (const char *str)
-{
-  printf("%s", str);
-}
-
-void Console_WriteInt (const signed int num)
-{
-  printf("%u", num);
-}
-
-void Console_WriteCard (const unsigned int num)
-{
-  printf("%u", num);
-}
-*/
-
-void Console_WriteStr_WinAPI (char *str)
-{
-  int maxLen;
-  HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-  WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+	Console_writeInt(n);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Beeper (void)
+void Console_WriteStr (CHAR *str, LONGINT str__len)
 {
-  Beep(100, 100);
+	Console_writeStr(str, str__len);
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteStrLn (CHAR *str, LONGINT str__len)
+{
+	Console_writeStrLn(str, str__len);
+}
 
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteCh (CHAR ch)
+{
+	Console_writeCh(ch);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteLn (void)
+{
+	Console_writeLn();
+}
+
+//export void *Console__init(void)
+//{
+//	__DEFMOD;
+//	__REGMOD("Console", 0);
+//	__REGCMD("WriteLn", Console_WriteLn);
+///* BEGIN */
+//	__ENDMOD;
+//}

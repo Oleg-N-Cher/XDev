@@ -1,0 +1,3 @@
+Files.c:75:2: предупреждение: при передаче аргумента 1 «fopen»: указуемые типы различаются знаковостью [-Wpointer-sign]
+/usr/include/stdio.h:273:14: замечание: expected «const char * __restrict__» but argument is of type «CHAR *»
+Files.c:75:2: предупреждение: при передаче аргумента 2 «fopen»: указуемые типы различаются знаковостью [-Wpointer-sign]
