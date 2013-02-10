@@ -1,0 +1,234 @@
+<html>
+<head>
+<TITLE>
+Win32 PE executable with GNU C/C++ compiller.
+</TITLE>
+</head>
+<body BGCOLOR="#FFFFFF" TEXT="#000000">
+<center>
+<h2>Win32 PE executable with DJGPP GNU C/C++ compiller.</h2>
+<h3>Small description of utilites.</h3>
+<P>
+</center>
+ <ul>
+ <b>Contents:</b>
+  <table cellspacing="5" cellpadding="3" border="0">
+   <tr><td>
+             <li><a href="desc.htm#I1">How to install?<a>
+             <li><a href="desc.htm#D2">DLL to .a convertor<a>
+             <li><a href="desc.htm#M3">Make PE   from COFF a.out<a>
+   </td></tr></table>
+
+ </ul>
+The software described in this document is destributed under a
+GNU <a href="gpl.htm">General Public License.</a><br>
+<BR>
+GNU software is Copyright by the Free Software Foundation.<BR>
+<BR>
+DJGPP is Copyright by DJ Delorie.<BR>
+<BR>
+Windows is a trademark of Microsoft Corporation.<br>
+Windows NT is a trademark of Microsoft Corporation.<br>
+Windows 2000 is a trademark of Microsoft Corporation.<br><br>
+Other product names mentioned in this description may be trademarks
+or registered trademarks of their respective companies and are hereby
+acknowledged.
+<p>
+<a name="I1"></a><center><h3>How to install? </h3> </center>
+To install your need:
+<ol>
+<li> Unpack arhive.  E.g. type:
+<pre>pkunzip -p mfwpe11b.zip c:\djgpp  </pre>
+<i>(The good idea is to read
+  this document up to end beforhand)</i><br>
+  Store "/lib/specs"  and rename "/lib/specs.pe" to "/lib/specs"
+  <br>
+  <br>
+<li> Make linkable libraries (.a files) for Win32 API DLL. As   rule it's
+nessesary to make libraries for user32.dll, kernel32.dll, gdi32.dll. As well
+frequently advapi32.dll, comdlg32.dll, shell32.dll are nessesary too. To use
+Socket your need library for wsock32.dll, to use PlaySound function your need
+winmm.dll, etc.
+    To make library you can create temporary directory, the first, is good idea,
+    but it's dispensable.
+    Change curent directory to it and run dll2a.exe for each
+DLL need you.  E.g. type:  <pre>
+c:\&gt;mkdir c:\lib_temp
+c:\&gt;cd c:\lib_temp
+c:\lib_temp&gt;dll2a.exe user32.dll
+c:\lib_temp&gt;ren user32.a c:\djgpp\lib\libuser.a
+</pre>
+You can use next makefile and generate all automaticaly with DJGPP GNU MAKE.
+<pre>
+#begin of 'makefile'
+
+LIBDIR=$(DJDIR)/LIB/
+DLLDIR=$(WINDIR)/SYSTEM/
+# For Windows NT or 2000 DLLDIR must by DLLDIR=$(WINDIR)/SYSTEM32/
+# WINDIR -- predefined Windows enviroment variable
+# DJDIR --  DJGPP enviroment variable, must be defined in DJGPP.ENV
+
+lib: libuser.a libuser.a libkern.a libgdi.a libshell.a libwadv.a lwinmm.a lwinmm.a lcdlg.a
+
+libuser.a: user32.dll
+        dll2s.exe -o $@  $&lt;
+
+libkern.a: %(DLLDIR)kernel32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libgdi.a: %(DLLDIR)gdi32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libshell.a: %(DLLDIR)shell32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libwadv.a: %(DLLDIR)advapi32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libwinmm.a: %(DLLDIR)winmm.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libcdlg.a: %(DLLDIR)comdlg32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+libwsock.a: %(DLLDIR)wsock32.dll
+        dll2s.exe -o $(LIBDIR)$@  $&lt;
+
+#end of 'makefile'
+
+</pre>
+It borrows some time, because for each function in each library assembler
+file will be created, exec "as.exe"  and exec "ar.exe".  Up to ten minuit
+per library for big library and slow machin.<br><br>
+
+<li> At last you must customize  your "specs" file to run make_pe.exe
+to convert a.out to Win32 PE. By default arhive contents valid "specs" file,
+and by default it replase that file in DJGPP\LIB directory, but any GCC newer
+then 2.8 find this file in DJGPP\LIB\GCC-LIB\DJGPP\2.952 for GNU C++ 2.952 or
+DJGPP\LIB\GCC-LIB\DJGPP\EGCS-291.66 for EGCS C++ 2.91.66, etc.  I don't know,
+what version you use, I thing it's  not a problem for you replase or
+update using file  by your own.  The "specs" in my arhive add two key to GCC:
+ <UL>
+  <LI>-Zpe  --to generate Win32 PE executable
+  <LI>-Zcon --used only with -Zpe to generate Win32 console application.
+ </UL>
+You can define your own keys. To generate PE you must use "djgppe.djl" linker
+script.  "*startfile" for PE must be "crt0pe.o".
+These files are also present in my arhive and be default placed to DJGPP\LIB.
+<br><br>
+     <li>  The big trouble it is header files, and description
+of  API  functions. It is part of Microsoft Windows SDK, and I
+can't destribute tham. Now you can found these files in diferent
+location.  It  is included in any other Windows compiller, but
+in many case they doesn't directly compilled with GNU.
+  To compile Microsoft's header with GNU compiller, easy changes
+  must be done.  In the begining of the file<br>
+<tt>#define __stdcall  __attribute__((stdcall))</tt><br>
+must    be   inserted.   In  some  case you must edit Microsoft's
+function  declaration,    move "PASCAL" to the end of
+declaration. E.g. if in SDK header present:
+<br><tt>struct hostent* PASCAL gethostbyname(const char*  name);</tt><br>
+<UL>you must make:</UL>
+<tt>struct hostent* gethostbyname(const char*  name) PASCAL;</tt><br>
+If you have nothing, use header's generated by DLL2S. In this case
+you must edit these files, insert argument in declaration of each
+function or use "gw_api.h". This file contents next definetion:
+<pre>
+inline void PUSH(int a){ asm volatile("pushl %0;": :"g" (a) );};
+inline void PUSH(void* a){ asm volatile("pushl %0;": :"g" (a) );};
+
+#define API1(f,a)  ( PUSH(a),f())
+#define API2(f,a1,a2)  ( PUSH(a2),PUSH(a1),f())
+...</pre>
+And you can call to API e.g. this way:<pre>
+
+       #include "gw_api.h"
+extern "C" {
+       #include &lt;user32.h&gt;
+       #include &lt;kernel32.h&gt;
+           };
+    ...
+   API4( MessageBox, 0, &"Hello world !",&"Test",  0);</pre>
+<i>Warning!</i> In this case you must use optimisation (keys -O1, -O2, -O#),
+otherwise GNU compiller generate inline function as no inline, and
+PUSH failure. In this case you can use #define instead inline.
+This might be use only with GNU 2.8x or older.
+<br>
+</ol>
+<p>
+<a name="D2"></a><center><h3>DLL to .a convertor</h3> </center>
+This program read incomming DLL-file, get names of functions from it,
+and for each function:
+   <li> generate easy assembler file;
+   <li> exec <TT>"as.exe"</TT> to compile this file;
+   <li> exec <TT>"ar.exe"</TT> to add this file to output library;
+   <li> add incomplete declaration of function to output header file.
+<br>
+At the last header file is stored. <br>
+ Command line have next format:<br>
+ <tt>dll2s.exe {[-keys]}[-o out_file_name][-n filename] file.dll</tt><br>
+Next option's keys supported:
+  <ul>
+    <li><tt>-s </tt> -- store assembler source, otherwise temporary
+    assembler files are deleted.
+    <li><tt>-a </tt> -- generate one AT&T assembler file only.
+    <li><tt>-i </tt> -- generate one Intel assembler file only.
+    <li><tt>-u </tt> -- add "unnamed" functions.
+    Some DLL-functions could have no name.
+    It might be linked by number. Program also could
+    add these functions to the library, but what's the reason ?
+    <li><tt>-l </tt> -- always use number for link.
+    Default name of function is used, so it's possible. It is calculable.
+    To use number you must overwrite startup file "crt0pe.o".
+    <li><tt>-d </tt> -- no generate header file.
+    <li><tt>-j </tt> -- store objects, otherwise
+    temporary objects files are deleted.
+    <li><tt>-n </tt> -- name for assembler file.
+    <li><tt>-r </tt> -- generate header file only
+    <li><tt>-f </tt> -- no generate #define for A-function.
+    All Windows API functions that recive string as argument
+    have ASCI and UNICODE versions.
+    Usually one DLL contents both functions. The last symbol
+    in the name of ASCI version is 'A'.    The last symbol
+    in the name of UNICODE version is 'W'.
+    By default,  for each ASCI function DLL2S add to header file
+  #define that define name without last 'A' as name with 'A'.
+  </ul>
+
+<p>
+<a name="M3"></a><center><h3>Make PE   from COFF a.out</h3> </center>
+This program only adds DOS stub and first part of PE header.
+Command line have next format:
+<pre>
+make_pe [-c][-s Stack_Reserve_Size][-p Heap_Reserve_Size][-o out_file] input_file
+</pre>
+ Next option's keys supported:
+  <ul>
+    <li><tt>-c </tt> -- to generate Win32 console application.
+    <li><tt>-s </tt> -- to define Stack Reserve Size. By default it is 64 Kb.
+    <li><tt>-p </tt> -- to define Heap Reserve Size. By default it is 1 Mb.
+    <li><tt>-o </tt> -- to define name of output file.
+  </ul>
+This program always setup Commit Heap Size and Commit Stack Size to 4 Kb.
+Program will not use more memory until program doesn't requist it.
+This program could convert <b>only</b> specifed COFF files, that begin
+from the last part of PE header. This part is precent in the "crt0pe.o" --
+startup file. It must be linked the first. It defines in "djgppe.djl"
+-- linker script.
+<BR>
+<BR>
+<P ALIGN=RIGHT><A HREF="mailto:max@feokt.spb.ru"><I>M. Feoktistov</I></A><P>
+<HR>
+<P>
+<center>
+<table cellspacing="5" cellpadding="3" border=0 ><tr>
+<td><A HREF="#B">Table of Contents</A></td> <td> <br> <td>
+<td><A HREF="http://winpe.mf.inc.ru/">Home page</A></td>    <td> <br> <td>
+<td><A HREF="gpl.htm">License</A></td>
+</tr></table>
+</center>
+<hr>
+<p>
+<br>
+</body>
+</html>
