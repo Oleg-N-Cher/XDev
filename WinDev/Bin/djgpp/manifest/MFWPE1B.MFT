@@ -1,0 +1,14 @@
+bin/make_pe.exe
+bin/dll2s.exe
+doc/copying.txt
+doc/win_pe.htm
+doc/win_pe.txt
+doc/license.wpe
+include/mstring.h
+include/gw_api.h
+lib/specs.pe
+lib/djgppe.djl
+lib/crt0pe.o
+lib/libpe.a
+manifest/mfwpe1b.mft
+manifest/mfwpe1b.ver
