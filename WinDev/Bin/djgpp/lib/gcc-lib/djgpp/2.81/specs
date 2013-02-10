@@ -1,0 +1,74 @@
+*asm:
+
+
+*asm_final:
+
+
+*cpp:
+%{posix:-D_POSIX_SOURCE}
+
+*cc1:
+%(cc1_spec) 
+
+*cc1plus:
+
+
+*endfile:
+
+
+*link:
+
+
+*lib:
+-lc
+
+*libgcc:
+-lgcc
+
+*startfile:
+crtf.o%s %{pg:gcrt0.o%s}%{!pg:crt0.o%s}
+
+*switches_need_spaces:
+
+
+*signed_char:
+%{funsigned-char:-D__CHAR_UNSIGNED__}
+
+*predefines:
+-Dunix -Di386 -DGO32 -DMSDOS -DDJGPP=2 -DDJGPP_MINOR=1
+
+*cross_compile:
+0
+
+*version:
+2.8.1
+
+*multilib:
+. ;
+
+*multilib_defaults:
+
+
+*multilib_extra:
+
+
+*multilib_matches:
+
+
+*cpp_cpu:
+-Di386  -Asystem(unix) -Acpu(i386) -Amachine(i386) %{mcpu=i486:-Di486} %{m486:-Di486} %{mpentium:-Dpentium -Di586} %{mcpu=pentium:-Dpentium -Di586} %{mpentiumpro:-Dpentiumpro -Di686} %{mcpu=pentiumpro:-Dpentiumpro -Di686}
+
+*cc1_cpu:
+%{!mcpu*: %{m386:-mcpu=i386 -march=i386} %{mno-486:-mcpu=i386 -march=i386} %{m486:-mcpu=i486 -march=i486} %{mno-386:-mcpu=i486 -march=i486} %{mno-pentium:-mcpu=i486 -march=i486} %{mpentium:-mcpu=pentium} %{mno-pentiumpro:-mcpu=pentium} %{mpentiumpro:-mcpu=pentiumpro}}
+
+*link_command:
+%{!fsyntax-only: \
+ %{!c:%{!M:%{!MM:%{!E:%{!S:ld %l %X %{o*} %{A} %{d} %{e*} %{m} %{N} %{n} \
+			%{r} %{s} %{t} %{u*} %{x} %{z} %{Z}\
+			%{!A:%{!nostdlib:%{!nostartfiles:%S}}}\
+			%{static:} %{L*} %D %o\
+			%{!nostdlib:%{!nodefaultlibs:%G %L %G}}\
+			%{!A:%{!nostdlib:%{!nostartfiles:%E}}}\
+			-Tdjgpp.djl %{T*}}}}}}}
+%{!c:%{!M:%{!MM:%{!E:%{!S:stubify %{v} %{o*:%*} %{!o*:a.out} }}}}}
+

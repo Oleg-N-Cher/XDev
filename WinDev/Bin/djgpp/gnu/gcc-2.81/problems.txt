@@ -1,0 +1,47 @@
+Some common problems with DJGPP port of gcc-2.8.1. Look DJGPP FAQ
+for info about other problems.
+
+   Q) When trying to start gcc.exe (gxx.exe) I'm getting message
+         Fatal: error in DJGPP installation
+   A) The usual source of such problem is some error in DJGPP installation.
+      Usually the next line contains more detailed explaination of problem.
+      Please READ readme.1st from DJGPP distribution and check Your 
+      installation. 
+
+RHIDE-1.4
+
+   Q) When trying to link C++ program RHIDE-1.4 returns error message
+      ld.exe: cannot open -lstdcx: No such file or directory (ENOENT)
+
+   A) The name of C++ library has changed since port of gcc-2.7.2.1.
+      The fix for this problem is add line
+
+      RHIDE_TYPED_LIBS_DJGPP.cc=stdcxx  
+         
+      to %DJDIR/share/rhide/rhide.env. Or add 2 lines
+
+      [rhide]         
+      RHIDE_TYPED_LIBS_DJGPP.cc=stdcxx  
+   
+      to Your DJGPP.ENV. An example of DJGPP.ENV with this fix is in
+      directory gnu/gcc-2.81 (archive gcc281b.zip)
+
+      Or upgrade RHIDE to later versions as this problem is fixed
+      in 1.4.5 and later versions.
+
+Exceptions handling
+
+   Q) I'm getting SIGABRT instead of correct reaction to throw?
+   A) This is most likely caused by reading old specs file from
+      %DJDIR%/lib. Best is to get remove it as DJGPP port of gcc-2.8.1
+      already contains specs file. See file readme.djgpp for more info.
+
+   Q) I'm getting message about unresolved symbol from crtf.o
+          c:\djgpp\lib\gcc-lib\djgpp\2.81\crtf.o(.text+0x9):crtfgo32.c: 
+          undefined reference to `__EH_FRAME_BEGIN__'
+   A) You are using old linker script (djgpp.djl) from $DJDIR/lib. Read file
+      readme.djgpp for more info. Best is to get rid of it. Check also       
+      whether You are using correct specs file (hint: use command line 
+      option -v to gcc). See file readme.djgpp for more info.
+
+    

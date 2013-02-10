@@ -1,0 +1,75 @@
+This is Info file cpp.info, produced by Makeinfo version 1.68 from the
+input file cpp.texi.
+
+   This file documents the GNU C Preprocessor.
+
+   Copyright 1987, 1989, 1991, 1992, 1993, 1994, 1995 Free Software
+Foundation, Inc.
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the entire resulting derived work is distributed under the terms
+of a permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions.
+
+
+Indirect:
+cpp.i1: 798
+cpp.i2: 49929
+cpp.i3: 91116
+
+Tag Table:
+(Indirect)
+Node: Top798
+Node: Global Actions3707
+Node: Directives6227
+Node: Header Files7914
+Node: Header Uses8573
+Node: Include Syntax10065
+Node: Include Operation13207
+Node: Once-Only15069
+Node: Inheritance17494
+Node: Macros20027
+Node: Simple Macros20941
+Node: Argument Macros23929
+Node: Predefined29727
+Node: Standard Predefined30157
+Node: Nonstandard Predefined37815
+Node: Stringification41391
+Node: Concatenation44317
+Node: Undefining47590
+Node: Redefining48629
+Node: Macro Pitfalls49929
+Node: Misnesting51033
+Node: Macro Parentheses52047
+Node: Swallow Semicolon53915
+Node: Side Effects55815
+Node: Self-Reference57513
+Node: Argument Prescan59789
+Node: Cascaded Macros64791
+Node: Newlines in Args65936
+Node: Conditionals67281
+Node: Conditional Uses68633
+Node: Conditional Syntax70056
+Node: #if Directive70642
+Node: #else Directive72931
+Node: #elif Directive73598
+Node: Deleted Code74976
+Node: Conditionals-Macros76037
+Node: Assertions79722
+Node: #error Directive83957
+Node: Combining Sources85442
+Node: Other Directives88353
+Node: Output89807
+Node: Invocation91116
+Node: Concept Index103643
+Node: Index106496
+
+End Tag Table

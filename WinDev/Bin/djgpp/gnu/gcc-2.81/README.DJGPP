@@ -1,0 +1,318 @@
+This is the port of gcc 2.8.1 for DJGPP. It comes as usual in
+different zip-archives for the sources and the binaries.
+
+The source archive gcc281s.zip contains all the sources to build
+the C, C++,OBJC and FORTRAN compilers. Earlier GNU FORTRAN compiler 
+sources was in separate archive. Now I put it in the same source archive.
+But the binary archives are split into four parts:
+
+  gcc281b.zip  : The gcc.exe driver program and the C compiler.
+                 It also contains the documentation. This archive
+		 is required for all other binary archives
+  gpp281b.zip  : The C++ compiler and libstdcxx.a (2.8.1.1) together 
+                 with needed header files 
+  objc281b.zip : The OBJC compiler and libobjc.a and the needed
+                 header files.
+  g770523b.zip : GNU Fortran compiler (version 0.5.23) and libg2c.a
+                 and g2f.h. Also contains replacement of gcc.exe but
+	         this file only provides compilation of Fortran sources
+                 by gcc.exe but is NOT needed for g77.exe (this is 
+                 different from previous versions of g77) 
+
+The archive gcc281b.zip is also required by gpp281b.zip, objc281b.zip
+and g770523b.zip
+
+Please also consider that g77 is still in beta stage and I'm not going
+to maintain it.
+
+Before you install gcc 2.8.1
+============================
+
+The DJGPP distribution of gcc 2.8.1 is now different from the one used
+by gcc 2.7.x. Now the directory structure is more similar to that of
+unix systems and also all the DJGPP standard directories are hardcoded
+already.
+
+To get no trouble, you should remove at least your old gcc installation
+completely, especially the compilers (cc1.exe, cc1plus.exe ...) and
+libgcc.a, because they will not overwritten by the new distribution.
+
+If you don't remove them, and you don't modify your djgpp.env file,
+gcc from gcc281b.zip will still use these old binaries or the libgcc.a
+because they are in directories which are searched before the hardcoded
+ones.
+
+I also recommend removing the files 'specs' and 'djgpp.djl' from %DJDIR/lib.
+Archive gcc281b.zip contains replacement for these files which will
+go to a different directory %DJDIR/lib/gcc-lib/djgpp/2.81.
+If you have changed either of these 2 files you might consider transferring
+these changes to the new files. It is possible to avoid removing these files
+but don't do this unless you know what you are doing.
+
+Additionally you can safely remove the [gcc] and [cpp] section from your
+djgpp.env file, since the path-settings there are not longer needed, because
+gcc (and cpp) is configured already in a way to search these directories
+by default. If you have modified already these sections for instance to
+have some of your own directories searched by default, you should leave
+only those directories there and remove the standard DJGPP directories.
+
+Modifying the djgpp.env is not really necessary, but I recommend it.
+
+I'm including an example of modified DJGPP.ENV in directory gnu/gcc-2.81
+I have tested it with gcc-2.8.1
+
+
+NOTE for users of RHIDE-1.4
+============================
+
+The name of C++ library is now libstdcxx.a instead of libstdcx.a as it was
+for port of gcc-2.7.2.1. RHIDE-1.4 uses latest name by default. I included
+fix (section [rhide]) in example of DJGPP.ENV file mentioned above.
+An alternate way is to add line (create new file if needed) 
+
+RHIDE_TYPED_LIBS_DJGPP.cc=stdcxx
+
+to file %DJDIR/share/rhide/rhide.env
+
+
+How to install the binary archives?
+===================================
+
+Install them like any other DJGPP binary archive:
+
+- change to your DJGPP base directory (often c:/djgpp) and unzip
+  there the archive
+
+  unzip gcc281b.zip
+
+  (if you are using PKUNZIP, remember to use the -d switch!!)
+
+and that's all.
+
+Installing under Windows 95
+===========================
+
+If you want to install and use gcc under Windows 95, you should remember
+that this OS can handle long and case sensitive filenames. Here are
+three cases:
+
+1. Only long filenames
+----------------------
+
+Unzip the binaries with an unzip program, which can restore the long filenames
+stored in the zip archive.
+
+2. Only short filenames
+-----------------------
+
+Unzip the binaries with an unzip program which doesn't know about long
+filenames, or if your unzipper knows about them, please follow first
+the steps described in the DJGPP FAQ 2.01 in the section 
+about setting the NameNumericTail to 0 __BEFORE__!!! unzipping the archives.
+
+3. Long and short filenames at the same time
+--------------------------------------------
+
+Use an unzip program which can restore the long filenames and follow
+the instructions under 2. when the unzipper knows about long filenames.
+
+
+DJGPP specific hints for C++
+============================
+
+Since there are still some long filename problems which could not be solved
+in an easy way, there are some tricks to get all the functionality in C++.
+Especially, some headers are renamed to avoid conflicts with either each other
+or with existing header files from libc.
+
+I list here all the relevant header files and how they are named for DJGPP
+
+Complex.h   -> _Complex.h
+String.h    -> _String.h
+Regex.h     -> _Regex.h
+iostreamP.h -> _iostreamP.h
+
+So there are now two ways to include these headers. Either use the DJGPP
+specific name or use a new feature of the preprocessor cpp. It accepts now
+a new commandline switch "-remap" which tells cpp to look in a directory
+for a file named "header.gcc". It takes that file as a translation
+table if a requested file was not found in the directory.
+
+The DJGPP distribution of g++ and libg++ already come with these translation
+files, but they are currently not used. To use them, you have to modify your
+specs file to add the "-remap" switch to the call for cpp, since this switch
+cannot passed to cpp from the gcc comanndline. Here is a possible line
+from the spec file in your lib/ directory:
+
+*cpp:
+-remap %{posix:-D_POSIX_SOURCE}
+
+Exception support under DJGPP
+=============================
+
+To use the new exception handling with DJGPP there are needed some
+modifications to the specs file to include an additional startup file
+and to the linker script. The binary archive gcc281b.zip comes with
+these two files and installs them in
+
+$DJDIR/lib/gcc-lib/djgpp/2.81/
+
+Unfortunatelly if both following conditions 
+  - gcc library search path contains $DJDIR/lib
+  - $DJDIR/lib contains old versions of djgpp.djl and(or) specs from
+    djdev201.zip
+are true, then old files will be used erroneously. If you have edited
+DJGPP.ENV as recommended above (or used the version supplied with archive
+gcc281b.zip), the correct version will be used. Anyway, I recommend to 
+remove old versions of these files from $DJDIR/lib.
+
+Possible problems with exceptions handling under gcc-2.81
+   Q) I'm getting SIGABRT instead of correct reaction to throw?
+   A) This is most likely caused by reading old specs file. Best is
+      to get rid of it.
+
+   Q) I'm getting message about unresolved symbol from crtf.o
+          c:\djgpp\lib\gcc-lib\djgpp\2.81\crtf.o(.text+0x9):crtfgo32.c: undefined 
+          reference to `__EH_FRAME_BEGIN__'
+   A) You are using old linker script (djgpp.djl) from $DJDIR/lib. Read this
+      file completely for more info. Best is to get rid of it. Check also 
+      whether You are using correct specs file (hint: use command line 
+      option -v to gcc)
+
+Rebuilding gcc from the sources
+===============================
+
+Requirememts
+------------
+
+To build gcc you need many GNU utilities installed. This includes at the
+very least bash and a symlink sh to it.
+
+********
+To get it, change to the DJGPP bin directory and type there
+
+ln -s bash.exe sh.exe
+********
+
+Because it is really not possible for me to check for any needed program
+I include here only a list of packages which you will need at least:
+
+- acnf212s.zip
+- fil316b.zip
+- find41b.zip
+- grep20b.zip
+- m4-14b.zip
+- mak3761b.zip
+- sed118b.zip
+- shl112b.zip
+- txt119b.zip
+- txi390b.zip
+
+And you need about 40 MB free disk space as minimum, when you build without
+debugging information (with debug info I would guess about 50 MB).
+
+Extracting the sources
+----------------------
+
+If you are running Windows 95 I strongly recommend to enable the use of
+long filenames for DJGPP. I havent tested compiling gcc-2.8.1 without
+support of LFN. 'sh djmake.sh all' may work without LFN but also
+may not work. I'm almost sure './djmake.sh install' will not work
+without LFN.
+
+At first you should unzip the archive gcc281s.zip. The sources are _NOT_
+the complete sources like the original gcc 2.8.1 distribution. I have
+removed many files to save disk space which are not needed for the DJGPP
+port. I also removed many of the older Changelog-files.
+
+The sources are already configured, but if you want to reconfigure them,
+please use _ONLY_ the script file 'djconfig.sh' (written by Robert 
+Hoehne) instead of running the configure script, since it does some 
+tricks before running configure. (Read the comments inside this file!!). 
+To run it you must have bash installed and a symlink sh.exe to bash.exe.
+
+I configured sources to be compiled in directory build.djg. 
+
+Then to run the djconfig.sh script type there
+
+sh djconfig.sh [any-additional-paramter]
+
+
+Robert Hoehne wrote also another script 'djmake.sh' to be used instead 
+of simply make. As above: Please use _ONLY_ this script instead of 
+running a simple make (unless of course you know what you're doing).
+
+Now you run make by typing
+
+sh djmake.sh [any-additional-paramter]
+
+as replacement for
+
+make [any-additional-parameter]
+
+I made only small changes to these scripts.
+
+
+Compiling in another directory
+-------------------------------
+
+I configured gcc to be compiled in directory build.djg. To change this
+directory you should move its contents to the desired location and modify
+both scripts (djconfig.sh and djmake.sh) to set the exact path to sources.
+After that, you can use these scripts as described above.
+
+
+Installing the newly built binaries
+===================================
+
+To install the built binaries use the following command
+
+sh djmake.sh prefix=$DJDIR install
+
+This is needed, because by default the Makefile has a prefix which
+will not allow the files to be installed correctly because Robert Hoehne used 
+a trick when configuring gcc to have the $DJGPP variable hardcoded in
+the binaries instead of the expanded value of this variable.
+
+Reporting bugs
+==============
+
+If you found a bug in gcc, please report it to the gcc bug adresses and _NOT_
+(or at least not only) in the DJGPP news group. But if you think you found
+a bug in the DJGPP related things, then please report it in comp.os.msdos.djgpp
+(the news group) or mail it to djgpp@delorie.com, which is the gateway to
+the news group.
+
+Please email me directly only in rare cases, if you think it is only of
+interest to me, since I see the reports in comp.os.msdos.djgpp also.
+
+
+Credits
+=======
+
+Thanks to Robert H”hne <robert.hoehne@gmx.net> for his DJGPP port of 
+gcc-2.8.0 which was used as a base of this port and his help (including
+exception support).
+
+
+  Have fun with gcc, 
+
+Andris Pavenis <pavenis@lanet.lv>
+
+----------------------------------------------------------------------
+patch to autoheader. Nedeed ONLY if you need to run autoheader under 
+Windows 95. Normally NOT NEEDED to build gcc unless you modify Configure.in
+-----------------  patch to autoheader  ------------------------
+*** autoheader~	Wed May 14 17:33:34 1997
+--- autoheader	Tue Mar 24 15:03:18 1998
+***************
+*** 261,266 ****
+--- 261,267 ----
+  fi
+  
+  if test $# -eq 0; then
++   exec > con 
+    if test $status -eq 0; then
+      if test -f ${config_h_in} && cmp -s $tmpout ${config_h_in}; then
+        rm -f $tmpout # File didn't change, so don't update its mod time.
+----------------------------------------------------------------
