@@ -1,0 +1,47 @@
+*asm:
+
+
+*asm_final:
+
+
+*cpp:
+%{posix:-D_POSIX_SOURCE}
+
+*cc1:
+%{!m386:-m486 -malign-jumps=2 %{!m486:-malign-loops=2 -malign-functions=2}}
+
+*cc1plus:
+%{!m386:-m486 -malign-jumps=2 %{!m486:-malign-loops=2 -malign-functions=2}}
+
+*endfile:
+
+
+*link:
+
+
+*link_command:
+%{!c:%{!M:%{!MM:%{!E:%{!S:ld %l %X %{o*} %{A} %{d} %{e*} %{m} %{N} %{n} \
+	%{r} %{s} %{t} %{u*} %{x} %{z}\
+	%{!A:%{!nostartfiles:%{!nostdlib:%S}}} %{static:}\
+	%{L*} %D %{T*} %o -Tdjgpp.djl\
+	%{!nostdlib:-lgcc %L -lgcc %{!A:%E}}}}}}}
+%{!c:%{!M:%{!MM:%{!E:%{!S:stubify %{v} %{o*:%*} %{!o*:a.out}}}}}} 
+
+*lib:
+-lc
+
+*startfile:
+%{pg:gcrt0.o%s}%{!pg:%{p:mcrt0.o%s}%{!p:crt0.o%s}}
+
+*switches_need_spaces:
+
+
+*signed_char:
+%{funsigned-char:-D__CHAR_UNSIGNED__}
+
+*predefines:
+-Dunix -Di386 -DGO32 -DMSDOS -DDJGPP=2 -DDJGPP_MINOR=2
+
+*cross_compile:
+0
+
