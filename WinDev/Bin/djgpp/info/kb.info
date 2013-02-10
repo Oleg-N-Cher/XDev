@@ -1,0 +1,803 @@
+This is Info file ../../../info/kb.info, produced by Makeinfo version
+1.68 from the input file kb.txi.
+
+
+File: kb.info,  Node: Top,  Prev: (dir),  Up: (dir)
+
+The DJGPP Knowledge Base
+
+This document is a place to store random bits of information about
+DJGPP and how to use it efficiently.
+
+Copyright (c) 1995,1996 DJ Delorie
+
+* Menu:
+
+* Introduction::
+
+* What Changed::        List of changes made to each release.
+
+* Known Bugs::		List of things that we know are broken,
+			but either we haven't fixed them yet
+			or we haven't come up with a suitable
+			solution.
+
+* Known Anti-Bugs::	Things that some people might think are
+			bugs, but are done that way on purpose.
+
+* Hidden Features::	Things that are in djgpp but aren't
+			intended for the casual user.
+
+* Index::
+
+
+File: kb.info,  Node: Introduction,  Next: What Changed,  Up: Top
+
+Introduction
+************
+
+This is the intro.
+
+
+File: kb.info,  Node: What Changed,  Next: Known Bugs,  Prev: Introduction,  Up: Top
+
+What Changed
+************
+
+* Menu:
+
+
+* Changes in 2.01::		DJGPP 2.01
+* Changes in 2.02::		DJGPP 2.02
+
+
+File: kb.info,  Node: Changes in 2.01,  Next: Changes in 2.02,  Up: What Changed
+
+Changes in 2.01
+===============
+
+Here is a list of changes from DJGPP V2.00 to V2.01
+
+`dxeload()' now checks for `malloc' returning NULL.
+
+`gxx' by default also links `libstdc++.a'.
+
+`info/dir.txi' now has full file names for binutils, bison, and find.
+
+`include/dir.h' now packs `struct ffblk' in such a way that g++ 2.7.2
+works correctly.  Note that gcc 2.7.2.1 does not require this change.
+
+`SIGINT' is now in the ANSI section of `signal.h'
+
+`glob()' returns GLOB_NOSPACE when `malloc' fails.
+
+`echo' now accepts `-s' to put one argument per line, instead of all on
+one line.
+
+`_dos_ds' now has a limit of 4Gb instead of 16Mb.
+
+`_is_exec' (and thus `access') check suffixes independent of case, so
+`.com' and `.bat' files are executable.
+
+Documentation for `getopt' has been added.
+
+`doscan' returns -1 when it should (and other doscan fixes).
+
+`sigaction' works correctly.
+
+`stat' works correctly when _STAT_EXEC_MAGIC is set but _STAT_EXE_EXT
+is not.
+
+The example in the `movedata' documention correctly lists `_my_ds()'
+now.
+
+`fsbd' and `edebug' shouldn't crash on long C++ symbols.
+
+`stat' returns the correct number of links to a directory.
+
+`fsdb' doesn't crash with multiple directories of source files.
+
+Command line arguments are not wildcard-expanded if they were passed
+through `spawn*()' or `exec*()'
+
+`stdprn' and `stdaux' work correctly now.
+
+Documentation for `dosmemput' fixed.
+
+`popen' and `system' no longer leak file descriptors.
+
+`bdosptr' macro in `dos.h' is now protected better.
+
+`system' now flushes stdout and stderr (output used to get mixed up).
+
+`inp', `inpw', `outp', `outpw' added to `pc.h'.
+
+`_go32_dpmi_free_real_mode_callback' frees the right stack.
+
+Anything in `libm.a' that used `scalbn' won't leak stack (like `ldexp').
+
+Most `stdio.h' routines rewritten for better text file handling.
+
+`exit' won't recurse if a destructor calls `exit'.
+
+`fcntl' supports `sys/fsext.h'.  `open' passes all flags to extensions.
+
+`system' supports redirection and pipes directly.
+
+`stat' bugfixes.
+
+`mntent' supports JAM compressed drives; CDROM bug fixed.
+
+Many fixes to LFN support.
+
+`printf' supports long longs; new support functions in libc also.
+
+`go32-v2' works in more cases.
+
+`djasm' supports more opcodes and modes.
+
+`stubify' doesn't crash as often; runs faster.
+
+`ScreenGetChar' added to `pc.h'
+
+`va_start' works if the last argument is not int-sized.
+
+New function `_fargetsel()'.
+
+`echo.exe' handles invalid options correctly now.
+
+Some `fsdb' bugs fixed
+
+`glob' handles `...' better now.
+
+`ioctl' and `sys/ioctl.h' added (no unix functionality yet)
+
+`termios.h' functionality added.
+
+`write' no longer mallocs a buffer; it writes to the transfer buffer
+directly.
+
+`setrusage' and `getrusage' added.
+
+`readdir' will return "." and ".." even for root directories.
+
+
+File: kb.info,  Node: Changes in 2.02,  Prev: Changes in 2.01,  Up: What Changed
+
+Changes in 2.02
+===============
+
+Here is a list of changes from DJGPP V2.01 to V2.02
+
+`tests/libclink' no longer looks for DJGPP V1.
+
+`emu387.dxe' has been rebuilt to reflect fpatan fixes.
+
+`mcount.c' no longer writes to the mono monitor.  This had caused seg
+faults when profiling.
+
+You can now "symlink" to files with 8 character base names (like
+12345678.exe).  Previously, `stub.asm' assumed al was zero when it
+wasn't always that way.
+
+`rawclock()' now actually returns the number of ticks since midnight,
+not since program start.
+
+`libc.tex' now uses "Master Index" instead of "Index" due to conflicts
+with the node for `index'.
+
+`srand()' is now documented.
+
+`memchr()' is now 8-bit clean.
+
+Documentation for `delay()' includes the header file.
+
+`__dpmi_simulate_real_mode_procedure_iret()' is now properly documented
+as DPMI call 0x0302.
+
+`edebug' now unassembles `scasb' correctly.
+
+Documentation for `qsort()' has correct prototypes in the examples.
+
+`info/dir.txi' includes an entry for the FAQ.
+
+Functions in `conio.h' now support DOS/V's virtual screens.
+
+`edebug' and other debuggers using the common debugging framework will
+properly close files when they terminate the debuggee.  This allows to
+restart the debuggee without losing handles.
+
+`fnsplit()' now handles files like .emacs properly.
+
+`glob()' now handles files like .emacs properly.  This will fix
+wildcard expansion on new programs.
+
+`go32-v2.exe' properly reverts the interrupt table before running the
+child process.
+
+`_lfn_gen_short_name' no longer crashes in rare cases.
+
+`s[f]_ceil' and `s[f]_floor' functions in `libm.a' no longer crash when
+emulated.
+
+`fixpath' and `readdir' support multibyte file names.
+
+You may now `set 387=y' to avoid the auto-detection.
+
+`opendir("/")' works.
+
+`rename("x", "x/y")' will now fail when "x" is a directory.
+
+`sigprocmask' and `sigpending' actually do something now.  All of the
+POSIX signal functions are now documented.
+
+`_truename' didn't use `putpath' and therefore didn't support the
+`/dev/' style of standard devices.  `stat' also failed on devices in
+some cases.  We think this is the cause of `bash' failing on
+redirection to `/dev/null'.
+
+Documentation for FSEXT-enabled functions now mentions that they are
+FSEXT-enabled, and how to avoid that.
+
+Documentation for `bioscom' now documents (and uses) the `port'
+parameter.
+
+`ffs()' returns the correct value.
+
+Various fixes and optimizations to `_use_lfn()'.
+
+Return codes of `lock()' and `unlock()' are correct.
+
+Added `memicmp()'
+
+`tmpfile()' always opens the temp file in binary mode.
+
+New `statfs' returns the actual size of a CD-ROM instead of the default
+returned by MSCDEX.
+
+`gxx' won't try to link extra libraries if you specify `-c' or `-S' on
+the command line.
+
+`_dos_findfirst()' takes a `const char *' instead of `char *'.
+
+`rename()' handles extra error codes some network redirectors return.
+
+`ctime' handles dumped emacs and DOS-style `$TZDIR'.
+
+`pathconf()' returns actual values for NAME_MAX and PATH_MAX, rather
+than defaults.  Therefore, it can be used to detect whether a given disk
+supports long file names.
+
+The return values for `_go32_dpmi_lock_data' and `_go32_dpmi_lock_code'
+are now documented.
+
+The initial stack is aligned to an 8-byte boundary.
+
+`getkey' and `getxkey' allow you to do `ALT-keypad-224'.
+
+`popen' selects temporary files correctly now.
+
+`pclose' returns the status of the program it read from.
+
+`stubedit' won't let you set a transfer buffer bigger than 63k.  If the
+stub detects a zero there, it assumes 63k.
+
+The stub now returns error codes in the 100..110 range when it has a
+startup failure.
+
+`system' works if `$COMSPEC' isn't set.
+
+`struct lconv' includes `mon_thousands_sep'.
+
+`scanf' works with long double formats like `%LG'.
+
+`_osmajor' and `_osminor' are now set at startup.
+
+`write()' now calls FSEXT for "text" files.
+
+`assert.h' causes no more warnings with some gcc options.
+
+`access()' now thinks devices are read/write, instead of read-only,
+regardless of what the device actually supports.
+
+New function `stackavail()' in `stdlib.h'
+
+`echo', `split' and `merge' are now called `djecho', `djsplit' and
+`djmerge' to avoid clashes with GNU's `echo', `split' and `merge'
+programs.
+
+`tzname[]' bug fixed; `tzname' no longer a function stub (!)
+
+More `djasm' improvements.
+
+Added `_v2_prog_type' to `sys/system.h' and extended `symlink' with it.
+
+`fread' and `fwrite' are documented as returning less than the
+requested size, rather than -1 on error, since they never return
+negative values.  `fread' `fwrite'
+
+`stub' forcefully closes file descriptors 18 and 19, so that the stub
+and the DPMI server have enough handles to open the swap file and read
+the COFF information of the DJGPP executable.
+
+Minor fixes to `popen''s list of pending commands.
+
+`tempnam' returns allocated memory, not a pointer to static space, and
+does not ignore its arguments TMPDIR and PREFIX anymore.
+
+`difftime' can return negative numbers now.
+
+`gethostname' removes trailing spaces now.
+
+`insque' works with empty lists now.
+
+`sync' also calls `_flush_disk_cache()'.
+
+`printf' flushes stdout every time, unless it is redirected to a file,
+to reduce programmer confusion.  Note that `fprintf' and `vprintf'
+don't do this.
+
+`exit' calls destructors *before* it closes all open files.
+
+The code that reads blocks of data for FILE* streams has a new "slow
+start" algorithm that's designed to adjust the read size for both
+programs that seek a lot reading small amounts of data, and programs
+that don't seek but read lots of data.
+
+`mktime' handles the DST change hour gracefully
+
+`enable' and `disable' don't use DPMI (sti/cli are less buggy!)
+
+The command line parser can handle response files generated by `find
+-print0'.
+
+`malloc' and `free' have been replaced by a more efficient (and not
+BSD) algorithm.  The source archive still contains `bsdmallo.c' and a
+new even faster (but more wasteful) version in `fmalloc.c'.
+
+`getmntent' better supports Windows NT and doesn't cause DOS to return
+stale data when the disk is changed.  Removable media such as JAZ
+drives are no longer reported when the drive is empty.  Disks written by
+Windows 9X are no longer reported with bogus names taken from LFN
+directory entries (which have their volume label attribute bit set).
+
+File names which begin with `/dev/' or `x:/dev/' (where `x:' is any
+drive letter) are treated specially by all file-oriented library
+functions.  `/dev/tty' is converted to `con' and `/dev/null' is
+converted to `nul', to make porting of Unix programs easier.  Other
+names get the drive letter and the `/dev/' prefix removed, so e.g.
+`d:/dev/lpt1' is converted to `lpt1'.  This is because DOS handles
+device names inconsistently unless they are devoid of the `x:/dev/'
+prefix.  File names of the form `/dev/x/foo' are converted to `x:/foo';
+this allows to use Unix-style path names which always begin with a
+forward slash.
+
+The startup code now masks *all* numeric exceptions when a
+floating-point hardware is present.  This means that illegal operations
+like `sqrt(-1)' will now return `NaN' (Not-a-number) rather than raise
+the `SIGFPE' signal.
+
+`fstat' is now more reliable when called from programs under a
+debugger, does not report bogus results on NT, reports files on the A:
+drive correctly, and correctly reports the write access bit on
+Windows9X.
+
+`stat' is now more reliable on NT and with character devices.
+
+`djgpp.env' is read before command line arguments are expanded, so that
+they'll honor the `LFN' setting in `djgpp.env'.
+
+The `sys_siglist[]' array is now available with the names of all the
+signals, and the function `psignal' can be used to print messages which
+include the signal names.
+
+The new functions `basename' and `dirname' can be used to extract
+directory and basename parts from file names.
+
+_my_* work for selectors with the high bit set
+
+The new function `_creatnew' creates a file only if it didn't already
+exist.
+
+`tmpfile' makes sure it opens a file which is not and will not be used
+by any other program.  It does so by repeatedly calling `tmpnam' until
+`_creatnew' succeeds to create a file which didn't exist before.  The
+temporary file is opened in DENY_ALL mode, so that no other process can
+neither read from nor write to it.  In case of a failure, `tmpfile'
+does not leak memory anymore.
+
+Previously, there was a small probability that a call to `open' with
+the `O_CREAT' and `O_EXCL' bits set would succeed even though the named
+file already existed (created by another process).  This window is now
+closed.
+
+`mkstemp' now makes sure the file it creates is unique even if other
+processes can create files in the same directory, and opens the file in
+DENY_ALL mode.
+
+`__FSEXT_alloc_fd' now duplicates the initial file handle instead of
+reopening the NUL device on each call.  Thus, it is no longer limited
+by the value of the `FILES=' parameter on your `CONFIG.SYS', but can
+allocate up to 254 handles (which is the maximum number allowed by DOS).
+
+Stack dumps will now fit the screen, instead of being limited to 10
+frames.
+
+`rename' will properly fail if the file doesn't exist.
+
+`system' is now compliant with ANSI C Standard when its argument is a
+NULL pointer.
+
+Previously, at program startup `errno' would retain whatever value it
+was assigned by the DJGPP startup code.  ANSI C Standard requires
+`errno' to be zero at the beginning of `main', so it is now reset to
+zero before calling `main'.
+
+The stack dump printed when a program is aborted or crashes was
+improved.  First, it is no longer limited to 10 stack frames.  When the
+standard error stream is connected to the console, the maximum number of
+frames is computed so that the stack dump will use all the available
+screen area, without scrolling off the visible part.  For example, at
+50-line display, you can have as much as 36 stack frames printed and
+still see the registers and selectors dump, and the exception mnemonic
+that preceed it.
+
+When stderr is not the console, the number of printed stack frames is
+only limited by the stack size of the running program.
+
+In addition, the top and bottom of both the application code stack and
+the locked stack used for processing exceptions, are printed.  This
+makes detection of stack overflows and other stack-related atrocities
+much easier.
+
+The `_doserrno' global variable is now provided.  Whenever a DOS call
+fails, this variable gets assigned the value of the error code returned
+by the failed DOS function.
+
+The header `sys/dxe.h' now works with C++.
+
+`fflush' now conforms to ANSI C standard when called with a `NULL'
+argument.
+
+`__dpmi_yield' doesn't wedge the DOS box on some versions of Windows 9X
+anymore.
+
+`outports*' takes a const buffer
+
+`glob' will initalize `*pglob' when appropriate.
+
+The conversion functions `ecvtbuf', `ecvt', `fcvtbuf', `fcvt', and
+`gcvt' are now provided.
+
+The startup code now recognizes an additional flag
+_CRT0_FLAG_KEEP_QUOTES, which forces it to retain quote characters in
+command-line arguments.
+
+`redir' invokes the subsidiary program in a way that preserves the
+command-line expansion.  Thus, you can now use `redir' to invoke
+programs whose command lines include quote characters and file name
+wildcards, and they will work as expected.
+
+Also, `redir' no longer crashes if the subsidiary program was
+interrupted or crashed, and reports the run time with millisecond
+resolution.
+
+The exit code now makes sure the timer interrupt is left pointing to its
+original handler, even if the program is aborted, or exits without
+disabling timers.  `__djgpp_exception_toggle' now toggles the timer
+interrupt handler as well, if it was hooked by SIGALRM/SIGPROF handler
+or by `setitimer'.  Thus, timers, periodic alarms, and profiling will
+be disabled inside blocks that call `__djgpp_exception_toggle'.
+
+The functions of the `printf' family now always print a negative sign
+for a negative floating-point argument, even when the conversion
+generated no significant digits (i.e. only zeros are printed), if the
+format specifier requests an explicit sign, like in "%+f".  A special
+NaN value will also be printed with a sign in these cases (e.g. try
+printing `-nanf()').
+
+`select' now correctly zeroes out all the bits in the `fd_set'
+arguments when it returns due to expired timeout.
+
+`readdir' now includes hidden files and directories in the search by
+default.  The `__OPENDIR_FIND_HIDDEN' bit of the `__opendir_flags'
+variable has no effect, and a new `__OPENDIR_NO_HIDDEN' bit is provided
+to exclude hidden files/directories from the search.
+
+`getmntent' better supports Windows NT and doesn't cause DOS to return
+stale data when the disk is changed.  Removable media such as JAZ
+drives are no longer reported when the drive is empty.  Disks written by
+Windows 9X are no longer reported with bogus names taken from LFN
+directory entries (which have their volume label attribute bit set).
+
+`opendir', `closedir' and `rewinddir' don't lose search handles anymore
+when long file names are supported.  `rewinddir' and `seekdir' will not
+miss the (possibly faked) `.' and `..' entries in root directories.
+
+
+File: kb.info,  Node: Known Bugs,  Next: Known Anti-Bugs,  Prev: What Changed,  Up: Top
+
+Known Bugs
+**********
+
+
+File: kb.info,  Node: Known Anti-Bugs,  Next: Hidden Features,  Prev: Known Bugs,  Up: Top
+
+Known Anti-Bugs
+***************
+
+
+File: kb.info,  Node: Hidden Features,  Prev: Known Anti-Bugs,  Up: Top
+
+Hidden Features
+***************
+
+* Menu:
+
+* DJGPP.ENV::	All about the format of the DJGPP.ENV file
+
+
+File: kb.info,  Node: DJGPP.ENV,  Up: Hidden Features
+
+DJGPP.ENV
+=========
+
+If you set the DJGPP environment variable to point to a file, that file
+will be used to load the environment.  There is a djgpp.env file
+distributed with djgpp that provides most of the values you need.  The
+format of the file is like this:
+
+     VAR=value
+     VAR=value
+     [program]
+     VAR=value
+     [prog2]
+     VAR=value
+
+Note that all whitespace is preserved, so be careful about trailing
+spaces and spaces around the `='.  Variables in the first section
+(before any [program] lines) apply to all programs.  Variables in
+program-specific sections are loaded only when running that program.
+For example, a [gcc] section would have variables that gcc.exe needs.
+Values may refer to other variables using the DOS convention, like
+%DJGPP%.  In addition, the first characters after the `%' can be used
+to process the value before using it.  These syntaxes are allowed:
+
+     %variable%     Take the value as is
+     %:variable%    Take the directory portion only
+     %;variable%    Append with a semicolon if variable is defined
+     %/variable%    Replace all `\' with `/'
+     %\variable%    Replace all `/' with `\'
+     %<variable%    Convert to upper case
+     %>variable%    Convert to lower case
+
+You may list multiple characters after the %, but they must be before
+the variable name, like %:/>DJGPP%.  Variable names are case sensitive.
+The DOS environment variable names are usually upper case.  Variables
+set through this file override any set in the DOS environment, unless
+the first character of the variable name is `+', in which case the DOS
+environment overrides the file (the `+' is removed from the name), as
+in `+USER=dosuser'.
+
+If you need a literal `%', write two percent signs in a row, like so:
+
+     LESSBINFMT=*k<%%X>
+
+This will produce a value of `*k<%X>' for the variable `LESSBINFMT'.
+
+
+File: kb.info,  Node: Index,  Up: Top
+
+Index
+*****
+
+* Menu:
+
+* __djgpp_exception_toggle:              Changes in 2.02.
+* __dpmi_simulate_real_mode_procedure_iret(): Changes in 2.02.
+* __dpmi_yield:                          Changes in 2.02.
+* __FSEXT_alloc_fd:                      Changes in 2.02.
+* _close:                                Changes in 2.02.
+* _creat:                                Changes in 2.02.
+* _creatnew:                             Changes in 2.02.
+* _crt0_startup_flags, the _CRT0_FLAG_KEEP_QUOTES flag: Changes in 2.02.
+* _doprnt:                               Changes in 2.02.
+* _dos_ds:                               Changes in 2.01.
+* _dos_findfirst:                        Changes in 2.02.
+* _doserrno:                             Changes in 2.02.
+* _fargetsel:                            Changes in 2.01.
+* _flush_disk_cache:                     Changes in 2.02.
+* _go32_dpmi_free_real_mode_callback:    Changes in 2.01.
+* _go32_dpmi_lock_code:                  Changes in 2.02.
+* _go32_dpmi_lock_data:                  Changes in 2.02.
+* _is_exec:                              Changes in 2.01.
+* _lfn_gen_short_name:                   Changes in 2.02.
+* _open:                                 Changes in 2.02.
+* _osmajor:                              Changes in 2.02.
+* _osminor:                              Changes in 2.02.
+* _read:                                 Changes in 2.02.
+* _sys_siglist:                          Changes in 2.02.
+* _truename:                             Changes in 2.02.
+* _use_lfn:                              Changes in 2.02.
+* _v2_prog_type:                         Changes in 2.02.
+* _write:                                Changes in 2.02.
+* access <1>:                            Changes in 2.02.
+* access:                                Changes in 2.01.
+* assert:                                Changes in 2.02.
+* basename:                              Changes in 2.02.
+* bash:                                  Changes in 2.02.
+* bdosptr:                               Changes in 2.01.
+* bioscom:                               Changes in 2.02.
+* closedir, does not lose search handles: Changes in 2.02.
+* conio.h:                               Changes in 2.02.
+* ctime:                                 Changes in 2.02.
+* dbgcom.c:                              Changes in 2.02.
+* delay:                                 Changes in 2.02.
+* difftime:                              Changes in 2.02.
+* dir.h:                                 Changes in 2.01.
+* dirname:                               Changes in 2.02.
+* disable:                               Changes in 2.02.
+* djasm <1>:                             Changes in 2.01.
+* djasm:                                 Changes in 2.02.
+* DJGPP.ENV:                             DJGPP.ENV.
+* djgpp.env:                             Changes in 2.02.
+* dos.h:                                 Changes in 2.01.
+* doscan:                                Changes in 2.01.
+* dosmemput:                             Changes in 2.01.
+* dxeload:                               Changes in 2.01.
+* echo <1>:                              Changes in 2.02.
+* echo:                                  Changes in 2.01.
+* ecvt:                                  Changes in 2.02.
+* ecvtbuf:                               Changes in 2.02.
+* edebug <1>:                            Changes in 2.02.
+* edebug:                                Changes in 2.01.
+* emu387:                                Changes in 2.02.
+* enable:                                Changes in 2.02.
+* Environment Variables:                 DJGPP.ENV.
+* errno:                                 Changes in 2.02.
+* exit <1>:                              Changes in 2.01.
+* exit:                                  Changes in 2.02.
+* fcntl:                                 Changes in 2.01.
+* fcvt:                                  Changes in 2.02.
+* fcvtbuf:                               Changes in 2.02.
+* fflush:                                Changes in 2.02.
+* ffs:                                   Changes in 2.02.
+* findfirst:                             Changes in 2.01.
+* fixpath:                               Changes in 2.02.
+* fnsplit:                               Changes in 2.02.
+* fprintf:                               Changes in 2.02.
+* free:                                  Changes in 2.02.
+* fsdb:                                  Changes in 2.01.
+* fstat:                                 Changes in 2.02.
+* gcvt:                                  Changes in 2.02.
+* gethostname:                           Changes in 2.02.
+* getkey:                                Changes in 2.02.
+* getmntent:                             Changes in 2.02.
+* getopt:                                Changes in 2.01.
+* getrusage:                             Changes in 2.01.
+* getxkey:                               Changes in 2.02.
+* glob <1>:                              Changes in 2.01.
+* glob <2>:                              Changes in 2.02.
+* glob <3>:                              Changes in 2.01.
+* glob:                                  Changes in 2.02.
+* go32-v2 <1>:                           Changes in 2.01.
+* go32-v2:                               Changes in 2.02.
+* gxx <1>:                               Changes in 2.01.
+* gxx:                                   Changes in 2.02.
+* info/dir.txi:                          Changes in 2.02.
+* inp:                                   Changes in 2.01.
+* inpw:                                  Changes in 2.01.
+* insque:                                Changes in 2.02.
+* ioctl:                                 Changes in 2.01.
+* lconv:                                 Changes in 2.02.
+* ldexp:                                 Changes in 2.01.
+* lfn:                                   Changes in 2.01.
+* libc.tex:                              Changes in 2.02.
+* libm.a:                                Changes in 2.01.
+* lock:                                  Changes in 2.02.
+* malloc:                                Changes in 2.02.
+* mcount.c:                              Changes in 2.02.
+* memchr:                                Changes in 2.02.
+* memicmp:                               Changes in 2.02.
+* merge:                                 Changes in 2.02.
+* mkstemp:                               Changes in 2.02.
+* mktime:                                Changes in 2.02.
+* mntent:                                Changes in 2.01.
+* multibyte:                             Changes in 2.02.
+* nanf:                                  Changes in 2.02.
+* open <1>:                              Changes in 2.01.
+* open:                                  Changes in 2.02.
+* opendir:                               Changes in 2.02.
+* opendir, does not lose search handles: Changes in 2.02.
+* outp:                                  Changes in 2.01.
+* outportsb:                             Changes in 2.02.
+* outportsl:                             Changes in 2.02.
+* outportsw:                             Changes in 2.02.
+* outpw:                                 Changes in 2.01.
+* pathconf:                              Changes in 2.02.
+* pc.h:                                  Changes in 2.01.
+* pclose:                                Changes in 2.02.
+* popen <1>:                             Changes in 2.02.
+* popen:                                 Changes in 2.01.
+* printf <1>:                            Changes in 2.02.
+* printf:                                Changes in 2.01.
+* profiling:                             Changes in 2.02.
+* psignal:                               Changes in 2.02.
+* putpath:                               Changes in 2.02.
+* qsort:                                 Changes in 2.02.
+* rawclock:                              Changes in 2.02.
+* readdir <1>:                           Changes in 2.02.
+* readdir <2>:                           Changes in 2.01.
+* readdir:                               Changes in 2.02.
+* redir:                                 Changes in 2.02.
+* rename:                                Changes in 2.02.
+* rewinddir, and . and .. entries:       Changes in 2.02.
+* rewinddir, does not lose search handles: Changes in 2.02.
+* s_ceil:                                Changes in 2.02.
+* s_floor:                               Changes in 2.02.
+* scalbn:                                Changes in 2.01.
+* scanf:                                 Changes in 2.02.
+* ScreenGetChar:                         Changes in 2.01.
+* seekdir, and . and .. entries:         Changes in 2.02.
+* select:                                Changes in 2.02.
+* setitimer:                             Changes in 2.02.
+* setrusage:                             Changes in 2.01.
+* sf_ceil:                               Changes in 2.02.
+* sf_floor:                              Changes in 2.02.
+* sigaction:                             Changes in 2.01.
+* sigaddset:                             Changes in 2.02.
+* SIGALRM:                               Changes in 2.02.
+* sigdelset:                             Changes in 2.02.
+* sigemptyset:                           Changes in 2.02.
+* sigfillset:                            Changes in 2.02.
+* SIGINT:                                Changes in 2.01.
+* sigismember:                           Changes in 2.02.
+* sigpending:                            Changes in 2.02.
+* sigprocmask:                           Changes in 2.02.
+* SIGPROF:                               Changes in 2.02.
+* split:                                 Changes in 2.02.
+* sprintf:                               Changes in 2.02.
+* srand:                                 Changes in 2.02.
+* stack dump, when aborted or crashed:   Changes in 2.02.
+* stackavail:                            Changes in 2.02.
+* stat <1>:                              Changes in 2.01.
+* stat <2>:                              Changes in 2.02.
+* stat <3>:                              Changes in 2.01.
+* stat:                                  Changes in 2.02.
+* statfs:                                Changes in 2.02.
+* stdaux:                                Changes in 2.01.
+* stdprn:                                Changes in 2.01.
+* stub:                                  Changes in 2.02.
+* stub.asm:                              Changes in 2.02.
+* stubedit:                              Changes in 2.02.
+* stubify:                               Changes in 2.01.
+* symlink:                               Changes in 2.02.
+* sync:                                  Changes in 2.02.
+* system <1>:                            Changes in 2.02.
+* system <2>:                            Changes in 2.01.
+* system <3>:                            Changes in 2.02.
+* system:                                Changes in 2.01.
+* tempnam:                               Changes in 2.02.
+* tmpfile:                               Changes in 2.02.
+* tzname:                                Changes in 2.02.
+* unlock:                                Changes in 2.02.
+* va_start:                              Changes in 2.01.
+* wildcards:                             Changes in 2.01.
+* write <1>:                             Changes in 2.01.
+* write:                                 Changes in 2.02.
+
+
+
+Tag Table:
+Node: Top104
+Node: Introduction772
+Node: What Changed888
+Node: Changes in 2.011078
+Node: Changes in 2.023963
+Node: Known Bugs17123
+Node: Known Anti-Bugs17237
+Node: Hidden Features17364
+Node: DJGPP.ENV17539
+Node: Index19437
+
+End Tag Table
