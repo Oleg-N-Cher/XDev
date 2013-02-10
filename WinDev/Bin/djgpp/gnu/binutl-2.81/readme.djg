@@ -1,0 +1,331 @@
+This is the port of binutils 2.8.1 to DJGPP
+
+Installing the binaries
+=======================
+
+Copy the archive bnu281b.zip to any location you want, let's
+say to c:/tmp
+
+NOTE: I use here only unix like forward slashes where they
+are allowed. If I use here DOS-like backslashes, then they
+must be used there.
+
+Now change to your DJGPP root directory, let's say c:/djgpp.
+Now you have to unzip the archive preserving the directory
+structure. If you use PKUNZIP, then you have to specify the
+-d switch.
+
+Documentation
+=============
+
+Documentation about each program in this archive is in INFO
+format and will be installed in the usual info directory.
+If you have already installed DJGPP, then the top dir node
+has already the entries.
+
+New features
+============
+
+Read the NEWS files in gnu/binutl-2.81/... for any new features, which
+are general for these programs. There is also a new program called
+'addr2line' which is in it's goal similar to the symify program
+already available for DJGPP.
+
+DJGPP specific changes
+======================
+
+I have made many DJGPP specific changes, which were made already for
+version 2.7, but I forgot to send the diffs to the correct people.
+Now I have sent them and they will be (hopefully) applied already
+in the next version by default.
+
+All the changes, which I have made are in the file 'diffs.djg'.
+These changes are mainly for supporting a new BFD target which allows
+all the programs which were build with that library directly to read or write
+stubbed COFF files, that means for instance, the linker ld can
+produce (and it does it so as default) direct an executable which you
+can run without any changes.
+
+The produced executable has a stub prepended  which is hardcoded
+in ld. But you can customize this by setting an environment variable
+GO32STUB or STUB which should point to a file from which the stub
+is taken. This file must be specified with a full pathname, because
+it is in no standard directory searched. This file may be also any
+DJGPP executable because only the first 2048 are taken as the stub.
+
+*WARNING*
+The binutils in the current ported version support only a fixed
+size of the stub which is 2048 bytes. This means, if you have
+a modified stub which exceeds this limit, you cannot handle these
+stubbed files with the binutils.
+This situation is currently known only for the PMODE/DJ stub and
+for files which were compressed with DJP conataining the decompressor
+in the stub. To use such files with the binutils, you have to strip
+the stub from the file and use the raw COFF file (this can be done
+with the exe2coff utility available with the stock DJGPP distribution).
+
+
+Since bash is available for DJGPP, porting GNU packages to DJGPP is now
+much easyer. As a result of this I was able to produce all the needed
+scripts for the linker like for any other unix system. This results
+now also in some fixes for the linker when you use the '-r','Ur' ...
+flags. The linker knows now to use for these special flags different
+linker scripts. These scripts are hardcoded in ld so don't have
+to put them somwhere on your HD.
+
+All the linker scripts builtin in ld can be used, because they are derived
+from the current DJGPP 2.01 linker script file 'djgpp.djl'. The only
+thing which I have added is to include in the .text segment also
+(if they are present) sections, which matches the wildcards
+'.const*' and '.ro*'. I made this, because I have an modified gcc,
+which emits all the constant text in a special section and also readonly
+data. (BTW: This gives better compression rates when using DJP).
+But do not worry about this, if you don't have these sections. 
+
+To get all the builtin linker scripts, simply run ld with the
+'--verbose' switch and the 4 main different switches
+'-r', '-Ur', '-N' and none where the '-N' switch is currently
+not tested and customized by me (it is the same like normal
+linking).
+
+How to use the linker without the need of stubify?
+==================================================
+
+As said above the linker can produce directly stubbed COFF
+files. Here now the instruction to enable this feature instead
+of using the stubify program.
+
+At first at least one reason why to do so:
+
+If you have like I not so much free disk space and also not
+so fast processor you can save without using the stubify program
+disk space and linking time. I had this problem when I built
+a program which has with debugging information a size of about
+5Mb. When I used then the stubify methode I needed additional
+5Mb to hold the temporal file for stubify and of course also
+the time for copying a 5Mb file.
+
+Ok, that's to the motivation, here now the instructions.
+
+The call of the linker step is defined on DJGPP in the gcc
+specs file, this is the file %DJDIR%/specs. Look at this file
+and you will see a section which should look like
+
+*link_command:
+%{!c:%{!M:%{!MM:%{!E:%{!S:ld %l %X %{o*} %{A} %{d} %{e*} %{m} %{N} %{n} \
+	%{r} %{s} %{t} %{u*} %{x} %{z}\
+	%{!A:%{!nostartfiles:%{!nostdlib:%S}}} %{static:}\
+	%{L*} %D %{T*} %o -Tdjgpp.djl\
+	%{!nostdlib:-lgcc %L -lgcc %{!A:%E}}}}}}}
+%{!c:%{!M:%{!MM:%{!E:%{!S:stubify %{v} %{o*:%*} %{!o*:a.out}}}}}} 
+
+Here you have simply to remove the '-Tdjgpp.djl' and the line
+which calls stubify, that means the link spec should look like:
+
+*link_command:
+%{!c:%{!M:%{!MM:%{!E:%{!S:ld %l %X %{o*} %{A} %{d} %{e*} %{m} %{N} %{n} \
+	%{r} %{s} %{t} %{u*} %{x} %{z}\
+	%{!A:%{!nostartfiles:%{!nostdlib:%S}}} %{static:}\
+	%{L*} %D %{T*} %o\
+	%{!nostdlib:-lgcc %L -lgcc %{!A:%E}}}}}}}
+
+
+This has also one side effect. If you call gcc like
+
+gcc -o foo foo.o
+
+the file foo (without the exe suffix) is created but it IS a
+'.exe' file. That means to prevent misunderstandings call gcc
+at any time like
+
+gcc -o foo.exe foo.o
+
+When I deleted in the above linker spec the '-Tdjgpp.djl' argument
+I assumed that you have not modified this file because then the
+linker uses it's builtin linker script which is derived from the
+standard DJGPP linker script file. If you have modified it you
+should not remove this switch of course.
+
+Supported object formats
+========================
+
+The current supported object formats of the binutils for
+DJGPP are:
+
+  1) coff-go32
+  2) coff-go32-exe
+  3) a.out-i386
+
+The first target ist the normal COFF object file format which
+is used when compiling source files and producing unstubbed
+COFF executables. But MS-DOS is not able to run these COFF
+executables directly. On DJGPP there will be prepended to
+these COFF images a small stub which is a little executable,
+which initializes the protected mode and then runs the COFF
+image.
+
+The 'coff-go32-exe' object format knows about this stub. That
+means, the linker can produce now ready to run executables.
+
+The technique for producing such executables is configurable.
+This comes from the fact, that the stub can be customized on
+DJGPP to have different behaviors of the final program.
+
+When the linker creates such a 'coff-go32-exe' format, it looks
+at first in the environment for a variable 'GO32STUB' or 'STUB'
+(in that order). If that variable exists, points to a filename 
+and this file has a valid stub, then this stub is used for the 
+creating executable.
+
+If anything was wrong with the above checkings, the in libbfd
+hardcoded stub is used.
+
+When modifying an stubbed executable (for instance running strip on
+it), the original stub is not modified
+
+The format 'a.out-i386' is included only for compatibility.
+
+---------
+
+How to enable other object formats?
+===================================
+
+If you want to compile in the binutils other object formats
+than the COFF support, you have to download the original
+binutils sources (binutils-2.8.1.tar.gz from any GNU mirror)
+and install these sources. (Or get the sources for binutils 2.8
+and the diffs for binutils 2.8.1)
+
+Then copy the 'configure.bat' and 'diffs.djg' to the base
+installation directory and run there the configure.bat 
+configuring batch script with the '--enable-targets=TARGET[,TARGET...'
+where 'TARGET' stands for the wanted target (for instance
+i386-unknown-linux)
+
+WARNING: I have not tested it. If you are not using long filenames,
+you may get some errors or other complications. That means, when
+you want to do so, you have to invest some time and of course
+a lot of free disk space.
+
+Installing the sources for binutils 2.8.1
+=========================================
+
+If you are running under Windows 95 enable at
+first the use of long filenames for DJGPP.
+
+SET LFN=y
+
+Change now to the directory, where you want to
+install the sources, which is normally your root
+DJGPP directory. In this directory unzip the archive
+bnu281s.zip preserving the directory structure and
+(when long filenames are supported) also preserving
+the long filenames.
+
+I recommend to use the unzip from the InfoZip package.
+
+How to compile binutils 2.8.1 for DJGPP
+=======================================
+
+At first you need the following packages installed,
+which are all available for DJGPP. (I do not list here
+any needed program, because I don't know exactly all
+the needed programs):
+
+  - GNU make
+  - GNU fileutils
+  - GNU find
+  - GNU shellutils
+  - GNU bash
+  - GNU textutils
+  - GNU awk
+  - GNU sed
+
+I have used all the newest versions, which were available when
+I made the port. I don't know if other version will work.
+And of course you need all the standard stuff installed to
+be able to compile and link C programs.
+
+Because in some scripts and/or makefiles there is a reference
+to /bin/sh, you have to create on the drive, where you have
+unzipped the sources a directory /bin and copy your bash.exe
+in this directory as sh.exe.
+
+Now change to the root source directory of binutils 2.8.1, which is
+relative to the current directory 'gnu/binutl-2.81'.
+
+Here you have to run at first 'configure.bat' which configures
+binutils for DJGPP.
+
+Now you can run
+
+make
+
+to build all the binaries. To rebuild the info files
+run
+
+make info
+
+*WARNING* The configure step will run correct ONLY, if you have
+a patched ln.exe from the GNU fileutils, or better you need a
+patch to the DJGPP libc-function 'symlink()' and then relink
+ln.exe with that patched function. If you don't have that patch
+look at DJ Delories website in the mail archive selecting the
+DJGPP-workers mailing list and search there for the latest symlink
+patch.
+
+An other alternative is to patch the makefile(s) in the binutils
+package. For this patch the file 'configure' in the root binutils
+source directory by applying the following patch BEFORE you run
+configure.bat!!!!
+
+--- configure~	Fri Jun 20 09:28:10 1997
++++ configure	Fri Jun 20 09:29:04 1997
+@@ -34,8 +34,8 @@
+ export PATH || (echo "OOPS, this isn't sh.  Desperation time.  I will feed myself to sh."; sh $0 $argv; kill $$)
+ 
+ remove=rm
+-hard_link=ln
+-symbolic_link='ln -s'
++hard_link=cp
++symbolic_link=cp
+ 
+ #for Test
+ #remove="echo rm"
+
+
+Installing the newly built binutils
+===================================
+
+'make install' will not do what you expect. You have to
+install the binaries and/or info files manually.
+
+Building a SOMETHING to DJGPP cross compiler
+============================================
+
+If you want to build the binutils as cross development utilities,
+then install on the host system the original binutils 2.8.1 sources.
+Get the file 'diffs.djg' from bnu281s.zip and apply the patches to
+the original sources. Then you have to run the configure script
+with the switch '--target=i386-pc-msdosdjgpp' and after completing
+the configure step simply make the binutils and it should work.
+
+WARNING: You need really the patches from bnu281s.zip, because they
+contain many important changes. Without these changes you will not be able
+to use the coff-go32-exe BFD target and at least the GNU assembler
+gas will produce wrong aligned code.
+I have also changed the canonical system name to i386-pc-msdosdjgpp.
+This was after discussion with Richard Stallmann and other people
+from the GNU community. That means, future versions of gcc and other
+GNU tools have to be changed to that target for DJGPP.
+
+If you have questions about the DJGPP related things of the binutils,
+post your questions in comp.os.msdos.djgpp (or in last resort mail
+me directly).
+
+If you think you have found a general bug, please submit it to the
+related GNU news group.
+
+Happy programming,
+
+  Robert Hoehne <robert.hoehne@gmx.net>

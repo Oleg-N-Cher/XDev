@@ -1,0 +1,56 @@
+This is Info file binutils.info, produced by Makeinfo version 1.67 from
+the input file ./binutils.texi.
+
+START-INFO-DIR-ENTRY
+* Binutils: (binutils).         The GNU binary utilities "ar", "objcopy",
+				"objdump", "nm", "nlmconv", "size",
+                                "strings", "strip", and "ranlib".
+END-INFO-DIR-ENTRY
+
+   Copyright (C) 1991, 92, 93, 94, 95, 96, 1997 Free Software
+Foundation, Inc.
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided also
+that the entire resulting derived work is distributed under the terms
+of a permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions.
+
+
+Indirect:
+binutils.i1: 977
+binutils.i2: 49345
+
+Tag Table:
+(Indirect)
+Node: Top977
+Node: ar2016
+Node: ar cmdline4182
+Node: ar scripts10942
+Node: nm16623
+Node: objcopy23171
+Node: objdump32848
+Node: ranlib41135
+Node: size41869
+Node: strings44536
+Node: strip46361
+Node: c++filt49345
+Node: addr2line51906
+Node: nlmconv54303
+Node: Selecting The Target System56928
+Node: Target Selection57945
+Node: Architecture Selection60645
+Node: Linker Emulation Selection61877
+Node: Reporting Bugs62755
+Node: Bug Criteria63506
+Node: Bug Reporting64052
+Node: Index71041
+
+End Tag Table
