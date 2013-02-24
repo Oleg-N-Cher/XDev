@@ -15,15 +15,13 @@
 @REM ==================================
 %bin%\Hex2bin HelloWorld.ihx
 
-@REM Link the target to TR-DOS format
-@REM ================================
-@REM WARNING! bin2trd is a MS-DOS program, must use a short filename
-@DEL /Q HELLOW~1.TRD
-%bin%\bin2trd.exe HelloW~1.trl
-@MOVE /Y HELLOW~1.TRD ../HelloWorld.trd
+@REM Link the target to TAP format
+@REM =============================
+@DEL /Q HelloWorld.tap
+%bin%\bin2data.exe -rem -org 26000 HelloWorld.bin ..\HelloWorld.tap HelloWorld
 
 @REM ======================================================================
-@ECHO Now you can run the image "HelloWorld.trd" in your favourite emulator
+@ECHO Now you can run the image "HelloWorld.tap" in your favourite emulator
 @REM ======================================================================
 
-START ..\HelloWorld.trd
+START ..\HelloWorld.tap

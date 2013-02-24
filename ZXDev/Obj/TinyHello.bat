@@ -15,15 +15,13 @@
 @REM ==================================
 %bin%\Hex2bin TinyHello.ihx
 
-@REM Link the target to TR-DOS format
-@REM ================================
-@REM WARNING! bin2trd is a MS-DOS program, must use a short filename
-@DEL /Q TINYHE~1.TRD
-%bin%\bin2trd.exe TinyHe~1.trl
-@MOVE /Y TINYHE~1.TRD ..\TinyHello.trd
+@REM Link the target to TAP format
+@REM =============================
+@DEL /Q TinyHello.tap
+%bin%\bin2data.exe -rem -org 26000 TinyHello.bin ..\TinyHello.tap TinyHello
 
 @REM ======================================================================
-@ECHO Now you can run the image "TinyHello.trd" in your favourite emulator.
+@ECHO Now you can run the image "TinyHello.tap" in your favourite emulator.
 @REM ======================================================================
 
-START ..\TinyHello.trd
+START ..\TinyHello.tap
