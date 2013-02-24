@@ -1,0 +1,116 @@
+(* Copyright (C) 2012-2013 Oleg N. Cher, VEDAsoft Oberon Club *)
+(* http://zx.oberon2.ru *)
+
+MODULE XDevCmd;
+IMPORT
+	Controllers, Dialog, Files, HostFiles, i21sysCalls, Kernel,
+	Ofront := OfrontCmd, OfrontOPM, StdLog, Strings, TextModels, TextViews,
+	Windows;
+
+CONST
+	ObjDir = "Obj";
+
+VAR
+	rootDirLen: INTEGER;
+
+PROCEDURE Open;
+BEGIN
+	Dialog.ShowStatus("#XDev:Building");
+	StdLog.buf.Delete(0, StdLog.buf.Length());
+END Open;
+
+PROCEDURE Close;
+BEGIN
+	StdLog.text.Append(StdLog.buf);
+	IF OfrontOPM.noerr THEN Dialog.ShowStatus("#XDev:Ok") END;
+	Kernel.Cleanup;
+END Close;
+
+PROCEDURE ChangeExtTo (VAR name: ARRAY OF CHAR; ext: ARRAY OF CHAR);
+CONST
+	NotFound = -1; ExtDelimiter = ".";
+VAR
+	pos, lastpos: INTEGER;
+BEGIN
+	pos := LEN(name$);
+	Strings.Find(name, ExtDelimiter, 0, lastpos);
+	WHILE lastpos # NotFound DO
+		pos := lastpos;
+		Strings.Find(name, ExtDelimiter, lastpos + 1, lastpos);
+	END;
+	FOR lastpos := 0 TO LEN(ext$) DO
+		name[pos] := ext[lastpos]; INC(pos);
+	END;
+END ChangeExtTo;
+
+PROCEDURE GetSubdirByWindow (w: Windows.Window; OUT subdir: ARRAY OF CHAR);
+VAR
+	loc: Files.Locator; ch: CHAR; s1, s2: HostFiles.FullName; i, j, pos: INTEGER;
+BEGIN
+	loc := w.loc; subdir := "";
+	WITH loc: HostFiles.Locator DO
+		i := 0; ch := loc.path[rootDirLen]; pos := 0; j := 0;
+		WHILE ch # 0X DO
+			IF (ch = "\") OR (ch = "/") THEN
+				ch := "/"; pos := i + 1; j := 0
+			ELSE
+				s2[j] := ch; INC(j);
+			END;
+			s1[i] := ch; INC(i); ch := loc.path[i + rootDirLen];
+		END;
+		s1[pos] := 0X; s2[j] := 0X;
+		IF (s2[0] = 0X) OR ((CAP(s2[0]) = "M") & (CAP(s2[1]) = "O")
+			& (CAP(s2[2]) = "D") & (s2[3] = 0X)) THEN
+				subdir := s1$;
+		ELSE
+				subdir := s1$ + s2$ + "/";
+		END;
+	END;
+END GetSubdirByWindow;
+
+PROCEDURE Exists (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
+VAR
+	f: Files.File; found: BOOLEAN;
+BEGIN
+	f := Files.dir.Old(loc, fileName$, TRUE);
+	found := f # NIL;
+	IF found THEN f.Close END;
+RETURN found
+END Exists;
+
+PROCEDURE OfrontBuild* ; (** Call a BAT file that is appropriate to a source. *)
+VAR
+	t: TextModels.Model; w: Windows.Window; 
+	loc: Files.Locator; name, dir: Files.Name;
+BEGIN
+	Open;
+	(* Launch the translation by Ofront: *)
+	IF Ofront.TranslateDone() THEN
+		(* Try to find exact file name of current opened document: *)
+		t := TextViews.FocusText();
+		IF t # NIL THEN
+			w := Windows.dir.Focus(Controllers.targetPath);
+			IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+				GetSubdirByWindow(w, dir);
+				loc := Files.dir.This(dir + ObjDir);
+				name := w.name; ChangeExtTo(name, ".bat");
+				IF Exists(loc, name) THEN
+					i21sysCalls.StartAt(loc, name);
+				ELSE
+					StdLog.String(dir + ObjDir + "/" + name + " not present, create it.");
+					StdLog.Ln;
+				END;
+			ELSE (* Module's file name not found. *)
+				StdLog.String("First, specify a file name of the module, please.");
+				StdLog.Ln;
+			END;
+		ELSE
+			Dialog.ShowMsg("#XDev:NoTextViewFound")
+		END;
+	END;
+	Close
+END OfrontBuild;
+
+BEGIN
+	rootDirLen := LEN(Files.dir.This("")(HostFiles.Locator).path$) + 1(*"/"*);
+END XDevCmd.
