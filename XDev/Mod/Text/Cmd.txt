@@ -11,7 +11,7 @@ CONST
 	ObjDir = "Obj";
 
 VAR
-	rootDirLen: INTEGER;
+	rootDir: HostFiles.FullName;
 
 PROCEDURE Open;
 BEGIN
@@ -45,18 +45,25 @@ END ChangeExtTo;
 
 PROCEDURE GetSubdirByWindow (w: Windows.Window; OUT subdir: ARRAY OF CHAR);
 VAR
-	loc: Files.Locator; ch: CHAR; s1, s2: HostFiles.FullName; i, j, pos: INTEGER;
+	loc: Files.Locator; s1, s2: HostFiles.FullName;
+	dis, i, j, pos: INTEGER; ch: CHAR;
 BEGIN
 	loc := w.loc; subdir := "";
 	WITH loc: HostFiles.Locator DO
-		i := 0; ch := loc.path[rootDirLen]; pos := 0; j := 0;
+		Strings.Find(loc.path, rootDir, 0, pos);
+		IF pos = 0 THEN (* rootDir found in loc.path. *)
+			dis := LEN(rootDir$) + 1(*"/"*);
+		ELSE
+			dis := 0;
+		END;
+		i := 0; ch := loc.path[dis]; pos := 0; j := 0;
 		WHILE ch # 0X DO
 			IF (ch = "\") OR (ch = "/") THEN
 				ch := "/"; pos := i + 1; j := 0
 			ELSE
 				s2[j] := ch; INC(j);
 			END;
-			s1[i] := ch; INC(i); ch := loc.path[i + rootDirLen];
+			s1[i] := ch; INC(i); ch := loc.path[i + dis];
 		END;
 		s1[pos] := 0X; s2[j] := 0X;
 		IF (s2[0] = 0X) OR ((CAP(s2[0]) = "M") & (CAP(s2[1]) = "O")
@@ -112,5 +119,5 @@ BEGIN
 END OfrontBuild;
 
 BEGIN
-	rootDirLen := LEN(Files.dir.This("")(HostFiles.Locator).path$) + 1(*"/"*);
+	rootDir := Files.dir.This("")(HostFiles.Locator).path$;
 END XDevCmd.
