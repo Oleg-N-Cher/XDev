@@ -1,0 +1,23 @@
+
+Introduction:
+    bin2data takes a Spectrum machine code program and generates an auto-executing TAP or TZX file.
+
+Usage:
+    bin2data [options] "input file" "output file" "program name"
+
+    "input file" specifies the machine code program to insert into the output file.
+    "output file" is the name of the tape image to create. The extension (TAP or TZX) specifies the tape format.
+    "program name" specifies the Spectrum program name given to the tape image.
+
+Options:
+    -data:  Inserts the machine code program as a series of DATA statements along with code to READ and POKE the data.
+
+    -rem:   Inserts the machine code program into a REM statement.
+
+    -org:   Specify the origin address of the code as the next command line argument after this option.
+            This is required if -data is given and optional for -rem.
+            When given for the -rem option, a code stub is inserted to copy the code from the REM statement to the specified address.
+            A CLEAR <org - 1> will be inserted into the BASIC program unless org is below 24000.
+
+    -txt:   Applicable only for tape images created using the -data option, this option creates a plain text file version of the BASIC program.
+            Specify the text filename as the next command line argument after this option, ie: -txt "myprog.txt"
