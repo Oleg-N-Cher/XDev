@@ -17,10 +17,9 @@
 
 @REM Link the target to TR-DOS format
 @REM ================================
-@REM WARNING! bin2trd is a MS-DOS program, must use a short filename
-@DEL /Q LASERD~1.TRD
-%bin%\bin2trd.exe LaserD~1.trl
-@MOVE /Y LASERD~1.TRD ../LaserDemo.trd
+@DEL /Q LaserDemo.trd
+%bin%\bin2trd.exe LaserDemo.trl
+@MOVE /Y laserdemo.trd ..\LaserDemo.trd
 
 @REM ======================================================================
 @ECHO Now you can run the image "LaserDemo.trd" in your favourite emulator

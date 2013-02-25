@@ -2,5 +2,5 @@
 
 EXTENDED "ZXDev"
 HOBETA "..\Bin\Boot.$b","boot","B"
-BINARY "LaserD~1.bin","Dash","C",26000
+BINARY "LaserDemo.bin","Dash","C",26000
 ;end of disk
