@@ -48,6 +48,13 @@ Main goals and benefits of XDev
   and modular programming languages - Oberon, Oberon-2, Component Pascal.
 
 
+COPYRIGHT
+=========
+GNU software is Copyright by the Free Software Foundation.
+DJGPP is Copyright by DJ Delorie.
+
+
+--
 Oleg N. Cher, 2012,
 VEDAsoft Oberon Club
 http://zx.oberon2.ru
