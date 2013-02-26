@@ -1,0 +1,5 @@
+ZXDev
+=====
+
+This is a subsystem for development ZX Spectrum software.
+You also need XDev kit package from http://sf.net/projects/bb-xdev/
