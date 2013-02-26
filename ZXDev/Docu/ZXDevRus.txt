@@ -30,11 +30,13 @@ Sinclair ZX Spectrum. Основана на оптимизирующем компиляторе высокого класса SDC
 Планируется поддержка других языков (Модула-2, Паскаль, возможно, Компонентный Паскаль)
 и кодогенерации для других платформ (UNIX/Linux, J2ME, Android).
 
+
 Возможности
 ===========
 
 - Поддержана плоская модель памяти Sinclair ZX Spectrum с 48Kb.
 - Реализована эффективная оптимизирующая кодогенерация (средствами SDCC).
+
 
 Доступные библиотеки
 ====================
@@ -42,13 +44,18 @@ Sinclair ZX Spectrum. Основана на оптимизирующем компиляторе высокого класса SDC
 - Libs/Mod/Basic.odc - Sinclair ZX Spectrum Basic for Ofront/SDCC
 - Libs/Mod/Laser.odc - Laser Basic for Ofront/SDCC
 
+
 Быстрый старт
 =============
 
-Скачать: https://github.com/Oleg-N-Cher/BB-XDev/zipball/master
-Контроль версий: https://github.com/Oleg-N-Cher/BB-XDev
-Официальный форум: http://zx.oberon2.ru/forum/viewforum.php?f=10
-Документация: ZXDev/Docu
+Документация:      ZXDev/Docu
+Скачать:           https://github.com/Oleg-N-Cher/BB-XDev/zipball/master
+Контроль версий:   https://github.com/Oleg-N-Cher/BB-XDev
+
+Форум поддержки:   http://zx.oberon2.ru/forum/viewforum.php?f=10
+ZXDev на ZX.PK.ru: http://zx.pk.ru/showthread.php?t=18472
+ZXDev на WoS:      http://www.worldofspectrum.org/forums/showthread.php?t=41120
+
 
 Файлы .odc - это Oberon DoCument, открываются в программе BlackBox.exe,
 можете ассоциировать их с ней.
