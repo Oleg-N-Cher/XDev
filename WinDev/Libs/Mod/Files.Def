@@ -1,25 +1,26 @@
 DEFINITION Files; (* portable layer for LibC - file IO. *)
 
-IMPORT SYSTEM;
+  TYPE
+    File = RECORD (* Binary file. *)
+      end-: BOOLEAN; (* Is end of file? *)
+      error-: BOOLEAN; (* Is no file errors? *)
+      PROCEDURE (VAR file: File) Close;
+      (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+      PROCEDURE (VAR file: File) OpenToRead (fname: STRING);
+      (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+      PROCEDURE (VAR file: File) OpenToWrite (fname: STRING);
+    END;
+    FileToRead = RECORD (File) (* Binary file to read only. *)
+      PROCEDURE (VAR fromfile: FileToRead) ReadByte(): SYSTEM.BYTE;
+    END;
+    FileToWrite = RECORD (File) (* Binary file to write only. *)
+      PROCEDURE (VAR tofile: FileToWrite) WriteByte(byte: SYSTEM.BYTE);
+    END;
 
-TYPE
-  File = RECORD (* Binary file. *)
-    end-: BOOLEAN; (* Is end of file? *)
-    error-: BOOLEAN; (* Is no file errors? *)
-  END;
-  FileToRead = RECORD (File) (* Binary file to read only. *)
-  END;
-  FileToWrite = RECORD (File) (* Binary file to write only. *)
-  END;
-
-PROCEDURE (VAR file: File) OpenToRead (fname: STRING); (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
-PROCEDURE (VAR file: File) OpenToWrite (fname: STRING); (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
-PROCEDURE (VAR file: File) Close;
-
-PROCEDURE (VAR fromfile: FileToRead) ReadByte (): SYSTEM.BYTE;
-PROCEDURE (VAR tofile: FileToWrite) WriteByte (byte: SYSTEM.BYTE);
-
-PROCEDURE DeleteFile (fname: STRING): BOOLEAN; (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
-PROCEDURE ExistsFile (fname: STRING): BOOLEAN; (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+  (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+  PROCEDURE DeleteFile (fname: STRING): BOOLEAN;
+  (* UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+  PROCEDURE ExistsFile (fname: STRING): BOOLEAN;
 
 END Files.
+

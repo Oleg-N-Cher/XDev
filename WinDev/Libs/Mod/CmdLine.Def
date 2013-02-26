@@ -1,12 +1,13 @@
 DEFINITION CmdLine; (* portable layer for LibC - command line parameters handling *)
-IMPORT SYSTEM;
 
-TYPE
-  String = ... ;
+  TYPE
+    Char = CHAR;
+    String = ARRAY 1024 OF CHAR;
 
-VAR
-  paramCount-: INTEGER;
+  VAR
+    paramCount-: INTEGER;
 
-PROCEDURE GetParam (n: INTEGER; VAR param: ARRAY OF CHAR);
+  PROCEDURE GetParam (n: INTEGER; VAR param: ARRAY OF CHAR);
 
 END CmdLine.
+

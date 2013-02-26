@@ -1,0 +1,11 @@
+DEFINITION Console; (* portable layer for LibC - output to standard out *)
+
+  PROCEDURE WriteCh (ch: CHAR); (* Write ANSI character. *)
+  PROCEDURE WriteInt (n: LONGINT); (* Write signed long integer number into console. *)
+  PROCEDURE WriteLn; (* Write from next line (CR). *)
+  (** UNSAFE! Make sure that value of array 'str' is null-terminated. *)
+  PROCEDURE WriteStr (str: STRING);
+  (* UNSAFE! Make sure that value of array 'str' is null-terminated. *)
+  PROCEDURE WriteStrLn (str: STRING);
+
+END Console.
