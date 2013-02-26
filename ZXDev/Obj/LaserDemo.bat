@@ -2,13 +2,13 @@
 @REM ===================
 
 @SET bin=..\Bin
-@SET libs=..\Libs
+@SET lib=..\Lib
 @SET obj=..\..\Ofront\Obj
 
 @IF EXIST %obj%\LaserDemo.h @DEL %obj%\LaserDemo.h
 @IF EXIST %obj%\LaserDemo.sym @DEL %obj%\LaserDemo.sym
 @IF EXIST %obj%\LaserDemo.c @MOVE /Y %obj%\LaserDemo.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %libs% -L %libs%/z80 LaserDemo.c Basic.lib Laser.lib
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %lib% -L %lib%/z80 LaserDemo.c Basic.lib Laser.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary

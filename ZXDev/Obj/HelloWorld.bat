@@ -2,13 +2,13 @@
 @REM ====================
 
 @SET bin=..\Bin
-@SET libs=..\Libs
+@SET lib=..\Lib
 @SET obj=..\..\Ofront\Obj
 
 @IF EXIST %obj%\HelloWorld.h @DEL %obj%\HelloWorld.h
 @IF EXIST %obj%\HelloWorld.sym @DEL %obj%\HelloWorld.sym
 @IF EXIST %obj%\HelloWorld.c @MOVE /Y %obj%\HelloWorld.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %libs% -L %libs%/z80 HelloWorld.c Basic.lib
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %lib% -L %lib%/z80 HelloWorld.c Basic.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
