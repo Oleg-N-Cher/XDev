@@ -13,7 +13,7 @@
 
 @REM Convert Intel hex format to binary
 @REM ==================================
-%bin%\Hex2bin TinyHello.ihx
+%bin%\hex2bin TinyHello.ihx
 
 @REM Link the target to TAP format
 @REM =============================

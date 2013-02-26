@@ -13,7 +13,7 @@
 
 @REM Convert Intel hex format to binary
 @REM ==================================
-%bin%\Hex2bin LaserDemo.ihx
+%bin%\hex2bin LaserDemo.ihx
 
 @REM Link the target to TR-DOS format
 @REM ================================

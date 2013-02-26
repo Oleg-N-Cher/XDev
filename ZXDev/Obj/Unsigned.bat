@@ -13,7 +13,7 @@
 
 @REM Convert Intel hex format to binary
 @REM ==================================
-%bin%\Hex2bin Unsigned.ihx
+%bin%\hex2bin Unsigned.ihx
 
 @REM Link the target to TAP format
 @REM =============================
