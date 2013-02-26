@@ -19,6 +19,7 @@
 @REM ================================
 @DEL /Q LaserDemo.trd
 %bin%\bin2trd.exe LaserDemo.trl
+@ATTRIB -R laserdemo.trd
 @MOVE /Y laserdemo.trd ..\LaserDemo.trd
 
 @REM ======================================================================
