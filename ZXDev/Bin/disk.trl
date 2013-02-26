@@ -1,6 +1,0 @@
-;my disk
-
-EXTENDED "zx"
-HOBETA "bin2trd\Boot.$b","boot","B"
-BINARY "aa.bin","Dash","C",26000
-;end of disk
