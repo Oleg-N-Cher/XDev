@@ -74,6 +74,7 @@ extern void SYSTEM_FINI();
 
 /* runtime system variables */
 extern LONGINT SYSTEM_argc;
-extern LONGINT SYSTEM_argv; 
+extern LONGINT SYSTEM_argv;
+extern CHAR *SYSTEM_str_arg;
 
 #endif
