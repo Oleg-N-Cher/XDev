@@ -8,7 +8,7 @@ Ofront/.gitignore
 Rose/
 Samurai/
 Sdl/
-ZXDev/Bin/MakeZX/
+WinDev/Mod/MakeZX/
 *.dll
 *.asm
 *.bin
