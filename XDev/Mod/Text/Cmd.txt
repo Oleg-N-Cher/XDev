@@ -43,12 +43,11 @@ BEGIN
 	woext := name$; woext[pos] := 0X;
 END GetNameWoExt;
 
-PROCEDURE GetSubdirByWindow (w: Windows.Window; OUT subdir: ARRAY OF CHAR);
+PROCEDURE GetSubdirByLocator (loc: Files.Locator; OUT subdir: ARRAY OF CHAR);
 VAR
-	loc: Files.Locator; s1, s2: HostFiles.FullName;
-	dis, i, j, pos: INTEGER; ch: CHAR;
+	s1, s2: HostFiles.FullName; dis, i, j, pos: INTEGER; ch: CHAR;
 BEGIN
-	loc := w.loc; subdir := "";
+	subdir := "";
 	WITH loc: HostFiles.Locator DO
 		Strings.Find(loc.path, rootDir, 0, pos);
 		IF pos = 0 THEN (* rootDir found in loc.path. *)
@@ -73,7 +72,7 @@ BEGIN
 				subdir := s1$ + s2$ + "/";
 		END;
 	END;
-END GetSubdirByWindow;
+END GetSubdirByLocator;
 
 PROCEDURE Exists (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
 VAR
@@ -99,7 +98,7 @@ BEGIN
 		IF t # NIL THEN
 			w := Windows.dir.Focus(Controllers.targetPath);
 			IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-				GetSubdirByWindow(w, dir);
+				GetSubdirByLocator(w.loc, dir);
 				loc := Files.dir.This(dir + BinDir);
 				IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
 					GetNameWoExt(w.name, name);
@@ -110,11 +109,9 @@ BEGIN
 						Close; RETURN
 					END;
 					loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
-					i21sysCalls.StartAt(loc,
-						'"' + dir + BinDir + '/compile.bat" ' + name);
+					i21sysCalls.StartAt(loc, "..\Bin\compile.bat " + name$);
 				ELSE
-					StdLog.String(
-						dir + BinDir + "/" + "compile.bat not present, create it.");
+					StdLog.String('"' + dir + BinDir + '/' + 'compile.bat" not found.');
 					StdLog.Ln;
 				END;
 			ELSE (* Module's file name not found. *)
@@ -142,7 +139,7 @@ BEGIN
 		IF t # NIL THEN
 			w := Windows.dir.Focus(Controllers.targetPath);
 			IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-				GetSubdirByWindow(w, dir);
+				GetSubdirByLocator(w.loc, dir);
 				loc := Files.dir.This(dir + ObjDir);
 				GetNameWoExt(w.name, name); name := name$ + ".bat";
 				IF Exists(loc, name) THEN
@@ -158,11 +155,11 @@ BEGIN
 							Close; RETURN
 						END;
 						loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
-						i21sysCalls.StartAt(loc,
-							'"' + dir + BinDir + '/build.bat" ' + name);
+						i21sysCalls.StartAt(loc, "..\Bin\build.bat " + name$);
 					ELSE
 						StdLog.String(
-							dir + ObjDir + "/" + name + " not present, create it.");
+							'"' + dir + ObjDir + '/' + name + '"' + ' or ' +
+							'"' + dir + BinDir + '/' + 'build.bat" not found.');
 						StdLog.Ln;
 					END
 			END;
