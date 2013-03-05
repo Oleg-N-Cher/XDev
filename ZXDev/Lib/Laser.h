@@ -9,7 +9,6 @@
 #define Laser__h
 
 #include "SYSTEM.h"
-interface
 
 import void Laser_Init (void);
 /* Functions for screen windows processing */

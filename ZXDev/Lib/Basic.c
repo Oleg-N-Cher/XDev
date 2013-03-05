@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 #include "Basic.h"
 
-interface
+/*interface*/
 export void Basic_Init (void);
 export void Basic_BORDER_stdcall (SHORTINT color);
 export void Basic_INK_stdcall (SHORTINT color);
@@ -29,8 +29,6 @@ export SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
 export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
-/*export SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr);
-export void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);*/
 export SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
 export void Basic_PRINT_FAST (INTEGER i);
@@ -48,7 +46,7 @@ export void Basic_FONT (SYSTEM_ADDRESS addr);
 export void Basic_Reset (void);
 export void Basic_Quit (void);
 
-implementation
+/*implementation*/
 
 import CARDINAL _RandBB (void);
 
@@ -699,43 +697,6 @@ __asm
 #endif
 __endasm;
 } //Basic_SlowCircle
-
-/*
-SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr)
-{
-__asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   L,4(IX)
-  LD   H,5(IX)
-  LD   L,(HL)
-#ifdef __SDCC
-  POP  IX
-#endif
-__endasm;
-} //Basic_PEEK
-
-void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value)
-{
-__asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   L,4(IX)
-  LD   H,5(IX)
-  LD   A,6(IX)
-  LD   (HL),A
-#ifdef __SDCC
-  POP  IX
-#endif
-__endasm;
-} //Basic_POKE
-*/
 
 /*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port)

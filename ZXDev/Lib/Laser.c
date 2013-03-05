@@ -9,7 +9,7 @@
 #include "Rsrc.h"
 #include "Laser.h"
 
-interface
+/*interface*/
 
 export void Laser_Init (void);
 /* Functions for screen windows processing */
@@ -85,7 +85,7 @@ export void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
 export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
                         SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
 
-implementation
+/*implementation*/
 
 /*================================== Header ==================================*/
 
