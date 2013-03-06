@@ -1,5 +1,5 @@
 {$APPTYPE CONSOLE}
-PROGRAM smartlinkrel;
+PROGRAM smartlib;
 
 USES Windows, KOL;
 
@@ -194,4 +194,4 @@ BEGIN
     Kol.ExtractFileNameWOext(ParamStr(1))+'_' + partName +'.c',
       header + src
     );
-END {smartlinkrel}.
+END {smartlib}.
