@@ -9,6 +9,7 @@ Rose/
 Samurai/
 Sdl/
 WinDev/Mod/MakeZX/
+ZXDev/Lib/Obj/
 *.dll
 *.asm
 *.bin
