@@ -43,7 +43,7 @@ BEGIN
 	woext := name$; woext[pos] := 0X;
 END GetNameWoExt;
 
-PROCEDURE GetSubdirByLocator (loc: Files.Locator; OUT subdir: ARRAY OF CHAR);
+PROCEDURE GetSubsysDirByLocator (loc: Files.Locator; OUT subdir: ARRAY OF CHAR);
 VAR
 	s1, s2: HostFiles.FullName; dis, i, j, pos: INTEGER; ch: CHAR;
 BEGIN
@@ -72,7 +72,7 @@ BEGIN
 				subdir := s1$ + s2$ + "/";
 		END;
 	END;
-END GetSubdirByLocator;
+END GetSubsysDirByLocator;
 
 PROCEDURE Exists (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
 VAR
@@ -91,36 +91,37 @@ VAR
 	spacePos: INTEGER;
 BEGIN
 	Open;
-	(* Launch the translation by Ofront: *)
-	IF Ofront.TranslateDone() THEN
-		(* Try to find exact file name of current opened document: *)
-		t := TextViews.FocusText();
-		IF t # NIL THEN
-			w := Windows.dir.Focus(Controllers.targetPath);
-			IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-				GetSubdirByLocator(w.loc, dir);
-				loc := Files.dir.This(dir + BinDir);
-				IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
-					GetNameWoExt(w.name, name);
-					Strings.Find(name, " ", 0, spacePos);
-					IF spacePos # NotFound THEN
-						StdLog.String("Module's file name must not contain a space.");
-						StdLog.Ln;
-						Close; RETURN
-					END;
-					loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
-					i21sysCalls.StartAt(loc, "..\Bin\compile.bat " + name$);
-				ELSE
-					StdLog.String('"' + dir + BinDir + '/' + 'compile.bat" not found.');
+	(* Try to find exact file name of current opened document: *)
+	t := TextViews.FocusText();
+	IF t # NIL THEN
+		w := Windows.dir.Focus(Controllers.targetPath);
+		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+			GetSubsysDirByLocator(w.loc, dir);
+			(* Launch the translation by Ofront: *)
+			OfrontOPM.SetWorkDir(dir, TRUE);
+			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			loc := Files.dir.This(dir + BinDir);
+			IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
+				GetNameWoExt(w.name, name);
+				Strings.Find(name, " ", 0, spacePos);
+				IF spacePos # NotFound THEN
+					StdLog.String("Module's file name must not contain a space.");
 					StdLog.Ln;
+					Close; RETURN
 				END;
-			ELSE (* Module's file name not found. *)
-				StdLog.String("First, specify a file name of the module, please.");
+				loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
+				StdLog.String(loc(HostFiles.Locator).path$); StdLog.Ln;
+				i21sysCalls.StartAt(loc, "..\Bin\compile.bat " + name$);
+			ELSE
+				StdLog.String('"' + dir + BinDir + '/' + 'compile.bat" not found.');
 				StdLog.Ln;
 			END;
-		ELSE
-			Dialog.ShowMsg("#XDev:NoTextViewFound")
+		ELSE (* Module's file name not found. *)
+			StdLog.String("First, specify a file name of the module, please.");
+			StdLog.Ln;
 		END;
+	ELSE
+		Dialog.ShowMsg("#XDev:NoTextViewFound")
 	END;
 	Close
 END OfrontCompile;
@@ -132,44 +133,45 @@ VAR
 	spacePos: INTEGER;
 BEGIN
 	Open;
-	(* Launch the translation by Ofront: *)
-	IF Ofront.TranslateDone() THEN
-		(* Try to find exact file name of current opened document: *)
-		t := TextViews.FocusText();
-		IF t # NIL THEN
-			w := Windows.dir.Focus(Controllers.targetPath);
-			IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-				GetSubdirByLocator(w.loc, dir);
-				loc := Files.dir.This(dir + ObjDir);
-				GetNameWoExt(w.name, name); name := name$ + ".bat";
-				IF Exists(loc, name) THEN
-					i21sysCalls.StartAt(loc, name); (* Start "Obj/Module.bat" *)
-				ELSE
-					loc := Files.dir.This(dir + BinDir);
-					IF Exists(loc, "build.bat") THEN (* Start "Bin/build.bat Module". *)
-						GetNameWoExt(w.name, name);
-						Strings.Find(name, " ", 0, spacePos);
-						IF spacePos # NotFound THEN
-							StdLog.String("Module's file name must not contain a space.");
-							StdLog.Ln;
-							Close; RETURN
-						END;
-						loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
-						i21sysCalls.StartAt(loc, "..\Bin\build.bat " + name$);
-					ELSE
-						StdLog.String(
-							'"' + dir + ObjDir + '/' + name + '"' + ' or ' +
-							'"' + dir + BinDir + '/' + 'build.bat" not found.');
+	(* Try to find exact file name of current opened document: *)
+	t := TextViews.FocusText();
+	IF t # NIL THEN
+		w := Windows.dir.Focus(Controllers.targetPath);
+		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+			GetSubsysDirByLocator(w.loc, dir);
+			(* Launch the translation by Ofront: *)
+			OfrontOPM.SetWorkDir(dir, TRUE);
+			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			loc := Files.dir.This(dir + ObjDir);
+			GetNameWoExt(w.name, name); name := name$ + ".bat";
+			IF Exists(loc, name) THEN
+				i21sysCalls.StartAt(loc, name); (* Start "Obj/Module.bat" *)
+			ELSE
+				loc := Files.dir.This(dir + BinDir);
+				IF Exists(loc, "build.bat") THEN (* Start "Bin/build.bat Module". *)
+					GetNameWoExt(w.name, name);
+					Strings.Find(name, " ", 0, spacePos);
+					IF spacePos # NotFound THEN
+						StdLog.String("Module's file name must not contain a space.");
 						StdLog.Ln;
-					END
-			END;
-			ELSE (* Module's file name not found. *)
-				StdLog.String("First, specify a file name of the module, please.");
-				StdLog.Ln;
-			END;
-		ELSE
-			Dialog.ShowMsg("#XDev:NoTextViewFound")
+						Close; RETURN
+					END;
+					loc := Files.dir.This(dir + ObjDir); (* Start in /Obj directory. *)
+					StdLog.String(loc(HostFiles.Locator).path$); StdLog.Ln;
+					i21sysCalls.StartAt(loc, "..\Bin\build.bat " + name$);
+				ELSE
+					StdLog.String(
+						'"' + dir + ObjDir + '/' + name + '"' + ' or ' +
+						'"' + dir + BinDir + '/' + 'build.bat" not found.');
+					StdLog.Ln;
+				END
 		END;
+		ELSE (* Module's file name not found. *)
+			StdLog.String("First, specify a file name of the module, please.");
+			StdLog.Ln;
+		END;
+	ELSE
+		Dialog.ShowMsg("#XDev:NoTextViewFound")
 	END;
 	Close
 END OfrontBuild;
