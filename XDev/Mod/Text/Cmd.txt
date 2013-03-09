@@ -98,7 +98,7 @@ BEGIN
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, TRUE);
+			OfrontOPM.SetWorkDir(dir, dir, TRUE);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
@@ -140,7 +140,7 @@ BEGIN
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, TRUE);
+			OfrontOPM.SetWorkDir(dir, dir, TRUE);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + ObjDir);
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
