@@ -45,7 +45,7 @@ typedef unsigned char SYSTEM_BYTE;
 /* runtime system routines */
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
-extern long SYSTEM_ENTIER();
+extern long SYSTEM_ENTIER (float x);
 extern long SYSTEM_ASH();
 extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
@@ -197,10 +197,10 @@ extern int __STRCMP (CHAR *x, CHAR *y);
 #else
   #define __TDESC(t, m, n) \
 	static struct t##__desc {\
-		char name; \
-		char base[1]; \
+		long tproc[m]; \
+		long ptr[n+1]; \
 	} t##__desc
-  #define __TDFLDS(name, size) 0
+  #define __TDFLDS(name, size)	{}
 #endif
 
 #define __BASEOFF	(__MAXEXT+1)
