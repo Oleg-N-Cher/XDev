@@ -4,8 +4,8 @@
 MODULE XDevCmd;
 IMPORT
 	Controllers, Dialog, Files, HostFiles, i21sysCalls, Kernel,
-	Ofront := OfrontCmd, OfrontOPM, StdLog, Strings, TextModels, TextViews,
-	Windows;
+	Ofront := OfrontCmd, OfrontOPM, StdLog, Strings, TextModels,
+	TextViews, Windows;
 
 CONST
 	BinDir = "Bin";
@@ -84,6 +84,32 @@ BEGIN
 RETURN found
 END Exists;
 
+PROCEDURE HaveMainAttribute (t: TextModels.Model): BOOLEAN;
+VAR
+	ch: CHAR; reader: TextModels.Reader;
+
+	PROCEDURE Match (IN s: ARRAY OF CHAR): BOOLEAN;
+	VAR
+		i, n: INTEGER;
+	BEGIN
+		i := 0; n := LEN(s$);
+		WHILE ~reader.eot & (ch = " ") DO reader.ReadChar(ch) END;
+		WHILE ~reader.eot & (i < n) & (ch = s[i]) DO
+			reader.ReadChar(ch); INC(i);
+		END;
+		RETURN i = n
+	END Match;
+
+	BEGIN
+		ASSERT(t # NIL, 20);
+		reader := t.NewReader(reader); reader.SetPos(0);
+		WHILE ~reader.eot DO
+			reader.ReadChar(ch);
+			IF Match("(*") & Match("$MAIN") THEN RETURN TRUE END;
+		END;
+		RETURN FALSE
+	END HaveMainAttribute;
+
 PROCEDURE OfrontCompile* ; (** Call "Bin/compile.bat" script. *)
 VAR
 	t: TextModels.Model; w: Windows.Window; 
@@ -99,6 +125,7 @@ BEGIN
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
 			OfrontOPM.SetWorkDir(dir, dir, TRUE);
+			OfrontOPM.options.mainprog := HaveMainAttribute(t);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
@@ -141,6 +168,7 @@ BEGIN
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
 			OfrontOPM.SetWorkDir(dir, dir, TRUE);
+			OfrontOPM.options.mainprog := HaveMainAttribute(t);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + ObjDir);
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
