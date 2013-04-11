@@ -1,56 +1,80 @@
 /*  Ofront 1.2 -xtspkae */
-#include "SYSTEM.h"
+#include <windows.h>
 #include "Console.h"
+#include "SYSTEM.h"
 
-export void Console_WriteCh (CHAR ch);
-export void Console_WriteInt (LONGINT n);
-export void Console_WriteLn (void);
-export void Console_WriteStr (CHAR *str, LONGINT str__len);
-export void Console_WriteStrLn (CHAR *str, LONGINT str__len);
+export void Console_WriteCh_StdIO (CHAR ch);
+export void Console_WriteInt_StdIO (LONGINT n);
+export void Console_WriteLn_StdIO (void);
+export void Console_WriteStr_StdIO (CHAR *str);
+export void Console_WriteStrLn_StdIO (CHAR *str);
 
-#include <stdio.h>
-#define Console_writeCh(ch)	printf("%c", ch)
-#define Console_writeInt(n)	printf("%ld", n)
-#define Console_writeLInt(n)	printf("%lld", n)
-#define Console_writeLn()	printf("\n")
-#define Console_writeStr(str, str__len)	printf("%s", str)
-#define Console_writeStrLn(str, str__len)	printf("%s\n", str)
-
+/* WinAPI */
+export void Console_At_WinAPI (INTEGER x, INTEGER y);
+export void Console_SetColors_WinAPI (INTEGER colors);
+export void Console_WriteLn_WinAPI (void);
+export void Console_WriteStr_WinAPI (CHAR *str);
 /*================================== Header ==================================*/
-void Console_WriteInt (LONGINT n)
+
+/*
+#include <stdio.h>
+#define Console_writeLInt(n)	printf("%lld", n)
+*/
+export void Console_WriteInt_StdIO (LONGINT n)
 {
-	Console_writeInt(n);
+  printf("%ld", n);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteStr (CHAR *str, LONGINT str__len)
+export void Console_WriteStr_StdIO (CHAR *str)
 {
-	Console_writeStr(str, str__len);
+  printf("%s", str);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteStrLn (CHAR *str, LONGINT str__len)
+export void Console_WriteStrLn_StdIO (CHAR *str)
 {
-	Console_writeStrLn(str, str__len);
+  printf("%s\n", str);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh (CHAR ch)
+export void Console_WriteCh_StdIO (CHAR ch)
 {
-	Console_writeCh(ch);
+  printf("%c", ch);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteLn (void)
+export void Console_WriteLn_StdIO (void)
 {
-	Console_writeLn();
+  printf("\n");
 }
 
-//export void *Console__init(void)
-//{
-//	__DEFMOD;
-//	__REGMOD("Console", 0);
-//	__REGCMD("WriteLn", Console_WriteLn);
-///* BEGIN */
-//	__ENDMOD;
-//}
+/*--------------------------------- Cut here ---------------------------------*/
+
+/* WinAPI */
+void Console_At_WinAPI (INTEGER x, INTEGER y)
+{
+  COORD coord; coord.X = x; coord.Y = y;
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteLn_WinAPI (void)
+{
+  printf("\n");
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteStr_WinAPI (CHAR *str)
+{
+  INTEGER maxLen;
+  HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+  WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_SetColors_WinAPI (INTEGER colors)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colors);
+}
+
