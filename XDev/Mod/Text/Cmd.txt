@@ -126,6 +126,7 @@ BEGIN
 			(* Launch the translation by Ofront: *)
 			OfrontOPM.SetWorkDir(dir, dir, TRUE);
 			OfrontOPM.options.mainprog := HaveMainAttribute(t);
+			Dialog.UpdateBool(OfrontOPM.options.mainprog);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile.bat") THEN (* Start "Bin/compile.bat Module". *)
@@ -169,6 +170,7 @@ BEGIN
 			(* Launch the translation by Ofront: *)
 			OfrontOPM.SetWorkDir(dir, dir, TRUE);
 			OfrontOPM.options.mainprog := HaveMainAttribute(t);
+			Dialog.UpdateBool(OfrontOPM.options.mainprog);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 			loc := Files.dir.This(dir + ObjDir);
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
