@@ -14,7 +14,7 @@ typedef
 import SET Platform_BITS (INTEGER i);
 import void Platform_DISPOSE (SYSTEM_PTR mem);
 import INTEGER Platform_ORD (SET s);
-#define Platform__init()
+import void *Platform__init(void);
 
 
 #endif

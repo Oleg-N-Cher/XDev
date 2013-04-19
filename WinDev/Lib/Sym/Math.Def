@@ -1,0 +1,16 @@
+DEFINITION Math;
+
+  CONST
+    E = 2.718281745910645;
+    Pi = 3.141592741012573;
+
+  PROCEDURE ArcTan (x: REAL): REAL;
+  PROCEDURE Cos (x: REAL): REAL;
+  PROCEDURE Exp (x: REAL): REAL;
+  PROCEDURE Ln (x: REAL): REAL;
+  PROCEDURE Randomize;
+  PROCEDURE RndRange (rangeMin, rangeMax: INTEGER): INTEGER;
+  PROCEDURE Sin (x: REAL): REAL;
+  PROCEDURE Sqrt (x: REAL): REAL;
+
+END Math.
