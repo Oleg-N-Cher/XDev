@@ -51,6 +51,7 @@ extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
 extern float SYSTEM_ABSD();
+extern int SYSTEM_STRCMP();
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
 #ifdef __STDC__
@@ -148,7 +149,7 @@ extern void SYSTEM_ENUMR();
 #define __SETRNG(l, h)	((~(SET)0<<(l))&~(SET)0>>(8*sizeof(SET)-1-(h)))
 #define __MASK(x, m)	((x)&~(m))
 #define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
-extern int __STRCMP (CHAR *x, CHAR *y);
+#define __STRCMP SYSTEM_STRCMP
 #define __ASH(x, n)	((n)>=0?__ASHL(x,n):__ASHR(x,-(n)))
 #define __ASHL(x, n)	((long)(x)<<(n))
 #define __ASHR(x, n)	((long)(x)>>(n))
@@ -245,7 +246,7 @@ extern SHORTINT SYSTEM_gclock;
 extern BOOLEAN SYSTEM_interrupted;
 
 /* ANSI prototypes; not used so far
-static int __STRCMP(CHAR *x, CHAR *y);
+int SYSTEM_STRCMP(CHAR *x, CHAR *y);
 void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
 long SYSTEM_XCHK(long i, long ub);
