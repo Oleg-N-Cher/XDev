@@ -47,12 +47,13 @@ extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
 extern double SYSTEM_ABSD();
+extern int SYSTEM_STRCMP();
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
 #ifdef __STDC__
-extern SYSTEM_PTR SYSTEM_NEWARR(long*, long, int, int, int, ...);
+  extern SYSTEM_PTR SYSTEM_NEWARR(long*, long, int, int, int, ...);
 #else
-extern SYSTEM_PTR SYSTEM_NEWARR();
+  extern SYSTEM_PTR SYSTEM_NEWARR();
 #endif
 extern SYSTEM_PTR SYSTEM_REGMOD();
 #ifdef SYSTEM_Cfg_IncRef
@@ -63,10 +64,12 @@ extern SYSTEM_PTR SYSTEM_REGMOD();
 extern void SYSTEM_REGCMD();
 extern void SYSTEM_REGTYP();
 extern void SYSTEM_REGFIN();
-extern void SYSTEM_FINALL();
+//extern void SYSTEM_FINALL();
+#define SYSTEM_FINALL()
 extern void SYSTEM_INIT();
-extern void SYSTEM_FINI();
-extern void SYSTEM_HALT();
+//extern void SYSTEM_FINI();
+#define SYSTEM_FINI()
+extern void SYSTEM_HALT (int n);
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR();
@@ -122,7 +125,7 @@ extern void SYSTEM_ENUMR();
 #define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
 #define __NEWARR	SYSTEM_NEWARR
 #define __HALT(x)	SYSTEM_HALT(x)
-#define __ASSERT(cond, x)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
+#define __ASSERT(cond, x)	if (!(cond)) SYSTEM_HALT(x)
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ABS(x)	(((x)<0)?-(x):(x))
 #define __ABSF(x)	SYSTEM_ABS((long)(x))
@@ -134,14 +137,7 @@ extern void SYSTEM_ENUMR();
 #define __SETRNG(l, h)	((~(SET)0<<(l))&~(SET)0>>(8*sizeof(SET)-1-(h)))
 #define __MASK(x, m)	((x)&~(m))
 #define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
-static int __STRCMP(x, y)
-	CHAR *x, *y;
-{long i = 0; CHAR ch1, ch2;
-	do {ch1 = x[i]; ch2 = y[i]; i++;
-		if (!ch1) return -(int)ch2;
-	} while (ch1==ch2);
-	return (int)ch1 - (int)ch2;
-}
+#define __STRCMP SYSTEM_STRCMP
 #define __ASH(x, n)	((n)>=0?__ASHL(x,n):__ASHR(x,-(n)))
 #define __ASHL(x, n)	((long)(x)<<(n))
 #define __ASHR(x, n)	((long)(x)>>(n))
@@ -182,10 +178,10 @@ static int __STRCMP(x, y)
 #else
   #define __TDESC(t, m, n) \
 	static struct t##__desc {\
-		char name; \
-		char base[1]; \
+		long tproc[m]; \
+		long ptr[n+1]; \
 	} t##__desc
-  #define __TDFLDS(name, size) 0
+  #define __TDFLDS(name, size)	{}
 #endif
 
 #define __BASEOFF	(__MAXEXT+1)
@@ -222,7 +218,7 @@ extern LONGINT SYSTEM_argc;
 extern LONGINT SYSTEM_argv;
 extern void (*SYSTEM_Halt)();
 extern LONGINT SYSTEM_halt;
-extern LONGINT SYSTEM_assert;
+//extern LONGINT SYSTEM_assert;
 extern SYSTEM_PTR SYSTEM_modules;
 extern LONGINT SYSTEM_heapsize;
 extern LONGINT SYSTEM_allocated;
@@ -231,7 +227,7 @@ extern SHORTINT SYSTEM_gclock;
 extern BOOLEAN SYSTEM_interrupted;
 
 /* ANSI prototypes; not used so far
-static int __STRCMP(CHAR *x, CHAR *y);
+int SYSTEM_STRCMP(CHAR *x, CHAR *y);
 void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
 long SYSTEM_XCHK(long i, long ub);
