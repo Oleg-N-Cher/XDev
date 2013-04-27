@@ -11,10 +11,10 @@ export REAL Math_Ln (REAL x);
 export REAL Math_Sin (REAL x);
 export REAL Math_Sqrt (REAL x);
 
-#include <math.h>
 #define Math_arctan(x)	(atan(x))
 #define Math_cos(x)	(cos(x))
 #define Math_exp(x)	(exp(x))
+#include <math.h>
 #define Math_ln(x)	(log(x))
 #define Math_sin(x)	(sin(x))
 #define Math_sqrt(x)	(sqrt(x))
