@@ -3,27 +3,39 @@
 
 /*interface*/
 
+export void Graph_ClearDevice (void);
 export void Graph_CloseGraph (void);
 export void Graph_InitGraph (INTEGER *GraphDriver, INTEGER *GraphMode, CHAR *PathToDriver, LONGINT PathToDriver__len);
 //export void Graph_PutPixel (INTEGER x, INTEGER y);
 export void Graph_PutPixel_ROM (INTEGER x, INTEGER y);
 export void Graph_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2);
-//export void Graph_SetColor (CARDINAL Color);
+export void Graph_SetBkColor (SHORTINT color);
+export void Graph_SetColor (SHORTINT color);
+export void Graph__init (void);
+
+void BORDER (SHORTINT color);
+void BRIGHT (SHORTINT mode);
+void INVERSE (SHORTINT mode);
+void INK (SHORTINT color);
+void PAPER (SHORTINT color);
+
+extern SHORTINT color, bkcolor;
 
 /*implementation*/
 
+/* Video temp attrib */
+#define ATTR_T$ 0x5C8F
+/* Set video attrib */
+#define SETV_A$ 0x5C8D
+
 /*================================== Header ==================================*/
+SHORTINT color;
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTINT bkcolor;
+/*--------------------------------- Cut here ---------------------------------*/
 export void Graph_InitGraph (INTEGER *GraphDriver, INTEGER *GraphMode, CHAR *PathToDriver, LONGINT PathToDriver__len)
 {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#7
-  LD   (#0x5C8D),A
-  XOR  A,A
-  CALL 0x229B
-  DI
-  JP   0x0D6B
- __endasm;
+  Graph__init();
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -168,3 +180,146 @@ __asm
   JP   0x1F3D
 __endasm;
 } //Graph_CloseGraph
+
+/*--------------------------------- Cut here ---------------------------------*/
+void INVERSE (SHORTINT mode)
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   IY,#0x5C3A
+  LD   A,#20
+  RST  16 // IX-safe
+  LD   A,4(IX)
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //INVERSE
+
+/*--------------------------------- Cut here ---------------------------------*/
+void INK (SHORTINT color)
+{
+__asm
+#ifdef __SDCC
+  LD   HL,#2
+  ADD  HL,SP
+  LD   C,(HL)
+#else
+  LD   C,4(IX)
+#endif
+  LD   A,(#ATTR_T$)
+  AND  #0xF8
+  OR   C
+  LD   (#SETV_A$),A
+  LD   (#ATTR_T$),A
+__endasm;
+} //INK
+
+/*--------------------------------- Cut here ---------------------------------*/
+void PAPER (SHORTINT color)
+{
+__asm
+#ifdef __SDCC
+  LD   HL,#2
+  ADD  HL,SP
+  LD   C,(HL)
+#else
+  LD   C,4(IX)
+#endif
+  LD   A,(#ATTR_T$)
+  AND  #0xC7
+  SLA  C
+  SLA  C
+  SLA  C
+  OR   C
+  LD   (#SETV_A$),A
+  LD   (#ATTR_T$),A
+__endasm;
+} //PAPER
+
+/*--------------------------------- Cut here ---------------------------------*/
+void BORDER (SHORTINT color)
+{
+__asm
+#ifdef __SDCC
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
+#else
+  LD   A,4(IX)
+#endif
+  CALL 0x229B // IX-safe
+__endasm;
+} //BORDER
+
+/*--------------------------------- Cut here ---------------------------------*/
+void BRIGHT (SHORTINT mode)
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   IY,#0x5C3A
+  LD   A,#19
+  RST  16
+  LD   A,4(IX)
+  RST  16
+  LD   A,(#ATTR_T$)
+  LD   (#SETV_A$),A
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //BRIGHT
+
+/*--------------------------------- Cut here ---------------------------------*/
+export void Graph_SetBkColor (SHORTINT c)
+{
+  if(c == color)
+    INVERSE(1);
+  else
+    {INVERSE(0); PAPER(c); BORDER(c);}
+  bkcolor = c;
+} //Graph_SetBkColor
+/*--------------------------------- Cut here ---------------------------------*/
+export void Graph_SetColor (SHORTINT c)
+{
+  if(c == bkcolor)
+    INVERSE(1);
+  else
+    {INVERSE(0); INK(c);}
+  color = c;
+} //Graph_SetColor
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Graph_ClearDevice (void)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,(#ATTR_T$)
+  PUSH AF
+  CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (#ATTR_T$),A
+__endasm;
+} //Graph_ClearDevice
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Graph__init (void)
+{
+__asm
+  DI
+__endasm;
+  color = -1; bkcolor = -1;
+  Graph_SetBkColor(0); Graph_SetColor(7); Graph_ClearDevice();
+} //Graph__init
+

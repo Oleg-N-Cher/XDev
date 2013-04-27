@@ -5,6 +5,7 @@
 
 
 
+export void Graph_ClearDevice (void);
 export void Graph_CloseGraph (void);
 export INTEGER Graph_GetMaxX (void);
 export INTEGER Graph_GetMaxY (void);
@@ -12,8 +13,13 @@ static INTEGER Graph_GetSign (INTEGER x);
 export void Graph_InitGraph (INTEGER *GraphDriver, INTEGER *GraphMode, CHAR *PathToDriver, LONGINT PathToDriver__len);
 export void Graph_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2);
 export void Graph_PutPixel (INTEGER x, INTEGER y);
+export void Graph_SetBkColor (CARDINAL Color);
 export void Graph_SetColor (CARDINAL Color);
 
+
+void Graph_ClearDevice (void)
+{
+}
 
 void Graph_CloseGraph (void)
 {
@@ -31,6 +37,10 @@ INTEGER Graph_GetMaxX (void)
 INTEGER Graph_GetMaxY (void)
 {
 	return 191;
+}
+
+void Graph_SetBkColor (CARDINAL Color)
+{
 }
 
 void Graph_SetColor (CARDINAL Color)
@@ -95,6 +105,7 @@ export void *Graph__init(void)
 	__DEFMOD;
 	__IMPORT(Platform);
 	__REGMOD("Graph", 0);
+	__REGCMD("ClearDevice", Graph_ClearDevice);
 	__REGCMD("CloseGraph", Graph_CloseGraph);
 /* BEGIN */
 	__ENDMOD;
