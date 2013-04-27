@@ -45,13 +45,13 @@ typedef unsigned char SYSTEM_BYTE;
 /* runtime system routines */
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
-extern long SYSTEM_ENTIER (float x);
+extern long SYSTEM_ENTIER (REAL x);
 extern long SYSTEM_ASH();
 extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
-extern float SYSTEM_ABSD();
-extern int SYSTEM_STRCMP();
+extern float SYSTEM_ABSD (REAL i);
+extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
 #ifdef __STDC__
