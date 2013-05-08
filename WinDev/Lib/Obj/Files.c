@@ -33,7 +33,9 @@ typedef
 	} Files_FileToWrite;
 
 export void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte);
+export void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len);
 #define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, SYSTEM_BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, LONGINT *, CHAR*, LONGINT ), (tofile, tofile__typ, str, str__len))
 
 typedef
 	CHAR *Files_PtrSTR;
@@ -46,6 +48,7 @@ export LONGINT *Files_FileToWrite__typ;
 
 export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
+export LONGINT Files_Length (CHAR *str, LONGINT str__len);
 
 #define Files_EOF()	EOF
 #define Files_fclose(file)	fclose((FILE*)file)
@@ -123,6 +126,30 @@ void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__ty
 	}
 }
 
+void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len)
+{
+	LONGINT n;
+	n = 0;
+	while (n < str__len && str[__X(n, str__len)] != 0x00) {
+		__Files_FileToWrite_WriteByte(&*tofile, tofile__typ, str[__X(n, str__len)]);
+		if ((*tofile).error) {
+			return;
+		}
+		n += 1;
+	}
+}
+
+LONGINT Files_Length (CHAR *str, LONGINT str__len)
+{
+	LONGINT len, maxLen;
+	maxLen = str__len;
+	len = 0;
+	while (len < maxLen && str[__X(len, str__len)] != 0x00) {
+		len += 1;
+	}
+	return len;
+}
+
 BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len)
 {
 	return Files_unlink(fname, fname__len) == 0;
@@ -138,7 +165,7 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 
 __TDESC(Files_File, 4, 0) = {__TDFLDS("File", 8), {-4}};
 __TDESC(Files_FileToRead, 5, 0) = {__TDFLDS("FileToRead", 8), {-4}};
-__TDESC(Files_FileToWrite, 5, 0) = {__TDFLDS("FileToWrite", 8), {-4}};
+__TDESC(Files_FileToWrite, 6, 0) = {__TDFLDS("FileToWrite", 8), {-4}};
 
 export void *Files__init(void)
 {
@@ -152,6 +179,7 @@ export void *Files__init(void)
 	__INITBP(Files_FileToRead, Files_FileToRead_ReadByte, 3);
 	__INITYP(Files_FileToWrite, Files_File, 1);
 	__INITBP(Files_FileToWrite, Files_FileToWrite_WriteByte, 3);
+	__INITBP(Files_FileToWrite, Files_FileToWrite_WriteStr, 4);
 /* BEGIN */
 	__ENDMOD;
 }
