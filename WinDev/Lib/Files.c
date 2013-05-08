@@ -33,7 +33,9 @@ typedef
 	} Files_FileToWrite;
 
 export void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte);
+export void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len);
 #define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, SYSTEM_BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, LONGINT *, CHAR*, LONGINT ), (tofile, tofile__typ, str, str__len))
 
 typedef
 	CHAR *Files_PtrSTR;
@@ -131,6 +133,20 @@ void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__ty
 		if (Files_feof((*tofile).handle) != 0) {
 			(*tofile).end = 1;
 		}
+	}
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len)
+{
+	LONGINT n;
+	n = 0;
+	while (n < str__len && str[__X(n, str__len)] != 0x00) {
+		__Files_FileToWrite_WriteByte(&*tofile, tofile__typ, str[__X(n, str__len)]);
+		if ((*tofile).error) {
+			return;
+		}
+		n += 1;
 	}
 }
 

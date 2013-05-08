@@ -37,7 +37,9 @@ typedef
 	} Files_FileToWrite;
 
 import void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte);
+import void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len);
 #define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, SYSTEM_BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, LONGINT *, CHAR*, LONGINT ), (tofile, tofile__typ, str, str__len))
 
 
 
@@ -47,6 +49,7 @@ import LONGINT *Files_FileToWrite__typ;
 
 import BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 import BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
+import LONGINT Files_Length (CHAR *str, LONGINT str__len);
 import void *Files__init(void);
 
 

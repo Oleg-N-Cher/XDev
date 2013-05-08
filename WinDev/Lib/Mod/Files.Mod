@@ -132,6 +132,28 @@ BEGIN
   END;
 END WriteByte;
 
+PROCEDURE (VAR tofile: FileToWrite) WriteStr* (str: STRING);
+VAR
+  n: LONGINT;
+BEGIN
+  n := 0;
+  WHILE (n < LEN(str)) & (str[n] # 0X) DO
+    tofile.WriteByte(str[n]);
+    IF tofile.error THEN RETURN END; (* To safe work after error. *)
+    INC(n);
+  END;
+END WriteStr;
+
+PROCEDURE Length* (VAR str: ARRAY OF CHAR): LONGINT;
+VAR
+  len, maxLen: LONGINT;
+BEGIN
+  maxLen := LEN(str); len := 0;
+  WHILE (len < maxLen) & (str[len] # 0X) DO INC(len) END;
+  RETURN len
+END Length;
+
+
 (*
    DeleteFile - returns TRUE if a file named, fname is successfully deleted.
 *)
