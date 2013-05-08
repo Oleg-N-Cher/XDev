@@ -21,10 +21,9 @@ void Strings_IntToStr (LONGINT n, CHAR *str, LONGINT str__len)
 
 LONGINT Strings_Length (CHAR *str, LONGINT str__len)
 {
-	LONGINT len, maxLen;
-	maxLen = str__len;
+	LONGINT len;
 	len = 0;
-	while (len < maxLen && str[__X(len, str__len)] != 0x00) {
+	while (len < str__len && str[__X(len, str__len)] != 0x00) {
 		len += 1;
 	}
 	return len;

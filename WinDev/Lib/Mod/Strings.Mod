@@ -21,10 +21,10 @@ END IntToStr;
 
 PROCEDURE Length* (VAR str: ARRAY OF CHAR): LONGINT;
 VAR
-  len, maxLen: LONGINT;
+  len: LONGINT;
 BEGIN
-  maxLen := LEN(str); len := 0;
-  WHILE (len < maxLen) & (str[len] # 0X) DO INC(len) END;
+  len := 0;
+  WHILE (len < LEN(str)) & (str[len] # 0X) DO INC(len) END;
   RETURN len
 END Length;
 
