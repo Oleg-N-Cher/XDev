@@ -116,10 +116,10 @@ void Laser_Init (SYSTEM_ADDRESS sprAddr, SYSTEM_ADDRESS sprEnd)
 __asm
   LD   L,4(IX)
   LD   H,5(IX)
-  LD   (#SFSTRT$),HL
+  LD   (#SFSTRT),HL
   LD   L,6(IX)
   LD   H,7(IX)
-  LD   (#SF_END$),HL
+  LD   (#SF_END),HL
 __endasm;
   {
     struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
@@ -138,11 +138,11 @@ void Laser_Init (void)
 __asm
   PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
   LD   HL,#scrollBuf
-  LD   (#SCRL_B$),HL
+  LD   (#SCRL_B),HL
   LD   HL,#sprEnd
-  LD   (#SF_END$),HL
+  LD   (#SF_END),HL
   LD   HL,#sprAddr
-  LD   (#SFSTRT$),HL
+  LD   (#SFSTRT),HL
 /* Set sprite relocs (see Laser Basic sprite format specifications) */
   PUSH HL
   POP  IX      //  struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
@@ -180,7 +180,7 @@ SPRMULT$:
 SPREXIT$:  // }
   POP  IX
 __endasm;
-}
+} //Laser_Init
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*-----------------------------------------*/
@@ -199,7 +199,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL INVV$
+  CALL LB_INVV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -220,7 +220,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL MIRV$
+  CALL LB_MIRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -241,7 +241,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL MARV$
+  CALL LB_MARV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -262,7 +262,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SETV$
+  CALL LB_SETV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -283,7 +283,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL CLSV$
+  CALL LB_CLSV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -304,7 +304,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WL1V$
+  CALL LB_WL1V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -325,7 +325,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WR1V$
+  CALL LB_WR1V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -346,7 +346,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WL4V$
+  CALL LB_WL4V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -367,7 +367,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WR4V$
+  CALL LB_WR4V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -388,7 +388,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WL8V$
+  CALL LB_WL8V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -409,7 +409,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL WR8V$
+  CALL LB_WR8V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -430,7 +430,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SL1V$
+  CALL LB_SL1V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -451,7 +451,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SR1V$
+  CALL LB_SR1V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -472,7 +472,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SL4V$
+  CALL LB_SL4V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -493,7 +493,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SR4V$
+  CALL LB_SR4V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -514,7 +514,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SL8V$
+  CALL LB_SL8V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -535,7 +535,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL SR8V$
+  CALL LB_SR8V
 #ifdef __SDCC
   POP  IX
 #endif
@@ -557,7 +557,7 @@ __asm
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
-  CALL WCRV$
+  CALL LB_WCRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -579,7 +579,7 @@ __asm
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
-  CALL SCRV$
+  CALL LB_SCRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -600,7 +600,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL AWLV$
+  CALL LB_AWLV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -621,7 +621,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL ASLV$
+  CALL LB_ASLV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -642,7 +642,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL AWRV$
+  CALL LB_AWRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -663,7 +663,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL ASRV$
+  CALL LB_ASRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -684,7 +684,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL ATUV$
+  CALL LB_ATUV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -705,7 +705,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL ATDV$
+  CALL LB_ATDV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -726,7 +726,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL CLSM$
+  CALL LB_CLSM
 #ifdef __SDCC
   POP  IX
 #endif
@@ -744,7 +744,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL INVM$
+  CALL LB_INVM
 #ifdef __SDCC
   POP  IX
 #endif
@@ -763,7 +763,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL PTBL$
+  CALL LB_PTBL
 #ifdef __SDCC
   POP  IX
 #endif
@@ -782,7 +782,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL PTOR$
+  CALL LB_PTOR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -801,7 +801,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL PTXR$
+  CALL LB_PTXR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -820,7 +820,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL PTND$
+  CALL LB_PTND
 #ifdef __SDCC
   POP  IX
 #endif
@@ -837,7 +837,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WL1M$
+  CALL LB_WL1M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -854,7 +854,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WR1M$
+  CALL LB_WR1M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -871,7 +871,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WL4M$
+  CALL LB_WL4M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -888,7 +888,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WR4M$
+  CALL LB_WR4M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -905,7 +905,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WL8M$
+  CALL LB_WL8M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -922,7 +922,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL WR8M$
+  CALL LB_WR8M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -939,7 +939,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SL1M$
+  CALL LB_SL1M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -956,7 +956,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SR1M$
+  CALL LB_SR1M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -973,7 +973,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SL4M$
+  CALL LB_SL4M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -990,7 +990,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SR4M$
+  CALL LB_SR4M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1007,7 +1007,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SL8M$
+  CALL LB_SL8M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1024,7 +1024,7 @@ __asm
   ADD  IX,SP
 #endif
   LD   A,4(IX)
-  CALL SR8M$
+  CALL LB_SR8M
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1043,7 +1043,7 @@ __asm
 #endif
   LD   A,4(IX)
   LD   B,5(IX)
-  CALL WCRM$
+  CALL LB_WCRM
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1062,7 +1062,7 @@ __asm
 #endif
   LD   A,4(IX)
   LD   B,5(IX)
-  CALL SCRM$
+  CALL LB_SCRM
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1073,7 +1073,7 @@ __endasm;
 void Laser_ATOF (void)
 {
 __asm
-  JP   ATOF$
+  JP   LB_ATOF
 __endasm;
 }
 
@@ -1081,7 +1081,7 @@ __endasm;
 void Laser_ATON (void)
 {
 __asm
-  JP   ATON$
+  JP   LB_ATON
 __endasm;
 }
 
@@ -1097,7 +1097,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL GTBL$
+  CALL LB_GTBL
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1116,7 +1116,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL GTOR$
+  CALL LB_GTOR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1135,7 +1135,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL GTXR$
+  CALL LB_GTXR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1154,7 +1154,7 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL GTND$
+  CALL LB_GTND
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1174,7 +1174,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL PMND$
+  CALL LB_PMBL
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1194,7 +1194,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL PMOR$
+  CALL LB_PMOR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1214,7 +1214,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL PMXR$
+  CALL LB_PMXR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1234,7 +1234,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL PMND$
+  CALL LB_PMND
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1254,7 +1254,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL PMAT$
+  CALL LB_PMAT
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1274,7 +1274,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL GMBL$
+  CALL LB_GMBL
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1294,7 +1294,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL GMOR$
+  CALL LB_GMOR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1314,7 +1314,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL GMXR$
+  CALL LB_GMXR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1334,7 +1334,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL GMND$
+  CALL LB_GMND
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1354,7 +1354,7 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL GMAT$
+  CALL LB_GMAT
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1378,7 +1378,7 @@ __asm
   LD   D,8(IX) /* Sprite row */
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
-  CALL PWBL$
+  CALL LB_PWBL
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1402,7 +1402,7 @@ __asm
   LD   D,8(IX) /* Sprite row */
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
-  CALL PWOR$
+  CALL LB_PWOR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1426,7 +1426,7 @@ __asm
   LD   D,8(IX) /* Sprite row */
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
-  CALL PWXR$
+  CALL LB_PWXR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1450,7 +1450,7 @@ __asm
   LD   D,8(IX) /* Sprite row */
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
-  CALL PWND$
+  CALL LB_PWND
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1472,9 +1472,12 @@ static void __Asm_Laser__ (void)
 {
 __asm
 /* ---------------------------- */
-SCRL_B$: .DW #0x5B00 /* Buffer vor vertical scroll */
-SFSTRT$: .DW #0x0000 /* Sprite file start address */
-SF_END$: .DW #0x0000 /* Sprite file end address */
+.globl SCRL_B
+.globl SFSTRT
+.globl SF_END
+SCRL_B: .DW #0x5B00 /* Buffer vor vertical scroll */
+SFSTRT: .DW #0x0000 /* Sprite file start address */
+SF_END: .DW #0x0000 /* Sprite file end address */
 //SETV_A$: .DW #0x5C8D /* Set video attrib */
 SCR_AC$: .DW #0x4000
 SCRA_A$: .DW #0x5800
@@ -1486,7 +1489,8 @@ SCRA_A$: .DW #0x5800
 /*            1997              */
 /*          P A R T  1          */
 /* ---------------------------- */
-MARV$:
+.globl LB_MARV
+LB_MARV:
   NOP
 LB_001$:
   LD   DE,#LB_052$
@@ -1499,7 +1503,8 @@ LB_002$:
   LD   (#LB_050$+1+1),DE
   LD   (#LB_051$+1),DE
   RET
-AWLV$:
+.globl LB_AWLV
+LB_AWLV:
   CALL LB_058$
   RET  NC
   PUSH HL
@@ -1527,18 +1532,19 @@ LB_005$:
   DEC  A
   RET  Z
   JR   LB_003$+1
-ATUV$:
+.globl LB_ATUV
+LB_ATUV:
   CALL LB_064$
   CALL LB_068$
   CALL LB_058$
   RET  NC
 LB_006$:
   CALL LB_007$
-  LD   DE,(#SCRL_B$)
+  LD   DE,(#SCRL_B)
   EX   DE,HL
   LD   B,#0x00
   LDIR
-  LD   HL,(#SCRL_B$)
+  LD   HL,(#SCRL_B)
   LD   (HL),#0x00
   RET
 LB_007$:
@@ -1573,12 +1579,13 @@ LB_012$:
   PUSH HL
   PUSH BC
   LD   B,#0x00
-  LD   DE,(#SCRL_B$)
+  LD   DE,(#SCRL_B)
   LDIR
   POP  BC
   POP  HL
   RET
-ATDV$:
+.globl LB_ATDV
+LB_ATDV:
   CALL LB_064$
   CALL LB_068$
   CALL LB_058$
@@ -1594,30 +1601,34 @@ ATDV$:
   LD   A,#0x5A
   LD   (#LB_011$+1),A
   RET
-AWRV$:
+.globl LB_AWRV
+LB_AWRV:
   LD   DE,#LB_048$
 LB_013$:
   LD   (#LB_004$+1),DE
-  CALL AWLV$
+  CALL LB_AWLV
 LB_014$:
   LD   DE,#LB_046$
   LD   (#LB_004$+1),DE
   RET
-ASRV$:
+.globl LB_ASRV
+LB_ASRV:
   LD   DE,#LB_047$
   LD   (#LB_004$+1),DE
-  CALL AWLV$
+  CALL LB_AWLV
   LD   DE,#LB_046$
   LD   (#LB_004$+1),DE
   RET
-ASLV$:
+.globl LB_ASLV
+LB_ASLV:
   LD   DE,#LB_045$
   LD   (#LB_004$+1),DE
-  CALL AWLV$
+  CALL LB_AWLV
   LD   DE,#LB_046$
   LD   (#LB_004$+1),DE
   RET
-WCRV$:
+.globl LB_WCRV
+LB_WCRV:
   JP   LB_015$+1
 LB_015$:
   NOP
@@ -1688,7 +1699,8 @@ LB_020$:
   LD  HL,#LB_027$
   LD  (HL),#0x04
   RET
-SCRV$:
+.globl LB_SCRV
+LB_SCRV:
   CALL LB_068$
   PUSH HL
   LD   HL,#LB_030$
@@ -1737,7 +1749,7 @@ LB_022$:
   RET
 LB_023$:
   NOP
-  LD   DE,(#SCRL_B$)
+  LD   DE,(#SCRL_B)
   LD   A,(#LB_069$)
   BIT  7,A
   JR   Z,#LB_024$
@@ -1766,7 +1778,7 @@ LB_027$:
   INC  B
   JR   LB_024$+2
 LB_028$:
-  LD   HL,(#SCRL_B$)
+  LD   HL,(#SCRL_B)
   OR   A
   EX   DE,HL
   SBC  HL,DE
@@ -1788,7 +1800,7 @@ LB_030$:
   PUSH HL
   PUSH BC
   PUSH DE
-  LD   HL,(#SCRL_B$)
+  LD   HL,(#SCRL_B)
   LD   BC,(#LB_069$+2)
   LD   D,H
   LD   E,L
@@ -1849,39 +1861,46 @@ LB_037$:
   RET  NC
   SET  0,(HL)
   RET
-SR1V$:
+.globl LB_SR1V
+LB_SR1V:
   LD   DE,#LB_033$
   JP   LB_056$
-SL1V$:
+.globl LB_SL1V
+LB_SL1V:
   LD   DE,#LB_035$
   JP   LB_056$
-WR1V$:
+.globl LB_WR1V
+LB_WR1V:
   LD   DE,#LB_034$
   JP   LB_056$
-WL1V$:
+.globl LB_WL1V
+LB_WL1V:
   LD   DE,#LB_037$
   JP   LB_056$
-SR4V$:
+.globl LB_SR4V
+LB_SR4V:
   PUSH HL
   LD   HL,#0x67ED
   LD   (#LB_033$+2),HL
   POP  HL
 LB_038$:
-  CALL SR1V$
+  CALL LB_SR1V
   LD   HL,#0x1ECB
   LD   (#LB_033$+2),HL
   RET
-SL4V$:
+.globl LB_SL4V
+LB_SL4V:
   PUSH HL
   LD   HL,#0x6FED
   LD   (#LB_036$),HL
   POP  HL
 LB_039$:
-  CALL SL1V$
+  CALL LB_SL1V
   LD   HL,#0x16CB
   LD   (#LB_036$),HL
   RET
-WR4V$:
+.globl LB_WR4V
+LB_WR4V:
   PUSH HL
   LD   HL,#0x67ED
   LD   (#LB_033$+2),HL
@@ -1902,7 +1921,8 @@ LB_042$:
   OR  (HL)
   LD  (HL),A
   RET
-WL4V$:
+.globl LB_WL4V
+LB_WL4V:
   PUSH HL
   LD   HL,#0x6FED
   LD   (#LB_036$),HL
@@ -1914,7 +1934,8 @@ LB_043$:
 LB_044$:
   CALL LB_035$
   JR   LB_042$
-SL8V$:
+.globl LB_SL8V
+LB_SL8V:
   LD   DE,#LB_045$
   JP   LB_056$
 LB_045$:
@@ -1927,7 +1948,8 @@ LB_045$:
   DEC  HL
   LD   (HL),#0x00
   RET
-WL8V$:
+.globl LB_WL8V
+LB_WL8V:
   LD   DE,#LB_046$
   JP   LB_056$
 LB_046$:
@@ -1935,7 +1957,8 @@ LB_046$:
   CALL LB_045$
   LD   (DE),A
   RET
-SR8V$:
+.globl LB_SR8V
+LB_SR8V:
   LD   DE,#LB_047$
   JP   LB_056$
 LB_047$:
@@ -1950,7 +1973,8 @@ LB_047$:
   INC  HL
   LD   (HL),#0x00
   RET
-WR8V$:
+.globl LB_WR8V
+LB_WR8V:
   LD   DE,#LB_048$
   JP   LB_056$
 LB_048$:
@@ -2001,10 +2025,12 @@ LB_052$:
   RLC  A
   RR   B
   RET
-MIRV$:
+.globl LB_MIRV
+LB_MIRV:
   LD   DE,#LB_049$
   JP   LB_056$
-INVV$:
+.globl LB_INVV
+LB_INVV:
   LD   DE,#LB_053$
   JP   LB_056$
 LB_053$:
@@ -2015,7 +2041,8 @@ LB_053$:
   INC  HL
   DJNZ LB_053$+1
   RET
-SETV$:
+.globl LB_SETV
+LB_SETV:
   CALL LB_064$
   CALL LB_068$
   PUSH HL
@@ -2034,7 +2061,8 @@ LB_054$:
   POP  BC
   DJNZ LB_054$
   RET
-CLSV$:
+.globl LB_CLSV
+LB_CLSV:
   LD   DE,#LB_055$
   JP   LB_056$
 LB_055$:
@@ -2190,7 +2218,7 @@ LB_069$:
   NOP
   NOP
 LB_070$:
-  LD   HL,(#SFSTRT$)
+  LD   HL,(#SFSTRT)
   LD   (#LB_069$),A
 LB_071$:
   LD   B,A
@@ -2231,7 +2259,7 @@ LB_075$:
   NOP
   NOP
 LB_076$:
-  LD   HL,(#SFSTRT$)
+  LD   HL,(#SFSTRT)
   LD   A,(HL)
   CP   #0x00
   RET  Z
@@ -2250,30 +2278,30 @@ LB_076$:
   JR   LB_076$+3
 RLCT$:
   CALL LB_076$
-  LD   HL,(#SF_END$)
-  LD   DE,(#SFSTRT$)
+  LD   HL,(#SF_END)
+  LD   DE,(#SFSTRT)
   OR   A
   SBC  HL,DE
   INC  HL
   PUSH HL
   BIT  7,B
   JR   NZ,#LB_077$
-  LD   HL,(#SF_END$)
+  LD   HL,(#SF_END)
   CALL LB_078$
-  LD   (#SF_END$),DE
+  LD   (#SF_END),DE
   POP  BC
   LDDR
   INC  DE
-  LD   (#SFSTRT$),DE
+  LD   (#SFSTRT),DE
   RET
 LB_077$:
-  LD   HL,(#SFSTRT$)
+  LD   HL,(#SFSTRT)
   CALL LB_078$
-  LD   (#SFSTRT$),DE
+  LD   (#SFSTRT),DE
   POP  BC
   LDIR
   DEC  DE
-  LD   (#SF_END$),DE
+  LD   (#SF_END),DE
   RET
 LB_078$:
   PUSH HL
@@ -2296,7 +2324,7 @@ LB_079$:
   CALL NC,#LB_080$
   POP  BC
   POP  AF
-  LD   HL,(#SF_END$)
+  LD   HL,(#SF_END)
   LD   (HL),A
   INC  HL
   PUSH BC
@@ -2327,7 +2355,7 @@ LB_079$:
   LD   (HL),C
   INC  HL
   LD   (HL),B
-  LD   (#SF_END$),DE
+  LD   (#SF_END),DE
   XOR  A
   LD   (DE),A
   RET
@@ -2358,11 +2386,11 @@ LB_082$:
   LD   A,(HL)
   OR   A
   JR   NZ,#LB_081$
-  LD   HL,(#SF_END$)
+  LD   HL,(#SF_END)
   POP  DE
   OR   A
   SBC  HL,BC
-  LD   (#SF_END$),HL
+  LD   (#SF_END),HL
   ADD  HL,BC
   SBC  HL,DE
   LD   B,H
@@ -2627,7 +2655,7 @@ DSPR$:
   CALL LB_146$
   POP  AF
   CALL WSPR$
-  LD   DE,(#SF_END$)
+  LD   DE,(#SF_END)
   POP  HL
   OR   A
   SBC  HL,DE
@@ -2639,7 +2667,7 @@ MOVE$:
   PUSH DE
   PUSH HL
   PUSH BC
-  CALL PTXR$
+  CALL LB_PTXR
   POP  BC
   POP  HL
   LD   A,C
@@ -2657,7 +2685,7 @@ MOVE$:
   INC  HL
   LD   (HL),C
   PUSH DE
-  CALL PTXR$
+  CALL LB_PTXR
   POP  DE
   LD   HL,(#LB_112$)
   LD   BC,#0x000A
@@ -2666,7 +2694,8 @@ MOVE$:
   INC  HL
   LD   (HL),E
   RET
-GMAT$:
+.globl LB_GMAT
+LB_GMAT:
   PUSH AF
   XOR  A
 LB_114$:
@@ -2674,32 +2703,41 @@ LB_114$:
   LD   (#LB_214$),A
   POP  AF
   JP   LB_111$
-PMAT$:
+.globl LB_PMAT
+LB_PMAT:
   PUSH AF
   LD   A,#0xEB
   JR   LB_114$
-GMBL$:
+.globl LB_GMBL
+LB_GMBL:
   CALL LB_202$
   JP   LB_187$
-GMND$:
+.globl LB_GMND
+LB_GMND:
   CALL LB_206$
   JP   LB_187$
-GMOR$:
+.globl LB_GMOR
+LB_GMOR:
   CALL LB_204$
   JP   LB_187$
-GMXR$:
+.globl LB_GMXR
+LB_GMXR:
   CALL LB_207$
   JP   LB_187$
-PMBL$:
+.globl LB_PMBL
+LB_PMBL:
   CALL LB_202$
   JP   LB_164$
-PMND$:
+.globl LB_PMND
+LB_PMND:
   CALL LB_206$
   JP   LB_164$
-PMOR$:
+.globl LB_PMOR
+LB_PMOR:
   CALL LB_204$
   JP   LB_164$
-PMXR$:
+.globl LB_PMXR
+LB_PMXR:
   CALL LB_207$
   JP   LB_164$
 AWLM$:
@@ -2745,37 +2783,47 @@ ATDM$:
   LD   A,#0x5A
   LD   (#LB_011$+1),A
   RET
-WL1M$:
+.globl LB_WL1M
+LB_WL1M:
   LD   DE,#LB_037$
   JP   LB_156$
-WR1M$:
+.globl LB_WR1M
+LB_WR1M:
   LD   DE,#LB_034$
   JP   LB_156$
-SL8M$:
+.globl LB_SL8M
+LB_SL8M:
   LD   DE,#LB_045$
   JP   LB_156$
-SR8M$:
+.globl LB_SR8M
+LB_SR8M:
   LD   DE,#LB_047$
   JP   LB_156$
-WL8M$:
+.globl LB_WL8M
+LB_WL8M:
   LD   DE,#LB_046$
   JP   LB_156$
-WR8M$:
+.globl LB_WR8M
+LB_WR8M:
   LD   DE,#LB_048$
   JP   LB_156$
-SR4M$:
-  LD   HL,#SR1M$
+.globl LB_SR4M
+LB_SR4M:
+  LD   HL,#LB_SR1M
   LD   (#LB_038$+1),HL
   JP   LB_160$
-SL4M$:
-  LD   HL,#SL1M$
+.globl LB_SL4M
+LB_SL4M:
+  LD   HL,#LB_SL1M
   LD   (#LB_039$+1),HL
   JP   LB_161$
-WR4M$:
+.globl LB_WR4M
+LB_WR4M:
   LD   HL,#LB_156$
   LD   (#LB_040$+1),HL
   JP   LB_162$
-WL4M$:
+.globl LB_WL4M
+LB_WL4M:
   LD   HL,#LB_156$
   LD   (#LB_043$+1),HL
   JP   LB_163$
@@ -2811,13 +2859,15 @@ LB_117$:
   POP  HL
   POP  HL
   RET
-ATON$:
+.globl LB_ATON
+LB_ATON:
   PUSH HL
   LD   HL,#LB_100$+3
   LD   (HL),#0xD0
   POP  HL
   RET
-ATOF$:
+.globl LB_ATOF
+LB_ATOF:
   PUSH HL
   LD   HL,#LB_100$+3
   LD   (HL),#0xC9
@@ -3066,7 +3116,8 @@ LB_143$:
 MIRM$:
   LD   DE,#LB_049$
   JP   LB_156$
-CLSM$:
+.globl LB_CLSM
+LB_CLSM:
   CALL LB_146$
   RET  C
   PUSH DE
@@ -3111,7 +3162,8 @@ SETM$:
   RET  Z
   INC  BC
   JP   LB_144$
-INVM$:
+.globl LB_INVM
+LB_INVM:
   LD   DE,#LB_053$
   JP   LB_156$
 LB_146$:
@@ -3172,46 +3224,48 @@ LB_155$:
   LD   A,#0xEB
   LD   (#LB_149$+3+1),A
   RET
-SR1M$:
+.globl LB_SR1M
+LB_SR1M:
   LD   DE,#LB_033$
 LB_156$:
   LD   (#LB_176$+1),DE
-  CALL SL1M$
+  CALL LB_SL1M
 LB_157$:
   LD   DE,#LB_035$
   LD   (#LB_176$+1),DE
   RET
-WCRM$:
+.globl LB_WCRM
+LB_WCRM:
   LD   HL,#LB_015$+1
   LD   (#LB_181$+1),HL
-  CALL SCRM$
+  CALL LB_SCRM
 LB_158$:
-  LD   HL,#SCRV$
+  LD   HL,#LB_SCRV
   LD   (#LB_181$+1),HL
   RET
 LB_159$:
   PUSH HL
   LD   HL,#LB_146$
-  LD   (#SL1M$+1),HL
+  LD   (#LB_SL1M+1),HL
   LD   HL,#0x20CB
   JP   LB_178$
 LB_160$:
-  CALL SR4V$
-  LD   HL,#SR1V$
+  CALL LB_SR4V
+  LD   HL,#LB_SR1V
   LD   (#LB_038$+1),HL
   RET
 LB_161$:
-  CALL SL4V$
-  LD   HL,#SL1V$
+  CALL LB_SL4V
+  LD   HL,#LB_SL1V
   LD   (#LB_039$+1),HL
   RET
 LB_162$:
-  CALL WR4V$
+  CALL LB_WR4V
   LD   HL,#LB_056$
   LD   (#LB_040$+1),HL
   RET
 LB_163$:
-  CALL WL4V$
+  CALL LB_WL4V
   LD   HL,#LB_056$
   LD   (#LB_043$+1),HL
   RET
@@ -3249,7 +3303,7 @@ LB_169$:
 LB_170$:
   LD   (#LB_069$+2),HL
   LD   (#LB_179$),DE
-  CALL ATOF$
+  CALL LB_ATOF
   PUSH BC
   CALL LB_146$
   PUSH DE
@@ -3293,7 +3347,8 @@ LB_174$:
   POP  BC
   LD   A,C
   JP   LB_169$
-SL1M$:
+.globl LB_SL1M
+LB_SL1M:
   CALL LB_146$
   RET  C
   PUSH DE
@@ -3316,7 +3371,7 @@ LB_176$:
 LB_177$:
   PUSH HL
   LD   HL,#LB_186$+2
-  LD   (SL1M$+1),HL
+  LD   (LB_SL1M+1),HL
   LD   HL,#0x0000
 LB_178$:
   LD   (#LB_175$),HL
@@ -3337,7 +3392,8 @@ LB_179$:
   LD   DE,(#LB_179$)
   ADD  HL,DE
   RET
-SCRM$:
+.globl LB_SCRM
+LB_SCRM:
   PUSH BC
   CALL LB_146$
   POP  BC
@@ -3351,7 +3407,7 @@ SCRM$:
   LD   BC,#0x0000
   LD   HL,(#LB_179$+2)
 LB_181$:
-  CALL SCRV$
+  CALL LB_SCRV
   LD   A,#0x58
   LD   (#LB_022$+3),A
   LD   HL,#0x3E51
@@ -3428,37 +3484,45 @@ LB_189$:
   POP  DE
   ADD  HL,DE
   RET
-GTBL$:
+.globl LB_GTBL
+LB_GTBL:
   LD   HL,#LB_147$
   LD   DE,#GWBL$
   JP   LB_196$
-GTOR$:
+.globl LB_GTOR
+LB_GTOR:
   LD   HL,#LB_154$
   LD   DE,#GWOR$
   JP   LB_196$
-GTXR$:
+.globl LB_GTXR
+LB_GTXR:
   LD   HL,#LB_200$
   LD   DE,#GWXR$
   JP   LB_196$
-GTND$:
+.globl LB_GTND
+LB_GTND:
   LD   HL,#LB_201$
   LD   DE,#GWND$
   JP   LB_196$
-PTBL$:
+.globl LB_PTBL
+LB_PTBL:
   LD   HL,#LB_149$
-  LD   DE,#PWBL$
+  LD   DE,#LB_PWBL
   JP   LB_196$
-PTOR$:
+.globl LB_PTOR
+LB_PTOR:
   LD   HL,#LB_151$
-  LD   DE,#PWOR$
+  LD   DE,#LB_PWOR
   JP   LB_196$
-PTXR$:
+.globl LB_PTXR
+LB_PTXR:
   LD   HL,#LB_091$
-  LD   DE,#PWXR$
+  LD   DE,#LB_PWXR
   JP   LB_196$
-PTND$:
+.globl LB_PTND
+LB_PTND:
   LD   HL,#LB_153$
-  LD   DE,#PWND$
+  LD   DE,#LB_PWND
   JP   LB_196$
 GWBL$:
   CALL LB_202$
@@ -3472,16 +3536,20 @@ GWXR$:
 GWND$:
   CALL LB_206$
   JP   LB_190$
-PWBL$:
+.globl LB_PWBL
+LB_PWBL:
   CALL LB_202$
   JP   LB_195$
-PWOR$:
+.globl LB_PWOR
+LB_PWOR:
   CALL LB_204$
   JP   LB_195$
-PWXR$:
+.globl LB_PWXR
+LB_PWXR:
   CALL LB_207$
   JP   LB_195$
-PWND$:
+.globl LB_PWND
+LB_PWND:
   CALL LB_206$
   JP   LB_195$
 LB_190$:
