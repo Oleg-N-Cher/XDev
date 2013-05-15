@@ -1,14 +1,14 @@
 @REM Compile LaserDemo.c
 @REM ===================
 
-@SET bin=..\Bin
-@SET lib=..\Lib
-@SET obj=..\..\Ofront\Obj
+@SET Bin=..\Bin
+@SET Lib=..\Lib
 
-@IF EXIST %obj%\LaserDemo.h @DEL %obj%\LaserDemo.h
-@IF EXIST %obj%\LaserDemo.sym @DEL %obj%\LaserDemo.sym
-@IF EXIST %obj%\LaserDemo.c @MOVE /Y %obj%\LaserDemo.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %lib% -L %lib%/z80 LaserDemo.c Basic.lib Laser.lib
+@CD ..\Lib
+@IF NOT EXIST Rsrc.rel %Bin%\sdcc -mz80 --opt-code-size --no-std-crt0 -I ..\Obj Rsrc.c
+@CD ..\Obj
+
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %Lib% -L %Lib%/z80 LaserDemo.c ..\Lib\Rsrc.rel Basic.lib Laser.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
