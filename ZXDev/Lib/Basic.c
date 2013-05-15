@@ -181,8 +181,7 @@ __asm
   RST  16 // IX-safe
   LD   A,4(IX)
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 #ifdef __SDCC
   POP  IX
 #endif
@@ -198,8 +197,7 @@ __asm
   RST  16 // IX-safe
   LD   A,C
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 __endasm;
 } //Basic_FLASH_fastcall
 
@@ -217,8 +215,7 @@ __asm
   RST  16
   LD   A,4(IX)
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 #ifdef __SDCC
   POP  IX
 #endif
@@ -234,8 +231,7 @@ __asm
   RST  16
   LD   A,C
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 __endasm;
 } //Basic_BRIGHT_fastcall
 
@@ -279,8 +275,7 @@ __asm
   RST  16 // IX-safe
   LD   A,4(IX)
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 #ifdef __SDCC
   POP  IX
 #endif
@@ -327,8 +322,7 @@ __asm
   RST  16 // IX-safe
   LD   A,4(IX)
   RST  16
-  LD   A,(#ATTR_T$)
-  LD   (#SETV_A$),A
+  CALL 0x1CAD
 #ifdef __SDCC
   POP  IX
 #endif
