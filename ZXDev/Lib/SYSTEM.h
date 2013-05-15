@@ -122,7 +122,11 @@ extern void SYSTEM_ENUMR();
 #define __SHORTF(x, y)	((int)(__RF((x)+(y),(y)+(y))-(y)))
 #define __CHR(x)	((CHAR)__R(x, 256))
 #define __CHRF(x)	((CHAR)__RF(x, 256))
-#define __DIV(x, y)	((x)>=0?(x)/(y):-(((y)-1-(x))/(y)))
+#ifndef SYSTEM_Cfg_DIV_as_in_C
+#  define __DIV(x, y)	((x)>=0?(x)/(y):-(((y)-1-(x))/(y)))
+#else
+#  define __DIV(x, y)	((x)/(y))
+#endif
 #define __DIVF(x, y)	SYSTEM_DIV((long)(x),(long)(y))
 #ifndef SYSTEM_Cfg_MOD_as_in_C
 #  define __MOD(x, y)	((x)>=0?(x)%(y):__MODF(x,y))
@@ -198,10 +202,10 @@ extern void SYSTEM_ENUMR();
 #else
   #define __TDESC(t, m, n) \
 	static struct t##__desc {\
-		long tproc[m]; \
-		long ptr[n+1]; \
+		char tproc[m]; \
+		char ptr[n+1]; \
 	} t##__desc
-  #define __TDFLDS(name, size)	{}
+  #define __TDFLDS(name, size)	{0}
 #endif
 
 #define __BASEOFF	(__MAXEXT+1)
