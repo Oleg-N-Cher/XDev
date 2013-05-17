@@ -14,9 +14,9 @@ uses double # as concatenation operator
 //#include <alloca.h>
 #include "SYSTEM_Cfg.h"
 
-extern void *memcpy(void *dest, const void *src, long n);
-extern void *malloc(long size);
-extern void exit(int status);
+//extern void *memcpy (void *dest, const void *src, long n);
+//extern void *malloc (long size);
+//extern void exit (int status);
 
 #define export
 #define import extern
