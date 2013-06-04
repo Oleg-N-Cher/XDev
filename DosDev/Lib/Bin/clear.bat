@@ -1,0 +1,2 @@
+@DEL *.OBJ
+@DEL *.sbm
