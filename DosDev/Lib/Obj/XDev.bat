@@ -7,5 +7,5 @@
 @CALL ..\Bin\buildxdv.bat Strings
 @CALL ..\Bin\buildxdv.bat CmdLine
 @CALL ..\Bin\buildxdv.bat Console
-@REM CALL ..\Bin\buildxdv.bat Math
+@CALL ..\Bin\buildxdv.bat Math
 @REM CALL ..\Bin\buildxdv.bat Files
