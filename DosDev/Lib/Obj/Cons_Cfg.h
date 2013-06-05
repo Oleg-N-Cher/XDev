@@ -5,7 +5,7 @@
 
 /* #define OUTPUT_CONIO */
 #define OUTPUT_STDIO
-/* #define OUTPUT_WINAPI */
+/* #define OUTPUT_DIRECT */
 
 #endif __Console_Cfg_h
 
