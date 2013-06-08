@@ -28,6 +28,7 @@ TYPE
   File* = RECORD (** Binary file *)
     handle: PtrFILE;
     (*state- : INTEGER; (* successful, outofmemory, toomanyfilesopen, failed, connectionfailure. *) *)
+    prevbyte: INTEGER; (* Used as byte cache for correct work of feof(). *)
     end-: BOOLEAN; (** Is end of file? *)
     error-: BOOLEAN; (** Is no file errors? *)
   END;
@@ -42,8 +43,17 @@ PROCEDURE -includeunistd()	"#include <unistd.h>";
 PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE "(int)fopen(filename, mode)";
 PROCEDURE -fgetc (file: PtrFILE): INTEGER "fgetc((FILE*)file)";
 PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER "fputc(c, (FILE*)file)";
+(*
+   Checks whether the end-of-File indicator associated with stream is set, returning a value different from zero if it is.
+   This indicator is generally set by a previous operation on the stream that attempted to read at or past the end-of-file.
+   Notice that stream's internal position indicator may point to the end-of-file for the next operation, but still, the end-of-file indicator may not be set until an operation attempts to read at that point.
+
+http://www.cplusplus.com/reference/clibrary/cstdio/feof/
+*)
 PROCEDURE -feof (file: PtrFILE): INTEGER "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
 PROCEDURE -EOF(): INTEGER "EOF";
+PROCEDURE -NULL(): INTEGER "NULL";
+
 PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
 PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)
 
@@ -56,14 +66,18 @@ PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN
 PROCEDURE (VAR file: File) OpenToRead* (fname: STRING);
   (** UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
 BEGIN
-  file.error := FALSE; (* Reset this flag once - at start of work with a file. *)
+  file.error := FALSE; (* Reset this flag ONCE - at start of work with a file. *)
   (* file.state := Successful; *)
   file.handle := fopen(fname, "rb");
-  IF file.handle = 0 THEN
+  IF file.handle # NULL() THEN
+    file.end := feof(file.handle) # 0;
+    IF ~file.end THEN 
+      file.prevbyte := fgetc(file.handle);
+      file.end := feof(file.handle) # 0;
+    END;
+  ELSE
     file.error := TRUE;
     file.end := TRUE; (* file.state := Failed *)
-  ELSE
-    file.end := feof(file.handle) # 0;
   END;
 END OpenToRead;
 
@@ -101,20 +115,21 @@ END Close;
 
 PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): SYSTEM.BYTE;
 VAR
-  byte: INTEGER;
+  result: INTEGER;
 BEGIN
   IF fromfile.error THEN RETURN 0 END; (* To safe work after error. *)
-  byte := fgetc(fromfile.handle);
-  IF byte = EOF() THEN (* EOF or error: *)
+  result := fromfile.prevbyte;
+  fromfile.prevbyte := fgetc(fromfile.handle);
+  IF fromfile.prevbyte = EOF() THEN (* EOF or error: *)
     IF feof(fromfile.handle) # 0 THEN (* Is EOF? *)
-      fromfile.end := TRUE; RETURN 0
+      fromfile.end := TRUE; RETURN SHORT(result)
     ELSE (* This is file error. *)
       fromfile.error := TRUE;
       (* fromfile.state := Failed; *)
-      RETURN 0
+      RETURN SHORT(result)
     END;
   END;
-  RETURN SHORT(byte);
+  RETURN SHORT(result)
 END ReadByte;
 
 PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: SYSTEM.BYTE);
@@ -144,7 +159,7 @@ BEGIN
   END;
 END WriteStr;
 
-PROCEDURE Length* (VAR str: ARRAY OF CHAR): LONGINT;
+PROCEDURE Length (VAR str: ARRAY OF CHAR): LONGINT;
 VAR
   len, maxLen: LONGINT;
 BEGIN

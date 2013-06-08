@@ -3,7 +3,7 @@
 
 typedef
 	struct Files_File {
-		INTEGER handle;
+		INTEGER handle, prevbyte;
 		BOOLEAN end, error;
 	} Files_File;
 
@@ -19,7 +19,7 @@ export void Files_File_OpenToWrite (Files_File *file, LONGINT *file__typ, CHAR *
 
 typedef
 	struct Files_FileToRead { /* Files_File */
-		INTEGER handle;
+		INTEGER handle, prevbyte;
 		BOOLEAN end, error;
 	} Files_FileToRead;
 
@@ -28,7 +28,7 @@ export SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGIN
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
-		INTEGER handle;
+		INTEGER handle, prevbyte;
 		BOOLEAN end, error;
 	} Files_FileToWrite;
 
@@ -48,9 +48,10 @@ export LONGINT *Files_FileToWrite__typ;
 
 export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
-export LONGINT Files_Length (CHAR *str, LONGINT str__len);
+static LONGINT Files_Length (CHAR *str, LONGINT str__len);
 
 #define Files_EOF()	EOF
+#define Files_NULL()	NULL
 #define Files_fclose(file)	fclose((FILE*)file)
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_fgetc(file)	fgetc((FILE*)file)
@@ -64,11 +65,15 @@ void Files_File_OpenToRead (Files_File *file, LONGINT *file__typ, CHAR *fname, L
 {
 	(*file).error = 0;
 	(*file).handle = Files_fopen(fname, fname__len, (CHAR*)"rb", (LONGINT)3);
-	if ((*file).handle == 0) {
+	if ((*file).handle != Files_NULL()) {
+		(*file).end = Files_feof((*file).handle) != 0;
+		if (!(*file).end) {
+			(*file).prevbyte = Files_fgetc((*file).handle);
+			(*file).end = Files_feof((*file).handle) != 0;
+		}
+	} else {
 		(*file).error = 1;
 		(*file).end = 1;
-	} else {
-		(*file).end = Files_feof((*file).handle) != 0;
 	}
 }
 
@@ -95,21 +100,22 @@ void Files_File_Close (Files_File *file, LONGINT *file__typ)
 
 SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ)
 {
-	INTEGER byte;
+	INTEGER result;
 	if ((*fromfile).error) {
 		return 0;
 	}
-	byte = Files_fgetc((*fromfile).handle);
-	if (byte == Files_EOF()) {
+	result = (*fromfile).prevbyte;
+	(*fromfile).prevbyte = Files_fgetc((*fromfile).handle);
+	if ((*fromfile).prevbyte == Files_EOF()) {
 		if (Files_feof((*fromfile).handle) != 0) {
 			(*fromfile).end = 1;
-			return 0;
+			return (int)result;
 		} else {
 			(*fromfile).error = 1;
-			return 0;
+			return (int)result;
 		}
 	}
-	return (int)byte;
+	return (int)result;
 }
 
 void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte)
@@ -139,7 +145,7 @@ void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ
 	}
 }
 
-LONGINT Files_Length (CHAR *str, LONGINT str__len)
+static LONGINT Files_Length (CHAR *str, LONGINT str__len)
 {
 	LONGINT len, maxLen;
 	maxLen = str__len;
@@ -163,9 +169,9 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 	return !f.error;
 }
 
-__TDESC(Files_File, 4, 0) = {__TDFLDS("File", 8), {-4}};
-__TDESC(Files_FileToRead, 5, 0) = {__TDFLDS("FileToRead", 8), {-4}};
-__TDESC(Files_FileToWrite, 6, 0) = {__TDFLDS("FileToWrite", 8), {-4}};
+__TDESC(Files_File, 4, 0) = {__TDFLDS("File", 12), {-4}};
+__TDESC(Files_FileToRead, 5, 0) = {__TDFLDS("FileToRead", 12), {-4}};
+__TDESC(Files_FileToWrite, 6, 0) = {__TDFLDS("FileToWrite", 12), {-4}};
 
 export void *Files__init(void)
 {
