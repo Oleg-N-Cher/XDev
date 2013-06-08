@@ -13,6 +13,7 @@ export void Console_WriteStrLn_StdIO (CHAR *str);
 export void Console_At_WinAPI (INTEGER x, INTEGER y);
 export void Console_SetColors_WinAPI (INTEGER colors);
 export void Console_WriteLn_WinAPI (void);
+export void Console_WriteStrLn_WinAPI (CHAR *str);
 export void Console_WriteStr_WinAPI (CHAR *str);
 /*================================== Header ==================================*/
 
@@ -70,6 +71,16 @@ void Console_WriteStr_WinAPI (CHAR *str)
   INTEGER maxLen;
   HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
   WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteStrLn_WinAPI (CHAR *str)
+{
+  INTEGER maxLen;
+  HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+  WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+  str = "\x0D\x0A";
+  WriteFile(hConOutput, str, 2, &maxLen, NULL);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

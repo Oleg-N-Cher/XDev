@@ -14,6 +14,7 @@ import void Console_WriteStrLn_StdIO (CHAR *str);
 import void Console_At_WinAPI (INTEGER x, INTEGER y);
 import void Console_WriteLn_WinAPI (void);
 import void Console_WriteStr_WinAPI (CHAR *str);
+import void Console_WriteStrLn_WinAPI (CHAR *str);
 import void Console_SetColors_WinAPI (INTEGER colors);
 
 #define Console__init()
@@ -52,6 +53,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_WriteInt(i)	printf("%ld", i)
 #  define Console_WriteLn Console_WriteLn_WinAPI
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_WinAPI(str)
+#  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_WinAPI(str)
 #  define Console_SetColors	Console_SetColors_WinAPI
 
 #endif OUTPUT_WINAPI
