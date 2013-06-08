@@ -10,6 +10,7 @@ typedef
 export SET Platform_BITS (INTEGER i);
 export void Platform_DISPOSE (SYSTEM_PTR mem);
 export INTEGER Platform_ORD (SET s);
+export SYSTEM_BYTE Platform_Unsigned (LONGCARD i);
 
 #define Platform_free(memblock)	free(memblock)
 
@@ -21,6 +22,11 @@ SET Platform_BITS (INTEGER i)
 INTEGER Platform_ORD (SET s)
 {
 	return __VAL(INTEGER, s);
+}
+
+SYSTEM_BYTE Platform_Unsigned (LONGCARD i)
+{
+	return (int)i;
 }
 
 void Platform_DISPOSE (SYSTEM_PTR mem)
