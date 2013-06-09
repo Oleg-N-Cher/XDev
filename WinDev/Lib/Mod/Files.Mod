@@ -51,33 +51,39 @@ PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER "fputc(c, (FILE*)file)";
 http://www.cplusplus.com/reference/clibrary/cstdio/feof/
 *)
 PROCEDURE -feof (file: PtrFILE): INTEGER "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
+PROCEDURE -ferror (file: PtrFILE): INTEGER "ferror((FILE*)file)";
 PROCEDURE -EOF(): INTEGER "EOF";
 PROCEDURE -NULL(): INTEGER "NULL";
 
 PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
 PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)
 
+PROCEDURE ^ (VAR file: File) Close* ;
+
 (*
    OpenToRead - attempts to open a file, fname, for reading and
                 it returns this file.
                 The success of this operation can be checked by
-                calling IsNoError.
+                calling file.error.
 *)
 PROCEDURE (VAR file: File) OpenToRead* (fname: STRING);
   (** UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
 BEGIN
-  file.error := FALSE; (* Reset this flag ONCE - at start of work with a file. *)
-  (* file.state := Successful; *)
   file.handle := fopen(fname, "rb");
   IF file.handle # NULL() THEN
-    file.end := feof(file.handle) # 0;
-    IF ~file.end THEN 
-      file.prevbyte := fgetc(file.handle);
+    file.prevbyte := fgetc(file.handle);
+    IF file.prevbyte # EOF() THEN
+      file.end := FALSE;
+      file.error := FALSE; (* Reset this flag ONCE. *)
+      (* file.state := Successful; *)
+    ELSE
       file.end := feof(file.handle) # 0;
+      file.error := ferror(file.handle) # 0;
+      IF file.error THEN file.Close END;
     END;
   ELSE
-    file.error := TRUE;
-    file.end := TRUE; (* file.state := Failed *)
+    file.end := TRUE;
+    file.error := TRUE; (* file.state := Failed; *)
   END;
 END OpenToRead;
 
@@ -85,7 +91,7 @@ END OpenToRead;
    OpenToWrite - attempts to open a file, fname, for write and
                  it returns this file.
                  The success of this operation can be checked by
-                 calling IsNoError.
+                 calling file.error.
 *)
 PROCEDURE (VAR file: File) OpenToWrite* (fname: STRING);
   (** UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
@@ -117,17 +123,15 @@ PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): SYSTEM.BYTE;
 VAR
   result: INTEGER;
 BEGIN
-  IF fromfile.error THEN RETURN 0 END; (* To safe work after error. *)
+  IF fromfile.end OR fromfile.error THEN
+    RETURN SHORT(EOF()) (* To safe work after error. *)
+  END;
   result := fromfile.prevbyte;
   fromfile.prevbyte := fgetc(fromfile.handle);
   IF fromfile.prevbyte = EOF() THEN (* EOF or error: *)
-    IF feof(fromfile.handle) # 0 THEN (* Is EOF? *)
-      fromfile.end := TRUE; RETURN SHORT(result)
-    ELSE (* This is file error. *)
-      fromfile.error := TRUE;
-      (* fromfile.state := Failed; *)
-      RETURN SHORT(result)
-    END;
+    fromfile.end := feof(fromfile.handle) # 0;
+    fromfile.error := ferror(fromfile.handle) # 0;
+    (* fromfile.state := Failed; *)
   END;
   RETURN SHORT(result)
 END ReadByte;
@@ -158,16 +162,6 @@ BEGIN
     INC(n);
   END;
 END WriteStr;
-
-PROCEDURE Length (VAR str: ARRAY OF CHAR): LONGINT;
-VAR
-  len, maxLen: LONGINT;
-BEGIN
-  maxLen := LEN(str); len := 0;
-  WHILE (len < maxLen) & (str[len] # 0X) DO INC(len) END;
-  RETURN len
-END Length;
-
 
 (*
    DeleteFile - returns TRUE if a file named, fname is successfully deleted.
