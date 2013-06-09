@@ -47,6 +47,7 @@ export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 #define Files_NULL()	NULL
 #define Files_fclose(file)	fclose((FILE*)file)
 #define Files_feof(file)	feof((FILE*)file)
+#define Files_ferror(file)	ferror((FILE*)file)
 #define Files_fgetc(file)	fgetc((FILE*)file)
 #define Files_fopen(filename, filename__len, mode, mode__len)	(int)fopen(filename, mode)
 #define Files_fputc(c, file)	fputc(c, (FILE*)file)
@@ -68,17 +69,22 @@ export LONGINT *Files_FileToWrite__typ;
 /*--------------------------------- Cut here ---------------------------------*/
 void Files_File_OpenToRead (Files_File *file, LONGINT *file__typ, CHAR *fname, LONGINT fname__len)
 {
-	(*file).error = 0;
 	(*file).handle = Files_fopen(fname, fname__len, (CHAR*)"rb", (LONGINT)3);
 	if ((*file).handle != Files_NULL()) {
-		(*file).end = Files_feof((*file).handle) != 0;
-		if (!(*file).end) {
-			(*file).prevbyte = Files_fgetc((*file).handle);
+		(*file).prevbyte = Files_fgetc((*file).handle);
+		if ((*file).prevbyte != Files_EOF()) {
+			(*file).end = 0;
+			(*file).error = 0;
+		} else {
 			(*file).end = Files_feof((*file).handle) != 0;
+			(*file).error = Files_ferror((*file).handle) != 0;
+			if ((*file).error) {
+				__Files_File_Close(&*file, file__typ);
+			}
 		}
 	} else {
-		(*file).error = 1;
 		(*file).end = 1;
+		(*file).error = 1;
 	}
 }
 
@@ -109,19 +115,14 @@ void Files_File_Close (Files_File *file, LONGINT *file__typ)
 SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ)
 {
 	INTEGER result;
-	if ((*fromfile).error) {
-		return 0;
+	if ((*fromfile).end || (*fromfile).error) {
+		return (int)Files_EOF();
 	}
 	result = (*fromfile).prevbyte;
 	(*fromfile).prevbyte = Files_fgetc((*fromfile).handle);
 	if ((*fromfile).prevbyte == Files_EOF()) {
-		if (Files_feof((*fromfile).handle) != 0) {
-			(*fromfile).end = 1;
-			return (int)result;
-		} else {
-			(*fromfile).error = 1;
-			return (int)result;
-		}
+		(*fromfile).end = Files_feof((*fromfile).handle) != 0;
+		(*fromfile).error = Files_ferror((*fromfile).handle) != 0;
 	}
 	return (int)result;
 }
