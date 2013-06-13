@@ -4,8 +4,8 @@
 MODULE XDevCmd;
 IMPORT
 	Controllers, Dialog, Files, HostFiles, i21sysCalls, Kernel,
-	Ofront := OfrontCmd, OfrontOPM, StdLog, Strings, TextModels,
-	TextViews, Windows;
+	Ofront := OfrontCmd, OfrontBrowser, OfrontOPM, StdLog,
+	Strings, TextModels, TextViews, Windows;
 
 CONST
 	BinDir = "Bin";
@@ -205,6 +205,23 @@ BEGIN
 	END;
 	Close
 END OfrontBuild;
+
+PROCEDURE ShowDef* ; (** Set work paths and call OfrontBrowser.ShowDef. *)
+VAR
+	t: TextModels.Model; w: Windows.Window; dir: Files.Name;
+BEGIN
+	(* Try to find exact file name of current opened document: *)
+	t := TextViews.FocusText();
+	IF t # NIL THEN
+		w := Windows.dir.Focus(Controllers.targetPath);
+		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+			GetSubsysDirByLocator(w.loc, dir);
+			(* Call the OfrontBrowser.ShowDef with the defined work paths: *)
+			OfrontOPM.SetWorkDir(dir, dir, TRUE);
+			OfrontBrowser.ShowDef;
+		END;
+	END;
+END ShowDef;
 
 BEGIN
 	rootDir := Files.dir.This("")(HostFiles.Locator).path$;
