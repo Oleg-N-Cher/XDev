@@ -8,8 +8,6 @@ IMPORT G := Graph, Math;
 VAR
   KD, MD, x0, y0: INTEGER;
 
-PROCEDURE ^Main; PROCEDURE EntryPoint; BEGIN Main END EntryPoint;
-
 PROCEDURE Flower (x, y, radius, n: INTEGER; a1, a3, a5: REAL);
 CONST
   p = 3.14159 / 180.0;
@@ -40,8 +38,7 @@ BEGIN
   UNTIL q < 0.0;
 END Flower;
 
-PROCEDURE Main;
-BEGIN
+BEGIN (*$MAIN*)
   KD := G.ZX;
   MD := G.ZXColor;
   G.InitGraph(KD, MD, "");
@@ -51,8 +48,4 @@ BEGIN
   Flower(x0, y0, y0 DIV 2 * 3, 5, 1.0, 0.25, 0.1);
   (*c := ReadKey;*)
   G.CloseGraph
-END Main;
-
-BEGIN
-  Main
 END Flower.

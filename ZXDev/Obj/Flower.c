@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/*  Ofront 1.2 -xtspkaem */
 #include "SYSTEM.h"
 #include "Graph.h"
 #include "Math.h"
@@ -7,15 +7,8 @@
 static INTEGER Flower_KD, Flower_MD, Flower_x0, Flower_y0;
 
 
-static void Flower_EntryPoint (void);
 static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL a1, REAL a3, REAL a5);
-static void Flower_Main (void);
 
-
-static void Flower_EntryPoint (void)
-{
-	Flower_Main();
-}
 
 static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL a1, REAL a3, REAL a5)
 {
@@ -47,8 +40,14 @@ static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL
 	} while (!(q < (REAL)0));
 }
 
-static void Flower_Main (void)
+
+export main(int argc, char **argv)
 {
+	__INIT(argc, argv);
+	__IMPORT(Graph);
+	__IMPORT(Math);
+	__REGMAIN("Flower", 0);
+/* BEGIN */
 	Flower_KD = 1;
 	Flower_MD = 1;
 	Graph_InitGraph(&Flower_KD, &Flower_MD, (CHAR*)"", (LONGINT)1);
@@ -59,16 +58,5 @@ static void Flower_Main (void)
 	Flower_y0 = __ASHR(Graph_GetMaxY() + 1, 1);
 	Flower_Flower(Flower_x0, Flower_y0, __ASHR(Flower_y0, 1) * 3, 5, (REAL)1, 0.25, 0.1000000014901161);
 	Graph_CloseGraph();
-}
-
-
-export void *Flower__init(void)
-{
-	__DEFMOD;
-	__IMPORT(Graph);
-	__IMPORT(Math);
-	__REGMOD("Flower", 0);
-/* BEGIN */
-	Flower_Main();
-	__ENDMOD;
+	__FINI;
 }
