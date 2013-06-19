@@ -9,7 +9,19 @@
 #define __ld_a__(x) if(x==0) {__asm xor a,a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 
-import void Basic_Init (void);
+import void Basic_Init_DI (void);
+import void Basic_Init_IM0 (void);
+import void Basic_Init_IM2 (void);
+#ifdef MODE_DI
+#  define Basic_Init Basic_Init_DI
+#endif //MODE_DI
+#ifdef MODE_IM0
+#  define Basic_Init Basic_Init_IM0
+#endif //MODE_IM0
+#ifdef MODE_IM2
+#  define Basic_Init Basic_Init_IM2
+#endif //MODE_IM2
+
 import void Basic_BORDER_stdcall (SHORTINT color);
 #ifndef BORDER_fastcall
   #define Basic_BORDER Basic_BORDER_stdcall
@@ -107,8 +119,6 @@ import void Basic_PRWORD_ROM (CARDINAL n);
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
 import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
-/*import SYSTEM_BYTE Basic_PEEK (SYSTEM_ADDRESS addr);
-import void Basic_POKE (SYSTEM_ADDRESS addr, SYSTEM_BYTE value);*/
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
 #define Basic_PEEK(addr)      (*(unsigned char*) (addr))
@@ -129,7 +139,18 @@ import SHORTINT Basic_SGN (SHORTINT x);
 import void Basic_BEEP (CARDINAL ms, SHORTINT freq);
 import void Basic_FONT (SYSTEM_ADDRESS addr);
 import void Basic_Reset (void);
-import void Basic_Quit (void);
+import void Basic_Quit_DI (void);
+import void Basic_Quit_IM0 (void);
+import void Basic_Quit_IM2 (void);
+#ifdef MODE_DI
+#  define Basic_Quit Basic_Quit_DI
+#endif //MODE_DI
+#ifdef MODE_IM0
+#  define Basic_Quit Basic_Quit_IM0
+#endif //MODE_IM0
+#ifdef MODE_IM2
+#  define Basic_Quit Basic_Quit_IM2
+#endif //MODE_IM2
 #define Basic__init()
 
 #define Black 0
@@ -170,8 +191,6 @@ import void Basic_Quit (void);
 #define PRINT Basic_PRINT
 #define PRWORD Basic_PRWORD
 #define SlowCircle Basic_SlowCircle
-/*#define PEEK Basic_PEEK
-#define POKE Basic_POKE*/
 #define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val) (*(unsigned*) (addr) = (val))
 #define PEEK(addr)      (*(unsigned char*) (addr))
