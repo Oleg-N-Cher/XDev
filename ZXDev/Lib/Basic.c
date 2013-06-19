@@ -2,7 +2,9 @@
 #include "Basic.h"
 
 /*interface*/
-export void Basic_Init (void);
+export void Basic_Init_DI (void);
+export void Basic_Init_IM0 (void);
+export void Basic_Init_IM2 (void);
 export void Basic_BORDER_stdcall (SHORTINT color);
 export void Basic_INK_stdcall (SHORTINT color);
 export void Basic_INK_fastcall (void /* Register C */);
@@ -45,7 +47,10 @@ export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP (CARDINAL ms, SHORTINT freq);
 export void Basic_FONT (SYSTEM_ADDRESS addr);
 export void Basic_Reset (void);
-export void Basic_Quit (void);
+export void Basic_Quit_DI (void);
+export void Basic_Quit_IM0 (void);
+export void Basic_Quit_IM2 (void);
+
 
 /*implementation*/
 
@@ -60,29 +65,61 @@ import CARDINAL _RandBB (void);
 
 /*================================== Header ==================================*/
 
-void Basic_Init (void)
+void Basic_Init_DI (void)
 {
   __asm
-  DI /* Turn off 128K mode (This code is written by Wlodek Black */
-  LD   IY,#0x5C3A
-  //LD   SP,(#23613)
-  //POP  HL
-  //LD   HL,#4867 /* ERR_SP FOR 48-BASIC */
-  //PUSH HL
-  //LD   HL,#7030 /* CONTINUE INTERPRETATOR 48-BASIC */
-  //PUSH HL
+  DI
+//  LD   IY,#0x5C3A
   RES  4,1(IY) /* RESET OF 128K FLAG */
-  //LD   DE,#5566 /* INFORMATION FOR STREAMS */
-  //LD   HL,(#23631) /* CHANS */
-  //LD   BC,#15
-  //ADD  HL,BC
-  //EX   DE,HL /* DE=ADDR.FOR STREAMS/CHANNELS, HL=5556 */
-  //LD   C,#4 /* BC=4 FOR LDIR */
-  //LDIR
-  //EI
-  //RET /* now it is Basic-48. */
   __endasm;
-} //Basic_Init
+} //Basic_Init_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_Init_IM0 (void)
+{
+  __asm
+  RES  4,1(IY) /* RESET OF 128K FLAG */
+  __endasm;
+} //Basic_Init_IM0
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_Init_IM2 (void)
+
+{
+  __asm
+  RES  4,1(IY) /* RESET OF 128K FLAG */
+
+; ************************************************
+; * Set IM2 mode (need for correct work with IY) *
+; ************************************************
+  LD   HL,#IM2PROC$
+IMON$:
+  LD   A,#24       ; код команды JR
+  LD   (#65535),A
+  LD   A,#195      ; код команды JP
+  LD   (#65524),A
+  LD   (#65525),HL ; в HL - адрес обработчика прерываний
+  LD   HL,#0xFE00  ; построение таблицы для векторов прерываний
+  LD   DE,#0xFE01
+  LD   BC,#256     ; размер таблицы минус 1
+  LD   (HL),#0xFF  ; адрес перехода #FFFF (65535)
+  LD   A,H         ; запоминаем старший байт адреса таблицы
+  LDIR             ; заполняем таблицу
+  DI               ; запрещаем прерывания на время
+                   ; установки второго режима
+  LD    I,A        ; задаем в регистре I старший байт адреса
+                   ; таблицы для векторов прерываний
+  IM    2          ; назначаем второй режим прерываний
+  EI               ; разрешаем прерывания
+  RET
+
+IM2PROC$:
+  PUSH IY
+  LD   IY,#0x5C3A
+  RST  0x38
+  POP  IY
+  __endasm;
+} //Basic_Init_IM2
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_BORDER_stdcall (SHORTINT color)
@@ -1008,7 +1045,7 @@ __endasm;
 } //Basic_Reset
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Quit (void)
+void Basic_Quit_DI (void)
 {
 __asm
   LD   HL,#0x2758
@@ -1016,5 +1053,28 @@ __asm
   LD   IY,#0x5C3A
   EI
 __endasm;
-} //Basic_Quit
+} //Basic_Quit_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_Quit_IM0 (void)
+{
+__asm
+  LD   HL,#0x2758
+  EXX
+  LD   IY,#0x5C3A
+__endasm;
+} //Basic_Quit_IM0
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_Quit_IM2 (void)
+{
+__asm
+  DI
+  LD   HL,#0x2758
+  EXX
+  LD   IY,#0x5C3A
+  IM   0
+  EI
+__endasm;
+} //Basic_Quit_IM2
 
