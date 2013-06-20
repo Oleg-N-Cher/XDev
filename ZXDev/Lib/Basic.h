@@ -31,6 +31,7 @@ import void Basic_BORDER_stdcall (SHORTINT color);
     call 0x229B \
     __endasm;
 #endif
+
 import void Basic_INK_stdcall (SHORTINT color);
 import void Basic_INK_fastcall (void /* Register C */);
 #ifndef INK_fastcall
@@ -38,6 +39,7 @@ import void Basic_INK_fastcall (void /* Register C */);
 #else //INK_fastcall
   #define Basic_INK(color) __ld_c__(color); Basic_INK_fastcall()
 #endif
+
 import void Basic_PAPER_stdcall (SHORTINT color);
 import void Basic_PAPER_fastcall (void /* Register C */);
 #ifndef PAPER_fastcall
@@ -45,6 +47,7 @@ import void Basic_PAPER_fastcall (void /* Register C */);
 #else //PAPER_fastcall
   #define Basic_PAPER(color) __ld_c__(color); Basic_PAPER_fastcall()
 #endif
+
 import void Basic_FLASH_stdcall (SHORTINT mode);
 import void Basic_FLASH_fastcall (void /* Register C */);
 #ifndef FLASH_fastcall
@@ -52,6 +55,7 @@ import void Basic_FLASH_fastcall (void /* Register C */);
 #else //FLASH_fastcall
   #define Basic_FLASH(mode) __ld_c__(mode); Basic_FLASH_fastcall()
 #endif
+
 import void Basic_BRIGHT_stdcall (SHORTINT mode);
 import void Basic_BRIGHT_fastcall (void /* Register C */);
 #ifndef BRIGHT_fastcall
@@ -59,6 +63,7 @@ import void Basic_BRIGHT_fastcall (void /* Register C */);
 #else //BRIGHT_fastcall
   #define Basic_BRIGHT(mode) __ld_c__(mode); Basic_BRIGHT_fastcall()
 #endif
+
 import void Basic_INVERSE_FAST (SHORTINT mode);
 import void Basic_INVERSE_ROM (SHORTINT mode);
 #ifdef ROM_OUTPUT
@@ -66,6 +71,7 @@ import void Basic_INVERSE_ROM (SHORTINT mode);
 #else
   #define Basic_INVERSE Basic_INVERSE_FAST
 #endif
+
 import void Basic_OVER_FAST (SHORTINT mode);
 import void Basic_OVER_ROM (SHORTINT mode);
 #ifdef ROM_OUTPUT
@@ -73,6 +79,7 @@ import void Basic_OVER_ROM (SHORTINT mode);
 #else
   #define Basic_OVER Basic_OVER_FAST
 #endif
+
 import void Basic_AT_FAST (SHORTINT y, SHORTINT x);
 import void Basic_AT_ROM (SHORTINT y, SHORTINT x);
 #ifdef ROM_OUTPUT
@@ -80,8 +87,9 @@ import void Basic_AT_ROM (SHORTINT y, SHORTINT x);
 #else
   #define Basic_AT Basic_AT_FAST
 #endif
-import void Basic_AT (SHORTINT y, SHORTINT x);
+
 import void Basic_CLS (void);
+
 import void Basic_PRSTR_C_FAST (CHAR *str);
 import void Basic_PRSTR_C_ROM (CHAR *str);
 #ifdef ROM_OUTPUT
@@ -91,6 +99,7 @@ import void Basic_PRSTR_C_ROM (CHAR *str);
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
   #define PRSTR Basic_PRSTR_C_FAST
 #endif
+
 import void Basic_PRCHAR_FAST (CHAR ch);
 import void Basic_PRCHAR_ROM (CHAR ch);
 #ifdef ROM_OUTPUT
@@ -98,12 +107,19 @@ import void Basic_PRCHAR_ROM (CHAR ch);
 #else
   #define Basic_PRCHAR Basic_PRCHAR_FAST
 #endif
+
 import void Basic_PRLN (void);
+
 import void Basic_PLOT (SHORTINT x, SHORTINT y);
+
 import SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+
 import SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
+
 import void Basic_DRAW (SHORTINT x, SHORTINT y);
+
 import void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+
 export void Basic_PRINT_FAST (INTEGER i);
 export void Basic_PRINT_ROM (INTEGER i);
 #ifdef ROM_OUTPUT
@@ -111,6 +127,7 @@ export void Basic_PRINT_ROM (INTEGER i);
 #else
   #define Basic_PRINT Basic_PRINT_FAST
 #endif
+
 import void Basic_PRWORD_FAST (CARDINAL n);
 import void Basic_PRWORD_ROM (CARDINAL n);
 #ifdef ROM_OUTPUT
@@ -118,16 +135,35 @@ import void Basic_PRWORD_ROM (CARDINAL n);
 #else
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
+
 import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
 #define Basic_PEEK(addr)      (*(unsigned char*) (addr))
 #define Basic_PEEKW(addr)     (*(unsigned*) (addr))
+
 import SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+
 import void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
+
 import BOOLEAN Basic_KeyPressed (void);
-import void Basic_PAUSE (CARDINAL ticks);
+
+import void Basic_PAUSE_DI (CARDINAL ticks);
+import void Basic_PAUSE_EI (CARDINAL ticks);
+#ifdef MODE_DI
+#  define Basic_PAUSE Basic_PAUSE_DI
+#endif //MODE_DI
+#ifdef MODE_IM0
+#  define Basic_PAUSE Basic_PAUSE_EI
+#endif //MODE_IM0
+#ifdef MODE_IM2
+#  define Basic_PAUSE Basic_PAUSE_EI
+#endif //MODE_IM2
+
+
 import void Basic_RANDOMIZE (CARDINAL seed);
+
 import SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
 import CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 #ifdef RND_SHORTCARD
@@ -135,10 +171,25 @@ import CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 #else
   #define Basic_RND Basic_RND_WORD
 #endif
+
 import SHORTINT Basic_SGN (SHORTINT x);
-import void Basic_BEEP (CARDINAL ms, SHORTINT freq);
+
+import void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
+import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
+#ifdef MODE_DI
+#  define Basic_BEEP Basic_BEEP_DI
+#endif //MODE_DI
+#ifdef MODE_IM0
+#  define Basic_BEEP Basic_BEEP_EI
+#endif //MODE_IM0
+#ifdef MODE_IM2
+#  define Basic_BEEP Basic_BEEP_EI
+#endif //MODE_IM2
+
 import void Basic_FONT (SYSTEM_ADDRESS addr);
+
 import void Basic_Reset (void);
+
 import void Basic_Quit_DI (void);
 import void Basic_Quit_IM0 (void);
 import void Basic_Quit_IM2 (void);
