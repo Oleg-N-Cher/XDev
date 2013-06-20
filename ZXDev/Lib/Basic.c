@@ -39,12 +39,14 @@ export void Basic_PRINT_ROM (INTEGER i);
 export void Basic_PRWORD_FAST (CARDINAL n);
 export void Basic_PRWORD_ROM (CARDINAL n);
 export BOOLEAN Basic_KeyPressed (void);
-export void Basic_PAUSE (CARDINAL ticks);
+export void Basic_PAUSE_DI (CARDINAL ticks);
+export void Basic_PAUSE_EI (CARDINAL ticks);
 export void Basic_RANDOMIZE (CARDINAL seed);
 export SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
 export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
-export void Basic_BEEP (CARDINAL ms, SHORTINT freq);
+export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
+export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 export void Basic_FONT (SYSTEM_ADDRESS addr);
 export void Basic_Reset (void);
 export void Basic_Quit_DI (void);
@@ -900,7 +902,7 @@ __endasm;
 } //Basic_KeyPressed
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE (CARDINAL ticks)
+void Basic_PAUSE_DI (CARDINAL ticks)
 {
 __asm
 #ifdef __SDCC
@@ -914,22 +916,52 @@ __asm
   EI
   LD   A,C
   OR   B
-  JR   NZ,Pause$
+  JR   NZ,PauseDi$
   CALL #0x1F3D
-  JR   EndPause$
-Pause$:
+  JR   EndPauseDi$
+PauseDi$:
   HALT
   DEC  BC
   LD   A,C
   OR   B
-  JR   NZ,Pause$
-EndPause$:
+  JR   NZ,PauseDi$
+EndPauseDi$:
   DI
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-} //Basic_PAUSE
+} //Basic_PAUSE_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAUSE_EI (CARDINAL ticks)
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   C,4(IX)
+  LD   B,5(IX)
+  LD   IY,#0x5C3A
+  LD   A,C
+  OR   B
+  JR   NZ,PauseEi$
+  CALL #0x1F3D
+  JR   EndPauseEi$
+PauseEi$:
+  HALT
+  DEC  BC
+  LD   A,C
+  OR   B
+  JR   NZ,PauseEi$
+EndPauseEi$:
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //Basic_PAUSE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_RANDOMIZE (CARDINAL seed)
@@ -998,7 +1030,7 @@ SHORTINT Basic_SGN (SHORTINT x)
 } //Basic_SGN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP (CARDINAL ms, SHORTINT freq)
+void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq)
 /* Uses Spectrum ROM calculator */
 {
 __asm
@@ -1019,22 +1051,60 @@ __asm
   .DB  5,56   /* Divide */
   POP  AF
   AND  A
-  JP   M,BEPER1$ /* If freq < 0 then goto BEPER1$ */
+  JP   M,BeperDi$ /* If freq < 0 then goto BeperDi$ */
   CALL #0x2D28 /* Put positive freq into stack */
-  JR   DO_BEEP$
-BEPER1$:
+  JR   DoBeepDi$
+BeperDi$:
   NEG         /* Make absolute value */
   CALL #0x2D28 /* and put it into stack */
   RST  40
   .DB  27,56  /* Do it negative */
-DO_BEEP$:
+DoBeepDi$:
   CALL #0x3F8
   DI
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-} //Basic_BEEP
+} //Basic_BEEP_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq)
+/* Uses Spectrum ROM calculator */
+{
+__asm
+#ifdef __SDCC
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+#endif
+  LD   C,4(IX)
+  LD   B,5(IX) /* BC = ms */
+  LD   A,6(IX) /* A = freq */
+  LD   IY,#0x5C3A
+  PUSH AF
+  CALL 0x2D2B /* Put ms into stack */
+  LD   BC,#1000
+  CALL 0x2D2B /* Put 1000 into stack */
+  RST  40
+  .DB  5,56   /* Divide */
+  POP  AF
+  AND  A
+  JP   M,BeperEi$ /* If freq < 0 then goto BEPER1$ */
+  CALL #0x2D28 /* Put positive freq into stack */
+  JR   DoBeepEi$
+BeperEi$:
+  NEG         /* Make absolute value */
+  CALL #0x2D28 /* and put it into stack */
+  RST  40
+  .DB  27,56  /* Do it negative */
+DoBeepEi$:
+  CALL #0x3F8
+#ifdef __SDCC
+  POP  IX
+#endif
+__endasm;
+} //Basic_BEEP_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Reset (void)
