@@ -2,9 +2,9 @@
 
 /* Interrupt mode of your program: DI, IM0, IM2. */
 /* For IM 0 mode use SDCC option --reserve-regs-iy */
-#define MODE_DI
+//#define MODE_DI
 //#define MODE_IM0
-//#define MODE_IM2
+#define MODE_IM2
 
 /* RND() result type: SHORTCARD (0..255) or CARDINAL (0..65535). */
 //#define RND_SHORTCARD
@@ -19,4 +19,3 @@
 //#define PAPER_fastcall
 //#define FLASH_fastcall
 //#define BRIGHT_fastcall
-
