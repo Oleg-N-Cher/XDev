@@ -142,7 +142,7 @@ CONST
   HeadDivisor1 = '/*='; HeadDivisor2 = '=*/';
   BodyDivisor1 = '/*-'; BodyDivisor2 = '-*/';
 VAR
-  src, header, body, partName: AnsiString;
+  src, header, body, partName, partNumberAsStr: AnsiString;
   srcLen, pos, partNumber: INTEGER;
 
 FUNCTION FoundSegment (CONST div1, div2: AnsiString; fromPos: INTEGER): INTEGER;
@@ -162,9 +162,11 @@ END {FoundSegment};
 BEGIN
   src := Kol.StrLoadFromFile(ParamStr(1)); srcLen := LENGTH(src);
   IF srcLen = 0 THEN BEGIN
-    WriteLn('Please specify source file name:'+#13#10#13#10#9'smartlinkrel.exe src.c');
+    WriteLn('Please specify source file name:'+#13#10#13#10#9'smartlib.exe src.c');
     HALT; (* Need to be source *)
   END;
+  partName := ParamStr(2);
+  IF partName = '' THEN partName := Kol.ExtractFileNameWOext(ParamStr(1))+'_';
   (* Detecting the header ... *)
   pos := FoundSegment(HeadDivisor1, HeadDivisor2, 1);
   header := '';
@@ -178,20 +180,14 @@ BEGIN
   WHILE pos > 0 DO BEGIN (* '/*-...-*/ found *)
     body := COPY(src, 1, pos);
     DELETE(src, 1, pos);
-    partName := Kol.Int2Str(partNumber);
-    WHILE LENGTH(partName) < 3 DO INSERT('0', partName, 1); (* Add '00x' *)
-    Kol.StrSaveToFile(
-      Kol.ExtractFileNameWOext(ParamStr(1))+'_' + partName +'.c',
-      header + body
-    );
+    partNumberAsStr := Kol.Int2Str(partNumber);
+    WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
+    Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + body);
     INC(partNumber);
     pos := FoundSegment(BodyDivisor1, BodyDivisor2, 1);
   END;
   (* Write rest of the source file *)
-  partName := Kol.Int2Str(partNumber);
-  WHILE LENGTH(partName) < 3 DO INSERT('0', partName, 1); (* Add '00x' *)
-  Kol.StrSaveToFile(
-    Kol.ExtractFileNameWOext(ParamStr(1))+'_' + partName +'.c',
-      header + src
-    );
+  partNumberAsStr := Kol.Int2Str(partNumber);
+  WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
+  Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + src);
 END {smartlib}.
