@@ -1,4 +1,5 @@
 Bin/proguard/
+DosDev/Obj/*.OBJ
 DosDev2/
 Games/
 gpcp-JVM/
