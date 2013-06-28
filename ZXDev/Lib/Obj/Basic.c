@@ -12,6 +12,7 @@ export void Basic_BRIGHT (INTEGER mode);
 export void Basic_CIRCLE (INTEGER cx, INTEGER cy, INTEGER radius);
 export void Basic_CLS (void);
 export void Basic_DATA (INTEGER b);
+export void Basic_DATA1 (INTEGER b);
 export void Basic_DATA10 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9, INTEGER b10);
 export void Basic_DATA11 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9, INTEGER b10, INTEGER b11);
 export void Basic_DATA12 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9, INTEGER b10, INTEGER b11, INTEGER b12);
@@ -215,6 +216,10 @@ INTEGER Basic_READ (INTEGER addr)
 }
 
 void Basic_DATA (INTEGER b)
+{
+}
+
+void Basic_DATA1 (INTEGER b)
 {
 }
 
