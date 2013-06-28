@@ -3,12 +3,8 @@
 
 @SET bin=..\Bin
 @SET lib=..\Lib
-@SET obj=..\..\Ofront\Obj
 
-@IF EXIST %obj%\TinyHello.h @DEL %obj%\TinyHello.h
-@IF EXIST %obj%\TinyHello.sym @DEL %obj%\TinyHello.sym
-@IF EXIST %obj%\TinyHello.c @MOVE /Y %obj%\TinyHello.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char -I "." -I %lib% -L %lib%/z80 TinyHello.c Basic.lib
+%bin%\sdcc TinyHello.c -mz80 --code-loc 26000 --data-loc 0xF800 --no-std-crt0 --opt-code-size --funsigned-char -I "." -I %lib% -L %lib%/z80 Basic.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
