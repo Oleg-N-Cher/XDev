@@ -202,6 +202,7 @@ import void Basic_Reset (void);
   __endasm
 #define Basic_READ(addr) (*(unsigned char*) (addr++))
 #define Basic_DATA(b) __asm .db b __endasm
+#define Basic_DATA1(b) __asm .db b __endasm
 #define Basic_DATA2(b1,b2) __asm .db b1,b2 __endasm
 #define Basic_DATA3(b1,b2,b3) __asm .db b1,b2,b3 __endasm
 #define Basic_DATA4(b1,b2,b3,b4) __asm .db b1,b2,b3,b4 __endasm
