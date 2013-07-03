@@ -20,7 +20,8 @@ export void Basic_OVER_FAST (SHORTINT mode);
 export void Basic_OVER_ROM (SHORTINT mode);
 export void Basic_AT_FAST (SHORTINT y, SHORTINT x);
 export void Basic_AT_ROM (SHORTINT y, SHORTINT x);
-export void Basic_CLS (void);
+export void Basic_CLS_ZX (void);
+export void Basic_CLS_FULLSCREEN (void);
 export void Basic_PRSTR_C_FAST (CHAR *str);
 export void Basic_PRSTR_C_ROM (CHAR *str);
 export void Basic_PRCHAR_FAST (CHAR ch);
@@ -414,7 +415,7 @@ __endasm;
 } //Basic_AT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS (void)
+void Basic_CLS_ZX (void)
 {
 __asm
   LD   IY,#0x5C3A
@@ -424,7 +425,26 @@ __asm
   POP  AF
   LD   (#ATTR_T$),A
 __endasm;
-} //Basic_CLS
+} //Basic_CLS_ZX
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CLS_FULLSCREEN (void)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,(#ATTR_T$)
+  PUSH AF
+  LD   A,(#0x5C48)
+  PUSH AF
+  LD   A,(#SETV_A$)
+  LD   (#0x5C48),A
+  CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (#0x5C48),A
+  POP  AF
+  LD   (#ATTR_T$),A
+__endasm;
+} //Basic_CLS_FULLSCREEN
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_FONT (SYSTEM_ADDRESS addr)
