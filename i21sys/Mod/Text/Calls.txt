@@ -51,7 +51,7 @@ MODULE  i21sysCalls; (**  ??????
 	PROCEDURE ( a: ActionExe ) Do;
 		VAR curPath: ARRAY [untagged] 5000 OF (* SHORT *)CHAR; success: BOOLEAN;
 	BEGIN
-		success := ( curPath[0] # 0X );
+		success := ( a.filePath^[0] # 0X );
 		IF success THEN success := 0 #
 			WinApi.GetCurrentDirectoryW( LEN(curPath), curPath ); (* ???????? ??????? ??????? *)
 		END;
