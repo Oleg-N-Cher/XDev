@@ -19,3 +19,7 @@
 //#define PAPER_fastcall
 //#define FLASH_fastcall
 //#define BRIGHT_fastcall
+
+/* Use CLS for whole screen (with PAPER attributes in bottom lines): */
+#define CLS_FULLSCREEN
+

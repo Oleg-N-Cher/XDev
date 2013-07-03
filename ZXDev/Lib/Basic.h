@@ -88,7 +88,13 @@ import void Basic_AT_ROM (SHORTINT y, SHORTINT x);
   #define Basic_AT Basic_AT_FAST
 #endif
 
-import void Basic_CLS (void);
+import void Basic_CLS_ZX (void);
+import void Basic_CLS_FULLSCREEN (void);
+#ifdef CLS_FULLSCREEN
+  #define Basic_CLS Basic_CLS_FULLSCREEN
+#else
+  #define Basic_CLS Basic_CLS_ZX
+#endif
 
 import void Basic_PRSTR_C_FAST (CHAR *str);
 import void Basic_PRSTR_C_ROM (CHAR *str);
