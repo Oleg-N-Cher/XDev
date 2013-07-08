@@ -288,19 +288,19 @@ CONST
 
 TYPE
   BYTE = INTEGER; ADDRESS = INTEGER;
-  Colors* = BYTE;
-  Coords* = BYTE;
+  Colors* = SHORTINT;
+  Coords* = SHORTINT;
   Tile* = ADDRESS;
 
-PROCEDURE SetColors* (attr: Colors); BEGIN END SetColors;
+PROCEDURE SetColors* (attr: BYTE); BEGIN END SetColors;
 
-PROCEDURE DrawTile8x8* (x, y: Coords; tile: Tile); BEGIN END DrawTile8x8;
+PROCEDURE DrawTile8x8* (x, y: BYTE; tile: Tile); BEGIN END DrawTile8x8;
 (** Draw a two-color tile with user-defined colors: *)
-PROCEDURE DrawMonoTile8x8* (x, y: Coords; tile: Tile);
+PROCEDURE DrawMonoTile8x8* (x, y: BYTE; tile: Tile);
   BEGIN END DrawMonoTile8x8;
 
 (** Draw a tile with default size: *)
-PROCEDURE DrawTile* (x, y: Coords; tile: Tile); BEGIN END DrawTile;
-PROCEDURE DrawMonoTile* (x, y: Coords; tile: Tile); BEGIN END DrawMonoTile;
+PROCEDURE DrawTile* (x, y: BYTE; tile: Tile); BEGIN END DrawTile;
+PROCEDURE DrawMonoTile* (x, y: BYTE; tile: Tile); BEGIN END DrawMonoTile;
 
 END GrTiles.
