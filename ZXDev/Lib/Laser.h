@@ -9,8 +9,20 @@
 #define Laser__h
 
 #include "SYSTEM.h"
+#include "Basic.h"
 
-import void Laser_Init (void);
+extern unsigned int SFSTRT; /* Sprite file start address */
+extern unsigned int SF_END; /* Sprite file end address */
+
+import void _InitSprites (void /* Registers HL */);
+#define Laser_InitSprites(sprStart, sprSize) __asm \
+  ld hl,__id__(__hash__)sprStart + sprSize \
+  ld (__id__(__hash__)_SF_END),hl \
+  ld hl,__id__(__hash__)sprStart \
+  ld (__id__(__hash__)_SFSTRT),hl \
+  __endasm; _InitSprites()
+  //SFSTRT = sprStart; SF_END = sprStart + sprSize; _InitSprites()
+
 /* Functions for screen windows processing */
 import void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
 import void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
