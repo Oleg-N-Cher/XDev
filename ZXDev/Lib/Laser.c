@@ -6,12 +6,15 @@
 /* ------------------------------- */
 
 #include "SYSTEM.h"
-#include "Rsrc.h"
 #include "Laser.h"
 
 /*interface*/
 
-export void Laser_Init (void);
+extern unsigned int SFSTRT; /* Sprite file start address */
+extern unsigned int SF_END; /* Sprite file end address */
+
+export void _InitSprites (void /* Registers HL */);
+
 /* Functions for screen windows processing */
 export void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
 export void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
@@ -88,6 +91,8 @@ export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
 /*implementation*/
 
 /*================================== Header ==================================*/
+unsigned int SFSTRT; /* Sprite file start address */
+unsigned int SF_END; /* Sprite file end address */
 
 /* Спрайты хранятся в памяти в следующем формате:
 Байт 1 - номер спрайта.
@@ -116,10 +121,11 @@ void Laser_Init (SYSTEM_ADDRESS sprAddr, SYSTEM_ADDRESS sprEnd)
 __asm
   LD   L,4(IX)
   LD   H,5(IX)
-  LD   (#SFSTRT),HL
+  LD   (#_SFSTRT),HL
   LD   L,6(IX)
   LD   H,7(IX)
-  LD   (#SF_END),HL
+  LD   (#_SF_END),HL
+  //  В ячейке _SF_END должен быть записан ноль - метка конца спрайт-файла.
 __endasm;
   {
     struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
@@ -133,19 +139,22 @@ __endasm;
   }
 }
 */
-void Laser_Init (void)
+
+void _InitSprites (void /* Registers HL */)
 {
 __asm
   PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
-  LD   HL,#scrollBuf
-  LD   (#SCRL_B),HL
-  LD   HL,#sprEnd
-  LD   (#SF_END),HL
-  LD   HL,#sprAddr
-  LD   (#SFSTRT),HL
+//  LD   HL,#scrollBuf
+//  LD   (#SCRL_B),HL
+//  LD   HL,#sprEnd
+    //  В ячейке _SF_END должен быть записан ноль - метка конца спрайт-файла.
+//  LD   (#_SF_END),HL
+//  LD   HL,#sprAddr
+//  LD   (#_SFSTRT),HL
 /* Set sprite relocs (see Laser Basic sprite format specifications) */
   PUSH HL
-  POP  IX      //  struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
+  POP  IX
+  // LD   IX,(#_SFSTRT) // struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
 SET_ADDR$:     // while ((sprPtr->sprN) != 0) {
   LD   A,0(IX)
   OR   A
@@ -180,7 +189,7 @@ SPRMULT$:
 SPREXIT$:  // }
   POP  IX
 __endasm;
-} //Laser_Init
+} //_InitSprites
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*-----------------------------------------*/
@@ -1473,11 +1482,7 @@ static void __Asm_Laser__ (void)
 __asm
 /* ---------------------------- */
 .globl SCRL_B
-.globl SFSTRT
-.globl SF_END
 SCRL_B: .DW #0x5B00 /* Buffer vor vertical scroll */
-SFSTRT: .DW #0x0000 /* Sprite file start address */
-SF_END: .DW #0x0000 /* Sprite file end address */
 //SETV_A$: .DW #0x5C8D /* Set video attrib */
 SCR_AC$: .DW #0x4000
 SCRA_A$: .DW #0x5800
@@ -2218,7 +2223,7 @@ LB_069$:
   NOP
   NOP
 LB_070$:
-  LD   HL,(#SFSTRT)
+  LD   HL,(#_SFSTRT)
   LD   (#LB_069$),A
 LB_071$:
   LD   B,A
@@ -2259,7 +2264,7 @@ LB_075$:
   NOP
   NOP
 LB_076$:
-  LD   HL,(#SFSTRT)
+  LD   HL,(#_SFSTRT)
   LD   A,(HL)
   CP   #0x00
   RET  Z
@@ -2278,30 +2283,30 @@ LB_076$:
   JR   LB_076$+3
 RLCT$:
   CALL LB_076$
-  LD   HL,(#SF_END)
-  LD   DE,(#SFSTRT)
+  LD   HL,(#_SF_END)
+  LD   DE,(#_SFSTRT)
   OR   A
   SBC  HL,DE
   INC  HL
   PUSH HL
   BIT  7,B
   JR   NZ,#LB_077$
-  LD   HL,(#SF_END)
+  LD   HL,(#_SF_END)
   CALL LB_078$
-  LD   (#SF_END),DE
+  LD   (#_SF_END),DE
   POP  BC
   LDDR
   INC  DE
-  LD   (#SFSTRT),DE
+  LD   (#_SFSTRT),DE
   RET
 LB_077$:
-  LD   HL,(#SFSTRT)
+  LD   HL,(#_SFSTRT)
   CALL LB_078$
-  LD   (#SFSTRT),DE
+  LD   (#_SFSTRT),DE
   POP  BC
   LDIR
   DEC  DE
-  LD   (#SF_END),DE
+  LD   (#_SF_END),DE
   RET
 LB_078$:
   PUSH HL
@@ -2324,7 +2329,7 @@ LB_079$:
   CALL NC,#LB_080$
   POP  BC
   POP  AF
-  LD   HL,(#SF_END)
+  LD   HL,(#_SF_END)
   LD   (HL),A
   INC  HL
   PUSH BC
@@ -2355,7 +2360,7 @@ LB_079$:
   LD   (HL),C
   INC  HL
   LD   (HL),B
-  LD   (#SF_END),DE
+  LD   (#_SF_END),DE
   XOR  A
   LD   (DE),A
   RET
@@ -2386,11 +2391,11 @@ LB_082$:
   LD   A,(HL)
   OR   A
   JR   NZ,#LB_081$
-  LD   HL,(#SF_END)
+  LD   HL,(#_SF_END)
   POP  DE
   OR   A
   SBC  HL,BC
-  LD   (#SF_END),HL
+  LD   (#_SF_END),HL
   ADD  HL,BC
   SBC  HL,DE
   LD   B,H
@@ -2655,7 +2660,7 @@ DSPR$:
   CALL LB_146$
   POP  AF
   CALL WSPR$
-  LD   DE,(#SF_END)
+  LD   DE,(#_SF_END)
   POP  HL
   OR   A
   SBC  HL,DE

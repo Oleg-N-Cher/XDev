@@ -25,7 +25,7 @@ export void Laser_GTOR (INTEGER col, INTEGER row, INTEGER spN);
 export void Laser_GTXR (INTEGER col, INTEGER row, INTEGER spN);
 export void Laser_INVM (INTEGER spN);
 export void Laser_INVV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
-export void Laser_Init (void);
+export void Laser_InitSprites (INTEGER sprAddr, INTEGER sprSize);
 export void Laser_MARV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 export void Laser_MIRV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 export void Laser_PMAT (INTEGER col, INTEGER row, INTEGER spD, INTEGER spS);
@@ -72,7 +72,7 @@ export void Laser_WR8M (INTEGER spN);
 export void Laser_WR8V (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 
 
-void Laser_Init (void)
+void Laser_InitSprites (INTEGER sprAddr, INTEGER sprSize)
 {
 }
 
@@ -343,7 +343,6 @@ export void *Laser__init(void)
 	__REGMOD("Laser", 0);
 	__REGCMD("ATOF", Laser_ATOF);
 	__REGCMD("ATON", Laser_ATON);
-	__REGCMD("Init", Laser_Init);
 /* BEGIN */
 	__ENDMOD;
 }
