@@ -22,6 +22,7 @@
 //#define SYSTEM_Cfg_TypeBoundProcDynCalls
 
 /* std procs and operator mappings */
+#define SYSTEM_Cfg_DIV_as_in_C
 #define SYSTEM_Cfg_MOD_as_in_C
 #define SYSTEM_Cfg_NoASSERT
 
