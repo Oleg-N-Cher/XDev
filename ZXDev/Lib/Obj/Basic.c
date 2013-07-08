@@ -28,6 +28,7 @@ export void Basic_DATA6 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER
 export void Basic_DATA7 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7);
 export void Basic_DATA8 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8);
 export void Basic_DATA9 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9);
+export void Basic_DEFDATA (INTEGER title, INTEGER size);
 export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 export void Basic_DRAW (INTEGER x, INTEGER y);
 export void Basic_FLASH (INTEGER mode);
@@ -203,6 +204,10 @@ void Basic_BEEP (INTEGER ms, INTEGER freq)
 }
 
 void Basic_FONT (INTEGER addr)
+{
+}
+
+void Basic_DEFDATA (INTEGER title, INTEGER size)
 {
 }
 

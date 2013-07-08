@@ -48,7 +48,6 @@ export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-export void Basic_FONT (SYSTEM_ADDRESS addr);
 export void Basic_Reset (void);
 export void Basic_Quit_DI (void);
 export void Basic_Quit_IM0 (void);
@@ -445,25 +444,6 @@ __asm
   LD   (#ATTR_T$),A
 __endasm;
 } //Basic_CLS_FULLSCREEN
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_FONT (SYSTEM_ADDRESS addr)
-{
-__asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   L,4(IX)
-  LD   H,5(IX)
-  DEC  H
-  LD   (CHAR_SET$),HL
-#ifdef __SDCC
-  POP  IX
-#endif
-__endasm;
-} //Basic_FONT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_ROM (CHAR *str)

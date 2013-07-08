@@ -192,20 +192,39 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
-import void Basic_FONT (SYSTEM_ADDRESS addr);
+#define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 
 import void Basic_Reset (void);
 
-#define Basic_DEFDATAREL(title, size) __asm xor a,a \
-  inc  a \
-  call 0x1FC6 \
-  ld   de,__id__(__hash__)12 \
-  add  hl,de \
-  ld   (_##title),hl \
-  ld   de,__id__(__hash__)size \
-  add  hl,de \
-  jp   (hl) \
-  __endasm
+#define Basic_DEFDATA(title, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
+    ld   (_##title),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm ld hl,__id__(__hash__).+9 \
+    ld   (_##title),hl \
+    jp   3+.+size \
+  __endasm; \
+  }
+  
+#define Basic_DEFDATAREL(title, size) if (size <= 127) { __asm xor a,a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)9 \
+    add  hl,de \
+    ld   (_##title),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm xor a,a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)12 \
+    add  hl,de \
+    ld   (_##title),hl \
+    ld   de,__id__(__hash__)size \
+    add  hl,de \
+    jp   (hl) \
+  __endasm; \
+  }
 #define Basic_READ(addr) (*(unsigned char*) (addr++))
 #define Basic_DATA(b) __asm .db b __endasm
 #define Basic_DATA1(b) __asm .db b __endasm
