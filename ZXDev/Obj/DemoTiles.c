@@ -21,7 +21,7 @@ export main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	Basic_BORDER(2);
-	Basic_DEFDATAREL(DemoTiles_square, 9);
+	Basic_DEFDATA(DemoTiles_square, 9);
 	Basic_DATA8(255, 129, 129, 129, 129, 129, 129, 255);
 	Basic_DATA1(49);
 	DemoTiles_i = 0;

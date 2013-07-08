@@ -5,7 +5,7 @@ VAR
   i: SHORTINT; square: Til.Tile;
 BEGIN (*$MAIN*)
   B.Init; B.BORDER(B.Red);
-  B.DEFDATAREL(square, 8 + 1);
+  B.DEFDATA(square, 8 + 1);
   (*Pixels:*) B.DATA8(0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH);
   (*Attrib:*) B.DATA1(Til.BlueOnOlive);
   FOR i := 0 TO 23 DO Til.DrawTile(i, i, square) END;
