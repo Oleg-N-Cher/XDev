@@ -10,6 +10,7 @@ Rose/
 Samurai/
 Sdl/
 ZXDev/Obj/*.sym
+ZXDev/Lib/*.sym
 ZXDev/Bin/MakeZX
 *.dll
 *.asm
