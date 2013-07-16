@@ -21,4 +21,7 @@
 /* Oberon-2 type bound procedures support */
 /* #define SYSTEM_Cfg_TypeBoundProcDynCalls */
 
+/* Garbage collector */
+#define SYSTEM_Cfg_NoGC
+
 #endif
