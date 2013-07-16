@@ -1,0 +1,1 @@
+tcc ../WinDev/Obj/$1.c -I "../WinDev/Obj" -I "../WinDev/Lib" Lib/LinDev.a -o$1

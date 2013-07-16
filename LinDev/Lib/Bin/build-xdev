@@ -1,0 +1,11 @@
+wine ../../Bin/smartlib ../../WinDev/Lib/$1.c
+
+for FN in `ls $1*.c`; do
+  tcc -c $FN -I "../../WinDev/Lib" -I "../../WinDev/Lib/Obj"
+  rm $FN
+done
+
+for FN in `ls $1*.o`; do
+  ar -rc LinDev.a $FN
+  rm $FN
+done

@@ -1,0 +1,6 @@
+Bin/build ASCII
+Bin/build CmdLineTest
+Bin/build DemoDynMem
+Bin/build FilesTest
+Bin/build TestRnd
+Bin/build XDevHello
