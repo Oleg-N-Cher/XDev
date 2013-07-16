@@ -1,0 +1,8 @@
+rm LinDev.a
+Bin/build-xdev SYSTEM
+Bin/build-xdev Platform
+Bin/build-xdev Console
+Bin/build-xdev CmdLine
+Bin/build-xdev Files
+Bin/build-xdev Strings
+Bin/build-xdev Math
