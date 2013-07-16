@@ -14,7 +14,7 @@ import void Math_Randomize (void);
 import INTEGER Math_RndRange (INTEGER rangeMin, INTEGER rangeMax);
 import REAL Math_Sin (REAL x);
 import REAL Math_Sqrt (REAL x);
-import void Math (void);
+import void Math__init (void);
 
 
 #endif
