@@ -44,7 +44,7 @@ export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 
 #define Files_EOF()	EOF
-#define Files_NULL()	NULL
+#define Files_NULL() ((int)NULL)
 #define Files_fclose(file)	fclose((FILE*)file)
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_ferror(file)	ferror((FILE*)file)

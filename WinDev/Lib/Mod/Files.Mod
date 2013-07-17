@@ -53,7 +53,7 @@ http://www.cplusplus.com/reference/clibrary/cstdio/feof/
 PROCEDURE -feof (file: PtrFILE): INTEGER "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
 PROCEDURE -ferror (file: PtrFILE): INTEGER "ferror((FILE*)file)";
 PROCEDURE -EOF(): INTEGER "EOF";
-PROCEDURE -NULL(): INTEGER "NULL";
+PROCEDURE -NULL(): PtrFILE "((int)NULL)";
 
 PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
 PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)

@@ -50,7 +50,7 @@ export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 
 #define Files_EOF()	EOF
-#define Files_NULL()	NULL
+#define Files_NULL()	((int)NULL)
 #define Files_fclose(file)	fclose((FILE*)file)
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_ferror(file)	ferror((FILE*)file)
@@ -158,9 +158,9 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 	return !f.error;
 }
 
-__TDESC(Files_File, 4, 0) = {__TDFLDS("File", 12), {-4}};
-__TDESC(Files_FileToRead, 5, 0) = {__TDFLDS("FileToRead", 12), {-4}};
-__TDESC(Files_FileToWrite, 6, 0) = {__TDFLDS("FileToWrite", 12), {-4}};
+__TDESC(Files_File__desc, 4, 0) = {__TDFLDS("File", 12), {-4}};
+__TDESC(Files_FileToRead__desc, 5, 0) = {__TDFLDS("FileToRead", 12), {-4}};
+__TDESC(Files_FileToWrite__desc, 6, 0) = {__TDFLDS("FileToWrite", 12), {-4}};
 
 export void *Files__init(void)
 {
