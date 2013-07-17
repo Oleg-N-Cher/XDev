@@ -6,7 +6,7 @@ typedef
 	CHAR *Platform_STRING;
 
 export SET Platform_BITS (INTEGER i);
-export void Platform_DISPOSE (SYSTEM_PTR mem);
+export void Platform_DISPOSE (SYSTEM_PTR *mem);
 export INTEGER Platform_ORD (SET s);
 
 /*================================== Header ==================================*/
@@ -24,7 +24,8 @@ INTEGER Platform_ORD (SET s)
 /*--------------------------------- Cut here ---------------------------------*/
 #define Platform_free(memblock)	free(memblock)
 
-void Platform_DISPOSE (SYSTEM_PTR mem)
+void Platform_DISPOSE (SYSTEM_PTR *mem)
 {
-	Platform_free(mem);
+	Platform_free(*mem);
+	*mem = NIL;
 }

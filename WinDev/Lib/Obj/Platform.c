@@ -8,7 +8,7 @@ typedef
 
 
 export SET Platform_BITS (INTEGER i);
-export void Platform_DISPOSE (SYSTEM_PTR mem);
+export void Platform_DISPOSE (SYSTEM_PTR *mem);
 export INTEGER Platform_ORD (SET s);
 export SYSTEM_BYTE Platform_Unsigned (LONGCARD i);
 
@@ -29,9 +29,10 @@ SYSTEM_BYTE Platform_Unsigned (LONGCARD i)
 	return (int)i;
 }
 
-void Platform_DISPOSE (SYSTEM_PTR mem)
+void Platform_DISPOSE (SYSTEM_PTR *mem)
 {
-	Platform_free(mem);
+	Platform_free(*mem);
+	*mem = NIL;
 }
 
 
