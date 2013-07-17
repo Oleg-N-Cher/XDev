@@ -12,9 +12,14 @@ void Math_NextRnd (void);
 void Math_PutSeed (INTEGER seed);
 
 #include <math.h>
-#include <windows.h>
 
-#define Math_getTickCount()	GetTickCount()
+#if defined(WIN32) || defined(_WIN32)
+#  include <windows.h>
+#  define Math_getTickCount()	GetTickCount()
+#else
+#  include <time.h>
+#  define Math_getTickCount()	time(0)
+#endif
 
 extern INTEGER Math_z;
 /*================================== Header ==================================*/
