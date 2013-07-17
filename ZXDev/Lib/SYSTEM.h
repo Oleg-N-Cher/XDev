@@ -53,7 +53,7 @@ extern long SYSTEM_RCHK();
 extern float SYSTEM_ABSD (REAL i);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern SYSTEM_PTR SYSTEM_NEWREC();
-extern SYSTEM_PTR SYSTEM_NEWBLK();
+extern SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 #ifdef __STDC__
 extern SYSTEM_PTR SYSTEM_NEWARR(long*, long, int, int, int, ...);
 #else
@@ -96,7 +96,7 @@ extern void SYSTEM_ENUMR();
   #define __REGMAIN(name, enum)
 #endif
 #define __FINI	SYSTEM_FINI(); return 0
-#define __IMPORT(name)	SYSTEM_INCREF(name##__init())
+#define __IMPORT(name__init)	SYSTEM_INCREF(name__init())
 #ifdef SYSTEM_Cfg_RegisterCommands
   #define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
 #else
@@ -134,8 +134,16 @@ extern void SYSTEM_ENUMR();
 #  define __MOD(x, y)	((x)%(y))
 #endif
 #define __MODF(x, y)	SYSTEM_MOD((long)(x),(long)(y))
-#define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
-#define __NEWARR	SYSTEM_NEWARR
+
+#ifdef SYSTEM_Cfg_NoGC
+#  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(t))
+#  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
+	SYSTEM_NEWBLK(elemalgn*va_alist);
+#else
+#  define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
+#  define __NEWARR	SYSTEM_NEWARR
+#endif
+
 #define __HALT(x)	SYSTEM_HALT(x)
 #ifndef SYSTEM_Cfg_NoASSERT
 #  define __ASSERT(cond, x)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
@@ -189,22 +197,22 @@ extern void SYSTEM_ENUMR();
 
 /* record type descriptors */
 #ifdef SYSTEM_Cfg_RecTypeDesc
-  #define __TDESC(t, m, n) \
-	static struct t##__desc {\
+  #define __TDESC(t__desc, m, n) \
+	static struct t__desc {\
 		long tproc[m]; \
 		long tag, next, level, module; \
 		char name[24]; \
 		long *base[__MAXEXT]; \
 		char *rsrvd; \
 		long blksz, ptr[n+1]; \
-	} t##__desc
+	} t__desc
   #define __TDFLDS(name, size)	{__EOM}, 1, 0, 0, 0, name, {0}, 0, size
 #else
-  #define __TDESC(t, m, n) \
-	static struct t##__desc {\
+  #define __TDESC(t__desc, m, n) \
+	static struct t__desc {\
 		char tproc[m]; \
 		char ptr[n+1]; \
-	} t##__desc
+	} t__desc
   #define __TDFLDS(name, size)	{0}
 #endif
 
