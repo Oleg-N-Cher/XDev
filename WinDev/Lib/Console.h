@@ -4,12 +4,16 @@
 #include "SYSTEM.h"
 #include "ConsoleCfg.h"
 
+import void Console_WriteHex (INTEGER x);
+import void Console_WriteIntWidth (INTEGER x, INTEGER n);
+
 /* StdIO */
 import void Console_WriteCh_StdIO (CHAR ch);
 import void Console_WriteInt_StdIO (LONGINT n);
 import void Console_WriteLn_StdIO (void);
 import void Console_WriteStr_StdIO (CHAR *str);
 import void Console_WriteStrLn_StdIO (CHAR *str);
+
 /* WinAPI */
 import void Console_At_WinAPI (INTEGER x, INTEGER y);
 import void Console_WriteLn_WinAPI (void);

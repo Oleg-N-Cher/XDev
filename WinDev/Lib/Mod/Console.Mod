@@ -1,4 +1,4 @@
-MODULE Console;	(** portable layer for LibC - output to standard out *)
+MODULE Console;  (** portable layer for LibC - output to standard out *)
 
 IMPORT SYSTEM;
 
@@ -293,14 +293,14 @@ CONST
   YellowOnLWhite*   = ASH(LightWhite, 4) + Yellow;
   LWhiteOnLWhite*   = ASH(LightWhite, 4) + LightWhite;
 
-PROCEDURE -includestdio()	"#include <stdio.h>";
+PROCEDURE -includestdio()  "#include <stdio.h>";
 
-PROCEDURE -writeInt (n: LONGINT)	'printf("%ld", n)';
-PROCEDURE -writeLInt (n: LONGINT)	'printf("%lld", n)';
-PROCEDURE -writeStr (str: ARRAY [1] OF CHAR)	'printf("%s", str)';
-PROCEDURE -writeStrLn (str: ARRAY [1] OF CHAR)	'printf("%s\n", str)';
-PROCEDURE -writeCh (ch: CHAR)	'printf("%c", ch)';
-PROCEDURE -writeLn	'printf("\n")'; (** Write from next line (CR). *)
+PROCEDURE -writeInt (n: LONGINT)  'printf("%ld", n)';
+PROCEDURE -writeLInt (n: LONGINT)  'printf("%lld", n)';
+PROCEDURE -writeStr (str: ARRAY [1] OF CHAR)  'printf("%s", str)';
+PROCEDURE -writeStrLn (str: ARRAY [1] OF CHAR)  'printf("%s\n", str)';
+PROCEDURE -writeCh (ch: CHAR)  'printf("%c", ch)';
+PROCEDURE -writeLn  'printf("\n")'; (** Write from next line (CR). *)
 
 PROCEDURE At* (x, y: INTEGER);
 BEGIN
@@ -325,6 +325,42 @@ BEGIN writeCh(ch) END WriteCh;
 
 PROCEDURE WriteLn* ; (** Write from next line (CR). *)
 BEGIN writeLn END WriteLn;
+
+(** Write signed integer x to console.
+    Spaces are padded to the left until the number field
+    is at least n characters long. *)
+PROCEDURE WriteIntWidth* (x, n: INTEGER);
+VAR
+  i, x0: INTEGER; a: ARRAY 10 OF CHAR;
+BEGIN
+  IF x < 0 THEN
+    IF x = MIN(INTEGER) THEN writeStr("-2147483648"); RETURN END;
+    DEC(n); x0 := -x;
+  ELSE
+    x0 := x;
+  END;
+  i := 0;
+  REPEAT
+    a[i] := CHR(x0 MOD 10 + ORD("0")); x0 := x0 DIV 10; INC(i);
+  UNTIL x0 = 0;
+  WHILE n > i DO writeCh(" "); DEC(n) END;
+  IF x < 0 THEN writeCh("-") END;
+  REPEAT DEC(i); writeCh(a[i]) UNTIL i = 0;
+END WriteIntWidth;
+
+(** Write a hexadecimal representation of x to console. *)
+PROCEDURE WriteHex* (x: INTEGER);
+VAR
+  i, y: INTEGER; a: ARRAY 10 OF CHAR;
+BEGIN
+  i := 0;
+  REPEAT
+    y := x MOD 10H;
+    IF y < 10 THEN a[i] := CHR(y + 30H) ELSE a[i] := CHR(y + 37H) END;
+    x := x DIV 10H; INC(i);
+  UNTIL i = 8;
+  REPEAT DEC(i); writeCh(a[i]) UNTIL i = 0;
+END WriteHex;
 
 PROCEDURE SetColors* (n: INTEGER);
 BEGIN
