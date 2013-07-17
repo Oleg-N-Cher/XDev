@@ -80,9 +80,15 @@ void SYSTEM_HALT (int n)
 /*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size)
 {
-	SYSTEM_PTR new = SYSTEM_malloc(size);
+  SYSTEM_PTR new = SYSTEM_malloc(size);
   __ASSERT(new != NIL, 0xFF);
   return new;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+SYSTEM_PTR SYSTEM_NEWREC (LONGINT tag)
+{
+  printf("tag=%d\n", tag); return SYSTEM_NEWBLK(tag);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

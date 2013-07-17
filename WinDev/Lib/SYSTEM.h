@@ -92,7 +92,7 @@ extern void SYSTEM_ENUMR();
   #define __REGMAIN(name, enum)
 #endif
 #define __FINI	SYSTEM_FINI(); return 0
-#define __IMPORT(name)	SYSTEM_INCREF(name##__init())
+#define __IMPORT(name__init)	SYSTEM_INCREF(name__init())
 #ifdef SYSTEM_Cfg_RegisterCommands
   #define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
 #else
@@ -122,8 +122,16 @@ extern void SYSTEM_ENUMR();
 #define __DIVF(x, y)	SYSTEM_DIV((long)(x),(long)(y))
 #define __MOD(x, y)	((x)>=0?(x)%(y):__MODF(x,y))
 #define __MODF(x, y)	SYSTEM_MOD((long)(x),(long)(y))
-#define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
-#define __NEWARR	SYSTEM_NEWARR
+
+#ifdef SYSTEM_Cfg_NoGC
+#  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(t))
+#  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
+	SYSTEM_NEWBLK(elemalgn*va_alist);
+#else
+#  define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
+#  define __NEWARR	SYSTEM_NEWARR
+#endif
+
 #define __HALT(x)	SYSTEM_HALT(x)
 #define __ASSERT(cond, x)	if (!(cond)) SYSTEM_HALT(x)
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
@@ -165,22 +173,22 @@ extern void SYSTEM_ENUMR();
 
 /* record type descriptors */
 #ifdef SYSTEM_Cfg_RecTypeDesc
-  #define __TDESC(t, m, n) \
-	static struct t##__desc {\
+  #define __TDESC(t__desc, m, n) \
+	static struct t__desc {\
 		long tproc[m]; \
 		long tag, next, level, module; \
 		char name[24]; \
 		long *base[__MAXEXT]; \
 		char *rsrvd; \
 		long blksz, ptr[n+1]; \
-	} t##__desc
+	} t__desc
   #define __TDFLDS(name, size)	{__EOM}, 1, 0, 0, 0, name, {0}, 0, size
 #else
-  #define __TDESC(t, m, n) \
-	static struct t##__desc {\
+  #define __TDESC(t__desc, m, n) \
+	static struct t__desc {\
 		long tproc[m]; \
 		long ptr[n+1]; \
-	} t##__desc
+	} t__desc
   #define __TDFLDS(name, size)	{}
 #endif
 
