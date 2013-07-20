@@ -49,7 +49,7 @@ export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_ferror(file)	ferror((FILE*)file)
 #define Files_fgetc(file)	fgetc((FILE*)file)
-#define Files_fopen(filename, filename__len, mode, mode__len)	(int)fopen(filename, mode)
+#define Files_fopen(filename, filename__len, mode, mode__len)	(int)fopen((char*)filename, (char*)mode)
 #define Files_fputc(c, file)	fputc(c, (FILE*)file)
 #include <stdio.h>
 #include <unistd.h>
