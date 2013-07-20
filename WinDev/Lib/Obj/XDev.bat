@@ -9,3 +9,5 @@
 @CALL ..\Bin\build-xdev.bat Console
 @CALL ..\Bin\build-xdev.bat Math
 @CALL ..\Bin\build-xdev.bat Files
+@CALL ..\Bin\build-xdev.bat SdlLib
+@CALL ..\Bin\build-xdev.bat GrScr
