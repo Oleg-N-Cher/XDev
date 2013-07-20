@@ -40,9 +40,12 @@ TYPE
 PROCEDURE -includestdio()	"#include <stdio.h>";
 PROCEDURE -includeunistd()	"#include <unistd.h>";
 
-PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE "(int)fopen(filename, mode)";
-PROCEDURE -fgetc (file: PtrFILE): INTEGER "fgetc((FILE*)file)";
-PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER "fputc(c, (FILE*)file)";
+PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE
+  "(int)fopen((char*)filename, (char*)mode)";
+PROCEDURE -fgetc (file: PtrFILE): INTEGER
+  "fgetc((FILE*)file)";
+PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER
+  "fputc(c, (FILE*)file)";
 (*
    Checks whether the end-of-File indicator associated with stream is set, returning a value different from zero if it is.
    This indicator is generally set by a previous operation on the stream that attempted to read at or past the end-of-file.
