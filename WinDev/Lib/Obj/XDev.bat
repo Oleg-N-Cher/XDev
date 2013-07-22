@@ -11,3 +11,4 @@
 @CALL ..\Bin\build-xdev.bat Files
 @CALL ..\Bin\build-xdev.bat SdlLib
 @CALL ..\Bin\build-xdev.bat GrScr
+@CALL ..\Bin\build-xdev.bat GrPixel

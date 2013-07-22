@@ -45,6 +45,7 @@ TYPE
 	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
   Pointer*  = POINTER [1] TO ARRAY [1] OF Byte;
   SInt16*   = SHORTINT;
+  SInt32*   = Integer;
   UInt8*    = SYSTEM.BYTE;
   UInt16*   = SHORTINT;
   UInt32*   = INTEGER;
@@ -130,6 +131,18 @@ PROCEDURE -sdlWM_SetCaption (title, icon: PChar)
   "SDL_WM_SetCaption((char*)title, (char*)icon)";
 PROCEDURE -sdlSetVideoMode (width, height, bpp: Integer; flags: SET):
   PSurface  "((SdlLib_PSurface)SDL_SetVideoMode(width, height, bpp, flags))";
+PROCEDURE -sdlLockSurface (surface: PSurface): Integer
+  "SDL_LockSurface((SDL_Surface*)surface)";
+PROCEDURE -sdlUnlockSurface (surface: PSurface)
+  "SDL_UnlockSurface((SDL_Surface*)surface)";
+PROCEDURE -sdlMustLock (surface: PSurface): Integer
+  "SDL_MUSTLOCK(surface)";
+PROCEDURE -sdlUpdateRect (screen: PSurface; x, y: SInt32; w, h: UInt32)
+  "SDL_UpdateRect((SDL_Surface*)screen, x, y, w, h)";
+PROCEDURE -sdlMapRGB* (format: PPixelFormat; r, g, b: UInt8): UInt32
+  "SDL_MapRGB((SDL_PixelFormat*)format, r, g, b)";
+PROCEDURE -sdlFlip (screen: PSurface): Integer
+  "SDL_Flip((SDL_Surface*)screen)";
 
 PROCEDURE Init* (flags: SET): Integer; BEGIN
   RETURN sdlInit(flags) END Init;
@@ -141,6 +154,41 @@ PROCEDURE WM_SetCaption* (title, icon: PChar); BEGIN
 
 PROCEDURE SetVideoMode* (width, height, bpp: Integer; flags: SET): PSurface;
   BEGIN RETURN sdlSetVideoMode(width, height, bpp, flags) END SetVideoMode;
+
+(* SDL_LockSurface() sets up a surface for directly accessing the pixels.
+	 Between calls to SDL_LockSurface()/SDL_UnlockSurface(), you can write
+	 to and read from 'surface->pixels', using the pixel format stored in
+	 'surface->format'.	Once you are done accessing the surface, you should
+	 use SDL_UnlockSurface() to release it.
+
+	 Not all surfaces require locking.	If SDL_MUSTLOCK(surface) evaluates
+	 to 0, then you can read and write to the surface at any time, and the
+	 pixel format of the surface will not change.	In particular, if the
+	 SDL_HWSURFACE flag is not given when calling SDL_SetVideoMode(), you
+	 will not need to lock the display surface before accessing it.
+
+	 No operating system or library calls should be made between lock/unlock
+	 pairs, as critical system locks may be held during this time.
+
+	 SDL_LockSurface() returns 0, or -1 if the surface couldn't be locked. *)
+
+PROCEDURE LockSurface* (surface: PSurface): BOOLEAN;
+  BEGIN RETURN sdlLockSurface(surface) = 0 END LockSurface;
+
+PROCEDURE UnlockSurface* (surface: PSurface);
+  BEGIN sdlUnlockSurface(surface) END UnlockSurface;
+
+PROCEDURE MustLock* (surface: PSurface): BOOLEAN;
+  BEGIN RETURN sdlMustLock(surface) # 0 END MustLock;
+
+PROCEDURE UpdateRect* (screen: PSurface; x, y: SInt32; w, h: UInt32);
+  BEGIN sdlUpdateRect(screen, x, y, w, h) END UpdateRect;
+
+PROCEDURE MapRGB* (format: PPixelFormat; r, g, b: UInt8): UInt32;
+  BEGIN RETURN sdlMapRGB(format, r, g, b) END MapRGB;
+
+PROCEDURE Flip* (screen: PSurface): Integer;
+  BEGIN RETURN sdlFlip(screen) END Flip;
 
 (*------------------------------------------------------------------------*)
 (*														Time handling 															*)
