@@ -88,16 +88,28 @@ export LONGINT *SdlLib_PixelFormat__typ;
 export LONGINT *SdlLib_Surface__typ;
 
 export void SdlLib_Delay (INTEGER msec);
+export INTEGER SdlLib_Flip (SdlLib_PSurface screen);
 export INTEGER SdlLib_Init (SET flags);
+export BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
+export INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);
+export BOOLEAN SdlLib_MustLock (SdlLib_PSurface surface);
 export void SdlLib_Quit (void);
 export SdlLib_PSurface SdlLib_SetVideoMode (INTEGER width, INTEGER height, INTEGER bpp, SET flags);
+export void SdlLib_UnlockSurface (SdlLib_PSurface surface);
+export void SdlLib_UpdateRect (SdlLib_PSurface screen, INTEGER x, INTEGER y, INTEGER w, INTEGER h);
 export void SdlLib_WM_SetCaption (SdlLib_PChar title, SdlLib_PChar icon);
 
 #include <SDL.h>
 #define SdlLib_sdlDelay(msec)	SDL_Delay(msec)
+#define SdlLib_sdlFlip(screen)	SDL_Flip((SDL_Surface*)screen)
 #define SdlLib_sdlInit(flags)	SDL_Init(flags)
+#define SdlLib_sdlLockSurface(surface)	SDL_LockSurface((SDL_Surface*)surface)
+#define SdlLib_sdlMapRGB(format, r, g, b)	SDL_MapRGB((SDL_PixelFormat*)format, r, g, b)
+#define SdlLib_sdlMustLock(surface)	SDL_MUSTLOCK(surface)
 #define SdlLib_sdlQuit()	SDL_Quit()
 #define SdlLib_sdlSetVideoMode(width, height, bpp, flags)	((SdlLib_PSurface)SDL_SetVideoMode(width, height, bpp, flags))
+#define SdlLib_sdlUnlockSurface(surface)	SDL_UnlockSurface((SDL_Surface*)surface)
+#define SdlLib_sdlUpdateRect(screen, x, y, w, h)	SDL_UpdateRect((SDL_Surface*)screen, x, y, w, h)
 #define SdlLib_sdlWM_SetCaption(title, icon)	SDL_WM_SetCaption((char*)title, (char*)icon)
 
 INTEGER SdlLib_Init (SET flags)
@@ -118,6 +130,36 @@ void SdlLib_WM_SetCaption (SdlLib_PChar title, SdlLib_PChar icon)
 SdlLib_PSurface SdlLib_SetVideoMode (INTEGER width, INTEGER height, INTEGER bpp, SET flags)
 {
 	return SdlLib_sdlSetVideoMode(width, height, bpp, flags);
+}
+
+BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface)
+{
+	return SdlLib_sdlLockSurface(surface) == 0;
+}
+
+void SdlLib_UnlockSurface (SdlLib_PSurface surface)
+{
+	SdlLib_sdlUnlockSurface(surface);
+}
+
+BOOLEAN SdlLib_MustLock (SdlLib_PSurface surface)
+{
+	return SdlLib_sdlMustLock(surface) != 0;
+}
+
+void SdlLib_UpdateRect (SdlLib_PSurface screen, INTEGER x, INTEGER y, INTEGER w, INTEGER h)
+{
+	SdlLib_sdlUpdateRect(screen, x, y, w, h);
+}
+
+INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b)
+{
+	return SdlLib_sdlMapRGB(format, r, g, b);
+}
+
+INTEGER SdlLib_Flip (SdlLib_PSurface screen)
+{
+	return SdlLib_sdlFlip(screen);
 }
 
 void SdlLib_Delay (INTEGER msec)

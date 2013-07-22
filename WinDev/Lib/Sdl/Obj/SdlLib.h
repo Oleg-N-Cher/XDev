@@ -93,11 +93,18 @@ import LONGINT *SdlLib_PixelFormat__typ;
 import LONGINT *SdlLib_Surface__typ;
 
 import void SdlLib_Delay (INTEGER msec);
+import INTEGER SdlLib_Flip (SdlLib_PSurface screen);
 import INTEGER SdlLib_Init (SET flags);
+import BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
+import INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);
+import BOOLEAN SdlLib_MustLock (SdlLib_PSurface surface);
 import void SdlLib_Quit (void);
 import SdlLib_PSurface SdlLib_SetVideoMode (INTEGER width, INTEGER height, INTEGER bpp, SET flags);
+import void SdlLib_UnlockSurface (SdlLib_PSurface surface);
+import void SdlLib_UpdateRect (SdlLib_PSurface screen, INTEGER x, INTEGER y, INTEGER w, INTEGER h);
 import void SdlLib_WM_SetCaption (SdlLib_PChar title, SdlLib_PChar icon);
 import void *SdlLib__init(void);
 
+#define SdlLib_sdlMapRGB(format, r, g, b)	SDL_MapRGB((SDL_PixelFormat*)format, r, g, b)
 
 #endif
