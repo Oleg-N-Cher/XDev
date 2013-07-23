@@ -5,7 +5,7 @@ IMPORT GrScr, P := GrPixel, Sdl := SdlLib, Console, SYSTEM;
 VAR
   x: P.Coords;
 BEGIN
-  FOR x := 1 TO 255 DO
+  FOR x := 0 TO 2550 DO
     P.SetInk(GrScr.LightGreen); P.PutPixel(x, x);
     P.SetInk(GrScr.LightRed);   P.PutPixel(x+10, x);
     P.SetInk(GrScr.LightBlue);  P.PutPixel(x+20, x);
@@ -15,6 +15,12 @@ BEGIN
   END;
   Console.WriteInt(ORD(
     SYSTEM.VAL(CHAR, GrScr.Screen.format.BytesPerPixel)));
+  IF GrScr.mustLock THEN
+    Console.WriteStr(" Must Lock");
+  ELSE
+    Console.WriteStr(" No need Lock");
+  END;
+  GrScr.Update;
   Sdl.Delay(5000);
   GrScr.Close;
 END GrTest.

@@ -88,7 +88,7 @@ export LONGINT *SdlLib_PixelFormat__typ;
 export LONGINT *SdlLib_Surface__typ;
 
 export void SdlLib_Delay (INTEGER msec);
-export INTEGER SdlLib_Flip (SdlLib_PSurface screen);
+export BOOLEAN SdlLib_Flip (SdlLib_PSurface screen);
 export INTEGER SdlLib_Init (SET flags);
 export BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
 export INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);
@@ -157,9 +157,9 @@ INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g,
 	return SdlLib_sdlMapRGB(format, r, g, b);
 }
 
-INTEGER SdlLib_Flip (SdlLib_PSurface screen)
+BOOLEAN SdlLib_Flip (SdlLib_PSurface screen)
 {
-	return SdlLib_sdlFlip(screen);
+	return SdlLib_sdlFlip(screen) == 0;
 }
 
 void SdlLib_Delay (INTEGER msec)
