@@ -16,13 +16,18 @@ BEGIN
   Sdl.Quit;
 END Close;
 
+PROCEDURE Update* ;
+BEGIN
+  IF Sdl.Flip(Screen) THEN END;
+END Update;
+
 BEGIN
   IF Sdl.Init(Sdl.INIT_VIDEO) < 0 THEN HALT(1) END;
   IF Cfg.AppTitle # "" THEN
     Sdl.WM_SetCaption(S.VAL(Sdl.PChar, S.ADR(Cfg.AppTitle)), NIL);
   END;
     Screen := Sdl.SetVideoMode (Cfg.ActualWidth, Cfg.ActualHeight,
-      Cfg.DepthBits, Sdl.SWSURFACE);
+      Cfg.DepthBits, Sdl.SWSURFACE + Sdl.DOUBLEBUF);
   IF Screen = NIL THEN Sdl.Quit; HALT(1) END;
   mustLock := Sdl.MustLock(Screen);
 

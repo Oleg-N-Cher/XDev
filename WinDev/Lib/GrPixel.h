@@ -6,7 +6,8 @@
 #include "SYSTEM.h"
 
 
-import void (*GrPixel_PutPixel)(INTEGER, INTEGER);
+import INTEGER GrPixel_ink;
+import void (*GrPixel_PutPixel)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER, INTEGER);
 
 
 import void GrPixel_SetInk (INTEGER color);

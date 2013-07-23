@@ -93,7 +93,7 @@ import LONGINT *SdlLib_PixelFormat__typ;
 import LONGINT *SdlLib_Surface__typ;
 
 import void SdlLib_Delay (INTEGER msec);
-import INTEGER SdlLib_Flip (SdlLib_PSurface screen);
+import BOOLEAN SdlLib_Flip (SdlLib_PSurface screen);
 import INTEGER SdlLib_Init (SET flags);
 import BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
 import INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);

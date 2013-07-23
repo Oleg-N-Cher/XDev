@@ -13,6 +13,7 @@ import INTEGER GrScr_Black, GrScr_Blue, GrScr_Green, GrScr_Cyan, GrScr_Red, GrSc
 
 
 import void GrScr_Close (void);
+import void GrScr_Update (void);
 import void *GrScr__init(void);
 
 

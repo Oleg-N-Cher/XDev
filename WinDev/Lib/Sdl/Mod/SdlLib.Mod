@@ -187,8 +187,17 @@ PROCEDURE UpdateRect* (screen: PSurface; x, y: SInt32; w, h: UInt32);
 PROCEDURE MapRGB* (format: PPixelFormat; r, g, b: UInt8): UInt32;
   BEGIN RETURN sdlMapRGB(format, r, g, b) END MapRGB;
 
-PROCEDURE Flip* (screen: PSurface): Integer;
-  BEGIN RETURN sdlFlip(screen) END Flip;
+(* On hardware that supports double-buffering, this procedure sets up a flip
+	 and returns.	The hardware will wait for vertical retrace, and then swap
+	 video buffers before the next video surface blit or lock will return.
+	 On hardware that doesn not support double-buffering, this is equivalent
+	 to calling SDL_UpdateRect(screen, 0, 0, 0, 0);
+	 The SDL_DOUBLEBUF flag must have been passed to SDL_SetVideoMode() when
+	 setting the video mode for this procedure to perform hardware flipping.
+	 This procedure returns 0 if successful, or -1 if there was an error. *)
+	
+PROCEDURE Flip* (screen: PSurface): BOOLEAN;
+  BEGIN RETURN sdlFlip(screen) = 0 END Flip;
 
 (*------------------------------------------------------------------------*)
 (*														Time handling 															*)

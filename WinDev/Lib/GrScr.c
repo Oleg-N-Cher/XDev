@@ -12,11 +12,18 @@ export INTEGER GrScr_LightBlue, GrScr_LightGreen, GrScr_LightCyan, GrScr_LightRe
 
 
 export void GrScr_Close (void);
+export void GrScr_Update (void);
 
 
 void GrScr_Close (void)
 {
 	SdlLib_Quit();
+}
+
+void GrScr_Update (void)
+{
+	if (SdlLib_Flip(GrScr_Screen)) {
+	}
 }
 
 
@@ -27,12 +34,13 @@ export void *GrScr__init(void)
 	__IMPORT(SdlLib__init);
 	__REGMOD("GrScr", 0);
 	__REGCMD("Close", GrScr_Close);
+	__REGCMD("Update", GrScr_Update);
 /* BEGIN */
 	if (SdlLib_Init(0x20) < 0) {
 		__HALT(1);
 	}
 	SdlLib_WM_SetCaption((SdlLib_PChar)((LONGINT)"XDev/SDL graphic"), NIL);
-	GrScr_Screen = SdlLib_SetVideoMode(768, 576, 0, 0x0);
+	GrScr_Screen = SdlLib_SetVideoMode(768, 576, 0, 0x40000000);
 	if (GrScr_Screen == NIL) {
 		SdlLib_Quit();
 		__HALT(1);

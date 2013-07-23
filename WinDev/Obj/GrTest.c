@@ -21,8 +21,8 @@ export main(int argc, char **argv)
 	__IMPORT(SdlLib__init);
 	__REGMAIN("GrTest", 0);
 /* BEGIN */
-	GrTest_x = 1;
-	GrTest__for__1 = 255;
+	GrTest_x = 0;
+	GrTest__for__1 = 2550;
 	GrTest__for__1 = (GrTest__for__1 - GrTest_x) + 1;
 	do {
 		GrPixel_SetInk(GrScr_LightGreen);
@@ -41,6 +41,12 @@ export main(int argc, char **argv)
 		GrTest__for__1 -= 1;
 	} while (!(GrTest__for__1 == 0));
 	Console_WriteInt((int)(__VAL(CHAR, GrScr_Screen->format->BytesPerPixel)));
+	if (GrScr_mustLock) {
+		Console_WriteStr((CHAR*)" Must Lock", (LONGINT)11);
+	} else {
+		Console_WriteStr((CHAR*)" No need Lock", (LONGINT)14);
+	}
+	GrScr_Update();
 	SdlLib_Delay(5000);
 	GrScr_Close();
 	__FINI;
