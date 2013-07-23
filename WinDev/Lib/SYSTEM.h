@@ -76,13 +76,13 @@ extern void SYSTEM_ENUMR();
 
 /* module registry */
 #ifdef SYSTEM_Cfg_RegisterModules
-  #define __DEFMOD	static void *m; if(m!=0)return m
-  #define __REGMOD(name, enum)	if(m==0)m=SYSTEM_REGMOD((CHAR*)name,enum); else return m
-  #define __ENDMOD	return m
+#  define __DEFMOD	static void *m; if(m!=0)return m
+#  define __REGMOD(name, enum)	if(m==0)m=SYSTEM_REGMOD((CHAR*)name,enum); else return m
+#  define __ENDMOD	return m
 #else
-  #define __DEFMOD
-  #define __REGMOD(name, enum)
-  #define __ENDMOD
+#  define __DEFMOD	static char m; if(m!=0)return
+#  define __REGMOD(name, enum)	m=1
+#  define __ENDMOD
 #endif
 #ifdef SYSTEM_Cfg_RegisterMain
   #define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
