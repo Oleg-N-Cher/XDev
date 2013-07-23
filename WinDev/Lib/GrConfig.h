@@ -3,8 +3,12 @@
 #ifndef GrConfig__h
 #define GrConfig__h
 
+#include "SYSTEM.h"
 
-#define GrConfig__init()
+
+
+
+import void *GrConfig__init(void);
 
 
 #endif
