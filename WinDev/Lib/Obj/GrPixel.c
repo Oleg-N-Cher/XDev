@@ -11,6 +11,8 @@ static void (*GrPixel_PutActualPixelNoLock)(INTEGER, INTEGER);
 export void (*GrPixel_PutPixel)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER, INTEGER);
 
 
+export void GrPixel_Circle (INTEGER cx, INTEGER cy, INTEGER radius);
+export void GrPixel_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2);
 static void GrPixel_PutActualPixel16Lock (INTEGER x, INTEGER y);
 static void GrPixel_PutActualPixel16NoLock (INTEGER x, INTEGER y);
 static void GrPixel_PutActualPixel24Lock (INTEGER x, INTEGER y);
@@ -138,6 +140,112 @@ static void GrPixel_PutVirtualPixelNoLock (INTEGER x, INTEGER y)
 void GrPixel_SetInk (INTEGER color)
 {
 	GrPixel_ink = color;
+}
+
+static struct Line__4 {
+	struct Line__4 *lnk;
+} *Line__4_s;
+
+static INTEGER GetSign__5 (INTEGER x);
+
+static INTEGER GetSign__5 (INTEGER x)
+{
+	if (x >= 0) {
+		return 1;
+	}
+	return -1;
+}
+
+void GrPixel_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2)
+{
+	INTEGER dx, dy, sdx, sdy, x, y, px, py;
+	struct Line__4 _s;
+	_s.lnk = Line__4_s;
+	Line__4_s = &_s;
+	dx = x2 - x1;
+	dy = y2 - y1;
+	sdx = GetSign__5(dx);
+	sdy = GetSign__5(dy);
+	dx = sdx * dx + 1;
+	dy = sdy * dy + 1;
+	x = 0;
+	y = 0;
+	px = x1;
+	py = y1;
+	if (dx >= dy) {
+		x = 0;
+		while (x < dx) {
+			(*GrPixel_PutPixel)(px, py);
+			y += dy;
+			if (y >= dx) {
+				y -= dx;
+				py += sdy;
+			}
+			px += sdx;
+			x += 1;
+		}
+	} else {
+		y = 0;
+		while (y < dy) {
+			(*GrPixel_PutPixel)(px, py);
+			x += dx;
+			if (x >= dy) {
+				x -= dy;
+				px += sdx;
+			}
+			py += sdy;
+			y += 1;
+		}
+	}
+	Line__4_s = _s.lnk;
+}
+
+static struct Circle__1 {
+	INTEGER *cx, *cy;
+	INTEGER *x, *y;
+	struct Circle__1 *lnk;
+} *Circle__1_s;
+
+static void Cursors__2 (void);
+
+static void Cursors__2 (void)
+{
+	(*GrPixel_PutPixel)(*Circle__1_s->cx + *Circle__1_s->x, *Circle__1_s->cy + *Circle__1_s->y);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx - *Circle__1_s->x, *Circle__1_s->cy + *Circle__1_s->y);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx + *Circle__1_s->x, *Circle__1_s->cy - *Circle__1_s->y);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx - *Circle__1_s->x, *Circle__1_s->cy - *Circle__1_s->y);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx + *Circle__1_s->y, *Circle__1_s->cy + *Circle__1_s->x);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx - *Circle__1_s->y, *Circle__1_s->cy + *Circle__1_s->x);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx + *Circle__1_s->y, *Circle__1_s->cy - *Circle__1_s->x);
+	(*GrPixel_PutPixel)(*Circle__1_s->cx - *Circle__1_s->y, *Circle__1_s->cy - *Circle__1_s->x);
+}
+
+void GrPixel_Circle (INTEGER cx, INTEGER cy, INTEGER radius)
+{
+	INTEGER x, y, rr, xx, yy;
+	struct Circle__1 _s;
+	_s.cx = &cx;
+	_s.cy = &cy;
+	_s.x = &x;
+	_s.y = &y;
+	_s.lnk = Circle__1_s;
+	Circle__1_s = &_s;
+	x = radius;
+	y = 0;
+	rr = x * x;
+	xx = rr - x;
+	yy = 0;
+	do {
+		Cursors__2();
+		yy += (y + y) + 1;
+		y += 1;
+		if (xx > rr - yy) {
+			xx += (1 - x) - x;
+			x -= 1;
+			Cursors__2();
+		}
+	} while (!(x < y));
+	Circle__1_s = _s.lnk;
 }
 
 
