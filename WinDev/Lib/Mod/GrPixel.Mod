@@ -205,6 +205,67 @@ BEGIN
   ink := color;
 END SetInk;
 
+PROCEDURE Line* (x1, y1, x2, y2: Coords);
+VAR
+  dx, dy, sdx, sdy, x, y, px, py: Coords;
+
+  PROCEDURE GetSign (x: Coords): Coords;
+  (* Argument sign. Result:
+       -1 for negative,
+        1 for positive and zero
+  *)
+  BEGIN
+    IF x >= 0 THEN RETURN 1 END;
+    RETURN -1
+  END GetSign;
+
+BEGIN
+  dx := x2 - x1;  dy := y2 - y1;
+  sdx := GetSign(dx); sdy := GetSign(dy);
+  dx := sdx * dx + 1; dy := sdy * dy + 1;
+  x := 0; y := 0;
+  px := x1; py := y1;
+  IF dx >= dy THEN
+    x := 0; WHILE x < dx DO
+      PutPixel(px, py);
+      INC(y, dy);
+      IF y >= dx THEN
+        DEC(y, dx); INC(py, sdy);
+      END;
+      INC(px, sdx); INC(x);
+    END;
+  ELSE
+    y := 0; WHILE y < dy DO
+      PutPixel(px, py);
+      INC(x, dx);
+      IF x >= dy THEN
+        DEC(x, dy); INC(px, sdx);
+      END;
+      INC(py, sdy); INC(y);
+    END;
+  END;
+END Line;
+
+PROCEDURE Circle* (cx, cy, radius: Coords);
+VAR
+  x, y, rr, xx, yy: Coords;
+
+  PROCEDURE Cursors;
+  BEGIN
+    PutPixel(cx+x, cy+y); PutPixel(cx-x, cy+y);
+    PutPixel(cx+x, cy-y); PutPixel(cx-x, cy-y);
+    PutPixel(cx+y, cy+x); PutPixel(cx-y, cy+x);
+    PutPixel(cx+y, cy-x); PutPixel(cx-y, cy-x);
+  END Cursors;
+
+BEGIN
+  x := radius; y := 0; rr := x*x; xx := rr-x; yy := 0;
+  REPEAT
+    Cursors; INC(yy, y+y+1); INC(y);
+    IF xx > (rr-yy) THEN INC(xx, 1-x-x); DEC(x); Cursors END;
+  UNTIL x < y;
+END Circle;
+
 BEGIN
   pitch := GrScr.Screen.pitch;
   CASE SYSTEM.VAL(CHAR, GrScr.Screen.format.BytesPerPixel) OF
