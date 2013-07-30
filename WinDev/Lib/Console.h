@@ -26,8 +26,6 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 /* StdIO */
 #ifdef OUTPUT_STDIO
 
-#  include <stdio.h>
-
 #  define Console_SetColors(colors)
 #  define Console_WriteCh	Console_WriteCh_StdIO
 #  define Console_WriteInt	Console_WriteInt_StdIO
@@ -40,8 +38,6 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 /* ConIO */
 /*
 #ifdef OUTPUT_CONIO
-
-#  include <conio.h>
 
 #  define Console_SetColors(colors)
 #  define Console_WriteStr(str, str__len)	_cputs(str)
