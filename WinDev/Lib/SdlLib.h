@@ -14,6 +14,12 @@ typedef
 	SdlLib_Color SdlLib_ColorArray[65001];
 
 typedef
+	struct SdlLib_Event {
+		SYSTEM_BYTE type;
+		char _prvt0[32];
+	} SdlLib_Event;
+
+typedef
 	struct {
 		LONGINT len[1];
 		CHAR data[1];
@@ -24,6 +30,9 @@ typedef
 
 typedef
 	SdlLib_ColorArray *SdlLib_PColorArray;
+
+typedef
+	SdlLib_Event *SdlLib_PEvent;
 
 typedef
 	struct SdlLib_Rect *SdlLib_PRect;
@@ -91,13 +100,24 @@ import LONGINT *SdlLib_Color__typ;
 import LONGINT *SdlLib_Palette__typ;
 import LONGINT *SdlLib_PixelFormat__typ;
 import LONGINT *SdlLib_Surface__typ;
+import LONGINT *SdlLib_Event__typ;
 
 import void SdlLib_Delay (INTEGER msec);
+import BOOLEAN SdlLib_Flip (SdlLib_PSurface screen);
+import INTEGER SdlLib_GetTicks (void);
 import INTEGER SdlLib_Init (SET flags);
+import BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
+import INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);
+import BOOLEAN SdlLib_MustLock (SdlLib_PSurface surface);
+import void SdlLib_PumpEvents (void);
 import void SdlLib_Quit (void);
 import SdlLib_PSurface SdlLib_SetVideoMode (INTEGER width, INTEGER height, INTEGER bpp, SET flags);
+import void SdlLib_UnlockSurface (SdlLib_PSurface surface);
+import void SdlLib_UpdateRect (SdlLib_PSurface screen, INTEGER x, INTEGER y, INTEGER w, INTEGER h);
 import void SdlLib_WM_SetCaption (SdlLib_PChar title, SdlLib_PChar icon);
+import INTEGER SdlLib_WaitEvent (SdlLib_Event *event, LONGINT *event__typ);
 import void *SdlLib__init(void);
 
+#define SdlLib_sdlMapRGB(format, r, g, b)	SDL_MapRGB((SDL_PixelFormat*)format, r, g, b)
 
 #endif

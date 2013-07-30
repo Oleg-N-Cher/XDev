@@ -3,12 +3,12 @@
 
 
 /* Virtual Width, Height in pixels: */
-#define VirtualWidth	320
-#define VirtualHeight	240
+#define VirtualWidth	128
+#define VirtualHeight	96
 
 /* Actual Width, Height in pixels: */
-#define ActualWidth	640
-#define ActualHeight	480
+#define ActualWidth	256
+#define ActualHeight	192
 #define MaxActualX	(ActualWidth - 1)
 #define MaxActualY	(ActualHeight - 1)
 

@@ -1,5 +1,5 @@
 MODULE DemoTiles;
-IMPORT SYSTEM, GrScr, Sdl := SdlLib, Til := GrTiles;
+IMPORT SYSTEM, GrScr, Sdl := SdlLib, Til := GrTiles, Colors := GrColors;
 
 VAR
   i: SHORTINT; square: Til.Tile8x8;
@@ -13,18 +13,17 @@ BEGIN (*$MAIN*)
   square[6]:=81H;
   square[7]:=0FFH;
 
-  Til.SetColors(GrScr.Blue, GrScr.Olive);
+  Til.SetColors(Colors.Blue, Colors.Olive);
   FOR i := 0 TO 23 DO Til.DrawMonoTile8x8(i, i, square) END;
   FOR i := 24 TO 31 DO Til.DrawMonoTile8x8(i, 23, square) END;
-  Til.SetColors(GrScr.White, GrScr.Black);
+  Til.SetColors(Colors.White, Colors.Black);
   FOR i :=  8 TO 23 DO Til.DrawMonoTile8x8(i, 1, square) END;
-  Til.SetColors(GrScr.Cyan, GrScr.Blue);
+  Til.SetColors(Colors.Cyan, Colors.Blue);
   FOR i := 10 TO 21 DO Til.DrawMonoTile8x8(i, 3, square) END;
-  Til.SetColors(GrScr.Black, GrScr.White);
+  Til.SetColors(Colors.Black, Colors.White);
   FOR i := 12 TO 19 DO Til.DrawMonoTile8x8(i, 5, square) END;
-  Til.SetColors(GrScr.Green, GrScr.Magenta);
+  Til.SetColors(Colors.Green, Colors.Magenta);
   FOR i := 14 TO 17 DO Til.DrawMonoTile8x8(i, 7, square) END;
   GrScr.Update;
-  Sdl.Delay(5000);
   GrScr.Close;
 END DemoTiles.

@@ -26,24 +26,54 @@ CONST
   SRCCLIPPING* = {20}; (* Blit uses source clipping *)
   PREALLOC* = {24}; (* Surface uses preallocated memory *)
 
-	(* SDL.h constants *)
-	INIT_TIMER* = {0};
-	INIT_AUDIO* = {4};
-	INIT_VIDEO* = {5};
-	INIT_CDROM* = {8};
-	INIT_JOYSTICK* = {9};
-	INIT_NOPARACHUTE* = {20}; (* Don't catch fatal signals *)
-	INIT_EVENTTHREAD* = {24}; (* Not supported on all OS's *)
-	INIT_EVERYTHING* = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+  (* SDL.h constants *)
+  INIT_TIMER* = {0};
+  INIT_AUDIO* = {4};
+  INIT_VIDEO* = {5};
+  INIT_CDROM* = {8};
+  INIT_JOYSTICK* = {9};
+  INIT_NOPARACHUTE* = {20}; (* Don't catch fatal signals *)
+  INIT_EVENTTHREAD* = {24}; (* Not supported on all OS's *)
+  INIT_EVERYTHING* = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+
+	(* SDL_events.h constants *)
+	NOEVENT* = 0X; (* Unused (do not remove) *)
+	ACTIVEEVENT* = 1X; (* Application loses/gains visibility *)
+	KEYDOWN* = 2X; (* Keys pressed *)
+	KEYUP* = 3X; (* Keys released *)
+	MOUSEMOTION* = 4X; (* Mouse moved *)
+	MOUSEBUTTONDOWN* = 5X; (* Mouse button pressed *)
+	MOUSEBUTTONUP* = 6X; (* Mouse button released *)
+	JOYAXISMOTION* = 7X; (* Joystick axis motion *)
+	JOYBALLMOTION* = 8X; (* Joystick trackball motion *)
+	JOYHATMOTION* = 9X; (* Joystick hat position change *)
+	JOYBUTTONDOWN* = CHR(10); (* Joystick button pressed *)
+	JOYBUTTONUP* = CHR(11); (* Joystick button released *)
+	QUIT* = CHR(12); (* User-requested quit (Changed due to procedure conflict) *)
+	QUITEV* = CHR(12);
+	SYSWMEVENT* = CHR(13); (* System specific event *)
+	EVENT_RESERVEDA* = CHR(14); (* Reserved for future use.. *)
+	EVENT_RESERVED* = CHR(15); (* Reserved for future use.. *)
+	VIDEORESIZE* = CHR(16); (* User resized video mode *)
+	VIDEOEXPOSE* = CHR(17); (* Screen needs to be redrawn *)
+	EVENT_RESERVED2* = CHR(18); (* Reserved for future use.. *)
+	EVENT_RESERVED3* = CHR(19); (* Reserved for future use.. *)
+	EVENT_RESERVED4* = CHR(20); (* Reserved for future use.. *)
+	EVENT_RESERVED5* = CHR(21); (* Reserved for future use.. *)
+	EVENT_RESERVED6* = CHR(22); (* Reserved for future use.. *)
+	EVENT_RESERVED7* = CHR(23); (* Reserved for future use.. *)
+	(* Events Sdl.USEREVENT through Sdl.MAXEVENTS-1 are for your use *)
+	USEREVENT* = CHR(24);
 
 TYPE
   (* Delphi types *)
   Byte*     = SYSTEM.BYTE;
   Cardinal* = INTEGER;
-  Char* 		= CHAR;
+  Char*     = CHAR;
   Integer*  = INTEGER;
-	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
+  PChar*    = POINTER [1] TO ARRAY [1] OF Char;
   Pointer*  = POINTER [1] TO ARRAY [1] OF Byte;
+  SInt8*    = SYSTEM.BYTE;
   SInt16*   = SHORTINT;
   SInt32*   = Integer;
   UInt8*    = SYSTEM.BYTE;
@@ -122,6 +152,13 @@ TYPE
     refcount-: Integer;
   END;
 
+  (* General event structure *)
+  PEvent* = POINTER [1] TO Event;
+  Event* = RECORD [1]
+    type-: SInt8;
+    dummy: ARRAY [1] 32 OF CHAR; (* BB shows: SIZE(Sdl.Event) = 20 *)
+  END;
+
 PROCEDURE -includesdl()  "#include <SDL.h>";
 
 PROCEDURE -sdlDelay (msec: Integer)  "SDL_Delay(msec)";
@@ -143,6 +180,10 @@ PROCEDURE -sdlMapRGB* (format: PPixelFormat; r, g, b: UInt8): UInt32
   "SDL_MapRGB((SDL_PixelFormat*)format, r, g, b)";
 PROCEDURE -sdlFlip (screen: PSurface): Integer
   "SDL_Flip((SDL_Surface*)screen)";
+PROCEDURE -sdlWaitEvent (VAR event: Event): Integer
+  "SDL_WaitEvent((SDL_Event*)event)";
+PROCEDURE -sdlPumpEvents "SDL_PumpEvents()";
+PROCEDURE -sdlGetTicks (): UInt32 "SDL_GetTicks()";
 
 PROCEDURE Init* (flags: SET): Integer; BEGIN
   RETURN sdlInit(flags) END Init;
@@ -156,21 +197,21 @@ PROCEDURE SetVideoMode* (width, height, bpp: Integer; flags: SET): PSurface;
   BEGIN RETURN sdlSetVideoMode(width, height, bpp, flags) END SetVideoMode;
 
 (* SDL_LockSurface() sets up a surface for directly accessing the pixels.
-	 Between calls to SDL_LockSurface()/SDL_UnlockSurface(), you can write
-	 to and read from 'surface->pixels', using the pixel format stored in
-	 'surface->format'.	Once you are done accessing the surface, you should
-	 use SDL_UnlockSurface() to release it.
+   Between calls to SDL_LockSurface()/SDL_UnlockSurface(), you can write
+   to and read from 'surface->pixels', using the pixel format stored in
+   'surface->format'.  Once you are done accessing the surface, you should
+   use SDL_UnlockSurface() to release it.
 
-	 Not all surfaces require locking.	If SDL_MUSTLOCK(surface) evaluates
-	 to 0, then you can read and write to the surface at any time, and the
-	 pixel format of the surface will not change.	In particular, if the
-	 SDL_HWSURFACE flag is not given when calling SDL_SetVideoMode(), you
-	 will not need to lock the display surface before accessing it.
+   Not all surfaces require locking.  If SDL_MUSTLOCK(surface) evaluates
+   to 0, then you can read and write to the surface at any time, and the
+   pixel format of the surface will not change.  In particular, if the
+   SDL_HWSURFACE flag is not given when calling SDL_SetVideoMode(), you
+   will not need to lock the display surface before accessing it.
 
-	 No operating system or library calls should be made between lock/unlock
-	 pairs, as critical system locks may be held during this time.
+   No operating system or library calls should be made between lock/unlock
+   pairs, as critical system locks may be held during this time.
 
-	 SDL_LockSurface() returns 0, or -1 if the surface couldn't be locked. *)
+   SDL_LockSurface() returns 0, or -1 if the surface couldn't be locked. *)
 
 PROCEDURE LockSurface* (surface: PSurface): BOOLEAN;
   BEGIN RETURN sdlLockSurface(surface) = 0 END LockSurface;
@@ -188,22 +229,43 @@ PROCEDURE MapRGB* (format: PPixelFormat; r, g, b: UInt8): UInt32;
   BEGIN RETURN sdlMapRGB(format, r, g, b) END MapRGB;
 
 (* On hardware that supports double-buffering, this procedure sets up a flip
-	 and returns.	The hardware will wait for vertical retrace, and then swap
-	 video buffers before the next video surface blit or lock will return.
-	 On hardware that doesn not support double-buffering, this is equivalent
-	 to calling SDL_UpdateRect(screen, 0, 0, 0, 0);
-	 The SDL_DOUBLEBUF flag must have been passed to SDL_SetVideoMode() when
-	 setting the video mode for this procedure to perform hardware flipping.
-	 This procedure returns 0 if successful, or -1 if there was an error. *)
-	
+   and returns.  The hardware will wait for vertical retrace, and then swap
+   video buffers before the next video surface blit or lock will return.
+   On hardware that doesn not support double-buffering, this is equivalent
+   to calling SDL_UpdateRect(screen, 0, 0, 0, 0);
+   The SDL_DOUBLEBUF flag must have been passed to SDL_SetVideoMode() when
+   setting the video mode for this procedure to perform hardware flipping.
+   This procedure returns 0 if successful, or -1 if there was an error. *)
+  
 PROCEDURE Flip* (screen: PSurface): BOOLEAN;
   BEGIN RETURN sdlFlip(screen) = 0 END Flip;
 
 (*------------------------------------------------------------------------*)
-(*														Time handling 															*)
+(*                            Time handling                               *)
 (*------------------------------------------------------------------------*)
 
 (* Wait a specified number of milliseconds before returning *)
 PROCEDURE Delay* (msec: Integer); BEGIN sdlDelay(msec) END Delay;
+
+(* Get the number of milliseconds since the SDL library initialization. *)
+(* Note that this value wraps if the program runs for more than ~49 days. *)
+PROCEDURE GetTicks* (): UInt32; BEGIN RETURN sdlGetTicks() END GetTicks;
+
+(* Waits indefinitely for the next available event, returning 1, or 0 if
+   there was an error while waiting for events.	If 'event' is not NULL,
+   the next event is removed from the queue and stored in that area. *)
+
+(*------------------------------------------------------------------------*)
+(*														 Event handling 														*)
+(*------------------------------------------------------------------------*)
+
+(* Pumps the event loop, gathering events from the input devices.
+	 This procedure updates the event queue and internal input device state.
+	 This should only be run in the thread that sets the video mode. *)
+
+PROCEDURE PumpEvents* ; BEGIN sdlPumpEvents END PumpEvents;
+
+PROCEDURE WaitEvent* (VAR event: Event): Integer;
+  BEGIN RETURN sdlWaitEvent(event) END WaitEvent;
 
 END SdlLib.

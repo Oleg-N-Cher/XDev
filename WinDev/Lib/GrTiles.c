@@ -38,10 +38,10 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 		_for__2 = (_for__2 - bit) + 1;
 		do {
 			if (__IN(bit, __VAL(SET, tile[__X(byte, tile__len)]))) {
-				GrPixel_SetInk(GrTiles_ink);
+				GrPixel_Ink(GrTiles_ink);
 				(*GrPixel_PutPixelNoLock)(x + (int)bit, y + (int)byte);
 			} else {
-				GrPixel_SetInk(GrTiles_paper);
+				GrPixel_Ink(GrTiles_paper);
 				(*GrPixel_PutPixelNoLock)(x + (int)bit, y + (int)byte);
 			}
 			bit += 1;
@@ -53,7 +53,7 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 	if (GrScr_mustLock) {
 		SdlLib_UnlockSurface(GrScr_Screen);
 	}
-	GrPixel_SetInk(inkTemp);
+	GrPixel_Ink(inkTemp);
 }
 
 void GrTiles_SetColors (INTEGER fore, INTEGER back)
