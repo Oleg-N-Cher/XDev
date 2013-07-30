@@ -8,7 +8,7 @@
 %Bin%\ar -rc ..\SdlLib.a %1.o
 
 @COPY /B /Y ..\Sym\SdlLib.sym ..\..\Sym
-@COPY /B /Y ..\Obj\SdlLib.h ..\..\Obj
+@COPY /B /Y ..\Obj\SdlLib.h ..\..
 PAUSE
 
 REM @..\Bin\clear

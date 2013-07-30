@@ -20,16 +20,16 @@ BEGIN
   FOR byte := 0 TO 7 DO
     FOR bit := 0 TO 7 DO
       IF bit IN SYSTEM.VAL(SET, tile[byte]) THEN
-        GrPixel.SetInk(ink);
+        GrPixel.Ink(ink);
         GrPixel.PutPixelNoLock(x + bit, y + byte);
       ELSE
-        GrPixel.SetInk(paper);
+        GrPixel.Ink(paper);
         GrPixel.PutPixelNoLock(x + bit, y + byte);
       END;
     END;
   END;
   IF GrScr.mustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
-  GrPixel.SetInk(inkTemp);
+  GrPixel.Ink(inkTemp);
 END DrawMonoTile8x8;
 
 PROCEDURE SetColors* (fore, back: Color);

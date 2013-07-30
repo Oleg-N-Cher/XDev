@@ -84,13 +84,15 @@ extern void SYSTEM_ENUMR();
 #  define __REGMOD(name, enum)	m=1
 #  define __ENDMOD
 #endif
+
 #ifdef SYSTEM_Cfg_RegisterMain
-  #define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
-  #define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
+#  define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
+#  define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
-  #define __INIT(argc, argv) SYSTEM_argc=argc;SYSTEM_argv=*(long*)((long)&argv);
-  #define __REGMAIN(name, enum)
+#  define __INIT(argc, argv) SYSTEM_argc=argc;SYSTEM_argv=*(long*)((long)&argv);
+#  define __REGMAIN(name, enum)
 #endif
+
 #define __FINI	SYSTEM_FINI(); return 0
 #define __IMPORT(name__init)	SYSTEM_INCREF(name__init())
 #ifdef SYSTEM_Cfg_RegisterCommands
@@ -252,5 +254,12 @@ long SYSTEM_ENTIER(double x);
 void SYSTEM_HALT(int n);
 */
 
+#if defined _WINGUI || defined DJGPP
+#  define __stdcall __attribute__((__stdcall__))
+#  define main(argc, argv) int __stdcall WinMain( \
+     void* hInstance, void* hPrevInstance, char* lpCmdLine, int nCmdShow)
+#  define argc SYSTEM_argc
+#  define argv SYSTEM_argv
 #endif
 
+#endif

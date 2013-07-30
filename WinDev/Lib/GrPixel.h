@@ -7,7 +7,7 @@
 
 
 import INTEGER GrPixel_ink;
-import void (*GrPixel_PutPixel)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER, INTEGER);
+import void (*GrPixel_Dot)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER, INTEGER);
 
 
 import void GrPixel_Circle (INTEGER cx, INTEGER cy, INTEGER radius);
