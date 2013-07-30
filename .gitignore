@@ -3,12 +3,13 @@ DosDev/Obj/*.OBJ
 DosDev2/
 Games/
 gpcp-JVM/
-J2meDev/
+JmeDev/
 Ofront/Arch/
 Ofront/.gitignore
 Rose/
 Samurai/
 Sdl/
+WinDev/Obj/*.o
 ZXDev/Obj/*.sym
 ZXDev/Lib/*.sym
 ZXDev/Bin/MakeZX
