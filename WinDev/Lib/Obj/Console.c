@@ -1,11 +1,14 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
+#include "GrColors.h"
 
 
 
 
 export void Console_At (INTEGER x, INTEGER y);
-export void Console_SetColors (INTEGER n);
+export void Console_Clear (INTEGER colors);
+export void Console_SetColors (GrColors_Colors n);
+export void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
 export void Console_WriteCh (CHAR ch);
 export void Console_WriteHex (INTEGER x);
 export void Console_WriteInt (LONGINT n);
@@ -23,6 +26,18 @@ export void Console_WriteStrLn (CHAR *str, LONGINT str__len);
 #define Console_writeStrLn(str, str__len)	printf("%s\n", str)
 
 void Console_At (INTEGER x, INTEGER y)
+{
+}
+
+void Console_Clear (INTEGER colors)
+{
+}
+
+void Console_SetColors (GrColors_Colors n)
+{
+}
+
+void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len)
 {
 }
 
@@ -105,14 +120,11 @@ void Console_WriteHex (INTEGER x)
 	} while (!(i == 0));
 }
 
-void Console_SetColors (INTEGER n)
-{
-}
-
 
 export void *Console__init(void)
 {
 	__DEFMOD;
+	__IMPORT(GrColors__init);
 	__REGMOD("Console", 0);
 	__REGCMD("WriteLn", Console_WriteLn);
 /* BEGIN */

@@ -21,33 +21,28 @@ import void Console_WriteStr_WinAPI (CHAR *str);
 import void Console_WriteStrLn_WinAPI (CHAR *str);
 import void Console_SetColors_WinAPI (INTEGER colors);
 
-#define Console__init()
-
 /* StdIO */
 #ifdef OUTPUT_STDIO
-
 #  define Console_SetColors(colors)
 #  define Console_WriteCh	Console_WriteCh_StdIO
 #  define Console_WriteInt	Console_WriteInt_StdIO
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_StdIO(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_StdIO(str)
 #  define Console_WriteLn	Console_WriteLn_StdIO
-
+#  define Console__init()
 #endif OUTPUT_STDIO
 
 /* ConIO */
 /*
 #ifdef OUTPUT_CONIO
-
 #  define Console_SetColors(colors)
 #  define Console_WriteStr(str, str__len)	_cputs(str)
-
+#  define Console__init()
 #endif OUTPUT_CONIO
 */
 
 /* WinAPI */
 #ifdef OUTPUT_WINAPI
-
 #  define Console_At	Console_At_WinAPI
 #  define Console_WriteCh(ch)	printf("%c", ch)
 #  define Console_WriteInt(i)	printf("%ld", i)
@@ -55,8 +50,22 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_WinAPI(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_WinAPI(str)
 #  define Console_SetColors	Console_SetColors_WinAPI
-
+#  define Console__init()
 #endif OUTPUT_WINAPI
+
+/* SDL */
+#ifdef OUTPUT_SDL
+#  include "GrConsole.h"
+#  define Console_Clear	GrConsole_Clear
+#  define Console_SetColors	GrConsole_SetColors
+#  define Console_SetFont	GrConsole_SetFont
+#  define Console_WriteCh	GrConsole_WriteCh
+#  define Console_WriteInt	GrConsole_WriteInt
+#  define Console_WriteStr	GrConsole_WriteStr
+#  define Console_WriteStrLn	GrConsole_WriteStrLn
+#  define Console_WriteLn	GrConsole_WriteLn
+#  define Console__init	GrConsole__init
+#endif OUTPUT_SDL
 
 
 #define WriteStr	Console_WriteStr
