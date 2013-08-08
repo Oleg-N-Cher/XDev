@@ -3,8 +3,11 @@
 /* runtime system routines */
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
+export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 
 extern CHAR *SYSTEM_str_par;
+
+#define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 
 /*================================== Header ==================================*/
 /* runtime system variables */
@@ -35,4 +38,12 @@ export long SYSTEM_ENTIER (float x)
 float SYSTEM_ABSD (float i)
 {
 	return __ABS(i);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size)
+{
+  SYSTEM_PTR new = SYSTEM_malloc(size);
+  __ASSERT(new != NIL, 0xFF);
+  return new;
 }
