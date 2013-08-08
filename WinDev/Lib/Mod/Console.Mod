@@ -1,6 +1,9 @@
 MODULE Console;  (** portable layer for LibC - output to standard out *)
 
-IMPORT SYSTEM;
+IMPORT SYSTEM, GrColors(*Compatibility*);
+
+TYPE
+  Colors* = GrColors.Colors;
 
 CONST
   Black     = 0;
@@ -306,6 +309,18 @@ PROCEDURE At* (x, y: INTEGER);
 BEGIN
 END At;
 
+PROCEDURE Clear* (colors: GrColors.Color);
+BEGIN
+END Clear;
+
+PROCEDURE SetColors* (n: Colors);
+BEGIN
+END SetColors;
+
+PROCEDURE SetFont* (font: ARRAY [1] OF SYSTEM.BYTE);
+BEGIN
+END SetFont;
+
 PROCEDURE WriteInt* (n: LONGINT); (** Write signed long integer number into console. *)
 BEGIN
   IF SIZE(LONGINT) = 4 THEN writeInt(n) END;
@@ -361,9 +376,5 @@ BEGIN
   UNTIL i = 8;
   REPEAT DEC(i); writeCh(a[i]) UNTIL i = 0;
 END WriteHex;
-
-PROCEDURE SetColors* (n: INTEGER);
-BEGIN
-END SetColors;
 
 END Console.
