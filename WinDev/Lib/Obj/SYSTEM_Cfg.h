@@ -4,17 +4,14 @@
 #define __SYSTEM_Cfg__h
 
 /* runtime system routines */
-
 //#define SYSTEM_Cfg_IncRef
 
 /* module registry */
-
 //#define SYSTEM_Cfg_RegisterModules
 //#define SYSTEM_Cfg_RegisterMain
 //#define SYSTEM_Cfg_RegisterCommands
 
 /* record type descriptors */
-
 //#define SYSTEM_Cfg_RecTypeDesc
 //#define SYSTEM_Cfg_InitTypes
 
