@@ -1,5 +1,6 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
+#include "GrColors.h"
 #include "GrPixel.h"
 #include "GrScr.h"
 #include "SdlLib.h"
@@ -11,15 +12,12 @@ typedef
 	SYSTEM_BYTE GrTiles_Tile8x8[8];
 
 
-static INTEGER GrTiles_ink, GrTiles_paper;
+export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
 
 
-export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len);
-export void GrTiles_SetColors (INTEGER fore, INTEGER back);
-
-
-void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len)
+void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
 {
+	CHAR mask;
 	SHORTINT byte, bit;
 	INTEGER inkTemp;
 	SHORTINT _for__3, _for__2;
@@ -33,20 +31,23 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 	_for__3 = 7;
 	_for__3 = (_for__3 - byte) + 1;
 	do {
+		mask = __VAL(CHAR, tile[__X(byte, tile__len)]);
 		bit = 0;
 		_for__2 = 7;
 		_for__2 = (_for__2 - bit) + 1;
 		do {
-			if (__IN(bit, __VAL(SET, tile[__X(byte, tile__len)]))) {
-				GrPixel_Ink(GrTiles_ink);
-				(*GrPixel_PutPixelNoLock)(x + (int)bit, y + (int)byte);
+			if (mask >= 0x80) {
+				GrPixel_Ink(colors.ink);
+				(*GrPixel_PutPixelNoLock)(x + (int)bit, y);
 			} else {
-				GrPixel_Ink(GrTiles_paper);
-				(*GrPixel_PutPixelNoLock)(x + (int)bit, y + (int)byte);
+				GrPixel_Ink(colors.paper);
+				(*GrPixel_PutPixelNoLock)(x + (int)bit, y);
 			}
+			mask = __LSHL(mask, 1, CHAR);
 			bit += 1;
 			_for__2 -= 1;
 		} while (!(_for__2 == 0));
+		y += 1;
 		byte += 1;
 		_for__3 -= 1;
 	} while (!(_for__3 == 0));
@@ -56,14 +57,7 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 	GrPixel_Ink(inkTemp);
 }
 
-void GrTiles_SetColors (INTEGER fore, INTEGER back)
-{
-	GrTiles_ink = fore;
-	GrTiles_paper = back;
-}
-
-
-export void *GrTiles__init(void)
+export void GrTiles__init (void)
 {
 	__DEFMOD;
 	__IMPORT(GrPixel__init);

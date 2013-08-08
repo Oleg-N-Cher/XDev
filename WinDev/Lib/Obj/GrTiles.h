@@ -4,6 +4,7 @@
 #define GrTiles__h
 
 #include "SYSTEM.h"
+#include "GrColors.h"
 
 typedef
 	SYSTEM_BYTE *GrTiles_Tile;
@@ -14,8 +15,7 @@ typedef
 
 
 
-import void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len);
-import void GrTiles_SetColors (INTEGER fore, INTEGER back);
+import void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
 import void *GrTiles__init(void);
 
 
