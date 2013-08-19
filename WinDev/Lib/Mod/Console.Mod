@@ -2,299 +2,120 @@ MODULE Console;  (** portable layer for LibC - output to standard out *)
 
 IMPORT SYSTEM, GrColors(*Compatibility*);
 
+CONST
+  Light = 8;
+
 TYPE
+  Color = INTEGER;
   Colors* = GrColors.Colors;
 
-CONST
-  Black     = 0;
-  Blue      = 1;
-  Green     = 2;
-  Cyan      = Green + Blue;
-  Red       = 4;
-  Magenta   = Red + Blue;
-  Olive     = Red + Green;
-  White     = Red + Green + Blue;
-  Light     = 8;
-  Gray         = Light + Black;
-  LightBlue    = Light + Blue;
-  LightGreen   = Light + Green;
-  LightCyan    = Light + Cyan;
-  LightRed     = Light + Red;
-  LightMagenta = Light + Magenta;
-  Yellow       = Light + Olive;
-  LightWhite   = Light + White;
+VAR
+  Black-, Blue-, Green-, Cyan-, Red-, Magenta-, Olive-, White-,
+  Gray-, LightBlue-, LightGreen-, LightCyan-, LightRed-,
+  LightMagenta-, Yellow-, LightWhite-, Orange- : Color;
 
-  BlackOnBlack*    = ASH(Black, 4) + Black;
-  BlueOnBlack*     = ASH(Black, 4) + Blue;
-  GreenOnBlack*    = ASH(Black, 4) + Green;
-  CyanOnBlack*     = ASH(Black, 4) + Cyan;
-  RedOnBlack*      = ASH(Black, 4) + Red;
-  MagentaOnBlack*  = ASH(Black, 4) + Magenta;
-  OliveOnBlack*    = ASH(Black, 4) + Olive;
-  WhiteOnBlack*    = ASH(Black, 4) + White;
-  GrayOnBlack*     = ASH(Black, 4) + Gray;
-  LBlueOnBlack*    = ASH(Black, 4) + LightBlue;
-  LGreenOnBlack*   = ASH(Black, 4) + LightGreen;
-  LCyanOnBlack*    = ASH(Black, 4) + LightCyan;
-  LRedOnBlack*     = ASH(Black, 4) + LightRed;
-  LMagentaOnBlack* = ASH(Black, 4) + LightMagenta;
-  YellowOnBlack*   = ASH(Black, 4) + Yellow;
-  LWhiteOnBlack*   = ASH(Black, 4) + LightWhite;
+  BlackOnBlack-, BlueOnBlack-, GreenOnBlack-, CyanOnBlack-,
+  RedOnBlack-, MagentaOnBlack-, OliveOnBlack-, WhiteOnBlack-,
+  GrayOnBlack-, LBlueOnBlack-, LGreenOnBlack-, LCyanOnBlack-,
+  LRedOnBlack-, LMagentaOnBlack-, YellowOnBlack-, LWhiteOnBlack-,
+  OrangeOnBlack-,
 
-  BlackOnBlue*    = ASH(Blue, 4) + Black;
-  BlueOnBlue*     = ASH(Blue, 4) + Blue;
-  GreenOnBlue*    = ASH(Blue, 4) + Green;
-  CyanOnBlue*     = ASH(Blue, 4) + Cyan;
-  RedOnBlue*      = ASH(Blue, 4) + Red;
-  MagentaOnBlue*  = ASH(Blue, 4) + Magenta;
-  OliveOnBlue*    = ASH(Blue, 4) + Olive;
-  WhiteOnBlue*    = ASH(Blue, 4) + White;
-  GrayOnBlue*     = ASH(Blue, 4) + Gray;
-  LBlueOnBlue*    = ASH(Blue, 4) + LightBlue;
-  LGreenOnBlue*   = ASH(Blue, 4) + LightGreen;
-  LCyanOnBlue*    = ASH(Blue, 4) + LightCyan;
-  LRedOnBlue*     = ASH(Blue, 4) + LightRed;
-  LMagentaOnBlue* = ASH(Blue, 4) + LightMagenta;
-  YellowOnBlue*   = ASH(Blue, 4) + Yellow;
-  LWhiteOnBlue*   = ASH(Blue, 4) + LightWhite;
+  BlackOnBlue-, BlueOnBlue-, GreenOnBlue-, CyanOnBlue-,
+  RedOnBlue-, MagentaOnBlue-, OliveOnBlue-, WhiteOnBlue-,
+  GrayOnBlue-, LBlueOnBlue-, LGreenOnBlue-, LCyanOnBlue-,
+  LRedOnBlue-, LMagentaOnBlue-, YellowOnBlue-, LWhiteOnBlue-,
+  OrangeOnBlue-,
 
-  BlackOnGreen*    = ASH(Green, 4) + Black;
-  BlueOnGreen*     = ASH(Green, 4) + Blue;
-  GreenOnGreen*    = ASH(Green, 4) + Green;
-  CyanOnGreen*     = ASH(Green, 4) + Cyan;
-  RedOnGreen*      = ASH(Green, 4) + Red;
-  MagentaOnGreen*  = ASH(Green, 4) + Magenta;
-  OliveOnGreen*    = ASH(Green, 4) + Olive;
-  WhiteOnGreen*    = ASH(Green, 4) + White;
-  GrayOnGreen*     = ASH(Green, 4) + Gray;
-  LBlueOnGreen*    = ASH(Green, 4) + LightBlue;
-  LGreenOnGreen*   = ASH(Green, 4) + LightGreen;
-  LCyanOnGreen*    = ASH(Green, 4) + LightCyan;
-  LRedOnGreen*     = ASH(Green, 4) + LightRed;
-  LMagentaOnGreen* = ASH(Green, 4) + LightMagenta;
-  YellowOnGreen*   = ASH(Green, 4) + Yellow;
-  LWhiteOnGreen*   = ASH(Green, 4) + LightWhite;
+  BlackOnGreen-, BlueOnGreen-, GreenOnGreen-, CyanOnGreen-,
+  RedOnGreen-, MagentaOnGreen-, OliveOnGreen-, WhiteOnGreen-,
+  GrayOnGreen-, LBlueOnGreen-, LGreenOnGreen-, LCyanOnGreen-,
+  LRedOnGreen-, LMagentaOnGreen-, YellowOnGreen-, LWhiteOnGreen-,
+  OrangeOnGreen-,
 
-  BlackOnCyan*    = ASH(Cyan, 4) + Black;
-  BlueOnCyan*     = ASH(Cyan, 4) + Blue;
-  GreenOnCyan*    = ASH(Cyan, 4) + Green;
-  CyanOnCyan*     = ASH(Cyan, 4) + Cyan;
-  RedOnCyan*      = ASH(Cyan, 4) + Red;
-  MagentaOnCyan*  = ASH(Cyan, 4) + Magenta;
-  OliveOnCyan*    = ASH(Cyan, 4) + Olive;
-  WhiteOnCyan*    = ASH(Cyan, 4) + White;
-  GrayOnCyan*     = ASH(Cyan, 4) + Gray;
-  LBlueOnCyan*    = ASH(Cyan, 4) + LightBlue;
-  LGreenOnCyan*   = ASH(Cyan, 4) + LightGreen;
-  LCyanOnCyan*    = ASH(Cyan, 4) + LightCyan;
-  LRedOnCyan*     = ASH(Cyan, 4) + LightRed;
-  LMagentaOnCyan* = ASH(Cyan, 4) + LightMagenta;
-  YellowOnCyan*   = ASH(Cyan, 4) + Yellow;
-  LWhiteOnCyan*   = ASH(Cyan, 4) + LightWhite;
+  BlackOnCyan-, BlueOnCyan-, GreenOnCyan-, CyanOnCyan-,
+  RedOnCyan-, MagentaOnCyan-, OliveOnCyan-, WhiteOnCyan-,
+  GrayOnCyan-, LBlueOnCyan-, LGreenOnCyan-, LCyanOnCyan-,
+  LRedOnCyan-, LMagentaOnCyan-, YellowOnCyan-, LWhiteOnCyan-,
+  OrangeOnCyan-,
 
-  BlackOnRed*    = ASH(Red, 4) + Black;
-  BlueOnRed*     = ASH(Red, 4) + Blue;
-  GreenOnRed*    = ASH(Red, 4) + Green;
-  CyanOnRed*     = ASH(Red, 4) + Cyan;
-  RedOnRed*      = ASH(Red, 4) + Red;
-  MagentaOnRed*  = ASH(Red, 4) + Magenta;
-  OliveOnRed*    = ASH(Red, 4) + Olive;
-  WhiteOnRed*    = ASH(Red, 4) + White;
-  GrayOnRed*     = ASH(Red, 4) + Gray;
-  LBlueOnRed*    = ASH(Red, 4) + LightBlue;
-  LGreenOnRed*   = ASH(Red, 4) + LightGreen;
-  LCyanOnRed*    = ASH(Red, 4) + LightCyan;
-  LRedOnRed*     = ASH(Red, 4) + LightRed;
-  LMagentaOnRed* = ASH(Red, 4) + LightMagenta;
-  YellowOnRed*   = ASH(Red, 4) + Yellow;
-  LWhiteOnRed*   = ASH(Red, 4) + LightWhite;
+  BlackOnRed-, BlueOnRed-, GreenOnRed-, CyanOnRed-,
+  RedOnRed-, MagentaOnRed-, OliveOnRed-, WhiteOnRed-,
+  GrayOnRed-, LBlueOnRed-, LGreenOnRed-, LCyanOnRed-,
+  LRedOnRed-, LMagentaOnRed-, YellowOnRed-, LWhiteOnRed-,
+  OrangeOnRed-,
 
-  BlackOnMagenta*    = ASH(Magenta, 4) + Black;
-  BlueOnMagenta*     = ASH(Magenta, 4) + Blue;
-  GreenOnMagenta*    = ASH(Magenta, 4) + Green;
-  CyanOnMagenta*     = ASH(Magenta, 4) + Cyan;
-  RedOnMagenta*      = ASH(Magenta, 4) + Red;
-  MagentaOnMagenta*  = ASH(Magenta, 4) + Magenta;
-  OliveOnMagenta*    = ASH(Magenta, 4) + Olive;
-  WhiteOnMagenta*    = ASH(Magenta, 4) + White;
-  GrayOnMagenta*     = ASH(Magenta, 4) + Gray;
-  LBlueOnMagenta*    = ASH(Magenta, 4) + LightBlue;
-  LGreenOnMagenta*   = ASH(Magenta, 4) + LightGreen;
-  LCyanOnMagenta*    = ASH(Magenta, 4) + LightCyan;
-  LRedOnMagenta*     = ASH(Magenta, 4) + LightRed;
-  LMagentaOnMagenta* = ASH(Magenta, 4) + LightMagenta;
-  YellowOnMagenta*   = ASH(Magenta, 4) + Yellow;
-  LWhiteOnMagenta*   = ASH(Magenta, 4) + LightWhite;
+  BlackOnMagenta-, BlueOnMagenta-, GreenOnMagenta-, CyanOnMagenta-,
+  RedOnMagenta-, MagentaOnMagenta-, OliveOnMagenta-, WhiteOnMagenta-,
+  GrayOnMagenta-, LBlueOnMagenta-, LGreenOnMagenta-, LCyanOnMagenta-,
+  LRedOnMagenta-, LMagentaOnMagenta-, YellowOnMagenta-, LWhiteOnMagenta-,
+  OrangeOnMagenta-,
 
-  BlackOnOlive*    = ASH(Olive, 4) + Black;
-  BlueOnOlive*     = ASH(Olive, 4) + Blue;
-  GreenOnOlive*    = ASH(Olive, 4) + Green;
-  CyanOnOlive*     = ASH(Olive, 4) + Cyan;
-  RedOnOlive*      = ASH(Olive, 4) + Red;
-  MagentaOnOlive*  = ASH(Olive, 4) + Magenta;
-  OliveOnOlive*    = ASH(Olive, 4) + Olive;
-  WhiteOnOlive*    = ASH(Olive, 4) + White;
-  GrayOnOlive*     = ASH(Olive, 4) + Gray;
-  LBlueOnOlive*    = ASH(Olive, 4) + LightBlue;
-  LGreenOnOlive*   = ASH(Olive, 4) + LightGreen;
-  LCyanOnOlive*    = ASH(Olive, 4) + LightCyan;
-  LRedOnOlive*     = ASH(Olive, 4) + LightRed;
-  LMagentaOnOlive* = ASH(Olive, 4) + LightMagenta;
-  YellowOnOlive*   = ASH(Olive, 4) + Yellow;
-  LWhiteOnOlive*   = ASH(Olive, 4) + LightWhite;
+  BlackOnOlive-, BlueOnOlive-, GreenOnOlive-, CyanOnOlive-,
+  RedOnOlive-, MagentaOnOlive-, OliveOnOlive-, WhiteOnOlive-,
+  GrayOnOlive-, LBlueOnOlive-, LGreenOnOlive-, LCyanOnOlive-,
+  LRedOnOlive-, LMagentaOnOlive-, YellowOnOlive-, LWhiteOnOlive-,
+  OrangeOnOlive-,
 
-  BlackOnWhite*    = ASH(White, 4) + Black;
-  BlueOnWhite*     = ASH(White, 4) + Blue;
-  GreenOnWhite*    = ASH(White, 4) + Green;
-  CyanOnWhite*     = ASH(White, 4) + Cyan;
-  RedOnWhite*      = ASH(White, 4) + Red;
-  MagentaOnWhite*  = ASH(White, 4) + Magenta;
-  OliveOnWhite*    = ASH(White, 4) + Olive;
-  WhiteOnWhite*    = ASH(White, 4) + White;
-  GrayOnWhite*     = ASH(White, 4) + Gray;
-  LBlueOnWhite*    = ASH(White, 4) + LightBlue;
-  LGreenOnWhite*   = ASH(White, 4) + LightGreen;
-  LCyanOnWhite*    = ASH(White, 4) + LightCyan;
-  LRedOnWhite*     = ASH(White, 4) + LightRed;
-  LMagentaOnWhite* = ASH(White, 4) + LightMagenta;
-  YellowOnWhite*   = ASH(White, 4) + Yellow;
-  LWhiteOnWhite*   = ASH(White, 4) + LightWhite;
+  BlackOnWhite-, BlueOnWhite-, GreenOnWhite-, CyanOnWhite-,
+  RedOnWhite-, MagentaOnWhite-, OliveOnWhite-, WhiteOnWhite-,
+  GrayOnWhite-, LBlueOnWhite-, LGreenOnWhite-, LCyanOnWhite-,
+  LRedOnWhite-, LMagentaOnWhite-, YellowOnWhite-, LWhiteOnWhite-,
+  OrangeOnWhite-,
 
-  BlackOnGray*    = ASH(Gray, 4) + Black;
-  BlueOnGray*     = ASH(Gray, 4) + Blue;
-  GreenOnGray*    = ASH(Gray, 4) + Green;
-  CyanOnGray*     = ASH(Gray, 4) + Cyan;
-  RedOnGray*      = ASH(Gray, 4) + Red;
-  MagentaOnGray*  = ASH(Gray, 4) + Magenta;
-  OliveOnGray*    = ASH(Gray, 4) + Olive;
-  WhiteOnGray*    = ASH(Gray, 4) + White;
-  GrayOnGray*     = ASH(Gray, 4) + Gray;
-  LBlueOnGray*    = ASH(Gray, 4) + LightBlue;
-  LGreenOnGray*   = ASH(Gray, 4) + LightGreen;
-  LCyanOnGray*    = ASH(Gray, 4) + LightCyan;
-  LRedOnGray*     = ASH(Gray, 4) + LightRed;
-  LMagentaOnGray* = ASH(Gray, 4) + LightMagenta;
-  YellowOnGray*   = ASH(Gray, 4) + Yellow;
-  LWhiteOnGray*   = ASH(Gray, 4) + LightWhite;
+  BlackOnGray-, BlueOnGray-, GreenOnGray-, CyanOnGray-,
+  RedOnGray-, MagentaOnGray-, OliveOnGray-, WhiteOnGray-,
+  GrayOnGray-, LBlueOnGray-, LGreenOnGray-, LCyanOnGray-,
+  LRedOnGray-, LMagentaOnGray-, YellowOnGray-, LWhiteOnGray-,
+  OrangeOnGray-,
 
-  BlackOnLBlue*    = ASH(LightBlue, 4) + Black;
-  BlueOnLBlue*     = ASH(LightBlue, 4) + Blue;
-  GreenOnLBlue*    = ASH(LightBlue, 4) + Green;
-  CyanOnLBlue*     = ASH(LightBlue, 4) + Cyan;
-  RedOnLBlue*      = ASH(LightBlue, 4) + Red;
-  MagentaOnLBlue*  = ASH(LightBlue, 4) + Magenta;
-  OliveOnLBlue*    = ASH(LightBlue, 4) + Olive;
-  WhiteOnLBlue*    = ASH(LightBlue, 4) + White;
-  GrayOnLBlue*     = ASH(LightBlue, 4) + Gray;
-  LBlueOnLBlue*    = ASH(LightBlue, 4) + LightBlue;
-  LGreenOnLBlue*   = ASH(LightBlue, 4) + LightGreen;
-  LCyanOnLBlue*    = ASH(LightBlue, 4) + LightCyan;
-  LRedOnLBlue*     = ASH(LightBlue, 4) + LightRed;
-  LMagentaOnLBlue* = ASH(LightBlue, 4) + LightMagenta;
-  YellowOnLBlue*   = ASH(LightBlue, 4) + Yellow;
-  LWhiteOnLBlue*   = ASH(LightBlue, 4) + LightWhite;
+  BlackOnLBlue-, BlueOnLBlue-, GreenOnLBlue-, CyanOnLBlue-,
+  RedOnLBlue-, MagentaOnLBlue-, OliveOnLBlue-, WhiteOnLBlue-,
+  GrayOnLBlue-, LBlueOnLBlue-, LGreenOnLBlue-, LCyanOnLBlue-,
+  LRedOnLBlue-, LMagentaOnLBlue-, YellowOnLBlue-, LWhiteOnLBlue-,
+  OrangeOnLBlue-,
 
-  BlackOnLGreen*    = ASH(LightGreen, 4) + Black;
-  BlueOnLGreen*     = ASH(LightGreen, 4) + Blue;
-  GreenOnLGreen*    = ASH(LightGreen, 4) + Green;
-  CyanOnLGreen*     = ASH(LightGreen, 4) + Cyan;
-  RedOnLGreen*      = ASH(LightGreen, 4) + Red;
-  MagentaOnLGreen*  = ASH(LightGreen, 4) + Magenta;
-  OliveOnLGreen*    = ASH(LightGreen, 4) + Olive;
-  WhiteOnLGreen*    = ASH(LightGreen, 4) + White;
-  GrayOnLGreen*     = ASH(LightGreen, 4) + Gray;
-  LBlueOnLGreen*    = ASH(LightGreen, 4) + LightBlue;
-  LGreenOnLGreen*   = ASH(LightGreen, 4) + LightGreen;
-  LCyanOnLGreen*    = ASH(LightGreen, 4) + LightCyan;
-  LRedOnLGreen*     = ASH(LightGreen, 4) + LightRed;
-  LMagentaOnLGreen* = ASH(LightGreen, 4) + LightMagenta;
-  YellowOnLGreen*   = ASH(LightGreen, 4) + Yellow;
-  LWhiteOnLGreen*   = ASH(LightGreen, 4) + LightWhite;
+  BlackOnLGreen-, BlueOnLGreen-, GreenOnLGreen-, CyanOnLGreen-,
+  RedOnLGreen-, MagentaOnLGreen-, OliveOnLGreen-, WhiteOnLGreen-,
+  GrayOnLGreen-, LBlueOnLGreen-, LGreenOnLGreen-, LCyanOnLGreen-,
+  LRedOnLGreen-, LMagentaOnLGreen-, YellowOnLGreen-, LWhiteOnLGreen-,
+  OrangeOnLGreen-,
 
-  BlackOnLCyan*    = ASH(LightCyan, 4) + Black;
-  BlueOnLCyan*     = ASH(LightCyan, 4) + Blue;
-  GreenOnLCyan*    = ASH(LightCyan, 4) + Green;
-  CyanOnLCyan*     = ASH(LightCyan, 4) + Cyan;
-  RedOnLCyan*      = ASH(LightCyan, 4) + Red;
-  MagentaOnLCyan*  = ASH(LightCyan, 4) + Magenta;
-  OliveOnLCyan*    = ASH(LightCyan, 4) + Olive;
-  WhiteOnLCyan*    = ASH(LightCyan, 4) + White;
-  GrayOnLCyan*     = ASH(LightCyan, 4) + Gray;
-  LBlueOnLCyan*    = ASH(LightCyan, 4) + LightBlue;
-  LGreenOnLCyan*   = ASH(LightCyan, 4) + LightGreen;
-  LCyanOnLCyan*    = ASH(LightCyan, 4) + LightCyan;
-  LRedOnLCyan*     = ASH(LightCyan, 4) + LightRed;
-  LMagentaOnLCyan* = ASH(LightCyan, 4) + LightMagenta;
-  YellowOnLCyan*   = ASH(LightCyan, 4) + Yellow;
-  LWhiteOnLCyan*   = ASH(LightCyan, 4) + LightWhite;
+  BlackOnLCyan-, BlueOnLCyan-, GreenOnLCyan-, CyanOnLCyan-,
+  RedOnLCyan-, MagentaOnLCyan-, OliveOnLCyan-, WhiteOnLCyan-,
+  GrayOnLCyan-, LBlueOnLCyan-, LGreenOnLCyan-, LCyanOnLCyan-,
+  LRedOnLCyan-, LMagentaOnLCyan-, YellowOnLCyan-, LWhiteOnLCyan-,
+  OrangeOnLCyan-,
 
-  BlackOnLRed*    = ASH(LightRed, 4) + Black;
-  BlueOnLRed*     = ASH(LightRed, 4) + Blue;
-  GreenOnLRed*    = ASH(LightRed, 4) + Green;
-  CyanOnLRed*     = ASH(LightRed, 4) + Cyan;
-  RedOnLRed*      = ASH(LightRed, 4) + Red;
-  MagentaOnLRed*  = ASH(LightRed, 4) + Magenta;
-  OliveOnLRed*    = ASH(LightRed, 4) + Olive;
-  WhiteOnLRed*    = ASH(LightRed, 4) + White;
-  GrayOnLRed*     = ASH(LightRed, 4) + Gray;
-  LBlueOnLRed*    = ASH(LightRed, 4) + LightBlue;
-  LGreenOnLRed*   = ASH(LightRed, 4) + LightGreen;
-  LCyanOnLRed*    = ASH(LightRed, 4) + LightCyan;
-  LRedOnLRed*     = ASH(LightRed, 4) + LightRed;
-  LMagentaOnLRed* = ASH(LightRed, 4) + LightMagenta;
-  YellowOnLRed*   = ASH(LightRed, 4) + Yellow;
-  LWhiteOnLRed*   = ASH(LightRed, 4) + LightWhite;
+  BlackOnLRed-, BlueOnLRed-, GreenOnLRed-, CyanOnLRed-,
+  RedOnLRed-, MagentaOnLRed-, OliveOnLRed-, WhiteOnLRed-,
+  GrayOnLRed-, LBlueOnLRed-, LGreenOnLRed-, LCyanOnLRed-,
+  LRedOnLRed-, LMagentaOnLRed-, YellowOnLRed-, LWhiteOnLRed-,
+  OrangeOnLRed-,
 
-  BlackOnLMagenta*    = ASH(LightMagenta, 4) + Black;
-  BlueOnLMagenta*     = ASH(LightMagenta, 4) + Blue;
-  GreenOnLMagenta*    = ASH(LightMagenta, 4) + Green;
-  CyanOnLMagenta*     = ASH(LightMagenta, 4) + Cyan;
-  RedOnLMagenta*      = ASH(LightMagenta, 4) + Red;
-  MagentaOnLMagenta*  = ASH(LightMagenta, 4) + Magenta;
-  OliveOnLMagenta*    = ASH(LightMagenta, 4) + Olive;
-  WhiteOnLMagenta*    = ASH(LightMagenta, 4) + White;
-  GrayOnLMagenta*     = ASH(LightMagenta, 4) + Gray;
-  LBlueOnLMagenta*    = ASH(LightMagenta, 4) + LightBlue;
-  LGreenOnLMagenta*   = ASH(LightMagenta, 4) + LightGreen;
-  LCyanOnLMagenta*    = ASH(LightMagenta, 4) + LightCyan;
-  LRedOnLMagenta*     = ASH(LightMagenta, 4) + LightRed;
-  LMagentaOnLMagenta* = ASH(LightMagenta, 4) + LightMagenta;
-  YellowOnLMagenta*   = ASH(LightMagenta, 4) + Yellow;
-  LWhiteOnLMagenta*   = ASH(LightMagenta, 4) + LightWhite;
+  BlackOnLMagenta-, BlueOnLMagenta-, GreenOnLMagenta-, CyanOnLMagenta-,
+  RedOnLMagenta-, MagentaOnLMagenta-, OliveOnLMagenta-, WhiteOnLMagenta-,
+  GrayOnLMagenta-, LBlueOnLMagenta-, LGreenOnLMagenta-, LCyanOnLMagenta-,
+  LRedOnLMagenta-, LMagentaOnLMagenta-, YellowOnLMagenta-, LWhiteOnLMagenta-,
+  OrangeOnLMagenta-,
 
-  BlackOnYellow*    = ASH(Yellow, 4) + Black;
-  BlueOnYellow*     = ASH(Yellow, 4) + Blue;
-  GreenOnYellow*    = ASH(Yellow, 4) + Green;
-  CyanOnYellow*     = ASH(Yellow, 4) + Cyan;
-  RedOnYellow*      = ASH(Yellow, 4) + Red;
-  MagentaOnYellow*  = ASH(Yellow, 4) + Magenta;
-  OliveOnYellow*    = ASH(Yellow, 4) + Olive;
-  WhiteOnYellow*    = ASH(Yellow, 4) + White;
-  GrayOnYellow*     = ASH(Yellow, 4) + Gray;
-  LBlueOnYellow*    = ASH(Yellow, 4) + LightBlue;
-  LGreenOnYellow*   = ASH(Yellow, 4) + LightGreen;
-  LCyanOnYellow*    = ASH(Yellow, 4) + LightCyan;
-  LRedOnYellow*     = ASH(Yellow, 4) + LightRed;
-  LMagentaOnYellow* = ASH(Yellow, 4) + LightMagenta;
-  YellowOnYellow*   = ASH(Yellow, 4) + Yellow;
-  LWhiteOnYellow*   = ASH(Yellow, 4) + LightWhite;
+  BlackOnYellow-, BlueOnYellow-, GreenOnYellow-, CyanOnYellow-,
+  RedOnYellow-, MagentaOnYellow-, OliveOnYellow-, WhiteOnYellow-,
+  GrayOnYellow-, LBlueOnYellow-, LGreenOnYellow-, LCyanOnYellow-,
+  LRedOnYellow-, LMagentaOnYellow-, YellowOnYellow-, LWhiteOnYellow-,
+  OrangeOnYellow-,
 
-  BlackOnLWhite*    = ASH(LightWhite, 4) + Black;
-  BlueOnLWhite*     = ASH(LightWhite, 4) + Blue;
-  GreenOnLWhite*    = ASH(LightWhite, 4) + Green;
-  CyanOnLWhite*     = ASH(LightWhite, 4) + Cyan;
-  RedOnLWhite*      = ASH(LightWhite, 4) + Red;
-  MagentaOnLWhite*  = ASH(LightWhite, 4) + Magenta;
-  OliveOnLWhite*    = ASH(LightWhite, 4) + Olive;
-  WhiteOnLWhite*    = ASH(LightWhite, 4) + White;
-  GrayOnLWhite*     = ASH(LightWhite, 4) + Gray;
-  LBlueOnLWhite*    = ASH(LightWhite, 4) + LightBlue;
-  LGreenOnLWhite*   = ASH(LightWhite, 4) + LightGreen;
-  LCyanOnLWhite*    = ASH(LightWhite, 4) + LightCyan;
-  LRedOnLWhite*     = ASH(LightWhite, 4) + LightRed;
-  LMagentaOnLWhite* = ASH(LightWhite, 4) + LightMagenta;
-  YellowOnLWhite*   = ASH(LightWhite, 4) + Yellow;
-  LWhiteOnLWhite*   = ASH(LightWhite, 4) + LightWhite;
+  BlackOnLWhite-, BlueOnLWhite-, GreenOnLWhite-, CyanOnLWhite-,
+  RedOnLWhite-, MagentaOnLWhite-, OliveOnLWhite-, WhiteOnLWhite-,
+  GrayOnLWhite-, LBlueOnLWhite-, LGreenOnLWhite-, LCyanOnLWhite-,
+  LRedOnLWhite-, LMagentaOnLWhite-, YellowOnLWhite-, LWhiteOnLWhite-,
+  OrangeOnLWhite-,
+
+  BlackOnOrange-, BlueOnOrange-, GreenOnOrange-, CyanOnOrange-,
+  RedOnOrange-, MagentaOnOrange-, OliveOnOrange-, WhiteOnOrange-,
+  GrayOnOrange-, LBlueOnOrange-, LGreenOnOrange-, LCyanOnOrange-,
+  LRedOnOrange-, LMagentaOnOrange-, YellowOnOrange-, LWhiteOnOrange-
+
+    : Colors;
 
 PROCEDURE -includestdio()  "#include <stdio.h>";
 
@@ -309,7 +130,7 @@ PROCEDURE At* (x, y: INTEGER);
 BEGIN
 END At;
 
-PROCEDURE Clear* (colors: GrColors.Color);
+PROCEDURE Clear* (colors: Color);
 BEGIN
 END Clear;
 
@@ -377,4 +198,310 @@ BEGIN
   REPEAT DEC(i); writeCh(a[i]) UNTIL i = 0;
 END WriteHex;
 
+BEGIN
+  Black     := 0;
+  Blue      := 1;
+  Green     := 2;
+  Cyan      := Green + Blue;
+  Red       := 4;
+  Magenta   := Red + Blue;
+  Olive     := Red + Green;
+  White     := Red + Green + Blue;
+  Gray         := Light + Black;
+  LightBlue    := Light + Blue;
+  LightGreen   := Light + Green;
+  LightCyan    := Light + Cyan;
+  LightRed     := Light + Red;
+  LightMagenta := Light + Magenta;
+  Yellow       := Light + Olive;
+  LightWhite   := Light + White;
+
+  BlackOnBlack.paper    := Black; BlackOnBlack.ink    := Black;
+  BlueOnBlack.paper     := Black; BlueOnBlack.ink     := Blue;
+  GreenOnBlack.paper    := Black; GreenOnBlack.ink    := Green;
+  CyanOnBlack.paper     := Black; CyanOnBlack.ink     := Cyan;
+  RedOnBlack.paper      := Black; RedOnBlack.ink      := Red;
+  MagentaOnBlack.paper  := Black; MagentaOnBlack.ink  := Magenta;
+  OliveOnBlack.paper    := Black; OliveOnBlack.ink    := Olive;
+  WhiteOnBlack.paper    := Black; WhiteOnBlack.ink    := White;
+  GrayOnBlack.paper     := Black; GrayOnBlack.ink     := Gray;
+  LBlueOnBlack.paper    := Black; LBlueOnBlack.ink    := LightBlue;
+  LGreenOnBlack.paper   := Black; LGreenOnBlack.ink   := LightGreen;
+  LCyanOnBlack.paper    := Black; LCyanOnBlack.ink    := LightCyan;
+  LRedOnBlack.paper     := Black; LRedOnBlack.ink     := LightRed;
+  LMagentaOnBlack.paper := Black; LMagentaOnBlack.ink := LightMagenta;
+  YellowOnBlack.paper   := Black; YellowOnBlack.ink   := Yellow;
+  LWhiteOnBlack.paper   := Black; LWhiteOnBlack.ink   := LightWhite;
+  OrangeOnBlack.paper   := Black; OrangeOnBlack.ink   := Orange;
+
+  BlackOnBlue.paper    := Blue; BlackOnBlue.ink    := Black;
+  BlueOnBlue.paper     := Blue; BlueOnBlue.ink     := Blue;
+  GreenOnBlue.paper    := Blue; GreenOnBlue.ink    := Green;
+  CyanOnBlue.paper     := Blue; CyanOnBlue.ink     := Cyan;
+  RedOnBlue.paper      := Blue; RedOnBlue.ink      := Red;
+  MagentaOnBlue.paper  := Blue; MagentaOnBlue.ink  := Magenta;
+  OliveOnBlue.paper    := Blue; OliveOnBlue.ink    := Olive;
+  WhiteOnBlue.paper    := Blue; WhiteOnBlue.ink    := White;
+  GrayOnBlue.paper     := Blue; GrayOnBlue.ink     := Gray;
+  LBlueOnBlue.paper    := Blue; LBlueOnBlue.ink    := LightBlue;
+  LGreenOnBlue.paper   := Blue; LGreenOnBlue.ink   := LightGreen;
+  LCyanOnBlue.paper    := Blue; LCyanOnBlue.ink    := LightCyan;
+  LRedOnBlue.paper     := Blue; LRedOnBlue.ink     := LightRed;
+  LMagentaOnBlue.paper := Blue; LMagentaOnBlue.ink := LightMagenta;
+  YellowOnBlue.paper   := Blue; YellowOnBlue.ink   := Yellow;
+  LWhiteOnBlue.paper   := Blue; LWhiteOnBlue.ink   := LightWhite;
+  OrangeOnBlue.paper   := Blue; OrangeOnBlue.ink   := Orange;
+
+  BlackOnGreen.paper    := Green; BlackOnGreen.ink    := Black;
+  BlueOnGreen.paper     := Green; BlueOnGreen.ink     := Blue;
+  GreenOnGreen.paper    := Green; GreenOnGreen.ink    := Green;
+  CyanOnGreen.paper     := Green; CyanOnGreen.ink     := Cyan;
+  RedOnGreen.paper      := Green; RedOnGreen.ink      := Red;
+  MagentaOnGreen.paper  := Green; MagentaOnGreen.ink  := Magenta;
+  OliveOnGreen.paper    := Green; OliveOnGreen.ink    := Olive;
+  WhiteOnGreen.paper    := Green; WhiteOnGreen.ink    := White;
+  GrayOnGreen.paper     := Green; GrayOnGreen.ink     := Gray;
+  LBlueOnGreen.paper    := Green; LBlueOnGreen.ink    := LightBlue;
+  LGreenOnGreen.paper   := Green; LGreenOnGreen.ink   := LightGreen;
+  LCyanOnGreen.paper    := Green; LCyanOnGreen.ink    := LightCyan;
+  LRedOnGreen.paper     := Green; LRedOnGreen.ink     := LightRed;
+  LMagentaOnGreen.paper := Green; LMagentaOnGreen.ink := LightMagenta;
+  YellowOnGreen.paper   := Green; YellowOnGreen.ink   := Yellow;
+  LWhiteOnGreen.paper   := Green; LWhiteOnGreen.ink   := LightWhite;
+  OrangeOnGreen.paper   := Green; OrangeOnGreen.ink   := Orange;
+
+  BlackOnCyan.paper    := Cyan; BlackOnCyan.ink    := Black;
+  BlueOnCyan.paper     := Cyan; BlueOnCyan.ink     := Blue;
+  GreenOnCyan.paper    := Cyan; GreenOnCyan.ink    := Green;
+  CyanOnCyan.paper     := Cyan; CyanOnCyan.ink     := Cyan;
+  RedOnCyan.paper      := Cyan; RedOnCyan.ink      := Red;
+  MagentaOnCyan.paper  := Cyan; MagentaOnCyan.ink  := Magenta;
+  OliveOnCyan.paper    := Cyan; OliveOnCyan.ink    := Olive;
+  WhiteOnCyan.paper    := Cyan; WhiteOnCyan.ink    := White;
+  GrayOnCyan.paper     := Cyan; GrayOnCyan.ink     := Gray;
+  LBlueOnCyan.paper    := Cyan; LBlueOnCyan.ink    := LightBlue;
+  LGreenOnCyan.paper   := Cyan; LGreenOnCyan.ink   := LightGreen;
+  LCyanOnCyan.paper    := Cyan; LCyanOnCyan.ink    := LightCyan;
+  LRedOnCyan.paper     := Cyan; LRedOnCyan.ink     := LightRed;
+  LMagentaOnCyan.paper := Cyan; LMagentaOnCyan.ink := LightMagenta;
+  YellowOnCyan.paper   := Cyan; YellowOnCyan.ink   := Yellow;
+  LWhiteOnCyan.paper   := Cyan; LWhiteOnCyan.ink   := LightWhite;
+  OrangeOnCyan.paper   := Cyan; OrangeOnCyan.ink   := Orange;
+
+  BlackOnRed.paper    := Red; BlackOnRed.ink    := Black;
+  BlueOnRed.paper     := Red; BlueOnRed.ink     := Blue;
+  GreenOnRed.paper    := Red; GreenOnRed.ink    := Green;
+  CyanOnRed.paper     := Red; CyanOnRed.ink     := Cyan;
+  RedOnRed.paper      := Red; RedOnRed.ink      := Red;
+  MagentaOnRed.paper  := Red; MagentaOnRed.ink  := Magenta;
+  OliveOnRed.paper    := Red; OliveOnRed.ink    := Olive;
+  WhiteOnRed.paper    := Red; WhiteOnRed.ink    := White;
+  GrayOnRed.paper     := Red; GrayOnRed.ink     := Gray;
+  LBlueOnRed.paper    := Red; LBlueOnRed.ink    := LightBlue;
+  LGreenOnRed.paper   := Red; LGreenOnRed.ink   := LightGreen;
+  LCyanOnRed.paper    := Red; LCyanOnRed.ink    := LightCyan;
+  LRedOnRed.paper     := Red; LRedOnRed.ink     := LightRed;
+  LMagentaOnRed.paper := Red; LMagentaOnRed.ink := LightMagenta;
+  YellowOnRed.paper   := Red; YellowOnRed.ink   := Yellow;
+  LWhiteOnRed.paper   := Red; LWhiteOnRed.ink   := LightWhite;
+  OrangeOnRed.paper   := Red; OrangeOnRed.ink   := Orange;
+
+  BlackOnMagenta.paper    := Magenta; BlackOnMagenta.ink    := Black;
+  BlueOnMagenta.paper     := Magenta; BlueOnMagenta.ink     := Blue;
+  GreenOnMagenta.paper    := Magenta; GreenOnMagenta.ink    := Green;
+  CyanOnMagenta.paper     := Magenta; CyanOnMagenta.ink     := Cyan;
+  RedOnMagenta.paper      := Magenta; RedOnMagenta.ink      := Red;
+  MagentaOnMagenta.paper  := Magenta; MagentaOnMagenta.ink  := Magenta;
+  OliveOnMagenta.paper    := Magenta; OliveOnMagenta.ink    := Olive;
+  WhiteOnMagenta.paper    := Magenta; WhiteOnMagenta.ink    := White;
+  GrayOnMagenta.paper     := Magenta; GrayOnMagenta.ink     := Gray;
+  LBlueOnMagenta.paper    := Magenta; LBlueOnMagenta.ink    := LightBlue;
+  LGreenOnMagenta.paper   := Magenta; LGreenOnMagenta.ink   := LightGreen;
+  LCyanOnMagenta.paper    := Magenta; LCyanOnMagenta.ink    := LightCyan;
+  LRedOnMagenta.paper     := Magenta; LRedOnMagenta.ink     := LightRed;
+  LMagentaOnMagenta.paper := Magenta; LMagentaOnMagenta.ink := LightMagenta;
+  YellowOnMagenta.paper   := Magenta; YellowOnMagenta.ink   := Yellow;
+  LWhiteOnMagenta.paper   := Magenta; LWhiteOnMagenta.ink   := LightWhite;
+  OrangeOnMagenta.paper   := Magenta; OrangeOnMagenta.ink   := Orange;
+
+  BlackOnOlive.paper    := Olive; BlackOnOlive.ink    := Black;
+  BlueOnOlive.paper     := Olive; BlueOnOlive.ink     := Blue;
+  GreenOnOlive.paper    := Olive; GreenOnOlive.ink    := Green;
+  CyanOnOlive.paper     := Olive; CyanOnOlive.ink     := Cyan;
+  RedOnOlive.paper      := Olive; RedOnOlive.ink      := Red;
+  MagentaOnOlive.paper  := Olive; MagentaOnOlive.ink  := Magenta;
+  OliveOnOlive.paper    := Olive; OliveOnOlive.ink    := Olive;
+  WhiteOnOlive.paper    := Olive; WhiteOnOlive.ink    := White;
+  GrayOnOlive.paper     := Olive; GrayOnOlive.ink     := Gray;
+  LBlueOnOlive.paper    := Olive; LBlueOnOlive.ink    := LightBlue;
+  LGreenOnOlive.paper   := Olive; LGreenOnOlive.ink   := LightGreen;
+  LCyanOnOlive.paper    := Olive; LCyanOnOlive.ink    := LightCyan;
+  LRedOnOlive.paper     := Olive; LRedOnOlive.ink     := LightRed;
+  LMagentaOnOlive.paper := Olive; LMagentaOnOlive.ink := LightMagenta;
+  YellowOnOlive.paper   := Olive; YellowOnOlive.ink   := Yellow;
+  LWhiteOnOlive.paper   := Olive; LWhiteOnOlive.ink   := LightWhite;
+  OrangeOnOlive.paper   := Olive; OrangeOnOlive.ink   := Orange;
+
+  BlackOnWhite.paper    := White; BlackOnWhite.ink    := Black;
+  BlueOnWhite.paper     := White; BlueOnWhite.ink     := Blue;
+  GreenOnWhite.paper    := White; GreenOnWhite.ink    := Green;
+  CyanOnWhite.paper     := White; CyanOnWhite.ink     := Cyan;
+  RedOnWhite.paper      := White; RedOnWhite.ink      := Red;
+  MagentaOnWhite.paper  := White; MagentaOnWhite.ink  := Magenta;
+  OliveOnWhite.paper    := White; OliveOnWhite.ink    := Olive;
+  WhiteOnWhite.paper    := White; WhiteOnWhite.ink    := White;
+  GrayOnWhite.paper     := White; GrayOnWhite.ink     := Gray;
+  LBlueOnWhite.paper    := White; LBlueOnWhite.ink    := LightBlue;
+  LGreenOnWhite.paper   := White; LGreenOnWhite.ink   := LightGreen;
+  LCyanOnWhite.paper    := White; LCyanOnWhite.ink    := LightCyan;
+  LRedOnWhite.paper     := White; LRedOnWhite.ink     := LightRed;
+  LMagentaOnWhite.paper := White; LMagentaOnWhite.ink := LightMagenta;
+  YellowOnWhite.paper   := White; YellowOnWhite.ink   := Yellow;
+  LWhiteOnWhite.paper   := White; LWhiteOnWhite.ink   := LightWhite;
+  OrangeOnWhite.paper   := White; OrangeOnWhite.ink   := Orange;
+
+  BlackOnGray.paper    := Gray; BlackOnGray.ink    := Black;
+  BlueOnGray.paper     := Gray; BlueOnGray.ink     := Blue;
+  GreenOnGray.paper    := Gray; GreenOnGray.ink    := Green;
+  CyanOnGray.paper     := Gray; CyanOnGray.ink     := Cyan;
+  RedOnGray.paper      := Gray; RedOnGray.ink      := Red;
+  MagentaOnGray.paper  := Gray; MagentaOnGray.ink  := Magenta;
+  OliveOnGray.paper    := Gray; OliveOnGray.ink    := Olive;
+  WhiteOnGray.paper    := Gray; WhiteOnGray.ink    := White;
+  GrayOnGray.paper     := Gray; GrayOnGray.ink     := Gray;
+  LBlueOnGray.paper    := Gray; LBlueOnGray.ink    := LightBlue;
+  LGreenOnGray.paper   := Gray; LGreenOnGray.ink   := LightGreen;
+  LCyanOnGray.paper    := Gray; LCyanOnGray.ink    := LightCyan;
+  LRedOnGray.paper     := Gray; LRedOnGray.ink     := LightRed;
+  LMagentaOnGray.paper := Gray; LMagentaOnGray.ink := LightMagenta;
+  YellowOnGray.paper   := Gray; YellowOnGray.ink   := Yellow;
+  LWhiteOnGray.paper   := Gray; LWhiteOnGray.ink   := LightWhite;
+  OrangeOnGray.paper   := Gray; OrangeOnGray.ink   := Orange;
+
+  BlackOnLBlue.paper    := LightBlue; BlackOnLBlue.ink    := Black;
+  BlueOnLBlue.paper     := LightBlue; BlueOnLBlue.ink     := Blue;
+  GreenOnLBlue.paper    := LightBlue; GreenOnLBlue.ink    := Green;
+  CyanOnLBlue.paper     := LightBlue; CyanOnLBlue.ink     := Cyan;
+  RedOnLBlue.paper      := LightBlue; RedOnLBlue.ink      := Red;
+  MagentaOnLBlue.paper  := LightBlue; MagentaOnLBlue.ink  := Magenta;
+  OliveOnLBlue.paper    := LightBlue; OliveOnLBlue.ink    := Olive;
+  WhiteOnLBlue.paper    := LightBlue; WhiteOnLBlue.ink    := White;
+  GrayOnLBlue.paper     := LightBlue; GrayOnLBlue.ink     := Gray;
+  LBlueOnLBlue.paper    := LightBlue; LBlueOnLBlue.ink    := LightBlue;
+  LGreenOnLBlue.paper   := LightBlue; LGreenOnLBlue.ink   := LightGreen;
+  LCyanOnLBlue.paper    := LightBlue; LCyanOnLBlue.ink    := LightCyan;
+  LRedOnLBlue.paper     := LightBlue; LRedOnLBlue.ink     := LightRed;
+  LMagentaOnLBlue.paper := LightBlue; LMagentaOnLBlue.ink := LightMagenta;
+  YellowOnLBlue.paper   := LightBlue; YellowOnLBlue.ink   := Yellow;
+  LWhiteOnLBlue.paper   := LightBlue; LWhiteOnLBlue.ink   := LightWhite;
+  OrangeOnLBlue.paper   := LightBlue; OrangeOnLBlue.ink   := Orange;
+
+  BlackOnLGreen.paper    := LightGreen; BlackOnLGreen.ink    := Black;
+  BlueOnLGreen.paper     := LightGreen; BlueOnLGreen.ink     := Blue;
+  GreenOnLGreen.paper    := LightGreen; GreenOnLGreen.ink    := Green;
+  CyanOnLGreen.paper     := LightGreen; CyanOnLGreen.ink     := Cyan;
+  RedOnLGreen.paper      := LightGreen; RedOnLGreen.ink      := Red;
+  MagentaOnLGreen.paper  := LightGreen; MagentaOnLGreen.ink  := Magenta;
+  OliveOnLGreen.paper    := LightGreen; OliveOnLGreen.ink    := Olive;
+  WhiteOnLGreen.paper    := LightGreen; WhiteOnLGreen.ink    := White;
+  GrayOnLGreen.paper     := LightGreen; GrayOnLGreen.ink     := Gray;
+  LBlueOnLGreen.paper    := LightGreen; LBlueOnLGreen.ink    := LightBlue;
+  LGreenOnLGreen.paper   := LightGreen; LGreenOnLGreen.ink   := LightGreen;
+  LCyanOnLGreen.paper    := LightGreen; LCyanOnLGreen.ink    := LightCyan;
+  LRedOnLGreen.paper     := LightGreen; LRedOnLGreen.ink     := LightRed;
+  LMagentaOnLGreen.paper := LightGreen; LMagentaOnLGreen.ink := LightMagenta;
+  YellowOnLGreen.paper   := LightGreen; YellowOnLGreen.ink   := Yellow;
+  LWhiteOnLGreen.paper   := LightGreen; LWhiteOnLGreen.ink   := LightWhite;
+  OrangeOnLGreen.paper   := LightGreen; OrangeOnLGreen.ink   := Orange;
+
+  BlackOnLCyan.paper    := LightCyan; BlackOnLCyan.ink    := Black;
+  BlueOnLCyan.paper     := LightCyan; BlueOnLCyan.ink     := Blue;
+  GreenOnLCyan.paper    := LightCyan; GreenOnLCyan.ink    := Green;
+  CyanOnLCyan.paper     := LightCyan; CyanOnLCyan.ink     := Cyan;
+  RedOnLCyan.paper      := LightCyan; RedOnLCyan.ink      := Red;
+  MagentaOnLCyan.paper  := LightCyan; MagentaOnLCyan.ink  := Magenta;
+  OliveOnLCyan.paper    := LightCyan; OliveOnLCyan.ink    := Olive;
+  WhiteOnLCyan.paper    := LightCyan; WhiteOnLCyan.ink    := White;
+  GrayOnLCyan.paper     := LightCyan; GrayOnLCyan.ink     := Gray;
+  LBlueOnLCyan.paper    := LightCyan; LBlueOnLCyan.ink    := LightBlue;
+  LGreenOnLCyan.paper   := LightCyan; LGreenOnLCyan.ink   := LightGreen;
+  LCyanOnLCyan.paper    := LightCyan; LCyanOnLCyan.ink    := LightCyan;
+  LRedOnLCyan.paper     := LightCyan; LRedOnLCyan.ink     := LightRed;
+  LMagentaOnLCyan.paper := LightCyan; LMagentaOnLCyan.ink := LightMagenta;
+  YellowOnLCyan.paper   := LightCyan; YellowOnLCyan.ink   := Yellow;
+  LWhiteOnLCyan.paper   := LightCyan; LWhiteOnLCyan.ink   := LightWhite;
+  OrangeOnLCyan.paper   := LightCyan; OrangeOnLCyan.ink   := Orange;
+
+  BlackOnLRed.paper    := LightRed; BlackOnLRed.ink    := Black;
+  BlueOnLRed.paper     := LightRed; BlueOnLRed.ink     := Blue;
+  GreenOnLRed.paper    := LightRed; GreenOnLRed.ink    := Green;
+  CyanOnLRed.paper     := LightRed; CyanOnLRed.ink     := Cyan;
+  RedOnLRed.paper      := LightRed; RedOnLRed.ink      := Red;
+  MagentaOnLRed.paper  := LightRed; MagentaOnLRed.ink  := Magenta;
+  OliveOnLRed.paper    := LightRed; OliveOnLRed.ink    := Olive;
+  WhiteOnLRed.paper    := LightRed; WhiteOnLRed.ink    := White;
+  GrayOnLRed.paper     := LightRed; GrayOnLRed.ink     := Gray;
+  LBlueOnLRed.paper    := LightRed; LBlueOnLRed.ink    := LightBlue;
+  LGreenOnLRed.paper   := LightRed; LGreenOnLRed.ink   := LightGreen;
+  LCyanOnLRed.paper    := LightRed; LCyanOnLRed.ink    := LightCyan;
+  LRedOnLRed.paper     := LightRed; LRedOnLRed.ink     := LightRed;
+  LMagentaOnLRed.paper := LightRed; LMagentaOnLRed.ink := LightMagenta;
+  YellowOnLRed.paper   := LightRed; YellowOnLRed.ink   := Yellow;
+  LWhiteOnLRed.paper   := LightRed; LWhiteOnLRed.ink   := LightWhite;
+  OrangeOnLRed.paper   := LightRed; OrangeOnLRed.ink   := Orange;
+
+  BlackOnLMagenta.paper   := LightMagenta; BlackOnLMagenta.ink   := Black;
+  BlueOnLMagenta.paper    := LightMagenta; BlueOnLMagenta.ink    := Blue;
+  GreenOnLMagenta.paper   := LightMagenta; GreenOnLMagenta.ink   := Green;
+  CyanOnLMagenta.paper    := LightMagenta; CyanOnLMagenta.ink    := Cyan;
+  RedOnLMagenta.paper     := LightMagenta; RedOnLMagenta.ink     := Red;
+  MagentaOnLMagenta.paper := LightMagenta; MagentaOnLMagenta.ink := Magenta;
+  OliveOnLMagenta.paper   := LightMagenta; OliveOnLMagenta.ink   := Olive;
+  WhiteOnLMagenta.paper   := LightMagenta; WhiteOnLMagenta.ink   := White;
+  GrayOnLMagenta.paper    := LightMagenta; GrayOnLMagenta.ink    := Gray;
+  LBlueOnLMagenta.paper   := LightMagenta; LBlueOnLMagenta.ink := LightBlue;
+  LGreenOnLMagenta.paper  := LightMagenta; LGreenOnLMagenta.ink:= LightGreen;
+  LCyanOnLMagenta.paper   := LightMagenta; LCyanOnLMagenta.ink := LightCyan;
+  LRedOnLMagenta.paper    := LightMagenta; LRedOnLMagenta.ink  := LightRed;
+  LMagentaOnLMagenta.paper:= LightMagenta;
+                                        LMagentaOnLMagenta.ink:=LightMagenta;
+  YellowOnLMagenta.paper  := LightMagenta; YellowOnLMagenta.ink:= Yellow;
+  LWhiteOnLMagenta.paper  := LightMagenta; LWhiteOnLMagenta.ink:= LightWhite;
+  OrangeOnLMagenta.paper  := LightMagenta; OrangeOnLMagenta.ink:= Orange;
+
+  BlackOnYellow.paper    := Yellow; BlackOnYellow.ink    := Black;
+  BlueOnYellow.paper     := Yellow; BlueOnYellow.ink     := Blue;
+  GreenOnYellow.paper    := Yellow; GreenOnYellow.ink    := Green;
+  CyanOnYellow.paper     := Yellow; CyanOnYellow.ink     := Cyan;
+  RedOnYellow.paper      := Yellow; RedOnYellow.ink      := Red;
+  MagentaOnYellow.paper  := Yellow; MagentaOnYellow.ink  := Magenta;
+  OliveOnYellow.paper    := Yellow; OliveOnYellow.ink    := Olive;
+  WhiteOnYellow.paper    := Yellow; WhiteOnYellow.ink    := White;
+  GrayOnYellow.paper     := Yellow; GrayOnYellow.ink     := Gray;
+  LBlueOnYellow.paper    := Yellow; LBlueOnYellow.ink    := LightBlue;
+  LGreenOnYellow.paper   := Yellow; LGreenOnYellow.ink   := LightGreen;
+  LCyanOnYellow.paper    := Yellow; LCyanOnYellow.ink    := LightCyan;
+  LRedOnYellow.paper     := Yellow; LRedOnYellow.ink     := LightRed;
+  LMagentaOnYellow.paper := Yellow; LMagentaOnYellow.ink := LightMagenta;
+  YellowOnYellow.paper   := Yellow; YellowOnYellow.ink   := Yellow;
+  LWhiteOnYellow.paper   := Yellow; LWhiteOnYellow.ink   := LightWhite;
+  OrangeOnYellow.paper   := Yellow; OrangeOnYellow.ink   := Orange;
+
+  BlackOnLWhite.paper    := LightWhite; BlackOnLWhite.ink    := Black;
+  BlueOnLWhite.paper     := LightWhite; BlueOnLWhite.ink     := Blue;
+  GreenOnLWhite.paper    := LightWhite; GreenOnLWhite.ink    := Green;
+  CyanOnLWhite.paper     := LightWhite; CyanOnLWhite.ink     := Cyan;
+  RedOnLWhite.paper      := LightWhite; RedOnLWhite.ink      := Red;
+  MagentaOnLWhite.paper  := LightWhite; MagentaOnLWhite.ink  := Magenta;
+  OliveOnLWhite.paper    := LightWhite; OliveOnLWhite.ink    := Olive;
+  WhiteOnLWhite.paper    := LightWhite; WhiteOnLWhite.ink    := White;
+  GrayOnLWhite.paper     := LightWhite; GrayOnLWhite.ink     := Gray;
+  LBlueOnLWhite.paper    := LightWhite; LBlueOnLWhite.ink    := LightBlue;
+  LGreenOnLWhite.paper   := LightWhite; LGreenOnLWhite.ink   := LightGreen;
+  LCyanOnLWhite.paper    := LightWhite; LCyanOnLWhite.ink    := LightCyan;
+  LRedOnLWhite.paper     := LightWhite; LRedOnLWhite.ink     := LightRed;
+  LMagentaOnLWhite.paper := LightWhite; LMagentaOnLWhite.ink := LightMagenta;
+  YellowOnLWhite.paper   := LightWhite; YellowOnLWhite.ink   := Yellow;
+  LWhiteOnLWhite.paper   := LightWhite; LWhiteOnLWhite.ink   := LightWhite;
+  OrangeOnLWhite.paper   := LightWhite; OrangeOnLWhite.ink   := Orange;
 END Console.

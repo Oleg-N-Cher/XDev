@@ -9,6 +9,7 @@
 
 
 
+import void GrConsole_At (INTEGER x, INTEGER y);
 import void GrConsole_Clear (INTEGER color);
 import void GrConsole_SetColors (GrColors_Colors colors);
 import void GrConsole_SetFont (SYSTEM_BYTE *font, LONGINT font__len);

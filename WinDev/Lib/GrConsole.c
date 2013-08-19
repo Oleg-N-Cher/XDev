@@ -17,11 +17,12 @@ typedef
 	GrTiles_Tile8x8 *GrConsole_TilePtr;
 
 
-static INTEGER GrConsole_x, GrConsole_y;
+static INTEGER GrConsole_curX, GrConsole_curY;
 static GrColors_Colors GrConsole_curColors;
 static GrConsole_FontPtr GrConsole_curFont;
 
 
+export void GrConsole_At (INTEGER x, INTEGER y);
 export void GrConsole_Clear (INTEGER color);
 export void GrConsole_SetColors (GrColors_Colors colors);
 export void GrConsole_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
@@ -29,12 +30,18 @@ export void GrConsole_WriteCh (CHAR ch);
 export void GrConsole_WriteStr (CHAR *str, LONGINT str__len);
 
 
+void GrConsole_At (INTEGER x, INTEGER y)
+{
+	GrConsole_curX = x;
+	GrConsole_curY = y;
+}
+
 void GrConsole_Clear (INTEGER color)
 {
 	INTEGER x, y, inkTemp;
 	inkTemp = GrPixel_ink;
 	GrPixel_Ink(color);
-	if (GrScr_mustLock && !SdlLib_LockSurface(GrScr_Screen)) {
+	if (GrScr_MustLock && !SdlLib_LockSurface(GrScr_Screen)) {
 		return;
 	}
 	y = GrScr_Screen->h - 1;
@@ -52,7 +59,7 @@ void GrConsole_Clear (INTEGER color)
 			}
 		} while (!(y == 0));
 	}
-	if (GrScr_mustLock) {
+	if (GrScr_MustLock) {
 		SdlLib_UnlockSurface(GrScr_Screen);
 	}
 	GrPixel_Ink(inkTemp);
@@ -65,7 +72,7 @@ void GrConsole_SetColors (GrColors_Colors colors)
 
 void GrConsole_SetFont (SYSTEM_BYTE *font, LONGINT font__len)
 {
-	if ((LONGINT)font == (LONGINT)GrFonts_ZxSpecROM8x8) {
+	if ((LONGINT)font == (LONGINT)GrFonts_ZxSpecRom8x8) {
 		GrConsole_curFont = (GrConsole_FontPtr)((LONGINT)font - 256);
 	} else {
 		GrConsole_curFont = (GrConsole_FontPtr)((LONGINT)font);
@@ -76,8 +83,8 @@ void GrConsole_WriteCh (CHAR ch)
 {
 	GrConsole_TilePtr tilePtr = NIL;
 	tilePtr = (GrConsole_TilePtr)((LONGINT)__ASHL((int)ch, 3) + (LONGINT)GrConsole_curFont);
-	GrTiles_DrawMonoTile8x8(GrConsole_x, GrConsole_y, (void*)*tilePtr, 8, GrConsole_curColors);
-	GrConsole_x += 1;
+	GrTiles_DrawMonoTile8x8(GrConsole_curX, GrConsole_curY, (void*)*tilePtr, 8, GrConsole_curColors);
+	GrConsole_curX += 1;
 }
 
 void GrConsole_WriteStr (CHAR *str, LONGINT str__len)
@@ -98,11 +105,11 @@ export void GrConsole__init (void)
 	__IMPORT(GrTiles__init);
 	__REGMOD("GrConsole", 0);
 /* BEGIN */
-	GrConsole_x = 0;
-	GrConsole_y = 0;
+	GrConsole_curX = 0;
+	GrConsole_curY = 0;
 	GrConsole_curColors.paper = GrColors_Black;
 	GrConsole_curColors.ink = GrColors_Gray;
-	GrConsole_SetFont((void*)GrFonts_ZxSpecROM8x8, 768);
+	GrConsole_SetFont((void*)GrFonts_ZxSpecRom8x8, 768);
 	__ENDMOD;
 }
 
