@@ -14,8 +14,8 @@ export main(int argc, char **argv)
 	__IMPORT(Console__init);
 	__REGMAIN("XDevHello", 0);
 /* BEGIN */
-	Console_SetColors(27);
+	Console_SetColors(Console_LCyanOnBlue);
 	Console_WriteStr((CHAR*)"Hello Cross-platform World", (LONGINT)27);
-	Console_SetColors(7);
+	Console_SetColors(Console_WhiteOnBlack);
 	__FINI;
 }
