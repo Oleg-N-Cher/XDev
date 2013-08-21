@@ -2,25 +2,16 @@
 #define __GrConfig__h
 
 
-/* Virtual Width, Height in pixels: */
-#define VirtualWidth	128
-#define VirtualHeight	96
-
-/* Actual Width, Height in pixels: */
-#define ActualWidth	256
-#define ActualHeight	192
-#define MaxActualX	(ActualWidth - 1)
-#define MaxActualY	(ActualHeight - 1)
-
-/* Depth in bits per pixel (8, 16, or 32): */
-#define AutoDetect	0
-#define DepthBits	AutoDetect
-
-#define AppTitle "XDev/SDL graphic"
+#define GrConfig_Init \
+  GrScr_AppTitle	= "Dark Woods I & 2 Port - VEDAsoft Oberon Club '2013"; \
+  GrScr_ActualWidth	= 3*40*8; \
+  GrScr_ActualHeight	= 3*25*8; \
+  GrScr_VirtualWidth	= 40 * 8; \
+  GrScr_VirtualHeight	= 25 * 8; \
+  GrScr_DepthBits	=      0; \
+  GrScr_NormalColor	=   0xAA
 
 #define ChkOutOfScreen	1
 
-
-#define GrConfig__init()
 
 #endif __GrConfig__h
