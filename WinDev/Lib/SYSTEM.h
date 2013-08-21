@@ -13,7 +13,11 @@ uses double # as concatenation operator
 
 //#include <alloca.h>
 #include "SYSTEM_Cfg.h"
-
+#ifdef _WINGUI
+#  include "GrConfig.h"
+  extern void GrScr_Init (void);
+#endif
+     
 //extern void *memcpy (void *dest, const void *src, long n);
 //extern void *malloc (long size);
 //extern void exit (int status);
@@ -86,10 +90,20 @@ extern void SYSTEM_ENUMR();
 #endif
 
 #ifdef SYSTEM_Cfg_RegisterMain
-#  define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
+#  ifndef _WINGUI
+#    define __INIT(argc, argv) static void *m; SYSTEM_INIT(argc, (long)&argv)
+#  else
+#    define __INIT(argc, argv) static void *m; \
+       SYSTEM_INIT(argc, (long)&argv); GrConfig_Init; GrScr_Init()
+#  endif
 #  define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
-#  define __INIT(argc, argv) SYSTEM_argc=argc;SYSTEM_argv=*(long*)((long)&argv);
+#  ifndef _WINGUI
+#    define __INIT(argc, argv) SYSTEM_argc=argc; SYSTEM_argv=*(long*)((long)&argv)
+#  else
+#    define __INIT(argc, argv) SYSTEM_argc=argc; \
+       SYSTEM_argv=*(long*)((long)&argv); GrConfig_Init; GrScr_Init()
+#  endif
 #  define __REGMAIN(name, enum)
 #endif
 
