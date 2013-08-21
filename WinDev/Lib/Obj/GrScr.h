@@ -8,7 +8,13 @@
 
 
 import SdlLib_PSurface GrScr_Screen;
-import BOOLEAN GrScr_mustLock;
+import BOOLEAN GrScr_MustLock;
+import INTEGER GrScr_ActualWidth, GrScr_ActualHeight, GrScr_VirtualWidth, GrScr_VirtualHeight, GrScr_ActualMaxX, GrScr_ActualMaxY;
+import SHORTINT GrScr_DepthBits;
+import struct {
+	LONGINT len[1];
+	CHAR data[1];
+} *GrScr_AppTitle;
 
 
 import void GrScr_Close (void);

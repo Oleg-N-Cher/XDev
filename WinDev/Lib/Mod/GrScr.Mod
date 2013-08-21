@@ -3,9 +3,14 @@ IMPORT SYSTEM, Sdl := SdlLib, Cfg := GrConfig;
 
 TYPE
   Color* = INTEGER;
+  Coords = INTEGER;
 VAR
   Screen-: Sdl.PSurface;
-  mustLock-: BOOLEAN;
+  MustLock-: BOOLEAN;
+  ActualWidth-, ActualHeight-, VirtualWidth-, VirtualHeight-,
+  ActualMaxX-, ActualMaxY- : Coords;
+  DepthBits-: SHORTINT;
+  AppTitle-: POINTER [1] TO ARRAY OF CHAR;
 
 PROCEDURE TimeLeft (): INTEGER;
 CONST
@@ -66,11 +71,11 @@ END Update;
 
 BEGIN
   IF Sdl.Init(Sdl.INIT_VIDEO) < 0 THEN HALT(1) END;
-  IF Cfg.AppTitle # "" THEN
-    Sdl.WM_SetCaption(SYSTEM.VAL(Sdl.PChar, SYSTEM.ADR(Cfg.AppTitle)), NIL);
+  IF Cfg.AppTitle # NIL THEN
+    Sdl.WM_SetCaption(SYSTEM.VAL(Sdl.PChar, SYSTEM.ADR(AppTitle)), NIL);
   END;
-    Screen := Sdl.SetVideoMode (Cfg.ActualWidth, Cfg.ActualHeight,
-      Cfg.DepthBits, Sdl.SWSURFACE + Sdl.DOUBLEBUF);
+    Screen := Sdl.SetVideoMode (ActualWidth, ActualHeight,
+      DepthBits, Sdl.SWSURFACE + Sdl.DOUBLEBUF);
   IF Screen = NIL THEN Sdl.Quit; HALT(1) END;
-  mustLock := Sdl.MustLock(Screen);
+  MustLock := Sdl.MustLock(Screen);
 END GrScr.
