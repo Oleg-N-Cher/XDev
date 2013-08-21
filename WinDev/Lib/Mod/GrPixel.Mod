@@ -13,7 +13,7 @@ VAR
 PROCEDURE PutActualPixel8Lock (x, y: Coords); (* Assuming 8-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x,
@@ -26,7 +26,7 @@ END PutActualPixel8Lock;
 PROCEDURE PutActualPixel8NoLock (x, y: Coords); (* Assuming 8-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       SYSTEM.PUT(
         SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x,
         SYSTEM.VAL(SYSTEM.BYTE, ink));
@@ -36,7 +36,7 @@ END PutActualPixel8NoLock;
 PROCEDURE PutActualPixel16Lock (x, y: Coords); (* 15-bpp or 16-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*2,
@@ -49,7 +49,7 @@ END PutActualPixel16Lock;
 PROCEDURE PutActualPixel16NoLock (x, y: Coords); (* 15-bpp or 16-bpp. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       SYSTEM.PUT(
         SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*2,
         SYSTEM.VAL(SHORTINT, ink));
@@ -62,7 +62,7 @@ VAR
   addr: LONGINT;
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         addr := SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*3;
         SYSTEM.PUT(addr,   SYSTEM.VAL(SHORTINT, ink));
@@ -77,7 +77,7 @@ VAR
   addr: LONGINT;
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       addr := SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*3;
       SYSTEM.PUT(addr,   SYSTEM.VAL(SHORTINT, ink));
       SYSTEM.PUT(addr+2, SYSTEM.VAL(SYSTEM.BYTE, SYSTEM.LSH(ink, -16)));
@@ -87,7 +87,7 @@ END PutActualPixel24NoLock;
 PROCEDURE PutActualPixel32Lock (x, y: Coords); (* 32-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*4, ink);
@@ -99,7 +99,7 @@ END PutActualPixel32Lock;
 PROCEDURE PutActualPixel32NoLock (x, y: Coords); (* 32-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
-    ((x>=0) & (x<=Cfg.MaxActualX) & (y>=0) & (y<=Cfg.MaxActualY)) THEN
+    ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       SYSTEM.PUT(
         SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*4, ink);
   END;
@@ -271,7 +271,7 @@ BEGIN
   | 1X: (* Assuming 8-bpp *)
     PutActualPixelNoLock := PutActualPixel8NoLock;
     PutPixelNoLock := PutActualPixel8NoLock;
-    IF GrScr.mustLock THEN
+    IF GrScr.MustLock THEN
       Dot := PutActualPixel8Lock;
     ELSE
       Dot := PutActualPixel8NoLock;
@@ -279,7 +279,7 @@ BEGIN
   | 2X: (* Probably 15-bpp or 16-bpp *)
     PutActualPixelNoLock := PutActualPixel16NoLock;
     PutPixelNoLock := PutActualPixel16NoLock;
-    IF GrScr.mustLock THEN
+    IF GrScr.MustLock THEN
       Dot := PutActualPixel16Lock;
     ELSE
       Dot := PutActualPixel16NoLock;
@@ -287,7 +287,7 @@ BEGIN
   | 3X: (* Slow 24-bpp mode, usually not used *)
     PutActualPixelNoLock := PutActualPixel24NoLock;
     PutPixelNoLock := PutActualPixel24NoLock;
-    IF GrScr.mustLock THEN
+    IF GrScr.MustLock THEN
       Dot := PutActualPixel24Lock;
     ELSE
       Dot := PutActualPixel24NoLock;
@@ -295,7 +295,7 @@ BEGIN
   | 4X: (* Probably 32-bpp *)
     PutActualPixelNoLock := PutActualPixel32NoLock;
     PutPixelNoLock := PutActualPixel32NoLock;
-    IF GrScr.mustLock THEN
+    IF GrScr.MustLock THEN
       Dot := PutActualPixel32Lock;
     ELSE
       Dot := PutActualPixel32NoLock;
@@ -304,7 +304,7 @@ BEGIN
   IF (Cfg.ActualWidth # Cfg.VirtualWidth)
     OR (Cfg.ActualHeight # Cfg.VirtualHeight) THEN
       PutPixelNoLock := PutVirtualPixelNoLock;
-      IF GrScr.mustLock THEN
+      IF GrScr.MustLock THEN
         Dot := PutVirtualPixelLock;
       ELSE
         Dot := PutVirtualPixelNoLock;
