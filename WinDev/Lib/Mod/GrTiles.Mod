@@ -7,6 +7,10 @@ TYPE
   Tile = ARRAY [1] OF SYSTEM.BYTE;
   Tile8x8* = ARRAY [1] 8 OF SYSTEM.BYTE;
 
+VAR
+  DrawMonoTile-: PROCEDURE (
+    x, y: Coords; VAR tile: Tile; colors: GrColors.Colors);
+
 PROCEDURE DrawMonoTile8x8* (
   x, y: Coords; VAR tile: Tile; colors: GrColors.Colors);
 VAR
@@ -14,7 +18,7 @@ VAR
 BEGIN
   x := x * 8; y := y * 8;
   inkTemp := GrPixel.ink;
-  IF GrScr.mustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
+  IF GrScr.MustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
   FOR byte := 0 TO 7 DO
     mask := SYSTEM.VAL(CHAR, tile[byte]);
     FOR bit := 0 TO 7 DO
@@ -29,8 +33,10 @@ BEGIN
     END;
     INC(y);
   END;
-  IF GrScr.mustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
+  IF GrScr.MustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
   GrPixel.Ink(inkTemp);
 END DrawMonoTile8x8;
 
+BEGIN
+  DrawMonoTile := DrawMonoTile8x8;
 END GrTiles.
