@@ -5,8 +5,8 @@ typedef
 	SYSTEM_BYTE *GrFonts_Font;
 
 
-export SYSTEM_BYTE GrFonts_ZxSpecROM8x8[768];
-export SYSTEM_BYTE GrFonts_MsDosCGA8x8[2048];
+export SYSTEM_BYTE GrFonts_ZxSpecRom8x8[768];
+export SYSTEM_BYTE GrFonts_MsDosCga8x8[2048];
 
 
 
