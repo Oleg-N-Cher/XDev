@@ -8,13 +8,33 @@
 
 
 import SdlLib_PSurface GrScr_Screen;
-import BOOLEAN GrScr_mustLock;
-import INTEGER GrScr_Black, GrScr_Blue, GrScr_Green, GrScr_Cyan, GrScr_Red, GrScr_Magenta, GrScr_Olive, GrScr_White, GrScr_LightBlue, GrScr_LightGreen, GrScr_LightCyan, GrScr_LightRed, GrScr_LightMagenta, GrScr_Yellow, GrScr_LightWhite, GrScr_Orange;
+import BOOLEAN GrScr_MustLock;
+import INTEGER GrScr_ActualWidth, GrScr_ActualHeight, GrScr_VirtualWidth, GrScr_VirtualHeight, GrScr_ActualMaxX, GrScr_ActualMaxY;
+import SHORTINT GrScr_DepthBits, GrScr_NormalColor;
+import CHAR* GrScr_AppTitle;
+
+
+#define GrScr_Black
+#define GrScr_Blue
+#define GrScr_Green
+#define GrScr_Cyan
+#define GrScr_Red
+#define GrScr_Magenta
+#define GrScr_Olive
+#define GrScr_White
+#define GrScr_LightBlue
+#define GrScr_LightGreen
+#define GrScr_LightCyan
+#define GrScr_LightRed
+#define GrScr_LightMagenta
+#define GrScr_Yellow
+#define GrScr_LightWhite
+#define GrScr_Orange
 
 
 import void GrScr_Close (void);
 import void GrScr_Update (void);
-import void *GrScr__init(void);
+#define GrScr__init()
 
 
 #endif

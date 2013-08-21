@@ -5,7 +5,13 @@
 
 
 export SdlLib_PSurface GrScr_Screen;
-export BOOLEAN GrScr_mustLock;
+export BOOLEAN GrScr_MustLock;
+export INTEGER GrScr_ActualWidth, GrScr_ActualHeight, GrScr_VirtualWidth, GrScr_VirtualHeight, GrScr_ActualMaxX, GrScr_ActualMaxY;
+export SHORTINT GrScr_DepthBits;
+export struct {
+	LONGINT len[1];
+	CHAR data[1];
+} *GrScr_AppTitle;
 
 
 export void GrScr_Close (void);
@@ -86,12 +92,14 @@ export void *GrScr__init(void)
 	if (SdlLib_Init(0x20) < 0) {
 		__HALT(1);
 	}
-	SdlLib_WM_SetCaption((SdlLib_PChar)((LONGINT)"XDev/SDL graphic"), NIL);
-	GrScr_Screen = SdlLib_SetVideoMode(768, 576, 0, 0x40000000);
+	if (GrConfig_AppTitle != NIL) {
+		SdlLib_WM_SetCaption((SdlLib_PChar)((LONGINT)&GrScr_AppTitle), NIL);
+	}
+	GrScr_Screen = SdlLib_SetVideoMode(GrScr_ActualWidth, GrScr_ActualHeight, GrScr_DepthBits, 0x40000000);
 	if (GrScr_Screen == NIL) {
 		SdlLib_Quit();
 		__HALT(1);
 	}
-	GrScr_mustLock = SdlLib_MustLock(GrScr_Screen);
+	GrScr_MustLock = SdlLib_MustLock(GrScr_Screen);
 	__ENDMOD;
 }
