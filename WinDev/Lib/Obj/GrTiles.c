@@ -12,6 +12,7 @@ typedef
 	SYSTEM_BYTE GrTiles_Tile8x8[8];
 
 
+export void (*GrTiles_DrawMonoTile)(INTEGER, INTEGER, SYSTEM_BYTE*, LONGINT , GrColors_Colors);
 
 
 export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
@@ -23,12 +24,12 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 	SHORTINT byte, bit;
 	INTEGER inkTemp;
 	SHORTINT _for__3, _for__2;
-	if (GrScr_mustLock && !SdlLib_LockSurface(GrScr_Screen)) {
-		return;
-	}
 	x = __ASHL(x, 3);
 	y = __ASHL(y, 3);
 	inkTemp = GrPixel_ink;
+	if (GrScr_MustLock && !SdlLib_LockSurface(GrScr_Screen)) {
+		return;
+	}
 	byte = 0;
 	_for__3 = 7;
 	_for__3 = (_for__3 - byte) + 1;
@@ -53,7 +54,7 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 		byte += 1;
 		_for__3 -= 1;
 	} while (!(_for__3 == 0));
-	if (GrScr_mustLock) {
+	if (GrScr_MustLock) {
 		SdlLib_UnlockSurface(GrScr_Screen);
 	}
 	GrPixel_Ink(inkTemp);
@@ -69,5 +70,6 @@ export void *GrTiles__init(void)
 	__IMPORT(SdlLib__init);
 	__REGMOD("GrTiles", 0);
 /* BEGIN */
+	GrTiles_DrawMonoTile = GrTiles_DrawMonoTile8x8;
 	__ENDMOD;
 }
