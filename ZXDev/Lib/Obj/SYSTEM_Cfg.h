@@ -28,7 +28,7 @@
 #define SYSTEM_Cfg_NoCheck_CASE
 
 /* Garbage collector */
-//#define SYSTEM_Cfg_NoGC
+#define SYSTEM_Cfg_NoGC
 //#define SYSTEM_Cfg_Use_HEAP
 
 #endif
