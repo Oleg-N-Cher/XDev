@@ -37,7 +37,7 @@ TYPE
 	Coords* = BYTE;
 	TextCoords = BYTE;
 	Mode = BYTE;
-	ADDRESS = CARDINAL;
+	ADDRESS = LONGINT;
 
 (* This procedures listed here for creating (by Ofront) symbol file .sym *)
 PROCEDURE Init* ; BEGIN END Init;
