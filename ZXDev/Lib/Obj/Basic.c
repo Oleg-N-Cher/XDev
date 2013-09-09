@@ -32,7 +32,7 @@ export void Basic_DEFDATA (INTEGER title, INTEGER size);
 export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 export void Basic_DRAW (INTEGER x, INTEGER y);
 export void Basic_FLASH (INTEGER mode);
-export void Basic_FONT (INTEGER addr);
+export void Basic_FONT (LONGINT addr);
 export void Basic_INK (INTEGER color);
 export void Basic_INVERSE (INTEGER mode);
 export void Basic_Init (void);
@@ -40,14 +40,14 @@ export BOOLEAN Basic_KeyPressed (void);
 export void Basic_OVER (INTEGER mode);
 export void Basic_PAPER (INTEGER color);
 export void Basic_PAUSE (INTEGER ticks);
-export INTEGER Basic_PEEK (INTEGER addr);
-export INTEGER Basic_PEEKW (INTEGER addr);
+export INTEGER Basic_PEEK (LONGINT addr);
+export INTEGER Basic_PEEKW (LONGINT addr);
 export void Basic_PLOT (INTEGER x, INTEGER y);
 export INTEGER Basic_POINT (INTEGER x, INTEGER y);
-export void Basic_POKE (INTEGER addr, INTEGER value);
-export void Basic_POKEW (INTEGER addr, INTEGER value);
-export INTEGER Basic_PORTIN (INTEGER port);
-export void Basic_PORTOUT (INTEGER port, INTEGER value);
+export void Basic_POKE (LONGINT addr, INTEGER value);
+export void Basic_POKEW (LONGINT addr, INTEGER value);
+export INTEGER Basic_PORTIN (LONGINT port);
+export void Basic_PORTOUT (LONGINT port, INTEGER value);
 export void Basic_PRCHAR (CHAR ch);
 export void Basic_PRINT (INTEGER i);
 export void Basic_PRLN (void);
@@ -149,30 +149,30 @@ void Basic_SlowCircle (INTEGER cx, INTEGER cy, INTEGER radius)
 {
 }
 
-INTEGER Basic_PEEK (INTEGER addr)
+INTEGER Basic_PEEK (LONGINT addr)
 {
 	return 0;
 }
 
-INTEGER Basic_PEEKW (INTEGER addr)
+INTEGER Basic_PEEKW (LONGINT addr)
 {
 	return 0;
 }
 
-void Basic_POKE (INTEGER addr, INTEGER value)
+void Basic_POKE (LONGINT addr, INTEGER value)
 {
 }
 
-void Basic_POKEW (INTEGER addr, INTEGER value)
+void Basic_POKEW (LONGINT addr, INTEGER value)
 {
 }
 
-INTEGER Basic_PORTIN (INTEGER port)
+INTEGER Basic_PORTIN (LONGINT port)
 {
 	return 0;
 }
 
-void Basic_PORTOUT (INTEGER port, INTEGER value)
+void Basic_PORTOUT (LONGINT port, INTEGER value)
 {
 }
 
@@ -203,7 +203,7 @@ void Basic_BEEP (INTEGER ms, INTEGER freq)
 {
 }
 
-void Basic_FONT (INTEGER addr)
+void Basic_FONT (LONGINT addr)
 {
 }
 
