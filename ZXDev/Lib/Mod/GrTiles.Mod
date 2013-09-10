@@ -296,11 +296,13 @@ PROCEDURE SetColors* (attr: BYTE); BEGIN END SetColors;
 
 PROCEDURE DrawTile8x8* (x, y: BYTE; tile: Tile); BEGIN END DrawTile8x8;
 (** Draw a two-color tile with user-defined colors: *)
-PROCEDURE DrawMonoTile8x8* (x, y: BYTE; tile: Tile);
-  BEGIN END DrawMonoTile8x8;
+PROCEDURE DrawMonoTile8x8* (
+  x, y: BYTE; tile: Tile; colors: Colors);
+    BEGIN END DrawMonoTile8x8;
 
 (** Draw a tile with default size: *)
 PROCEDURE DrawTile* (x, y: BYTE; tile: Tile); BEGIN END DrawTile;
-PROCEDURE DrawMonoTile* (x, y: BYTE; tile: Tile); BEGIN END DrawMonoTile;
+PROCEDURE DrawMonoTile* (x, y: BYTE; tile: Tile; colors: Colors);
+  BEGIN END DrawMonoTile;
 
 END GrTiles.
