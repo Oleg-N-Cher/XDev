@@ -3,19 +3,11 @@
 
 
 export void GrTiles_DrawTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile);
-export void GrTiles_DrawMonoTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile);
-export void GrTiles_SetColors (SHORTCARD attr);
+export void GrTiles_DrawMonoTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile, SHORTINT colors);
 
-/* Set video attrib */
-#define SETV_A$   0x5C8D
-extern SYSTEM_BYTE __at(SETV_A$) GrTiles_attrib;
 
 /*================================== Header ==================================*/
 
-/* Set tile attrib */
-export SYSTEM_BYTE __at(SETV_A$) GrTiles_attrib;
-
-/*--------------------------------- Cut here ---------------------------------*/
 void GrTiles_DrawTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile)
 {
 __asm
@@ -68,7 +60,7 @@ __endasm;
 } //GrTiles_DrawTile8x8
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrTiles_DrawMonoTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile)
+void GrTiles_DrawMonoTile8x8 (SHORTCARD x, SHORTCARD y, CARDINAL tile, SHORTINT colors)
 {
 __asm
 #ifdef __SDCC
@@ -110,7 +102,7 @@ DRLOOPM$:
   AND  #3          ; 7
   OR   #0x58       ; 7
   LD   D,A         ; 4 = 34
-  LD   A,(#_GrTiles_attrib)
+  LD   A,8(IX)     ; Tile attrib
   LD   (DE),A
 #ifdef __SDCC
   POP  IX

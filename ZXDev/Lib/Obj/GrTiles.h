@@ -8,8 +8,8 @@
 
 
 
-import void GrTiles_DrawMonoTile (INTEGER x, INTEGER y, INTEGER tile);
-import void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, INTEGER tile);
+import void GrTiles_DrawMonoTile (INTEGER x, INTEGER y, INTEGER tile, SHORTINT colors);
+import void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, INTEGER tile, SHORTINT colors);
 import void GrTiles_DrawTile (INTEGER x, INTEGER y, INTEGER tile);
 import void GrTiles_DrawTile8x8 (INTEGER x, INTEGER y, INTEGER tile);
 import void GrTiles_SetColors (INTEGER attr);
