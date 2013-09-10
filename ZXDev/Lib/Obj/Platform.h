@@ -14,6 +14,7 @@ typedef
 
 
 
+import void Platform_DISPOSE (SYSTEM_PTR *mem);
 import Platform_SHORTCARD Platform_Unsigned (LONGCARD i);
 import void *Platform__init(void);
 
