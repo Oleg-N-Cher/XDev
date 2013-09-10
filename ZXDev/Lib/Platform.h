@@ -13,8 +13,14 @@ typedef
 	CHAR *Platform_STRING;
 
 
+import void Platform_DISPOSE (SYSTEM_PTR *mem);
 #define Platform_Unsigned(i) ((unsigned)(i))
-#define Platform__init()
 
+void _sdcc_heap_init (void);
+#ifndef SYSTEM_Cfg_Use_HEAP
+#  define Platform__init()
+#else
+#  define Platform__init() _sdcc_heap_init()
+#endif
 
 #endif
