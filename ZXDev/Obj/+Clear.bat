@@ -21,3 +21,13 @@
 @DEL *.lk
 @ATTRIB -H *.sbm
 @DEL *.sbm
+@CD DemoDynMem
+@DEL *.ihx
+@DEL *.lst
+@DEL *.map
+@DEL *.noi
+@DEL *.sym
+@DEL *.asm
+@DEL *.lk
+@ATTRIB -H *.sbm
+@DEL *.sbm

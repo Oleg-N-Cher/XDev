@@ -7,6 +7,7 @@
 @CALL ..\Bin\build-xdev.bat Console
 @CALL ..\Bin\build-xdev.bat GrPixel
 @CALL ..\Bin\build-xdev.bat GrTiles
+@CALL ..\Bin\build-xdev.bat GrFonts
 @CALL ..\Bin\build-xdev.bat Math
 
 @MOVE /Y ..\XDev.lib ..\z80\XDev.lib
