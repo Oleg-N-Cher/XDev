@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/*  Ofront 1.2 -xtspkaem */
 #include "SYSTEM.h"
 #include "Basic.h"
 
@@ -8,12 +8,12 @@
 
 
 
-export void *TinyHello__init(void)
+export main(int argc, char **argv)
 {
-	__DEFMOD;
-	__IMPORT(Basic);
-	__REGMOD("TinyHello", 0);
+	__INIT(argc, argv);
+	__IMPORT(Basic__init);
+	__REGMAIN("TinyHello", 0);
 /* BEGIN */
 	Basic_PRSTR((CHAR*)"Hello World", (LONGINT)12);
-	__ENDMOD;
+	__FINI;
 }
