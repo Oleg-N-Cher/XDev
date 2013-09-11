@@ -13,6 +13,7 @@
 
 extern unsigned int SFSTRT; /* Sprite file start address */
 extern unsigned int SF_END; /* Sprite file end address */
+extern unsigned int SCRL_B; /* Scroll buffer address */
 
 import void _InitSprites (void /* Registers HL */);
 #define Laser_InitSprites(sprStart, sprSize) __asm \
@@ -22,6 +23,11 @@ import void _InitSprites (void /* Registers HL */);
   ld (__id__(__hash__)_SFSTRT),hl \
   __endasm; _InitSprites()
   //SFSTRT = sprStart; SF_END = sprStart + sprSize; _InitSprites()
+
+#define Laser_InitScroll(scrollBuf) __asm \
+  ld hl,__id__(__hash__)scrollBuf \
+  ld (__id__(__hash__)_SCRL_B),hl \
+  __endasm;
 
 /* Functions for screen windows processing */
 import void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);

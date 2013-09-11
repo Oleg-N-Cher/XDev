@@ -12,6 +12,7 @@
 
 extern unsigned int SFSTRT; /* Sprite file start address */
 extern unsigned int SF_END; /* Sprite file end address */
+extern unsigned int SCRL_B; /* Scroll buffer address */
 
 export void _InitSprites (void /* Registers HL */);
 
@@ -93,6 +94,7 @@ export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
 /*================================== Header ==================================*/
 unsigned int SFSTRT; /* Sprite file start address */
 unsigned int SF_END; /* Sprite file end address */
+unsigned int SCRL_B; /* Scroll buffer address */
 
 /* Спрайты хранятся в памяти в следующем формате:
 Байт 1 - номер спрайта.
@@ -145,7 +147,7 @@ void _InitSprites (void /* Registers HL */)
 __asm
   PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
 //  LD   HL,#scrollBuf
-//  LD   (#SCRL_B),HL
+//  LD   (#_SCRL_B),HL
 //  LD   HL,#sprEnd
     //  В ячейке _SF_END должен быть записан ноль - метка конца спрайт-файла.
 //  LD   (#_SF_END),HL
@@ -1481,8 +1483,8 @@ static void __Asm_Laser__ (void)
 {
 __asm
 /* ---------------------------- */
-.globl SCRL_B
-SCRL_B: .DW #0x5B00 /* Buffer vor vertical scroll */
+//.globl SCRL_B
+//SCRL_B: .DW #0x5B00 /* Buffer vor vertical scroll */
 //SETV_A$: .DW #0x5C8D /* Set video attrib */
 SCR_AC$: .DW #0x4000
 SCRA_A$: .DW #0x5800
@@ -1545,11 +1547,11 @@ LB_ATUV:
   RET  NC
 LB_006$:
   CALL LB_007$
-  LD   DE,(#SCRL_B)
+  LD   DE,(#_SCRL_B)
   EX   DE,HL
   LD   B,#0x00
   LDIR
-  LD   HL,(#SCRL_B)
+  LD   HL,(#_SCRL_B)
   LD   (HL),#0x00
   RET
 LB_007$:
@@ -1584,7 +1586,7 @@ LB_012$:
   PUSH HL
   PUSH BC
   LD   B,#0x00
-  LD   DE,(#SCRL_B)
+  LD   DE,(#_SCRL_B)
   LDIR
   POP  BC
   POP  HL
@@ -1754,7 +1756,7 @@ LB_022$:
   RET
 LB_023$:
   NOP
-  LD   DE,(#SCRL_B)
+  LD   DE,(#_SCRL_B)
   LD   A,(#LB_069$)
   BIT  7,A
   JR   Z,#LB_024$
@@ -1783,7 +1785,7 @@ LB_027$:
   INC  B
   JR   LB_024$+2
 LB_028$:
-  LD   HL,(#SCRL_B)
+  LD   HL,(#_SCRL_B)
   OR   A
   EX   DE,HL
   SBC  HL,DE
@@ -1805,7 +1807,7 @@ LB_030$:
   PUSH HL
   PUSH BC
   PUSH DE
-  LD   HL,(#SCRL_B)
+  LD   HL,(#_SCRL_B)
   LD   BC,(#LB_069$+2)
   LD   D,H
   LD   E,L

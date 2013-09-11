@@ -29,6 +29,7 @@ import void Laser_GTOR (INTEGER col, INTEGER row, INTEGER spN);
 import void Laser_GTXR (INTEGER col, INTEGER row, INTEGER spN);
 import void Laser_INVM (INTEGER spN);
 import void Laser_INVV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
+import void Laser_InitScroll (INTEGER scrollBuf);
 import void Laser_InitSprites (INTEGER sprAddr, INTEGER sprSize);
 import void Laser_MARV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 import void Laser_MIRV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);

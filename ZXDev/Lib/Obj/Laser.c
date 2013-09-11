@@ -25,6 +25,7 @@ export void Laser_GTOR (INTEGER col, INTEGER row, INTEGER spN);
 export void Laser_GTXR (INTEGER col, INTEGER row, INTEGER spN);
 export void Laser_INVM (INTEGER spN);
 export void Laser_INVV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
+export void Laser_InitScroll (INTEGER scrollBuf);
 export void Laser_InitSprites (INTEGER sprAddr, INTEGER sprSize);
 export void Laser_MARV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 export void Laser_MIRV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
@@ -73,6 +74,10 @@ export void Laser_WR8V (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 
 
 void Laser_InitSprites (INTEGER sprAddr, INTEGER sprSize)
+{
+}
+
+void Laser_InitScroll (INTEGER scrollBuf)
 {
 }
 
