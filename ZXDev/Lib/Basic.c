@@ -26,6 +26,7 @@ export void Basic_PRSTR_C_FAST (CHAR *str);
 export void Basic_PRSTR_C_ROM (CHAR *str);
 export void Basic_PRCHAR_FAST (CHAR ch);
 export void Basic_PRCHAR_ROM (CHAR ch);
+export void Basic_PRDATA (void);
 export void Basic_PRLN (void);
 export void Basic_PLOT (SHORTINT x, SHORTINT y);
 export SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
@@ -589,6 +590,26 @@ void Basic_PRCHAR_FAST (CHAR ch)
   CHAR str[2];
   str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
 } //Basic_PRCHAR_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRDATA (void)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL #0x1601
+  POP  HL
+PRDATA$:
+  LD   A,(HL)
+  OR   A
+  JR   Z,PRDATA_EX$
+  RST  16
+  INC  HL
+  JR   PRDATA$
+PRDATA_EX$:
+  JP   (HL)
+__endasm;
+} //Basic_PRDATA
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRLN (void)

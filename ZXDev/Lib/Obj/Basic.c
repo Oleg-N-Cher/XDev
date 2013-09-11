@@ -4,12 +4,12 @@
 
 
 
-export void Basic_AT (INTEGER y, INTEGER x);
-export INTEGER Basic_ATTR (INTEGER y, INTEGER x);
+export void Basic_AT (SHORTINT y, SHORTINT x);
+export INTEGER Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_BEEP (INTEGER ms, INTEGER freq);
-export void Basic_BORDER (INTEGER color);
-export void Basic_BRIGHT (INTEGER mode);
-export void Basic_CIRCLE (INTEGER cx, INTEGER cy, INTEGER radius);
+export void Basic_BORDER (SHORTINT color);
+export void Basic_BRIGHT (SHORTINT mode);
+export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_CLS (void);
 export void Basic_DATA (INTEGER b);
 export void Basic_DATA1 (INTEGER b);
@@ -30,25 +30,26 @@ export void Basic_DATA8 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER
 export void Basic_DATA9 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9);
 export void Basic_DEFDATA (INTEGER title, INTEGER size);
 export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
-export void Basic_DRAW (INTEGER x, INTEGER y);
-export void Basic_FLASH (INTEGER mode);
+export void Basic_DRAW (SHORTINT x, SHORTINT y);
+export void Basic_FLASH (SHORTINT mode);
 export void Basic_FONT (LONGINT addr);
-export void Basic_INK (INTEGER color);
-export void Basic_INVERSE (INTEGER mode);
+export void Basic_INK (SHORTINT color);
+export void Basic_INVERSE (SHORTINT mode);
 export void Basic_Init (void);
 export BOOLEAN Basic_KeyPressed (void);
-export void Basic_OVER (INTEGER mode);
-export void Basic_PAPER (INTEGER color);
+export void Basic_OVER (SHORTINT mode);
+export void Basic_PAPER (SHORTINT color);
 export void Basic_PAUSE (INTEGER ticks);
 export INTEGER Basic_PEEK (LONGINT addr);
 export INTEGER Basic_PEEKW (LONGINT addr);
-export void Basic_PLOT (INTEGER x, INTEGER y);
-export INTEGER Basic_POINT (INTEGER x, INTEGER y);
+export void Basic_PLOT (SHORTINT x, SHORTINT y);
+export INTEGER Basic_POINT (SHORTINT x, SHORTINT y);
 export void Basic_POKE (LONGINT addr, INTEGER value);
 export void Basic_POKEW (LONGINT addr, INTEGER value);
 export INTEGER Basic_PORTIN (LONGINT port);
 export void Basic_PORTOUT (LONGINT port, INTEGER value);
 export void Basic_PRCHAR (CHAR ch);
+export void Basic_PRDATA (void);
 export void Basic_PRINT (INTEGER i);
 export void Basic_PRLN (void);
 export void Basic_PRSTR (CHAR *str, LONGINT str__len);
@@ -57,43 +58,43 @@ export void Basic_Quit (void);
 export void Basic_RANDOMIZE (INTEGER seed);
 export INTEGER Basic_READ (INTEGER addr);
 export INTEGER Basic_RND (INTEGER min, INTEGER max);
-export INTEGER Basic_SGN (INTEGER x);
-export void Basic_SlowCircle (INTEGER cx, INTEGER cy, INTEGER radius);
+export SHORTINT Basic_SGN (INTEGER x);
+export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 
 
 void Basic_Init (void)
 {
 }
 
-void Basic_BORDER (INTEGER color)
+void Basic_BORDER (SHORTINT color)
 {
 }
 
-void Basic_INK (INTEGER color)
+void Basic_INK (SHORTINT color)
 {
 }
 
-void Basic_PAPER (INTEGER color)
+void Basic_PAPER (SHORTINT color)
 {
 }
 
-void Basic_FLASH (INTEGER mode)
+void Basic_FLASH (SHORTINT mode)
 {
 }
 
-void Basic_BRIGHT (INTEGER mode)
+void Basic_BRIGHT (SHORTINT mode)
 {
 }
 
-void Basic_INVERSE (INTEGER mode)
+void Basic_INVERSE (SHORTINT mode)
 {
 }
 
-void Basic_OVER (INTEGER mode)
+void Basic_OVER (SHORTINT mode)
 {
 }
 
-void Basic_AT (INTEGER y, INTEGER x)
+void Basic_AT (SHORTINT y, SHORTINT x)
 {
 }
 
@@ -111,29 +112,33 @@ void Basic_PRCHAR (CHAR ch)
 {
 }
 
+void Basic_PRDATA (void)
+{
+}
+
 void Basic_PRLN (void)
 {
 }
 
-void Basic_PLOT (INTEGER x, INTEGER y)
+void Basic_PLOT (SHORTINT x, SHORTINT y)
 {
 }
 
-INTEGER Basic_POINT (INTEGER x, INTEGER y)
-{
-	return 0;
-}
-
-INTEGER Basic_ATTR (INTEGER y, INTEGER x)
+INTEGER Basic_POINT (SHORTINT x, SHORTINT y)
 {
 	return 0;
 }
 
-void Basic_DRAW (INTEGER x, INTEGER y)
+INTEGER Basic_ATTR (SHORTINT y, SHORTINT x)
+{
+	return 0;
+}
+
+void Basic_DRAW (SHORTINT x, SHORTINT y)
 {
 }
 
-void Basic_CIRCLE (INTEGER cx, INTEGER cy, INTEGER radius)
+void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius)
 {
 }
 
@@ -145,7 +150,7 @@ void Basic_PRWORD (INTEGER i)
 {
 }
 
-void Basic_SlowCircle (INTEGER cx, INTEGER cy, INTEGER radius)
+void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius)
 {
 }
 
@@ -194,7 +199,7 @@ INTEGER Basic_RND (INTEGER min, INTEGER max)
 	return 0;
 }
 
-INTEGER Basic_SGN (INTEGER x)
+SHORTINT Basic_SGN (INTEGER x)
 {
 	return 0;
 }
@@ -299,6 +304,7 @@ export void *Basic__init(void)
 	__REGMOD("Basic", 0);
 	__REGCMD("CLS", Basic_CLS);
 	__REGCMD("Init", Basic_Init);
+	__REGCMD("PRDATA", Basic_PRDATA);
 	__REGCMD("PRLN", Basic_PRLN);
 	__REGCMD("Quit", Basic_Quit);
 /* BEGIN */
