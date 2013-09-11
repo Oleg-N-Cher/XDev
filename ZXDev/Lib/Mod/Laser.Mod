@@ -12,6 +12,8 @@ TYPE
 
 PROCEDURE InitSprites* (sprAddr, sprSize: CARDINAL);
   BEGIN END InitSprites;
+PROCEDURE InitScroll* (scrollBuf: CARDINAL);
+  BEGIN END InitScroll;
 
 (* Procedures for screen windows processing *)
 PROCEDURE INVV* (col, row, len, hgt: BYTE); BEGIN END INVV;
