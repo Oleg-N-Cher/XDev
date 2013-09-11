@@ -114,6 +114,8 @@ import void Basic_PRCHAR_ROM (CHAR ch);
   #define Basic_PRCHAR Basic_PRCHAR_FAST
 #endif
 
+import void Basic_PRDATA (void);
+
 import void Basic_PRLN (void);
 
 import void Basic_PLOT (SHORTINT x, SHORTINT y);
