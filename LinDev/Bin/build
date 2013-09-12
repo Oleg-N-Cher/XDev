@@ -1,1 +1,1 @@
-tcc ../WinDev/Obj/$1.c -I "../WinDev/Obj" -I "../WinDev/Lib" Lib/LinDev.a -o$1
+tcc ../WinDev/Obj/$1.c -I "../WinDev/Obj" -I "../WinDev/Lib" Lib/LinDev.a Lib/SdlLib.a -L/usr/lib -lSDL -o$1

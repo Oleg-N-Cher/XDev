@@ -1,0 +1,6 @@
+wine ../../Bin/smartlib ../../WinDev/Lib/Sdl/Obj/$1.c
+
+tcc -c $1_001.c -I "../../WinDev/Lib" -I "../../WinDev/Lib/Obj" -I/usr/include/SDL
+rm $1_001.c
+ar -rc $1.a $1_001.o
+rm $1_001.o

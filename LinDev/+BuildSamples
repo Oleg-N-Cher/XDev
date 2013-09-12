@@ -4,3 +4,8 @@ Bin/build DemoDynMem
 Bin/build FilesTest
 Bin/build TestRnd
 Bin/build XDevHello
+Bin/build Empty
+
+Bin/build-gui DemoTiles
+#Bin/build-gui GrHello
+Bin/build-gui GrTest

@@ -1,8 +1,18 @@
+rm SdlLib.a
+Bin/build-sdl SdlLib
+
 rm LinDev.a
 Bin/build-xdev SYSTEM
 Bin/build-xdev Platform
-Bin/build-xdev Console
-Bin/build-xdev CmdLine
-Bin/build-xdev Files
 Bin/build-xdev Strings
+Bin/build-xdev CmdLine
 Bin/build-xdev Math
+Bin/build-xdev Files
+Bin/build-xdev GrScr
+Bin/build-xdev GrColors
+Bin/build-xdev Console
+Bin/build-xdev GrPixel
+Bin/build-xdev GrTiles
+Bin/build-xdev GrFonts
+Bin/build-xdev GrConsole
+
