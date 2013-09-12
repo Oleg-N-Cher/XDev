@@ -1,0 +1,1 @@
+tcc ../WinDev/Obj/$1.c -D_LINGUI -I "../WinDev/Obj" -I "../WinDev/Lib" Lib/LinDev.a Lib/SdlLib.a -L/usr/lib -lSDL -o$1
