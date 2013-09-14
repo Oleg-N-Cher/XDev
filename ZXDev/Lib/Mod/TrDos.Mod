@@ -23,8 +23,8 @@ MODULE TrDos; IMPORT SYSTEM;
 
 TYPE
   UCHAR* = CHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
-  UINT* = INTEGER;
-  FDSP* = RECORD [1]
+  UINT*  = INTEGER;
+  FDSP*  = RECORD [1]
     trFName*    : ARRAY 9 OF CHAR; (* имя и тип файла *)
     trFStart*   : UCHARPTR; (* см. описание TR-DOS *)
     trFByteLen* : UINT;
@@ -58,9 +58,9 @@ PROCEDURE ReadFileDSP* (destPtr: UCHARPTR; fileNumber: UCHAR);
 
 (* функция #06 TR-DOS: *)
 (*           srctptr,     track pos,    sector pos,    len in sectors *)
-PROCEDURE ReadSectors2* (
+PROCEDURE WriteSectors* (
   srctPtr: UCHARPTR; trackPos, sectorPos, LenInSectors: UCHAR);
-    BEGIN END ReadSectors2;
+    BEGIN END WriteSectors;
 
 (* функция #09 TR-DOS: *)
 (*              srctptr,       file number *)

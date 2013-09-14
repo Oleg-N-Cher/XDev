@@ -27,9 +27,9 @@ export void TrDos_Init (void);
 export void TrDos_LoadFile (CHAR *name, LONGINT name__len, TrDos_UCHARPTR destPtr, INTEGER fileDataLen);
 export void TrDos_ReadFileDSP (TrDos_UCHARPTR destPtr, CHAR fileNumber);
 export void TrDos_ReadSectors (TrDos_UCHARPTR destPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
-export void TrDos_ReadSectors2 (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
 export void TrDos_WriteFile (CHAR *name, LONGINT name__len, TrDos_UCHARPTR dataPtr, INTEGER dataLen);
 export void TrDos_WriteFileDSP (TrDos_UCHARPTR srctPtr, CHAR fileNumber);
+export void TrDos_WriteSectors (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
 
 
 void TrDos_DriveSel (CHAR driveLetter)
@@ -52,7 +52,7 @@ void TrDos_ReadFileDSP (TrDos_UCHARPTR destPtr, CHAR fileNumber)
 {
 }
 
-void TrDos_ReadSectors2 (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors)
+void TrDos_WriteSectors (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors)
 {
 }
 

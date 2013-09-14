@@ -12,7 +12,6 @@
 #define TrDos_LoadFile(name, name__len, destPtr, fileDataLen) trdosLoadFile(name, destPtr, fileDataLen)
 #define TrDos_ReadFileDSP trdosReadFileDSP
 #define TrDos_ReadSectors trdosReadSectors
-#define TrDos_ReadSectors2 trdosReadSectors
 
 #define TrDos_WriteFile(name, name__len, dataPtr, dataLen) trdosWriteFile(name, dataPtr, dataLen)
 #define TrDos_EraseFile(name, name__len) trdosEraseFile(name)
