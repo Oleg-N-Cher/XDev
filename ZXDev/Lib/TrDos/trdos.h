@@ -47,7 +47,7 @@ void trdosReadFileDSP(unsigned char *, unsigned char);
 
 // функция #06 TR-DOS:
 // 						srctptr, 	  track pos, 	 sector pos,    len in sectors
-void trdosReadSectors(unsigned char*, unsigned char, unsigned char, unsigned char);
+void trdosWriteSectors(unsigned char*, unsigned char, unsigned char, unsigned char);
 
 // функция #09 TR-DOS:
 // 					   srctptr, 	    file number

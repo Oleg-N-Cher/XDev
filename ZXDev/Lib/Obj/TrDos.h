@@ -31,9 +31,9 @@ import void TrDos_Init (void);
 import void TrDos_LoadFile (CHAR *name, LONGINT name__len, TrDos_UCHARPTR destPtr, INTEGER fileDataLen);
 import void TrDos_ReadFileDSP (TrDos_UCHARPTR destPtr, CHAR fileNumber);
 import void TrDos_ReadSectors (TrDos_UCHARPTR destPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
-import void TrDos_ReadSectors2 (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
 import void TrDos_WriteFile (CHAR *name, LONGINT name__len, TrDos_UCHARPTR dataPtr, INTEGER dataLen);
 import void TrDos_WriteFileDSP (TrDos_UCHARPTR srctPtr, CHAR fileNumber);
+import void TrDos_WriteSectors (TrDos_UCHARPTR srctPtr, CHAR trackPos, CHAR sectorPos, CHAR LenInSectors);
 import void *TrDos__init(void);
 
 
