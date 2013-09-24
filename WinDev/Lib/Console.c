@@ -16,15 +16,14 @@
   export void Console_WriteStr_WinAPI (CHAR *str);
 #endif
 
-export void Console_WriteHex (INTEGER x);
-export void Console_WriteIntWidth (INTEGER x, INTEGER n);
-
 /* StdIO */
 export void Console_WriteCh_StdIO (CHAR ch);
 export void Console_WriteInt_StdIO (LONGINT n);
 export void Console_WriteLn_StdIO (void);
 export void Console_WriteStr_StdIO (CHAR *str);
 export void Console_WriteStrLn_StdIO (CHAR *str);
+export void Console_WriteIntWidth_StdIO (INTEGER x, INTEGER n);
+export void Console_WriteHex_StdIO (INTEGER val);
 
 /*================================== Header ==================================*/
 
@@ -105,13 +104,13 @@ export void Console_WriteLn_StdIO (void)
 #endif
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteIntWidth (INTEGER x, INTEGER n)
+void Console_WriteIntWidth_StdIO (INTEGER x, INTEGER n)
 {
 	INTEGER i, x0;
 	CHAR a[10];
 	if (x < 0) {
 		if (x == (-2147483647-1)) {
-			Console_writeStr((CHAR*)"-2147483648", (LONGINT)12);
+      printf("-2147483648");
 			return;
 		}
 		n -= 1;
@@ -126,38 +125,38 @@ void Console_WriteIntWidth (INTEGER x, INTEGER n)
 		i += 1;
 	} while (!(x0 == 0));
 	while (n > i) {
-		Console_writeCh(' ');
+		printf(" ");
 		n -= 1;
 	}
 	if (x < 0) {
-		Console_writeCh('-');
+  printf("-");
 	}
 	do {
 		i -= 1;
-		Console_writeCh(a[__X(i, 10)]);
+		printf("%c", a[__X(i, 10)]);
 	} while (!(i == 0));
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteHex (INTEGER x)
+void Console_WriteHex_StdIO (INTEGER val)
 {
 	INTEGER i, y;
 	CHAR a[10];
 	i = 0;
 	do {
-		y = __MASK(x, -16);
+		y = __MASK(val, -16);
 		if (y < 10) {
 			a[__X(i, 10)] = (CHAR)(y + 48);
 		} else {
 			a[__X(i, 10)] = (CHAR)(y + 55);
 		}
-		x = __ASHR(x, 4);
+		val = __ASHR(val, 4);
 		i += 1;
-	} while (!(i == 8));
+	} while (val != 0);
 	do {
 		i -= 1;
-		Console_writeCh(a[__X(i, 10)]);
-	} while (!(i == 0));
+		printf("%c", a[__X(i, 10)]);
+	} while (i != 0);
 }
 
 
