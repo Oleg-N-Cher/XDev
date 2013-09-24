@@ -41,9 +41,9 @@ TYPE
 
 (* This procedures listed here for creating (by Ofront) symbol file .sym *)
 PROCEDURE Init* ; BEGIN END Init;
-PROCEDURE BORDER* (color: Color); BEGIN END BORDER;
-PROCEDURE INK* (color: Color); BEGIN END INK;
-PROCEDURE PAPER* (color: Color); BEGIN END PAPER;
+PROCEDURE BORDER* (color: BYTE); BEGIN END BORDER;
+PROCEDURE INK* (color: BYTE); BEGIN END INK;
+PROCEDURE PAPER* (color: BYTE); BEGIN END PAPER;
 PROCEDURE FLASH* (mode: Mode); BEGIN END FLASH;
 PROCEDURE BRIGHT* (mode: Mode); BEGIN END BRIGHT;
 PROCEDURE INVERSE* (mode: Mode); BEGIN END INVERSE;
