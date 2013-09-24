@@ -13,8 +13,8 @@ static INTEGER Kubik_one, Kubik_two, Kubik_three, Kubik_four, Kubik_five, Kubik_
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(Console);
-	__IMPORT(Math);
+	__IMPORT(Console__init);
+	__IMPORT(Math__init);
 	__REGMAIN("Kubik", 0);
 /* BEGIN */
 	Math_Randomize();
