@@ -12,7 +12,7 @@ export void Console_Clear (INTEGER colors);
 export void Console_SetColors (GrColors_Colors n);
 export void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
 export void Console_WriteCh (CHAR ch);
-export void Console_WriteHex (INTEGER x);
+export void Console_WriteHex (INTEGER val);
 export void Console_WriteInt (LONGINT n);
 export void Console_WriteIntWidth (INTEGER x, INTEGER n);
 export void Console_WriteLn (void);
@@ -101,21 +101,21 @@ void Console_WriteIntWidth (INTEGER x, INTEGER n)
 	} while (!(i == 0));
 }
 
-void Console_WriteHex (INTEGER x)
+void Console_WriteHex (INTEGER val)
 {
 	INTEGER i, y;
 	CHAR a[10];
 	i = 0;
 	do {
-		y = __MASK(x, -16);
+		y = __MASK(val, -16);
 		if (y < 10) {
 			a[__X(i, 10)] = (CHAR)(y + 48);
 		} else {
 			a[__X(i, 10)] = (CHAR)(y + 55);
 		}
-		x = __ASHR(x, 4);
+		val = __ASHR(val, 4);
 		i += 1;
-	} while (!(i == 8));
+	} while (!(val == 0));
 	do {
 		i -= 1;
 		Console_writeCh(a[__X(i, 10)]);

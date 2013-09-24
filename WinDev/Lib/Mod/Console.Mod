@@ -185,16 +185,16 @@ BEGIN
 END WriteIntWidth;
 
 (** Write a hexadecimal representation of x to console. *)
-PROCEDURE WriteHex* (x: INTEGER);
+PROCEDURE WriteHex* (val: INTEGER);
 VAR
   i, y: INTEGER; a: ARRAY 10 OF CHAR;
 BEGIN
   i := 0;
   REPEAT
-    y := x MOD 10H;
+    y := val MOD 10H;
     IF y < 10 THEN a[i] := CHR(y + 30H) ELSE a[i] := CHR(y + 37H) END;
-    x := x DIV 10H; INC(i);
-  UNTIL i = 8;
+    val := val DIV 10H; INC(i);
+  UNTIL val = 0;
   REPEAT DEC(i); writeCh(a[i]) UNTIL i = 0;
 END WriteHex;
 

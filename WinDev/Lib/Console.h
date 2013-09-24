@@ -4,15 +4,14 @@
 #include "SYSTEM.h"
 #include "ConsoleCfg.h"
 
-import void Console_WriteHex (INTEGER x);
-import void Console_WriteIntWidth (INTEGER x, INTEGER n);
-
 /* StdIO */
 import void Console_WriteCh_StdIO (CHAR ch);
 import void Console_WriteInt_StdIO (LONGINT n);
 import void Console_WriteLn_StdIO (void);
 import void Console_WriteStr_StdIO (CHAR *str);
 import void Console_WriteStrLn_StdIO (CHAR *str);
+import void Console_WriteIntWidth_StdIO (INTEGER x, INTEGER n);
+import void Console_WriteHex_StdIO (INTEGER val);
 
 /* WinAPI */
 import void Console_At_WinAPI (INTEGER x, INTEGER y);
@@ -29,6 +28,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_StdIO(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_StdIO(str)
 #  define Console_WriteLn	Console_WriteLn_StdIO
+#  define Console_WriteIntWidth	Console_WriteIntWidth_StdIO
+#  define Console_WriteHex	Console_WriteHex_StdIO
 #  define Console__init()
 #endif OUTPUT_STDIO
 
