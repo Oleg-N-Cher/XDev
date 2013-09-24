@@ -16,9 +16,9 @@ static INTEGER CmdLnTst__for__2, CmdLnTst__for__1;
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(CmdLine);
-	__IMPORT(Console);
-	__IMPORT(Strings);
+	__IMPORT(CmdLine__init);
+	__IMPORT(Console__init);
+	__IMPORT(Strings__init);
 	__REGMAIN("CmdLnTst", 0);
 /* BEGIN */
 	Console_WriteInt(CmdLine_paramCount);

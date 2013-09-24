@@ -111,7 +111,7 @@ void Math_Randomize (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-export void Math (void)
+export void Math__init (void)
 {
 	Math_z = 1;
 	Math_Randomize();

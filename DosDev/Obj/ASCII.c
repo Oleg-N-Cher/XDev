@@ -12,7 +12,7 @@ static INTEGER ASCII_n, ASCII__for__1;
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(Console);
+	__IMPORT(Console__init);
 	__REGMAIN("ASCII", 0);
 /* BEGIN */
 	ASCII_n = 32;
