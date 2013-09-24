@@ -7,7 +7,7 @@
 export void Basic_AT (SHORTINT y, SHORTINT x);
 export INTEGER Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_BEEP (INTEGER ms, INTEGER freq);
-export void Basic_BORDER (SHORTINT color);
+export void Basic_BORDER (INTEGER color);
 export void Basic_BRIGHT (SHORTINT mode);
 export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_CLS (void);
@@ -33,12 +33,12 @@ export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
 export void Basic_FLASH (SHORTINT mode);
 export void Basic_FONT (LONGINT addr);
-export void Basic_INK (SHORTINT color);
+export void Basic_INK (INTEGER color);
 export void Basic_INVERSE (SHORTINT mode);
 export void Basic_Init (void);
 export BOOLEAN Basic_KeyPressed (void);
 export void Basic_OVER (SHORTINT mode);
-export void Basic_PAPER (SHORTINT color);
+export void Basic_PAPER (INTEGER color);
 export void Basic_PAUSE (INTEGER ticks);
 export INTEGER Basic_PEEK (LONGINT addr);
 export INTEGER Basic_PEEKW (LONGINT addr);
@@ -66,15 +66,15 @@ void Basic_Init (void)
 {
 }
 
-void Basic_BORDER (SHORTINT color)
+void Basic_BORDER (INTEGER color)
 {
 }
 
-void Basic_INK (SHORTINT color)
+void Basic_INK (INTEGER color)
 {
 }
 
-void Basic_PAPER (SHORTINT color)
+void Basic_PAPER (INTEGER color)
 {
 }
 
