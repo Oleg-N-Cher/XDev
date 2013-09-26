@@ -468,8 +468,12 @@ BIN2TRD - Copper Feet '1999 (V.Mednonogov)
 
 HEX2BIN - Rockwell Automation (Jacques Pelletier)
 
-StripBIN, SmartLinkRel - VEDAsoft - Oleg N. Cher
+Ideas, support and help - Oleg Komlev (Saferoll)
+
+StripBIN, SmartLib - VEDAsoft Oberon Club (Oleg N. Cher)
 
 H2O - Stewart Greenhill - http://sourceforge.net/projects/ooc/files/ooc2/
 
 Tiny C - Fabrice Bellard - http://bellard.org/tcc/
+
+TrDos library - Amxgris/Red Triangle/Mother Russia
