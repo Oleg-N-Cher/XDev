@@ -1144,7 +1144,7 @@ MODULE DevCPC486;
 			END
 		(* largeint support *)
 		| div:
-			IF y.mode # Reg THEN LoadR(y) END; (* <<< patch by luowy *)
+			IF y.mode # Reg THEN LoadR(y); rev := ~rev END; (* <<< patch by luowy + Ivan Denisov *)
 			IF rev THEN DevCPL486.GenFDOp(FDIVR, y) ELSE DevCPL486.GenFDOp(FDIV, y) END;
 			Floor(y, FALSE)
 		| mod:
