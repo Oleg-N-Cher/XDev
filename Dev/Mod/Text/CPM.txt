@@ -160,8 +160,8 @@ TYPE
 	PROCEDURE Get* (VAR ch: SHORTCHAR);
 		VAR ch1: CHAR;
 	BEGIN
-		REPEAT in.ReadChar(ch1); INC(curpos) UNTIL (ch1 < 100X) & (ch1 # TextModels.viewcode);
-		ch := SHORT(ch1)
+		REPEAT in.ReadChar(ch1); INC(curpos) UNTIL (ch1 # TextModels.viewcode);
+		IF ch1 >= 100X THEN ch := "?" ELSE ch := SHORT(ch1) END
 	END Get;
 	
 	PROCEDURE GetL* (VAR ch: CHAR);
