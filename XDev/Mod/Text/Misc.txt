@@ -1,0 +1,25 @@
+(* Copyright (C) 2012-2013 Oleg N. Cher, VEDAsoft Oberon Club *)
+(* http://zx.oberon2.ru *)
+
+MODULE XDevMisc;
+IMPORT
+	WinApi, SYSTEM;
+
+PROCEDURE Is64BitWindows* (): BOOLEAN;
+CONST
+	false = 0;
+TYPE
+	Bool = WinApi.BOOL;
+	Handle = WinApi.HANDLE;
+	ISWOW64PROCESS = PROCEDURE(hProcess: Handle; OUT Wow64Process: Bool): Bool;
+VAR
+	IsWow64Process: ISWOW64PROCESS; wow64Process: Bool;
+BEGIN
+	IsWow64Process := SYSTEM.VAL(ISWOW64PROCESS, WinApi.GetProcAddress(
+		WinApi.GetModuleHandle("Kernel32"), "IsWow64Process"));
+	RETURN (IsWow64Process # NIL)
+		& (IsWow64Process(WinApi.GetCurrentProcess(), wow64Process) # false)
+		& (wow64Process # false)
+END Is64BitWindows;
+
+END XDevMisc.
