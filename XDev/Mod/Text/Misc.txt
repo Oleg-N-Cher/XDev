@@ -3,11 +3,11 @@
 
 MODULE XDevMisc;
 IMPORT
-	WinApi, SYSTEM;
+	SYSTEM, WinApi;
 
 PROCEDURE Is64BitWindows* (): BOOLEAN;
 CONST
-	false = 0;
+	False = 0;
 TYPE
 	Bool = WinApi.BOOL;
 	Handle = WinApi.HANDLE;
@@ -18,8 +18,8 @@ BEGIN
 	IsWow64Process := SYSTEM.VAL(ISWOW64PROCESS, WinApi.GetProcAddress(
 		WinApi.GetModuleHandle("Kernel32"), "IsWow64Process"));
 	RETURN (IsWow64Process # NIL)
-		& (IsWow64Process(WinApi.GetCurrentProcess(), wow64Process) # false)
-		& (wow64Process # false)
+		& (IsWow64Process(WinApi.GetCurrentProcess(), wow64Process) # False)
+		& (wow64Process # False)
 END Is64BitWindows;
 
 END XDevMisc.
