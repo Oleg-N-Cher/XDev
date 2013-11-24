@@ -35,7 +35,7 @@ typedef char BOOLEAN;
 typedef unsigned char CHAR;
 typedef short int SHORTINT;
 typedef int INTEGER;
-typedef long LONGINT;
+typedef long long LONGINT;
 typedef float REAL;
 typedef double LONGREAL;
 typedef unsigned long SET;
@@ -269,7 +269,11 @@ void SYSTEM_HALT(int n);
 */
 
 #if defined _WINGUI || defined DJGPP
-#  define __stdcall __attribute__((__stdcall__))
+#  if defined WIN64 || defined _WIN64
+#    define __stdcall
+#  else
+#    define __stdcall __attribute__((__stdcall__))
+#  endif
 #  define main(argc, argv) int __stdcall WinMain( \
      void* hInstance, void* hPrevInstance, char* lpCmdLine, int nCmdShow)
 #  define argc SYSTEM_argc
