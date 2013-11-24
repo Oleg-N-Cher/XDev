@@ -14,6 +14,7 @@ CONST
 
 VAR
 	rootDir: HostFiles.FullName;
+	Is64BitWindows: BOOLEAN;
 
 PROCEDURE Open;
 BEGIN
@@ -148,7 +149,7 @@ BEGIN
 				StdLog.Ln;
 			END;
 
-			IF ~XDevMisc.Is64BitWindows() THEN Close; RETURN END;
+			IF ~Is64BitWindows THEN Close; RETURN END;
 			(* Additional compiling thread: *)
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile64.bat") THEN (* Start "Bin/compile64.bat Mod". *)
@@ -213,7 +214,7 @@ BEGIN
 				END;
 			END;
 
-			IF ~XDevMisc.Is64BitWindows() THEN Close; RETURN END;
+			IF ~Is64BitWindows THEN Close; RETURN END;
 			(* Additional building thread: *)
 			loc := Files.dir.This(dir + ObjDir + "64");
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
@@ -266,4 +267,5 @@ END ShowDef;
 
 BEGIN
 	rootDir := Files.dir.This("")(HostFiles.Locator).path$;
+	Is64BitWindows := XDevMisc.Is64BitWindows();
 END XDevCmd.
