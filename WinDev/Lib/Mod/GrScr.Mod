@@ -38,7 +38,7 @@ BEGIN
     (* Check for events *)
     Sdl.Delay(10);
     LOOP
-		IF Sdl.WaitEvent(event) = 0 THEN EXIT END;
+      IF Sdl.WaitEvent(event) = 0 THEN EXIT END;
       CASE SYSTEM.VAL(CHAR, event.type) OF
         Sdl.KEYDOWN:
           (* Any key press quits the app... *)
