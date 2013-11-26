@@ -20,6 +20,20 @@ typedef
 	} SdlLib_Event;
 
 typedef
+	struct SdlLib_KeySym {
+		SYSTEM_BYTE scancode;
+		INTEGER sym;
+		SET modifier;
+		SHORTINT unicode;
+	} SdlLib_KeySym;
+
+typedef
+	struct SdlLib_KeyboardEvent {
+		SYSTEM_BYTE type, which, state;
+		SdlLib_KeySym keysym;
+	} SdlLib_KeyboardEvent;
+
+typedef
 	struct {
 		LONGINT len[1];
 		CHAR data[1];
@@ -100,15 +114,20 @@ import LONGINT *SdlLib_Color__typ;
 import LONGINT *SdlLib_Palette__typ;
 import LONGINT *SdlLib_PixelFormat__typ;
 import LONGINT *SdlLib_Surface__typ;
+import LONGINT *SdlLib_KeySym__typ;
 import LONGINT *SdlLib_Event__typ;
+import LONGINT *SdlLib_KeyboardEvent__typ;
 
 import void SdlLib_Delay (INTEGER msec);
+import INTEGER SdlLib_EnableKeyRepeat (INTEGER delay, INTEGER interval);
+import INTEGER SdlLib_EnableUNICODE (INTEGER enable);
 import BOOLEAN SdlLib_Flip (SdlLib_PSurface screen);
 import INTEGER SdlLib_GetTicks (void);
 import INTEGER SdlLib_Init (SET flags);
 import BOOLEAN SdlLib_LockSurface (SdlLib_PSurface surface);
 import INTEGER SdlLib_MapRGB (SdlLib_PPixelFormat format, SYSTEM_BYTE r, SYSTEM_BYTE g, SYSTEM_BYTE b);
 import BOOLEAN SdlLib_MustLock (SdlLib_PSurface surface);
+import INTEGER SdlLib_PollEvent (SdlLib_Event *event, LONGINT *event__typ);
 import void SdlLib_PumpEvents (void);
 import void SdlLib_Quit (void);
 import SdlLib_PSurface SdlLib_SetVideoMode (INTEGER width, INTEGER height, INTEGER bpp, SET flags);
