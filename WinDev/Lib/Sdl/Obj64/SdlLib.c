@@ -237,9 +237,9 @@ INTEGER SdlLib_EnableKeyRepeat (INTEGER delay, INTEGER interval)
 
 __TDESC(SdlLib_Rect__desc, 1, 0) = {__TDFLDS("Rect", 8), {-8}};
 __TDESC(SdlLib_Color__desc, 1, 0) = {__TDFLDS("Color", 4), {-8}};
-__TDESC(SdlLib_Palette__desc, 1, 0) = {__TDFLDS("Palette", 8), {-8}};
-__TDESC(SdlLib_PixelFormat__desc, 1, 0) = {__TDFLDS("PixelFormat", 40), {-8}};
-__TDESC(SdlLib_Surface__desc, 1, 0) = {__TDFLDS("Surface", 60), {-8}};
+__TDESC(SdlLib_Palette__desc, 1, 0) = {__TDFLDS("Palette", 16), {-8}};
+__TDESC(SdlLib_PixelFormat__desc, 1, 0) = {__TDFLDS("PixelFormat", 48), {-8}};
+__TDESC(SdlLib_Surface__desc, 1, 0) = {__TDFLDS("Surface", 88), {-8}};
 __TDESC(SdlLib_KeySym__desc, 1, 0) = {__TDFLDS("KeySym", 16), {-8}};
 __TDESC(SdlLib_Event__desc, 1, 0) = {__TDFLDS("Event", 33), {-8}};
 __TDESC(SdlLib_KeyboardEvent__desc, 1, 0) = {__TDFLDS("KeyboardEvent", 20), {-8}};
