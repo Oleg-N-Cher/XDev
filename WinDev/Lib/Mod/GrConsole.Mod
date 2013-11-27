@@ -64,6 +64,21 @@ BEGIN
   WHILE (n < LEN(str)) & (str[n] # 0X) DO WriteCh(str[n]); INC(n) END;
 END WriteStr;
 
+PROCEDURE WriteInt* (x: INTEGER); (* Write integer x to Console. *)
+VAR
+  i: INTEGER; buf: ARRAY 10 OF CHAR;
+BEGIN
+  IF x < 0 THEN
+    IF x = MIN(INTEGER) THEN WriteStr("-2147483648"); RETURN END;
+    WriteCh("-"); x := -x;
+  END;
+  i := 0;
+  REPEAT
+    buf[i] := CHR(x MOD 10 + ORD("0")); x := x DIV 10; INC(i);
+  UNTIL x = 0;
+  REPEAT DEC(i); WriteCh(buf[i]) UNTIL i = 0;
+END WriteInt;
+
 BEGIN
   curX := 0; curY := 0;
   curColors.paper := Colors.Black; curColors.ink := Colors.Gray;
