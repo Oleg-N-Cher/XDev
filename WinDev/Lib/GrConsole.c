@@ -27,6 +27,7 @@ export void GrConsole_Clear (INTEGER color);
 export void GrConsole_SetColors (GrColors_Colors colors);
 export void GrConsole_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
 export void GrConsole_WriteCh (CHAR ch);
+export void GrConsole_WriteInt (INTEGER x);
 export void GrConsole_WriteStr (CHAR *str, LONGINT str__len);
 
 
@@ -85,6 +86,30 @@ void GrConsole_WriteCh (CHAR ch)
 	tilePtr = (GrConsole_TilePtr)((LONGINT)__ASHL((int)ch, 3) + (LONGINT)GrConsole_curFont);
 	GrTiles_DrawMonoTile8x8(GrConsole_curX, GrConsole_curY, (void*)*tilePtr, 8, GrConsole_curColors);
 	GrConsole_curX += 1;
+}
+
+void GrConsole_WriteInt (INTEGER x)
+{
+	INTEGER i;
+	CHAR buf[10];
+	if (x < 0) {
+		if (x == (-2147483647-1)) {
+			GrConsole_WriteStr((CHAR*)"-2147483648", (LONGINT)12);
+			return;
+		}
+		GrConsole_WriteCh('-');
+		x = -x;
+	}
+	i = 0;
+	do {
+		buf[__X(i, 10)] = (CHAR)((int)__MOD(x, 10) + 48);
+		x = __DIV(x, 10);
+		i += 1;
+	} while (!(x == 0));
+	do {
+		i -= 1;
+		GrConsole_WriteCh(buf[__X(i, 10)]);
+	} while (!(i == 0));
 }
 
 void GrConsole_WriteStr (CHAR *str, LONGINT str__len)
