@@ -129,10 +129,18 @@ __asm
 .globl _NEXT_LINE_C
 ; =====печать символа 8х8 (fast) =====
                        ;in: L - код символа
+/*
   ADD  HL,HL           ;вычисление
   LD   H,#15           ;адреса символа
   ADD  HL,HL           ; в ПЗУ (AlCo)
   ADD  HL,HL
+*/
+  LD   H,#0            ;Вычисление адреса
+  ADD  HL,HL
+  ADD  HL,HL
+  ADD  HL,HL
+  LD   DE,(0x5C36)
+  ADD  HL,DE
 _DF_CC_C:
   LD   DE,#0x4000      ;DE = координаты
   LD   B,#7
@@ -208,10 +216,18 @@ __asm
 .globl _NEXT_LINE_F
 ; =====печать символа 8х8 (fast) =====
                        ;in: L - код символа
+/*
   ADD  HL,HL           ;вычисление
   LD   H,#15           ;адреса символа
   ADD  HL,HL           ; в ПЗУ (AlCo)
   ADD  HL,HL
+*/
+  LD   H,#0            ;Вычисление адреса
+  ADD  HL,HL
+  ADD  HL,HL
+  ADD  HL,HL
+  LD   DE,(0x5C36)
+  ADD  HL,DE
 _DF_CC_F:
   LD   DE,#0x4000      ;DE = координаты
   DUP_7                ;и так 8 раз
