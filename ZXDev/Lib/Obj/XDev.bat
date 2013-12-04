@@ -9,5 +9,6 @@
 @CALL ..\Bin\build-xdev.bat GrTiles
 @CALL ..\Bin\build-xdev.bat GrFonts
 @CALL ..\Bin\build-xdev.bat Math
+@CALL ..\Bin\build-xdev.bat Input
 
 @MOVE /Y ..\XDev.lib ..\z80\XDev.lib
