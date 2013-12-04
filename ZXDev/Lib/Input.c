@@ -22,6 +22,9 @@ RETURN$:
 __endasm;
 }
 
+/*
+http://zxpress.ru/book_articles.php?id=1395
+*/
 CHAR Input_Read (void)
 {
 __asm
