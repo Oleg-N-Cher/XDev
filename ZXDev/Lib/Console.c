@@ -515,7 +515,7 @@ void Console_Clear_FAST (SHORTCARD attr)
 __asm
   LD   IY,#0x5C3A
   LD   HL,#0x4000
-  LD   (#_DF_CC_F),HL
+  LD   (_DF_CC_F+1),HL
 #ifdef __SDCC
   LD   HL,#2
   ADD  HL,SP
@@ -538,7 +538,7 @@ void Console_Clear_COMPACT (SHORTCARD attr)
 __asm
   LD   IY,#0x5C3A
   LD   HL,#0x4000
-  LD   (#_DF_CC_C),HL
+  LD   (_DF_CC_C+1),HL
 #ifdef __SDCC
   LD   HL,#2
   ADD  HL,SP
