@@ -7,6 +7,7 @@ CONST
 
 TYPE
   Color = INTEGER;
+  Coords* = INTEGER;
   Colors* = GrColors.Colors;
 
 VAR

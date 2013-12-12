@@ -16,7 +16,7 @@ export LONGINT *GrColors_Colors__typ;
 
 
 
-__TDESC(GrColors_Colors__desc, 1, 0) = {__TDFLDS("Colors", 8), {-4}};
+__TDESC(GrColors_Colors__desc, 1, 0) = {__TDFLDS("Colors", 8), {-8}};
 
 export void *GrColors__init(void)
 {
