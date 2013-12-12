@@ -22,7 +22,7 @@ export void Console_Clear_FAST (SHORTCARD attr);
 export void Console_Clear_COMPACT (SHORTCARD attr);
 
 void Console_WriteCh_COMPACT_fastcall (void /* Register A */);
-void Console_WriteCh_FAST_fastcall (void /* Register L */);
+void Console_WriteCh_FAST_fastcall (void /* Register A */);
 
 /*implementation*/
 
@@ -74,9 +74,9 @@ __asm
   LD   E,4(IX)
   LD   D,5(IX)
 #endif
-// http://zxpress.ru/book_articles.php?id=633
 ;Процедура расчёта адреса атрибутов из координат
 ; (c) Д.Анисимов, г.Киров, 1996.
+; http://zxpress.ru/book_articles.php?id=633
 ;Первый вариант (E = X; D = Y; 12B; 61T):
   LD   A,D         ; 4
   ADD  A,A         ; 4
@@ -121,18 +121,36 @@ __asm
   LD   E,4(IX)
   LD   D,5(IX)
 #endif
-  LD   A,D     ; здесь вычисляется адрес
-  RRCA         ; строки, номер которой задан
-  RRCA         ; в регистре A
-  RRCA         ; 3 команды RRCA
-  AND  #0xE0
-  ADD  A,E     ; добавляем смещение по X
-  LD   L,A
-  LD   A,D
-  AND  #0x18
-  OR   #0x40
-  LD   H,A     ; счётчик цикла рисования
-  LD   (_DF_CC_F+1),HL
+;Процедура расчёта адреса атрибутов из координат
+; (c) Д.Анисимов, г.Киров, 1996.
+; http://zxpress.ru/book_articles.php?id=633
+;Первый вариант (E = X; D = Y; 12B; 61T):
+  LD   A,D         ; 4
+  ADD  A,A         ; 4
+  ADD  A,A         ; 4
+  ADD  A,A         ; 4
+  LD   L,A         ; 4
+  LD   H,#0x16     ; 7
+  ADD  HL,HL       ;11
+  ADD  HL,HL       ;11
+  LD   A,L         ; 4
+  OR   E           ; 4
+  LD   L,A         ; 4
+/*
+;Второй вариант (H = X; L = Y; 10B; 74T):
+  LD   A,H         ; 4
+  ADD  HL,HL       ;11
+  ADD  HL,HL       ;11
+  ADD  HL,HL       ;11
+  LD   H,#0x16     ; 7
+  ADD  HL,HL       ;11
+  ADD  HL,HL       ;11
+  ADD  A,L         ; 4
+  LD   L,A         ; 4
+*/
+;На выходе обеих процедур в HL - адрес файла атрибутов.
+  DEC  HL
+  LD   (_ATTR_ADR_F+1),HL
 __endasm;
 } //Console_At_FAST
 
@@ -209,27 +227,37 @@ __endasm;
   INC  HL     ;приращение fnt adr \
   INC  D      ;приращение scr adr
 
-void Console_WriteCh_FAST_fastcall (void /* Register L */)
+void Console_WriteCh_FAST_fastcall (void /* Register A */)
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
-.globl _DF_CC_F
-.globl _NEXT_LINE_F
-; =====печать символа 8х8 (fast) =====
-                       ;in: L - код символа
-/*
-  ADD  HL,HL           ;вычисление
-  LD   H,#15           ;адреса символа
-  ADD  HL,HL           ; в ПЗУ (AlCo)
+.globl _ATTR_ADR_F
+  LD   (_CHAR_CODE_F$+1),A
+  LD   HL,#_ATTR_ADR_F+1
+  INC  (HL)
+  CALL Z, _INC_HBYTE_F
+_ATTR_ADR_F:
+  LD   DE,#0x5800-1    ;DE = экранный адрес
+  LD   A,(SETV_A$)     ;Установим цвет символа
+  LD   (DE),A
+;Расчёт экранного адреса из адреса атрибутов
+; (c) Д.Анисимов, г.Киров, 1996.
+; http://zxpress.ru/book_articles.php?id=633
+;Вход: DE = адрес атрибутов
+  LD   A,D             ; 4
+  ADD  A,A             ; 4
+  ADD  A,A             ; 4
+  ADD  A,A             ; 4
+  AND  #0x7F           ; 7
+  LD   D,A             ; 4 = 27T
+;Выход: DE = экранный адрес
+; =====печать символа 8х8 (compact) =====
+_CHAR_CODE_F$:         ;in: L - код символа
+  LD   HL,#0           ;Вычисление адреса символа
   ADD  HL,HL
-*/
-  LD   H,#0            ;Вычисление адреса
   ADD  HL,HL
   ADD  HL,HL
-  ADD  HL,HL
-  LD   DE,(0x5C36)
-  ADD  HL,DE
-_DF_CC_F:
-  LD   DE,#0x4000      ;DE = координаты
+  LD   BC,(0x5C36)
+  ADD  HL,BC
   DUP_7                ;и так 8 раз
   DUP_7
   DUP_7
@@ -239,35 +267,6 @@ _DF_CC_F:
   DUP_7
   LD   A,(HL)
   LD   (DE),A
-; =========scr adr -> attr adr========
-; in: DE - screen adress
-; out:DE - attr adress
-  LD   A,D         ; 4
-  RRCA             ; 4
-  RRCA             ; 4
-  RRCA             ; 4
-  AND  #3          ; 7
-  OR   #0x58       ; 7
-  LD   D,A         ; 4 = 34
-  LD   A,(SETV_A$)
-  LD   (DE),A
-;приращение экранного адреса (и скроллинг)
-_NEXT_LINE_F:
-  LD   HL,(_DF_CC_F+1)
-  INC  L               ;приращение координат
-  JR   NZ,NONEXT_F$
-  LD   A,H
-  CP   A,#0x50
-  JR   NZ,NOSCRL_F$
-  LD   B,#23
-  CALL 0xE00           ;вызов CL_SCROLL
-  LD   HL,#0x50E0
-  JR   NONEXT_F$
-NOSCRL_F$:
-  ADD  A,#8
-  LD   H,A
-NONEXT_F$:
-  LD   (_DF_CC_F+1),HL
 __endasm;
 } //Console_WriteCh_FAST_fastcall
 
@@ -278,9 +277,9 @@ __asm
 #ifdef __SDCC
   LD   HL,#2
   ADD  HL,SP
-  LD   L,(HL)
+  LD   A,(HL)
 #else
-  LD   L,4(IX)
+  LD   A,4(IX)
 #endif
 __endasm;
   Console_WriteCh_FAST_fastcall();
@@ -344,10 +343,26 @@ __endasm;
 void Console_WriteLn_FAST (void)
 {
 __asm
-  LD   A,(_DF_CC_F+1)
+.globl _INC_HBYTE_F
+  LD   HL,#_ATTR_ADR_F+1
+  LD   A,(HL)
   OR   #0x1F
-  LD   (_DF_CC_F+1),A
-  JP   _NEXT_LINE_F
+  CP   (HL)
+  LD   (HL),A
+  RET  NZ
+  ADD  A,#0x20
+  LD   (HL),A
+  RET  NC
+_INC_HBYTE_F:
+  INC  HL              ;приращение старшего
+  INC  (HL)            ;адреса атрибутов (и скроллинг)
+  LD   A,(HL)
+  CP   #0x5B
+  RET  C
+  LD   HL,#0x5AE0-1
+  LD   (_ATTR_ADR_F+1),HL
+  LD   B,#23
+  JP   0xE00           ;вызов CL_SCROLL
 __endasm;
 } //Console_WriteLn_FAST
 
@@ -372,17 +387,16 @@ __endasm;
 void Console_WriteStr_C_FAST (void/*CHAR *str*/)
 {
 __asm
-  LD   BC,(_SYSTEM_str_par)
-WRSTRF$:
-  LD   A,(BC)
+  LD   HL,(_SYSTEM_str_par)
+WRSTR_F$:
+  LD   A,(HL)
   OR   A
   RET  Z
-  LD   L,A
-  PUSH BC
+  PUSH HL
   CALL _Console_WriteCh_FAST_fastcall
-  POP  BC
-  INC  BC
-  JR   WRSTRF$
+  POP  HL
+  INC  HL
+  JR   WRSTR_F$
 __endasm;
 } //Console_WriteStr_C_FAST
 
@@ -545,8 +559,8 @@ void Console_Clear_FAST (SHORTCARD attr)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   HL,#0x4000
-  LD   (_DF_CC_F+1),HL
+  LD   HL,#0x5800-1
+  LD   (_ATTR_ADR_F+1),HL
 #ifdef __SDCC
   LD   HL,#2
   ADD  HL,SP
