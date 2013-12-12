@@ -21,8 +21,9 @@ PROCEDURE Clear* (color: Colors.Color);
 VAR
   x, y: GrPixel.Coords; inkTemp: Colors.Color;
 BEGIN
-  inkTemp := GrPixel.ink; GrPixel.Ink(color);
+  curX := 0; curY := 0;
   IF GrScr.MustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
+  inkTemp := GrPixel.ink; GrPixel.Ink(color);
   FOR y := GrScr.Screen.h - 1 TO 0 BY -1 DO
     FOR x := GrScr.Screen.w - 1 TO 0 BY -1 DO
       GrPixel.PutPixelNoLock(x, y);
@@ -56,6 +57,11 @@ BEGIN
   INC(curX);
 END WriteCh;
 
+PROCEDURE WriteLn* ;
+BEGIN
+  curX := 0; INC(curY);
+END WriteLn;
+
 PROCEDURE WriteStr* ((*IN*) str: ARRAY [1] OF CHAR);
 VAR
   n: LONGINT;
@@ -63,6 +69,11 @@ BEGIN
   n := 0;
   WHILE (n < LEN(str)) & (str[n] # 0X) DO WriteCh(str[n]); INC(n) END;
 END WriteStr;
+
+PROCEDURE WriteStrLn* ((*IN*) str: ARRAY [1] OF CHAR);
+BEGIN
+  WriteStr(str); WriteLn;
+END WriteStrLn;
 
 PROCEDURE WriteInt* (x: INTEGER); (* Write integer x to Console. *)
 VAR

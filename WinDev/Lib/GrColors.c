@@ -31,8 +31,8 @@ export void GrColors__init (void)
 	GrColors_Red = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, 0, 0);
 	GrColors_Magenta = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, 0, GrScr_NormalColor);
 	GrColors_Olive = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, GrScr_NormalColor, 0);
-	GrColors_White = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor/2 + GrScr_NormalColor, GrScr_NormalColor/2 + GrScr_NormalColor, GrScr_NormalColor/2 + GrScr_NormalColor);
-	GrColors_Gray = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, GrScr_NormalColor, GrScr_NormalColor);
+	GrColors_White = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, GrScr_NormalColor, GrScr_NormalColor);
+	GrColors_Gray = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor/2, GrScr_NormalColor/2, GrScr_NormalColor/2);
 	GrColors_LightBlue = SdlLib_MapRGB(GrScr_Screen->format, 0, 0, 255);
 	GrColors_LightGreen = SdlLib_MapRGB(GrScr_Screen->format, 0, 255, 0);
 	GrColors_LightCyan = SdlLib_MapRGB(GrScr_Screen->format, 0, 255, 255);

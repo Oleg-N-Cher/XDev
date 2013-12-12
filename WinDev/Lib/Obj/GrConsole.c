@@ -28,7 +28,9 @@ export void GrConsole_SetColors (GrColors_Colors colors);
 export void GrConsole_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
 export void GrConsole_WriteCh (CHAR ch);
 export void GrConsole_WriteInt (INTEGER x);
+export void GrConsole_WriteLn (void);
 export void GrConsole_WriteStr (CHAR *str, LONGINT str__len);
+export void GrConsole_WriteStrLn (CHAR *str, LONGINT str__len);
 
 
 void GrConsole_At (INTEGER x, INTEGER y)
@@ -40,11 +42,13 @@ void GrConsole_At (INTEGER x, INTEGER y)
 void GrConsole_Clear (INTEGER color)
 {
 	INTEGER x, y, inkTemp;
-	inkTemp = GrPixel_ink;
-	GrPixel_Ink(color);
+	GrConsole_curX = 0;
+	GrConsole_curY = 0;
 	if (GrScr_MustLock && !SdlLib_LockSurface(GrScr_Screen)) {
 		return;
 	}
+	inkTemp = GrPixel_ink;
+	GrPixel_Ink(color);
 	y = GrScr_Screen->h - 1;
 	if (y >= 0) {
 		y -= -1;
@@ -88,6 +92,12 @@ void GrConsole_WriteCh (CHAR ch)
 	GrConsole_curX += 1;
 }
 
+void GrConsole_WriteLn (void)
+{
+	GrConsole_curX = 0;
+	GrConsole_curY += 1;
+}
+
 void GrConsole_WriteStr (CHAR *str, LONGINT str__len)
 {
 	LONGINT n;
@@ -96,6 +106,12 @@ void GrConsole_WriteStr (CHAR *str, LONGINT str__len)
 		GrConsole_WriteCh(str[__X(n, str__len)]);
 		n += 1;
 	}
+}
+
+void GrConsole_WriteStrLn (CHAR *str, LONGINT str__len)
+{
+	GrConsole_WriteStr(str, str__len);
+	GrConsole_WriteLn();
 }
 
 void GrConsole_WriteInt (INTEGER x)
@@ -133,6 +149,7 @@ export void *GrConsole__init(void)
 	__IMPORT(GrTiles__init);
 	__IMPORT(SdlLib__init);
 	__REGMOD("GrConsole", 0);
+	__REGCMD("WriteLn", GrConsole_WriteLn);
 /* BEGIN */
 	GrConsole_curX = 0;
 	GrConsole_curY = 0;

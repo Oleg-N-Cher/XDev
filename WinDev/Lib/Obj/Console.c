@@ -45,7 +45,7 @@ void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len)
 
 void Console_WriteInt (LONGINT n)
 {
-	Console_writeInt(n);
+	Console_writeLInt(n);
 }
 
 void Console_WriteStr (CHAR *str, LONGINT str__len)

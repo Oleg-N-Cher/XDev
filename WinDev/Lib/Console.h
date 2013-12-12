@@ -105,6 +105,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnBlack	GrColors_LMagentaOnBlack
 #  define Console_YellowOnBlack		GrColors_YellowOnBlack
 #  define Console_LWhiteOnBlack		GrColors_LWhiteOnBlack
+#  define Console_OrangeOnBlack		GrColors_OrangeOnBlack
 	
 #  define Console_BlackOnBlue		GrColors_BlackOnBlue
 #  define Console_BlueOnBlue		GrColors_BlueOnBlue
@@ -122,6 +123,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnBlue	GrColors_LMagentaOnBlue
 #  define Console_YellowOnBlue		GrColors_YellowOnBlue
 #  define Console_LWhiteOnBlue		GrColors_LWhiteOnBlue
+#  define Console_OrangeOnBlue		GrColors_OrangeOnBlue
 	
 #  define Console_BlackOnGreen		GrColors_BlackOnGreen
 #  define Console_BlueOnGreen		GrColors_BlueOnGreen
@@ -139,7 +141,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnGreen	GrColors_LMagentaOnGreen
 #  define Console_YellowOnGreen		GrColors_YellowOnGreen
 #  define Console_LWhiteOnGreen		GrColors_LWhiteOnGreen
-	
+#  define Console_OrangeOnGreen		GrColors_OrangeOnGreen
+
 #  define Console_BlackOnCyan		GrColors_BlackOnCyan
 #  define Console_BlueOnCyan		GrColors_BlueOnCyan
 #  define Console_GreenOnCyan		GrColors_GreenOnCyan
@@ -156,7 +159,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnCyan	GrColors_LMagentaOnCyan
 #  define Console_YellowOnCyan		GrColors_YellowOnCyan
 #  define Console_LWhiteOnCyan		GrColors_LWhiteOnCyan
-	
+#  define Console_OrangeOnCyan		GrColors_OrangeOnCyan
+
 #  define Console_BlackOnRed		GrColors_BlackOnRed
 #  define Console_BlueOnRed		GrColors_BlueOnRed
 #  define Console_GreenOnRed		GrColors_GreenOnRed
@@ -173,7 +177,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnRed		GrColors_LMagentaOnRed
 #  define Console_YellowOnRed		GrColors_YellowOnRed
 #  define Console_LWhiteOnRed		GrColors_LWhiteOnRed
-	
+#  define Console_OrangeOnRed		GrColors_OrangeOnRed
+
 #  define Console_BlackOnMagenta	GrColors_BlackOnMagenta
 #  define Console_BlueOnMagenta		GrColors_BlueOnMagenta
 #  define Console_GreenOnMagenta	GrColors_GreenOnMagenta
@@ -190,7 +195,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnMagenta	GrColors_LMagentaOnMagenta
 #  define Console_YellowOnMagenta	GrColors_YellowOnMagenta
 #  define Console_LWhiteOnMagenta	GrColors_LWhiteOnMagenta
-	
+#  define Console_OrangeOnMagenta	GrColors_OrangeOnMagenta
+
 #  define Console_BlackOnOlive		GrColors_BlackOnOlive
 #  define Console_BlueOnOlive		GrColors_BlueOnOlive
 #  define Console_GreenOnOlive		GrColors_GreenOnOlive
@@ -207,7 +213,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnOlive	GrColors_LMagentaOnOlive
 #  define Console_YellowOnOlive		GrColors_YellowOnOlive
 #  define Console_LWhiteOnOlive		GrColors_LWhiteOnOlive
-	
+#  define Console_OrangeOnOlive		GrColors_OrangeOnOlive
+
 #  define Console_BlackOnWhite		GrColors_BlackOnWhite
 #  define Console_BlueOnWhite		GrColors_BlueOnWhite
 #  define Console_GreenOnWhite		GrColors_GreenOnWhite
@@ -224,7 +231,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnWhite	GrColors_LMagentaOnWhite
 #  define Console_YellowOnWhite		GrColors_YellowOnWhite
 #  define Console_LWhiteOnWhite		GrColors_LWhiteOnWhite
-	
+#  define Console_OrangeOnWhite		GrColors_OrangeOnWhite
+
 #  define Console_BlackOnGray		GrColors_BlackOnGray
 #  define Console_BlueOnGray		GrColors_BlueOnGray
 #  define Console_GreenOnGray		GrColors_GreenOnGray
@@ -241,7 +249,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnGray	GrColors_LMagentaOnGray
 #  define Console_YellowOnGray		GrColors_YellowOnGray
 #  define Console_LWhiteOnGray		GrColors_LWhiteOnGray
-	
+#  define Console_OrangeOnGray		GrColors_OrangeOnGray
+
 #  define Console_BlackOnLBlue		GrColors_BlackOnLBlue
 #  define Console_BlueOnLBlue		GrColors_BlueOnLBlue
 #  define Console_GreenOnLBlue		GrColors_GreenOnLBlue
@@ -258,7 +267,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLBlue	GrColors_LMagentaOnLBlue
 #  define Console_YellowOnLBlue		GrColors_YellowOnLBlue
 #  define Console_LWhiteOnLBlue		GrColors_LWhiteOnLBlue
-	
+#  define Console_OrangeOnLBlue		GrColors_OrangeOnLBlue
+
 #  define Console_BlackOnLGreen		GrColors_BlackOnLGreen
 #  define Console_BlueOnLGreen		GrColors_BlueOnLGreen
 #  define Console_GreenOnLGreen		GrColors_GreenOnLGreen
@@ -275,7 +285,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLGreen	GrColors_LMagentaOnLGreen
 #  define Console_YellowOnLGreen	GrColors_YellowOnLGreen
 #  define Console_LWhiteOnLGreen	GrColors_LWhiteOnLGreen
-	
+#  define Console_OrangeOnLGreen	GrColors_OrangeOnLGreen
+
 #  define Console_BlackOnLCyan		GrColors_BlackOnLCyan
 #  define Console_BlueOnLCyan		GrColors_BlueOnLCyan
 #  define Console_GreenOnLCyan		GrColors_GreenOnLCyan
@@ -292,7 +303,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLCyan	GrColors_LMagentaOnLCyan
 #  define Console_YellowOnLCyan		GrColors_YellowOnLCyan
 #  define Console_LWhiteOnLCyan		GrColors_LWhiteOnLCyan
-	
+#  define Console_OrangeOnLCyan		GrColors_OrangeOnLCyan
+
 #  define Console_BlackOnLRed		GrColors_BlackOnLRed
 #  define Console_BlueOnLRed		GrColors_BlueOnLRed
 #  define Console_GreenOnLRed		GrColors_GreenOnLRed
@@ -309,7 +321,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLRed	GrColors_LMagentaOnLRed
 #  define Console_YellowOnLRed		GrColors_YellowOnLRed
 #  define Console_LWhiteOnLRed		GrColors_LWhiteOnLRed
-	
+#  define Console_OrangeOnLRed		GrColors_OrangeOnLRed
+
 #  define Console_BlackOnLMagenta	GrColors_BlackOnLMagenta
 #  define Console_BlueOnLMagenta	GrColors_BlueOnLMagenta
 #  define Console_GreenOnLMagenta	GrColors_GreenOnLMagenta
@@ -326,7 +339,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLMagenta	GrColors_LMagentaOnLMagenta
 #  define Console_YellowOnLMagenta	GrColors_YellowOnLMagenta
 #  define Console_LWhiteOnLMagenta	GrColors_LWhiteOnLMagenta
-	
+#  define Console_OrangeOnLMagenta	GrColors_OrangeOnLMagenta
+
 #  define Console_BlackOnYellow		GrColors_BlackOnYellow
 #  define Console_BlueOnYellow		GrColors_BlueOnYellow
 #  define Console_GreenOnYellow		GrColors_GreenOnYellow
@@ -343,7 +357,8 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnYellow	GrColors_LMagentaOnYellow
 #  define Console_YellowOnYellow	GrColors_YellowOnYellow
 #  define Console_LWhiteOnYellow	GrColors_LWhiteOnYellow
-	
+#  define Console_OrangeOnYellow	GrColors_OrangeOnYellow
+
 #  define Console_BlackOnLWhite		GrColors_BlackOnLWhite
 #  define Console_BlueOnLWhite		GrColors_BlueOnLWhite
 #  define Console_GreenOnLWhite		GrColors_GreenOnLWhite
@@ -360,6 +375,25 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LMagentaOnLWhite	GrColors_LMagentaOnLWhite
 #  define Console_YellowOnLWhite	GrColors_YellowOnLWhite
 #  define Console_LWhiteOnLWhite	GrColors_LWhiteOnLWhite
+#  define Console_OrangeOnLWhite	GrColors_OrangeOnLWhite
+
+#  define Console_BlackOnOrange		GrColors_BlackOnOrange
+#  define Console_BlueOnOrange		GrColors_BlueOnOrange
+#  define Console_GreenOnOrange		GrColors_GreenOnOrange
+#  define Console_CyanOnOrange		GrColors_CyanOnOrange
+#  define Console_RedOnOrange		GrColors_RedOnOrange
+#  define Console_MagentaOnOrange	GrColors_MagentaOnOrange
+#  define Console_OliveOnOrange		GrColors_OliveOnOrange
+#  define Console_WhiteOnOrange		GrColors_WhiteOnOrange
+#  define Console_GrayOnOrange		GrColors_GrayOnOrange
+#  define Console_LBlueOnOrange		GrColors_LBlueOnOrange
+#  define Console_LGreenOnOrange	GrColors_LGreenOnOrange
+#  define Console_LCyanOnOrange		GrColors_LCyanOnOrange
+#  define Console_LRedOnOrange		GrColors_LRedOnOrange
+#  define Console_LMagentaOnOrange	GrColors_LMagentaOnOrange
+#  define Console_YellowOnOrange	GrColors_YellowOnOrange
+#  define Console_LWhiteOnOrange	GrColors_LWhiteOnOrange
+#  define Console_OrangeOnOrange	GrColors_OrangeOnOrange
 
 #else
 
@@ -378,8 +412,9 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_LightCyan	(Console_Light + Console_Cyan)
 #  define Console_LightRed	(Console_Light + Console_Red)
 #  define Console_LightMagenta	(Console_Light + Console_Magenta)
-#  define Console_Yellow		(Console_Light + Console_Olive)
+#  define Console_Yellow	(Console_Light + Console_Olive)
 #  define Console_LightWhite	(Console_Light + Console_White)
+#  define Console_Orange	Console_LightRed
 
 #  define Console_BlackOnBlack		((Console_Black << 4) + Console_Black)
 #  define Console_BlueOnBlack		((Console_Black << 4) + Console_Blue)
