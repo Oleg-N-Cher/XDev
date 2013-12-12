@@ -15,61 +15,11 @@ export struct {
 
 
 export void GrScr_Close (void);
-static INTEGER GrScr_TimeLeft (void);
 export void GrScr_Update (void);
-static void GrScr_WaitAClick (void);
 
-
-static INTEGER GrScr_TimeLeft (void)
-{
-	INTEGER nextTime, now;
-	nextTime = 0;
-	now = SdlLib_GetTicks();
-	if (nextTime <= now) {
-		nextTime = now + 60;
-		return 0;
-	}
-	return nextTime - now;
-}
-
-static void GrScr_WaitAClick (void)
-{
-	SdlLib_Event event;
-	BOOLEAN done;
-	done = 0;
-	while (!done) {
-		SdlLib_Delay(10);
-		for (;;) {
-			if (SdlLib_WaitEvent(&event, SdlLib_Event__typ) == 0) {
-				break;
-			}
-			switch (__VAL(CHAR, event.type)) {
-				case 0x02: 
-					done = 1;
-					goto exit__0;
-					break;
-				case 0x0c: 
-					done = 1;
-					goto exit__0;
-					break;
-				case 0x05: case 0x06: 
-					done = 1;
-					goto exit__0;
-					break;
-				default: 
-					goto exit__0;
-					break;
-			}
-		}
-		exit__0:;
-		SdlLib_PumpEvents();
-		SdlLib_Delay(GrScr_TimeLeft());
-	}
-}
 
 void GrScr_Close (void)
 {
-	GrScr_WaitAClick();
 	SdlLib_Quit();
 }
 
