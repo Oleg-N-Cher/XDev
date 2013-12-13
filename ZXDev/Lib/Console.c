@@ -151,6 +151,17 @@ __asm
 ;На выходе обеих процедур в HL - адрес файла атрибутов.
   DEC  HL
   LD   (_ATTR_ADR_F+1),HL
+;Расчёт экранного адреса из адреса атрибутов
+; (c) Д.Анисимов, г.Киров, 1996.
+; http://zxpress.ru/book_articles.php?id=633
+;Вход: HL = адрес атрибутов
+  LD   A,H             ; 4
+  ADD  A,A             ; 4
+  ADD  A,A             ; 4
+  ADD  A,A             ; 4
+  AND  #0x7F           ; 7
+;Выход: AL = экранный адрес
+  LD   (#_SCR_ADR_F+1),A
 __endasm;
 } //Console_At_FAST
 
@@ -231,6 +242,7 @@ void Console_WriteCh_FAST_fastcall (void /* Register A */)
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
 .globl _ATTR_ADR_F
+.globl _SCR_ADR_F
   LD   (_CHAR_CODE_F$+1),A
   LD   HL,#_ATTR_ADR_F+1
   INC  (HL)
@@ -239,17 +251,8 @@ _ATTR_ADR_F:
   LD   DE,#0x5800-1    ;DE = экранный адрес
   LD   A,(SETV_A$)     ;Установим цвет символа
   LD   (DE),A
-;Расчёт экранного адреса из адреса атрибутов
-; (c) Д.Анисимов, г.Киров, 1996.
-; http://zxpress.ru/book_articles.php?id=633
-;Вход: DE = адрес атрибутов
-  LD   A,D             ; 4
-  ADD  A,A             ; 4
-  ADD  A,A             ; 4
-  ADD  A,A             ; 4
-  AND  #0x7F           ; 7
-  LD   D,A             ; 4 = 27T
-;Выход: DE = экранный адрес
+_SCR_ADR_F:            ;Перевод адреса атрибутов
+  LD   D,#0x40-8       ; в экранный адрес
 ; =====печать символа 8х8 (compact) =====
 _CHAR_CODE_F$:         ;in: L - код символа
   LD   HL,#0           ;Вычисление адреса символа
@@ -354,11 +357,16 @@ __asm
   LD   (HL),A
   RET  NC
 _INC_HBYTE_F:
+  LD   A,(#_SCR_ADR_F+1)
+  ADD  A,#8
+  LD   (#_SCR_ADR_F+1),A
   INC  HL              ;приращение старшего
   INC  (HL)            ;адреса атрибутов (и скроллинг)
   LD   A,(HL)
   CP   #0x5B
   RET  C
+  LD   A,#0x50
+  LD   (#_SCR_ADR_F+1),A
   LD   HL,#0x5AE0-1
   LD   (_ATTR_ADR_F+1),HL
   LD   B,#23
@@ -559,6 +567,8 @@ void Console_Clear_FAST (SHORTCARD attr)
 {
 __asm
   LD   IY,#0x5C3A
+  LD   A,#0x40-8
+  LD   (#_SCR_ADR_F+1),A
   LD   HL,#0x5800-1
   LD   (_ATTR_ADR_F+1),HL
 #ifdef __SDCC
