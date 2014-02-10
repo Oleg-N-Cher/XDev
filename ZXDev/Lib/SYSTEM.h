@@ -11,7 +11,6 @@ uses double # as concatenation operator
 
 */
 
-//#include <alloca.h>
 #include "SYSTEM_Cfg.h"
 
 extern void *memcpy(void *dest, const void *src, long n);
@@ -166,9 +165,9 @@ extern void SYSTEM_ENUMR();
 #define __ASHL(x, n)	((long)(x)<<(n))
 #define __ASHR(x, n)	((long)(x)>>(n))
 #define __ASHF(x, n)	SYSTEM_ASH((long)(x), (long)(n))
-#define __DUP(x, l, t)	x=(void*)memcpy(alloca(l*sizeof(t)),x,l*sizeof(t))
+#define __DUP(x, l, t)	x=(void*)memcpy(malloc(l*sizeof(t)),x,l*sizeof(t))
 #define __DUPARR(v, t)	v=(void*)memcpy(v##__copy,v,sizeof(t))
-#define __DEL(x)	/* DUP with alloca frees storage automatically */
+#define __DEL(x)	free(x)
 #define __IS(tag, typ, level)	(*(tag-(__BASEOFF-level))==(long)typ##__typ)
 #define __TYPEOF(p)	(*(((long**)(p))-1))
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
