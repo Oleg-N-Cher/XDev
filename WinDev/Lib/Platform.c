@@ -23,9 +23,8 @@ INTEGER Platform_ORD (SET s)
 
 /*--------------------------------- Cut here ---------------------------------*/
 #define Platform_free(memblock)	free(memblock)
-
 void Platform_DISPOSE (SYSTEM_PTR *mem)
 {
-	Platform_free(*mem);
-	*mem = NIL;
+  Platform_free(*mem);
+  *mem = NIL;
 }

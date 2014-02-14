@@ -45,11 +45,7 @@ extern double SYSTEM_ABSD();
 extern int SYSTEM_STRCMP();
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
-#ifdef __STDC__
-  extern SYSTEM_PTR SYSTEM_NEWARR(long*, long, int, int, int, ...);
-#else
-  extern SYSTEM_PTR SYSTEM_NEWARR();
-#endif
+extern SYSTEM_PTR SYSTEM_NEWARR (LONGINT size);
 extern SYSTEM_PTR SYSTEM_REGMOD();
 #ifdef SYSTEM_Cfg_IncRef
   extern void SYSTEM_INCREF();
@@ -119,7 +115,7 @@ extern void SYSTEM_ENUMR();
 #ifdef SYSTEM_Cfg_NoGC
 #  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(t))
 #  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
-	SYSTEM_NEWBLK(elemalgn*va_alist);
+	SYSTEM_NEWARR(elemalgn*va_alist);
 #else
 #  define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
 #  define __NEWARR	SYSTEM_NEWARR

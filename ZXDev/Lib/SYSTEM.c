@@ -43,7 +43,20 @@ float SYSTEM_ABSD (float i)
 /*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size)
 {
-  SYSTEM_PTR new = SYSTEM_malloc(size);
-  __ASSERT(new != NIL, 0xFF);
-  return new;
+  SYSTEM_PTR mem = SYSTEM_malloc(size);
+//  __ASSERT(mem != NIL, 0xFF);
+  return mem;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+/*
+#define _DYNARRAY struct {
+  LONGINT len[1]; // Length of allocated memory: LEN()
+  CHAR data[1];   // Array data
+} */
+SYSTEM_PTR SYSTEM_NEWARR (CARDINAL size)
+{
+  SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(LONGINT) + size);
+  *((LONGINT*)arrPtr) = size;
+  return arrPtr;
 }

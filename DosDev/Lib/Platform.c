@@ -9,13 +9,13 @@ export INTEGER Platform_ORD (SET s);
 /*================================== Header ==================================*/
 SET Platform_BITS (INTEGER i)
 {
-	return __VAL(SET, i);
+  return __VAL(SET, i);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 INTEGER Platform_ORD (SET s)
 {
-	return __VAL(INTEGER, s);
+  return __VAL(INTEGER, s);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -23,6 +23,6 @@ INTEGER Platform_ORD (SET s)
 
 void Platform_DISPOSE (SYSTEM_PTR *mem)
 {
-	Platform_free(*mem);
-	*mem = NIL;
+  Platform_free(*mem);
+  *mem = NIL;
 }
