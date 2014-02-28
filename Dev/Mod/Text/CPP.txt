@@ -841,6 +841,7 @@ MODULE DevCPP;
 									END
 								ELSE
 									proc := obj;
+									IF (x.left.readonly) & (proc.link.mode = VarPar) & (proc.link.vis = 0) THEN err(76) END;
 									WHILE (proc.mnolev >= 0) & ~(newAttr IN proc.conval.setval) & (typ.BaseTyp # NIL) DO
 										(* find base method *)
 										typ := typ.BaseTyp; DevCPT.FindField(name, typ, proc);
