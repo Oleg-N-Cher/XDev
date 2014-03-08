@@ -15,4 +15,6 @@ Bin/build-xdev GrPixel
 Bin/build-xdev GrTiles
 Bin/build-xdev GrFonts
 Bin/build-xdev GrConsole
+Bin/build-xdev Input
+Bin/build-xdev Timer
 
