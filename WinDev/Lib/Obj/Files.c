@@ -3,7 +3,8 @@
 
 typedef
 	struct Files_File {
-		INTEGER handle, prevbyte;
+		LONGINT handle;
+		INTEGER prevbyte;
 		BOOLEAN end, error;
 	} Files_File;
 
@@ -19,7 +20,8 @@ export void Files_File_OpenToWrite (Files_File *file, LONGINT *file__typ, CHAR *
 
 typedef
 	struct Files_FileToRead { /* Files_File */
-		INTEGER handle, prevbyte;
+		LONGINT handle;
+		INTEGER prevbyte;
 		BOOLEAN end, error;
 	} Files_FileToRead;
 
@@ -28,7 +30,8 @@ export SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGIN
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
-		INTEGER handle, prevbyte;
+		LONGINT handle;
+		INTEGER prevbyte;
 		BOOLEAN end, error;
 	} Files_FileToWrite;
 
@@ -50,12 +53,12 @@ export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 
 #define Files_EOF()	EOF
-#define Files_NULL()	((int)NULL)
+#define Files_NULL()	((SYSTEM_PTR)NULL)
 #define Files_fclose(file)	fclose((FILE*)file)
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_ferror(file)	ferror((FILE*)file)
 #define Files_fgetc(file)	fgetc((FILE*)file)
-#define Files_fopen(filename, filename__len, mode, mode__len)	(int)fopen((char*)filename, (char*)mode)
+#define Files_fopen(filename, filename__len, mode, mode__len)	(SYSTEM_PTR)fopen((char*)filename, (char*)mode)
 #define Files_fputc(c, file)	fputc(c, (FILE*)file)
 #include <stdio.h>
 #include <unistd.h>
@@ -158,9 +161,9 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 	return !f.error;
 }
 
-__TDESC(Files_File__desc, 4, 0) = {__TDFLDS("File", 12), {-4}};
-__TDESC(Files_FileToRead__desc, 5, 0) = {__TDFLDS("FileToRead", 12), {-4}};
-__TDESC(Files_FileToWrite__desc, 6, 0) = {__TDFLDS("FileToWrite", 12), {-4}};
+__TDESC(Files_File__desc, 4, 0) = {__TDFLDS("File", 16), {-8}};
+__TDESC(Files_FileToRead__desc, 5, 0) = {__TDFLDS("FileToRead", 16), {-8}};
+__TDESC(Files_FileToWrite__desc, 6, 0) = {__TDFLDS("FileToWrite", 16), {-8}};
 
 export void *Files__init(void)
 {

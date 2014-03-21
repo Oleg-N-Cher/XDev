@@ -21,7 +21,7 @@ IMPORT SYSTEM;
   Failed* = 3;*)
 
 TYPE
-  PtrFILE = INTEGER; (* Internal system type - pointer to FILE. *)
+  PtrFILE = LONGINT; (* Internal system type - pointer to FILE. *)
   PtrSTR = ARRAY [1] OF CHAR;
   STRING = ARRAY [1] OF CHAR;
 
@@ -41,7 +41,7 @@ PROCEDURE -includestdio()	"#include <stdio.h>";
 PROCEDURE -includeunistd()	"#include <unistd.h>";
 
 PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE
-  "(int)fopen((char*)filename, (char*)mode)";
+  "(SYSTEM_PTR)fopen((char*)filename, (char*)mode)";
 PROCEDURE -fgetc (file: PtrFILE): INTEGER
   "fgetc((FILE*)file)";
 PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER
@@ -56,7 +56,7 @@ http://www.cplusplus.com/reference/clibrary/cstdio/feof/
 PROCEDURE -feof (file: PtrFILE): INTEGER "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
 PROCEDURE -ferror (file: PtrFILE): INTEGER "ferror((FILE*)file)";
 PROCEDURE -EOF(): INTEGER "EOF";
-PROCEDURE -NULL(): PtrFILE "((int)NULL)";
+PROCEDURE -NULL(): PtrFILE "((SYSTEM_PTR)NULL)";
 
 PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
 PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)
