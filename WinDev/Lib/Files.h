@@ -7,7 +7,7 @@
 
 typedef
 	struct Files_File {
-		INTEGER _prvt0;
+		SYSTEM_PTR _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_File;
@@ -24,7 +24,7 @@ import void Files_File_OpenToWrite (Files_File *file, LONGINT *file__typ, CHAR *
 
 typedef
 	struct Files_FileToRead { /* Files_File */
-		INTEGER _prvt0;
+		SYSTEM_PTR _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_FileToRead;
@@ -34,7 +34,7 @@ import SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGIN
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
-		INTEGER _prvt0;
+		SYSTEM_PTR _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_FileToWrite;
