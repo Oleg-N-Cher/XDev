@@ -11,7 +11,7 @@ typedef
 	CHAR CmdLine_String[1024];
 
 
-export INTEGER CmdLine_paramCount;
+export INTEGER CmdLine_ParamCount;
 
 
 export void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
@@ -22,7 +22,7 @@ export void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
 void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len)
 {
 	CmdLine_ArgVec av = NIL;
-	if (n <= CmdLine_paramCount) {
+	if (n <= CmdLine_ParamCount) {
 		av = (CmdLine_ArgVec)CmdLine_argv();
 		__COPY(*(*av)[__X(n, 1024)], param, param__len);
 	} else {
@@ -36,6 +36,6 @@ export void *CmdLine__init(void)
 	__DEFMOD;
 	__REGMOD("CmdLine", 0);
 /* BEGIN */
-	CmdLine_paramCount = CmdLine_argc() - 1;
+	CmdLine_ParamCount = CmdLine_argc() - 1;
 	__ENDMOD;
 }
