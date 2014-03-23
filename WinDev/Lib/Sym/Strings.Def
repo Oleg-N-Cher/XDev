@@ -1,6 +1,0 @@
-DEFINITION Strings; (* portable layer for LibC - strings *)
-
-  PROCEDURE IntToStr (n: LONGINT; VAR str: STRING);
-  PROCEDURE Length (VAR str: ARRAY OF CHAR): LONGINT;
-
-END Strings.
