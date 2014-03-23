@@ -9,7 +9,7 @@ typedef
 	CHAR CmdLine_String[1024];
 
 
-import INTEGER CmdLine_paramCount;
+import INTEGER CmdLine_ParamCount;
 
 
 import void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);

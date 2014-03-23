@@ -8,13 +8,10 @@ typedef
 typedef
 	CmdLine_ArgPtr (*CmdLine_ArgVec)[1024];
 
-typedef
-	CHAR CmdLine_String[1024];
-
 export void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
 
 /*================================== Header ==================================*/
-export INTEGER CmdLine_paramCount;
+export INTEGER CmdLine_ParamCount;
 
 /*--------------------------------- Cut here ---------------------------------*/
 #define CmdLine_argc()	SYSTEM_argc
@@ -23,7 +20,7 @@ export INTEGER CmdLine_paramCount;
 void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len)
 {
 	CmdLine_ArgVec av = NIL;
-	if (n <= CmdLine_paramCount) {
+	if (n <= CmdLine_ParamCount) {
 		av = (CmdLine_ArgVec)CmdLine_argv();
 		__COPY(*(*av)[__X(n, 1024)], param, param__len);
 	} else {

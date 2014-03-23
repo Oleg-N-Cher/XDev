@@ -22,7 +22,7 @@ export main(int argc, char **argv)
 	__REGMAIN("CmdLineTest", 0);
 /* BEGIN */
 	CmdLineTest_n = 1;
-	CmdLineTest__for__2 = CmdLine_paramCount;
+	CmdLineTest__for__2 = CmdLine_ParamCount;
 	if (CmdLineTest_n <= CmdLineTest__for__2) {
 		CmdLineTest__for__2 = (CmdLineTest__for__2 - CmdLineTest_n) + 1;
 		do {
