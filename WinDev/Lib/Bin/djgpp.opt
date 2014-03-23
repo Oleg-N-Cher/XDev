@@ -1,0 +1,1 @@
+-D_WIN32 -O3 -s -I Obj -I "..\Bin\djgpp\include\win32"
