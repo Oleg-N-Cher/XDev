@@ -26,6 +26,7 @@ extern void SYSTEM_INIT (int argc, long argvadr);
 extern void SYSTEM_HALT (int n);
 extern long SYSTEM_MOD (unsigned long x, unsigned long y);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
+extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*));
 export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
 
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
@@ -59,6 +60,19 @@ int SYSTEM_STRCMP (CHAR *x, CHAR *y)
     if (!ch1) return -(int)ch2;
   } while (ch1==ch2);
   return (int)ch1 - (int)ch2;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*))
+{
+	long *t, off;
+	typ++;
+	while (n > 0) {
+		t = typ;
+		off = *t;
+		while (off >= 0) {P((void*)*(long*)(adr+off)); t++; off = *t;}
+		adr += size; n--;
+	}
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

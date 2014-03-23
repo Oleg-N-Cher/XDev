@@ -75,7 +75,7 @@ extern void SYSTEM_INIT();
 extern void SYSTEM_HALT (int n);
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
-extern void SYSTEM_ENUMR();
+extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*));
 
 /* module registry */
 #ifdef SYSTEM_Cfg_RegisterModules
