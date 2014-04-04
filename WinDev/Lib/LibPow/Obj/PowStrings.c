@@ -34,7 +34,9 @@ export CHAR PowStrings_UpCaseChar (CHAR x);
 export LONGINT PowStrings_Val (CHAR *t, LONGINT t__len);
 export INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len);
 
+/*============================================================================*/
 
+/*----------------------------------------------------------------------------*/
 LONGINT PowStrings_Length (CHAR *t, LONGINT t__len)
 {
 	LONGINT i, maxlen;
@@ -46,6 +48,7 @@ LONGINT PowStrings_Length (CHAR *t, LONGINT t__len)
 	return i;
 }
 
+/*----------------------------------------------------------------------------*/
 LONGINT PowStrings_PosChar (CHAR x, CHAR *t, LONGINT t__len, LONGINT start)
 {
 	LONGINT maxl;
@@ -66,6 +69,7 @@ LONGINT PowStrings_PosChar (CHAR x, CHAR *t, LONGINT t__len, LONGINT start)
 	__RETCHK;
 }
 
+/*----------------------------------------------------------------------------*/
 LONGINT PowStrings_Pos (CHAR *pattern, LONGINT pattern__len, CHAR *t, LONGINT t__len, LONGINT start)
 {
 	LONGINT i, j, maxl, patLen;
@@ -94,6 +98,7 @@ LONGINT PowStrings_Pos (CHAR *pattern, LONGINT pattern__len, CHAR *t, LONGINT t_
 	__RETCHK;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_Copy (CHAR *source, LONGINT source__len, CHAR *dest, LONGINT dest__len, LONGINT pos, LONGINT n)
 {
 	LONGINT i, j, l1, l2;
@@ -123,6 +128,7 @@ void PowStrings_Copy (CHAR *source, LONGINT source__len, CHAR *dest, LONGINT des
 	dest[__X(i, dest__len)] = 0x00;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_Append (CHAR *dest, LONGINT dest__len, CHAR *src, LONGINT src__len)
 {
 	LONGINT i, j, lSrc, lDest;
@@ -138,6 +144,7 @@ void PowStrings_Append (CHAR *dest, LONGINT dest__len, CHAR *src, LONGINT src__l
 	dest[__X(i, dest__len)] = 0x00;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_AppendChar (CHAR *dest, LONGINT dest__len, CHAR ch)
 {
 	LONGINT l;
@@ -148,6 +155,7 @@ void PowStrings_AppendChar (CHAR *dest, LONGINT dest__len, CHAR ch)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 CHAR PowStrings_UpCaseChar (CHAR x)
 {
 	switch (x) {
@@ -219,6 +227,7 @@ CHAR PowStrings_UpCaseChar (CHAR x)
 	return x;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_UpCase (CHAR *t, LONGINT t__len)
 {
 	LONGINT i, l;
@@ -230,6 +239,7 @@ void PowStrings_UpCase (CHAR *t, LONGINT t__len)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_Delete (CHAR *t, LONGINT t__len, LONGINT pos, LONGINT n)
 {
 	LONGINT i, l, _for__5;
@@ -248,7 +258,8 @@ void PowStrings_Delete (CHAR *t, LONGINT t__len, LONGINT pos, LONGINT n)
 	}
 }
 
-static void PowStrings_ReverseStringT (CHAR *t, LONGINT t__len, LONGINT n)
+/*----------------------------------------------------------------------------*/
+void PowStrings_ReverseStringT (CHAR *t, LONGINT t__len, LONGINT n)
 {
 	LONGINT a, b;
 	CHAR x;
@@ -263,6 +274,7 @@ static void PowStrings_ReverseStringT (CHAR *t, LONGINT t__len, LONGINT n)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_RemoveTrailingSpaces (CHAR *t, LONGINT t__len)
 {
 	LONGINT i;
@@ -273,6 +285,7 @@ void PowStrings_RemoveTrailingSpaces (CHAR *t, LONGINT t__len)
 	t[__X(i + 1, t__len)] = 0x00;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_RemoveLeadingSpaces (CHAR *t, LONGINT t__len)
 {
 	LONGINT i, ml;
@@ -286,6 +299,7 @@ void PowStrings_RemoveLeadingSpaces (CHAR *t, LONGINT t__len)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 {
 	LONGINT inx, l, v, res;
@@ -393,6 +407,7 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 	__RETCHK;
 }
 
+/*----------------------------------------------------------------------------*/
 INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 {
 	LONGINT inx, l, v, res;
@@ -513,6 +528,7 @@ INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 	__RETCHK;
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_Str (LONGINT x, CHAR *t, LONGINT t__len)
 {
 	LONGINT i, maxlen;
@@ -570,6 +586,7 @@ void PowStrings_Str (LONGINT x, CHAR *t, LONGINT t__len)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_HexStr (LONGINT x, CHAR *t, LONGINT t__len)
 {
 	LONGINT i, digit, maxlen;
@@ -639,6 +656,7 @@ void PowStrings_HexStr (LONGINT x, CHAR *t, LONGINT t__len)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_InsertChar (CHAR x, CHAR *t, LONGINT t__len, LONGINT pos)
 {
 	LONGINT i, l, _for__13;
@@ -659,6 +677,7 @@ void PowStrings_InsertChar (CHAR x, CHAR *t, LONGINT t__len, LONGINT pos)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_Insert (CHAR *source, LONGINT source__len, CHAR *dest, LONGINT dest__len, LONGINT pos)
 {
 	LONGINT i, l, dif, _for__11, _for__10;
@@ -686,6 +705,7 @@ void PowStrings_Insert (CHAR *source, LONGINT source__len, CHAR *dest, LONGINT d
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_LeftAlign (CHAR *t, LONGINT t__len, LONGINT n)
 {
 	LONGINT l, i, maxlen, _for__15;
@@ -705,6 +725,7 @@ void PowStrings_LeftAlign (CHAR *t, LONGINT t__len, LONGINT n)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 void PowStrings_RightAlign (CHAR *t, LONGINT t__len, LONGINT n)
 {
 	LONGINT l, i, maxlen, _for__23;
@@ -731,6 +752,7 @@ void PowStrings_RightAlign (CHAR *t, LONGINT t__len, LONGINT n)
 }
 
 
+/*----------------------------------------------------------------------------*/
 export void *PowStrings__init(void)
 {
 	__DEFMOD;
