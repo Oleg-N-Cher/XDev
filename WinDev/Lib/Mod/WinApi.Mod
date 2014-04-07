@@ -6467,7 +6467,7 @@ MODULE WinApi;
 		LDT_ENTRY* = RECORD [1]
 			LimitLow*: SHORTINT;
 			BaseLow*: SHORTINT;
-			HighWord*: RECORD [union]
+			HighWord*: RECORD [1](*union*)
 				Bytes*: RECORD [1]
 					BaseMid*: SHORTCHAR;
 					Flags1*: SHORTCHAR;
@@ -6512,14 +6512,14 @@ MODULE WinApi;
 			StackBase*: PtrVoid;
 			StackLimit*: PtrVoid;
 			SubSystemTib*: PtrVoid;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				FiberData*: PtrVoid;
 				Version*: INTEGER;
 			END;
 			ArbitraryUserPointer*: PtrVoid;
 			Self*: PtrNT_TIB;
 		END;
-		QUOTA_LIMITS* = RECORD [align8]
+		QUOTA_LIMITS* = RECORD [1](*align8*)
 			PagedPoolLimit*: INTEGER;
 			NonPagedPoolLimit*: INTEGER;
 			MinimumWorkingSetSize*: INTEGER;
@@ -6684,12 +6684,12 @@ MODULE WinApi;
 			DefaultDacl*: PtrACL;
 		END;
 		PtrTOKEN_DEFAULT_DACL* = POINTER TO TOKEN_DEFAULT_DACL;
-		TOKEN_SOURCE* = RECORD [align8]
+		TOKEN_SOURCE* = RECORD [1](*align8*)
 			SourceName*: ARRAY [1] 8 OF SHORTCHAR;
 			SourceIdentifier*: LUID;
 		END;
 		PtrTOKEN_SOURCE* = POINTER TO TOKEN_SOURCE;
-		TOKEN_STATISTICS* = RECORD [align8]
+		TOKEN_STATISTICS* = RECORD [1](*align8*)
 			TokenId*: LUID;
 			AuthenticationId*: LUID;
 			ExpirationTime*: LONGINT;
@@ -6702,7 +6702,7 @@ MODULE WinApi;
 			ModifiedId*: LUID;
 		END;
 		PtrTOKEN_STATISTICS* = POINTER TO TOKEN_STATISTICS;
-		TOKEN_CONTROL* = RECORD [align8]
+		TOKEN_CONTROL* = RECORD [1](*align8*)
 			TokenId*: LUID;
 			AuthenticationId*: LUID;
 			ModifiedId*: LUID;
@@ -6724,7 +6724,7 @@ MODULE WinApi;
 			Level*: SECURITY_IMPERSONATION_LEVEL;
 		END;
 		PtrSE_IMPERSONATION_STATE* = POINTER TO SE_IMPERSONATION_STATE;
-		IMAGE_DOS_HEADER* = RECORD [noalign]
+		IMAGE_DOS_HEADER* = RECORD [1](*noalign*)
 			e_magic*: SHORTINT;
 			e_cblp*: SHORTINT;
 			e_cp*: SHORTINT;
@@ -6746,7 +6746,7 @@ MODULE WinApi;
 			e_lfanew*: INTEGER;
 		END;
 		PtrIMAGE_DOS_HEADER* = POINTER TO IMAGE_DOS_HEADER;
-		IMAGE_OS2_HEADER* = RECORD [noalign]
+		IMAGE_OS2_HEADER* = RECORD [1](*noalign*)
 			ne_magic*: SHORTINT;
 			ne_ver*: SHORTCHAR;
 			ne_rev*: SHORTCHAR;
@@ -6779,7 +6779,7 @@ MODULE WinApi;
 			ne_expver*: SHORTINT;
 		END;
 		PtrIMAGE_OS2_HEADER* = POINTER TO IMAGE_OS2_HEADER;
-		IMAGE_VXD_HEADER* = RECORD [noalign]
+		IMAGE_VXD_HEADER* = RECORD [1](*noalign*)
 			e32_magic*: SHORTINT;
 			e32_border*: SHORTCHAR;
 			e32_worder*: SHORTCHAR;
@@ -6833,7 +6833,7 @@ MODULE WinApi;
 			e32_ddkver*: SHORTINT;
 		END;
 		PtrIMAGE_VXD_HEADER* = POINTER TO IMAGE_VXD_HEADER;
-		IMAGE_FILE_HEADER* = RECORD [noalign]
+		IMAGE_FILE_HEADER* = RECORD [1](*noalign*)
 			Machine*: SHORTINT;
 			NumberOfSections*: SHORTINT;
 			TimeDateStamp*: INTEGER;
@@ -6843,12 +6843,12 @@ MODULE WinApi;
 			Characteristics*: SHORTINT;
 		END;
 		PtrIMAGE_FILE_HEADER* = POINTER TO IMAGE_FILE_HEADER;
-		IMAGE_DATA_DIRECTORY* = RECORD [noalign]
+		IMAGE_DATA_DIRECTORY* = RECORD [1](*noalign*)
 			VirtualAddress*: INTEGER;
 			Size*: INTEGER;
 		END;
 		PtrIMAGE_DATA_DIRECTORY* = POINTER TO IMAGE_DATA_DIRECTORY;
-		IMAGE_OPTIONAL_HEADER* = RECORD [noalign]
+		IMAGE_OPTIONAL_HEADER* = RECORD [1](*noalign*)
 			Magic*: SHORTINT;
 			MajorLinkerVersion*: SHORTCHAR;
 			MinorLinkerVersion*: SHORTCHAR;
@@ -6882,7 +6882,7 @@ MODULE WinApi;
 			DataDirectory*: ARRAY [1] 16 OF IMAGE_DATA_DIRECTORY;
 		END;
 		PtrIMAGE_OPTIONAL_HEADER* = POINTER TO IMAGE_OPTIONAL_HEADER;
-		IMAGE_ROM_OPTIONAL_HEADER* = RECORD [noalign]
+		IMAGE_ROM_OPTIONAL_HEADER* = RECORD [1](*noalign*)
 			Magic*: SHORTINT;
 			MajorLinkerVersion*: SHORTCHAR;
 			MinorLinkerVersion*: SHORTCHAR;
@@ -6898,7 +6898,7 @@ MODULE WinApi;
 			GpValue*: INTEGER;
 		END;
 		PtrIMAGE_ROM_OPTIONAL_HEADER* = POINTER TO IMAGE_ROM_OPTIONAL_HEADER;
-		IMAGE_NT_HEADERS* = RECORD [noalign]
+		IMAGE_NT_HEADERS* = RECORD [1](*noalign*)
 			Signature*: INTEGER;
 			FileHeader*: IMAGE_FILE_HEADER;
 			OptionalHeader*: IMAGE_OPTIONAL_HEADER;
@@ -6909,9 +6909,9 @@ MODULE WinApi;
 			OptionalHeader*: IMAGE_ROM_OPTIONAL_HEADER;
 		END;
 		PtrIMAGE_ROM_HEADERS* = POINTER TO IMAGE_ROM_HEADERS;
-		IMAGE_SECTION_HEADER* = RECORD [noalign]
+		IMAGE_SECTION_HEADER* = RECORD [1](*noalign*)
 			Name*: ARRAY [1] 8 OF SHORTCHAR;
-			Misc*: RECORD [union]
+			Misc*: RECORD [1](*union*)
 				PhysicalAddress*: INTEGER;
 				VirtualSize*: INTEGER;
 			END;
@@ -6925,10 +6925,10 @@ MODULE WinApi;
 			Characteristics*: INTEGER;
 		END;
 		PtrIMAGE_SECTION_HEADER* = POINTER TO IMAGE_SECTION_HEADER;
-		IMAGE_SYMBOL* = RECORD [noalign]
-			N*: RECORD [union]
+		IMAGE_SYMBOL* = RECORD [1](*noalign*)
+			N*: RECORD [1](*union*)
 				ShortName*: ARRAY [1] 8 OF SHORTCHAR;
-				Name*: RECORD [noalign]
+				Name*: RECORD [1](*noalign*)
 					Short*: INTEGER;
 					Long*: INTEGER;
 				END;
@@ -6941,22 +6941,22 @@ MODULE WinApi;
 			NumberOfAuxSymbols*: SHORTCHAR;
 		END;
 		PtrIMAGE_SYMBOL* = POINTER TO IMAGE_SYMBOL;
-		IMAGE_AUX_SYMBOL* = RECORD [union]
-			Sym*: RECORD [noalign]
+		IMAGE_AUX_SYMBOL* = RECORD [1](*union*)
+			Sym*: RECORD [1](*noalign*)
 				TagIndex*: INTEGER;
-				Misc*: RECORD [union]
-					LnSz*: RECORD [noalign]
+				Misc*: RECORD [1](*union*)
+					LnSz*: RECORD [1](*noalign*)
 						Linenumber*: SHORTINT;
 						Size*: SHORTINT;
 					END;
 					TotalSize*: INTEGER;
 				END;
-				FcnAry*: RECORD [union]
-					Function*: RECORD [noalign]
+				FcnAry*: RECORD [1](*union*)
+					Function*: RECORD [1](*noalign*)
 						PointerToLinenumber*: INTEGER;
 						PointerToNextFunction*: INTEGER;
 					END;
-					Array*: RECORD [noalign]
+					Array*: RECORD [1](*noalign*)
 						Dimension*: ARRAY [1] 4 OF SHORTINT;
 					END;
 				END;
@@ -6965,7 +6965,7 @@ MODULE WinApi;
 			File*: RECORD [1]
 				Name*: ARRAY [1] 18 OF SHORTCHAR;
 			END;
-			Section*: RECORD [noalign]
+			Section*: RECORD [1](*noalign*)
 				Length*: INTEGER;
 				NumberOfRelocations*: SHORTINT;
 				NumberOfLinenumbers*: SHORTINT;
@@ -6975,8 +6975,8 @@ MODULE WinApi;
 			END;
 		END;
 		PtrIMAGE_AUX_SYMBOL* = POINTER TO IMAGE_AUX_SYMBOL;
-		IMAGE_RELOCATION* = RECORD [noalign]
-			u*: RECORD [union]
+		IMAGE_RELOCATION* = RECORD [1](*noalign*)
+			u*: RECORD [1](*union*)
 				VirtualAddress*: INTEGER;
 				RelocCount*: INTEGER;
 			END;
@@ -6984,13 +6984,13 @@ MODULE WinApi;
 			Type*: SHORTINT;
 		END;
 		PtrIMAGE_RELOCATION* = POINTER TO IMAGE_RELOCATION;
-		IMAGE_BASE_RELOCATION* = RECORD [noalign]
+		IMAGE_BASE_RELOCATION* = RECORD [1](*noalign*)
 			VirtualAddress*: INTEGER;
 			SizeOfBlock*: INTEGER;
 		END;
 		PtrIMAGE_BASE_RELOCATION* = POINTER TO IMAGE_BASE_RELOCATION;
-		IMAGE_LINENUMBER* = RECORD [noalign]
-			Type*: RECORD [union]
+		IMAGE_LINENUMBER* = RECORD [1](*noalign*)
+			Type*: RECORD [1](*union*)
 				SymbolTableIndex*: INTEGER;
 				VirtualAddress*: INTEGER;
 			END;
@@ -7007,7 +7007,7 @@ MODULE WinApi;
 			EndHeader*: ARRAY [1] 2 OF SHORTCHAR;
 		END;
 		PtrIMAGE_ARCHIVE_MEMBER_HEADER* = POINTER TO IMAGE_ARCHIVE_MEMBER_HEADER;
-		IMAGE_EXPORT_DIRECTORY* = RECORD [noalign]
+		IMAGE_EXPORT_DIRECTORY* = RECORD [1](*noalign*)
 			Characteristics*: INTEGER;
 			TimeDateStamp*: INTEGER;
 			MajorVersion*: SHORTINT;
@@ -7021,13 +7021,13 @@ MODULE WinApi;
 			AddressOfNameOrdinals*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF SHORTINT;
 		END;
 		PtrIMAGE_EXPORT_DIRECTORY* = POINTER TO IMAGE_EXPORT_DIRECTORY;
-		IMAGE_IMPORT_BY_NAME* = RECORD [noalign]
+		IMAGE_IMPORT_BY_NAME* = RECORD [1](*noalign*)
 			Hint*: SHORTINT;
 			Name*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_IMPORT_BY_NAME* = POINTER TO IMAGE_IMPORT_BY_NAME;
 		IMAGE_THUNK_DATA* = RECORD [1]
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				ForwarderString*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 				Function*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 				Ordinal*: INTEGER;
@@ -7035,8 +7035,8 @@ MODULE WinApi;
 			END;
 		END;
 		PtrIMAGE_THUNK_DATA* = POINTER TO IMAGE_THUNK_DATA;
-		IMAGE_IMPORT_DESCRIPTOR* = RECORD [noalign]
-			u*: RECORD [union]
+		IMAGE_IMPORT_DESCRIPTOR* = RECORD [1](*noalign*)
+			u*: RECORD [1](*union*)
 				Characteristics*: INTEGER;
 				OriginalFirstThunk*: PtrIMAGE_THUNK_DATA;
 			END;
@@ -7046,20 +7046,20 @@ MODULE WinApi;
 			FirstThunk*: PtrIMAGE_THUNK_DATA;
 		END;
 		PtrIMAGE_IMPORT_DESCRIPTOR* = POINTER TO IMAGE_IMPORT_DESCRIPTOR;
-		IMAGE_BOUND_IMPORT_DESCRIPTOR* = RECORD [noalign]
+		IMAGE_BOUND_IMPORT_DESCRIPTOR* = RECORD [1](*noalign*)
 			TimeDateStamp*: INTEGER;
 			OffsetModuleName*: SHORTINT;
 			NumberOfModuleForwarderRefs*: SHORTINT;
 		END;
 		PtrIMAGE_BOUND_IMPORT_DESCRIPTOR* = POINTER TO IMAGE_BOUND_IMPORT_DESCRIPTOR;
-		IMAGE_BOUND_FORWARDER_REF* = RECORD [noalign]
+		IMAGE_BOUND_FORWARDER_REF* = RECORD [1](*noalign*)
 			TimeDateStamp*: INTEGER;
 			OffsetModuleName*: SHORTINT;
 			Reserved*: SHORTINT;
 		END;
 		PtrIMAGE_BOUND_FORWARDER_REF* = POINTER TO IMAGE_BOUND_FORWARDER_REF;
 		IMAGE_TLS_CALLBACK* = PROCEDURE (DllHandle: PtrVoid; Reason: INTEGER; Reserved: PtrVoid);
-		IMAGE_TLS_DIRECTORY* = RECORD [noalign]
+		IMAGE_TLS_DIRECTORY* = RECORD [1](*noalign*)
 			StartAddressOfRawData*: INTEGER;
 			EndAddressOfRawData*: INTEGER;
 			AddressOfIndex*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
@@ -7068,7 +7068,7 @@ MODULE WinApi;
 			Characteristics*: INTEGER;
 		END;
 		PtrIMAGE_TLS_DIRECTORY* = POINTER TO IMAGE_TLS_DIRECTORY;
-		IMAGE_RESOURCE_DIRECTORY* = RECORD [noalign]
+		IMAGE_RESOURCE_DIRECTORY* = RECORD [1](*noalign*)
 			Characteristics*: INTEGER;
 			TimeDateStamp*: INTEGER;
 			MajorVersion*: SHORTINT;
@@ -7078,8 +7078,8 @@ MODULE WinApi;
 		END;
 		PtrIMAGE_RESOURCE_DIRECTORY* = POINTER TO IMAGE_RESOURCE_DIRECTORY;
 		IMAGE_RESOURCE_DIRECTORY_ENTRY* = RECORD [1]
-			u*: RECORD [union]
-				r*: RECORD [noalign]
+			u*: RECORD [1](*union*)
+				r*: RECORD [1](*noalign*)
 					fBits0*: SET;
 					(* NameOffset*: LONGINT; (31 bits) *)
 					(* NameIsString*: LONGINT; (1 bits) *)
@@ -7087,9 +7087,9 @@ MODULE WinApi;
 				Name*: INTEGER;
 				Id*: SHORTINT;
 			END;
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				OffsetToData*: INTEGER;
-				r*: RECORD [noalign]
+				r*: RECORD [1](*noalign*)
 					fBits0*: SET;
 					(* OffsetToDirectory*: LONGINT; (31 bits) *)
 					(* DataIsDirectory*: LONGINT; (1 bits) *)
@@ -7097,24 +7097,24 @@ MODULE WinApi;
 			END;
 		END;
 		PtrIMAGE_RESOURCE_DIRECTORY_ENTRY* = POINTER TO IMAGE_RESOURCE_DIRECTORY_ENTRY;
-		IMAGE_RESOURCE_DIRECTORY_STRING* = RECORD [noalign]
+		IMAGE_RESOURCE_DIRECTORY_STRING* = RECORD [1](*noalign*)
 			Length*: SHORTINT;
 			NameString*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_RESOURCE_DIRECTORY_STRING* = POINTER TO IMAGE_RESOURCE_DIRECTORY_STRING;
-		IMAGE_RESOURCE_DIR_STRING_U* = RECORD [noalign]
+		IMAGE_RESOURCE_DIR_STRING_U* = RECORD [1](*noalign*)
 			Length*: SHORTINT;
 			NameString*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrIMAGE_RESOURCE_DIR_STRING_U* = POINTER TO IMAGE_RESOURCE_DIR_STRING_U;
-		IMAGE_RESOURCE_DATA_ENTRY* = RECORD [noalign]
+		IMAGE_RESOURCE_DATA_ENTRY* = RECORD [1](*noalign*)
 			OffsetToData*: INTEGER;
 			Size*: INTEGER;
 			CodePage*: INTEGER;
 			Reserved*: INTEGER;
 		END;
 		PtrIMAGE_RESOURCE_DATA_ENTRY* = POINTER TO IMAGE_RESOURCE_DATA_ENTRY;
-		IMAGE_LOAD_CONFIG_DIRECTORY* = RECORD [noalign]
+		IMAGE_LOAD_CONFIG_DIRECTORY* = RECORD [1](*noalign*)
 			Characteristics*: INTEGER;
 			TimeDateStamp*: INTEGER;
 			MajorVersion*: SHORTINT;
@@ -7131,7 +7131,7 @@ MODULE WinApi;
 			Reserved*: ARRAY [1] 4 OF INTEGER;
 		END;
 		PtrIMAGE_LOAD_CONFIG_DIRECTORY* = POINTER TO IMAGE_LOAD_CONFIG_DIRECTORY;
-		IMAGE_RUNTIME_FUNCTION_ENTRY* = RECORD [noalign]
+		IMAGE_RUNTIME_FUNCTION_ENTRY* = RECORD [1](*noalign*)
 			BeginAddress*: INTEGER;
 			EndAddress*: INTEGER;
 			ExceptionHandler*: PtrVoid;
@@ -7139,7 +7139,7 @@ MODULE WinApi;
 			PrologEndAddress*: INTEGER;
 		END;
 		PtrIMAGE_RUNTIME_FUNCTION_ENTRY* = POINTER TO IMAGE_RUNTIME_FUNCTION_ENTRY;
-		IMAGE_DEBUG_DIRECTORY* = RECORD [noalign]
+		IMAGE_DEBUG_DIRECTORY* = RECORD [1](*noalign*)
 			Characteristics*: INTEGER;
 			TimeDateStamp*: INTEGER;
 			MajorVersion*: SHORTINT;
@@ -7150,7 +7150,7 @@ MODULE WinApi;
 			PointerToRawData*: INTEGER;
 		END;
 		PtrIMAGE_DEBUG_DIRECTORY* = POINTER TO IMAGE_DEBUG_DIRECTORY;
-		IMAGE_COFF_SYMBOLS_HEADER* = RECORD [noalign]
+		IMAGE_COFF_SYMBOLS_HEADER* = RECORD [1](*noalign*)
 			NumberOfSymbols*: INTEGER;
 			LvaToFirstSymbol*: INTEGER;
 			NumberOfLinenumbers*: INTEGER;
@@ -7161,7 +7161,7 @@ MODULE WinApi;
 			RvaToLastByteOfData*: INTEGER;
 		END;
 		PtrIMAGE_COFF_SYMBOLS_HEADER* = POINTER TO IMAGE_COFF_SYMBOLS_HEADER;
-		FPO_DATA* = RECORD [noalign]
+		FPO_DATA* = RECORD [1](*noalign*)
 			ulOffStart*: INTEGER;
 			cbProcSize*: INTEGER;
 			cdwLocals*: INTEGER;
@@ -7175,7 +7175,7 @@ MODULE WinApi;
 			(* cbFrame*: INTEGER; (2 bits) *)
 		END;
 		PtrFPO_DATA* = POINTER TO FPO_DATA;
-		IMAGE_DEBUG_MISC* = RECORD [noalign]
+		IMAGE_DEBUG_MISC* = RECORD [1](*noalign*)
 			DataType*: INTEGER;
 			Length*: INTEGER;
 			Unicode*: BOOLEAN;
@@ -7183,13 +7183,13 @@ MODULE WinApi;
 			Data*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_DEBUG_MISC* = POINTER TO IMAGE_DEBUG_MISC;
-		IMAGE_FUNCTION_ENTRY* = RECORD [noalign]
+		IMAGE_FUNCTION_ENTRY* = RECORD [1](*noalign*)
 			StartingAddress*: INTEGER;
 			EndingAddress*: INTEGER;
 			EndOfPrologue*: INTEGER;
 		END;
 		PtrIMAGE_FUNCTION_ENTRY* = POINTER TO IMAGE_FUNCTION_ENTRY;
-		IMAGE_SEPARATE_DEBUG_HEADER* = RECORD [noalign]
+		IMAGE_SEPARATE_DEBUG_HEADER* = RECORD [1](*noalign*)
 			Signature*: SHORTINT;
 			Flags*: SHORTINT;
 			Machine*: SHORTINT;
@@ -7278,13 +7278,13 @@ MODULE WinApi;
 			Immediate*: BOOLEAN;
 		END;
 		PtrTAPE_WRITE_MARKS* = POINTER TO TAPE_WRITE_MARKS;
-		TAPE_GET_POSITION* = RECORD [align8]
+		TAPE_GET_POSITION* = RECORD [1](*align8*)
 			Type*: INTEGER;
 			Partition*: INTEGER;
 			Offset*: LONGINT;
 		END;
 		PtrTAPE_GET_POSITION* = POINTER TO TAPE_GET_POSITION;
-		TAPE_SET_POSITION* = RECORD [align8]
+		TAPE_SET_POSITION* = RECORD [1](*align8*)
 			Method*: INTEGER;
 			Partition*: INTEGER;
 			Offset*: LONGINT;
@@ -7313,7 +7313,7 @@ MODULE WinApi;
 			EOTWarningZoneSize*: INTEGER;
 		END;
 		PtrTAPE_SET_DRIVE_PARAMETERS* = POINTER TO TAPE_SET_DRIVE_PARAMETERS;
-		TAPE_GET_MEDIA_PARAMETERS* = RECORD [align8]
+		TAPE_GET_MEDIA_PARAMETERS* = RECORD [1](*align8*)
 			Capacity*: LONGINT;
 			Remaining*: LONGINT;
 			BlockSize*: INTEGER;
@@ -7533,7 +7533,7 @@ MODULE WinApi;
 		END;
 		PtrCOMMCONFIG* = POINTER TO COMMCONFIG;
 		SYSTEM_INFO* = RECORD [1]
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				dwOemId*: INTEGER;
 				r*: RECORD [1]
 					wProcessorArchitecture*: SHORTINT;
@@ -7622,7 +7622,7 @@ MODULE WinApi;
 			dwDebugEventCode*: INTEGER;
 			dwProcessId*: INTEGER;
 			dwThreadId*: INTEGER;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				Exception*: EXCEPTION_DEBUG_INFO;
 				CreateThread*: CREATE_THREAD_DEBUG_INFO;
 				CreateProcessInfo*: CREATE_PROCESS_DEBUG_INFO;
@@ -7650,7 +7650,7 @@ MODULE WinApi;
 			cbOverhead*: SHORTCHAR;
 			iRegionIndex*: SHORTCHAR;
 			wFlags*: SHORTINT;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				Block*: RECORD [1]
 					hMem*: HANDLE;
 					dwReserved*: ARRAY [1] 3 OF INTEGER;
@@ -7666,7 +7666,7 @@ MODULE WinApi;
 		PtrPROCESS_HEAP_ENTRY* = POINTER TO PROCESS_HEAP_ENTRY;
 		TOP_LEVEL_EXCEPTION_FILTER* = PROCEDURE (VAR [nil] ExceptionInfo: EXCEPTION_POINTERS): INTEGER;
 		APCFUNC* = PROCEDURE (dwParam: INTEGER);
-		BY_HANDLE_FILE_INFORMATION* = RECORD [align8]
+		BY_HANDLE_FILE_INFORMATION* = RECORD [1](*align8*)
 			dwFileAttributes*: SET;
 			ftCreationTime*: FILETIME;
 			ftLastAccessTime*: FILETIME;
@@ -7690,7 +7690,7 @@ MODULE WinApi;
 		END;
 		PtrTIME_ZONE_INFORMATION* = POINTER TO TIME_ZONE_INFORMATION;
 		OVERLAPPED_COMPLETION_ROUTINE* = PROCEDURE (dwErrorCode: INTEGER; dwNumberOfBytesTransfered: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED);
-		WIN32_STREAM_ID* = RECORD [align8]
+		WIN32_STREAM_ID* = RECORD [1](*align8*)
 			dwStreamId*: INTEGER;
 			dwStreamAttributes*: SET;
 			Size*: LONGINT;
@@ -7742,7 +7742,7 @@ MODULE WinApi;
 		PtrSTARTUPINFOW* = POINTER TO STARTUPINFOW;
 		STARTUPINFO* = STARTUPINFOA;
 		PtrSTARTUPINFO* = PtrSTARTUPINFOA;
-		WIN32_FIND_DATAA* = RECORD [align8]
+		WIN32_FIND_DATAA* = RECORD [1](*align8*)
 			dwFileAttributes*: SET;
 			ftCreationTime*: FILETIME;
 			ftLastAccessTime*: FILETIME;
@@ -7755,7 +7755,7 @@ MODULE WinApi;
 			cAlternateFileName*: ARRAY [1] 14 OF SHORTCHAR;
 		END;
 		PtrWIN32_FIND_DATAA* = POINTER TO WIN32_FIND_DATAA;
-		WIN32_FIND_DATAW* = RECORD [align8]
+		WIN32_FIND_DATAW* = RECORD [1](*align8*)
 			dwFileAttributes*: SET;
 			ftCreationTime*: FILETIME;
 			ftLastAccessTime*: FILETIME;
@@ -7770,7 +7770,7 @@ MODULE WinApi;
 		PtrWIN32_FIND_DATAW* = POINTER TO WIN32_FIND_DATAW;
 		WIN32_FIND_DATA* = WIN32_FIND_DATAA;
 		PtrWIN32_FIND_DATA* = PtrWIN32_FIND_DATAA;
-		WIN32_FILE_ATTRIBUTE_DATA* = RECORD [align8]
+		WIN32_FILE_ATTRIBUTE_DATA* = RECORD [1](*align8*)
 			dwFileAttributes*: SET;
 			ftCreationTime*: FILETIME;
 			ftLastAccessTime*: FILETIME;
@@ -7989,7 +7989,7 @@ MODULE WinApi;
 			bmciColors*: ARRAY [1] 1 OF RGBTRIPLE;
 		END;
 		PtrBITMAPCOREINFO* = POINTER TO BITMAPCOREINFO;
-		BITMAPFILEHEADER* = RECORD [align2]
+		BITMAPFILEHEADER* = RECORD [1](*align2*)
 			bfType*: SHORTINT;
 			bfSize*: INTEGER;
 			bfReserved1*: SHORTINT;
@@ -8031,7 +8031,7 @@ MODULE WinApi;
 			hMF*: HMETAFILE;
 		END;
 		PtrMETAFILEPICT* = POINTER TO METAFILEPICT;
-		METAHEADER* = RECORD [align2]
+		METAHEADER* = RECORD [1](*align2*)
 			mtType*: SHORTINT;
 			mtHeaderSize*: SHORTINT;
 			mtVersion*: SHORTINT;
@@ -9631,7 +9631,7 @@ MODULE WinApi;
 			lParam*: LPARAM;
 		END;
 		PtrBROADCASTSYSMSG* = POINTER TO BROADCASTSYSMSG;
-		DLGTEMPLATE* = RECORD [align2]
+		DLGTEMPLATE* = RECORD [1](*align2*)
 			style*: SET;
 			dwExtendedStyle*: SET;
 			cdit*: SHORTINT;
@@ -9641,7 +9641,7 @@ MODULE WinApi;
 			cy*: SHORTINT;
 		END;
 		PtrDLGTEMPLATE* = POINTER TO DLGTEMPLATE;
-		DLGITEMTEMPLATE* = RECORD [align2]
+		DLGITEMTEMPLATE* = RECORD [1](*align2*)
 			style*: SET;
 			dwExtendedStyle*: SET;
 			x*: SHORTINT;
@@ -10100,7 +10100,7 @@ MODULE WinApi;
 			wRepeatCount*: SHORTINT;
 			wVirtualKeyCode*: SHORTINT;
 			wVirtualScanCode*: SHORTINT;
-			uChar*: RECORD [union]
+			uChar*: RECORD [1](*union*)
 				UnicodeChar*: WCHAR;
 				AsciiChar*: SHORTCHAR;
 			END;
@@ -10128,7 +10128,7 @@ MODULE WinApi;
 		PtrFOCUS_EVENT_RECORD* = POINTER TO FOCUS_EVENT_RECORD;
 		INPUT_RECORD* = RECORD [1]
 			EventType*: SHORTINT;
-			Event*: RECORD [union]
+			Event*: RECORD [1](*union*)
 				KeyEvent*: KEY_EVENT_RECORD;
 				MouseEvent*: MOUSE_EVENT_RECORD;
 				WindowBufferSizeEvent*: WINDOW_BUFFER_SIZE_RECORD;
@@ -10138,7 +10138,7 @@ MODULE WinApi;
 		END;
 		PtrINPUT_RECORD* = POINTER TO INPUT_RECORD;
 		CHAR_INFO* = RECORD [1]
-			Char*: RECORD [union]
+			Char*: RECORD [1](*union*)
 				UnicodeChar*: WCHAR;
 				AsciiChar*: SHORTCHAR;
 			END;
@@ -10403,7 +10403,7 @@ MODULE WinApi;
 		END;
 		PtrMONCONVSTRUCT* = POINTER TO MONCONVSTRUCT;
 		HDROP* = HANDLE;
-		DRAGINFOA* = RECORD [noalign]
+		DRAGINFOA* = RECORD [1](*noalign*)
 			uSize*: INTEGER;
 			pt*: POINT;
 			fNC*: BOOL;
@@ -10411,7 +10411,7 @@ MODULE WinApi;
 			grfKeyState*: SET;
 		END;
 		PtrDRAGINFOA* = POINTER TO DRAGINFOA;
-		DRAGINFOW* = RECORD [noalign]
+		DRAGINFOW* = RECORD [1](*noalign*)
 			uSize*: INTEGER;
 			pt*: POINT;
 			fNC*: BOOL;
@@ -10421,7 +10421,7 @@ MODULE WinApi;
 		PtrDRAGINFOW* = POINTER TO DRAGINFOW;
 		DRAGINFO* = DRAGINFOA;
 		PtrDRAGINFO* = PtrDRAGINFOA;
-		APPBARDATA* = RECORD [noalign]
+		APPBARDATA* = RECORD [1](*noalign*)
 			cbSize*: INTEGER;
 			hWnd*: HWND;
 			uCallbackMessage*: INTEGER;
@@ -10432,7 +10432,7 @@ MODULE WinApi;
 		PtrAPPBARDATA* = POINTER TO APPBARDATA;
 		FILEOP_FLAGS* = SHORTINT;
 		PRINTEROP_FLAGS* = SHORTINT;
-		SHFILEOPSTRUCTA* = RECORD [noalign]
+		SHFILEOPSTRUCTA* = RECORD [1](*noalign*)
 			hwnd*: HWND;
 			wFunc*: INTEGER;
 			pFrom*: PtrSTR;
@@ -10443,7 +10443,7 @@ MODULE WinApi;
 			lpszProgressTitle*: PtrSTR;
 		END;
 		PtrSHFILEOPSTRUCTA* = POINTER TO SHFILEOPSTRUCTA;
-		SHFILEOPSTRUCTW* = RECORD [noalign]
+		SHFILEOPSTRUCTW* = RECORD [1](*noalign*)
 			hwnd*: HWND;
 			wFunc*: INTEGER;
 			pFrom*: PtrWSTR;
@@ -10456,14 +10456,14 @@ MODULE WinApi;
 		PtrSHFILEOPSTRUCTW* = POINTER TO SHFILEOPSTRUCTW;
 		SHFILEOPSTRUCT* = SHFILEOPSTRUCTA;
 		PtrSHFILEOPSTRUCT* = PtrSHFILEOPSTRUCTA;
-		SHNAMEMAPPINGA* = RECORD [noalign]
+		SHNAMEMAPPINGA* = RECORD [1](*noalign*)
 			pszOldPath*: PtrSTR;
 			pszNewPath*: PtrSTR;
 			cchOldPath*: INTEGER;
 			cchNewPath*: INTEGER;
 		END;
 		PtrSHNAMEMAPPINGA* = POINTER TO SHNAMEMAPPINGA;
-		SHNAMEMAPPINGW* = RECORD [noalign]
+		SHNAMEMAPPINGW* = RECORD [1](*noalign*)
 			pszOldPath*: PtrWSTR;
 			pszNewPath*: PtrWSTR;
 			cchOldPath*: INTEGER;
@@ -10472,7 +10472,7 @@ MODULE WinApi;
 		PtrSHNAMEMAPPINGW* = POINTER TO SHNAMEMAPPINGW;
 		SHNAMEMAPPING* = SHNAMEMAPPINGA;
 		PtrSHNAMEMAPPING* = PtrSHNAMEMAPPINGA;
-		SHELLEXECUTEINFOA* = RECORD [noalign]
+		SHELLEXECUTEINFOA* = RECORD [1](*noalign*)
 			cbSize*: INTEGER;
 			fMask*: SET;
 			hwnd*: HWND;
@@ -10490,7 +10490,7 @@ MODULE WinApi;
 			hProcess*: HANDLE;
 		END;
 		PtrSHELLEXECUTEINFOA* = POINTER TO SHELLEXECUTEINFOA;
-		SHELLEXECUTEINFOW* = RECORD [noalign]
+		SHELLEXECUTEINFOW* = RECORD [1](*noalign*)
 			cbSize*: INTEGER;
 			fMask*: SET;
 			hwnd*: HWND;
@@ -10510,7 +10510,7 @@ MODULE WinApi;
 		PtrSHELLEXECUTEINFOW* = POINTER TO SHELLEXECUTEINFOW;
 		SHELLEXECUTEINFO* = SHELLEXECUTEINFOA;
 		PtrSHELLEXECUTEINFO* = PtrSHELLEXECUTEINFOA;
-		NOTIFYICONDATAA* = RECORD [noalign]
+		NOTIFYICONDATAA* = RECORD [1](*noalign*)
 			cbSize*: INTEGER;
 			hWnd*: HWND;
 			uID*: INTEGER;
@@ -10520,7 +10520,7 @@ MODULE WinApi;
 			szTip*: ARRAY [1] 64 OF SHORTCHAR;
 		END;
 		PtrNOTIFYICONDATAA* = POINTER TO NOTIFYICONDATAA;
-		NOTIFYICONDATAW* = RECORD [noalign]
+		NOTIFYICONDATAW* = RECORD [1](*noalign*)
 			cbSize*: INTEGER;
 			hWnd*: HWND;
 			uID*: INTEGER;
@@ -10532,7 +10532,7 @@ MODULE WinApi;
 		PtrNOTIFYICONDATAW* = POINTER TO NOTIFYICONDATAW;
 		NOTIFYICONDATA* = NOTIFYICONDATAA;
 		PtrNOTIFYICONDATA* = PtrNOTIFYICONDATAA;
-		SHFILEINFOA* = RECORD [noalign]
+		SHFILEINFOA* = RECORD [1](*noalign*)
 			hIcon*: HICON;
 			iIcon*: INTEGER;
 			dwAttributes*: SET;
@@ -10540,7 +10540,7 @@ MODULE WinApi;
 			szTypeName*: ARRAY [1] 80 OF SHORTCHAR;
 		END;
 		PtrSHFILEINFOA* = POINTER TO SHFILEINFOA;
-		SHFILEINFOW* = RECORD [noalign]
+		SHFILEINFOW* = RECORD [1](*noalign*)
 			hIcon*: HICON;
 			iIcon*: INTEGER;
 			dwAttributes*: SET;
@@ -10558,11 +10558,11 @@ MODULE WinApi;
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hInstance*: HINSTANCE;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				pszTemplate*: PtrSTR;
 				pResource*: PtrDLGTEMPLATE;
 			END;
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				hIcon*: HICON;
 				pszIcon*: PtrSTR;
 			END;
@@ -10576,11 +10576,11 @@ MODULE WinApi;
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hInstance*: HINSTANCE;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				pszTemplate*: PtrWSTR;
 				pResource*: PtrDLGTEMPLATE;
 			END;
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				hIcon*: HICON;
 				pszIcon*: PtrWSTR;
 			END;
@@ -10600,17 +10600,17 @@ MODULE WinApi;
 			dwFlags*: SET;
 			hwndParent*: HWND;
 			hInstance*: HINSTANCE;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				hIcon*: HICON;
 				pszIcon*: PtrSTR;
 			END;
 			pszCaption*: PtrSTR;
 			nPages*: INTEGER;
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				nStartPage*: INTEGER;
 				pStartPage*: PtrSTR;
 			END;
-			u2*: RECORD [union]
+			u2*: RECORD [1](*union*)
 				ppsp*: PtrPROPSHEETPAGEA;
 				phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;
 			END;
@@ -10622,17 +10622,17 @@ MODULE WinApi;
 			dwFlags*: SET;
 			hwndParent*: HWND;
 			hInstance*: HINSTANCE;
-			u*: RECORD [union]
+			u*: RECORD [1](*union*)
 				hIcon*: HICON;
 				pszIcon*: PtrWSTR;
 			END;
 			pszCaption*: PtrWSTR;
 			nPages*: INTEGER;
-			u1*: RECORD [union]
+			u1*: RECORD [1](*union*)
 				nStartPage*: INTEGER;
 				pStartPage*: PtrWSTR;
 			END;
-			u2*: RECORD [union]
+			u2*: RECORD [1](*union*)
 				ppsp*: PtrPROPSHEETPAGEW;
 				phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;
 			END;
@@ -11067,7 +11067,7 @@ MODULE WinApi;
 			Field*: SHORTINT;
 			Reserved*: INTEGER;
 			Id*: INTEGER;
-			NotifyData*: RECORD [union]
+			NotifyData*: RECORD [1](*union*)
 				adwData*: ARRAY [1] 2 OF INTEGER;
 				Data*: RECORD [1]
 					cbBuf*: INTEGER;
