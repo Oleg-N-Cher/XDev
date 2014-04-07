@@ -12,7 +12,7 @@ uses double # as concatenation operator
 */
 
 #include "SYSTEM_Cfg.h"
-#if defined _WINGUI || defined _LINGUI
+#ifdef _SDLGUI
 #  include "GrConfig.h"
   extern void GrScr_Init (void);
 #endif
@@ -89,7 +89,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #endif
 
 #ifdef SYSTEM_Cfg_RegisterMain
-#  if defined _WINGUI || defined _LINGUI
+#  ifdef _SDLGUI
 #    define __INIT(argc, argv) static void *m; \
        SYSTEM_INIT(argc, (long)&argv); GrConfig_Init; GrScr_Init()
 #  else
@@ -97,7 +97,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #  endif
 #  define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
-#  if defined _WINGUI || defined _LINGUI
+#  ifdef _SDLGUI
 #    define __INIT(argc, argv) SYSTEM_argc=argc; \
        SYSTEM_argv=*(long*)((long)&argv); GrConfig_Init; GrScr_Init()
 #  else
@@ -113,6 +113,8 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #else
   #define __REGCMD(name, cmd)
 #endif
+#define __EXTERN __attribute__((dllimport))
+#define __CALL __attribute__((__stdcall__))
 
 /* SYSTEM ops */
 #define __SYSNEW(p, len)	p=SYSTEM_NEWBLK((long)(len))
@@ -267,7 +269,7 @@ long SYSTEM_ENTIER(double x);
 void SYSTEM_HALT(int n);
 */
 
-#if defined _WINGUI || defined DJGPP
+#if defined _SDLGUI || defined _WINGUI || defined DJGPP
 #  if defined WIN64 || defined _WIN64
 #    define __stdcall
 #  else
