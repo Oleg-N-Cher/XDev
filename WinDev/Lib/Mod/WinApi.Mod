@@ -15,8 +15,10 @@ MODULE WinApi;
 
 	TYPE (* base types *)
 		PtrVoid* = INTEGER;
+		SHORTCHAR = CHAR;
+		WCHAR = SHORTINT;
 		PtrSTR* = POINTER TO ARRAY [1] OF SHORTCHAR;
-		PtrWSTR* = POINTER TO ARRAY [1] OF CHAR;
+		PtrWSTR* = POINTER TO ARRAY [1] OF WCHAR;
 		DATE* = REAL;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
@@ -6531,7 +6533,7 @@ MODULE WinApi;
 			NextEntryOffset*: INTEGER;
 			Action*: INTEGER;
 			FileNameLength*: INTEGER;
-			FileName*: ARRAY [1] 1 OF CHAR;
+			FileName*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrFILE_NOTIFY_INFORMATION* = POINTER TO FILE_NOTIFY_INFORMATION;
 		PACCESS_TOKEN* = PtrVoid;
@@ -7093,7 +7095,7 @@ MODULE WinApi;
 		PtrIMAGE_RESOURCE_DIRECTORY_STRING* = POINTER TO IMAGE_RESOURCE_DIRECTORY_STRING;
 		IMAGE_RESOURCE_DIR_STRING_U* = RECORD [noalign]
 			Length*: SHORTINT;
-			NameString*: ARRAY [1] 1 OF CHAR;
+			NameString*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrIMAGE_RESOURCE_DIR_STRING_U* = POINTER TO IMAGE_RESOURCE_DIR_STRING_U;
 		IMAGE_RESOURCE_DATA_ENTRY* = RECORD [noalign]
@@ -7453,7 +7455,7 @@ MODULE WinApi;
 			dwCurrentRxQueue*: INTEGER;
 			dwProvSpec1*: INTEGER;
 			dwProvSpec2*: INTEGER;
-			wcProvChar*: ARRAY [1] 1 OF CHAR;
+			wcProvChar*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrCOMMPROP* = POINTER TO COMMPROP;
 		COMSTAT* = RECORD [1]
@@ -7518,7 +7520,7 @@ MODULE WinApi;
 			dwProviderSubType*: INTEGER;
 			dwProviderOffset*: INTEGER;
 			dwProviderSize*: INTEGER;
-			wcProviderData*: ARRAY [1] 1 OF CHAR;
+			wcProviderData*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrCOMMCONFIG* = POINTER TO COMMCONFIG;
 		SYSTEM_INFO* = RECORD [1]
@@ -7670,10 +7672,10 @@ MODULE WinApi;
 		PtrBY_HANDLE_FILE_INFORMATION* = POINTER TO BY_HANDLE_FILE_INFORMATION;
 		TIME_ZONE_INFORMATION* = RECORD [1]
 			Bias*: INTEGER;
-			StandardName*: ARRAY [1] 32 OF CHAR;
+			StandardName*: ARRAY [1] 32 OF WCHAR;
 			StandardDate*: SYSTEMTIME;
 			StandardBias*: INTEGER;
-			DaylightName*: ARRAY [1] 32 OF CHAR;
+			DaylightName*: ARRAY [1] 32 OF WCHAR;
 			DaylightDate*: SYSTEMTIME;
 			DaylightBias*: INTEGER;
 		END;
@@ -7684,7 +7686,7 @@ MODULE WinApi;
 			dwStreamAttributes*: SET;
 			Size*: LONGINT;
 			dwStreamNameSize*: INTEGER;
-			cStreamName*: ARRAY [1] 1 OF CHAR;
+			cStreamName*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrWIN32_STREAM_ID* = POINTER TO WIN32_STREAM_ID;
 		STARTUPINFOA* = RECORD [1]
@@ -7753,8 +7755,8 @@ MODULE WinApi;
 			nFileSizeLow*: INTEGER;
 			dwReserved0*: INTEGER;
 			dwReserved1*: INTEGER;
-			cFileName*: ARRAY [1] 260 OF CHAR;
-			cAlternateFileName*: ARRAY [1] 14 OF CHAR;
+			cFileName*: ARRAY [1] 260 OF WCHAR;
+			cAlternateFileName*: ARRAY [1] 14 OF WCHAR;
 		END;
 		PtrWIN32_FIND_DATAW* = POINTER TO WIN32_FIND_DATAW;
 		WIN32_FIND_DATA* = WIN32_FIND_DATAA;
@@ -7784,8 +7786,8 @@ MODULE WinApi;
 		PtrHW_PROFILE_INFOA* = POINTER TO HW_PROFILE_INFOA;
 		HW_PROFILE_INFOW* = RECORD [1]
 			dwDockInfo*: INTEGER;
-			szHwProfileGuid*: ARRAY [1] 39 OF CHAR;
-			szHwProfileName*: ARRAY [1] 80 OF CHAR;
+			szHwProfileGuid*: ARRAY [1] 39 OF WCHAR;
+			szHwProfileName*: ARRAY [1] 80 OF WCHAR;
 		END;
 		PtrHW_PROFILE_INFOW* = POINTER TO HW_PROFILE_INFOW;
 		HW_PROFILE_INFO* = HW_PROFILE_INFOA;
@@ -7805,7 +7807,7 @@ MODULE WinApi;
 			dwMinorVersion*: INTEGER;
 			dwBuildNumber*: INTEGER;
 			dwPlatformId*: INTEGER;
-			szCSDVersion*: ARRAY [1] 128 OF CHAR;
+			szCSDVersion*: ARRAY [1] 128 OF WCHAR;
 		END;
 		PtrOSVERSIONINFOW* = POINTER TO OSVERSIONINFOW;
 		OSVERSIONINFO* = OSVERSIONINFOA;
@@ -7918,7 +7920,7 @@ MODULE WinApi;
 			lcsGammaRed*: INTEGER;
 			lcsGammaGreen*: INTEGER;
 			lcsGammaBlue*: INTEGER;
-			lcsFilename*: ARRAY [1] 260 OF CHAR;
+			lcsFilename*: ARRAY [1] 260 OF WCHAR;
 		END;
 		PtrLOGCOLORSPACEW* = POINTER TO LOGCOLORSPACEW;
 		LOGCOLORSPACE* = LOGCOLORSPACEA;
@@ -8093,10 +8095,10 @@ MODULE WinApi;
 			tmOverhang*: INTEGER;
 			tmDigitizedAspectX*: INTEGER;
 			tmDigitizedAspectY*: INTEGER;
-			tmFirstChar*: CHAR;
-			tmLastChar*: CHAR;
-			tmDefaultChar*: CHAR;
-			tmBreakChar*: CHAR;
+			tmFirstChar*: WCHAR;
+			tmLastChar*: WCHAR;
+			tmDefaultChar*: WCHAR;
+			tmBreakChar*: WCHAR;
 			tmItalic*: SHORTCHAR;
 			tmUnderlined*: SHORTCHAR;
 			tmStruckOut*: SHORTCHAR;
@@ -8145,10 +8147,10 @@ MODULE WinApi;
 			tmOverhang*: INTEGER;
 			tmDigitizedAspectX*: INTEGER;
 			tmDigitizedAspectY*: INTEGER;
-			tmFirstChar*: CHAR;
-			tmLastChar*: CHAR;
-			tmDefaultChar*: CHAR;
-			tmBreakChar*: CHAR;
+			tmFirstChar*: WCHAR;
+			tmLastChar*: WCHAR;
+			tmDefaultChar*: WCHAR;
+			tmBreakChar*: WCHAR;
 			tmItalic*: SHORTCHAR;
 			tmUnderlined*: SHORTCHAR;
 			tmStruckOut*: SHORTCHAR;
@@ -8247,7 +8249,7 @@ MODULE WinApi;
 			lfClipPrecision*: SHORTCHAR;
 			lfQuality*: SHORTCHAR;
 			lfPitchAndFamily*: SHORTCHAR;
-			lfFaceName*: ARRAY [1] 32 OF CHAR;
+			lfFaceName*: ARRAY [1] 32 OF WCHAR;
 		END;
 		PtrLOGFONTW* = POINTER TO LOGFONTW;
 		LOGFONT* = LOGFONTA;
@@ -8260,8 +8262,8 @@ MODULE WinApi;
 		PtrENUMLOGFONTA* = POINTER TO ENUMLOGFONTA;
 		ENUMLOGFONTW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [1] 64 OF CHAR;
-			elfStyle*: ARRAY [1] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF WCHAR;
+			elfStyle*: ARRAY [1] 32 OF WCHAR;
 		END;
 		PtrENUMLOGFONTW* = POINTER TO ENUMLOGFONTW;
 		ENUMLOGFONT* = ENUMLOGFONTA;
@@ -8275,9 +8277,9 @@ MODULE WinApi;
 		PtrENUMLOGFONTEXA* = POINTER TO ENUMLOGFONTEXA;
 		ENUMLOGFONTEXW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [1] 64 OF CHAR;
-			elfStyle*: ARRAY [1] 32 OF CHAR;
-			elfScript*: ARRAY [1] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF WCHAR;
+			elfStyle*: ARRAY [1] 32 OF WCHAR;
+			elfScript*: ARRAY [1] 32 OF WCHAR;
 		END;
 		PtrENUMLOGFONTEXW* = POINTER TO ENUMLOGFONTEXW;
 		ENUMLOGFONTEX* = ENUMLOGFONTEXA;
@@ -8310,8 +8312,8 @@ MODULE WinApi;
 		PtrEXTLOGFONTA* = POINTER TO EXTLOGFONTA;
 		EXTLOGFONTW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [1] 64 OF CHAR;
-			elfStyle*: ARRAY [1] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF WCHAR;
+			elfStyle*: ARRAY [1] 32 OF WCHAR;
 			elfVersion*: INTEGER;
 			elfStyleSize*: INTEGER;
 			elfMatch*: INTEGER;
@@ -8361,7 +8363,7 @@ MODULE WinApi;
 		END;
 		PtrDEVMODEA* = POINTER TO DEVMODEA;
 		DEVMODEW* = RECORD [1]
-			dmDeviceName*: ARRAY [1] 32 OF CHAR;
+			dmDeviceName*: ARRAY [1] 32 OF WCHAR;
 			dmSpecVersion*: SHORTINT;
 			dmDriverVersion*: SHORTINT;
 			dmSize*: SHORTINT;
@@ -8380,7 +8382,7 @@ MODULE WinApi;
 			dmYResolution*: SHORTINT;
 			dmTTOption*: SHORTINT;
 			dmCollate*: SHORTINT;
-			dmFormName*: ARRAY [1] 32 OF CHAR;
+			dmFormName*: ARRAY [1] 32 OF WCHAR;
 			dmLogPixels*: SHORTINT;
 			dmBitsPerPel*: INTEGER;
 			dmPelsWidth*: INTEGER;
@@ -9738,7 +9740,7 @@ MODULE WinApi;
 		MENUITEMTEMPLATE* = RECORD [1]
 			mtOption*: SHORTINT;
 			mtID*: SHORTINT;
-			mtString*: ARRAY [1] 1 OF CHAR;
+			mtString*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrMENUITEMTEMPLATE* = POINTER TO MENUITEMTEMPLATE;
 		ICONINFO* = RECORD [1]
@@ -9809,8 +9811,8 @@ MODULE WinApi;
 		PtrMULTIKEYHELPA* = POINTER TO MULTIKEYHELPA;
 		MULTIKEYHELPW* = RECORD [1]
 			mkSize*: INTEGER;
-			mkKeylist*: CHAR;
-			szKeyphrase*: ARRAY [1] 1 OF CHAR;
+			mkKeylist*: WCHAR;
+			szKeyphrase*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrMULTIKEYHELPW* = POINTER TO MULTIKEYHELPW;
 		MULTIKEYHELP* = MULTIKEYHELPA;
@@ -9832,7 +9834,7 @@ MODULE WinApi;
 			dx*: INTEGER;
 			dy*: INTEGER;
 			wMax*: INTEGER;
-			rgchMember*: ARRAY [1] 2 OF CHAR;
+			rgchMember*: ARRAY [1] 2 OF WCHAR;
 		END;
 		PtrHELPWININFOW* = POINTER TO HELPWININFOW;
 		HELPWININFO* = HELPWININFOA;
@@ -10090,7 +10092,7 @@ MODULE WinApi;
 			wVirtualKeyCode*: SHORTINT;
 			wVirtualScanCode*: SHORTINT;
 			uChar*: RECORD [union]
-				UnicodeChar*: CHAR;
+				UnicodeChar*: WCHAR;
 				AsciiChar*: SHORTCHAR;
 			END;
 			dwControlKeyState*: SET;
@@ -10128,7 +10130,7 @@ MODULE WinApi;
 		PtrINPUT_RECORD* = POINTER TO INPUT_RECORD;
 		CHAR_INFO* = RECORD [1]
 			Char*: RECORD [union]
-				UnicodeChar*: CHAR;
+				UnicodeChar*: WCHAR;
 				AsciiChar*: SHORTCHAR;
 			END;
 			Attributes*: SHORTINT;
@@ -10353,7 +10355,7 @@ MODULE WinApi;
 			dwTime*: INTEGER;
 			hsz*: HSZ;
 			hTask*: HANDLE;
-			str*: ARRAY [1] 1 OF CHAR;
+			str*: ARRAY [1] 1 OF WCHAR;
 		END;
 		PtrMONHSZSTRUCTW* = POINTER TO MONHSZSTRUCTW;
 		MONHSZSTRUCT* = MONHSZSTRUCTA;
@@ -10516,7 +10518,7 @@ MODULE WinApi;
 			uFlags*: SET;
 			uCallbackMessage*: INTEGER;
 			hIcon*: HICON;
-			szTip*: ARRAY [1] 64 OF CHAR;
+			szTip*: ARRAY [1] 64 OF WCHAR;
 		END;
 		PtrNOTIFYICONDATAW* = POINTER TO NOTIFYICONDATAW;
 		NOTIFYICONDATA* = NOTIFYICONDATAA;
@@ -10533,8 +10535,8 @@ MODULE WinApi;
 			hIcon*: HICON;
 			iIcon*: INTEGER;
 			dwAttributes*: SET;
-			szDisplayName*: ARRAY [1] 260 OF CHAR;
-			szTypeName*: ARRAY [1] 80 OF CHAR;
+			szDisplayName*: ARRAY [1] 260 OF WCHAR;
+			szTypeName*: ARRAY [1] 80 OF WCHAR;
 		END;
 		PtrSHFILEINFOW* = POINTER TO SHFILEINFOW;
 		SHFILEINFO* = SHFILEINFOA;
@@ -15242,7 +15244,7 @@ MODULE WinApi;
 	PROCEDURE IsCharAlphaA* ["USER32.dll", ""] (ch: SHORTCHAR): BOOL;
 	(*END IsCharAlphaA;*)
 
-	PROCEDURE IsCharAlphaW* ["USER32.dll", ""] (ch: CHAR): BOOL;
+	PROCEDURE IsCharAlphaW* ["USER32.dll", ""] (ch: WCHAR): BOOL;
 	(*END IsCharAlphaW;*)
 
 	PROCEDURE IsCharAlpha* ["USER32.dll", "IsCharAlphaA"] (ch: SHORTCHAR): BOOL;
@@ -15251,7 +15253,7 @@ MODULE WinApi;
 	PROCEDURE IsCharAlphaNumericA* ["USER32.dll", ""] (ch: SHORTCHAR): BOOL;
 	(*END IsCharAlphaNumericA;*)
 
-	PROCEDURE IsCharAlphaNumericW* ["USER32.dll", ""] (ch: CHAR): BOOL;
+	PROCEDURE IsCharAlphaNumericW* ["USER32.dll", ""] (ch: WCHAR): BOOL;
 	(*END IsCharAlphaNumericW;*)
 
 	PROCEDURE IsCharAlphaNumeric* ["USER32.dll", "IsCharAlphaNumericA"] (ch: SHORTCHAR): BOOL;
@@ -15260,7 +15262,7 @@ MODULE WinApi;
 	PROCEDURE IsCharUpperA* ["USER32.dll", ""] (ch: SHORTCHAR): BOOL;
 	(*END IsCharUpperA;*)
 
-	PROCEDURE IsCharUpperW* ["USER32.dll", ""] (ch: CHAR): BOOL;
+	PROCEDURE IsCharUpperW* ["USER32.dll", ""] (ch: WCHAR): BOOL;
 	(*END IsCharUpperW;*)
 
 	PROCEDURE IsCharUpper* ["USER32.dll", "IsCharUpperA"] (ch: SHORTCHAR): BOOL;
@@ -15269,7 +15271,7 @@ MODULE WinApi;
 	PROCEDURE IsCharLowerA* ["USER32.dll", ""] (ch: SHORTCHAR): BOOL;
 	(*END IsCharLowerA;*)
 
-	PROCEDURE IsCharLowerW* ["USER32.dll", ""] (ch: CHAR): BOOL;
+	PROCEDURE IsCharLowerW* ["USER32.dll", ""] (ch: WCHAR): BOOL;
 	(*END IsCharLowerW;*)
 
 	PROCEDURE IsCharLower* ["USER32.dll", "IsCharLowerA"] (ch: SHORTCHAR): BOOL;
@@ -15326,7 +15328,7 @@ MODULE WinApi;
 	PROCEDURE VkKeyScanA* ["USER32.dll", ""] (ch: SHORTCHAR): SHORTINT;
 	(*END VkKeyScanA;*)
 
-	PROCEDURE VkKeyScanW* ["USER32.dll", ""] (ch: CHAR): SHORTINT;
+	PROCEDURE VkKeyScanW* ["USER32.dll", ""] (ch: WCHAR): SHORTINT;
 	(*END VkKeyScanW;*)
 
 	PROCEDURE VkKeyScan* ["USER32.dll", "VkKeyScanA"] (ch: SHORTCHAR): SHORTINT;
@@ -15335,7 +15337,7 @@ MODULE WinApi;
 	PROCEDURE VkKeyScanExA* ["USER32.dll", ""] (ch: SHORTCHAR; dwhkl: HKL): SHORTINT;
 	(*END VkKeyScanExA;*)
 
-	PROCEDURE VkKeyScanExW* ["USER32.dll", ""] (ch: CHAR; dwhkl: HKL): SHORTINT;
+	PROCEDURE VkKeyScanExW* ["USER32.dll", ""] (ch: WCHAR; dwhkl: HKL): SHORTINT;
 	(*END VkKeyScanExW;*)
 
 	PROCEDURE VkKeyScanEx* ["USER32.dll", "VkKeyScanExA"] (ch: SHORTCHAR; dwhkl: HKL): SHORTINT;
@@ -16634,7 +16636,7 @@ MODULE WinApi;
 	PROCEDURE FillConsoleOutputCharacterA* (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END FillConsoleOutputCharacterA;*)
 
-	PROCEDURE FillConsoleOutputCharacterW* (hConsoleOutput: HANDLE; cCharacter: CHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
+	PROCEDURE FillConsoleOutputCharacterW* (hConsoleOutput: HANDLE; cCharacter: WCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END FillConsoleOutputCharacterW;*)
 
 	PROCEDURE FillConsoleOutputCharacter* ["FillConsoleOutputCharacterA"] (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
