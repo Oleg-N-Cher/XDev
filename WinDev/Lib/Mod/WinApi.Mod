@@ -23,6 +23,8 @@ MODULE WinApi;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
 		SECURITY_INFORMATION* = SET;
+		BYTE* = SYSTEM.BYTE;
+		SHORTREAL = REAL;
 
 	CONST
 		HKEY_CLASSES_ROOT* = 80000000H;
@@ -6411,8 +6413,15 @@ MODULE WinApi;
 		SINGLE_LIST_ENTRY* = RECORD [1]
 			Next*: PtrSINGLE_LIST_ENTRY;
 		END;
+		COM_GUID* = RECORD [1]
+				(*  size is 16 *)
+				Data1*: INTEGER;
+				Data2*: SHORTINT;
+				Data3*: SHORTINT;
+				Data4*: ARRAY 8 OF BYTE;
+		END;
 		OBJECTID* = RECORD [1]
-			Lineage*: COM.GUID;
+			Lineage*: COM_GUID;
 			Uniquifier*: INTEGER;
 		END;
 		KSPIN_LOCK* = INTEGER;
