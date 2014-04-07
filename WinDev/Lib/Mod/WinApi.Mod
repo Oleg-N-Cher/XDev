@@ -1,4 +1,4 @@
-MODULE WinApi ["KERNEL32.dll"];
+MODULE WinApi;
 (**
 	project	= "BlackBox"
 	organization	= "www.oberon.ch"
@@ -11,12 +11,12 @@ MODULE WinApi ["KERNEL32.dll"];
 
 **)
 
-	IMPORT SYSTEM, COM;
+	IMPORT SYSTEM;
 
 	TYPE (* base types *)
 		PtrVoid* = INTEGER;
-		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
-		PtrWSTR* = POINTER TO ARRAY [untagged] OF CHAR;
+		PtrSTR* = POINTER TO ARRAY [1] OF SHORTCHAR;
+		PtrWSTR* = POINTER TO ARRAY [1] OF CHAR;
 		DATE* = REAL;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
@@ -6401,20 +6401,20 @@ MODULE WinApi ["KERNEL32.dll"];
 		USN* = LONGINT;
 		LUID* = LONGINT;
 		PtrLIST_ENTRY* = POINTER TO LIST_ENTRY;
-		LIST_ENTRY* = RECORD [untagged]
+		LIST_ENTRY* = RECORD [1]
 			Flink*: PtrLIST_ENTRY;
 			Blink*: PtrLIST_ENTRY;
 		END;
 		PtrSINGLE_LIST_ENTRY* = POINTER TO SINGLE_LIST_ENTRY;
-		SINGLE_LIST_ENTRY* = RECORD [untagged]
+		SINGLE_LIST_ENTRY* = RECORD [1]
 			Next*: PtrSINGLE_LIST_ENTRY;
 		END;
-		OBJECTID* = RECORD [untagged]
+		OBJECTID* = RECORD [1]
 			Lineage*: COM.GUID;
 			Uniquifier*: INTEGER;
 		END;
 		KSPIN_LOCK* = INTEGER;
-		FLOATING_SAVE_AREA* = RECORD [untagged]
+		FLOATING_SAVE_AREA* = RECORD [1]
 			ControlWord*: INTEGER;
 			StatusWord*: INTEGER;
 			TagWord*: INTEGER;
@@ -6422,11 +6422,11 @@ MODULE WinApi ["KERNEL32.dll"];
 			ErrorSelector*: INTEGER;
 			DataOffset*: INTEGER;
 			DataSelector*: INTEGER;
-			RegisterArea*: ARRAY [untagged] 80 OF SHORTCHAR;
+			RegisterArea*: ARRAY [1] 80 OF SHORTCHAR;
 			Cr0NpxState*: INTEGER;
 		END;
 		PtrFLOATING_SAVE_AREA* = POINTER TO FLOATING_SAVE_AREA;
-		CONTEXT* = RECORD [untagged]
+		CONTEXT* = RECORD [1]
 			ContextFlags*: SET;
 			Dr0*: INTEGER;
 			Dr1*: INTEGER;
@@ -6453,17 +6453,17 @@ MODULE WinApi ["KERNEL32.dll"];
 			SegSs*: INTEGER;
 		END;
 		PtrCONTEXT* = POINTER TO CONTEXT;
-		LDT_ENTRY* = RECORD [untagged]
+		LDT_ENTRY* = RECORD [1]
 			LimitLow*: SHORTINT;
 			BaseLow*: SHORTINT;
 			HighWord*: RECORD [union]
-				Bytes*: RECORD [untagged]
+				Bytes*: RECORD [1]
 					BaseMid*: SHORTCHAR;
 					Flags1*: SHORTCHAR;
 					Flags2*: SHORTCHAR;
 					BaseHi*: SHORTCHAR;
 				END;
-				Bits*: RECORD [untagged]
+				Bits*: RECORD [1]
 					fBits0*: SET;
 					(* BaseMid*: LONGINT; (8 bits) *)
 					(* Type*: LONGINT; (5 bits) *)
@@ -6480,23 +6480,23 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrLDT_ENTRY* = POINTER TO LDT_ENTRY;
 		PtrEXCEPTION_RECORD* = POINTER TO EXCEPTION_RECORD;
-		EXCEPTION_RECORD* = RECORD [untagged]
+		EXCEPTION_RECORD* = RECORD [1]
 			ExceptionCode*: INTEGER;
 			ExceptionFlags*: SET;
 			ExceptionRecord*: PtrEXCEPTION_RECORD;
 			ExceptionAddress*: PtrVoid;
 			NumberParameters*: INTEGER;
-			ExceptionInformation*: ARRAY [untagged] 15 OF INTEGER;
+			ExceptionInformation*: ARRAY [1] 15 OF INTEGER;
 		END;
-		EXCEPTION_POINTERS* = RECORD [untagged]
+		EXCEPTION_POINTERS* = RECORD [1]
 			ExceptionRecord*: PtrEXCEPTION_RECORD;
 			ContextRecord*: PtrCONTEXT;
 		END;
 		PtrEXCEPTION_POINTERS* = POINTER TO EXCEPTION_POINTERS;
-		_EXCEPTION_REGISTRATION_RECORD* = RECORD [untagged] (*i*) END; 
+		_EXCEPTION_REGISTRATION_RECORD* = RECORD [1] (*i*) END; 
 		Ptr_EXCEPTION_REGISTRATION_RECORD* = POINTER TO _EXCEPTION_REGISTRATION_RECORD;
 		PtrNT_TIB* = POINTER TO NT_TIB;
-		NT_TIB* = RECORD [untagged]
+		NT_TIB* = RECORD [1]
 			ExceptionList*: Ptr_EXCEPTION_REGISTRATION_RECORD;
 			StackBase*: PtrVoid;
 			StackLimit*: PtrVoid;
@@ -6517,7 +6517,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			TimeLimit*: LONGINT;
 		END;
 		PtrQUOTA_LIMITS* = POINTER TO QUOTA_LIMITS;
-		MEMORY_BASIC_INFORMATION* = RECORD [untagged]
+		MEMORY_BASIC_INFORMATION* = RECORD [1]
 			BaseAddress*: PtrVoid;
 			AllocationBase*: PtrVoid;
 			AllocationProtect*: INTEGER;
@@ -6527,50 +6527,50 @@ MODULE WinApi ["KERNEL32.dll"];
 			Type*: INTEGER;
 		END;
 		PtrMEMORY_BASIC_INFORMATION* = POINTER TO MEMORY_BASIC_INFORMATION;
-		FILE_NOTIFY_INFORMATION* = RECORD [untagged]
+		FILE_NOTIFY_INFORMATION* = RECORD [1]
 			NextEntryOffset*: INTEGER;
 			Action*: INTEGER;
 			FileNameLength*: INTEGER;
-			FileName*: ARRAY [untagged] 1 OF CHAR;
+			FileName*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrFILE_NOTIFY_INFORMATION* = POINTER TO FILE_NOTIFY_INFORMATION;
 		PACCESS_TOKEN* = PtrVoid;
 		PSECURITY_DESCRIPTOR* = PtrVoid;
 		PSID* = PtrVoid;
-		GENERIC_MAPPING* = RECORD [untagged]
+		GENERIC_MAPPING* = RECORD [1]
 			GenericRead*: ACCESS_MASK;
 			GenericWrite*: ACCESS_MASK;
 			GenericExecute*: ACCESS_MASK;
 			GenericAll*: ACCESS_MASK;
 		END;
 		PtrGENERIC_MAPPING* = POINTER TO GENERIC_MAPPING;
-		LUID_AND_ATTRIBUTES* = RECORD [untagged]
+		LUID_AND_ATTRIBUTES* = RECORD [1]
 			Luid*: LUID;
 			Attributes*: SET;
 		END;
 		PtrLUID_AND_ATTRIBUTES* = POINTER TO LUID_AND_ATTRIBUTES;
-		LUID_AND_ATTRIBUTES_ARRAY* = ARRAY [untagged] 1 OF LUID_AND_ATTRIBUTES;
+		LUID_AND_ATTRIBUTES_ARRAY* = ARRAY [1] 1 OF LUID_AND_ATTRIBUTES;
 		PtrLUID_AND_ATTRIBUTES_ARRAY* = POINTER TO LUID_AND_ATTRIBUTES_ARRAY;
-		SID_IDENTIFIER_AUTHORITY* = RECORD [untagged]
-			Value*: ARRAY [untagged] 6 OF SHORTCHAR;
+		SID_IDENTIFIER_AUTHORITY* = RECORD [1]
+			Value*: ARRAY [1] 6 OF SHORTCHAR;
 		END;
 		PtrSID_IDENTIFIER_AUTHORITY* = POINTER TO SID_IDENTIFIER_AUTHORITY;
-		SID* = RECORD [untagged]
+		SID* = RECORD [1]
 			Revision*: SHORTCHAR;
 			SubAuthorityCount*: SHORTCHAR;
 			IdentifierAuthority*: SID_IDENTIFIER_AUTHORITY;
-			SubAuthority*: ARRAY [untagged] 1 OF INTEGER;
+			SubAuthority*: ARRAY [1] 1 OF INTEGER;
 		END;
 		PtrSID* = POINTER TO SID;
 		SID_NAME_USE* = INTEGER;
-		SID_AND_ATTRIBUTES* = RECORD [untagged]
+		SID_AND_ATTRIBUTES* = RECORD [1]
 			Sid*: PSID;
 			Attributes*: SET;
 		END;
 		PtrSID_AND_ATTRIBUTES* = POINTER TO SID_AND_ATTRIBUTES;
-		SID_AND_ATTRIBUTES_ARRAY* = ARRAY [untagged] 1 OF SID_AND_ATTRIBUTES;
+		SID_AND_ATTRIBUTES_ARRAY* = ARRAY [1] 1 OF SID_AND_ATTRIBUTES;
 		PtrSID_AND_ATTRIBUTES_ARRAY* = POINTER TO SID_AND_ATTRIBUTES_ARRAY;
-		ACL* = RECORD [untagged]
+		ACL* = RECORD [1]
 			AclRevision*: SHORTCHAR;
 			Sbz1*: SHORTCHAR;
 			AclSize*: SHORTINT;
@@ -6578,37 +6578,37 @@ MODULE WinApi ["KERNEL32.dll"];
 			Sbz2*: SHORTINT;
 		END;
 		PtrACL* = POINTER TO ACL;
-		ACE_HEADER* = RECORD [untagged]
+		ACE_HEADER* = RECORD [1]
 			AceType*: SHORTCHAR;
 			AceFlags*: SHORTCHAR;
 			AceSize*: SHORTINT;
 		END;
 		PtrACE_HEADER* = POINTER TO ACE_HEADER;
-		ACCESS_ALLOWED_ACE* = RECORD [untagged]
+		ACCESS_ALLOWED_ACE* = RECORD [1]
 			Header*: ACE_HEADER;
 			Mask*: ACCESS_MASK;
 			SidStart*: INTEGER;
 		END;
 		PtrACCESS_ALLOWED_ACE* = POINTER TO ACCESS_ALLOWED_ACE;
-		ACCESS_DENIED_ACE* = RECORD [untagged]
+		ACCESS_DENIED_ACE* = RECORD [1]
 			Header*: ACE_HEADER;
 			Mask*: ACCESS_MASK;
 			SidStart*: INTEGER;
 		END;
 		PtrACCESS_DENIED_ACE* = POINTER TO ACCESS_DENIED_ACE;
-		SYSTEM_AUDIT_ACE* = RECORD [untagged]
+		SYSTEM_AUDIT_ACE* = RECORD [1]
 			Header*: ACE_HEADER;
 			Mask*: ACCESS_MASK;
 			SidStart*: INTEGER;
 		END;
 		PtrSYSTEM_AUDIT_ACE* = POINTER TO SYSTEM_AUDIT_ACE;
-		SYSTEM_ALARM_ACE* = RECORD [untagged]
+		SYSTEM_ALARM_ACE* = RECORD [1]
 			Header*: ACE_HEADER;
 			Mask*: ACCESS_MASK;
 			SidStart*: INTEGER;
 		END;
 		PtrSYSTEM_ALARM_ACE* = POINTER TO SYSTEM_ALARM_ACE;
-		COMPOUND_ACCESS_ALLOWED_ACE* = RECORD [untagged]
+		COMPOUND_ACCESS_ALLOWED_ACE* = RECORD [1]
 			Header*: ACE_HEADER;
 			Mask*: ACCESS_MASK;
 			CompoundAceType*: SHORTINT;
@@ -6617,18 +6617,18 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrCOMPOUND_ACCESS_ALLOWED_ACE* = POINTER TO COMPOUND_ACCESS_ALLOWED_ACE;
 		ACL_INFORMATION_CLASS* = INTEGER;
-		ACL_REVISION_INFORMATION* = RECORD [untagged]
+		ACL_REVISION_INFORMATION* = RECORD [1]
 			AclRevision*: INTEGER;
 		END;
 		PtrACL_REVISION_INFORMATION* = POINTER TO ACL_REVISION_INFORMATION;
-		ACL_SIZE_INFORMATION* = RECORD [untagged]
+		ACL_SIZE_INFORMATION* = RECORD [1]
 			AceCount*: INTEGER;
 			AclBytesInUse*: INTEGER;
 			AclBytesFree*: INTEGER;
 		END;
 		PtrACL_SIZE_INFORMATION* = POINTER TO ACL_SIZE_INFORMATION;
 		SECURITY_DESCRIPTOR_CONTROL* = SHORTINT;
-		SECURITY_DESCRIPTOR* = RECORD [untagged]
+		SECURITY_DESCRIPTOR* = RECORD [1]
 			Revision*: SHORTCHAR;
 			Sbz1*: SHORTCHAR;
 			Control*: SECURITY_DESCRIPTOR_CONTROL;
@@ -6638,43 +6638,43 @@ MODULE WinApi ["KERNEL32.dll"];
 			Dacl*: PtrACL;
 		END;
 		PtrSECURITY_DESCRIPTOR* = POINTER TO SECURITY_DESCRIPTOR;
-		PRIVILEGE_SET* = RECORD [untagged]
+		PRIVILEGE_SET* = RECORD [1]
 			PrivilegeCount*: INTEGER;
 			Control*: INTEGER;
-			Privilege*: ARRAY [untagged] 1 OF LUID_AND_ATTRIBUTES;
+			Privilege*: ARRAY [1] 1 OF LUID_AND_ATTRIBUTES;
 		END;
 		PtrPRIVILEGE_SET* = POINTER TO PRIVILEGE_SET;
 		SECURITY_IMPERSONATION_LEVEL* = INTEGER;
 		TOKEN_TYPE* = INTEGER;
 		TOKEN_INFORMATION_CLASS* = INTEGER;
-		TOKEN_USER* = RECORD [untagged]
+		TOKEN_USER* = RECORD [1]
 			User*: SID_AND_ATTRIBUTES;
 		END;
 		PtrTOKEN_USER* = POINTER TO TOKEN_USER;
-		TOKEN_GROUPS* = RECORD [untagged]
+		TOKEN_GROUPS* = RECORD [1]
 			GroupCount*: INTEGER;
-			Groups*: ARRAY [untagged] 1 OF SID_AND_ATTRIBUTES;
+			Groups*: ARRAY [1] 1 OF SID_AND_ATTRIBUTES;
 		END;
 		PtrTOKEN_GROUPS* = POINTER TO TOKEN_GROUPS;
-		TOKEN_PRIVILEGES* = RECORD [untagged]
+		TOKEN_PRIVILEGES* = RECORD [1]
 			PrivilegeCount*: INTEGER;
-			Privileges*: ARRAY [untagged] 1 OF LUID_AND_ATTRIBUTES;
+			Privileges*: ARRAY [1] 1 OF LUID_AND_ATTRIBUTES;
 		END;
 		PtrTOKEN_PRIVILEGES* = POINTER TO TOKEN_PRIVILEGES;
-		TOKEN_OWNER* = RECORD [untagged]
+		TOKEN_OWNER* = RECORD [1]
 			Owner*: PSID;
 		END;
 		PtrTOKEN_OWNER* = POINTER TO TOKEN_OWNER;
-		TOKEN_PRIMARY_GROUP* = RECORD [untagged]
+		TOKEN_PRIMARY_GROUP* = RECORD [1]
 			PrimaryGroup*: PSID;
 		END;
 		PtrTOKEN_PRIMARY_GROUP* = POINTER TO TOKEN_PRIMARY_GROUP;
-		TOKEN_DEFAULT_DACL* = RECORD [untagged]
+		TOKEN_DEFAULT_DACL* = RECORD [1]
 			DefaultDacl*: PtrACL;
 		END;
 		PtrTOKEN_DEFAULT_DACL* = POINTER TO TOKEN_DEFAULT_DACL;
 		TOKEN_SOURCE* = RECORD [align8]
-			SourceName*: ARRAY [untagged] 8 OF SHORTCHAR;
+			SourceName*: ARRAY [1] 8 OF SHORTCHAR;
 			SourceIdentifier*: LUID;
 		END;
 		PtrTOKEN_SOURCE* = POINTER TO TOKEN_SOURCE;
@@ -6699,14 +6699,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrTOKEN_CONTROL* = POINTER TO TOKEN_CONTROL;
 		SECURITY_CONTEXT_TRACKING_MODE* = BOOLEAN;
-		SECURITY_QUALITY_OF_SERVICE* = RECORD [untagged]
+		SECURITY_QUALITY_OF_SERVICE* = RECORD [1]
 			Length*: INTEGER;
 			ImpersonationLevel*: SECURITY_IMPERSONATION_LEVEL;
 			ContextTrackingMode*: SECURITY_CONTEXT_TRACKING_MODE;
 			EffectiveOnly*: BOOLEAN;
 		END;
 		PtrSECURITY_QUALITY_OF_SERVICE* = POINTER TO SECURITY_QUALITY_OF_SERVICE;
-		SE_IMPERSONATION_STATE* = RECORD [untagged]
+		SE_IMPERSONATION_STATE* = RECORD [1]
 			Token*: PACCESS_TOKEN;
 			CopyOnOpen*: BOOLEAN;
 			EffectiveOnly*: BOOLEAN;
@@ -6728,10 +6728,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			e_cs*: SHORTINT;
 			e_lfarlc*: SHORTINT;
 			e_ovno*: SHORTINT;
-			e_res*: ARRAY [untagged] 4 OF SHORTINT;
+			e_res*: ARRAY [1] 4 OF SHORTINT;
 			e_oemid*: SHORTINT;
 			e_oeminfo*: SHORTINT;
-			e_res2*: ARRAY [untagged] 10 OF SHORTINT;
+			e_res2*: ARRAY [1] 10 OF SHORTINT;
 			e_lfanew*: INTEGER;
 		END;
 		PtrIMAGE_DOS_HEADER* = POINTER TO IMAGE_DOS_HEADER;
@@ -6815,7 +6815,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			e32_instpreload*: INTEGER;
 			e32_instdemand*: INTEGER;
 			e32_heapsize*: INTEGER;
-			e32_res3*: ARRAY [untagged] 12 OF SHORTCHAR;
+			e32_res3*: ARRAY [1] 12 OF SHORTCHAR;
 			e32_winresoff*: INTEGER;
 			e32_winreslen*: INTEGER;
 			e32_devid*: SHORTINT;
@@ -6868,7 +6868,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			SizeOfHeapCommit*: INTEGER;
 			LoaderFlags*: INTEGER;
 			NumberOfRvaAndSizes*: INTEGER;
-			DataDirectory*: ARRAY [untagged] 16 OF IMAGE_DATA_DIRECTORY;
+			DataDirectory*: ARRAY [1] 16 OF IMAGE_DATA_DIRECTORY;
 		END;
 		PtrIMAGE_OPTIONAL_HEADER* = POINTER TO IMAGE_OPTIONAL_HEADER;
 		IMAGE_ROM_OPTIONAL_HEADER* = RECORD [noalign]
@@ -6883,7 +6883,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			BaseOfData*: INTEGER;
 			BaseOfBss*: INTEGER;
 			GprMask*: INTEGER;
-			CprMask*: ARRAY [untagged] 4 OF INTEGER;
+			CprMask*: ARRAY [1] 4 OF INTEGER;
 			GpValue*: INTEGER;
 		END;
 		PtrIMAGE_ROM_OPTIONAL_HEADER* = POINTER TO IMAGE_ROM_OPTIONAL_HEADER;
@@ -6893,13 +6893,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			OptionalHeader*: IMAGE_OPTIONAL_HEADER;
 		END;
 		PtrIMAGE_NT_HEADERS* = POINTER TO IMAGE_NT_HEADERS;
-		IMAGE_ROM_HEADERS* = RECORD [untagged]
+		IMAGE_ROM_HEADERS* = RECORD [1]
 			FileHeader*: IMAGE_FILE_HEADER;
 			OptionalHeader*: IMAGE_ROM_OPTIONAL_HEADER;
 		END;
 		PtrIMAGE_ROM_HEADERS* = POINTER TO IMAGE_ROM_HEADERS;
 		IMAGE_SECTION_HEADER* = RECORD [noalign]
-			Name*: ARRAY [untagged] 8 OF SHORTCHAR;
+			Name*: ARRAY [1] 8 OF SHORTCHAR;
 			Misc*: RECORD [union]
 				PhysicalAddress*: INTEGER;
 				VirtualSize*: INTEGER;
@@ -6916,12 +6916,12 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrIMAGE_SECTION_HEADER* = POINTER TO IMAGE_SECTION_HEADER;
 		IMAGE_SYMBOL* = RECORD [noalign]
 			N*: RECORD [union]
-				ShortName*: ARRAY [untagged] 8 OF SHORTCHAR;
+				ShortName*: ARRAY [1] 8 OF SHORTCHAR;
 				Name*: RECORD [noalign]
 					Short*: INTEGER;
 					Long*: INTEGER;
 				END;
-				LongName*: ARRAY [untagged] 2 OF POINTER TO (*?*) ARRAY [untagged] OF SHORTCHAR;
+				LongName*: ARRAY [1] 2 OF POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 			END;
 			Value*: INTEGER;
 			SectionNumber*: SHORTINT;
@@ -6946,13 +6946,13 @@ MODULE WinApi ["KERNEL32.dll"];
 						PointerToNextFunction*: INTEGER;
 					END;
 					Array*: RECORD [noalign]
-						Dimension*: ARRAY [untagged] 4 OF SHORTINT;
+						Dimension*: ARRAY [1] 4 OF SHORTINT;
 					END;
 				END;
 				TvIndex*: SHORTINT;
 			END;
-			File*: RECORD [untagged]
-				Name*: ARRAY [untagged] 18 OF SHORTCHAR;
+			File*: RECORD [1]
+				Name*: ARRAY [1] 18 OF SHORTCHAR;
 			END;
 			Section*: RECORD [noalign]
 				Length*: INTEGER;
@@ -6986,14 +6986,14 @@ MODULE WinApi ["KERNEL32.dll"];
 			Linenumber*: SHORTINT;
 		END;
 		PtrIMAGE_LINENUMBER* = POINTER TO IMAGE_LINENUMBER;
-		IMAGE_ARCHIVE_MEMBER_HEADER* = RECORD [untagged]
-			Name*: ARRAY [untagged] 16 OF SHORTCHAR;
-			Date*: ARRAY [untagged] 12 OF SHORTCHAR;
-			UserID*: ARRAY [untagged] 6 OF SHORTCHAR;
-			GroupID*: ARRAY [untagged] 6 OF SHORTCHAR;
-			Mode*: ARRAY [untagged] 8 OF SHORTCHAR;
-			Size*: ARRAY [untagged] 10 OF SHORTCHAR;
-			EndHeader*: ARRAY [untagged] 2 OF SHORTCHAR;
+		IMAGE_ARCHIVE_MEMBER_HEADER* = RECORD [1]
+			Name*: ARRAY [1] 16 OF SHORTCHAR;
+			Date*: ARRAY [1] 12 OF SHORTCHAR;
+			UserID*: ARRAY [1] 6 OF SHORTCHAR;
+			GroupID*: ARRAY [1] 6 OF SHORTCHAR;
+			Mode*: ARRAY [1] 8 OF SHORTCHAR;
+			Size*: ARRAY [1] 10 OF SHORTCHAR;
+			EndHeader*: ARRAY [1] 2 OF SHORTCHAR;
 		END;
 		PtrIMAGE_ARCHIVE_MEMBER_HEADER* = POINTER TO IMAGE_ARCHIVE_MEMBER_HEADER;
 		IMAGE_EXPORT_DIRECTORY* = RECORD [noalign]
@@ -7005,20 +7005,20 @@ MODULE WinApi ["KERNEL32.dll"];
 			Base*: INTEGER;
 			NumberOfFunctions*: INTEGER;
 			NumberOfNames*: INTEGER;
-			AddressOfFunctions*: POINTER TO (*?*) ARRAY [untagged] OF POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			AddressOfNames*: POINTER TO (*?*) ARRAY [untagged] OF POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			AddressOfNameOrdinals*: POINTER TO (*?*) ARRAY [untagged] OF POINTER TO (*?*) ARRAY [untagged] OF SHORTINT;
+			AddressOfFunctions*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			AddressOfNames*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			AddressOfNameOrdinals*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF SHORTINT;
 		END;
 		PtrIMAGE_EXPORT_DIRECTORY* = POINTER TO IMAGE_EXPORT_DIRECTORY;
 		IMAGE_IMPORT_BY_NAME* = RECORD [noalign]
 			Hint*: SHORTINT;
-			Name*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Name*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_IMPORT_BY_NAME* = POINTER TO IMAGE_IMPORT_BY_NAME;
-		IMAGE_THUNK_DATA* = RECORD [untagged]
+		IMAGE_THUNK_DATA* = RECORD [1]
 			u1*: RECORD [union]
-				ForwarderString*: POINTER TO (*?*) ARRAY [untagged] OF SHORTCHAR;
-				Function*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+				ForwarderString*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
+				Function*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 				Ordinal*: INTEGER;
 				AddressOfData*: PtrIMAGE_IMPORT_BY_NAME;
 			END;
@@ -7051,8 +7051,8 @@ MODULE WinApi ["KERNEL32.dll"];
 		IMAGE_TLS_DIRECTORY* = RECORD [noalign]
 			StartAddressOfRawData*: INTEGER;
 			EndAddressOfRawData*: INTEGER;
-			AddressOfIndex*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			AddressOfCallBacks*: POINTER TO (*?*) ARRAY [untagged] OF IMAGE_TLS_CALLBACK;
+			AddressOfIndex*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			AddressOfCallBacks*: POINTER TO (*?*) ARRAY [1] OF IMAGE_TLS_CALLBACK;
 			SizeOfZeroFill*: INTEGER;
 			Characteristics*: INTEGER;
 		END;
@@ -7066,7 +7066,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			NumberOfIdEntries*: SHORTINT;
 		END;
 		PtrIMAGE_RESOURCE_DIRECTORY* = POINTER TO IMAGE_RESOURCE_DIRECTORY;
-		IMAGE_RESOURCE_DIRECTORY_ENTRY* = RECORD [untagged]
+		IMAGE_RESOURCE_DIRECTORY_ENTRY* = RECORD [1]
 			u*: RECORD [union]
 				r*: RECORD [noalign]
 					fBits0*: SET;
@@ -7088,12 +7088,12 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrIMAGE_RESOURCE_DIRECTORY_ENTRY* = POINTER TO IMAGE_RESOURCE_DIRECTORY_ENTRY;
 		IMAGE_RESOURCE_DIRECTORY_STRING* = RECORD [noalign]
 			Length*: SHORTINT;
-			NameString*: ARRAY [untagged] 1 OF SHORTCHAR;
+			NameString*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_RESOURCE_DIRECTORY_STRING* = POINTER TO IMAGE_RESOURCE_DIRECTORY_STRING;
 		IMAGE_RESOURCE_DIR_STRING_U* = RECORD [noalign]
 			Length*: SHORTINT;
-			NameString*: ARRAY [untagged] 1 OF CHAR;
+			NameString*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrIMAGE_RESOURCE_DIR_STRING_U* = POINTER TO IMAGE_RESOURCE_DIR_STRING_U;
 		IMAGE_RESOURCE_DATA_ENTRY* = RECORD [noalign]
@@ -7117,7 +7117,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			MaximumAllocationSize*: INTEGER;
 			VirtualMemoryThreshold*: INTEGER;
 			ProcessHeapFlags*: INTEGER;
-			Reserved*: ARRAY [untagged] 4 OF INTEGER;
+			Reserved*: ARRAY [1] 4 OF INTEGER;
 		END;
 		PtrIMAGE_LOAD_CONFIG_DIRECTORY* = POINTER TO IMAGE_LOAD_CONFIG_DIRECTORY;
 		IMAGE_RUNTIME_FUNCTION_ENTRY* = RECORD [noalign]
@@ -7168,8 +7168,8 @@ MODULE WinApi ["KERNEL32.dll"];
 			DataType*: INTEGER;
 			Length*: INTEGER;
 			Unicode*: BOOLEAN;
-			Reserved*: ARRAY [untagged] 3 OF SHORTCHAR;
-			Data*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Reserved*: ARRAY [1] 3 OF SHORTCHAR;
+			Data*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrIMAGE_DEBUG_MISC* = POINTER TO IMAGE_DEBUG_MISC;
 		IMAGE_FUNCTION_ENTRY* = RECORD [noalign]
@@ -7190,38 +7190,38 @@ MODULE WinApi ["KERNEL32.dll"];
 			NumberOfSections*: INTEGER;
 			ExportedNamesSize*: INTEGER;
 			DebugDirectorySize*: INTEGER;
-			Reserved*: ARRAY [untagged] 3 OF INTEGER;
+			Reserved*: ARRAY [1] 3 OF INTEGER;
 		END;
 		PtrIMAGE_SEPARATE_DEBUG_HEADER* = POINTER TO IMAGE_SEPARATE_DEBUG_HEADER;
-		MESSAGE_RESOURCE_ENTRY* = RECORD [untagged]
+		MESSAGE_RESOURCE_ENTRY* = RECORD [1]
 			Length*: SHORTINT;
 			Flags*: SHORTINT;
-			Text*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Text*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMESSAGE_RESOURCE_ENTRY* = POINTER TO MESSAGE_RESOURCE_ENTRY;
-		MESSAGE_RESOURCE_BLOCK* = RECORD [untagged]
+		MESSAGE_RESOURCE_BLOCK* = RECORD [1]
 			LowId*: INTEGER;
 			HighId*: INTEGER;
 			OffsetToEntries*: INTEGER;
 		END;
 		PtrMESSAGE_RESOURCE_BLOCK* = POINTER TO MESSAGE_RESOURCE_BLOCK;
-		MESSAGE_RESOURCE_DATA* = RECORD [untagged]
+		MESSAGE_RESOURCE_DATA* = RECORD [1]
 			NumberOfBlocks*: INTEGER;
-			Blocks*: ARRAY [untagged] 1 OF MESSAGE_RESOURCE_BLOCK;
+			Blocks*: ARRAY [1] 1 OF MESSAGE_RESOURCE_BLOCK;
 		END;
 		PtrMESSAGE_RESOURCE_DATA* = POINTER TO MESSAGE_RESOURCE_DATA;
 		PtrRTL_CRITICAL_SECTION* = POINTER TO RTL_CRITICAL_SECTION;
-		RTL_CRITICAL_SECTION_DEBUG* = RECORD [untagged]
+		RTL_CRITICAL_SECTION_DEBUG* = RECORD [1]
 			Type*: SHORTINT;
 			CreatorBackTraceIndex*: SHORTINT;
 			CriticalSection*: PtrRTL_CRITICAL_SECTION;
 			ProcessLocksList*: LIST_ENTRY;
 			EntryCount*: INTEGER;
 			ContentionCount*: INTEGER;
-			Spare*: ARRAY [untagged] 2 OF INTEGER;
+			Spare*: ARRAY [1] 2 OF INTEGER;
 		END;
 		PtrRTL_CRITICAL_SECTION_DEBUG* = POINTER TO RTL_CRITICAL_SECTION_DEBUG;
-		RTL_CRITICAL_SECTION* = RECORD [untagged]
+		RTL_CRITICAL_SECTION* = RECORD [1]
 			DebugInfo*: PtrRTL_CRITICAL_SECTION_DEBUG;
 			LockCount*: INTEGER;
 			RecursionCount*: INTEGER;
@@ -7229,7 +7229,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			LockSemaphore*: HANDLE;
 			Reserved*: INTEGER;
 		END;
-		EVENTLOGRECORD* = RECORD [untagged]
+		EVENTLOGRECORD* = RECORD [1]
 			Length*: INTEGER;
 			Reserved*: INTEGER;
 			RecordNumber*: INTEGER;
@@ -7251,17 +7251,17 @@ MODULE WinApi ["KERNEL32.dll"];
 		SERVICE_NODE_TYPE* = INTEGER;
 		SERVICE_LOAD_TYPE* = INTEGER;
 		SERVICE_ERROR_TYPE* = INTEGER;
-		TAPE_ERASE* = RECORD [untagged]
+		TAPE_ERASE* = RECORD [1]
 			Type*: INTEGER;
 			Immediate*: BOOLEAN;
 		END;
 		PtrTAPE_ERASE* = POINTER TO TAPE_ERASE;
-		TAPE_PREPARE* = RECORD [untagged]
+		TAPE_PREPARE* = RECORD [1]
 			Operation*: INTEGER;
 			Immediate*: BOOLEAN;
 		END;
 		PtrTAPE_PREPARE* = POINTER TO TAPE_PREPARE;
-		TAPE_WRITE_MARKS* = RECORD [untagged]
+		TAPE_WRITE_MARKS* = RECORD [1]
 			Type*: INTEGER;
 			Count*: INTEGER;
 			Immediate*: BOOLEAN;
@@ -7280,7 +7280,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			Immediate*: BOOLEAN;
 		END;
 		PtrTAPE_SET_POSITION* = POINTER TO TAPE_SET_POSITION;
-		TAPE_GET_DRIVE_PARAMETERS* = RECORD [untagged]
+		TAPE_GET_DRIVE_PARAMETERS* = RECORD [1]
 			ECC*: BOOLEAN;
 			Compression*: BOOLEAN;
 			DataPadding*: BOOLEAN;
@@ -7294,7 +7294,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			EOTWarningZoneSize*: INTEGER;
 		END;
 		PtrTAPE_GET_DRIVE_PARAMETERS* = POINTER TO TAPE_GET_DRIVE_PARAMETERS;
-		TAPE_SET_DRIVE_PARAMETERS* = RECORD [untagged]
+		TAPE_SET_DRIVE_PARAMETERS* = RECORD [1]
 			ECC*: BOOLEAN;
 			Compression*: BOOLEAN;
 			DataPadding*: BOOLEAN;
@@ -7310,11 +7310,11 @@ MODULE WinApi ["KERNEL32.dll"];
 			WriteProtected*: BOOLEAN;
 		END;
 		PtrTAPE_GET_MEDIA_PARAMETERS* = POINTER TO TAPE_GET_MEDIA_PARAMETERS;
-		TAPE_SET_MEDIA_PARAMETERS* = RECORD [untagged]
+		TAPE_SET_MEDIA_PARAMETERS* = RECORD [1]
 			BlockSize*: INTEGER;
 		END;
 		PtrTAPE_SET_MEDIA_PARAMETERS* = POINTER TO TAPE_SET_MEDIA_PARAMETERS;
-		TAPE_CREATE_PARTITION* = RECORD [untagged]
+		TAPE_CREATE_PARTITION* = RECORD [1]
 			Method*: INTEGER;
 			Count*: INTEGER;
 			Size*: INTEGER;
@@ -7360,39 +7360,39 @@ MODULE WinApi ["KERNEL32.dll"];
 		HFILE* = INTEGER;
 		HCURSOR* = HICON;
 		COLORREF* = INTEGER;
-		RECT* = RECORD [untagged]
+		RECT* = RECORD [1]
 			left*: INTEGER;
 			top*: INTEGER;
 			right*: INTEGER;
 			bottom*: INTEGER;
 		END;
 		PtrRECT* = POINTER TO RECT;
-		_RECTL* = RECORD [untagged]
+		_RECTL* = RECORD [1]
 			left*: INTEGER;
 			top*: INTEGER;
 			right*: INTEGER;
 			bottom*: INTEGER;
 		END;
-		POINT* = RECORD [untagged]
+		POINT* = RECORD [1]
 			x*: INTEGER;
 			y*: INTEGER;
 		END;
 		PtrPOINT* = POINTER TO POINT;
-		_POINTL* = RECORD [untagged]
+		_POINTL* = RECORD [1]
 			x*: INTEGER;
 			y*: INTEGER;
 		END;
-		SIZE* = RECORD [untagged]
+		SIZE* = RECORD [1]
 			cx*: INTEGER;
 			cy*: INTEGER;
 		END;
 		PtrSIZE* = POINTER TO SIZE;
-		POINTS* = RECORD [untagged]
+		POINTS* = RECORD [1]
 			x*: SHORTINT;
 			y*: SHORTINT;
 		END;
 		PtrPOINTS* = POINTER TO POINTS;
-		OVERLAPPED* = RECORD [untagged]
+		OVERLAPPED* = RECORD [1]
 			Internal*: INTEGER;
 			InternalHigh*: INTEGER;
 			Offset*: INTEGER;
@@ -7400,25 +7400,25 @@ MODULE WinApi ["KERNEL32.dll"];
 			hEvent*: HANDLE;
 		END;
 		PtrOVERLAPPED* = POINTER TO OVERLAPPED;
-		SECURITY_ATTRIBUTES* = RECORD [untagged]
+		SECURITY_ATTRIBUTES* = RECORD [1]
 			nLength*: INTEGER;
 			lpSecurityDescriptor*: PtrVoid;
 			bInheritHandle*: BOOL;
 		END;
 		PtrSECURITY_ATTRIBUTES* = POINTER TO SECURITY_ATTRIBUTES;
-		PROCESS_INFORMATION* = RECORD [untagged]
+		PROCESS_INFORMATION* = RECORD [1]
 			hProcess*: HANDLE;
 			hThread*: HANDLE;
 			dwProcessId*: INTEGER;
 			dwThreadId*: INTEGER;
 		END;
 		PtrPROCESS_INFORMATION* = POINTER TO PROCESS_INFORMATION;
-		FILETIME* = RECORD [untagged]
+		FILETIME* = RECORD [1]
 			dwLowDateTime*: INTEGER;
 			dwHighDateTime*: INTEGER;
 		END;
 		PtrFILETIME* = POINTER TO FILETIME;
-		SYSTEMTIME* = RECORD [untagged]
+		SYSTEMTIME* = RECORD [1]
 			wYear*: SHORTINT;
 			wMonth*: SHORTINT;
 			wDayOfWeek*: SHORTINT;
@@ -7435,7 +7435,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrCRITICAL_SECTION* = PtrRTL_CRITICAL_SECTION;
 		CRITICAL_SECTION_DEBUG* = RTL_CRITICAL_SECTION_DEBUG;
 		PtrCRITICAL_SECTION_DEBUG* = PtrRTL_CRITICAL_SECTION_DEBUG;
-		COMMPROP* = RECORD [untagged]
+		COMMPROP* = RECORD [1]
 			wPacketLength*: SHORTINT;
 			wPacketVersion*: SHORTINT;
 			dwServiceMask*: INTEGER;
@@ -7453,10 +7453,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwCurrentRxQueue*: INTEGER;
 			dwProvSpec1*: INTEGER;
 			dwProvSpec2*: INTEGER;
-			wcProvChar*: ARRAY [untagged] 1 OF CHAR;
+			wcProvChar*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrCOMMPROP* = POINTER TO COMMPROP;
-		COMSTAT* = RECORD [untagged]
+		COMSTAT* = RECORD [1]
 			fBits0*: SET;
 			(* fCtsHold*: LONGINT; (1 bits) *)
 			(* fDsrHold*: LONGINT; (1 bits) *)
@@ -7470,7 +7470,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbOutQue*: INTEGER;
 		END;
 		PtrCOMSTAT* = POINTER TO COMSTAT;
-		DCB* = RECORD [untagged]
+		DCB* = RECORD [1]
 			DCBlength*: INTEGER;
 			BaudRate*: INTEGER;
 			fBits0*: SET;
@@ -7502,7 +7502,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			wReserved1*: SHORTINT;
 		END;
 		PtrDCB* = POINTER TO DCB;
-		COMMTIMEOUTS* = RECORD [untagged]
+		COMMTIMEOUTS* = RECORD [1]
 			ReadIntervalTimeout*: INTEGER;
 			ReadTotalTimeoutMultiplier*: INTEGER;
 			ReadTotalTimeoutConstant*: INTEGER;
@@ -7510,7 +7510,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			WriteTotalTimeoutConstant*: INTEGER;
 		END;
 		PtrCOMMTIMEOUTS* = POINTER TO COMMTIMEOUTS;
-		COMMCONFIG* = RECORD [untagged]
+		COMMCONFIG* = RECORD [1]
 			dwSize*: INTEGER;
 			wVersion*: SHORTINT;
 			wReserved*: SHORTINT;
@@ -7518,13 +7518,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwProviderSubType*: INTEGER;
 			dwProviderOffset*: INTEGER;
 			dwProviderSize*: INTEGER;
-			wcProviderData*: ARRAY [untagged] 1 OF CHAR;
+			wcProviderData*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrCOMMCONFIG* = POINTER TO COMMCONFIG;
-		SYSTEM_INFO* = RECORD [untagged]
+		SYSTEM_INFO* = RECORD [1]
 			u*: RECORD [union]
 				dwOemId*: INTEGER;
-				r*: RECORD [untagged]
+				r*: RECORD [1]
 					wProcessorArchitecture*: SHORTINT;
 					wReserved*: SHORTINT;
 				END;
@@ -7540,7 +7540,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			wProcessorRevision*: SHORTINT;
 		END;
 		PtrSYSTEM_INFO* = POINTER TO SYSTEM_INFO;
-		MEMORYSTATUS* = RECORD [untagged]
+		MEMORYSTATUS* = RECORD [1]
 			dwLength*: INTEGER;
 			dwMemoryLoad*: INTEGER;
 			dwTotalPhys*: INTEGER;
@@ -7551,18 +7551,18 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwAvailVirtual*: INTEGER;
 		END;
 		PtrMEMORYSTATUS* = POINTER TO MEMORYSTATUS;
-		EXCEPTION_DEBUG_INFO* = RECORD [untagged]
+		EXCEPTION_DEBUG_INFO* = RECORD [1]
 			ExceptionRecord*: EXCEPTION_RECORD;
 			dwFirstChance*: INTEGER;
 		END;
 		PtrEXCEPTION_DEBUG_INFO* = POINTER TO EXCEPTION_DEBUG_INFO;
-		CREATE_THREAD_DEBUG_INFO* = RECORD [untagged]
+		CREATE_THREAD_DEBUG_INFO* = RECORD [1]
 			hThread*: HANDLE;
 			lpThreadLocalBase*: PtrVoid;
 			lpStartAddress*: THREAD_START_ROUTINE;
 		END;
 		PtrCREATE_THREAD_DEBUG_INFO* = POINTER TO CREATE_THREAD_DEBUG_INFO;
-		CREATE_PROCESS_DEBUG_INFO* = RECORD [untagged]
+		CREATE_PROCESS_DEBUG_INFO* = RECORD [1]
 			hFile*: HANDLE;
 			hProcess*: HANDLE;
 			hThread*: HANDLE;
@@ -7575,15 +7575,15 @@ MODULE WinApi ["KERNEL32.dll"];
 			fUnicode*: SHORTINT;
 		END;
 		PtrCREATE_PROCESS_DEBUG_INFO* = POINTER TO CREATE_PROCESS_DEBUG_INFO;
-		EXIT_THREAD_DEBUG_INFO* = RECORD [untagged]
+		EXIT_THREAD_DEBUG_INFO* = RECORD [1]
 			dwExitCode*: INTEGER;
 		END;
 		PtrEXIT_THREAD_DEBUG_INFO* = POINTER TO EXIT_THREAD_DEBUG_INFO;
-		EXIT_PROCESS_DEBUG_INFO* = RECORD [untagged]
+		EXIT_PROCESS_DEBUG_INFO* = RECORD [1]
 			dwExitCode*: INTEGER;
 		END;
 		PtrEXIT_PROCESS_DEBUG_INFO* = POINTER TO EXIT_PROCESS_DEBUG_INFO;
-		LOAD_DLL_DEBUG_INFO* = RECORD [untagged]
+		LOAD_DLL_DEBUG_INFO* = RECORD [1]
 			hFile*: HANDLE;
 			lpBaseOfDll*: PtrVoid;
 			dwDebugInfoFileOffset*: INTEGER;
@@ -7592,22 +7592,22 @@ MODULE WinApi ["KERNEL32.dll"];
 			fUnicode*: SHORTINT;
 		END;
 		PtrLOAD_DLL_DEBUG_INFO* = POINTER TO LOAD_DLL_DEBUG_INFO;
-		UNLOAD_DLL_DEBUG_INFO* = RECORD [untagged]
+		UNLOAD_DLL_DEBUG_INFO* = RECORD [1]
 			lpBaseOfDll*: PtrVoid;
 		END;
 		PtrUNLOAD_DLL_DEBUG_INFO* = POINTER TO UNLOAD_DLL_DEBUG_INFO;
-		OUTPUT_DEBUG_STRING_INFO* = RECORD [untagged]
+		OUTPUT_DEBUG_STRING_INFO* = RECORD [1]
 			lpDebugStringData*: PtrSTR;
 			fUnicode*: SHORTINT;
 			nDebugStringLength*: SHORTINT;
 		END;
 		PtrOUTPUT_DEBUG_STRING_INFO* = POINTER TO OUTPUT_DEBUG_STRING_INFO;
-		RIP_INFO* = RECORD [untagged]
+		RIP_INFO* = RECORD [1]
 			dwError*: INTEGER;
 			dwType*: INTEGER;
 		END;
 		PtrRIP_INFO* = POINTER TO RIP_INFO;
-		DEBUG_EVENT* = RECORD [untagged]
+		DEBUG_EVENT* = RECORD [1]
 			dwDebugEventCode*: INTEGER;
 			dwProcessId*: INTEGER;
 			dwThreadId*: INTEGER;
@@ -7624,27 +7624,27 @@ MODULE WinApi ["KERNEL32.dll"];
 			END;
 		END;
 		PtrDEBUG_EVENT* = POINTER TO DEBUG_EVENT;
-		OFSTRUCT* = RECORD [untagged]
+		OFSTRUCT* = RECORD [1]
 			cBytes*: SHORTCHAR;
 			fFixedDisk*: SHORTCHAR;
 			nErrCode*: SHORTINT;
 			Reserved1*: SHORTINT;
 			Reserved2*: SHORTINT;
-			szPathName*: ARRAY [untagged] 128 OF SHORTCHAR;
+			szPathName*: ARRAY [1] 128 OF SHORTCHAR;
 		END;
 		PtrOFSTRUCT* = POINTER TO OFSTRUCT;
-		PROCESS_HEAP_ENTRY* = RECORD [untagged]
+		PROCESS_HEAP_ENTRY* = RECORD [1]
 			lpData*: PtrVoid;
 			cbData*: INTEGER;
 			cbOverhead*: SHORTCHAR;
 			iRegionIndex*: SHORTCHAR;
 			wFlags*: SHORTINT;
 			u*: RECORD [union]
-				Block*: RECORD [untagged]
+				Block*: RECORD [1]
 					hMem*: HANDLE;
-					dwReserved*: ARRAY [untagged] 3 OF INTEGER;
+					dwReserved*: ARRAY [1] 3 OF INTEGER;
 				END;
-				Region*: RECORD [untagged]
+				Region*: RECORD [1]
 					dwCommittedSize*: INTEGER;
 					dwUnCommittedSize*: INTEGER;
 					lpFirstBlock*: PtrVoid;
@@ -7668,12 +7668,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			nFileIndexLow*: INTEGER;
 		END;
 		PtrBY_HANDLE_FILE_INFORMATION* = POINTER TO BY_HANDLE_FILE_INFORMATION;
-		TIME_ZONE_INFORMATION* = RECORD [untagged]
+		TIME_ZONE_INFORMATION* = RECORD [1]
 			Bias*: INTEGER;
-			StandardName*: ARRAY [untagged] 32 OF CHAR;
+			StandardName*: ARRAY [1] 32 OF CHAR;
 			StandardDate*: SYSTEMTIME;
 			StandardBias*: INTEGER;
-			DaylightName*: ARRAY [untagged] 32 OF CHAR;
+			DaylightName*: ARRAY [1] 32 OF CHAR;
 			DaylightDate*: SYSTEMTIME;
 			DaylightBias*: INTEGER;
 		END;
@@ -7684,10 +7684,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwStreamAttributes*: SET;
 			Size*: LONGINT;
 			dwStreamNameSize*: INTEGER;
-			cStreamName*: ARRAY [untagged] 1 OF CHAR;
+			cStreamName*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrWIN32_STREAM_ID* = POINTER TO WIN32_STREAM_ID;
-		STARTUPINFOA* = RECORD [untagged]
+		STARTUPINFOA* = RECORD [1]
 			cb*: INTEGER;
 			lpReserved*: PtrSTR;
 			lpDesktop*: PtrSTR;
@@ -7702,13 +7702,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwFlags*: SET;
 			wShowWindow*: SHORTINT;
 			cbReserved2*: SHORTINT;
-			lpReserved2*: POINTER TO (*?*) ARRAY [untagged] OF SHORTCHAR;
+			lpReserved2*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 			hStdInput*: HANDLE;
 			hStdOutput*: HANDLE;
 			hStdError*: HANDLE;
 		END;
 		PtrSTARTUPINFOA* = POINTER TO STARTUPINFOA;
-		STARTUPINFOW* = RECORD [untagged]
+		STARTUPINFOW* = RECORD [1]
 			cb*: INTEGER;
 			lpReserved*: PtrWSTR;
 			lpDesktop*: PtrWSTR;
@@ -7723,7 +7723,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwFlags*: SET;
 			wShowWindow*: SHORTINT;
 			cbReserved2*: SHORTINT;
-			lpReserved2*: POINTER TO (*?*) ARRAY [untagged] OF SHORTCHAR;
+			lpReserved2*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 			hStdInput*: HANDLE;
 			hStdOutput*: HANDLE;
 			hStdError*: HANDLE;
@@ -7740,8 +7740,8 @@ MODULE WinApi ["KERNEL32.dll"];
 			nFileSizeLow*: INTEGER;
 			dwReserved0*: INTEGER;
 			dwReserved1*: INTEGER;
-			cFileName*: ARRAY [untagged] 260 OF SHORTCHAR;
-			cAlternateFileName*: ARRAY [untagged] 14 OF SHORTCHAR;
+			cFileName*: ARRAY [1] 260 OF SHORTCHAR;
+			cAlternateFileName*: ARRAY [1] 14 OF SHORTCHAR;
 		END;
 		PtrWIN32_FIND_DATAA* = POINTER TO WIN32_FIND_DATAA;
 		WIN32_FIND_DATAW* = RECORD [align8]
@@ -7753,8 +7753,8 @@ MODULE WinApi ["KERNEL32.dll"];
 			nFileSizeLow*: INTEGER;
 			dwReserved0*: INTEGER;
 			dwReserved1*: INTEGER;
-			cFileName*: ARRAY [untagged] 260 OF CHAR;
-			cAlternateFileName*: ARRAY [untagged] 14 OF CHAR;
+			cFileName*: ARRAY [1] 260 OF CHAR;
+			cAlternateFileName*: ARRAY [1] 14 OF CHAR;
 		END;
 		PtrWIN32_FIND_DATAW* = POINTER TO WIN32_FIND_DATAW;
 		WIN32_FIND_DATA* = WIN32_FIND_DATAA;
@@ -7776,41 +7776,41 @@ MODULE WinApi ["KERNEL32.dll"];
 		FINDEX_INFO_LEVELS* = INTEGER;
 		FINDEX_SEARCH_OPS* = INTEGER;
 		PROGRESS_ROUTINE* = PROCEDURE (TotalFileSize: LONGINT; TotalBytesTransferred: LONGINT; StreamSize: LONGINT; StreamBytesTransferred: LONGINT; dwStreamNumber: INTEGER; dwCallbackReason: INTEGER; hSourceFile: HANDLE; hDestinationFile: HANDLE; lpData: PtrVoid): INTEGER;
-		HW_PROFILE_INFOA* = RECORD [untagged]
+		HW_PROFILE_INFOA* = RECORD [1]
 			dwDockInfo*: INTEGER;
-			szHwProfileGuid*: ARRAY [untagged] 39 OF SHORTCHAR;
-			szHwProfileName*: ARRAY [untagged] 80 OF SHORTCHAR;
+			szHwProfileGuid*: ARRAY [1] 39 OF SHORTCHAR;
+			szHwProfileName*: ARRAY [1] 80 OF SHORTCHAR;
 		END;
 		PtrHW_PROFILE_INFOA* = POINTER TO HW_PROFILE_INFOA;
-		HW_PROFILE_INFOW* = RECORD [untagged]
+		HW_PROFILE_INFOW* = RECORD [1]
 			dwDockInfo*: INTEGER;
-			szHwProfileGuid*: ARRAY [untagged] 39 OF CHAR;
-			szHwProfileName*: ARRAY [untagged] 80 OF CHAR;
+			szHwProfileGuid*: ARRAY [1] 39 OF CHAR;
+			szHwProfileName*: ARRAY [1] 80 OF CHAR;
 		END;
 		PtrHW_PROFILE_INFOW* = POINTER TO HW_PROFILE_INFOW;
 		HW_PROFILE_INFO* = HW_PROFILE_INFOA;
 		PtrHW_PROFILE_INFO* = PtrHW_PROFILE_INFOA;
-		OSVERSIONINFOA* = RECORD [untagged]
+		OSVERSIONINFOA* = RECORD [1]
 			dwOSVersionInfoSize*: INTEGER;
 			dwMajorVersion*: INTEGER;
 			dwMinorVersion*: INTEGER;
 			dwBuildNumber*: INTEGER;
 			dwPlatformId*: INTEGER;
-			szCSDVersion*: ARRAY [untagged] 128 OF SHORTCHAR;
+			szCSDVersion*: ARRAY [1] 128 OF SHORTCHAR;
 		END;
 		PtrOSVERSIONINFOA* = POINTER TO OSVERSIONINFOA;
-		OSVERSIONINFOW* = RECORD [untagged]
+		OSVERSIONINFOW* = RECORD [1]
 			dwOSVersionInfoSize*: INTEGER;
 			dwMajorVersion*: INTEGER;
 			dwMinorVersion*: INTEGER;
 			dwBuildNumber*: INTEGER;
 			dwPlatformId*: INTEGER;
-			szCSDVersion*: ARRAY [untagged] 128 OF CHAR;
+			szCSDVersion*: ARRAY [1] 128 OF CHAR;
 		END;
 		PtrOSVERSIONINFOW* = POINTER TO OSVERSIONINFOW;
 		OSVERSIONINFO* = OSVERSIONINFOA;
 		PtrOSVERSIONINFO* = PtrOSVERSIONINFOA;
-		SYSTEM_POWER_STATUS* = RECORD [untagged]
+		SYSTEM_POWER_STATUS* = RECORD [1]
 			ACLineStatus*: SHORTCHAR;
 			BatteryFlag*: SHORTCHAR;
 			BatteryLifePercent*: SHORTCHAR;
@@ -7819,36 +7819,36 @@ MODULE WinApi ["KERNEL32.dll"];
 			BatteryFullLifeTime*: INTEGER;
 		END;
 		PtrSYSTEM_POWER_STATUS* = POINTER TO SYSTEM_POWER_STATUS;
-		WIN_CERTIFICATE* = RECORD [untagged]
+		WIN_CERTIFICATE* = RECORD [1]
 			dwLength*: INTEGER;
 			wRevision*: SHORTINT;
 			wCertificateType*: SHORTINT;
-			bCertificate*: ARRAY [untagged] 1 OF SHORTCHAR;
+			bCertificate*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrWIN_CERTIFICATE* = POINTER TO WIN_CERTIFICATE;
 		WIN_TRUST_SUBJECT* = PtrVoid;
-		WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT* = RECORD [untagged]
+		WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT* = RECORD [1]
 			hClientToken*: HANDLE;
 			dwSubjectType*: INTEGER;
 			Subject*: WIN_TRUST_SUBJECT;
 		END;
 		PtrWIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJE (*...*)* = POINTER TO WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT;
-		WIN_TRUST_ACTDATA_SUBJECT_ONLY* = RECORD [untagged]
+		WIN_TRUST_ACTDATA_SUBJECT_ONLY* = RECORD [1]
 			dwSubjectType*: INTEGER;
 			Subject*: WIN_TRUST_SUBJECT;
 		END;
 		PtrWIN_TRUST_ACTDATA_SUBJECT_ONLY* = POINTER TO WIN_TRUST_ACTDATA_SUBJECT_ONLY;
-		WIN_TRUST_SUBJECT_FILE* = RECORD [untagged]
+		WIN_TRUST_SUBJECT_FILE* = RECORD [1]
 			hFile*: HANDLE;
 			lpPath*: PtrWSTR;
 		END;
 		PtrWIN_TRUST_SUBJECT_FILE* = POINTER TO WIN_TRUST_SUBJECT_FILE;
-		WIN_SPUB_TRUSTEDPUB_DATA* = RECORD [untagged]
+		WIN_SPUB_TRUSTEDPUB_DATA* = RECORD [1]
 			hClientToken*: HANDLE;
 			lpCertificate*: PtrWIN_CERTIFICATE;
 		END;
 		PtrWIN_SPUB_TRUSTEDPUB_DATA* = POINTER TO WIN_SPUB_TRUSTEDPUB_DATA;
-		XFORM* = RECORD [untagged]
+		XFORM* = RECORD [1]
 			eM11*: SHORTREAL;
 			eM12*: SHORTREAL;
 			eM21*: SHORTREAL;
@@ -7857,7 +7857,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			eDy*: SHORTREAL;
 		END;
 		PtrXFORM* = POINTER TO XFORM;
-		BITMAP* = RECORD [untagged]
+		BITMAP* = RECORD [1]
 			bmType*: INTEGER;
 			bmWidth*: INTEGER;
 			bmHeight*: INTEGER;
@@ -7867,12 +7867,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			bmBits*: PtrVoid;
 		END;
 		PtrBITMAP* = POINTER TO BITMAP;
-		RGBTRIPLE* = RECORD [untagged]
+		RGBTRIPLE* = RECORD [1]
 			rgbtBlue*: SHORTCHAR;
 			rgbtGreen*: SHORTCHAR;
 			rgbtRed*: SHORTCHAR;
 		END;
-		RGBQUAD* = RECORD [untagged]
+		RGBQUAD* = RECORD [1]
 			rgbBlue*: SHORTCHAR;
 			rgbGreen*: SHORTCHAR;
 			rgbRed*: SHORTCHAR;
@@ -7883,19 +7883,19 @@ MODULE WinApi ["KERNEL32.dll"];
 		LCSGAMUTMATCH* = INTEGER;
 		FXPT16DOT16* = INTEGER;
 		FXPT2DOT30* = INTEGER;
-		CIEXYZ* = RECORD [untagged]
+		CIEXYZ* = RECORD [1]
 			ciexyzX*: FXPT2DOT30;
 			ciexyzY*: FXPT2DOT30;
 			ciexyzZ*: FXPT2DOT30;
 		END;
 		PtrCIEXYZ* = POINTER TO CIEXYZ;
-		CIEXYZTRIPLE* = RECORD [untagged]
+		CIEXYZTRIPLE* = RECORD [1]
 			ciexyzRed*: CIEXYZ;
 			ciexyzGreen*: CIEXYZ;
 			ciexyzBlue*: CIEXYZ;
 		END;
 		PtrCIEXYZTRIPLE* = POINTER TO CIEXYZTRIPLE;
-		LOGCOLORSPACEA* = RECORD [untagged]
+		LOGCOLORSPACEA* = RECORD [1]
 			lcsSignature*: INTEGER;
 			lcsVersion*: INTEGER;
 			lcsSize*: INTEGER;
@@ -7905,10 +7905,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			lcsGammaRed*: INTEGER;
 			lcsGammaGreen*: INTEGER;
 			lcsGammaBlue*: INTEGER;
-			lcsFilename*: ARRAY [untagged] 260 OF SHORTCHAR;
+			lcsFilename*: ARRAY [1] 260 OF SHORTCHAR;
 		END;
 		PtrLOGCOLORSPACEA* = POINTER TO LOGCOLORSPACEA;
-		LOGCOLORSPACEW* = RECORD [untagged]
+		LOGCOLORSPACEW* = RECORD [1]
 			lcsSignature*: INTEGER;
 			lcsVersion*: INTEGER;
 			lcsSize*: INTEGER;
@@ -7918,12 +7918,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			lcsGammaRed*: INTEGER;
 			lcsGammaGreen*: INTEGER;
 			lcsGammaBlue*: INTEGER;
-			lcsFilename*: ARRAY [untagged] 260 OF CHAR;
+			lcsFilename*: ARRAY [1] 260 OF CHAR;
 		END;
 		PtrLOGCOLORSPACEW* = POINTER TO LOGCOLORSPACEW;
 		LOGCOLORSPACE* = LOGCOLORSPACEA;
 		PtrLOGCOLORSPACE* = PtrLOGCOLORSPACEA;
-		BITMAPCOREHEADER* = RECORD [untagged]
+		BITMAPCOREHEADER* = RECORD [1]
 			bcSize*: INTEGER;
 			bcWidth*: SHORTINT;
 			bcHeight*: SHORTINT;
@@ -7931,7 +7931,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			bcBitCount*: SHORTINT;
 		END;
 		PtrBITMAPCOREHEADER* = POINTER TO BITMAPCOREHEADER;
-		BITMAPINFOHEADER* = RECORD [untagged]
+		BITMAPINFOHEADER* = RECORD [1]
 			biSize*: INTEGER;
 			biWidth*: INTEGER;
 			biHeight*: INTEGER;
@@ -7945,7 +7945,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			biClrImportant*: INTEGER;
 		END;
 		PtrBITMAPINFOHEADER* = POINTER TO BITMAPINFOHEADER;
-		BITMAPV4HEADER* = RECORD [untagged]
+		BITMAPV4HEADER* = RECORD [1]
 			bV4Size*: INTEGER;
 			bV4Width*: INTEGER;
 			bV4Height*: INTEGER;
@@ -7968,14 +7968,14 @@ MODULE WinApi ["KERNEL32.dll"];
 			bV4GammaBlue*: INTEGER;
 		END;
 		PtrBITMAPV4HEADER* = POINTER TO BITMAPV4HEADER;
-		BITMAPINFO* = RECORD [untagged]
+		BITMAPINFO* = RECORD [1]
 			bmiHeader*: BITMAPINFOHEADER;
-			bmiColors*: ARRAY [untagged] 1 OF RGBQUAD;
+			bmiColors*: ARRAY [1] 1 OF RGBQUAD;
 		END;
 		PtrBITMAPINFO* = POINTER TO BITMAPINFO;
-		BITMAPCOREINFO* = RECORD [untagged]
+		BITMAPCOREINFO* = RECORD [1]
 			bmciHeader*: BITMAPCOREHEADER;
-			bmciColors*: ARRAY [untagged] 1 OF RGBTRIPLE;
+			bmciColors*: ARRAY [1] 1 OF RGBTRIPLE;
 		END;
 		PtrBITMAPCOREINFO* = POINTER TO BITMAPCOREINFO;
 		BITMAPFILEHEADER* = RECORD [align2]
@@ -7986,34 +7986,34 @@ MODULE WinApi ["KERNEL32.dll"];
 			bfOffBits*: INTEGER;
 		END;
 		PtrBITMAPFILEHEADER* = POINTER TO BITMAPFILEHEADER;
-		FONTSIGNATURE* = RECORD [untagged]
-			fsUsb*: ARRAY [untagged] 4 OF INTEGER;
-			fsCsb*: ARRAY [untagged] 2 OF INTEGER;
+		FONTSIGNATURE* = RECORD [1]
+			fsUsb*: ARRAY [1] 4 OF INTEGER;
+			fsCsb*: ARRAY [1] 2 OF INTEGER;
 		END;
 		PtrFONTSIGNATURE* = POINTER TO FONTSIGNATURE;
-		CHARSETINFO* = RECORD [untagged]
+		CHARSETINFO* = RECORD [1]
 			ciCharset*: INTEGER;
 			ciACP*: INTEGER;
 			fs*: FONTSIGNATURE;
 		END;
 		PtrCHARSETINFO* = POINTER TO CHARSETINFO;
-		LOCALESIGNATURE* = RECORD [untagged]
-			lsUsb*: ARRAY [untagged] 4 OF INTEGER;
-			lsCsbDefault*: ARRAY [untagged] 2 OF INTEGER;
-			lsCsbSupported*: ARRAY [untagged] 2 OF INTEGER;
+		LOCALESIGNATURE* = RECORD [1]
+			lsUsb*: ARRAY [1] 4 OF INTEGER;
+			lsCsbDefault*: ARRAY [1] 2 OF INTEGER;
+			lsCsbSupported*: ARRAY [1] 2 OF INTEGER;
 		END;
 		PtrLOCALESIGNATURE* = POINTER TO LOCALESIGNATURE;
-		HANDLETABLE* = RECORD [untagged]
-			objectHandle*: ARRAY [untagged] 1 OF HGDIOBJ;
+		HANDLETABLE* = RECORD [1]
+			objectHandle*: ARRAY [1] 1 OF HGDIOBJ;
 		END;
 		PtrHANDLETABLE* = POINTER TO HANDLETABLE;
-		METARECORD* = RECORD [untagged]
+		METARECORD* = RECORD [1]
 			rdSize*: INTEGER;
 			rdFunction*: SHORTINT;
-			rdParm*: ARRAY [untagged] 1 OF SHORTINT;
+			rdParm*: ARRAY [1] 1 OF SHORTINT;
 		END;
 		PtrMETARECORD* = POINTER TO METARECORD;
-		METAFILEPICT* = RECORD [untagged]
+		METAFILEPICT* = RECORD [1]
 			mm*: INTEGER;
 			xExt*: INTEGER;
 			yExt*: INTEGER;
@@ -8030,13 +8030,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			mtNoParameters*: SHORTINT;
 		END;
 		PtrMETAHEADER* = POINTER TO METAHEADER;
-		ENHMETARECORD* = RECORD [untagged]
+		ENHMETARECORD* = RECORD [1]
 			iType*: INTEGER;
 			nSize*: INTEGER;
-			dParm*: ARRAY [untagged] 1 OF INTEGER;
+			dParm*: ARRAY [1] 1 OF INTEGER;
 		END;
 		PtrENHMETARECORD* = POINTER TO ENHMETARECORD;
-		ENHMETAHEADER* = RECORD [untagged]
+		ENHMETAHEADER* = RECORD [1]
 			iType*: INTEGER;
 			nSize*: INTEGER;
 			rclBounds*: RECT;
@@ -8058,7 +8058,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrENHMETAHEADER* = POINTER TO ENHMETAHEADER;
 		BCHAR* = SHORTCHAR;
-		TEXTMETRICA* = RECORD [untagged]
+		TEXTMETRICA* = RECORD [1]
 			tmHeight*: INTEGER;
 			tmAscent*: INTEGER;
 			tmDescent*: INTEGER;
@@ -8081,7 +8081,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			tmCharSet*: SHORTCHAR;
 		END;
 		PtrTEXTMETRICA* = POINTER TO TEXTMETRICA;
-		TEXTMETRICW* = RECORD [untagged]
+		TEXTMETRICW* = RECORD [1]
 			tmHeight*: INTEGER;
 			tmAscent*: INTEGER;
 			tmDescent*: INTEGER;
@@ -8106,7 +8106,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrTEXTMETRICW* = POINTER TO TEXTMETRICW;
 		TEXTMETRIC* = TEXTMETRICA;
 		PtrTEXTMETRIC* = PtrTEXTMETRICA;
-		NEWTEXTMETRICA* = RECORD [untagged]
+		NEWTEXTMETRICA* = RECORD [1]
 			tmHeight*: INTEGER;
 			tmAscent*: INTEGER;
 			tmDescent*: INTEGER;
@@ -8133,7 +8133,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			ntmAvgWidth*: INTEGER;
 		END;
 		PtrNEWTEXTMETRICA* = POINTER TO NEWTEXTMETRICA;
-		NEWTEXTMETRICW* = RECORD [untagged]
+		NEWTEXTMETRICW* = RECORD [1]
 			tmHeight*: INTEGER;
 			tmAscent*: INTEGER;
 			tmDescent*: INTEGER;
@@ -8162,16 +8162,16 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrNEWTEXTMETRICW* = POINTER TO NEWTEXTMETRICW;
 		NEWTEXTMETRIC* = NEWTEXTMETRICA;
 		PtrNEWTEXTMETRIC* = PtrNEWTEXTMETRICA;
-		NEWTEXTMETRICEXA* = RECORD [untagged]
+		NEWTEXTMETRICEXA* = RECORD [1]
 			ntmTm*: NEWTEXTMETRICA;
 			ntmFontSig*: FONTSIGNATURE;
 		END;
-		NEWTEXTMETRICEXW* = RECORD [untagged]
+		NEWTEXTMETRICEXW* = RECORD [1]
 			ntmTm*: NEWTEXTMETRICW;
 			ntmFontSig*: FONTSIGNATURE;
 		END;
 		NEWTEXTMETRICEX* = NEWTEXTMETRICEXA;
-		PELARRAY* = RECORD [untagged]
+		PELARRAY* = RECORD [1]
 			paXCount*: INTEGER;
 			paYCount*: INTEGER;
 			paXExt*: INTEGER;
@@ -8179,7 +8179,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			paRGBs*: SHORTCHAR;
 		END;
 		PtrPELARRAY* = POINTER TO PELARRAY;
-		LOGBRUSH* = RECORD [untagged]
+		LOGBRUSH* = RECORD [1]
 			lbStyle*: INTEGER;
 			lbColor*: COLORREF;
 			lbHatch*: INTEGER;
@@ -8187,36 +8187,36 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrLOGBRUSH* = POINTER TO LOGBRUSH;
 		PATTERN* = LOGBRUSH;
 		PtrPATTERN* = PtrLOGBRUSH;
-		LOGPEN* = RECORD [untagged]
+		LOGPEN* = RECORD [1]
 			lopnStyle*: INTEGER;
 			lopnWidth*: POINT;
 			lopnColor*: COLORREF;
 		END;
 		PtrLOGPEN* = POINTER TO LOGPEN;
-		EXTLOGPEN* = RECORD [untagged]
+		EXTLOGPEN* = RECORD [1]
 			elpPenStyle*: INTEGER;
 			elpWidth*: INTEGER;
 			elpBrushStyle*: INTEGER;
 			elpColor*: COLORREF;
 			elpHatch*: INTEGER;
 			elpNumEntries*: INTEGER;
-			elpStyleEntry*: ARRAY [untagged] 1 OF INTEGER;
+			elpStyleEntry*: ARRAY [1] 1 OF INTEGER;
 		END;
 		PtrEXTLOGPEN* = POINTER TO EXTLOGPEN;
-		PALETTEENTRY* = RECORD [untagged]
+		PALETTEENTRY* = RECORD [1]
 			peRed*: SHORTCHAR;
 			peGreen*: SHORTCHAR;
 			peBlue*: SHORTCHAR;
 			peFlags*: SHORTCHAR;
 		END;
 		PtrPALETTEENTRY* = POINTER TO PALETTEENTRY;
-		LOGPALETTE* = RECORD [untagged]
+		LOGPALETTE* = RECORD [1]
 			palVersion*: SHORTINT;
 			palNumEntries*: SHORTINT;
-			palPalEntry*: ARRAY [untagged] 1 OF PALETTEENTRY;
+			palPalEntry*: ARRAY [1] 1 OF PALETTEENTRY;
 		END;
 		PtrLOGPALETTE* = POINTER TO LOGPALETTE;
-		LOGFONTA* = RECORD [untagged]
+		LOGFONTA* = RECORD [1]
 			lfHeight*: INTEGER;
 			lfWidth*: INTEGER;
 			lfEscapement*: INTEGER;
@@ -8230,10 +8230,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			lfClipPrecision*: SHORTCHAR;
 			lfQuality*: SHORTCHAR;
 			lfPitchAndFamily*: SHORTCHAR;
-			lfFaceName*: ARRAY [untagged] 32 OF SHORTCHAR;
+			lfFaceName*: ARRAY [1] 32 OF SHORTCHAR;
 		END;
 		PtrLOGFONTA* = POINTER TO LOGFONTA;
-		LOGFONTW* = RECORD [untagged]
+		LOGFONTW* = RECORD [1]
 			lfHeight*: INTEGER;
 			lfWidth*: INTEGER;
 			lfEscapement*: INTEGER;
@@ -8247,42 +8247,42 @@ MODULE WinApi ["KERNEL32.dll"];
 			lfClipPrecision*: SHORTCHAR;
 			lfQuality*: SHORTCHAR;
 			lfPitchAndFamily*: SHORTCHAR;
-			lfFaceName*: ARRAY [untagged] 32 OF CHAR;
+			lfFaceName*: ARRAY [1] 32 OF CHAR;
 		END;
 		PtrLOGFONTW* = POINTER TO LOGFONTW;
 		LOGFONT* = LOGFONTA;
 		PtrLOGFONT* = PtrLOGFONTA;
-		ENUMLOGFONTA* = RECORD [untagged]
+		ENUMLOGFONTA* = RECORD [1]
 			elfLogFont*: LOGFONTA;
-			elfFullName*: ARRAY [untagged] 64 OF SHORTCHAR;
-			elfStyle*: ARRAY [untagged] 32 OF SHORTCHAR;
+			elfFullName*: ARRAY [1] 64 OF SHORTCHAR;
+			elfStyle*: ARRAY [1] 32 OF SHORTCHAR;
 		END;
 		PtrENUMLOGFONTA* = POINTER TO ENUMLOGFONTA;
-		ENUMLOGFONTW* = RECORD [untagged]
+		ENUMLOGFONTW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [untagged] 64 OF CHAR;
-			elfStyle*: ARRAY [untagged] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF CHAR;
+			elfStyle*: ARRAY [1] 32 OF CHAR;
 		END;
 		PtrENUMLOGFONTW* = POINTER TO ENUMLOGFONTW;
 		ENUMLOGFONT* = ENUMLOGFONTA;
 		PtrENUMLOGFONT* = PtrENUMLOGFONTA;
-		ENUMLOGFONTEXA* = RECORD [untagged]
+		ENUMLOGFONTEXA* = RECORD [1]
 			elfLogFont*: LOGFONTA;
-			elfFullName*: ARRAY [untagged] 64 OF SHORTCHAR;
-			elfStyle*: ARRAY [untagged] 32 OF SHORTCHAR;
-			elfScript*: ARRAY [untagged] 32 OF SHORTCHAR;
+			elfFullName*: ARRAY [1] 64 OF SHORTCHAR;
+			elfStyle*: ARRAY [1] 32 OF SHORTCHAR;
+			elfScript*: ARRAY [1] 32 OF SHORTCHAR;
 		END;
 		PtrENUMLOGFONTEXA* = POINTER TO ENUMLOGFONTEXA;
-		ENUMLOGFONTEXW* = RECORD [untagged]
+		ENUMLOGFONTEXW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [untagged] 64 OF CHAR;
-			elfStyle*: ARRAY [untagged] 32 OF CHAR;
-			elfScript*: ARRAY [untagged] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF CHAR;
+			elfStyle*: ARRAY [1] 32 OF CHAR;
+			elfScript*: ARRAY [1] 32 OF CHAR;
 		END;
 		PtrENUMLOGFONTEXW* = POINTER TO ENUMLOGFONTEXW;
 		ENUMLOGFONTEX* = ENUMLOGFONTEXA;
 		PtrENUMLOGFONTEX* = PtrENUMLOGFONTEXA;
-		PANOSE* = RECORD [untagged]
+		PANOSE* = RECORD [1]
 			bFamilyType*: SHORTCHAR;
 			bSerifStyle*: SHORTCHAR;
 			bWeight*: SHORTCHAR;
@@ -8295,36 +8295,36 @@ MODULE WinApi ["KERNEL32.dll"];
 			bXHeight*: SHORTCHAR;
 		END;
 		PtrPANOSE* = POINTER TO PANOSE;
-		EXTLOGFONTA* = RECORD [untagged]
+		EXTLOGFONTA* = RECORD [1]
 			elfLogFont*: LOGFONTA;
-			elfFullName*: ARRAY [untagged] 64 OF SHORTCHAR;
-			elfStyle*: ARRAY [untagged] 32 OF SHORTCHAR;
+			elfFullName*: ARRAY [1] 64 OF SHORTCHAR;
+			elfStyle*: ARRAY [1] 32 OF SHORTCHAR;
 			elfVersion*: INTEGER;
 			elfStyleSize*: INTEGER;
 			elfMatch*: INTEGER;
 			elfReserved*: INTEGER;
-			elfVendorId*: ARRAY [untagged] 4 OF SHORTCHAR;
+			elfVendorId*: ARRAY [1] 4 OF SHORTCHAR;
 			elfCulture*: INTEGER;
 			elfPanose*: PANOSE;
 		END;
 		PtrEXTLOGFONTA* = POINTER TO EXTLOGFONTA;
-		EXTLOGFONTW* = RECORD [untagged]
+		EXTLOGFONTW* = RECORD [1]
 			elfLogFont*: LOGFONTW;
-			elfFullName*: ARRAY [untagged] 64 OF CHAR;
-			elfStyle*: ARRAY [untagged] 32 OF CHAR;
+			elfFullName*: ARRAY [1] 64 OF CHAR;
+			elfStyle*: ARRAY [1] 32 OF CHAR;
 			elfVersion*: INTEGER;
 			elfStyleSize*: INTEGER;
 			elfMatch*: INTEGER;
 			elfReserved*: INTEGER;
-			elfVendorId*: ARRAY [untagged] 4 OF SHORTCHAR;
+			elfVendorId*: ARRAY [1] 4 OF SHORTCHAR;
 			elfCulture*: INTEGER;
 			elfPanose*: PANOSE;
 		END;
 		PtrEXTLOGFONTW* = POINTER TO EXTLOGFONTW;
 		EXTLOGFONT* = EXTLOGFONTA;
 		PtrEXTLOGFONT* = PtrEXTLOGFONTA;
-		DEVMODEA* = RECORD [untagged]
-			dmDeviceName*: ARRAY [untagged] 32 OF SHORTCHAR;
+		DEVMODEA* = RECORD [1]
+			dmDeviceName*: ARRAY [1] 32 OF SHORTCHAR;
 			dmSpecVersion*: SHORTINT;
 			dmDriverVersion*: SHORTINT;
 			dmSize*: SHORTINT;
@@ -8343,7 +8343,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dmYResolution*: SHORTINT;
 			dmTTOption*: SHORTINT;
 			dmCollate*: SHORTINT;
-			dmFormName*: ARRAY [untagged] 32 OF SHORTCHAR;
+			dmFormName*: ARRAY [1] 32 OF SHORTCHAR;
 			dmLogPixels*: SHORTINT;
 			dmBitsPerPel*: INTEGER;
 			dmPelsWidth*: INTEGER;
@@ -8360,8 +8360,8 @@ MODULE WinApi ["KERNEL32.dll"];
 			dmPanningHeight*: INTEGER;
 		END;
 		PtrDEVMODEA* = POINTER TO DEVMODEA;
-		DEVMODEW* = RECORD [untagged]
-			dmDeviceName*: ARRAY [untagged] 32 OF CHAR;
+		DEVMODEW* = RECORD [1]
+			dmDeviceName*: ARRAY [1] 32 OF CHAR;
 			dmSpecVersion*: SHORTINT;
 			dmDriverVersion*: SHORTINT;
 			dmSize*: SHORTINT;
@@ -8380,7 +8380,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dmYResolution*: SHORTINT;
 			dmTTOption*: SHORTINT;
 			dmCollate*: SHORTINT;
-			dmFormName*: ARRAY [untagged] 32 OF CHAR;
+			dmFormName*: ARRAY [1] 32 OF CHAR;
 			dmLogPixels*: SHORTINT;
 			dmBitsPerPel*: INTEGER;
 			dmPelsWidth*: INTEGER;
@@ -8399,7 +8399,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDEVMODEW* = POINTER TO DEVMODEW;
 		DEVMODE* = DEVMODEA;
 		PtrDEVMODE* = PtrDEVMODEA;
-		RGNDATAHEADER* = RECORD [untagged]
+		RGNDATAHEADER* = RECORD [1]
 			dwSize*: INTEGER;
 			iType*: INTEGER;
 			nCount*: INTEGER;
@@ -8407,24 +8407,24 @@ MODULE WinApi ["KERNEL32.dll"];
 			rcBound*: RECT;
 		END;
 		PtrRGNDATAHEADER* = POINTER TO RGNDATAHEADER;
-		RGNDATA* = RECORD [untagged]
+		RGNDATA* = RECORD [1]
 			rdh*: RGNDATAHEADER;
-			Buffer*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Buffer*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrRGNDATA* = POINTER TO RGNDATA;
-		ABC* = RECORD [untagged]
+		ABC* = RECORD [1]
 			abcA*: INTEGER;
 			abcB*: INTEGER;
 			abcC*: INTEGER;
 		END;
 		PtrABC* = POINTER TO ABC;
-		ABCFLOAT* = RECORD [untagged]
+		ABCFLOAT* = RECORD [1]
 			abcfA*: SHORTREAL;
 			abcfB*: SHORTREAL;
 			abcfC*: SHORTREAL;
 		END;
 		PtrABCFLOAT* = POINTER TO ABCFLOAT;
-		OUTLINETEXTMETRICA* = RECORD [untagged]
+		OUTLINETEXTMETRICA* = RECORD [1]
 			otmSize*: INTEGER;
 			otmTextMetrics*: TEXTMETRICA;
 			otmFiller*: SHORTCHAR;
@@ -8459,7 +8459,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			otmpFullName*: PtrSTR;
 		END;
 		PtrOUTLINETEXTMETRICA* = POINTER TO OUTLINETEXTMETRICA;
-		OUTLINETEXTMETRICW* = RECORD [untagged]
+		OUTLINETEXTMETRICW* = RECORD [1]
 			otmSize*: INTEGER;
 			otmTextMetrics*: TEXTMETRICW;
 			otmFiller*: SHORTCHAR;
@@ -8496,40 +8496,40 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrOUTLINETEXTMETRICW* = POINTER TO OUTLINETEXTMETRICW;
 		OUTLINETEXTMETRIC* = OUTLINETEXTMETRICA;
 		PtrOUTLINETEXTMETRIC* = PtrOUTLINETEXTMETRICA;
-		POLYTEXTA* = RECORD [untagged]
+		POLYTEXTA* = RECORD [1]
 			x*: INTEGER;
 			y*: INTEGER;
 			n*: INTEGER;
 			lpstr*: PtrSTR;
 			uiFlags*: SET;
 			rcl*: RECT;
-			pdx*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			pdx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 		END;
 		PtrPOLYTEXTA* = POINTER TO POLYTEXTA;
-		POLYTEXTW* = RECORD [untagged]
+		POLYTEXTW* = RECORD [1]
 			x*: INTEGER;
 			y*: INTEGER;
 			n*: INTEGER;
 			lpstr*: PtrWSTR;
 			uiFlags*: SET;
 			rcl*: RECT;
-			pdx*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			pdx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 		END;
 		PtrPOLYTEXTW* = POINTER TO POLYTEXTW;
 		POLYTEXT* = POLYTEXTA;
 		PtrPOLYTEXT* = PtrPOLYTEXTA;
-		FIXED* = RECORD [untagged]
+		FIXED* = RECORD [1]
 			fract*: SHORTINT;
 			value*: SHORTINT;
 		END;
-		MAT2* = RECORD [untagged]
+		MAT2* = RECORD [1]
 			eM11*: FIXED;
 			eM12*: FIXED;
 			eM21*: FIXED;
 			eM22*: FIXED;
 		END;
 		PtrMAT2* = POINTER TO MAT2;
-		GLYPHMETRICS* = RECORD [untagged]
+		GLYPHMETRICS* = RECORD [1]
 			gmBlackBoxX*: INTEGER;
 			gmBlackBoxY*: INTEGER;
 			gmptGlyphOrigin*: POINT;
@@ -8537,41 +8537,41 @@ MODULE WinApi ["KERNEL32.dll"];
 			gmCellIncY*: SHORTINT;
 		END;
 		PtrGLYPHMETRICS* = POINTER TO GLYPHMETRICS;
-		POINTFX* = RECORD [untagged]
+		POINTFX* = RECORD [1]
 			x*: FIXED;
 			y*: FIXED;
 		END;
 		PtrPOINTFX* = POINTER TO POINTFX;
-		TTPOLYCURVE* = RECORD [untagged]
+		TTPOLYCURVE* = RECORD [1]
 			wType*: SHORTINT;
 			cpfx*: SHORTINT;
-			apfx*: ARRAY [untagged] 1 OF POINTFX;
+			apfx*: ARRAY [1] 1 OF POINTFX;
 		END;
 		PtrTTPOLYCURVE* = POINTER TO TTPOLYCURVE;
-		TTPOLYGONHEADER* = RECORD [untagged]
+		TTPOLYGONHEADER* = RECORD [1]
 			cb*: INTEGER;
 			dwType*: INTEGER;
 			pfxStart*: POINTFX;
 		END;
 		PtrTTPOLYGONHEADER* = POINTER TO TTPOLYGONHEADER;
-		GCP_RESULTSA* = RECORD [untagged]
+		GCP_RESULTSA* = RECORD [1]
 			lStructSize*: INTEGER;
 			lpOutString*: PtrSTR;
-			lpOrder*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			lpDx*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			lpCaretPos*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			lpOrder*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpDx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpCaretPos*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 			lpClass*: PtrSTR;
 			lpGlyphs*: PtrWSTR;
 			nGlyphs*: INTEGER;
 			nMaxFit*: INTEGER;
 		END;
 		PtrGCP_RESULTSA* = POINTER TO GCP_RESULTSA;
-		GCP_RESULTSW* = RECORD [untagged]
+		GCP_RESULTSW* = RECORD [1]
 			lStructSize*: INTEGER;
 			lpOutString*: PtrWSTR;
-			lpOrder*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			lpDx*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-			lpCaretPos*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			lpOrder*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpDx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpCaretPos*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 			lpClass*: PtrSTR;
 			lpGlyphs*: PtrWSTR;
 			nGlyphs*: INTEGER;
@@ -8580,13 +8580,13 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrGCP_RESULTSW* = POINTER TO GCP_RESULTSW;
 		GCP_RESULTS* = GCP_RESULTSA;
 		PtrGCP_RESULTS* = PtrGCP_RESULTSA;
-		RASTERIZER_STATUS* = RECORD [untagged]
+		RASTERIZER_STATUS* = RECORD [1]
 			nSize*: SHORTINT;
 			wFlags*: SHORTINT;
 			nLanguageID*: SHORTINT;
 		END;
 		PtrRASTERIZER_STATUS* = POINTER TO RASTERIZER_STATUS;
-		PIXELFORMATDESCRIPTOR* = RECORD [untagged]
+		PIXELFORMATDESCRIPTOR* = RECORD [1]
 			nSize*: SHORTINT;
 			nVersion*: SHORTINT;
 			dwFlags*: SET;
@@ -8631,15 +8631,15 @@ MODULE WinApi ["KERNEL32.dll"];
 		FNDEVCAPS* = PROCEDURE (p0: PtrSTR; p1: PtrSTR; p2: INTEGER; p3: PtrSTR; VAR [nil] p4: DEVMODEA): INTEGER;
 		MFENUMPROC* = PROCEDURE (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: METARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
 		ENHMFENUMPROC* = PROCEDURE (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: ENHMETARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
-		DIBSECTION* = RECORD [untagged]
+		DIBSECTION* = RECORD [1]
 			dsBm*: BITMAP;
 			dsBmih*: BITMAPINFOHEADER;
-			dsBitfields*: ARRAY [untagged] 3 OF INTEGER;
+			dsBitfields*: ARRAY [1] 3 OF INTEGER;
 			dshSection*: HANDLE;
 			dsOffset*: INTEGER;
 		END;
 		PtrDIBSECTION* = POINTER TO DIBSECTION;
-		COLORADJUSTMENT* = RECORD [untagged]
+		COLORADJUSTMENT* = RECORD [1]
 			caSize*: SHORTINT;
 			caFlags*: SHORTINT;
 			caIlluminantIndex*: SHORTINT;
@@ -8655,7 +8655,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrCOLORADJUSTMENT* = POINTER TO COLORADJUSTMENT;
 		ABORTPROC* = PROCEDURE (hdc: HDC; iError: INTEGER): INTEGER;
-		DOCINFOA* = RECORD [untagged]
+		DOCINFOA* = RECORD [1]
 			cbSize*: INTEGER;
 			lpszDocName*: PtrSTR;
 			lpszOutput*: PtrSTR;
@@ -8663,7 +8663,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			fwType*: INTEGER;
 		END;
 		PtrDOCINFOA* = POINTER TO DOCINFOA;
-		DOCINFOW* = RECORD [untagged]
+		DOCINFOW* = RECORD [1]
 			cbSize*: INTEGER;
 			lpszDocName*: PtrWSTR;
 			lpszOutput*: PtrWSTR;
@@ -8673,7 +8673,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDOCINFOW* = POINTER TO DOCINFOW;
 		DOCINFO* = DOCINFOA;
 		PtrDOCINFO* = PtrDOCINFOA;
-		KERNINGPAIR* = RECORD [untagged]
+		KERNINGPAIR* = RECORD [1]
 			wFirst*: SHORTINT;
 			wSecond*: SHORTINT;
 			iKernAmount*: INTEGER;
@@ -8681,12 +8681,12 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrKERNINGPAIR* = POINTER TO KERNINGPAIR;
 		ICMENUMPROCA* = PROCEDURE (p0: PtrSTR; p1: LPARAM): INTEGER;
 		ICMENUMPROCW* = PROCEDURE (p0: PtrWSTR; p1: LPARAM): INTEGER;
-		EMR* = RECORD [untagged]
+		EMR* = RECORD [1]
 			iType*: INTEGER;
 			nSize*: INTEGER;
 		END;
 		PtrEMR* = POINTER TO EMR;
-		EMRTEXT* = RECORD [untagged]
+		EMRTEXT* = RECORD [1]
 			ptlReference*: POINT;
 			nChars*: INTEGER;
 			offString*: INTEGER;
@@ -8695,7 +8695,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			offDx*: INTEGER;
 		END;
 		PtrEMRTEXT* = POINTER TO EMRTEXT;
-		EMRABORTPATH* = RECORD [untagged]
+		EMRABORTPATH* = RECORD [1]
 			emr*: EMR;
 		END;
 		PtrEMRABORTPATH* = POINTER TO EMRABORTPATH;
@@ -8715,7 +8715,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRSAVEDC* = PtrEMRABORTPATH;
 		EMRREALIZEPALETTE* = EMRABORTPATH;
 		PtrEMRREALIZEPALETTE* = PtrEMRABORTPATH;
-		EMRSELECTCLIPPATH* = RECORD [untagged]
+		EMRSELECTCLIPPATH* = RECORD [1]
 			emr*: EMR;
 			iMode*: INTEGER;
 		END;
@@ -8734,97 +8734,97 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRSETICMMODE* = PtrEMRSELECTCLIPPATH;
 		EMRSETTEXTALIGN* = EMRSELECTCLIPPATH;
 		PtrEMRSETTEXTALIGN* = PtrEMRSELECTCLIPPATH;
-		EMRSETMITERLIMIT* = RECORD [untagged]
+		EMRSETMITERLIMIT* = RECORD [1]
 			emr*: EMR;
 			eMiterLimit*: SHORTREAL;
 		END;
 		PtrEMRSETMITERLIMIT* = POINTER TO EMRSETMITERLIMIT;
-		EMRRESTOREDC* = RECORD [untagged]
+		EMRRESTOREDC* = RECORD [1]
 			emr*: EMR;
 			iRelative*: INTEGER;
 		END;
 		PtrEMRRESTOREDC* = POINTER TO EMRRESTOREDC;
-		EMRSETARCDIRECTION* = RECORD [untagged]
+		EMRSETARCDIRECTION* = RECORD [1]
 			emr*: EMR;
 			iArcDirection*: INTEGER;
 		END;
 		PtrEMRSETARCDIRECTION* = POINTER TO EMRSETARCDIRECTION;
-		EMRSETMAPPERFLAGS* = RECORD [untagged]
+		EMRSETMAPPERFLAGS* = RECORD [1]
 			emr*: EMR;
 			dwFlags*: SET;
 		END;
 		PtrEMRSETMAPPERFLAGS* = POINTER TO EMRSETMAPPERFLAGS;
-		EMRSETBKCOLOR* = RECORD [untagged]
+		EMRSETBKCOLOR* = RECORD [1]
 			emr*: EMR;
 			crColor*: COLORREF;
 		END;
 		PtrEMRSETBKCOLOR* = POINTER TO EMRSETBKCOLOR;
 		EMRSETTEXTCOLOR* = EMRSETBKCOLOR;
 		PtrEMRSETTEXTCOLOR* = PtrEMRSETBKCOLOR;
-		EMRSELECTOBJECT* = RECORD [untagged]
+		EMRSELECTOBJECT* = RECORD [1]
 			emr*: EMR;
 			ihObject*: INTEGER;
 		END;
 		PtrEMRSELECTOBJECT* = POINTER TO EMRSELECTOBJECT;
 		EMRDELETEOBJECT* = EMRSELECTOBJECT;
 		PtrEMRDELETEOBJECT* = PtrEMRSELECTOBJECT;
-		EMRSELECTCOLORSPACE* = RECORD [untagged]
+		EMRSELECTCOLORSPACE* = RECORD [1]
 			emr*: EMR;
 			ihCS*: INTEGER;
 		END;
 		PtrEMRSELECTCOLORSPACE* = POINTER TO EMRSELECTCOLORSPACE;
 		EMRDELETECOLORSPACE* = EMRSELECTCOLORSPACE;
 		PtrEMRDELETECOLORSPACE* = PtrEMRSELECTCOLORSPACE;
-		EMRSELECTPALETTE* = RECORD [untagged]
+		EMRSELECTPALETTE* = RECORD [1]
 			emr*: EMR;
 			ihPal*: INTEGER;
 		END;
 		PtrEMRSELECTPALETTE* = POINTER TO EMRSELECTPALETTE;
-		EMRRESIZEPALETTE* = RECORD [untagged]
+		EMRRESIZEPALETTE* = RECORD [1]
 			emr*: EMR;
 			ihPal*: INTEGER;
 			cEntries*: INTEGER;
 		END;
 		PtrEMRRESIZEPALETTE* = POINTER TO EMRRESIZEPALETTE;
-		EMRSETPALETTEENTRIES* = RECORD [untagged]
+		EMRSETPALETTEENTRIES* = RECORD [1]
 			emr*: EMR;
 			ihPal*: INTEGER;
 			iStart*: INTEGER;
 			cEntries*: INTEGER;
-			aPalEntries*: ARRAY [untagged] 1 OF PALETTEENTRY;
+			aPalEntries*: ARRAY [1] 1 OF PALETTEENTRY;
 		END;
 		PtrEMRSETPALETTEENTRIES* = POINTER TO EMRSETPALETTEENTRIES;
-		EMRSETCOLORADJUSTMENT* = RECORD [untagged]
+		EMRSETCOLORADJUSTMENT* = RECORD [1]
 			emr*: EMR;
 			ColorAdjustment*: COLORADJUSTMENT;
 		END;
 		PtrEMRSETCOLORADJUSTMENT* = POINTER TO EMRSETCOLORADJUSTMENT;
-		EMRGDICOMMENT* = RECORD [untagged]
+		EMRGDICOMMENT* = RECORD [1]
 			emr*: EMR;
 			cbData*: INTEGER;
-			Data*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Data*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRGDICOMMENT* = POINTER TO EMRGDICOMMENT;
-		EMREOF* = RECORD [untagged]
+		EMREOF* = RECORD [1]
 			emr*: EMR;
 			nPalEntries*: INTEGER;
 			offPalEntries*: INTEGER;
 			nSizeLast*: INTEGER;
 		END;
 		PtrEMREOF* = POINTER TO EMREOF;
-		EMRLINETO* = RECORD [untagged]
+		EMRLINETO* = RECORD [1]
 			emr*: EMR;
 			ptl*: POINT;
 		END;
 		PtrEMRLINETO* = POINTER TO EMRLINETO;
 		EMRMOVETOEX* = EMRLINETO;
 		PtrEMRMOVETOEX* = PtrEMRLINETO;
-		EMROFFSETCLIPRGN* = RECORD [untagged]
+		EMROFFSETCLIPRGN* = RECORD [1]
 			emr*: EMR;
 			ptlOffset*: POINT;
 		END;
 		PtrEMROFFSETCLIPRGN* = POINTER TO EMROFFSETCLIPRGN;
-		EMRFILLPATH* = RECORD [untagged]
+		EMRFILLPATH* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 		END;
@@ -8833,14 +8833,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRSTROKEANDFILLPATH* = PtrEMRFILLPATH;
 		EMRSTROKEPATH* = EMRFILLPATH;
 		PtrEMRSTROKEPATH* = PtrEMRFILLPATH;
-		EMREXCLUDECLIPRECT* = RECORD [untagged]
+		EMREXCLUDECLIPRECT* = RECORD [1]
 			emr*: EMR;
 			rclClip*: RECT;
 		END;
 		PtrEMREXCLUDECLIPRECT* = POINTER TO EMREXCLUDECLIPRECT;
 		EMRINTERSECTCLIPRECT* = EMREXCLUDECLIPRECT;
 		PtrEMRINTERSECTCLIPRECT* = PtrEMREXCLUDECLIPRECT;
-		EMRSETVIEWPORTORGEX* = RECORD [untagged]
+		EMRSETVIEWPORTORGEX* = RECORD [1]
 			emr*: EMR;
 			ptlOrigin*: POINT;
 		END;
@@ -8849,14 +8849,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRSETWINDOWORGEX* = PtrEMRSETVIEWPORTORGEX;
 		EMRSETBRUSHORGEX* = EMRSETVIEWPORTORGEX;
 		PtrEMRSETBRUSHORGEX* = PtrEMRSETVIEWPORTORGEX;
-		EMRSETVIEWPORTEXTEX* = RECORD [untagged]
+		EMRSETVIEWPORTEXTEX* = RECORD [1]
 			emr*: EMR;
 			szlExtent*: SIZE;
 		END;
 		PtrEMRSETVIEWPORTEXTEX* = POINTER TO EMRSETVIEWPORTEXTEX;
 		EMRSETWINDOWEXTEX* = EMRSETVIEWPORTEXTEX;
 		PtrEMRSETWINDOWEXTEX* = PtrEMRSETVIEWPORTEXTEX;
-		EMRSCALEVIEWPORTEXTEX* = RECORD [untagged]
+		EMRSCALEVIEWPORTEXTEX* = RECORD [1]
 			emr*: EMR;
 			xNum*: INTEGER;
 			xDenom*: INTEGER;
@@ -8866,44 +8866,44 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRSCALEVIEWPORTEXTEX* = POINTER TO EMRSCALEVIEWPORTEXTEX;
 		EMRSCALEWINDOWEXTEX* = EMRSCALEVIEWPORTEXTEX;
 		PtrEMRSCALEWINDOWEXTEX* = PtrEMRSCALEVIEWPORTEXTEX;
-		EMRSETWORLDTRANSFORM* = RECORD [untagged]
+		EMRSETWORLDTRANSFORM* = RECORD [1]
 			emr*: EMR;
 			xform*: XFORM;
 		END;
 		PtrEMRSETWORLDTRANSFORM* = POINTER TO EMRSETWORLDTRANSFORM;
-		EMRMODIFYWORLDTRANSFORM* = RECORD [untagged]
+		EMRMODIFYWORLDTRANSFORM* = RECORD [1]
 			emr*: EMR;
 			xform*: XFORM;
 			iMode*: INTEGER;
 		END;
 		PtrEMRMODIFYWORLDTRANSFORM* = POINTER TO EMRMODIFYWORLDTRANSFORM;
-		EMRSETPIXELV* = RECORD [untagged]
+		EMRSETPIXELV* = RECORD [1]
 			emr*: EMR;
 			ptlPixel*: POINT;
 			crColor*: COLORREF;
 		END;
 		PtrEMRSETPIXELV* = POINTER TO EMRSETPIXELV;
-		EMREXTFLOODFILL* = RECORD [untagged]
+		EMREXTFLOODFILL* = RECORD [1]
 			emr*: EMR;
 			ptlStart*: POINT;
 			crColor*: COLORREF;
 			iMode*: INTEGER;
 		END;
 		PtrEMREXTFLOODFILL* = POINTER TO EMREXTFLOODFILL;
-		EMRELLIPSE* = RECORD [untagged]
+		EMRELLIPSE* = RECORD [1]
 			emr*: EMR;
 			rclBox*: RECT;
 		END;
 		PtrEMRELLIPSE* = POINTER TO EMRELLIPSE;
 		EMRRECTANGLE* = EMRELLIPSE;
 		PtrEMRRECTANGLE* = PtrEMRELLIPSE;
-		EMRROUNDRECT* = RECORD [untagged]
+		EMRROUNDRECT* = RECORD [1]
 			emr*: EMR;
 			rclBox*: RECT;
 			szlCorner*: SIZE;
 		END;
 		PtrEMRROUNDRECT* = POINTER TO EMRROUNDRECT;
-		EMRARC* = RECORD [untagged]
+		EMRARC* = RECORD [1]
 			emr*: EMR;
 			rclBox*: RECT;
 			ptlStart*: POINT;
@@ -8916,7 +8916,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRCHORD* = PtrEMRARC;
 		EMRPIE* = EMRARC;
 		PtrEMRPIE* = PtrEMRARC;
-		EMRANGLEARC* = RECORD [untagged]
+		EMRANGLEARC* = RECORD [1]
 			emr*: EMR;
 			ptlCenter*: POINT;
 			nRadius*: INTEGER;
@@ -8924,11 +8924,11 @@ MODULE WinApi ["KERNEL32.dll"];
 			eSweepAngle*: SHORTREAL;
 		END;
 		PtrEMRANGLEARC* = POINTER TO EMRANGLEARC;
-		EMRPOLYLINE* = RECORD [untagged]
+		EMRPOLYLINE* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cptl*: INTEGER;
-			aptl*: ARRAY [untagged] 1 OF POINT;
+			aptl*: ARRAY [1] 1 OF POINT;
 		END;
 		PtrEMRPOLYLINE* = POINTER TO EMRPOLYLINE;
 		EMRPOLYBEZIER* = EMRPOLYLINE;
@@ -8939,11 +8939,11 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRPOLYBEZIERTO* = PtrEMRPOLYLINE;
 		EMRPOLYLINETO* = EMRPOLYLINE;
 		PtrEMRPOLYLINETO* = PtrEMRPOLYLINE;
-		EMRPOLYLINE16* = RECORD [untagged]
+		EMRPOLYLINE16* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cpts*: INTEGER;
-			apts*: ARRAY [untagged] 1 OF POINTS;
+			apts*: ARRAY [1] 1 OF POINTS;
 		END;
 		PtrEMRPOLYLINE16* = POINTER TO EMRPOLYLINE16;
 		EMRPOLYBEZIER16* = EMRPOLYLINE16;
@@ -8954,78 +8954,78 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMRPOLYBEZIERTO16* = PtrEMRPOLYLINE16;
 		EMRPOLYLINETO16* = EMRPOLYLINE16;
 		PtrEMRPOLYLINETO16* = PtrEMRPOLYLINE16;
-		EMRPOLYDRAW* = RECORD [untagged]
+		EMRPOLYDRAW* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cptl*: INTEGER;
-			aptl*: ARRAY [untagged] 1 OF POINT;
-			abTypes*: ARRAY [untagged] 1 OF SHORTCHAR;
+			aptl*: ARRAY [1] 1 OF POINT;
+			abTypes*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRPOLYDRAW* = POINTER TO EMRPOLYDRAW;
-		EMRPOLYDRAW16* = RECORD [untagged]
+		EMRPOLYDRAW16* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cpts*: INTEGER;
-			apts*: ARRAY [untagged] 1 OF POINTS;
-			abTypes*: ARRAY [untagged] 1 OF SHORTCHAR;
+			apts*: ARRAY [1] 1 OF POINTS;
+			abTypes*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRPOLYDRAW16* = POINTER TO EMRPOLYDRAW16;
-		EMRPOLYPOLYLINE* = RECORD [untagged]
+		EMRPOLYPOLYLINE* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			nPolys*: INTEGER;
 			cptl*: INTEGER;
-			aPolyCounts*: ARRAY [untagged] 1 OF INTEGER;
-			aptl*: ARRAY [untagged] 1 OF POINT;
+			aPolyCounts*: ARRAY [1] 1 OF INTEGER;
+			aptl*: ARRAY [1] 1 OF POINT;
 		END;
 		PtrEMRPOLYPOLYLINE* = POINTER TO EMRPOLYPOLYLINE;
 		EMRPOLYPOLYGON* = EMRPOLYPOLYLINE;
 		PtrEMRPOLYPOLYGON* = PtrEMRPOLYPOLYLINE;
-		EMRPOLYPOLYLINE16* = RECORD [untagged]
+		EMRPOLYPOLYLINE16* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			nPolys*: INTEGER;
 			cpts*: INTEGER;
-			aPolyCounts*: ARRAY [untagged] 1 OF INTEGER;
-			apts*: ARRAY [untagged] 1 OF POINTS;
+			aPolyCounts*: ARRAY [1] 1 OF INTEGER;
+			apts*: ARRAY [1] 1 OF POINTS;
 		END;
 		PtrEMRPOLYPOLYLINE16* = POINTER TO EMRPOLYPOLYLINE16;
 		EMRPOLYPOLYGON16* = EMRPOLYPOLYLINE16;
 		PtrEMRPOLYPOLYGON16* = PtrEMRPOLYPOLYLINE16;
-		EMRINVERTRGN* = RECORD [untagged]
+		EMRINVERTRGN* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cbRgnData*: INTEGER;
-			RgnData*: ARRAY [untagged] 1 OF SHORTCHAR;
+			RgnData*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRINVERTRGN* = POINTER TO EMRINVERTRGN;
 		EMRPAINTRGN* = EMRINVERTRGN;
 		PtrEMRPAINTRGN* = PtrEMRINVERTRGN;
-		EMRFILLRGN* = RECORD [untagged]
+		EMRFILLRGN* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cbRgnData*: INTEGER;
 			ihBrush*: INTEGER;
-			RgnData*: ARRAY [untagged] 1 OF SHORTCHAR;
+			RgnData*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRFILLRGN* = POINTER TO EMRFILLRGN;
-		EMRFRAMERGN* = RECORD [untagged]
+		EMRFRAMERGN* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cbRgnData*: INTEGER;
 			ihBrush*: INTEGER;
 			szlStroke*: SIZE;
-			RgnData*: ARRAY [untagged] 1 OF SHORTCHAR;
+			RgnData*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRFRAMERGN* = POINTER TO EMRFRAMERGN;
-		EMREXTSELECTCLIPRGN* = RECORD [untagged]
+		EMREXTSELECTCLIPRGN* = RECORD [1]
 			emr*: EMR;
 			cbRgnData*: INTEGER;
 			iMode*: INTEGER;
-			RgnData*: ARRAY [untagged] 1 OF SHORTCHAR;
+			RgnData*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMREXTSELECTCLIPRGN* = POINTER TO EMREXTSELECTCLIPRGN;
-		EMREXTTEXTOUTA* = RECORD [untagged]
+		EMREXTTEXTOUTA* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			iGraphicsMode*: INTEGER;
@@ -9036,19 +9036,19 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrEMREXTTEXTOUTA* = POINTER TO EMREXTTEXTOUTA;
 		EMREXTTEXTOUTW* = EMREXTTEXTOUTA;
 		PtrEMREXTTEXTOUTW* = PtrEMREXTTEXTOUTA;
-		EMRPOLYTEXTOUTA* = RECORD [untagged]
+		EMRPOLYTEXTOUTA* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			iGraphicsMode*: INTEGER;
 			exScale*: SHORTREAL;
 			eyScale*: SHORTREAL;
 			cStrings*: INTEGER;
-			aemrtext*: ARRAY [untagged] 1 OF EMRTEXT;
+			aemrtext*: ARRAY [1] 1 OF EMRTEXT;
 		END;
 		PtrEMRPOLYTEXTOUTA* = POINTER TO EMRPOLYTEXTOUTA;
 		EMRPOLYTEXTOUTW* = EMRPOLYTEXTOUTA;
 		PtrEMRPOLYTEXTOUTW* = PtrEMRPOLYTEXTOUTA;
-		EMRBITBLT* = RECORD [untagged]
+		EMRBITBLT* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			xDest*: INTEGER;
@@ -9067,7 +9067,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbBitsSrc*: INTEGER;
 		END;
 		PtrEMRBITBLT* = POINTER TO EMRBITBLT;
-		EMRSTRETCHBLT* = RECORD [untagged]
+		EMRSTRETCHBLT* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			xDest*: INTEGER;
@@ -9088,7 +9088,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cySrc*: INTEGER;
 		END;
 		PtrEMRSTRETCHBLT* = POINTER TO EMRSTRETCHBLT;
-		EMRMASKBLT* = RECORD [untagged]
+		EMRMASKBLT* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			xDest*: INTEGER;
@@ -9114,10 +9114,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbBitsMask*: INTEGER;
 		END;
 		PtrEMRMASKBLT* = POINTER TO EMRMASKBLT;
-		EMRPLGBLT* = RECORD [untagged]
+		EMRPLGBLT* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
-			aptlDest*: ARRAY [untagged] 3 OF POINT;
+			aptlDest*: ARRAY [1] 3 OF POINT;
 			xSrc*: INTEGER;
 			ySrc*: INTEGER;
 			cxSrc*: INTEGER;
@@ -9138,7 +9138,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbBitsMask*: INTEGER;
 		END;
 		PtrEMRPLGBLT* = POINTER TO EMRPLGBLT;
-		EMRSETDIBITSTODEVICE* = RECORD [untagged]
+		EMRSETDIBITSTODEVICE* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			xDest*: INTEGER;
@@ -9156,7 +9156,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cScans*: INTEGER;
 		END;
 		PtrEMRSETDIBITSTODEVICE* = POINTER TO EMRSETDIBITSTODEVICE;
-		EMRSTRETCHDIBITS* = RECORD [untagged]
+		EMRSTRETCHDIBITS* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			xDest*: INTEGER;
@@ -9175,31 +9175,31 @@ MODULE WinApi ["KERNEL32.dll"];
 			cyDest*: INTEGER;
 		END;
 		PtrEMRSTRETCHDIBITS* = POINTER TO EMRSTRETCHDIBITS;
-		EMREXTCREATEFONTINDIRECTW* = RECORD [untagged]
+		EMREXTCREATEFONTINDIRECTW* = RECORD [1]
 			emr*: EMR;
 			ihFont*: INTEGER;
 			elfw*: EXTLOGFONTW;
 		END;
 		PtrEMREXTCREATEFONTINDIRECTW* = POINTER TO EMREXTCREATEFONTINDIRECTW;
-		EMRCREATEPALETTE* = RECORD [untagged]
+		EMRCREATEPALETTE* = RECORD [1]
 			emr*: EMR;
 			ihPal*: INTEGER;
 			lgpl*: LOGPALETTE;
 		END;
 		PtrEMRCREATEPALETTE* = POINTER TO EMRCREATEPALETTE;
-		EMRCREATECOLORSPACE* = RECORD [untagged]
+		EMRCREATECOLORSPACE* = RECORD [1]
 			emr*: EMR;
 			ihCS*: INTEGER;
 			lcs*: LOGCOLORSPACEW;
 		END;
 		PtrEMRCREATECOLORSPACE* = POINTER TO EMRCREATECOLORSPACE;
-		EMRCREATEPEN* = RECORD [untagged]
+		EMRCREATEPEN* = RECORD [1]
 			emr*: EMR;
 			ihPen*: INTEGER;
 			lopn*: LOGPEN;
 		END;
 		PtrEMRCREATEPEN* = POINTER TO EMRCREATEPEN;
-		EMREXTCREATEPEN* = RECORD [untagged]
+		EMREXTCREATEPEN* = RECORD [1]
 			emr*: EMR;
 			ihPen*: INTEGER;
 			offBmi*: INTEGER;
@@ -9209,13 +9209,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			elp*: EXTLOGPEN;
 		END;
 		PtrEMREXTCREATEPEN* = POINTER TO EMREXTCREATEPEN;
-		EMRCREATEBRUSHINDIRECT* = RECORD [untagged]
+		EMRCREATEBRUSHINDIRECT* = RECORD [1]
 			emr*: EMR;
 			ihBrush*: INTEGER;
 			lb*: LOGBRUSH;
 		END;
 		PtrEMRCREATEBRUSHINDIRECT* = POINTER TO EMRCREATEBRUSHINDIRECT;
-		EMRCREATEMONOBRUSH* = RECORD [untagged]
+		EMRCREATEMONOBRUSH* = RECORD [1]
 			emr*: EMR;
 			ihBrush*: INTEGER;
 			iUsage*: INTEGER;
@@ -9225,7 +9225,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbBits*: INTEGER;
 		END;
 		PtrEMRCREATEMONOBRUSH* = POINTER TO EMRCREATEMONOBRUSH;
-		EMRCREATEDIBPATTERNBRUSHPT* = RECORD [untagged]
+		EMRCREATEDIBPATTERNBRUSHPT* = RECORD [1]
 			emr*: EMR;
 			ihBrush*: INTEGER;
 			iUsage*: INTEGER;
@@ -9235,37 +9235,37 @@ MODULE WinApi ["KERNEL32.dll"];
 			cbBits*: INTEGER;
 		END;
 		PtrEMRCREATEDIBPATTERNBRUSHPT* = POINTER TO EMRCREATEDIBPATTERNBRUSHPT;
-		EMRFORMAT* = RECORD [untagged]
+		EMRFORMAT* = RECORD [1]
 			dSignature*: INTEGER;
 			nVersion*: INTEGER;
 			cbData*: INTEGER;
 			offData*: INTEGER;
 		END;
 		PtrEMRFORMAT* = POINTER TO EMRFORMAT;
-		EMRGLSRECORD* = RECORD [untagged]
+		EMRGLSRECORD* = RECORD [1]
 			emr*: EMR;
 			cbData*: INTEGER;
-			Data*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Data*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRGLSRECORD* = POINTER TO EMRGLSRECORD;
-		EMRGLSBOUNDEDRECORD* = RECORD [untagged]
+		EMRGLSBOUNDEDRECORD* = RECORD [1]
 			emr*: EMR;
 			rclBounds*: RECT;
 			cbData*: INTEGER;
-			Data*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Data*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrEMRGLSBOUNDEDRECORD* = POINTER TO EMRGLSBOUNDEDRECORD;
-		EMRPIXELFORMAT* = RECORD [untagged]
+		EMRPIXELFORMAT* = RECORD [1]
 			emr*: EMR;
 			pfd*: PIXELFORMATDESCRIPTOR;
 		END;
 		PtrEMRPIXELFORMAT* = POINTER TO EMRPIXELFORMAT;
-		POINTFLOAT* = RECORD [untagged]
+		POINTFLOAT* = RECORD [1]
 			x*: SHORTREAL;
 			y*: SHORTREAL;
 		END;
 		PtrPOINTFLOAT* = POINTER TO POINTFLOAT;
-		GLYPHMETRICSFLOAT* = RECORD [untagged]
+		GLYPHMETRICSFLOAT* = RECORD [1]
 			gmfBlackBoxX*: SHORTREAL;
 			gmfBlackBoxY*: SHORTREAL;
 			gmfptGlyphOrigin*: POINTFLOAT;
@@ -9273,7 +9273,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			gmfCellIncY*: SHORTREAL;
 		END;
 		PtrGLYPHMETRICSFLOAT* = POINTER TO GLYPHMETRICSFLOAT;
-		LAYERPLANEDESCRIPTOR* = RECORD [untagged]
+		LAYERPLANEDESCRIPTOR* = RECORD [1]
 			nSize*: SHORTINT;
 			nVersion*: SHORTINT;
 			dwFlags*: SET;
@@ -9301,11 +9301,11 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrLAYERPLANEDESCRIPTOR* = POINTER TO LAYERPLANEDESCRIPTOR;
 		HDWP* = HANDLE;
-		MENUTEMPLATEA* = RECORD [untagged] END;
+		MENUTEMPLATEA* = RECORD [1] END;
 		PtrMENUTEMPLATEA* = POINTER TO MENUTEMPLATEA;
-		MENUTEMPLATEW* = RECORD [untagged] END;
+		MENUTEMPLATEW* = RECORD [1] END;
 		PtrMENUTEMPLATEW* = POINTER TO MENUTEMPLATEW;
-		MENUTEMPLATE* = RECORD [untagged] END;
+		MENUTEMPLATE* = RECORD [1] END;
 		PtrMENUTEMPLATE* = POINTER TO MENUTEMPLATE;
 		LPMENUTEMPLATEA* = PtrVoid;
 		LPMENUTEMPLATEW* = PtrVoid;
@@ -9336,25 +9336,25 @@ MODULE WinApi ["KERNEL32.dll"];
 		WINSTAENUMPROC* = PROCEDURE (): INTEGER;
 		DESKTOPENUMPROC* = PROCEDURE (): INTEGER;
 		PtrCREATESTRUCTA* = POINTER TO CREATESTRUCTA;
-		CBT_CREATEWNDA* = RECORD [untagged]
+		CBT_CREATEWNDA* = RECORD [1]
 			lpcs*: PtrCREATESTRUCTA;
 			hwndInsertAfter*: HWND;
 		END;
 		PtrCBT_CREATEWNDA* = POINTER TO CBT_CREATEWNDA;
 		PtrCREATESTRUCTW* = POINTER TO CREATESTRUCTW;
-		CBT_CREATEWNDW* = RECORD [untagged]
+		CBT_CREATEWNDW* = RECORD [1]
 			lpcs*: PtrCREATESTRUCTW;
 			hwndInsertAfter*: HWND;
 		END;
 		PtrCBT_CREATEWNDW* = POINTER TO CBT_CREATEWNDW;
 		CBT_CREATEWND* = CBT_CREATEWNDA;
 		PtrCBT_CREATEWND* = PtrCBT_CREATEWNDA;
-		CBTACTIVATESTRUCT* = RECORD [untagged]
+		CBTACTIVATESTRUCT* = RECORD [1]
 			fMouse*: BOOL;
 			hWndActive*: HWND;
 		END;
 		PtrCBTACTIVATESTRUCT* = POINTER TO CBTACTIVATESTRUCT;
-		EVENTMSG* = RECORD [untagged]
+		EVENTMSG* = RECORD [1]
 			message*: INTEGER;
 			paramL*: INTEGER;
 			paramH*: INTEGER;
@@ -9362,14 +9362,14 @@ MODULE WinApi ["KERNEL32.dll"];
 			hwnd*: HWND;
 		END;
 		PtrEVENTMSG* = POINTER TO EVENTMSG;
-		CWPSTRUCT* = RECORD [untagged]
+		CWPSTRUCT* = RECORD [1]
 			lParam*: LPARAM;
 			wParam*: WPARAM;
 			message*: INTEGER;
 			hwnd*: HWND;
 		END;
 		PtrCWPSTRUCT* = POINTER TO CWPSTRUCT;
-		CWPRETSTRUCT* = RECORD [untagged]
+		CWPRETSTRUCT* = RECORD [1]
 			lResult*: LRESULT;
 			lParam*: LPARAM;
 			wParam*: WPARAM;
@@ -9377,7 +9377,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			hwnd*: HWND;
 		END;
 		PtrCWPRETSTRUCT* = POINTER TO CWPRETSTRUCT;
-		DEBUGHOOKINFO* = RECORD [untagged]
+		DEBUGHOOKINFO* = RECORD [1]
 			idThread*: INTEGER;
 			idThreadInstaller*: INTEGER;
 			lParam*: LPARAM;
@@ -9385,27 +9385,27 @@ MODULE WinApi ["KERNEL32.dll"];
 			code*: INTEGER;
 		END;
 		PtrDEBUGHOOKINFO* = POINTER TO DEBUGHOOKINFO;
-		MOUSEHOOKSTRUCT* = RECORD [untagged]
+		MOUSEHOOKSTRUCT* = RECORD [1]
 			pt*: POINT;
 			hwnd*: HWND;
 			wHitTestCode*: INTEGER;
 			dwExtraInfo*: INTEGER;
 		END;
 		PtrMOUSEHOOKSTRUCT* = POINTER TO MOUSEHOOKSTRUCT;
-		HARDWAREHOOKSTRUCT* = RECORD [untagged]
+		HARDWAREHOOKSTRUCT* = RECORD [1]
 			hwnd*: HWND;
 			message*: INTEGER;
 			wParam*: WPARAM;
 			lParam*: LPARAM;
 		END;
 		PtrHARDWAREHOOKSTRUCT* = POINTER TO HARDWAREHOOKSTRUCT;
-		USEROBJECTFLAGS* = RECORD [untagged]
+		USEROBJECTFLAGS* = RECORD [1]
 			fInherit*: BOOL;
 			fReserved*: BOOL;
 			dwFlags*: SET;
 		END;
 		PtrUSEROBJECTFLAGS* = POINTER TO USEROBJECTFLAGS;
-		WNDCLASSEXA* = RECORD [untagged]
+		WNDCLASSEXA* = RECORD [1]
 			cbSize*: INTEGER;
 			style*: SET;
 			lpfnWndProc*: WNDPROC;
@@ -9420,7 +9420,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			hIconSm*: HICON;
 		END;
 		PtrWNDCLASSEXA* = POINTER TO WNDCLASSEXA;
-		WNDCLASSEXW* = RECORD [untagged]
+		WNDCLASSEXW* = RECORD [1]
 			cbSize*: INTEGER;
 			style*: SET;
 			lpfnWndProc*: WNDPROC;
@@ -9437,7 +9437,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrWNDCLASSEXW* = POINTER TO WNDCLASSEXW;
 		WNDCLASSEX* = WNDCLASSEXA;
 		PtrWNDCLASSEX* = PtrWNDCLASSEXA;
-		WNDCLASSA* = RECORD [untagged]
+		WNDCLASSA* = RECORD [1]
 			style*: SET;
 			lpfnWndProc*: WNDPROC;
 			cbClsExtra*: INTEGER;
@@ -9450,7 +9450,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lpszClassName*: PtrSTR;
 		END;
 		PtrWNDCLASSA* = POINTER TO WNDCLASSA;
-		WNDCLASSW* = RECORD [untagged]
+		WNDCLASSW* = RECORD [1]
 			style*: SET;
 			lpfnWndProc*: WNDPROC;
 			cbClsExtra*: INTEGER;
@@ -9465,7 +9465,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrWNDCLASSW* = POINTER TO WNDCLASSW;
 		WNDCLASS* = WNDCLASSA;
 		PtrWNDCLASS* = PtrWNDCLASSA;
-		MSG* = RECORD [untagged]
+		MSG* = RECORD [1]
 			hwnd*: HWND;
 			message*: INTEGER;
 			wParam*: WPARAM;
@@ -9474,7 +9474,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			pt*: POINT;
 		END;
 		PtrMSG* = POINTER TO MSG;
-		MINMAXINFO* = RECORD [untagged]
+		MINMAXINFO* = RECORD [1]
 			ptReserved*: POINT;
 			ptMaxSize*: POINT;
 			ptMaxPosition*: POINT;
@@ -9482,19 +9482,19 @@ MODULE WinApi ["KERNEL32.dll"];
 			ptMaxTrackSize*: POINT;
 		END;
 		PtrMINMAXINFO* = POINTER TO MINMAXINFO;
-		COPYDATASTRUCT* = RECORD [untagged]
+		COPYDATASTRUCT* = RECORD [1]
 			dwData*: INTEGER;
 			cbData*: INTEGER;
 			lpData*: PtrVoid;
 		END;
 		PtrCOPYDATASTRUCT* = POINTER TO COPYDATASTRUCT;
-		MDINEXTMENU* = RECORD [untagged]
+		MDINEXTMENU* = RECORD [1]
 			hmenuIn*: HMENU;
 			hmenuNext*: HMENU;
 			hwndNext*: HWND;
 		END;
 		PtrMDINEXTMENU* = POINTER TO MDINEXTMENU;
-		WINDOWPOS* = RECORD [untagged]
+		WINDOWPOS* = RECORD [1]
 			hwnd*: HWND;
 			hwndInsertAfter*: HWND;
 			x*: INTEGER;
@@ -9504,27 +9504,27 @@ MODULE WinApi ["KERNEL32.dll"];
 			flags*: SET;
 		END;
 		PtrWINDOWPOS* = POINTER TO WINDOWPOS;
-		NCCALCSIZE_PARAMS* = RECORD [untagged]
-			rgrc*: ARRAY [untagged] 3 OF RECT;
+		NCCALCSIZE_PARAMS* = RECORD [1]
+			rgrc*: ARRAY [1] 3 OF RECT;
 			lppos*: PtrWINDOWPOS;
 		END;
 		PtrNCCALCSIZE_PARAMS* = POINTER TO NCCALCSIZE_PARAMS;
-		ACCEL* = RECORD [untagged]
+		ACCEL* = RECORD [1]
 			fVirt*: SHORTCHAR;
 			key*: SHORTINT;
 			cmd*: SHORTINT;
 		END;
 		PtrACCEL* = POINTER TO ACCEL;
-		PAINTSTRUCT* = RECORD [untagged]
+		PAINTSTRUCT* = RECORD [1]
 			hdc*: HDC;
 			fErase*: BOOL;
 			rcPaint*: RECT;
 			fRestore*: BOOL;
 			fIncUpdate*: BOOL;
-			rgbReserved*: ARRAY [untagged] 32 OF SHORTCHAR;
+			rgbReserved*: ARRAY [1] 32 OF SHORTCHAR;
 		END;
 		PtrPAINTSTRUCT* = POINTER TO PAINTSTRUCT;
-		CREATESTRUCTA* = RECORD [untagged]
+		CREATESTRUCTA* = RECORD [1]
 			lpCreateParams*: PtrVoid;
 			hInstance*: HINSTANCE;
 			hMenu*: HMENU;
@@ -9538,7 +9538,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lpszClass*: PtrSTR;
 			dwExStyle*: SET;
 		END;
-		CREATESTRUCTW* = RECORD [untagged]
+		CREATESTRUCTW* = RECORD [1]
 			lpCreateParams*: PtrVoid;
 			hInstance*: HINSTANCE;
 			hMenu*: HMENU;
@@ -9554,7 +9554,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		CREATESTRUCT* = CREATESTRUCTA;
 		PtrCREATESTRUCT* = PtrCREATESTRUCTA;
-		WINDOWPLACEMENT* = RECORD [untagged]
+		WINDOWPLACEMENT* = RECORD [1]
 			length*: INTEGER;
 			flags*: SET;
 			showCmd*: INTEGER;
@@ -9563,18 +9563,18 @@ MODULE WinApi ["KERNEL32.dll"];
 			rcNormalPosition*: RECT;
 		END;
 		PtrWINDOWPLACEMENT* = POINTER TO WINDOWPLACEMENT;
-		NMHDR* = RECORD [untagged]
+		NMHDR* = RECORD [1]
 			hwndFrom*: HWND;
 			idFrom*: INTEGER;
 			code*: INTEGER;
 		END;
 		PtrNMHDR* = POINTER TO NMHDR;
-		STYLESTRUCT* = RECORD [untagged]
+		STYLESTRUCT* = RECORD [1]
 			styleOld*: SET;
 			styleNew*: SET;
 		END;
 		PtrSTYLESTRUCT* = POINTER TO STYLESTRUCT;
-		MEASUREITEMSTRUCT* = RECORD [untagged]
+		MEASUREITEMSTRUCT* = RECORD [1]
 			CtlType*: SET;
 			CtlID*: INTEGER;
 			itemID*: INTEGER;
@@ -9583,7 +9583,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			itemData*: INTEGER;
 		END;
 		PtrMEASUREITEMSTRUCT* = POINTER TO MEASUREITEMSTRUCT;
-		DRAWITEMSTRUCT* = RECORD [untagged]
+		DRAWITEMSTRUCT* = RECORD [1]
 			CtlType*: SET;
 			CtlID*: INTEGER;
 			itemID*: INTEGER;
@@ -9595,7 +9595,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			itemData*: INTEGER;
 		END;
 		PtrDRAWITEMSTRUCT* = POINTER TO DRAWITEMSTRUCT;
-		DELETEITEMSTRUCT* = RECORD [untagged]
+		DELETEITEMSTRUCT* = RECORD [1]
 			CtlType*: SET;
 			CtlID*: INTEGER;
 			itemID*: INTEGER;
@@ -9603,7 +9603,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			itemData*: INTEGER;
 		END;
 		PtrDELETEITEMSTRUCT* = POINTER TO DELETEITEMSTRUCT;
-		COMPAREITEMSTRUCT* = RECORD [untagged]
+		COMPAREITEMSTRUCT* = RECORD [1]
 			CtlType*: SET;
 			CtlID*: INTEGER;
 			hwndItem*: HWND;
@@ -9614,7 +9614,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwLocaleId*: INTEGER;
 		END;
 		PtrCOMPAREITEMSTRUCT* = POINTER TO COMPAREITEMSTRUCT;
-		BROADCASTSYSMSG* = RECORD [untagged]
+		BROADCASTSYSMSG* = RECORD [1]
 			uiMessage*: INTEGER;
 			wParam*: WPARAM;
 			lParam*: LPARAM;
@@ -9640,12 +9640,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			id*: SHORTINT;
 		END;
 		PtrDLGITEMTEMPLATE* = POINTER TO DLGITEMTEMPLATE;
-		TPMPARAMS* = RECORD [untagged]
+		TPMPARAMS* = RECORD [1]
 			cbSize*: INTEGER;
 			rcExclude*: RECT;
 		END;
 		PtrTPMPARAMS* = POINTER TO TPMPARAMS;
-		MENUITEMINFOA* = RECORD [untagged]
+		MENUITEMINFOA* = RECORD [1]
 			cbSize*: INTEGER;
 			fMask*: SET;
 			fType*: SET;
@@ -9659,7 +9659,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			cch*: INTEGER;
 		END;
 		PtrMENUITEMINFOA* = POINTER TO MENUITEMINFOA;
-		MENUITEMINFOW* = RECORD [untagged]
+		MENUITEMINFOW* = RECORD [1]
 			cbSize*: INTEGER;
 			fMask*: SET;
 			fType*: SET;
@@ -9675,7 +9675,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrMENUITEMINFOW* = POINTER TO MENUITEMINFOW;
 		MENUITEMINFO* = MENUITEMINFOA;
 		PtrMENUITEMINFO* = PtrMENUITEMINFOA;
-		DROPSTRUCT* = RECORD [untagged]
+		DROPSTRUCT* = RECORD [1]
 			hwndSource*: HWND;
 			hwndSink*: HWND;
 			wFmt*: INTEGER;
@@ -9684,7 +9684,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwControlData*: INTEGER;
 		END;
 		PtrDROPSTRUCT* = POINTER TO DROPSTRUCT;
-		DRAWTEXTPARAMS* = RECORD [untagged]
+		DRAWTEXTPARAMS* = RECORD [1]
 			cbSize*: INTEGER;
 			iTabLength*: INTEGER;
 			iLeftMargin*: INTEGER;
@@ -9692,7 +9692,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			uiLengthDrawn*: INTEGER;
 		END;
 		PtrDRAWTEXTPARAMS* = POINTER TO DRAWTEXTPARAMS;
-		HELPINFO* = RECORD [untagged]
+		HELPINFO* = RECORD [1]
 			cbSize*: INTEGER;
 			iContextType*: INTEGER;
 			iCtrlId*: INTEGER;
@@ -9702,7 +9702,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrHELPINFO* = POINTER TO HELPINFO;
 		MSGBOXCALLBACK* = PROCEDURE (VAR [nil] lpHelpInfo: HELPINFO);
-		MSGBOXPARAMSA* = RECORD [untagged]
+		MSGBOXPARAMSA* = RECORD [1]
 			cbSize*: INTEGER;
 			hwndOwner*: HWND;
 			hInstance*: HINSTANCE;
@@ -9715,7 +9715,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwLanguageId*: INTEGER;
 		END;
 		PtrMSGBOXPARAMSA* = POINTER TO MSGBOXPARAMSA;
-		MSGBOXPARAMSW* = RECORD [untagged]
+		MSGBOXPARAMSW* = RECORD [1]
 			cbSize*: INTEGER;
 			hwndOwner*: HWND;
 			hInstance*: HINSTANCE;
@@ -9730,18 +9730,18 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrMSGBOXPARAMSW* = POINTER TO MSGBOXPARAMSW;
 		MSGBOXPARAMS* = MSGBOXPARAMSA;
 		PtrMSGBOXPARAMS* = PtrMSGBOXPARAMSA;
-		MENUITEMTEMPLATEHEADER* = RECORD [untagged]
+		MENUITEMTEMPLATEHEADER* = RECORD [1]
 			versionNumber*: SHORTINT;
 			offset*: SHORTINT;
 		END;
 		PtrMENUITEMTEMPLATEHEADER* = POINTER TO MENUITEMTEMPLATEHEADER;
-		MENUITEMTEMPLATE* = RECORD [untagged]
+		MENUITEMTEMPLATE* = RECORD [1]
 			mtOption*: SHORTINT;
 			mtID*: SHORTINT;
-			mtString*: ARRAY [untagged] 1 OF CHAR;
+			mtString*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrMENUITEMTEMPLATE* = POINTER TO MENUITEMTEMPLATE;
-		ICONINFO* = RECORD [untagged]
+		ICONINFO* = RECORD [1]
 			fIcon*: BOOL;
 			xHotspot*: INTEGER;
 			yHotspot*: INTEGER;
@@ -9749,7 +9749,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			hbmColor*: HBITMAP;
 		END;
 		PtrICONINFO* = POINTER TO ICONINFO;
-		CURSORSHAPE* = RECORD [untagged]
+		CURSORSHAPE* = RECORD [1]
 			xHotSpot*: INTEGER;
 			yHotSpot*: INTEGER;
 			cx*: INTEGER;
@@ -9759,7 +9759,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			BitsPixel*: SHORTCHAR;
 		END;
 		PtrCURSORSHAPE* = POINTER TO CURSORSHAPE;
-		SCROLLINFO* = RECORD [untagged]
+		SCROLLINFO* = RECORD [1]
 			cbSize*: INTEGER;
 			fMask*: SET;
 			nMin*: INTEGER;
@@ -9769,7 +9769,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			nTrackPos*: INTEGER;
 		END;
 		PtrSCROLLINFO* = POINTER TO SCROLLINFO;
-		MDICREATESTRUCTA* = RECORD [untagged]
+		MDICREATESTRUCTA* = RECORD [1]
 			szClass*: PtrSTR;
 			szTitle*: PtrSTR;
 			hOwner*: HANDLE;
@@ -9781,7 +9781,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lParam*: LPARAM;
 		END;
 		PtrMDICREATESTRUCTA* = POINTER TO MDICREATESTRUCTA;
-		MDICREATESTRUCTW* = RECORD [untagged]
+		MDICREATESTRUCTW* = RECORD [1]
 			szClass*: PtrWSTR;
 			szTitle*: PtrWSTR;
 			hOwner*: HANDLE;
@@ -9795,49 +9795,49 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrMDICREATESTRUCTW* = POINTER TO MDICREATESTRUCTW;
 		MDICREATESTRUCT* = MDICREATESTRUCTA;
 		PtrMDICREATESTRUCT* = PtrMDICREATESTRUCTA;
-		CLIENTCREATESTRUCT* = RECORD [untagged]
+		CLIENTCREATESTRUCT* = RECORD [1]
 			hWindowMenu*: HANDLE;
 			idFirstChild*: INTEGER;
 		END;
 		PtrCLIENTCREATESTRUCT* = POINTER TO CLIENTCREATESTRUCT;
 		HELPPOLY* = INTEGER;
-		MULTIKEYHELPA* = RECORD [untagged]
+		MULTIKEYHELPA* = RECORD [1]
 			mkSize*: INTEGER;
 			mkKeylist*: SHORTCHAR;
-			szKeyphrase*: ARRAY [untagged] 1 OF SHORTCHAR;
+			szKeyphrase*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMULTIKEYHELPA* = POINTER TO MULTIKEYHELPA;
-		MULTIKEYHELPW* = RECORD [untagged]
+		MULTIKEYHELPW* = RECORD [1]
 			mkSize*: INTEGER;
 			mkKeylist*: CHAR;
-			szKeyphrase*: ARRAY [untagged] 1 OF CHAR;
+			szKeyphrase*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrMULTIKEYHELPW* = POINTER TO MULTIKEYHELPW;
 		MULTIKEYHELP* = MULTIKEYHELPA;
 		PtrMULTIKEYHELP* = PtrMULTIKEYHELPA;
-		HELPWININFOA* = RECORD [untagged]
+		HELPWININFOA* = RECORD [1]
 			wStructSize*: INTEGER;
 			x*: INTEGER;
 			y*: INTEGER;
 			dx*: INTEGER;
 			dy*: INTEGER;
 			wMax*: INTEGER;
-			rgchMember*: ARRAY [untagged] 2 OF SHORTCHAR;
+			rgchMember*: ARRAY [1] 2 OF SHORTCHAR;
 		END;
 		PtrHELPWININFOA* = POINTER TO HELPWININFOA;
-		HELPWININFOW* = RECORD [untagged]
+		HELPWININFOW* = RECORD [1]
 			wStructSize*: INTEGER;
 			x*: INTEGER;
 			y*: INTEGER;
 			dx*: INTEGER;
 			dy*: INTEGER;
 			wMax*: INTEGER;
-			rgchMember*: ARRAY [untagged] 2 OF CHAR;
+			rgchMember*: ARRAY [1] 2 OF CHAR;
 		END;
 		PtrHELPWININFOW* = POINTER TO HELPWININFOW;
 		HELPWININFO* = HELPWININFOA;
 		PtrHELPWININFO* = PtrHELPWININFOA;
-		NONCLIENTMETRICSA* = RECORD [untagged]
+		NONCLIENTMETRICSA* = RECORD [1]
 			cbSize*: INTEGER;
 			iBorderWidth*: INTEGER;
 			iScrollWidth*: INTEGER;
@@ -9855,7 +9855,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lfMessageFont*: LOGFONTA;
 		END;
 		PtrNONCLIENTMETRICSA* = POINTER TO NONCLIENTMETRICSA;
-		NONCLIENTMETRICSW* = RECORD [untagged]
+		NONCLIENTMETRICSW* = RECORD [1]
 			cbSize*: INTEGER;
 			iBorderWidth*: INTEGER;
 			iScrollWidth*: INTEGER;
@@ -9875,7 +9875,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrNONCLIENTMETRICSW* = POINTER TO NONCLIENTMETRICSW;
 		NONCLIENTMETRICS* = NONCLIENTMETRICSA;
 		PtrNONCLIENTMETRICS* = PtrNONCLIENTMETRICSA;
-		MINIMIZEDMETRICS* = RECORD [untagged]
+		MINIMIZEDMETRICS* = RECORD [1]
 			cbSize*: INTEGER;
 			iWidth*: INTEGER;
 			iHorzGap*: INTEGER;
@@ -9883,7 +9883,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			iArrange*: INTEGER;
 		END;
 		PtrMINIMIZEDMETRICS* = POINTER TO MINIMIZEDMETRICS;
-		ICONMETRICSA* = RECORD [untagged]
+		ICONMETRICSA* = RECORD [1]
 			cbSize*: INTEGER;
 			iHorzSpacing*: INTEGER;
 			iVertSpacing*: INTEGER;
@@ -9891,7 +9891,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lfFont*: LOGFONTA;
 		END;
 		PtrICONMETRICSA* = POINTER TO ICONMETRICSA;
-		ICONMETRICSW* = RECORD [untagged]
+		ICONMETRICSW* = RECORD [1]
 			cbSize*: INTEGER;
 			iHorzSpacing*: INTEGER;
 			iVertSpacing*: INTEGER;
@@ -9901,12 +9901,12 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrICONMETRICSW* = POINTER TO ICONMETRICSW;
 		ICONMETRICS* = ICONMETRICSA;
 		PtrICONMETRICS* = PtrICONMETRICSA;
-		ANIMATIONINFO* = RECORD [untagged]
+		ANIMATIONINFO* = RECORD [1]
 			cbSize*: INTEGER;
 			iMinAnimate*: INTEGER;
 		END;
 		PtrANIMATIONINFO* = POINTER TO ANIMATIONINFO;
-		SERIALKEYSA* = RECORD [untagged]
+		SERIALKEYSA* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			lpszActivePort*: PtrSTR;
@@ -9916,7 +9916,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			iActive*: INTEGER;
 		END;
 		PtrSERIALKEYSA* = POINTER TO SERIALKEYSA;
-		SERIALKEYSW* = RECORD [untagged]
+		SERIALKEYSW* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			lpszActivePort*: PtrWSTR;
@@ -9928,13 +9928,13 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrSERIALKEYSW* = POINTER TO SERIALKEYSW;
 		SERIALKEYS* = SERIALKEYSA;
 		PtrSERIALKEYS* = PtrSERIALKEYSA;
-		HIGHCONTRASTA* = RECORD [untagged]
+		HIGHCONTRASTA* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			lpszDefaultScheme*: PtrSTR;
 		END;
 		PtrHIGHCONTRASTA* = POINTER TO HIGHCONTRASTA;
-		HIGHCONTRASTW* = RECORD [untagged]
+		HIGHCONTRASTW* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			lpszDefaultScheme*: PtrWSTR;
@@ -9942,7 +9942,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrHIGHCONTRASTW* = POINTER TO HIGHCONTRASTW;
 		HIGHCONTRAST* = HIGHCONTRASTA;
 		PtrHIGHCONTRAST* = PtrHIGHCONTRASTA;
-		FILTERKEYS* = RECORD [untagged]
+		FILTERKEYS* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			iWaitMSec*: INTEGER;
@@ -9951,12 +9951,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			iBounceMSec*: INTEGER;
 		END;
 		PtrFILTERKEYS* = POINTER TO FILTERKEYS;
-		STICKYKEYS* = RECORD [untagged]
+		STICKYKEYS* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 		END;
 		PtrSTICKYKEYS* = POINTER TO STICKYKEYS;
-		MOUSEKEYS* = RECORD [untagged]
+		MOUSEKEYS* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			iMaxSpeed*: INTEGER;
@@ -9966,13 +9966,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwReserved2*: INTEGER;
 		END;
 		PtrMOUSEKEYS* = POINTER TO MOUSEKEYS;
-		ACCESSTIMEOUT* = RECORD [untagged]
+		ACCESSTIMEOUT* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			iTimeOutMSec*: INTEGER;
 		END;
 		PtrACCESSTIMEOUT* = POINTER TO ACCESSTIMEOUT;
-		SOUNDSENTRYA* = RECORD [untagged]
+		SOUNDSENTRYA* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			iFSTextEffect*: INTEGER;
@@ -9987,7 +9987,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			iWindowsEffectOrdinal*: INTEGER;
 		END;
 		PtrSOUNDSENTRYA* = POINTER TO SOUNDSENTRYA;
-		SOUNDSENTRYW* = RECORD [untagged]
+		SOUNDSENTRYW* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 			iFSTextEffect*: INTEGER;
@@ -10004,7 +10004,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrSOUNDSENTRYW* = POINTER TO SOUNDSENTRYW;
 		SOUNDSENTRY* = SOUNDSENTRYA;
 		PtrSOUNDSENTRY* = PtrSOUNDSENTRYA;
-		TOGGLEKEYS* = RECORD [untagged]
+		TOGGLEKEYS* = RECORD [1]
 			cbSize*: INTEGER;
 			dwFlags*: SET;
 		END;
@@ -10012,13 +10012,13 @@ MODULE WinApi ["KERNEL32.dll"];
 		LCTYPE* = INTEGER;
 		CALTYPE* = INTEGER;
 		CALID* = INTEGER;
-		CPINFO* = RECORD [untagged]
+		CPINFO* = RECORD [1]
 			MaxCharSize*: INTEGER;
-			DefaultChar*: ARRAY [untagged] 2 OF SHORTCHAR;
-			LeadByte*: ARRAY [untagged] 12 OF SHORTCHAR;
+			DefaultChar*: ARRAY [1] 2 OF SHORTCHAR;
+			LeadByte*: ARRAY [1] 12 OF SHORTCHAR;
 		END;
 		PtrCPINFO* = POINTER TO CPINFO;
-		NUMBERFMTA* = RECORD [untagged]
+		NUMBERFMTA* = RECORD [1]
 			NumDigits*: INTEGER;
 			LeadingZero*: INTEGER;
 			Grouping*: INTEGER;
@@ -10027,7 +10027,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			NegativeOrder*: INTEGER;
 		END;
 		PtrNUMBERFMTA* = POINTER TO NUMBERFMTA;
-		NUMBERFMTW* = RECORD [untagged]
+		NUMBERFMTW* = RECORD [1]
 			NumDigits*: INTEGER;
 			LeadingZero*: INTEGER;
 			Grouping*: INTEGER;
@@ -10038,7 +10038,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrNUMBERFMTW* = POINTER TO NUMBERFMTW;
 		NUMBERFMT* = NUMBERFMTA;
 		PtrNUMBERFMT* = PtrNUMBERFMTA;
-		CURRENCYFMTA* = RECORD [untagged]
+		CURRENCYFMTA* = RECORD [1]
 			NumDigits*: INTEGER;
 			LeadingZero*: INTEGER;
 			Grouping*: INTEGER;
@@ -10049,7 +10049,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lpCurrencySymbol*: PtrSTR;
 		END;
 		PtrCURRENCYFMTA* = POINTER TO CURRENCYFMTA;
-		CURRENCYFMTW* = RECORD [untagged]
+		CURRENCYFMTW* = RECORD [1]
 			NumDigits*: INTEGER;
 			LeadingZero*: INTEGER;
 			Grouping*: INTEGER;
@@ -10072,19 +10072,19 @@ MODULE WinApi ["KERNEL32.dll"];
 		DATEFMT_ENUMPROCW* = PROCEDURE (): INTEGER;
 		TIMEFMT_ENUMPROCW* = PROCEDURE (): INTEGER;
 		CALINFO_ENUMPROCW* = PROCEDURE (): INTEGER;
-		COORD* = RECORD [untagged]
+		COORD* = RECORD [1]
 			X*: SHORTINT;
 			Y*: SHORTINT;
 		END;
 		PtrCOORD* = POINTER TO COORD;
-		SMALL_RECT* = RECORD [untagged]
+		SMALL_RECT* = RECORD [1]
 			Left*: SHORTINT;
 			Top*: SHORTINT;
 			Right*: SHORTINT;
 			Bottom*: SHORTINT;
 		END;
 		PtrSMALL_RECT* = POINTER TO SMALL_RECT;
-		KEY_EVENT_RECORD* = RECORD [untagged]
+		KEY_EVENT_RECORD* = RECORD [1]
 			bKeyDown*: BOOL;
 			wRepeatCount*: SHORTINT;
 			wVirtualKeyCode*: SHORTINT;
@@ -10096,26 +10096,26 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwControlKeyState*: SET;
 		END;
 		PtrKEY_EVENT_RECORD* = POINTER TO KEY_EVENT_RECORD;
-		MOUSE_EVENT_RECORD* = RECORD [untagged]
+		MOUSE_EVENT_RECORD* = RECORD [1]
 			dwMousePosition*: COORD;
 			dwButtonState*: SET;
 			dwControlKeyState*: SET;
 			dwEventFlags*: SET;
 		END;
 		PtrMOUSE_EVENT_RECORD* = POINTER TO MOUSE_EVENT_RECORD;
-		WINDOW_BUFFER_SIZE_RECORD* = RECORD [untagged]
+		WINDOW_BUFFER_SIZE_RECORD* = RECORD [1]
 			dwSize*: COORD;
 		END;
 		PtrWINDOW_BUFFER_SIZE_RECORD* = POINTER TO WINDOW_BUFFER_SIZE_RECORD;
-		MENU_EVENT_RECORD* = RECORD [untagged]
+		MENU_EVENT_RECORD* = RECORD [1]
 			dwCommandId*: INTEGER;
 		END;
 		PtrMENU_EVENT_RECORD* = POINTER TO MENU_EVENT_RECORD;
-		FOCUS_EVENT_RECORD* = RECORD [untagged]
+		FOCUS_EVENT_RECORD* = RECORD [1]
 			bSetFocus*: BOOL;
 		END;
 		PtrFOCUS_EVENT_RECORD* = POINTER TO FOCUS_EVENT_RECORD;
-		INPUT_RECORD* = RECORD [untagged]
+		INPUT_RECORD* = RECORD [1]
 			EventType*: SHORTINT;
 			Event*: RECORD [union]
 				KeyEvent*: KEY_EVENT_RECORD;
@@ -10126,7 +10126,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			END;
 		END;
 		PtrINPUT_RECORD* = POINTER TO INPUT_RECORD;
-		CHAR_INFO* = RECORD [untagged]
+		CHAR_INFO* = RECORD [1]
 			Char*: RECORD [union]
 				UnicodeChar*: CHAR;
 				AsciiChar*: SHORTCHAR;
@@ -10134,7 +10134,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			Attributes*: SHORTINT;
 		END;
 		PtrCHAR_INFO* = POINTER TO CHAR_INFO;
-		CONSOLE_SCREEN_BUFFER_INFO* = RECORD [untagged]
+		CONSOLE_SCREEN_BUFFER_INFO* = RECORD [1]
 			dwSize*: COORD;
 			dwCursorPosition*: COORD;
 			wAttributes*: SHORTINT;
@@ -10142,13 +10142,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwMaximumWindowSize*: COORD;
 		END;
 		PtrCONSOLE_SCREEN_BUFFER_INFO* = POINTER TO CONSOLE_SCREEN_BUFFER_INFO;
-		CONSOLE_CURSOR_INFO* = RECORD [untagged]
+		CONSOLE_CURSOR_INFO* = RECORD [1]
 			dwSize*: INTEGER;
 			bVisible*: BOOL;
 		END;
 		PtrCONSOLE_CURSOR_INFO* = POINTER TO CONSOLE_CURSOR_INFO;
 		HANDLER_ROUTINE* = PROCEDURE (CtrlType: INTEGER): BOOL;
-		VS_FIXEDFILEINFO* = RECORD [untagged]
+		VS_FIXEDFILEINFO* = RECORD [1]
 			dwSignature*: INTEGER;
 			dwStrucVersion*: INTEGER;
 			dwFileVersionMS*: INTEGER;
@@ -10165,20 +10165,20 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		REGSAM* = ACCESS_MASK;
 		HKEY* = HANDLE;
-		val_context* = RECORD [untagged]
+		val_context* = RECORD [1]
 			valuelen*: INTEGER;
 			value_context*: PtrVoid;
 			val_buff_ptr*: PtrVoid;
 		END;
 		Ptrval_context* = POINTER TO val_context;
-		PVALUEA* = RECORD [untagged]
+		PVALUEA* = RECORD [1]
 			pv_valuename*: PtrSTR;
 			pv_valuelen*: INTEGER;
 			pv_value_context*: PtrVoid;
 			pv_type*: INTEGER;
 		END;
 		PtrPVALUEA* = POINTER TO PVALUEA;
-		PVALUEW* = RECORD [untagged]
+		PVALUEW* = RECORD [1]
 			pv_valuename*: PtrWSTR;
 			pv_valuelen*: INTEGER;
 			pv_value_context*: PtrVoid;
@@ -10188,7 +10188,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PVALUE* = PVALUEA;
 		PtrPVALUE* = PtrPVALUEA;
 		QUERYHANDLER* = PROCEDURE(keycontext: PtrVoid; VAR [nil] val_list: val_context; num_vals: INTEGER; outputbuffer: PtrVoid; VAR [nil] total_outlen: INTEGER; input_blen: INTEGER): INTEGER;
-		REG_PROVIDER* = RECORD [untagged]
+		REG_PROVIDER* = RECORD [1]
 			pi_R0_1val*: QUERYHANDLER;
 			pi_R0_allvals*: QUERYHANDLER;
 			pi_R3_1val*: QUERYHANDLER;
@@ -10197,14 +10197,14 @@ MODULE WinApi ["KERNEL32.dll"];
 			pi_key_context*: PtrVoid;
 		END;
 		PtrREG_PROVIDER* = POINTER TO REG_PROVIDER;
-		VALENTA* = RECORD [untagged]
+		VALENTA* = RECORD [1]
 			ve_valuename*: PtrSTR;
 			ve_valuelen*: INTEGER;
 			ve_valueptr*: INTEGER;
 			ve_type*: INTEGER;
 		END;
 		PtrVALENTA* = POINTER TO VALENTA;
-		VALENTW* = RECORD [untagged]
+		VALENTW* = RECORD [1]
 			ve_valuename*: PtrWSTR;
 			ve_valuelen*: INTEGER;
 			ve_valueptr*: INTEGER;
@@ -10213,21 +10213,21 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrVALENTW* = POINTER TO VALENTW;
 		VALENT* = VALENTA;
 		PtrVALENT* = PtrVALENTA;
-		DDEACK* = RECORD [untagged]
+		DDEACK* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* bAppReturnCode*: INTEGER; (8 bits) *)
 			(* reserved*: INTEGER; (6 bits) *)
 			(* fBusy*: INTEGER; (1 bits) *)
 			(* fAck*: INTEGER; (1 bits) *)
 		END;
-		DDEADVISE* = RECORD [untagged]
+		DDEADVISE* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* reserved*: INTEGER; (14 bits) *)
 			(* fDeferUpd*: INTEGER; (1 bits) *)
 			(* fAckReq*: INTEGER; (1 bits) *)
 			cfFormat*: SHORTINT;
 		END;
-		DDEDATA* = RECORD [untagged]
+		DDEDATA* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* unused*: INTEGER; (12 bits) *)
 			(* fResponse*: INTEGER; (1 bits) *)
@@ -10235,17 +10235,17 @@ MODULE WinApi ["KERNEL32.dll"];
 			(* reserved*: INTEGER; (1 bits) *)
 			(* fAckReq*: INTEGER; (1 bits) *)
 			cfFormat*: SHORTINT;
-			Value*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Value*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
-		DDEPOKE* = RECORD [untagged]
+		DDEPOKE* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* unused*: INTEGER; (13 bits) *)
 			(* fRelease*: INTEGER; (1 bits) *)
 			(* fReserved*: INTEGER; (2 bits) *)
 			cfFormat*: SHORTINT;
-			Value*: ARRAY [untagged] 1 OF SHORTCHAR;
+			Value*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
-		DDELN* = RECORD [untagged]
+		DDELN* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* unused*: INTEGER; (13 bits) *)
 			(* fRelease*: INTEGER; (1 bits) *)
@@ -10253,7 +10253,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			(* fAckReq*: INTEGER; (1 bits) *)
 			cfFormat*: SHORTINT;
 		END;
-		DDEUP* = RECORD [untagged]
+		DDEUP* = RECORD [1]
 			fBits0*: SHORTINT;
 			(* unused*: INTEGER; (12 bits) *)
 			(* fAck*: INTEGER; (1 bits) *)
@@ -10261,18 +10261,18 @@ MODULE WinApi ["KERNEL32.dll"];
 			(* fReserved*: INTEGER; (1 bits) *)
 			(* fAckReq*: INTEGER; (1 bits) *)
 			cfFormat*: SHORTINT;
-			rgb*: ARRAY [untagged] 1 OF SHORTCHAR;
+			rgb*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		HCONVLIST* = HANDLE;
 		HCONV* = HANDLE;
 		HSZ* = HANDLE;
 		HDDEDATA* = HANDLE;
-		HSZPAIR* = RECORD [untagged]
+		HSZPAIR* = RECORD [1]
 			hszSvc*: HSZ;
 			hszTopic*: HSZ;
 		END;
 		PtrHSZPAIR* = POINTER TO HSZPAIR;
-		CONVCONTEXT* = RECORD [untagged]
+		CONVCONTEXT* = RECORD [1]
 			cb*: INTEGER;
 			wFlags*: INTEGER;
 			wCountryID*: INTEGER;
@@ -10282,7 +10282,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			qos*: SECURITY_QUALITY_OF_SERVICE;
 		END;
 		PtrCONVCONTEXT* = POINTER TO CONVCONTEXT;
-		CONVINFO* = RECORD [untagged]
+		CONVINFO* = RECORD [1]
 			cb*: INTEGER;
 			hUser*: INTEGER;
 			hConvPartner*: HCONV;
@@ -10302,14 +10302,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		END;
 		PtrCONVINFO* = POINTER TO CONVINFO;
 		FNCALLBACK* = PROCEDURE (wType: INTEGER; wFmt: INTEGER; hConv: HCONV; hsz1: HSZ; hsz2: HSZ; hData: HDDEDATA; dwData1: INTEGER; dwData2: INTEGER): HDDEDATA;
-		DDEML_MSG_HOOK_DATA* = RECORD [untagged]
+		DDEML_MSG_HOOK_DATA* = RECORD [1]
 			uiLo*: INTEGER;
 			uiHi*: INTEGER;
 			cbData*: INTEGER;
-			Data*: ARRAY [untagged] 8 OF INTEGER;
+			Data*: ARRAY [1] 8 OF INTEGER;
 		END;
 		PtrDDEML_MSG_HOOK_DATA* = POINTER TO DDEML_MSG_HOOK_DATA;
-		MONMSGSTRUCT* = RECORD [untagged]
+		MONMSGSTRUCT* = RECORD [1]
 			cb*: INTEGER;
 			hwndTo*: HWND;
 			dwTime*: INTEGER;
@@ -10320,7 +10320,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			dmhd*: DDEML_MSG_HOOK_DATA;
 		END;
 		PtrMONMSGSTRUCT* = POINTER TO MONMSGSTRUCT;
-		MONCBSTRUCT* = RECORD [untagged]
+		MONCBSTRUCT* = RECORD [1]
 			cb*: INTEGER;
 			dwTime*: INTEGER;
 			hTask*: HANDLE;
@@ -10335,37 +10335,37 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwData2*: INTEGER;
 			cc*: CONVCONTEXT;
 			cbData*: INTEGER;
-			Data*: ARRAY [untagged] 8 OF INTEGER;
+			Data*: ARRAY [1] 8 OF INTEGER;
 		END;
 		PtrMONCBSTRUCT* = POINTER TO MONCBSTRUCT;
-		MONHSZSTRUCTA* = RECORD [untagged]
+		MONHSZSTRUCTA* = RECORD [1]
 			cb*: INTEGER;
 			fsAction*: BOOL;
 			dwTime*: INTEGER;
 			hsz*: HSZ;
 			hTask*: HANDLE;
-			str*: ARRAY [untagged] 1 OF SHORTCHAR;
+			str*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMONHSZSTRUCTA* = POINTER TO MONHSZSTRUCTA;
-		MONHSZSTRUCTW* = RECORD [untagged]
+		MONHSZSTRUCTW* = RECORD [1]
 			cb*: INTEGER;
 			fsAction*: BOOL;
 			dwTime*: INTEGER;
 			hsz*: HSZ;
 			hTask*: HANDLE;
-			str*: ARRAY [untagged] 1 OF CHAR;
+			str*: ARRAY [1] 1 OF CHAR;
 		END;
 		PtrMONHSZSTRUCTW* = POINTER TO MONHSZSTRUCTW;
 		MONHSZSTRUCT* = MONHSZSTRUCTA;
 		PtrMONHSZSTRUCT* = PtrMONHSZSTRUCTA;
-		MONERRSTRUCT* = RECORD [untagged]
+		MONERRSTRUCT* = RECORD [1]
 			cb*: INTEGER;
 			wLastError*: INTEGER;
 			dwTime*: INTEGER;
 			hTask*: HANDLE;
 		END;
 		PtrMONERRSTRUCT* = POINTER TO MONERRSTRUCT;
-		MONLINKSTRUCT* = RECORD [untagged]
+		MONLINKSTRUCT* = RECORD [1]
 			cb*: INTEGER;
 			dwTime*: INTEGER;
 			hTask*: HANDLE;
@@ -10380,7 +10380,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			hConvClient*: HCONV;
 		END;
 		PtrMONLINKSTRUCT* = POINTER TO MONLINKSTRUCT;
-		MONCONVSTRUCT* = RECORD [untagged]
+		MONCONVSTRUCT* = RECORD [1]
 			cb*: INTEGER;
 			fConnect*: BOOL;
 			dwTime*: INTEGER;
@@ -10506,7 +10506,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			uFlags*: SET;
 			uCallbackMessage*: INTEGER;
 			hIcon*: HICON;
-			szTip*: ARRAY [untagged] 64 OF SHORTCHAR;
+			szTip*: ARRAY [1] 64 OF SHORTCHAR;
 		END;
 		PtrNOTIFYICONDATAA* = POINTER TO NOTIFYICONDATAA;
 		NOTIFYICONDATAW* = RECORD [noalign]
@@ -10516,7 +10516,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			uFlags*: SET;
 			uCallbackMessage*: INTEGER;
 			hIcon*: HICON;
-			szTip*: ARRAY [untagged] 64 OF CHAR;
+			szTip*: ARRAY [1] 64 OF CHAR;
 		END;
 		PtrNOTIFYICONDATAW* = POINTER TO NOTIFYICONDATAW;
 		NOTIFYICONDATA* = NOTIFYICONDATAA;
@@ -10525,16 +10525,16 @@ MODULE WinApi ["KERNEL32.dll"];
 			hIcon*: HICON;
 			iIcon*: INTEGER;
 			dwAttributes*: SET;
-			szDisplayName*: ARRAY [untagged] 260 OF SHORTCHAR;
-			szTypeName*: ARRAY [untagged] 80 OF SHORTCHAR;
+			szDisplayName*: ARRAY [1] 260 OF SHORTCHAR;
+			szTypeName*: ARRAY [1] 80 OF SHORTCHAR;
 		END;
 		PtrSHFILEINFOA* = POINTER TO SHFILEINFOA;
 		SHFILEINFOW* = RECORD [noalign]
 			hIcon*: HICON;
 			iIcon*: INTEGER;
 			dwAttributes*: SET;
-			szDisplayName*: ARRAY [untagged] 260 OF CHAR;
-			szTypeName*: ARRAY [untagged] 80 OF CHAR;
+			szDisplayName*: ARRAY [1] 260 OF CHAR;
+			szTypeName*: ARRAY [1] 80 OF CHAR;
 		END;
 		PtrSHFILEINFOW* = POINTER TO SHFILEINFOW;
 		SHFILEINFO* = SHFILEINFOA;
@@ -10543,7 +10543,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		FNPSPCALLBACKA* = PROCEDURE (hwnd: HWND; uMsg: INTEGER; ppsp: PtrPROPSHEETPAGEA): INTEGER;
 		PtrPROPSHEETPAGEW* = POINTER TO PROPSHEETPAGEW;
 		FNPSPCALLBACKW* = PROCEDURE (hwnd: HWND; uMsg: INTEGER; ppsp: PtrPROPSHEETPAGEW): INTEGER;
-		PROPSHEETPAGEA* = RECORD [untagged]
+		PROPSHEETPAGEA* = RECORD [1]
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hInstance*: HINSTANCE;
@@ -10559,9 +10559,9 @@ MODULE WinApi ["KERNEL32.dll"];
 			pfnDlgProc*: DLGPROC;
 			lParam*: LPARAM;
 			pfnCallback*: FNPSPCALLBACKA;
-			pcRefParent*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			pcRefParent*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 		END;
-		PROPSHEETPAGEW* = RECORD [untagged]
+		PROPSHEETPAGEW* = RECORD [1]
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hInstance*: HINSTANCE;
@@ -10577,14 +10577,14 @@ MODULE WinApi ["KERNEL32.dll"];
 			pfnDlgProc*: DLGPROC;
 			lParam*: LPARAM;
 			pfnCallback*: FNPSPCALLBACKW;
-			pcRefParent*: POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
+			pcRefParent*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
 		END;
 		PROPSHEETPAGE* = PROPSHEETPAGEA; (*m*)
 		PtrPROPSHEETPAGE* = PtrPROPSHEETPAGEA;
 		FNPROPSHEETCALLBACK* = PROCEDURE (p0: HWND; p1: INTEGER; p2: LPARAM): INTEGER;
-		_PSP* = RECORD [untagged] (*i*) END; 
+		_PSP* = RECORD [1] (*i*) END; 
 		Ptr_PSP* = POINTER TO _PSP;
-		PROPSHEETHEADERA* = RECORD [untagged]
+		PROPSHEETHEADERA* = RECORD [1]
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hwndParent*: HWND;
@@ -10601,12 +10601,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			END;
 			u2*: RECORD [union]
 				ppsp*: PtrPROPSHEETPAGEA;
-				phpage*: POINTER TO (*?*) ARRAY [untagged] OF Ptr_PSP;
+				phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;
 			END;
 			pfnCallback*: FNPROPSHEETCALLBACK;
 		END;
 		PtrPROPSHEETHEADERA* = POINTER TO PROPSHEETHEADERA;
-		PROPSHEETHEADERW* = RECORD [untagged]
+		PROPSHEETHEADERW* = RECORD [1]
 			dwSize*: INTEGER;
 			dwFlags*: SET;
 			hwndParent*: HWND;
@@ -10623,7 +10623,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			END;
 			u2*: RECORD [union]
 				ppsp*: PtrPROPSHEETPAGEW;
-				phpage*: POINTER TO (*?*) ARRAY [untagged] OF Ptr_PSP;
+				phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;
 			END;
 			pfnCallback*: FNPROPSHEETCALLBACK;
 		END;
@@ -10632,19 +10632,19 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPROPSHEETHEADER* = PtrPROPSHEETHEADERA;
 		FNADDPROPSHEETPAGE* = PROCEDURE (p0: Ptr_PSP; p1: LPARAM): BOOL;
 		FNADDPROPSHEETPAGES* = PROCEDURE (p0: PtrVoid; p1: FNADDPROPSHEETPAGE; p2: LPARAM): BOOL;
-		PSHNOTIFY* = RECORD [untagged]
+		PSHNOTIFY* = RECORD [1]
 			hdr*: NMHDR;
 			lParam*: LPARAM;
 		END;
 		PtrPSHNOTIFY* = POINTER TO PSHNOTIFY;
-		PRINTER_INFO_1A* = RECORD [untagged]
+		PRINTER_INFO_1A* = RECORD [1]
 			Flags*: SET;
 			pDescription*: PtrSTR;
 			pName*: PtrSTR;
 			pComment*: PtrSTR;
 		END;
 		PtrPRINTER_INFO_1A* = POINTER TO PRINTER_INFO_1A;
-		PRINTER_INFO_1W* = RECORD [untagged]
+		PRINTER_INFO_1W* = RECORD [1]
 			Flags*: SET;
 			pDescription*: PtrWSTR;
 			pName*: PtrWSTR;
@@ -10653,7 +10653,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPRINTER_INFO_1W* = POINTER TO PRINTER_INFO_1W;
 		PRINTER_INFO_1* = PRINTER_INFO_1A;
 		PtrPRINTER_INFO_1* = PtrPRINTER_INFO_1A;
-		PRINTER_INFO_2A* = RECORD [untagged]
+		PRINTER_INFO_2A* = RECORD [1]
 			pServerName*: PtrSTR;
 			pPrinterName*: PtrSTR;
 			pShareName*: PtrSTR;
@@ -10677,7 +10677,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			AveragePPM*: INTEGER;
 		END;
 		PtrPRINTER_INFO_2A* = POINTER TO PRINTER_INFO_2A;
-		PRINTER_INFO_2W* = RECORD [untagged]
+		PRINTER_INFO_2W* = RECORD [1]
 			pServerName*: PtrWSTR;
 			pPrinterName*: PtrWSTR;
 			pShareName*: PtrWSTR;
@@ -10703,17 +10703,17 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPRINTER_INFO_2W* = POINTER TO PRINTER_INFO_2W;
 		PRINTER_INFO_2* = PRINTER_INFO_2A;
 		PtrPRINTER_INFO_2* = PtrPRINTER_INFO_2A;
-		PRINTER_INFO_3* = RECORD [untagged]
+		PRINTER_INFO_3* = RECORD [1]
 			pSecurityDescriptor*: PSECURITY_DESCRIPTOR;
 		END;
 		PtrPRINTER_INFO_3* = POINTER TO PRINTER_INFO_3;
-		PRINTER_INFO_4A* = RECORD [untagged]
+		PRINTER_INFO_4A* = RECORD [1]
 			pPrinterName*: PtrSTR;
 			pServerName*: PtrSTR;
 			Attributes*: SET;
 		END;
 		PtrPRINTER_INFO_4A* = POINTER TO PRINTER_INFO_4A;
-		PRINTER_INFO_4W* = RECORD [untagged]
+		PRINTER_INFO_4W* = RECORD [1]
 			pPrinterName*: PtrWSTR;
 			pServerName*: PtrWSTR;
 			Attributes*: SET;
@@ -10721,7 +10721,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPRINTER_INFO_4W* = POINTER TO PRINTER_INFO_4W;
 		PRINTER_INFO_4* = PRINTER_INFO_4A;
 		PtrPRINTER_INFO_4* = PtrPRINTER_INFO_4A;
-		PRINTER_INFO_5A* = RECORD [untagged]
+		PRINTER_INFO_5A* = RECORD [1]
 			pPrinterName*: PtrSTR;
 			pPortName*: PtrSTR;
 			Attributes*: SET;
@@ -10729,7 +10729,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			TransmissionRetryTimeout*: INTEGER;
 		END;
 		PtrPRINTER_INFO_5A* = POINTER TO PRINTER_INFO_5A;
-		PRINTER_INFO_5W* = RECORD [untagged]
+		PRINTER_INFO_5W* = RECORD [1]
 			pPrinterName*: PtrWSTR;
 			pPortName*: PtrWSTR;
 			Attributes*: SET;
@@ -10739,11 +10739,11 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPRINTER_INFO_5W* = POINTER TO PRINTER_INFO_5W;
 		PRINTER_INFO_5* = PRINTER_INFO_5A;
 		PtrPRINTER_INFO_5* = PtrPRINTER_INFO_5A;
-		PRINTER_INFO_6* = RECORD [untagged]
+		PRINTER_INFO_6* = RECORD [1]
 			dwStatus*: SET;
 		END;
 		PtrPRINTER_INFO_6* = POINTER TO PRINTER_INFO_6;
-		JOB_INFO_1A* = RECORD [untagged]
+		JOB_INFO_1A* = RECORD [1]
 			JobId*: INTEGER;
 			pPrinterName*: PtrSTR;
 			pMachineName*: PtrSTR;
@@ -10759,7 +10759,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			Submitted*: SYSTEMTIME;
 		END;
 		PtrJOB_INFO_1A* = POINTER TO JOB_INFO_1A;
-		JOB_INFO_1W* = RECORD [untagged]
+		JOB_INFO_1W* = RECORD [1]
 			JobId*: INTEGER;
 			pPrinterName*: PtrWSTR;
 			pMachineName*: PtrWSTR;
@@ -10777,7 +10777,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrJOB_INFO_1W* = POINTER TO JOB_INFO_1W;
 		JOB_INFO_1* = JOB_INFO_1A;
 		PtrJOB_INFO_1* = PtrJOB_INFO_1A;
-		JOB_INFO_2A* = RECORD [untagged]
+		JOB_INFO_2A* = RECORD [1]
 			JobId*: INTEGER;
 			pPrinterName*: PtrSTR;
 			pMachineName*: PtrSTR;
@@ -10803,7 +10803,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			PagesPrinted*: INTEGER;
 		END;
 		PtrJOB_INFO_2A* = POINTER TO JOB_INFO_2A;
-		JOB_INFO_2W* = RECORD [untagged]
+		JOB_INFO_2W* = RECORD [1]
 			JobId*: INTEGER;
 			pPrinterName*: PtrWSTR;
 			pMachineName*: PtrWSTR;
@@ -10831,29 +10831,29 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrJOB_INFO_2W* = POINTER TO JOB_INFO_2W;
 		JOB_INFO_2* = JOB_INFO_2A;
 		PtrJOB_INFO_2* = PtrJOB_INFO_2A;
-		ADDJOB_INFO_1A* = RECORD [untagged]
+		ADDJOB_INFO_1A* = RECORD [1]
 			Path*: PtrSTR;
 			JobId*: INTEGER;
 		END;
 		PtrADDJOB_INFO_1A* = POINTER TO ADDJOB_INFO_1A;
-		ADDJOB_INFO_1W* = RECORD [untagged]
+		ADDJOB_INFO_1W* = RECORD [1]
 			Path*: PtrWSTR;
 			JobId*: INTEGER;
 		END;
 		PtrADDJOB_INFO_1W* = POINTER TO ADDJOB_INFO_1W;
 		ADDJOB_INFO_1* = ADDJOB_INFO_1A;
 		PtrADDJOB_INFO_1* = PtrADDJOB_INFO_1A;
-		DRIVER_INFO_1A* = RECORD [untagged]
+		DRIVER_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 		END;
 		PtrDRIVER_INFO_1A* = POINTER TO DRIVER_INFO_1A;
-		DRIVER_INFO_1W* = RECORD [untagged]
+		DRIVER_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 		END;
 		PtrDRIVER_INFO_1W* = POINTER TO DRIVER_INFO_1W;
 		DRIVER_INFO_1* = DRIVER_INFO_1A;
 		PtrDRIVER_INFO_1* = PtrDRIVER_INFO_1A;
-		DRIVER_INFO_2A* = RECORD [untagged]
+		DRIVER_INFO_2A* = RECORD [1]
 			cVersion*: INTEGER;
 			pName*: PtrSTR;
 			pEnvironment*: PtrSTR;
@@ -10862,7 +10862,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			pConfigFile*: PtrSTR;
 		END;
 		PtrDRIVER_INFO_2A* = POINTER TO DRIVER_INFO_2A;
-		DRIVER_INFO_2W* = RECORD [untagged]
+		DRIVER_INFO_2W* = RECORD [1]
 			cVersion*: INTEGER;
 			pName*: PtrWSTR;
 			pEnvironment*: PtrWSTR;
@@ -10873,7 +10873,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDRIVER_INFO_2W* = POINTER TO DRIVER_INFO_2W;
 		DRIVER_INFO_2* = DRIVER_INFO_2A;
 		PtrDRIVER_INFO_2* = PtrDRIVER_INFO_2A;
-		DRIVER_INFO_3A* = RECORD [untagged]
+		DRIVER_INFO_3A* = RECORD [1]
 			cVersion*: INTEGER;
 			pName*: PtrSTR;
 			pEnvironment*: PtrSTR;
@@ -10886,7 +10886,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			pDefaultDataType*: PtrSTR;
 		END;
 		PtrDRIVER_INFO_3A* = POINTER TO DRIVER_INFO_3A;
-		DRIVER_INFO_3W* = RECORD [untagged]
+		DRIVER_INFO_3W* = RECORD [1]
 			cVersion*: INTEGER;
 			pName*: PtrWSTR;
 			pEnvironment*: PtrWSTR;
@@ -10901,13 +10901,13 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDRIVER_INFO_3W* = POINTER TO DRIVER_INFO_3W;
 		DRIVER_INFO_3* = DRIVER_INFO_3A;
 		PtrDRIVER_INFO_3* = PtrDRIVER_INFO_3A;
-		DOC_INFO_1A* = RECORD [untagged]
+		DOC_INFO_1A* = RECORD [1]
 			pDocName*: PtrSTR;
 			pOutputFile*: PtrSTR;
 			pDatatype*: PtrSTR;
 		END;
 		PtrDOC_INFO_1A* = POINTER TO DOC_INFO_1A;
-		DOC_INFO_1W* = RECORD [untagged]
+		DOC_INFO_1W* = RECORD [1]
 			pDocName*: PtrWSTR;
 			pOutputFile*: PtrWSTR;
 			pDatatype*: PtrWSTR;
@@ -10915,14 +10915,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDOC_INFO_1W* = POINTER TO DOC_INFO_1W;
 		DOC_INFO_1* = DOC_INFO_1A;
 		PtrDOC_INFO_1* = PtrDOC_INFO_1A;
-		FORM_INFO_1A* = RECORD [untagged]
+		FORM_INFO_1A* = RECORD [1]
 			Flags*: SET;
 			pName*: PtrSTR;
 			Size*: SIZE;
 			ImageableArea*: RECT;
 		END;
 		PtrFORM_INFO_1A* = POINTER TO FORM_INFO_1A;
-		FORM_INFO_1W* = RECORD [untagged]
+		FORM_INFO_1W* = RECORD [1]
 			Flags*: SET;
 			pName*: PtrWSTR;
 			Size*: SIZE;
@@ -10931,7 +10931,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrFORM_INFO_1W* = POINTER TO FORM_INFO_1W;
 		FORM_INFO_1* = FORM_INFO_1A;
 		PtrFORM_INFO_1* = PtrFORM_INFO_1A;
-		DOC_INFO_2A* = RECORD [untagged]
+		DOC_INFO_2A* = RECORD [1]
 			pDocName*: PtrSTR;
 			pOutputFile*: PtrSTR;
 			pDatatype*: PtrSTR;
@@ -10939,7 +10939,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			JobId*: INTEGER;
 		END;
 		PtrDOC_INFO_2A* = POINTER TO DOC_INFO_2A;
-		DOC_INFO_2W* = RECORD [untagged]
+		DOC_INFO_2W* = RECORD [1]
 			pDocName*: PtrWSTR;
 			pOutputFile*: PtrWSTR;
 			pDatatype*: PtrWSTR;
@@ -10949,27 +10949,27 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrDOC_INFO_2W* = POINTER TO DOC_INFO_2W;
 		DOC_INFO_2* = DOC_INFO_2A;
 		PtrDOC_INFO_2* = PtrDOC_INFO_2A;
-		PRINTPROCESSOR_INFO_1A* = RECORD [untagged]
+		PRINTPROCESSOR_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 		END;
 		PtrPRINTPROCESSOR_INFO_1A* = POINTER TO PRINTPROCESSOR_INFO_1A;
-		PRINTPROCESSOR_INFO_1W* = RECORD [untagged]
+		PRINTPROCESSOR_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 		END;
 		PtrPRINTPROCESSOR_INFO_1W* = POINTER TO PRINTPROCESSOR_INFO_1W;
 		PRINTPROCESSOR_INFO_1* = PRINTPROCESSOR_INFO_1A;
 		PtrPRINTPROCESSOR_INFO_1* = PtrPRINTPROCESSOR_INFO_1A;
-		PORT_INFO_1A* = RECORD [untagged]
+		PORT_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 		END;
 		PtrPORT_INFO_1A* = POINTER TO PORT_INFO_1A;
-		PORT_INFO_1W* = RECORD [untagged]
+		PORT_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 		END;
 		PtrPORT_INFO_1W* = POINTER TO PORT_INFO_1W;
 		PORT_INFO_1* = PORT_INFO_1A;
 		PtrPORT_INFO_1* = PtrPORT_INFO_1A;
-		PORT_INFO_2A* = RECORD [untagged]
+		PORT_INFO_2A* = RECORD [1]
 			pPortName*: PtrSTR;
 			pMonitorName*: PtrSTR;
 			pDescription*: PtrSTR;
@@ -10977,7 +10977,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			Reserved*: INTEGER;
 		END;
 		PtrPORT_INFO_2A* = POINTER TO PORT_INFO_2A;
-		PORT_INFO_2W* = RECORD [untagged]
+		PORT_INFO_2W* = RECORD [1]
 			pPortName*: PtrWSTR;
 			pMonitorName*: PtrWSTR;
 			pDescription*: PtrWSTR;
@@ -10987,23 +10987,23 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPORT_INFO_2W* = POINTER TO PORT_INFO_2W;
 		PORT_INFO_2* = PORT_INFO_2A;
 		PtrPORT_INFO_2* = PtrPORT_INFO_2A;
-		MONITOR_INFO_1A* = RECORD [untagged]
+		MONITOR_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 		END;
 		PtrMONITOR_INFO_1A* = POINTER TO MONITOR_INFO_1A;
-		MONITOR_INFO_1W* = RECORD [untagged]
+		MONITOR_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 		END;
 		PtrMONITOR_INFO_1W* = POINTER TO MONITOR_INFO_1W;
 		MONITOR_INFO_1* = MONITOR_INFO_1A;
 		PtrMONITOR_INFO_1* = PtrMONITOR_INFO_1A;
-		MONITOR_INFO_2A* = RECORD [untagged]
+		MONITOR_INFO_2A* = RECORD [1]
 			pName*: PtrSTR;
 			pEnvironment*: PtrSTR;
 			pDLLName*: PtrSTR;
 		END;
 		PtrMONITOR_INFO_2A* = POINTER TO MONITOR_INFO_2A;
-		MONITOR_INFO_2W* = RECORD [untagged]
+		MONITOR_INFO_2W* = RECORD [1]
 			pName*: PtrWSTR;
 			pEnvironment*: PtrWSTR;
 			pDLLName*: PtrWSTR;
@@ -11011,23 +11011,23 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrMONITOR_INFO_2W* = POINTER TO MONITOR_INFO_2W;
 		MONITOR_INFO_2* = MONITOR_INFO_2A;
 		PtrMONITOR_INFO_2* = PtrMONITOR_INFO_2A;
-		DATATYPES_INFO_1A* = RECORD [untagged]
+		DATATYPES_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 		END;
 		PtrDATATYPES_INFO_1A* = POINTER TO DATATYPES_INFO_1A;
-		DATATYPES_INFO_1W* = RECORD [untagged]
+		DATATYPES_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 		END;
 		PtrDATATYPES_INFO_1W* = POINTER TO DATATYPES_INFO_1W;
 		DATATYPES_INFO_1* = DATATYPES_INFO_1A;
 		PtrDATATYPES_INFO_1* = PtrDATATYPES_INFO_1A;
-		PRINTER_DEFAULTSA* = RECORD [untagged]
+		PRINTER_DEFAULTSA* = RECORD [1]
 			pDatatype*: PtrSTR;
 			pDevMode*: PtrDEVMODEA;
 			DesiredAccess*: ACCESS_MASK;
 		END;
 		PtrPRINTER_DEFAULTSA* = POINTER TO PRINTER_DEFAULTSA;
-		PRINTER_DEFAULTSW* = RECORD [untagged]
+		PRINTER_DEFAULTSW* = RECORD [1]
 			pDatatype*: PtrWSTR;
 			pDevMode*: PtrDEVMODEW;
 			DesiredAccess*: ACCESS_MASK;
@@ -11035,50 +11035,50 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPRINTER_DEFAULTSW* = POINTER TO PRINTER_DEFAULTSW;
 		PRINTER_DEFAULTS* = PRINTER_DEFAULTSA;
 		PtrPRINTER_DEFAULTS* = PtrPRINTER_DEFAULTSA;
-		PRINTER_NOTIFY_OPTIONS_TYPE* = RECORD [untagged]
+		PRINTER_NOTIFY_OPTIONS_TYPE* = RECORD [1]
 			Type*: SHORTINT;
 			Reserved0*: SHORTINT;
 			Reserved1*: INTEGER;
 			Reserved2*: INTEGER;
 			Count*: INTEGER;
-			pFields*: POINTER TO (*?*) ARRAY [untagged] OF SHORTINT;
+			pFields*: POINTER TO (*?*) ARRAY [1] OF SHORTINT;
 		END;
 		PtrPRINTER_NOTIFY_OPTIONS_TYPE* = POINTER TO PRINTER_NOTIFY_OPTIONS_TYPE;
-		PRINTER_NOTIFY_OPTIONS* = RECORD [untagged]
+		PRINTER_NOTIFY_OPTIONS* = RECORD [1]
 			Version*: INTEGER;
 			Flags*: SET;
 			Count*: INTEGER;
 			pTypes*: PtrPRINTER_NOTIFY_OPTIONS_TYPE;
 		END;
 		PtrPRINTER_NOTIFY_OPTIONS* = POINTER TO PRINTER_NOTIFY_OPTIONS;
-		PRINTER_NOTIFY_INFO_DATA* = RECORD [untagged]
+		PRINTER_NOTIFY_INFO_DATA* = RECORD [1]
 			Type*: SHORTINT;
 			Field*: SHORTINT;
 			Reserved*: INTEGER;
 			Id*: INTEGER;
 			NotifyData*: RECORD [union]
-				adwData*: ARRAY [untagged] 2 OF INTEGER;
-				Data*: RECORD [untagged]
+				adwData*: ARRAY [1] 2 OF INTEGER;
+				Data*: RECORD [1]
 					cbBuf*: INTEGER;
 					pBuf*: PtrVoid;
 				END;
 			END;
 		END;
 		PtrPRINTER_NOTIFY_INFO_DATA* = POINTER TO PRINTER_NOTIFY_INFO_DATA;
-		PRINTER_NOTIFY_INFO* = RECORD [untagged]
+		PRINTER_NOTIFY_INFO* = RECORD [1]
 			Version*: INTEGER;
 			Flags*: SET;
 			Count*: INTEGER;
-			aData*: ARRAY [untagged] 1 OF PRINTER_NOTIFY_INFO_DATA;
+			aData*: ARRAY [1] 1 OF PRINTER_NOTIFY_INFO_DATA;
 		END;
 		PtrPRINTER_NOTIFY_INFO* = POINTER TO PRINTER_NOTIFY_INFO;
-		PROVIDOR_INFO_1A* = RECORD [untagged]
+		PROVIDOR_INFO_1A* = RECORD [1]
 			pName*: PtrSTR;
 			pEnvironment*: PtrSTR;
 			pDLLName*: PtrSTR;
 		END;
 		PtrPROVIDOR_INFO_1A* = POINTER TO PROVIDOR_INFO_1A;
-		PROVIDOR_INFO_1W* = RECORD [untagged]
+		PROVIDOR_INFO_1W* = RECORD [1]
 			pName*: PtrWSTR;
 			pEnvironment*: PtrWSTR;
 			pDLLName*: PtrWSTR;
@@ -11088,7 +11088,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrPROVIDOR_INFO_1* = PtrPROVIDOR_INFO_1A;
 		SC_HANDLE* = HANDLE;
 		SERVICE_STATUS_HANDLE* = INTEGER;
-		SERVICE_STATUS* = RECORD [untagged]
+		SERVICE_STATUS* = RECORD [1]
 			dwServiceType*: SET;
 			dwCurrentState*: INTEGER;
 			dwControlsAccepted*: INTEGER;
@@ -11098,13 +11098,13 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwWaitHint*: INTEGER;
 		END;
 		PtrSERVICE_STATUS* = POINTER TO SERVICE_STATUS;
-		ENUM_SERVICE_STATUSA* = RECORD [untagged]
+		ENUM_SERVICE_STATUSA* = RECORD [1]
 			lpServiceName*: PtrSTR;
 			lpDisplayName*: PtrSTR;
 			ServiceStatus*: SERVICE_STATUS;
 		END;
 		PtrENUM_SERVICE_STATUSA* = POINTER TO ENUM_SERVICE_STATUSA;
-		ENUM_SERVICE_STATUSW* = RECORD [untagged]
+		ENUM_SERVICE_STATUSW* = RECORD [1]
 			lpServiceName*: PtrWSTR;
 			lpDisplayName*: PtrWSTR;
 			ServiceStatus*: SERVICE_STATUS;
@@ -11113,13 +11113,13 @@ MODULE WinApi ["KERNEL32.dll"];
 		ENUM_SERVICE_STATUS* = ENUM_SERVICE_STATUSA;
 		PtrENUM_SERVICE_STATUS* = PtrENUM_SERVICE_STATUSA;
 		SC_LOCK* = PtrVoid;
-		QUERY_SERVICE_LOCK_STATUSA* = RECORD [untagged]
+		QUERY_SERVICE_LOCK_STATUSA* = RECORD [1]
 			fIsLocked*: INTEGER;
 			lpLockOwner*: PtrSTR;
 			dwLockDuration*: INTEGER;
 		END;
 		PtrQUERY_SERVICE_LOCK_STATUSA* = POINTER TO QUERY_SERVICE_LOCK_STATUSA;
-		QUERY_SERVICE_LOCK_STATUSW* = RECORD [untagged]
+		QUERY_SERVICE_LOCK_STATUSW* = RECORD [1]
 			fIsLocked*: INTEGER;
 			lpLockOwner*: PtrWSTR;
 			dwLockDuration*: INTEGER;
@@ -11127,7 +11127,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrQUERY_SERVICE_LOCK_STATUSW* = POINTER TO QUERY_SERVICE_LOCK_STATUSW;
 		QUERY_SERVICE_LOCK_STATUS* = QUERY_SERVICE_LOCK_STATUSA;
 		PtrQUERY_SERVICE_LOCK_STATUS* = PtrQUERY_SERVICE_LOCK_STATUSA;
-		QUERY_SERVICE_CONFIGA* = RECORD [untagged]
+		QUERY_SERVICE_CONFIGA* = RECORD [1]
 			dwServiceType*: SET;
 			dwStartType*: INTEGER;
 			dwErrorControl*: INTEGER;
@@ -11139,7 +11139,7 @@ MODULE WinApi ["KERNEL32.dll"];
 			lpDisplayName*: PtrSTR;
 		END;
 		PtrQUERY_SERVICE_CONFIGA* = POINTER TO QUERY_SERVICE_CONFIGA;
-		QUERY_SERVICE_CONFIGW* = RECORD [untagged]
+		QUERY_SERVICE_CONFIGW* = RECORD [1]
 			dwServiceType*: SET;
 			dwStartType*: INTEGER;
 			dwErrorControl*: INTEGER;
@@ -11153,14 +11153,14 @@ MODULE WinApi ["KERNEL32.dll"];
 		PtrQUERY_SERVICE_CONFIGW* = POINTER TO QUERY_SERVICE_CONFIGW;
 		QUERY_SERVICE_CONFIG* = QUERY_SERVICE_CONFIGA;
 		PtrQUERY_SERVICE_CONFIG* = PtrQUERY_SERVICE_CONFIGA;
-		SERVICE_MAIN_FUNCTIONW* = PROCEDURE (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [untagged] OF PtrWSTR);
-		SERVICE_MAIN_FUNCTIONA* = PROCEDURE (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [untagged] OF PtrSTR);
-		SERVICE_TABLE_ENTRYA* = RECORD [untagged]
+		SERVICE_MAIN_FUNCTIONW* = PROCEDURE (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrWSTR);
+		SERVICE_MAIN_FUNCTIONA* = PROCEDURE (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrSTR);
+		SERVICE_TABLE_ENTRYA* = RECORD [1]
 			lpServiceName*: PtrSTR;
 			lpServiceProc*: SERVICE_MAIN_FUNCTIONA;
 		END;
 		PtrSERVICE_TABLE_ENTRYA* = POINTER TO SERVICE_TABLE_ENTRYA;
-		SERVICE_TABLE_ENTRYW* = RECORD [untagged]
+		SERVICE_TABLE_ENTRYW* = RECORD [1]
 			lpServiceName*: PtrWSTR;
 			lpServiceProc*: SERVICE_MAIN_FUNCTIONW;
 		END;
@@ -11168,7 +11168,7 @@ MODULE WinApi ["KERNEL32.dll"];
 		SERVICE_TABLE_ENTRY* = SERVICE_TABLE_ENTRYA;
 		PtrSERVICE_TABLE_ENTRY* = PtrSERVICE_TABLE_ENTRYA;
 		HANDLER_FUNCTION* = PROCEDURE (dwControl: INTEGER);
-		MODEMDEVCAPS* = RECORD [untagged]
+		MODEMDEVCAPS* = RECORD [1]
 			dwActualSize*: INTEGER;
 			dwRequiredSize*: INTEGER;
 			dwDevSpecificOffset*: INTEGER;
@@ -11188,10 +11188,10 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwModemOptions*: SET;
 			dwMaxDTERate*: INTEGER;
 			dwMaxDCERate*: INTEGER;
-			abVariablePortion*: ARRAY [untagged] 1 OF SHORTCHAR;
+			abVariablePortion*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMODEMDEVCAPS* = POINTER TO MODEMDEVCAPS;
-		MODEMSETTINGS* = RECORD [untagged]
+		MODEMSETTINGS* = RECORD [1]
 			dwActualSize*: INTEGER;
 			dwRequiredSize*: INTEGER;
 			dwDevSpecificOffset*: INTEGER;
@@ -11203,12 +11203,12 @@ MODULE WinApi ["KERNEL32.dll"];
 			dwPreferredModemOptions*: INTEGER;
 			dwNegotiatedModemOptions*: INTEGER;
 			dwNegotiatedDCERate*: INTEGER;
-			abVariablePortion*: ARRAY [untagged] 1 OF SHORTCHAR;
+			abVariablePortion*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMODEMSETTINGS* = POINTER TO MODEMSETTINGS;
-		RetGetSidSubAuthority* = POINTER TO (*?*) ARRAY [untagged] OF INTEGER;
-		RetDdeAccessData* = POINTER TO (*?*) ARRAY [untagged] OF SHORTCHAR;
-		RetCommandLineToArgvW* = POINTER TO (*?*) ARRAY [untagged] OF PtrWSTR;
+		RetGetSidSubAuthority* = POINTER TO (*?*) ARRAY [1] OF INTEGER;
+		RetDdeAccessData* = POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
+		RetCommandLineToArgvW* = POINTER TO (*?*) ARRAY [1] OF PtrWSTR;
 
 	PROCEDURE InterlockedIncrement* (VAR [nil] lpAddend: INTEGER): INTEGER;
 	(*END InterlockedIncrement;*)
@@ -11222,7 +11222,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE InterlockedExchangeAdd* (VAR [nil] Addend: INTEGER; Value: INTEGER): INTEGER;
 	(*END InterlockedExchangeAdd;*)
 
-	PROCEDURE InterlockedCompareExchange* (Destination: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid; Exchange: PtrVoid; Comperand: PtrVoid): PtrVoid;
+	PROCEDURE InterlockedCompareExchange* (Destination: POINTER TO (*?*) ARRAY [1] OF PtrVoid; Exchange: PtrVoid; Comperand: PtrVoid): PtrVoid;
 	(*END InterlockedCompareExchange;*)
 
 	PROCEDURE FreeResource* (hResData: HGLOBAL): BOOL;
@@ -12023,13 +12023,13 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE WriteFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END WriteFileEx;*)
 
-	PROCEDURE BackupRead* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE BackupRead* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupRead;*)
 
-	PROCEDURE BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR [nil] lpdwLowByteSeeked: INTEGER; VAR [nil] lpdwHighByteSeeked: INTEGER; lpContext: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR [nil] lpdwLowByteSeeked: INTEGER; VAR [nil] lpdwHighByteSeeked: INTEGER; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupSeek;*)
 
-	PROCEDURE BackupWrite* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE BackupWrite* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupWrite;*)
 
 	PROCEDURE CreateMutexA* (VAR [nil] lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE;
@@ -12701,7 +12701,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE SearchPathW* (lpPath: PtrWSTR; lpFileName: PtrWSTR; lpExtension: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR [nil] lpFilePart: PtrWSTR): INTEGER;
 	(*END SearchPathW;*)
 
-	PROCEDURE SearchPath* ["SearchPathA"] (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; lpFilePart: POINTER TO (*?*) ARRAY [untagged] OF PtrSTR): INTEGER;
+	PROCEDURE SearchPath* ["SearchPathA"] (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; lpFilePart: POINTER TO (*?*) ARRAY [1] OF PtrSTR): INTEGER;
 	(*END SearchPath;*)
 
 	PROCEDURE CopyFileA* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; bFailIfExists: BOOL): BOOL;
@@ -12875,7 +12875,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE ReportEventA* ["ADVAPI32.dll", ""] (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventA;*)
 
-	PROCEDURE ReportEventW* ["ADVAPI32.dll", ""] (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; lpStrings: POINTER TO (*?*) ARRAY [untagged] OF PtrWSTR; lpRawData: PtrVoid): BOOL;
+	PROCEDURE ReportEventW* ["ADVAPI32.dll", ""] (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; lpStrings: POINTER TO (*?*) ARRAY [1] OF PtrWSTR; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventW;*)
 
 	PROCEDURE ReportEvent* ["ADVAPI32.dll", "ReportEventA"] (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL;
@@ -13031,7 +13031,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE DeleteAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER): BOOL;
 	(*END DeleteAce;*)
 
-	PROCEDURE GetAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER; pAce: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE GetAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END GetAce;*)
 
 	PROCEDURE AddAccessAllowedAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
@@ -13043,7 +13043,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE AddAuditAccessAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; dwAccessMask: INTEGER; pSid: PSID; bAuditSuccess: BOOL; bAuditFailure: BOOL): BOOL;
 	(*END AddAuditAccessAce;*)
 
-	PROCEDURE FindFirstFreeAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; pAce: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE FindFirstFreeAce* ["ADVAPI32.dll", ""] (VAR [nil] pAcl: ACL; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END FindFirstFreeAce;*)
 
 	PROCEDURE InitializeSecurityDescriptor* ["ADVAPI32.dll", ""] (pSecurityDescriptor: PSECURITY_DESCRIPTOR; dwRevision: INTEGER): BOOL;
@@ -13619,7 +13619,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE GetCharWidthA* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
 	(*END GetCharWidthA;*)
 
-	PROCEDURE GetCharWidthW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [untagged] OF *) INTEGER): BOOL;
+	PROCEDURE GetCharWidthW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END GetCharWidthW;*)
 
 	PROCEDURE GetCharWidth* ["GDI32.dll", "GetCharWidthA"] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
@@ -13628,7 +13628,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE GetCharWidth32A* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
 	(*END GetCharWidth32A;*)
 
-	PROCEDURE GetCharWidth32W* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [untagged] OF *) INTEGER): BOOL;
+	PROCEDURE GetCharWidth32W* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END GetCharWidth32W;*)
 
 	PROCEDURE GetCharWidth32* ["GDI32.dll", "GetCharWidth32A"] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
@@ -13646,7 +13646,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE GetCharABCWidthsA* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABC): BOOL;
 	(*END GetCharABCWidthsA;*)
 
-	PROCEDURE GetCharABCWidthsW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [untagged] OF *) ABC): BOOL;
+	PROCEDURE GetCharABCWidthsW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) ABC): BOOL;
 	(*END GetCharABCWidthsW;*)
 
 	PROCEDURE GetCharABCWidths* ["GDI32.dll", "GetCharABCWidthsA"] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABC): BOOL;
@@ -13700,7 +13700,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE GetMapMode* ["GDI32.dll", ""] (p0: HDC): INTEGER;
 	(*END GetMapMode;*)
 
-	PROCEDURE GetMetaFileBitsEx* ["GDI32.dll", ""] (p0: HMETAFILE; p1: INTEGER; VAR [nil] p2: ARRAY [untagged] OF BYTE): INTEGER;
+	PROCEDURE GetMetaFileBitsEx* ["GDI32.dll", ""] (p0: HMETAFILE; p1: INTEGER; VAR [nil] p2: ARRAY [1] OF BYTE): INTEGER;
 	(*END GetMetaFileBitsEx;*)
 
 	PROCEDURE GetMetaFileA* ["GDI32.dll", ""] (p0: PtrSTR): HMETAFILE;
@@ -13961,7 +13961,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE SetMapMode* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER): INTEGER;
 	(*END SetMapMode;*)
 
-	PROCEDURE SetMetaFileBitsEx* ["GDI32.dll", ""] (p0: INTEGER; VAR [nil] p1: ARRAY [untagged] OF BYTE): HMETAFILE;
+	PROCEDURE SetMetaFileBitsEx* ["GDI32.dll", ""] (p0: INTEGER; VAR [nil] p1: ARRAY [1] OF BYTE): HMETAFILE;
 	(*END SetMetaFileBitsEx;*)
 
 	PROCEDURE SetPaletteEntries* ["GDI32.dll", ""] (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PALETTEENTRY): INTEGER;
@@ -14240,10 +14240,10 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE TextOut* ["GDI32.dll", "TextOutA"] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: PtrSTR; p4: INTEGER): BOOL;
 	(*END TextOut;*)
 
-	PROCEDURE ExtTextOutA* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [untagged] OF *) INTEGER): BOOL;
+	PROCEDURE ExtTextOutA* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END ExtTextOutA;*)
 
-	PROCEDURE ExtTextOutW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrWSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [untagged] OF *) INTEGER): BOOL;
+	PROCEDURE ExtTextOutW* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrWSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END ExtTextOutW;*)
 
 	PROCEDURE ExtTextOut* ["GDI32.dll", "ExtTextOutA"] (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrSTR; p6: INTEGER; VAR [nil] p7: INTEGER): BOOL;
@@ -14267,19 +14267,19 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE LPtoDP* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: POINT; p2: INTEGER): BOOL;
 	(*END LPtoDP;*)
 
-	PROCEDURE Polygon* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [untagged] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE Polygon* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END Polygon;*)
 
-	PROCEDURE Polyline* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [untagged] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE Polyline* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END Polyline;*)
 
-	PROCEDURE PolyBezier* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [untagged] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE PolyBezier* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolyBezier;*)
 
-	PROCEDURE PolyBezierTo* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [untagged] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE PolyBezierTo* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolyBezierTo;*)
 
-	PROCEDURE PolylineTo* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [untagged] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE PolylineTo* ["GDI32.dll", ""] (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolylineTo;*)
 
 	PROCEDURE SetViewportExtEx* ["GDI32.dll", ""] (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
@@ -16802,13 +16802,13 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE VerLanguageName* ["VerLanguageNameA"] (wLang: INTEGER; szLang: PtrSTR; nSize: INTEGER): INTEGER;
 	(*END VerLanguageName;*)
 
-	PROCEDURE VerQueryValueA* ["VERSION.dll", ""] (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
+	PROCEDURE VerQueryValueA* ["VERSION.dll", ""] (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueA;*)
 
-	PROCEDURE VerQueryValueW* ["VERSION.dll", ""] (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
+	PROCEDURE VerQueryValueW* ["VERSION.dll", ""] (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueW;*)
 
-	PROCEDURE VerQueryValue* ["VERSION.dll", "VerQueryValueA"] (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
+	PROCEDURE VerQueryValue* ["VERSION.dll", "VerQueryValueA"] (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValue;*)
 
 	PROCEDURE RegCloseKey* ["ADVAPI32.dll", ""] (hKey: HKEY): INTEGER;
@@ -17612,7 +17612,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE FindFirstPrinterChangeNotification* ["WINSPOOL.drv", ""] (hPrinter: HANDLE; fdwFlags: SET; fdwOptions: INTEGER; pPrinterNotifyOptions: PtrVoid): HANDLE;
 	(*END FindFirstPrinterChangeNotification;*)
 
-	PROCEDURE FindNextPrinterChangeNotification* ["WINSPOOL.drv", ""] (hChange: HANDLE; VAR [nil] pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: POINTER TO (*?*) ARRAY [untagged] OF PtrVoid): BOOL;
+	PROCEDURE FindNextPrinterChangeNotification* ["WINSPOOL.drv", ""] (hChange: HANDLE; VAR [nil] pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END FindNextPrinterChangeNotification;*)
 
 	PROCEDURE FreePrinterNotifyInfo* ["WINSPOOL.drv", ""] (VAR [nil] pPrinterNotifyInfo: PRINTER_NOTIFY_INFO): BOOL;
@@ -17918,7 +17918,7 @@ MODULE WinApi ["KERNEL32.dll"];
 	PROCEDURE StartServiceA* ["ADVAPI32.dll", ""] (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL;
 	(*END StartServiceA;*)
 
-	PROCEDURE StartServiceW* ["ADVAPI32.dll", ""] (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [untagged] OF PtrWSTR): BOOL;
+	PROCEDURE StartServiceW* ["ADVAPI32.dll", ""] (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrWSTR): BOOL;
 	(*END StartServiceW;*)
 
 	PROCEDURE StartService* ["ADVAPI32.dll", "StartServiceA"] (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL;
