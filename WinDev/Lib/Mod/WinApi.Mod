@@ -1,4 +1,5 @@
-MODULE WinApi;
+MODULE WinApi (*KERNEL32.dll*);
+
 (**
 	project	= "BlackBox"
 	organization	= "www.oberon.ch"
@@ -14,11 +15,11 @@ MODULE WinApi;
 	IMPORT SYSTEM;
 
 	TYPE (* base types *)
-		PtrVoid* = INTEGER;
+		PtrVoid* = SYSTEM.PTR;
 		SHORTCHAR = CHAR;
 		WCHAR = SHORTINT;
-		PtrSTR* = POINTER TO ARRAY [1] OF SHORTCHAR;
-		PtrWSTR* = POINTER TO ARRAY [1] OF WCHAR;
+		PtrSTR* = SYSTEM.PTR(*POINTER TO ARRAY[1] OF SHORTCHAR*);
+		PtrWSTR* = SYSTEM.PTR(*POINTER TO ARRAY[1] OF WCHAR*);
 		DATE* = REAL;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
@@ -17940,5 +17941,7 @@ MODULE WinApi;
 
 	PROCEDURE- RtlUnwind* (targetFrame: PtrVoid; targetIp: INTEGER; excpRec: PtrEXCEPTION_RECORD; retVal: INTEGER);
 	(*END RtlUnwind;*)
+
+PROCEDURE- _init* "/* */";
 
 END WinApi.
