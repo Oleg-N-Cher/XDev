@@ -44,6 +44,8 @@ PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE
   "(SYSTEM_PTR)fopen((char*)filename, (char*)mode)";
 PROCEDURE -fgetc (file: PtrFILE): INTEGER
   "fgetc((FILE*)file)";
+PROCEDURE -fgets (str: PtrSTR; n: INTEGER; file: PtrFILE): INTEGER
+  "fgets((CHAR*)str, n, (FILE*)file)";
 PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER
   "fputc(c, (FILE*)file)";
 (*
@@ -138,6 +140,26 @@ BEGIN
   END;
   RETURN SHORT(result)
 END ReadByte;
+
+PROCEDURE (VAR fromfile: FileToRead) ReadStr* (VAR str: ARRAY OF CHAR);
+VAR
+  n: INTEGER; ch: CHAR;
+BEGIN
+  ASSERT(LEN(str) > 1, 1); n := 0;
+  LOOP
+    IF (n >= LEN(str) - 1) OR fromfile.end OR fromfile.error THEN EXIT END;
+    ch := SYSTEM.VAL(CHAR, fromfile.ReadByte());
+    IF ch = 0DX THEN
+      IF SYSTEM.VAL(CHAR, fromfile.prevbyte) = 0AX THEN
+        ch := SYSTEM.VAL(CHAR, fromfile.ReadByte());
+      END;
+      EXIT
+    END;
+    IF ch = 0AX THEN EXIT END;
+    str[n] := ch; INC(n);
+  END;
+  str[n] := 0X;
+END ReadStr;
 
 PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: SYSTEM.BYTE);
 VAR
