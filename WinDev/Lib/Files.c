@@ -26,7 +26,9 @@ typedef
 	} Files_FileToRead;
 
 export SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
+export void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__typ, CHAR *str, LONGINT str__len);
 #define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, SYSTEM_BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
+#define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, LONGINT *, CHAR*, LONGINT ), (fromfile, fromfile__typ, str, str__len))
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
@@ -52,6 +54,7 @@ export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 #define Files_feof(file)	feof((FILE*)file)
 #define Files_ferror(file)	ferror((FILE*)file)
 #define Files_fgetc(file)	fgetc((FILE*)file)
+#define Files_fgets(str, str__len, n, file)	fgets((CHAR*)str, n, (FILE*)file)
 #define Files_fopen(filename, filename__len, mode, mode__len)	(SYSTEM_PTR)fopen((char*)filename, (char*)mode)
 #define Files_fputc(c, file)	fputc(c, (FILE*)file)
 #include <stdio.h>
@@ -131,6 +134,33 @@ SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *from
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__typ, CHAR *str, LONGINT str__len)
+{
+	INTEGER n;
+	CHAR ch;
+	__ASSERT(str__len > 1, 1);
+	n = 0;
+	for (;;) {
+		if (((LONGINT)n >= str__len - 1 || (*fromfile).end) || (*fromfile).error) {
+			break;
+		}
+		ch = (CHAR)__Files_FileToRead_ReadByte(&*fromfile, fromfile__typ);
+		if (ch == 0x0d) {
+			if (__VAL(CHAR, (*fromfile).prevbyte) == 0x0a) {
+				ch = (CHAR)__Files_FileToRead_ReadByte(&*fromfile, fromfile__typ);
+			}
+			break;
+		}
+		if (ch == 0x0a) {
+			break;
+		}
+		str[__X(n, str__len)] = ch;
+		n += 1;
+	}
+	str[__X(n, str__len)] = 0x00;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte)
 {
 	INTEGER exitcode;
@@ -177,7 +207,7 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 __TDESC(Files_File__desc, 4, 0) = {__TDFLDS("File", 16), {-8}};
-__TDESC(Files_FileToRead__desc, 5, 0) = {__TDFLDS("FileToRead", 16), {-8}};
+__TDESC(Files_FileToRead__desc, 6, 0) = {__TDFLDS("FileToRead", 16), {-8}};
 __TDESC(Files_FileToWrite__desc, 6, 0) = {__TDFLDS("FileToWrite", 16), {-8}};
 
 export void *Files__init(void)
@@ -190,6 +220,7 @@ export void *Files__init(void)
 	__INITBP(Files_File, Files_File_OpenToWrite, 2);
 	__INITYP(Files_FileToRead, Files_File, 1);
 	__INITBP(Files_FileToRead, Files_FileToRead_ReadByte, 3);
+	__INITBP(Files_FileToRead, Files_FileToRead_ReadStr, 4);
 	__INITYP(Files_FileToWrite, Files_File, 1);
 	__INITBP(Files_FileToWrite, Files_FileToWrite_WriteByte, 3);
 	__INITBP(Files_FileToWrite, Files_FileToWrite_WriteStr, 4);

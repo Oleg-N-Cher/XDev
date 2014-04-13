@@ -30,7 +30,9 @@ typedef
 	} Files_FileToRead;
 
 import SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
+import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__typ, CHAR *str, LONGINT str__len);
 #define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, SYSTEM_BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
+#define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, LONGINT *, CHAR*, LONGINT ), (fromfile, fromfile__typ, str, str__len))
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
