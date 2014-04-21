@@ -1,0 +1,90 @@
+MODULE SdlWin32 ["SDL.dll"];
+IMPORT WinApi; (* Windows-specified definitions *)
+
+		(*
+		SDL - Simple DirectMedia Layer
+		Copyright (C) 1997, 1998, 1999, 2000, 2001  Sam Lantinga
+
+		This library is free software; you can redistribute it and/or
+		modify it under the terms of the GNU Library General Public
+		License as published by the Free Software Foundation; either
+		version 2 of the License, or (at your option) any later version.
+
+		This library is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+		Library General Public License for more details.
+
+		You should have received a copy of the GNU Library General Public
+		License along with this library; if not, write to the Free
+		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+		Sam Lantinga
+		slouken [at] devolution.com
+		*)
+		(* Include file for SDL custom system window manager hooks  *)
+
+		(* Your application has access to a special type of event 'SDL_SYSWMEVENT',
+		which contains window-manager specific information and arrives whenever
+		an unhandled window event occurs.  This event is ignored by default, but
+		you can enable it with SDL_EventState()
+		*)
+
+CONST
+	LIL_ENDIAN* = 1234;
+	BIG_ENDIAN* = 4321;
+	AUDIO_U16LSB* = 0010H; (* Unsigned 16-bit samples *)
+	AUDIO_S16LSB* = 8010H; (* Signed 16-bit samples *)
+	AUDIO_U16MSB* = 1010H; (* As above, but big-endian byte order *)
+	AUDIO_S16MSB* = 9010H; (* As above, but big-endian byte order *)
+
+(*$IFDEF IA32*)
+	BYTEORDER* = LIL_ENDIAN;
+	(* Native audio byte ordering *)
+	AUDIO_U16SYS* = AUDIO_U16LSB;
+	AUDIO_S16SYS* = AUDIO_S16LSB;
+(*$ELSE*}
+	BYTEORDER* = BIGENDIAN;
+	(* Native audio byte ordering *)
+	AUDIO_U16SYS* = AUDIO_U16MSB;
+	AUDIO_S16SYS* = AUDIO_S16MSB;
+{*$ENDIF*)
+
+TYPE
+	Address*	= WinApi.PtrVoid; (* 32 bit system address *)
+
+	(* SDL_verion.h type *)
+	Version* = RECORD [untagged]
+		major*: BYTE;
+		minor*: BYTE;
+		patch*: BYTE;
+	END;
+
+	PSysWMinfo* = POINTER [untagged] TO SysWMinfo;
+	SysWMinfo* = RECORD [untagged]
+		version*: Version;
+		window*: INTEGER; (* The Win32 display window *)
+		hGLrc*: INTEGER;	(* The OpenGL context, if any, WinApi.HGLRC  *)			
+	END;
+
+	(* The windows custom event structure *)
+	PSysWMmsg* = POINTER [untagged] TO SysWMmsg;
+	SysWMmsg* = RECORD [untagged]
+		version*: Version;
+		hWnd*: INTEGER;	 (* The window for the message *)
+		msg*: INTEGER;		(* The type of message *)
+		wParam*: INTEGER; (* WORD message parameter *)
+		lParam*: INTEGER; (* LONG message parameter *)
+	END;
+
+		(* Function prototypes  *)
+		(*
+		This function gives you custom hooks into the window manager information.
+		It fills the structure pointed to by 'info' with custom information and
+		returns 1 if the function is implemented.  If it's not implemented, or
+		the version member of the 'info' structure is invalid, it returns 0.
+		*)
+
+	PROCEDURE GetWMInfo* ['SDL_GetWMInfo'] (VAR [nil] info: SysWMinfo): INTEGER;
+
+END SdlWin32.
