@@ -1,6 +1,6 @@
 (*Win32*)
 
-MODULE SdlLib ["SDL.dll"];
+MODULE SdlLib;
 IMPORT OS := SdlWin32;
 
 (******************************************************************************)
@@ -686,8 +686,8 @@ TYPE
 	Double* 	= REAL; (* 64 bit *)
 	Integer*	= INTEGER;
 	LongWord* = Cardinal;
-	PChar*		= POINTER [untagged] TO ARRAY [untagged] OF Char;
-	Pointer*	= POINTER [untagged] TO ARRAY [untagged] OF Byte;
+	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
+	Pointer*	= POINTER [1] TO ARRAY [1] OF Byte;
 	Single* 	= SHORTREAL; (* 32 bit *)
 	Word*		 = SHORTINT; (* 16 bit *)
 
@@ -700,13 +700,13 @@ TYPE
 	Bool* = Integer; (* SDL_FALSE, SDL_TRUE *)
 (*
 	PUInt8Array = ^TUInt8Array;*)
-	PUInt8* = POINTER [untagged] TO ARRAY [untagged] OF UInt8;(*
+	PUInt8* = POINTER [1] TO ARRAY [1] OF UInt8;(*
 	PPUInt8 = ^PUInt8;*)
 	UInt8* = SHORTCHAR;
 (*
 	TUInt8Array = array [0..MAXINT shr 1] of UInt8;
 *)
-	PUInt16* = POINTER [untagged] TO ARRAY [untagged] OF UInt16;
+	PUInt16* = POINTER [1] TO ARRAY [1] OF UInt16;
 	UInt16* = SHORTINT;(*
 
 	PSInt8 = ^SInt8;*)
@@ -715,7 +715,7 @@ TYPE
 	PSInt16 = ^SInt16;*)
 	SInt16* = SHORTINT;
 
-	PUInt32* = POINTER [untagged] TO ARRAY [untagged] OF UInt32;
+	PUInt32* = POINTER [1] TO ARRAY [1] OF UInt32;
 	UInt32* = INTEGER;
 
 	SInt32* = Integer;
@@ -784,10 +784,10 @@ TYPE
 	(* "packed" is only guessed *)
 
 	(* first declare the pointer types *)
-	PRWops* = POINTER [untagged] TO RWops;
+	PRWops* = POINTER [1] TO RWops;
 	(* now the pointer to procedure types *)
 	(* the variant record itself *)
-	RWops* = RECORD [untagged]
+	RWops* = RECORD [1]
 			(* Seek to 'offset' relative to whence, one of stdio's whence values:
 			SEEK_SET, SEEK_CUR, SEEK_END
 			Returns the final offset in the data source. *)
@@ -810,18 +810,18 @@ TYPE
 		(* be warned! structure alignment may arise at this point *)
 		hidden-: RECORD [union]
 			(* 0: stdio; *)
-			stdio-: RECORD [untagged]
+			stdio-: RECORD [1]
 				autoclose-: Integer;
 				fp-: Pointer;
 			END;
 			(* 1: mem; *)
-			mem-: RECORD [untagged]
+			mem-: RECORD [1]
 				base-: PUInt8;
 				here-: PUInt8;
 				stop-: PUInt8;
 			END;
 			(* 2: unknown; *)
-			unknown-: RECORD [untagged]
+			unknown-: RECORD [1]
 				data1-: Pointer;
 			END;
 		END;
@@ -843,8 +843,8 @@ TYPE
 		interval: UInt32; param: Pointer): UInt32;
 	
 	(* Definition of the timer ID type *)
-	PTimerID* = POINTER [untagged] TO TimerID;
-	TimerID* = RECORD [untagged]
+	PTimerID* = POINTER [1] TO TimerID;
+	TimerID* = RECORD [1]
 		interval*: UInt32;
 		callback*: NewTimerCallback;
 		param*: Pointer;
@@ -857,8 +857,8 @@ TYPE
 
 	(* SDL_audio.h types *)
 	(* The calculated values in this structure are calculated by OpenAudio() *)
-	PAudioSpec* = POINTER [untagged] TO AudioSpec;
-	AudioSpec* = RECORD [untagged]
+	PAudioSpec* = POINTER [1] TO AudioSpec;
+	AudioSpec* = RECORD [1]
 		freq*: Integer; (* DSP frequency -- samples per second *)
 		format*: UInt16; (* Audio data format *)
 		channels*: UInt8; (* Number of channels: 1 mono, 2 stereo *)
@@ -876,18 +876,18 @@ TYPE
 	END;
 
 	(* A structure to hold a set of audio conversion filters and buffers *)
-	PAudioCVT* = POINTER [untagged] TO AudioCVT;
+	PAudioCVT* = POINTER [1] TO AudioCVT;
 
-	PAudioCVTFilter* = POINTER [untagged] TO AudioCVTFilter;
-	AudioCVTFilter* = RECORD [untagged]
+	PAudioCVTFilter* = POINTER [1] TO AudioCVTFilter;
+	AudioCVTFilter* = RECORD [1]
 		cvt*: PAudioCVT;
 		format*: UInt16;
 	END;
 
-	PAudioCVTFilterArray* = POINTER [untagged] TO AudioCVTFilterArray;
+	PAudioCVTFilterArray* = POINTER [1] TO AudioCVTFilterArray;
 	AudioCVTFilterArray = ARRAY 10 OF PAudioCVTFilter;
 
-	AudioCVT* = RECORD [untagged]
+	AudioCVT* = RECORD [1]
 		needed*: Integer; (* Set to 1 if conversion possible *)
 		src_format*: UInt16; (* Source audio format *)
 		dst_format*: UInt16; (* Target audio format *)
@@ -915,8 +915,8 @@ TYPE
 		CD_PLAYING,
 		CD_PAUSED *);
 
-	PCDTrack* = POINTER [untagged] TO CDTrack;
-	CDTrack* = RECORD [untagged]
+	PCDTrack* = POINTER [1] TO CDTrack;
+	CDTrack* = RECORD [1]
 		id-: UInt8; (* Track number *)
 		type-: UInt8; (* Data or audio track *)
 		unused-: UInt16;
@@ -925,8 +925,8 @@ TYPE
 	END;
 
 	(* This structure is only current as of the last call to SDL_CDStatus() *)
-	PCD* = POINTER [untagged] TO CD;
-	CD* = RECORD [untagged]
+	PCD* = POINTER [1] TO CD;
+	CD* = RECORD [1]
 		id: Integer; (* Private drive identifier *)
 		status: CDstatus; (* Current drive status *)
 
@@ -938,30 +938,30 @@ TYPE
 	END;
 
 	(* SDL_joystick.h types *)
-	PTransAxis* = POINTER [untagged] TO TransAxis;
-	TransAxis* = RECORD [untagged]
+	PTransAxis* = POINTER [1] TO TransAxis;
+	TransAxis* = RECORD [1]
 		offset*: Integer;
 		scale*: Single;
 	END;
 
 	(* The private structure used to keep track of a joystick *)
-	PJoystickHWdata* = POINTER [untagged] TO JoystickHWdata;
-	JoystickHWdata* = RECORD [untagged]
+	PJoystickHWdata* = POINTER [1] TO JoystickHWdata;
+	JoystickHWdata* = RECORD [1]
 		(* joystick ID *)
 		id-: Integer;
 		(* values used to translate device-specific coordinates into	SDL-standard ranges *)
 		transaxis-: ARRAY 6 OF TransAxis;
 	END;
 
-	PBallDelta* = POINTER [untagged] TO BallDelta;
-	BallDelta* = RECORD [untagged]
+	PBallDelta* = POINTER [1] TO BallDelta;
+	BallDelta* = RECORD [1]
 		dx*: Integer;
 		dy*: Integer;
 	END; (* Current ball motion deltas *)
 
 	(* The SDL joystick structure *)
-	PJoystick* = POINTER [untagged] TO Joystick;
-	Joystick* = RECORD [untagged]
+	PJoystick* = POINTER [1] TO Joystick;
+	Joystick* = RECORD [1]
 		index-: UInt8; (* Device index *)
 		name-: PChar; (* Joystick name - system dependent *)
 
@@ -983,7 +983,7 @@ TYPE
 	END;
 
 	(* SDL_verion.h types *)
-	PVersion* = POINTER [untagged] TO Version;
+	PVersion* = POINTER [1] TO Version;
 	Version* = OS.Version;
 
 	(* SDL_keyboard.h types *)
@@ -991,8 +991,8 @@ TYPE
 
 	Mod = SET;
 
-	PKeySym* = POINTER [untagged] TO KeySym;
-	KeySym* = RECORD [untagged]
+	PKeySym* = POINTER [1] TO KeySym;
+	KeySym* = RECORD [1]
 		scancode-: UInt8; (* hardware specific scancode *)
 		sym-: Key; (* SDL virtual keysym *)
 		modifier-: Mod; (* current key modifiers *)
@@ -1015,14 +1015,14 @@ TYPE
 	EventAction* = Integer (* (SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT) *);
 
 	(* Application visibility event structure *)
-	ActiveEvent* = RECORD [untagged]
+	ActiveEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_ACTIVEEVENT *)
 		gain-: UInt8;	(* Whether given states were gained or lost (1/0) *)
 		state-: UInt8; (* A mask of the focus states *)
 	END;
 
 	(* Keyboard event structure *)
-	KeyboardEvent* = RECORD [untagged]
+	KeyboardEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_KEYDOWN or SDL_KEYUP *)
 		which-: UInt8; (* The keyboard device index *)
 		state-: UInt8; (* SDL_PRESSED or SDL_RELEASED *)
@@ -1030,7 +1030,7 @@ TYPE
 	END;
 
 	(* Mouse motion event structure *)
-	MouseMotionEvent* = RECORD [untagged]
+	MouseMotionEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_MOUSEMOTION *)
 		which-: UInt8; (* The mouse device index *)
 		state-: UInt8; (* The current button state *)
@@ -1040,7 +1040,7 @@ TYPE
 	END;
 
 	(* Mouse button event structure *)
-	MouseButtonEvent* = RECORD [untagged]
+	MouseButtonEvent* = RECORD [1]
 		type-: SInt8;	 (* SDL_MOUSEBUTTONDOWN or SDL_MOUSEBUTTONUP *)
 		which-: UInt8;	(* The mouse device index *)
 		button-: UInt8; (* The mouse button index *)
@@ -1050,7 +1050,7 @@ TYPE
 	END;
 
 	(* Joystick axis motion event structure *)
-	JoyAxisEvent* = RECORD [untagged]
+	JoyAxisEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_JOYAXISMOTION *)
 		which-: UInt8; (* The joystick device index *)
 		axis-: UInt8;	(* The joystick axis index *)
@@ -1058,7 +1058,7 @@ TYPE
 	END;
 
 	(* Joystick trackball motion event structure *)
-	JoyBallEvent* = RECORD [untagged]
+	JoyBallEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_JOYAVBALLMOTION *)
 		which-: UInt8; (* The joystick device index *)
 		ball-: UInt8;	(* The joystick trackball index *)
@@ -1067,7 +1067,7 @@ TYPE
 	END;
 
 	(* Joystick hat position change event structure *)
-	JoyHatEvent* = RECORD [untagged]
+	JoyHatEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_JOYHATMOTION *)
 		which-: UInt8; (* The joystick device index *)
 		hat-: UInt8;	 (* The joystick hat index *)
@@ -1081,7 +1081,7 @@ TYPE
 	END;
 
 	(* Joystick button event structure *)
-	JoyButtonEvent* = RECORD [untagged]
+	JoyButtonEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_JOYBUTTONDOWN or SDL_JOYBUTTONUP *)
 		which-: UInt8; (* The joystick device index *)
 		button-: UInt8;(* The joystick button index *)
@@ -1091,21 +1091,21 @@ TYPE
 	(* The "window resized" event
 		 When you get this event, you are responsible for setting a new video
 		 mode with the new width and height. *)
-	ResizeEvent* = RECORD [untagged]
+	ResizeEvent* = RECORD [1]
 		type-: SInt8; (* SDL_VIDEORESIZE *)
 		w-: Integer;	(* New width *)
 		h-: Integer;	(* New height *)
 	END;
 
 	(* The "quit requested" event *)
-	PQuitEvent* = POINTER [untagged] TO QuitEvent;
-	QuitEvent* = RECORD [untagged]
+	PQuitEvent* = POINTER [1] TO QuitEvent;
+	QuitEvent* = RECORD [1]
 		type-: SInt8;
 	END;
 
 	(* A user-defined event type *)
-	PUserEvent* = POINTER [untagged] TO UserEvent;
-	UserEvent* = RECORD [untagged]
+	PUserEvent* = POINTER [1] TO UserEvent;
+	UserEvent* = RECORD [1]
 		type-: SInt8;		(* SDL_USEREVENT through SDL_NUMEVENTS-1 *)
 		code*: Integer;	(* User defined event code *)
 		data1*: Pointer; (* User defined data pointer *)
@@ -1113,8 +1113,8 @@ TYPE
 	END;
 
 	(* The "screen redraw" event *)
-	PExposeEvent* = POINTER [untagged] TO ExposeEvent;
-	ExposeEvent* = RECORD [untagged]
+	PExposeEvent* = POINTER [1] TO ExposeEvent;
+	ExposeEvent* = RECORD [1]
 		type-: SInt8;	(* SDL_VIDEOEXPOSE *)
 	END;
 (*
@@ -1213,14 +1213,14 @@ TYPE
 
 {$ENDIF}
 *)
-	PSysWMEvent* = POINTER [untagged] TO SysWMEvent;
-	SysWMEvent* = RECORD [untagged]
+	PSysWMEvent* = POINTER [1] TO SysWMEvent;
+	SysWMEvent* = RECORD [1]
 		type-: SInt8;
 		msg-: OS.PSysWMmsg;
 	END;
 
 	(* General event structure *)
-	PEvent* = POINTER [untagged] TO Event;
+	PEvent* = POINTER [1] TO Event;
 	Event* = RECORD [union]
 		type-: SInt8; (* Because UInt8 may be declared as SHORTCHAR *)
 		active*: ActiveEvent;
@@ -1248,33 +1248,33 @@ TYPE
 	(* SDL_video.h types *)
 	(* Useful data types *)
 	(* PPSDL_Rect = ^PSDL_Rect; *)
-	PPRect* = POINTER [untagged] TO ARRAY [untagged] OF PRect;
-	PRect* = POINTER [untagged] TO Rect;
-	Rect* = RECORD [untagged]
+	PPRect* = POINTER [1] TO ARRAY [1] OF PRect;
+	PRect* = POINTER [1] TO Rect;
+	Rect* = RECORD [1]
 		x*, y*: SInt16;
 		w*, h*: UInt16;
 	END;
 
-	PColor* = POINTER [untagged] TO Color;
-	Color* = RECORD [untagged]
+	PColor* = POINTER [1] TO Color;
+	Color* = RECORD [1]
 		r*: UInt8;
 		g*: UInt8;
 		b*: UInt8;
 		unused*: UInt8;
 	END;
 
-	PColorArray* = POINTER [untagged] TO ColorArray;
-	ColorArray* = ARRAY [untagged] 65000+1 OF Color;
+	PColorArray* = POINTER [1] TO ColorArray;
+	ColorArray* = ARRAY [1] 65000+1 OF Color;
 
-	PPalette* = POINTER [untagged] TO Palette;
-	Palette* = RECORD [untagged]
+	PPalette* = POINTER [1] TO Palette;
+	Palette* = RECORD [1]
 		ncolors*: Integer;
 		colors*: PColorArray;
 	END;
 
 	(* Everything in the pixel format structure is read-only *)
-	PPixelFormat* = POINTER [untagged] TO PixelFormat;
-	PixelFormat* = RECORD [untagged]
+	PPixelFormat* = POINTER [1] TO PixelFormat;
+	PixelFormat* = RECORD [1]
 		palette-: PPalette;
 		BitsPerPixel-: Byte;
 		BytesPerPixel-: Byte;
@@ -1304,8 +1304,8 @@ TYPE
 {$ENDIF*)
 
 	(* The structure passed to the low level blit functions *)
-	PBlitInfo* = POINTER [untagged] TO BlitInfo;
-	BlitInfo* = RECORD [untagged]
+	PBlitInfo* = POINTER [1] TO BlitInfo;
+	BlitInfo* = RECORD [1]
 		s_pixels*: PUInt8;
 		s_width*: Integer;
 		s_height*: Integer;
@@ -1321,7 +1321,7 @@ TYPE
 	END;
 
 	(* typedef for private surface blitting functions *)
-	PSurface* = POINTER [untagged] TO Surface;
+	PSurface* = POINTER [1] TO Surface;
 
 	Blit* = PROCEDURE [ccall] (src: PSurface; srcrect: PRect;
 														 dst: PSurface; dstrect: PRect): Integer;
@@ -1351,7 +1351,7 @@ TYPE
 		format_version : Cardinal;
 	end;}
 *)
-	Surface* = RECORD [untagged]
+	Surface* = RECORD [1]
 		flags-: SET; (* Read-only *)
 		format-: PPixelFormat; (* Read-only *)
 		w-, h-: Integer; (* Read-only *)
@@ -1373,8 +1373,8 @@ TYPE
 	END;
 
 	(* Useful for determining the video hardware capabilities *)
-	PVideoInfo* = POINTER [untagged] TO VideoInfo;
-	VideoInfo* = RECORD [untagged]
+	PVideoInfo* = POINTER [1] TO VideoInfo;
+	VideoInfo* = RECORD [1]
 		hw_available*: UInt8; (* Hardware and WindowManager flags in first 2 bits ( see below ) *)
 		(*hw_available: 1; // Can you create hardware surfaces
 		wm_available: 1; // Can you talk to a window manager?
@@ -1396,8 +1396,8 @@ TYPE
 	END;
 
 	(* The YUV hardware video overlay *)
-	POverlay* = POINTER [untagged] TO Overlay;
-	Overlay* = RECORD [untagged]
+	POverlay* = POINTER [1] TO Overlay;
+	Overlay* = RECORD [1]
 		format*: UInt32; (* Overlay format *)
 		w*, h*: Integer; (* Width and height of overlay *)
 		planes*: Integer; (* Number of planes in the overlay. Usually either 1 or 3 *)
@@ -1429,8 +1429,8 @@ TYPE
 		SDL_GL_ACCELERATED_VISUAL,
 		SDL_GL_SWAP_CONTROL);*)
 
-	PCursor* = POINTER [untagged] TO Cursor;
-	Cursor* = RECORD [untagged]
+	PCursor* = POINTER [1] TO Cursor;
+	Cursor* = RECORD [1]
 		area*: Rect; (* The area of the mouse cursor *)
 		hot_x*, hot_y*: SInt16; (* The "tip" of the cursor *)
 		data*: PUInt8; (* B/W cursor data *)
@@ -1557,10 +1557,10 @@ PSDL_semaphore = ^TSDL_semaphore;
 	TKeyStateArr = array[0..65000] of UInt8;
 *)
 	(* Types required so we don't need to use WinApi *)
-	PInteger* = POINTER [untagged] TO ARRAY [untagged] OF Integer;
-	PByte* = POINTER [untagged] TO ARRAY [untagged] OF Byte;
-	PWord* = POINTER [untagged] TO ARRAY [untagged] OF Word;
-	PLongWord* = POINTER [untagged] TO ARRAY [untagged] OF LongWord;
+	PInteger* = POINTER [1] TO ARRAY [1] OF Integer;
+	PByte* = POINTER [1] TO ARRAY [1] OF Byte;
+	PWord* = POINTER [1] TO ARRAY [1] OF Word;
+	PLongWord* = POINTER [1] TO ARRAY [1] OF LongWord;
 (*
 	// General arrays
 	PByteArray = ^TByteArray;

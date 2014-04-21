@@ -54,22 +54,22 @@ TYPE
 	Address*	= WinApi.PtrVoid; (* 32 bit system address *)
 
 	(* SDL_verion.h type *)
-	Version* = RECORD [untagged]
+	Version* = RECORD [1]
 		major*: BYTE;
 		minor*: BYTE;
 		patch*: BYTE;
 	END;
 
-	PSysWMinfo* = POINTER [untagged] TO SysWMinfo;
-	SysWMinfo* = RECORD [untagged]
+	PSysWMinfo* = POINTER [1] TO SysWMinfo;
+	SysWMinfo* = RECORD [1]
 		version*: Version;
 		window*: INTEGER; (* The Win32 display window *)
 		hGLrc*: INTEGER;	(* The OpenGL context, if any, WinApi.HGLRC  *)			
 	END;
 
 	(* The windows custom event structure *)
-	PSysWMmsg* = POINTER [untagged] TO SysWMmsg;
-	SysWMmsg* = RECORD [untagged]
+	PSysWMmsg* = POINTER [1] TO SysWMmsg;
+	SysWMmsg* = RECORD [1]
 		version*: Version;
 		hWnd*: INTEGER;	 (* The window for the message *)
 		msg*: INTEGER;		(* The type of message *)
