@@ -1,5 +1,5 @@
-MODULE SdlWin32 ["SDL.dll"];
-IMPORT WinApi; (* Windows-specified definitions *)
+MODULE SdlWin32;
+IMPORT SYSTEM, WinApi; (* Windows-specified definitions *)
 
 		(*
 		SDL - Simple DirectMedia Layer
@@ -52,6 +52,7 @@ CONST
 
 TYPE
 	Address*	= WinApi.PtrVoid; (* 32 bit system address *)
+  BYTE = SYSTEM.BYTE;
 
 	(* SDL_verion.h type *)
 	Version* = RECORD [1]
@@ -85,6 +86,7 @@ TYPE
 		the version member of the 'info' structure is invalid, it returns 0.
 		*)
 
-	PROCEDURE GetWMInfo* ['SDL_GetWMInfo'] (VAR [nil] info: SysWMinfo): INTEGER;
+	PROCEDURE- SDL_GetWMInfo* (VAR (*nil*) info: SysWMinfo): INTEGER;
+	PROCEDURE- GetWMInfo* (VAR (*nil*) info: SysWMinfo): INTEGER "SDL_GetWMInfo(info)";
 
 END SdlWin32.
