@@ -546,19 +546,20 @@ void Console_Clear_ROM (SHORTCARD attr)
 {
 __asm
   LD   IY,#0x5C3A
+  LD   A,(_Console_attrib)
+  PUSH AF
 #ifdef __SDCC
-  LD   HL,#2
+  LD   HL,#4
   ADD  HL,SP
   LD   A,(HL)
 #else
   LD   A,4(IX)
 #endif
-  LD   (_Console_attrib),A
-  RRCA
-  RRCA
-  RRCA
   CALL 0x229B
+  LD   (_Console_attrib),A
   CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (_Console_attrib),A
 __endasm;
 } //Console_Clear_ROM
 
@@ -571,19 +572,20 @@ __asm
   LD   (#_SCR_ADR_F+1),A
   LD   HL,#0x5800-1
   LD   (_ATTR_ADR_F+1),HL
+  LD   A,(_Console_attrib)
+  PUSH AF
 #ifdef __SDCC
-  LD   HL,#2
+  LD   HL,#4
   ADD  HL,SP
   LD   A,(HL)
 #else
   LD   A,4(IX)
 #endif
-  LD   (_Console_attrib),A
-  RRCA
-  RRCA
-  RRCA
   CALL 0x229B
+  LD   (_Console_attrib),A
   CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (_Console_attrib),A
 __endasm;
 } //Console_Clear_FAST
 
@@ -594,19 +596,20 @@ __asm
   LD   IY,#0x5C3A
   LD   HL,#0x5800-1
   LD   (_ATTR_ADR_C+1),HL
+  LD   A,(_Console_attrib)
+  PUSH AF
 #ifdef __SDCC
-  LD   HL,#2
+  LD   HL,#4
   ADD  HL,SP
   LD   A,(HL)
 #else
   LD   A,4(IX)
 #endif
-  LD   (_Console_attrib),A
-  RRCA
-  RRCA
-  RRCA
   CALL 0x229B
+  LD   (_Console_attrib),A
   CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (_Console_attrib),A
 __endasm;
 } //Console_Clear_COMPACT
 

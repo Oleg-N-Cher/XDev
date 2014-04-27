@@ -11,7 +11,7 @@
 import void Console_At (INTEGER x, INTEGER y);
 import void Console_Clear (INTEGER attr);
 import void Console_SetColors (INTEGER attr);
-import void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
+import void Console_SetFont (INTEGER font);
 import void Console_WriteCh (CHAR ch);
 import void Console_WriteInt (LONGINT i);
 import void Console_WriteLn (void);
