@@ -100,13 +100,13 @@ import SYSTEM_BYTE Console_attrib;
 #define Console_SetColors(attr) Console_attrib = attr
 
 #  ifdef OUTPUT_COMPACT
-#    define Console_SetFont(fontAddr, fontSize)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
+#    define Console_SetFont(fontAddr)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
 #  endif
 #  ifdef OUTPUT_FAST
-#    define Console_SetFont(fontAddr, fontSize)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
+#    define Console_SetFont(fontAddr)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
 #  endif
 #  ifdef OUTPUT_ROM
-#    define Console_SetFont(fontAddr, fontSize)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
+#    define Console_SetFont(fontAddr)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
 #  endif
 
 import void Console_Clear_ROM (SHORTCARD attr);
