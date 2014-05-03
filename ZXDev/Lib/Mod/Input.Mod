@@ -50,16 +50,17 @@ Origin
 Part of the ETH Oberon System.  The above specification was proposed by H Moessenboeck, ETH.
 *)
 CONST
-(*
-  (* The keyboard syms have been cleverly chosen to map to ASCII *)
-  Backspace* = CHR(Sdl.K_BACKSPACE);
-  Tab* = CHR(Sdl.K_TAB);
-  Enter* = CHR(Sdl.K_RETURN);
-  (* Pause* = CHR(Sdl.K_PAUSE); *)
-  Escape* = CHR(Sdl.K_ESCAPE);
-  Delete* = CHR(Sdl.K_DELETE);
-  Space* = CHR(Sdl.K_SPACE);
 
+  (* The keyboard syms have been cleverly chosen to map to ASCII *)
+  Backspace* = 0CX;
+(*
+  Tab* = CHR(Sdl.K_TAB);*)
+  Enter* = 0DX;
+  (* Pause* = CHR(Sdl.K_PAUSE);
+  Escape* = CHR(Sdl.K_ESCAPE);
+  Delete* = CHR(Sdl.K_DELETE); *)
+  Space* = " ";
+(*
   (* Arrows *)
   Up* = 18X;
   Down* = 19X;

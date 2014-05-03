@@ -8,16 +8,20 @@ export SHORTINT Input_Available (void);
 export CHAR Input_Read (void);
 
 
+/*============================================================================*/
+
 SHORTINT Input_Available (void)
 {
 	return 0;
 }
 
+/*----------------------------------------------------------------------------*/
 CHAR Input_Read (void)
 {
 	return 0x00;
 }
 
+/*----------------------------------------------------------------------------*/
 
 export void *Input__init(void)
 {

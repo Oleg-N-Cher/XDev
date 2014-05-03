@@ -2,15 +2,23 @@
 #include "SYSTEM.h"
 
 
-
-
 export SHORTINT Input_Available (void);
 export CHAR Input_Read (void);
 
-
+/*================================== Header ==================================*/
 SHORTINT Input_Available (void)
 {
 __asm
+  LD   IY,#0x5C3A
+  CALL 0x28E
+  LD   L,#0
+  INC  E
+  JR   Z,RETURN$
+  INC  L
+RETURN$:
+__endasm;
+}
+/*
   LD   IY,#0x5C3A
   RES  5,1(IY)
   CALL 0x386E
@@ -19,15 +27,28 @@ __asm
   JR   NZ,RETURN$
   INC  L
 RETURN$:
-__endasm;
-}
+*/
 
+/*--------------------------------- Cut here ---------------------------------*/
 /*
 http://zxpress.ru/book_articles.php?id=1395
 */
 CHAR Input_Read (void)
 {
 __asm
+  LD   IY,#0x5C3A
+  ;EI
+  ;RES  5,1(IY)
+LOOP$:
+  CALL 0x28E
+  ;BIT  5,1(IY)
+  INC  E
+  JR   Z,LOOP$
+  LD   L,-50(IY)
+  ;DI
+__endasm;
+}
+/*
   LD   IY,#0x5C3A
   EI
   RES  5,1(IY)
@@ -36,13 +57,4 @@ LOOP$:
   JR   Z,LOOP$
   LD   L,-50(IY)
   DI
-__endasm;
-}
-
-export void *Input__init(void)
-{
-	__DEFMOD;
-	__REGMOD("Input", 0);
-/* BEGIN */
-	__ENDMOD;
-}
+*/
