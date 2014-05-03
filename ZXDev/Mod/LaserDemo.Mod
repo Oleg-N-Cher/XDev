@@ -1,4 +1,4 @@
-MODULE LaserDemo;
+MODULE LaserDemo; (*$MAIN*)
 
 (* Laser Basic Demo for Sinclair ZX Spectrum, 48 Kb.  *)
 (* Copyright (C) 2012 Oleg N. Cher, VEDANTA software. *)
