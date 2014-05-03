@@ -1,11 +1,9 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
-
-typedef
-	SYSTEM_BYTE *GrFonts_Font;
+#include "Basic.h"
 
 
-export SYSTEM_BYTE GrFonts_ZxSpecRom8x8[768], GrFonts_MsDosCga8x8[768];
+export INTEGER GrFonts_MsDosCga8x8;
 
 
 
@@ -14,6 +12,7 @@ export SYSTEM_BYTE GrFonts_ZxSpecRom8x8[768], GrFonts_MsDosCga8x8[768];
 export void *GrFonts__init(void)
 {
 	__DEFMOD;
+	__IMPORT(Basic__init);
 	__REGMOD("GrFonts", 0);
 /* BEGIN */
 	__ENDMOD;

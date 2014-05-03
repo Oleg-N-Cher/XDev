@@ -1,10 +1,13 @@
 MODULE GrFonts;
-IMPORT SYSTEM;
+IMPORT SYSTEM, Basic;
 
 TYPE
-  Font* = ARRAY [1] OF SYSTEM.BYTE;
+  Font* = INTEGER;
+
+CONST
+  ZxSpecRom8x8* = Basic.RomFont;
 
 VAR
-  ZxSpecRom8x8*, MsDosCga8x8* : ARRAY [1] 8 * (128 - 32) OF SYSTEM.BYTE;
+  MsDosCga8x8- : Font;
 
 END GrFonts.
