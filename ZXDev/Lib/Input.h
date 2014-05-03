@@ -10,7 +10,7 @@
 
 import SHORTINT Input_Available (void);
 import CHAR Input_Read (void);
-import void *Input__init(void);
+#define Input__init()
 
 
 #endif
