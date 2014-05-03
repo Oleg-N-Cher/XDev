@@ -8,6 +8,8 @@ export REAL Math_Exp (REAL x);
 export REAL Math_Ln (REAL x);
 export REAL Math_Sin (REAL x);
 export REAL Math_Sqrt (REAL x);
+export CARDINAL Math_RndRange (CARDINAL min, CARDINAL max);
+export void Math_Randomize (void);
 
 //#include <math.h>
 extern float atanf (const float x);
@@ -59,4 +61,45 @@ REAL Math_Ln (REAL x)
 {
 	return Math_ln(x);
 }
+/*--------------------------------- Cut here ---------------------------------*/
+/* SEED_RND address */
+#define SF_RND$ 0x5C76
 
+CARDINAL _RandBB (void) /* Ripped from Beta Basic */
+{
+__asm
+  LD   D,#0
+  LD   BC,(#SF_RND$)
+  LD   H,C
+  LD   L,#0xFD
+  LD   A,B
+  OR   A
+  SBC  HL,BC
+  SBC  A,D
+  SBC  HL,BC
+  SBC  A,D
+  LD   E,A
+  SBC  HL,DE
+  JR   NC,R1$
+  INC  HL
+R1$:
+  LD  (#SF_RND$),HL
+__endasm;
+} //_RandBB
+
+CARDINAL Math_RndRange (CARDINAL min, CARDINAL max)
+{
+  return _RandBB()%(max-min+1) + min;
+} //Math_RndRange
+
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Math_Randomize (void)
+{
+__asm
+  LD   A,R
+  LD   B,A
+  LD   C,#0
+  CALL #0x1E52
+__endasm;
+} //Math_Randomize
