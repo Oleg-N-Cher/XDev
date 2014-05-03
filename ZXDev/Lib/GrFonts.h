@@ -6,11 +6,13 @@
 #include "SYSTEM.h"
 
 typedef
-	SYSTEM_BYTE *GrFonts_Font;
+	INTEGER GrFonts_Font;
+
+import SYSTEM_BYTE GrFonts_MsDosCga8x8Font [768];
 
 
 #define GrFonts_ZxSpecRom8x8 0x3D00
-import SYSTEM_BYTE GrFonts_MsDosCga8x8[768];
+#define GrFonts_MsDosCga8x8 (int)GrFonts_MsDosCga8x8Font
 
 
 #define GrFonts__init()
