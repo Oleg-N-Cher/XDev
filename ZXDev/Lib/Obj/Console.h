@@ -10,6 +10,8 @@
 
 import void Console_At (INTEGER x, INTEGER y);
 import void Console_Clear (INTEGER attr);
+import INTEGER Console_ReadInt (void);
+import INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
 import void Console_SetColors (INTEGER attr);
 import void Console_SetFont (INTEGER font);
 import void Console_WriteCh (CHAR ch);

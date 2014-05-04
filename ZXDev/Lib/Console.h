@@ -25,6 +25,9 @@ export void Console_At_FAST (SHORTINT x, SHORTINT y);
 #    define Console_At Console_At_FAST
 #  endif
 
+import INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
+import INTEGER Console_ReadInt (void);
+
 import void Console_WriteCh_COMPACT (CHAR ch);
 import void Console_WriteCh_FAST (CHAR ch);
 import void Console_WriteCh_ROM (CHAR ch);

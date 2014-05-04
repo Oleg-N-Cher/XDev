@@ -1,9 +1,14 @@
 #include "SYSTEM.h"
+#include "Input.h"
+#include "Strings.h"
+#include "Timer.h"
 
 /*interface*/
 export void Console_At_ROM (SHORTINT x, SHORTINT y);
 export void Console_At_COMPACT (SHORTINT x, SHORTINT y);
 export void Console_At_FAST (SHORTINT x, SHORTINT y);
+export INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
+export INTEGER Console_ReadInt (void);
 export void Console_SetColors (SHORTINT attr);
 export void Console_WriteCh_COMPACT (CHAR ch);
 export void Console_WriteCh_FAST (CHAR ch);
@@ -23,6 +28,7 @@ export void Console_Clear_COMPACT (SHORTCARD attr);
 
 void Console_WriteCh_COMPACT_fastcall (void /* Register A */);
 void Console_WriteCh_FAST_fastcall (void /* Register A */);
+void Console_WriteCh_ROM_fastcall (void /* Register A */);
 
 /*implementation*/
 
@@ -289,6 +295,19 @@ __endasm;
 } //Console_WriteCh_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteCh_ROM_fastcall (void /* Register A */)
+{
+__asm
+  LD   IY,#0x5C3A
+  PUSH AF
+  LD   A,#2
+  CALL #0x1601
+  POP  AF
+  RST  16
+__endasm;
+} //Console_WriteCh_ROM_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteCh_ROM (CHAR ch)
 {
 __asm
@@ -311,7 +330,7 @@ void Console_WriteLn_ROM (void)
 {
 __asm
   LD   A,#0x0D
-  RST  16
+  JP   _Console_WriteCh_ROM_fastcall
 __endasm;
 } //Console_WriteLn_ROM
 
@@ -612,4 +631,104 @@ __asm
   LD   (_Console_attrib),A
 __endasm;
 } //Console_Clear_COMPACT
+
+/*----------------------------------------------------------------------------*/
+void Console_BackPos (void)
+{
+__asm
+  LD   A,#8
+  CALL _Console_WriteCh_ROM_fastcall
+__endasm;
+}
+
+SHORTINT i, digits;
+CHAR ch;
+CHAR data[8];
+INTEGER result;
+
+void Console_ReadInt_Accept (void)
+{
+	if (digits < 6) {
+		Console_WriteCh_ROM(ch); data[digits] = ch; digits += 1;
+	}
+}
+
+INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
+{
+	digits = 0;
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_ROM('_');
+			Console_BackPos();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					Console_WriteCh_ROM(' ');
+					Console_BackPos();
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+			Console_WriteCh_ROM(' ');
+			Console_BackPos();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+		}
+		exit__0:;
+		ch = Input_Read();
+		switch (ch) {
+			case '-':
+				if (digits == 0 && min < 0) {
+					Console_ReadInt_Accept();
+				}
+				break;
+			case '0': case '1': case '2': case '3': case '4':
+			case '5': case '6': case '7': case '8': case '9':
+				Console_ReadInt_Accept();
+				break;
+			case 0x0c:
+				if (digits > 0) {
+					digits -= 1;
+					Console_BackPos();
+					Console_WriteCh_ROM(' ');
+					Console_BackPos();
+				}
+				break;
+			case 0x0d:
+				if (digits > 0) {
+					if (digits < 8) {
+						data[digits] = 0x00;
+					}
+					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+						return result;
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
+	//__RETCHK;
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER Console_ReadInt (void)
+{
+	return Console_ReadIntRange(-32768, 32767);
+}
 
