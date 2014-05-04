@@ -8,14 +8,18 @@ export void GrPixel_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2);
 export void GrPixel_PutPixel (INTEGER x, INTEGER y);
 
 
+/*============================================================================*/
+
 void GrPixel_PutPixel (INTEGER x, INTEGER y)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void GrPixel_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 
 export void *GrPixel__init(void)
 {
