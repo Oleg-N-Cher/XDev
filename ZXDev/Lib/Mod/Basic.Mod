@@ -13,7 +13,7 @@ CONST
 	Magenta* = 3;
 	Green* = 4;
 	Cyan* = 5;
-	Brown* = 6;
+	Olive* = 6;
 	LightGray* = 7;
 
 	LightBlue* = Blue;
@@ -21,7 +21,7 @@ CONST
 	LightMagenta* = Magenta;
 	LightGreen* = Green;
 	LightCyan* = Cyan;
-	Yellow* = Brown;
+	Yellow* = Olive;
 	White* = LightGray;
 
 	On* = 1;
@@ -36,7 +36,7 @@ TYPE
 	CARDINAL = INTEGER;
 	Color* = SHORTINT;
 	Coords* = SHORTINT;
-	TextCoords = SHORTINT;
+	TextCoords* = SHORTINT;
 	Mode = SHORTINT;
 	ADDRESS = LONGINT;
 
@@ -49,13 +49,13 @@ PROCEDURE FLASH* (mode: Mode); BEGIN END FLASH;
 PROCEDURE BRIGHT* (mode: Mode); BEGIN END BRIGHT;
 PROCEDURE INVERSE* (mode: Mode); BEGIN END INVERSE;
 PROCEDURE OVER* (mode: Mode); BEGIN END OVER;
-PROCEDURE AT* (y, x: TextCoords); BEGIN END AT;
+PROCEDURE AT* (y, x: INTEGER); BEGIN END AT;
 PROCEDURE CLS* ; BEGIN END CLS;
 PROCEDURE PRSTR* (str: ARRAY OF CHAR); BEGIN END PRSTR;
 PROCEDURE PRCHAR* (ch: CHAR); BEGIN END PRCHAR;
 PROCEDURE PRDATA* ; BEGIN END PRDATA;
 PROCEDURE PRLN* ; BEGIN END PRLN;
-PROCEDURE PLOT* (x, y: Coords); BEGIN END PLOT;
+PROCEDURE PLOT* (x, y: INTEGER); BEGIN END PLOT;
 PROCEDURE POINT* (x, y: Coords): BYTE; BEGIN RETURN 0 END POINT;
 PROCEDURE ATTR* (y, x: TextCoords): BYTE; BEGIN RETURN 0 END ATTR;
 PROCEDURE DRAW* (x, y: Coords); BEGIN END DRAW;

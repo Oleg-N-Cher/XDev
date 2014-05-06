@@ -8,7 +8,7 @@
 
 
 
-import void Basic_AT (SHORTINT y, SHORTINT x);
+import void Basic_AT (INTEGER y, INTEGER x);
 import INTEGER Basic_ATTR (SHORTINT y, SHORTINT x);
 import void Basic_BEEP (INTEGER ms, INTEGER freq);
 import void Basic_BORDER (INTEGER color);
@@ -63,7 +63,7 @@ import void Basic_PAPER (INTEGER color);
 import void Basic_PAUSE (INTEGER ticks);
 import INTEGER Basic_PEEK (LONGINT addr);
 import INTEGER Basic_PEEKW (LONGINT addr);
-import void Basic_PLOT (SHORTINT x, SHORTINT y);
+import void Basic_PLOT (INTEGER x, INTEGER y);
 import INTEGER Basic_POINT (SHORTINT x, SHORTINT y);
 import void Basic_POKE (LONGINT addr, INTEGER value);
 import void Basic_POKEW (LONGINT addr, INTEGER value);
