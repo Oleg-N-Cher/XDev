@@ -774,7 +774,9 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL LB_PTBL
+  LD   HL,#LB_149
+  LD   DE,#LB_PWBL
+  CALL LB_196
 #ifdef __SDCC
   POP  IX
 #endif
@@ -793,7 +795,9 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL LB_PTOR
+  LD   HL,#LB_151
+  LD   DE,#LB_PWOR
+  CALL LB_196
 #ifdef __SDCC
   POP  IX
 #endif
@@ -831,7 +835,9 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  CALL LB_PTND
+  LD   HL,#LB_153
+  LD   DE,#LB_PWND
+  CALL LB_196
 #ifdef __SDCC
   POP  IX
 #endif
@@ -2456,7 +2462,7 @@ LB_091$:
   LD   HL,#LB_085$+1
   LD   (HL),#0xAE
 LB_092$:
-  CALL LB_151$
+  CALL LB_151
   LD   HL,#LB_085$+1
   LD   (HL),#0xB6
   RET
@@ -3203,7 +3209,8 @@ LB_147$:
 LB_148$:
   LD   A,#0x00
   JP   LB_100$
-LB_149$:
+.globl LB_149
+LB_149:
   LD   HL,#LB_148$+1
   LD   (HL),#0xEB
   CALL LB_147$
@@ -3211,25 +3218,26 @@ LB_150$:
   XOR  A
   LD   (#LB_148$+1),A
   RET
-LB_151$:
+.globl LB_151
+LB_151:
   LD   HL,#LB_086$
   LD   (#LB_100$+1),HL
-  CALL LB_149$
+  CALL LB_149
 LB_152$:
   LD   HL,#LB_093$
   LD   (#LB_100$+1),HL
   RET
-LB_153$:
+LB_153:
   LD   HL,#LB_085$+1
   LD   (HL),#0xA6
   JP   LB_092$
 LB_154$:
-  LD   HL,#LB_149$+3+1
+  LD   HL,#LB_149+3+1
   LD   (HL),#0x00
-  CALL LB_151$
+  CALL LB_151
 LB_155$:
   LD   A,#0xEB
-  LD   (#LB_149$+3+1),A
+  LD   (#LB_149+3+1),A
   RET
 .globl LB_SR1M
 LB_SR1M:
@@ -3495,42 +3503,27 @@ LB_189$:
 LB_GTBL:
   LD   HL,#LB_147$
   LD   DE,#GWBL$
-  JP   LB_196$
+  JP   LB_196
 .globl LB_GTOR
 LB_GTOR:
   LD   HL,#LB_154$
   LD   DE,#GWOR$
-  JP   LB_196$
+  JP   LB_196
 .globl LB_GTXR
 LB_GTXR:
   LD   HL,#LB_200$
   LD   DE,#GWXR$
-  JP   LB_196$
+  JP   LB_196
 .globl LB_GTND
 LB_GTND:
   LD   HL,#LB_201$
   LD   DE,#GWND$
-  JP   LB_196$
-.globl LB_PTBL
-LB_PTBL:
-  LD   HL,#LB_149$
-  LD   DE,#LB_PWBL
-  JP   LB_196$
-.globl LB_PTOR
-LB_PTOR:
-  LD   HL,#LB_151$
-  LD   DE,#LB_PWOR
-  JP   LB_196$
+  JP   LB_196
 .globl LB_PTXR
 LB_PTXR:
   LD   HL,#LB_091$
   LD   DE,#LB_PWXR
-  JP   LB_196$
-.globl LB_PTND
-LB_PTND:
-  LD   HL,#LB_153$
-  LD   DE,#LB_PWND
-  JP   LB_196$
+  JP   LB_196
 GWBL$:
   CALL LB_202$
   JP   LB_190$
@@ -3596,7 +3589,8 @@ LB_195$:
   LD   (#LB_192$+1),IX
   LD   IX,#PWAT$
   JR   LB_191$
-LB_196$:
+.globl LB_196
+LB_196:
   LD   (#LB_197$+1),HL
   LD   (#LB_198$+1),DE
   PUSH BC
@@ -3618,14 +3612,14 @@ LB_199$:
   NOP
   NOP
 LB_200$:
-  LD   HL,#LB_149$+3+1
+  LD   HL,#LB_149+3+1
   LD   (HL),#0x00
   CALL LB_091$
   JP   LB_155$
 LB_201$:
-  LD   HL,#LB_149$+3+1
+  LD   HL,#LB_149+3+1
   LD   (HL),#0x00
-  CALL LB_153$
+  CALL LB_153
   JP   LB_155$
 LB_202$:
   PUSH AF
