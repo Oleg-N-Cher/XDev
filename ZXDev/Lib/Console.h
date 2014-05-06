@@ -12,9 +12,9 @@
 
 #define Console__init()
 
-export void Console_At_ROM (SHORTINT x, SHORTINT y);
-export void Console_At_COMPACT (SHORTINT x, SHORTINT y);
-export void Console_At_FAST (SHORTINT x, SHORTINT y);
+import void Console_At_ROM (SHORTINT x, SHORTINT y);
+import void Console_At_COMPACT (SHORTINT x, SHORTINT y);
+import void Console_At_FAST (SHORTINT x, SHORTINT y);
 #  ifdef OUTPUT_ROM
 #    define Console_At Console_At_ROM
 #  endif
@@ -24,10 +24,24 @@ export void Console_At_FAST (SHORTINT x, SHORTINT y);
 #  ifdef OUTPUT_FAST
 #    define Console_At Console_At_FAST
 #  endif
-
-import INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
-import INTEGER Console_ReadInt (void);
-
+import INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
+import INTEGER Console_ReadInt_ROM (void);
+import INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
+import INTEGER Console_ReadInt_COMPACT (void);
+import INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
+import INTEGER Console_ReadInt_FAST (void);
+#  ifdef OUTPUT_ROM
+#    define Console_ReadIntRange Console_ReadIntRange_ROM
+#    define Console_ReadInt Console_ReadInt_ROM
+#  endif
+#  ifdef OUTPUT_COMPACT
+#    define Console_ReadIntRange Console_ReadIntRange_COMPACT
+#    define Console_ReadInt Console_ReadInt_COMPACT
+#  endif
+#  ifdef OUTPUT_FAST
+#    define Console_ReadIntRange Console_ReadIntRange_FAST
+#    define Console_ReadInt Console_ReadInt_FAST
+#  endif
 import void Console_WriteCh_COMPACT (CHAR ch);
 import void Console_WriteCh_FAST (CHAR ch);
 import void Console_WriteCh_ROM (CHAR ch);

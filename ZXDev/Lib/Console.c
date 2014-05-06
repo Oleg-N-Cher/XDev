@@ -7,8 +7,12 @@
 export void Console_At_ROM (SHORTINT x, SHORTINT y);
 export void Console_At_COMPACT (SHORTINT x, SHORTINT y);
 export void Console_At_FAST (SHORTINT x, SHORTINT y);
-export INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
-export INTEGER Console_ReadInt (void);
+export INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
+export INTEGER Console_ReadInt_ROM (void);
+export INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
+export INTEGER Console_ReadInt_COMPACT (void);
+export INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
+export INTEGER Console_ReadInt_FAST (void);
 export void Console_SetColors (SHORTINT attr);
 export void Console_WriteCh_COMPACT (CHAR ch);
 export void Console_WriteCh_FAST (CHAR ch);
@@ -633,7 +637,7 @@ __endasm;
 } //Console_Clear_COMPACT
 
 /*----------------------------------------------------------------------------*/
-void Console_BackPos (void)
+void Console_BackPos_ROM (void)
 {
 __asm
   LD   A,#8
@@ -646,32 +650,32 @@ CHAR ch;
 CHAR data[8];
 INTEGER result;
 
-void Console_ReadInt_Accept (void)
+void Console_ReadInt_Accept_ROM (void)
 {
 	if (digits < 6) {
 		Console_WriteCh_ROM(ch); data[digits] = ch; digits += 1;
 	}
 }
 
-INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
+INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max)
 {
 	digits = 0;
 	for (;;) {
 		for (;;) {
 			Console_WriteCh_ROM('_');
-			Console_BackPos();
+			Console_BackPos_ROM();
 			i = 25;
 			while (i >= 1) {
 				if (Input_Available() != 0) {
 					Console_WriteCh_ROM(' ');
-					Console_BackPos();
+					Console_BackPos_ROM();
 					goto exit__0;
 				}
 				Timer_Delay(10);
 				i += -1;
 			}
 			Console_WriteCh_ROM(' ');
-			Console_BackPos();
+			Console_BackPos_ROM();
 			i = 25;
 			while (i >= 1) {
 				if (Input_Available() != 0) {
@@ -686,19 +690,19 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 		switch (ch) {
 			case '-':
 				if (digits == 0 && min < 0) {
-					Console_ReadInt_Accept();
+					Console_ReadInt_Accept_ROM();
 				}
 				break;
 			case '0': case '1': case '2': case '3': case '4':
 			case '5': case '6': case '7': case '8': case '9':
-				Console_ReadInt_Accept();
+				Console_ReadInt_Accept_ROM();
 				break;
 			case 0x0c:
 				if (digits > 0) {
 					digits -= 1;
-					Console_BackPos();
+					Console_BackPos_ROM();
 					Console_WriteCh_ROM(' ');
-					Console_BackPos();
+					Console_BackPos_ROM();
 				}
 				break;
 			case 0x0d:
@@ -723,12 +727,209 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 			i -= 1;
 		}
 	}
-	//__RETCHK;
 }
 
 /*----------------------------------------------------------------------------*/
-INTEGER Console_ReadInt (void)
+INTEGER Console_ReadInt_ROM (void)
 {
-	return Console_ReadIntRange(-32768, 32767);
+	return Console_ReadIntRange_ROM(-32768, 32767);
+}
+
+/*----------------------------------------------------------------------------*/
+void Console_BackPos_COMPACT (void)
+{
+__asm
+  LD   HL,#_ATTR_ADR_C+1
+  DEC  (HL)
+__endasm;
+}
+
+SHORTINT i, digits;
+CHAR ch;
+CHAR data[8];
+INTEGER result;
+
+void Console_ReadInt_Accept_COMPACT (void)
+{
+	if (digits < 6) {
+		Console_WriteCh_COMPACT(ch); data[digits] = ch; digits += 1;
+	}
+}
+
+INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max)
+{
+	digits = 0;
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_COMPACT('_');
+			Console_BackPos_COMPACT();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					Console_WriteCh_COMPACT(' ');
+					Console_BackPos_COMPACT();
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+			Console_WriteCh_COMPACT(' ');
+			Console_BackPos_COMPACT();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+		}
+		exit__0:;
+		ch = Input_Read();
+		switch (ch) {
+			case '-':
+				if (digits == 0 && min < 0) {
+					Console_ReadInt_Accept_COMPACT();
+				}
+				break;
+			case '0': case '1': case '2': case '3': case '4':
+			case '5': case '6': case '7': case '8': case '9':
+				Console_ReadInt_Accept_COMPACT();
+				break;
+			case 0x0c:
+				if (digits > 0) {
+					digits -= 1;
+					Console_BackPos_COMPACT();
+					Console_WriteCh_COMPACT(' ');
+					Console_BackPos_COMPACT();
+				}
+				break;
+			case 0x0d:
+				if (digits > 0) {
+					if (digits < 8) {
+						data[digits] = 0x00;
+					}
+					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+						return result;
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER Console_ReadInt_COMPACT (void)
+{
+	return Console_ReadIntRange_COMPACT(-32768, 32767);
+}
+
+/*----------------------------------------------------------------------------*/
+void Console_BackPos_FAST (void)
+{
+__asm
+  LD   HL,#_SCR_ADR_F+1
+  DEC  (HL)
+__endasm;
+}
+
+SHORTINT i, digits;
+CHAR ch;
+CHAR data[8];
+INTEGER result;
+
+void Console_ReadInt_Accept_FAST (void)
+{
+	if (digits < 6) {
+		Console_WriteCh_FAST(ch); data[digits] = ch; digits += 1;
+	}
+}
+
+INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max)
+{
+	digits = 0;
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_FAST('_');
+			Console_BackPos_FAST();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					Console_WriteCh_FAST(' ');
+					Console_BackPos_FAST();
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+			Console_WriteCh_FAST(' ');
+			Console_BackPos_FAST();
+			i = 25;
+			while (i >= 1) {
+				if (Input_Available() != 0) {
+					goto exit__0;
+				}
+				Timer_Delay(10);
+				i += -1;
+			}
+		}
+		exit__0:;
+		ch = Input_Read();
+		switch (ch) {
+			case '-':
+				if (digits == 0 && min < 0) {
+					Console_ReadInt_Accept_FAST();
+				}
+				break;
+			case '0': case '1': case '2': case '3': case '4':
+			case '5': case '6': case '7': case '8': case '9':
+				Console_ReadInt_Accept_FAST();
+				break;
+			case 0x0c:
+				if (digits > 0) {
+					digits -= 1;
+					Console_BackPos_FAST();
+					Console_WriteCh_FAST(' ');
+					Console_BackPos_FAST();
+				}
+				break;
+			case 0x0d:
+				if (digits > 0) {
+					if (digits < 8) {
+						data[digits] = 0x00;
+					}
+					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+						return result;
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER Console_ReadInt_FAST (void)
+{
+	return Console_ReadIntRange_FAST(-32768, 32767);
 }
 
