@@ -8,7 +8,7 @@ MODULE Laser; (** non-portable *)
 
 TYPE
   BYTE = INTEGER;
-  CARDINAL = INTEGER;
+  CARDINAL = LONGINT;
 
 PROCEDURE InitSprites* (sprAddr, sprSize: CARDINAL);
   BEGIN END InitSprites;
