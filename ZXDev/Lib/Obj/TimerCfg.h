@@ -4,3 +4,5 @@
 //#define MODE_EI
 
 //#define DELAY_HALT
+
+#define DELAY_fastcall

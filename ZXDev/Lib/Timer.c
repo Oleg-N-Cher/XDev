@@ -1,13 +1,16 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
 
-export void Timer_Delay_HALT_DI (INTEGER msec);
-export void Timer_Delay_HALT_EI (INTEGER msec);
-export void Timer_Delay_Ex (INTEGER msec);
+export void Timer_Delay_HALT_DI_stdcall (INTEGER msec);
+export void Timer_Delay_HALT_DI_fastcall (void /*DE*/);
+export void Timer_Delay_HALT_EI_stdcall (INTEGER msec);
+export void Timer_Delay_HALT_EI_fastcall (void /*DE*/);
+export void Timer_Delay_Ex_stdcall (INTEGER msec);
+export void Timer_Delay_Ex_fastcall (void /*DE*/);
 
 /*================================== Header ==================================*/
 
-void Timer_Delay_Ex (INTEGER msec)
+void Timer_Delay_Ex_stdcall (INTEGER msec)
 {
   __asm
 #ifdef __SDCC
@@ -33,7 +36,23 @@ Loop$:
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Timer_Delay_HALT_DI (INTEGER msec)
+void Timer_Delay_Ex_fastcall (void /*DE*/)
+{
+  __asm
+DelayLoopF$:
+  LD   B,#205
+LoopF$:
+  NOP
+  DJNZ LoopF$
+  LD   A,E
+  OR   D
+  DEC  DE
+  JR   NZ,DelayLoopF$
+  __endasm;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Timer_Delay_HALT_DI_stdcall (INTEGER msec)
 {
   __asm
   LD   IY,#0x5C3A
@@ -59,7 +78,23 @@ DelayLoopHaltDi$:
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Timer_Delay_HALT_EI (INTEGER msec)
+void Timer_Delay_HALT_DI_fastcall (void /*DE*/)
+{
+  __asm
+  LD   IY,#0x5C3A
+  EI
+DelayLoopHaltDiF$:
+  HALT
+  DEC  DE
+  LD   A,E
+  OR   D
+  JR   NZ,DelayLoopHaltDiF$
+  DI
+  __endasm;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Timer_Delay_HALT_EI_stdcall (INTEGER msec)
 {
   __asm
   LD   IY,#0x5C3A
@@ -80,5 +115,20 @@ DelayLoopHaltEi$:
   LD   A,E
   OR   D
   JR   NZ,DelayLoopHaltEi$
+  __endasm;
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Timer_Delay_HALT_EI_fastcall (void /*DE*/)
+{
+  __asm
+  LD   IY,#0x5C3A
+  EI
+DelayLoopHaltEiF$:
+  HALT
+  DEC  DE
+  LD   A,E
+  OR   D
+  JR   NZ,DelayLoopHaltEiF$
   __endasm;
 }
