@@ -23,6 +23,13 @@ import void _InitSprites (void /* Registers HL */);
   ld (__id__(__hash__)_SFSTRT),hl \
   __endasm; _InitSprites()
   //SFSTRT = sprStart; SF_END = sprStart + sprSize; _InitSprites()
+#define Laser_InitSpritesEx(sprStart, sprSize) __asm \
+  ld hl,(__id__(__hash__)_##sprStart) \
+  ld (__id__(__hash__)_SFSTRT),hl \
+  ld de,__id__(__hash__)sprSize \
+  add hl,de \
+  ld (__id__(__hash__)_SF_END),hl \
+  __endasm; _InitSprites()
 
 #define Laser_InitScroll(scrollBuf) __asm \
   ld hl,__id__(__hash__)scrollBuf \

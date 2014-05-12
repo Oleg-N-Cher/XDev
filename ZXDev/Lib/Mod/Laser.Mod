@@ -12,6 +12,8 @@ TYPE
 
 PROCEDURE InitSprites* (sprAddr, sprSize: CARDINAL);
   BEGIN END InitSprites;
+PROCEDURE InitSpritesEx* (sprAddr, sprSize: CARDINAL);
+  BEGIN END InitSpritesEx;
 PROCEDURE InitScroll* (scrollBuf: CARDINAL);
   BEGIN END InitScroll;
 
