@@ -31,6 +31,7 @@ import void Laser_INVM (INTEGER spN);
 import void Laser_INVV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 import void Laser_InitScroll (LONGINT scrollBuf);
 import void Laser_InitSprites (LONGINT sprAddr, LONGINT sprSize);
+import void Laser_InitSpritesEx (LONGINT sprAddr, LONGINT sprSize);
 import void Laser_MARV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 import void Laser_MIRV (INTEGER col, INTEGER row, INTEGER len, INTEGER hgt);
 import void Laser_PMAT (INTEGER col, INTEGER row, INTEGER spD, INTEGER spS);
