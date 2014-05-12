@@ -57,7 +57,7 @@ export void Basic_Quit_IM2 (void);
 
 /*implementation*/
 
-import CARDINAL _RandBB (void);
+import CARDINAL _Basic_RandBB (void);
 
 /* Video temp attrib */
 #define ATTR_T$ 0x5C8F
@@ -1008,7 +1008,7 @@ __endasm;
 /* SEED_RND address */
 #define SF_RND$ 0x5C76
 
-CARDINAL _RandBB (void) /* Ripped from Beta Basic */
+CARDINAL _Basic_RandBB (void) /* Ripped from Beta Basic */
 {
 __asm
   LD   D,#0
@@ -1028,18 +1028,18 @@ __asm
 R1$:
   LD  (#SF_RND$),HL
 __endasm;
-} //_RandBB
+} //__Basic_RandBB
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max)
 {
-  return _RandBB()%(max-min+1) + min;
+  return _Basic_RandBB()%(max-min+1) + min;
 } //Basic_RND_BYTE
 
 /*--------------------------------- Cut here ---------------------------------*/
 CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max)
 {
-  return _RandBB()%(max-min+1) + min;
+  return _Basic_RandBB()%(max-min+1) + min;
 } //Basic_RND_WORD
 
 /*--------------------------------- Cut here ---------------------------------*/
