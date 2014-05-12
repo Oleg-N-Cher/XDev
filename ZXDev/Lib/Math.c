@@ -65,7 +65,7 @@ REAL Math_Ln (REAL x)
 /* SEED_RND address */
 #define SF_RND$ 0x5C76
 
-CARDINAL _RandBB (void) /* Ripped from Beta Basic */
+static CARDINAL __Math_RandBB (void) /* Ripped from Beta Basic */
 {
 __asm
   LD   D,#0
@@ -85,13 +85,12 @@ __asm
 R1$:
   LD  (#SF_RND$),HL
 __endasm;
-} //_RandBB
+} //__Math_RandBB
 
 CARDINAL Math_RndRange (CARDINAL min, CARDINAL max)
 {
-  return _RandBB()%(max-min+1) + min;
+  return __Math_RandBB()%(max-min+1) + min;
 } //Math_RndRange
-
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Math_Randomize (void)
