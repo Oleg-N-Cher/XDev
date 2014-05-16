@@ -5,7 +5,7 @@
 @SET Bin=..\Bin
 @SET Lib=..\Lib
 
-%Bin%\sdcc -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %Lib% -L %Lib%/z80 LaserDemo.c Basic.lib Laser.lib LaserSprite2B.lib
+%Bin%\sdcc -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %Lib% -L %Lib%/z80 LaserDemo.c Basic.lib Laser.lib
 @IF errorlevel 1 PAUSE
 
 :: Convert Intel hex format to binary
