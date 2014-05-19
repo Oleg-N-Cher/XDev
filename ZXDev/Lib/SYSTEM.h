@@ -91,7 +91,7 @@ extern void SYSTEM_ENUMR();
   #define __INIT(argc, argv)
   #define __REGMAIN(name, enum)
 #endif
-#define __FINI	SYSTEM_FINI(); return 0
+#define __FINI	SYSTEM_FINI(); return
 #define __IMPORT(name__init)	SYSTEM_INCREF(name__init())
 #ifdef SYSTEM_Cfg_RegisterCommands
   #define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
