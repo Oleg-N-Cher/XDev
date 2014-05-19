@@ -3,10 +3,12 @@
 #include "Console.h"
 
 
-static INTEGER ASCII_n, ASCII__for__1;
+static SHORTINT ASCII_n, ASCII__for__1;
 
 
 
+
+/*============================================================================*/
 
 
 export main(int argc, char **argv)
