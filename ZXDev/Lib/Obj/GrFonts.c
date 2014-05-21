@@ -3,10 +3,12 @@
 #include "Basic.h"
 
 
-export INTEGER GrFonts_MsDosCga8x8;
+export INTEGER GrFonts_MsDosCga8x8, GrFonts_ZxSpecRus8x8;
 
 
 
+
+/*============================================================================*/
 
 
 export void *GrFonts__init(void)

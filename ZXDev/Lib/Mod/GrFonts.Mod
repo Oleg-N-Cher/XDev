@@ -8,6 +8,6 @@ CONST
   ZxSpecRom8x8* = Basic.RomFont;
 
 VAR
-  MsDosCga8x8- : Font;
+  MsDosCga8x8-, ZxSpecRus8x8-: Font;
 
 END GrFonts.
