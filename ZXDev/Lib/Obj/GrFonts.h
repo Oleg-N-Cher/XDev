@@ -6,7 +6,7 @@
 #include "SYSTEM.h"
 
 
-import INTEGER GrFonts_MsDosCga8x8;
+import INTEGER GrFonts_MsDosCga8x8, GrFonts_ZxSpecRus8x8;
 
 
 import void *GrFonts__init(void);
