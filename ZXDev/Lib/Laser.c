@@ -8,7 +8,8 @@
 #include "SYSTEM.h"
 #include "Laser.h"
 
-/*interface*/
+/* Set video attrib */
+#define SETV_A$ 0x5C8D
 
 extern unsigned int SFSTRT; /* Sprite file start address */
 extern unsigned int SF_END; /* Sprite file end address */
@@ -91,10 +92,8 @@ export void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
                         SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
 export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
                         SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-
-/*implementation*/
-
 /*================================== Header ==================================*/
+
 unsigned long LB_069;
 /*LB_069$:
   NOP
@@ -225,7 +224,8 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_INVV
+  LD   DE,#__Laser_LB_053
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
@@ -246,12 +246,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_MIRV
+  LD   DE,#__Laser_LB_049
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_MIRV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -267,7 +268,8 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_MARV
+  //  NOP  //?
+  CALL __Laser_LB_001
 #ifdef __SDCC
   POP  IX
 #endif
@@ -288,12 +290,29 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_SETV
+  CALL __Laser_LB_064
+  CALL __Laser_LB_068
+  PUSH HL
+  PUSH BC
+  POP  HL
+  CALL __Laser_LB_105
+  POP  BC
+LB_054$:
+  PUSH BC
+  PUSH HL
+  LD   A,(#SETV_A$)
+  CALL __Laser_LB_055+1
+  POP  HL
+  LD   DE,#0x0020
+  ADD  HL,DE
+  POP  BC
+  DJNZ LB_054$
+  //RET
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_SETV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -309,12 +328,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_CLSV
+  LD   DE,#__Laser_LB_055
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_CLSV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -330,12 +350,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_WL1V
+  LD   DE,#__Laser_LB_037
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_WL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -351,12 +372,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_WR1V
+  LD   DE,#__Laser_LB_034
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_WR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -462,12 +484,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_WL8V
+  LD   DE,#__Laser_LB_046
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_WL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -483,7 +506,8 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_WR8V
+  LD   DE,#__Laser_LB_048
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
@@ -504,12 +528,20 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_SL1V
+  CALL __Laser_LB_SL1V
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
 }
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_SL1V (void) __naked {
+__asm
+  LD   DE,#__Laser_LB_035
+  JP   __Laser_LB_056
+__endasm;
+} //_Laser_LB_SL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -525,12 +557,20 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_SR1V
+  CALL __Laser_LB_SR1V
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
 }
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_SR1V (void) __naked {
+__asm
+  LD   DE,#__Laser_LB_033
+  JP   __Laser_LB_056
+__endasm;
+} //_Laser_LB_SR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -563,7 +603,7 @@ __asm
   POP  HL
 .globl LB_039
 LB_039:
-  CALL LB_SL1V
+  CALL __Laser_LB_SL1V
   LD   HL,#0x16CB
   LD   (#LB_036),HL
 //RET
@@ -601,7 +641,7 @@ __asm
   POP  HL
 .globl LB_038
 LB_038:
-  CALL LB_SR1V
+  CALL __Laser_LB_SR1V
   LD   HL,#0x1ECB
   LD   (#__Laser_LB_033+2),HL
 //RET
@@ -622,12 +662,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_SL8V
+  LD   DE,#__Laser_LB_045
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_SL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -643,12 +684,13 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_SR8V
+  LD   DE,#__Laser_LB_047
+  CALL __Laser_LB_056
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_SR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx)
@@ -665,7 +707,7 @@ __asm
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
-  CALL LB_WCRV
+  CALL __Laser_LB_015+1
 #ifdef __SDCC
   POP  IX
 #endif
@@ -687,7 +729,7 @@ __asm
   LD   L,6(IX)
   LD   H,7(IX)
   LD   A,8(IX)
-  CALL LB_SCRV
+  CALL __Laser_LB_SCRV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -708,7 +750,7 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_AWLV
+  CALL __Laser_LB_AWLV
 #ifdef __SDCC
   POP  IX
 #endif
@@ -729,12 +771,17 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_ASLV
+  LD   DE,#__Laser_LB_045
+  LD   (#LB_004+1),DE
+  CALL __Laser_LB_AWLV
+  LD   DE,#__Laser_LB_046
+  LD   (#LB_004+1),DE
+  //RET
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_ASLV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -750,7 +797,8 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_AWRV
+  LD   DE,#__Laser_LB_048
+  CALL __Laser_LB_013
 #ifdef __SDCC
   POP  IX
 #endif
@@ -771,12 +819,17 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_ASRV
+  LD   DE,#__Laser_LB_047
+  LD   (#LB_004+1),DE
+  CALL __Laser_LB_AWLV
+  LD   DE,#__Laser_LB_046
+  LD   (#LB_004+1),DE
+  //RET
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_ASRV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -792,12 +845,15 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_ATUV
+  CALL __Laser_LB_064
+  CALL __Laser_LB_068
+  CALL __Laser_LB_058
+  CALL C,__Laser_LB_006
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
-}
+} //Laser_ATUV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt)
@@ -813,12 +869,26 @@ __asm
   LD   B,5(IX)
   LD   L,6(IX)
   LD   H,7(IX)
-  CALL LB_ATDV
 #ifdef __SDCC
   POP  IX
 #endif
+  CALL __Laser_LB_064
+  CALL __Laser_LB_068
+  CALL __Laser_LB_058
+  RET  NC
+  LD   A,H
+  DEC  A
+  RET  Z
+  ADD  A,B
+  LD   B,A
+  LD   A,#0x52
+  LD   (#LB_011+1),A
+  CALL __Laser_LB_006
+  LD   A,#0x5A
+  LD   (#LB_011+1),A
+  //RET
 __endasm;
-}
+} //Laser_ATDV
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*-------------------------------------*/
@@ -871,8 +941,8 @@ __asm
   LD   C,4(IX) /* x */
   LD   B,5(IX) /* y */
   LD   A,6(IX) /* Sprite number */
-  LD   HL,#LB_149
-  LD   DE,#LB_PWBL
+  LD   HL,#__Laser_LB_149
+  LD   DE,#__Laser_LB_PWBL
   CALL __Laser_LB_196
 #ifdef __SDCC
   POP  IX
@@ -1202,9 +1272,9 @@ __asm
 #endif
   LD   A,4(IX)
   LD   B,5(IX)
-  LD   HL,#LB_015$+1
+  LD   HL,#__Laser_LB_015+1
   LD   (#LB_181+1),HL
-  CALL LB_SCRM
+  CALL __Laser_LB_SCRM
   CALL _LB_158
 #ifdef __SDCC
   POP  IX
@@ -1216,7 +1286,7 @@ __endasm;
 void LB_158 (void)
 {
 __asm
-  LD   HL,#LB_SCRV
+  LD   HL,#__Laser_LB_SCRV
   LD   (#LB_181+1),HL
 //RET
 __endasm;
@@ -1234,12 +1304,38 @@ __asm
 #endif
   LD   A,4(IX)
   LD   B,5(IX)
-  CALL LB_SCRM
+  CALL __Laser_LB_SCRM
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
 }
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_SCRM (void) {
+__asm
+  PUSH BC
+  CALL __Laser_LB_146
+  POP  BC
+  LD   (#LB_179),DE
+  LD   (#LB_179+2),HL
+  LD   HL,#LB_179+4
+  LD   (#LB_022+4),HL
+  LD   A,#0xC3
+  LD   (#LB_022+3),A
+  LD   A,B
+  LD   BC,#0x0000
+  LD   HL,(#LB_179+2)
+.globl LB_181
+LB_181:
+  CALL __Laser_LB_SCRV
+  LD   A,#0x58
+  LD   (#LB_022+3),A
+  LD   HL,#0x3E51
+  LD   (#LB_022+4),HL
+  //RET
+__endasm;
+} //_Laser_LB_SCRM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATOF (void)
@@ -1426,7 +1522,9 @@ __asm
   LD   D,5(IX) /* y */
   LD   C,6(IX) /* Dest sprite number */
   LD   B,7(IX) /* Source sprite number */
-  CALL LB_PMAT
+  PUSH AF
+  LD   A,#0xEB
+  CALL __Laser_LB_114 // Was: JR
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1548,7 +1646,9 @@ __asm
   LD   D,5(IX) /* y */
   LD   B,6(IX) /* Dest sprite number */
   LD   C,7(IX) /* Source sprite number */
-  CALL LB_GMAT
+  PUSH AF
+  XOR  A
+  CALL __Laser_LB_114
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1572,12 +1672,20 @@ __asm
   LD   D,8(IX) /* Sprite row */
   LD   L,7(IX) /* Sprite len */
   LD   H,8(IX) /* Sprite hgt */
-  CALL LB_PWBL
+  CALL __Laser_LB_PWBL
 #ifdef __SDCC
   POP  IX
 #endif
 __endasm;
 }
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_PWBL (void) __naked {
+__asm
+  CALL __Laser_LB_202
+  JP   __Laser_LB_195
+__endasm;
+} //_Laser_LB_PWBL
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
@@ -1652,6 +1760,96 @@ __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_AWLV (void) __naked {
+__asm
+  CALL __Laser_LB_058
+  RET  NC
+  PUSH HL
+  PUSH BC
+  POP  HL
+  POP  BC
+  PUSH BC
+  CALL __Laser_LB_105
+  POP  BC
+.globl LB_003
+LB_003:
+  LD   A,B
+  PUSH BC
+  PUSH AF
+  PUSH HL
+  LD   B,#0x00
+.globl LB_004
+LB_004:
+  CALL __Laser_LB_046
+  POP  HL
+.globl LB_005
+LB_005:
+  LD   DE,#0x0020
+  OR   A
+  ADC  HL,DE
+  POP  AF
+  POP  BC
+  DEC  A
+  RET  Z
+  JR   LB_003+1
+__endasm;
+} //_Laser_LB_AWLV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_013 (void) {
+__asm
+  LD   (#LB_004+1),DE
+  CALL __Laser_LB_AWLV
+.globl LB_014
+LB_014:
+  LD   DE,#__Laser_LB_046
+  LD   (#LB_004+1),DE
+  //RET
+__endasm;
+} //_Laser_LB_013
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_021 (void) {
+__asm
+  CALL __Laser_LB_058
+  RET  NC
+  LD   A,(#_LB_069)
+  SLA  H
+  SLA  H
+  SLA  H
+  BIT  7,A
+  JR   Z,#LB_022
+  NEG
+.globl LB_022
+LB_022:
+  SUB  H
+  RET
+  LD   E,B
+  LD   D,C
+  LD   A,#0x07
+  AND  B
+  LD   C,A
+  LD   A,#0xC0
+  AND  B
+  RRCA
+  RRCA
+  RRCA
+  OR   C
+  SET  6,A
+  LD   H,A
+  LD   A,#0x38
+  AND  B
+  RLCA
+  RLCA
+  ADD  A,D
+  LD   L,A
+  LD   B,E
+  LD   C,D
+//RET
+__endasm;
+} //_Laser_LB_021
+  
+/*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_033 (void) {
 __asm
   XOR  A
@@ -1682,6 +1880,48 @@ LB_036:
 //RET
 __endasm;
 } //_Laser_LB_035
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_045 (void) {
+__asm
+  LD   D,H
+  LD   E,L
+  INC  HL
+  DEC  C
+  RET  Z
+  LDIR
+  DEC  HL
+  LD   (HL),#0x00
+//RET
+__endasm;
+} //_Laser_LB_045
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_046 (void) {
+__asm
+  LD   A,(HL)
+  CALL __Laser_LB_045
+  LD   (DE),A
+//RET
+__endasm;
+} //_Laser_LB_046
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_047 (void) {
+__asm
+  DEC  C
+  RET  Z
+  ADD  HL,BC
+  LD   D,H
+  LD   E,L
+  LD   A,(HL)
+  DEC  HL
+  LDDR
+  INC  HL
+  LD   (HL),#0x00
+//RET
+__endasm;
+} //_Laser_LB_047
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_056 (void) {
@@ -1859,6 +2099,185 @@ __asm
 //RET
 __endasm;
 } //_Laser_LB_074
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_RLCT (void) {
+__asm
+  //CALL __Laser_LB_076
+  // inline
+  LD   HL,(#_SFSTRT)
+LB_076_3$:
+  LD   A,(HL)
+  OR   A // Was: CP   #0x00
+  JR   Z,LB_076_4$//RET  Z
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  EX   DE,HL
+  PUSH HL
+  ADD  HL,BC
+  EX   DE,HL
+  LD   (HL),D
+  DEC  HL
+  LD   (HL),E
+  POP  HL
+  JR   LB_076_3$
+LB_076_4$:
+  // end
+  LD   HL,(#_SF_END)
+  LD   DE,(#_SFSTRT)
+  OR   A
+  SBC  HL,DE
+  INC  HL
+  PUSH HL
+  BIT  7,B
+  JR   NZ,#LB_077$
+  LD   HL,(#_SF_END)
+  CALL __Laser_LB_078
+  LD   (#_SF_END),DE
+  POP  BC
+  LDDR
+  INC  DE
+  LD   (#_SFSTRT),DE
+  RET
+LB_077$:
+  LD   HL,(#_SFSTRT)
+  CALL __Laser_LB_078
+  LD   (#_SFSTRT),DE
+  POP  BC
+  LDIR
+  DEC  DE
+  LD   (#_SF_END),DE
+//RET
+__endasm;
+} //_Laser_RLCT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_078 (void) {
+__asm
+  PUSH HL
+  ADD  HL,BC
+  EX   DE,HL
+  POP  HL
+//RET
+__endasm;
+} //_Laser_LB_078
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_079 (void) {
+__asm
+  LD   D,A
+  LD   A,B
+  OR   A
+  RET  Z
+  LD   A,C
+  OR   A
+  RET  Z
+  LD   A,D
+  PUSH AF
+  PUSH BC
+  CALL __Laser_LB_070
+  CALL NC,#__Laser_LB_080
+  POP  BC
+  POP  AF
+  LD   HL,(#_SF_END)
+  LD   (HL),A
+  INC  HL
+  PUSH BC
+  PUSH HL
+  LD   L,B
+  LD   H,#0x00
+  LD   D,H
+  LD   E,L
+  ADD  HL,HL
+  ADD  HL,HL
+  ADD  HL,HL
+  ADD  HL,DE
+  LD   D,#0x00
+  LD   E,C
+  CALL __Laser_LB_107
+  POP  DE
+  ADD  HL,DE
+  INC  HL
+  INC  HL
+  INC  HL
+  INC  HL
+  EX   DE,HL
+  LD   (HL),E
+  INC  HL
+  LD   (HL),D
+  INC  HL
+  POP  BC
+  LD   (HL),C
+  INC  HL
+  LD   (HL),B
+  LD   (#_SF_END),DE
+  XOR  A
+  LD   (DE),A
+//RET
+__endasm;
+} //_Laser_LB_079
+  
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_080 (void) {
+__asm
+  PUSH BC
+  LD   H,B
+  LD   L,C
+  CALL __Laser_LB_074
+  POP  HL
+  EX   DE,HL
+  //CALL LB_106$
+  //inline
+  AND  A
+  SBC  HL,DE
+  LD   B,H
+  LD   C,L
+  ADD  HL,DE
+  EX   DE,HL
+  //RET
+  //end
+  PUSH HL
+  PUSH DE
+  EX   DE,HL
+  JR   LB_082$
+LB_081$:
+  CALL __Laser_LB_074
+  EX   DE,HL
+  PUSH HL
+  OR   A
+  SBC  HL,BC
+  EX   DE,HL
+  LD   (HL),D
+  DEC  HL
+  LD   (HL),E
+  POP  HL
+LB_082$:
+  LD   A,(HL)
+  OR   A
+  JR   NZ,#LB_081$
+  LD   HL,(#_SF_END)
+  POP  DE
+  OR   A
+  SBC  HL,BC
+  LD   (#_SF_END),HL
+  ADD  HL,BC
+  SBC  HL,DE
+  LD   B,H
+  LD   C,L
+  LD   A,B
+  OR   C
+  POP  HL
+  EX   DE,HL
+  JR   Z,#LB_083$
+  LDIR
+LB_083$:
+  XOR  A
+  LD   (DE),A
+//RET
+__endasm;
+} //_Laser_LB_080
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_084 (void) {
@@ -2080,6 +2499,31 @@ __endasm;
 } //_Laser_LB_107
 
 /*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_114 (void) __naked {
+__asm
+  LD   (#LB_213),A
+  LD   (#LB_214),A
+  POP  AF
+  //JP   LB_111$
+LB_111$:
+  LD   (#LB_179),DE
+  LD   A,B
+  LD   B,C
+  PUSH BC
+  CALL __Laser_LB_189
+  LD   BC,(#_LB_075)
+  LD   B,#0x00
+  LD   (#__Laser_LB_212),BC
+  LD   BC,(#_LB_075)
+  POP  AF
+  PUSH BC
+  PUSH AF
+  LD   DE,(#LB_179)
+  JP   LB_210
+__endasm;
+} //_Laser_LB_114
+
+/*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_146 (void) {
 __asm
   CALL __Laser_LB_070
@@ -2107,34 +2551,39 @@ __endasm;
 } //_Laser_LB_146
 
 /*--------------------------------- Cut here ---------------------------------*/
-void _Laser_LB_147 (void) {
+void _Laser_LB_147 (void) __naked {
 __asm
   PUSH BC
   CALL __Laser_LB_146
   POP  BC
   RET  C
-LB_148$:
+.globl LB_148
+LB_148:
   LD   A,#0x00
   JP   __Laser_LB_100
-.globl LB_149
-LB_149:
-  LD   HL,#LB_148$+1
+__endasm;
+} //_Laser_LB_147
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_149 (void) {
+__asm
+  LD   HL,#LB_148+1
   LD   (HL),#0xEB
   CALL __Laser_LB_147
 .globl LB_150
 LB_150:
   XOR  A
-  LD   (#LB_148$+1),A
+  LD   (#LB_148+1),A
 //RET
 __endasm;
-} //_Laser_LB_147
+} //_Laser_LB_149
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_151 (void) {
 __asm
   LD   HL,#__Laser_LB_086
   LD   (#__Laser_LB_100+1),HL
-  CALL LB_149
+  CALL __Laser_LB_149
 .globl LB_152
 LB_152:
   LD   HL,#__Laser_LB_093
@@ -2146,13 +2595,13 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_154 (void) {
 __asm
-  LD   HL,#LB_149+3+1
+  LD   HL,#__Laser_LB_149+3+1
   LD   (HL),#0x00
   CALL __Laser_LB_151
 .globl LB_155
 LB_155:
   LD   A,#0xEB
-  LD   (#LB_149+3+1),A
+  LD   (#__Laser_LB_149+3+1),A
 //RET
 __endasm;
 } //_Laser_LB_154
@@ -2171,7 +2620,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_160_3 (void) {
 __asm
-  LD   HL,#LB_SR1V
+  LD   HL,#__Laser_LB_SR1V
   LD   (#LB_038+1),HL
 //RET
 __endasm;
@@ -2180,7 +2629,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_161_3 (void) {
 __asm
-  LD   HL,#LB_SL1V
+  LD   HL,#__Laser_LB_SL1V
   LD   (#LB_039+1),HL
 //RET
 __endasm;
@@ -2302,6 +2751,58 @@ __endasm;
 } //_Laser_LB_174
 
 /*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_177 (void) {
+__asm
+  PUSH HL
+  LD   HL,#__Laser_LB_186+2
+  LD   (_LB_SL1M+1),HL
+  LD   HL,#0x0000
+.globl LB_178
+LB_178:
+  LD   (#LB_175),HL
+  LD   (#LB_175+2),HL
+  LD   (#LB_175+4),HL
+  POP  HL
+  //RET
+__endasm;
+} //_Laser_LB_177
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_179 (void) __naked {
+__asm
+.globl LB_179
+LB_179:
+  NOP
+  NOP
+  NOP
+  NOP
+__endasm;
+} //_Laser_LB_179
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_182 (void) {
+__asm
+  LD   DE,(#__Laser_LB_186)
+.globl LB_183
+LB_183:
+  PUSH DE
+  NOP
+  .DB  #0xED
+  .DB  #0xB0
+  NOP
+.globl LB_184
+LB_184:
+  NOP
+  POP  DE
+  LD   HL,(#LB_179+2)
+  ADD  HL,DE
+  EX   DE,HL
+  LD   (#__Laser_LB_186),DE
+  //RET
+__endasm;
+} //_Laser_LB_182
+
+/*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_185 (void) {
 __asm
   LD   A,(#_LB_069+3)
@@ -2353,7 +2854,7 @@ LB_188:
   LD   (#LB_173),A
   LD   A,B
   LD   (#__Laser_LB_186),DE
-  LD   DE,#LB_182
+  LD   DE,#__Laser_LB_182
   JP   LB_156
 __endasm;
 } //_Laser_LB_187
@@ -2417,6 +2918,20 @@ __endasm;
 } //_Laser_LB_190
 
 /*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_195 (void) __naked {
+__asm
+  LD   IX,#LB_169
+  LD   (#LB_192+1),IX
+  LD   IX,#PWAT$
+  JP   LB_191 // Was: JR
+PWAT$:
+  PUSH AF
+  LD   A,#0xEB
+  JP   LB_208 // Was: JR
+__endasm;
+} //_Laser_LB_195
+
+/*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_196 (void) __naked {
 __asm
   LD   (#LB_197$+1),HL
@@ -2459,6 +2974,21 @@ LB_203:
 //RET
 __endasm;
 } //_Laser_LB_202
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_204 (void) __naked {
+__asm
+  PUSH AF
+  PUSH HL
+  LD   A,#0xB6
+.globl LB_205
+LB_205:
+  LD   (#LB_085+1),A
+  LD   A,#0xCD
+  LD   HL,#__Laser_LB_084
+  JP   LB_203 // Was: JR
+__endasm;
+} //_Laser_LB_204
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_209 (void) {
@@ -2577,6 +3107,7 @@ __endasm;
 } //_Laser_LB_212
 
 /*--------------------------------- Cut here ---------------------------------*/
+
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
@@ -2584,16 +3115,12 @@ __endasm;
 /*            1997              */
 /* ---------------------------- */
 
-/* Set video attrib */
-#define SETV_A$ 0x5C8D
 
-static void __Asm_Laser__ (void)
-{
-__asm
 /* ---------------------------- */
 //.globl SCRL_B
 //SCRL_B: .DW #0x5B00 /* Buffer vor vertical scroll */
-//SETV_A$: .DW #0x5C8D /* Set video attrib */
+
+/*--------------------------------- Cut here ---------------------------------*/
 
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
@@ -2602,68 +3129,40 @@ __asm
 /*            1997              */
 /*          P A R T  1          */
 /* ---------------------------- */
-.globl LB_MARV
-LB_MARV:
-  NOP
-LB_001$:
-  LD   DE,#LB_052$
-  LD   (#LB_050$+1+1),DE
-  LD   (#LB_051$+1),DE
-  LD   DE,#LB_049$
-LB_002$:
-  CALL LB_013$
-  LD   DE,#LB_052$+2
-  LD   (#LB_050$+1+1),DE
-  LD   (#LB_051$+1),DE
-  RET
-.globl LB_AWLV
-LB_AWLV:
-  CALL __Laser_LB_058
-  RET  NC
-  PUSH HL
-  PUSH BC
-  POP  HL
-  POP  BC
-  PUSH BC
-  CALL __Laser_LB_105
-  POP  BC
-.globl LB_003
-LB_003:
-  LD   A,B
-  PUSH BC
-  PUSH AF
-  PUSH HL
-  LD   B,#0x00
-.globl LB_004
-LB_004:
-  CALL LB_046$
-  POP  HL
-.globl LB_005
-LB_005:
-  LD   DE,#0x0020
-  OR   A
-  ADC  HL,DE
-  POP  AF
-  POP  BC
-  DEC  A
-  RET  Z
-  JR   LB_003+1
-.globl LB_ATUV
-LB_ATUV:
-  CALL __Laser_LB_064
-  CALL __Laser_LB_068
-  CALL __Laser_LB_058
-  RET  NC
-LB_006$:
-  CALL LB_007$
+
+void _Laser_LB_001 (void) __naked {
+__asm
+  LD   DE,#__Laser_LB_052
+  LD   (#LB_050+1+1),DE
+  LD   (#LB_051+1),DE
+  LD   DE,#__Laser_LB_049
+.globl LB_002
+LB_002:
+  CALL __Laser_LB_013
+  LD   DE,#__Laser_LB_052+2
+  LD   (#LB_050+1+1),DE
+  LD   (#LB_051+1),DE
+//RET
+__endasm;
+} //_Laser_LB_001
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_006 (void) {
+__asm
+  CALL __Laser_LB_007
   LD   DE,(#_SCRL_B)
   EX   DE,HL
   LD   B,#0x00
   LDIR
   LD   HL,(#_SCRL_B)
   LD   (HL),#0x00
-  RET
-LB_007$:
+//RET
+__endasm;
+} //_Laser_LB_006
+  
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_007 (void) __naked {
+__asm
   PUSH HL
   PUSH BC
   POP  HL
@@ -2671,8 +3170,18 @@ LB_007$:
   PUSH BC
   CALL __Laser_LB_105
   POP  BC
-LB_008$:
-  CALL LB_012$
+.globl LB_008
+LB_008:
+  //CALL __Laser_LB_012
+  // inline
+  PUSH HL
+  PUSH BC
+  LD   B,#0x00
+  LD   DE,(#_SCRL_B)
+  LDIR
+  POP  BC
+  POP  HL
+  //end
   LD   A,B
 LB_009$:
   DEC  A
@@ -2680,10 +3189,12 @@ LB_009$:
   PUSH BC
   PUSH HL
   LD   B,#0x00
-LB_010$:
+.globl LB_010
+LB_010:
   LD   DE,#0x0020
   OR   A
-LB_011$:
+.globl LB_011
+LB_011:
   ADC  HL,DE
   POP  DE
   PUSH HL
@@ -2691,69 +3202,18 @@ LB_011$:
   POP  HL
   POP  BC
   JR   LB_009$
-LB_012$:
-  PUSH HL
-  PUSH BC
-  LD   B,#0x00
-  LD   DE,(#_SCRL_B)
-  LDIR
-  POP  BC
-  POP  HL
-  RET
-.globl LB_ATDV
-LB_ATDV:
-  CALL __Laser_LB_064
-  CALL __Laser_LB_068
-  CALL __Laser_LB_058
-  RET  NC
-  LD   A,H
-  DEC  A
-  RET  Z
-  ADD  A,B
-  LD   B,A
-  LD   A,#0x52
-  LD   (#LB_011$+1),A
-  CALL LB_006$
-  LD   A,#0x5A
-  LD   (#LB_011$+1),A
-  RET
-.globl LB_AWRV
-LB_AWRV:
-  LD   DE,#LB_048$
-LB_013$:
-  LD   (#LB_004+1),DE
-  CALL LB_AWLV
-.globl LB_014
-LB_014:
-  LD   DE,#LB_046$
-  LD   (#LB_004+1),DE
-  RET
-.globl LB_ASRV
-LB_ASRV:
-  LD   DE,#LB_047$
-  LD   (#LB_004+1),DE
-  CALL LB_AWLV
-  LD   DE,#LB_046$
-  LD   (#LB_004+1),DE
-  RET
-.globl LB_ASLV
-LB_ASLV:
-  LD   DE,#LB_045$
-  LD   (#LB_004+1),DE
-  CALL LB_AWLV
-  LD   DE,#LB_046$
-  LD   (#LB_004+1),DE
-  RET
-.globl LB_WCRV
-LB_WCRV:
-  JP   LB_015$+1
-LB_015$:
+__endasm;
+} //_Laser_LB_007
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_015 (void) __naked {
+__asm
   NOP
   CALL __Laser_LB_068
   LD   (#_LB_069),A
   OR   A
   RET  Z
-  CALL LB_021$
+  CALL __Laser_LB_021
   RET  NC
   SLA  B
   SLA  B
@@ -2770,16 +3230,16 @@ LB_015$:
   PUSH HL
   LD   HL,#0x0515
   LD   (#LB_018$),HL
-  LD   HL,#LB_027$
+  LD   HL,#LB_027
   LD   (HL),#0x05
   POP  HL
 LB_016$:
   SUB  H
   NEG
-  LD   (#LB_015$),A
+  LD   (#__Laser_LB_015),A
   PUSH BC
   PUSH HL
-  CALL LB_023$
+  CALL __Laser_LB_023
   POP  HL
   POP  BC
   LD   A,(#_LB_069)
@@ -2787,13 +3247,26 @@ LB_016$:
   LD   D,B
   ADD  A,D
   LD   D,A
-  LD   A,(#LB_015$)
+  LD   A,(#__Laser_LB_015)
 LB_017$:
   PUSH BC
   PUSH DE
   PUSH HL
   PUSH AF
-  CALL LB_029$
+  //CALL __Laser_LB_029
+  //inline
+  PUSH HL
+  PUSH DE
+  CALL LB_022+3
+  POP  BC
+  PUSH HL
+  CALL LB_022+3
+  POP  DE
+  POP  BC
+  LD   B,#0x00
+  LDIR
+  //RET
+  //end
   POP  AF
   POP  HL
   POP  DE
@@ -2805,66 +3278,42 @@ LB_018$:
   JR   NZ,#LB_017$
   LD   A,(#_LB_069)
   BIT  7,A
-LB_019$:
-  JP   Z,#LB_032$
+.globl LB_019
+LB_019:
+  JP   Z,#LB_032
   PUSH HL
   LD   HL,#0x0414
   LD   (#LB_018$),HL
   POP  HL
-LB_020$:
-  CALL LB_032$
-  LD  HL,#LB_027$
+.globl LB_020
+LB_020:
+  CALL LB_032
+  LD  HL,#LB_027
   LD  (HL),#0x04
-  RET
-.globl LB_SCRV
-LB_SCRV:
+  //RET
+__endasm;
+} //_Laser_LB_015
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_SCRV (void) {
+__asm
   CALL __Laser_LB_068
   PUSH HL
-  LD   HL,#LB_030$
-  LD   (#LB_019$+1),HL
-  LD   (#LB_020$+1),HL
+  LD   HL,#__Laser_LB_030
+  LD   (#LB_019+1),HL
+  LD   (#LB_020+1),HL
   POP  HL
-  CALL LB_015$+1
-  LD   HL,#LB_032$
-  LD   (#LB_019$+1),HL
-  LD   (#LB_020$+1),HL
-  RET
-LB_021$:
-  CALL __Laser_LB_058
-  RET  NC
-  LD   A,(#_LB_069)
-  SLA  H
-  SLA  H
-  SLA  H
-  BIT  7,A
-  JR   Z,#LB_022$
-  NEG
-LB_022$:
-  SUB  H
-  RET
-  LD   E,B
-  LD   D,C
-  LD   A,#0x07
-  AND  B
-  LD   C,A
-  LD   A,#0xC0
-  AND  B
-  RRCA
-  RRCA
-  RRCA
-  OR   C
-  SET  6,A
-  LD   H,A
-  LD   A,#0x38
-  AND  B
-  RLCA
-  RLCA
-  ADD  A,D
-  LD   L,A
-  LD   B,E
-  LD   C,D
-  RET
-LB_023$:
+  CALL __Laser_LB_015+1
+  LD   HL,#LB_032
+  LD   (#LB_019+1),HL
+  LD   (#LB_020+1),HL
+  //RET
+__endasm;
+} //_Laser_LB_SCRV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_023 (void) {
+__asm
   NOP
   LD   DE,(#_SCRL_B)
   LD   A,(#_LB_069)
@@ -2877,21 +3326,24 @@ LB_024$:
   PUSH AF
   PUSH DE
   PUSH HL
-  CALL LB_022$+3
+  CALL LB_022+3
   POP  BC
   POP  DE
   PUSH BC
-LB_025$:
+.globl LB_025
+LB_025:
   NOP
   LDIR
-LB_026$:
+.globl LB_026
+LB_026:
   NOP
   POP  HL
   POP  AF
   POP  BC
   DEC  A
   JR   Z,#LB_028$
-LB_027$:
+.globl LB_027
+LB_027:
   INC  B
   JR   LB_024$+2
 LB_028$:
@@ -2900,20 +3352,13 @@ LB_028$:
   EX   DE,HL
   SBC  HL,DE
   LD   (#_LB_069+2),HL
-  RET
-LB_029$:
-  PUSH HL
-  PUSH DE
-  CALL LB_022$+3
-  POP  BC
-  PUSH HL
-  CALL LB_022$+3
-  POP  DE
-  POP  BC
-  LD   B,#0x00
-  LDIR
-  RET
-LB_030$:
+  //RET
+__endasm;
+} //_Laser_LB_023
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_030 (void) {
+__asm
   PUSH HL
   PUSH BC
   PUSH DE
@@ -2932,123 +3377,89 @@ LB_031$:
   POP  DE
   POP  BC
   POP  HL
-LB_032$:
+.globl LB_032
+LB_032:
   PUSH HL
-  LD   HL,#LB_025$
+  LD   HL,#LB_025
   LD   (HL),#0xEB
-  LD   HL,#LB_026$
+  LD   HL,#LB_026
   LD   (HL),#0xEB
   POP  HL
-  CALL LB_023$
+  CALL __Laser_LB_023
   XOR  A
-  LD   (#LB_023$),A
-  LD   (#LB_025$),A
-  LD   (#LB_026$),A
-  RET
+  LD   (#__Laser_LB_023),A
+  LD   (#LB_025),A
+  LD   (#LB_026),A
+  //RET
+__endasm;
+} //_Laser_LB_030
 
-LB_034$:
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_034 (void) {
+__asm
   PUSH HL
   CALL __Laser_LB_033
   POP  HL
   RET  NC
   SET  7,(HL)
   NEG
-  RET
+  //RET
+__endasm;
+} //_Laser_LB_034
 
-LB_037$:
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_037 (void) {
+__asm
   CALL __Laser_LB_035
   RET  NC
   SET  0,(HL)
-  RET
-.globl LB_SR1V
-LB_SR1V:
-  LD   DE,#__Laser_LB_033
-  JP   __Laser_LB_056
-.globl LB_SL1V
-LB_SL1V:
-  LD   DE,#__Laser_LB_035
-  JP   __Laser_LB_056
-.globl LB_WR1V
-LB_WR1V:
-  LD   DE,#LB_034$
-  JP   __Laser_LB_056
-.globl LB_WL1V
-LB_WL1V:
-  LD   DE,#LB_037$
-  JP   __Laser_LB_056
+  //RET
+__endasm;
+} //_Laser_LB_037
 
-.globl LB_SL8V
-LB_SL8V:
-  LD   DE,#LB_045$
-  JP   __Laser_LB_056
-LB_045$:
-  LD   D,H
-  LD   E,L
-  INC  HL
-  DEC  C
-  RET  Z
-  LDIR
-  DEC  HL
-  LD   (HL),#0x00
-  RET
-.globl LB_WL8V
-LB_WL8V:
-  LD   DE,#LB_046$
-  JP   __Laser_LB_056
-LB_046$:
-  LD   A,(HL)
-  CALL LB_045$
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_048 (void) {
+__asm
+  CALL __Laser_LB_047
   LD   (DE),A
-  RET
-.globl LB_SR8V
-LB_SR8V:
-  LD   DE,#LB_047$
-  JP   __Laser_LB_056
-LB_047$:
-  DEC  C
-  RET  Z
-  ADD  HL,BC
-  LD   D,H
-  LD   E,L
-  LD   A,(HL)
-  DEC  HL
-  LDDR
-  INC  HL
-  LD   (HL),#0x00
-  RET
-.globl LB_WR8V
-LB_WR8V:
-  LD   DE,#LB_048$
-  JP   __Laser_LB_056
-LB_048$:
-  CALL LB_047$
-  LD   (DE),A
-  RET
-LB_049$:
+  //RET
+__endasm;
+} //_Laser_LB_048
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_049 (void) {
+__asm
   LD   E,L
   LD   D,H
   ADD  HL,BC
   DEC  HL
   EX   DE,HL
   SRL  C
-  JR   NC,#LB_050$
+  JR   NC,#LB_050
   INC  C
-LB_050$:
+.globl LB_050
+LB_050:
   LD   A,(HL)
-  CALL LB_052$+2
+  CALL __Laser_LB_052+2
   LD   A,(DE)
   PUSH BC
-LB_051$:
-  CALL LB_052$+2
+.globl LB_051
+LB_051:
+  CALL __Laser_LB_052+2
   POP  AF
   LD   (DE),A
   LD   (HL),B
   DEC  DE
   INC  HL
   DEC  C
-  JR   NZ,LB_050$
-  RET
-LB_052$:
+  JR   NZ,LB_050
+  //RET
+__endasm;
+} //_Laser_LB_049
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_052 (void) {
+__asm
   LD   B,A
   RET
   RLC  A
@@ -3067,48 +3478,26 @@ LB_052$:
   RR   B
   RLC  A
   RR   B
-  RET
-.globl LB_MIRV
-LB_MIRV:
-  LD   DE,#LB_049$
-  JP   __Laser_LB_056
-.globl LB_INVV
-LB_INVV:
-  LD   DE,#LB_053$
-  JP   __Laser_LB_056
-LB_053$:
+  //RET
+__endasm;
+} //_Laser_LB_052
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_053 (void) {
+__asm
   LD   B,C
   LD   A,(HL)
   CPL
   LD   (HL),A
   INC  HL
-  DJNZ LB_053$+1
-  RET
-.globl LB_SETV
-LB_SETV:
-  CALL __Laser_LB_064
-  CALL __Laser_LB_068
-  PUSH HL
-  PUSH BC
-  POP  HL
-  CALL __Laser_LB_105
-  POP  BC
-LB_054$:
-  PUSH BC
-  PUSH HL
-  LD   A,(#SETV_A$)
-  CALL LB_055$+1
-  POP  HL
-  LD   DE,#0x0020
-  ADD  HL,DE
-  POP  BC
-  DJNZ LB_054$
-  RET
-.globl LB_CLSV
-LB_CLSV:
-  LD   DE,#LB_055$
-  JP   __Laser_LB_056
-LB_055$:
+  DJNZ __Laser_LB_053+1
+  //RET
+__endasm;
+} //_Laser_LB_053
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_055 (void) {
+__asm
   XOR  A
   LD   B,#0x00
   LD   (HL),A
@@ -3118,9 +3507,13 @@ LB_055$:
   LD   E,L
   INC  DE
   LDIR
-  RET
+  //RET
+__endasm;
+} //_Laser_LB_055
 
-LB_065$:
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_065 (void) __naked {
+__asm
   PUSH AF
   PUSH BC
   PUSH BC
@@ -3150,175 +3543,21 @@ LB_067$:
   SBC  HL,DE
   LD   B,H
   LD   C,L
-  CALL RLCT$
+  CALL __Laser_RLCT
   POP  BC
   POP  AF
-  JP   LB_079$
+  JP   __Laser_LB_079
+__endasm;
+}
 
-LB_076$:
-  LD   HL,(#_SFSTRT)
-  LD   A,(HL)
-  CP   #0x00
-  RET  Z
-  INC  HL
-  LD   E,(HL)
-  INC  HL
-  LD   D,(HL)
-  EX   DE,HL
-  PUSH HL
-  ADD  HL,BC
-  EX   DE,HL
-  LD   (HL),D
-  DEC  HL
-  LD   (HL),E
-  POP  HL
-  JR   LB_076$+3
-RLCT$:
-  CALL LB_076$
-  LD   HL,(#_SF_END)
-  LD   DE,(#_SFSTRT)
-  OR   A
-  SBC  HL,DE
-  INC  HL
-  PUSH HL
-  BIT  7,B
-  JR   NZ,#LB_077$
-  LD   HL,(#_SF_END)
-  CALL LB_078$
-  LD   (#_SF_END),DE
-  POP  BC
-  LDDR
-  INC  DE
-  LD   (#_SFSTRT),DE
-  RET
-LB_077$:
-  LD   HL,(#_SFSTRT)
-  CALL LB_078$
-  LD   (#_SFSTRT),DE
-  POP  BC
-  LDIR
-  DEC  DE
-  LD   (#_SF_END),DE
-  RET
-LB_078$:
-  PUSH HL
-  ADD  HL,BC
-  EX   DE,HL
-  POP  HL
-  RET
-LB_079$:
-  LD   D,A
-  LD   A,B
-  OR   A
-  RET  Z
-  LD   A,C
-  OR   A
-  RET  Z
-  LD   A,D
-  PUSH AF
-  PUSH BC
-  CALL __Laser_LB_070
-  CALL NC,#LB_080$
-  POP  BC
-  POP  AF
-  LD   HL,(#_SF_END)
-  LD   (HL),A
-  INC  HL
-  PUSH BC
-  PUSH HL
-  LD   L,B
-  LD   H,#0x00
-  LD   D,H
-  LD   E,L
-  ADD  HL,HL
-  ADD  HL,HL
-  ADD  HL,HL
-  ADD  HL,DE
-  LD   D,#0x00
-  LD   E,C
-  CALL __Laser_LB_107
-  POP  DE
-  ADD  HL,DE
-  INC  HL
-  INC  HL
-  INC  HL
-  INC  HL
-  EX   DE,HL
-  LD   (HL),E
-  INC  HL
-  LD   (HL),D
-  INC  HL
-  POP  BC
-  LD   (HL),C
-  INC  HL
-  LD   (HL),B
-  LD   (#_SF_END),DE
-  XOR  A
-  LD   (DE),A
-  RET
-LB_080$:
-  PUSH BC
-  LD   H,B
-  LD   L,C
-  CALL __Laser_LB_074
-  POP  HL
-  EX   DE,HL
-  CALL LB_106$
-  PUSH HL
-  PUSH DE
-  EX   DE,HL
-  JR   LB_082$
-LB_081$:
-  CALL __Laser_LB_074
-  EX   DE,HL
-  PUSH HL
-  OR   A
-  SBC  HL,BC
-  EX   DE,HL
-  LD   (HL),D
-  DEC  HL
-  LD   (HL),E
-  POP  HL
-LB_082$:
-  LD   A,(HL)
-  OR   A
-  JR   NZ,#LB_081$
-  LD   HL,(#_SF_END)
-  POP  DE
-  OR   A
-  SBC  HL,BC
-  LD   (#_SF_END),HL
-  ADD  HL,BC
-  SBC  HL,DE
-  LD   B,H
-  LD   C,L
-  LD   A,B
-  OR   C
-  POP  HL
-  EX   DE,HL
-  JR   Z,#LB_083$
-  LDIR
-LB_083$:
-  XOR  A
-  LD   (DE),A
-  RET
-
-LB_106$:
-  AND  A
-  SBC  HL,DE
-  LD   B,H
-  LD   C,L
-  ADD  HL,DE
-  EX   DE,HL
-  RET
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*          v. 3.17             */
 /*      E N D  P A R T  1       */
 /* ---------------------------- */
 
-
-
+/*--------------------------------- Cut here ---------------------------------*/
+void __Asm_Laser_2__ (void) {
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
@@ -3326,21 +3565,7 @@ LB_106$:
 /*            1997              */
 /*          P A R T  2          */
 /* ---------------------------- */
-LB_111$:
-  LD   (#LB_179),DE
-  LD   A,B
-  LD   B,C
-  PUSH BC
-  CALL __Laser_LB_189
-  LD   BC,(#_LB_075)
-  LD   B,#0x00
-  LD   (#__Laser_LB_212),BC
-  LD   BC,(#_LB_075)
-  POP  AF
-  PUSH BC
-  PUSH AF
-  LD   DE,(#LB_179)
-  JP   LB_210
+__asm
 LB_112$:
   SET  4,A
 ADJM$:
@@ -3364,15 +3589,15 @@ ADJV$:
 ISPR$:
   LD   B,H
   LD   C,L
-  JP   LB_065$
+  JP   __Laser_LB_065
 SPRT$:
   LD   B,H
   LD   C,L
-  JP   LB_079$
+  JP   __Laser_LB_079
 WSPR$:
   CALL __Laser_LB_146
   RET  C
-  JP   LB_080$
+  JP   __Laser_LB_080
 DSPR$:
   PUSH HL
   PUSH AF
@@ -3385,7 +3610,7 @@ DSPR$:
   SBC  HL,DE
   LD   B,H
   LD   C,L
-  JP   RLCT$
+  JP   __Laser_RLCT
 MOVE$:
   LD   A,E
   PUSH DE
@@ -3418,20 +3643,7 @@ MOVE$:
   INC  HL
   LD   (HL),E
   RET
-.globl LB_GMAT
-LB_GMAT:
-  PUSH AF
-  XOR  A
-LB_114$:
-  LD   (#LB_213),A
-  LD   (#LB_214),A
-  POP  AF
-  JP   LB_111$
-.globl LB_PMAT
-LB_PMAT:
-  PUSH AF
-  LD   A,#0xEB
-  JR   LB_114$
+
 .globl LB_GMBL
 LB_GMBL:
   CALL __Laser_LB_202
@@ -3442,7 +3654,7 @@ LB_GMND:
   JP   __Laser_LB_187
 .globl LB_GMOR
 LB_GMOR:
-  CALL LB_204$
+  CALL __Laser_LB_204
   JP   __Laser_LB_187
 .globl LB_GMXR
 LB_GMXR:
@@ -3458,23 +3670,23 @@ LB_PMND:
   JP   __Laser_LB_164
 .globl LB_PMOR
 LB_PMOR:
-  CALL LB_204$
+  CALL __Laser_LB_204
   JP   __Laser_LB_164
 .globl LB_PMXR
 LB_PMXR:
   CALL LB_207$
   JP   __Laser_LB_164
 AWLM$:
-  LD   DE,#LB_046$
+  LD   DE,#__Laser_LB_046
   JP   LB_143$
 AWRM$:
-  LD   DE,#LB_048$
+  LD   DE,#__Laser_LB_048
   JP   LB_143$
 ASLM$:
-  LD   DE,#LB_045$
+  LD   DE,#__Laser_LB_045
   JP   LB_143$
 ASRM$:
-  LD   DE,#LB_047$
+  LD   DE,#__Laser_LB_047
   JP   LB_143$
 ATUM$:
   CALL __Laser_LB_189
@@ -3483,10 +3695,10 @@ LB_115$:
   LD   C,E
   LD   B,D
   LD   A,E
-  LD   (#LB_010$+1),A
-  CALL LB_008$
-  CALL LB_007$+3
-  LD   HL,#LB_010$+1
+  LD   (#LB_010+1),A
+  CALL LB_008
+  CALL __Laser_LB_007+3
+  LD   HL,#LB_010+1
   LD   (HL),#0x20
   RET
 ATDM$:
@@ -3502,34 +3714,34 @@ ATDM$:
   SBC  HL,DE
   LD   D,A
   LD   A,#0x52
-  LD   (#LB_011$+1),A
+  LD   (#LB_011+1),A
   CALL LB_115$
   LD   A,#0x5A
-  LD   (#LB_011$+1),A
+  LD   (#LB_011+1),A
   RET
 .globl LB_WL1M
 LB_WL1M:
-  LD   DE,#LB_037$
+  LD   DE,#__Laser_LB_037
   JP   LB_156
 .globl LB_WR1M
 LB_WR1M:
-  LD   DE,#LB_034$
+  LD   DE,#__Laser_LB_034
   JP   LB_156
 .globl LB_SL8M
 LB_SL8M:
-  LD   DE,#LB_045$
+  LD   DE,#__Laser_LB_045
   JP   LB_156
 .globl LB_SR8M
 LB_SR8M:
-  LD   DE,#LB_047$
+  LD   DE,#__Laser_LB_047
   JP   LB_156
 .globl LB_WL8M
 LB_WL8M:
-  LD   DE,#LB_046$
+  LD   DE,#__Laser_LB_046
   JP   LB_156
 .globl LB_WR8M
 LB_WR8M:
-  LD   DE,#LB_048$
+  LD   DE,#__Laser_LB_048
   JP   LB_156
 .globl LB_SR4M
 LB_SR4M:
@@ -3832,17 +4044,17 @@ LB_142$:
   RET
 MARM$:
   LD   DE,#LB_143$
-  LD   (#LB_002$+1),DE
-  CALL LB_001$
-  LD   DE,#LB_013$
-  LD   (#LB_002$+1),DE
+  LD   (#LB_002+1),DE
+  CALL __Laser_LB_001
+  LD   DE,#__Laser_LB_013
+  LD   (#LB_002+1),DE
   RET
 LB_143$:
-  CALL LB_177$
+  CALL __Laser_LB_177
   CALL LB_156
   JP   __Laser_LB_159
 MIRM$:
-  LD   DE,#LB_049$
+  LD   DE,#__Laser_LB_049
   JP   LB_156
 .globl LB_CLSM
 LB_CLSM:
@@ -3892,7 +4104,7 @@ SETM$:
   JP   LB_144$
 .globl LB_INVM
 LB_INVM:
-  LD   DE,#LB_053$
+  LD   DE,#__Laser_LB_053
   JP   LB_156
 
 LB_153:
@@ -3901,24 +4113,6 @@ LB_153:
   CALL __Laser_LB_151
   JP   LB_092_3
 
-LB_177$:
-  PUSH HL
-  LD   HL,#__Laser_LB_186+2
-  LD   (_LB_SL1M+1),HL
-  LD   HL,#0x0000
-.globl LB_178
-LB_178:
-  LD   (#LB_175),HL
-  LD   (#LB_175+2),HL
-  LD   (#LB_175+4),HL
-  POP  HL
-  RET
-.globl LB_179
-LB_179:
-  NOP
-  NOP
-  NOP
-  NOP
   LD   HL,(#LB_179+2)
   LD   H,#0x00
   LD   D,#0x00
@@ -3926,47 +4120,6 @@ LB_179:
   CALL __Laser_LB_107
   LD   DE,(#LB_179)
   ADD  HL,DE
-  RET
-.globl LB_SCRM
-LB_SCRM:
-  PUSH BC
-  CALL __Laser_LB_146
-  POP  BC
-  LD   (#LB_179),DE
-  LD   (#LB_179+2),HL
-  LD   HL,#LB_179+4
-  LD   (#LB_022$+4),HL
-  LD   A,#0xC3
-  LD   (#LB_022$+3),A
-  LD   A,B
-  LD   BC,#0x0000
-  LD   HL,(#LB_179+2)
-.globl LB_181
-LB_181:
-  CALL LB_SCRV
-  LD   A,#0x58
-  LD   (#LB_022$+3),A
-  LD   HL,#0x3E51
-  LD   (#LB_022$+4),HL
-  RET
-.globl LB_182
-LB_182:
-  LD   DE,(#__Laser_LB_186)
-.globl LB_183
-LB_183:
-  PUSH DE
-  NOP
-  .DB  #0xED
-  .DB  #0xB0
-  NOP
-.globl LB_184
-LB_184:
-  NOP
-  POP  DE
-  LD   HL,(#LB_179+2)
-  ADD  HL,DE
-  EX   DE,HL
-  LD   (#__Laser_LB_186),DE
   RET
 
 .globl LB_GTBL
@@ -3996,7 +4149,7 @@ LB_PTXR:
   JP   __Laser_LB_196
 
 GWOR$:
-  CALL LB_204$
+  CALL __Laser_LB_204
   JP   __Laser_LB_190
 GWXR$:
   CALL LB_207$
@@ -4004,64 +4157,41 @@ GWXR$:
 GWND$:
   CALL LB_206$
   JP   __Laser_LB_190
-.globl LB_PWBL
-LB_PWBL:
-  CALL __Laser_LB_202
-  JP   LB_195$
+
 .globl LB_PWOR
 LB_PWOR:
-  CALL LB_204$
-  JP   LB_195$
+  CALL __Laser_LB_204
+  JP   __Laser_LB_195
 .globl LB_PWXR
 LB_PWXR:
   CALL LB_207$
-  JP   LB_195$
+  JP   __Laser_LB_195
 .globl LB_PWND
 LB_PWND:
   CALL LB_206$
-  JP   LB_195$
-
-LB_195$:
-  LD   IX,#LB_169
-  LD   (#LB_192+1),IX
-  LD   IX,#PWAT$
-  JP   LB_191 // Was: JR
+  JP   __Laser_LB_195
 
 LB_200$:
-  LD   HL,#LB_149+3+1
+  LD   HL,#__Laser_LB_149+3+1
   LD   (HL),#0x00
   CALL __Laser_LB_091
   JP   LB_155
 LB_201$:
-  LD   HL,#LB_149+3+1
+  LD   HL,#__Laser_LB_149+3+1
   LD   (HL),#0x00
   CALL LB_153
   JP   LB_155
 
-LB_204$:
-  PUSH AF
-  PUSH HL
-  LD   A,#0xB6
-LB_205$:
-  LD   (#LB_085+1),A
-  LD   A,#0xCD
-  LD   HL,#__Laser_LB_084
-  JP   LB_203 // Was: JR
 LB_206$:
   PUSH AF
   PUSH HL
   LD   A,#0xA6
-  JR   LB_205$
+  JP   LB_205 // Was: JR
 LB_207$:
   PUSH AF
   PUSH HL
   LD   A,#0xAE
-  JR   LB_205$
-
-PWAT$:
-  PUSH AF
-  LD   A,#0xEB
-  JP   LB_208 // Was: JR
+  JP   LB_205 // Was: JR
 
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
