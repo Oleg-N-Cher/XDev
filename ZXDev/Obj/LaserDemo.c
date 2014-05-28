@@ -5,7 +5,7 @@
 
 
 static INTEGER LaserDemo_chudik;
-static SHORTINT LaserDemo_n, LaserDemo_s;
+static SHORTINT LaserDemo_n, LaserDemo_s, LaserDemo__for__2, LaserDemo__for__1;
 
 
 
@@ -124,15 +124,21 @@ export main(int argc, char **argv)
 	Basic_PAPER(0);
 	Basic_CLS();
 	LaserDemo_s = -2;
-	while (LaserDemo_s <= 30) {
+	LaserDemo__for__2 = 30;
+	LaserDemo__for__2 = __ASHR(LaserDemo__for__2 - LaserDemo_s, 1) + 1;
+	do {
 		LaserDemo_n = 7;
-		while (LaserDemo_n <= 10) {
+		LaserDemo__for__1 = 10;
+		LaserDemo__for__1 = (LaserDemo__for__1 - LaserDemo_n) + 1;
+		do {
 			Laser_PTBL(LaserDemo_s, 5, LaserDemo_n);
 			Basic_PAUSE(5);
 			LaserDemo_n += 1;
-		}
+			LaserDemo__for__1 -= 1;
+		} while (!(LaserDemo__for__1 == 0));
 		LaserDemo_s += 2;
-	}
+		LaserDemo__for__2 -= 1;
+	} while (!(LaserDemo__for__2 == 0));
 	Basic_Quit();
 	__FINI;
 }
