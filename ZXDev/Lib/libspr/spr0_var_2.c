@@ -2,8 +2,9 @@
 
 void	spr0_out0_attr(const Sprite0* adr, BYTE x, BYTE y)__naked{
 __asm;
-    ld    ix,#2
-    add    ix,sp
+    push  ix
+    ld    ix,#4
+    add   ix,sp
     ;// adr
     ld    e,0(ix)
     ld    d,1(ix)
@@ -12,9 +13,11 @@ __asm;
     ;// y
     ld    h,3(ix)
     
-    push    de
-    pop    ix
+    push  de
+    pop   ix
     
-    jp    spr0_out0_attr
+    call  spr0_out0_attr
+    pop   ix
+    ret
 __endasm;
 }
