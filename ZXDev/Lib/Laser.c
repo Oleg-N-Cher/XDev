@@ -2094,23 +2094,18 @@ LB_072$:
   POP  BC
   RET
 LB_073$:
-  CALL __Laser_LB_074
+  //CALL __Laser_LB_074
+  //inline
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  //end
   EX   DE,HL
   LD   A,(#_LB_069)
   JR   LB_071$
 __endasm;
 } //_Laser_LB_070
-
-/*--------------------------------- Cut here ---------------------------------*/
-void _Laser_LB_074 (void) {
-__asm
-  INC  HL
-  LD   E,(HL)
-  INC  HL
-  LD   D,(HL)
-//RET
-__endasm;
-} //_Laser_LB_074
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_RLCT (void) {
@@ -2237,7 +2232,13 @@ __asm
   PUSH BC
   LD   H,B
   LD   L,C
-  CALL __Laser_LB_074
+  //CALL __Laser_LB_074
+  //inline
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  //end
   POP  HL
   EX   DE,HL
   //CALL LB_106$
@@ -2255,7 +2256,13 @@ __asm
   EX   DE,HL
   JR   LB_082$
 LB_081$:
-  CALL __Laser_LB_074
+  //CALL __Laser_LB_074
+  //inline
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  //end
   EX   DE,HL
   PUSH HL
   OR   A
@@ -3724,7 +3731,13 @@ ATDM$:
   PUSH HL
   LD   L,C
   LD   H,B
-  CALL __Laser_LB_074
+  //CALL __Laser_LB_074
+  //inline
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  //end
   POP  HL
   EX   DE,HL
   LD   A,D
