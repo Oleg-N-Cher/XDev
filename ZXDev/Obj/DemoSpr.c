@@ -8,9 +8,9 @@ struct DemoSpr__1 {
 };
 
 
-static INTEGER DemoSpr_Spr0, DemoSpr_Spr1, DemoSpr_Spr2, DemoSpr_Spr3;
-static struct DemoSpr__1 DemoSpr_coords[4];
+static INTEGER DemoSpr_spr0, DemoSpr_spr1, DemoSpr_spr2, DemoSpr_spr3;
 static SHORTINT DemoSpr_i;
+static struct DemoSpr__1 DemoSpr_coords[4];
 
 export LONGINT *DemoSpr__1__typ;
 
@@ -28,7 +28,7 @@ export main(int argc, char **argv)
 	__REGMAIN("DemoSpr", 0);
 	__INITYP(DemoSpr__1, DemoSpr__1, 0);
 /* BEGIN */
-	Basic_DEFDATA(DemoSpr_Spr0, 1732);
+	Basic_DEFDATA(DemoSpr_spr0, 1732);
 	Basic_DATA11(196, 6, 16, 12, 126, 0, 127, 255, 224, 255, 224);
 	Basic_DATA11(255, 254, 248, 31, 4, 0, 0, 0, 0, 126, 0);
 	Basic_DATA11(127, 255, 248, 255, 248, 255, 254, 248, 31, 0, 0);
@@ -187,7 +187,7 @@ export main(int argc, char **argv)
 	Basic_DATA11(7, 7, 68, 71, 71, 66, 66, 66, 66, 66, 66);
 	Basic_DATA11(71, 71, 71, 7, 71, 71, 7, 68, 71, 71, 66);
 	Basic_DATA5(66, 66, 66, 66, 66);
-	Basic_DEFDATA(DemoSpr_Spr1, 1732);
+	Basic_DEFDATA(DemoSpr_spr1, 1732);
 	Basic_DATA11(196, 6, 16, 12, 0, 0, 0, 0, 4, 0, 0);
 	Basic_DATA11(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA11(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -346,7 +346,7 @@ export main(int argc, char **argv)
 	Basic_DATA11(71, 71, 71, 71, 69, 69, 69, 69, 69, 69, 5);
 	Basic_DATA11(66, 66, 66, 66, 66, 71, 71, 71, 71, 67, 67);
 	Basic_DATA5(5, 5, 5, 5, 5);
-	Basic_DEFDATA(DemoSpr_Spr2, 1732);
+	Basic_DEFDATA(DemoSpr_spr2, 1732);
 	Basic_DATA11(196, 6, 16, 12, 0, 0, 0, 0, 7, 240, 0);
 	Basic_DATA11(0, 0, 0, 0, 92, 0, 2, 85, 255, 0, 0);
 	Basic_DATA11(0, 0, 3, 224, 0, 0, 0, 0, 0, 175, 0);
@@ -505,7 +505,7 @@ export main(int argc, char **argv)
 	Basic_DATA11(65, 65, 65, 69, 69, 69, 69, 69, 69, 69, 69);
 	Basic_DATA11(65, 65, 65, 65, 65, 65, 65, 65, 69, 69, 69);
 	Basic_DATA5(69, 69, 69, 69, 69);
-	Basic_DEFDATA(DemoSpr_Spr3, 1732);
+	Basic_DEFDATA(DemoSpr_spr3, 1732);
 	Basic_DATA11(196, 6, 16, 12, 253, 127, 95, 255, 255, 128, 0);
 	Basic_DATA11(0, 0, 0, 3, 192, 1, 0, 0, 0, 250, 170);
 	Basic_DATA11(191, 255, 255, 128, 0, 0, 1, 0, 0, 128, 0);
@@ -675,10 +675,10 @@ export main(int argc, char **argv)
 	Basic_BORDER(0);
 	DemoSpr_i = 0;
 	for (;;) {
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].y, DemoSpr_Spr0);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].y, DemoSpr_Spr1);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].y, DemoSpr_Spr2);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].y, DemoSpr_Spr3);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].y, DemoSpr_spr0);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].y, DemoSpr_spr1);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].y, DemoSpr_spr2);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].y, DemoSpr_spr3);
 		DemoSpr_i += 1;
 		Basic_PAUSE(50);
 	}
