@@ -47,7 +47,7 @@ export void Basic_DATACH8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTE
 export void Basic_DATACH9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
 export void Basic_DEFDATA (INTEGER title, INTEGER size);
 export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
-export void Basic_DRAW (SHORTINT x, SHORTINT y);
+export void Basic_DRAW (INTEGER x, INTEGER y);
 export void Basic_FLASH (SHORTINT mode);
 export void Basic_FONT (LONGINT addr);
 export void Basic_INK (INTEGER color);
@@ -170,7 +170,7 @@ INTEGER Basic_ATTR (SHORTINT y, SHORTINT x)
 }
 
 /*----------------------------------------------------------------------------*/
-void Basic_DRAW (SHORTINT x, SHORTINT y)
+void Basic_DRAW (INTEGER x, INTEGER y)
 {
 }
 

@@ -51,7 +51,7 @@ import void Basic_DATACH8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTE
 import void Basic_DATACH9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
 import void Basic_DEFDATA (INTEGER title, INTEGER size);
 import void Basic_DEFDATAREL (INTEGER title, INTEGER size);
-import void Basic_DRAW (SHORTINT x, SHORTINT y);
+import void Basic_DRAW (INTEGER x, INTEGER y);
 import void Basic_FLASH (SHORTINT mode);
 import void Basic_FONT (LONGINT addr);
 import void Basic_INK (INTEGER color);
