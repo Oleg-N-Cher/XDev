@@ -114,6 +114,8 @@ import void Basic_PRCHAR_ROM (CHAR ch);
   #define Basic_PRCHAR Basic_PRCHAR_FAST
 #endif
 
+#define Basic_PRUDG(udg) Basic_PRCHAR_ROM(udg+79)
+
 import void Basic_PRDATA (void);
 
 import void Basic_PRLN (void);
@@ -195,6 +197,7 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #endif //MODE_IM2
 
 #define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
+#define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
 
 import void Basic_Reset (void);
 

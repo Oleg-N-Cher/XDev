@@ -70,6 +70,7 @@ export void Basic_PRDATA (void);
 export void Basic_PRINT (INTEGER i);
 export void Basic_PRLN (void);
 export void Basic_PRSTR (CHAR *str, LONGINT str__len);
+export void Basic_PRUDG (CHAR ch);
 export void Basic_PRWORD (INTEGER i);
 export void Basic_Quit (void);
 export void Basic_RANDOMIZE (INTEGER seed);
@@ -77,6 +78,7 @@ export INTEGER Basic_READ (INTEGER addr);
 export INTEGER Basic_RND (INTEGER min, INTEGER max);
 export SHORTINT Basic_SGN (INTEGER x);
 export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+export void Basic_UDG (LONGINT addr);
 
 
 /*============================================================================*/
@@ -139,6 +141,11 @@ void Basic_PRSTR (CHAR *str, LONGINT str__len)
 
 /*----------------------------------------------------------------------------*/
 void Basic_PRCHAR (CHAR ch)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_PRUDG (CHAR ch)
 {
 }
 
@@ -262,6 +269,11 @@ void Basic_BEEP (INTEGER ms, INTEGER freq)
 
 /*----------------------------------------------------------------------------*/
 void Basic_FONT (LONGINT addr)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_UDG (LONGINT addr)
 {
 }
 
