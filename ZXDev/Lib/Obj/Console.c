@@ -115,7 +115,7 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 			Console_WriteCh('_');
 			Console_BackPos();
 			i = 25;
-			while (i >= 1) {
+			do {
 				if (Input_Available() != 0) {
 					Console_WriteCh(' ');
 					Console_BackPos();
@@ -123,17 +123,17 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 				}
 				Timer_Delay(10);
 				i += -1;
-			}
+			} while (!(i == 0));
 			Console_WriteCh(' ');
 			Console_BackPos();
 			i = 25;
-			while (i >= 1) {
+			do {
 				if (Input_Available() != 0) {
 					goto exit__0;
 				}
 				Timer_Delay(10);
 				i += -1;
-			}
+			} while (!(i == 0));
 		}
 		exit__0:;
 		ch = Input_Read();
