@@ -51,6 +51,7 @@ export void Basic_DRAW (INTEGER x, INTEGER y);
 export void Basic_FLASH (SHORTINT mode);
 export void Basic_FONT (LONGINT addr);
 export void Basic_INK (INTEGER color);
+export CHAR Basic_INKEY (void);
 export void Basic_INVERSE (SHORTINT mode);
 export void Basic_Init (void);
 export BOOLEAN Basic_KeyPressed (void);
@@ -275,6 +276,12 @@ void Basic_FONT (LONGINT addr)
 /*----------------------------------------------------------------------------*/
 void Basic_UDG (LONGINT addr)
 {
+}
+
+/*----------------------------------------------------------------------------*/
+CHAR Basic_INKEY (void)
+{
+	__RETCHK;
 }
 
 /*----------------------------------------------------------------------------*/
