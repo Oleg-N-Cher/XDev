@@ -196,6 +196,9 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
+import CHAR Basic_INKEY_EI (void);
+#define Basic_INKEY Basic_INKEY_EI
+
 #define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
 

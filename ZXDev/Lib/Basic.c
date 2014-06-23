@@ -1,5 +1,5 @@
 #include "SYSTEM.h"
-#include "Basic.h"
+//#include "Basic.h"
 
 /*interface*/
 export void Basic_Init_DI (void);
@@ -49,6 +49,7 @@ export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
+export CHAR Basic_INKEY_EI (void);
 export void Basic_Reset (void);
 export void Basic_Quit_DI (void);
 export void Basic_Quit_IM0 (void);
@@ -450,12 +451,12 @@ __endasm;
 void Basic_PRSTR_C_ROM (CHAR *str)
 {
 /*
-	INTEGER i;
-	i = 0;
-	while (str[i] != 0x00) {
-		PRCHAR(str[i]);
-		i += 1;
-	}
+  INTEGER i;
+  i = 0;
+  while (str[i] != 0x00) {
+    PRCHAR(str[i]);
+    i += 1;
+  }
 */
 __asm
   LD   IY,#0x5C3A
@@ -722,17 +723,17 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius)
   INTEGER rr, xx, yy;
   x = radius; y = 0; rr = x*x; xx = rr-x; yy = 0;
   do {
-    PLOT(cx+x, cy+y); PLOT(cx-x, cy+y);
-    PLOT(cx+x, cy-y); PLOT(cx-x, cy-y);
-    PLOT(cx+y, cy+x); PLOT(cx-y, cy+x);
-    PLOT(cx+y, cy-x); PLOT(cx-y, cy-x);
+    Basic_PLOT(cx+x, cy+y); Basic_PLOT(cx-x, cy+y);
+    Basic_PLOT(cx+x, cy-y); Basic_PLOT(cx-x, cy-y);
+    Basic_PLOT(cx+y, cy+x); Basic_PLOT(cx-y, cy+x);
+    Basic_PLOT(cx+y, cy-x); Basic_PLOT(cx-y, cy-x);
     yy += y+y+1; y++;
     if (xx > (rr-yy)) {
       xx += 1-x-x; x--;
-      PLOT(cx+x, cy+y); PLOT(cx-x, cy+y);
-      PLOT(cx+x, cy-y); PLOT(cx-x, cy-y);
-      PLOT(cx+y, cy+x); PLOT(cx-y, cy+x);
-      PLOT(cx+y, cy-x); PLOT(cx-y, cy-x);
+      Basic_PLOT(cx+x, cy+y); Basic_PLOT(cx-x, cy+y);
+      Basic_PLOT(cx+x, cy-y); Basic_PLOT(cx-x, cy-y);
+      Basic_PLOT(cx+y, cy+x); Basic_PLOT(cx-y, cy+x);
+      Basic_PLOT(cx+y, cy-x); Basic_PLOT(cx-y, cy-x);
     }
   } while (x >= y);
 } //Basic_CIRCLE
@@ -1126,6 +1127,31 @@ DoBeepEi$:
 #endif
 __endasm;
 } //Basic_BEEP_EI
+
+/*--------------------------------- Cut here ---------------------------------*/
+CHAR Basic_INKEY_EI (void) {
+__asm
+    LD   A, (#0x5C07)
+    CP   #0xFF
+    JR   NZ, LOC_FA96$
+    INC  A
+    LD   L, A
+    RET
+LOC_FA96$:
+    CALL 0x28E
+    LD   C, #0
+    JR   NZ, LOC_FAA8$
+    CALL 0x31E
+    JR   NC, LOC_FAA8$
+    DEC  D
+    LD   E, A
+    CALL 0x333
+    LD   L, A
+    RET
+LOC_FAA8$:
+    LD   L, #0
+__endasm;
+} //Basic_INKEY_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Reset (void)
