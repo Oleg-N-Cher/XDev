@@ -49,7 +49,7 @@ export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-export CHAR Basic_INKEY_EI (void);
+export CHAR Basic_INKEY (void);
 export void Basic_Reset (void);
 export void Basic_Quit_DI (void);
 export void Basic_Quit_IM0 (void);
@@ -1129,29 +1129,25 @@ __endasm;
 } //Basic_BEEP_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-CHAR Basic_INKEY_EI (void) {
+CHAR Basic_INKEY (void) {
 __asm
     LD   A, (#0x5C07)
     CP   #0xFF
-    JR   NZ, LOC_FA96$
-    INC  A
-    LD   L, A
-    RET
-LOC_FA96$:
+    JR   Z, INKEY_RET_0X$
     CALL 0x28E
     LD   C, #0
-    JR   NZ, LOC_FAA8$
+    JR   NZ, INKEY_RET_0X$
     CALL 0x31E
-    JR   NC, LOC_FAA8$
+    JR   NC, INKEY_RET_0X$
     DEC  D
     LD   E, A
     CALL 0x333
     LD   L, A
     RET
-LOC_FAA8$:
+INKEY_RET_0X$:
     LD   L, #0
 __endasm;
-} //Basic_INKEY_EI
+} //Basic_INKEY
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Reset (void)
