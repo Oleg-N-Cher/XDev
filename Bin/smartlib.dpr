@@ -5,6 +5,10 @@ USES Windows, KOL;
 
 {$R *.RES}
 
+CONST
+  HeadDivisor1 = '/*='; HeadDivisor2 = '=*/';
+  BodyDivisor1 = '/*-'; BodyDivisor2 = '-*/';
+
 (*================================ StrLib.pas ================================*)
 CONST
   AnsiLowCaseLookup: Array[AnsiChar] of AnsiChar = (
@@ -138,14 +142,11 @@ begin
   Result := 0;
 end;
 
-CONST
-  HeadDivisor1 = '/*='; HeadDivisor2 = '=*/';
-  BodyDivisor1 = '/*-'; BodyDivisor2 = '-*/';
 VAR
-  src, header, body, partName, partNumberAsStr: AnsiString;
-  srcLen, pos, partNumber: INTEGER;
+  src, header, body, partNumberAsStr: AnsiString;
+  srcLen, pos, pos2, partNumber: INTEGER;
 
-FUNCTION FoundSegment (CONST div1, div2: AnsiString; fromPos: INTEGER): INTEGER;
+FUNCTION FindSegment (CONST div1, div2: AnsiString; fromPos: INTEGER): INTEGER;
 VAR
   posBeg, posEnd: INTEGER;
 BEGIN
@@ -157,37 +158,72 @@ BEGIN
     END;
   END;
   RESULT := 0;
-END {FoundSegment};
+END {FindSegment};
+
+VAR
+  srcName, partName: AnsiString; noinit, nocut: BOOLEAN; nPar: INTEGER;
 
 BEGIN
-  src := Kol.StrLoadFromFile(ParamStr(1)); srcLen := LENGTH(src);
+  noinit := FALSE; nocut := FALSE;
+  srcName := ''; partName := '';
+  FOR nPar := 1 TO ParamCount DO BEGIN
+    IF ParamStr(nPar) = '-noinit' THEN noinit := TRUE
+    ELSE
+      IF ParamStr(nPar) = '-nocut' THEN nocut := TRUE
+    ELSE
+      IF srcName = '' THEN srcName := ParamStr(nPar)
+    ELSE
+      partName := ParamStr(nPar);
+    (*END*)
+  END;
+  src := Kol.StrLoadFromFile(srcName); srcLen := LENGTH(src);
   IF srcLen = 0 THEN BEGIN
-    WriteLn('Please specify source file name:'+#13#10#13#10#9'smartlib.exe src.c');
+    WriteLn('Use:'+#13#10#13#10#9'smartlib.exe src.c [partname] [-noinit] [-nocut]');
     HALT; (* Need to be source *)
   END;
-  partName := ParamStr(2);
-  IF partName = '' THEN partName := Kol.ExtractFileNameWOext(ParamStr(1))+'_';
-  (* Detecting the header ... *)
-  pos := FoundSegment(HeadDivisor1, HeadDivisor2, 1);
-  header := '';
-  IF pos > 0 THEN BEGIN (* '/*=...=*/ found *)
-    header := COPY(src, 1, pos);
-    DELETE(src, 1, pos);
+
+  IF nocut THEN BEGIN (* NO CUT mode: *)
+    IF partName = '' THEN partName := SrcName;
+    IF NOT noinit THEN (* INIT: *)
+      Kol.StrSaveToFile(partName, src)
+    ELSE BEGIN (* NO INIT *)
+      (* Detecting the parts of body ... *)
+      pos := FindSegment(BodyDivisor1, BodyDivisor2, 1);
+      WHILE pos > 0 DO BEGIN (* '/*-...-*/ found *)
+        pos2 := FindSegment(BodyDivisor1, BodyDivisor2, pos);
+        IF pos2 > 0 THEN pos := pos2 ELSE BREAK;
+      END;
+      DELETE(src, pos+1-80, MAXINT); Kol.StrSaveToFile(partName, src);
+    END;
+  END ELSE BEGIN (* CUT mode: *)
+
+    IF partName = '' THEN partName := Kol.ExtractFileNameWOext(SrcName);
+    INSERT('_', partName, MAXINT);
+    (* Detecting the header ... *)
+    pos := FindSegment(HeadDivisor1, HeadDivisor2, 1);
+    header := '';
+    IF pos > 0 THEN BEGIN (* '/*=...=*/ found *)
+      header := COPY(src, 1, pos);
+      DELETE(src, 1, pos);
+    END;
+    (* Detecting the parts of body ... *)
+    partNumber := 1;
+    pos := FindSegment(BodyDivisor1, BodyDivisor2, 1);
+    WHILE pos > 0 DO BEGIN (* '/*-...-*/ found *)
+      body := COPY(src, 1, pos);
+      DELETE(src, 1, pos);
+      partNumberAsStr := Kol.Int2Str(partNumber);
+      WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
+      Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + body);
+      INC(partNumber);
+      pos := FindSegment(BodyDivisor1, BodyDivisor2, 1);
+    END;
+    IF NOT noinit THEN BEGIN
+      (* Write rest of the source file *)
+      partNumberAsStr := Kol.Int2Str(partNumber);
+      WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
+      Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + src);
+    END;
+
   END;
-  (* Detecting the parts of body ... *)
-  partNumber := 1;
-  pos := FoundSegment(BodyDivisor1, BodyDivisor2, 1);
-  WHILE pos > 0 DO BEGIN (* '/*-...-*/ found *)
-    body := COPY(src, 1, pos);
-    DELETE(src, 1, pos);
-    partNumberAsStr := Kol.Int2Str(partNumber);
-    WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
-    Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + body);
-    INC(partNumber);
-    pos := FoundSegment(BodyDivisor1, BodyDivisor2, 1);
-  END;
-  (* Write rest of the source file *)
-  partNumberAsStr := Kol.Int2Str(partNumber);
-  WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
-  Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + src);
 END {smartlib}.
