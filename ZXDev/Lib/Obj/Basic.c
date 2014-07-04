@@ -45,6 +45,25 @@ export void Basic_DATACH6 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTE
 export void Basic_DATACH7 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7);
 export void Basic_DATACH8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8);
 export void Basic_DATACH9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
+export void Basic_DATASTR (CHAR *str, LONGINT str__len);
+export void Basic_DATASTRZ (CHAR *str, LONGINT str__len);
+export void Basic_DATAW (INTEGER w);
+export void Basic_DATAW1 (INTEGER w);
+export void Basic_DATAW10 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10);
+export void Basic_DATAW11 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11);
+export void Basic_DATAW12 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12);
+export void Basic_DATAW13 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13);
+export void Basic_DATAW14 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14);
+export void Basic_DATAW15 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14, INTEGER w15);
+export void Basic_DATAW16 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14, INTEGER w15, INTEGER w16);
+export void Basic_DATAW2 (INTEGER w1, INTEGER w2);
+export void Basic_DATAW3 (INTEGER w1, INTEGER w2, INTEGER w3);
+export void Basic_DATAW4 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4);
+export void Basic_DATAW5 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5);
+export void Basic_DATAW6 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6);
+export void Basic_DATAW7 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7);
+export void Basic_DATAW8 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8);
+export void Basic_DATAW9 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9);
 export void Basic_DEFDATA (INTEGER title, INTEGER size);
 export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 export void Basic_DRAW (INTEGER x, INTEGER y);
@@ -467,6 +486,101 @@ void Basic_DATACH15 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE
 
 /*----------------------------------------------------------------------------*/
 void Basic_DATACH16 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14, SYSTEM_BYTE b15, SYSTEM_BYTE b16)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW (INTEGER w)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW1 (INTEGER w)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW2 (INTEGER w1, INTEGER w2)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW3 (INTEGER w1, INTEGER w2, INTEGER w3)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW4 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW5 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW6 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW7 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW8 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW9 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW10 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW11 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW12 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW13 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW14 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW15 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14, INTEGER w15)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATAW16 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10, INTEGER w11, INTEGER w12, INTEGER w13, INTEGER w14, INTEGER w15, INTEGER w16)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATASTR (CHAR *str, LONGINT str__len)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_DATASTRZ (CHAR *str, LONGINT str__len)
 {
 }
 

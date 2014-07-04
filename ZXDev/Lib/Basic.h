@@ -267,6 +267,28 @@ import void Basic_Reset (void);
 #define Basic_DATACH14(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14 __endasm
 #define Basic_DATACH15(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15 __endasm
 #define Basic_DATACH16(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16 __endasm
+#define Basic_DATAW(w) __asm .dw w __endasm
+#define Basic_DATAW1(w) __asm .dw w __endasm
+#define Basic_DATAW2(w1,w2) __asm .dw w1,w2 __endasm
+#define Basic_DATAW3(w1,w2,w3) __asm .dw w1,w2,w3 __endasm
+#define Basic_DATAW4(w1,w2,w3,w4) __asm .dw w1,w2,w3,w4 __endasm
+#define Basic_DATAW5(w1,w2,w3,w4,w5) __asm .dw w1,w2,w3,w4,w5 __endasm
+#define Basic_DATAW6(w1,w2,w3,w4,w5,w6) __asm .dw w1,w2,w3,w4,w5,w6 __endasm
+#define Basic_DATAW7(w1,w2,w3,w4,w5,w6,w7) __asm .dw w1,w2,w3,w4,w5,w6,w7 __endasm
+#define Basic_DATAW8(w1,w2,w3,w4,w5,w6,w7,w8) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8 __endasm
+#define Basic_DATAW9(w1,w2,w3,w4,w5,w6,w7,w8,w9) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9 __endasm
+#define Basic_DATAW10(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10 __endasm
+#define Basic_DATAW11(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11 __endasm
+#define Basic_DATAW12(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 __endasm
+#define Basic_DATAW13(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13 __endasm
+#define Basic_DATAW14(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14 __endasm
+#define Basic_DATAW15(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 __endasm
+#define Basic_DATAW16(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16 __endasm
+#define __arg_killer__(a)
+#define Basic_DATASTR(str, str__len)	__asm .ascii __arg_killer__ str __endasm
+#define Basic_DATASTRZ(str, str__len)	__asm .ascii __arg_killer__ str \
+  .db 0x00 \
+  __endasm
 
 import void Basic_Quit_DI (void);
 import void Basic_Quit_IM0 (void);
