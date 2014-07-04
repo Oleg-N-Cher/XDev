@@ -39,6 +39,8 @@ export void Asm_Char7 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BY
 export void Asm_Char8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8);
 export void Asm_Char9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
 export void Asm_Code (CHAR *str, LONGINT str__len);
+export void Asm_String (CHAR *str, LONGINT str__len);
+export void Asm_StringZ (CHAR *str, LONGINT str__len);
 export void Asm_Word (INTEGER w);
 export void Asm_Word1 (INTEGER w);
 export void Asm_Word10 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10);
@@ -315,10 +317,18 @@ void Asm_Word16 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INT
 }
 
 /*----------------------------------------------------------------------------*/
+void Asm_String (CHAR *str, LONGINT str__len)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Asm_StringZ (CHAR *str, LONGINT str__len)
+{
+}
+
+/*----------------------------------------------------------------------------*/
 void Asm_Code (CHAR *str, LONGINT str__len)
 {
-	__DUP(str, str__len, CHAR);
-	__DEL(str);
 }
 
 /*----------------------------------------------------------------------------*/

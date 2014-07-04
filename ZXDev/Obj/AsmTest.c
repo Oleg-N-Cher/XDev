@@ -5,10 +5,18 @@
 
 
 
+export void AsmTest_Border (SHORTINT color);
 
 
 /*============================================================================*/
 
+void AsmTest_Border (SHORTINT color)
+{
+	Asm_Code((CHAR*)"LD   A,4(IX)", (LONGINT)13);
+	Asm_Code((CHAR*)"CALL 0x229B ", (LONGINT)13);
+}
+
+/*----------------------------------------------------------------------------*/
 
 export main(int argc, char **argv)
 {
@@ -16,8 +24,6 @@ export main(int argc, char **argv)
 	__IMPORT(Asm__init);
 	__REGMAIN("AsmTest", 0);
 /* BEGIN */
-	Asm_Byte2(62, 1);
-	Asm_Byte2(211, 254);
-	Asm_Code((CHAR*)"DI", (LONGINT)3);
+	AsmTest_Border(2);
 	__FINI;
 }

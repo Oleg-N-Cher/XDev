@@ -43,6 +43,8 @@ import void Asm_Char7 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BY
 import void Asm_Char8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8);
 import void Asm_Char9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
 import void Asm_Code (CHAR *str, LONGINT str__len);
+import void Asm_String (CHAR *str, LONGINT str__len);
+import void Asm_StringZ (CHAR *str, LONGINT str__len);
 import void Asm_Word (INTEGER w);
 import void Asm_Word1 (INTEGER w);
 import void Asm_Word10 (INTEGER w1, INTEGER w2, INTEGER w3, INTEGER w4, INTEGER w5, INTEGER w6, INTEGER w7, INTEGER w8, INTEGER w9, INTEGER w10);
