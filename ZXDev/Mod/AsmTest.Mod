@@ -1,7 +1,12 @@
 MODULE AsmTest;
-IMPORT _ := Asm;
- 
+IMPORT Asm;
+
+PROCEDURE Border* (color: SHORTINT);
+BEGIN
+  Asm.Code("LD   A,4(IX)");
+  Asm.Code("CALL 0x229B ");
+END Border;
+
 BEGIN (*$MAIN*)
-  _.Byte2( 3EH,   1); (* LD   A, #1 *)
-  _.Byte2(0D3H,0FEH); (* OUT  (#0xFE), A *)
+  Border(2);
 END AsmTest.

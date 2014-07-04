@@ -55,7 +55,12 @@
 #define Asm_Word15(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 __endasm
 #define Asm_Word16(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16 __endasm
 
-#define Asm_Code(a,b) __asm__ (a)
+#define __arg_killer__(a)
+#define Asm_String(str, str__len)	__asm .ascii __arg_killer__ str __endasm
+#define Asm_StringZ(str, str__len)	__asm .ascii __arg_killer__ str \
+  .db 0x00 \
+  __endasm
+#define Asm_Code(str, str__len)	__asm__(__arg_killer__ str)
 
 #define Asm__init()
 
