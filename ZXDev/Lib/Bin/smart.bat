@@ -2,7 +2,7 @@
 @REM   LibName ModName [PartName] [-noinit] [-nocut]
 @CD ..
 @SET RootBin=..\..\Bin
-@COPY Obj\%2.h
+@IF NOT EXIST %2.c COPY Obj\%2.h
 
 %RootBin%\smartlib Obj\%2.c %3 %4 %5
 @FOR %%i IN (%2_0??.c) DO (
