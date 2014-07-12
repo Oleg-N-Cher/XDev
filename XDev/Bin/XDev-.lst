@@ -1,0 +1,11 @@
+ZXDev\Bin\bin2c.c
+ZXDev\Bin\smartlinkrel.dpr
+Dev\Mod\Text\
+Dev\Test\
+Ofront\mod\Text\
+Ofront\Obj\*.h
+Ofront\Obj\*.c
+Ofront\Obj\CmdLine.*
+Ofront\Obj\Console.*
+Ofront\Obj\MakeZX.*
+WinDev\Bin\MakeZX\
