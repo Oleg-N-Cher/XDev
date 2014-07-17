@@ -9607,7 +9607,7 @@ __EXTERN INTEGER __CALL WriteTapemark(SYSTEM_PTR hDevice, INTEGER dwTapemarkType
 __EXTERN INTEGER __CALL _hread(INTEGER hFile, SYSTEM_PTR lpBuffer, INTEGER lBytes);
 #define WinApi__hwrite(hFile, lpBuffer, lBytes)	_hwrite(hFile, lpBuffer, lBytes)
 __EXTERN INTEGER __CALL _hwrite(INTEGER hFile, SYSTEM_PTR lpBuffer, INTEGER lBytes);
-#define WinApi__init()	/* */
+#define WinApi__init()	/*-noinit*/
 #define WinApi__lclose(hFile)	_lclose(hFile)
 __EXTERN INTEGER __CALL _lclose(INTEGER hFile);
 #define WinApi__lcreat(lpPathName, iAttribute)	_lcreat(lpPathName, iAttribute)
