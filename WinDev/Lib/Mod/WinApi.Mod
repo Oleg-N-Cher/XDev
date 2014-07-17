@@ -7665,7 +7665,7 @@ MODULE WinApi (*KERNEL32.dll*);
 			END;
 		END;
 		PtrPROCESS_HEAP_ENTRY* = POINTER TO PROCESS_HEAP_ENTRY;
-		TOP_LEVEL_EXCEPTION_FILTER* = PROCEDURE (VAR (*nil*) ExceptionInfo: EXCEPTION_POINTERS): INTEGER;
+		TOP_LEVEL_EXCEPTION_FILTER* = PROCEDURE (VAR [nil] ExceptionInfo: EXCEPTION_POINTERS): INTEGER;
 		APCFUNC* = PROCEDURE (dwParam: INTEGER);
 		BY_HANDLE_FILE_INFORMATION* = RECORD [1](*align8*)
 			dwFileAttributes*: SET;
@@ -7690,7 +7690,7 @@ MODULE WinApi (*KERNEL32.dll*);
 			DaylightBias*: INTEGER;
 		END;
 		PtrTIME_ZONE_INFORMATION* = POINTER TO TIME_ZONE_INFORMATION;
-		OVERLAPPED_COMPLETION_ROUTINE* = PROCEDURE (dwErrorCode: INTEGER; dwNumberOfBytesTransfered: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED);
+		OVERLAPPED_COMPLETION_ROUTINE* = PROCEDURE (dwErrorCode: INTEGER; dwNumberOfBytesTransfered: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED);
 		WIN32_STREAM_ID* = RECORD [1](*align8*)
 			dwStreamId*: INTEGER;
 			dwStreamAttributes*: SET;
@@ -8628,21 +8628,21 @@ MODULE WinApi (*KERNEL32.dll*);
 		END;
 		PtrPIXELFORMATDESCRIPTOR* = POINTER TO PIXELFORMATDESCRIPTOR;
 		OLDFONTENUMPROC* = PROCEDURE (): INTEGER;
-		FONTENUMPROCA* = PROCEDURE (VAR (*nil*) lplf: LOGFONTA; VAR (*nil*) lptm:TEXTMETRICA; dwType, lParam: INTEGER): INTEGER;
-		FONTENUMPROCW* = PROCEDURE (VAR (*nil*) lplf: LOGFONTW; VAR (*nil*) lptm:TEXTMETRICW; dwType, lParam: INTEGER): INTEGER;
-		FONTENUMPROC* = PROCEDURE (VAR (*nil*) lplf: LOGFONTA; VAR (*nil*) lptm:TEXTMETRICA; dwType, lParam: INTEGER): INTEGER;
-		FONTENUMPROCEXA* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTEXA; VAR (*nil*) lpntm: NEWTEXTMETRICEXA; FontType, lParam: INTEGER): INTEGER;
-		FONTENUMPROCEXW* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTEXW; VAR (*nil*) lpntm: NEWTEXTMETRICEXW; FontType, lParam: INTEGER): INTEGER;
-		FONTENUMPROCEX* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTEXA; VAR (*nil*) lpntm: NEWTEXTMETRICEXA; FontType, lParam: INTEGER): INTEGER;
-		NEWFONTENUMPROCA* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTA; VAR (*nil*) lpntm: NEWTEXTMETRICA; FontType, lParam: INTEGER): INTEGER;
-		NEWFONTENUMPROCW* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTW; VAR (*nil*) lpntm: NEWTEXTMETRICW; FontType, lParam: INTEGER): INTEGER;
-		NEWFONTENUMPROC* = PROCEDURE (VAR (*nil*) lpelf: ENUMLOGFONTA; VAR (*nil*) lpntm: NEWTEXTMETRICA; FontType, lParam: INTEGER): INTEGER;
+		FONTENUMPROCA* = PROCEDURE (VAR [nil] lplf: LOGFONTA; VAR [nil] lptm:TEXTMETRICA; dwType, lParam: INTEGER): INTEGER;
+		FONTENUMPROCW* = PROCEDURE (VAR [nil] lplf: LOGFONTW; VAR [nil] lptm:TEXTMETRICW; dwType, lParam: INTEGER): INTEGER;
+		FONTENUMPROC* = PROCEDURE (VAR [nil] lplf: LOGFONTA; VAR [nil] lptm:TEXTMETRICA; dwType, lParam: INTEGER): INTEGER;
+		FONTENUMPROCEXA* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTEXA; VAR [nil] lpntm: NEWTEXTMETRICEXA; FontType, lParam: INTEGER): INTEGER;
+		FONTENUMPROCEXW* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTEXW; VAR [nil] lpntm: NEWTEXTMETRICEXW; FontType, lParam: INTEGER): INTEGER;
+		FONTENUMPROCEX* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTEXA; VAR [nil] lpntm: NEWTEXTMETRICEXA; FontType, lParam: INTEGER): INTEGER;
+		NEWFONTENUMPROCA* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTA; VAR [nil] lpntm: NEWTEXTMETRICA; FontType, lParam: INTEGER): INTEGER;
+		NEWFONTENUMPROCW* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTW; VAR [nil] lpntm: NEWTEXTMETRICW; FontType, lParam: INTEGER): INTEGER;
+		NEWFONTENUMPROC* = PROCEDURE (VAR [nil] lpelf: ENUMLOGFONTA; VAR [nil] lpntm: NEWTEXTMETRICA; FontType, lParam: INTEGER): INTEGER;
 		GOBJENUMPROC* = PROCEDURE (): INTEGER;
 		LINEDDAPROC* = PROCEDURE (): INTEGER;
-		FNDEVMODE* = PROCEDURE (p0: HWND; p1: HMODULE; VAR (*nil*) p2: DEVMODEA; p3: PtrSTR; p4: PtrSTR; VAR (*nil*) p5: DEVMODEA; p6: PtrSTR; p7: INTEGER): INTEGER;
-		FNDEVCAPS* = PROCEDURE (p0: PtrSTR; p1: PtrSTR; p2: INTEGER; p3: PtrSTR; VAR (*nil*) p4: DEVMODEA): INTEGER;
-		MFENUMPROC* = PROCEDURE (p0: HDC; VAR (*nil*) p1: HANDLETABLE; VAR (*nil*) p2: METARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
-		ENHMFENUMPROC* = PROCEDURE (p0: HDC; VAR (*nil*) p1: HANDLETABLE; VAR (*nil*) p2: ENHMETARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
+		FNDEVMODE* = PROCEDURE (p0: HWND; p1: HMODULE; VAR [nil] p2: DEVMODEA; p3: PtrSTR; p4: PtrSTR; VAR [nil] p5: DEVMODEA; p6: PtrSTR; p7: INTEGER): INTEGER;
+		FNDEVCAPS* = PROCEDURE (p0: PtrSTR; p1: PtrSTR; p2: INTEGER; p3: PtrSTR; VAR [nil] p4: DEVMODEA): INTEGER;
+		MFENUMPROC* = PROCEDURE (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: METARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
+		ENHMFENUMPROC* = PROCEDURE (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: ENHMETARECORD; p3: INTEGER; p4: LPARAM): INTEGER;
 		DIBSECTION* = RECORD [1]
 			dsBm*: BITMAP;
 			dsBmih*: BITMAPINFOHEADER;
@@ -9713,7 +9713,7 @@ MODULE WinApi (*KERNEL32.dll*);
 			MousePos*: POINT;
 		END;
 		PtrHELPINFO* = POINTER TO HELPINFO;
-		MSGBOXCALLBACK* = PROCEDURE (VAR (*nil*) lpHelpInfo: HELPINFO);
+		MSGBOXCALLBACK* = PROCEDURE (VAR [nil] lpHelpInfo: HELPINFO);
 		MSGBOXPARAMSA* = RECORD [1]
 			cbSize*: INTEGER;
 			hwndOwner*: HWND;
@@ -10199,7 +10199,7 @@ MODULE WinApi (*KERNEL32.dll*);
 		PtrPVALUEW* = POINTER TO PVALUEW;
 		PVALUE* = PVALUEA;
 		PtrPVALUE* = PtrPVALUEA;
-		QUERYHANDLER* = PROCEDURE(keycontext: PtrVoid; VAR (*nil*) val_list: val_context; num_vals: INTEGER; outputbuffer: PtrVoid; VAR (*nil*) total_outlen: INTEGER; input_blen: INTEGER): INTEGER;
+		QUERYHANDLER* = PROCEDURE(keycontext: PtrVoid; VAR [nil] val_list: val_context; num_vals: INTEGER; outputbuffer: PtrVoid; VAR [nil] total_outlen: INTEGER; input_blen: INTEGER): INTEGER;
 		REG_PROVIDER* = RECORD [1]
 			pi_R0_1val*: QUERYHANDLER;
 			pi_R0_allvals*: QUERYHANDLER;
@@ -11222,16 +11222,16 @@ MODULE WinApi (*KERNEL32.dll*);
 		RetDdeAccessData* = POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 		RetCommandLineToArgvW* = POINTER TO (*?*) ARRAY [1] OF PtrWSTR;
 
-	PROCEDURE- InterlockedIncrement* (VAR (*nil*) lpAddend: INTEGER): INTEGER;
+	PROCEDURE- InterlockedIncrement* (VAR [nil] lpAddend: INTEGER): INTEGER;
 	(*END InterlockedIncrement;*)
 
-	PROCEDURE- InterlockedDecrement* (VAR (*nil*) lpAddend: INTEGER): INTEGER;
+	PROCEDURE- InterlockedDecrement* (VAR [nil] lpAddend: INTEGER): INTEGER;
 	(*END InterlockedDecrement;*)
 
-	PROCEDURE- InterlockedExchange* (VAR (*nil*) Target: INTEGER; Value: INTEGER): INTEGER;
+	PROCEDURE- InterlockedExchange* (VAR [nil] Target: INTEGER; Value: INTEGER): INTEGER;
 	(*END InterlockedExchange;*)
 
-	PROCEDURE- InterlockedExchangeAdd* (VAR (*nil*) Addend: INTEGER; Value: INTEGER): INTEGER;
+	PROCEDURE- InterlockedExchangeAdd* (VAR [nil] Addend: INTEGER; Value: INTEGER): INTEGER;
 	(*END InterlockedExchangeAdd;*)
 
 	PROCEDURE- InterlockedCompareExchange* (Destination: POINTER TO (*?*) ARRAY [1] OF PtrVoid; Exchange: PtrVoid; Comperand: PtrVoid): PtrVoid;
@@ -11297,7 +11297,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GlobalUnWire* (hMem: HGLOBAL): BOOL;
 	(*END GlobalUnWire;*)
 
-	PROCEDURE- GlobalMemoryStatus* (VAR (*nil*) lpBuffer: MEMORYSTATUS);
+	PROCEDURE- GlobalMemoryStatus* (VAR [nil] lpBuffer: MEMORYSTATUS);
 	(*END GlobalMemoryStatus;*)
 
 	PROCEDURE- LocalAlloc* (uFlags: SET; uBytes: INTEGER): HLOCAL;
@@ -11339,16 +11339,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- VirtualFree* (lpAddress: PtrVoid; dwSize: INTEGER; dwFreeType: SET): BOOL;
 	(*END VirtualFree;*)
 
-	PROCEDURE- VirtualProtect* (lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR (*nil*) lpflOldProtect: INTEGER): BOOL;
+	PROCEDURE- VirtualProtect* (lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
 	(*END VirtualProtect;*)
 
-	PROCEDURE- VirtualQuery* (lpAddress: PtrVoid; VAR (*nil*) lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
+	PROCEDURE- VirtualQuery* (lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
 	(*END VirtualQuery;*)
 
-	PROCEDURE- VirtualProtectEx* (hProcess: HANDLE; lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR (*nil*) lpflOldProtect: INTEGER): BOOL;
+	PROCEDURE- VirtualProtectEx* (hProcess: HANDLE; lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
 	(*END VirtualProtectEx;*)
 
-	PROCEDURE- VirtualQueryEx* (hProcess: HANDLE; lpAddress: PtrVoid; VAR (*nil*) lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
+	PROCEDURE- VirtualQueryEx* (hProcess: HANDLE; lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
 	(*END VirtualQueryEx;*)
 
 	PROCEDURE- HeapCreate* (flOptions: SET; dwInitialSize: INTEGER; dwMaximumSize: INTEGER): HANDLE;
@@ -11378,7 +11378,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetProcessHeap* (): HANDLE;
 	(*END GetProcessHeap;*)
 
-	PROCEDURE- GetProcessHeaps* (NumberOfHeaps: INTEGER; VAR (*nil*) ProcessHeaps: HANDLE): INTEGER;
+	PROCEDURE- GetProcessHeaps* (NumberOfHeaps: INTEGER; VAR [nil] ProcessHeaps: HANDLE): INTEGER;
 	(*END GetProcessHeaps;*)
 
 	PROCEDURE- HeapLock* (hHeap: HANDLE): BOOL;
@@ -11387,16 +11387,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- HeapUnlock* (hHeap: HANDLE): BOOL;
 	(*END HeapUnlock;*)
 
-	PROCEDURE- HeapWalk* (hHeap: HANDLE; VAR (*nil*) lpEntry: PROCESS_HEAP_ENTRY): BOOL;
+	PROCEDURE- HeapWalk* (hHeap: HANDLE; VAR [nil] lpEntry: PROCESS_HEAP_ENTRY): BOOL;
 	(*END HeapWalk;*)
 
-	PROCEDURE- GetBinaryTypeA* (lpApplicationName: PtrSTR; VAR (*nil*) lpBinaryType: INTEGER): BOOL;
+	PROCEDURE- GetBinaryTypeA* (lpApplicationName: PtrSTR; VAR [nil] lpBinaryType: INTEGER): BOOL;
 	(*END GetBinaryTypeA;*)
 
-	PROCEDURE- GetBinaryTypeW* (lpApplicationName: PtrWSTR; VAR (*nil*) lpBinaryType: INTEGER): BOOL;
+	PROCEDURE- GetBinaryTypeW* (lpApplicationName: PtrWSTR; VAR [nil] lpBinaryType: INTEGER): BOOL;
 	(*END GetBinaryTypeW;*)
 
-	PROCEDURE- GetBinaryType* (lpApplicationName: PtrSTR; VAR (*nil*) lpBinaryType: INTEGER): BOOL "GetBinaryTypeA(lpApplicationName, lpBinaryType)";
+	PROCEDURE- GetBinaryType* (lpApplicationName: PtrSTR; VAR [nil] lpBinaryType: INTEGER): BOOL "GetBinaryTypeA(lpApplicationName, lpBinaryType)";
 	(*END GetBinaryType;*)
 
 	PROCEDURE- GetShortPathNameA* (lpszLongPath: PtrSTR; lpszShortPath: PtrSTR; cchBuffer: INTEGER): INTEGER;
@@ -11408,16 +11408,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetShortPathName* (lpszLongPath: PtrSTR; lpszShortPath: PtrSTR; cchBuffer: INTEGER): INTEGER "GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer)";
 	(*END GetShortPathName;*)
 
-	PROCEDURE- GetProcessAffinityMask* (hProcess: HANDLE; VAR (*nil*) lpProcessAffinityMask: INTEGER; VAR (*nil*) lpSystemAffinityMask: INTEGER): BOOL;
+	PROCEDURE- GetProcessAffinityMask* (hProcess: HANDLE; VAR [nil] lpProcessAffinityMask: INTEGER; VAR [nil] lpSystemAffinityMask: INTEGER): BOOL;
 	(*END GetProcessAffinityMask;*)
 
 	PROCEDURE- SetProcessAffinityMask* (hProcess: HANDLE; dwProcessAffinityMask: INTEGER): BOOL;
 	(*END SetProcessAffinityMask;*)
 
-	PROCEDURE- GetProcessTimes* (hProcess: HANDLE; VAR (*nil*) lpCreationTime: FILETIME; VAR (*nil*) lpExitTime: FILETIME; VAR (*nil*) lpKernelTime: FILETIME; VAR (*nil*) lpUserTime: FILETIME): BOOL;
+	PROCEDURE- GetProcessTimes* (hProcess: HANDLE; VAR [nil] lpCreationTime: FILETIME; VAR [nil] lpExitTime: FILETIME; VAR [nil] lpKernelTime: FILETIME; VAR [nil] lpUserTime: FILETIME): BOOL;
 	(*END GetProcessTimes;*)
 
-	PROCEDURE- GetProcessWorkingSetSize* (hProcess: HANDLE; VAR (*nil*) lpMinimumWorkingSetSize: INTEGER; VAR (*nil*) lpMaximumWorkingSetSize: INTEGER): BOOL;
+	PROCEDURE- GetProcessWorkingSetSize* (hProcess: HANDLE; VAR [nil] lpMinimumWorkingSetSize: INTEGER; VAR [nil] lpMaximumWorkingSetSize: INTEGER): BOOL;
 	(*END GetProcessWorkingSetSize;*)
 
 	PROCEDURE- SetProcessWorkingSetSize* (hProcess: HANDLE; dwMinimumWorkingSetSize: INTEGER; dwMaximumWorkingSetSize: INTEGER): BOOL;
@@ -11438,7 +11438,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- TerminateProcess* (hProcess: HANDLE; uExitCode: INTEGER): BOOL;
 	(*END TerminateProcess;*)
 
-	PROCEDURE- GetExitCodeProcess* (hProcess: HANDLE; VAR (*nil*) lpExitCode: INTEGER): BOOL;
+	PROCEDURE- GetExitCodeProcess* (hProcess: HANDLE; VAR [nil] lpExitCode: INTEGER): BOOL;
 	(*END GetExitCodeProcess;*)
 
 	PROCEDURE- FatalExit* (ExitCode: INTEGER);
@@ -11468,10 +11468,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PathUnExpandEnvStringsW* ["shlwapi.dll", ""] (pszPath : PtrWSTR; pszBuf : PtrWSTR; ccBuf : INTEGER) : BOOL;
 	*)
 
-	PROCEDURE- RaiseException* (dwExceptionCode: INTEGER; dwExceptionFlags: INTEGER; nNumberOfArguments: INTEGER; VAR (*nil*) lpArguments: INTEGER);
+	PROCEDURE- RaiseException* (dwExceptionCode: INTEGER; dwExceptionFlags: INTEGER; nNumberOfArguments: INTEGER; VAR [nil] lpArguments: INTEGER);
 	(*END RaiseException;*)
 
-	PROCEDURE- UnhandledExceptionFilter* (VAR (*nil*) ExceptionInfo: EXCEPTION_POINTERS): INTEGER;
+	PROCEDURE- UnhandledExceptionFilter* (VAR [nil] ExceptionInfo: EXCEPTION_POINTERS): INTEGER;
 	(*END UnhandledExceptionFilter;*)
 
 	PROCEDURE- SetUnhandledExceptionFilter* (lpTopLevelExceptionFilter: TOP_LEVEL_EXCEPTION_FILTER): TOP_LEVEL_EXCEPTION_FILTER;
@@ -11489,10 +11489,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SwitchToFiber* (lpFiber: PtrVoid);
 	(*END SwitchToFiber;*)
 
-	PROCEDURE- CreateThread* (VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; dwStackSize: INTEGER; lpStartAddress: THREAD_START_ROUTINE; lpParameter: PtrVoid; dwCreationFlags: SET; VAR (*nil*) lpThreadId: INTEGER): HANDLE;
+	PROCEDURE- CreateThread* (VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; dwStackSize: INTEGER; lpStartAddress: THREAD_START_ROUTINE; lpParameter: PtrVoid; dwCreationFlags: SET; VAR [nil] lpThreadId: INTEGER): HANDLE;
 	(*END CreateThread;*)
 
-	PROCEDURE- CreateRemoteThread* (hProcess: HANDLE; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; dwStackSize: INTEGER; lpStartAddress: THREAD_START_ROUTINE; lpParameter: PtrVoid; dwCreationFlags: SET; VAR (*nil*) lpThreadId: INTEGER): HANDLE;
+	PROCEDURE- CreateRemoteThread* (hProcess: HANDLE; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; dwStackSize: INTEGER; lpStartAddress: THREAD_START_ROUTINE; lpParameter: PtrVoid; dwCreationFlags: SET; VAR [nil] lpThreadId: INTEGER): HANDLE;
 	(*END CreateRemoteThread;*)
 
 	PROCEDURE- GetCurrentThread* (): HANDLE;
@@ -11513,13 +11513,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetThreadPriorityBoost* (hThread: HANDLE; bDisablePriorityBoost: BOOL): BOOL;
 	(*END SetThreadPriorityBoost;*)
 
-	PROCEDURE- GetThreadPriorityBoost* (hThread: HANDLE; VAR (*nil*) pDisablePriorityBoost: BOOL): BOOL;
+	PROCEDURE- GetThreadPriorityBoost* (hThread: HANDLE; VAR [nil] pDisablePriorityBoost: BOOL): BOOL;
 	(*END GetThreadPriorityBoost;*)
 
 	PROCEDURE- GetThreadPriority* (hThread: HANDLE): INTEGER;
 	(*END GetThreadPriority;*)
 
-	PROCEDURE- GetThreadTimes* (hThread: HANDLE; VAR (*nil*) lpCreationTime: FILETIME; VAR (*nil*) lpExitTime: FILETIME; VAR (*nil*) lpKernelTime: FILETIME; VAR (*nil*) lpUserTime: FILETIME): BOOL;
+	PROCEDURE- GetThreadTimes* (hThread: HANDLE; VAR [nil] lpCreationTime: FILETIME; VAR [nil] lpExitTime: FILETIME; VAR [nil] lpKernelTime: FILETIME; VAR [nil] lpUserTime: FILETIME): BOOL;
 	(*END GetThreadTimes;*)
 
 	PROCEDURE- ExitThread* (dwExitCode: INTEGER);
@@ -11528,10 +11528,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- TerminateThread* (hThread: HANDLE; dwExitCode: INTEGER): BOOL;
 	(*END TerminateThread;*)
 
-	PROCEDURE- GetExitCodeThread* (hThread: HANDLE; VAR (*nil*) lpExitCode: INTEGER): BOOL;
+	PROCEDURE- GetExitCodeThread* (hThread: HANDLE; VAR [nil] lpExitCode: INTEGER): BOOL;
 	(*END GetExitCodeThread;*)
 
-	PROCEDURE- GetThreadSelectorEntry* (hThread: HANDLE; dwSelector: INTEGER; VAR (*nil*) lpSelectorEntry: LDT_ENTRY): BOOL;
+	PROCEDURE- GetThreadSelectorEntry* (hThread: HANDLE; dwSelector: INTEGER; VAR [nil] lpSelectorEntry: LDT_ENTRY): BOOL;
 	(*END GetThreadSelectorEntry;*)
 
 	PROCEDURE- GetLastError* (): INTEGER;
@@ -11540,31 +11540,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetLastError* (dwErrCode: INTEGER);
 	(*END SetLastError;*)
 
-	PROCEDURE- GetOverlappedResult* (hFile: HANDLE; VAR (*nil*) lpOverlapped: OVERLAPPED; VAR (*nil*) lpNumberOfBytesTransferred: INTEGER; bWait: BOOL): BOOL;
+	PROCEDURE- GetOverlappedResult* (hFile: HANDLE; VAR [nil] lpOverlapped: OVERLAPPED; VAR [nil] lpNumberOfBytesTransferred: INTEGER; bWait: BOOL): BOOL;
 	(*END GetOverlappedResult;*)
 
 	PROCEDURE- CreateIoCompletionPort* (FileHandle: HANDLE; ExistingCompletionPort: HANDLE; CompletionKey: INTEGER; NumberOfConcurrentThreads: INTEGER): HANDLE;
 	(*END CreateIoCompletionPort;*)
 
-	PROCEDURE- GetQueuedCompletionStatus* (CompletionPort: HANDLE; VAR (*nil*) lpNumberOfBytesTransferred: INTEGER; VAR (*nil*) lpCompletionKey: INTEGER; VAR (*nil*) lpOverlapped: PtrOVERLAPPED; dwMilliseconds: INTEGER): BOOL;
+	PROCEDURE- GetQueuedCompletionStatus* (CompletionPort: HANDLE; VAR [nil] lpNumberOfBytesTransferred: INTEGER; VAR [nil] lpCompletionKey: INTEGER; VAR [nil] lpOverlapped: PtrOVERLAPPED; dwMilliseconds: INTEGER): BOOL;
 	(*END GetQueuedCompletionStatus;*)
 
-	PROCEDURE- PostQueuedCompletionStatus* (CompletionPort: HANDLE; dwNumberOfBytesTransferred: INTEGER; dwCompletionKey: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- PostQueuedCompletionStatus* (CompletionPort: HANDLE; dwNumberOfBytesTransferred: INTEGER; dwCompletionKey: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END PostQueuedCompletionStatus;*)
 
 	PROCEDURE- SetErrorMode* (uMode: SET): INTEGER;
 	(*END SetErrorMode;*)
 
-	PROCEDURE- ReadProcessMemory* (hProcess: HANDLE; lpBaseAddress: PtrVoid; lpBuffer: PtrVoid; nSize: INTEGER; VAR (*nil*) lpNumberOfBytesRead: INTEGER): BOOL;
+	PROCEDURE- ReadProcessMemory* (hProcess: HANDLE; lpBaseAddress: PtrVoid; lpBuffer: PtrVoid; nSize: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER): BOOL;
 	(*END ReadProcessMemory;*)
 
-	PROCEDURE- WriteProcessMemory* (hProcess: HANDLE; lpBaseAddress: PtrVoid; lpBuffer: PtrVoid; nSize: INTEGER; VAR (*nil*) lpNumberOfBytesWritten: INTEGER): BOOL;
+	PROCEDURE- WriteProcessMemory* (hProcess: HANDLE; lpBaseAddress: PtrVoid; lpBuffer: PtrVoid; nSize: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER): BOOL;
 	(*END WriteProcessMemory;*)
 
-	PROCEDURE- GetThreadContext* (hThread: HANDLE; VAR (*nil*) lpContext: CONTEXT): BOOL;
+	PROCEDURE- GetThreadContext* (hThread: HANDLE; VAR [nil] lpContext: CONTEXT): BOOL;
 	(*END GetThreadContext;*)
 
-	PROCEDURE- SetThreadContext* (hThread: HANDLE; VAR (*nil*) lpContext: CONTEXT): BOOL;
+	PROCEDURE- SetThreadContext* (hThread: HANDLE; VAR [nil] lpContext: CONTEXT): BOOL;
 	(*END SetThreadContext;*)
 
 	PROCEDURE- SuspendThread* (hThread: HANDLE): INTEGER;
@@ -11579,7 +11579,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DebugBreak* ();
 	(*END DebugBreak;*)
 
-	PROCEDURE- WaitForDebugEvent* (VAR (*nil*) lpDebugEvent: DEBUG_EVENT; dwMilliseconds: INTEGER): BOOL;
+	PROCEDURE- WaitForDebugEvent* (VAR [nil] lpDebugEvent: DEBUG_EVENT; dwMilliseconds: INTEGER): BOOL;
 	(*END WaitForDebugEvent;*)
 
 	PROCEDURE- ContinueDebugEvent* (dwProcessId: INTEGER; dwThreadId: INTEGER; dwContinueStatus: SET): BOOL;
@@ -11588,19 +11588,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DebugActiveProcess* (dwProcessId: INTEGER): BOOL;
 	(*END DebugActiveProcess;*)
 
-	PROCEDURE- InitializeCriticalSection* (VAR (*nil*) lpCriticalSection: RTL_CRITICAL_SECTION);
+	PROCEDURE- InitializeCriticalSection* (VAR [nil] lpCriticalSection: RTL_CRITICAL_SECTION);
 	(*END InitializeCriticalSection;*)
 
-	PROCEDURE- EnterCriticalSection* (VAR (*nil*) lpCriticalSection: RTL_CRITICAL_SECTION);
+	PROCEDURE- EnterCriticalSection* (VAR [nil] lpCriticalSection: RTL_CRITICAL_SECTION);
 	(*END EnterCriticalSection;*)
 
-	PROCEDURE- LeaveCriticalSection* (VAR (*nil*) lpCriticalSection: RTL_CRITICAL_SECTION);
+	PROCEDURE- LeaveCriticalSection* (VAR [nil] lpCriticalSection: RTL_CRITICAL_SECTION);
 	(*END LeaveCriticalSection;*)
 
-	PROCEDURE- TryEnterCriticalSection* (VAR (*nil*) lpCriticalSection: RTL_CRITICAL_SECTION): BOOL;
+	PROCEDURE- TryEnterCriticalSection* (VAR [nil] lpCriticalSection: RTL_CRITICAL_SECTION): BOOL;
 	(*END TryEnterCriticalSection;*)
 
-	PROCEDURE- DeleteCriticalSection* (VAR (*nil*) lpCriticalSection: RTL_CRITICAL_SECTION);
+	PROCEDURE- DeleteCriticalSection* (VAR [nil] lpCriticalSection: RTL_CRITICAL_SECTION);
 	(*END DeleteCriticalSection;*)
 
 	PROCEDURE- SetEvent* (hEvent: HANDLE): BOOL;
@@ -11612,7 +11612,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PulseEvent* (hEvent: HANDLE): BOOL;
 	(*END PulseEvent;*)
 
-	PROCEDURE- ReleaseSemaphore* (hSemaphore: HANDLE; lReleaseCount: INTEGER; VAR (*nil*) lpPreviousCount: INTEGER): BOOL;
+	PROCEDURE- ReleaseSemaphore* (hSemaphore: HANDLE; lReleaseCount: INTEGER; VAR [nil] lpPreviousCount: INTEGER): BOOL;
 	(*END ReleaseSemaphore;*)
 
 	PROCEDURE- ReleaseMutex* (hMutex: HANDLE): BOOL;
@@ -11621,7 +11621,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- WaitForSingleObject* (hHandle: HANDLE; dwMilliseconds: INTEGER): INTEGER;
 	(*END WaitForSingleObject;*)
 
-	PROCEDURE- WaitForMultipleObjects* (nCount: INTEGER; VAR (*nil*) lpHandles: HANDLE; bWaitAll: BOOL; dwMilliseconds: INTEGER): INTEGER;
+	PROCEDURE- WaitForMultipleObjects* (nCount: INTEGER; VAR [nil] lpHandles: HANDLE; bWaitAll: BOOL; dwMilliseconds: INTEGER): INTEGER;
 	(*END WaitForMultipleObjects;*)
 
 	PROCEDURE- Sleep* (dwMilliseconds: INTEGER);
@@ -11654,22 +11654,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- UnlockFile* (hFile: HANDLE; dwFileOffsetLow: INTEGER; dwFileOffsetHigh: INTEGER; nNumberOfBytesToUnlockLow: INTEGER; nNumberOfBytesToUnlockHigh: INTEGER): BOOL;
 	(*END UnlockFile;*)
 
-	PROCEDURE- LockFileEx* (hFile: HANDLE; dwFlags: SET; dwReserved: INTEGER; nNumberOfBytesToLockLow: INTEGER; nNumberOfBytesToLockHigh: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- LockFileEx* (hFile: HANDLE; dwFlags: SET; dwReserved: INTEGER; nNumberOfBytesToLockLow: INTEGER; nNumberOfBytesToLockHigh: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END LockFileEx;*)
 
-	PROCEDURE- UnlockFileEx* (hFile: HANDLE; dwReserved: INTEGER; nNumberOfBytesToUnlockLow: INTEGER; nNumberOfBytesToUnlockHigh: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- UnlockFileEx* (hFile: HANDLE; dwReserved: INTEGER; nNumberOfBytesToUnlockLow: INTEGER; nNumberOfBytesToUnlockHigh: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END UnlockFileEx;*)
 
-	PROCEDURE- GetFileInformationByHandle* (hFile: HANDLE; VAR (*nil*) lpFileInformation: BY_HANDLE_FILE_INFORMATION): BOOL;
+	PROCEDURE- GetFileInformationByHandle* (hFile: HANDLE; VAR [nil] lpFileInformation: BY_HANDLE_FILE_INFORMATION): BOOL;
 	(*END GetFileInformationByHandle;*)
 
 	PROCEDURE- GetFileType* (hFile: HANDLE): INTEGER;
 	(*END GetFileType;*)
 
-	PROCEDURE- GetFileSize* (hFile: HANDLE; VAR (*nil*) lpFileSizeHigh: INTEGER): INTEGER;
+	PROCEDURE- GetFileSize* (hFile: HANDLE; VAR [nil] lpFileSizeHigh: INTEGER): INTEGER;
 	(*END GetFileSize;*)
 
-	PROCEDURE- GetFileSizeEx* (hFile: HANDLE; VAR (*nil*) lpFileSizeHigh: LONGINT): INTEGER;
+	PROCEDURE- GetFileSizeEx* (hFile: HANDLE; VAR [nil] lpFileSizeHigh: LONGINT): INTEGER;
 	(*END GetFileSize;*)
 
 	PROCEDURE- GetStdHandle* (nStdHandle: INTEGER): HANDLE;
@@ -11678,40 +11678,40 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetStdHandle* (nStdHandle: INTEGER; hHandle: HANDLE): BOOL;
 	(*END SetStdHandle;*)
 
-	PROCEDURE- WriteFile* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR (*nil*) lpNumberOfBytesWritten: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- WriteFile* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END WriteFile;*)
 
-	PROCEDURE- ReadFile* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR (*nil*) lpNumberOfBytesRead: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- ReadFile* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END ReadFile;*)
 
 	PROCEDURE- FlushFileBuffers* (hFile: HANDLE): BOOL;
 	(*END FlushFileBuffers;*)
 
-	PROCEDURE- DeviceIoControl* (hDevice: HANDLE; dwIoControlCode: INTEGER; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR (*nil*) lpBytesReturned: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- DeviceIoControl* (hDevice: HANDLE; dwIoControlCode: INTEGER; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR [nil] lpBytesReturned: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END DeviceIoControl;*)
 
 	PROCEDURE- SetEndOfFile* (hFile: HANDLE): BOOL;
 	(*END SetEndOfFile;*)
 
-	PROCEDURE- SetFilePointer* (hFile: HANDLE; lDistanceToMove: INTEGER; VAR (*nil*) lpDistanceToMoveHigh: INTEGER; dwMoveMethod: INTEGER): INTEGER;
+	PROCEDURE- SetFilePointer* (hFile: HANDLE; lDistanceToMove: INTEGER; VAR [nil] lpDistanceToMoveHigh: INTEGER; dwMoveMethod: INTEGER): INTEGER;
 	(*END SetFilePointer;*)
 
 	PROCEDURE- FindClose* (hFindFile: HANDLE): BOOL;
 	(*END FindClose;*)
 
-	PROCEDURE- GetFileTime* (hFile: HANDLE; VAR (*nil*) lpCreationTime: FILETIME; VAR (*nil*) lpLastAccessTime: FILETIME; VAR (*nil*) lpLastWriteTime: FILETIME): BOOL;
+	PROCEDURE- GetFileTime* (hFile: HANDLE; VAR [nil] lpCreationTime: FILETIME; VAR [nil] lpLastAccessTime: FILETIME; VAR [nil] lpLastWriteTime: FILETIME): BOOL;
 	(*END GetFileTime;*)
 
-	PROCEDURE- SetFileTime* (hFile: HANDLE; VAR (*nil*) lpCreationTime: FILETIME; VAR (*nil*) lpLastAccessTime: FILETIME; VAR (*nil*) lpLastWriteTime: FILETIME): BOOL;
+	PROCEDURE- SetFileTime* (hFile: HANDLE; VAR [nil] lpCreationTime: FILETIME; VAR [nil] lpLastAccessTime: FILETIME; VAR [nil] lpLastWriteTime: FILETIME): BOOL;
 	(*END SetFileTime;*)
 
 	PROCEDURE- CloseHandle* (hObject: HANDLE): BOOL;
 	(*END CloseHandle;*)
 
-	PROCEDURE- DuplicateHandle* (hSourceProcessHandle: HANDLE; hSourceHandle: HANDLE; hTargetProcessHandle: HANDLE; VAR (*nil*) lpTargetHandle: HANDLE; dwDesiredAccess: SET; bInheritHandle: BOOL; dwOptions: SET): BOOL;
+	PROCEDURE- DuplicateHandle* (hSourceProcessHandle: HANDLE; hSourceHandle: HANDLE; hTargetProcessHandle: HANDLE; VAR [nil] lpTargetHandle: HANDLE; dwDesiredAccess: SET; bInheritHandle: BOOL; dwOptions: SET): BOOL;
 	(*END DuplicateHandle;*)
 
-	PROCEDURE- GetHandleInformation* (hObject: HANDLE; VAR (*nil*) lpdwFlags: SET): BOOL;
+	PROCEDURE- GetHandleInformation* (hObject: HANDLE; VAR [nil] lpdwFlags: SET): BOOL;
 	(*END GetHandleInformation;*)
 
 	PROCEDURE- SetHandleInformation* (hObject: HANDLE; dwMask: INTEGER; dwFlags: SET): BOOL;
@@ -11726,7 +11726,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ClearCommBreak* (hFile: HANDLE): BOOL;
 	(*END ClearCommBreak;*)
 
-	PROCEDURE- ClearCommError* (hFile: HANDLE; VAR (*nil*) lpErrors: SET; VAR (*nil*) lpStat: COMSTAT): BOOL;
+	PROCEDURE- ClearCommError* (hFile: HANDLE; VAR [nil] lpErrors: SET; VAR [nil] lpStat: COMSTAT): BOOL;
 	(*END ClearCommError;*)
 
 	PROCEDURE- SetupComm* (hFile: HANDLE; dwInQueue: INTEGER; dwOutQueue: INTEGER): BOOL;
@@ -11735,22 +11735,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- EscapeCommFunction* (hFile: HANDLE; dwFunc: INTEGER): BOOL;
 	(*END EscapeCommFunction;*)
 
-	PROCEDURE- GetCommConfig* (hCommDev: HANDLE; VAR (*nil*) lpCC: COMMCONFIG; VAR (*nil*) lpdwSize: INTEGER): BOOL;
+	PROCEDURE- GetCommConfig* (hCommDev: HANDLE; VAR [nil] lpCC: COMMCONFIG; VAR [nil] lpdwSize: INTEGER): BOOL;
 	(*END GetCommConfig;*)
 
-	PROCEDURE- GetCommMask* (hFile: HANDLE; VAR (*nil*) lpEvtMask: SET): BOOL;
+	PROCEDURE- GetCommMask* (hFile: HANDLE; VAR [nil] lpEvtMask: SET): BOOL;
 	(*END GetCommMask;*)
 
-	PROCEDURE- GetCommProperties* (hFile: HANDLE; VAR (*nil*) lpCommProp: COMMPROP): BOOL;
+	PROCEDURE- GetCommProperties* (hFile: HANDLE; VAR [nil] lpCommProp: COMMPROP): BOOL;
 	(*END GetCommProperties;*)
 
-	PROCEDURE- GetCommModemStatus* (hFile: HANDLE; VAR (*nil*) lpModemStat: SET): BOOL;
+	PROCEDURE- GetCommModemStatus* (hFile: HANDLE; VAR [nil] lpModemStat: SET): BOOL;
 	(*END GetCommModemStatus;*)
 
-	PROCEDURE- GetCommState* (hFile: HANDLE; VAR (*nil*) lpDCB: DCB): BOOL;
+	PROCEDURE- GetCommState* (hFile: HANDLE; VAR [nil] lpDCB: DCB): BOOL;
 	(*END GetCommState;*)
 
-	PROCEDURE- GetCommTimeouts* (hFile: HANDLE; VAR (*nil*) lpCommTimeouts: COMMTIMEOUTS): BOOL;
+	PROCEDURE- GetCommTimeouts* (hFile: HANDLE; VAR [nil] lpCommTimeouts: COMMTIMEOUTS): BOOL;
 	(*END GetCommTimeouts;*)
 
 	PROCEDURE- PurgeComm* (hFile: HANDLE; dwFlags: SET): BOOL;
@@ -11759,28 +11759,28 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetCommBreak* (hFile: HANDLE): BOOL;
 	(*END SetCommBreak;*)
 
-	PROCEDURE- SetCommConfig* (hCommDev: HANDLE; VAR (*nil*) lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
+	PROCEDURE- SetCommConfig* (hCommDev: HANDLE; VAR [nil] lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
 	(*END SetCommConfig;*)
 
 	PROCEDURE- SetCommMask* (hFile: HANDLE; dwEvtMask: SET): BOOL;
 	(*END SetCommMask;*)
 
-	PROCEDURE- SetCommState* (hFile: HANDLE; VAR (*nil*) lpDCB: DCB): BOOL;
+	PROCEDURE- SetCommState* (hFile: HANDLE; VAR [nil] lpDCB: DCB): BOOL;
 	(*END SetCommState;*)
 
-	PROCEDURE- SetCommTimeouts* (hFile: HANDLE; VAR (*nil*) lpCommTimeouts: COMMTIMEOUTS): BOOL;
+	PROCEDURE- SetCommTimeouts* (hFile: HANDLE; VAR [nil] lpCommTimeouts: COMMTIMEOUTS): BOOL;
 	(*END SetCommTimeouts;*)
 
 	PROCEDURE- TransmitCommChar* (hFile: HANDLE; cChar: SHORTCHAR): BOOL;
 	(*END TransmitCommChar;*)
 
-	PROCEDURE- WaitCommEvent* (hFile: HANDLE; VAR (*nil*) lpEvtMask: SET; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- WaitCommEvent* (hFile: HANDLE; VAR [nil] lpEvtMask: SET; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END WaitCommEvent;*)
 
 	PROCEDURE- SetTapePosition* (hDevice: HANDLE; dwPositionMethod: INTEGER; dwPartition: INTEGER; dwOffsetLow: INTEGER; dwOffsetHigh: INTEGER; bImmediate: BOOL): INTEGER;
 	(*END SetTapePosition;*)
 
-	PROCEDURE- GetTapePosition* (hDevice: HANDLE; dwPositionType: INTEGER; VAR (*nil*) lpdwPartition: INTEGER; VAR (*nil*) lpdwOffsetLow: INTEGER; VAR (*nil*) lpdwOffsetHigh: INTEGER): INTEGER;
+	PROCEDURE- GetTapePosition* (hDevice: HANDLE; dwPositionType: INTEGER; VAR [nil] lpdwPartition: INTEGER; VAR [nil] lpdwOffsetLow: INTEGER; VAR [nil] lpdwOffsetHigh: INTEGER): INTEGER;
 	(*END GetTapePosition;*)
 
 	PROCEDURE- PrepareTape* (hDevice: HANDLE; dwOperation: INTEGER; bImmediate: BOOL): INTEGER;
@@ -11798,7 +11798,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetTapeStatus* (hDevice: HANDLE): INTEGER;
 	(*END GetTapeStatus;*)
 
-	PROCEDURE- GetTapeParameters* (hDevice: HANDLE; dwOperation: INTEGER; VAR (*nil*) lpdwSize: INTEGER; lpTapeInformation: PtrVoid): INTEGER;
+	PROCEDURE- GetTapeParameters* (hDevice: HANDLE; dwOperation: INTEGER; VAR [nil] lpdwSize: INTEGER; lpTapeInformation: PtrVoid): INTEGER;
 	(*END GetTapeParameters;*)
 
 	PROCEDURE- SetTapeParameters* (hDevice: HANDLE; dwOperation: INTEGER; lpTapeInformation: PtrVoid): INTEGER;
@@ -11810,52 +11810,52 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- MulDiv* (nNumber: INTEGER; nNumerator: INTEGER; nDenominator: INTEGER): INTEGER;
 	(*END MulDiv;*)
 
-	PROCEDURE- GetSystemTime* (VAR (*nil*) lpSystemTime: SYSTEMTIME);
+	PROCEDURE- GetSystemTime* (VAR [nil] lpSystemTime: SYSTEMTIME);
 	(*END GetSystemTime;*)
 
-	PROCEDURE- GetSystemTimeAsFileTime* (VAR (*nil*) lpSystemTimeAsFileTime: FILETIME);
+	PROCEDURE- GetSystemTimeAsFileTime* (VAR [nil] lpSystemTimeAsFileTime: FILETIME);
 	(*END GetSystemTimeAsFileTime;*)
 
-	PROCEDURE- SetSystemTime* (VAR (*nil*) lpSystemTime: SYSTEMTIME): BOOL;
+	PROCEDURE- SetSystemTime* (VAR [nil] lpSystemTime: SYSTEMTIME): BOOL;
 	(*END SetSystemTime;*)
 
-	PROCEDURE- GetLocalTime* (VAR (*nil*) lpSystemTime: SYSTEMTIME);
+	PROCEDURE- GetLocalTime* (VAR [nil] lpSystemTime: SYSTEMTIME);
 	(*END GetLocalTime;*)
 
-	PROCEDURE- SetLocalTime* (VAR (*nil*) lpSystemTime: SYSTEMTIME): BOOL;
+	PROCEDURE- SetLocalTime* (VAR [nil] lpSystemTime: SYSTEMTIME): BOOL;
 	(*END SetLocalTime;*)
 
-	PROCEDURE- GetSystemInfo* (VAR (*nil*) lpSystemInfo: SYSTEM_INFO);
+	PROCEDURE- GetSystemInfo* (VAR [nil] lpSystemInfo: SYSTEM_INFO);
 	(*END GetSystemInfo;*)
 
-	PROCEDURE- SystemTimeToTzSpecificLocalTime* (VAR (*nil*) lpTimeZoneInformation: TIME_ZONE_INFORMATION; VAR (*nil*) lpUniversalTime: SYSTEMTIME; VAR (*nil*) lpLocalTime: SYSTEMTIME): BOOL;
+	PROCEDURE- SystemTimeToTzSpecificLocalTime* (VAR [nil] lpTimeZoneInformation: TIME_ZONE_INFORMATION; VAR [nil] lpUniversalTime: SYSTEMTIME; VAR [nil] lpLocalTime: SYSTEMTIME): BOOL;
 	(*END SystemTimeToTzSpecificLocalTime;*)
 
-	PROCEDURE- GetTimeZoneInformation* (VAR (*nil*) lpTimeZoneInformation: TIME_ZONE_INFORMATION): INTEGER;
+	PROCEDURE- GetTimeZoneInformation* (VAR [nil] lpTimeZoneInformation: TIME_ZONE_INFORMATION): INTEGER;
 	(*END GetTimeZoneInformation;*)
 
-	PROCEDURE- SetTimeZoneInformation* (VAR (*nil*) lpTimeZoneInformation: TIME_ZONE_INFORMATION): BOOL;
+	PROCEDURE- SetTimeZoneInformation* (VAR [nil] lpTimeZoneInformation: TIME_ZONE_INFORMATION): BOOL;
 	(*END SetTimeZoneInformation;*)
 
-	PROCEDURE- SystemTimeToFileTime* (VAR (*nil*) lpSystemTime: SYSTEMTIME; VAR (*nil*) lpFileTime: FILETIME): BOOL;
+	PROCEDURE- SystemTimeToFileTime* (VAR [nil] lpSystemTime: SYSTEMTIME; VAR [nil] lpFileTime: FILETIME): BOOL;
 	(*END SystemTimeToFileTime;*)
 
-	PROCEDURE- FileTimeToLocalFileTime* (VAR (*nil*) lpFileTime: FILETIME; VAR (*nil*) lpLocalFileTime: FILETIME): BOOL;
+	PROCEDURE- FileTimeToLocalFileTime* (VAR [nil] lpFileTime: FILETIME; VAR [nil] lpLocalFileTime: FILETIME): BOOL;
 	(*END FileTimeToLocalFileTime;*)
 
-	PROCEDURE- LocalFileTimeToFileTime* (VAR (*nil*) lpLocalFileTime: FILETIME; VAR (*nil*) lpFileTime: FILETIME): BOOL;
+	PROCEDURE- LocalFileTimeToFileTime* (VAR [nil] lpLocalFileTime: FILETIME; VAR [nil] lpFileTime: FILETIME): BOOL;
 	(*END LocalFileTimeToFileTime;*)
 
-	PROCEDURE- FileTimeToSystemTime* (VAR (*nil*) lpFileTime: FILETIME; VAR (*nil*) lpSystemTime: SYSTEMTIME): BOOL;
+	PROCEDURE- FileTimeToSystemTime* (VAR [nil] lpFileTime: FILETIME; VAR [nil] lpSystemTime: SYSTEMTIME): BOOL;
 	(*END FileTimeToSystemTime;*)
 
-	PROCEDURE- CompareFileTime* (VAR (*nil*) lpFileTime1: FILETIME; VAR (*nil*) lpFileTime2: FILETIME): INTEGER;
+	PROCEDURE- CompareFileTime* (VAR [nil] lpFileTime1: FILETIME; VAR [nil] lpFileTime2: FILETIME): INTEGER;
 	(*END CompareFileTime;*)
 
-	PROCEDURE- FileTimeToDosDateTime* (VAR (*nil*) lpFileTime: FILETIME; VAR (*nil*) lpFatDate: SHORTINT; VAR (*nil*) lpFatTime: SHORTINT): BOOL;
+	PROCEDURE- FileTimeToDosDateTime* (VAR [nil] lpFileTime: FILETIME; VAR [nil] lpFatDate: SHORTINT; VAR [nil] lpFatTime: SHORTINT): BOOL;
 	(*END FileTimeToDosDateTime;*)
 
-	PROCEDURE- DosDateTimeToFileTime* (wFatDate: SHORTINT; wFatTime: SHORTINT; VAR (*nil*) lpFileTime: FILETIME): BOOL;
+	PROCEDURE- DosDateTimeToFileTime* (wFatDate: SHORTINT; wFatTime: SHORTINT; VAR [nil] lpFileTime: FILETIME): BOOL;
 	(*END DosDateTimeToFileTime;*)
 
 	PROCEDURE- GetTickCount* (): INTEGER;
@@ -11864,49 +11864,49 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetSystemTimeAdjustment* (dwTimeAdjustment: INTEGER; bTimeAdjustmentDisabled: BOOL): BOOL;
 	(*END SetSystemTimeAdjustment;*)
 
-	PROCEDURE- GetSystemTimeAdjustment* (VAR (*nil*) lpTimeAdjustment: INTEGER; VAR (*nil*) lpTimeIncrement: INTEGER; VAR (*nil*) lpTimeAdjustmentDisabled: BOOL): BOOL;
+	PROCEDURE- GetSystemTimeAdjustment* (VAR [nil] lpTimeAdjustment: INTEGER; VAR [nil] lpTimeIncrement: INTEGER; VAR [nil] lpTimeAdjustmentDisabled: BOOL): BOOL;
 	(*END GetSystemTimeAdjustment;*)
 
-	PROCEDURE- FormatMessageA* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrSTR; nSize: INTEGER; VAR (*nil*) Arguments: PtrSTR): INTEGER;
+	PROCEDURE- FormatMessageA* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrSTR; nSize: INTEGER; VAR [nil] Arguments: PtrSTR): INTEGER;
 	(*END FormatMessageA;*)
 
-	PROCEDURE- FormatMessageW* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrWSTR; nSize: INTEGER; VAR (*nil*) Arguments: PtrSTR): INTEGER;
+	PROCEDURE- FormatMessageW* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrWSTR; nSize: INTEGER; VAR [nil] Arguments: PtrSTR): INTEGER;
 	(*END FormatMessageW;*)
 
-	PROCEDURE- FormatMessage* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrSTR; nSize: INTEGER; VAR (*nil*) Arguments: PtrSTR): INTEGER "FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)";
+	PROCEDURE- FormatMessage* (dwFlags: SET; lpSource: PtrVoid; dwMessageId: INTEGER; dwLanguageId: INTEGER; lpBuffer: PtrSTR; nSize: INTEGER; VAR [nil] Arguments: PtrSTR): INTEGER "FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)";
 	(*END FormatMessage;*)
 
-	PROCEDURE- CreatePipe* (VAR (*nil*) hReadPipe: HANDLE; VAR (*nil*) hWritePipe: HANDLE; VAR (*nil*) lpPipeAttributes: SECURITY_ATTRIBUTES; nSize: INTEGER): BOOL;
+	PROCEDURE- CreatePipe* (VAR [nil] hReadPipe: HANDLE; VAR [nil] hWritePipe: HANDLE; VAR [nil] lpPipeAttributes: SECURITY_ATTRIBUTES; nSize: INTEGER): BOOL;
 	(*END CreatePipe;*)
 
-	PROCEDURE- ConnectNamedPipe* (hNamedPipe: HANDLE; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- ConnectNamedPipe* (hNamedPipe: HANDLE; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END ConnectNamedPipe;*)
 
 	PROCEDURE- DisconnectNamedPipe* (hNamedPipe: HANDLE): BOOL;
 	(*END DisconnectNamedPipe;*)
 
-	PROCEDURE- SetNamedPipeHandleState* (hNamedPipe: HANDLE; VAR (*nil*) lpMode: INTEGER; VAR (*nil*) lpMaxCollectionCount: INTEGER; VAR (*nil*) lpCollectDataTimeout: INTEGER): BOOL;
+	PROCEDURE- SetNamedPipeHandleState* (hNamedPipe: HANDLE; VAR [nil] lpMode: INTEGER; VAR [nil] lpMaxCollectionCount: INTEGER; VAR [nil] lpCollectDataTimeout: INTEGER): BOOL;
 	(*END SetNamedPipeHandleState;*)
 
-	PROCEDURE- GetNamedPipeInfo* (hNamedPipe: HANDLE; VAR (*nil*) lpFlags: INTEGER; VAR (*nil*) lpOutBufferSize: INTEGER; VAR (*nil*) lpInBufferSize: INTEGER; VAR (*nil*) lpMaxInstances: INTEGER): BOOL;
+	PROCEDURE- GetNamedPipeInfo* (hNamedPipe: HANDLE; VAR [nil] lpFlags: INTEGER; VAR [nil] lpOutBufferSize: INTEGER; VAR [nil] lpInBufferSize: INTEGER; VAR [nil] lpMaxInstances: INTEGER): BOOL;
 	(*END GetNamedPipeInfo;*)
 
-	PROCEDURE- PeekNamedPipe* (hNamedPipe: HANDLE; lpBuffer: PtrVoid; nBufferSize: INTEGER; VAR (*nil*) lpBytesRead: INTEGER; VAR (*nil*) lpTotalBytesAvail: INTEGER; VAR (*nil*) lpBytesLeftThisMessage: INTEGER): BOOL;
+	PROCEDURE- PeekNamedPipe* (hNamedPipe: HANDLE; lpBuffer: PtrVoid; nBufferSize: INTEGER; VAR [nil] lpBytesRead: INTEGER; VAR [nil] lpTotalBytesAvail: INTEGER; VAR [nil] lpBytesLeftThisMessage: INTEGER): BOOL;
 	(*END PeekNamedPipe;*)
 
-	PROCEDURE- TransactNamedPipe* (hNamedPipe: HANDLE; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR (*nil*) lpBytesRead: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED): BOOL;
+	PROCEDURE- TransactNamedPipe* (hNamedPipe: HANDLE; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR [nil] lpBytesRead: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED): BOOL;
 	(*END TransactNamedPipe;*)
 
-	PROCEDURE- CreateMailslotA* (lpName: PtrSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
+	PROCEDURE- CreateMailslotA* (lpName: PtrSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
 	(*END CreateMailslotA;*)
 
-	PROCEDURE- CreateMailslotW* (lpName: PtrWSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
+	PROCEDURE- CreateMailslotW* (lpName: PtrWSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
 	(*END CreateMailslotW;*)
 
-	PROCEDURE- CreateMailslot* (lpName: PtrSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE "CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)";
+	PROCEDURE- CreateMailslot* (lpName: PtrSTR; nMaxMessageSize: INTEGER; lReadTimeout: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE "CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)";
 	(*END CreateMailslot;*)
 
-	PROCEDURE- GetMailslotInfo* (hMailslot: HANDLE; VAR (*nil*) lpMaxMessageSize: INTEGER; VAR (*nil*) lpNextSize: INTEGER; VAR (*nil*) lpMessageCount: INTEGER; VAR (*nil*) lpReadTimeout: INTEGER): BOOL;
+	PROCEDURE- GetMailslotInfo* (hMailslot: HANDLE; VAR [nil] lpMaxMessageSize: INTEGER; VAR [nil] lpNextSize: INTEGER; VAR [nil] lpMessageCount: INTEGER; VAR [nil] lpReadTimeout: INTEGER): BOOL;
 	(*END GetMailslotInfo;*)
 
 	PROCEDURE- SetMailslotInfo* (hMailslot: HANDLE; lReadTimeout: INTEGER): BOOL;
@@ -11975,7 +11975,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- lstrlen* (lpString: PtrSTR): INTEGER "lstrlenA(lpString)";
 	(*END lstrlen;*)
 
-	PROCEDURE- OpenFile* (lpFileName: PtrSTR; VAR (*nil*) lpReOpenBuff: OFSTRUCT; uStyle: SET): HFILE;
+	PROCEDURE- OpenFile* (lpFileName: PtrSTR; VAR [nil] lpReOpenBuff: OFSTRUCT; uStyle: SET): HFILE;
 	(*END OpenFile;*)
 
 	PROCEDURE- _lopen* (lpPathName: PtrSTR; iReadWrite: INTEGER): HFILE;
@@ -12002,7 +12002,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- _llseek* (hFile: HFILE; lOffset: INTEGER; iOrigin: INTEGER): INTEGER;
 	(*END _llseek;*)
 
-	PROCEDURE- IsTextUnicode* (lpBuffer: PtrVoid; cb: INTEGER; VAR (*nil*) lpi: SET): BOOL;
+	PROCEDURE- IsTextUnicode* (lpBuffer: PtrVoid; cb: INTEGER; VAR [nil] lpi: SET): BOOL;
 	(*END IsTextUnicode;*)
 
 	PROCEDURE- TlsAlloc* (): INTEGER;
@@ -12023,34 +12023,34 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- WaitForSingleObjectEx* (hHandle: HANDLE; dwMilliseconds: INTEGER; bAlertable: BOOL): INTEGER;
 	(*END WaitForSingleObjectEx;*)
 
-	PROCEDURE- WaitForMultipleObjectsEx* (nCount: INTEGER; VAR (*nil*) lpHandles: HANDLE; bWaitAll: BOOL; dwMilliseconds: INTEGER; bAlertable: BOOL): INTEGER;
+	PROCEDURE- WaitForMultipleObjectsEx* (nCount: INTEGER; VAR [nil] lpHandles: HANDLE; bWaitAll: BOOL; dwMilliseconds: INTEGER; bAlertable: BOOL): INTEGER;
 	(*END WaitForMultipleObjectsEx;*)
 
 	PROCEDURE- SignalObjectAndWait* (hObjectToSignal: HANDLE; hObjectToWaitOn: HANDLE; dwMilliseconds: INTEGER; bAlertable: BOOL): INTEGER;
 	(*END SignalObjectAndWait;*)
 
-	PROCEDURE- ReadFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
+	PROCEDURE- ReadFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END ReadFileEx;*)
 
-	PROCEDURE- WriteFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
+	PROCEDURE- WriteFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END WriteFileEx;*)
 
-	PROCEDURE- BackupRead* (hFile: HANDLE; VAR (*nil*) lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR (*nil*) lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- BackupRead* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupRead;*)
 
-	PROCEDURE- BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR (*nil*) lpdwLowByteSeeked: INTEGER; VAR (*nil*) lpdwHighByteSeeked: INTEGER; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR [nil] lpdwLowByteSeeked: INTEGER; VAR [nil] lpdwHighByteSeeked: INTEGER; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupSeek;*)
 
-	PROCEDURE- BackupWrite* (hFile: HANDLE; VAR (*nil*) lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR (*nil*) lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- BackupWrite* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END BackupWrite;*)
 
-	PROCEDURE- CreateMutexA* (VAR (*nil*) lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE;
+	PROCEDURE- CreateMutexA* (VAR [nil] lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE;
 	(*END CreateMutexA;*)
 
-	PROCEDURE- CreateMutexW* (VAR (*nil*) lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrWSTR): HANDLE;
+	PROCEDURE- CreateMutexW* (VAR [nil] lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrWSTR): HANDLE;
 	(*END CreateMutexW;*)
 
-	PROCEDURE- CreateMutex* (VAR (*nil*) lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE "CreateMutexA(lpMutexAttributes, bInitialOwner, lpName)";
+	PROCEDURE- CreateMutex* (VAR [nil] lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE "CreateMutexA(lpMutexAttributes, bInitialOwner, lpName)";
 	(*END CreateMutex;*)
 
 	PROCEDURE- OpenMutexA* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE;
@@ -12062,13 +12062,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenMutex* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE "OpenMutexA(dwDesiredAccess, bInheritHandle, lpName)";
 	(*END OpenMutex;*)
 
-	PROCEDURE- CreateEventA* (VAR (*nil*) lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrSTR): HANDLE;
+	PROCEDURE- CreateEventA* (VAR [nil] lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrSTR): HANDLE;
 	(*END CreateEventA;*)
 
-	PROCEDURE- CreateEventW* (VAR (*nil*) lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrWSTR): HANDLE;
+	PROCEDURE- CreateEventW* (VAR [nil] lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrWSTR): HANDLE;
 	(*END CreateEventW;*)
 
-	PROCEDURE- CreateEvent* (VAR (*nil*) lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrSTR): HANDLE "CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName)";
+	PROCEDURE- CreateEvent* (VAR [nil] lpEventAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; bInitialState: BOOL; lpName: PtrSTR): HANDLE "CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName)";
 	(*END CreateEvent;*)
 
 	PROCEDURE- OpenEventA* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE;
@@ -12080,13 +12080,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenEvent* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE "OpenEventA(dwDesiredAccess, bInheritHandle, lpName)";
 	(*END OpenEvent;*)
 
-	PROCEDURE- CreateSemaphoreA* (VAR (*nil*) lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrSTR): HANDLE;
+	PROCEDURE- CreateSemaphoreA* (VAR [nil] lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrSTR): HANDLE;
 	(*END CreateSemaphoreA;*)
 
-	PROCEDURE- CreateSemaphoreW* (VAR (*nil*) lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrWSTR): HANDLE;
+	PROCEDURE- CreateSemaphoreW* (VAR [nil] lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrWSTR): HANDLE;
 	(*END CreateSemaphoreW;*)
 
-	PROCEDURE- CreateSemaphore* (VAR (*nil*) lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrSTR): HANDLE "CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName)";
+	PROCEDURE- CreateSemaphore* (VAR [nil] lpSemaphoreAttributes: SECURITY_ATTRIBUTES; lInitialCount: INTEGER; lMaximumCount: INTEGER; lpName: PtrSTR): HANDLE "CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName)";
 	(*END CreateSemaphore;*)
 
 	PROCEDURE- OpenSemaphoreA* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE;
@@ -12098,13 +12098,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenSemaphore* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE "OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName)";
 	(*END OpenSemaphore;*)
 
-	PROCEDURE- CreateWaitableTimerA* (VAR (*nil*) lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrSTR): HANDLE;
+	PROCEDURE- CreateWaitableTimerA* (VAR [nil] lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrSTR): HANDLE;
 	(*END CreateWaitableTimerA;*)
 
-	PROCEDURE- CreateWaitableTimerW* (VAR (*nil*) lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrWSTR): HANDLE;
+	PROCEDURE- CreateWaitableTimerW* (VAR [nil] lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrWSTR): HANDLE;
 	(*END CreateWaitableTimerW;*)
 
-	PROCEDURE- CreateWaitableTimer* (VAR (*nil*) lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrSTR): HANDLE "CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName)";
+	PROCEDURE- CreateWaitableTimer* (VAR [nil] lpTimerAttributes: SECURITY_ATTRIBUTES; bManualReset: BOOL; lpTimerName: PtrSTR): HANDLE "CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName)";
 	(*END CreateWaitableTimer;*)
 
 	PROCEDURE- OpenWaitableTimerA* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpTimerName: PtrSTR): HANDLE;
@@ -12116,19 +12116,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenWaitableTimer* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpTimerName: PtrSTR): HANDLE "OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName)";
 	(*END OpenWaitableTimer;*)
 
-	PROCEDURE- SetWaitableTimer* (hTimer: HANDLE; VAR (*nil*) lpDueTime: LONGINT; lPeriod: INTEGER; pfnCompletionRoutine: TIMERAPCROUTINE; lpArgToCompletionRoutine: PtrVoid; fResume: BOOL): BOOL;
+	PROCEDURE- SetWaitableTimer* (hTimer: HANDLE; VAR [nil] lpDueTime: LONGINT; lPeriod: INTEGER; pfnCompletionRoutine: TIMERAPCROUTINE; lpArgToCompletionRoutine: PtrVoid; fResume: BOOL): BOOL;
 	(*END SetWaitableTimer;*)
 
 	PROCEDURE- CancelWaitableTimer* (hTimer: HANDLE): BOOL;
 	(*END CancelWaitableTimer;*)
 
-	PROCEDURE- CreateFileMappingA* (hFile: HANDLE; VAR (*nil*) lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrSTR): HANDLE;
+	PROCEDURE- CreateFileMappingA* (hFile: HANDLE; VAR [nil] lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrSTR): HANDLE;
 	(*END CreateFileMappingA;*)
 
-	PROCEDURE- CreateFileMappingW* (hFile: HANDLE; VAR (*nil*) lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrWSTR): HANDLE;
+	PROCEDURE- CreateFileMappingW* (hFile: HANDLE; VAR [nil] lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrWSTR): HANDLE;
 	(*END CreateFileMappingW;*)
 
-	PROCEDURE- CreateFileMapping* (hFile: HANDLE; VAR (*nil*) lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrSTR): HANDLE "CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)";
+	PROCEDURE- CreateFileMapping* (hFile: HANDLE; VAR [nil] lpFileMappingAttributes: SECURITY_ATTRIBUTES; flProtect: SET; dwMaximumSizeHigh: INTEGER; dwMaximumSizeLow: INTEGER; lpName: PtrSTR): HANDLE "CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)";
 	(*END CreateFileMapping;*)
 
 	PROCEDURE- OpenFileMappingA* (dwDesiredAccess: SET; bInheritHandle: BOOL; lpName: PtrSTR): HANDLE;
@@ -12185,19 +12185,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetModuleHandle* (lpModuleName: PtrSTR): HMODULE "GetModuleHandleA(lpModuleName)";
 	(*END GetModuleHandle;*)
 
-	PROCEDURE- CreateProcessA* (lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOA; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL;
+	PROCEDURE- CreateProcessA* (lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR [nil] lpStartupInfo: STARTUPINFOA; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL;
 	(*END CreateProcessA;*)
 
-	PROCEDURE- CreateProcessW* (lpApplicationName: PtrWSTR; lpCommandLine: PtrWSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrWSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOW; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL;
+	PROCEDURE- CreateProcessW* (lpApplicationName: PtrWSTR; lpCommandLine: PtrWSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrWSTR; VAR [nil] lpStartupInfo: STARTUPINFOW; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL;
 	(*END CreateProcessW;*)
 
-	PROCEDURE- CreateProcess* (lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOA; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL "CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)";
+	PROCEDURE- CreateProcess* (lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR [nil] lpStartupInfo: STARTUPINFOA; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL "CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)";
 	(*END CreateProcess;*)
 
 	PROCEDURE- SetProcessShutdownParameters* (dwLevel: INTEGER; dwFlags: SET): BOOL;
 	(*END SetProcessShutdownParameters;*)
 
-	PROCEDURE- GetProcessShutdownParameters* (VAR (*nil*) lpdwLevel: INTEGER; VAR (*nil*) lpdwFlags: SET): BOOL;
+	PROCEDURE- GetProcessShutdownParameters* (VAR [nil] lpdwLevel: INTEGER; VAR [nil] lpdwFlags: SET): BOOL;
 	(*END GetProcessShutdownParameters;*)
 
 	PROCEDURE- GetProcessVersion* (ProcessId: INTEGER): INTEGER;
@@ -12212,13 +12212,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FatalAppExit* (uAction: INTEGER; lpMessageText: PtrSTR) "FatalAppExitA(uAction, lpMessageText)";
 	(*END FatalAppExit;*)
 
-	PROCEDURE- GetStartupInfoA* (VAR (*nil*) lpStartupInfo: STARTUPINFOA);
+	PROCEDURE- GetStartupInfoA* (VAR [nil] lpStartupInfo: STARTUPINFOA);
 	(*END GetStartupInfoA;*)
 
-	PROCEDURE- GetStartupInfoW* (VAR (*nil*) lpStartupInfo: STARTUPINFOW);
+	PROCEDURE- GetStartupInfoW* (VAR [nil] lpStartupInfo: STARTUPINFOW);
 	(*END GetStartupInfoW;*)
 
-	PROCEDURE- GetStartupInfo* (VAR (*nil*) lpStartupInfo: STARTUPINFOA) "GetStartupInfoA(lpStartupInfo)";
+	PROCEDURE- GetStartupInfo* (VAR [nil] lpStartupInfo: STARTUPINFOA) "GetStartupInfoA(lpStartupInfo)";
 	(*END GetStartupInfo;*)
 
 	PROCEDURE- GetCommandLineA* (): PtrSTR;
@@ -12572,31 +12572,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetCurrentDirectory* (nBufferLength: INTEGER; lpBuffer: PtrSTR): INTEGER "GetCurrentDirectoryA(nBufferLength, lpBuffer)";
 	(*END GetCurrentDirectory;*)
 
-	PROCEDURE- GetDiskFreeSpaceA* (lpRootPathName: PtrSTR; VAR (*nil*) lpSectorsPerCluster: INTEGER; VAR (*nil*) lpBytesPerSector: INTEGER; VAR (*nil*) lpNumberOfFreeClusters: INTEGER; VAR (*nil*) lpTotalNumberOfClusters: INTEGER): BOOL;
+	PROCEDURE- GetDiskFreeSpaceA* (lpRootPathName: PtrSTR; VAR [nil] lpSectorsPerCluster: INTEGER; VAR [nil] lpBytesPerSector: INTEGER; VAR [nil] lpNumberOfFreeClusters: INTEGER; VAR [nil] lpTotalNumberOfClusters: INTEGER): BOOL;
 	(*END GetDiskFreeSpaceA;*)
 
-	PROCEDURE- GetDiskFreeSpaceW* (lpRootPathName: PtrWSTR; VAR (*nil*) lpSectorsPerCluster: INTEGER; VAR (*nil*) lpBytesPerSector: INTEGER; VAR (*nil*) lpNumberOfFreeClusters: INTEGER; VAR (*nil*) lpTotalNumberOfClusters: INTEGER): BOOL;
+	PROCEDURE- GetDiskFreeSpaceW* (lpRootPathName: PtrWSTR; VAR [nil] lpSectorsPerCluster: INTEGER; VAR [nil] lpBytesPerSector: INTEGER; VAR [nil] lpNumberOfFreeClusters: INTEGER; VAR [nil] lpTotalNumberOfClusters: INTEGER): BOOL;
 	(*END GetDiskFreeSpaceW;*)
 
-	PROCEDURE- GetDiskFreeSpace* (lpRootPathName: PtrSTR; VAR (*nil*) lpSectorsPerCluster: INTEGER; VAR (*nil*) lpBytesPerSector: INTEGER; VAR (*nil*) lpNumberOfFreeClusters: INTEGER; VAR (*nil*) lpTotalNumberOfClusters: INTEGER): BOOL "GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)";
+	PROCEDURE- GetDiskFreeSpace* (lpRootPathName: PtrSTR; VAR [nil] lpSectorsPerCluster: INTEGER; VAR [nil] lpBytesPerSector: INTEGER; VAR [nil] lpNumberOfFreeClusters: INTEGER; VAR [nil] lpTotalNumberOfClusters: INTEGER): BOOL "GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)";
 	(*END GetDiskFreeSpace;*)
 
-	PROCEDURE- CreateDirectoryA* (lpPathName: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
+	PROCEDURE- CreateDirectoryA* (lpPathName: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
 	(*END CreateDirectoryA;*)
 
-	PROCEDURE- CreateDirectoryW* (lpPathName: PtrWSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
+	PROCEDURE- CreateDirectoryW* (lpPathName: PtrWSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
 	(*END CreateDirectoryW;*)
 
-	PROCEDURE- CreateDirectory* (lpPathName: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL "CreateDirectoryA(lpPathName, lpSecurityAttributes)";
+	PROCEDURE- CreateDirectory* (lpPathName: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL "CreateDirectoryA(lpPathName, lpSecurityAttributes)";
 	(*END CreateDirectory;*)
 
-	PROCEDURE- CreateDirectoryExA* (lpTemplateDirectory: PtrSTR; lpNewDirectory: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
+	PROCEDURE- CreateDirectoryExA* (lpTemplateDirectory: PtrSTR; lpNewDirectory: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
 	(*END CreateDirectoryExA;*)
 
-	PROCEDURE- CreateDirectoryExW* (lpTemplateDirectory: PtrWSTR; lpNewDirectory: PtrWSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
+	PROCEDURE- CreateDirectoryExW* (lpTemplateDirectory: PtrWSTR; lpNewDirectory: PtrWSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL;
 	(*END CreateDirectoryExW;*)
 
-	PROCEDURE- CreateDirectoryEx* (lpTemplateDirectory: PtrSTR; lpNewDirectory: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL "CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes)";
+	PROCEDURE- CreateDirectoryEx* (lpTemplateDirectory: PtrSTR; lpNewDirectory: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): BOOL "CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes)";
 	(*END CreateDirectoryEx;*)
 
 	PROCEDURE- RemoveDirectoryA* (lpPathName: PtrSTR): BOOL;
@@ -12608,13 +12608,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RemoveDirectory* (lpPathName: PtrSTR): BOOL "RemoveDirectoryA(lpPathName)";
 	(*END RemoveDirectory;*)
 
-	PROCEDURE- GetFullPathNameA* (lpFileName: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR (*nil*) lpFilePart: PtrSTR): INTEGER;
+	PROCEDURE- GetFullPathNameA* (lpFileName: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR [nil] lpFilePart: PtrSTR): INTEGER;
 	(*END GetFullPathNameA;*)
 
-	PROCEDURE- GetFullPathNameW* (lpFileName: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR (*nil*) lpFilePart: PtrWSTR): INTEGER;
+	PROCEDURE- GetFullPathNameW* (lpFileName: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR [nil] lpFilePart: PtrWSTR): INTEGER;
 	(*END GetFullPathNameW;*)
 
-	PROCEDURE- GetFullPathName* (lpFileName: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR (*nil*) lpFilePart: PtrSTR): INTEGER "GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart)";
+	PROCEDURE- GetFullPathName* (lpFileName: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR [nil] lpFilePart: PtrSTR): INTEGER "GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart)";
 	(*END GetFullPathName;*)
 
 	PROCEDURE- DefineDosDeviceA* (dwFlags: SET; lpDeviceName: PtrSTR; lpTargetPath: PtrSTR): BOOL;
@@ -12635,13 +12635,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- QueryDosDevice* (lpDeviceName: PtrSTR; lpTargetPath: PtrSTR; ucchMax: INTEGER): INTEGER "QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax)";
 	(*END QueryDosDevice;*)
 
-	PROCEDURE- CreateFileA* (lpFileName: PtrSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE;
+	PROCEDURE- CreateFileA* (lpFileName: PtrSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE;
 	(*END CreateFileA;*)
 
-	PROCEDURE- CreateFileW* (lpFileName: PtrWSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE;
+	PROCEDURE- CreateFileW* (lpFileName: PtrWSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE;
 	(*END CreateFileW;*)
 
-	PROCEDURE- CreateFile* (lpFileName: PtrSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE "CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)";
+	PROCEDURE- CreateFile* (lpFileName: PtrSTR; dwDesiredAccess: SET; dwShareMode: SET; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; dwCreationDisposition: INTEGER; dwFlagsAndAttributes: SET; hTemplateFile: HANDLE): HANDLE "CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)";
 	(*END CreateFile;*)
 
 	PROCEDURE- SetFileAttributesA* (lpFileName: PtrSTR; dwFileAttributes: SET): BOOL;
@@ -12662,13 +12662,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetFileAttributes* (lpFileName: PtrSTR): INTEGER "GetFileAttributesA(lpFileName)";
 	(*END GetFileAttributes;*)
 
-	PROCEDURE- GetCompressedFileSizeA* (lpFileName: PtrSTR; VAR (*nil*) lpFileSizeHigh: INTEGER): INTEGER;
+	PROCEDURE- GetCompressedFileSizeA* (lpFileName: PtrSTR; VAR [nil] lpFileSizeHigh: INTEGER): INTEGER;
 	(*END GetCompressedFileSizeA;*)
 
-	PROCEDURE- GetCompressedFileSizeW* (lpFileName: PtrWSTR; VAR (*nil*) lpFileSizeHigh: INTEGER): INTEGER;
+	PROCEDURE- GetCompressedFileSizeW* (lpFileName: PtrWSTR; VAR [nil] lpFileSizeHigh: INTEGER): INTEGER;
 	(*END GetCompressedFileSizeW;*)
 
-	PROCEDURE- GetCompressedFileSize* (lpFileName: PtrSTR; VAR (*nil*) lpFileSizeHigh: INTEGER): INTEGER "GetCompressedFileSizeA(lpFileName, lpFileSizeHigh)";
+	PROCEDURE- GetCompressedFileSize* (lpFileName: PtrSTR; VAR [nil] lpFileSizeHigh: INTEGER): INTEGER "GetCompressedFileSizeA(lpFileName, lpFileSizeHigh)";
 	(*END GetCompressedFileSize;*)
 
 	PROCEDURE- DeleteFileA* (lpFileName: PtrSTR): BOOL;
@@ -12689,28 +12689,28 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FindFirstFileEx* (lpFileName: PtrSTR; fInfoLevelId: FINDEX_INFO_LEVELS; lpFindFileData: PtrVoid; fSearchOp: FINDEX_SEARCH_OPS; lpSearchFilter: PtrVoid; dwAdditionalFlags: INTEGER): HANDLE "FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)";
 	(*END FindFirstFileEx;*)
 
-	PROCEDURE- FindFirstFileA* (lpFileName: PtrSTR; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAA): HANDLE;
+	PROCEDURE- FindFirstFileA* (lpFileName: PtrSTR; VAR [nil] lpFindFileData: WIN32_FIND_DATAA): HANDLE;
 	(*END FindFirstFileA;*)
 
-	PROCEDURE- FindFirstFileW* (lpFileName: PtrWSTR; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAW): HANDLE;
+	PROCEDURE- FindFirstFileW* (lpFileName: PtrWSTR; VAR [nil] lpFindFileData: WIN32_FIND_DATAW): HANDLE;
 	(*END FindFirstFileW;*)
 
-	PROCEDURE- FindFirstFile* (lpFileName: PtrSTR; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAA): HANDLE "FindFirstFileA(lpFileName, lpFindFileData)";
+	PROCEDURE- FindFirstFile* (lpFileName: PtrSTR; VAR [nil] lpFindFileData: WIN32_FIND_DATAA): HANDLE "FindFirstFileA(lpFileName, lpFindFileData)";
 	(*END FindFirstFile;*)
 
-	PROCEDURE- FindNextFileA* (hFindFile: HANDLE; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAA): BOOL;
+	PROCEDURE- FindNextFileA* (hFindFile: HANDLE; VAR [nil] lpFindFileData: WIN32_FIND_DATAA): BOOL;
 	(*END FindNextFileA;*)
 
-	PROCEDURE- FindNextFileW* (hFindFile: HANDLE; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAW): BOOL;
+	PROCEDURE- FindNextFileW* (hFindFile: HANDLE; VAR [nil] lpFindFileData: WIN32_FIND_DATAW): BOOL;
 	(*END FindNextFileW;*)
 
-	PROCEDURE- FindNextFile* (hFindFile: HANDLE; VAR (*nil*) lpFindFileData: WIN32_FIND_DATAA): BOOL "FindNextFileA(hFindFile, lpFindFileData)";
+	PROCEDURE- FindNextFile* (hFindFile: HANDLE; VAR [nil] lpFindFileData: WIN32_FIND_DATAA): BOOL "FindNextFileA(hFindFile, lpFindFileData)";
 	(*END FindNextFile;*)
 
-	PROCEDURE- SearchPathA* (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR (*nil*) lpFilePart: PtrSTR): INTEGER;
+	PROCEDURE- SearchPathA* (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; VAR [nil] lpFilePart: PtrSTR): INTEGER;
 	(*END SearchPathA;*)
 
-	PROCEDURE- SearchPathW* (lpPath: PtrWSTR; lpFileName: PtrWSTR; lpExtension: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR (*nil*) lpFilePart: PtrWSTR): INTEGER;
+	PROCEDURE- SearchPathW* (lpPath: PtrWSTR; lpFileName: PtrWSTR; lpExtension: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR [nil] lpFilePart: PtrWSTR): INTEGER;
 	(*END SearchPathW;*)
 
 	PROCEDURE- SearchPath* (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; lpFilePart: POINTER TO (*?*) ARRAY [1] OF PtrSTR): INTEGER "SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)";
@@ -12725,13 +12725,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CopyFile* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; bFailIfExists: BOOL): BOOL "CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists)";
 	(*END CopyFile;*)
 
-	PROCEDURE- CopyFileExA* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR (*nil*) pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL;
+	PROCEDURE- CopyFileExA* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR [nil] pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL;
 	(*END CopyFileExA;*)
 
-	PROCEDURE- CopyFileExW* (lpExistingFileName: PtrWSTR; lpNewFileName: PtrWSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR (*nil*) pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL;
+	PROCEDURE- CopyFileExW* (lpExistingFileName: PtrWSTR; lpNewFileName: PtrWSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR [nil] pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL;
 	(*END CopyFileExW;*)
 
-	PROCEDURE- CopyFileEx* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR (*nil*) pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL "CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)";
+	PROCEDURE- CopyFileEx* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; lpProgressRoutine: PROGRESS_ROUTINE; lpData: PtrVoid; VAR [nil] pbCancel: BOOL; dwCopyFlags: INTEGER): BOOL "CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)";
 	(*END CopyFileEx;*)
 
 	PROCEDURE- MoveFileA* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR): BOOL;
@@ -12752,31 +12752,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- MoveFileEx* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; dwFlags: SET): BOOL "MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags)";
 	(*END MoveFileEx;*)
 
-	PROCEDURE- CreateNamedPipeA* (lpName: PtrSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
+	PROCEDURE- CreateNamedPipeA* (lpName: PtrSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
 	(*END CreateNamedPipeA;*)
 
-	PROCEDURE- CreateNamedPipeW* (lpName: PtrWSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
+	PROCEDURE- CreateNamedPipeW* (lpName: PtrWSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE;
 	(*END CreateNamedPipeW;*)
 
-	PROCEDURE- CreateNamedPipe* (lpName: PtrSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE "CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes)";
+	PROCEDURE- CreateNamedPipe* (lpName: PtrSTR; dwOpenMode: INTEGER; dwPipeMode: INTEGER; nMaxInstances: INTEGER; nOutBufferSize: INTEGER; nInBufferSize: INTEGER; nDefaultTimeOut: INTEGER; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): HANDLE "CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes)";
 	(*END CreateNamedPipe;*)
 
-	PROCEDURE- GetNamedPipeHandleStateA* (hNamedPipe: HANDLE; VAR (*nil*) lpState: INTEGER; VAR (*nil*) lpCurInstances: INTEGER; VAR (*nil*) lpMaxCollectionCount: INTEGER; VAR (*nil*) lpCollectDataTimeout: INTEGER; lpUserName: PtrSTR; nMaxUserNameSize: INTEGER): BOOL;
+	PROCEDURE- GetNamedPipeHandleStateA* (hNamedPipe: HANDLE; VAR [nil] lpState: INTEGER; VAR [nil] lpCurInstances: INTEGER; VAR [nil] lpMaxCollectionCount: INTEGER; VAR [nil] lpCollectDataTimeout: INTEGER; lpUserName: PtrSTR; nMaxUserNameSize: INTEGER): BOOL;
 	(*END GetNamedPipeHandleStateA;*)
 
-	PROCEDURE- GetNamedPipeHandleStateW* (hNamedPipe: HANDLE; VAR (*nil*) lpState: INTEGER; VAR (*nil*) lpCurInstances: INTEGER; VAR (*nil*) lpMaxCollectionCount: INTEGER; VAR (*nil*) lpCollectDataTimeout: INTEGER; lpUserName: PtrWSTR; nMaxUserNameSize: INTEGER): BOOL;
+	PROCEDURE- GetNamedPipeHandleStateW* (hNamedPipe: HANDLE; VAR [nil] lpState: INTEGER; VAR [nil] lpCurInstances: INTEGER; VAR [nil] lpMaxCollectionCount: INTEGER; VAR [nil] lpCollectDataTimeout: INTEGER; lpUserName: PtrWSTR; nMaxUserNameSize: INTEGER): BOOL;
 	(*END GetNamedPipeHandleStateW;*)
 
-	PROCEDURE- GetNamedPipeHandleState* (hNamedPipe: HANDLE; VAR (*nil*) lpState: INTEGER; VAR (*nil*) lpCurInstances: INTEGER; VAR (*nil*) lpMaxCollectionCount: INTEGER; VAR (*nil*) lpCollectDataTimeout: INTEGER; lpUserName: PtrSTR; nMaxUserNameSize: INTEGER): BOOL "GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)";
+	PROCEDURE- GetNamedPipeHandleState* (hNamedPipe: HANDLE; VAR [nil] lpState: INTEGER; VAR [nil] lpCurInstances: INTEGER; VAR [nil] lpMaxCollectionCount: INTEGER; VAR [nil] lpCollectDataTimeout: INTEGER; lpUserName: PtrSTR; nMaxUserNameSize: INTEGER): BOOL "GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)";
 	(*END GetNamedPipeHandleState;*)
 
-	PROCEDURE- CallNamedPipeA* (lpNamedPipeName: PtrSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR (*nil*) lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL;
+	PROCEDURE- CallNamedPipeA* (lpNamedPipeName: PtrSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR [nil] lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL;
 	(*END CallNamedPipeA;*)
 
-	PROCEDURE- CallNamedPipeW* (lpNamedPipeName: PtrWSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR (*nil*) lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL;
+	PROCEDURE- CallNamedPipeW* (lpNamedPipeName: PtrWSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR [nil] lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL;
 	(*END CallNamedPipeW;*)
 
-	PROCEDURE- CallNamedPipe* (lpNamedPipeName: PtrSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR (*nil*) lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL "CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)";
+	PROCEDURE- CallNamedPipe* (lpNamedPipeName: PtrSTR; lpInBuffer: PtrVoid; nInBufferSize: INTEGER; lpOutBuffer: PtrVoid; nOutBufferSize: INTEGER; VAR [nil] lpBytesRead: INTEGER; nTimeOut: INTEGER): BOOL "CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)";
 	(*END CallNamedPipe;*)
 
 	PROCEDURE- WaitNamedPipeA* (lpNamedPipeName: PtrSTR; nTimeOut: INTEGER): BOOL;
@@ -12806,13 +12806,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AreFileApisANSI* (): BOOL;
 	(*END AreFileApisANSI;*)
 
-	PROCEDURE- GetVolumeInformationA* (lpRootPathName: PtrSTR; lpVolumeNameBuffer: PtrSTR; nVolumeNameSize: INTEGER; VAR (*nil*) lpVolumeSerialNumber: INTEGER; VAR (*nil*) lpMaximumComponentLength: INTEGER; VAR (*nil*) lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrSTR; nFileSystemNameSize: INTEGER): BOOL;
+	PROCEDURE- GetVolumeInformationA* (lpRootPathName: PtrSTR; lpVolumeNameBuffer: PtrSTR; nVolumeNameSize: INTEGER; VAR [nil] lpVolumeSerialNumber: INTEGER; VAR [nil] lpMaximumComponentLength: INTEGER; VAR [nil] lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrSTR; nFileSystemNameSize: INTEGER): BOOL;
 	(*END GetVolumeInformationA;*)
 
-	PROCEDURE- GetVolumeInformationW* (lpRootPathName: PtrWSTR; lpVolumeNameBuffer: PtrWSTR; nVolumeNameSize: INTEGER; VAR (*nil*) lpVolumeSerialNumber: INTEGER; VAR (*nil*) lpMaximumComponentLength: INTEGER; VAR (*nil*) lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrWSTR; nFileSystemNameSize: INTEGER): BOOL;
+	PROCEDURE- GetVolumeInformationW* (lpRootPathName: PtrWSTR; lpVolumeNameBuffer: PtrWSTR; nVolumeNameSize: INTEGER; VAR [nil] lpVolumeSerialNumber: INTEGER; VAR [nil] lpMaximumComponentLength: INTEGER; VAR [nil] lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrWSTR; nFileSystemNameSize: INTEGER): BOOL;
 	(*END GetVolumeInformationW;*)
 
-	PROCEDURE- GetVolumeInformation* (lpRootPathName: PtrSTR; lpVolumeNameBuffer: PtrSTR; nVolumeNameSize: INTEGER; VAR (*nil*) lpVolumeSerialNumber: INTEGER; VAR (*nil*) lpMaximumComponentLength: INTEGER; VAR (*nil*) lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrSTR; nFileSystemNameSize: INTEGER): BOOL "GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)";
+	PROCEDURE- GetVolumeInformation* (lpRootPathName: PtrSTR; lpVolumeNameBuffer: PtrSTR; nVolumeNameSize: INTEGER; VAR [nil] lpVolumeSerialNumber: INTEGER; VAR [nil] lpMaximumComponentLength: INTEGER; VAR [nil] lpFileSystemFlags: SET; lpFileSystemNameBuffer: PtrSTR; nFileSystemNameSize: INTEGER): BOOL "GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)";
 	(*END GetVolumeInformation;*)
 
 	PROCEDURE- ClearEventLogA* (hEventLog: HANDLE; lpBackupFileName: PtrSTR): BOOL;
@@ -12842,10 +12842,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- NotifyChangeEventLog* (hEventLog: HANDLE; hEvent: HANDLE): BOOL;
 	(*END NotifyChangeEventLog;*)
 
-	PROCEDURE- GetNumberOfEventLogRecords* (hEventLog: HANDLE; VAR (*nil*) NumberOfRecords: INTEGER): BOOL;
+	PROCEDURE- GetNumberOfEventLogRecords* (hEventLog: HANDLE; VAR [nil] NumberOfRecords: INTEGER): BOOL;
 	(*END GetNumberOfEventLogRecords;*)
 
-	PROCEDURE- GetOldestEventLogRecord* (hEventLog: HANDLE; VAR (*nil*) OldestRecord: INTEGER): BOOL;
+	PROCEDURE- GetOldestEventLogRecord* (hEventLog: HANDLE; VAR [nil] OldestRecord: INTEGER): BOOL;
 	(*END GetOldestEventLogRecord;*)
 
 	PROCEDURE- OpenEventLogA* (lpUNCServerName: PtrSTR; lpSourceName: PtrSTR): HANDLE;
@@ -12875,28 +12875,28 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenBackupEventLog* (lpUNCServerName: PtrSTR; lpFileName: PtrSTR): HANDLE "OpenBackupEventLogA(lpUNCServerName, lpFileName)";
 	(*END OpenBackupEventLog;*)
 
-	PROCEDURE- ReadEventLogA* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR (*nil*) pnBytesRead: INTEGER; VAR (*nil*) pnMinNumberOfBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- ReadEventLogA* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR [nil] pnBytesRead: INTEGER; VAR [nil] pnMinNumberOfBytesNeeded: INTEGER): BOOL;
 	(*END ReadEventLogA;*)
 
-	PROCEDURE- ReadEventLogW* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR (*nil*) pnBytesRead: INTEGER; VAR (*nil*) pnMinNumberOfBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- ReadEventLogW* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR [nil] pnBytesRead: INTEGER; VAR [nil] pnMinNumberOfBytesNeeded: INTEGER): BOOL;
 	(*END ReadEventLogW;*)
 
-	PROCEDURE- ReadEventLog* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR (*nil*) pnBytesRead: INTEGER; VAR (*nil*) pnMinNumberOfBytesNeeded: INTEGER): BOOL "ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded)";
+	PROCEDURE- ReadEventLog* (hEventLog: HANDLE; dwReadFlags: SET; dwRecordOffset: INTEGER; lpBuffer: PtrVoid; nNumberOfBytesToRead: INTEGER; VAR [nil] pnBytesRead: INTEGER; VAR [nil] pnMinNumberOfBytesNeeded: INTEGER): BOOL "ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded)";
 	(*END ReadEventLog;*)
 
-	PROCEDURE- ReportEventA* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR (*nil*) lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL;
+	PROCEDURE- ReportEventA* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventA;*)
 
 	PROCEDURE- ReportEventW* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; lpStrings: POINTER TO (*?*) ARRAY [1] OF PtrWSTR; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventW;*)
 
-	PROCEDURE- ReportEvent* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR (*nil*) lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL "ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)";
+	PROCEDURE- ReportEvent* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL "ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)";
 	(*END ReportEvent;*)
 
-	PROCEDURE- DuplicateToken* (ExistingTokenHandle: HANDLE; ImpersonationLevel: SECURITY_IMPERSONATION_LEVEL; VAR (*nil*) DuplicateTokenHandle: HANDLE): BOOL;
+	PROCEDURE- DuplicateToken* (ExistingTokenHandle: HANDLE; ImpersonationLevel: SECURITY_IMPERSONATION_LEVEL; VAR [nil] DuplicateTokenHandle: HANDLE): BOOL;
 	(*END DuplicateToken;*)
 
-	PROCEDURE- GetKernelObjectSecurity* (Handle: HANDLE; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetKernelObjectSecurity* (Handle: HANDLE; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetKernelObjectSecurity;*)
 
 	PROCEDURE- ImpersonateNamedPipeClient* (hNamedPipe: HANDLE): BOOL;
@@ -12908,58 +12908,58 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RevertToSelf* (): BOOL;
 	(*END RevertToSelf;*)
 
-	PROCEDURE- SetThreadToken* (VAR (*nil*) Thread: HANDLE; Token: HANDLE): BOOL;
+	PROCEDURE- SetThreadToken* (VAR [nil] Thread: HANDLE; Token: HANDLE): BOOL;
 	(*END SetThreadToken;*)
 
-	PROCEDURE- AccessCheck* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; VAR (*nil*) GenericMapping: GENERIC_MAPPING; VAR (*nil*) PrivilegeSet: PRIVILEGE_SET; VAR (*nil*) PrivilegeSetLength: INTEGER; VAR (*nil*) GrantedAccess: INTEGER; VAR (*nil*) AccessStatus: BOOL): BOOL;
+	PROCEDURE- AccessCheck* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; VAR [nil] GenericMapping: GENERIC_MAPPING; VAR [nil] PrivilegeSet: PRIVILEGE_SET; VAR [nil] PrivilegeSetLength: INTEGER; VAR [nil] GrantedAccess: INTEGER; VAR [nil] AccessStatus: BOOL): BOOL;
 	(*END AccessCheck;*)
 
-	PROCEDURE- OpenProcessToken* (ProcessHandle: HANDLE; DesiredAccess: SET; VAR (*nil*) TokenHandle: HANDLE): BOOL;
+	PROCEDURE- OpenProcessToken* (ProcessHandle: HANDLE; DesiredAccess: SET; VAR [nil] TokenHandle: HANDLE): BOOL;
 	(*END OpenProcessToken;*)
 
-	PROCEDURE- OpenThreadToken* (ThreadHandle: HANDLE; DesiredAccess: SET; OpenAsSelf: BOOL; VAR (*nil*) TokenHandle: HANDLE): BOOL;
+	PROCEDURE- OpenThreadToken* (ThreadHandle: HANDLE; DesiredAccess: SET; OpenAsSelf: BOOL; VAR [nil] TokenHandle: HANDLE): BOOL;
 	(*END OpenThreadToken;*)
 
-	PROCEDURE- GetTokenInformation* (TokenHandle: HANDLE; TokenInformationClass: TOKEN_INFORMATION_CLASS; TokenInformation: PtrVoid; TokenInformationLength: INTEGER; VAR (*nil*) ReturnLength: INTEGER): BOOL;
+	PROCEDURE- GetTokenInformation* (TokenHandle: HANDLE; TokenInformationClass: TOKEN_INFORMATION_CLASS; TokenInformation: PtrVoid; TokenInformationLength: INTEGER; VAR [nil] ReturnLength: INTEGER): BOOL;
 	(*END GetTokenInformation;*)
 
 	PROCEDURE- SetTokenInformation* (TokenHandle: HANDLE; TokenInformationClass: TOKEN_INFORMATION_CLASS; TokenInformation: PtrVoid; TokenInformationLength: INTEGER): BOOL;
 	(*END SetTokenInformation;*)
 
-	PROCEDURE- AdjustTokenPrivileges* (TokenHandle: HANDLE; DisableAllPrivileges: BOOL; VAR (*nil*) NewState: TOKEN_PRIVILEGES; BufferLength: INTEGER; VAR (*nil*) PreviousState: TOKEN_PRIVILEGES; VAR (*nil*) ReturnLength: INTEGER): BOOL;
+	PROCEDURE- AdjustTokenPrivileges* (TokenHandle: HANDLE; DisableAllPrivileges: BOOL; VAR [nil] NewState: TOKEN_PRIVILEGES; BufferLength: INTEGER; VAR [nil] PreviousState: TOKEN_PRIVILEGES; VAR [nil] ReturnLength: INTEGER): BOOL;
 	(*END AdjustTokenPrivileges;*)
 
-	PROCEDURE- AdjustTokenGroups* (TokenHandle: HANDLE; ResetToDefault: BOOL; VAR (*nil*) NewState: TOKEN_GROUPS; BufferLength: INTEGER; VAR (*nil*) PreviousState: TOKEN_GROUPS; VAR (*nil*) ReturnLength: INTEGER): BOOL;
+	PROCEDURE- AdjustTokenGroups* (TokenHandle: HANDLE; ResetToDefault: BOOL; VAR [nil] NewState: TOKEN_GROUPS; BufferLength: INTEGER; VAR [nil] PreviousState: TOKEN_GROUPS; VAR [nil] ReturnLength: INTEGER): BOOL;
 	(*END AdjustTokenGroups;*)
 
-	PROCEDURE- PrivilegeCheck* (ClientToken: HANDLE; VAR (*nil*) RequiredPrivileges: PRIVILEGE_SET; VAR (*nil*) pfResult: BOOL): BOOL;
+	PROCEDURE- PrivilegeCheck* (ClientToken: HANDLE; VAR [nil] RequiredPrivileges: PRIVILEGE_SET; VAR [nil] pfResult: BOOL): BOOL;
 	(*END PrivilegeCheck;*)
 
-	PROCEDURE- AccessCheckAndAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR (*nil*) GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR (*nil*) GrantedAccess: INTEGER; VAR (*nil*) AccessStatus: BOOL; VAR (*nil*) pfGenerateOnClose: BOOL): BOOL;
+	PROCEDURE- AccessCheckAndAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR [nil] GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR [nil] GrantedAccess: INTEGER; VAR [nil] AccessStatus: BOOL; VAR [nil] pfGenerateOnClose: BOOL): BOOL;
 	(*END AccessCheckAndAuditAlarmA;*)
 
-	PROCEDURE- AccessCheckAndAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ObjectTypeName: PtrWSTR; ObjectName: PtrWSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR (*nil*) GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR (*nil*) GrantedAccess: INTEGER; VAR (*nil*) AccessStatus: BOOL; VAR (*nil*) pfGenerateOnClose: BOOL): BOOL;
+	PROCEDURE- AccessCheckAndAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ObjectTypeName: PtrWSTR; ObjectName: PtrWSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR [nil] GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR [nil] GrantedAccess: INTEGER; VAR [nil] AccessStatus: BOOL; VAR [nil] pfGenerateOnClose: BOOL): BOOL;
 	(*END AccessCheckAndAuditAlarmW;*)
 
-	PROCEDURE- AccessCheckAndAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR (*nil*) GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR (*nil*) GrantedAccess: INTEGER; VAR (*nil*) AccessStatus: BOOL; VAR (*nil*) pfGenerateOnClose: BOOL): BOOL "AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)";
+	PROCEDURE- AccessCheckAndAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; SecurityDescriptor: PSECURITY_DESCRIPTOR; DesiredAccess: SET; VAR [nil] GenericMapping: GENERIC_MAPPING; ObjectCreation: BOOL; VAR [nil] GrantedAccess: INTEGER; VAR [nil] AccessStatus: BOOL; VAR [nil] pfGenerateOnClose: BOOL): BOOL "AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)";
 	(*END AccessCheckAndAuditAlarm;*)
 
-	PROCEDURE- ObjectOpenAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR (*nil*) Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR (*nil*) GenerateOnClose: BOOL): BOOL;
+	PROCEDURE- ObjectOpenAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR [nil] Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR [nil] GenerateOnClose: BOOL): BOOL;
 	(*END ObjectOpenAuditAlarmA;*)
 
-	PROCEDURE- ObjectOpenAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ObjectTypeName: PtrWSTR; ObjectName: PtrWSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR (*nil*) Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR (*nil*) GenerateOnClose: BOOL): BOOL;
+	PROCEDURE- ObjectOpenAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ObjectTypeName: PtrWSTR; ObjectName: PtrWSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR [nil] Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR [nil] GenerateOnClose: BOOL): BOOL;
 	(*END ObjectOpenAuditAlarmW;*)
 
-	PROCEDURE- ObjectOpenAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR (*nil*) Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR (*nil*) GenerateOnClose: BOOL): BOOL "ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose)";
+	PROCEDURE- ObjectOpenAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ObjectTypeName: PtrSTR; ObjectName: PtrSTR; pSecurityDescriptor: PSECURITY_DESCRIPTOR; ClientToken: HANDLE; DesiredAccess: SET; GrantedAccess: INTEGER; VAR [nil] Privileges: PRIVILEGE_SET; ObjectCreation: BOOL; AccessGranted: BOOL; VAR [nil] GenerateOnClose: BOOL): BOOL "ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose)";
 	(*END ObjectOpenAuditAlarm;*)
 
-	PROCEDURE- ObjectPrivilegeAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
+	PROCEDURE- ObjectPrivilegeAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
 	(*END ObjectPrivilegeAuditAlarmA;*)
 
-	PROCEDURE- ObjectPrivilegeAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
+	PROCEDURE- ObjectPrivilegeAuditAlarmW* (SubsystemName: PtrWSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
 	(*END ObjectPrivilegeAuditAlarmW;*)
 
-	PROCEDURE- ObjectPrivilegeAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL "ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted)";
+	PROCEDURE- ObjectPrivilegeAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; ClientToken: HANDLE; DesiredAccess: SET; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL "ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted)";
 	(*END ObjectPrivilegeAuditAlarm;*)
 
 	PROCEDURE- ObjectCloseAuditAlarmA* (SubsystemName: PtrSTR; HandleId: PtrVoid; GenerateOnClose: BOOL): BOOL;
@@ -12971,13 +12971,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ObjectCloseAuditAlarm* (SubsystemName: PtrSTR; HandleId: PtrVoid; GenerateOnClose: BOOL): BOOL "ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose)";
 	(*END ObjectCloseAuditAlarm;*)
 
-	PROCEDURE- PrivilegedServiceAuditAlarmA* (SubsystemName: PtrSTR; ServiceName: PtrSTR; ClientToken: HANDLE; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
+	PROCEDURE- PrivilegedServiceAuditAlarmA* (SubsystemName: PtrSTR; ServiceName: PtrSTR; ClientToken: HANDLE; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
 	(*END PrivilegedServiceAuditAlarmA;*)
 
-	PROCEDURE- PrivilegedServiceAuditAlarmW* (SubsystemName: PtrWSTR; ServiceName: PtrWSTR; ClientToken: HANDLE; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
+	PROCEDURE- PrivilegedServiceAuditAlarmW* (SubsystemName: PtrWSTR; ServiceName: PtrWSTR; ClientToken: HANDLE; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL;
 	(*END PrivilegedServiceAuditAlarmW;*)
 
-	PROCEDURE- PrivilegedServiceAuditAlarm* (SubsystemName: PtrSTR; ServiceName: PtrSTR; ClientToken: HANDLE; VAR (*nil*) Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL "PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted)";
+	PROCEDURE- PrivilegedServiceAuditAlarm* (SubsystemName: PtrSTR; ServiceName: PtrSTR; ClientToken: HANDLE; VAR [nil] Privileges: PRIVILEGE_SET; AccessGranted: BOOL): BOOL "PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted)";
 	(*END PrivilegedServiceAuditAlarm;*)
 
 	PROCEDURE- IsValidSid* (pSid: PSID): BOOL;
@@ -12992,13 +12992,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetSidLengthRequired* (nSubAuthorityCount: SHORTCHAR): INTEGER;
 	(*END GetSidLengthRequired;*)
 
-	PROCEDURE- AllocateAndInitializeSid* (VAR (*nil*) pIdentifierAuthority: SID_IDENTIFIER_AUTHORITY; nSubAuthorityCount: SHORTCHAR; nSubAuthority0: INTEGER; nSubAuthority1: INTEGER; nSubAuthority2: INTEGER; nSubAuthority3: INTEGER; nSubAuthority4: INTEGER; nSubAuthority5: INTEGER; nSubAuthority6: INTEGER; nSubAuthority7: INTEGER; VAR (*nil*) pSid: PSID): BOOL;
+	PROCEDURE- AllocateAndInitializeSid* (VAR [nil] pIdentifierAuthority: SID_IDENTIFIER_AUTHORITY; nSubAuthorityCount: SHORTCHAR; nSubAuthority0: INTEGER; nSubAuthority1: INTEGER; nSubAuthority2: INTEGER; nSubAuthority3: INTEGER; nSubAuthority4: INTEGER; nSubAuthority5: INTEGER; nSubAuthority6: INTEGER; nSubAuthority7: INTEGER; VAR [nil] pSid: PSID): BOOL;
 	(*END AllocateAndInitializeSid;*)
 
 	PROCEDURE- FreeSid* (pSid: PSID): PtrVoid;
 	(*END FreeSid;*)
 
-	PROCEDURE- InitializeSid* (Sid: PSID; VAR (*nil*) pIdentifierAuthority: SID_IDENTIFIER_AUTHORITY; nSubAuthorityCount: SHORTCHAR): BOOL;
+	PROCEDURE- InitializeSid* (Sid: PSID; VAR [nil] pIdentifierAuthority: SID_IDENTIFIER_AUTHORITY; nSubAuthorityCount: SHORTCHAR): BOOL;
 	(*END InitializeSid;*)
 
 	PROCEDURE- GetSidIdentifierAuthority* (pSid: PSID): PtrSID_IDENTIFIER_AUTHORITY;
@@ -13022,40 +13022,40 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AreAnyAccessesGranted* (GrantedAccess: INTEGER; DesiredAccess: SET): BOOL;
 	(*END AreAnyAccessesGranted;*)
 
-	PROCEDURE- MapGenericMask* (VAR (*nil*) AccessMask: INTEGER; VAR (*nil*) GenericMapping: GENERIC_MAPPING);
+	PROCEDURE- MapGenericMask* (VAR [nil] AccessMask: INTEGER; VAR [nil] GenericMapping: GENERIC_MAPPING);
 	(*END MapGenericMask;*)
 
-	PROCEDURE- IsValidAcl* (VAR (*nil*) pAcl: ACL): BOOL;
+	PROCEDURE- IsValidAcl* (VAR [nil] pAcl: ACL): BOOL;
 	(*END IsValidAcl;*)
 
-	PROCEDURE- InitializeAcl* (VAR (*nil*) pAcl: ACL; nAclLength: INTEGER; dwAclRevision: INTEGER): BOOL;
+	PROCEDURE- InitializeAcl* (VAR [nil] pAcl: ACL; nAclLength: INTEGER; dwAclRevision: INTEGER): BOOL;
 	(*END InitializeAcl;*)
 
-	PROCEDURE- GetAclInformation* (VAR (*nil*) pAcl: ACL; pAclInformation: PtrVoid; nAclInformationLength: INTEGER; dwAclInformationClass: ACL_INFORMATION_CLASS): BOOL;
+	PROCEDURE- GetAclInformation* (VAR [nil] pAcl: ACL; pAclInformation: PtrVoid; nAclInformationLength: INTEGER; dwAclInformationClass: ACL_INFORMATION_CLASS): BOOL;
 	(*END GetAclInformation;*)
 
-	PROCEDURE- SetAclInformation* (VAR (*nil*) pAcl: ACL; pAclInformation: PtrVoid; nAclInformationLength: INTEGER; dwAclInformationClass: ACL_INFORMATION_CLASS): BOOL;
+	PROCEDURE- SetAclInformation* (VAR [nil] pAcl: ACL; pAclInformation: PtrVoid; nAclInformationLength: INTEGER; dwAclInformationClass: ACL_INFORMATION_CLASS): BOOL;
 	(*END SetAclInformation;*)
 
-	PROCEDURE- AddAce* (VAR (*nil*) pAcl: ACL; dwAceRevision: INTEGER; dwStartingAceIndex: INTEGER; pAceList: PtrVoid; nAceListLength: INTEGER): BOOL;
+	PROCEDURE- AddAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; dwStartingAceIndex: INTEGER; pAceList: PtrVoid; nAceListLength: INTEGER): BOOL;
 	(*END AddAce;*)
 
-	PROCEDURE- DeleteAce* (VAR (*nil*) pAcl: ACL; dwAceIndex: INTEGER): BOOL;
+	PROCEDURE- DeleteAce* (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER): BOOL;
 	(*END DeleteAce;*)
 
-	PROCEDURE- GetAce* (VAR (*nil*) pAcl: ACL; dwAceIndex: INTEGER; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- GetAce* (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END GetAce;*)
 
-	PROCEDURE- AddAccessAllowedAce* (VAR (*nil*) pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
+	PROCEDURE- AddAccessAllowedAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
 	(*END AddAccessAllowedAce;*)
 
-	PROCEDURE- AddAccessDeniedAce* (VAR (*nil*) pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
+	PROCEDURE- AddAccessDeniedAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
 	(*END AddAccessDeniedAce;*)
 
-	PROCEDURE- AddAuditAccessAce* (VAR (*nil*) pAcl: ACL; dwAceRevision: INTEGER; dwAccessMask: INTEGER; pSid: PSID; bAuditSuccess: BOOL; bAuditFailure: BOOL): BOOL;
+	PROCEDURE- AddAuditAccessAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; dwAccessMask: INTEGER; pSid: PSID; bAuditSuccess: BOOL; bAuditFailure: BOOL): BOOL;
 	(*END AddAuditAccessAce;*)
 
-	PROCEDURE- FindFirstFreeAce* (VAR (*nil*) pAcl: ACL; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- FindFirstFreeAce* (VAR [nil] pAcl: ACL; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END FindFirstFreeAce;*)
 
 	PROCEDURE- InitializeSecurityDescriptor* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; dwRevision: INTEGER): BOOL;
@@ -13067,49 +13067,49 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetSecurityDescriptorLength* (pSecurityDescriptor: PSECURITY_DESCRIPTOR): INTEGER;
 	(*END GetSecurityDescriptorLength;*)
 
-	PROCEDURE- GetSecurityDescriptorControl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) pControl: SHORTINT; VAR (*nil*) lpdwRevision: INTEGER): BOOL;
+	PROCEDURE- GetSecurityDescriptorControl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] pControl: SHORTINT; VAR [nil] lpdwRevision: INTEGER): BOOL;
 	(*END GetSecurityDescriptorControl;*)
 
-	PROCEDURE- SetSecurityDescriptorDacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; bDaclPresent: BOOL; VAR (*nil*) pDacl: ACL; bDaclDefaulted: BOOL): BOOL;
+	PROCEDURE- SetSecurityDescriptorDacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; bDaclPresent: BOOL; VAR [nil] pDacl: ACL; bDaclDefaulted: BOOL): BOOL;
 	(*END SetSecurityDescriptorDacl;*)
 
-	PROCEDURE- GetSecurityDescriptorDacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) lpbDaclPresent: BOOL; VAR (*nil*) pDacl: PtrACL; VAR (*nil*) lpbDaclDefaulted: BOOL): BOOL;
+	PROCEDURE- GetSecurityDescriptorDacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] lpbDaclPresent: BOOL; VAR [nil] pDacl: PtrACL; VAR [nil] lpbDaclDefaulted: BOOL): BOOL;
 	(*END GetSecurityDescriptorDacl;*)
 
-	PROCEDURE- SetSecurityDescriptorSacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; bSaclPresent: BOOL; VAR (*nil*) pSacl: ACL; bSaclDefaulted: BOOL): BOOL;
+	PROCEDURE- SetSecurityDescriptorSacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; bSaclPresent: BOOL; VAR [nil] pSacl: ACL; bSaclDefaulted: BOOL): BOOL;
 	(*END SetSecurityDescriptorSacl;*)
 
-	PROCEDURE- GetSecurityDescriptorSacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) lpbSaclPresent: BOOL; VAR (*nil*) pSacl: PtrACL; VAR (*nil*) lpbSaclDefaulted: BOOL): BOOL;
+	PROCEDURE- GetSecurityDescriptorSacl* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] lpbSaclPresent: BOOL; VAR [nil] pSacl: PtrACL; VAR [nil] lpbSaclDefaulted: BOOL): BOOL;
 	(*END GetSecurityDescriptorSacl;*)
 
 	PROCEDURE- SetSecurityDescriptorOwner* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; pOwner: PSID; bOwnerDefaulted: BOOL): BOOL;
 	(*END SetSecurityDescriptorOwner;*)
 
-	PROCEDURE- GetSecurityDescriptorOwner* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) pOwner: PSID; VAR (*nil*) lpbOwnerDefaulted: BOOL): BOOL;
+	PROCEDURE- GetSecurityDescriptorOwner* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] pOwner: PSID; VAR [nil] lpbOwnerDefaulted: BOOL): BOOL;
 	(*END GetSecurityDescriptorOwner;*)
 
 	PROCEDURE- SetSecurityDescriptorGroup* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; pGroup: PSID; bGroupDefaulted: BOOL): BOOL;
 	(*END SetSecurityDescriptorGroup;*)
 
-	PROCEDURE- GetSecurityDescriptorGroup* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) pGroup: PSID; VAR (*nil*) lpbGroupDefaulted: BOOL): BOOL;
+	PROCEDURE- GetSecurityDescriptorGroup* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] pGroup: PSID; VAR [nil] lpbGroupDefaulted: BOOL): BOOL;
 	(*END GetSecurityDescriptorGroup;*)
 
-	PROCEDURE- CreatePrivateObjectSecurity* (ParentDescriptor: PSECURITY_DESCRIPTOR; CreatorDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) NewDescriptor: PSECURITY_DESCRIPTOR; IsDirectoryObject: BOOL; Token: HANDLE; VAR (*nil*) GenericMapping: GENERIC_MAPPING): BOOL;
+	PROCEDURE- CreatePrivateObjectSecurity* (ParentDescriptor: PSECURITY_DESCRIPTOR; CreatorDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] NewDescriptor: PSECURITY_DESCRIPTOR; IsDirectoryObject: BOOL; Token: HANDLE; VAR [nil] GenericMapping: GENERIC_MAPPING): BOOL;
 	(*END CreatePrivateObjectSecurity;*)
 
-	PROCEDURE- SetPrivateObjectSecurity* (SecurityInformation: SECURITY_INFORMATION; ModificationDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) ObjectsSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) GenericMapping: GENERIC_MAPPING; Token: HANDLE): BOOL;
+	PROCEDURE- SetPrivateObjectSecurity* (SecurityInformation: SECURITY_INFORMATION; ModificationDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] ObjectsSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] GenericMapping: GENERIC_MAPPING; Token: HANDLE): BOOL;
 	(*END SetPrivateObjectSecurity;*)
 
-	PROCEDURE- GetPrivateObjectSecurity* (ObjectDescriptor: PSECURITY_DESCRIPTOR; SecurityInformation: SECURITY_INFORMATION; ResultantDescriptor: PSECURITY_DESCRIPTOR; DescriptorLength: INTEGER; VAR (*nil*) ReturnLength: INTEGER): BOOL;
+	PROCEDURE- GetPrivateObjectSecurity* (ObjectDescriptor: PSECURITY_DESCRIPTOR; SecurityInformation: SECURITY_INFORMATION; ResultantDescriptor: PSECURITY_DESCRIPTOR; DescriptorLength: INTEGER; VAR [nil] ReturnLength: INTEGER): BOOL;
 	(*END GetPrivateObjectSecurity;*)
 
-	PROCEDURE- DestroyPrivateObjectSecurity* (VAR (*nil*) ObjectDescriptor: PSECURITY_DESCRIPTOR): BOOL;
+	PROCEDURE- DestroyPrivateObjectSecurity* (VAR [nil] ObjectDescriptor: PSECURITY_DESCRIPTOR): BOOL;
 	(*END DestroyPrivateObjectSecurity;*)
 
-	PROCEDURE- MakeSelfRelativeSD* (pAbsoluteSecurityDescriptor: PSECURITY_DESCRIPTOR; pSelfRelativeSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) lpdwBufferLength: INTEGER): BOOL;
+	PROCEDURE- MakeSelfRelativeSD* (pAbsoluteSecurityDescriptor: PSECURITY_DESCRIPTOR; pSelfRelativeSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] lpdwBufferLength: INTEGER): BOOL;
 	(*END MakeSelfRelativeSD;*)
 
-	PROCEDURE- MakeAbsoluteSD* (pSelfRelativeSecurityDescriptor: PSECURITY_DESCRIPTOR; pAbsoluteSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) lpdwAbsoluteSecurityDescriptorSize: INTEGER; VAR (*nil*) pDacl: ACL; VAR (*nil*) lpdwDaclSize: INTEGER; VAR (*nil*) pSacl: ACL; VAR (*nil*) lpdwSaclSize: INTEGER; pOwner: PSID; VAR (*nil*) lpdwOwnerSize: INTEGER; pPrimaryGroup: PSID; VAR (*nil*) lpdwPrimaryGroupSize: INTEGER): BOOL;
+	PROCEDURE- MakeAbsoluteSD* (pSelfRelativeSecurityDescriptor: PSECURITY_DESCRIPTOR; pAbsoluteSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] lpdwAbsoluteSecurityDescriptorSize: INTEGER; VAR [nil] pDacl: ACL; VAR [nil] lpdwDaclSize: INTEGER; VAR [nil] pSacl: ACL; VAR [nil] lpdwSaclSize: INTEGER; pOwner: PSID; VAR [nil] lpdwOwnerSize: INTEGER; pPrimaryGroup: PSID; VAR [nil] lpdwPrimaryGroupSize: INTEGER): BOOL;
 	(*END MakeAbsoluteSD;*)
 
 	PROCEDURE- SetFileSecurityA* (lpFileName: PtrSTR; SecurityInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR): BOOL;
@@ -13121,13 +13121,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetFileSecurity* (lpFileName: PtrSTR; SecurityInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR): BOOL "SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor)";
 	(*END SetFileSecurity;*)
 
-	PROCEDURE- GetFileSecurityA* (lpFileName: PtrSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetFileSecurityA* (lpFileName: PtrSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetFileSecurityA;*)
 
-	PROCEDURE- GetFileSecurityW* (lpFileName: PtrWSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetFileSecurityW* (lpFileName: PtrWSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetFileSecurityW;*)
 
-	PROCEDURE- GetFileSecurity* (lpFileName: PtrSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL "GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)";
+	PROCEDURE- GetFileSecurity* (lpFileName: PtrSTR; RequestedInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL "GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)";
 	(*END GetFileSecurity;*)
 
 	PROCEDURE- SetKernelObjectSecurity* (Handle: HANDLE; SecurityInformation: SECURITY_INFORMATION; SecurityDescriptor: PSECURITY_DESCRIPTOR): BOOL;
@@ -13148,7 +13148,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FindCloseChangeNotification* (hChangeHandle: HANDLE): BOOL;
 	(*END FindCloseChangeNotification;*)
 
-	PROCEDURE- ReadDirectoryChangesW* (hDirectory: HANDLE; lpBuffer: PtrVoid; nBufferLength: INTEGER; bWatchSubtree: BOOL; dwNotifyFilter: SET; VAR (*nil*) lpBytesReturned: INTEGER; VAR (*nil*) lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
+	PROCEDURE- ReadDirectoryChangesW* (hDirectory: HANDLE; lpBuffer: PtrVoid; nBufferLength: INTEGER; bWatchSubtree: BOOL; dwNotifyFilter: SET; VAR [nil] lpBytesReturned: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END ReadDirectoryChangesW;*)
 
 	PROCEDURE- VirtualLock* (lpAddress: PtrVoid; dwSize: INTEGER): BOOL;
@@ -13190,106 +13190,106 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- IsBadStringPtr* (lpsz: PtrSTR; ucchMax: INTEGER): BOOL "IsBadStringPtrA(lpsz, ucchMax)";
 	(*END IsBadStringPtr;*)
 
-	PROCEDURE- LookupAccountSidA* (lpSystemName: PtrSTR; Sid: PSID; Name: PtrSTR; VAR (*nil*) cbName: INTEGER; ReferencedDomainName: PtrSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL;
+	PROCEDURE- LookupAccountSidA* (lpSystemName: PtrSTR; Sid: PSID; Name: PtrSTR; VAR [nil] cbName: INTEGER; ReferencedDomainName: PtrSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL;
 	(*END LookupAccountSidA;*)
 
-	PROCEDURE- LookupAccountSidW* (lpSystemName: PtrWSTR; Sid: PSID; Name: PtrWSTR; VAR (*nil*) cbName: INTEGER; ReferencedDomainName: PtrWSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL;
+	PROCEDURE- LookupAccountSidW* (lpSystemName: PtrWSTR; Sid: PSID; Name: PtrWSTR; VAR [nil] cbName: INTEGER; ReferencedDomainName: PtrWSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL;
 	(*END LookupAccountSidW;*)
 
-	PROCEDURE- LookupAccountSid* (lpSystemName: PtrSTR; Sid: PSID; Name: PtrSTR; VAR (*nil*) cbName: INTEGER; ReferencedDomainName: PtrSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL "LookupAccountSidA(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)";
+	PROCEDURE- LookupAccountSid* (lpSystemName: PtrSTR; Sid: PSID; Name: PtrSTR; VAR [nil] cbName: INTEGER; ReferencedDomainName: PtrSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL "LookupAccountSidA(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)";
 	(*END LookupAccountSid;*)
 
-	PROCEDURE- LookupAccountNameA* (lpSystemName: PtrSTR; lpAccountName: PtrSTR; Sid: PSID; VAR (*nil*) cbSid: INTEGER; ReferencedDomainName: PtrSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL;
+	PROCEDURE- LookupAccountNameA* (lpSystemName: PtrSTR; lpAccountName: PtrSTR; Sid: PSID; VAR [nil] cbSid: INTEGER; ReferencedDomainName: PtrSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL;
 	(*END LookupAccountNameA;*)
 
-	PROCEDURE- LookupAccountNameW* (lpSystemName: PtrWSTR; lpAccountName: PtrWSTR; Sid: PSID; VAR (*nil*) cbSid: INTEGER; ReferencedDomainName: PtrWSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL;
+	PROCEDURE- LookupAccountNameW* (lpSystemName: PtrWSTR; lpAccountName: PtrWSTR; Sid: PSID; VAR [nil] cbSid: INTEGER; ReferencedDomainName: PtrWSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL;
 	(*END LookupAccountNameW;*)
 
-	PROCEDURE- LookupAccountName* (lpSystemName: PtrSTR; lpAccountName: PtrSTR; Sid: PSID; VAR (*nil*) cbSid: INTEGER; ReferencedDomainName: PtrSTR; VAR (*nil*) cbReferencedDomainName: INTEGER; VAR (*nil*) peUse: SID_NAME_USE): BOOL "LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)";
+	PROCEDURE- LookupAccountName* (lpSystemName: PtrSTR; lpAccountName: PtrSTR; Sid: PSID; VAR [nil] cbSid: INTEGER; ReferencedDomainName: PtrSTR; VAR [nil] cbReferencedDomainName: INTEGER; VAR [nil] peUse: SID_NAME_USE): BOOL "LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)";
 	(*END LookupAccountName;*)
 
-	PROCEDURE- LookupPrivilegeValueA* (lpSystemName: PtrSTR; lpName: PtrSTR; VAR (*nil*) lpLuid: LONGINT): BOOL;
+	PROCEDURE- LookupPrivilegeValueA* (lpSystemName: PtrSTR; lpName: PtrSTR; VAR [nil] lpLuid: LONGINT): BOOL;
 	(*END LookupPrivilegeValueA;*)
 
-	PROCEDURE- LookupPrivilegeValueW* (lpSystemName: PtrWSTR; lpName: PtrWSTR; VAR (*nil*) lpLuid: LONGINT): BOOL;
+	PROCEDURE- LookupPrivilegeValueW* (lpSystemName: PtrWSTR; lpName: PtrWSTR; VAR [nil] lpLuid: LONGINT): BOOL;
 	(*END LookupPrivilegeValueW;*)
 
-	PROCEDURE- LookupPrivilegeValue* (lpSystemName: PtrSTR; lpName: PtrSTR; VAR (*nil*) lpLuid: LONGINT): BOOL "LookupPrivilegeValueA(lpSystemName, lpName, lpLuid)";
+	PROCEDURE- LookupPrivilegeValue* (lpSystemName: PtrSTR; lpName: PtrSTR; VAR [nil] lpLuid: LONGINT): BOOL "LookupPrivilegeValueA(lpSystemName, lpName, lpLuid)";
 	(*END LookupPrivilegeValue;*)
 
-	PROCEDURE- LookupPrivilegeNameA* (lpSystemName: PtrSTR; VAR (*nil*) lpLuid: LONGINT; lpName: PtrSTR; VAR (*nil*) cbName: INTEGER): BOOL;
+	PROCEDURE- LookupPrivilegeNameA* (lpSystemName: PtrSTR; VAR [nil] lpLuid: LONGINT; lpName: PtrSTR; VAR [nil] cbName: INTEGER): BOOL;
 	(*END LookupPrivilegeNameA;*)
 
-	PROCEDURE- LookupPrivilegeNameW* (lpSystemName: PtrWSTR; VAR (*nil*) lpLuid: LONGINT; lpName: PtrWSTR; VAR (*nil*) cbName: INTEGER): BOOL;
+	PROCEDURE- LookupPrivilegeNameW* (lpSystemName: PtrWSTR; VAR [nil] lpLuid: LONGINT; lpName: PtrWSTR; VAR [nil] cbName: INTEGER): BOOL;
 	(*END LookupPrivilegeNameW;*)
 
-	PROCEDURE- LookupPrivilegeName* (lpSystemName: PtrSTR; VAR (*nil*) lpLuid: LONGINT; lpName: PtrSTR; VAR (*nil*) cbName: INTEGER): BOOL "LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cbName)";
+	PROCEDURE- LookupPrivilegeName* (lpSystemName: PtrSTR; VAR [nil] lpLuid: LONGINT; lpName: PtrSTR; VAR [nil] cbName: INTEGER): BOOL "LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cbName)";
 	(*END LookupPrivilegeName;*)
 
-	PROCEDURE- LookupPrivilegeDisplayNameA* (lpSystemName: PtrSTR; lpName: PtrSTR; lpDisplayName: PtrSTR; VAR (*nil*) cbDisplayName: INTEGER; VAR (*nil*) lpLanguageId: INTEGER): BOOL;
+	PROCEDURE- LookupPrivilegeDisplayNameA* (lpSystemName: PtrSTR; lpName: PtrSTR; lpDisplayName: PtrSTR; VAR [nil] cbDisplayName: INTEGER; VAR [nil] lpLanguageId: INTEGER): BOOL;
 	(*END LookupPrivilegeDisplayNameA;*)
 
-	PROCEDURE- LookupPrivilegeDisplayNameW* (lpSystemName: PtrWSTR; lpName: PtrWSTR; lpDisplayName: PtrWSTR; VAR (*nil*) cbDisplayName: INTEGER; VAR (*nil*) lpLanguageId: INTEGER): BOOL;
+	PROCEDURE- LookupPrivilegeDisplayNameW* (lpSystemName: PtrWSTR; lpName: PtrWSTR; lpDisplayName: PtrWSTR; VAR [nil] cbDisplayName: INTEGER; VAR [nil] lpLanguageId: INTEGER): BOOL;
 	(*END LookupPrivilegeDisplayNameW;*)
 
-	PROCEDURE- LookupPrivilegeDisplayName* (lpSystemName: PtrSTR; lpName: PtrSTR; lpDisplayName: PtrSTR; VAR (*nil*) cbDisplayName: INTEGER; VAR (*nil*) lpLanguageId: INTEGER): BOOL "LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)";
+	PROCEDURE- LookupPrivilegeDisplayName* (lpSystemName: PtrSTR; lpName: PtrSTR; lpDisplayName: PtrSTR; VAR [nil] cbDisplayName: INTEGER; VAR [nil] lpLanguageId: INTEGER): BOOL "LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)";
 	(*END LookupPrivilegeDisplayName;*)
 
-	PROCEDURE- AllocateLocallyUniqueId* (VAR (*nil*) Luid: LONGINT): BOOL;
+	PROCEDURE- AllocateLocallyUniqueId* (VAR [nil] Luid: LONGINT): BOOL;
 	(*END AllocateLocallyUniqueId;*)
 
-	PROCEDURE- BuildCommDCBA* (lpDef: PtrSTR; VAR (*nil*) lpDCB: DCB): BOOL;
+	PROCEDURE- BuildCommDCBA* (lpDef: PtrSTR; VAR [nil] lpDCB: DCB): BOOL;
 	(*END BuildCommDCBA;*)
 
-	PROCEDURE- BuildCommDCBW* (lpDef: PtrWSTR; VAR (*nil*) lpDCB: DCB): BOOL;
+	PROCEDURE- BuildCommDCBW* (lpDef: PtrWSTR; VAR [nil] lpDCB: DCB): BOOL;
 	(*END BuildCommDCBW;*)
 
-	PROCEDURE- BuildCommDCB* (lpDef: PtrSTR; VAR (*nil*) lpDCB: DCB): BOOL "BuildCommDCBA(lpDef, lpDCB)";
+	PROCEDURE- BuildCommDCB* (lpDef: PtrSTR; VAR [nil] lpDCB: DCB): BOOL "BuildCommDCBA(lpDef, lpDCB)";
 	(*END BuildCommDCB;*)
 
-	PROCEDURE- BuildCommDCBAndTimeoutsA* (lpDef: PtrSTR; VAR (*nil*) lpDCB: DCB; VAR (*nil*) lpCommTimeouts: COMMTIMEOUTS): BOOL;
+	PROCEDURE- BuildCommDCBAndTimeoutsA* (lpDef: PtrSTR; VAR [nil] lpDCB: DCB; VAR [nil] lpCommTimeouts: COMMTIMEOUTS): BOOL;
 	(*END BuildCommDCBAndTimeoutsA;*)
 
-	PROCEDURE- BuildCommDCBAndTimeoutsW* (lpDef: PtrWSTR; VAR (*nil*) lpDCB: DCB; VAR (*nil*) lpCommTimeouts: COMMTIMEOUTS): BOOL;
+	PROCEDURE- BuildCommDCBAndTimeoutsW* (lpDef: PtrWSTR; VAR [nil] lpDCB: DCB; VAR [nil] lpCommTimeouts: COMMTIMEOUTS): BOOL;
 	(*END BuildCommDCBAndTimeoutsW;*)
 
-	PROCEDURE- BuildCommDCBAndTimeouts* (lpDef: PtrSTR; VAR (*nil*) lpDCB: DCB; VAR (*nil*) lpCommTimeouts: COMMTIMEOUTS): BOOL "BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts)";
+	PROCEDURE- BuildCommDCBAndTimeouts* (lpDef: PtrSTR; VAR [nil] lpDCB: DCB; VAR [nil] lpCommTimeouts: COMMTIMEOUTS): BOOL "BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts)";
 	(*END BuildCommDCBAndTimeouts;*)
 
-	PROCEDURE- CommConfigDialogA* (lpszName: PtrSTR; hWnd: HWND; VAR (*nil*) lpCC: COMMCONFIG): BOOL;
+	PROCEDURE- CommConfigDialogA* (lpszName: PtrSTR; hWnd: HWND; VAR [nil] lpCC: COMMCONFIG): BOOL;
 	(*END CommConfigDialogA;*)
 
-	PROCEDURE- CommConfigDialogW* (lpszName: PtrWSTR; hWnd: HWND; VAR (*nil*) lpCC: COMMCONFIG): BOOL;
+	PROCEDURE- CommConfigDialogW* (lpszName: PtrWSTR; hWnd: HWND; VAR [nil] lpCC: COMMCONFIG): BOOL;
 	(*END CommConfigDialogW;*)
 
-	PROCEDURE- CommConfigDialog* (lpszName: PtrSTR; hWnd: HWND; VAR (*nil*) lpCC: COMMCONFIG): BOOL "CommConfigDialogA(lpszName, hWnd, lpCC)";
+	PROCEDURE- CommConfigDialog* (lpszName: PtrSTR; hWnd: HWND; VAR [nil] lpCC: COMMCONFIG): BOOL "CommConfigDialogA(lpszName, hWnd, lpCC)";
 	(*END CommConfigDialog;*)
 
-	PROCEDURE- GetDefaultCommConfigA* (lpszName: PtrSTR; VAR (*nil*) lpCC: COMMCONFIG; VAR (*nil*) lpdwSize: INTEGER): BOOL;
+	PROCEDURE- GetDefaultCommConfigA* (lpszName: PtrSTR; VAR [nil] lpCC: COMMCONFIG; VAR [nil] lpdwSize: INTEGER): BOOL;
 	(*END GetDefaultCommConfigA;*)
 
-	PROCEDURE- GetDefaultCommConfigW* (lpszName: PtrWSTR; VAR (*nil*) lpCC: COMMCONFIG; VAR (*nil*) lpdwSize: INTEGER): BOOL;
+	PROCEDURE- GetDefaultCommConfigW* (lpszName: PtrWSTR; VAR [nil] lpCC: COMMCONFIG; VAR [nil] lpdwSize: INTEGER): BOOL;
 	(*END GetDefaultCommConfigW;*)
 
-	PROCEDURE- GetDefaultCommConfig* (lpszName: PtrSTR; VAR (*nil*) lpCC: COMMCONFIG; VAR (*nil*) lpdwSize: INTEGER): BOOL "GetDefaultCommConfigA(lpszName, lpCC, lpdwSize)";
+	PROCEDURE- GetDefaultCommConfig* (lpszName: PtrSTR; VAR [nil] lpCC: COMMCONFIG; VAR [nil] lpdwSize: INTEGER): BOOL "GetDefaultCommConfigA(lpszName, lpCC, lpdwSize)";
 	(*END GetDefaultCommConfig;*)
 
-	PROCEDURE- SetDefaultCommConfigA* (lpszName: PtrSTR; VAR (*nil*) lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
+	PROCEDURE- SetDefaultCommConfigA* (lpszName: PtrSTR; VAR [nil] lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
 	(*END SetDefaultCommConfigA;*)
 
-	PROCEDURE- SetDefaultCommConfigW* (lpszName: PtrWSTR; VAR (*nil*) lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
+	PROCEDURE- SetDefaultCommConfigW* (lpszName: PtrWSTR; VAR [nil] lpCC: COMMCONFIG; dwSize: INTEGER): BOOL;
 	(*END SetDefaultCommConfigW;*)
 
-	PROCEDURE- SetDefaultCommConfig* (lpszName: PtrSTR; VAR (*nil*) lpCC: COMMCONFIG; dwSize: INTEGER): BOOL "SetDefaultCommConfigA(lpszName, lpCC, dwSize)";
+	PROCEDURE- SetDefaultCommConfig* (lpszName: PtrSTR; VAR [nil] lpCC: COMMCONFIG; dwSize: INTEGER): BOOL "SetDefaultCommConfigA(lpszName, lpCC, dwSize)";
 	(*END SetDefaultCommConfig;*)
 
-	PROCEDURE- GetComputerNameA* (lpBuffer: PtrSTR; VAR (*nil*) nSize: INTEGER): BOOL;
+	PROCEDURE- GetComputerNameA* (lpBuffer: PtrSTR; VAR [nil] nSize: INTEGER): BOOL;
 	(*END GetComputerNameA;*)
 
-	PROCEDURE- GetComputerNameW* (lpBuffer: PtrWSTR; VAR (*nil*) nSize: INTEGER): BOOL;
+	PROCEDURE- GetComputerNameW* (lpBuffer: PtrWSTR; VAR [nil] nSize: INTEGER): BOOL;
 	(*END GetComputerNameW;*)
 
-	PROCEDURE- GetComputerName* (lpBuffer: PtrSTR; VAR (*nil*) nSize: INTEGER): BOOL "GetComputerNameA(lpBuffer, nSize)";
+	PROCEDURE- GetComputerName* (lpBuffer: PtrSTR; VAR [nil] nSize: INTEGER): BOOL "GetComputerNameA(lpBuffer, nSize)";
 	(*END GetComputerName;*)
 
 	PROCEDURE- SetComputerNameA* (lpComputerName: PtrSTR): BOOL;
@@ -13301,61 +13301,61 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetComputerName* (lpComputerName: PtrSTR): BOOL "SetComputerNameA(lpComputerName)";
 	(*END SetComputerName;*)
 
-	PROCEDURE- GetUserNameA* (lpBuffer: PtrSTR; VAR (*nil*) nSize: INTEGER): BOOL;
+	PROCEDURE- GetUserNameA* (lpBuffer: PtrSTR; VAR [nil] nSize: INTEGER): BOOL;
 	(*END GetUserNameA;*)
 
-	PROCEDURE- GetUserNameW* (lpBuffer: PtrWSTR; VAR (*nil*) nSize: INTEGER): BOOL;
+	PROCEDURE- GetUserNameW* (lpBuffer: PtrWSTR; VAR [nil] nSize: INTEGER): BOOL;
 	(*END GetUserNameW;*)
 
-	PROCEDURE- GetUserName* (lpBuffer: PtrSTR; VAR (*nil*) nSize: INTEGER): BOOL "GetUserNameA(lpBuffer, nSize)";
+	PROCEDURE- GetUserName* (lpBuffer: PtrSTR; VAR [nil] nSize: INTEGER): BOOL "GetUserNameA(lpBuffer, nSize)";
 	(*END GetUserName;*)
 
-	PROCEDURE- LogonUserA* (lpszUsername: PtrSTR; lpszDomain: PtrSTR; lpszPassword: PtrSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR (*nil*) phToken: HANDLE): BOOL;
+	PROCEDURE- LogonUserA* (lpszUsername: PtrSTR; lpszDomain: PtrSTR; lpszPassword: PtrSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR [nil] phToken: HANDLE): BOOL;
 	(*END LogonUserA;*)
 
-	PROCEDURE- LogonUserW* (lpszUsername: PtrWSTR; lpszDomain: PtrWSTR; lpszPassword: PtrWSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR (*nil*) phToken: HANDLE): BOOL;
+	PROCEDURE- LogonUserW* (lpszUsername: PtrWSTR; lpszDomain: PtrWSTR; lpszPassword: PtrWSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR [nil] phToken: HANDLE): BOOL;
 	(*END LogonUserW;*)
 
-	PROCEDURE- LogonUser* (lpszUsername: PtrSTR; lpszDomain: PtrSTR; lpszPassword: PtrSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR (*nil*) phToken: HANDLE): BOOL "LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)";
+	PROCEDURE- LogonUser* (lpszUsername: PtrSTR; lpszDomain: PtrSTR; lpszPassword: PtrSTR; dwLogonType: INTEGER; dwLogonProvider: INTEGER; VAR [nil] phToken: HANDLE): BOOL "LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)";
 	(*END LogonUser;*)
 
 	PROCEDURE- ImpersonateLoggedOnUser* (hToken: HANDLE): BOOL;
 	(*END ImpersonateLoggedOnUser;*)
 
-	PROCEDURE- CreateProcessAsUserA* (hToken: HANDLE; lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOA; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL;
+	PROCEDURE- CreateProcessAsUserA* (hToken: HANDLE; lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR [nil] lpStartupInfo: STARTUPINFOA; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL;
 	(*END CreateProcessAsUserA;*)
 
-	PROCEDURE- CreateProcessAsUserW* (hToken: HANDLE; lpApplicationName: PtrWSTR; lpCommandLine: PtrWSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrWSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOW; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL;
+	PROCEDURE- CreateProcessAsUserW* (hToken: HANDLE; lpApplicationName: PtrWSTR; lpCommandLine: PtrWSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrWSTR; VAR [nil] lpStartupInfo: STARTUPINFOW; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL;
 	(*END CreateProcessAsUserW;*)
 
-	PROCEDURE- CreateProcessAsUser* (hToken: HANDLE; lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR (*nil*) lpProcessAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR (*nil*) lpStartupInfo: STARTUPINFOA; VAR (*nil*) lpProcessInformation: PROCESS_INFORMATION): BOOL "CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)";
+	PROCEDURE- CreateProcessAsUser* (hToken: HANDLE; lpApplicationName: PtrSTR; lpCommandLine: PtrSTR; VAR [nil] lpProcessAttributes: SECURITY_ATTRIBUTES; VAR [nil] lpThreadAttributes: SECURITY_ATTRIBUTES; bInheritHandles: BOOL; dwCreationFlags: SET; lpEnvironment: PtrVoid; lpCurrentDirectory: PtrSTR; VAR [nil] lpStartupInfo: STARTUPINFOA; VAR [nil] lpProcessInformation: PROCESS_INFORMATION): BOOL "CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)";
 	(*END CreateProcessAsUser;*)
 
-	PROCEDURE- GetCurrentHwProfileA* (VAR (*nil*) lpHwProfileInfo: HW_PROFILE_INFOA): BOOL;
+	PROCEDURE- GetCurrentHwProfileA* (VAR [nil] lpHwProfileInfo: HW_PROFILE_INFOA): BOOL;
 	(*END GetCurrentHwProfileA;*)
 
-	PROCEDURE- GetCurrentHwProfileW* (VAR (*nil*) lpHwProfileInfo: HW_PROFILE_INFOW): BOOL;
+	PROCEDURE- GetCurrentHwProfileW* (VAR [nil] lpHwProfileInfo: HW_PROFILE_INFOW): BOOL;
 	(*END GetCurrentHwProfileW;*)
 
-	PROCEDURE- GetCurrentHwProfile* (VAR (*nil*) lpHwProfileInfo: HW_PROFILE_INFOA): BOOL "GetCurrentHwProfileA(lpHwProfileInfo)";
+	PROCEDURE- GetCurrentHwProfile* (VAR [nil] lpHwProfileInfo: HW_PROFILE_INFOA): BOOL "GetCurrentHwProfileA(lpHwProfileInfo)";
 	(*END GetCurrentHwProfile;*)
 
-	PROCEDURE- QueryPerformanceCounter* (VAR (*nil*) lpPerformanceCount: LONGINT): BOOL;
+	PROCEDURE- QueryPerformanceCounter* (VAR [nil] lpPerformanceCount: LONGINT): BOOL;
 	(*END QueryPerformanceCounter;*)
 
-	PROCEDURE- QueryPerformanceFrequency* (VAR (*nil*) lpFrequency: LONGINT): BOOL;
+	PROCEDURE- QueryPerformanceFrequency* (VAR [nil] lpFrequency: LONGINT): BOOL;
 	(*END QueryPerformanceFrequency;*)
 
-	PROCEDURE- GetVersionExA* (VAR (*nil*) lpVersionInformation: OSVERSIONINFOA): BOOL;
+	PROCEDURE- GetVersionExA* (VAR [nil] lpVersionInformation: OSVERSIONINFOA): BOOL;
 	(*END GetVersionExA;*)
 
-	PROCEDURE- GetVersionExW* (VAR (*nil*) lpVersionInformation: OSVERSIONINFOW): BOOL;
+	PROCEDURE- GetVersionExW* (VAR [nil] lpVersionInformation: OSVERSIONINFOW): BOOL;
 	(*END GetVersionExW;*)
 
-	PROCEDURE- GetVersionEx* (VAR (*nil*) lpVersionInformation: OSVERSIONINFOA): BOOL "GetVersionExA(lpVersionInformation)";
+	PROCEDURE- GetVersionEx* (VAR [nil] lpVersionInformation: OSVERSIONINFOA): BOOL "GetVersionExA(lpVersionInformation)";
 	(*END GetVersionEx;*)
 
-	PROCEDURE- GetSystemPowerStatus* (VAR (*nil*) lpSystemPowerStatus: SYSTEM_POWER_STATUS): BOOL;
+	PROCEDURE- GetSystemPowerStatus* (VAR [nil] lpSystemPowerStatus: SYSTEM_POWER_STATUS): BOOL;
 	(*END GetSystemPowerStatus;*)
 
 	PROCEDURE- SetSystemPowerState* (fSuspend: BOOL; fForce: BOOL): BOOL;
@@ -13370,7 +13370,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AddFontResource* (p0: PtrSTR): INTEGER "AddFontResourceA(p0)";
 	(*END AddFontResource;*)
 
-	PROCEDURE- AnimatePalette* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: PALETTEENTRY): BOOL;
+	PROCEDURE- AnimatePalette* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PALETTEENTRY): BOOL;
 	(*END AnimatePalette;*)
 
 	PROCEDURE- Arc* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER): BOOL;
@@ -13385,7 +13385,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- Chord* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER): BOOL;
 	(*END Chord;*)
 
-	PROCEDURE- ChoosePixelFormat* (p0: HDC; VAR (*nil*) p1: PIXELFORMATDESCRIPTOR): INTEGER;
+	PROCEDURE- ChoosePixelFormat* (p0: HDC; VAR [nil] p1: PIXELFORMATDESCRIPTOR): INTEGER;
 	(*END ChoosePixelFormat;*)
 
 	PROCEDURE- CloseMetaFile* (p0: HDC): HMETAFILE;
@@ -13406,10 +13406,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateBitmap* (p0: INTEGER; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: PtrVoid): HBITMAP;
 	(*END CreateBitmap;*)
 
-	PROCEDURE- CreateBitmapIndirect* (VAR (*nil*) p0: BITMAP): HBITMAP;
+	PROCEDURE- CreateBitmapIndirect* (VAR [nil] p0: BITMAP): HBITMAP;
 	(*END CreateBitmapIndirect;*)
 
-	PROCEDURE- CreateBrushIndirect* (VAR (*nil*) p0: LOGBRUSH): HBRUSH;
+	PROCEDURE- CreateBrushIndirect* (VAR [nil] p0: LOGBRUSH): HBRUSH;
 	(*END CreateBrushIndirect;*)
 
 	PROCEDURE- CreateCompatibleBitmap* (p0: HDC; p1: INTEGER; p2: INTEGER): HBITMAP;
@@ -13421,16 +13421,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateCompatibleDC* (p0: HDC): HDC;
 	(*END CreateCompatibleDC;*)
 
-	PROCEDURE- CreateDCA* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR (*nil*) p3: DEVMODEA): HDC;
+	PROCEDURE- CreateDCA* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR [nil] p3: DEVMODEA): HDC;
 	(*END CreateDCA;*)
 
-	PROCEDURE- CreateDCW* (p0: PtrWSTR; p1: PtrWSTR; p2: PtrWSTR; VAR (*nil*) p3: DEVMODEW): HDC;
+	PROCEDURE- CreateDCW* (p0: PtrWSTR; p1: PtrWSTR; p2: PtrWSTR; VAR [nil] p3: DEVMODEW): HDC;
 	(*END CreateDCW;*)
 
-	PROCEDURE- CreateDC* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR (*nil*) p3: DEVMODEA): HDC "CreateDCA(p0, p1, p2, p3)";
+	PROCEDURE- CreateDC* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR [nil] p3: DEVMODEA): HDC "CreateDCA(p0, p1, p2, p3)";
 	(*END CreateDC;*)
 
-	PROCEDURE- CreateDIBitmap* (p0: HDC; VAR (*nil*) p1: BITMAPINFOHEADER; p2: INTEGER; p3: PtrVoid; VAR (*nil*) p4: BITMAPINFO; p5: INTEGER): HBITMAP;
+	PROCEDURE- CreateDIBitmap* (p0: HDC; VAR [nil] p1: BITMAPINFOHEADER; p2: INTEGER; p3: PtrVoid; VAR [nil] p4: BITMAPINFO; p5: INTEGER): HBITMAP;
 	(*END CreateDIBitmap;*)
 
 	PROCEDURE- CreateDIBPatternBrush* (p0: HGLOBAL; p1: INTEGER): HBRUSH;
@@ -13442,16 +13442,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateEllipticRgn* (p0: INTEGER; p1: INTEGER; p2: INTEGER; p3: INTEGER): HRGN;
 	(*END CreateEllipticRgn;*)
 
-	PROCEDURE- CreateEllipticRgnIndirect* (VAR (*nil*) p0: RECT): HRGN;
+	PROCEDURE- CreateEllipticRgnIndirect* (VAR [nil] p0: RECT): HRGN;
 	(*END CreateEllipticRgnIndirect;*)
 
-	PROCEDURE- CreateFontIndirectA* (VAR (*nil*) p0: LOGFONTA): HFONT;
+	PROCEDURE- CreateFontIndirectA* (VAR [nil] p0: LOGFONTA): HFONT;
 	(*END CreateFontIndirectA;*)
 
-	PROCEDURE- CreateFontIndirectW* (VAR (*nil*) p0: LOGFONTW): HFONT;
+	PROCEDURE- CreateFontIndirectW* (VAR [nil] p0: LOGFONTW): HFONT;
 	(*END CreateFontIndirectW;*)
 
-	PROCEDURE- CreateFontIndirect* (VAR (*nil*) p0: LOGFONTA): HFONT "CreateFontIndirectA(p0)";
+	PROCEDURE- CreateFontIndirect* (VAR [nil] p0: LOGFONTA): HFONT "CreateFontIndirectA(p0)";
 	(*END CreateFontIndirect;*)
 
 	PROCEDURE- CreateFontA* (p0: INTEGER; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: INTEGER; p10: INTEGER; p11: INTEGER; p12: INTEGER; p13: PtrSTR): HFONT;
@@ -13466,13 +13466,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateHatchBrush* (p0: INTEGER; p1: COLORREF): HBRUSH;
 	(*END CreateHatchBrush;*)
 
-	PROCEDURE- CreateICA* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR (*nil*) p3: DEVMODEA): HDC;
+	PROCEDURE- CreateICA* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR [nil] p3: DEVMODEA): HDC;
 	(*END CreateICA;*)
 
-	PROCEDURE- CreateICW* (p0: PtrWSTR; p1: PtrWSTR; p2: PtrWSTR; VAR (*nil*) p3: DEVMODEW): HDC;
+	PROCEDURE- CreateICW* (p0: PtrWSTR; p1: PtrWSTR; p2: PtrWSTR; VAR [nil] p3: DEVMODEW): HDC;
 	(*END CreateICW;*)
 
-	PROCEDURE- CreateIC* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR (*nil*) p3: DEVMODEA): HDC "CreateICA(p0, p1, p2, p3)";
+	PROCEDURE- CreateIC* (p0: PtrSTR; p1: PtrSTR; p2: PtrSTR; VAR [nil] p3: DEVMODEA): HDC "CreateICA(p0, p1, p2, p3)";
 	(*END CreateIC;*)
 
 	PROCEDURE- CreateMetaFileA* (p0: PtrSTR): HDC;
@@ -13484,16 +13484,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateMetaFile* (p0: PtrSTR): HDC "CreateMetaFileA(p0)";
 	(*END CreateMetaFile;*)
 
-	PROCEDURE- CreatePalette* (VAR (*nil*) p0: LOGPALETTE): HPALETTE;
+	PROCEDURE- CreatePalette* (VAR [nil] p0: LOGPALETTE): HPALETTE;
 	(*END CreatePalette;*)
 
 	PROCEDURE- CreatePen* (p0: INTEGER; p1: INTEGER; p2: COLORREF): HPEN;
 	(*END CreatePen;*)
 
-	PROCEDURE- CreatePenIndirect* (VAR (*nil*) p0: LOGPEN): HPEN;
+	PROCEDURE- CreatePenIndirect* (VAR [nil] p0: LOGPEN): HPEN;
 	(*END CreatePenIndirect;*)
 
-	PROCEDURE- CreatePolyPolygonRgn* (VAR (*nil*) p0: POINT; VAR (*nil*) p1: INTEGER; p2: INTEGER; p3: INTEGER): HRGN;
+	PROCEDURE- CreatePolyPolygonRgn* (VAR [nil] p0: POINT; VAR [nil] p1: INTEGER; p2: INTEGER; p3: INTEGER): HRGN;
 	(*END CreatePolyPolygonRgn;*)
 
 	PROCEDURE- CreatePatternBrush* (p0: HBITMAP): HBRUSH;
@@ -13502,7 +13502,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateRectRgn* (p0: INTEGER; p1: INTEGER; p2: INTEGER; p3: INTEGER): HRGN;
 	(*END CreateRectRgn;*)
 
-	PROCEDURE- CreateRectRgnIndirect* (VAR (*nil*) p0: RECT): HRGN;
+	PROCEDURE- CreateRectRgnIndirect* (VAR [nil] p0: RECT): HRGN;
 	(*END CreateRectRgnIndirect;*)
 
 	PROCEDURE- CreateRoundRectRgn* (p0: INTEGER; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER): HRGN;
@@ -13529,16 +13529,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeleteObject* (p0: HGDIOBJ): BOOL;
 	(*END DeleteObject;*)
 
-	PROCEDURE- DescribePixelFormat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: PIXELFORMATDESCRIPTOR): INTEGER;
+	PROCEDURE- DescribePixelFormat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PIXELFORMATDESCRIPTOR): INTEGER;
 	(*END DescribePixelFormat;*)
 
-	PROCEDURE- DeviceCapabilitiesA* (p0: PtrSTR; p1: PtrSTR; p2: SHORTINT; p3: PtrSTR; VAR (*nil*) p4: DEVMODEA): INTEGER;
+	PROCEDURE- DeviceCapabilitiesA* (p0: PtrSTR; p1: PtrSTR; p2: SHORTINT; p3: PtrSTR; VAR [nil] p4: DEVMODEA): INTEGER;
 	(*END DeviceCapabilitiesA;*)
 
-	PROCEDURE- DeviceCapabilitiesW* (p0: PtrWSTR; p1: PtrWSTR; p2: SHORTINT; p3: PtrWSTR; VAR (*nil*) p4: DEVMODEW): INTEGER;
+	PROCEDURE- DeviceCapabilitiesW* (p0: PtrWSTR; p1: PtrWSTR; p2: SHORTINT; p3: PtrWSTR; VAR [nil] p4: DEVMODEW): INTEGER;
 	(*END DeviceCapabilitiesW;*)
 
-	PROCEDURE- DeviceCapabilities* (p0: PtrSTR; p1: PtrSTR; p2: SHORTINT; p3: PtrSTR; VAR (*nil*) p4: DEVMODEA): INTEGER "DeviceCapabilitiesA(p0, p1, p2, p3, p4)";
+	PROCEDURE- DeviceCapabilities* (p0: PtrSTR; p1: PtrSTR; p2: SHORTINT; p3: PtrSTR; VAR [nil] p4: DEVMODEA): INTEGER "DeviceCapabilitiesA(p0, p1, p2, p3, p4)";
 	(*END DeviceCapabilities;*)
 
 	PROCEDURE- DrawEscape* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: PtrSTR): INTEGER;
@@ -13547,13 +13547,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- Ellipse* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER): BOOL;
 	(*END Ellipse;*)
 
-	PROCEDURE- EnumFontFamiliesExA* (p0: HDC; VAR (*nil*) p1: LOGFONTA; p2: FONTENUMPROCEXA; p3: LPARAM; p4: INTEGER): INTEGER;
+	PROCEDURE- EnumFontFamiliesExA* (p0: HDC; VAR [nil] p1: LOGFONTA; p2: FONTENUMPROCEXA; p3: LPARAM; p4: INTEGER): INTEGER;
 	(*END EnumFontFamiliesExA;*)
 
-	PROCEDURE- EnumFontFamiliesExW* (p0: HDC; VAR (*nil*) p1: LOGFONTW; p2: FONTENUMPROCEXW; p3: LPARAM; p4: INTEGER): INTEGER;
+	PROCEDURE- EnumFontFamiliesExW* (p0: HDC; VAR [nil] p1: LOGFONTW; p2: FONTENUMPROCEXW; p3: LPARAM; p4: INTEGER): INTEGER;
 	(*END EnumFontFamiliesExW;*)
 
-	PROCEDURE- EnumFontFamiliesEx* (p0: HDC; VAR (*nil*) p1: LOGFONTA; p2: FONTENUMPROCEXA; p3: LPARAM; p4: INTEGER): INTEGER "EnumFontFamiliesExA(p0, p1, p2, p3, p4)";
+	PROCEDURE- EnumFontFamiliesEx* (p0: HDC; VAR [nil] p1: LOGFONTA; p2: FONTENUMPROCEXA; p3: LPARAM; p4: INTEGER): INTEGER "EnumFontFamiliesExA(p0, p1, p2, p3, p4)";
 	(*END EnumFontFamiliesEx;*)
 
 	PROCEDURE- EnumFontFamiliesA* (p0: HDC; p1: PtrSTR; p2: NEWFONTENUMPROCA; p3: LPARAM): INTEGER;
@@ -13589,7 +13589,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ExcludeClipRect* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER): INTEGER;
 	(*END ExcludeClipRect;*)
 
-	PROCEDURE- ExtCreateRegion* (VAR (*nil*) p0: XFORM; p1: INTEGER; VAR (*nil*) p2: RGNDATA): HRGN;
+	PROCEDURE- ExtCreateRegion* (VAR [nil] p0: XFORM; p1: INTEGER; VAR [nil] p2: RGNDATA): HRGN;
 	(*END ExtCreateRegion;*)
 
 	PROCEDURE- ExtFloodFill* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: COLORREF; p4: INTEGER): BOOL;
@@ -13607,7 +13607,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetROP2* (p0: HDC): INTEGER;
 	(*END GetROP2;*)
 
-	PROCEDURE- GetAspectRatioFilterEx* (p0: HDC; VAR (*nil*) p1: SIZE): BOOL;
+	PROCEDURE- GetAspectRatioFilterEx* (p0: HDC; VAR [nil] p1: SIZE): BOOL;
 	(*END GetAspectRatioFilterEx;*)
 
 	PROCEDURE- GetBkColor* (p0: HDC): COLORREF;
@@ -13619,61 +13619,61 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetBitmapBits* (p0: HBITMAP; p1: INTEGER; p2: PtrVoid): INTEGER;
 	(*END GetBitmapBits;*)
 
-	PROCEDURE- GetBitmapDimensionEx* (p0: HBITMAP; VAR (*nil*) p1: SIZE): BOOL;
+	PROCEDURE- GetBitmapDimensionEx* (p0: HBITMAP; VAR [nil] p1: SIZE): BOOL;
 	(*END GetBitmapDimensionEx;*)
 
-	PROCEDURE- GetBoundsRect* (p0: HDC; VAR (*nil*) p1: RECT; p2: SET): SET;
+	PROCEDURE- GetBoundsRect* (p0: HDC; VAR [nil] p1: RECT; p2: SET): SET;
 	(*END GetBoundsRect;*)
 
-	PROCEDURE- GetBrushOrgEx* (p0: HDC; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- GetBrushOrgEx* (p0: HDC; VAR [nil] p1: POINT): BOOL;
 	(*END GetBrushOrgEx;*)
 
-	PROCEDURE- GetCharWidthA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: INTEGER): BOOL;
+	PROCEDURE- GetCharWidthA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
 	(*END GetCharWidthA;*)
 
-	PROCEDURE- GetCharWidthW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: (* ARRAY [1] OF *) INTEGER): BOOL;
+	PROCEDURE- GetCharWidthW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END GetCharWidthW;*)
 
-	PROCEDURE- GetCharWidth* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: INTEGER): BOOL "GetCharWidthA(p0, p1, p2, p3)";
+	PROCEDURE- GetCharWidth* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL "GetCharWidthA(p0, p1, p2, p3)";
 	(*END GetCharWidth;*)
 
-	PROCEDURE- GetCharWidth32A* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: INTEGER): BOOL;
+	PROCEDURE- GetCharWidth32A* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL;
 	(*END GetCharWidth32A;*)
 
-	PROCEDURE- GetCharWidth32W* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: (* ARRAY [1] OF *) INTEGER): BOOL;
+	PROCEDURE- GetCharWidth32W* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END GetCharWidth32W;*)
 
-	PROCEDURE- GetCharWidth32* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: INTEGER): BOOL "GetCharWidth32A(p0, p1, p2, p3)";
+	PROCEDURE- GetCharWidth32* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: INTEGER): BOOL "GetCharWidth32A(p0, p1, p2, p3)";
 	(*END GetCharWidth32;*)
 
-	PROCEDURE- GetCharWidthFloatA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SHORTREAL): BOOL;
+	PROCEDURE- GetCharWidthFloatA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SHORTREAL): BOOL;
 	(*END GetCharWidthFloatA;*)
 
-	PROCEDURE- GetCharWidthFloatW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SHORTREAL): BOOL;
+	PROCEDURE- GetCharWidthFloatW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SHORTREAL): BOOL;
 	(*END GetCharWidthFloatW;*)
 
-	PROCEDURE- GetCharWidthFloat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SHORTREAL): BOOL "GetCharWidthFloatA(p0, p1, p2, p3)";
+	PROCEDURE- GetCharWidthFloat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SHORTREAL): BOOL "GetCharWidthFloatA(p0, p1, p2, p3)";
 	(*END GetCharWidthFloat;*)
 
-	PROCEDURE- GetCharABCWidthsA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ABC): BOOL;
+	PROCEDURE- GetCharABCWidthsA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABC): BOOL;
 	(*END GetCharABCWidthsA;*)
 
-	PROCEDURE- GetCharABCWidthsW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: (* ARRAY [1] OF *) ABC): BOOL;
+	PROCEDURE- GetCharABCWidthsW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: (* ARRAY [1] OF *) ABC): BOOL;
 	(*END GetCharABCWidthsW;*)
 
-	PROCEDURE- GetCharABCWidths* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ABC): BOOL "GetCharABCWidthsA(p0, p1, p2, p3)";
+	PROCEDURE- GetCharABCWidths* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABC): BOOL "GetCharABCWidthsA(p0, p1, p2, p3)";
 	(*END GetCharABCWidths;*)
 
-	PROCEDURE- GetCharABCWidthsFloatA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ABCFLOAT): BOOL;
+	PROCEDURE- GetCharABCWidthsFloatA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABCFLOAT): BOOL;
 	(*END GetCharABCWidthsFloatA;*)
 
-	PROCEDURE- GetCharABCWidthsFloatW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ABCFLOAT): BOOL;
+	PROCEDURE- GetCharABCWidthsFloatW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABCFLOAT): BOOL;
 	(*END GetCharABCWidthsFloatW;*)
 
-	PROCEDURE- GetCharABCWidthsFloat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ABCFLOAT): BOOL "GetCharABCWidthsFloatA(p0, p1, p2, p3)";
+	PROCEDURE- GetCharABCWidthsFloat* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ABCFLOAT): BOOL "GetCharABCWidthsFloatA(p0, p1, p2, p3)";
 	(*END GetCharABCWidthsFloat;*)
 
-	PROCEDURE- GetClipBox* (p0: HDC; VAR (*nil*) p1: RECT): INTEGER;
+	PROCEDURE- GetClipBox* (p0: HDC; VAR [nil] p1: RECT): INTEGER;
 	(*END GetClipBox;*)
 
 	PROCEDURE- GetClipRgn* (p0: HDC; p1: HRGN): INTEGER;
@@ -13685,25 +13685,25 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetCurrentObject* (p0: HDC; p1: INTEGER): HGDIOBJ;
 	(*END GetCurrentObject;*)
 
-	PROCEDURE- GetCurrentPositionEx* (p0: HDC; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- GetCurrentPositionEx* (p0: HDC; VAR [nil] p1: POINT): BOOL;
 	(*END GetCurrentPositionEx;*)
 
 	PROCEDURE- GetDeviceCaps* (p0: HDC; p1: INTEGER): INTEGER;
 	(*END GetDeviceCaps;*)
 
-	PROCEDURE- GetDIBits* (p0: HDC; p1: HBITMAP; p2: INTEGER; p3: INTEGER; p4: PtrVoid; VAR (*nil*) p5: BITMAPINFO; p6: INTEGER): INTEGER;
+	PROCEDURE- GetDIBits* (p0: HDC; p1: HBITMAP; p2: INTEGER; p3: INTEGER; p4: PtrVoid; VAR [nil] p5: BITMAPINFO; p6: INTEGER): INTEGER;
 	(*END GetDIBits;*)
 
 	PROCEDURE- GetFontData* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: PtrVoid; p4: INTEGER): INTEGER;
 	(*END GetFontData;*)
 
-	PROCEDURE- GetGlyphOutlineA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR (*nil*) p6: MAT2): INTEGER;
+	PROCEDURE- GetGlyphOutlineA* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR [nil] p6: MAT2): INTEGER;
 	(*END GetGlyphOutlineA;*)
 
-	PROCEDURE- GetGlyphOutlineW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR (*nil*) p6: MAT2): INTEGER;
+	PROCEDURE- GetGlyphOutlineW* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR [nil] p6: MAT2): INTEGER;
 	(*END GetGlyphOutlineW;*)
 
-	PROCEDURE- GetGlyphOutline* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR (*nil*) p6: MAT2): INTEGER "GetGlyphOutlineA(p0, p1, p2, p3, p4, p5, p6)";
+	PROCEDURE- GetGlyphOutline* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: GLYPHMETRICS; p4: INTEGER; p5: PtrVoid; VAR [nil] p6: MAT2): INTEGER "GetGlyphOutlineA(p0, p1, p2, p3, p4, p5, p6)";
 	(*END GetGlyphOutline;*)
 
 	PROCEDURE- GetGraphicsMode* (p0: HDC): INTEGER;
@@ -13712,7 +13712,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetMapMode* (p0: HDC): INTEGER;
 	(*END GetMapMode;*)
 
-	PROCEDURE- GetMetaFileBitsEx* (p0: HMETAFILE; p1: INTEGER; VAR (*nil*) p2: ARRAY [1] OF BYTE): INTEGER;
+	PROCEDURE- GetMetaFileBitsEx* (p0: HMETAFILE; p1: INTEGER; VAR [nil] p2: ARRAY [1] OF BYTE): INTEGER;
 	(*END GetMetaFileBitsEx;*)
 
 	PROCEDURE- GetMetaFileA* (p0: PtrSTR): HMETAFILE;
@@ -13733,16 +13733,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetObjectType* (h: HGDIOBJ): INTEGER;
 	(*END GetObjectType;*)
 
-	PROCEDURE- GetOutlineTextMetricsA* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: OUTLINETEXTMETRICA): INTEGER;
+	PROCEDURE- GetOutlineTextMetricsA* (p0: HDC; p1: INTEGER; VAR [nil] p2: OUTLINETEXTMETRICA): INTEGER;
 	(*END GetOutlineTextMetricsA;*)
 
-	PROCEDURE- GetOutlineTextMetricsW* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: OUTLINETEXTMETRICW): INTEGER;
+	PROCEDURE- GetOutlineTextMetricsW* (p0: HDC; p1: INTEGER; VAR [nil] p2: OUTLINETEXTMETRICW): INTEGER;
 	(*END GetOutlineTextMetricsW;*)
 
-	PROCEDURE- GetOutlineTextMetrics* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: OUTLINETEXTMETRICA): INTEGER "GetOutlineTextMetricsA(p0, p1, p2)";
+	PROCEDURE- GetOutlineTextMetrics* (p0: HDC; p1: INTEGER; VAR [nil] p2: OUTLINETEXTMETRICA): INTEGER "GetOutlineTextMetricsA(p0, p1, p2)";
 	(*END GetOutlineTextMetrics;*)
 
-	PROCEDURE- GetPaletteEntries* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: PALETTEENTRY): INTEGER;
+	PROCEDURE- GetPaletteEntries* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PALETTEENTRY): INTEGER;
 	(*END GetPaletteEntries;*)
 
 	PROCEDURE- GetPixel* (p0: HDC; p1: INTEGER; p2: INTEGER): COLORREF;
@@ -13754,13 +13754,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetPolyFillMode* (p0: HDC): INTEGER;
 	(*END GetPolyFillMode;*)
 
-	PROCEDURE- GetRasterizerCaps* (VAR (*nil*) p0: RASTERIZER_STATUS; p1: INTEGER): BOOL;
+	PROCEDURE- GetRasterizerCaps* (VAR [nil] p0: RASTERIZER_STATUS; p1: INTEGER): BOOL;
 	(*END GetRasterizerCaps;*)
 
-	PROCEDURE- GetRegionData* (p0: HRGN; p1: INTEGER; VAR (*nil*) p2: RGNDATA): INTEGER;
+	PROCEDURE- GetRegionData* (p0: HRGN; p1: INTEGER; VAR [nil] p2: RGNDATA): INTEGER;
 	(*END GetRegionData;*)
 
-	PROCEDURE- GetRgnBox* (p0: HRGN; VAR (*nil*) p1: RECT): INTEGER;
+	PROCEDURE- GetRgnBox* (p0: HRGN; VAR [nil] p1: RECT): INTEGER;
 	(*END GetRgnBox;*)
 
 	PROCEDURE- GetStockObject* (p0: INTEGER): HGDIOBJ;
@@ -13769,7 +13769,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetStretchBltMode* (p0: HDC): INTEGER;
 	(*END GetStretchBltMode;*)
 
-	PROCEDURE- GetSystemPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: PALETTEENTRY): INTEGER;
+	PROCEDURE- GetSystemPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PALETTEENTRY): INTEGER;
 	(*END GetSystemPaletteEntries;*)
 
 	PROCEDURE- GetSystemPaletteUse* (p0: HDC): INTEGER;
@@ -13784,64 +13784,64 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetTextColor* (p0: HDC): COLORREF;
 	(*END GetTextColor;*)
 
-	PROCEDURE- GetTextExtentPointA* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- GetTextExtentPointA* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END GetTextExtentPointA;*)
 
-	PROCEDURE- GetTextExtentPointW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- GetTextExtentPointW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END GetTextExtentPointW;*)
 
-	PROCEDURE- GetTextExtentPoint* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL "GetTextExtentPointA(p0, p1, p2, p3)";
+	PROCEDURE- GetTextExtentPoint* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL "GetTextExtentPointA(p0, p1, p2, p3)";
 	(*END GetTextExtentPoint;*)
 
-	PROCEDURE- GetTextExtentPoint32A* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- GetTextExtentPoint32A* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END GetTextExtentPoint32A;*)
 
-	PROCEDURE- GetTextExtentPoint32W* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- GetTextExtentPoint32W* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END GetTextExtentPoint32W;*)
 
-	PROCEDURE- GetTextExtentPoint32* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL "GetTextExtentPoint32A(p0, p1, p2, p3)";
+	PROCEDURE- GetTextExtentPoint32* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: SIZE): BOOL "GetTextExtentPoint32A(p0, p1, p2, p3)";
 	(*END GetTextExtentPoint32;*)
 
-	PROCEDURE- GetTextExtentExPointA* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: INTEGER; VAR (*nil*) p5: INTEGER; VAR (*nil*) p6: SIZE): BOOL;
+	PROCEDURE- GetTextExtentExPointA* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: INTEGER; VAR [nil] p5: INTEGER; VAR [nil] p6: SIZE): BOOL;
 	(*END GetTextExtentExPointA;*)
 
-	PROCEDURE- GetTextExtentExPointW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: INTEGER; VAR (*nil*) p5: INTEGER; VAR (*nil*) p6: SIZE): BOOL;
+	PROCEDURE- GetTextExtentExPointW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: INTEGER; VAR [nil] p5: INTEGER; VAR [nil] p6: SIZE): BOOL;
 	(*END GetTextExtentExPointW;*)
 
-	PROCEDURE- GetTextExtentExPoint* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: INTEGER; VAR (*nil*) p5: INTEGER; VAR (*nil*) p6: SIZE): BOOL "GetTextExtentExPointA(p0, p1, p2, p3, p4, p5, p6)";
+	PROCEDURE- GetTextExtentExPoint* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: INTEGER; VAR [nil] p5: INTEGER; VAR [nil] p6: SIZE): BOOL "GetTextExtentExPointA(p0, p1, p2, p3, p4, p5, p6)";
 	(*END GetTextExtentExPoint;*)
 
 	PROCEDURE- GetTextCharset* (hdc: HDC): INTEGER;
 	(*END GetTextCharset;*)
 
-	PROCEDURE- GetTextCharsetInfo* (hdc: HDC; VAR (*nil*) lpSig: FONTSIGNATURE; dwFlags: SET): INTEGER;
+	PROCEDURE- GetTextCharsetInfo* (hdc: HDC; VAR [nil] lpSig: FONTSIGNATURE; dwFlags: SET): INTEGER;
 	(*END GetTextCharsetInfo;*)
 
-	PROCEDURE- TranslateCharsetInfo* (VAR (*nil*) lpSrc: INTEGER; VAR (*nil*) lpCs: CHARSETINFO; dwFlags: SET): BOOL;
+	PROCEDURE- TranslateCharsetInfo* (VAR [nil] lpSrc: INTEGER; VAR [nil] lpCs: CHARSETINFO; dwFlags: SET): BOOL;
 	(*END TranslateCharsetInfo;*)
 
 	PROCEDURE- GetFontLanguageInfo* (p0: HDC): SET;
 	(*END GetFontLanguageInfo;*)
 
-	PROCEDURE- GetCharacterPlacementA* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: GCP_RESULTSA; p5: INTEGER): INTEGER;
+	PROCEDURE- GetCharacterPlacementA* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: GCP_RESULTSA; p5: INTEGER): INTEGER;
 	(*END GetCharacterPlacementA;*)
 
-	PROCEDURE- GetCharacterPlacementW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: GCP_RESULTSW; p5: INTEGER): INTEGER;
+	PROCEDURE- GetCharacterPlacementW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: GCP_RESULTSW; p5: INTEGER): INTEGER;
 	(*END GetCharacterPlacementW;*)
 
-	PROCEDURE- GetCharacterPlacement* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: GCP_RESULTSA; p5: INTEGER): INTEGER "GetCharacterPlacementA(p0, p1, p2, p3, p4, p5)";
+	PROCEDURE- GetCharacterPlacement* (p0: HDC; p1: PtrSTR; p2: INTEGER; p3: INTEGER; VAR [nil] p4: GCP_RESULTSA; p5: INTEGER): INTEGER "GetCharacterPlacementA(p0, p1, p2, p3, p4, p5)";
 	(*END GetCharacterPlacement;*)
 
-	PROCEDURE- GetViewportExtEx* (p0: HDC; VAR (*nil*) p1: SIZE): BOOL;
+	PROCEDURE- GetViewportExtEx* (p0: HDC; VAR [nil] p1: SIZE): BOOL;
 	(*END GetViewportExtEx;*)
 
-	PROCEDURE- GetViewportOrgEx* (p0: HDC; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- GetViewportOrgEx* (p0: HDC; VAR [nil] p1: POINT): BOOL;
 	(*END GetViewportOrgEx;*)
 
-	PROCEDURE- GetWindowExtEx* (p0: HDC; VAR (*nil*) p1: SIZE): BOOL;
+	PROCEDURE- GetWindowExtEx* (p0: HDC; VAR [nil] p1: SIZE): BOOL;
 	(*END GetWindowExtEx;*)
 
-	PROCEDURE- GetWindowOrgEx* (p0: HDC; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- GetWindowOrgEx* (p0: HDC; VAR [nil] p1: POINT): BOOL;
 	(*END GetWindowOrgEx;*)
 
 	PROCEDURE- IntersectClipRect* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER): INTEGER;
@@ -13859,7 +13859,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- MaskBlt* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: HDC; p6: INTEGER; p7: INTEGER; p8: HBITMAP; p9: INTEGER; p10: INTEGER; p11: INTEGER): BOOL;
 	(*END MaskBlt;*)
 
-	PROCEDURE- PlgBlt* (p0: HDC; VAR (*nil*) p1: POINT; p2: HDC; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: HBITMAP; p8: INTEGER; p9: INTEGER): BOOL;
+	PROCEDURE- PlgBlt* (p0: HDC; VAR [nil] p1: POINT; p2: HDC; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: HBITMAP; p8: INTEGER; p9: INTEGER): BOOL;
 	(*END PlgBlt;*)
 
 	PROCEDURE- OffsetClipRgn* (p0: HDC; p1: INTEGER; p2: INTEGER): INTEGER;
@@ -13880,7 +13880,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PaintRgn* (p0: HDC; p1: HRGN): BOOL;
 	(*END PaintRgn;*)
 
-	PROCEDURE- PolyPolygon* (p0: HDC; VAR (*nil*) p1: POINT; VAR (*nil*) p2: INTEGER; p3: INTEGER): BOOL;
+	PROCEDURE- PolyPolygon* (p0: HDC; VAR [nil] p1: POINT; VAR [nil] p2: INTEGER; p3: INTEGER): BOOL;
 	(*END PolyPolygon;*)
 
 	PROCEDURE- PtInRegion* (p0: HRGN; p1: INTEGER; p2: INTEGER): BOOL;
@@ -13889,10 +13889,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PtVisible* (p0: HDC; p1: INTEGER; p2: INTEGER): BOOL;
 	(*END PtVisible;*)
 
-	PROCEDURE- RectInRegion* (p0: HRGN; VAR (*nil*) p1: RECT): BOOL;
+	PROCEDURE- RectInRegion* (p0: HRGN; VAR [nil] p1: RECT): BOOL;
 	(*END RectInRegion;*)
 
-	PROCEDURE- RectVisible* (p0: HDC; VAR (*nil*) p1: RECT): BOOL;
+	PROCEDURE- RectVisible* (p0: HDC; VAR [nil] p1: RECT): BOOL;
 	(*END RectVisible;*)
 
 	PROCEDURE- Rectangle* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER): BOOL;
@@ -13901,13 +13901,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RestoreDC* (p0: HDC; p1: INTEGER): BOOL;
 	(*END RestoreDC;*)
 
-	PROCEDURE- ResetDCA* (p0: HDC; VAR (*nil*) p1: DEVMODEA): HDC;
+	PROCEDURE- ResetDCA* (p0: HDC; VAR [nil] p1: DEVMODEA): HDC;
 	(*END ResetDCA;*)
 
-	PROCEDURE- ResetDCW* (p0: HDC; VAR (*nil*) p1: DEVMODEW): HDC;
+	PROCEDURE- ResetDCW* (p0: HDC; VAR [nil] p1: DEVMODEW): HDC;
 	(*END ResetDCW;*)
 
-	PROCEDURE- ResetDC* (p0: HDC; VAR (*nil*) p1: DEVMODEA): HDC "ResetDCA(p0, p1)";
+	PROCEDURE- ResetDC* (p0: HDC; VAR [nil] p1: DEVMODEA): HDC "ResetDCA(p0, p1)";
 	(*END ResetDC;*)
 
 	PROCEDURE- RealizePalette* (p0: HDC): INTEGER;
@@ -13955,13 +13955,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetBitmapBits* (p0: HBITMAP; p1: INTEGER; p2: PtrVoid): INTEGER;
 	(*END SetBitmapBits;*)
 
-	PROCEDURE- SetBoundsRect* (p0: HDC; VAR (*nil*) p1: RECT; p2: SET): SET;
+	PROCEDURE- SetBoundsRect* (p0: HDC; VAR [nil] p1: RECT; p2: SET): SET;
 	(*END SetBoundsRect;*)
 
-	PROCEDURE- SetDIBits* (p0: HDC; p1: HBITMAP; p2: INTEGER; p3: INTEGER; p4: PtrVoid; VAR (*nil*) p5: BITMAPINFO; p6: INTEGER): INTEGER;
+	PROCEDURE- SetDIBits* (p0: HDC; p1: HBITMAP; p2: INTEGER; p3: INTEGER; p4: PtrVoid; VAR [nil] p5: BITMAPINFO; p6: INTEGER): INTEGER;
 	(*END SetDIBits;*)
 
-	PROCEDURE- SetDIBitsToDevice* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: PtrVoid; VAR (*nil*) p10: BITMAPINFO; p11: INTEGER): INTEGER;
+	PROCEDURE- SetDIBitsToDevice* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: PtrVoid; VAR [nil] p10: BITMAPINFO; p11: INTEGER): INTEGER;
 	(*END SetDIBitsToDevice;*)
 
 	PROCEDURE- SetMapperFlags* (p0: HDC; p1: INTEGER): INTEGER;
@@ -13973,10 +13973,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetMapMode* (p0: HDC; p1: INTEGER): INTEGER;
 	(*END SetMapMode;*)
 
-	PROCEDURE- SetMetaFileBitsEx* (p0: INTEGER; VAR (*nil*) p1: ARRAY [1] OF BYTE): HMETAFILE;
+	PROCEDURE- SetMetaFileBitsEx* (p0: INTEGER; VAR [nil] p1: ARRAY [1] OF BYTE): HMETAFILE;
 	(*END SetMetaFileBitsEx;*)
 
-	PROCEDURE- SetPaletteEntries* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: PALETTEENTRY): INTEGER;
+	PROCEDURE- SetPaletteEntries* (p0: HPALETTE; p1: INTEGER; p2: INTEGER; VAR [nil] p3: PALETTEENTRY): INTEGER;
 	(*END SetPaletteEntries;*)
 
 	PROCEDURE- SetPixel* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: COLORREF): COLORREF;
@@ -13985,7 +13985,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetPixelV* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: COLORREF): BOOL;
 	(*END SetPixelV;*)
 
-	PROCEDURE- SetPixelFormat* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: PIXELFORMATDESCRIPTOR): BOOL;
+	PROCEDURE- SetPixelFormat* (p0: HDC; p1: INTEGER; VAR [nil] p2: PIXELFORMATDESCRIPTOR): BOOL;
 	(*END SetPixelFormat;*)
 
 	PROCEDURE- SetPolyFillMode* (p0: HDC; p1: INTEGER): INTEGER;
@@ -13997,7 +13997,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetRectRgn* (p0: HRGN; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER): BOOL;
 	(*END SetRectRgn;*)
 
-	PROCEDURE- StretchDIBits* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: PtrVoid; VAR (*nil*) p10: BITMAPINFO; p11: INTEGER; p12: INTEGER): INTEGER;
+	PROCEDURE- StretchDIBits* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: PtrVoid; VAR [nil] p10: BITMAPINFO; p11: INTEGER; p12: INTEGER): INTEGER;
 	(*END StretchDIBits;*)
 
 	PROCEDURE- SetROP2* (p0: HDC; p1: INTEGER): INTEGER;
@@ -14024,7 +14024,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- UpdateColors* (p0: HDC): BOOL;
 	(*END UpdateColors;*)
 
-	PROCEDURE- PlayMetaFileRecord* (p0: HDC; VAR (*nil*) p1: HANDLETABLE; VAR (*nil*) p2: METARECORD; p3: INTEGER): BOOL;
+	PROCEDURE- PlayMetaFileRecord* (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: METARECORD; p3: INTEGER): BOOL;
 	(*END PlayMetaFileRecord;*)
 
 	PROCEDURE- EnumMetaFile* (p0: HDC; p1: HMETAFILE; p2: MFENUMPROC; p3: LPARAM): BOOL;
@@ -14042,19 +14042,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CopyEnhMetaFile* (p0: HENHMETAFILE; p1: PtrSTR): HENHMETAFILE "CopyEnhMetaFileA(p0, p1)";
 	(*END CopyEnhMetaFile;*)
 
-	PROCEDURE- CreateEnhMetaFileA* (p0: HDC; p1: PtrSTR; VAR (*nil*) p2: RECT; p3: PtrSTR): HDC;
+	PROCEDURE- CreateEnhMetaFileA* (p0: HDC; p1: PtrSTR; VAR [nil] p2: RECT; p3: PtrSTR): HDC;
 	(*END CreateEnhMetaFileA;*)
 
-	PROCEDURE- CreateEnhMetaFileW* (p0: HDC; p1: PtrWSTR; VAR (*nil*) p2: RECT; p3: PtrWSTR): HDC;
+	PROCEDURE- CreateEnhMetaFileW* (p0: HDC; p1: PtrWSTR; VAR [nil] p2: RECT; p3: PtrWSTR): HDC;
 	(*END CreateEnhMetaFileW;*)
 
-	PROCEDURE- CreateEnhMetaFile* (p0: HDC; p1: PtrSTR; VAR (*nil*) p2: RECT; p3: PtrSTR): HDC "CreateEnhMetaFileA(p0, p1, p2, p3)";
+	PROCEDURE- CreateEnhMetaFile* (p0: HDC; p1: PtrSTR; VAR [nil] p2: RECT; p3: PtrSTR): HDC "CreateEnhMetaFileA(p0, p1, p2, p3)";
 	(*END CreateEnhMetaFile;*)
 
 	PROCEDURE- DeleteEnhMetaFile* (p0: HENHMETAFILE): BOOL;
 	(*END DeleteEnhMetaFile;*)
 
-	PROCEDURE- EnumEnhMetaFile* (p0: HDC; p1: HENHMETAFILE; p2: ENHMFENUMPROC; p3: PtrVoid; VAR (*nil*) p4: RECT): BOOL;
+	PROCEDURE- EnumEnhMetaFile* (p0: HDC; p1: HENHMETAFILE; p2: ENHMFENUMPROC; p3: PtrVoid; VAR [nil] p4: RECT): BOOL;
 	(*END EnumEnhMetaFile;*)
 
 	PROCEDURE- GetEnhMetaFileA* (p0: PtrSTR): HENHMETAFILE;
@@ -14066,7 +14066,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetEnhMetaFile* (p0: PtrSTR): HENHMETAFILE "GetEnhMetaFileA(p0)";
 	(*END GetEnhMetaFile;*)
 
-	PROCEDURE- GetEnhMetaFileBits* (p0: HENHMETAFILE; p1: INTEGER; VAR (*nil*) p2: SHORTCHAR): INTEGER;
+	PROCEDURE- GetEnhMetaFileBits* (p0: HENHMETAFILE; p1: INTEGER; VAR [nil] p2: SHORTCHAR): INTEGER;
 	(*END GetEnhMetaFileBits;*)
 
 	PROCEDURE- GetEnhMetaFileDescriptionA* (p0: HENHMETAFILE; p1: INTEGER; p2: PtrSTR): INTEGER;
@@ -14078,85 +14078,85 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetEnhMetaFileDescription* (p0: HENHMETAFILE; p1: INTEGER; p2: PtrSTR): INTEGER "GetEnhMetaFileDescriptionA(p0, p1, p2)";
 	(*END GetEnhMetaFileDescription;*)
 
-	PROCEDURE- GetEnhMetaFileHeader* (p0: HENHMETAFILE; p1: INTEGER; VAR (*nil*) p2: ENHMETAHEADER): INTEGER;
+	PROCEDURE- GetEnhMetaFileHeader* (p0: HENHMETAFILE; p1: INTEGER; VAR [nil] p2: ENHMETAHEADER): INTEGER;
 	(*END GetEnhMetaFileHeader;*)
 
-	PROCEDURE- GetEnhMetaFilePaletteEntries* (p0: HENHMETAFILE; p1: INTEGER; VAR (*nil*) p2: PALETTEENTRY): INTEGER;
+	PROCEDURE- GetEnhMetaFilePaletteEntries* (p0: HENHMETAFILE; p1: INTEGER; VAR [nil] p2: PALETTEENTRY): INTEGER;
 	(*END GetEnhMetaFilePaletteEntries;*)
 
-	PROCEDURE- GetEnhMetaFilePixelFormat* (p0: HENHMETAFILE; p1: INTEGER; VAR (*nil*) p2: PIXELFORMATDESCRIPTOR): INTEGER;
+	PROCEDURE- GetEnhMetaFilePixelFormat* (p0: HENHMETAFILE; p1: INTEGER; VAR [nil] p2: PIXELFORMATDESCRIPTOR): INTEGER;
 	(*END GetEnhMetaFilePixelFormat;*)
 
-	PROCEDURE- GetWinMetaFileBits* (p0: HENHMETAFILE; p1: INTEGER; VAR (*nil*) p2: SHORTCHAR; p3: INTEGER; p4: HDC): INTEGER;
+	PROCEDURE- GetWinMetaFileBits* (p0: HENHMETAFILE; p1: INTEGER; VAR [nil] p2: SHORTCHAR; p3: INTEGER; p4: HDC): INTEGER;
 	(*END GetWinMetaFileBits;*)
 
-	PROCEDURE- PlayEnhMetaFile* (p0: HDC; p1: HENHMETAFILE; VAR (*nil*) p2: RECT): BOOL;
+	PROCEDURE- PlayEnhMetaFile* (p0: HDC; p1: HENHMETAFILE; VAR [nil] p2: RECT): BOOL;
 	(*END PlayEnhMetaFile;*)
 
-	PROCEDURE- PlayEnhMetaFileRecord* (p0: HDC; VAR (*nil*) p1: HANDLETABLE; VAR (*nil*) p2: ENHMETARECORD; p3: INTEGER): BOOL;
+	PROCEDURE- PlayEnhMetaFileRecord* (p0: HDC; VAR [nil] p1: HANDLETABLE; VAR [nil] p2: ENHMETARECORD; p3: INTEGER): BOOL;
 	(*END PlayEnhMetaFileRecord;*)
 
-	PROCEDURE- SetEnhMetaFileBits* (p0: INTEGER; VAR (*nil*) p1: SHORTCHAR): HENHMETAFILE;
+	PROCEDURE- SetEnhMetaFileBits* (p0: INTEGER; VAR [nil] p1: SHORTCHAR): HENHMETAFILE;
 	(*END SetEnhMetaFileBits;*)
 
-	PROCEDURE- SetWinMetaFileBits* (p0: INTEGER; VAR (*nil*) p1: SHORTCHAR; p2: HDC; VAR (*nil*) p3: METAFILEPICT): HENHMETAFILE;
+	PROCEDURE- SetWinMetaFileBits* (p0: INTEGER; VAR [nil] p1: SHORTCHAR; p2: HDC; VAR [nil] p3: METAFILEPICT): HENHMETAFILE;
 	(*END SetWinMetaFileBits;*)
 
-	PROCEDURE- GdiComment* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: SHORTCHAR): BOOL;
+	PROCEDURE- GdiComment* (p0: HDC; p1: INTEGER; VAR [nil] p2: SHORTCHAR): BOOL;
 	(*END GdiComment;*)
 
-	PROCEDURE- GetTextMetricsA* (p0: HDC; VAR (*nil*) p1: TEXTMETRICA): BOOL;
+	PROCEDURE- GetTextMetricsA* (p0: HDC; VAR [nil] p1: TEXTMETRICA): BOOL;
 	(*END GetTextMetricsA;*)
 
-	PROCEDURE- GetTextMetricsW* (p0: HDC; VAR (*nil*) p1: TEXTMETRICW): BOOL;
+	PROCEDURE- GetTextMetricsW* (p0: HDC; VAR [nil] p1: TEXTMETRICW): BOOL;
 	(*END GetTextMetricsW;*)
 
-	PROCEDURE- GetTextMetrics* (p0: HDC; VAR (*nil*) p1: TEXTMETRICA): BOOL "GetTextMetricsA(p0, p1)";
+	PROCEDURE- GetTextMetrics* (p0: HDC; VAR [nil] p1: TEXTMETRICA): BOOL "GetTextMetricsA(p0, p1)";
 	(*END GetTextMetrics;*)
 
 	PROCEDURE- AngleArc* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL): BOOL;
 	(*END AngleArc;*)
 
-	PROCEDURE- PolyPolyline* (p0: HDC; VAR (*nil*) p1: POINT; VAR (*nil*) p2: INTEGER; p3: INTEGER): BOOL;
+	PROCEDURE- PolyPolyline* (p0: HDC; VAR [nil] p1: POINT; VAR [nil] p2: INTEGER; p3: INTEGER): BOOL;
 	(*END PolyPolyline;*)
 
-	PROCEDURE- GetWorldTransform* (p0: HDC; VAR (*nil*) p1: XFORM): BOOL;
+	PROCEDURE- GetWorldTransform* (p0: HDC; VAR [nil] p1: XFORM): BOOL;
 	(*END GetWorldTransform;*)
 
-	PROCEDURE- SetWorldTransform* (p0: HDC; VAR (*nil*) p1: XFORM): BOOL;
+	PROCEDURE- SetWorldTransform* (p0: HDC; VAR [nil] p1: XFORM): BOOL;
 	(*END SetWorldTransform;*)
 
-	PROCEDURE- ModifyWorldTransform* (p0: HDC; VAR (*nil*) p1: XFORM; p2: INTEGER): BOOL;
+	PROCEDURE- ModifyWorldTransform* (p0: HDC; VAR [nil] p1: XFORM; p2: INTEGER): BOOL;
 	(*END ModifyWorldTransform;*)
 
-	PROCEDURE- CombineTransform* (VAR (*nil*) p0: XFORM; VAR (*nil*) p1: XFORM; VAR (*nil*) p2: XFORM): BOOL;
+	PROCEDURE- CombineTransform* (VAR [nil] p0: XFORM; VAR [nil] p1: XFORM; VAR [nil] p2: XFORM): BOOL;
 	(*END CombineTransform;*)
 
-	PROCEDURE- CreateDIBSection* (p0: HDC; VAR (*nil*) p1: BITMAPINFO; p2: INTEGER; VAR (*nil*) p3: PtrVoid; p4: HANDLE; p5: INTEGER): HBITMAP;
+	PROCEDURE- CreateDIBSection* (p0: HDC; VAR [nil] p1: BITMAPINFO; p2: INTEGER; VAR [nil] p3: PtrVoid; p4: HANDLE; p5: INTEGER): HBITMAP;
 	(*END CreateDIBSection;*)
 
-	PROCEDURE- GetDIBColorTable* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: RGBQUAD): INTEGER;
+	PROCEDURE- GetDIBColorTable* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: RGBQUAD): INTEGER;
 	(*END GetDIBColorTable;*)
 
-	PROCEDURE- SetDIBColorTable* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: ARRAY OF RGBQUAD): INTEGER;
+	PROCEDURE- SetDIBColorTable* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: ARRAY OF RGBQUAD): INTEGER;
 	(*END SetDIBColorTable;*)
 
-	PROCEDURE- SetColorAdjustment* (p0: HDC; VAR (*nil*) p1: COLORADJUSTMENT): BOOL;
+	PROCEDURE- SetColorAdjustment* (p0: HDC; VAR [nil] p1: COLORADJUSTMENT): BOOL;
 	(*END SetColorAdjustment;*)
 
-	PROCEDURE- GetColorAdjustment* (p0: HDC; VAR (*nil*) p1: COLORADJUSTMENT): BOOL;
+	PROCEDURE- GetColorAdjustment* (p0: HDC; VAR [nil] p1: COLORADJUSTMENT): BOOL;
 	(*END GetColorAdjustment;*)
 
 	PROCEDURE- CreateHalftonePalette* (p0: HDC): HPALETTE;
 	(*END CreateHalftonePalette;*)
 
-	PROCEDURE- StartDocA* (p0: HDC; VAR (*nil*) p1: DOCINFOA): INTEGER;
+	PROCEDURE- StartDocA* (p0: HDC; VAR [nil] p1: DOCINFOA): INTEGER;
 	(*END StartDocA;*)
 
-	PROCEDURE- StartDocW* (p0: HDC; VAR (*nil*) p1: DOCINFOW): INTEGER;
+	PROCEDURE- StartDocW* (p0: HDC; VAR [nil] p1: DOCINFOW): INTEGER;
 	(*END StartDocW;*)
 
-	PROCEDURE- StartDoc* (p0: HDC; VAR (*nil*) p1: DOCINFOA): INTEGER "StartDocA(p0, p1)";
+	PROCEDURE- StartDoc* (p0: HDC; VAR [nil] p1: DOCINFOA): INTEGER "StartDocA(p0, p1)";
 	(*END StartDoc;*)
 
 	PROCEDURE- EndDoc* (p0: HDC): INTEGER;
@@ -14195,13 +14195,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FlattenPath* (p0: HDC): BOOL;
 	(*END FlattenPath;*)
 
-	PROCEDURE- GetPath* (p0: HDC; VAR (*nil*) p1: POINT; VAR (*nil*) p2: SHORTCHAR; p3: INTEGER): INTEGER;
+	PROCEDURE- GetPath* (p0: HDC; VAR [nil] p1: POINT; VAR [nil] p2: SHORTCHAR; p3: INTEGER): INTEGER;
 	(*END GetPath;*)
 
 	PROCEDURE- PathToRegion* (p0: HDC): HRGN;
 	(*END PathToRegion;*)
 
-	PROCEDURE- PolyDraw* (p0: HDC; VAR (*nil*) p1: POINT; VAR (*nil*) p2: SHORTCHAR; p3: INTEGER): BOOL;
+	PROCEDURE- PolyDraw* (p0: HDC; VAR [nil] p1: POINT; VAR [nil] p2: SHORTCHAR; p3: INTEGER): BOOL;
 	(*END PolyDraw;*)
 
 	PROCEDURE- SelectClipPath* (p0: HDC; p1: INTEGER): BOOL;
@@ -14210,7 +14210,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetArcDirection* (p0: HDC; p1: INTEGER): INTEGER;
 	(*END SetArcDirection;*)
 
-	PROCEDURE- SetMiterLimit* (p0: HDC; p1: SHORTREAL; VAR (*nil*) p2: SHORTREAL): BOOL;
+	PROCEDURE- SetMiterLimit* (p0: HDC; p1: SHORTREAL; VAR [nil] p2: SHORTREAL): BOOL;
 	(*END SetMiterLimit;*)
 
 	PROCEDURE- StrokeAndFillPath* (p0: HDC): BOOL;
@@ -14222,10 +14222,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- WidenPath* (p0: HDC): BOOL;
 	(*END WidenPath;*)
 
-	PROCEDURE- ExtCreatePen* (p0: INTEGER; p1: INTEGER; VAR (*nil*) p2: LOGBRUSH; p3: INTEGER; VAR (*nil*) p4: INTEGER): HPEN;
+	PROCEDURE- ExtCreatePen* (p0: INTEGER; p1: INTEGER; VAR [nil] p2: LOGBRUSH; p3: INTEGER; VAR [nil] p4: INTEGER): HPEN;
 	(*END ExtCreatePen;*)
 
-	PROCEDURE- GetMiterLimit* (p0: HDC; VAR (*nil*) p1: SHORTREAL): BOOL;
+	PROCEDURE- GetMiterLimit* (p0: HDC; VAR [nil] p1: SHORTREAL): BOOL;
 	(*END GetMiterLimit;*)
 
 	PROCEDURE- GetArcDirection* (p0: HDC): INTEGER;
@@ -14240,7 +14240,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetObject* (p0: HGDIOBJ; p1: INTEGER; p2: PtrVoid): INTEGER "GetObjectA(p0, p1, p2)";
 	(*END GetObject;*)
 
-	PROCEDURE- MoveToEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- MoveToEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END MoveToEx;*)
 
 	PROCEDURE- TextOutA* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: PtrSTR; p4: INTEGER): BOOL;
@@ -14252,76 +14252,76 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- TextOut* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: PtrSTR; p4: INTEGER): BOOL "TextOutA(p0, p1, p2, p3, p4)";
 	(*END TextOut;*)
 
-	PROCEDURE- ExtTextOutA* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: RECT; p5: PtrSTR; p6: INTEGER; VAR (*nil*) p7: (* ARRAY [1] OF *) INTEGER): BOOL;
+	PROCEDURE- ExtTextOutA* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END ExtTextOutA;*)
 
-	PROCEDURE- ExtTextOutW* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: RECT; p5: PtrWSTR; p6: INTEGER; VAR (*nil*) p7: (* ARRAY [1] OF *) INTEGER): BOOL;
+	PROCEDURE- ExtTextOutW* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrWSTR; p6: INTEGER; VAR [nil] p7: (* ARRAY [1] OF *) INTEGER): BOOL;
 	(*END ExtTextOutW;*)
 
-	PROCEDURE- ExtTextOut* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: RECT; p5: PtrSTR; p6: INTEGER; VAR (*nil*) p7: INTEGER): BOOL "ExtTextOutA(p0, p1, p2, p3, p4, p5, p6, p7)";
+	PROCEDURE- ExtTextOut* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: RECT; p5: PtrSTR; p6: INTEGER; VAR [nil] p7: INTEGER): BOOL "ExtTextOutA(p0, p1, p2, p3, p4, p5, p6, p7)";
 	(*END ExtTextOut;*)
 
-	PROCEDURE- PolyTextOutA* (p0: HDC; VAR (*nil*) p1: POLYTEXTA; p2: INTEGER): BOOL;
+	PROCEDURE- PolyTextOutA* (p0: HDC; VAR [nil] p1: POLYTEXTA; p2: INTEGER): BOOL;
 	(*END PolyTextOutA;*)
 
-	PROCEDURE- PolyTextOutW* (p0: HDC; VAR (*nil*) p1: POLYTEXTW; p2: INTEGER): BOOL;
+	PROCEDURE- PolyTextOutW* (p0: HDC; VAR [nil] p1: POLYTEXTW; p2: INTEGER): BOOL;
 	(*END PolyTextOutW;*)
 
-	PROCEDURE- PolyTextOut* (p0: HDC; VAR (*nil*) p1: POLYTEXTA; p2: INTEGER): BOOL "PolyTextOutA(p0, p1, p2)";
+	PROCEDURE- PolyTextOut* (p0: HDC; VAR [nil] p1: POLYTEXTA; p2: INTEGER): BOOL "PolyTextOutA(p0, p1, p2)";
 	(*END PolyTextOut;*)
 
-	PROCEDURE- CreatePolygonRgn* (VAR (*nil*) p0: POINT; p1: INTEGER; p2: INTEGER): HRGN;
+	PROCEDURE- CreatePolygonRgn* (VAR [nil] p0: POINT; p1: INTEGER; p2: INTEGER): HRGN;
 	(*END CreatePolygonRgn;*)
 
-	PROCEDURE- DPtoLP* (p0: HDC; VAR (*nil*) p1: POINT; p2: INTEGER): BOOL;
+	PROCEDURE- DPtoLP* (p0: HDC; VAR [nil] p1: POINT; p2: INTEGER): BOOL;
 	(*END DPtoLP;*)
 
-	PROCEDURE- LPtoDP* (p0: HDC; VAR (*nil*) p1: POINT; p2: INTEGER): BOOL;
+	PROCEDURE- LPtoDP* (p0: HDC; VAR [nil] p1: POINT; p2: INTEGER): BOOL;
 	(*END LPtoDP;*)
 
-	PROCEDURE- Polygon* (p0: HDC; VAR (*nil*) p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE- Polygon* (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END Polygon;*)
 
-	PROCEDURE- Polyline* (p0: HDC; VAR (*nil*) p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE- Polyline* (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END Polyline;*)
 
-	PROCEDURE- PolyBezier* (p0: HDC; VAR (*nil*) p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE- PolyBezier* (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolyBezier;*)
 
-	PROCEDURE- PolyBezierTo* (p0: HDC; VAR (*nil*) p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE- PolyBezierTo* (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolyBezierTo;*)
 
-	PROCEDURE- PolylineTo* (p0: HDC; VAR (*nil*) p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
+	PROCEDURE- PolylineTo* (p0: HDC; VAR [nil] p1: (* ARRAY [1] OF *) POINT; p2: INTEGER): BOOL;
 	(*END PolylineTo;*)
 
-	PROCEDURE- SetViewportExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- SetViewportExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END SetViewportExtEx;*)
 
-	PROCEDURE- SetViewportOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- SetViewportOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END SetViewportOrgEx;*)
 
-	PROCEDURE- SetWindowExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- SetWindowExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END SetWindowExtEx;*)
 
-	PROCEDURE- SetWindowOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- SetWindowOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END SetWindowOrgEx;*)
 
-	PROCEDURE- OffsetViewportOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- OffsetViewportOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END OffsetViewportOrgEx;*)
 
-	PROCEDURE- OffsetWindowOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- OffsetWindowOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END OffsetWindowOrgEx;*)
 
-	PROCEDURE- ScaleViewportExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; VAR (*nil*) p5: SIZE): BOOL;
+	PROCEDURE- ScaleViewportExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; VAR [nil] p5: SIZE): BOOL;
 	(*END ScaleViewportExtEx;*)
 
-	PROCEDURE- ScaleWindowExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; VAR (*nil*) p5: SIZE): BOOL;
+	PROCEDURE- ScaleWindowExtEx* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: INTEGER; VAR [nil] p5: SIZE): BOOL;
 	(*END ScaleWindowExtEx;*)
 
-	PROCEDURE- SetBitmapDimensionEx* (p0: HBITMAP; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: SIZE): BOOL;
+	PROCEDURE- SetBitmapDimensionEx* (p0: HBITMAP; p1: INTEGER; p2: INTEGER; VAR [nil] p3: SIZE): BOOL;
 	(*END SetBitmapDimensionEx;*)
 
-	PROCEDURE- SetBrushOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- SetBrushOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END SetBrushOrgEx;*)
 
 	PROCEDURE- GetTextFaceA* (p0: HDC; p1: INTEGER; p2: PtrSTR): INTEGER;
@@ -14333,19 +14333,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetTextFace* (p0: HDC; p1: INTEGER; p2: PtrSTR): INTEGER "GetTextFaceA(p0, p1, p2)";
 	(*END GetTextFace;*)
 
-	PROCEDURE- GetKerningPairsA* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: KERNINGPAIR): INTEGER;
+	PROCEDURE- GetKerningPairsA* (p0: HDC; p1: INTEGER; VAR [nil] p2: KERNINGPAIR): INTEGER;
 	(*END GetKerningPairsA;*)
 
-	PROCEDURE- GetKerningPairsW* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: KERNINGPAIR): INTEGER;
+	PROCEDURE- GetKerningPairsW* (p0: HDC; p1: INTEGER; VAR [nil] p2: KERNINGPAIR): INTEGER;
 	(*END GetKerningPairsW;*)
 
-	PROCEDURE- GetKerningPairs* (p0: HDC; p1: INTEGER; VAR (*nil*) p2: KERNINGPAIR): INTEGER "GetKerningPairsA(p0, p1, p2)";
+	PROCEDURE- GetKerningPairs* (p0: HDC; p1: INTEGER; VAR [nil] p2: KERNINGPAIR): INTEGER "GetKerningPairsA(p0, p1, p2)";
 	(*END GetKerningPairs;*)
 
-	PROCEDURE- GetDCOrgEx* (p0: HDC; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- GetDCOrgEx* (p0: HDC; VAR [nil] p1: POINT): BOOL;
 	(*END GetDCOrgEx;*)
 
-	PROCEDURE- FixBrushOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR (*nil*) p3: POINT): BOOL;
+	PROCEDURE- FixBrushOrgEx* (p0: HDC; p1: INTEGER; p2: INTEGER; VAR [nil] p3: POINT): BOOL;
 	(*END FixBrushOrgEx;*)
 
 	PROCEDURE- UnrealizeObject* (p0: HGDIOBJ): BOOL;
@@ -14369,22 +14369,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetColorSpace* (p0: HDC): HANDLE;
 	(*END GetColorSpace;*)
 
-	PROCEDURE- GetLogColorSpaceA* (p0: HCOLORSPACE; VAR (*nil*) p1: LOGCOLORSPACEA; p2: INTEGER): BOOL;
+	PROCEDURE- GetLogColorSpaceA* (p0: HCOLORSPACE; VAR [nil] p1: LOGCOLORSPACEA; p2: INTEGER): BOOL;
 	(*END GetLogColorSpaceA;*)
 
-	PROCEDURE- GetLogColorSpaceW* (p0: HCOLORSPACE; VAR (*nil*) p1: LOGCOLORSPACEW; p2: INTEGER): BOOL;
+	PROCEDURE- GetLogColorSpaceW* (p0: HCOLORSPACE; VAR [nil] p1: LOGCOLORSPACEW; p2: INTEGER): BOOL;
 	(*END GetLogColorSpaceW;*)
 
-	PROCEDURE- GetLogColorSpace* (p0: HCOLORSPACE; VAR (*nil*) p1: LOGCOLORSPACEA; p2: INTEGER): BOOL "GetLogColorSpaceA(p0, p1, p2)";
+	PROCEDURE- GetLogColorSpace* (p0: HCOLORSPACE; VAR [nil] p1: LOGCOLORSPACEA; p2: INTEGER): BOOL "GetLogColorSpaceA(p0, p1, p2)";
 	(*END GetLogColorSpace;*)
 
-	PROCEDURE- CreateColorSpaceA* (VAR (*nil*) p0: LOGCOLORSPACEA): HCOLORSPACE;
+	PROCEDURE- CreateColorSpaceA* (VAR [nil] p0: LOGCOLORSPACEA): HCOLORSPACE;
 	(*END CreateColorSpaceA;*)
 
-	PROCEDURE- CreateColorSpaceW* (VAR (*nil*) p0: LOGCOLORSPACEW): HCOLORSPACE;
+	PROCEDURE- CreateColorSpaceW* (VAR [nil] p0: LOGCOLORSPACEW): HCOLORSPACE;
 	(*END CreateColorSpaceW;*)
 
-	PROCEDURE- CreateColorSpace* (VAR (*nil*) p0: LOGCOLORSPACEA): HCOLORSPACE "CreateColorSpaceA(p0)";
+	PROCEDURE- CreateColorSpace* (VAR [nil] p0: LOGCOLORSPACEA): HCOLORSPACE "CreateColorSpaceA(p0)";
 	(*END CreateColorSpace;*)
 
 	PROCEDURE- SetColorSpace* (p0: HDC; p1: HCOLORSPACE): BOOL;
@@ -14393,13 +14393,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeleteColorSpace* (p0: HCOLORSPACE): BOOL;
 	(*END DeleteColorSpace;*)
 
-	PROCEDURE- GetICMProfileA* (p0: HDC; VAR (*nil*) p1: INTEGER; p2: PtrSTR): BOOL;
+	PROCEDURE- GetICMProfileA* (p0: HDC; VAR [nil] p1: INTEGER; p2: PtrSTR): BOOL;
 	(*END GetICMProfileA;*)
 
-	PROCEDURE- GetICMProfileW* (p0: HDC; VAR (*nil*) p1: INTEGER; p2: PtrWSTR): BOOL;
+	PROCEDURE- GetICMProfileW* (p0: HDC; VAR [nil] p1: INTEGER; p2: PtrWSTR): BOOL;
 	(*END GetICMProfileW;*)
 
-	PROCEDURE- GetICMProfile* (p0: HDC; VAR (*nil*) p1: INTEGER; p2: PtrSTR): BOOL "GetICMProfileA(p0, p1, p2)";
+	PROCEDURE- GetICMProfile* (p0: HDC; VAR [nil] p1: INTEGER; p2: PtrSTR): BOOL "GetICMProfileA(p0, p1, p2)";
 	(*END GetICMProfile;*)
 
 	PROCEDURE- SetICMProfileA* (p0: HDC; p1: PtrSTR): BOOL;
@@ -14468,22 +14468,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SwapBuffers* (p0: HDC): BOOL;
 	(*END SwapBuffers;*)
 
-	PROCEDURE- wglUseFontOutlinesA* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR (*nil*) p7: GLYPHMETRICSFLOAT): BOOL;
+	PROCEDURE- wglUseFontOutlinesA* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR [nil] p7: GLYPHMETRICSFLOAT): BOOL;
 	(*END wglUseFontOutlinesA;*)
 
-	PROCEDURE- wglUseFontOutlinesW* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR (*nil*) p7: GLYPHMETRICSFLOAT): BOOL;
+	PROCEDURE- wglUseFontOutlinesW* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR [nil] p7: GLYPHMETRICSFLOAT): BOOL;
 	(*END wglUseFontOutlinesW;*)
 
-	PROCEDURE- wglUseFontOutlines* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR (*nil*) p7: GLYPHMETRICSFLOAT): BOOL "wglUseFontOutlinesA(p0, p1, p2, p3, p4, p5, p6, p7)";
+	PROCEDURE- wglUseFontOutlines* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: SHORTREAL; p5: SHORTREAL; p6: INTEGER; VAR [nil] p7: GLYPHMETRICSFLOAT): BOOL "wglUseFontOutlinesA(p0, p1, p2, p3, p4, p5, p6, p7)";
 	(*END wglUseFontOutlines;*)
 
-	PROCEDURE- wglDescribeLayerPlane* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: LAYERPLANEDESCRIPTOR): BOOL;
+	PROCEDURE- wglDescribeLayerPlane* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: LAYERPLANEDESCRIPTOR): BOOL;
 	(*END wglDescribeLayerPlane;*)
 
-	PROCEDURE- wglSetLayerPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: COLORREF): INTEGER;
+	PROCEDURE- wglSetLayerPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: COLORREF): INTEGER;
 	(*END wglSetLayerPaletteEntries;*)
 
-	PROCEDURE- wglGetLayerPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR (*nil*) p4: COLORREF): INTEGER;
+	PROCEDURE- wglGetLayerPaletteEntries* (p0: HDC; p1: INTEGER; p2: INTEGER; p3: INTEGER; VAR [nil] p4: COLORREF): INTEGER;
 	(*END wglGetLayerPaletteEntries;*)
 
 	PROCEDURE- wglRealizeLayerPalette* (p0: HDC; p1: INTEGER; p2: BOOL): BOOL;
@@ -14522,7 +14522,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ActivateKeyboardLayout* (hkl: HKL; Flags: SET): HKL;
 	(*END ActivateKeyboardLayout;*)
 
-	PROCEDURE- ToUnicodeEx* (wVirtKey: INTEGER; wScanCode: INTEGER; VAR (*nil*) lpKeyState: SHORTCHAR; pwszBuff: PtrWSTR; cchBuff: INTEGER; wFlags: INTEGER; dwhkl: HKL): INTEGER;
+	PROCEDURE- ToUnicodeEx* (wVirtKey: INTEGER; wScanCode: INTEGER; VAR [nil] lpKeyState: SHORTCHAR; pwszBuff: PtrWSTR; cchBuff: INTEGER; wFlags: INTEGER; dwhkl: HKL): INTEGER;
 	(*END ToUnicodeEx;*)
 
 	PROCEDURE- UnloadKeyboardLayout* (hkl: HKL): BOOL;
@@ -14537,19 +14537,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetKeyboardLayoutName* (pwszKLID: PtrSTR): BOOL "GetKeyboardLayoutNameA(pwszKLID)";
 	(*END GetKeyboardLayoutName;*)
 
-	PROCEDURE- GetKeyboardLayoutList* (nBuff: INTEGER; VAR (*nil*) lpList: HKL): INTEGER;
+	PROCEDURE- GetKeyboardLayoutList* (nBuff: INTEGER; VAR [nil] lpList: HKL): INTEGER;
 	(*END GetKeyboardLayoutList;*)
 
 	PROCEDURE- GetKeyboardLayout* (dwLayout: INTEGER): HKL;
 	(*END GetKeyboardLayout;*)
 
-	PROCEDURE- CreateDesktopA* (lpszDesktop: PtrSTR; lpszDevice: PtrSTR; VAR (*nil*) pDevmode: DEVMODEA; dwFlags: SET; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HDESK;
+	PROCEDURE- CreateDesktopA* (lpszDesktop: PtrSTR; lpszDevice: PtrSTR; VAR [nil] pDevmode: DEVMODEA; dwFlags: SET; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HDESK;
 	(*END CreateDesktopA;*)
 
-	PROCEDURE- CreateDesktopW* (lpszDesktop: PtrWSTR; lpszDevice: PtrWSTR; VAR (*nil*) pDevmode: DEVMODEW; dwFlags: SET; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HDESK;
+	PROCEDURE- CreateDesktopW* (lpszDesktop: PtrWSTR; lpszDevice: PtrWSTR; VAR [nil] pDevmode: DEVMODEW; dwFlags: SET; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HDESK;
 	(*END CreateDesktopW;*)
 
-	PROCEDURE- CreateDesktop* (lpszDesktop: PtrSTR; lpszDevice: PtrSTR; VAR (*nil*) pDevmode: DEVMODEA; dwFlags: SET; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HDESK "CreateDesktopA(lpszDesktop, lpszDevice, pDevmode, dwFlags, dwDesiredAccess, lpsa)";
+	PROCEDURE- CreateDesktop* (lpszDesktop: PtrSTR; lpszDevice: PtrSTR; VAR [nil] pDevmode: DEVMODEA; dwFlags: SET; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HDESK "CreateDesktopA(lpszDesktop, lpszDevice, pDevmode, dwFlags, dwDesiredAccess, lpsa)";
 	(*END CreateDesktop;*)
 
 	PROCEDURE- OpenDesktopA* (lpszDesktop: PtrSTR; dwFlags: SET; fInherit: BOOL; dwDesiredAccess: SET): HDESK;
@@ -14588,13 +14588,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetThreadDesktop* (dwThreadId: INTEGER): HDESK;
 	(*END GetThreadDesktop;*)
 
-	PROCEDURE- CreateWindowStationA* (lpwinsta: PtrSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HWINSTA;
+	PROCEDURE- CreateWindowStationA* (lpwinsta: PtrSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HWINSTA;
 	(*END CreateWindowStationA;*)
 
-	PROCEDURE- CreateWindowStationW* (lpwinsta: PtrWSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HWINSTA;
+	PROCEDURE- CreateWindowStationW* (lpwinsta: PtrWSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HWINSTA;
 	(*END CreateWindowStationW;*)
 
-	PROCEDURE- CreateWindowStation* (lpwinsta: PtrSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR (*nil*) lpsa: SECURITY_ATTRIBUTES): HWINSTA "CreateWindowStationA(lpwinsta, dwReserved, dwDesiredAccess, lpsa)";
+	PROCEDURE- CreateWindowStation* (lpwinsta: PtrSTR; dwReserved: INTEGER; dwDesiredAccess: SET; VAR [nil] lpsa: SECURITY_ATTRIBUTES): HWINSTA "CreateWindowStationA(lpwinsta, dwReserved, dwDesiredAccess, lpsa)";
 	(*END CreateWindowStation;*)
 
 	PROCEDURE- OpenWindowStationA* (lpszWinSta: PtrSTR; fInherit: BOOL; dwDesiredAccess: SET): HWINSTA;
@@ -14624,19 +14624,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetProcessWindowStation* (): HWINSTA;
 	(*END GetProcessWindowStation;*)
 
-	PROCEDURE- SetUserObjectSecurity* (hObj: HANDLE; VAR (*nil*) pSIRequested: INTEGER; pSID: PSECURITY_DESCRIPTOR): BOOL;
+	PROCEDURE- SetUserObjectSecurity* (hObj: HANDLE; VAR [nil] pSIRequested: INTEGER; pSID: PSECURITY_DESCRIPTOR): BOOL;
 	(*END SetUserObjectSecurity;*)
 
-	PROCEDURE- GetUserObjectSecurity* (hObj: HANDLE; VAR (*nil*) pSIRequested: INTEGER; pSID: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetUserObjectSecurity* (hObj: HANDLE; VAR [nil] pSIRequested: INTEGER; pSID: PSECURITY_DESCRIPTOR; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetUserObjectSecurity;*)
 
-	PROCEDURE- GetUserObjectInformationA* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetUserObjectInformationA* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetUserObjectInformationA;*)
 
-	PROCEDURE- GetUserObjectInformationW* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL;
+	PROCEDURE- GetUserObjectInformationW* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL;
 	(*END GetUserObjectInformationW;*)
 
-	PROCEDURE- GetUserObjectInformation* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR (*nil*) lpnLengthNeeded: INTEGER): BOOL "GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)";
+	PROCEDURE- GetUserObjectInformation* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER; VAR [nil] lpnLengthNeeded: INTEGER): BOOL "GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)";
 	(*END GetUserObjectInformation;*)
 
 	PROCEDURE- SetUserObjectInformationA* (hObj: HANDLE; nIndex: INTEGER; pvInfo: PtrVoid; nLength: INTEGER): BOOL;
@@ -14657,49 +14657,49 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RegisterWindowMessage* (lpString: PtrSTR): INTEGER "RegisterWindowMessageA(lpString)";
 	(*END RegisterWindowMessage;*)
 
-	PROCEDURE- DrawEdge* (hdc: HDC; VAR (*nil*) qrc: RECT; edge: SET; grfFlags: SET): BOOL;
+	PROCEDURE- DrawEdge* (hdc: HDC; VAR [nil] qrc: RECT; edge: SET; grfFlags: SET): BOOL;
 	(*END DrawEdge;*)
 
-	PROCEDURE- DrawFrameControl* (p0: HDC; VAR (*nil*) p1: RECT; p2: INTEGER; p3: SET): BOOL;
+	PROCEDURE- DrawFrameControl* (p0: HDC; VAR [nil] p1: RECT; p2: INTEGER; p3: SET): BOOL;
 	(*END DrawFrameControl;*)
 
-	PROCEDURE- DrawCaption* (p0: HWND; p1: HDC; VAR (*nil*) p2: RECT; p3: INTEGER): BOOL;
+	PROCEDURE- DrawCaption* (p0: HWND; p1: HDC; VAR [nil] p2: RECT; p3: INTEGER): BOOL;
 	(*END DrawCaption;*)
 
-	PROCEDURE- DrawAnimatedRects* (hwnd: HWND; idAni: INTEGER; VAR (*nil*) lprcFrom: RECT; VAR (*nil*) lprcTo: RECT): BOOL;
+	PROCEDURE- DrawAnimatedRects* (hwnd: HWND; idAni: INTEGER; VAR [nil] lprcFrom: RECT; VAR [nil] lprcTo: RECT): BOOL;
 	(*END DrawAnimatedRects;*)
 
-	PROCEDURE- GetMessageA* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL;
+	PROCEDURE- GetMessageA* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL;
 	(*END GetMessageA;*)
 
-	PROCEDURE- GetMessageW* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL;
+	PROCEDURE- GetMessageW* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL;
 	(*END GetMessageW;*)
 
-	PROCEDURE- GetMessage* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL "GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)";
+	PROCEDURE- GetMessage* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER): BOOL "GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)";
 	(*END GetMessage;*)
 
-	PROCEDURE- TranslateMessage* (VAR (*nil*) lpMsg: MSG): BOOL;
+	PROCEDURE- TranslateMessage* (VAR [nil] lpMsg: MSG): BOOL;
 	(*END TranslateMessage;*)
 
-	PROCEDURE- DispatchMessageA* (VAR (*nil*) lpMsg: MSG): INTEGER;
+	PROCEDURE- DispatchMessageA* (VAR [nil] lpMsg: MSG): INTEGER;
 	(*END DispatchMessageA;*)
 
-	PROCEDURE- DispatchMessageW* (VAR (*nil*) lpMsg: MSG): INTEGER;
+	PROCEDURE- DispatchMessageW* (VAR [nil] lpMsg: MSG): INTEGER;
 	(*END DispatchMessageW;*)
 
-	PROCEDURE- DispatchMessage* (VAR (*nil*) lpMsg: MSG): INTEGER "DispatchMessageA(lpMsg)";
+	PROCEDURE- DispatchMessage* (VAR [nil] lpMsg: MSG): INTEGER "DispatchMessageA(lpMsg)";
 	(*END DispatchMessage;*)
 
 	PROCEDURE- SetMessageQueue* (cMessagesMax: INTEGER): BOOL;
 	(*END SetMessageQueue;*)
 
-	PROCEDURE- PeekMessageA* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL;
+	PROCEDURE- PeekMessageA* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL;
 	(*END PeekMessageA;*)
 
-	PROCEDURE- PeekMessageW* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL;
+	PROCEDURE- PeekMessageW* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL;
 	(*END PeekMessageW;*)
 
-	PROCEDURE- PeekMessage* (VAR (*nil*) lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL "PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg)";
+	PROCEDURE- PeekMessage* (VAR [nil] lpMsg: MSG; hWnd: HWND; wMsgFilterMin: INTEGER; wMsgFilterMax: INTEGER; wRemoveMsg: INTEGER): BOOL "PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg)";
 	(*END PeekMessage;*)
 
 	PROCEDURE- RegisterHotKey* (hWnd: HWND; id: INTEGER; fsModifiers: INTEGER (* SET*); vk: INTEGER): BOOL;
@@ -14735,13 +14735,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SendMessage* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM): LRESULT "SendMessageA(hWnd, Msg, wParam, lParam)";
 	(*END SendMessage;*)
 
-	PROCEDURE- SendMessageTimeoutA* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR (*nil*) lpdwResult: INTEGER): LRESULT;
+	PROCEDURE- SendMessageTimeoutA* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR [nil] lpdwResult: INTEGER): LRESULT;
 	(*END SendMessageTimeoutA;*)
 
-	PROCEDURE- SendMessageTimeoutW* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR (*nil*) lpdwResult: INTEGER): LRESULT;
+	PROCEDURE- SendMessageTimeoutW* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR [nil] lpdwResult: INTEGER): LRESULT;
 	(*END SendMessageTimeoutW;*)
 
-	PROCEDURE- SendMessageTimeout* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR (*nil*) lpdwResult: INTEGER): LRESULT "SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)";
+	PROCEDURE- SendMessageTimeout* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; fuFlags: SET; uTimeout: INTEGER; VAR [nil] lpdwResult: INTEGER): LRESULT "SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)";
 	(*END SendMessageTimeout;*)
 
 	PROCEDURE- SendNotifyMessageA* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM): BOOL;
@@ -14762,13 +14762,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SendMessageCallback* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM; lpResultCallBack: SENDASYNCPROC; dwData: INTEGER): BOOL "SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)";
 	(*END SendMessageCallback;*)
 
-	PROCEDURE- BroadcastSystemMessageA* (p0: SET; VAR (*nil*) p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER;
+	PROCEDURE- BroadcastSystemMessageA* (p0: SET; VAR [nil] p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER;
 	(*END BroadcastSystemMessageA;*)
 
-	PROCEDURE- BroadcastSystemMessageW* (p0: SET; VAR (*nil*) p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER;
+	PROCEDURE- BroadcastSystemMessageW* (p0: SET; VAR [nil] p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER;
 	(*END BroadcastSystemMessageW;*)
 
-	PROCEDURE- BroadcastSystemMessage* (p0: SET; VAR (*nil*) p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER "BroadcastSystemMessageA(p0, p1, p2, p3, p4)";
+	PROCEDURE- BroadcastSystemMessage* (p0: SET; VAR [nil] p1: SET; p2: INTEGER; p3: WPARAM; p4: LPARAM): INTEGER "BroadcastSystemMessageA(p0, p1, p2, p3, p4)";
 	(*END BroadcastSystemMessage;*)
 
 	PROCEDURE- PostMessageA* (hWnd: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM): BOOL;
@@ -14831,13 +14831,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetDoubleClickTime* (p0: INTEGER): BOOL;
 	(*END SetDoubleClickTime;*)
 
-	PROCEDURE- RegisterClassA* (VAR (*nil*) lpWndClass: WNDCLASSA): ATOM;
+	PROCEDURE- RegisterClassA* (VAR [nil] lpWndClass: WNDCLASSA): ATOM;
 	(*END RegisterClassA;*)
 
-	PROCEDURE- RegisterClassW* (VAR (*nil*) lpWndClass: WNDCLASSW): ATOM;
+	PROCEDURE- RegisterClassW* (VAR [nil] lpWndClass: WNDCLASSW): ATOM;
 	(*END RegisterClassW;*)
 
-	PROCEDURE- RegisterClass* (VAR (*nil*) lpWndClass: WNDCLASSA): ATOM "RegisterClassA(lpWndClass)";
+	PROCEDURE- RegisterClass* (VAR [nil] lpWndClass: WNDCLASSA): ATOM "RegisterClassA(lpWndClass)";
 	(*END RegisterClass;*)
 
 	PROCEDURE- UnregisterClassA* (lpClassName: PtrSTR; hInstance: HINSTANCE): BOOL;
@@ -14849,31 +14849,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- UnregisterClass* (lpClassName: PtrSTR; hInstance: HINSTANCE): BOOL "UnregisterClassA(lpClassName, hInstance)";
 	(*END UnregisterClass;*)
 
-	PROCEDURE- GetClassInfoA* (hInstance: HINSTANCE; lpClassName: PtrSTR; VAR (*nil*) lpWndClass: WNDCLASSA): BOOL;
+	PROCEDURE- GetClassInfoA* (hInstance: HINSTANCE; lpClassName: PtrSTR; VAR [nil] lpWndClass: WNDCLASSA): BOOL;
 	(*END GetClassInfoA;*)
 
-	PROCEDURE- GetClassInfoW* (hInstance: HINSTANCE; lpClassName: PtrWSTR; VAR (*nil*) lpWndClass: WNDCLASSW): BOOL;
+	PROCEDURE- GetClassInfoW* (hInstance: HINSTANCE; lpClassName: PtrWSTR; VAR [nil] lpWndClass: WNDCLASSW): BOOL;
 	(*END GetClassInfoW;*)
 
-	PROCEDURE- GetClassInfo* (hInstance: HINSTANCE; lpClassName: PtrSTR; VAR (*nil*) lpWndClass: WNDCLASSA): BOOL "GetClassInfoA(hInstance, lpClassName, lpWndClass)";
+	PROCEDURE- GetClassInfo* (hInstance: HINSTANCE; lpClassName: PtrSTR; VAR [nil] lpWndClass: WNDCLASSA): BOOL "GetClassInfoA(hInstance, lpClassName, lpWndClass)";
 	(*END GetClassInfo;*)
 
-	PROCEDURE- RegisterClassExA* (VAR (*nil*) p0: WNDCLASSEXA): ATOM;
+	PROCEDURE- RegisterClassExA* (VAR [nil] p0: WNDCLASSEXA): ATOM;
 	(*END RegisterClassExA;*)
 
-	PROCEDURE- RegisterClassExW* (VAR (*nil*) p0: WNDCLASSEXW): ATOM;
+	PROCEDURE- RegisterClassExW* (VAR [nil] p0: WNDCLASSEXW): ATOM;
 	(*END RegisterClassExW;*)
 
-	PROCEDURE- RegisterClassEx* (VAR (*nil*) p0: WNDCLASSEXA): ATOM "RegisterClassExA(p0)";
+	PROCEDURE- RegisterClassEx* (VAR [nil] p0: WNDCLASSEXA): ATOM "RegisterClassExA(p0)";
 	(*END RegisterClassEx;*)
 
-	PROCEDURE- GetClassInfoExA* (p0: HINSTANCE; p1: PtrSTR; VAR (*nil*) p2: WNDCLASSEXA): BOOL;
+	PROCEDURE- GetClassInfoExA* (p0: HINSTANCE; p1: PtrSTR; VAR [nil] p2: WNDCLASSEXA): BOOL;
 	(*END GetClassInfoExA;*)
 
-	PROCEDURE- GetClassInfoExW* (p0: HINSTANCE; p1: PtrWSTR; VAR (*nil*) p2: WNDCLASSEXW): BOOL;
+	PROCEDURE- GetClassInfoExW* (p0: HINSTANCE; p1: PtrWSTR; VAR [nil] p2: WNDCLASSEXW): BOOL;
 	(*END GetClassInfoExW;*)
 
-	PROCEDURE- GetClassInfoEx* (p0: HINSTANCE; p1: PtrSTR; VAR (*nil*) p2: WNDCLASSEXA): BOOL "GetClassInfoExA(p0, p1, p2)";
+	PROCEDURE- GetClassInfoEx* (p0: HINSTANCE; p1: PtrSTR; VAR [nil] p2: WNDCLASSEXA): BOOL "GetClassInfoExA(p0, p1, p2)";
 	(*END GetClassInfoEx;*)
 
 	PROCEDURE- CreateWindowExA* (dwExStyle: SET; lpClassName: PtrSTR; lpWindowName: PtrSTR; dwStyle: SET; X: INTEGER; Y: INTEGER; nWidth: INTEGER; nHeight: INTEGER; hWndParent: HWND; hMenu: HMENU; hInstance: HINSTANCE; lpParam: PtrVoid): HWND;
@@ -14921,10 +14921,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetWindowPos* (hWnd: HWND; hWndInsertAfter: HWND; X: INTEGER; Y: INTEGER; cx: INTEGER; cy: INTEGER; uFlags: SET): BOOL;
 	(*END SetWindowPos;*)
 
-	PROCEDURE- GetWindowPlacement* (hWnd: HWND; VAR (*nil*) lpwndpl: WINDOWPLACEMENT): BOOL;
+	PROCEDURE- GetWindowPlacement* (hWnd: HWND; VAR [nil] lpwndpl: WINDOWPLACEMENT): BOOL;
 	(*END GetWindowPlacement;*)
 
-	PROCEDURE- SetWindowPlacement* (hWnd: HWND; VAR (*nil*) lpwndpl: WINDOWPLACEMENT): BOOL;
+	PROCEDURE- SetWindowPlacement* (hWnd: HWND; VAR [nil] lpwndpl: WINDOWPLACEMENT): BOOL;
 	(*END SetWindowPlacement;*)
 
 	PROCEDURE- BeginDeferWindowPos* (nNumWindows: INTEGER): HDWP;
@@ -14960,13 +14960,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateDialogParam* (hInstance: HINSTANCE; lpTemplateName: PtrSTR; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND "CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)";
 	(*END CreateDialogParam;*)
 
-	PROCEDURE- CreateDialogIndirectParamA* (hInstance: HINSTANCE; VAR (*nil*) lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND;
+	PROCEDURE- CreateDialogIndirectParamA* (hInstance: HINSTANCE; VAR [nil] lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND;
 	(*END CreateDialogIndirectParamA;*)
 
-	PROCEDURE- CreateDialogIndirectParamW* (hInstance: HINSTANCE; VAR (*nil*) lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND;
+	PROCEDURE- CreateDialogIndirectParamW* (hInstance: HINSTANCE; VAR [nil] lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND;
 	(*END CreateDialogIndirectParamW;*)
 
-	PROCEDURE- CreateDialogIndirectParam* (hInstance: HINSTANCE; VAR (*nil*) lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND "CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)";
+	PROCEDURE- CreateDialogIndirectParam* (hInstance: HINSTANCE; VAR [nil] lpTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): HWND "CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)";
 	(*END CreateDialogIndirectParam;*)
 
 	PROCEDURE- DialogBoxParamA* (hInstance: HINSTANCE; lpTemplateName: PtrSTR; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER;
@@ -14978,13 +14978,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DialogBoxParam* (hInstance: HINSTANCE; lpTemplateName: PtrSTR; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER "DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)";
 	(*END DialogBoxParam;*)
 
-	PROCEDURE- DialogBoxIndirectParamA* (hInstance: HINSTANCE; VAR (*nil*) hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER;
+	PROCEDURE- DialogBoxIndirectParamA* (hInstance: HINSTANCE; VAR [nil] hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER;
 	(*END DialogBoxIndirectParamA;*)
 
-	PROCEDURE- DialogBoxIndirectParamW* (hInstance: HINSTANCE; VAR (*nil*) hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER;
+	PROCEDURE- DialogBoxIndirectParamW* (hInstance: HINSTANCE; VAR [nil] hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER;
 	(*END DialogBoxIndirectParamW;*)
 
-	PROCEDURE- DialogBoxIndirectParam* (hInstance: HINSTANCE; VAR (*nil*) hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER "DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)";
+	PROCEDURE- DialogBoxIndirectParam* (hInstance: HINSTANCE; VAR [nil] hDialogTemplate: DLGTEMPLATE; hWndParent: HWND; lpDialogFunc: DLGPROC; dwInitParam: LPARAM): INTEGER "DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)";
 	(*END DialogBoxIndirectParam;*)
 
 	PROCEDURE- EndDialog* (hDlg: HWND; nResult: INTEGER): BOOL;
@@ -14996,7 +14996,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetDlgItemInt* (hDlg: HWND; nIDDlgItem: INTEGER; uValue: INTEGER; bSigned: BOOL): BOOL;
 	(*END SetDlgItemInt;*)
 
-	PROCEDURE- GetDlgItemInt* (hDlg: HWND; nIDDlgItem: INTEGER; VAR (*nil*) lpTranslated: BOOL; bSigned: BOOL): INTEGER;
+	PROCEDURE- GetDlgItemInt* (hDlg: HWND; nIDDlgItem: INTEGER; VAR [nil] lpTranslated: BOOL; bSigned: BOOL): INTEGER;
 	(*END GetDlgItemInt;*)
 
 	PROCEDURE- SetDlgItemTextA* (hDlg: HWND; nIDDlgItem: INTEGER; lpString: PtrSTR): BOOL;
@@ -15056,13 +15056,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DefDlgProc* (hDlg: HWND; Msg: INTEGER; wParam: WPARAM; lParam: LPARAM): LRESULT "DefDlgProcA(hDlg, Msg, wParam, lParam)";
 	(*END DefDlgProc;*)
 
-	PROCEDURE- CallMsgFilterA* (VAR (*nil*) lpMsg: MSG; nCode: INTEGER): BOOL;
+	PROCEDURE- CallMsgFilterA* (VAR [nil] lpMsg: MSG; nCode: INTEGER): BOOL;
 	(*END CallMsgFilterA;*)
 
-	PROCEDURE- CallMsgFilterW* (VAR (*nil*) lpMsg: MSG; nCode: INTEGER): BOOL;
+	PROCEDURE- CallMsgFilterW* (VAR [nil] lpMsg: MSG; nCode: INTEGER): BOOL;
 	(*END CallMsgFilterW;*)
 
-	PROCEDURE- CallMsgFilter* (VAR (*nil*) lpMsg: MSG; nCode: INTEGER): BOOL "CallMsgFilterA(lpMsg, nCode)";
+	PROCEDURE- CallMsgFilter* (VAR [nil] lpMsg: MSG; nCode: INTEGER): BOOL "CallMsgFilterA(lpMsg, nCode)";
 	(*END CallMsgFilter;*)
 
 	PROCEDURE- OpenClipboard* (hWndNewOwner: HWND): BOOL;
@@ -15119,7 +15119,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- IsClipboardFormatAvailable* (format: INTEGER): BOOL;
 	(*END IsClipboardFormatAvailable;*)
 
-	PROCEDURE- GetPriorityClipboardFormat* (VAR (*nil*) paFormatPriorityList: INTEGER; cFormats: INTEGER): INTEGER;
+	PROCEDURE- GetPriorityClipboardFormat* (VAR [nil] paFormatPriorityList: INTEGER; cFormats: INTEGER): INTEGER;
 	(*END GetPriorityClipboardFormat;*)
 
 	PROCEDURE- GetOpenClipboardWindow* (): HWND;
@@ -15305,10 +15305,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetAsyncKeyState* (vKey: INTEGER): SHORTINT;
 	(*END GetAsyncKeyState;*)
 
-	PROCEDURE- GetKeyboardState* (VAR (*nil*) lpKeyState: SHORTCHAR): BOOL;
+	PROCEDURE- GetKeyboardState* (VAR [nil] lpKeyState: SHORTCHAR): BOOL;
 	(*END GetKeyboardState;*)
 
-	PROCEDURE- SetKeyboardState* (VAR (*nil*) lpKeyState: SHORTCHAR): BOOL;
+	PROCEDURE- SetKeyboardState* (VAR [nil] lpKeyState: SHORTCHAR): BOOL;
 	(*END SetKeyboardState;*)
 
 	PROCEDURE- GetKeyNameTextA* (lParam: INTEGER; lpString: PtrSTR; nSize: INTEGER): INTEGER;
@@ -15323,13 +15323,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetKeyboardType* (nTypeFlag: INTEGER): INTEGER;
 	(*END GetKeyboardType;*)
 
-	PROCEDURE- ToAscii* (uVirtKey: INTEGER; uScanCode: INTEGER; VAR (*nil*) lpKeyState: SHORTCHAR; VAR (*nil*) lpChar: SHORTINT; uFlags: SET): INTEGER;
+	PROCEDURE- ToAscii* (uVirtKey: INTEGER; uScanCode: INTEGER; VAR [nil] lpKeyState: SHORTCHAR; VAR [nil] lpChar: SHORTINT; uFlags: SET): INTEGER;
 	(*END ToAscii;*)
 
-	PROCEDURE- ToAsciiEx* (uVirtKey: INTEGER; uScanCode: INTEGER; VAR (*nil*) lpKeyState: SHORTCHAR; VAR (*nil*) lpChar: SHORTINT; uFlags: SET; dwhkl: HKL): INTEGER;
+	PROCEDURE- ToAsciiEx* (uVirtKey: INTEGER; uScanCode: INTEGER; VAR [nil] lpKeyState: SHORTCHAR; VAR [nil] lpChar: SHORTINT; uFlags: SET; dwhkl: HKL): INTEGER;
 	(*END ToAsciiEx;*)
 
-	PROCEDURE- ToUnicode* (wVirtKey: INTEGER; wScanCode: INTEGER; VAR (*nil*) lpKeyState: SHORTCHAR; pwszBuff: PtrWSTR; cchBuff: INTEGER; wFlags: INTEGER): INTEGER;
+	PROCEDURE- ToUnicode* (wVirtKey: INTEGER; wScanCode: INTEGER; VAR [nil] lpKeyState: SHORTCHAR; pwszBuff: PtrWSTR; cchBuff: INTEGER; wFlags: INTEGER): INTEGER;
 	(*END ToUnicode;*)
 
 	PROCEDURE- OemKeyScan* (wOemChar: SHORTINT): INTEGER;
@@ -15392,10 +15392,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ReleaseCapture* (): BOOL;
 	(*END ReleaseCapture;*)
 
-	PROCEDURE- MsgWaitForMultipleObjects* (nCount: INTEGER; VAR (*nil*) pHandles: HANDLE; fWaitAll: BOOL; dwMilliseconds: INTEGER; dwWakeMask: INTEGER): INTEGER;
+	PROCEDURE- MsgWaitForMultipleObjects* (nCount: INTEGER; VAR [nil] pHandles: HANDLE; fWaitAll: BOOL; dwMilliseconds: INTEGER; dwWakeMask: INTEGER): INTEGER;
 	(*END MsgWaitForMultipleObjects;*)
 
-	PROCEDURE- MsgWaitForMultipleObjectsEx* (nCount: INTEGER; VAR (*nil*) pHandles: HANDLE; dwMilliseconds: INTEGER; dwWakeMask: INTEGER; dwFlags: SET): INTEGER;
+	PROCEDURE- MsgWaitForMultipleObjectsEx* (nCount: INTEGER; VAR [nil] pHandles: HANDLE; dwMilliseconds: INTEGER; dwWakeMask: INTEGER; dwFlags: SET): INTEGER;
 	(*END MsgWaitForMultipleObjectsEx;*)
 
 	PROCEDURE- SetTimer* (hWnd: HWND; nIDEvent: INTEGER; uElapse: INTEGER; lpTimerFunc: TIMERPROC): INTEGER;
@@ -15422,34 +15422,34 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- LoadAccelerators* (hInstance: HINSTANCE; lpTableName: PtrSTR): HACCEL "LoadAcceleratorsA(hInstance, lpTableName)";
 	(*END LoadAccelerators;*)
 
-	PROCEDURE- CreateAcceleratorTableA* (VAR (*nil*) p0: ACCEL; p1: INTEGER): HACCEL;
+	PROCEDURE- CreateAcceleratorTableA* (VAR [nil] p0: ACCEL; p1: INTEGER): HACCEL;
 	(*END CreateAcceleratorTableA;*)
 
-	PROCEDURE- CreateAcceleratorTableW* (VAR (*nil*) p0: ACCEL; p1: INTEGER): HACCEL;
+	PROCEDURE- CreateAcceleratorTableW* (VAR [nil] p0: ACCEL; p1: INTEGER): HACCEL;
 	(*END CreateAcceleratorTableW;*)
 
-	PROCEDURE- CreateAcceleratorTable* (VAR (*nil*) p0: ACCEL; p1: INTEGER): HACCEL "CreateAcceleratorTableA(p0, p1)";
+	PROCEDURE- CreateAcceleratorTable* (VAR [nil] p0: ACCEL; p1: INTEGER): HACCEL "CreateAcceleratorTableA(p0, p1)";
 	(*END CreateAcceleratorTable;*)
 
 	PROCEDURE- DestroyAcceleratorTable* (hAccel: HACCEL): BOOL;
 	(*END DestroyAcceleratorTable;*)
 
-	PROCEDURE- CopyAcceleratorTableA* (hAccelSrc: HACCEL; VAR (*nil*) lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER;
+	PROCEDURE- CopyAcceleratorTableA* (hAccelSrc: HACCEL; VAR [nil] lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER;
 	(*END CopyAcceleratorTableA;*)
 
-	PROCEDURE- CopyAcceleratorTableW* (hAccelSrc: HACCEL; VAR (*nil*) lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER;
+	PROCEDURE- CopyAcceleratorTableW* (hAccelSrc: HACCEL; VAR [nil] lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER;
 	(*END CopyAcceleratorTableW;*)
 
-	PROCEDURE- CopyAcceleratorTable* (hAccelSrc: HACCEL; VAR (*nil*) lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER "CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries)";
+	PROCEDURE- CopyAcceleratorTable* (hAccelSrc: HACCEL; VAR [nil] lpAccelDst: ACCEL; cAccelEntries: INTEGER): INTEGER "CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries)";
 	(*END CopyAcceleratorTable;*)
 
-	PROCEDURE- TranslateAcceleratorA* (hWnd: HWND; hAccTable: HACCEL; VAR (*nil*) lpMsg: MSG): INTEGER;
+	PROCEDURE- TranslateAcceleratorA* (hWnd: HWND; hAccTable: HACCEL; VAR [nil] lpMsg: MSG): INTEGER;
 	(*END TranslateAcceleratorA;*)
 
-	PROCEDURE- TranslateAcceleratorW* (hWnd: HWND; hAccTable: HACCEL; VAR (*nil*) lpMsg: MSG): INTEGER;
+	PROCEDURE- TranslateAcceleratorW* (hWnd: HWND; hAccTable: HACCEL; VAR [nil] lpMsg: MSG): INTEGER;
 	(*END TranslateAcceleratorW;*)
 
-	PROCEDURE- TranslateAccelerator* (hWnd: HWND; hAccTable: HACCEL; VAR (*nil*) lpMsg: MSG): INTEGER "TranslateAcceleratorA(hWnd, hAccTable, lpMsg)";
+	PROCEDURE- TranslateAccelerator* (hWnd: HWND; hAccTable: HACCEL; VAR [nil] lpMsg: MSG): INTEGER "TranslateAcceleratorA(hWnd, hAccTable, lpMsg)";
 	(*END TranslateAccelerator;*)
 
 	PROCEDURE- GetSystemMetrics* (nIndex: INTEGER): INTEGER;
@@ -15572,37 +15572,37 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetMenuCheckMarkDimensions* (): INTEGER;
 	(*END GetMenuCheckMarkDimensions;*)
 
-	PROCEDURE- TrackPopupMenu* (hMenu: HMENU; uFlags: SET; x: INTEGER; y: INTEGER; nReserved: INTEGER; hWnd: HWND; VAR (*nil*) prcRect: RECT): BOOL;
+	PROCEDURE- TrackPopupMenu* (hMenu: HMENU; uFlags: SET; x: INTEGER; y: INTEGER; nReserved: INTEGER; hWnd: HWND; VAR [nil] prcRect: RECT): BOOL;
 	(*END TrackPopupMenu;*)
 
-	PROCEDURE- TrackPopupMenuEx* (p0: HMENU; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: HWND; VAR (*nil*) p5: TPMPARAMS): BOOL;
+	PROCEDURE- TrackPopupMenuEx* (p0: HMENU; p1: INTEGER; p2: INTEGER; p3: INTEGER; p4: HWND; VAR [nil] p5: TPMPARAMS): BOOL;
 	(*END TrackPopupMenuEx;*)
 
-	PROCEDURE- InsertMenuItemA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL;
+	PROCEDURE- InsertMenuItemA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL;
 	(*END InsertMenuItemA;*)
 
-	PROCEDURE- InsertMenuItemW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOW): BOOL;
+	PROCEDURE- InsertMenuItemW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOW): BOOL;
 	(*END InsertMenuItemW;*)
 
-	PROCEDURE- InsertMenuItem* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL "InsertMenuItemA(p0, p1, p2, p3)";
+	PROCEDURE- InsertMenuItem* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL "InsertMenuItemA(p0, p1, p2, p3)";
 	(*END InsertMenuItem;*)
 
-	PROCEDURE- GetMenuItemInfoA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL;
+	PROCEDURE- GetMenuItemInfoA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL;
 	(*END GetMenuItemInfoA;*)
 
-	PROCEDURE- GetMenuItemInfoW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOW): BOOL;
+	PROCEDURE- GetMenuItemInfoW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOW): BOOL;
 	(*END GetMenuItemInfoW;*)
 
-	PROCEDURE- GetMenuItemInfo* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL "GetMenuItemInfoA(p0, p1, p2, p3)";
+	PROCEDURE- GetMenuItemInfo* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL "GetMenuItemInfoA(p0, p1, p2, p3)";
 	(*END GetMenuItemInfo;*)
 
-	PROCEDURE- SetMenuItemInfoA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL;
+	PROCEDURE- SetMenuItemInfoA* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL;
 	(*END SetMenuItemInfoA;*)
 
-	PROCEDURE- SetMenuItemInfoW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOW): BOOL;
+	PROCEDURE- SetMenuItemInfoW* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOW): BOOL;
 	(*END SetMenuItemInfoW;*)
 
-	PROCEDURE- SetMenuItemInfo* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR (*nil*) p3: MENUITEMINFOA): BOOL "SetMenuItemInfoA(p0, p1, p2, p3)";
+	PROCEDURE- SetMenuItemInfo* (p0: HMENU; p1: INTEGER; p2: BOOL; VAR [nil] p3: MENUITEMINFOA): BOOL "SetMenuItemInfoA(p0, p1, p2, p3)";
 	(*END SetMenuItemInfo;*)
 
 	PROCEDURE- GetMenuDefaultItem* (hMenu: HMENU; fByPos: INTEGER; gmdiFlags: SET): INTEGER;
@@ -15611,7 +15611,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetMenuDefaultItem* (hMenu: HMENU; uItem: INTEGER; fByPos: INTEGER): BOOL;
 	(*END SetMenuDefaultItem;*)
 
-	PROCEDURE- GetMenuItemRect* (hWnd: HWND; hMenu: HMENU; uItem: INTEGER; VAR (*nil*) lprcItem: RECT): BOOL;
+	PROCEDURE- GetMenuItemRect* (hWnd: HWND; hMenu: HMENU; uItem: INTEGER; VAR [nil] lprcItem: RECT): BOOL;
 	(*END GetMenuItemRect;*)
 
 	PROCEDURE- MenuItemFromPoint* (hWnd: HWND; hMenu: HMENU; ptScreen: POINT): INTEGER;
@@ -15626,22 +15626,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DrawIcon* (hDC: HDC; X: INTEGER; Y: INTEGER; hIcon: HICON): BOOL;
 	(*END DrawIcon;*)
 
-	PROCEDURE- DrawTextA* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; VAR (*nil*) lpRect: RECT; uFormat: SET): INTEGER;
+	PROCEDURE- DrawTextA* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; VAR [nil] lpRect: RECT; uFormat: SET): INTEGER;
 	(*END DrawTextA;*)
 
-	PROCEDURE- DrawTextW* (hDC: HDC; lpString: PtrWSTR; nCount: INTEGER; VAR (*nil*) lpRect: RECT; uFormat: SET): INTEGER;
+	PROCEDURE- DrawTextW* (hDC: HDC; lpString: PtrWSTR; nCount: INTEGER; VAR [nil] lpRect: RECT; uFormat: SET): INTEGER;
 	(*END DrawTextW;*)
 
-	PROCEDURE- DrawText* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; VAR (*nil*) lpRect: RECT; uFormat: SET): INTEGER "DrawTextA(hDC, lpString, nCount, lpRect, uFormat)";
+	PROCEDURE- DrawText* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; VAR [nil] lpRect: RECT; uFormat: SET): INTEGER "DrawTextA(hDC, lpString, nCount, lpRect, uFormat)";
 	(*END DrawText;*)
 
-	PROCEDURE- DrawTextExA* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: RECT; p4: INTEGER; VAR (*nil*) p5: DRAWTEXTPARAMS): INTEGER;
+	PROCEDURE- DrawTextExA* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: RECT; p4: INTEGER; VAR [nil] p5: DRAWTEXTPARAMS): INTEGER;
 	(*END DrawTextExA;*)
 
-	PROCEDURE- DrawTextExW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR (*nil*) p3: RECT; p4: INTEGER; VAR (*nil*) p5: DRAWTEXTPARAMS): INTEGER;
+	PROCEDURE- DrawTextExW* (p0: HDC; p1: PtrWSTR; p2: INTEGER; VAR [nil] p3: RECT; p4: INTEGER; VAR [nil] p5: DRAWTEXTPARAMS): INTEGER;
 	(*END DrawTextExW;*)
 
-	PROCEDURE- DrawTextEx* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR (*nil*) p3: RECT; p4: INTEGER; VAR (*nil*) p5: DRAWTEXTPARAMS): INTEGER "DrawTextExA(p0, p1, p2, p3, p4, p5)";
+	PROCEDURE- DrawTextEx* (p0: HDC; p1: PtrSTR; p2: INTEGER; VAR [nil] p3: RECT; p4: INTEGER; VAR [nil] p5: DRAWTEXTPARAMS): INTEGER "DrawTextExA(p0, p1, p2, p3, p4, p5)";
 	(*END DrawTextEx;*)
 
 	PROCEDURE- GrayStringA* (hDC: HDC; hBrush: HBRUSH; lpOutputFunc: GRAYSTRINGPROC; lpData: LPARAM; nCount: INTEGER; X: INTEGER; Y: INTEGER; nWidth: INTEGER; nHeight: INTEGER): BOOL;
@@ -15662,22 +15662,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DrawState* (p0: HDC; p1: HBRUSH; p2: DRAWSTATEPROC; p3: LPARAM; p4: WPARAM; p5: INTEGER; p6: INTEGER; p7: INTEGER; p8: INTEGER; p9: SET): BOOL "DrawStateA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)";
 	(*END DrawState;*)
 
-	PROCEDURE- TabbedTextOutA* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER;
+	PROCEDURE- TabbedTextOutA* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER;
 	(*END TabbedTextOutA;*)
 
-	PROCEDURE- TabbedTextOutW* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrWSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER;
+	PROCEDURE- TabbedTextOutW* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrWSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER;
 	(*END TabbedTextOutW;*)
 
-	PROCEDURE- TabbedTextOut* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER "TabbedTextOutA(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)";
+	PROCEDURE- TabbedTextOut* (hDC: HDC; X: INTEGER; Y: INTEGER; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER; nTabOrigin: INTEGER): INTEGER "TabbedTextOutA(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)";
 	(*END TabbedTextOut;*)
 
-	PROCEDURE- GetTabbedTextExtentA* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER): INTEGER;
+	PROCEDURE- GetTabbedTextExtentA* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER): INTEGER;
 	(*END GetTabbedTextExtentA;*)
 
-	PROCEDURE- GetTabbedTextExtentW* (hDC: HDC; lpString: PtrWSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER): INTEGER;
+	PROCEDURE- GetTabbedTextExtentW* (hDC: HDC; lpString: PtrWSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER): INTEGER;
 	(*END GetTabbedTextExtentW;*)
 
-	PROCEDURE- GetTabbedTextExtent* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR (*nil*) lpnTabStopPositions: INTEGER): INTEGER "GetTabbedTextExtentA(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)";
+	PROCEDURE- GetTabbedTextExtent* (hDC: HDC; lpString: PtrSTR; nCount: INTEGER; nTabPositions: INTEGER; VAR [nil] lpnTabStopPositions: INTEGER): INTEGER "GetTabbedTextExtentA(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)";
 	(*END GetTabbedTextExtent;*)
 
 	PROCEDURE- UpdateWindow* (hWnd: HWND): BOOL;
@@ -15710,13 +15710,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ReleaseDC* (hWnd: HWND; hDC: HDC): INTEGER;
 	(*END ReleaseDC;*)
 
-	PROCEDURE- BeginPaint* (hWnd: HWND; VAR (*nil*) lpPaint: PAINTSTRUCT): HDC;
+	PROCEDURE- BeginPaint* (hWnd: HWND; VAR [nil] lpPaint: PAINTSTRUCT): HDC;
 	(*END BeginPaint;*)
 
-	PROCEDURE- EndPaint* (hWnd: HWND; VAR (*nil*) lpPaint: PAINTSTRUCT): BOOL;
+	PROCEDURE- EndPaint* (hWnd: HWND; VAR [nil] lpPaint: PAINTSTRUCT): BOOL;
 	(*END EndPaint;*)
 
-	PROCEDURE- GetUpdateRect* (hWnd: HWND; VAR (*nil*) lpRect: RECT; bErase: BOOL): BOOL;
+	PROCEDURE- GetUpdateRect* (hWnd: HWND; VAR [nil] lpRect: RECT; bErase: BOOL): BOOL;
 	(*END GetUpdateRect;*)
 
 	PROCEDURE- GetUpdateRgn* (hWnd: HWND; hRgn: HRGN; bErase: BOOL): INTEGER;
@@ -15731,10 +15731,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ExcludeUpdateRgn* (hDC: HDC; hWnd: HWND): INTEGER;
 	(*END ExcludeUpdateRgn;*)
 
-	PROCEDURE- InvalidateRect* (hWnd: HWND; VAR (*nil*) lpRect: RECT; bErase: BOOL): BOOL;
+	PROCEDURE- InvalidateRect* (hWnd: HWND; VAR [nil] lpRect: RECT; bErase: BOOL): BOOL;
 	(*END InvalidateRect;*)
 
-	PROCEDURE- ValidateRect* (hWnd: HWND; VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- ValidateRect* (hWnd: HWND; VAR [nil] lpRect: RECT): BOOL;
 	(*END ValidateRect;*)
 
 	PROCEDURE- InvalidateRgn* (hWnd: HWND; hRgn: HRGN; bErase: BOOL): BOOL;
@@ -15743,19 +15743,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ValidateRgn* (hWnd: HWND; hRgn: HRGN): BOOL;
 	(*END ValidateRgn;*)
 
-	PROCEDURE- RedrawWindow* (hWnd: HWND; VAR (*nil*) lprcUpdate: RECT; hrgnUpdate: HRGN; flags: SET): BOOL;
+	PROCEDURE- RedrawWindow* (hWnd: HWND; VAR [nil] lprcUpdate: RECT; hrgnUpdate: HRGN; flags: SET): BOOL;
 	(*END RedrawWindow;*)
 
 	PROCEDURE- LockWindowUpdate* (hWndLock: HWND): BOOL;
 	(*END LockWindowUpdate;*)
 
-	PROCEDURE- ScrollWindow* (hWnd: HWND; XAmount: INTEGER; YAmount: INTEGER; VAR (*nil*) lpRect: RECT; VAR (*nil*) lpClipRect: RECT): BOOL;
+	PROCEDURE- ScrollWindow* (hWnd: HWND; XAmount: INTEGER; YAmount: INTEGER; VAR [nil] lpRect: RECT; VAR [nil] lpClipRect: RECT): BOOL;
 	(*END ScrollWindow;*)
 
-	PROCEDURE- ScrollDC* (hDC: HDC; dx: INTEGER; dy: INTEGER; VAR (*nil*) lprcScroll: RECT; VAR (*nil*) lprcClip: RECT; hrgnUpdate: HRGN; VAR (*nil*) lprcUpdate: RECT): BOOL;
+	PROCEDURE- ScrollDC* (hDC: HDC; dx: INTEGER; dy: INTEGER; VAR [nil] lprcScroll: RECT; VAR [nil] lprcClip: RECT; hrgnUpdate: HRGN; VAR [nil] lprcUpdate: RECT): BOOL;
 	(*END ScrollDC;*)
 
-	PROCEDURE- ScrollWindowEx* (hWnd: HWND; dx: INTEGER; dy: INTEGER; VAR (*nil*) prcScroll: RECT; VAR (*nil*) prcClip: RECT; hrgnUpdate: HRGN; VAR (*nil*) prcUpdate: RECT; flags: SET): INTEGER;
+	PROCEDURE- ScrollWindowEx* (hWnd: HWND; dx: INTEGER; dy: INTEGER; VAR [nil] prcScroll: RECT; VAR [nil] prcClip: RECT; hrgnUpdate: HRGN; VAR [nil] prcUpdate: RECT; flags: SET): INTEGER;
 	(*END ScrollWindowEx;*)
 
 	PROCEDURE- SetScrollPos* (hWnd: HWND; nBar: INTEGER; nPos: INTEGER; bRedraw: BOOL): INTEGER;
@@ -15767,7 +15767,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetScrollRange* (hWnd: HWND; nBar: INTEGER; nMinPos: INTEGER; nMaxPos: INTEGER; bRedraw: BOOL): BOOL;
 	(*END SetScrollRange;*)
 
-	PROCEDURE- GetScrollRange* (hWnd: HWND; nBar: INTEGER; VAR (*nil*) lpMinPos: INTEGER; VAR (*nil*) lpMaxPos: INTEGER): BOOL;
+	PROCEDURE- GetScrollRange* (hWnd: HWND; nBar: INTEGER; VAR [nil] lpMinPos: INTEGER; VAR [nil] lpMaxPos: INTEGER): BOOL;
 	(*END GetScrollRange;*)
 
 	PROCEDURE- ShowScrollBar* (hWnd: HWND; wBar: INTEGER; bShow: BOOL): BOOL;
@@ -15848,16 +15848,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetWindowTextLength* (hWnd: HWND): INTEGER "GetWindowTextLengthA(hWnd)";
 	(*END GetWindowTextLength;*)
 
-	PROCEDURE- GetClientRect* (hWnd: HWND; VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- GetClientRect* (hWnd: HWND; VAR [nil] lpRect: RECT): BOOL;
 	(*END GetClientRect;*)
 
-	PROCEDURE- GetWindowRect* (hWnd: HWND; VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- GetWindowRect* (hWnd: HWND; VAR [nil] lpRect: RECT): BOOL;
 	(*END GetWindowRect;*)
 
-	PROCEDURE- AdjustWindowRect* (VAR (*nil*) lpRect: RECT; dwStyle: SET; bMenu: BOOL): BOOL;
+	PROCEDURE- AdjustWindowRect* (VAR [nil] lpRect: RECT; dwStyle: SET; bMenu: BOOL): BOOL;
 	(*END AdjustWindowRect;*)
 
-	PROCEDURE- AdjustWindowRectEx* (VAR (*nil*) lpRect: RECT; dwStyle: SET; bMenu: BOOL; dwExStyle: SET): BOOL;
+	PROCEDURE- AdjustWindowRectEx* (VAR [nil] lpRect: RECT; dwStyle: SET; bMenu: BOOL; dwExStyle: SET): BOOL;
 	(*END AdjustWindowRectEx;*)
 
 	PROCEDURE- SetWindowContextHelpId* (p0: HWND; p1: INTEGER): BOOL;
@@ -15890,13 +15890,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- MessageBoxEx* (hWnd: HWND; lpText: PtrSTR; lpCaption: PtrSTR; uType: SET; wLanguageId: SHORTINT): INTEGER "MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId)";
 	(*END MessageBoxEx;*)
 
-	PROCEDURE- MessageBoxIndirectA* (VAR (*nil*) p0: MSGBOXPARAMSA): INTEGER;
+	PROCEDURE- MessageBoxIndirectA* (VAR [nil] p0: MSGBOXPARAMSA): INTEGER;
 	(*END MessageBoxIndirectA;*)
 
-	PROCEDURE- MessageBoxIndirectW* (VAR (*nil*) p0: MSGBOXPARAMSW): INTEGER;
+	PROCEDURE- MessageBoxIndirectW* (VAR [nil] p0: MSGBOXPARAMSW): INTEGER;
 	(*END MessageBoxIndirectW;*)
 
-	PROCEDURE- MessageBoxIndirect* (VAR (*nil*) p0: MSGBOXPARAMSA): INTEGER "MessageBoxIndirectA(p0)";
+	PROCEDURE- MessageBoxIndirect* (VAR [nil] p0: MSGBOXPARAMSA): INTEGER "MessageBoxIndirectA(p0)";
 	(*END MessageBoxIndirect;*)
 
 	PROCEDURE- MessageBeep* (uType: SET): BOOL;
@@ -15911,13 +15911,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetCursor* (hCursor: HCURSOR): HCURSOR;
 	(*END SetCursor;*)
 
-	PROCEDURE- GetCursorPos* (VAR (*nil*) lpPoint: POINT): BOOL;
+	PROCEDURE- GetCursorPos* (VAR [nil] lpPoint: POINT): BOOL;
 	(*END GetCursorPos;*)
 
-	PROCEDURE- ClipCursor* (VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- ClipCursor* (VAR [nil] lpRect: RECT): BOOL;
 	(*END ClipCursor;*)
 
-	PROCEDURE- GetClipCursor* (VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- GetClipCursor* (VAR [nil] lpRect: RECT): BOOL;
 	(*END GetClipCursor;*)
 
 	PROCEDURE- GetCursor* (): HCURSOR;
@@ -15944,16 +15944,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetCaretPos* (X: INTEGER; Y: INTEGER): BOOL;
 	(*END SetCaretPos;*)
 
-	PROCEDURE- GetCaretPos* (VAR (*nil*) lpPoint: POINT): BOOL;
+	PROCEDURE- GetCaretPos* (VAR [nil] lpPoint: POINT): BOOL;
 	(*END GetCaretPos;*)
 
-	PROCEDURE- ClientToScreen* (hWnd: HWND; VAR (*nil*) lpPoint: POINT): BOOL;
+	PROCEDURE- ClientToScreen* (hWnd: HWND; VAR [nil] lpPoint: POINT): BOOL;
 	(*END ClientToScreen;*)
 
-	PROCEDURE- ScreenToClient* (hWnd: HWND; VAR (*nil*) lpPoint: POINT): BOOL;
+	PROCEDURE- ScreenToClient* (hWnd: HWND; VAR [nil] lpPoint: POINT): BOOL;
 	(*END ScreenToClient;*)
 
-	PROCEDURE- MapWindowPoints* (hWndFrom: HWND; hWndTo: HWND; VAR (*nil*) lpPoints: POINT; cPoints: INTEGER): INTEGER;
+	PROCEDURE- MapWindowPoints* (hWndFrom: HWND; hWndTo: HWND; VAR [nil] lpPoints: POINT; cPoints: INTEGER): INTEGER;
 	(*END MapWindowPoints;*)
 
 	PROCEDURE- WindowFromPoint* (Point: POINT): HWND;
@@ -15971,52 +15971,52 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetSysColorBrush* (nIndex: INTEGER): HBRUSH;
 	(*END GetSysColorBrush;*)
 
-	PROCEDURE- SetSysColors* (cElements: INTEGER; VAR (*nil*) lpaElements: INTEGER; VAR (*nil*) lpaRgbValues: COLORREF): BOOL;
+	PROCEDURE- SetSysColors* (cElements: INTEGER; VAR [nil] lpaElements: INTEGER; VAR [nil] lpaRgbValues: COLORREF): BOOL;
 	(*END SetSysColors;*)
 
-	PROCEDURE- DrawFocusRect* (hDC: HDC; VAR (*nil*) lprc: RECT): BOOL;
+	PROCEDURE- DrawFocusRect* (hDC: HDC; VAR [nil] lprc: RECT): BOOL;
 	(*END DrawFocusRect;*)
 
-	PROCEDURE- FillRect* (hDC: HDC; VAR (*nil*) lprc: RECT; hbr: HBRUSH): INTEGER;
+	PROCEDURE- FillRect* (hDC: HDC; VAR [nil] lprc: RECT; hbr: HBRUSH): INTEGER;
 	(*END FillRect;*)
 
-	PROCEDURE- FrameRect* (hDC: HDC; VAR (*nil*) lprc: RECT; hbr: HBRUSH): INTEGER;
+	PROCEDURE- FrameRect* (hDC: HDC; VAR [nil] lprc: RECT; hbr: HBRUSH): INTEGER;
 	(*END FrameRect;*)
 
-	PROCEDURE- InvertRect* (hDC: HDC; VAR (*nil*) lprc: RECT): BOOL;
+	PROCEDURE- InvertRect* (hDC: HDC; VAR [nil] lprc: RECT): BOOL;
 	(*END InvertRect;*)
 
-	PROCEDURE- SetRect* (VAR (*nil*) lprc: RECT; xLeft: INTEGER; yTop: INTEGER; xRight: INTEGER; yBottom: INTEGER): BOOL;
+	PROCEDURE- SetRect* (VAR [nil] lprc: RECT; xLeft: INTEGER; yTop: INTEGER; xRight: INTEGER; yBottom: INTEGER): BOOL;
 	(*END SetRect;*)
 
-	PROCEDURE- SetRectEmpty* (VAR (*nil*) lprc: RECT): BOOL;
+	PROCEDURE- SetRectEmpty* (VAR [nil] lprc: RECT): BOOL;
 	(*END SetRectEmpty;*)
 
-	PROCEDURE- CopyRect* (VAR (*nil*) lprcDst: RECT; VAR (*nil*) lprcSrc: RECT): BOOL;
+	PROCEDURE- CopyRect* (VAR [nil] lprcDst: RECT; VAR [nil] lprcSrc: RECT): BOOL;
 	(*END CopyRect;*)
 
-	PROCEDURE- InflateRect* (VAR (*nil*) lprc: RECT; dx: INTEGER; dy: INTEGER): BOOL;
+	PROCEDURE- InflateRect* (VAR [nil] lprc: RECT; dx: INTEGER; dy: INTEGER): BOOL;
 	(*END InflateRect;*)
 
-	PROCEDURE- IntersectRect* (VAR (*nil*) lprcDst: RECT; VAR (*nil*) lprcSrc1: RECT; VAR (*nil*) lprcSrc2: RECT): BOOL;
+	PROCEDURE- IntersectRect* (VAR [nil] lprcDst: RECT; VAR [nil] lprcSrc1: RECT; VAR [nil] lprcSrc2: RECT): BOOL;
 	(*END IntersectRect;*)
 
-	PROCEDURE- UnionRect* (VAR (*nil*) lprcDst: RECT; VAR (*nil*) lprcSrc1: RECT; VAR (*nil*) lprcSrc2: RECT): BOOL;
+	PROCEDURE- UnionRect* (VAR [nil] lprcDst: RECT; VAR [nil] lprcSrc1: RECT; VAR [nil] lprcSrc2: RECT): BOOL;
 	(*END UnionRect;*)
 
-	PROCEDURE- SubtractRect* (VAR (*nil*) lprcDst: RECT; VAR (*nil*) lprcSrc1: RECT; VAR (*nil*) lprcSrc2: RECT): BOOL;
+	PROCEDURE- SubtractRect* (VAR [nil] lprcDst: RECT; VAR [nil] lprcSrc1: RECT; VAR [nil] lprcSrc2: RECT): BOOL;
 	(*END SubtractRect;*)
 
-	PROCEDURE- OffsetRect* (VAR (*nil*) lprc: RECT; dx: INTEGER; dy: INTEGER): BOOL;
+	PROCEDURE- OffsetRect* (VAR [nil] lprc: RECT; dx: INTEGER; dy: INTEGER): BOOL;
 	(*END OffsetRect;*)
 
-	PROCEDURE- IsRectEmpty* (VAR (*nil*) lprc: RECT): BOOL;
+	PROCEDURE- IsRectEmpty* (VAR [nil] lprc: RECT): BOOL;
 	(*END IsRectEmpty;*)
 
-	PROCEDURE- EqualRect* (VAR (*nil*) lprc1: RECT; VAR (*nil*) lprc2: RECT): BOOL;
+	PROCEDURE- EqualRect* (VAR [nil] lprc1: RECT; VAR [nil] lprc2: RECT): BOOL;
 	(*END EqualRect;*)
 
-	PROCEDURE- PtInRect* (VAR (*nil*) lprc: RECT; pt: POINT): BOOL;
+	PROCEDURE- PtInRect* (VAR [nil] lprc: RECT; pt: POINT): BOOL;
 	(*END PtInRect;*)
 
 	PROCEDURE- GetWindowWord* (hWnd: HWND; nIndex: INTEGER): SHORTINT;
@@ -16115,7 +16115,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetTopWindow* (hWnd: HWND): HWND;
 	(*END GetTopWindow;*)
 
-	PROCEDURE- GetWindowThreadProcessId* (hWnd: HWND; VAR (*nil*) lpdwProcessId: INTEGER): INTEGER;
+	PROCEDURE- GetWindowThreadProcessId* (hWnd: HWND; VAR [nil] lpdwProcessId: INTEGER): INTEGER;
 	(*END GetWindowThreadProcessId;*)
 
 	PROCEDURE- GetLastActivePopup* (hWnd: HWND): HWND;
@@ -16199,22 +16199,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- LoadIcon* (hInstance: HINSTANCE; lpIconName: PtrSTR): HICON "LoadIconA(hInstance, lpIconName)";
 	(*END LoadIcon;*)
 
-	PROCEDURE- CreateIcon* (hInstance: HINSTANCE; nWidth: INTEGER; nHeight: INTEGER; cPlanes: SHORTCHAR; cBitsPixel: SHORTCHAR; VAR (*nil*) lpbANDbits: SHORTCHAR; VAR (*nil*) lpbXORbits: SHORTCHAR): HICON;
+	PROCEDURE- CreateIcon* (hInstance: HINSTANCE; nWidth: INTEGER; nHeight: INTEGER; cPlanes: SHORTCHAR; cBitsPixel: SHORTCHAR; VAR [nil] lpbANDbits: SHORTCHAR; VAR [nil] lpbXORbits: SHORTCHAR): HICON;
 	(*END CreateIcon;*)
 
 	PROCEDURE- DestroyIcon* (hIcon: HICON): BOOL;
 	(*END DestroyIcon;*)
 
-	PROCEDURE- LookupIconIdFromDirectory* (VAR (*nil*) presbits: SHORTCHAR; fIcon: BOOL): INTEGER;
+	PROCEDURE- LookupIconIdFromDirectory* (VAR [nil] presbits: SHORTCHAR; fIcon: BOOL): INTEGER;
 	(*END LookupIconIdFromDirectory;*)
 
-	PROCEDURE- LookupIconIdFromDirectoryEx* (VAR (*nil*) presbits: SHORTCHAR; fIcon: BOOL; cxDesired: INTEGER; cyDesired: INTEGER; Flags: SET): INTEGER;
+	PROCEDURE- LookupIconIdFromDirectoryEx* (VAR [nil] presbits: SHORTCHAR; fIcon: BOOL; cxDesired: INTEGER; cyDesired: INTEGER; Flags: SET): INTEGER;
 	(*END LookupIconIdFromDirectoryEx;*)
 
-	PROCEDURE- CreateIconFromResource* (VAR (*nil*) presbits: SHORTCHAR; dwResSize: INTEGER; fIcon: BOOL; dwVer: INTEGER): HICON;
+	PROCEDURE- CreateIconFromResource* (VAR [nil] presbits: SHORTCHAR; dwResSize: INTEGER; fIcon: BOOL; dwVer: INTEGER): HICON;
 	(*END CreateIconFromResource;*)
 
-	PROCEDURE- CreateIconFromResourceEx* (VAR (*nil*) presbits: SHORTCHAR; dwResSize: INTEGER; fIcon: BOOL; dwVer: INTEGER; cxDesired: INTEGER; cyDesired: INTEGER; Flags: SET): HICON;
+	PROCEDURE- CreateIconFromResourceEx* (VAR [nil] presbits: SHORTCHAR; dwResSize: INTEGER; fIcon: BOOL; dwVer: INTEGER; cxDesired: INTEGER; cyDesired: INTEGER; Flags: SET): HICON;
 	(*END CreateIconFromResourceEx;*)
 
 	PROCEDURE- LoadImageA* (p0: HINSTANCE; p1: PtrSTR; p2: INTEGER; p3: INTEGER; p4: INTEGER; p5: INTEGER): HANDLE;
@@ -16232,13 +16232,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DrawIconEx* (hdc: HDC; xLeft: INTEGER; yTop: INTEGER; hIcon: HICON; cxWidth: INTEGER; cyWidth: INTEGER; istepIfAniCur: INTEGER; hbrFlickerFreeDraw: HBRUSH; diFlags: SET): BOOL;
 	(*END DrawIconEx;*)
 
-	PROCEDURE- CreateIconIndirect* (VAR (*nil*) piconinfo: ICONINFO): HICON;
+	PROCEDURE- CreateIconIndirect* (VAR [nil] piconinfo: ICONINFO): HICON;
 	(*END CreateIconIndirect;*)
 
 	PROCEDURE- CopyIcon* (hIcon: HICON): HICON;
 	(*END CopyIcon;*)
 
-	PROCEDURE- GetIconInfo* (hIcon: HICON; VAR (*nil*) piconinfo: ICONINFO): BOOL;
+	PROCEDURE- GetIconInfo* (hIcon: HICON; VAR [nil] piconinfo: ICONINFO): BOOL;
 	(*END GetIconInfo;*)
 
 	PROCEDURE- LoadStringA* (hInstance: HINSTANCE; uID: INTEGER; lpBuffer: PtrSTR; nBufferMax: INTEGER): INTEGER;
@@ -16250,16 +16250,16 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- LoadString* (hInstance: HINSTANCE; uID: INTEGER; lpBuffer: PtrSTR; nBufferMax: INTEGER): INTEGER "LoadStringA(hInstance, uID, lpBuffer, nBufferMax)";
 	(*END LoadString;*)
 
-	PROCEDURE- IsDialogMessageA* (hDlg: HWND; VAR (*nil*) lpMsg: MSG): BOOL;
+	PROCEDURE- IsDialogMessageA* (hDlg: HWND; VAR [nil] lpMsg: MSG): BOOL;
 	(*END IsDialogMessageA;*)
 
-	PROCEDURE- IsDialogMessageW* (hDlg: HWND; VAR (*nil*) lpMsg: MSG): BOOL;
+	PROCEDURE- IsDialogMessageW* (hDlg: HWND; VAR [nil] lpMsg: MSG): BOOL;
 	(*END IsDialogMessageW;*)
 
-	PROCEDURE- IsDialogMessage* (hDlg: HWND; VAR (*nil*) lpMsg: MSG): BOOL "IsDialogMessageA(hDlg, lpMsg)";
+	PROCEDURE- IsDialogMessage* (hDlg: HWND; VAR [nil] lpMsg: MSG): BOOL "IsDialogMessageA(hDlg, lpMsg)";
 	(*END IsDialogMessage;*)
 
-	PROCEDURE- MapDialogRect* (hDlg: HWND; VAR (*nil*) lpRect: RECT): BOOL;
+	PROCEDURE- MapDialogRect* (hDlg: HWND; VAR [nil] lpRect: RECT): BOOL;
 	(*END MapDialogRect;*)
 
 	PROCEDURE- DlgDirListA* (hDlg: HWND; lpPathSpec: PtrSTR; nIDListBox: INTEGER; nIDStaticPath: INTEGER; uFileType: SET): INTEGER;
@@ -16298,10 +16298,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DlgDirSelectComboBoxEx* (hDlg: HWND; lpString: PtrSTR; nCount: INTEGER; nIDComboBox: INTEGER): BOOL "DlgDirSelectComboBoxExA(hDlg, lpString, nCount, nIDComboBox)";
 	(*END DlgDirSelectComboBoxEx;*)
 
-	PROCEDURE- SetScrollInfo* (p0: HWND; p1: INTEGER; VAR (*nil*) p2: SCROLLINFO; p3: BOOL): INTEGER;
+	PROCEDURE- SetScrollInfo* (p0: HWND; p1: INTEGER; VAR [nil] p2: SCROLLINFO; p3: BOOL): INTEGER;
 	(*END SetScrollInfo;*)
 
-	PROCEDURE- GetScrollInfo* (p0: HWND; p1: INTEGER; VAR (*nil*) p2: SCROLLINFO): BOOL;
+	PROCEDURE- GetScrollInfo* (p0: HWND; p1: INTEGER; VAR [nil] p2: SCROLLINFO): BOOL;
 	(*END GetScrollInfo;*)
 
 	PROCEDURE- DefFrameProcA* (hWnd: HWND; hWndMDIClient: HWND; uMsg: INTEGER; wParam: WPARAM; lParam: LPARAM): LRESULT;
@@ -16322,7 +16322,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DefMDIChildProc* (hWnd: HWND; uMsg: INTEGER; wParam: WPARAM; lParam: LPARAM): LRESULT "DefMDIChildProcA(hWnd, uMsg, wParam, lParam)";
 	(*END DefMDIChildProc;*)
 
-	PROCEDURE- TranslateMDISysAccel* (hWndClient: HWND; VAR (*nil*) lpMsg: MSG): BOOL;
+	PROCEDURE- TranslateMDISysAccel* (hWndClient: HWND; VAR [nil] lpMsg: MSG): BOOL;
 	(*END TranslateMDISysAccel;*)
 
 	PROCEDURE- ArrangeIconicWindows* (hWnd: HWND): INTEGER;
@@ -16337,10 +16337,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- CreateMDIWindow* (lpClassName: PtrSTR; lpWindowName: PtrSTR; dwStyle: SET; X: INTEGER; Y: INTEGER; nWidth: INTEGER; nHeight: INTEGER; hWndParent: HWND; hInstance: HINSTANCE; lParam: LPARAM): HWND "CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)";
 	(*END CreateMDIWindow;*)
 
-	PROCEDURE- TileWindows* (hwndParent: HWND; wHow: INTEGER; VAR (*nil*) lpRect: RECT; cKids: INTEGER; VAR (*nil*) lpKids: HWND): SHORTINT;
+	PROCEDURE- TileWindows* (hwndParent: HWND; wHow: INTEGER; VAR [nil] lpRect: RECT; cKids: INTEGER; VAR [nil] lpKids: HWND): SHORTINT;
 	(*END TileWindows;*)
 
-	PROCEDURE- CascadeWindows* (hwndParent: HWND; wHow: INTEGER; VAR (*nil*) lpRect: RECT; cKids: INTEGER; VAR (*nil*) lpKids: HWND): SHORTINT;
+	PROCEDURE- CascadeWindows* (hwndParent: HWND; wHow: INTEGER; VAR [nil] lpRect: RECT; cKids: INTEGER; VAR [nil] lpKids: HWND): SHORTINT;
 	(*END CascadeWindows;*)
 
 	PROCEDURE- WinHelpA* (hWndMain: HWND; lpszHelp: PtrSTR; uCommand: INTEGER; dwData: INTEGER): BOOL;
@@ -16352,22 +16352,22 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- WinHelp* (hWndMain: HWND; lpszHelp: PtrSTR; uCommand: INTEGER; dwData: INTEGER): BOOL "WinHelpA(hWndMain, lpszHelp, uCommand, dwData)";
 	(*END WinHelp;*)
 
-	PROCEDURE- ChangeDisplaySettingsA* (VAR (*nil*) lpDevMode: DEVMODEA; dwFlags: SET): INTEGER;
+	PROCEDURE- ChangeDisplaySettingsA* (VAR [nil] lpDevMode: DEVMODEA; dwFlags: SET): INTEGER;
 	(*END ChangeDisplaySettingsA;*)
 
-	PROCEDURE- ChangeDisplaySettingsW* (VAR (*nil*) lpDevMode: DEVMODEW; dwFlags: SET): INTEGER;
+	PROCEDURE- ChangeDisplaySettingsW* (VAR [nil] lpDevMode: DEVMODEW; dwFlags: SET): INTEGER;
 	(*END ChangeDisplaySettingsW;*)
 
-	PROCEDURE- ChangeDisplaySettings* (VAR (*nil*) lpDevMode: DEVMODEA; dwFlags: SET): INTEGER "ChangeDisplaySettingsA(lpDevMode, dwFlags)";
+	PROCEDURE- ChangeDisplaySettings* (VAR [nil] lpDevMode: DEVMODEA; dwFlags: SET): INTEGER "ChangeDisplaySettingsA(lpDevMode, dwFlags)";
 	(*END ChangeDisplaySettings;*)
 
-	PROCEDURE- EnumDisplaySettingsA* (lpszDeviceName: PtrSTR; iModeNum: INTEGER; VAR (*nil*) lpDevMode: DEVMODEA): BOOL;
+	PROCEDURE- EnumDisplaySettingsA* (lpszDeviceName: PtrSTR; iModeNum: INTEGER; VAR [nil] lpDevMode: DEVMODEA): BOOL;
 	(*END EnumDisplaySettingsA;*)
 
-	PROCEDURE- EnumDisplaySettingsW* (lpszDeviceName: PtrWSTR; iModeNum: INTEGER; VAR (*nil*) lpDevMode: DEVMODEW): BOOL;
+	PROCEDURE- EnumDisplaySettingsW* (lpszDeviceName: PtrWSTR; iModeNum: INTEGER; VAR [nil] lpDevMode: DEVMODEW): BOOL;
 	(*END EnumDisplaySettingsW;*)
 
-	PROCEDURE- EnumDisplaySettings* (lpszDeviceName: PtrSTR; iModeNum: INTEGER; VAR (*nil*) lpDevMode: DEVMODEA): BOOL "EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)";
+	PROCEDURE- EnumDisplaySettings* (lpszDeviceName: PtrSTR; iModeNum: INTEGER; VAR [nil] lpDevMode: DEVMODEA): BOOL "EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)";
 	(*END EnumDisplaySettings;*)
 
 	PROCEDURE- SystemParametersInfoA* (uiAction: INTEGER; uiParam: INTEGER; pvParam: PtrVoid; fWinIni: INTEGER): BOOL;
@@ -16394,7 +16394,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetOEMCP* (): INTEGER;
 	(*END GetOEMCP;*)
 
-	PROCEDURE- GetCPInfo* (CodePage: INTEGER; VAR (*nil*) lpCPInfo: CPINFO): BOOL;
+	PROCEDURE- GetCPInfo* (CodePage: INTEGER; VAR [nil] lpCPInfo: CPINFO): BOOL;
 	(*END GetCPInfo;*)
 
 	PROCEDURE- IsDBCSLeadByte* (TestChar: SHORTCHAR): BOOL;
@@ -16406,7 +16406,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- MultiByteToWideChar* (CodePage: INTEGER; dwFlags: SET; lpMultiByteStr: PtrSTR; cchMultiByte: INTEGER; lpWideCharStr: PtrWSTR; cchWideChar: INTEGER): INTEGER;
 	(*END MultiByteToWideChar;*)
 
-	PROCEDURE- WideCharToMultiByte* (CodePage: INTEGER; dwFlags: SET; lpWideCharStr: PtrWSTR; cchWideChar: INTEGER; lpMultiByteStr: PtrSTR; cchMultiByte: INTEGER; lpDefaultChar: PtrSTR; VAR (*nil*) lpUsedDefaultChar: BOOL): INTEGER;
+	PROCEDURE- WideCharToMultiByte* (CodePage: INTEGER; dwFlags: SET; lpWideCharStr: PtrWSTR; cchWideChar: INTEGER; lpMultiByteStr: PtrSTR; cchMultiByte: INTEGER; lpDefaultChar: PtrSTR; VAR [nil] lpUsedDefaultChar: BOOL): INTEGER;
 	(*END WideCharToMultiByte;*)
 
 	PROCEDURE- CompareStringA* (Locale: LCID; dwCmpFlags: SET; lpString1: PtrSTR; cchCount1: INTEGER; lpString2: PtrSTR; cchCount2: INTEGER): INTEGER;
@@ -16445,40 +16445,40 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetLocaleInfo* (Locale: LCID; LCType: LCTYPE; lpLCData: PtrSTR): BOOL "SetLocaleInfoA(Locale, LCType, lpLCData)";
 	(*END SetLocaleInfo;*)
 
-	PROCEDURE- GetTimeFormatA* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpTime: SYSTEMTIME; lpFormat: PtrSTR; lpTimeStr: PtrSTR; cchTime: INTEGER): INTEGER;
+	PROCEDURE- GetTimeFormatA* (Locale: LCID; dwFlags: SET; VAR [nil] lpTime: SYSTEMTIME; lpFormat: PtrSTR; lpTimeStr: PtrSTR; cchTime: INTEGER): INTEGER;
 	(*END GetTimeFormatA;*)
 
-	PROCEDURE- GetTimeFormatW* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpTime: SYSTEMTIME; lpFormat: PtrWSTR; lpTimeStr: PtrWSTR; cchTime: INTEGER): INTEGER;
+	PROCEDURE- GetTimeFormatW* (Locale: LCID; dwFlags: SET; VAR [nil] lpTime: SYSTEMTIME; lpFormat: PtrWSTR; lpTimeStr: PtrWSTR; cchTime: INTEGER): INTEGER;
 	(*END GetTimeFormatW;*)
 
-	PROCEDURE- GetTimeFormat* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpTime: SYSTEMTIME; lpFormat: PtrSTR; lpTimeStr: PtrSTR; cchTime: INTEGER): INTEGER "GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime)";
+	PROCEDURE- GetTimeFormat* (Locale: LCID; dwFlags: SET; VAR [nil] lpTime: SYSTEMTIME; lpFormat: PtrSTR; lpTimeStr: PtrSTR; cchTime: INTEGER): INTEGER "GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime)";
 	(*END GetTimeFormat;*)
 
-	PROCEDURE- GetDateFormatA* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpDate: SYSTEMTIME; lpFormat: PtrSTR; lpDateStr: PtrSTR; cchDate: INTEGER): INTEGER;
+	PROCEDURE- GetDateFormatA* (Locale: LCID; dwFlags: SET; VAR [nil] lpDate: SYSTEMTIME; lpFormat: PtrSTR; lpDateStr: PtrSTR; cchDate: INTEGER): INTEGER;
 	(*END GetDateFormatA;*)
 
-	PROCEDURE- GetDateFormatW* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpDate: SYSTEMTIME; lpFormat: PtrWSTR; lpDateStr: PtrWSTR; cchDate: INTEGER): INTEGER;
+	PROCEDURE- GetDateFormatW* (Locale: LCID; dwFlags: SET; VAR [nil] lpDate: SYSTEMTIME; lpFormat: PtrWSTR; lpDateStr: PtrWSTR; cchDate: INTEGER): INTEGER;
 	(*END GetDateFormatW;*)
 
-	PROCEDURE- GetDateFormat* (Locale: LCID; dwFlags: SET; VAR (*nil*) lpDate: SYSTEMTIME; lpFormat: PtrSTR; lpDateStr: PtrSTR; cchDate: INTEGER): INTEGER "GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate)";
+	PROCEDURE- GetDateFormat* (Locale: LCID; dwFlags: SET; VAR [nil] lpDate: SYSTEMTIME; lpFormat: PtrSTR; lpDateStr: PtrSTR; cchDate: INTEGER): INTEGER "GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate)";
 	(*END GetDateFormat;*)
 
-	PROCEDURE- GetNumberFormatA* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR (*nil*) lpFormat: NUMBERFMTA; lpNumberStr: PtrSTR; cchNumber: INTEGER): INTEGER;
+	PROCEDURE- GetNumberFormatA* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR [nil] lpFormat: NUMBERFMTA; lpNumberStr: PtrSTR; cchNumber: INTEGER): INTEGER;
 	(*END GetNumberFormatA;*)
 
-	PROCEDURE- GetNumberFormatW* (Locale: LCID; dwFlags: SET; lpValue: PtrWSTR; VAR (*nil*) lpFormat: NUMBERFMTW; lpNumberStr: PtrWSTR; cchNumber: INTEGER): INTEGER;
+	PROCEDURE- GetNumberFormatW* (Locale: LCID; dwFlags: SET; lpValue: PtrWSTR; VAR [nil] lpFormat: NUMBERFMTW; lpNumberStr: PtrWSTR; cchNumber: INTEGER): INTEGER;
 	(*END GetNumberFormatW;*)
 
-	PROCEDURE- GetNumberFormat* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR (*nil*) lpFormat: NUMBERFMTA; lpNumberStr: PtrSTR; cchNumber: INTEGER): INTEGER "GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber)";
+	PROCEDURE- GetNumberFormat* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR [nil] lpFormat: NUMBERFMTA; lpNumberStr: PtrSTR; cchNumber: INTEGER): INTEGER "GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber)";
 	(*END GetNumberFormat;*)
 
-	PROCEDURE- GetCurrencyFormatA* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR (*nil*) lpFormat: CURRENCYFMTA; lpCurrencyStr: PtrSTR; cchCurrency: INTEGER): INTEGER;
+	PROCEDURE- GetCurrencyFormatA* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR [nil] lpFormat: CURRENCYFMTA; lpCurrencyStr: PtrSTR; cchCurrency: INTEGER): INTEGER;
 	(*END GetCurrencyFormatA;*)
 
-	PROCEDURE- GetCurrencyFormatW* (Locale: LCID; dwFlags: SET; lpValue: PtrWSTR; VAR (*nil*) lpFormat: CURRENCYFMTW; lpCurrencyStr: PtrWSTR; cchCurrency: INTEGER): INTEGER;
+	PROCEDURE- GetCurrencyFormatW* (Locale: LCID; dwFlags: SET; lpValue: PtrWSTR; VAR [nil] lpFormat: CURRENCYFMTW; lpCurrencyStr: PtrWSTR; cchCurrency: INTEGER): INTEGER;
 	(*END GetCurrencyFormatW;*)
 
-	PROCEDURE- GetCurrencyFormat* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR (*nil*) lpFormat: CURRENCYFMTA; lpCurrencyStr: PtrSTR; cchCurrency: INTEGER): INTEGER "GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency)";
+	PROCEDURE- GetCurrencyFormat* (Locale: LCID; dwFlags: SET; lpValue: PtrSTR; VAR [nil] lpFormat: CURRENCYFMTA; lpCurrencyStr: PtrSTR; cchCurrency: INTEGER): INTEGER "GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency)";
 	(*END GetCurrencyFormat;*)
 
 	PROCEDURE- EnumCalendarInfoA* (lpCalInfoEnumProc: CALINFO_ENUMPROCA; Locale: LCID; Calendar: CALID; CalType: CALTYPE): BOOL;
@@ -16532,19 +16532,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetUserDefaultLCID* (): LCID;
 	(*END GetUserDefaultLCID;*)
 
-	PROCEDURE- GetStringTypeExA* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR (*nil*) lpCharType: SHORTINT): BOOL;
+	PROCEDURE- GetStringTypeExA* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR [nil] lpCharType: SHORTINT): BOOL;
 	(*END GetStringTypeExA;*)
 
-	PROCEDURE- GetStringTypeExW* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrWSTR; cchSrc: INTEGER; VAR (*nil*) lpCharType: SHORTINT): BOOL;
+	PROCEDURE- GetStringTypeExW* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrWSTR; cchSrc: INTEGER; VAR [nil] lpCharType: SHORTINT): BOOL;
 	(*END GetStringTypeExW;*)
 
-	PROCEDURE- GetStringTypeEx* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR (*nil*) lpCharType: SHORTINT): BOOL "GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)";
+	PROCEDURE- GetStringTypeEx* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR [nil] lpCharType: SHORTINT): BOOL "GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)";
 	(*END GetStringTypeEx;*)
 
-	PROCEDURE- GetStringTypeA* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR (*nil*) lpCharType: SHORTINT): BOOL;
+	PROCEDURE- GetStringTypeA* (Locale: LCID; dwInfoType: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; VAR [nil] lpCharType: SHORTINT): BOOL;
 	(*END GetStringTypeA;*)
 
-	PROCEDURE- GetStringTypeW* (dwInfoType: SET; lpSrcStr: PtrWSTR; cchSrc: INTEGER; VAR (*nil*) lpCharType: SHORTINT): BOOL;
+	PROCEDURE- GetStringTypeW* (dwInfoType: SET; lpSrcStr: PtrWSTR; cchSrc: INTEGER; VAR [nil] lpCharType: SHORTINT): BOOL;
 	(*END GetStringTypeW;*)
 
 	PROCEDURE- FoldStringA* (dwMapFlags: SET; lpSrcStr: PtrSTR; cchSrc: INTEGER; lpDestStr: PtrSTR; cchDest: INTEGER): INTEGER;
@@ -16574,103 +16574,103 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- EnumSystemCodePages* (lpCodePageEnumProc: CODEPAGE_ENUMPROCA; dwFlags: SET): BOOL "EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags)";
 	(*END EnumSystemCodePages;*)
 
-	PROCEDURE- PeekConsoleInputA* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL;
+	PROCEDURE- PeekConsoleInputA* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL;
 	(*END PeekConsoleInputA;*)
 
-	PROCEDURE- PeekConsoleInputW* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL;
+	PROCEDURE- PeekConsoleInputW* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL;
 	(*END PeekConsoleInputW;*)
 
-	PROCEDURE- PeekConsoleInput* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL "PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)";
+	PROCEDURE- PeekConsoleInput* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL "PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)";
 	(*END PeekConsoleInput;*)
 
-	PROCEDURE- ReadConsoleInputA* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL;
+	PROCEDURE- ReadConsoleInputA* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL;
 	(*END ReadConsoleInputA;*)
 
-	PROCEDURE- ReadConsoleInputW* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL;
+	PROCEDURE- ReadConsoleInputW* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL;
 	(*END ReadConsoleInputW;*)
 
-	PROCEDURE- ReadConsoleInput* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsRead: INTEGER): BOOL "ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)";
+	PROCEDURE- ReadConsoleInput* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsRead: INTEGER): BOOL "ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)";
 	(*END ReadConsoleInput;*)
 
-	PROCEDURE- WriteConsoleInputA* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsWritten: INTEGER): BOOL;
+	PROCEDURE- WriteConsoleInputA* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsWritten: INTEGER): BOOL;
 	(*END WriteConsoleInputA;*)
 
-	PROCEDURE- WriteConsoleInputW* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsWritten: INTEGER): BOOL;
+	PROCEDURE- WriteConsoleInputW* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsWritten: INTEGER): BOOL;
 	(*END WriteConsoleInputW;*)
 
-	PROCEDURE- WriteConsoleInput* (hConsoleInput: HANDLE; VAR (*nil*) lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR (*nil*) lpNumberOfEventsWritten: INTEGER): BOOL "WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten)";
+	PROCEDURE- WriteConsoleInput* (hConsoleInput: HANDLE; VAR [nil] lpBuffer: INPUT_RECORD; nLength: INTEGER; VAR [nil] lpNumberOfEventsWritten: INTEGER): BOOL "WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten)";
 	(*END WriteConsoleInput;*)
 
-	PROCEDURE- ReadConsoleOutputA* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpReadRegion: SMALL_RECT): BOOL;
+	PROCEDURE- ReadConsoleOutputA* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpReadRegion: SMALL_RECT): BOOL;
 	(*END ReadConsoleOutputA;*)
 
-	PROCEDURE- ReadConsoleOutputW* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpReadRegion: SMALL_RECT): BOOL;
+	PROCEDURE- ReadConsoleOutputW* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpReadRegion: SMALL_RECT): BOOL;
 	(*END ReadConsoleOutputW;*)
 
-	PROCEDURE- ReadConsoleOutput* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpReadRegion: SMALL_RECT): BOOL "ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)";
+	PROCEDURE- ReadConsoleOutput* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpReadRegion: SMALL_RECT): BOOL "ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)";
 	(*END ReadConsoleOutput;*)
 
-	PROCEDURE- WriteConsoleOutputA* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpWriteRegion: SMALL_RECT): BOOL;
+	PROCEDURE- WriteConsoleOutputA* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpWriteRegion: SMALL_RECT): BOOL;
 	(*END WriteConsoleOutputA;*)
 
-	PROCEDURE- WriteConsoleOutputW* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpWriteRegion: SMALL_RECT): BOOL;
+	PROCEDURE- WriteConsoleOutputW* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpWriteRegion: SMALL_RECT): BOOL;
 	(*END WriteConsoleOutputW;*)
 
-	PROCEDURE- WriteConsoleOutput* (hConsoleOutput: HANDLE; VAR (*nil*) lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR (*nil*) lpWriteRegion: SMALL_RECT): BOOL "WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)";
+	PROCEDURE- WriteConsoleOutput* (hConsoleOutput: HANDLE; VAR [nil] lpBuffer: CHAR_INFO; dwBufferSize: COORD; dwBufferCoord: COORD; VAR [nil] lpWriteRegion: SMALL_RECT): BOOL "WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)";
 	(*END WriteConsoleOutput;*)
 
-	PROCEDURE- ReadConsoleOutputCharacterA* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwReadCoord: COORD; VAR (*nil*) lpNumberOfCharsRead: INTEGER): BOOL;
+	PROCEDURE- ReadConsoleOutputCharacterA* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwReadCoord: COORD; VAR [nil] lpNumberOfCharsRead: INTEGER): BOOL;
 	(*END ReadConsoleOutputCharacterA;*)
 
-	PROCEDURE- ReadConsoleOutputCharacterW* (hConsoleOutput: HANDLE; lpCharacter: PtrWSTR; nLength: INTEGER; dwReadCoord: COORD; VAR (*nil*) lpNumberOfCharsRead: INTEGER): BOOL;
+	PROCEDURE- ReadConsoleOutputCharacterW* (hConsoleOutput: HANDLE; lpCharacter: PtrWSTR; nLength: INTEGER; dwReadCoord: COORD; VAR [nil] lpNumberOfCharsRead: INTEGER): BOOL;
 	(*END ReadConsoleOutputCharacterW;*)
 
-	PROCEDURE- ReadConsoleOutputCharacter* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwReadCoord: COORD; VAR (*nil*) lpNumberOfCharsRead: INTEGER): BOOL "ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)";
+	PROCEDURE- ReadConsoleOutputCharacter* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwReadCoord: COORD; VAR [nil] lpNumberOfCharsRead: INTEGER): BOOL "ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)";
 	(*END ReadConsoleOutputCharacter;*)
 
-	PROCEDURE- ReadConsoleOutputAttribute* (hConsoleOutput: HANDLE; VAR (*nil*) lpAttribute: SHORTINT; nLength: INTEGER; dwReadCoord: COORD; VAR (*nil*) lpNumberOfAttrsRead: INTEGER): BOOL;
+	PROCEDURE- ReadConsoleOutputAttribute* (hConsoleOutput: HANDLE; VAR [nil] lpAttribute: SHORTINT; nLength: INTEGER; dwReadCoord: COORD; VAR [nil] lpNumberOfAttrsRead: INTEGER): BOOL;
 	(*END ReadConsoleOutputAttribute;*)
 
-	PROCEDURE- WriteConsoleOutputCharacterA* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL;
+	PROCEDURE- WriteConsoleOutputCharacterA* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END WriteConsoleOutputCharacterA;*)
 
-	PROCEDURE- WriteConsoleOutputCharacterW* (hConsoleOutput: HANDLE; lpCharacter: PtrWSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL;
+	PROCEDURE- WriteConsoleOutputCharacterW* (hConsoleOutput: HANDLE; lpCharacter: PtrWSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END WriteConsoleOutputCharacterW;*)
 
-	PROCEDURE- WriteConsoleOutputCharacter* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL "WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)";
+	PROCEDURE- WriteConsoleOutputCharacter* (hConsoleOutput: HANDLE; lpCharacter: PtrSTR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL "WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)";
 	(*END WriteConsoleOutputCharacter;*)
 
-	PROCEDURE- WriteConsoleOutputAttribute* (hConsoleOutput: HANDLE; VAR (*nil*) lpAttribute: SHORTINT; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfAttrsWritten: INTEGER): BOOL;
+	PROCEDURE- WriteConsoleOutputAttribute* (hConsoleOutput: HANDLE; VAR [nil] lpAttribute: SHORTINT; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfAttrsWritten: INTEGER): BOOL;
 	(*END WriteConsoleOutputAttribute;*)
 
-	PROCEDURE- FillConsoleOutputCharacterA* (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL;
+	PROCEDURE- FillConsoleOutputCharacterA* (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END FillConsoleOutputCharacterA;*)
 
-	PROCEDURE- FillConsoleOutputCharacterW* (hConsoleOutput: HANDLE; cCharacter: WCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL;
+	PROCEDURE- FillConsoleOutputCharacterW* (hConsoleOutput: HANDLE; cCharacter: WCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL;
 	(*END FillConsoleOutputCharacterW;*)
 
-	PROCEDURE- FillConsoleOutputCharacter* (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfCharsWritten: INTEGER): BOOL "FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)";
+	PROCEDURE- FillConsoleOutputCharacter* (hConsoleOutput: HANDLE; cCharacter: SHORTCHAR; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfCharsWritten: INTEGER): BOOL "FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)";
 	(*END FillConsoleOutputCharacter;*)
 
-	PROCEDURE- FillConsoleOutputAttribute* (hConsoleOutput: HANDLE; wAttribute: SHORTINT; nLength: INTEGER; dwWriteCoord: COORD; VAR (*nil*) lpNumberOfAttrsWritten: INTEGER): BOOL;
+	PROCEDURE- FillConsoleOutputAttribute* (hConsoleOutput: HANDLE; wAttribute: SHORTINT; nLength: INTEGER; dwWriteCoord: COORD; VAR [nil] lpNumberOfAttrsWritten: INTEGER): BOOL;
 	(*END FillConsoleOutputAttribute;*)
 
-	PROCEDURE- GetConsoleMode* (hConsoleHandle: HANDLE; VAR (*nil*) lpMode: SET): BOOL;
+	PROCEDURE- GetConsoleMode* (hConsoleHandle: HANDLE; VAR [nil] lpMode: SET): BOOL;
 	(*END GetConsoleMode;*)
 
-	PROCEDURE- GetNumberOfConsoleInputEvents* (hConsoleInput: HANDLE; VAR (*nil*) lpNumberOfEvents: INTEGER): BOOL;
+	PROCEDURE- GetNumberOfConsoleInputEvents* (hConsoleInput: HANDLE; VAR [nil] lpNumberOfEvents: INTEGER): BOOL;
 	(*END GetNumberOfConsoleInputEvents;*)
 
-	PROCEDURE- GetConsoleScreenBufferInfo* (hConsoleOutput: HANDLE; VAR (*nil*) lpConsoleScreenBufferInfo: CONSOLE_SCREEN_BUFFER_INFO): BOOL;
+	PROCEDURE- GetConsoleScreenBufferInfo* (hConsoleOutput: HANDLE; VAR [nil] lpConsoleScreenBufferInfo: CONSOLE_SCREEN_BUFFER_INFO): BOOL;
 	(*END GetConsoleScreenBufferInfo;*)
 
 	PROCEDURE- GetLargestConsoleWindowSize* (hConsoleOutput: HANDLE): INTEGER;
 	(*END GetLargestConsoleWindowSize;*)
 
-	PROCEDURE- GetConsoleCursorInfo* (hConsoleOutput: HANDLE; VAR (*nil*) lpConsoleCursorInfo: CONSOLE_CURSOR_INFO): BOOL;
+	PROCEDURE- GetConsoleCursorInfo* (hConsoleOutput: HANDLE; VAR [nil] lpConsoleCursorInfo: CONSOLE_CURSOR_INFO): BOOL;
 	(*END GetConsoleCursorInfo;*)
 
-	PROCEDURE- GetNumberOfConsoleMouseButtons* (VAR (*nil*) lpNumberOfMouseButtons: INTEGER): BOOL;
+	PROCEDURE- GetNumberOfConsoleMouseButtons* (VAR [nil] lpNumberOfMouseButtons: INTEGER): BOOL;
 	(*END GetNumberOfConsoleMouseButtons;*)
 
 	PROCEDURE- SetConsoleMode* (hConsoleHandle: HANDLE; dwMode: SET): BOOL;
@@ -16688,19 +16688,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetConsoleCursorPosition* (hConsoleOutput: HANDLE; dwCursorPosition: COORD): BOOL;
 	(*END SetConsoleCursorPosition;*)
 
-	PROCEDURE- SetConsoleCursorInfo* (hConsoleOutput: HANDLE; VAR (*nil*) lpConsoleCursorInfo: CONSOLE_CURSOR_INFO): BOOL;
+	PROCEDURE- SetConsoleCursorInfo* (hConsoleOutput: HANDLE; VAR [nil] lpConsoleCursorInfo: CONSOLE_CURSOR_INFO): BOOL;
 	(*END SetConsoleCursorInfo;*)
 
-	PROCEDURE- ScrollConsoleScreenBufferA* (hConsoleOutput: HANDLE; VAR (*nil*) lpScrollRectangle: SMALL_RECT; VAR (*nil*) lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR (*nil*) lpFill: CHAR_INFO): BOOL;
+	PROCEDURE- ScrollConsoleScreenBufferA* (hConsoleOutput: HANDLE; VAR [nil] lpScrollRectangle: SMALL_RECT; VAR [nil] lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR [nil] lpFill: CHAR_INFO): BOOL;
 	(*END ScrollConsoleScreenBufferA;*)
 
-	PROCEDURE- ScrollConsoleScreenBufferW* (hConsoleOutput: HANDLE; VAR (*nil*) lpScrollRectangle: SMALL_RECT; VAR (*nil*) lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR (*nil*) lpFill: CHAR_INFO): BOOL;
+	PROCEDURE- ScrollConsoleScreenBufferW* (hConsoleOutput: HANDLE; VAR [nil] lpScrollRectangle: SMALL_RECT; VAR [nil] lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR [nil] lpFill: CHAR_INFO): BOOL;
 	(*END ScrollConsoleScreenBufferW;*)
 
-	PROCEDURE- ScrollConsoleScreenBuffer* (hConsoleOutput: HANDLE; VAR (*nil*) lpScrollRectangle: SMALL_RECT; VAR (*nil*) lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR (*nil*) lpFill: CHAR_INFO): BOOL "ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)";
+	PROCEDURE- ScrollConsoleScreenBuffer* (hConsoleOutput: HANDLE; VAR [nil] lpScrollRectangle: SMALL_RECT; VAR [nil] lpClipRectangle: SMALL_RECT; dwDestinationOrigin: COORD; VAR [nil] lpFill: CHAR_INFO): BOOL "ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)";
 	(*END ScrollConsoleScreenBuffer;*)
 
-	PROCEDURE- SetConsoleWindowInfo* (hConsoleOutput: HANDLE; bAbsolute: BOOL; VAR (*nil*) lpConsoleWindow: SMALL_RECT): BOOL;
+	PROCEDURE- SetConsoleWindowInfo* (hConsoleOutput: HANDLE; bAbsolute: BOOL; VAR [nil] lpConsoleWindow: SMALL_RECT): BOOL;
 	(*END SetConsoleWindowInfo;*)
 
 	PROCEDURE- SetConsoleTextAttribute* (hConsoleOutput: HANDLE; wAttributes: SHORTINT): BOOL;
@@ -16736,25 +16736,25 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetConsoleTitle* (lpConsoleTitle: PtrSTR): BOOL "SetConsoleTitleA(lpConsoleTitle)";
 	(*END SetConsoleTitle;*)
 
-	PROCEDURE- ReadConsoleA* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR (*nil*) lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL;
+	PROCEDURE- ReadConsoleA* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR [nil] lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL;
 	(*END ReadConsoleA;*)
 
-	PROCEDURE- ReadConsoleW* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR (*nil*) lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL;
+	PROCEDURE- ReadConsoleW* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR [nil] lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL;
 	(*END ReadConsoleW;*)
 
-	PROCEDURE- ReadConsole* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR (*nil*) lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL "ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)";
+	PROCEDURE- ReadConsole* (hConsoleInput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToRead: INTEGER; VAR [nil] lpNumberOfCharsRead: INTEGER; lpReserved: PtrVoid): BOOL "ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)";
 	(*END ReadConsole;*)
 
-	PROCEDURE- WriteConsoleA* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR (*nil*) lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL;
+	PROCEDURE- WriteConsoleA* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR [nil] lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL;
 	(*END WriteConsoleA;*)
 
-	PROCEDURE- WriteConsoleW* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR (*nil*) lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL;
+	PROCEDURE- WriteConsoleW* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR [nil] lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL;
 	(*END WriteConsoleW;*)
 
-	PROCEDURE- WriteConsole* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR (*nil*) lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL "WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)";
+	PROCEDURE- WriteConsole* (hConsoleOutput: HANDLE; lpBuffer: PtrVoid; nNumberOfCharsToWrite: INTEGER; VAR [nil] lpNumberOfCharsWritten: INTEGER; lpReserved: PtrVoid): BOOL "WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)";
 	(*END WriteConsole;*)
 
-	PROCEDURE- CreateConsoleScreenBuffer* (dwDesiredAccess: SET; dwShareMode: SET; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; dwFlags: SET; lpScreenBufferData: PtrVoid): HANDLE;
+	PROCEDURE- CreateConsoleScreenBuffer* (dwDesiredAccess: SET; dwShareMode: SET; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; dwFlags: SET; lpScreenBufferData: PtrVoid): HANDLE;
 	(*END CreateConsoleScreenBuffer;*)
 
 	PROCEDURE- GetConsoleCP* (): INTEGER;
@@ -16769,31 +16769,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetConsoleOutputCP* (wCodePageID: INTEGER): BOOL;
 	(*END SetConsoleOutputCP;*)
 
-	PROCEDURE- VerFindFileA* (uFlags: SET; szFileName: PtrSTR; szWinDir: PtrSTR; szAppDir: PtrSTR; szCurDir: PtrSTR; VAR (*nil*) lpuCurDirLen: INTEGER; szDestDir: PtrSTR; VAR (*nil*) lpuDestDirLen: INTEGER): SET;
+	PROCEDURE- VerFindFileA* (uFlags: SET; szFileName: PtrSTR; szWinDir: PtrSTR; szAppDir: PtrSTR; szCurDir: PtrSTR; VAR [nil] lpuCurDirLen: INTEGER; szDestDir: PtrSTR; VAR [nil] lpuDestDirLen: INTEGER): SET;
 	(*END VerFindFileA;*)
 
-	PROCEDURE- VerFindFileW* (uFlags: SET; szFileName: PtrWSTR; szWinDir: PtrWSTR; szAppDir: PtrWSTR; szCurDir: PtrWSTR; VAR (*nil*) lpuCurDirLen: INTEGER; szDestDir: PtrWSTR; VAR (*nil*) lpuDestDirLen: INTEGER): SET;
+	PROCEDURE- VerFindFileW* (uFlags: SET; szFileName: PtrWSTR; szWinDir: PtrWSTR; szAppDir: PtrWSTR; szCurDir: PtrWSTR; VAR [nil] lpuCurDirLen: INTEGER; szDestDir: PtrWSTR; VAR [nil] lpuDestDirLen: INTEGER): SET;
 	(*END VerFindFileW;*)
 
-	PROCEDURE- VerFindFile* (uFlags: SET; szFileName: PtrSTR; szWinDir: PtrSTR; szAppDir: PtrSTR; szCurDir: PtrSTR; VAR (*nil*) lpuCurDirLen: INTEGER; szDestDir: PtrSTR; VAR (*nil*) lpuDestDirLen: INTEGER): SET "VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)";
+	PROCEDURE- VerFindFile* (uFlags: SET; szFileName: PtrSTR; szWinDir: PtrSTR; szAppDir: PtrSTR; szCurDir: PtrSTR; VAR [nil] lpuCurDirLen: INTEGER; szDestDir: PtrSTR; VAR [nil] lpuDestDirLen: INTEGER): SET "VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)";
 	(*END VerFindFile;*)
 
-	PROCEDURE- VerInstallFileA* (uFlags: SET; szSrcFileName: PtrSTR; szDestFileName: PtrSTR; szSrcDir: PtrSTR; szDestDir: PtrSTR; szCurDir: PtrSTR; szTmpFile: PtrSTR; VAR (*nil*) lpuTmpFileLen: INTEGER): SET;
+	PROCEDURE- VerInstallFileA* (uFlags: SET; szSrcFileName: PtrSTR; szDestFileName: PtrSTR; szSrcDir: PtrSTR; szDestDir: PtrSTR; szCurDir: PtrSTR; szTmpFile: PtrSTR; VAR [nil] lpuTmpFileLen: INTEGER): SET;
 	(*END VerInstallFileA;*)
 
-	PROCEDURE- VerInstallFileW* (uFlags: SET; szSrcFileName: PtrWSTR; szDestFileName: PtrWSTR; szSrcDir: PtrWSTR; szDestDir: PtrWSTR; szCurDir: PtrWSTR; szTmpFile: PtrWSTR; VAR (*nil*) lpuTmpFileLen: INTEGER): SET;
+	PROCEDURE- VerInstallFileW* (uFlags: SET; szSrcFileName: PtrWSTR; szDestFileName: PtrWSTR; szSrcDir: PtrWSTR; szDestDir: PtrWSTR; szCurDir: PtrWSTR; szTmpFile: PtrWSTR; VAR [nil] lpuTmpFileLen: INTEGER): SET;
 	(*END VerInstallFileW;*)
 
-	PROCEDURE- VerInstallFile* (uFlags: SET; szSrcFileName: PtrSTR; szDestFileName: PtrSTR; szSrcDir: PtrSTR; szDestDir: PtrSTR; szCurDir: PtrSTR; szTmpFile: PtrSTR; VAR (*nil*) lpuTmpFileLen: INTEGER): SET "VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)";
+	PROCEDURE- VerInstallFile* (uFlags: SET; szSrcFileName: PtrSTR; szDestFileName: PtrSTR; szSrcDir: PtrSTR; szDestDir: PtrSTR; szCurDir: PtrSTR; szTmpFile: PtrSTR; VAR [nil] lpuTmpFileLen: INTEGER): SET "VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)";
 	(*END VerInstallFile;*)
 
-	PROCEDURE- GetFileVersionInfoSizeA* (lptstrFilename: PtrSTR; VAR (*nil*) lpdwHandle: INTEGER): INTEGER;
+	PROCEDURE- GetFileVersionInfoSizeA* (lptstrFilename: PtrSTR; VAR [nil] lpdwHandle: INTEGER): INTEGER;
 	(*END GetFileVersionInfoSizeA;*)
 
-	PROCEDURE- GetFileVersionInfoSizeW* (lptstrFilename: PtrWSTR; VAR (*nil*) lpdwHandle: INTEGER): INTEGER;
+	PROCEDURE- GetFileVersionInfoSizeW* (lptstrFilename: PtrWSTR; VAR [nil] lpdwHandle: INTEGER): INTEGER;
 	(*END GetFileVersionInfoSizeW;*)
 
-	PROCEDURE- GetFileVersionInfoSize* (lptstrFilename: PtrSTR; VAR (*nil*) lpdwHandle: INTEGER): INTEGER "GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle)";
+	PROCEDURE- GetFileVersionInfoSize* (lptstrFilename: PtrSTR; VAR [nil] lpdwHandle: INTEGER): INTEGER "GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle)";
 	(*END GetFileVersionInfoSize;*)
 
 	PROCEDURE- GetFileVersionInfoA* (lptstrFilename: PtrSTR; dwHandle: INTEGER; dwLen: INTEGER; lpData: PtrVoid): BOOL;
@@ -16814,43 +16814,43 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- VerLanguageName* (wLang: INTEGER; szLang: PtrSTR; nSize: INTEGER): INTEGER "VerLanguageNameA(wLang, szLang, nSize)";
 	(*END VerLanguageName;*)
 
-	PROCEDURE- VerQueryValueA* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR (*nil*) puLen: INTEGER): BOOL;
+	PROCEDURE- VerQueryValueA* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueA;*)
 
-	PROCEDURE- VerQueryValueW* (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR (*nil*) puLen: INTEGER): BOOL;
+	PROCEDURE- VerQueryValueW* (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueW;*)
 
-	PROCEDURE- VerQueryValue* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR (*nil*) puLen: INTEGER): BOOL "VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)";
+	PROCEDURE- VerQueryValue* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL "VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)";
 	(*END VerQueryValue;*)
 
 	PROCEDURE- RegCloseKey* (hKey: HKEY): INTEGER;
 	(*END RegCloseKey;*)
 
-	PROCEDURE- RegConnectRegistryA* (lpMachineName: PtrSTR; hKey: HKEY; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegConnectRegistryA* (lpMachineName: PtrSTR; hKey: HKEY; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegConnectRegistryA;*)
 
-	PROCEDURE- RegConnectRegistryW* (lpMachineName: PtrWSTR; hKey: HKEY; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegConnectRegistryW* (lpMachineName: PtrWSTR; hKey: HKEY; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegConnectRegistryW;*)
 
-	PROCEDURE- RegConnectRegistry* (lpMachineName: PtrSTR; hKey: HKEY; VAR (*nil*) phkResult: HKEY): INTEGER "RegConnectRegistryA(lpMachineName, hKey, phkResult)";
+	PROCEDURE- RegConnectRegistry* (lpMachineName: PtrSTR; hKey: HKEY; VAR [nil] phkResult: HKEY): INTEGER "RegConnectRegistryA(lpMachineName, hKey, phkResult)";
 	(*END RegConnectRegistry;*)
 
-	PROCEDURE- RegCreateKeyA* (hKey: HKEY; lpSubKey: PtrSTR; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegCreateKeyA* (hKey: HKEY; lpSubKey: PtrSTR; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegCreateKeyA;*)
 
-	PROCEDURE- RegCreateKeyW* (hKey: HKEY; lpSubKey: PtrWSTR; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegCreateKeyW* (hKey: HKEY; lpSubKey: PtrWSTR; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegCreateKeyW;*)
 
-	PROCEDURE- RegCreateKey* (hKey: HKEY; lpSubKey: PtrSTR; VAR (*nil*) phkResult: HKEY): INTEGER "RegCreateKeyA(hKey, lpSubKey, phkResult)";
+	PROCEDURE- RegCreateKey* (hKey: HKEY; lpSubKey: PtrSTR; VAR [nil] phkResult: HKEY): INTEGER "RegCreateKeyA(hKey, lpSubKey, phkResult)";
 	(*END RegCreateKey;*)
 
-	PROCEDURE- RegCreateKeyExA* (hKey: HKEY; lpSubKey: PtrSTR; Reserved: INTEGER; lpClass: PtrSTR; dwOptions: SET; samDesired: REGSAM; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) phkResult: HKEY; VAR (*nil*) lpdwDisposition: INTEGER): INTEGER;
+	PROCEDURE- RegCreateKeyExA* (hKey: HKEY; lpSubKey: PtrSTR; Reserved: INTEGER; lpClass: PtrSTR; dwOptions: SET; samDesired: REGSAM; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR [nil] phkResult: HKEY; VAR [nil] lpdwDisposition: INTEGER): INTEGER;
 	(*END RegCreateKeyExA;*)
 
-	PROCEDURE- RegCreateKeyExW* (hKey: HKEY; lpSubKey: PtrWSTR; Reserved: INTEGER; lpClass: PtrWSTR; dwOptions: SET; samDesired: REGSAM; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) phkResult: HKEY; VAR (*nil*) lpdwDisposition: INTEGER): INTEGER;
+	PROCEDURE- RegCreateKeyExW* (hKey: HKEY; lpSubKey: PtrWSTR; Reserved: INTEGER; lpClass: PtrWSTR; dwOptions: SET; samDesired: REGSAM; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR [nil] phkResult: HKEY; VAR [nil] lpdwDisposition: INTEGER): INTEGER;
 	(*END RegCreateKeyExW;*)
 
-	PROCEDURE- RegCreateKeyEx* (hKey: HKEY; lpSubKey: PtrSTR; Reserved: INTEGER; lpClass: PtrSTR; dwOptions: SET; samDesired: REGSAM; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR (*nil*) phkResult: HKEY; VAR (*nil*) lpdwDisposition: INTEGER): INTEGER "RegCreateKeyExA(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition)";
+	PROCEDURE- RegCreateKeyEx* (hKey: HKEY; lpSubKey: PtrSTR; Reserved: INTEGER; lpClass: PtrSTR; dwOptions: SET; samDesired: REGSAM; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES; VAR [nil] phkResult: HKEY; VAR [nil] lpdwDisposition: INTEGER): INTEGER "RegCreateKeyExA(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition)";
 	(*END RegCreateKeyEx;*)
 
 	PROCEDURE- RegDeleteKeyA* (hKey: HKEY; lpSubKey: PtrSTR): INTEGER;
@@ -16880,28 +16880,28 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RegEnumKey* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrSTR; cbName: INTEGER): INTEGER "RegEnumKeyA(hKey, dwIndex, lpName, cbName)";
 	(*END RegEnumKey;*)
 
-	PROCEDURE- RegEnumKeyExA* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrSTR; VAR (*nil*) lpcbName: INTEGER; VAR (*nil*) lpReserved: INTEGER; lpClass: PtrSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER;
+	PROCEDURE- RegEnumKeyExA* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrSTR; VAR [nil] lpcbName: INTEGER; VAR [nil] lpReserved: INTEGER; lpClass: PtrSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER;
 	(*END RegEnumKeyExA;*)
 
-	PROCEDURE- RegEnumKeyExW* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrWSTR; VAR (*nil*) lpcbName: INTEGER; VAR (*nil*) lpReserved: INTEGER; lpClass: PtrWSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER;
+	PROCEDURE- RegEnumKeyExW* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrWSTR; VAR [nil] lpcbName: INTEGER; VAR [nil] lpReserved: INTEGER; lpClass: PtrWSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER;
 	(*END RegEnumKeyExW;*)
 
-	PROCEDURE- RegEnumKeyEx* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrSTR; VAR (*nil*) lpcbName: INTEGER; VAR (*nil*) lpReserved: INTEGER; lpClass: PtrSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER "RegEnumKeyExA(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime)";
+	PROCEDURE- RegEnumKeyEx* (hKey: HKEY; dwIndex: INTEGER; lpName: PtrSTR; VAR [nil] lpcbName: INTEGER; VAR [nil] lpReserved: INTEGER; lpClass: PtrSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER "RegEnumKeyExA(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime)";
 	(*END RegEnumKeyEx;*)
 
-	PROCEDURE- RegEnumValueA* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrSTR; VAR (*nil*) lpcbValueName: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER;
+	PROCEDURE- RegEnumValueA* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrSTR; VAR [nil] lpcbValueName: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER;
 	(*END RegEnumValueA;*)
 
-	PROCEDURE- RegEnumValueW* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrWSTR; VAR (*nil*) lpcbValueName: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER;
+	PROCEDURE- RegEnumValueW* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrWSTR; VAR [nil] lpcbValueName: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER;
 	(*END RegEnumValueW;*)
 
-	PROCEDURE- RegEnumValue* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrSTR; VAR (*nil*) lpcbValueName: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER "RegEnumValueA(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)";
+	PROCEDURE- RegEnumValue* (hKey: HKEY; dwIndex: INTEGER; lpValueName: PtrSTR; VAR [nil] lpcbValueName: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER "RegEnumValueA(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)";
 	(*END RegEnumValue;*)
 
 	PROCEDURE- RegFlushKey* (hKey: HKEY): INTEGER;
 	(*END RegFlushKey;*)
 
-	PROCEDURE- RegGetKeySecurity* (hKey: HKEY; SecurityInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR (*nil*) lpcbSecurityDescriptor: INTEGER): INTEGER;
+	PROCEDURE- RegGetKeySecurity* (hKey: HKEY; SecurityInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR; VAR [nil] lpcbSecurityDescriptor: INTEGER): INTEGER;
 	(*END RegGetKeySecurity;*)
 
 	PROCEDURE- RegLoadKeyA* (hKey: HKEY; lpSubKey: PtrSTR; lpFile: PtrSTR): INTEGER;
@@ -16916,58 +16916,58 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RegNotifyChangeKeyValue* (hKey: HKEY; bWatchSubtree: BOOL; dwNotifyFilter: SET; hEvent: HANDLE; fAsynchronus: BOOL): INTEGER;
 	(*END RegNotifyChangeKeyValue;*)
 
-	PROCEDURE- RegOpenKeyA* (hKey: HKEY; lpSubKey: PtrSTR; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegOpenKeyA* (hKey: HKEY; lpSubKey: PtrSTR; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegOpenKeyA;*)
 
-	PROCEDURE- RegOpenKeyW* (hKey: HKEY; lpSubKey: PtrWSTR; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegOpenKeyW* (hKey: HKEY; lpSubKey: PtrWSTR; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegOpenKeyW;*)
 
-	PROCEDURE- RegOpenKey* (hKey: HKEY; lpSubKey: PtrSTR; VAR (*nil*) phkResult: HKEY): INTEGER "RegOpenKeyA(hKey, lpSubKey, phkResult)";
+	PROCEDURE- RegOpenKey* (hKey: HKEY; lpSubKey: PtrSTR; VAR [nil] phkResult: HKEY): INTEGER "RegOpenKeyA(hKey, lpSubKey, phkResult)";
 	(*END RegOpenKey;*)
 
-	PROCEDURE- RegOpenKeyExA* (hKey: HKEY; lpSubKey: PtrSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegOpenKeyExA* (hKey: HKEY; lpSubKey: PtrSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegOpenKeyExA;*)
 
-	PROCEDURE- RegOpenKeyExW* (hKey: HKEY; lpSubKey: PtrWSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR (*nil*) phkResult: HKEY): INTEGER;
+	PROCEDURE- RegOpenKeyExW* (hKey: HKEY; lpSubKey: PtrWSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR [nil] phkResult: HKEY): INTEGER;
 	(*END RegOpenKeyExW;*)
 
-	PROCEDURE- RegOpenKeyEx* (hKey: HKEY; lpSubKey: PtrSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR (*nil*) phkResult: HKEY): INTEGER "RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult)";
+	PROCEDURE- RegOpenKeyEx* (hKey: HKEY; lpSubKey: PtrSTR; ulOptions: INTEGER; samDesired: REGSAM; VAR [nil] phkResult: HKEY): INTEGER "RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult)";
 	(*END RegOpenKeyEx;*)
 
-	PROCEDURE- RegQueryInfoKeyA* (hKey: HKEY; lpClass: PtrSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpcSubKeys: INTEGER; VAR (*nil*) lpcbMaxSubKeyLen: INTEGER; VAR (*nil*) lpcbMaxClassLen: INTEGER; VAR (*nil*) lpcValues: INTEGER; VAR (*nil*) lpcbMaxValueNameLen: INTEGER; VAR (*nil*) lpcbMaxValueLen: INTEGER; VAR (*nil*) lpcbSecurityDescriptor: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER;
+	PROCEDURE- RegQueryInfoKeyA* (hKey: HKEY; lpClass: PtrSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpcSubKeys: INTEGER; VAR [nil] lpcbMaxSubKeyLen: INTEGER; VAR [nil] lpcbMaxClassLen: INTEGER; VAR [nil] lpcValues: INTEGER; VAR [nil] lpcbMaxValueNameLen: INTEGER; VAR [nil] lpcbMaxValueLen: INTEGER; VAR [nil] lpcbSecurityDescriptor: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER;
 	(*END RegQueryInfoKeyA;*)
 
-	PROCEDURE- RegQueryInfoKeyW* (hKey: HKEY; lpClass: PtrWSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpcSubKeys: INTEGER; VAR (*nil*) lpcbMaxSubKeyLen: INTEGER; VAR (*nil*) lpcbMaxClassLen: INTEGER; VAR (*nil*) lpcValues: INTEGER; VAR (*nil*) lpcbMaxValueNameLen: INTEGER; VAR (*nil*) lpcbMaxValueLen: INTEGER; VAR (*nil*) lpcbSecurityDescriptor: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER;
+	PROCEDURE- RegQueryInfoKeyW* (hKey: HKEY; lpClass: PtrWSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpcSubKeys: INTEGER; VAR [nil] lpcbMaxSubKeyLen: INTEGER; VAR [nil] lpcbMaxClassLen: INTEGER; VAR [nil] lpcValues: INTEGER; VAR [nil] lpcbMaxValueNameLen: INTEGER; VAR [nil] lpcbMaxValueLen: INTEGER; VAR [nil] lpcbSecurityDescriptor: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER;
 	(*END RegQueryInfoKeyW;*)
 
-	PROCEDURE- RegQueryInfoKey* (hKey: HKEY; lpClass: PtrSTR; VAR (*nil*) lpcbClass: INTEGER; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpcSubKeys: INTEGER; VAR (*nil*) lpcbMaxSubKeyLen: INTEGER; VAR (*nil*) lpcbMaxClassLen: INTEGER; VAR (*nil*) lpcValues: INTEGER; VAR (*nil*) lpcbMaxValueNameLen: INTEGER; VAR (*nil*) lpcbMaxValueLen: INTEGER; VAR (*nil*) lpcbSecurityDescriptor: INTEGER; VAR (*nil*) lpftLastWriteTime: FILETIME): INTEGER "RegQueryInfoKeyA(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime)";
+	PROCEDURE- RegQueryInfoKey* (hKey: HKEY; lpClass: PtrSTR; VAR [nil] lpcbClass: INTEGER; VAR [nil] lpReserved: INTEGER; VAR [nil] lpcSubKeys: INTEGER; VAR [nil] lpcbMaxSubKeyLen: INTEGER; VAR [nil] lpcbMaxClassLen: INTEGER; VAR [nil] lpcValues: INTEGER; VAR [nil] lpcbMaxValueNameLen: INTEGER; VAR [nil] lpcbMaxValueLen: INTEGER; VAR [nil] lpcbSecurityDescriptor: INTEGER; VAR [nil] lpftLastWriteTime: FILETIME): INTEGER "RegQueryInfoKeyA(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime)";
 	(*END RegQueryInfoKey;*)
 
-	PROCEDURE- RegQueryValueA* (hKey: HKEY; lpSubKey: PtrSTR; lpValue: PtrSTR; VAR (*nil*) lpcbValue: INTEGER): INTEGER;
+	PROCEDURE- RegQueryValueA* (hKey: HKEY; lpSubKey: PtrSTR; lpValue: PtrSTR; VAR [nil] lpcbValue: INTEGER): INTEGER;
 	(*END RegQueryValueA;*)
 
-	PROCEDURE- RegQueryValueW* (hKey: HKEY; lpSubKey: PtrWSTR; lpValue: PtrWSTR; VAR (*nil*) lpcbValue: INTEGER): INTEGER;
+	PROCEDURE- RegQueryValueW* (hKey: HKEY; lpSubKey: PtrWSTR; lpValue: PtrWSTR; VAR [nil] lpcbValue: INTEGER): INTEGER;
 	(*END RegQueryValueW;*)
 
-	PROCEDURE- RegQueryValue* (hKey: HKEY; lpSubKey: PtrSTR; lpValue: PtrSTR; VAR (*nil*) lpcbValue: INTEGER): INTEGER "RegQueryValueA(hKey, lpSubKey, lpValue, lpcbValue)";
+	PROCEDURE- RegQueryValue* (hKey: HKEY; lpSubKey: PtrSTR; lpValue: PtrSTR; VAR [nil] lpcbValue: INTEGER): INTEGER "RegQueryValueA(hKey, lpSubKey, lpValue, lpcbValue)";
 	(*END RegQueryValue;*)
 
-	PROCEDURE- RegQueryMultipleValuesA* (hKey: HKEY; VAR (*nil*) val_list: VALENTA; num_vals: INTEGER; lpValueBuf: PtrSTR; VAR (*nil*) ldwTotsize: INTEGER): INTEGER;
+	PROCEDURE- RegQueryMultipleValuesA* (hKey: HKEY; VAR [nil] val_list: VALENTA; num_vals: INTEGER; lpValueBuf: PtrSTR; VAR [nil] ldwTotsize: INTEGER): INTEGER;
 	(*END RegQueryMultipleValuesA;*)
 
-	PROCEDURE- RegQueryMultipleValuesW* (hKey: HKEY; VAR (*nil*) val_list: VALENTW; num_vals: INTEGER; lpValueBuf: PtrWSTR; VAR (*nil*) ldwTotsize: INTEGER): INTEGER;
+	PROCEDURE- RegQueryMultipleValuesW* (hKey: HKEY; VAR [nil] val_list: VALENTW; num_vals: INTEGER; lpValueBuf: PtrWSTR; VAR [nil] ldwTotsize: INTEGER): INTEGER;
 	(*END RegQueryMultipleValuesW;*)
 
-	PROCEDURE- RegQueryMultipleValues* (hKey: HKEY; VAR (*nil*) val_list: VALENTA; num_vals: INTEGER; lpValueBuf: PtrSTR; VAR (*nil*) ldwTotsize: INTEGER): INTEGER "RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize)";
+	PROCEDURE- RegQueryMultipleValues* (hKey: HKEY; VAR [nil] val_list: VALENTA; num_vals: INTEGER; lpValueBuf: PtrSTR; VAR [nil] ldwTotsize: INTEGER): INTEGER "RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize)";
 	(*END RegQueryMultipleValues;*)
 
-	PROCEDURE- RegQueryValueExA* (hKey: HKEY; lpValueName: PtrSTR; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER;
+	PROCEDURE- RegQueryValueExA* (hKey: HKEY; lpValueName: PtrSTR; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER;
 	(*END RegQueryValueExA;*)
 
-	PROCEDURE- RegQueryValueExW* (hKey: HKEY; lpValueName: PtrWSTR; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER;
+	PROCEDURE- RegQueryValueExW* (hKey: HKEY; lpValueName: PtrWSTR; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER;
 	(*END RegQueryValueExW;*)
 
-	PROCEDURE- RegQueryValueEx* (hKey: HKEY; lpValueName: PtrSTR; VAR (*nil*) lpReserved: INTEGER; VAR (*nil*) lpType: INTEGER; lpData: PtrVoid; VAR (*nil*) lpcbData: INTEGER): INTEGER "RegQueryValueExA(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)";
+	PROCEDURE- RegQueryValueEx* (hKey: HKEY; lpValueName: PtrSTR; VAR [nil] lpReserved: INTEGER; VAR [nil] lpType: INTEGER; lpData: PtrVoid; VAR [nil] lpcbData: INTEGER): INTEGER "RegQueryValueExA(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)";
 	(*END RegQueryValueEx;*)
 
 	PROCEDURE- RegReplaceKeyA* (hKey: HKEY; lpSubKey: PtrSTR; lpNewFile: PtrSTR; lpOldFile: PtrSTR): INTEGER;
@@ -16988,13 +16988,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RegRestoreKey* (hKey: HKEY; lpFile: PtrSTR; dwFlags: SET): INTEGER "RegRestoreKeyA(hKey, lpFile, dwFlags)";
 	(*END RegRestoreKey;*)
 
-	PROCEDURE- RegSaveKeyA* (hKey: HKEY; lpFile: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER;
+	PROCEDURE- RegSaveKeyA* (hKey: HKEY; lpFile: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER;
 	(*END RegSaveKeyA;*)
 
-	PROCEDURE- RegSaveKeyW* (hKey: HKEY; lpFile: PtrWSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER;
+	PROCEDURE- RegSaveKeyW* (hKey: HKEY; lpFile: PtrWSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER;
 	(*END RegSaveKeyW;*)
 
-	PROCEDURE- RegSaveKey* (hKey: HKEY; lpFile: PtrSTR; VAR (*nil*) lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER "RegSaveKeyA(hKey, lpFile, lpSecurityAttributes)";
+	PROCEDURE- RegSaveKey* (hKey: HKEY; lpFile: PtrSTR; VAR [nil] lpSecurityAttributes: SECURITY_ATTRIBUTES): INTEGER "RegSaveKeyA(hKey, lpFile, lpSecurityAttributes)";
 	(*END RegSaveKey;*)
 
 	PROCEDURE- RegSetKeySecurity* (hKey: HKEY; SecurityInformation: SECURITY_INFORMATION; pSecurityDescriptor: PSECURITY_DESCRIPTOR): INTEGER;
@@ -17045,7 +17045,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AbortSystemShutdown* (lpMachineName: PtrSTR): BOOL "AbortSystemShutdownA(lpMachineName)";
 	(*END AbortSystemShutdown;*)
 
-	PROCEDURE- DdeSetQualityOfService* (hwndClient: HWND; VAR (*nil*) pqosNew: SECURITY_QUALITY_OF_SERVICE; VAR (*nil*) pqosPrev: SECURITY_QUALITY_OF_SERVICE): BOOL;
+	PROCEDURE- DdeSetQualityOfService* (hwndClient: HWND; VAR [nil] pqosNew: SECURITY_QUALITY_OF_SERVICE; VAR [nil] pqosPrev: SECURITY_QUALITY_OF_SERVICE): BOOL;
 	(*END DdeSetQualityOfService;*)
 
 	PROCEDURE- ImpersonateDdeClientWindow* (hWndClient: HWND; hWndServer: HWND): BOOL;
@@ -17054,7 +17054,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PackDDElParam* (msg: INTEGER; uiLo: INTEGER; uiHi: INTEGER): INTEGER;
 	(*END PackDDElParam;*)
 
-	PROCEDURE- UnpackDDElParam* (msg: INTEGER; lParam: INTEGER; VAR (*nil*) puiLo: INTEGER; VAR (*nil*) puiHi: INTEGER): BOOL;
+	PROCEDURE- UnpackDDElParam* (msg: INTEGER; lParam: INTEGER; VAR [nil] puiLo: INTEGER; VAR [nil] puiHi: INTEGER): BOOL;
 	(*END UnpackDDElParam;*)
 
 	PROCEDURE- FreeDDElParam* (msg: INTEGER; lParam: INTEGER): BOOL;
@@ -17063,19 +17063,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ReuseDDElParam* (lParam: INTEGER; msgIn: INTEGER; msgOut: INTEGER; uiLo: INTEGER; uiHi: INTEGER): INTEGER;
 	(*END ReuseDDElParam;*)
 
-	PROCEDURE- DdeInitializeA* (VAR (*nil*) pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER;
+	PROCEDURE- DdeInitializeA* (VAR [nil] pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER;
 	(*END DdeInitializeA;*)
 
-	PROCEDURE- DdeInitializeW* (VAR (*nil*) pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER;
+	PROCEDURE- DdeInitializeW* (VAR [nil] pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER;
 	(*END DdeInitializeW;*)
 
-	PROCEDURE- DdeInitialize* (VAR (*nil*) pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER "DdeInitializeA(pidInst, pfnCallback, afCmd, ulRes)";
+	PROCEDURE- DdeInitialize* (VAR [nil] pidInst: INTEGER; pfnCallback: FNCALLBACK; afCmd: INTEGER; ulRes: INTEGER): INTEGER "DdeInitializeA(pidInst, pfnCallback, afCmd, ulRes)";
 	(*END DdeInitialize;*)
 
 	PROCEDURE- DdeUninitialize* (idInst: INTEGER): BOOL;
 	(*END DdeUninitialize;*)
 
-	PROCEDURE- DdeConnectList* (idInst: INTEGER; hszService: HSZ; hszTopic: HSZ; hConvList: HCONVLIST; VAR (*nil*) pCC: CONVCONTEXT): HCONVLIST;
+	PROCEDURE- DdeConnectList* (idInst: INTEGER; hszService: HSZ; hszTopic: HSZ; hConvList: HCONVLIST; VAR [nil] pCC: CONVCONTEXT): HCONVLIST;
 	(*END DdeConnectList;*)
 
 	PROCEDURE- DdeQueryNextServer* (hConvList: HCONVLIST; hConvPrev: HCONV): HCONV;
@@ -17084,7 +17084,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DdeDisconnectList* (hConvList: HCONVLIST): BOOL;
 	(*END DdeDisconnectList;*)
 
-	PROCEDURE- DdeConnect* (idInst: INTEGER; hszService: HSZ; hszTopic: HSZ; VAR (*nil*) pCC: CONVCONTEXT): HCONV;
+	PROCEDURE- DdeConnect* (idInst: INTEGER; hszService: HSZ; hszTopic: HSZ; VAR [nil] pCC: CONVCONTEXT): HCONV;
 	(*END DdeConnect;*)
 
 	PROCEDURE- DdeDisconnect* (hConv: HCONV): BOOL;
@@ -17093,7 +17093,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DdeReconnect* (hConv: HCONV): HCONV;
 	(*END DdeReconnect;*)
 
-	PROCEDURE- DdeQueryConvInfo* (hConv: HCONV; idTransaction: INTEGER; VAR (*nil*) pConvInfo: CONVINFO): INTEGER;
+	PROCEDURE- DdeQueryConvInfo* (hConv: HCONV; idTransaction: INTEGER; VAR [nil] pConvInfo: CONVINFO): INTEGER;
 	(*END DdeQueryConvInfo;*)
 
 	PROCEDURE- DdeSetUserHandle* (hConv: HCONV; id: INTEGER; hUser: INTEGER): BOOL;
@@ -17114,19 +17114,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DdeNameService* (idInst: INTEGER; hsz1: HSZ; hsz2: HSZ; afCmd: INTEGER): HDDEDATA;
 	(*END DdeNameService;*)
 
-	PROCEDURE- DdeClientTransaction* (VAR (*nil*) pData: SHORTCHAR; cbData: INTEGER; hConv: HCONV; hszItem: HSZ; wFmt: INTEGER; wType: INTEGER; dwTimeout: INTEGER; VAR (*nil*) pdwResult: INTEGER): HDDEDATA;
+	PROCEDURE- DdeClientTransaction* (VAR [nil] pData: SHORTCHAR; cbData: INTEGER; hConv: HCONV; hszItem: HSZ; wFmt: INTEGER; wType: INTEGER; dwTimeout: INTEGER; VAR [nil] pdwResult: INTEGER): HDDEDATA;
 	(*END DdeClientTransaction;*)
 
-	PROCEDURE- DdeCreateDataHandle* (idInst: INTEGER; VAR (*nil*) pSrc: SHORTCHAR; cb: INTEGER; cbOff: INTEGER; hszItem: HSZ; wFmt: INTEGER; afCmd: INTEGER): HDDEDATA;
+	PROCEDURE- DdeCreateDataHandle* (idInst: INTEGER; VAR [nil] pSrc: SHORTCHAR; cb: INTEGER; cbOff: INTEGER; hszItem: HSZ; wFmt: INTEGER; afCmd: INTEGER): HDDEDATA;
 	(*END DdeCreateDataHandle;*)
 
-	PROCEDURE- DdeAddData* (hData: HDDEDATA; VAR (*nil*) pSrc: SHORTCHAR; cb: INTEGER; cbOff: INTEGER): HDDEDATA;
+	PROCEDURE- DdeAddData* (hData: HDDEDATA; VAR [nil] pSrc: SHORTCHAR; cb: INTEGER; cbOff: INTEGER): HDDEDATA;
 	(*END DdeAddData;*)
 
-	PROCEDURE- DdeGetData* (hData: HDDEDATA; VAR (*nil*) pDst: SHORTCHAR; cbMax: INTEGER; cbOff: INTEGER): INTEGER;
+	PROCEDURE- DdeGetData* (hData: HDDEDATA; VAR [nil] pDst: SHORTCHAR; cbMax: INTEGER; cbOff: INTEGER): INTEGER;
 	(*END DdeGetData;*)
 
-	PROCEDURE- DdeAccessData* (hData: HDDEDATA; VAR (*nil*) pcbDataSize: INTEGER): RetDdeAccessData;
+	PROCEDURE- DdeAccessData* (hData: HDDEDATA; VAR [nil] pcbDataSize: INTEGER): RetDdeAccessData;
 	(*END DdeAccessData;*)
 
 	PROCEDURE- DdeUnaccessData* (hData: HDDEDATA): BOOL;
@@ -17189,13 +17189,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- GetExpandedName* (p0: PtrSTR; p1: PtrSTR): INTEGER "GetExpandedNameA(p0, p1)";
 	(*END GetExpandedName;*)
 
-	PROCEDURE- LZOpenFileA* (p0: PtrSTR; VAR (*nil*) p1: OFSTRUCT; p2: SHORTINT): INTEGER;
+	PROCEDURE- LZOpenFileA* (p0: PtrSTR; VAR [nil] p1: OFSTRUCT; p2: SHORTINT): INTEGER;
 	(*END LZOpenFileA;*)
 
-	PROCEDURE- LZOpenFileW* (p0: PtrWSTR; VAR (*nil*) p1: OFSTRUCT; p2: SHORTINT): INTEGER;
+	PROCEDURE- LZOpenFileW* (p0: PtrWSTR; VAR [nil] p1: OFSTRUCT; p2: SHORTINT): INTEGER;
 	(*END LZOpenFileW;*)
 
-	PROCEDURE- LZOpenFile* (p0: PtrSTR; VAR (*nil*) p1: OFSTRUCT; p2: SHORTINT): INTEGER "LZOpenFileA(p0, p1, p2)";
+	PROCEDURE- LZOpenFile* (p0: PtrSTR; VAR [nil] p1: OFSTRUCT; p2: SHORTINT): INTEGER "LZOpenFileA(p0, p1, p2)";
 	(*END LZOpenFile;*)
 
 	PROCEDURE- LZSeek* (p0: INTEGER; p1: INTEGER; p2: INTEGER): INTEGER;
@@ -17216,7 +17216,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DragQueryFile* (p0: HDROP; p1: INTEGER; p2: PtrSTR; p3: INTEGER): INTEGER "DragQueryFileA(p0, p1, p2, p3)";
 	(*END DragQueryFile;*)
 
-	PROCEDURE- DragQueryPoint* (p0: HDROP; VAR (*nil*) p1: POINT): BOOL;
+	PROCEDURE- DragQueryPoint* (p0: HDROP; VAR [nil] p1: POINT): BOOL;
 	(*END DragQueryPoint;*)
 
 	PROCEDURE- DragFinish* (p0: HDROP);
@@ -17243,7 +17243,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FindExecutable* (lpFile: PtrSTR; lpDirectory: PtrSTR; lpResult: PtrSTR): HINSTANCE "FindExecutableA(lpFile, lpDirectory, lpResult)";
 	(*END FindExecutable;*)
 
-	PROCEDURE- CommandLineToArgvW* (lpCmdLine: PtrWSTR; VAR (*nil*) pNumArgs: INTEGER): RetCommandLineToArgvW;
+	PROCEDURE- CommandLineToArgvW* (lpCmdLine: PtrWSTR; VAR [nil] pNumArgs: INTEGER): RetCommandLineToArgvW;
 	(*END CommandLineToArgvW;*)
 
 	PROCEDURE- ShellAboutA* (hWnd: HWND; szApp: PtrSTR; szOtherStuff: PtrSTR; hIcon: HICON): INTEGER;
@@ -17258,13 +17258,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DuplicateIcon* (hInst: HINSTANCE; hIcon: HICON): HICON;
 	(*END DuplicateIcon;*)
 
-	PROCEDURE- ExtractAssociatedIconA* (hInst: HINSTANCE; lpIconPath: PtrSTR; VAR (*nil*) lpiIcon: SHORTINT): HICON;
+	PROCEDURE- ExtractAssociatedIconA* (hInst: HINSTANCE; lpIconPath: PtrSTR; VAR [nil] lpiIcon: SHORTINT): HICON;
 	(*END ExtractAssociatedIconA;*)
 
-	PROCEDURE- ExtractAssociatedIconW* (hInst: HINSTANCE; lpIconPath: PtrWSTR; VAR (*nil*) lpiIcon: SHORTINT): HICON;
+	PROCEDURE- ExtractAssociatedIconW* (hInst: HINSTANCE; lpIconPath: PtrWSTR; VAR [nil] lpiIcon: SHORTINT): HICON;
 	(*END ExtractAssociatedIconW;*)
 
-	PROCEDURE- ExtractAssociatedIcon* (hInst: HINSTANCE; lpIconPath: PtrSTR; VAR (*nil*) lpiIcon: SHORTINT): HICON "ExtractAssociatedIconA(hInst, lpIconPath, lpiIcon)";
+	PROCEDURE- ExtractAssociatedIcon* (hInst: HINSTANCE; lpIconPath: PtrSTR; VAR [nil] lpiIcon: SHORTINT): HICON "ExtractAssociatedIconA(hInst, lpIconPath, lpiIcon)";
 	(*END ExtractAssociatedIcon;*)
 
 	PROCEDURE- ExtractIconA* (hInst: HINSTANCE; lpszExeFileName: PtrSTR; nIconIndex: INTEGER): HICON;
@@ -17276,7 +17276,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ExtractIcon* (hInst: HINSTANCE; lpszExeFileName: PtrSTR; nIconIndex: INTEGER): HICON "ExtractIconA(hInst, lpszExeFileName, nIconIndex)";
 	(*END ExtractIcon;*)
 
-	PROCEDURE- SHAppBarMessage* (dwMessage: INTEGER; VAR (*nil*) pData: APPBARDATA): INTEGER;
+	PROCEDURE- SHAppBarMessage* (dwMessage: INTEGER; VAR [nil] pData: APPBARDATA): INTEGER;
 	(*END SHAppBarMessage;*)
 
 	PROCEDURE- DoEnvironmentSubstA* (szString: PtrSTR; cbString: INTEGER): INTEGER;
@@ -17288,202 +17288,202 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DoEnvironmentSubst* (szString: PtrSTR; cbString: INTEGER): INTEGER "DoEnvironmentSubstA(szString, cbString)";
 	(*END DoEnvironmentSubst;*)
 
-	PROCEDURE- ExtractIconExA* (lpszFile: PtrSTR; nIconIndex: INTEGER; VAR (*nil*) phiconLarge: HICON; VAR (*nil*) phiconSmall: HICON; nIcons: INTEGER): INTEGER;
+	PROCEDURE- ExtractIconExA* (lpszFile: PtrSTR; nIconIndex: INTEGER; VAR [nil] phiconLarge: HICON; VAR [nil] phiconSmall: HICON; nIcons: INTEGER): INTEGER;
 	(*END ExtractIconExA;*)
 
-	PROCEDURE- ExtractIconExW* (lpszFile: PtrWSTR; nIconIndex: INTEGER; VAR (*nil*) phiconLarge: HICON; VAR (*nil*) phiconSmall: HICON; nIcons: INTEGER): INTEGER;
+	PROCEDURE- ExtractIconExW* (lpszFile: PtrWSTR; nIconIndex: INTEGER; VAR [nil] phiconLarge: HICON; VAR [nil] phiconSmall: HICON; nIcons: INTEGER): INTEGER;
 	(*END ExtractIconExW;*)
 
-	PROCEDURE- ExtractIconEx* (lpszFile: PtrSTR; nIconIndex: INTEGER; VAR (*nil*) phiconLarge: HICON; VAR (*nil*) phiconSmall: HICON; nIcons: INTEGER): INTEGER "ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)";
+	PROCEDURE- ExtractIconEx* (lpszFile: PtrSTR; nIconIndex: INTEGER; VAR [nil] phiconLarge: HICON; VAR [nil] phiconSmall: HICON; nIcons: INTEGER): INTEGER "ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)";
 	(*END ExtractIconEx;*)
 
-	PROCEDURE- SHFileOperationA* (VAR (*nil*) lpFileOp: SHFILEOPSTRUCTA): INTEGER;
+	PROCEDURE- SHFileOperationA* (VAR [nil] lpFileOp: SHFILEOPSTRUCTA): INTEGER;
 	(*END SHFileOperationA;*)
 
-	PROCEDURE- SHFileOperationW* (VAR (*nil*) lpFileOp: SHFILEOPSTRUCTW): INTEGER;
+	PROCEDURE- SHFileOperationW* (VAR [nil] lpFileOp: SHFILEOPSTRUCTW): INTEGER;
 	(*END SHFileOperationW;*)
 
-	PROCEDURE- SHFileOperation* (VAR (*nil*) lpFileOp: SHFILEOPSTRUCTA): INTEGER "SHFileOperationA(lpFileOp)";
+	PROCEDURE- SHFileOperation* (VAR [nil] lpFileOp: SHFILEOPSTRUCTA): INTEGER "SHFileOperationA(lpFileOp)";
 	(*END SHFileOperation;*)
 
 	PROCEDURE- SHFreeNameMappings* (hNameMappings: HANDLE);
 	(*END SHFreeNameMappings;*)
 
-	PROCEDURE- ShellExecuteExA* (VAR (*nil*) lpExecInfo: SHELLEXECUTEINFOA): BOOL;
+	PROCEDURE- ShellExecuteExA* (VAR [nil] lpExecInfo: SHELLEXECUTEINFOA): BOOL;
 	(*END ShellExecuteExA;*)
 
-	PROCEDURE- ShellExecuteExW* (VAR (*nil*) lpExecInfo: SHELLEXECUTEINFOW): BOOL;
+	PROCEDURE- ShellExecuteExW* (VAR [nil] lpExecInfo: SHELLEXECUTEINFOW): BOOL;
 	(*END ShellExecuteExW;*)
 
-	PROCEDURE- ShellExecuteEx* (VAR (*nil*) lpExecInfo: SHELLEXECUTEINFOA): BOOL "ShellExecuteExA(lpExecInfo)";
+	PROCEDURE- ShellExecuteEx* (VAR [nil] lpExecInfo: SHELLEXECUTEINFOA): BOOL "ShellExecuteExA(lpExecInfo)";
 	(*END ShellExecuteEx;*)
 
-	PROCEDURE- Shell_NotifyIconA* (dwMessage: INTEGER; VAR (*nil*) lpData: NOTIFYICONDATAA): BOOL;
+	PROCEDURE- Shell_NotifyIconA* (dwMessage: INTEGER; VAR [nil] lpData: NOTIFYICONDATAA): BOOL;
 	(*END Shell_NotifyIconA;*)
 
-	PROCEDURE- Shell_NotifyIconW* (dwMessage: INTEGER; VAR (*nil*) lpData: NOTIFYICONDATAW): BOOL;
+	PROCEDURE- Shell_NotifyIconW* (dwMessage: INTEGER; VAR [nil] lpData: NOTIFYICONDATAW): BOOL;
 	(*END Shell_NotifyIconW;*)
 
-	PROCEDURE- Shell_NotifyIcon* (dwMessage: INTEGER; VAR (*nil*) lpData: NOTIFYICONDATAA): BOOL "Shell_NotifyIconA(dwMessage, lpData)";
+	PROCEDURE- Shell_NotifyIcon* (dwMessage: INTEGER; VAR [nil] lpData: NOTIFYICONDATAA): BOOL "Shell_NotifyIconA(dwMessage, lpData)";
 	(*END Shell_NotifyIcon;*)
 
-	PROCEDURE- SHGetFileInfoA* (pszPath: PtrSTR; dwFileAttributes: SET; VAR (*nil*) psfi: SHFILEINFOA; cbFileInfo: INTEGER; uFlags: SET): INTEGER;
+	PROCEDURE- SHGetFileInfoA* (pszPath: PtrSTR; dwFileAttributes: SET; VAR [nil] psfi: SHFILEINFOA; cbFileInfo: INTEGER; uFlags: SET): INTEGER;
 	(*END SHGetFileInfoA;*)
 
-	PROCEDURE- SHGetFileInfoW* (pszPath: PtrWSTR; dwFileAttributes: SET; VAR (*nil*) psfi: SHFILEINFOW; cbFileInfo: INTEGER; uFlags: SET): INTEGER;
+	PROCEDURE- SHGetFileInfoW* (pszPath: PtrWSTR; dwFileAttributes: SET; VAR [nil] psfi: SHFILEINFOW; cbFileInfo: INTEGER; uFlags: SET): INTEGER;
 	(*END SHGetFileInfoW;*)
 
-	PROCEDURE- SHGetFileInfo* (pszPath: PtrSTR; dwFileAttributes: SET; VAR (*nil*) psfi: SHFILEINFOA; cbFileInfo: INTEGER; uFlags: SET): INTEGER "SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags)";
+	PROCEDURE- SHGetFileInfo* (pszPath: PtrSTR; dwFileAttributes: SET; VAR [nil] psfi: SHFILEINFOA; cbFileInfo: INTEGER; uFlags: SET): INTEGER "SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags)";
 	(*END SHGetFileInfo;*)
 
-	PROCEDURE- SHGetNewLinkInfoA* (pszLinkTo: PtrSTR; pszDir: PtrSTR; pszName: PtrSTR; VAR (*nil*) pfMustCopy: BOOL; uFlags: SET): BOOL;
+	PROCEDURE- SHGetNewLinkInfoA* (pszLinkTo: PtrSTR; pszDir: PtrSTR; pszName: PtrSTR; VAR [nil] pfMustCopy: BOOL; uFlags: SET): BOOL;
 	(*END SHGetNewLinkInfoA;*)
 
-	PROCEDURE- SHGetNewLinkInfoW* (pszLinkTo: PtrWSTR; pszDir: PtrWSTR; pszName: PtrWSTR; VAR (*nil*) pfMustCopy: BOOL; uFlags: SET): BOOL;
+	PROCEDURE- SHGetNewLinkInfoW* (pszLinkTo: PtrWSTR; pszDir: PtrWSTR; pszName: PtrWSTR; VAR [nil] pfMustCopy: BOOL; uFlags: SET): BOOL;
 	(*END SHGetNewLinkInfoW;*)
 
-	PROCEDURE- SHGetNewLinkInfo* (pszLinkTo: PtrSTR; pszDir: PtrSTR; pszName: PtrSTR; VAR (*nil*) pfMustCopy: BOOL; uFlags: SET): BOOL "SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)";
+	PROCEDURE- SHGetNewLinkInfo* (pszLinkTo: PtrSTR; pszDir: PtrSTR; pszName: PtrSTR; VAR [nil] pfMustCopy: BOOL; uFlags: SET): BOOL "SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)";
 	(*END SHGetNewLinkInfo;*)
 
-	PROCEDURE- CreatePropertySheetPageA* (VAR (*nil*) p0: PROPSHEETPAGEA): Ptr_PSP;
+	PROCEDURE- CreatePropertySheetPageA* (VAR [nil] p0: PROPSHEETPAGEA): Ptr_PSP;
 	(*END CreatePropertySheetPageA;*)
 
-	PROCEDURE- CreatePropertySheetPageW* (VAR (*nil*) p0: PROPSHEETPAGEW): Ptr_PSP;
+	PROCEDURE- CreatePropertySheetPageW* (VAR [nil] p0: PROPSHEETPAGEW): Ptr_PSP;
 	(*END CreatePropertySheetPageW;*)
 
 	PROCEDURE- DestroyPropertySheetPage* (p0: Ptr_PSP): BOOL;
 	(*END DestroyPropertySheetPage;*)
 
-	PROCEDURE- PropertySheetA* (VAR (*nil*) p0: PROPSHEETHEADERA): INTEGER;
+	PROCEDURE- PropertySheetA* (VAR [nil] p0: PROPSHEETHEADERA): INTEGER;
 	(*END PropertySheetA;*)
 
-	PROCEDURE- PropertySheetW* (VAR (*nil*) p0: PROPSHEETHEADERW): INTEGER;
+	PROCEDURE- PropertySheetW* (VAR [nil] p0: PROPSHEETHEADERW): INTEGER;
 	(*END PropertySheetW;*)
 
-	PROCEDURE- CreatePropertySheetPage* (VAR (*nil*) p0: PROPSHEETPAGEA): Ptr_PSP "CreatePropertySheetPageA(p0)";
+	PROCEDURE- CreatePropertySheetPage* (VAR [nil] p0: PROPSHEETPAGEA): Ptr_PSP "CreatePropertySheetPageA(p0)";
 	(*END CreatePropertySheetPage;*)
 
-	PROCEDURE- PropertySheet* (VAR (*nil*) p0: PROPSHEETHEADERA): INTEGER "PropertySheetA(p0)";
+	PROCEDURE- PropertySheet* (VAR [nil] p0: PROPSHEETHEADERA): INTEGER "PropertySheetA(p0)";
 	(*END PropertySheet;*)
 
-	PROCEDURE- EnumPrintersA* (Flags: SET; Name: PtrSTR; Level: INTEGER; VAR (*nil*) pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintersA* (Flags: SET; Name: PtrSTR; Level: INTEGER; VAR [nil] pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintersA;*)
 
-	PROCEDURE- EnumPrintersW* (Flags: SET; Name: PtrWSTR; Level: INTEGER; VAR (*nil*) pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintersW* (Flags: SET; Name: PtrWSTR; Level: INTEGER; VAR [nil] pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintersW;*)
 
-	PROCEDURE- EnumPrinters* (Flags: SET; Name: PtrSTR; Level: INTEGER; VAR (*nil*) pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumPrinters* (Flags: SET; Name: PtrSTR; Level: INTEGER; VAR [nil] pPrinterEnum: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumPrinters;*)
 
-	PROCEDURE- OpenPrinterA* (pPrinterName: PtrSTR; VAR (*nil*) phPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSA): BOOL;
+	PROCEDURE- OpenPrinterA* (pPrinterName: PtrSTR; VAR [nil] phPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSA): BOOL;
 	(*END OpenPrinterA;*)
 
-	PROCEDURE- OpenPrinterW* (pPrinterName: PtrWSTR; VAR (*nil*) phPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSW): BOOL;
+	PROCEDURE- OpenPrinterW* (pPrinterName: PtrWSTR; VAR [nil] phPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSW): BOOL;
 	(*END OpenPrinterW;*)
 
-	PROCEDURE- OpenPrinter* (pPrinterName: PtrSTR; VAR (*nil*) phPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSA): BOOL "OpenPrinterA(pPrinterName, phPrinter, pDefault)";
+	PROCEDURE- OpenPrinter* (pPrinterName: PtrSTR; VAR [nil] phPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSA): BOOL "OpenPrinterA(pPrinterName, phPrinter, pDefault)";
 	(*END OpenPrinter;*)
 
-	PROCEDURE- ResetPrinterA* (hPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSA): BOOL;
+	PROCEDURE- ResetPrinterA* (hPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSA): BOOL;
 	(*END ResetPrinterA;*)
 
-	PROCEDURE- ResetPrinterW* (hPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSW): BOOL;
+	PROCEDURE- ResetPrinterW* (hPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSW): BOOL;
 	(*END ResetPrinterW;*)
 
-	PROCEDURE- ResetPrinter* (hPrinter: HANDLE; VAR (*nil*) pDefault: PRINTER_DEFAULTSA): BOOL "ResetPrinterA(hPrinter, pDefault)";
+	PROCEDURE- ResetPrinter* (hPrinter: HANDLE; VAR [nil] pDefault: PRINTER_DEFAULTSA): BOOL "ResetPrinterA(hPrinter, pDefault)";
 	(*END ResetPrinter;*)
 
-	PROCEDURE- SetJobA* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; Command: INTEGER): BOOL;
+	PROCEDURE- SetJobA* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; Command: INTEGER): BOOL;
 	(*END SetJobA;*)
 
-	PROCEDURE- SetJobW* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; Command: INTEGER): BOOL;
+	PROCEDURE- SetJobW* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; Command: INTEGER): BOOL;
 	(*END SetJobW;*)
 
-	PROCEDURE- SetJob* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; Command: INTEGER): BOOL "SetJobA(hPrinter, JobId, Level, pJob, Command)";
+	PROCEDURE- SetJob* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; Command: INTEGER): BOOL "SetJobA(hPrinter, JobId, Level, pJob, Command)";
 	(*END SetJob;*)
 
-	PROCEDURE- GetJobA* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetJobA* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetJobA;*)
 
-	PROCEDURE- GetJobW* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetJobW* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetJobW;*)
 
-	PROCEDURE- GetJob* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetJobA(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded)";
+	PROCEDURE- GetJob* (hPrinter: HANDLE; JobId: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetJobA(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded)";
 	(*END GetJob;*)
 
-	PROCEDURE- EnumJobsA* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumJobsA* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumJobsA;*)
 
-	PROCEDURE- EnumJobsW* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumJobsW* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumJobsW;*)
 
-	PROCEDURE- EnumJobs* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR (*nil*) pJob: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumJobs* (hPrinter: HANDLE; FirstJob: INTEGER; NoJobs: INTEGER; Level: INTEGER; VAR [nil] pJob: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumJobs;*)
 
-	PROCEDURE- AddPrinterA* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR): HANDLE;
+	PROCEDURE- AddPrinterA* (pName: PtrSTR; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR): HANDLE;
 	(*END AddPrinterA;*)
 
-	PROCEDURE- AddPrinterW* (pName: PtrWSTR; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR): HANDLE;
+	PROCEDURE- AddPrinterW* (pName: PtrWSTR; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR): HANDLE;
 	(*END AddPrinterW;*)
 
-	PROCEDURE- AddPrinter* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR): HANDLE "AddPrinterA(pName, Level, pPrinter)";
+	PROCEDURE- AddPrinter* (pName: PtrSTR; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR): HANDLE "AddPrinterA(pName, Level, pPrinter)";
 	(*END AddPrinter;*)
 
 	PROCEDURE- DeletePrinter* (hPrinter: HANDLE): BOOL;
 	(*END DeletePrinter;*)
 
-	PROCEDURE- SetPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; Command: INTEGER): BOOL;
+	PROCEDURE- SetPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; Command: INTEGER): BOOL;
 	(*END SetPrinterA;*)
 
-	PROCEDURE- SetPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; Command: INTEGER): BOOL;
+	PROCEDURE- SetPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; Command: INTEGER): BOOL;
 	(*END SetPrinterW;*)
 
-	PROCEDURE- SetPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; Command: INTEGER): BOOL "SetPrinterA(hPrinter, Level, pPrinter, Command)";
+	PROCEDURE- SetPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; Command: INTEGER): BOOL "SetPrinterA(hPrinter, Level, pPrinter, Command)";
 	(*END SetPrinter;*)
 
-	PROCEDURE- GetPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterA;*)
 
-	PROCEDURE- GetPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterW;*)
 
-	PROCEDURE- GetPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)";
+	PROCEDURE- GetPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pPrinter: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)";
 	(*END GetPrinter;*)
 
-	PROCEDURE- AddPrinterDriverA* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR): BOOL;
+	PROCEDURE- AddPrinterDriverA* (pName: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR): BOOL;
 	(*END AddPrinterDriverA;*)
 
-	PROCEDURE- AddPrinterDriverW* (pName: PtrWSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR): BOOL;
+	PROCEDURE- AddPrinterDriverW* (pName: PtrWSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR): BOOL;
 	(*END AddPrinterDriverW;*)
 
-	PROCEDURE- AddPrinterDriver* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR): BOOL "AddPrinterDriverA(pName, Level, pDriverInfo)";
+	PROCEDURE- AddPrinterDriver* (pName: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR): BOOL "AddPrinterDriverA(pName, Level, pDriverInfo)";
 	(*END AddPrinterDriver;*)
 
-	PROCEDURE- EnumPrinterDriversA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrinterDriversA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrinterDriversA;*)
 
-	PROCEDURE- EnumPrinterDriversW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrinterDriversW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrinterDriversW;*)
 
-	PROCEDURE- EnumPrinterDrivers* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumPrinterDrivers* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumPrinterDrivers;*)
 
-	PROCEDURE- GetPrinterDriverA* (hPrinter: HANDLE; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterDriverA* (hPrinter: HANDLE; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterDriverA;*)
 
-	PROCEDURE- GetPrinterDriverW* (hPrinter: HANDLE; pEnvironment: PtrWSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterDriverW* (hPrinter: HANDLE; pEnvironment: PtrWSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterDriverW;*)
 
-	PROCEDURE- GetPrinterDriver* (hPrinter: HANDLE; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)";
+	PROCEDURE- GetPrinterDriver* (hPrinter: HANDLE; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)";
 	(*END GetPrinterDriver;*)
 
-	PROCEDURE- GetPrinterDriverDirectoryA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterDriverDirectoryA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterDriverDirectoryA;*)
 
-	PROCEDURE- GetPrinterDriverDirectoryW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR (*nil*) pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrinterDriverDirectoryW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR [nil] pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrinterDriverDirectoryW;*)
 
-	PROCEDURE- GetPrinterDriverDirectory* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)";
+	PROCEDURE- GetPrinterDriverDirectory* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pDriverDirectory: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)";
 	(*END GetPrinterDriverDirectory;*)
 
 	PROCEDURE- DeletePrinterDriverA* (pName: PtrSTR; pEnvironment: PtrSTR; pDriverName: PtrSTR): BOOL;
@@ -17504,31 +17504,31 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AddPrintProcessor* (pName: PtrSTR; pEnvironment: PtrSTR; pPathName: PtrSTR; pPrintProcessorName: PtrSTR): BOOL "AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName)";
 	(*END AddPrintProcessor;*)
 
-	PROCEDURE- EnumPrintProcessorsA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintProcessorsA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintProcessorsA;*)
 
-	PROCEDURE- EnumPrintProcessorsW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintProcessorsW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintProcessorsW;*)
 
-	PROCEDURE- EnumPrintProcessors* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumPrintProcessors* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumPrintProcessors;*)
 
-	PROCEDURE- GetPrintProcessorDirectoryA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrintProcessorDirectoryA* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrintProcessorDirectoryA;*)
 
-	PROCEDURE- GetPrintProcessorDirectoryW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetPrintProcessorDirectoryW* (pName: PtrWSTR; pEnvironment: PtrWSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetPrintProcessorDirectoryW;*)
 
-	PROCEDURE- GetPrintProcessorDirectory* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR (*nil*) pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)";
+	PROCEDURE- GetPrintProcessorDirectory* (pName: PtrSTR; pEnvironment: PtrSTR; Level: INTEGER; VAR [nil] pPrintProcessorInfo: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)";
 	(*END GetPrintProcessorDirectory;*)
 
-	PROCEDURE- EnumPrintProcessorDatatypesA* (pName: PtrSTR; pPrintProcessorName: PtrSTR; Level: INTEGER; VAR (*nil*) pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintProcessorDatatypesA* (pName: PtrSTR; pPrintProcessorName: PtrSTR; Level: INTEGER; VAR [nil] pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintProcessorDatatypesA;*)
 
-	PROCEDURE- EnumPrintProcessorDatatypesW* (pName: PtrWSTR; pPrintProcessorName: PtrWSTR; Level: INTEGER; VAR (*nil*) pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPrintProcessorDatatypesW* (pName: PtrWSTR; pPrintProcessorName: PtrWSTR; Level: INTEGER; VAR [nil] pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPrintProcessorDatatypesW;*)
 
-	PROCEDURE- EnumPrintProcessorDatatypes* (pName: PtrSTR; pPrintProcessorName: PtrSTR; Level: INTEGER; VAR (*nil*) pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumPrintProcessorDatatypes* (pName: PtrSTR; pPrintProcessorName: PtrSTR; Level: INTEGER; VAR [nil] pDatatypes: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumPrintProcessorDatatypes;*)
 
 	PROCEDURE- DeletePrintProcessorA* (pName: PtrSTR; pEnvironment: PtrSTR; pPrintProcessorName: PtrSTR): BOOL;
@@ -17540,19 +17540,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeletePrintProcessor* (pName: PtrSTR; pEnvironment: PtrSTR; pPrintProcessorName: PtrSTR): BOOL "DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName)";
 	(*END DeletePrintProcessor;*)
 
-	PROCEDURE- StartDocPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pDocInfo: SHORTCHAR): INTEGER;
+	PROCEDURE- StartDocPrinterA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pDocInfo: SHORTCHAR): INTEGER;
 	(*END StartDocPrinterA;*)
 
-	PROCEDURE- StartDocPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pDocInfo: SHORTCHAR): INTEGER;
+	PROCEDURE- StartDocPrinterW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pDocInfo: SHORTCHAR): INTEGER;
 	(*END StartDocPrinterW;*)
 
-	PROCEDURE- StartDocPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pDocInfo: SHORTCHAR): INTEGER "StartDocPrinterA(hPrinter, Level, pDocInfo)";
+	PROCEDURE- StartDocPrinter* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pDocInfo: SHORTCHAR): INTEGER "StartDocPrinterA(hPrinter, Level, pDocInfo)";
 	(*END StartDocPrinter;*)
 
 	PROCEDURE- StartPagePrinter* (hPrinter: HANDLE): BOOL;
 	(*END StartPagePrinter;*)
 
-	PROCEDURE- WritePrinter* (hPrinter: HANDLE; pBuf: PtrVoid; cbBuf: INTEGER; VAR (*nil*) pcWritten: INTEGER): BOOL;
+	PROCEDURE- WritePrinter* (hPrinter: HANDLE; pBuf: PtrVoid; cbBuf: INTEGER; VAR [nil] pcWritten: INTEGER): BOOL;
 	(*END WritePrinter;*)
 
 	PROCEDURE- EndPagePrinter* (hPrinter: HANDLE): BOOL;
@@ -17561,19 +17561,19 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- AbortPrinter* (hPrinter: HANDLE): BOOL;
 	(*END AbortPrinter;*)
 
-	PROCEDURE- ReadPrinter* (hPrinter: HANDLE; pBuf: PtrVoid; cbBuf: INTEGER; VAR (*nil*) pNoBytesRead: INTEGER): BOOL;
+	PROCEDURE- ReadPrinter* (hPrinter: HANDLE; pBuf: PtrVoid; cbBuf: INTEGER; VAR [nil] pNoBytesRead: INTEGER): BOOL;
 	(*END ReadPrinter;*)
 
 	PROCEDURE- EndDocPrinter* (hPrinter: HANDLE): BOOL;
 	(*END EndDocPrinter;*)
 
-	PROCEDURE- AddJobA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- AddJobA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pData: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END AddJobA;*)
 
-	PROCEDURE- AddJobW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- AddJobW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pData: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END AddJobW;*)
 
-	PROCEDURE- AddJob* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "AddJobA(hPrinter, Level, pData, cbBuf, pcbNeeded)";
+	PROCEDURE- AddJob* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pData: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "AddJobA(hPrinter, Level, pData, cbBuf, pcbNeeded)";
 	(*END AddJob;*)
 
 	PROCEDURE- ScheduleJob* (hPrinter: HANDLE; JobId: INTEGER): BOOL;
@@ -17582,40 +17582,40 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- PrinterProperties* (hWnd: HWND; hPrinter: HANDLE): BOOL;
 	(*END PrinterProperties;*)
 
-	PROCEDURE- DocumentPropertiesA* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR (*nil*) pDevModeOutput: DEVMODEA; VAR (*nil*) pDevModeInput: DEVMODEA; fMode: SET): INTEGER;
+	PROCEDURE- DocumentPropertiesA* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR [nil] pDevModeOutput: DEVMODEA; VAR [nil] pDevModeInput: DEVMODEA; fMode: SET): INTEGER;
 	(*END DocumentPropertiesA;*)
 
-	PROCEDURE- DocumentPropertiesW* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrWSTR; VAR (*nil*) pDevModeOutput: DEVMODEW; VAR (*nil*) pDevModeInput: DEVMODEW; fMode: SET): INTEGER;
+	PROCEDURE- DocumentPropertiesW* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrWSTR; VAR [nil] pDevModeOutput: DEVMODEW; VAR [nil] pDevModeInput: DEVMODEW; fMode: SET): INTEGER;
 	(*END DocumentPropertiesW;*)
 
-	PROCEDURE- DocumentProperties* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR (*nil*) pDevModeOutput: DEVMODEA; VAR (*nil*) pDevModeInput: DEVMODEA; fMode: SET): INTEGER "DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode)";
+	PROCEDURE- DocumentProperties* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR [nil] pDevModeOutput: DEVMODEA; VAR [nil] pDevModeInput: DEVMODEA; fMode: SET): INTEGER "DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode)";
 	(*END DocumentProperties;*)
 
-	PROCEDURE- AdvancedDocumentPropertiesA* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR (*nil*) pDevModeOutput: DEVMODEA; VAR (*nil*) pDevModeInput: DEVMODEA): INTEGER;
+	PROCEDURE- AdvancedDocumentPropertiesA* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR [nil] pDevModeOutput: DEVMODEA; VAR [nil] pDevModeInput: DEVMODEA): INTEGER;
 	(*END AdvancedDocumentPropertiesA;*)
 
-	PROCEDURE- AdvancedDocumentPropertiesW* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrWSTR; VAR (*nil*) pDevModeOutput: DEVMODEW; VAR (*nil*) pDevModeInput: DEVMODEW): INTEGER;
+	PROCEDURE- AdvancedDocumentPropertiesW* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrWSTR; VAR [nil] pDevModeOutput: DEVMODEW; VAR [nil] pDevModeInput: DEVMODEW): INTEGER;
 	(*END AdvancedDocumentPropertiesW;*)
 
-	PROCEDURE- AdvancedDocumentProperties* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR (*nil*) pDevModeOutput: DEVMODEA; VAR (*nil*) pDevModeInput: DEVMODEA): INTEGER "AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput)";
+	PROCEDURE- AdvancedDocumentProperties* (hWnd: HWND; hPrinter: HANDLE; pDeviceName: PtrSTR; VAR [nil] pDevModeOutput: DEVMODEA; VAR [nil] pDevModeInput: DEVMODEA): INTEGER "AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput)";
 	(*END AdvancedDocumentProperties;*)
 
-	PROCEDURE- GetPrinterDataA* (hPrinter: HANDLE; pValueName: PtrSTR; VAR (*nil*) pType: INTEGER; VAR (*nil*) pData: SHORTCHAR; nSize: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): INTEGER;
+	PROCEDURE- GetPrinterDataA* (hPrinter: HANDLE; pValueName: PtrSTR; VAR [nil] pType: INTEGER; VAR [nil] pData: SHORTCHAR; nSize: INTEGER; VAR [nil] pcbNeeded: INTEGER): INTEGER;
 	(*END GetPrinterDataA;*)
 
-	PROCEDURE- GetPrinterDataW* (hPrinter: HANDLE; pValueName: PtrWSTR; VAR (*nil*) pType: INTEGER; VAR (*nil*) pData: SHORTCHAR; nSize: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): INTEGER;
+	PROCEDURE- GetPrinterDataW* (hPrinter: HANDLE; pValueName: PtrWSTR; VAR [nil] pType: INTEGER; VAR [nil] pData: SHORTCHAR; nSize: INTEGER; VAR [nil] pcbNeeded: INTEGER): INTEGER;
 	(*END GetPrinterDataW;*)
 
-	PROCEDURE- GetPrinterData* (hPrinter: HANDLE; pValueName: PtrSTR; VAR (*nil*) pType: INTEGER; VAR (*nil*) pData: SHORTCHAR; nSize: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): INTEGER "GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)";
+	PROCEDURE- GetPrinterData* (hPrinter: HANDLE; pValueName: PtrSTR; VAR [nil] pType: INTEGER; VAR [nil] pData: SHORTCHAR; nSize: INTEGER; VAR [nil] pcbNeeded: INTEGER): INTEGER "GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)";
 	(*END GetPrinterData;*)
 
-	PROCEDURE- SetPrinterDataA* (hPrinter: HANDLE; pValueName: PtrSTR; Type: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbData: INTEGER): INTEGER;
+	PROCEDURE- SetPrinterDataA* (hPrinter: HANDLE; pValueName: PtrSTR; Type: INTEGER; VAR [nil] pData: SHORTCHAR; cbData: INTEGER): INTEGER;
 	(*END SetPrinterDataA;*)
 
-	PROCEDURE- SetPrinterDataW* (hPrinter: HANDLE; pValueName: PtrWSTR; Type: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbData: INTEGER): INTEGER;
+	PROCEDURE- SetPrinterDataW* (hPrinter: HANDLE; pValueName: PtrWSTR; Type: INTEGER; VAR [nil] pData: SHORTCHAR; cbData: INTEGER): INTEGER;
 	(*END SetPrinterDataW;*)
 
-	PROCEDURE- SetPrinterData* (hPrinter: HANDLE; pValueName: PtrSTR; Type: INTEGER; VAR (*nil*) pData: SHORTCHAR; cbData: INTEGER): INTEGER "SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData)";
+	PROCEDURE- SetPrinterData* (hPrinter: HANDLE; pValueName: PtrSTR; Type: INTEGER; VAR [nil] pData: SHORTCHAR; cbData: INTEGER): INTEGER "SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData)";
 	(*END SetPrinterData;*)
 
 	PROCEDURE- WaitForPrinterChange* (hPrinter: HANDLE; Flags: SET): INTEGER;
@@ -17624,10 +17624,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- FindFirstPrinterChangeNotification* (hPrinter: HANDLE; fdwFlags: SET; fdwOptions: INTEGER; pPrinterNotifyOptions: PtrVoid): HANDLE;
 	(*END FindFirstPrinterChangeNotification;*)
 
-	PROCEDURE- FindNextPrinterChangeNotification* (hChange: HANDLE; VAR (*nil*) pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE- FindNextPrinterChangeNotification* (hChange: HANDLE; VAR [nil] pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
 	(*END FindNextPrinterChangeNotification;*)
 
-	PROCEDURE- FreePrinterNotifyInfo* (VAR (*nil*) pPrinterNotifyInfo: PRINTER_NOTIFY_INFO): BOOL;
+	PROCEDURE- FreePrinterNotifyInfo* (VAR [nil] pPrinterNotifyInfo: PRINTER_NOTIFY_INFO): BOOL;
 	(*END FreePrinterNotifyInfo;*)
 
 	PROCEDURE- FindClosePrinterChangeNotification* (hChange: HANDLE): BOOL;
@@ -17645,13 +17645,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ClosePrinter* (hPrinter: HANDLE): BOOL;
 	(*END ClosePrinter;*)
 
-	PROCEDURE- AddFormA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL;
+	PROCEDURE- AddFormA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL;
 	(*END AddFormA;*)
 
-	PROCEDURE- AddFormW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL;
+	PROCEDURE- AddFormW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL;
 	(*END AddFormW;*)
 
-	PROCEDURE- AddForm* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL "AddFormA(hPrinter, Level, pForm)";
+	PROCEDURE- AddForm* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL "AddFormA(hPrinter, Level, pForm)";
 	(*END AddForm;*)
 
 	PROCEDURE- DeleteFormA* (hPrinter: HANDLE; pFormName: PtrSTR): BOOL;
@@ -17663,49 +17663,49 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeleteForm* (hPrinter: HANDLE; pFormName: PtrSTR): BOOL "DeleteFormA(hPrinter, pFormName)";
 	(*END DeleteForm;*)
 
-	PROCEDURE- GetFormA* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetFormA* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetFormA;*)
 
-	PROCEDURE- GetFormW* (hPrinter: HANDLE; pFormName: PtrWSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL;
+	PROCEDURE- GetFormW* (hPrinter: HANDLE; pFormName: PtrWSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL;
 	(*END GetFormW;*)
 
-	PROCEDURE- GetForm* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER): BOOL "GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)";
+	PROCEDURE- GetForm* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER): BOOL "GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)";
 	(*END GetForm;*)
 
-	PROCEDURE- SetFormA* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL;
+	PROCEDURE- SetFormA* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL;
 	(*END SetFormA;*)
 
-	PROCEDURE- SetFormW* (hPrinter: HANDLE; pFormName: PtrWSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL;
+	PROCEDURE- SetFormW* (hPrinter: HANDLE; pFormName: PtrWSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL;
 	(*END SetFormW;*)
 
-	PROCEDURE- SetForm* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR): BOOL "SetFormA(hPrinter, pFormName, Level, pForm)";
+	PROCEDURE- SetForm* (hPrinter: HANDLE; pFormName: PtrSTR; Level: INTEGER; VAR [nil] pForm: SHORTCHAR): BOOL "SetFormA(hPrinter, pFormName, Level, pForm)";
 	(*END SetForm;*)
 
-	PROCEDURE- EnumFormsA* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumFormsA* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumFormsA;*)
 
-	PROCEDURE- EnumFormsW* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumFormsW* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumFormsW;*)
 
-	PROCEDURE- EnumForms* (hPrinter: HANDLE; Level: INTEGER; VAR (*nil*) pForm: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumForms* (hPrinter: HANDLE; Level: INTEGER; VAR [nil] pForm: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumForms;*)
 
-	PROCEDURE- EnumMonitorsA* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumMonitorsA* (pName: PtrSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumMonitorsA;*)
 
-	PROCEDURE- EnumMonitorsW* (pName: PtrWSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumMonitorsW* (pName: PtrWSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumMonitorsW;*)
 
-	PROCEDURE- EnumMonitors* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumMonitors* (pName: PtrSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumMonitors;*)
 
-	PROCEDURE- AddMonitorA* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR): BOOL;
+	PROCEDURE- AddMonitorA* (pName: PtrSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR): BOOL;
 	(*END AddMonitorA;*)
 
-	PROCEDURE- AddMonitorW* (pName: PtrWSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR): BOOL;
+	PROCEDURE- AddMonitorW* (pName: PtrWSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR): BOOL;
 	(*END AddMonitorW;*)
 
-	PROCEDURE- AddMonitor* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pMonitors: SHORTCHAR): BOOL "AddMonitorA(pName, Level, pMonitors)";
+	PROCEDURE- AddMonitor* (pName: PtrSTR; Level: INTEGER; VAR [nil] pMonitors: SHORTCHAR): BOOL "AddMonitorA(pName, Level, pMonitors)";
 	(*END AddMonitor;*)
 
 	PROCEDURE- DeleteMonitorA* (pName: PtrSTR; pEnvironment: PtrSTR; pMonitorName: PtrSTR): BOOL;
@@ -17717,13 +17717,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeleteMonitor* (pName: PtrSTR; pEnvironment: PtrSTR; pMonitorName: PtrSTR): BOOL "DeleteMonitorA(pName, pEnvironment, pMonitorName)";
 	(*END DeleteMonitor;*)
 
-	PROCEDURE- EnumPortsA* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pPorts: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPortsA* (pName: PtrSTR; Level: INTEGER; VAR [nil] pPorts: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPortsA;*)
 
-	PROCEDURE- EnumPortsW* (pName: PtrWSTR; Level: INTEGER; VAR (*nil*) pPorts: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL;
+	PROCEDURE- EnumPortsW* (pName: PtrWSTR; Level: INTEGER; VAR [nil] pPorts: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL;
 	(*END EnumPortsW;*)
 
-	PROCEDURE- EnumPorts* (pName: PtrSTR; Level: INTEGER; VAR (*nil*) pPorts: SHORTCHAR; cbBuf: INTEGER; VAR (*nil*) pcbNeeded: INTEGER; VAR (*nil*) pcReturned: INTEGER): BOOL "EnumPortsA(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)";
+	PROCEDURE- EnumPorts* (pName: PtrSTR; Level: INTEGER; VAR [nil] pPorts: SHORTCHAR; cbBuf: INTEGER; VAR [nil] pcbNeeded: INTEGER; VAR [nil] pcReturned: INTEGER): BOOL "EnumPortsA(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)";
 	(*END EnumPorts;*)
 
 	PROCEDURE- AddPortA* (pName: PtrSTR; hWnd: HWND; pMonitorName: PtrSTR): BOOL;
@@ -17774,13 +17774,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- ConnectToPrinterDlg* (hwnd: HWND; Flags: SET): HANDLE;
 	(*END ConnectToPrinterDlg;*)
 
-	PROCEDURE- AddPrintProvidorA* (pName: PtrSTR; level: INTEGER; VAR (*nil*) pProvidorInfo: SHORTCHAR): BOOL;
+	PROCEDURE- AddPrintProvidorA* (pName: PtrSTR; level: INTEGER; VAR [nil] pProvidorInfo: SHORTCHAR): BOOL;
 	(*END AddPrintProvidorA;*)
 
-	PROCEDURE- AddPrintProvidorW* (pName: PtrWSTR; level: INTEGER; VAR (*nil*) pProvidorInfo: SHORTCHAR): BOOL;
+	PROCEDURE- AddPrintProvidorW* (pName: PtrWSTR; level: INTEGER; VAR [nil] pProvidorInfo: SHORTCHAR): BOOL;
 	(*END AddPrintProvidorW;*)
 
-	PROCEDURE- AddPrintProvidor* (pName: PtrSTR; level: INTEGER; VAR (*nil*) pProvidorInfo: SHORTCHAR): BOOL "AddPrintProvidorA(pName, level, pProvidorInfo)";
+	PROCEDURE- AddPrintProvidor* (pName: PtrSTR; level: INTEGER; VAR [nil] pProvidorInfo: SHORTCHAR): BOOL "AddPrintProvidorA(pName, level, pProvidorInfo)";
 	(*END AddPrintProvidor;*)
 
 	PROCEDURE- DeletePrintProvidorA* (pName: PtrSTR; pEnvironment: PtrSTR; pPrintProvidorName: PtrSTR): BOOL;
@@ -17792,67 +17792,67 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- DeletePrintProvidor* (pName: PtrSTR; pEnvironment: PtrSTR; pPrintProvidorName: PtrSTR): BOOL "DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName)";
 	(*END DeletePrintProvidor;*)
 
-	PROCEDURE- ChangeServiceConfigA* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR; lpDisplayName: PtrSTR): BOOL;
+	PROCEDURE- ChangeServiceConfigA* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR; lpDisplayName: PtrSTR): BOOL;
 	(*END ChangeServiceConfigA;*)
 
-	PROCEDURE- ChangeServiceConfigW* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrWSTR; lpLoadOrderGroup: PtrWSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrWSTR; lpServiceStartName: PtrWSTR; lpPassword: PtrWSTR; lpDisplayName: PtrWSTR): BOOL;
+	PROCEDURE- ChangeServiceConfigW* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrWSTR; lpLoadOrderGroup: PtrWSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrWSTR; lpServiceStartName: PtrWSTR; lpPassword: PtrWSTR; lpDisplayName: PtrWSTR): BOOL;
 	(*END ChangeServiceConfigW;*)
 
-	PROCEDURE- ChangeServiceConfig* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR; lpDisplayName: PtrSTR): BOOL "ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)";
+	PROCEDURE- ChangeServiceConfig* (hService: SC_HANDLE; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR; lpDisplayName: PtrSTR): BOOL "ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)";
 	(*END ChangeServiceConfig;*)
 
 	PROCEDURE- CloseServiceHandle* (hSCObject: SC_HANDLE): BOOL;
 	(*END CloseServiceHandle;*)
 
-	PROCEDURE- ControlService* (hService: SC_HANDLE; dwControl: INTEGER; VAR (*nil*) lpServiceStatus: SERVICE_STATUS): BOOL;
+	PROCEDURE- ControlService* (hService: SC_HANDLE; dwControl: INTEGER; VAR [nil] lpServiceStatus: SERVICE_STATUS): BOOL;
 	(*END ControlService;*)
 
-	PROCEDURE- CreateServiceA* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR): SC_HANDLE;
+	PROCEDURE- CreateServiceA* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR): SC_HANDLE;
 	(*END CreateServiceA;*)
 
-	PROCEDURE- CreateServiceW* (hSCManager: SC_HANDLE; lpServiceName: PtrWSTR; lpDisplayName: PtrWSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrWSTR; lpLoadOrderGroup: PtrWSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrWSTR; lpServiceStartName: PtrWSTR; lpPassword: PtrWSTR): SC_HANDLE;
+	PROCEDURE- CreateServiceW* (hSCManager: SC_HANDLE; lpServiceName: PtrWSTR; lpDisplayName: PtrWSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrWSTR; lpLoadOrderGroup: PtrWSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrWSTR; lpServiceStartName: PtrWSTR; lpPassword: PtrWSTR): SC_HANDLE;
 	(*END CreateServiceW;*)
 
-	PROCEDURE- CreateService* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR (*nil*) lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR): SC_HANDLE "CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)";
+	PROCEDURE- CreateService* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; dwDesiredAccess: SET; dwServiceType: SET; dwStartType: INTEGER; dwErrorControl: INTEGER; lpBinaryPathName: PtrSTR; lpLoadOrderGroup: PtrSTR; VAR [nil] lpdwTagId: INTEGER; lpDependencies: PtrSTR; lpServiceStartName: PtrSTR; lpPassword: PtrSTR): SC_HANDLE "CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)";
 	(*END CreateService;*)
 
 	PROCEDURE- DeleteService* (hService: SC_HANDLE): BOOL;
 	(*END DeleteService;*)
 
-	PROCEDURE- EnumDependentServicesA* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER): BOOL;
+	PROCEDURE- EnumDependentServicesA* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER): BOOL;
 	(*END EnumDependentServicesA;*)
 
-	PROCEDURE- EnumDependentServicesW* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSW; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER): BOOL;
+	PROCEDURE- EnumDependentServicesW* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSW; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER): BOOL;
 	(*END EnumDependentServicesW;*)
 
-	PROCEDURE- EnumDependentServices* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER): BOOL "EnumDependentServicesA(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned)";
+	PROCEDURE- EnumDependentServices* (hService: SC_HANDLE; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER): BOOL "EnumDependentServicesA(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned)";
 	(*END EnumDependentServices;*)
 
-	PROCEDURE- EnumServicesStatusA* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER; VAR (*nil*) lpResumeHandle: INTEGER): BOOL;
+	PROCEDURE- EnumServicesStatusA* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER; VAR [nil] lpResumeHandle: INTEGER): BOOL;
 	(*END EnumServicesStatusA;*)
 
-	PROCEDURE- EnumServicesStatusW* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSW; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER; VAR (*nil*) lpResumeHandle: INTEGER): BOOL;
+	PROCEDURE- EnumServicesStatusW* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSW; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER; VAR [nil] lpResumeHandle: INTEGER): BOOL;
 	(*END EnumServicesStatusW;*)
 
-	PROCEDURE- EnumServicesStatus* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR (*nil*) lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER; VAR (*nil*) lpServicesReturned: INTEGER; VAR (*nil*) lpResumeHandle: INTEGER): BOOL "EnumServicesStatusA(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle)";
+	PROCEDURE- EnumServicesStatus* (hSCManager: SC_HANDLE; dwServiceType: SET; dwServiceState: INTEGER; VAR [nil] lpServices: ENUM_SERVICE_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER; VAR [nil] lpServicesReturned: INTEGER; VAR [nil] lpResumeHandle: INTEGER): BOOL "EnumServicesStatusA(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle)";
 	(*END EnumServicesStatus;*)
 
-	PROCEDURE- GetServiceKeyNameA* (hSCManager: SC_HANDLE; lpDisplayName: PtrSTR; lpServiceName: PtrSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL;
+	PROCEDURE- GetServiceKeyNameA* (hSCManager: SC_HANDLE; lpDisplayName: PtrSTR; lpServiceName: PtrSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL;
 	(*END GetServiceKeyNameA;*)
 
-	PROCEDURE- GetServiceKeyNameW* (hSCManager: SC_HANDLE; lpDisplayName: PtrWSTR; lpServiceName: PtrWSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL;
+	PROCEDURE- GetServiceKeyNameW* (hSCManager: SC_HANDLE; lpDisplayName: PtrWSTR; lpServiceName: PtrWSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL;
 	(*END GetServiceKeyNameW;*)
 
-	PROCEDURE- GetServiceKeyName* (hSCManager: SC_HANDLE; lpDisplayName: PtrSTR; lpServiceName: PtrSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL "GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)";
+	PROCEDURE- GetServiceKeyName* (hSCManager: SC_HANDLE; lpDisplayName: PtrSTR; lpServiceName: PtrSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL "GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)";
 	(*END GetServiceKeyName;*)
 
-	PROCEDURE- GetServiceDisplayNameA* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL;
+	PROCEDURE- GetServiceDisplayNameA* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL;
 	(*END GetServiceDisplayNameA;*)
 
-	PROCEDURE- GetServiceDisplayNameW* (hSCManager: SC_HANDLE; lpServiceName: PtrWSTR; lpDisplayName: PtrWSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL;
+	PROCEDURE- GetServiceDisplayNameW* (hSCManager: SC_HANDLE; lpServiceName: PtrWSTR; lpDisplayName: PtrWSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL;
 	(*END GetServiceDisplayNameW;*)
 
-	PROCEDURE- GetServiceDisplayName* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; VAR (*nil*) lpcchBuffer: INTEGER): BOOL "GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)";
+	PROCEDURE- GetServiceDisplayName* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; lpDisplayName: PtrSTR; VAR [nil] lpcchBuffer: INTEGER): BOOL "GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)";
 	(*END GetServiceDisplayName;*)
 
 	PROCEDURE- LockServiceDatabase* (hSCManager: SC_HANDLE): SC_LOCK;
@@ -17879,28 +17879,28 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- OpenService* (hSCManager: SC_HANDLE; lpServiceName: PtrSTR; dwDesiredAccess: SET): SC_HANDLE "OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess)";
 	(*END OpenService;*)
 
-	PROCEDURE- QueryServiceConfigA* (hService: SC_HANDLE; VAR (*nil*) lpServiceConfig: QUERY_SERVICE_CONFIGA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- QueryServiceConfigA* (hService: SC_HANDLE; VAR [nil] lpServiceConfig: QUERY_SERVICE_CONFIGA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL;
 	(*END QueryServiceConfigA;*)
 
-	PROCEDURE- QueryServiceConfigW* (hService: SC_HANDLE; VAR (*nil*) lpServiceConfig: QUERY_SERVICE_CONFIGW; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- QueryServiceConfigW* (hService: SC_HANDLE; VAR [nil] lpServiceConfig: QUERY_SERVICE_CONFIGW; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL;
 	(*END QueryServiceConfigW;*)
 
-	PROCEDURE- QueryServiceConfig* (hService: SC_HANDLE; VAR (*nil*) lpServiceConfig: QUERY_SERVICE_CONFIGA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL "QueryServiceConfigA(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded)";
+	PROCEDURE- QueryServiceConfig* (hService: SC_HANDLE; VAR [nil] lpServiceConfig: QUERY_SERVICE_CONFIGA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL "QueryServiceConfigA(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded)";
 	(*END QueryServiceConfig;*)
 
-	PROCEDURE- QueryServiceLockStatusA* (hSCManager: SC_HANDLE; VAR (*nil*) lpLockStatus: QUERY_SERVICE_LOCK_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- QueryServiceLockStatusA* (hSCManager: SC_HANDLE; VAR [nil] lpLockStatus: QUERY_SERVICE_LOCK_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL;
 	(*END QueryServiceLockStatusA;*)
 
-	PROCEDURE- QueryServiceLockStatusW* (hSCManager: SC_HANDLE; VAR (*nil*) lpLockStatus: QUERY_SERVICE_LOCK_STATUSW; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- QueryServiceLockStatusW* (hSCManager: SC_HANDLE; VAR [nil] lpLockStatus: QUERY_SERVICE_LOCK_STATUSW; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL;
 	(*END QueryServiceLockStatusW;*)
 
-	PROCEDURE- QueryServiceLockStatus* (hSCManager: SC_HANDLE; VAR (*nil*) lpLockStatus: QUERY_SERVICE_LOCK_STATUSA; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL "QueryServiceLockStatusA(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded)";
+	PROCEDURE- QueryServiceLockStatus* (hSCManager: SC_HANDLE; VAR [nil] lpLockStatus: QUERY_SERVICE_LOCK_STATUSA; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL "QueryServiceLockStatusA(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded)";
 	(*END QueryServiceLockStatus;*)
 
-	PROCEDURE- QueryServiceObjectSecurity* (hService: SC_HANDLE; dwSecurityInformation: SECURITY_INFORMATION; lpSecurityDescriptor: PSECURITY_DESCRIPTOR; cbBufSize: INTEGER; VAR (*nil*) pcbBytesNeeded: INTEGER): BOOL;
+	PROCEDURE- QueryServiceObjectSecurity* (hService: SC_HANDLE; dwSecurityInformation: SECURITY_INFORMATION; lpSecurityDescriptor: PSECURITY_DESCRIPTOR; cbBufSize: INTEGER; VAR [nil] pcbBytesNeeded: INTEGER): BOOL;
 	(*END QueryServiceObjectSecurity;*)
 
-	PROCEDURE- QueryServiceStatus* (hService: SC_HANDLE; VAR (*nil*) lpServiceStatus: SERVICE_STATUS): BOOL;
+	PROCEDURE- QueryServiceStatus* (hService: SC_HANDLE; VAR [nil] lpServiceStatus: SERVICE_STATUS): BOOL;
 	(*END QueryServiceStatus;*)
 
 	PROCEDURE- RegisterServiceCtrlHandlerA* (lpServiceName: PtrSTR; lpHandlerProc: HANDLER_FUNCTION): SERVICE_STATUS_HANDLE;
@@ -17915,25 +17915,25 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- SetServiceObjectSecurity* (hService: SC_HANDLE; dwSecurityInformation: SECURITY_INFORMATION; lpSecurityDescriptor: PSECURITY_DESCRIPTOR): BOOL;
 	(*END SetServiceObjectSecurity;*)
 
-	PROCEDURE- SetServiceStatus* (hServiceStatus: SERVICE_STATUS_HANDLE; VAR (*nil*) lpServiceStatus: SERVICE_STATUS): BOOL;
+	PROCEDURE- SetServiceStatus* (hServiceStatus: SERVICE_STATUS_HANDLE; VAR [nil] lpServiceStatus: SERVICE_STATUS): BOOL;
 	(*END SetServiceStatus;*)
 
-	PROCEDURE- StartServiceCtrlDispatcherA* (VAR (*nil*) lpServiceStartTable: SERVICE_TABLE_ENTRYA): BOOL;
+	PROCEDURE- StartServiceCtrlDispatcherA* (VAR [nil] lpServiceStartTable: SERVICE_TABLE_ENTRYA): BOOL;
 	(*END StartServiceCtrlDispatcherA;*)
 
-	PROCEDURE- StartServiceCtrlDispatcherW* (VAR (*nil*) lpServiceStartTable: SERVICE_TABLE_ENTRYW): BOOL;
+	PROCEDURE- StartServiceCtrlDispatcherW* (VAR [nil] lpServiceStartTable: SERVICE_TABLE_ENTRYW): BOOL;
 	(*END StartServiceCtrlDispatcherW;*)
 
-	PROCEDURE- StartServiceCtrlDispatcher* (VAR (*nil*) lpServiceStartTable: SERVICE_TABLE_ENTRYA): BOOL "StartServiceCtrlDispatcherA(lpServiceStartTable)";
+	PROCEDURE- StartServiceCtrlDispatcher* (VAR [nil] lpServiceStartTable: SERVICE_TABLE_ENTRYA): BOOL "StartServiceCtrlDispatcherA(lpServiceStartTable)";
 	(*END StartServiceCtrlDispatcher;*)
 
-	PROCEDURE- StartServiceA* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR (*nil*) lpServiceArgVectors: PtrSTR): BOOL;
+	PROCEDURE- StartServiceA* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL;
 	(*END StartServiceA;*)
 
 	PROCEDURE- StartServiceW* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrWSTR): BOOL;
 	(*END StartServiceW;*)
 
-	PROCEDURE- StartService* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR (*nil*) lpServiceArgVectors: PtrSTR): BOOL "StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)";
+	PROCEDURE- StartService* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL "StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)";
 	(*END StartService;*)
 
 	PROCEDURE- UnlockServiceDatabase* (ScLock: SC_LOCK): BOOL;
@@ -17942,6 +17942,6 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE- RtlUnwind* (targetFrame: PtrVoid; targetIp: INTEGER; excpRec: PtrEXCEPTION_RECORD; retVal: INTEGER);
 	(*END RtlUnwind;*)
 
-PROCEDURE- _init* "/* */";
+PROCEDURE- _init* "/*-noinit*/";
 
 END WinApi.
