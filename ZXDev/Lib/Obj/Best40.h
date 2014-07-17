@@ -6,15 +6,14 @@
 #include "SYSTEM.h"
 
 
-import INTEGER Best40_attrib;
 
 
 import void Best40_ACHANGE (INTEGER attr_and, INTEGER attr_or);
 import void Best40_AREPLC (INTEGER attr_from, INTEGER attr_to);
-import void Best40_ASRL_DN (void);
-import void Best40_ASRL_LF (void);
-import void Best40_ASRL_RG (void);
-import void Best40_ASRL_UP (void);
+import void Best40_ASRL_DN (INTEGER attrib);
+import void Best40_ASRL_LF (INTEGER attrib);
+import void Best40_ASRL_RG (INTEGER attrib);
+import void Best40_ASRL_UP (INTEGER attrib);
 import void Best40_PAINT (INTEGER x, INTEGER y);
 import void Best40_PFIGURE (INTEGER x, INTEGER y, CHAR *pattern, LONGINT pattern__len);
 import BOOLEAN Best40_POINT (INTEGER x, INTEGER y);

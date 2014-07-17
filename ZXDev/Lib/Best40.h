@@ -5,10 +5,14 @@
 
 import SHORTINT Best40_attrib;
 
-import void Best40_ASRL_LF (void);
-import void Best40_ASRL_RG (void);
-import void Best40_ASRL_UP (void);
-import void Best40_ASRL_DN (void);
+import void Best40_ASRL_LF_A (void);
+#define Best40_ASRL_LF(attrib) Best40_attrib = attrib; Best40_ASRL_LF_A()
+import void Best40_ASRL_RG_A (void);
+#define Best40_ASRL_RG(attrib) Best40_attrib = attrib; Best40_ASRL_RG_A()
+import void Best40_ASRL_UP_A (void);
+#define Best40_ASRL_UP(attrib) Best40_attrib = attrib; Best40_ASRL_UP_A()
+import void Best40_ASRL_DN_A (void);
+#define Best40_ASRL_DN(attrib) Best40_attrib = attrib; Best40_ASRL_DN_A()
 import void Best40_SSRL_LF (void);
 import void Best40_SSRL_RG (void);
 import void Best40_SSRL_UP (void);

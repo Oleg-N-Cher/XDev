@@ -13,10 +13,10 @@
 
 extern SHORTINT Best40_attrib;
 
-export void Best40_ASRL_LF (void);
-export void Best40_ASRL_RG (void);
-export void Best40_ASRL_UP (void);
-export void Best40_ASRL_DN (void);
+export void Best40_ASRL_LF_A (void);
+export void Best40_ASRL_RG_A (void);
+export void Best40_ASRL_UP_A (void);
+export void Best40_ASRL_DN_A (void);
 export void Best40_SSRL_LF (void);
 export void Best40_SSRL_RG (void);
 export void Best40_SSRL_UP (void);
@@ -47,7 +47,7 @@ SHORTINT Best40_attrib; // Цвет атрибутов при атрибутных сдвигах
 
 // Сдвиг атрибутов влево (22<=23)
 
-void Best40_ASRL_LF (void) {
+void Best40_ASRL_LF_A (void) {
 __asm
           LD      DE,#0x5800   // DE=адрес первого байта атрибутов
 LP_ASLF$: LD      H,D          // скопировали DE в HL
@@ -62,13 +62,13 @@ LP_ASLF$: LD      H,D          // скопировали DE в HL
           CP      #0x5B        //  и мы набрели на буфер принтера,
           JR      C,LP_ASLF$   //  то STOP, иначе сдвигаем дальше
 __endasm;
-} //Best40_ASRL_LF
+} //Best40_ASRL_LF_A
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вправо (21<=23)
 
-void Best40_ASRL_RG (void) {
+void Best40_ASRL_RG_A (void) {
 __asm
           LD      DE,#0x5AFF   // адрес последнего байта атрибутов
 LP_ASRG$: LD      H,D          // скопировали DE в HL -
@@ -82,13 +82,13 @@ LP_ASRG$: LD      H,D          // скопировали DE в HL -
           BIT     3,D          // если мы всё ещё в атрибутах,
           JR      NZ,LP_ASRG$  //  то повторяем цикл для сл. линии
 __endasm;
-} //Best40_ASRL_RG
+} //Best40_ASRL_RG_A
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вверх (19<=21)
 
-void Best40_ASRL_UP (void) {
+void Best40_ASRL_UP_A (void) {
 __asm
           LD      HL,#0x5820   // адрес второй линии атрибутов
           LD      DE,#0x5800   // адрес первой линии атрибутов
@@ -99,13 +99,13 @@ LP_ASUP$: LD      (DE),A       // устанавливаем новый атрибут
           INC     E            // если заполнили всю последнюю линию
           JR      NZ,LP_ASUP$  //  (E=0), то прерываем цикл
 __endasm;
-} //Best40_ASRL_UP
+} //Best40_ASRL_UP_A
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вниз (20<=21)
 
-void Best40_ASRL_DN (void) {
+void Best40_ASRL_DN_A (void) {
 __asm
           LD      HL,#0x5ADF   // адрес конца второй линии снизу
           LD      DE,#0x5AFF   // адрес конца самой нижней линии
@@ -117,7 +117,7 @@ LP_ASDN$: LD      (DE),A       // устанавливаем новый атрибут
           JR      NZ,LP_ASDN$  //  области атрибутов (E=0), то STOP
           LD      (DE),A       //  и устанавливаем этот байт
 __endasm;
-} //Best40_ASRL_DN
+} //Best40_ASRL_DN_A
 
 /*--------------------------------- Cut here ---------------------------------*/
 
