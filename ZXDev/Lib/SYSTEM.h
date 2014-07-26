@@ -40,7 +40,7 @@ typedef float LONGREAL;
 typedef unsigned char SET;
 typedef void *SYSTEM_PTR;
 typedef unsigned int SYSTEM_ADDRESS;
-typedef unsigned char SYSTEM_BYTE;
+typedef signed char BYTE;
 
 /* runtime system routines */
 extern long SYSTEM_DIV();
