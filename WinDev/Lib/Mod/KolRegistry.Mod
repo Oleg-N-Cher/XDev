@@ -39,8 +39,8 @@
 
 ****************************************************************)
 
-MODULE KolRegKeyA; (* nonportable (Win32) *)
-IMPORT S := SYSTEM, W := WinApi, Ignore, Typ := KolTypesA, KolStringsA;
+MODULE KolRegistry; (* nonportable (Win32) *)
+IMPORT S := SYSTEM, W := WinApi, Ignore, Typ := KolTypes, KolStrings;
 
 CONST
   HKEY_CLASSES_ROOT* = W.HKEY_CLASSES_ROOT;
@@ -61,7 +61,6 @@ CONST
 
 TYPE
   HKey* = W.HKEY;
-  BYTE =  (*KolTypesA*)Typ.BYTE;
   DWORD = Typ.DWORD;
   SHORTCHAR = CHAR;
   Integer = Typ.Integer;
@@ -119,9 +118,9 @@ PROCEDURE ^ RegKeySetDw* (key: HKey; IN valueName: KOLString; value: DWORD):
 PROCEDURE ^ Close* (key: HKey);
 (* Closes key, opened using RegKeyOpenRead or RegKeyOpenWrite. (But does
    nothing, if Key passed is 0). *)
-(*
-PROCEDURE ^ RegKeyDelete* (key: HKey; IN subKey: KOLString): BOOLEAN;
+PROCEDURE ^ Delete* (key: HKey; IN subKey: KOLString): BOOLEAN;
 (* Deletes key. Does nothing if key passed is 0 (returns FALSE). *)
+(*
 PROCEDURE ^ RegKeyDeleteValue* (key: HKey; IN subKey: KOLString): BOOLEAN;
 (* Deletes value. - by neuron, e-mailto:neuron@hollowtube.mine.nu *)
 *)
@@ -435,7 +434,7 @@ BEGIN
       0,
       W.REG_SZ,
       S.VAL(W.PtrSTR, S.ADR(value)),
-      (KolStringsA.Length(value) + 1)*SIZE(KOLChar))
+      (KolStrings.Length(value) + 1)*SIZE(KOLChar))
     = W.ERROR_SUCCESS
   )
 END KeySetStr;
@@ -459,9 +458,8 @@ PROCEDURE Close* (key: HKey);
 BEGIN
   IF key # NIL THEN Ignore.Int(W.RegCloseKey(key)) END;
 END Close;
-(*
-(*//[FUNCTION RegKeyDelete]*)
-PROCEDURE KeyDelete* (key: HKey; IN subKey: KOLString): BOOLEAN;
+
+PROCEDURE Delete* (key: HKey; IN subKey: KOLString): BOOLEAN;
 VAR
   result: BOOLEAN;
 BEGIN
@@ -471,8 +469,8 @@ BEGIN
       W.ERROR_SUCCESS
   END;
   RETURN result
-END KeyDelete;
-
+END Delete;
+(*
 (*//[FUNCTION RegKeyDeleteValue]*)
 PROCEDURE KeyDeleteValue* (key: HKey; IN subKey: KOLString): BOOLEAN;
 VAR
@@ -710,4 +708,4 @@ END KeyGetValueTyp;
 *)*)
 PROCEDURE- _init* "/*-noinit*/";
 
-END KolRegKeyA.
+END KolRegistry.
