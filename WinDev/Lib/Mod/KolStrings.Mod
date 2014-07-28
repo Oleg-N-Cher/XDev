@@ -39,8 +39,8 @@
 
 ****************************************************************)
 
-MODULE KolStringsA;
-IMPORT SYSTEM, Typ := KolTypesA;
+MODULE KolStrings;
+IMPORT SYSTEM, Typ := KolTypes;
 
 TYPE
 	Integer = Typ.Integer;
@@ -75,7 +75,9 @@ BEGIN
 	END;
 	COPY(value, str^);
 END Assign;
-*)(*
+*)
+PROCEDURE- _init* "/*-noinit*/";
+(*
 BEGIN
 	NEW(PtrToEmptyKOLString, 1); PtrToEmptyKOLString^[0] := 0X;*)
-END KolStringsA.
+END KolStrings.

@@ -5,25 +5,28 @@
 :tcc
 @SET Lib=Kol.a
 @IF EXIST %Lib% DEL %Lib%
-@CALL Bin\smart %Lib% KolTypesA -noinit
-@CALL Bin\smart %Lib% KolStringsA -noinit
-@CALL Bin\smart %Lib% KolRegKeyA -noinit
+@CALL Bin\smart %Lib% KolTypes -noinit
+@CALL Bin\smart %Lib% KolStrings -noinit
+@CALL Bin\smart %Lib% KolRegistry -noinit
+@CALL Bin\smart %Lib% KolWindows -noinit
 
 :djgpp
 @IF NOT EXIST Obj\.djgpp GOTO tcc64
 @SET Lib=KolDJGPP.a
 @IF EXIST %Lib% DEL %Lib%
-@CALL Bin\smartdjgpp %Lib% KolTypesA -noinit
-@CALL Bin\smartdjgpp %Lib% KolStringsA -noinit
-@CALL Bin\smartdjgpp %Lib% KolRegKeyA -noinit
+@CALL Bin\smartdjgpp %Lib% KolTypes -noinit
+@CALL Bin\smartdjgpp %Lib% KolStrings -noinit
+@CALL Bin\smartdjgpp %Lib% KolRegistry -noinit
+@CALL Bin\smartdjgpp %Lib% KolWindows -noinit
 
 :tcc64
 @IF NOT EXIST Obj\.tcc64 GOTO exit
 @SET Lib=Kol64.a
 @IF EXIST %Lib% DEL %Lib%
-@CALL Bin\smart64 %Lib% KolTypesA -noinit
-@CALL Bin\smart64 %Lib% KolStringsA -noinit
-@CALL Bin\smart64 %Lib% KolRegKeyA -noinit
+@CALL Bin\smart64 %Lib% KolTypes -noinit
+@CALL Bin\smart64 %Lib% KolStrings -noinit
+@CALL Bin\smart64 %Lib% KolRegistry -noinit
+@CALL Bin\smart64 %Lib% KolWindows -noinit
 
 :exit
 @CD Obj

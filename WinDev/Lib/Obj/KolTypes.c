@@ -3,39 +3,34 @@
 #include "WinApi.h"
 
 typedef
-	CHAR *KolTypesA_AnsiString;
+	CHAR *KolTypes_AnsiString;
 
 typedef
-	CHAR *KolTypesA_KOLString;
-
-typedef
-	struct {
-		LONGINT len[1];
-		CHAR data[1];
-	} *KolTypesA_PKOLChar;
+	CHAR *KolTypes_KOLString;
 
 typedef
 	struct {
 		LONGINT len[1];
 		CHAR data[1];
-	} *KolTypesA_PKOLString;
+	} *KolTypes_PKOLChar;
+
+typedef
+	struct {
+		LONGINT len[1];
+		CHAR data[1];
+	} *KolTypes_PKOLString;
 
 
-static REAL KolTypesA_eps, KolTypesA_e;
-static INTEGER KolTypesA_maxExp, KolTypesA_maxDig;
-static REAL KolTypesA_factor;
-static CHAR KolTypesA_digits[17];
-static CHAR KolTypesA_toUpper[256], KolTypesA_toLower[256];
 
 
-static void KolTypesA_IntToString (LONGINT x, CHAR *s, LONGINT s__len);
-static void KolTypesA_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res);
+export void KolTypes_IntToString (LONGINT x, CHAR *s, LONGINT s__len);
+export void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res);
 
-#define KolTypesA__init()	/*-noinit*/
+#define KolTypes__init()	/*-noinit*/
 
 /*============================================================================*/
 
-void KolTypesA_IntToString (LONGINT x, CHAR *s, LONGINT s__len)
+void KolTypes_IntToString (LONGINT x, CHAR *s, LONGINT s__len)
 {
 	INTEGER j, k;
 	CHAR ch;
@@ -74,7 +69,7 @@ void KolTypesA_IntToString (LONGINT x, CHAR *s, LONGINT s__len)
 }
 
 /*----------------------------------------------------------------------------*/
-void KolTypesA_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
+void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 {
 	INTEGER i, j, k, digits;
 	CHAR ch, top;
@@ -211,13 +206,3 @@ void KolTypesA_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 	}
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *KolTypesA__init(void)
-{
-	__DEFMOD;
-	__IMPORT(WinApi__init);
-	__REGMOD("KolTypesA", 0);
-/* BEGIN */
-	__ENDMOD;
-}
