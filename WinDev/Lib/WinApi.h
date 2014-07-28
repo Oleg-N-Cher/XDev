@@ -497,7 +497,7 @@ typedef
 	struct WinApi_COM_GUID {
 		INTEGER Data1;
 		SHORTINT Data2, Data3;
-		SYSTEM_BYTE Data4[8];
+		BYTE Data4[8];
 	} WinApi_COM_GUID;
 
 typedef
@@ -7398,7 +7398,7 @@ __EXTERN INTEGER __CALL GetMessageW(WinApi_MSG *lpMsg, SYSTEM_PTR hWnd, INTEGER 
 #define WinApi_GetMetaFileA(p0)	GetMetaFileA(p0)
 __EXTERN SYSTEM_PTR __CALL GetMetaFileA(SYSTEM_PTR p0);
 #define WinApi_GetMetaFileBitsEx(p0, p1, p2, p2__len)	GetMetaFileBitsEx(p0, p1, p2)
-__EXTERN INTEGER __CALL GetMetaFileBitsEx(SYSTEM_PTR p0, INTEGER p1, SYSTEM_BYTE *p2);
+__EXTERN INTEGER __CALL GetMetaFileBitsEx(SYSTEM_PTR p0, INTEGER p1, BYTE *p2);
 #define WinApi_GetMetaFileW(p0)	GetMetaFileW(p0)
 __EXTERN SYSTEM_PTR __CALL GetMetaFileW(SYSTEM_PTR p0);
 #define WinApi_GetMetaRgn(p0, p1)	GetMetaRgn(p0, p1)
@@ -9083,7 +9083,7 @@ __EXTERN INTEGER __CALL SetMessageExtraInfo(INTEGER lParam);
 #define WinApi_SetMessageQueue(cMessagesMax)	SetMessageQueue(cMessagesMax)
 __EXTERN INTEGER __CALL SetMessageQueue(INTEGER cMessagesMax);
 #define WinApi_SetMetaFileBitsEx(p0, p1, p1__len)	SetMetaFileBitsEx(p0, p1)
-__EXTERN SYSTEM_PTR __CALL SetMetaFileBitsEx(INTEGER p0, SYSTEM_BYTE *p1);
+__EXTERN SYSTEM_PTR __CALL SetMetaFileBitsEx(INTEGER p0, BYTE *p1);
 #define WinApi_SetMetaRgn(p0)	SetMetaRgn(p0)
 __EXTERN INTEGER __CALL SetMetaRgn(SYSTEM_PTR p0);
 #define WinApi_SetMiterLimit(p0, p1, p2)	SetMiterLimit(p0, p1, p2)
