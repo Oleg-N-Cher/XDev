@@ -1,5 +1,3 @@
-/*  Ofront 1.2 -xtspkae */
-
 #ifndef GrFonts__h
 #define GrFonts__h
 
@@ -8,8 +6,8 @@
 typedef
 	INTEGER GrFonts_Font;
 
-import SYSTEM_BYTE GrFonts_ZxSpecRus8x8Font [768];
-import SYSTEM_BYTE GrFonts_MsDosCga8x8Font [768];
+import BYTE GrFonts_ZxSpecRus8x8Font [768];
+import BYTE GrFonts_MsDosCga8x8Font [768];
 
 
 #define GrFonts_ZxSpecRom8x8 0x3D00

@@ -122,9 +122,9 @@ import void Basic_PRLN (void);
 
 import void Basic_PLOT (SHORTINT x, SHORTINT y);
 
-import SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+import BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 
-import SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
+import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
 import void Basic_DRAW (SHORTINT x, SHORTINT y);
 
@@ -153,9 +153,9 @@ import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 #define Basic_PEEK(addr)      (*(unsigned char*) (addr))
 #define Basic_PEEKW(addr)     (*(unsigned*) (addr))
 
-import SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+import BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 
-import void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
+import void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 
 import BOOLEAN Basic_KeyPressed (void);
 

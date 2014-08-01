@@ -126,10 +126,10 @@ HGT*LEN - атрибуты.
 /* This is C realization of Set sprite relocs ===
 
 static typedef struct Sprite {
-  SYSTEM_BYTE sprN;
+  BYTE sprN;
   struct Sprite *sprNext;
-  SYSTEM_BYTE sprLen;
-  SYSTEM_BYTE sprHgt;
+  BYTE sprLen;
+  BYTE sprHgt;
 };
 
 void Laser_Init (SYSTEM_ADDRESS sprAddr, SYSTEM_ADDRESS sprEnd)
