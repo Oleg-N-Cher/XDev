@@ -3,7 +3,7 @@
 #include "Console.h"
 
 
-static SHORTINT ASCII_n, ASCII__for__1;
+static SHORTINT ASCII_n;
 
 
 
@@ -18,12 +18,8 @@ export main(int argc, char **argv)
 	__REGMAIN("ASCII", 0);
 /* BEGIN */
 	ASCII_n = 32;
-	ASCII__for__1 = 127;
-	ASCII__for__1 = (ASCII__for__1 - ASCII_n) + 1;
 	do {
 		Console_WriteCh((CHAR)ASCII_n);
-		ASCII_n += 1;
-		ASCII__for__1 -= 1;
-	} while (!(ASCII__for__1 == 0));
+	} while (++ASCII_n >= 0);
 	__FINI;
 }
