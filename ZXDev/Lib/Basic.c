@@ -1,7 +1,5 @@
 #include "SYSTEM.h"
-//#include "Basic.h"
 
-/*interface*/
 export void Basic_Init_DI (void);
 export void Basic_Init_IM0 (void);
 export void Basic_Init_IM2 (void);
@@ -29,13 +27,13 @@ export void Basic_PRCHAR_ROM (CHAR ch);
 export void Basic_PRDATA (void);
 export void Basic_PRLN (void);
 export void Basic_PLOT (SHORTINT x, SHORTINT y);
-export SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y);
-export SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
+export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
 export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
-export SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
-export void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value);
+export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 export void Basic_PRINT_FAST (INTEGER i);
 export void Basic_PRINT_ROM (INTEGER i);
 export void Basic_PRWORD_FAST (CARDINAL n);
@@ -55,9 +53,6 @@ export void Basic_Quit_DI (void);
 export void Basic_Quit_IM0 (void);
 export void Basic_Quit_IM2 (void);
 
-
-/*implementation*/
-
 import CARDINAL _Basic_RandBB (void);
 
 /* Video temp attrib */
@@ -66,7 +61,6 @@ import CARDINAL _Basic_RandBB (void);
 #define SETV_A$ 0x5C8D
 /* (Font_address - 256) */
 #define CHAR_SET$ 0x5C36
-
 /*================================== Header ==================================*/
 
 void Basic_Init_DI (void)
@@ -638,7 +632,7 @@ __endasm;
 } //Basic_PLOT
 
 /*--------------------------------- Cut here ---------------------------------*/
-SYSTEM_BYTE Basic_POINT (SHORTINT x, SHORTINT y)
+BYTE Basic_POINT (SHORTINT x, SHORTINT y)
 {
 __asm
 #ifdef __SDCC
@@ -659,7 +653,7 @@ __endasm;
 } //Basic_POINT
 
 /*--------------------------------- Cut here ---------------------------------*/
-SYSTEM_BYTE Basic_ATTR (SHORTINT y, SHORTINT x)
+BYTE Basic_ATTR (SHORTINT y, SHORTINT x)
 {
 __asm
 #ifdef __SDCC
@@ -761,7 +755,7 @@ __endasm;
 } //Basic_SlowCircle
 
 /*--------------------------------- Cut here ---------------------------------*/
-SYSTEM_BYTE Basic_PORTIN (SYSTEM_ADDRESS port)
+BYTE Basic_PORTIN (SYSTEM_ADDRESS port)
 {
 __asm
 #ifdef __SDCC
@@ -779,7 +773,7 @@ __endasm;
 } //Basic_PORTIN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PORTOUT (SYSTEM_ADDRESS port, SYSTEM_BYTE value)
+void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value)
 {
 __asm
 #ifdef __SDCC

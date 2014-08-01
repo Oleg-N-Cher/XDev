@@ -26,30 +26,30 @@ PROCEDURE Byte15* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15:
 PROCEDURE Byte16* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16:
   BYTE); END Byte16;
 
-PROCEDURE Char* (b: SYSTEM.BYTE); END Char;
-PROCEDURE Char1* (b: SYSTEM.BYTE); END Char1;
-PROCEDURE Char2* (b1,b2: SYSTEM.BYTE); END Char2;
-PROCEDURE Char3* (b1,b2,b3: SYSTEM.BYTE); END Char3;
-PROCEDURE Char4* (b1,b2,b3,b4: SYSTEM.BYTE); END Char4;
-PROCEDURE Char5* (b1,b2,b3,b4,b5: SYSTEM.BYTE); END Char5;
-PROCEDURE Char6* (b1,b2,b3,b4,b5,b6: SYSTEM.BYTE); END Char6;
-PROCEDURE Char7* (b1,b2,b3,b4,b5,b6,b7: SYSTEM.BYTE); END Char7;
-PROCEDURE Char8* (b1,b2,b3,b4,b5,b6,b7,b8: SYSTEM.BYTE); END Char8;
-PROCEDURE Char9* (b1,b2,b3,b4,b5,b6,b7,b8,b9: SYSTEM.BYTE); END Char9;
-PROCEDURE Char10* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10: SYSTEM.BYTE);
+PROCEDURE Char* (b: BYTE); END Char;
+PROCEDURE Char1* (b: BYTE); END Char1;
+PROCEDURE Char2* (b1,b2: BYTE); END Char2;
+PROCEDURE Char3* (b1,b2,b3: BYTE); END Char3;
+PROCEDURE Char4* (b1,b2,b3,b4: BYTE); END Char4;
+PROCEDURE Char5* (b1,b2,b3,b4,b5: BYTE); END Char5;
+PROCEDURE Char6* (b1,b2,b3,b4,b5,b6: BYTE); END Char6;
+PROCEDURE Char7* (b1,b2,b3,b4,b5,b6,b7: BYTE); END Char7;
+PROCEDURE Char8* (b1,b2,b3,b4,b5,b6,b7,b8: BYTE); END Char8;
+PROCEDURE Char9* (b1,b2,b3,b4,b5,b6,b7,b8,b9: BYTE); END Char9;
+PROCEDURE Char10* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10: BYTE);
   END Char10;
-PROCEDURE Char11* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11: SYSTEM.BYTE);
+PROCEDURE Char11* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11: BYTE);
   END Char11;
-PROCEDURE Char12* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12: SYSTEM.BYTE);
+PROCEDURE Char12* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12: BYTE);
   END Char12;
-PROCEDURE Char13* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13: SYSTEM.BYTE);
+PROCEDURE Char13* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13: BYTE);
   END Char13;
-PROCEDURE Char14* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14: SYSTEM.BYTE);
+PROCEDURE Char14* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14: BYTE);
   END Char14;
 PROCEDURE Char15* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15:
-  SYSTEM.BYTE); END Char15;
+  BYTE); END Char15;
 PROCEDURE Char16* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16:
-  SYSTEM.BYTE); END Char16;
+  BYTE); END Char16;
 
 PROCEDURE Word* (w: WORD); END Word;
 PROCEDURE Word1* (w: WORD); END Word1;

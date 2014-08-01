@@ -3,7 +3,6 @@
 #include "Strings.h"
 #include "Timer.h"
 
-/*interface*/
 export void Console_At_ROM (SHORTINT x, SHORTINT y);
 export void Console_At_COMPACT (SHORTINT x, SHORTINT y);
 export void Console_At_FAST (SHORTINT x, SHORTINT y);
@@ -34,16 +33,13 @@ void Console_WriteCh_COMPACT_fastcall (void /* Register A */);
 void Console_WriteCh_FAST_fastcall (void /* Register A */);
 void Console_WriteCh_ROM_fastcall (void /* Register A */);
 
-/*implementation*/
-
 /* Set video attrib */
 #define SETV_A$   0x5C8D
-extern SYSTEM_BYTE __at(SETV_A$) Console_attrib;
-
+extern BYTE __at(SETV_A$) Console_attrib;
 /*================================== Header ==================================*/
 
 /* Set video attrib */
-SYSTEM_BYTE __at(SETV_A$) Console_attrib;
+BYTE __at(SETV_A$) Console_attrib;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_At_ROM (SHORTINT x, SHORTINT y)

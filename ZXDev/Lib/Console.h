@@ -1,5 +1,3 @@
-/*  Ofront 1.2 -xtspkae */
-
 #ifndef Console__h
 #define Console__h
 
@@ -113,7 +111,7 @@ import void Console_WriteStrLn_C_FAST (void/*CHAR *str*/);
                                                        RST 16 __endasm
 #  endif
 
-import SYSTEM_BYTE Console_attrib;
+import BYTE Console_attrib;
 #define Console_SetColors(attr) Console_attrib = attr
 
 #  ifdef OUTPUT_COMPACT

@@ -1,5 +1,3 @@
-/*  Ofront 1.2 -xtspkae */
-
 #ifndef Platform__h
 #define Platform__h
 
@@ -7,7 +5,7 @@
 
 
 typedef
-	SYSTEM_BYTE Platform_ADDRESS[65536];
+	BYTE Platform_ADDRESS[65536];
 
 typedef
 	CHAR *Platform_STRING;
