@@ -113,7 +113,7 @@ extern void SYSTEM_ENUMR();
 #define __MODF(x, y)	SYSTEM_MOD((long)(x),(long)(y))
 
 #ifdef SYSTEM_Cfg_NoGC
-#  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(t))
+#  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(struct t))
 #  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
 	SYSTEM_NEWARR(elemalgn*va_alist);
 #else
