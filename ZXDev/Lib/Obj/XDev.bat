@@ -13,5 +13,6 @@
 @CALL ..\Bin\build-xdev.bat Math
 @CALL ..\Bin\build-xdev.bat Timer
 @CALL ..\Bin\build-xdev.bat Input
+@CALL ..\Bin\build-xdev.bat Control
 
 @MOVE /Y ..\XDev.lib ..\z80\XDev.lib
