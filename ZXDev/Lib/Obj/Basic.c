@@ -91,7 +91,7 @@ export void Basic_PRINT (INTEGER i);
 export void Basic_PRLN (void);
 export void Basic_PRSTR (CHAR *str, LONGINT str__len);
 export void Basic_PRUDG (CHAR ch);
-export void Basic_PRWORD (INTEGER i);
+export void Basic_PRWORD (LONGINT i);
 export void Basic_Quit (void);
 export void Basic_RANDOMIZE (INTEGER seed);
 export INTEGER Basic_READ (INTEGER addr);
@@ -212,7 +212,7 @@ void Basic_PRINT (INTEGER i)
 }
 
 /*----------------------------------------------------------------------------*/
-void Basic_PRWORD (INTEGER i)
+void Basic_PRWORD (LONGINT i)
 {
 }
 
