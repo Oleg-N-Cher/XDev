@@ -95,7 +95,7 @@ import void Basic_PRINT (INTEGER i);
 import void Basic_PRLN (void);
 import void Basic_PRSTR (CHAR *str, LONGINT str__len);
 import void Basic_PRUDG (CHAR ch);
-import void Basic_PRWORD (INTEGER i);
+import void Basic_PRWORD (LONGINT i);
 import void Basic_Quit (void);
 import void Basic_RANDOMIZE (INTEGER seed);
 import INTEGER Basic_READ (INTEGER addr);
