@@ -5,7 +5,7 @@
 
 
 import SET Control_Get (void);
-#define Control__init()
+import void Control__init(void);
 
 
 #endif
