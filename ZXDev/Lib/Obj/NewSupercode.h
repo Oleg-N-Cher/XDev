@@ -14,6 +14,7 @@ import void NewSupercode_DZWIEK_3 (void);
 import void NewSupercode_EKRAN_1 (INTEGER x);
 import void NewSupercode_EKRAN_2 (INTEGER x);
 import void NewSupercode_LITERY (INTEGER x, INTEGER y, INTEGER xs, INTEGER ys, INTEGER wdth, CHAR *str, LONGINT str__len);
+import void NewSupercode__2WIERSZE (LONGINT x);
 import void *NewSupercode__init(void);
 
 

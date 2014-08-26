@@ -1,5 +1,6 @@
 #include "SYSTEM.h"
 
+export void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr);
 export void NewSupercode_DZWIEK_1 (void);
 export void NewSupercode_DZWIEK_2 (void);
 export void NewSupercode_DZWIEK_3 (void);
@@ -9,6 +10,38 @@ export void NewSupercode_LITERY_ (SHORTCARD x, SHORTCARD y, SHORTCARD xs,
   SHORTCARD ys, SHORTCARD wdth, CHAR *str);
 /*================================== Header ==================================*/
 
+void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr) {
+__asm
+           POP  DE
+           POP  HL
+           PUSH HL
+           PUSH DE
+           PUSH IX
+           LD   B, #8
+LOC_DAC5$: PUSH BC
+           LD   B, #2
+LOC_DAC8$: LD   C, B
+           PUSH HL
+           POP  IX
+           LD   A, 0x1F(IX)
+           RRCA
+           LD   B, #0x20
+LOC_DAD2$: RR   (HL)
+           INC  HL
+           DJNZ LOC_DAD2$
+           LD   B, C
+           DJNZ LOC_DAC8$
+           LD   BC, #0xC0
+           ADD  HL, BC
+LOC_DADE$: NOP
+           DJNZ LOC_DADE$
+           POP  BC
+           DJNZ LOC_DAC5$
+           POP  IX
+__endasm;
+} //NewSupercode__2WIERSZE
+
+/*--------------------------------- Cut here ---------------------------------*/
 void NewSupercode_EKRAN_1 (SHORTCARD x) {
 __asm
     LD   HL, #2
