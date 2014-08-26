@@ -10,10 +10,16 @@ export void NewSupercode_DZWIEK_3 (void);
 export void NewSupercode_EKRAN_1 (INTEGER x);
 export void NewSupercode_EKRAN_2 (INTEGER x);
 export void NewSupercode_LITERY (INTEGER x, INTEGER y, INTEGER xs, INTEGER ys, INTEGER wdth, CHAR *str, LONGINT str__len);
+export void NewSupercode__2WIERSZE (LONGINT x);
 
 
 /*============================================================================*/
 
+void NewSupercode__2WIERSZE (LONGINT x)
+{
+}
+
+/*----------------------------------------------------------------------------*/
 void NewSupercode_EKRAN_1 (INTEGER x)
 {
 }
