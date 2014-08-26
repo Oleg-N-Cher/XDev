@@ -78,7 +78,7 @@ static struct GetStrNoGC__5 {
 
 static BOOLEAN Query__6 (void);
 
-BOOLEAN Query__6 (void)
+static BOOLEAN Query__6 (void)
 {
 	return WinApi_RegQueryValueExA(*GetStrNoGC__5_s->key, (SYSTEM_PTR)((LONGINT)GetStrNoGC__5_s->valueName), NIL, &*GetStrNoGC__5_s->dwType, (SYSTEM_PTR)((LONGINT)GetStrNoGC__5_s->result), &*GetStrNoGC__5_s->dwSize) == 0;
 }
@@ -157,3 +157,16 @@ BOOLEAN KolRegistry_Exists (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey__len)
 	return k != NIL;
 }
 
+/*----------------------------------------------------------------------------*/
+
+export void *KolRegistry__init(void)
+{
+	__DEFMOD;
+	__IMPORT(Ignore__init);
+	__IMPORT(KolStrings__init);
+	__IMPORT(KolTypes__init);
+	__IMPORT(WinApi__init);
+	__REGMOD("KolRegistry", 0);
+/* BEGIN */
+	__ENDMOD;
+}

@@ -8,7 +8,7 @@
 @CALL Bin\smart %Lib% KolTypes -noinit
 @CALL Bin\smart %Lib% KolStrings -noinit
 @CALL Bin\smart %Lib% KolRegistry -noinit
-@CALL Bin\smart %Lib% KolWindows -noinit
+@CALL Bin\smart %Lib% KolWindows
 
 :djgpp
 @IF NOT EXIST Obj\.djgpp GOTO tcc64
@@ -17,7 +17,7 @@
 @CALL Bin\smartdjgpp %Lib% KolTypes -noinit
 @CALL Bin\smartdjgpp %Lib% KolStrings -noinit
 @CALL Bin\smartdjgpp %Lib% KolRegistry -noinit
-@CALL Bin\smartdjgpp %Lib% KolWindows -noinit
+@CALL Bin\smartdjgpp %Lib% KolWindows
 
 :tcc64
 @IF NOT EXIST Obj\.tcc64 GOTO exit
@@ -26,7 +26,7 @@
 @CALL Bin\smart64 %Lib% KolTypes -noinit
 @CALL Bin\smart64 %Lib% KolStrings -noinit
 @CALL Bin\smart64 %Lib% KolRegistry -noinit
-@CALL Bin\smart64 %Lib% KolWindows -noinit
+@CALL Bin\smart64 %Lib% KolWindows
 
 :exit
 @CD Obj
