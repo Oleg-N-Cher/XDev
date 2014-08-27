@@ -1,6 +1,10 @@
 #include "SYSTEM.h"
 
 export void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr);
+export void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr);
+export void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr);
+export void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr);
+export void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr);
 export void NewSupercode_DZWIEK_1 (void);
 export void NewSupercode_DZWIEK_2 (void);
 export void NewSupercode_DZWIEK_3 (void);
@@ -40,6 +44,200 @@ LOC_DADE$: NOP
            POP  IX
 __endasm;
 } //NewSupercode__2WIERSZE
+
+/*--------------------------------- Cut here ---------------------------------*/
+void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr) {
+__asm
+           POP  DE
+           POP  HL
+           PUSH HL
+           PUSH DE
+           LD   DE, #0x4000
+           LD   B, #0xC
+LOC_DAED$: PUSH BC
+           PUSH DE
+           PUSH HL
+           LD   B, #8
+LOC_DAF2$: PUSH BC
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x10
+           LDIR
+           LD   B, #0x14
+LOC_DAFC$: PUSH BC
+           LD   B, #0xFF
+           DJNZ .
+           POP  BC
+           DJNZ LOC_DAFC$
+           POP  HL
+           POP  DE
+           LD   BC, #0x100
+           ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DAF2$
+           POP  DE
+           POP  HL
+           LD   A, L
+           LD   BC, #0x720
+           CP   #0xE0
+           JR   Z, LOC_DB1C$
+           LD   BC, #0x20
+LOC_DB1C$: ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DAED$
+__endasm;
+} //NewSupercode_EKRAN1
+
+/*--------------------------------- Cut here ---------------------------------*/
+void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr) {
+__asm
+           POP  DE
+           POP  HL
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x10
+           ADD  HL, BC
+           LD   DE, #0x4010
+           LD   B, #0xC
+LOC_DB4F$: PUSH BC
+           PUSH DE
+           PUSH HL
+           LD   B, #8
+LOC_DB54$: PUSH BC
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x10
+           LDIR
+           LD   B, #0x14
+LOC_DB5E$: PUSH BC
+           LD   B, #0xFF
+           DJNZ .
+           POP  BC
+           DJNZ LOC_DB5E$
+           POP  HL
+           POP  DE
+           LD   BC, #0x100
+           ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DB54$
+           POP  DE
+           POP  HL
+           LD   A, L
+           LD   BC, #0x720
+           CP   #0xF0
+           JR   Z, LOC_DB7E$
+           LD   BC, #0x20
+LOC_DB7E$: ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DB4F$
+__endasm;
+} //NewSupercode_EKRAN2
+
+/*--------------------------------- Cut here ---------------------------------*/
+void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr) {
+__asm
+           POP  DE
+           POP  HL
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x880
+           ADD  HL, BC
+           LD   DE, #0x4880
+           LD   B, #0xC
+LOC_DBB1$: PUSH BC
+           PUSH DE
+           PUSH HL
+           LD   B, #8
+LOC_DBB6$: PUSH BC
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x10
+           LDIR
+           LD   B, #0x14
+LOC_DBC0$: PUSH BC
+           LD   B, #0xFF
+           DJNZ .
+           POP  BC
+           DJNZ LOC_DBC0$
+           POP  HL
+           POP  DE
+           LD   BC, #0x100
+           ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DBB6$
+           POP  DE
+           POP  HL
+           LD   A, L
+           LD   BC, #0x720
+           CP   #0xE0
+           JR   Z, LOC_DBE0$
+           LD   BC, #0x20
+LOC_DBE0$: ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DBB1$
+__endasm;
+} //NewSupercode_EKRAN3
+
+/*--------------------------------- Cut here ---------------------------------*/
+void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr) {
+__asm
+           POP  DE
+           POP  HL
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x890
+           ADD  HL, BC
+           LD   DE, #0x4890
+           LD   B, #0xC
+LOC_DC13$: PUSH BC
+           PUSH DE
+           PUSH HL
+           LD   B, #8
+LOC_DC18$: PUSH BC
+           PUSH HL
+           PUSH DE
+           LD   BC, #0x10
+           LDIR
+           LD   B, #0x14
+LOC_DC22$: PUSH BC
+           LD   B, #0xFF
+           DJNZ .
+           POP  BC
+           DJNZ LOC_DC22$
+           POP  HL
+           POP  DE
+           LD   BC, #0x100
+           ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DC18$
+           POP  DE
+           POP  HL
+           LD   A, L
+           LD   BC, #0x720
+           CP   #0xF0
+           JR   Z, LOC_DC42$
+           LD   BC, #0x20
+LOC_DC42$: ADD  HL, BC
+           EX   DE, HL
+           ADD  HL, BC
+           POP  BC
+           DJNZ LOC_DC13$
+__endasm;
+} //NewSupercode_EKRAN4
 
 /*--------------------------------- Cut here ---------------------------------*/
 void NewSupercode_EKRAN_1 (SHORTCARD x) {
