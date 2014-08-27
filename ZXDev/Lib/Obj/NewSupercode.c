@@ -7,15 +7,39 @@
 export void NewSupercode_DZWIEK_1 (void);
 export void NewSupercode_DZWIEK_2 (void);
 export void NewSupercode_DZWIEK_3 (void);
+export void NewSupercode_EKRAN1 (LONGINT adr);
+export void NewSupercode_EKRAN2 (LONGINT adr);
+export void NewSupercode_EKRAN3 (LONGINT adr);
+export void NewSupercode_EKRAN4 (LONGINT adr);
 export void NewSupercode_EKRAN_1 (INTEGER x);
 export void NewSupercode_EKRAN_2 (INTEGER x);
 export void NewSupercode_LITERY (INTEGER x, INTEGER y, INTEGER xs, INTEGER ys, INTEGER wdth, CHAR *str, LONGINT str__len);
-export void NewSupercode__2WIERSZE (LONGINT x);
+export void NewSupercode__2WIERSZE (LONGINT adr);
 
 
 /*============================================================================*/
 
-void NewSupercode__2WIERSZE (LONGINT x)
+void NewSupercode__2WIERSZE (LONGINT adr)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void NewSupercode_EKRAN1 (LONGINT adr)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void NewSupercode_EKRAN2 (LONGINT adr)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void NewSupercode_EKRAN3 (LONGINT adr)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void NewSupercode_EKRAN4 (LONGINT adr)
 {
 }
 
