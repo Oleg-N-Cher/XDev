@@ -18,6 +18,7 @@ import void NewSupercode_EKRAN4 (LONGINT adr);
 import void NewSupercode_EKRAN_1 (INTEGER x);
 import void NewSupercode_EKRAN_2 (INTEGER x);
 import void NewSupercode_LITERY (INTEGER x, INTEGER y, INTEGER xs, INTEGER ys, INTEGER wdth, CHAR *str, LONGINT str__len);
+import void NewSupercode_SIATKA (INTEGER x, INTEGER y, LONGINT ramtop);
 import void NewSupercode__2WIERSZE (LONGINT adr);
 import void *NewSupercode__init(void);
 
