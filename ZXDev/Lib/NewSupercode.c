@@ -5,6 +5,7 @@ export void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr);
 export void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr);
 export void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr);
 export void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr);
+export void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADDRESS ramtop);
 export void NewSupercode_DZWIEK_1 (void);
 export void NewSupercode_DZWIEK_2 (void);
 export void NewSupercode_DZWIEK_3 (void);
@@ -238,6 +239,110 @@ LOC_DC42$: ADD  HL, BC
            DJNZ LOC_DC13$
 __endasm;
 } //NewSupercode_EKRAN4
+
+/*--------------------------------- Cut here ---------------------------------*/
+void NewSupercode_SIATKA (
+  SHORTCARD x, SHORTCARD y, SYSTEM_ADDRESS ramtop) __naked {
+__asm
+           POP  DE
+           POP  BC ; 0x6464
+           POP  HL ; 0xEA60
+           LD   A, L
+           LD   (#LOC_DC77$+1), A
+           LD   A, H
+           LD   (#LOC_DCA7$+1), A
+           PUSH HL
+           PUSH BC
+           PUSH DE
+           PUSH IX
+           PUSH HL
+           POP  IX
+           CALL SUB_DCF4$
+LOC_DC73$: PUSH IX
+           POP  HL
+           LD   A, L
+LOC_DC77$: CP   #0x60
+           JP   Z, LOC_DCA6$
+LOC_DC7C$: NOP
+           LD   E, 0(IX)
+           LD   D, 1(IX)
+           DEC  IX
+           DEC  IX
+           LD   B, D
+           LD   C, E
+           INC  B
+           INC  C
+           CALL SUB_DCAF$
+           LD   B, D
+           LD   C, E
+           DEC  B
+           DEC  C
+           CALL SUB_DCAF$
+           LD   B, D
+           LD   C, E
+           INC  B
+           DEC  C
+           CALL SUB_DCAF$
+           LD   B, D
+           LD   C, E
+           INC  C
+           DEC  B
+           CALL SUB_DCAF$
+           JP   LOC_DC73$
+LOC_DCA6$: LD   A, H
+LOC_DCA7$: CP   #0xEA
+           JP   NZ, LOC_DC7C$
+LOC_DD06$: EI
+           POP  IX
+           RET
+SUB_DCAF$: PUSH DE
+           PUSH BC
+           CALL 0x22CE
+           CALL 0x2DD5
+           POP  BC
+           POP  DE
+           CP   #1
+           RET  Z
+           PUSH DE
+           PUSH BC
+           LD   B, D
+           CALL 0x22CE
+           CALL 0x2DD5
+           POP  BC
+           POP  DE
+           CP   #1
+           RET  Z
+           PUSH DE
+           PUSH BC
+           LD   C, E
+           CALL 0x22CE
+           CALL 0x2DD5
+           POP  BC
+           POP  DE
+           CP   #1
+           RET  Z
+           LD   A, B
+           OR   A
+           RET  Z
+           CP   #0xAF
+           RET  Z
+           LD   A, C
+           OR   A
+           RET  Z
+           CP   #0xFF
+           RET  Z
+SUB_DCF4$: PUSH BC
+           PUSH DE
+           CALL 0x22E5
+           POP  DE
+           POP  BC
+           INC  IX
+           INC  IX
+           LD   0(IX), C
+           LD   1(IX), B
+           RET
+__endasm;
+} //NewSupercode_SIATKA
 
 /*--------------------------------- Cut here ---------------------------------*/
 void NewSupercode_EKRAN_1 (SHORTCARD x) {
