@@ -5,7 +5,7 @@
 
 @IF EXIST %1 GOTO config
 
-%Bin%\sdcc %1.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --oldralloc --disable-warning 59 --disable-warning 85 -I "." -I %Lib% XDev.lib Graph.lib Basic.lib Laser.lib Mega.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib
+%Bin%\sdcc %1.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I %Lib% XDev.lib Graph.lib Basic.lib Laser.lib Mega.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib
 @GOTO link
 
 :config
