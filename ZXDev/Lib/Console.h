@@ -52,6 +52,18 @@ import void Console_WriteCh_ROM (CHAR ch);
 #  ifdef OUTPUT_ROM
 #    define Console_WriteCh(ch) Console_WriteCh_ROM(ch)
 #  endif
+import void Console_WriteBool_COMPACT (BOOLEAN b);
+import void Console_WriteBool_FAST (BOOLEAN b);
+import void Console_WriteBool_ROM (BOOLEAN b);
+#  ifdef OUTPUT_COMPACT
+#    define Console_WriteBool(b) Console_WriteBool_COMPACT(b)
+#  endif
+#  ifdef OUTPUT_FAST
+#    define Console_WriteBool(b) Console_WriteBool_FAST(b)
+#  endif
+#  ifdef OUTPUT_ROM
+#    define Console_WriteBool(b) Console_WriteBool_ROM(b)
+#  endif
 
 import void Console_WriteInt_ROM (INTEGER i);
 import void Console_WriteInt_COMPACT (INTEGER i);

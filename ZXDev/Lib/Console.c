@@ -13,6 +13,9 @@ export INTEGER Console_ReadInt_COMPACT (void);
 export INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
 export INTEGER Console_ReadInt_FAST (void);
 export void Console_SetColors (SHORTINT attr);
+export void Console_WriteBool_COMPACT (BOOLEAN b);
+export void Console_WriteBool_FAST (BOOLEAN b);
+export void Console_WriteBool_ROM (BOOLEAN b);
 export void Console_WriteCh_COMPACT (CHAR ch);
 export void Console_WriteCh_FAST (CHAR ch);
 export void Console_WriteCh_ROM (CHAR ch);
@@ -333,6 +336,33 @@ __asm
   JP   _Console_WriteCh_ROM_fastcall
 __endasm;
 } //Console_WriteLn_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteBool_COMPACT (BOOLEAN b) {
+  if(b)
+    SYSTEM_str_par = (CHAR*)"TRUE";
+  else
+    SYSTEM_str_par = (CHAR*)"FALSE";
+  Console_WriteStr_C_COMPACT();
+} //Console_WriteBool_COMPACT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteBool_FAST (BOOLEAN b) {
+  if(b)
+    SYSTEM_str_par = (CHAR*)"TRUE";
+  else
+    SYSTEM_str_par = (CHAR*)"FALSE";
+  Console_WriteStr_C_FAST();
+} //Console_WriteBool_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteBool_ROM (BOOLEAN b) {
+  if(b)
+    SYSTEM_str_par = (CHAR*)"TRUE";
+  else
+    SYSTEM_str_par = (CHAR*)"FALSE";
+  Console_WriteStr_C_ROM();
+} //Console_WriteBool_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteLn_COMPACT (void)

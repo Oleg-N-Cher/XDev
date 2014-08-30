@@ -15,6 +15,7 @@ export INTEGER Console_ReadInt (void);
 export INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
 export void Console_SetColors (INTEGER attr);
 export void Console_SetFont (INTEGER font);
+export void Console_WriteBool (BOOLEAN b);
 export void Console_WriteCh (CHAR ch);
 export void Console_WriteInt (LONGINT i);
 export void Console_WriteLn (void);
@@ -40,6 +41,11 @@ void Console_SetColors (INTEGER attr)
 
 /*----------------------------------------------------------------------------*/
 void Console_SetFont (INTEGER font)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Console_WriteBool (BOOLEAN b)
 {
 }
 
@@ -73,11 +79,10 @@ void Console_WriteStrLn (CHAR *str, LONGINT str__len)
 }
 
 /*----------------------------------------------------------------------------*/
-void Console_BackPos (void)
+static void Console_BackPos (void)
 {
 }
 
-/*----------------------------------------------------------------------------*/
 static struct ReadIntRange__5 {
 	SHORTINT *digits;
 	CHAR *ch;
@@ -87,7 +92,7 @@ static struct ReadIntRange__5 {
 
 static void Accept__6 (void);
 
-void Accept__6 (void)
+static void Accept__6 (void)
 {
 	if (*ReadIntRange__5_s->digits < 8) {
 		Console_WriteCh(*ReadIntRange__5_s->ch);
@@ -96,7 +101,6 @@ void Accept__6 (void)
 	}
 }
 
-/*----------------------------------------------------------------------------*/
 INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 {
 	SHORTINT i, digits;
@@ -115,7 +119,7 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 			Console_WriteCh('_');
 			Console_BackPos();
 			i = 25;
-			do {
+			while (i >= 1) {
 				if (Input_Available() != 0) {
 					Console_WriteCh(' ');
 					Console_BackPos();
@@ -123,17 +127,17 @@ INTEGER Console_ReadIntRange (INTEGER min, INTEGER max)
 				}
 				Timer_Delay(10);
 				i += -1;
-			} while (!(i == 0));
+			}
 			Console_WriteCh(' ');
 			Console_BackPos();
 			i = 25;
-			do {
+			while (i >= 1) {
 				if (Input_Available() != 0) {
 					goto exit__0;
 				}
 				Timer_Delay(10);
 				i += -1;
-			} while (!(i == 0));
+			}
 		}
 		exit__0:;
 		ch = Input_Read();

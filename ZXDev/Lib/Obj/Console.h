@@ -14,6 +14,7 @@ import INTEGER Console_ReadInt (void);
 import INTEGER Console_ReadIntRange (INTEGER min, INTEGER max);
 import void Console_SetColors (INTEGER attr);
 import void Console_SetFont (INTEGER font);
+import void Console_WriteBool (BOOLEAN b);
 import void Console_WriteCh (CHAR ch);
 import void Console_WriteInt (LONGINT i);
 import void Console_WriteLn (void);
