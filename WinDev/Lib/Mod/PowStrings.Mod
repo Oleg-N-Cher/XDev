@@ -23,7 +23,7 @@
   ----------------------------------------------------------------------------*)
 
 MODULE PowStrings;
-
+IMPORT SYSTEM; (* not used; it's for -noinit *)
 CONST
   ISSHORTINT*=1;
   ISINTEGER*=2;
@@ -212,7 +212,7 @@ BEGIN
   FOR i:=pos-1 TO l-n DO t[i]:=t[i+n]; END;
 END Delete;
 
-PROCEDURE ReverseStringT(VAR t:StringT; n:LONGINT);
+PROCEDURE ReverseStringT*(VAR t:StringT; n:LONGINT);
 VAR
   a,b:LONGINT;
   x:CHAR;
@@ -635,5 +635,7 @@ BEGIN
     FOR i:=0 TO n-1 DO t[i]:=" " END;
   END;
 END RightAlign;
+
+PROCEDURE- _init* "/*-noinit*/";
 
 END PowStrings.

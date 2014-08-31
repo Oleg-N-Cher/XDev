@@ -26,7 +26,7 @@ export LONGINT PowStrings_Pos (CHAR *pattern, LONGINT pattern__len, CHAR *t, LON
 export LONGINT PowStrings_PosChar (CHAR x, CHAR *t, LONGINT t__len, LONGINT start);
 export void PowStrings_RemoveLeadingSpaces (CHAR *t, LONGINT t__len);
 export void PowStrings_RemoveTrailingSpaces (CHAR *t, LONGINT t__len);
-static void PowStrings_ReverseStringT (CHAR *t, LONGINT t__len, LONGINT n);
+export void PowStrings_ReverseStringT (CHAR *t, LONGINT t__len, LONGINT n);
 export void PowStrings_RightAlign (CHAR *t, LONGINT t__len, LONGINT n);
 export void PowStrings_Str (LONGINT x, CHAR *t, LONGINT t__len);
 export void PowStrings_UpCase (CHAR *t, LONGINT t__len);
@@ -34,9 +34,10 @@ export CHAR PowStrings_UpCaseChar (CHAR x);
 export LONGINT PowStrings_Val (CHAR *t, LONGINT t__len);
 export INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len);
 
+#define PowStrings__init()	/*-noinit*/
+
 /*============================================================================*/
 
-/*----------------------------------------------------------------------------*/
 LONGINT PowStrings_Length (CHAR *t, LONGINT t__len)
 {
 	LONGINT i, maxlen;
@@ -751,8 +752,8 @@ void PowStrings_RightAlign (CHAR *t, LONGINT t__len, LONGINT n)
 	}
 }
 
-
 /*----------------------------------------------------------------------------*/
+
 export void *PowStrings__init(void)
 {
 	__DEFMOD;
