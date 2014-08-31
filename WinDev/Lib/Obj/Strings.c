@@ -9,27 +9,32 @@ typedef
 
 export void Strings_IntToStr (LONGINT n, CHAR *str, LONGINT str__len);
 export void Strings_IntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
-export LONGINT Strings_Length (CHAR *str, LONGINT str__len);
+export INTEGER Strings_Length (CHAR *str, LONGINT str__len);
 
+#define Strings__init()	/*-noinit*/
 #include <stdio.h>
 #define Strings_sprintf(str, str__len, n)	sprintf(str, "%ld", n)
 #define Strings_sprintfL(str, str__len, n)	sprintf(str, "%lld", n)
 
-LONGINT Strings_Length (CHAR *str, LONGINT str__len)
+/*============================================================================*/
+
+INTEGER Strings_Length (CHAR *str, LONGINT str__len)
 {
-	LONGINT len;
+	INTEGER len;
 	len = 0;
-	while (len < str__len && str[__X(len, str__len)] != 0x00) {
+	while (len < (int)str__len && str[__X(len, str__len)] != 0x00) {
 		len += 1;
 	}
 	return len;
 }
 
+/*----------------------------------------------------------------------------*/
 void Strings_IntToStr (LONGINT n, CHAR *str, LONGINT str__len)
 {
-	Strings_sprintf(str, str__len, n);
+	Strings_sprintfL(str, str__len, n);
 }
 
+/*----------------------------------------------------------------------------*/
 void Strings_IntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len)
 {
 	INTEGER base, i, j, k, si;
@@ -198,6 +203,7 @@ void Strings_IntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillC
 	}
 }
 
+/*----------------------------------------------------------------------------*/
 
 export void *Strings__init(void)
 {

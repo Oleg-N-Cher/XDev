@@ -6,25 +6,26 @@ CONST
   CharCode* = -1; Decimal* = 10; Hexadecimal* = -2; Roman*= -3;
 
 TYPE
-  PtrSTR = ARRAY [1] OF CHAR;
+  STRLEN = INTEGER;
+  PtrSTR = ARRAY OF CHAR;
 
 PROCEDURE -includestdio()	"#include <stdio.h>";
 (*PROCEDURE -includestring()	"#include <string.h>";*)
 
 PROCEDURE -sprintf (str: PtrSTR; n: LONGINT)	'sprintf(str, "%ld", n)'; 
 PROCEDURE -sprintfL (str: PtrSTR; n: LONGINT)	'sprintf(str, "%lld", n)';
-(*PROCEDURE -Length* (str: PtrSTR): LONGINT	"strlen(str)";*)
+(*PROCEDURE -Length* (str: PtrSTR): STRLEN	"strlen(str)";*)
 
-PROCEDURE Length* (VAR str: ARRAY OF CHAR): LONGINT;
+PROCEDURE Length* (IN str: ARRAY OF CHAR): STRLEN;
 VAR
-  len: LONGINT;
+  len: STRLEN;
 BEGIN
   len := 0;
-  WHILE (len < LEN(str)) & (str[len] # 0X) DO INC(len) END;
+  WHILE (len < SHORT(LEN(str))) & (str[len] # 0X) DO INC(len) END;
   RETURN len
 END Length;
 
-PROCEDURE IntToStr* (n: LONGINT; VAR str: ARRAY [1] OF CHAR);
+PROCEDURE IntToStr* (n: LONGINT; VAR str: ARRAY OF CHAR);
   (** UNSAFE! Make sure that size of array 'str' is enough. *)
 BEGIN
   IF SIZE(LONGINT) = 4 THEN sprintf(str, n) END;
@@ -122,5 +123,7 @@ BEGIN
   END;
   IF si < LEN(s) THEN s[si] := 0X ELSE HALT(23) END
 END IntToStrForm;
+
+PROCEDURE- _init* "/*-noinit*/";
 
 END Strings.
