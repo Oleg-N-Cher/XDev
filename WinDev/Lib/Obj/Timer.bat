@@ -1,1 +1,1 @@
-@XDev.bat
+@+BuildXDev.bat
