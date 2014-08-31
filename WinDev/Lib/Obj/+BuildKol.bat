@@ -3,7 +3,7 @@
 @CD ..
 
 :tcc
-@SET Lib=Kol.a
+@SET Lib=x86\Kol.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL Bin\smart %Lib% KolTypes -noinit
 @CALL Bin\smart %Lib% KolStrings -noinit
@@ -12,7 +12,7 @@
 
 :djgpp
 @IF NOT EXIST Obj\.djgpp GOTO tcc64
-@SET Lib=KolDJGPP.a
+@SET Lib=x86\KolDJGPP.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL Bin\smartdjgpp %Lib% KolTypes -noinit
 @CALL Bin\smartdjgpp %Lib% KolStrings -noinit
@@ -21,7 +21,7 @@
 
 :tcc64
 @IF NOT EXIST Obj\.tcc64 GOTO exit
-@SET Lib=Kol64.a
+@SET Lib=x86-64\Kol64.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL Bin\smart64 %Lib% KolTypes -noinit
 @CALL Bin\smart64 %Lib% KolStrings -noinit
