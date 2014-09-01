@@ -1,0 +1,3501 @@
+From: <Сохранено Windows Internet Explorer 8>
+Subject: Konamiman's MSX Page
+Date: Fri, 4 Jul 2014 23:57:11 +0300
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0010_01CF97E3.AC36DA00"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.3790.4862
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.konamiman.com/msx/msx-e.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML lang=3Den xml:lang=3D"en" =
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>Konamiman's MSX =
+Page</TITLE>
+<META content=3D"text/html; charset=3Dutf-8" http-equiv=3DContent-Type>
+<META name=3Dauthor content=3D"N=C3=A9stor Soriano Vilchez AKA =
+Konamiman">
+<META name=3Dkeywords=20
+content=3D"MSX, MSX2, Konamiman, Z80, ObsoNET, DenYoNet, NestorBASIC, =
+InterNestor, Easymbler, NestorPreTer, NestorMan, MSX-DOS">
+<META name=3Ddescription=20
+content=3D"Software for MSX2 computers, developed by Konamiman">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.23216">
+<META name=3Drevised content=3D2014-05-09><LINK rel=3Dstylesheet =
+type=3Dtext/css=20
+href=3D"http://www.konamiman.com/konamiman_basic.css?date=3D2014-05-09"><=
+LINK=20
+rel=3D"shortcut icon" type=3Dimage/x-icon href=3D"/favicon.ico"><LINK =
+rel=3Dicon=20
+type=3Dimage/x-icon href=3D"/favicon.ico"></HEAD>
+<BODY><!-- Title and initial links -->
+<P class=3Dwelcometo>Welcome to </P>
+<H1>Konamiman's MSX page </H1>
+<HR>
+
+<P class=3DheaderLink><A =
+href=3D"http://www.konamiman.com/msx/msx-s.html">La p=C3=A1gina=20
+en espa=C3=B1ol est=C3=A1 aqu=C3=AD</A> </P>
+<P class=3DheaderLink><A =
+href=3D"http://konamiman.blogspot.com/"><STRONG>Konamiman's=20
+blog</STRONG></A> (in spanish) </P>
+<DIV style=3D"TEXT-ALIGN: center"><IMG style=3D"MARGIN-RIGHT: 10px"=20
+alt=3D"Careers logo" =
+src=3D"http://www.konamiman.com/msx/careers-logo.png"><A=20
+href=3D"http://careers.stackoverflow.com/konamiman">My profile in =
+StackOverflow=20
+Careers</A> &nbsp;&nbsp;|&nbsp;&nbsp; <IMG style=3D"MARGIN-RIGHT: 10px"=20
+alt=3D"LinkedIn logo" =
+src=3D"http://www.konamiman.com/msx/linkedin-logo.jpg"=20
+width=3D22><A href=3D"http://es.linkedin.com/in/konamiman">My profile in =
+
+LinkedIn</A> </DIV>
+<P class=3DheaderLink>e-mail: <IMG class=3Demail=20
+alt=3D"konamiman (at) konamiman (dot) com"=20
+src=3D"http://www.konamiman.com/email.gif"> </P>
+<P class=3DheaderLink><A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#nuevo">What's new?</A> =
+</P><!-- MSX Web Ring -->
+<DIV class=3Dwebring><IMG alt=3D"MSX Web ring logo"=20
+src=3D"http://img1.webring.com/logo3.gif"> <A=20
+href=3D"http://i.webring.com/wrman?ring=3Dmsxring;sid=3D7;addsite">Join =
+Now</A> | <A=20
+href=3D"http://i.webring.com/t/MSX-Web-Ring">Ring Hub</A> | <A=20
+href=3D"http://i.webring.com/go?ring=3Dmsxring;sid=3D7;id=3D7;random">Ran=
+dom</A> | <A=20
+href=3D"http://i.webring.com/go?ring=3Dmsxring;sid=3D7;id=3D7;prev"><STRO=
+NG>&lt;&lt;=20
+Prev</STRONG></A> | <A=20
+href=3D"http://i.webring.com/go?ring=3Dmsxring;sid=3D7;id=3D7;next"><STRO=
+NG>Next=20
+&gt;&gt;</STRONG></A> </DIV><!-- "Pessimized" joke -->
+<P class=3Dpesimized>This page is pesimized for any browser and any =
+screen=20
+resolution </P>
+<P>
+<P style=3D"MARGIN-TOP: 2em" class=3DcenteredText><B>Would you like to =
+<A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#donate"><IMG =
+alt=3Ddonate=20
+src=3D"https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif"></A>?=
+</B> </P>
+<HR>
+<!-- Initial explanations -->
+<P>Welcome, brave visitor. In this page you will find my software =
+productions=20
+for MSX computers (well, not all of them, but the ones that are worth =
+using),=20
+useful mainly for programmers of such obsolete system. And of course, =
+all for=20
+free (freeware, do-whatever-you-want-with-it-ware, etc), since as Linus =
+Torvalds=20
+said once:</P>
+<P><CITE>"Software is like sex: it is much better when it is for =
+free"</CITE>=20
+</P>
+<P>So go for it, download everything you want and for any comment, =
+suggestion or=20
+complaint write me to the e-mail address that appears at the beginning =
+of the=20
+page. </P>
+<FIELDSET><LEGEND>About text files (spanish versions only)</LEGEND>
+<P>All the text files contained in this page are stored in MSX-DOS =
+format, AKA=20
+MS-DOS format or OEM format. Therefore, if you try to open any of these =
+files=20
+with Notepad or other similar program and the file is in spanish, you =
+will not=20
+be able to correctly see the special characters like "=C3=A1", "=C3=B1", =
+etc. </P>
+<P>Solution: view the text files from your MSX (that's what the files =
+are=20
+intended for), or with MS-DOS' EDIT, or use any programa capable of =
+converting=20
+from DOS format to ANSI format (the format used by Windows). For this =
+purpose I=20
+recommend <A href=3D"http://www.editpadlite.com/">EditPad Lite</A>; it =
+is a simple=20
+yet powerful text editor, free for non-cummercial use. In the =
+<EM>Convert</EM>=20
+menu of this program, the option <EM>OEM -&gt; ANSI</EM> will do the =
+conversion=20
+we are interested in. </P></FIELDSET> <!-- Donate -->
+<HR>
+
+<H2 id=3Ddonate>Donate! </H2>
+<P>Do you like the software available in this page? If so, why not =
+donating a=20
+few bucks to its author (that is, me)? You can do it easily by using=20
+<B>PayPal</B> (via the <I>Donate</I> buton below), by using =
+<B>Skrill</B>=20
+(specifying my usual email address as the receiver address), or via=20
+<B>Flattr</B>. </P>
+<DIV class=3Dcentered>
+<FORM class=3Ddonate method=3Dpost =
+action=3Dhttps://www.paypal.com/cgi-bin/webscr=20
+target=3D_top><INPUT value=3D_s-xclick type=3Dhidden name=3Dcmd> <INPUT=20
+value=3DNMDJC4YJBT8DE type=3Dhidden name=3Dhosted_button_id>=20
+<DIV><INPUT border=3D0 alt=3D"PayPal =E2=80=93 The safer, easier way to =
+pay online."=20
+src=3D"https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif" =
+type=3Dimage=20
+name=3Dsubmit> </DIV><SPAN style=3D"FONT-SIZE: small">with PayPal</SPAN> =
+<IMG=20
+border=3D0 alt=3D"" =
+src=3D"https://www.paypalobjects.com/es_ES/i/scr/pixel.gif"=20
+width=3D1 height=3D1> </FORM>
+<DIV class=3Ddonate><A href=3D"http://www.skrill.com/"><IMG=20
+style=3D"WIDTH: 80px; HEIGHT: auto"=20
+src=3D"http://www.konamiman.com/msx/Skrill.gif"></A> <IMG class=3Demail=20
+alt=3D"konamiman (at) konamiman (dot) com"=20
+src=3D"http://www.konamiman.com/email.gif"> </DIV>
+<DIV class=3Ddonate>
+<SCRIPT id=3Dfbxjc0s>(function(i){var =
+f,s=3Ddocument.getElementById(i);f=3Ddocument.createElement('iframe');f.s=
+rc=3D'http://api.flattr.com/button/view/?uid=3Dkonamiman&url=3Dhttp%3A%2F=
+%2Fwww.konamiman.com';f.title=3D'Flattr';f.height=3D62;f.width=3D55;f.sty=
+le.borderWidth=3D0;s.parentNode.insertBefore(f,s);})('fbxjc0s');</SCRIPT>=
+
+</DIV></DIV>
+<FIELDSET><LEGEND>Why am I asking for donations?</LEGEND>
+<P>I develop MSX software for fun. If people uses my software and every =
+now and=20
+then someone says something like "Hey I liked that NestorFoobar thing, =
+good=20
+work!", I consider myself rewarded enough, and this is not going to =
+change=20
+anytime soon. </P>
+<P>However, receiving even a small amount of economic support would be a =
+big=20
+help for me. You know, I develop in my free time and sometimes my wife =
+sees me=20
+and asks <I>"Why do you continue developing for a completely obsolete =
+system=20
+that nobody uses anymore?"</I>. It would be really great and fulfilling =
+if I=20
+could answer <B>"But look, honey, I am earning money with this!"</B> =
+instead of=20
+nodding in shame. You know what I mean. </P>
+<P>Oh, and I would probably use the money to buy shoes for my kids. I =
+don't know=20
+what these boys do with the shoes, but they completely rip apart a pair =
+every=20
+two or three months. It's scary. </P></FIELDSET> <!-- Index -->
+<HR>
+
+<H2 id=3Dindex>Index </H2>
+<P>These are the programs you can find in this page: </P>
+<UL class=3DindexList>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A>:</SPAN=
+> An=20
+  enhanced version of MSX-DOS, the "official" MSX disk operating system, =
+
+  featuring native support for FAT16, an improved device driver system =
+and=20
+  partition management, amongst other things. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorbasic">NestorBASIC<=
+/A>:</SPAN>=20
+  Essential BASIC extension which allows things like using all the =
+available=20
+  mapped memory for the storage of data or machine code routines, using =
+all the=20
+  existing disk access functions, or replaying MoonBlaster music and PSG =
+sound=20
+  effects from BASIC or Turbo-BASIC. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#exnestorbasic">NestorBASI=
+C=20
+  Extensions</A>:</SPAN> External machine code routines that add new=20
+  capabilities to NestorBASIC. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorpreter">NestorPreTe=
+r</A>:</SPAN>=20
+  BASIC pre-interpreter. Now you can write your BASIC program using all =
+the=20
+  comments and indentations you want, without typing line numbers, and =
+even=20
+  using macros. NestorPreTer will convert your "source" program into an=20
+  MSX-BASIC executable file without comments, without spaces, with the =
+line=20
+  numbers automatically generated and with the macros expanded. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor=20
+  Lite</A>:</SPAN> TCP/IP stack that works on MSX2/2+/TR with at least =
+128K=20
+  mapped RAM. Two kinds of hardware are supported: serial port (RS232) =
+with=20
+  modem, and the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet =
+UNAPI</A>. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">Networking =
+
+  software</A>:</SPAN> Various applications that allow you to connect =
+your MSX=20
+  to Internet, by means of an implementation of the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP =
+UNAPI=20
+  specification</A>, such as <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A> or <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">the DenYoNet =
+
+  card</A>.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#internestor">InterNestor =
+
+  Suite</A>:</SPAN> The "grandfather" of InterNestor Lite, it is a =
+bigger TCP/IP=20
+  stack, now discontinued.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET</A>:</SP=
+AN>=20
+  ObsoNET is an Ethernet card for MSX computers, formerly designed and=20
+  manufactured by Daniel Berdugo.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">DenYoNet</A>:</=
+SPAN>=20
+  DenYoNet is an Ethernet card for MSX computers, created by Dennis =
+Koller and=20
+  Jos van den Biggelaar, and produced by Sunrise for MSX.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorman">NestorMan</A>:=
+</SPAN>=20
+  Resident dynamic memory manager for MSX-DOS 2. With NestorMan you can =
+reserve=20
+  memory blocks with sizes between 1 byte and 16K; this is much more =
+flexible=20
+  than the whole segments allocation method provided by DOS 2. Besides, =
+you can=20
+  create and manage double-chained lists. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#megascsi">MegaSCSI</A>:</=
+SPAN>=20
+  Some utilities for the users of this amazing SCSI controller. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#z380">LPE-Z380</A>:</SPAN=
+> EPROM=20
+  version 3.0 and some utilities for the Z380 card made by <A=20
+  href=3D"http://msx.deneb.nl/">Leonardo Padial</A>. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC</A>:</SPAN> =
+C=20
+  libraries ready to use with the <A =
+href=3D"http://sdcc.sourceforge.net/">SDCC=20
+  compiler</A>. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">Miscellaneous=
+</A>:</SPAN>=20
+  Assorted utilities. </LI></UL>
+<P>Besides, the following information is also available: </P>
+<UL class=3DindexList>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#msx2th">MSX2 Technical =
+
+  Handbook</A>:</SPAN> Official technical reference of the MSX2 =
+standard,=20
+  manually converted to text files by me. </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#easymbler">Easymbler</A>:=
+</SPAN>=20
+  Easy and funny assembler course written by me. <STRONG>Note: available =
+in=20
+  spanish only.</STRONG> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#proyectointernestor">Inte=
+rNestor=20
+  Suite project</A>:</SPAN> InterNestor Suite was the final project I =
+developped=20
+  to obtain my degree in telecommunication engineering. Here you can =
+download=20
+  the project report I delivered to teachers and the presentation I =
+shown the=20
+  exam day. <STRONG>Note: available in spanish only.</STRONG> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">MSX-UNAPI=20
+  specification</A>:</SPAN> Standard for defining and implementing new =
+APIs=20
+  (Application Program Interface) for MSX.</LI></UL>
+<P><STRONG>Note: </STRONG>Some of the files that can be downloaded from =
+this=20
+page are compressed in LZH format. You can uncompress these files from =
+MSX-DOS=20
+by using the PMEXT utility that you can download from <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">the =
+'miscellaneous'=20
+section</A>.</P>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- Nextor -->
+<HR>
+
+<H2 id=3Dnextor>Nextor </H2>
+<P>Nextor is a disk operating system for MSX computers. It is actually =
+an=20
+enhanced version of MSX-DOS, with which it is 100% compatible, and it =
+identifies=20
+itself as MSX-DOS 2.31 to MSX-DOS aware applications. </P>
+<P>The main features that Nextor adds to MSX-DOS are:</P>
+<UL id=3DNextorFeatures>
+  <LI><STRONG>Native support for the FAT16 filesystem.</STRONG> Nextor =
+can=20
+  handle the FAT16 filesystem without having to install any patch or =
+additional=20
+  software. This raises the maximum size of usable filesystems from the =
+32MB=20
+  supported by FAT12 to 4GB. Also, the system can boot from a FAT16=20
+  filesystem.</LI>
+  <LI><STRONG>New, fully documented device driver system.</STRONG> =
+Developers of=20
+  driver software for massive storage devices no longer need to =
+reverse-engineer=20
+  the operating system kernel ROM (or to follow the steps of someone =
+that has=20
+  done it in the past) in order to generate a kernel ROM with the custom =
+driver=20
+  code embedded on it. Nextor provides an enhanced driver system and the =
+steps=20
+  needed to integrate it within the kernel ROM are fully documented.=20
+  Furthermore, Nextor drivers have extra extensibility points (for BASIC =
+"CALL"=20
+  commands or extended BIOS, for instance).</LI>
+  <LI><STRONG>Device and partition to drive mapping management.</STRONG> =
+When=20
+  using the device driver system designed for Nextor, it is the =
+operating system=20
+  itself who manages the logical drive to physical storage device =
+mapping,=20
+  including the partition selection. Nextor drivers simply enumerate the =
+
+  available devices and provide access to the raw device sectors.</LI>
+  <LI><STRONG>Built-in device partitioning tool.</STRONG> Just go to the =
+BASIC=20
+  prompt, invoke a CALL FDISK command, and you are ready to create =
+partitions on=20
+  any device controlled by a Nextor driver.</LI>
+  <LI><STRONG>Embedded MSX-DOS 1 kernel.</STRONG> The Nextor kernel will =
+boot in=20
+  MSX-DOS 1 mode when the computer has no mapped RAM, when the "1" key =
+is=20
+  pressed at boot time, or when a MSX-DOS 1 boot sector is detected in =
+the boot=20
+  device. There is no need to have a MSX-DOS 1 kernel in another slot =
+(for=20
+  example in a floppy disk driver controller), and you can use =
+partitions with a=20
+  size of up to 16MB contained on any device controlled by a Nextor =
+driver.=20
+</LI>
+  <LI><STRONG>Works on MSX1.</STRONG> Nextor works on all MSX computers, =
+
+  including MSX1. Of course mapped memory is needed for normal =
+operation, but=20
+  even without it, MSX1 computers can use Nextor in MSX-DOS 1 =
+mode.</LI></UL>
+<P>There are other nice features as well, please read the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#NextorUserManual">Nextor =
+user=20
+manual</A> for more details. </P>
+<P><STRONG>Note:</STRONG> If you have used FDISK in Nextor 2.0.2 or =
+earlier, or=20
+in Nextor 2.1 Alpha 1, please take a look at the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#vsft">Volume Size Fix=20
+Tool</A>.</P>
+<P></P>
+<FIELDSET><LEGEND id=3DLegend1>Note for Sunrise IDE owners</LEGEND>
+<P>If you want to flash the Nextor kernel ROM in a Sunrise IDE or =
+Sunrise CF=20
+reader cartridge, you can't use the IDEFLOAD.COM tool supplied with the=20
+hardware, because this tool assumes that the ROM file to be burned is =
+64K long=20
+but the Nextor kernel is 128K long. Instead, you must use IDEFL128.COM, =
+a=20
+modified version of the tool that assumes the ROM file to be 128K long =
+instead.=20
+You can find the IDEFL128.COM tool in the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#idefl128">miscellaneous</=
+A>=20
+section. </P>
+<P>The author of both the original IDEFLOAD tool and the modified =
+IDEFL128 is=20
+Jon De Schrijder. I want to thank him for developing the modified =
+version at my=20
+request. </P>
+<P>Also, note that the Sunrise IDE driver supplied with Nextor 2.0 is an =
+
+experimental driver that has some limitations, more precisely: </P>
+<UL class=3DfileList>
+  <LI>Only LBA mode block devices are supported, there is no support for =
+CHS or=20
+  ATAPI devices.</LI>
+  <LI>Devices are reported as fixed by the driver. If you are using a CF =
+card=20
+  reader and you want to change the card(s), you must switch off your =
+computer;=20
+  hot swapping of cards is not supported.</LI></UL>
+<P>The source code of the Sunrise IDE driver for Nextor <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#sunride-driver">is =
+available for=20
+download</A> in case you want to take a look and suggest improvements =
+(which=20
+would be highly welcome). </P></FIELDSET>=20
+<P></P>
+<FIELDSET><LEGEND>Note for openMSX users</LEGEND>
+<P>Starting at version 2.0.1 Nextor works with the openMSX emulator. =
+Previous=20
+versions did not work due to a bug in the kernel boot code. =
+</P></FIELDSET>=20
+<P>The current stable Nextor version is 2.0.3, and <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#nextordev">the latest =
+development=20
+version</A> is 2.1 Alpha 1. If you want to give it a try, this is what =
+you need=20
+to get:</P>
+<UL class=3DfileList>
+  <LI id=3DLi1><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/docs/Nextor%202.0%20Getting%2=
+0Started%20Guide.pdf">Nextor=20
+  Getting Started Guide</A>:</SPAN> A step-by-step guide to understand =
+the=20
+  features that Nextor adds to MSX-DOS, including the steps needed to =
+configure=20
+  blueMSX in case you want to use Nextor in that emulator.</LI>
+  <LI id=3DNextorUserManual><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/docs/Nextor%202.0%20User%20Ma=
+nual.pdf">Nextor=20
+  User Manual</A>:</SPAN> The documentation that you need to get started =
+with=20
+  Nextor.</LI>
+  <LI><SPAN class=3DlistTitle>The Nextor kernel:</SPAN> A ROM file =
+containing the=20
+  Nextor kernel with an embedded device driver. There are four flavours =
+to=20
+  choose:</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.Standalo=
+neASCII16.rom">Standalone=20
+  ROM with ASCII 16 mapper</A></SPAN>: This version has a dummy driver =
+and=20
+  controls no devices. It is intended to be burned on a flash ROM =
+cartridge and=20
+  to be used together with storage devices controlled by a MSX-DOS =
+kernel (such=20
+  as an IDE or SCSI controller, a multimedia card controller, or a =
+floppy disk=20
+  controller) placed in another slot. Remember that some of the Nextor =
+features=20
+  are available are available for Nextor drivers only and therefore will =
+not be=20
+  usable with this kernel flavour.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.Standalo=
+neASCII8.rom">Standalone=20
+  ROM with ASCII 8 mapper</A></SPAN>: Same as above, but with a =
+different ROM=20
+  mapper type.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.SunriseI=
+DE.rom">Sunrise=20
+  IDE</A></SPAN>: This version contains an embedded driver for the =
+Sunrise IDE,=20
+  as well as the appropriate ROM mapper; it is intended to be burned =
+directly on=20
+  the Sunrise IDE cartridge. Please note that this is an experimental =
+driver,=20
+  see <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#NextorAlphaWarning">the=20
+  warning box</A> above.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle>MegaFlashROM SCC+ =
+SD</SPAN>: This=20
+  version contains an embedded driver for the MegaFlashROM SCC+ SD, as =
+well as=20
+  the appropriate ROM mapper; it is intended to be burned directly as =
+the SD=20
+  kernel of the cartridge. There are two versions:</LI>
+  <LI class=3DinnerList2><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.MegaFlas=
+hSDSCC.rom">Normal=20
+  version</A></SPAN>, intended to be burned with the OPFXSD tool.</LI>
+  <LI class=3DinnerList2><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.MegaFlas=
+hSDSCC.recovery.rom">Recovery=20
+  version</A></SPAN>, intended to be burned with the recovery tool that =
+comes=20
+  built-in with the cartridge.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/tools/nextor.sys">NEXTOR.SYS<=
+/A>:</SPAN>=20
+  The NEXTOR.SYS file replaces MSXDOS2.SYS and is needed in order to =
+boot in the=20
+  DOS prompt.</LI>
+  <LI><SPAN class=3DlistTitle>COMMAND2.COM:</SPAN> In addition to =
+NEXTOR.SYS, you=20
+  need a command interpreter for booting in the DOS prompt. No new =
+command=20
+  interpreter has been created for Nextor; instead, the same =
+COMMAND2.COM of=20
+  MSX-DOS 2 is used, so you can use the same file you were using until =
+now. <A=20
+  href=3D"http://www.tni.nl/products/command2.html">COMMAND 2.44 by =
+TNI</A> is=20
+  recommended, it has a lot of nice features.</LI>
+  <LI><SPAN class=3DlistTitle>External tools:</SPAN> All the =
+user-controllable new=20
+  features of Nextor are handled by external tools (.COM files). You =
+have three=20
+  options to get them:</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/tools/tools.lzh">TOOLS.LZH</A=
+></SPAN>:=20
+  All the tools compressed in a LZH file, useful if you will use Nextor =
+in a=20
+  real MSX computer and uncompress the file from the MSX itself.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/tools/tools.zip">TOOLS.ZIP</A=
+></SPAN>:=20
+  All the tools compressed in a ZIP file, useful if you will use Nextor =
+in a=20
+  real MSX computer and uncompress the file from another computer.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/tools/nextor-dsk.zip">NEXTOR-=
+DSK.ZIP</A></SPAN>:=20
+  A floppy disk image containing the tools plus NEXTOR.SYS and =
+COMMAND2.COM=20
+  (also MSXDOS.SYS and COMMAND.COM for booting in MSX-DOS 1 mode). =
+Useful if you=20
+  will use Nextor with a MSX emulator.</LI>
+  <LI id=3Dvsft class=3DinnerList><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/nextor/tools/vsft.com">Volume =
+Size Fix=20
+  Tool</A></SPAN>: If you have partitioned a device by using FDISK in =
+Nextor=20
+  2.0.2 or earlier, or in Nextor 2.1 Alpha 1, chances are that the =
+generated=20
+  partitions exceed the maximum cluster count (as defined by the FAT =
+standard)=20
+  by one or two clusters, due to a bug in FDISK that has been corrected =
+in=20
+  version 2.0.3. This tool allows you to fix these partitions by =
+slightly=20
+  reducing its size. <EM><A=20
+  href=3D"http://www.konamiman.com/msx/nextor/tools/vsft.c">[Source code =
+in=20
+  C]</A></EM></LI></UL>
+<P>If you are a developer, you may be interested in the following =
+resources as=20
+well: </P>
+<UL class=3DfileList>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/docs/Nextor%202.0%20Programme=
+rs%20Reference.pdf">Nextor=20
+  Programmers Reference</A>:</SPAN> Explains the new features that =
+Nextor offers=20
+  to developers.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/docs/Nextor%202.0%20Driver%20=
+Development%20Guide.pdf">Nextor=20
+  Driver Development Guide</A>:</SPAN> Explains how to develop a storage =
+device=20
+  driver and how to embed it within a Nextor kernel</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/kernels/Nextor-2.0.3.base.dat=
+">Nextor=20
+  kernel base file</A>:</SPAN> This is the Nextor kernel without an =
+attached=20
+  driver. It is necessary to use this file in order to create a complete =
+Nextor=20
+  kernel ROM file, as explained in the Driver Development Guide.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/docs/driver.asm">DRIVER.ASM</=
+A>:</SPAN>=20
+  The source code of a dummy Nextor driver, it can be used as the =
+skeleton for=20
+  building a custom driver.</LI>
+  <LI id=3Dsunride-driver><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/driver-src/sunride.asm">SUNRI=
+DE.ASM</A>:</SPAN>=20
+  The source code of the Sunrise IDE driver for Nextor v0.1.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/tools/tools-src.zip">TOOLS-SR=
+C.ZIP</A></SPAN>:=20
+  The source code of the external tools. Includes the M80 compiler for =
+CP/M and=20
+  a CP/M emulator for Windows.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/fdisk-src.zip">FDISK-SRC.ZIP<=
+/A></SPAN>:=20
+  The C source code of the FDISK tool included in the Nextor kernel. =
+Includes=20
+  instructions on how to compile the code and embed the result into an =
+existing=20
+  Nextor ROM file.</LI>
+  <LI><SPAN class=3DlistTitle>Mapper files:</SPAN> A complete Nextor =
+kernel must=20
+  have mapper code, that is, the code that knows how to switch ROM banks =
+
+  depending on the type of hardware it is burned on, as explained in the =
+Driver=20
+  Development Guide. The following compiled mapper files are =
+available:</LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/mappers/Mapper.ASCII16.bin">A=
+SCII=20
+  16</A></LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/mappers/Mapper.ASCII8.noheade=
+r.bin">ASCII=20
+  8, code only</A></LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/mappers/Mapper.ASCII8.bin">AS=
+CII 8,=20
+  with header</A>, to be used with the MKNEXROM tool.</LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/mappers/Mapper.SunriseIDE.bin=
+">Sunrise=20
+  IDE</A></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/pcutils/mknexrom.exe">MKNEXRO=
+M.EXE</A>:</SPAN>=20
+  A command-line tool for Windows computers that can be used to generate =
+a=20
+  complete Nextor kernel ROM with embedded driver. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/pcutils/mknexrom.c">[Source =
+code in=20
+  C]</A></EM></LI></UL>
+<P id=3Dnextordev>If you are brave enough, try the latest development =
+version.=20
+Version 2.1 Alpha 1 includes support for mounting disk image files in =
+regular=20
+drive letters: </P>
+<UL class=3DfileList>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nextor/2.1-alpha1/Nextor-2.1-alpha1.=
+zip">Nextor=20
+  2.1 Alpha 1</A>:</SPAN> Contains the kernel ROM files, updated =
+versions of=20
+  NEXTOR.SYS and a couple of tools, and a document explaining in detail =
+what the=20
+  changes are and how to use the updated tools. Everything not being in =
+this=20
+  file has not changed since Nextor 2.0.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- NestorBASIC -->
+<HR>
+
+<H2 id=3Dnestorbasic>NestorBASIC </H2>
+<P>NestorBASIC is a BASIC extension for MSX2/2+/TR computers with at =
+least 128K=20
+mapped RAM. It is Turbo-BASIC compatible (in fact it includes =
+Turbo-BASIC, an=20
+loads it at installation time) and provides the following capabilities: =
+</P>
+<UL id=3DNestorBasicFeatures>
+  <LI><STRONG>Access to all the mapped memory available on the =
+computer</STRONG>=20
+  (all the free memory when using DOS 2)<STRONG>, up to 4 =
+Mb.</STRONG></LI>
+  <LI><STRONG>Full access to VRAM,</STRONG> including data blocks =
+exchange=20
+  between RAM and VRAM.</LI>
+  <LI><STRONG>BASIC programs storage in mapped memory,</STRONG> it is =
+possible=20
+  to switch from one to another without losing the existing =
+variables.</LI>
+  <LI><STRONG>Disk files and sectors access, </STRONG>it is possible to =
+directly=20
+  read/write to/from mapped memory and VRAM. <STRONG>File searching, =
+directories=20
+  management.</STRONG></LI>
+  <LI><STRONG>Graphic compression/decompresion.</STRONG></LI>
+  <LI><STRONG>MoonBlaster music replay. Samplekit and wavekit=20
+load.</STRONG></LI>
+  <LI><STRONG>PSG sound effects replay.</STRONG></LI>
+  <LI><STRONG>Machine code routines execution; </STRONG>routines placed =
+in BIOS,=20
+  in a mapped memory segment or in BASIC main memory (including system =
+work=20
+  area) can be executed <STRONG>directly or using =
+interrupts.</STRONG></LI>
+  <LI><STRONG>NestorMan functions, InterNestor Suite and InterNestor =
+Lite=20
+  routines execution.</STRONG></LI></UL>
+<P>NestorBASIC consists on a single file which can be installed with a =
+simple=20
+BLOAD instruction. It installs itself on a hidden RAM segment and only =
+uses=20
+about 500 bytes of the BASIC main memory. Its functions are invoked =
+using an USR=20
+instruction and an array for the parameters, so they can be used from =
+inside of=20
+turbo-blocks. Turbo-BASIC is included within the NestorBASIC file, both =
+are=20
+installed simultaneously. </P>
+<FIELDSET><LEGEND>A scary story</LEGEND>
+<P>NestorBASIC 1.0 release date is july 2003, whilst the last beta, =
+version=20
+0.07, was released in july 1998. Yes, the NestorBASIC project has =
+remained=20
+abandoned for exactly five years. </P>
+<P>The story is as follows. In 1998 a technical failure (the SCSI cable =
+I used=20
+those days was bullshit) caused a crash in my computer, and when =
+restarting I=20
+discovered that the FAT of the hard disk partition where my programs =
+were stored=20
+was completely smashed. With a lot of patience and a sectors editor I =
+could=20
+recover almost all of the source codes, but one of the lost ones was=20
+NestorBASIC. </P>
+<P>And you may ask: "But you hadn't any backup copy?" Yes, I had the =
+NestorBASIC=20
+directory mirrored in another partition of the hard disk... but it was =
+version=20
+0.06, and a lot of changes were made when stepping to version 0.07. So, =
+since=20
+NestorBASIC 0.07 was already quite complete, I decided to abandon the =
+project.=20
+</P>
+<P>And time passed... until may 2003. While I was looking at Kyoko =
+playing=20
+Bubble Rain, I began to think: "It is really a nice game, and the best =
+part is=20
+that it uses NestorBASIC, what a pity that I lost the source code... it =
+is the=20
+only of my programs that are used regularly by other MSX users (more or =
+less),=20
+if I could only recover it and improve it a little... blah blah..." </P>
+<P>So I took a crazy decision: I would dissassemble NestorBASIC 0.07 =
+and,=20
+comparing the result with the sources of version 0.06, I would rebuild =
+the lost=20
+sources and from that point I would make version 1.0. And I really did =
+it: one=20
+month of hard work later, NestorBASIC 1.0 was released, with a lot of =
+failures=20
+corrected and with support for InterNestor Suite. </P>
+<P>I hope that it was worth the effort, and that soon MSX programmers =
+around the=20
+world will develop a lot of games and internet applications using =
+NestorBASIC=20
+(well, just daydreaming). </P></FIELDSET>=20
+<P>NestorBASIC downloads:</P>
+<UL class=3DfileList>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nbasic.bin">NBASIC.BIN</A>:</=
+SPAN>=20
+  <STRONG>NestorBASIC 1.11</STRONG>, with a simple BLOAD"NBASIC.BIN",R =
+you have=20
+  installed it.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nbas111e.txt">NBAS111E.TXT</A=
+>:</SPAN>=20
+  User's manual in english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nbas111s.txt">NBAS111S.TXT</A=
+>:</SPAN>=20
+  User's manual in spanish.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nbvers-e.txt">NBVERS-E.TXT</A=
+>:</SPAN>=20
+  Versions information file in english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nbvers-s.txt">NBVERS-S.TXT</A=
+>:</SPAN>=20
+  Versions information file in spanish.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/samples.lzh">SAMPLES.LZH</A>:=
+</SPAN>=20
+  Samples about file searching and MoonBlaster music replay.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/tcpcon.lzh">TCPCON.LZH</A>:</=
+SPAN>=20
+  Sample about using InterNestor Suite and InterNestor Lite with =
+NestorBASIC.=20
+  <SPAN class=3DlistTitle>TCP Console</SPAN> is a program that opens a =
+TCP=20
+  connection, sends to it everything typed at the keyboard, and prints =
+on the=20
+  screen everything received. The "source" codes in <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorpreter">NestorPreTe=
+r</A>=20
+  format and the MSX-BASIC executables are included (TCPCON-S for =
+InterNestor=20
+  Suite and TCPCON-L for InterNestor Lite).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nplayer.lzh">NPLAYER.LZH</A>:=
+</SPAN>=20
+  <SPAN class=3DlistTitle>NestorPlayer 1.0,</SPAN> MoonBlaster FM and =
+Wave=20
+  replayer that uses NestorBASIC. It allows to browse the available disk =
+drives=20
+  and directories to search for music files, samplekits and =
+wavekits.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/see.lzh">SEE.LZH</A>:</SPAN> =
+PSG=20
+  sound effects editor developped by Fuzzy Logic. NestorBASIC can replay =
+these=20
+  sound effects.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- NestorBASIC extensions -->
+<HR>
+
+<H2 id=3Dexnestorbasic>NestorBASIC extensions </H2>
+<P>One of the capabilities of NestorBASIC is the possibility of =
+executing=20
+machine code routines previously loaded on any memory segment. Using =
+this=20
+mechanism it is possible to develop extensions for tasks that are =
+impossible to=20
+do when using only BASIC instructions or NestorBASIC functions. In this =
+section=20
+you have all the extensions I have developped for NestorBASIC, all of =
+them=20
+include usage manual and an usage example.</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/cabropl4.lzh">CABROPL4.LZH</A=
+>:</SPAN>=20
+  Allows direct control of MoonSound's sound chip OPL4, without having =
+to use=20
+  the MoonBlaster driver.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/nmif.lzh">NMIF.LZH</A>:</SPAN=
+>=20
+  <STRONG>NestorMIF</STRONG> allows the decompression of MIF format =
+graphic=20
+  files previously loaded on mapped memory.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nbasic/ncads.lzh">NCADS.LZH</A>:</SP=
+AN>=20
+  <STRONG>NestorCadenas.</STRONG> This extension is useful for programs =
+that use=20
+  a lot of text strings. Now you can store all the strings in a text =
+file, load=20
+  this file on mapped memory, and by using NestorCadenas retrieve the =
+strings=20
+  when you need them. You can retrieve the strings sequentially (in the =
+same=20
+  order they are stored in the file) or randomly (identifying the =
+strings with a=20
+  name). The advantage is clear: if the strings are stored in mapped =
+memory,=20
+  more main memory is available for the BASIC program.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- NestorPreTer -->
+<HR>
+
+<H2 id=3Dnestorpreter>NestorPreTer </H2>
+<P>When writing MSX-BASIC programas we encounter three problems. First, =
+the=20
+comments we add to the code use part of the scare memory available for =
+the=20
+program. Second, variable names can have only two characters, which does =
+not=20
+help to add readability to the program. And third, jumps and subroutine =
+calls=20
+refer to line number, which also makes the program to be difficult to =
+trace.=20
+</P>
+<P><STRONG>NestorPreTer</STRONG>, which works in MSX2/2+/TR with at =
+least 128K=20
+mapped RAM, helps to solve these problems. It is a BASIC =
+pre-interpreter, that=20
+is, a utility that converts a text file into an MSX-BASIC executable =
+program;=20
+this text file may be generated with a text editor or in the MSX-BASIC=20
+environment, saving the program in ASCII format (SAVE"PROGRAM.BAS",A). =
+The=20
+processing performed by NestorPreTer on the "source" file is as follows: =
+</P>
+<UL>
+  <LI><STRONG>Remarks and blank spaces stripping.</STRONG> You can add =
+to your=20
+  "source" as many comments and indentations as you want, the amount of =
+memory=20
+  used by your program will be only the amount needed to store the =
+code.</LI>
+  <LI><STRONG>Line numbers generation.</STRONG> It is not necessary to =
+type line=20
+  numbers in the code, since NestorPreTer will generate them =
+automatically. To=20
+  identify the lines that are destination for jump instructions, you can =
+use=20
+  alphanumeric labels.</LI>
+  <LI><STRONG>Macro expansion.</STRONG> You can define macros, that is, =
+text=20
+  blocks with an assigned name (similar to DEFINE directive of the C =
+language).=20
+  This allows the simulation of long names for variables, for example =
+you can=20
+  include "@DEFINE FILE_NAME F$" at the beginning of the text, and then =
+use=20
+  "INPUT @FILE_NAME" within the code.</LI></UL>
+<P>NestorPreTer downloads: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/npr.lzh">NPR.LZH</A>:</=
+SPAN>=20
+  <STRONG>NestorPreTer 0.3</STRONG>, program file.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/npreng.txt">NPRENG.TXT<=
+/A>:</SPAN>=20
+  User's manual in english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/npresp.txt">NPRESP.TXT<=
+/A>:</SPAN>=20
+  User's manual in spanish.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/nprev-e.txt">NPREV-E.TX=
+T</A>:</SPAN>=20
+  Information about versions in english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/nprev-s.txt">NPREV-S.TX=
+T</A>:</SPAN>=20
+  Information about versions in spanish.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorpreter/nprnb.lzh">NPRNB.LZH</A=
+>:</SPAN>=20
+  Example of the ensemble use of <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorbasic">NestorBASIC<=
+/A> and=20
+  NestorPreTer.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- InterNestor Suite -->
+<HR>
+
+<H2 id=3Dinternestor>InterNestor Suite </H2>
+<FIELDSET><LEGEND>Note: discontinued software </LEGEND>
+<P>InterNestor Suite is discontinued. It is kept here for=20
+historical/archeological reasons only.</P>
+<P>If you are looking for an "alive" TCP/IP stack, please take a look at =
+the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor Lite=20
+section</A>.</P></FIELDSET>=20
+<P>InterNestor Suite is a TCP/IP plus PPP stack for MSX2/2+/TR computers =
+with=20
+MSX-DOS 2, at least 256K mapped RAM and RS232 interface. It allows =
+internet=20
+connection through a modem and using any ISP access account, or direct=20
+connection to other computer using a null-modem cable. It installs as a =
+TSR, so=20
+any application may use its routines for acessing the internet. =
+InterNestor=20
+Suite consists on: </P>
+<UL>
+  <LI><EM>Installer program,</EM> it installs the modules that compose =
+the=20
+  stack.</LI>
+  <LI>Four <EM>code modules:</EM> physical module (RS232), link level =
+module=20
+  (PPP), network level module (IP) and transport level module =
+(TCP).</LI>
+  <LI><EM>Modem dialer</EM> for connections via modem+ISP.</LI>
+  <LI>PPP connection and TCP connections <EM>control programs.</EM></LI>
+  <LI><EM>Four simple applications:</EM> a PING client, a resolver (name =
+server=20
+  access client, for example to convert site names to IP addresses), a =
+simple=20
+  telnet client, and a complete FTP client.</LI>
+  <LI><EM>User's and programmer's manual,</EM> in english. This manual =
+explains=20
+  how to install and use InterNestor Suite, and provides all the =
+necessary=20
+  information for developping internet based applications.</LI></UL>
+<P><STRONG>Note:</STRONG> InterNestor Suite requires <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorman">NestorMan</A> =
+to work.=20
+</P>
+<P>Downloads for InterNestor Suite: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/insuite/ins-v10.lzh">INS-V10.LZH</A>=
+:</SPAN>=20
+  <STRONG>InterNestor Suite 1.0</STRONG>, with all the components =
+mentioned=20
+  above plus the Erik Maas' Fossil driver for RS232, needed by the stack =
+to=20
+  work.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- InterNestor Lite 2 -->
+<HR>
+
+<H2 id=3Dinl2>InterNestor Lite </H2>
+<FIELDSET><LEGEND>Note about InterNestor Lite 1.x </LEGEND>
+<P>Starting at version 2.0, InterNestor Lite implements the TCP/IP UNAPI =
+
+specification and is not compatible with version 1.x, which is =
+discontinued.</P>
+<P>If you want to use any of the older networking applications that =
+target=20
+InterNestor Lite 1.x, you can download the old version in the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor Lite 1 =
+
+section</A>.</P></FIELDSET>=20
+<P><EM>See also the <A=20
+href=3D"https://sourceforge.net/projects/internestor">InterNestor Lite =
+project=20
+site on SourceForge.net</A>.</EM></P>
+<P>InterNestor Lite is a TCP/IP stack that works on MSX2/2+/TR with at =
+least=20
+128K RAM. It supports two kinds of hardware: serial port (RS232) with =
+modem, and=20
+the <A href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet=20
+UNAPI</A>.</P>
+<P>InterNestor Lite implements the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP =
+UNAPI</A>=20
+specification, therefore you can use it to run the software in the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking=20
+applications</A> section.</P>
+<P><STRONG>Please note:</STRONG> InterNestor Lite requires the UNAPI RAM =
+helper=20
+in order to be installed.</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/ramhelpr.com">UNAPI RAM=20
+  helper</A>:</SPAN> Needs to be installed before InterNestor Lite.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl2/serial/inl.com">InterNestor =
+Lite 2.0=20
+  for RS232</A>:</SPAN> Allows you to connect your MSX to Internet by =
+using a=20
+  modem and an ISP account, or to connect to another machine who =
+understands the=20
+  PPP protocol by using a null-modem cable. Requires the Fossil =
+driver.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl2/serial/driver.com">Fossil =
+driver for=20
+  RS232</A>:</SPAN> Needs to be installed in order to use the RS232 =
+version of=20
+  InterNestor Lite.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/inl2/ethernet/inl.com">InterNestor =
+Lite 2.0=20
+  for the Ethernet UNAPI</A>:</SPAN> Allows you to connect your MSX to =
+Internet=20
+  by using a network card with an Ethernet UNAPI compatible BIOS (or by =
+using=20
+  any other kind of Ethernet UNAPI compatible software).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl2/inl20-u.txt">InterNestor =
+Lite 2.0=20
+  user's manual</A>:</SPAN> Explains how to install InterNestor Lite and =
+the=20
+  various configuration options available.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl2/inl20-p.txt">InterNestor =
+Lite 2.0=20
+  programmer's manual</A>:</SPAN> Strictly speaking, you don't need this =
+
+  document in order to develop networking applications, since now you =
+must=20
+  target the <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP=20
+  UNAPI specification</A> instead of a InterNestor-only API. However, =
+this=20
+  document will be useful if you want to know which are the differences =
+between=20
+  the InterNestor Lite 1.x API and the TCP/IP UNAPI.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl2/inl20src.zip">InterNestor =
+Lite 2.0=20
+  source code</A>:</SPAN> Targetting the Compass MSX =
+assembler.</LI></UL>
+<P><STRONG>NOTE:</STRONG> If you have an ObsoNET card, make sure you =
+have BIOS=20
+version 1.1 on it, which implements the Ethernet UNAPI specification; =
+otherwise=20
+you will not be able to use InterNestor Lite with your ObsoNET. You can =
+download=20
+the latest ObsoNET BIOS from the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET =
+section.</A></P>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- Networking software -->
+<HR>
+
+<H2 id=3Dnetworking>Networking software </H2>
+<P>The applications of this section allow you to connect your MSX to =
+Internet.=20
+All of them need an implementation of the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP UNAPI =
+
+specification</A> to work, such as <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A> or <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">the DenYoNet=20
+card</A>.</P>
+<P><A href=3D"http://www.konamiman.com/msx/networking/msxinet.zip">This =
+floppy=20
+disk image</A> contains <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A> and all=20
+the applications listed in this section. It may be useful for you if you =
+want to=20
+try the applications in an MSX emulator with network card emulation =
+support,=20
+such as <A href=3D"http://www.bluemsx.com/">blueMSX</A>.</P>
+<P>The source code of each application is supplied, some are made in =
+assembler=20
+(with the MSX assembler Compass) and some in C (with the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC cross=20
+compiler</A>).</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/ping.com">PING.COM</A>: =
+Simple=20
+  PING client 1.1</SPAN>. Sends one ping request automatically, then =
+sends=20
+  additional requests when ENTER is pressed. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/ping.asm">[Source =
+
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/tftp.com">TFTP.COM</A>: =
+TFTP=20
+  client/server 1.0</SPAN>. TFTP is a simple and straighforward way to =
+transfer=20
+  single files between two computers. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/tftp.asm">[Source =
+
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/tcpcon.com">TCPCON.COM</A=
+>: TCP=20
+  console 1.1</SPAN>. It is a simplified Telnet client, it just sends =
+data from=20
+  the keyboard to the network and from the network to the screen, =
+ignoring the=20
+  Telnet control codes. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/tcpcon.asm">[Sourc=
+e=20
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/ftp.com">http://www.konam=
+iman.com/msx/networking/ftp.com</A>:=20
+  FTP client 1.0</SPAN>. Command-line based FTP client, requires MSX-DOS =
+2 to=20
+  work. The multiple file management commands (MGET, MPUT and MDELETE) =
+require=20
+  <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorman">NestorMan</A> =
+to=20
+  work. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/ftp.asm">[Source=20
+  code]</A> (<STRONG>NOTE</STRONG>: Comments on the source code of =
+FTP.COM are=20
+  mainly in Spanish, I'm sorry but I'm not going to translate it to =
+English. If=20
+  anyone wants to do the job, I'll be happy yo post the translated =
+version=20
+  here.)</EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/sntp.com">SNTP.COM</A>: =
+SNTP=20
+  client 1.0</SPAN>. Allows you to configure the clock of your MSX by =
+querying=20
+  the current date and time to a time server. You can find a list of =
+public time=20
+  server at <A href=3D"http://www.pool.ntp.org/">the NTP pool page</A>. =
+<EM><A=20
+  href=3D"http://www.konamiman.com/msx/networking/source/sntp.c">[Source =
+
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/tweeter.com">TWEETER.COM<=
+/A>:=20
+  MSX trivial tweeter 1.0</SPAN>. Allows you to send messages to Twitter =
+from=20
+  your MSX. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/tweeter.c">[Source=
+=20
+  code]</A></EM> </LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/msxtt-charmaps/cp850/twee=
+ter.chr">TWEETER.CHR</A>:=20
+  CP850 character map file</SPAN>. If this file is placed in the same =
+directory=20
+  of TWEETER.COM, you will be able to include in your tweetes special =
+characters=20
+  pertaining to the CP850 character set (western european) such as =
+vowels with=20
+  tilde and others like =C3=B1 =C2=A1 =C2=BF. On japanese MSX you can =
+generate these characters=20
+  by using <A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/nac11.lzh">NestorAcentos</A>. =
+</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/hget.com">HGET.COM</A>: =
+HTTP=20
+  file downloader 1.1</SPAN>. A (very) simplified version of the popular =
+tool=20
+  WGET, it allows you to download files and resources by using the HTTP=20
+  protocol. Supports basic HTTP authentication and continuing the =
+retrieval of=20
+  interrupted downloads. It has an "interactive" mode in which the URL =
+of the=20
+  resource to retrieve can be obtained from the console output of =
+another=20
+  program, by using pipelining (e.g. <CODE>type url.txt | hget =
+con</CODE>).=20
+  Version 1.1 corrects some small bugs. <EM><A=20
+  href=3D"http://www.konamiman.com/msx/networking/source/hget.c">[Source =
+
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/geturl.com">GETURL.COM</A=
+>: URL=20
+  extractor 1.0</SPAN>. This is not strictly a network application, but =
+it may=20
+  be useful when used together with HGET. It searches inside a text file =
+for a=20
+  line with the format <CODE>[urlname] url</CODE>, then it sends the URL =
+to the=20
+  console. For example, if you have a file named <CODE>urls.txt</CODE> =
+with one=20
+  of the lines being <CODE>[knm] www.konamiman.com</CODE>, you can =
+execute=20
+  <CODE>geturl urls.txt knm | hget con</CODE> as an equivalent of =
+<CODE>hget=20
+  www.konamiman.com</CODE>. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/geturl.c">[Source =
+
+  code]</A></EM> </LI>
+  <LI id=3Dmsxtdb><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/msxtdb.lzh">MSXTDB.LZH</A=
+>: MSX=20
+  trivial dropbox 1.1</SPAN>. <A =
+href=3D"http://www.dropbox.com/">Dropbox</A> is=20
+  an online file storage service which offers both free and paid plans =
+(at the=20
+  time of this writing, there is one free plan that provides 2GB of =
+storage=20
+  space, and two paid plans that provide 50GB and 100GB). MSX trivial =
+dropbox is=20
+  a suite of programs that allows to manage, and to transfer files =
+from/to, a=20
+  Dropbox account from your MSX. The download includes a user manual. =
+<EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/msxtdb_source.zip"=
+>[Source=20
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/obsosmb.com">OBSOSMB.COM<=
+/A>:=20
+  ObsoSMB 1.0</SPAN>. ObsoSMB allows you to expose your MSX disk drives =
+as=20
+  shared folders to machines running Microsoft Windows; this is achieved =
+by=20
+  using SMB, a protocol defined by Microsoft for sharing resources =
+across a=20
+  network. Yo can then perform any operation on the exposed files and =
+folders=20
+  (transfer, rename, create, delete, change attributes) by using Windows =
+
+  explorer or any other file manager from your PC. <EM><A=20
+  href=3D"http://www.konamiman.com/msx/networking/obsosmb.txt">[User's=20
+  manual]</A></EM>, <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/obsosmb_source.zip=
+">[Source=20
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/obsoftp.com">OBSOFTP.COM<=
+/A>:=20
+  ObsoFTP 1.0</SPAN>. ObsoFTP will turn your MSX into a FTP server, =
+allowing you=20
+  to easily transfer files between your MSX and other computers. This is =
+a less=20
+  powerful file sharing option than ObsoSMB, but more interoperable as =
+it does=20
+  not require a Windows client. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/obsoftp.c">[Source=
+=20
+  code]</A></EM> </LI></UL>
+<FIELDSET><LEGEND>Note about MSX trivial tweeter user =
+authorization</LEGEND>
+<P>Before the application can send tweets on your behalf, you will need =
+access=20
+to a computer with a web browser in order to perform an authorization =
+process;=20
+this must be done only once per Twitter account.</P>
+<P>It works this way: MSX trivial tweeter will connect to Twitter in =
+order to=20
+get a temporary authorization token. Then, it will display you a long =
+and ugly=20
+URL that you must type on the address bar of a web browser. From here, =
+you=20
+confirm that you authorize MSX trivial tweeter to tweet on your behalf. =
+You get=20
+then a PIN code, that you must type on your MSX.</P>
+<P>It is not my fault. The OAuth protocol is quite cumbersome on non-web =
+based=20
+Twitter clients.</P></FIELDSET> <BR>
+<FIELDSET><LEGEND>Note about MSX trivial dropbox</LEGEND>
+<P>Starting at version 1.1, MSX trivial dropbox is no longer a =
+standalone=20
+application. It uses Dropbox API v1, which requires mandatory usage of =
+<A=20
+href=3D"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol_Secure">=
+HTTPS</A>.=20
+MSX computers can't currently handle HTTPS (or any other protocol on top =
+of <A=20
+href=3D"http://en.wikipedia.org/wiki/Transport_Layer_Security">SSL/TLS</A=
+>),=20
+therefore it is necessary to use a proxy (located in another computer) =
+to=20
+convert plain TCP to SSL and the other way around (an example of such =
+proxy is=20
+<A href=3D"https://www.stunnel.org/">stunnel</A>). Please read the MSX =
+trivial=20
+dropbox user manual for details.</P>
+<P>Also, as in the case of MSX trivial tweeter, a one-time authorization =
+process=20
+with the involvement a web browser is needed before using the=20
+tool.</P></FIELDSET>=20
+<P>The following are not Internet applications but will be useful for =
+you if you=20
+connect your MSX to Internet: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/networking/eth.com">ETH.COM</A>: =
+Ethernet=20
+  UNAPI control program 1.0</SPAN>. Allows you to perform various =
+control tasks=20
+  on your Ethernet hardware, such as obtaining and changing (when =
+supported) the=20
+  MAC address, or resetting the Ethernet hardware. <EM><A=20
+  href=3D"http://www.konamiman.com/msx/networking/source/eth.c">[Source=20
+  code]</A></EM> </LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/tcpip.com">TCPIP.COM</A>:=
+ TCP/IP=20
+  UNAPI control program 1.0</SPAN>. Allows you to perform various =
+control tasks=20
+  on any TCP/IP UNAPI implementation, such as manually setting the IP =
+addresses,=20
+  or enabling/disabling the automatic reply to incoming PINGs. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/networking/source/tcpip.c">[Source=20
+  code]</A></EM> </LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- InterNestor Lite 1 -->
+<HR>
+
+<H2 id=3Dinl1>InterNestor Lite 1 </H2>
+<FIELDSET><LEGEND>Note: discontinued software </LEGEND>
+<P>To get the latest version of InterNestor Lite, please take a look at =
+the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">current =
+InterNestor Lite=20
+section</A>. Version 1.x is discontinued.</P>
+<P>Starting at version 2.0, InterNestor Lite implements the TCP/IP UNAPI =
+
+specification and is not compatible with versions 1.x: networking =
+applications=20
+targetting the TCP/IP UNAPI implementations will not work on versions =
+1.x, and=20
+vice versa. For this reason, InterNestor Lite 1 is still available for =
+download=20
+here, so you can still using the old applications made for versions =
+1.x.</P>
+<P>Networking application developers should target the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP UNAPI =
+
+specification</A> instead of InterNestor Lite for new applications. =
+Moreover, to=20
+the extent possible, existing applications should be ported to target =
+the TCP/IP=20
+specification.</P></FIELDSET>=20
+<P><EM>See also the <A=20
+href=3D"https://sourceforge.net/projects/internestor">InterNestor Lite =
+project=20
+site on SourceForge.net</A>.</EM></P>
+<P>InterNestor Lite is a TCP/IP stack that works on MSX2/2+/TR with at =
+least=20
+128K RAM. It supports two kinds of hardware: serial port (RS232) with =
+modem, and=20
+the <A href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet=20
+UNAPI</A>.</P>
+<UL>
+  <LI>
+  <P><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/inl1/inl11.lzh">INL11.LZH</A>: =
+InterNestor=20
+  Lite 1.1.1.</SPAN> Includes both the serial and the Ethernet UNAPI =
+version, as=20
+  well as the Fossil driver (necessary for the serial version), and the =
+user's=20
+  and programmer's manual in spanish and english. It has support for UDP =
+and=20
+  TCP, as well as for sending and capturing raw datagrams, and built-in=20
+  resolver; a simple PING client, a TFTP client/server, a TCP console=20
+  -simplified Telnet client- and a Telnet client with partial support =
+for VT100=20
+  escape codes are included (the first three applications include the =
+source=20
+  code).</P>
+  <P><STRONG>NOTE:</STRONG> If you have an ObsoNET card, make sure you =
+have BIOS=20
+  version 1.1 on it, which implements the Ethernet UNAPI specification;=20
+  otherwise you will not be able to use InterNestor Lite with your =
+ObsoNET. You=20
+  can download the latest ObsoNET BIOS from the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET=20
+  section.</A></P></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/inl1/ftp.com">http://www.konamiman.c=
+om/msx/inl1/ftp.com</A>:=20
+  FTP client for InterNestor Lite 1.x.</SPAN> This application is =
+similar to the=20
+  command-line based FTP client shipped with the Windows and Linux =
+operating=20
+  systems. It requires DOS 2, and the commands that operate on multiple =
+files=20
+  (MGET, MPUT and MDELETE) require also that <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorman">NestorMan</A> =
+be=20
+  installed.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/inlib.zip">INLIB</A>: C =
+library for=20
+  InterNestor Lite 1.x.</SPAN> This is a library of functions for =
+accessing=20
+  InterNestor Lite capabilities from programs developed in C language. =
+It is=20
+  intended for use with the SDCC compiler. More information on the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC =
+section</A>.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/inl1/inl11src.lzh">INL11SRC.LZH</A>:=
+=20
+  InterNestor Lite 1.1 source code.</SPAN> Licensed under <A=20
+  href=3D"http://www.gnu.org/copyleft/gpl.html">GPL</A>.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- ObsoNET -->
+<HR>
+
+<H2 id=3Dobsonet>Software for ObsoNET </H2>
+<P>ObsoNET is an Ethernet card for MSX computers, formerly designed and=20
+manufactured by Daniel Berdugo. In this section you will find the =
+software that=20
+I have developed for this card.</P>
+<P><STRONG>Important:</STRONG> Please upgrade your ObsoNET card BIOS to =
+version=20
+1.2, which is compatible with the Ethernet UNAPI, so you can use the =
+newest=20
+version of <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor=20
+Lite</A>. The old InterNestor Lite for ObsoNET (version 1.0x) is now=20
+discontinued.</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/obsonet/onetm-s.txt">ONETM-S.TXT</A>=
+:</SPAN>=20
+  <STRONG>ObsoNET user's and programmer's manual.</STRONG> Spanish =
+version.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/obsonet/onetm-e.txt">ONETM-E.TXT</A>=
+:</SPAN>=20
+  <STRONG>ObsoNET user's and programmer's manual.</STRONG> English =
+version.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/obsonet/onetfrl.com">ONETFRL.COM</A>=
+:</SPAN>=20
+  <STRONG>ObsoNET Flash ROM loader 1.0.</STRONG> This application is =
+necessary=20
+  in order to update the ObsoNET BIOS and burn custom programs on its =
+ROM.</LI>
+  <LI><STRONG><A=20
+  href=3D"http://www.konamiman.com/msx/obsonet/bios.rom">BIOS.ROM</A>, =
+<A=20
+  =
+href=3D"http://www.konamiman.com/msx/obsonet/biosdos2.rom">BIOSDOS2.ROM</=
+A>, <A=20
+  href=3D"http://www.konamiman.com/msx/obsonet/bios.dat">BIOS.DAT</A>: =
+ObsoNET=20
+  BIOS 1.2.</STRONG> This version is compatible with BIOS 1.0, but adds=20
+  compatibility with the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet =
+UNAPI</A>. On=20
+  the user's manual the differences between the three files are =
+explained.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/obsonet/bios10.lzh">BIOS10.LZH</A>:<=
+/SPAN>The=20
+  old <STRONG>BIOS version 1.0</STRONG>, in case you experience problems =
+with=20
+  BIOS 1.2 (you should not, of course!)</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor=20
+  Lite</A>.</SPAN> With <A=20
+  href=3D"http://www.konamiman.com/msx/obsonet/bios.rom">BIOS 1.2</A>, =
+you can use=20
+  InterNestor Lite for the Ethernet UNAPI with your ObsoNET =
+card.</LI></UL>
+<P>As a starting point for working with ObsoNET, it is recommended to =
+read=20
+sections 1 and 2 of ObsoNET manual, as well as section 2.3 of =
+InterNestor Lite=20
+manual. </P>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- DenYoNet -->
+<HR>
+
+<H2 id=3Ddenyonet>Software for DenYoNet </H2>
+<P>DenYoNet is an Ethernet card for MSX computers, created by Dennis =
+Koller and=20
+Jos van den Biggelaar, and produced by <A=20
+href=3D"http://www.msx.ch/sunformsx/">Sunrise for MSX</A>. In this =
+section you=20
+will find the software that I have developed for this card.</P>
+<UL>
+  <LI>
+  <P><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/denyorom.com">DENYOROM.COM<=
+/A>:</SPAN>=20
+  <STRONG>DenYoNet flash ROM loader 1.1.</STRONG> Tool to load the =
+DenYoNet=20
+  flash ROM with a ROM code file. <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/source/denyorom.asm">[Sourc=
+e=20
+  code]</A></EM></P>
+  <P><STRONG>NOTE:</STRONG> This ROM loader assumes that the MAC for the =
+card is=20
+  stored at position 16 of the ROM file (that is, immediately after the =
+MSX ROM=20
+  header) and provides three options: keep the MAC on the current card =
+ROM=20
+  (default), use the MAC on the new ROM file, or manually specify a new =
+MAC.=20
+  Please run the application without parameters for more =
+information.</P></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/denyoeth.rom">DENYOETH.ROM<=
+/A>:</SPAN>=20
+  <STRONG>DenYoNet Ethernet UNAPI BIOS 1.5.</STRONG> This is a ROM file =
+that=20
+  will made your DenYoNet compatible with the Ethernet UNAPI =
+specification, so=20
+  that you can use <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications</A> by installing a TCP/IP UNAPI implementation such as =
+<A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A>.=20
+  <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/source/denyoeth.asm">[Sourc=
+e=20
+  code]</A></EM></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/denyotcp.rom">DENYOTCP.ROM<=
+/A>:</SPAN>=20
+  <STRONG>DenYoNet TCP/IP UNAPI BIOS 0.6.</STRONG> This is a ROM file =
+that will=20
+  made your DenYoNet compatible with the TCP/IP UNAPI specification, so =
+that you=20
+  can use <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications</A> directly, without having to install a separate TCP/IP =
+stack.=20
+  <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/source/denyotcp.asm">[Sourc=
+e=20
+  code]</A></EM></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/denytcp2.rom">DENYTCP2.ROM<=
+/A>:</SPAN>=20
+  An alternative version of DenYoNet TCP/IP UNAPI BIOS 0.6 that has the =
+behavior=20
+  of the ESC key reversed: BIOS is NOT initialized if the key is NOT =
+pressed at=20
+  boot time, and is initialized if the key is pressed.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/denyinit.com">DENYINIT.COM<=
+/A>:</SPAN>=20
+  <STRONG>DenYoNet TCP/IP BIOS initialization tool.</STRONG> If you boot =
+your=20
+  computer while pressing ESC (or while not pressing it, if you use the=20
+  alternative BIOS), you can use this tool to initialize the BIOS. =
+Usage:=20
+  <EM>denyinit &lt;DenyoNet slot&gt;[-&lt;subslot&gt;].</EM> <EM><A=20
+  =
+href=3D"http://www.konamiman.com/msx/denyonet/source/denyinit.asm">[Sourc=
+e=20
+  code]</A></EM></LI>
+  <P>Version 0.6 is feature complete: in addition to the TCP and UDP=20
+  connectivity provided by the embedded W5100, it has domain name =
+resolver, DHCP=20
+  client and support for sending PINGs. This version will escalate to =
+1.0 after=20
+  additional testing is performed.</P></LI></UL>
+<FIELDSET><LEGEND>Note for Panasonic FS-A1 GT owners</LEGEND>
+<P>There is a known bug in the DenYoNet TCP/IP UNAPI BIOS that manifests =
+in MSX=20
+Turbo-R Panasonic FS-A1 GT computers and prevents the computer from =
+booting. If=20
+you own a DenYoNet card and that MSX model (or any other model in which =
+you=20
+experiment the same problem) please apply the following workaround while =
+the bug=20
+is being investigated: </P>
+<OL>
+  <LI>Flash the alternative BIOS version (DENYTCP2.ROM) in your =
+DenYoNet. </LI>
+  <LI>Execute DENYINIT.COM from your AUTOEXEC.BAT, or manually before =
+using=20
+  networking software. </LI></OL>
+<P>An alternative method to initialize the DenYoNet BIOS is by executing =
+
+<EM>CALL DENYOINIT</EM> in the BASIC prompt. </P></FIELDSET>=20
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- NestorMan -->
+<HR>
+
+<H2 id=3Dnestorman>NestorMan </H2>
+<P>NestorMan is a dynamic memory manager for MSX2/2+/TR with MSX-DOS 2. =
+It=20
+installs as a TSR, so it may be used by any other application. NestorMan =
+offers=20
+the following capabilities: </P>
+<UL>
+  <LI><EM>Reservation of memory blocks with sizes between 1 byte and =
+16K.</EM>=20
+  This mechanism is much more versatile than the one provided by DOS 2, =
+which=20
+  only allows the allocation of whole 16K segments. After asking =
+NestorMan for a=20
+  new block of the desired size, it returns the number of the segment =
+where the=20
+  block has been reserved, as well as its starting address. NestorMan=20
+  automatically handles the allocation of new segments when they are=20
+needed.</LI>
+  <LI><EM>Double-chained lists creation.</EM> These lists are data =
+structures in=20
+  which each item is stored with a pointer to the previous item and a =
+pointer to=20
+  the next item. It is possible to insert items (any data block with a =
+size of=20
+  up to 16K) and to extract them to/from any position on the list, as =
+well as to=20
+  "browse" the items (to move to the previous or to the next item, or to =
+move to=20
+  a given item providing his index number in the list).</LI></UL>
+<P>Downloads for NestorMan: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorman/nman122.lzh">NMAN122.LZH</=
+A>:</SPAN>=20
+  <STRONG>NestorMan 1.22.</STRONG> Includes user's manual in spanish and =
+
+  english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/nestorman/textor.lzh">TEXTOR.LZH</A>=
+:</SPAN>=20
+  <STRONG>TexTor 1.0.</STRONG> It is a very simple text editor, similar =
+to=20
+  MS-DOS' EDLIN, that serves as an example of the use of NestorMan. =
+Source code=20
+  is included.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- MegaSCSI -->
+<HR>
+
+<H2 id=3Dmegascsi>MegaSCSI </H2>
+<P>MegaSCSI, developped by <A=20
+href=3D"http://www.hat.hi-ho.ne.jp/tujikawa/ese/">ESE Artists =
+Factory</A>, is the=20
+best SCSI controller available for MSX. I'm really lucky of having one =
+and I=20
+have developped some applications for being used with it. These =
+applications are=20
+listed below: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/wpe.lzh">WPE.LZH</A>:</SPAN=
+> Two=20
+  utilities, WP.COM and WE.COM, for write-protect and write-enable disk=20
+  partitions created with MegaSCSI. Source code is included.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/boot60.lzh">BOOT60.LZH</A>:=
+</SPAN>=20
+  Patch for the MegaSCSI boot program placed at SRAM. It forces the =
+computer to=20
+  boot in 60Hz mode, or in 50Hz mode if the H key is pressed while =
+booting.=20
+  Includes the source code.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/chgkey.lzh">CHGKEY.LZH</A>:=
+</SPAN>=20
+  Patch for the MegaSCSI SRAM. Allows the use of the normal keyboard =
+(keys 0-9=20
+  and A-F) instead of the numeric keyboard to emulate disk changes when =
+using=20
+  floppy emulation. Useful for Philips 8245 and similar computers users. =
+
+  Includes the source code.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/psetlist.lzh">PSETLIST.LZH<=
+/A>:</SPAN>=20
+  Includes two programs. PARSET is a partition setting program that uses =
+the=20
+  standard partition table on the boot sector of the disk instead of the =
+file=20
+  MEGASCSI.TBL, so it works with all the disks having this format: =
+ESE-ASPI,=20
+  IDE, all PC disks... PARLIST lists all the existing partitions on the =
+disk,=20
+  showing the length and the starting sector of each one. Source code is =
+
+  included.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/ncdplay.lzh">NCDPLAY.LZH</A=
+>:</SPAN>=20
+  <STRONG>NestorCDPlayer</STRONG> is a CD Audio player for MegaSCSI. It =
+installs=20
+  as TSR and you can control the CD replaying process from within any=20
+  application, by using CTRL/SHIFT + CODE/GRAPH key combinations. Source =
+code is=20
+  included.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/ndicreat.lzh">NDICREAT.LZH<=
+/A>:</SPAN>=20
+  This utility does not really require MegaSCSI to work, but without it =
+it is=20
+  not very useful. <STRONG>NestorDiskImageCreator</STRONG> creates empty =
+disk=20
+  images with any size between 10K and 32500K.</LI></UL>
+<P>If you want to develop your own applications for MegaSCSI, this =
+document will=20
+be very helpful for you: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/megascsi/meguide.txt">MEGUIDE.TXT</A=
+>:</SPAN>=20
+  Shortened english translation of the MegaSCSI's programming manual. It =
+is not=20
+  complete, but the basic concepts and the most important BIOS functions =
+are=20
+  explained.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- LPE-Z380 -->
+<HR>
+
+<H2 id=3Dz380>LPE-Z380 </H2>
+<P>Some years ago <A href=3D"http://msx.deneb.nl/">Leonardo Padial</A> =
+developped=20
+a Z380 card for MSX. Daniel Zorita and me helped him with the software=20
+development, and here is my contribution to that project: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/eprom30.lzh">EPROM30.LZH</A=
+>:</SPAN>=20
+  Version 3.0 of the EPROM included in the card.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/z380man.txt">Z380MAN.TXT</A=
+>:</SPAN>=20
+  LPE-Z380 with EPROM 3.0 programmer's manual in english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/z380man.lzh">Z380MAN.LZH</A=
+>:</SPAN>=20
+  Compressed version of the file Z380MAN.TXT.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/zutils.lzh">ZUTILS.LZH</A>:=
+</SPAN>=20
+  Includes F2Z.COM, to load a file into the LPE-Z380 memory; Z2F.COM, to =
+perform=20
+  the reverse process; and ZEXE.COM, to execute a Z380 program.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/callpcm.lzh">CALLPCM.LZH</A=
+>:</SPAN>=20
+  Sample of BASIC CALL command installable on the LPE-Z380 card. With =
+this=20
+  program it is possible to save and replay PCMs directly to/from the =
+LPE-Z380=20
+  memory, using the Turbo-R microphone. It is a very simple program that =
+does=20
+  not include trigger level specification nor silence =
+compression.</LI></UL>
+<P>If you want to develop your own programs for LPE-Z380 and you don't =
+have an=20
+assembler for Z380, the following file may be very helpful for you: </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/z380mac.txt">Z380MAC.TXT</A=
+>:</SPAN>=20
+  Macros for assembling Z380 instructions using a Z80 assembler, it is =
+only=20
+  necessary to slightly vary the original instructions syntax. The =
+macros have=20
+  been tested with Compass, they should not cause problems on other=20
+  assemblers.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/lpe-z380/z380mac.lzh">Z380MAC.LZH</A=
+>:</SPAN>=20
+  Compressed version of the file Z380MAC.TXT.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- SDCC -->
+<HR>
+
+<H2 id=3Dsdcc>SDCC libraries </H2>
+<P>SDCC stands for <EM>Small Devices C Compiler</EM>. It is a free C =
+language=20
+cross-compiler available for Windows and Linux platforms, targetting the =
+Z80=20
+processor among others. SDCC can be obtained at <A=20
+href=3D"http://sdcc.sourceforge.net/">the SDCC project page</A>; more =
+information=20
+and resources about development of MSX applications using SDCC is =
+available at=20
+<A href=3D"http://msx.atlantes.org/index_en.html">Avelino Herrera's MSX=20
+page</A>.</P>
+<P>In this section you can find some libraries that can be useful when=20
+developing MSX applications with SDCC.</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/msxchar.lib">MSXCHAR</A>: =
+Standard C=20
+  console functions for MSX.</SPAN> This library contains MSX-DOS =
+compatible=20
+  versions of the standard C functions <EM>getchar</EM>, =
+<EM>putchar</EM> and=20
+  <EM>printf</EM>.</LI></UL>
+<FIELDSET><LEGEND>About the console functions and the standard Z80=20
+library</LEGEND>
+<P>SDCC comes with a Z80 version of the standard C library, it is at =
+<EM>(SDCC=20
+folder)\lib\z80\z80.lib</EM>. The versions of the console related =
+functions=20
+<EM>getchar</EM>, <EM>putchar</EM> and <EM>printf</EM> that are bundled =
+in this=20
+library are not suited for developing MSX software. The logical fix for =
+this=20
+would be to replace these functions with MSX compatible versions inside =
+the=20
+library itself. </P>
+<P>However there is a problem with the current version of SDCC, at least =
+the=20
+Windows version: it is not possible to manage the file <EM>z80.lib</EM> =
+with the=20
+SDCC library manager utility supplied, <EM>sdcclib.exe</EM>. If =
+attempted, the=20
+error message "File was not created with sdcclib" is displayed. </P>
+<P>The workaround I have come up with consists of using the msxchar =
+library that=20
+you can download here, plus modifying the original file <EM>z80.lib</EM> =
+by hand=20
+(this is necessary so that the compiler does not complaint about having=20
+duplicate function names). That's how this can be done: </P>
+<OL>
+  <LI>Open the <EM>z80.lib</EM> file in a text editor. You will see =
+garbage=20
+  (binary data) mixed with text data.</LI>
+  <LI>Search for all the occurences of the names =
+<STRONG>printf</STRONG>,=20
+  <STRONG>getchar</STRONG> and <STRONG>putchar</STRONG> within the file, =
+either=20
+  as whole words or as part of other words.</LI>
+  <LI>Modify these names while maintaining their lengths. I have simply =
+changed=20
+  the first character into a 'x', so that they become 'xrintf', =
+'xetchar' and=20
+  'xutchar'.</LI></OL>
+<P>This is not a perfect solution but it seems to work. If anyone knows =
+a better=20
+way for dealing with this apparently defective <EM>z80.lib</EM>, please =
+let me=20
+know.</P></FIELDSET>=20
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/crt0_msxdos.zip">CRT0 for =
+MSX-DOS</A>:=20
+  Startup code files that allow the generation of MSX-DOS executable =
+files with=20
+  SDCC.</SPAN> There are two versions, a short one that allows =
+<CODE>void=20
+  main()</CODE> only, and a more complex one that allows <CODE>int =
+main(char**=20
+  argv, int argc)</CODE>. See the header of the included source code for =
+usage=20
+  details.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/asmlib.zip">ASMLIB</A>: C =
+library for=20
+  assembler and UNAPI interop.</SPAN> This is a library that allows to =
+execute=20
+  arbitrary assembler code (for example, BIOS routines and MSX-DOS =
+functions)=20
+  from C code. It contains generic assembly interop functions and also =
+functions=20
+  to interact with <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">UNAPI</A>=20
+  implementations.</LI>
+  <LI>
+  <P><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/inlib.zip">INLIB</A>: C =
+library for=20
+  InterNestor Lite 1.x.</SPAN> This is a library of functions for =
+accessing <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor Lite =
+1.x</A>=20
+  capabilities from within Internet client applications made with SDCC. =
+</P>
+  <P><STRONG>Note:</STRONG> This library is for InterNestor Lite 1.x =
+only and=20
+  <STRONG>should not be used for new applications</STRONG>. In order to =
+develop=20
+  applications that will work on InterNestor Lite 2.0+ (and on any other =
+<A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP =
+UNAPI</A>=20
+  implementation), yo should use ASMLIB instead. </P></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/sdcc/base64lib.zip">BASE64LIB</A>: =
+C=20
+  library for Base64 encoding and decoding.</SPAN> This is a library of=20
+  functions for Base64 encoding and decoding any amount of binary =
+data.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/sdcc/sha1lib.zip">SHALIB</A>: C =
+library for=20
+  SHA1 hashing.</SPAN> This is a library of functions for generating =
+SHA1 and=20
+  HMAC-SHA1 hashes of any amount of data.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- Miscellaneous -->
+<HR>
+
+<H2 id=3Dmiscelanea>Miscellaneous </H2>
+<P>Here you have some of the smaill utilities that I have developped =
+along these=20
+years of obsolete programming, all of them for MSX2/2+/TR and most of =
+them for=20
+MSX-DOS 2. I hope that some of them will be useful for you. </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/misc/mem.lzh">MEM.LZH</A>:</SPAN> =
+Small=20
+  program that shows information about the total, allocated and free =
+mapped=20
+  memory, divided in slots. Requires MSX-DOS 2 to work.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/chcopy2.lzh">CHCOPY2.LZH</A>:</=
+SPAN>=20
+  <STRONG>Chapuza Copy 2.0.</STRONG> Diskette copy utility that uses all =
+the=20
+  free RAM and the VRAM to minimize disk changes. Requires MSX-DOS 2 to=20
+  work.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/borehd.lzh">BOREHD.LZH</A>:</SP=
+AN>=20
+  <STRONG>Boot Register for MSX with Hard Disk.</STRONG> Executing this =
+program=20
+  from the AUTOEXEC.BAS of your hard disk you will be able to count how =
+many=20
+  times you have booted your computer from a given reference date, as =
+well as=20
+  the date and time of the last boot and the current boot. Requires =
+MSX-DOS 2 to=20
+  work.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/ramdd.lzh">RAMDD.LZH</A>:</SPAN=
+>=20
+  <STRONG>Registro de Arranque para MSX con Disco Duro.</STRONG> Spanish =
+version=20
+  of BOREHD.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/nac11.lzh">NAC11.LZH</A>:</SPAN=
+>=20
+  <STRONG>NestorAcentos 1.1.</STRONG> Resident program that allows the=20
+  generation of vowels with tilde and other characters like =C3=B1 =
+=C2=A1 =C2=BF using the KANA=20
+  key in japanese MSX computers.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/nem3-scc.lzh">NEM3-SCC.LZH</A>:=
+</SPAN>=20
+  This is the Nemesis 3 SCC sound master files made by Martos a long =
+time ago,=20
+  but with one interisting modification: now you can switch on and off=20
+  sepparately every SCC and PSG channel, as well as to pause the music. =
+Useful=20
+  to compose arrangements.</LI>
+  <LI>
+  <P><STRONG>MKROMDSK 1.2</STRONG>: Application that will be useful for =
+those=20
+  having a writable Flash ROM cartridge. It creates a ROM file from the =
+contents=20
+  of the RAM disk that exists when executing it. If this ROM file is =
+burned on=20
+  the Flash cartridge, when booting the computer a read-only disk drive =
+will=20
+  appear with all the files and directories that were present on the RAM =
+disk.=20
+  Besides, the resulting ROM incorporates the DOS 2 kernel.</P>
+  <P>Version 1.2 corrects a bug that caused the generated ROMs not to =
+work on=20
+  MSX Turbo-R with external memory mapper. </P>
+  <P>MKROMDSK requires MSX-DOS 2 to work, and is composed of two =
+files:</P></LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/mkromdsk.com">MKROMDSK.COM</A>:=
+</SPAN>=20
+  The application executable file.</LI>
+  <LI class=3DinnerList><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/mkromdsk.dat">MKROMDSK.DAT</A>:=
+</SPAN>=20
+  Template used to generate ROM files. If you have a MSX-DOS 2.20 kernel =
+image,=20
+  you don't need to download this file, since MKROMDSK.COM can generate =
+it from=20
+  that image. (<STRONG>NOTE:</STRONG> kernel 2.30, present on MSX =
+Turbo-R=20
+  DiskROM, can <STRONG>NOT</STRONG> be used; it must be a 2.20 =
+kernel).</LI>
+  <LI><A =
+href=3D"http://www.konamiman.com/msx/misc/mkromd1.com"><STRONG>MKROMD1=20
+  1.0</STRONG></A>: This application is identical to MKROMDSK, excepto =
+that=20
+  generated ROMs incorporate the DOS 1 kernel instead of the DOS 2 =
+kernel. This=20
+  way, generated ROMs can be used on MSX2 with 64K RAM, or even on =
+MSX1.</LI>
+  <LI><A =
+href=3D"http://www.konamiman.com/msx/misc/pmext.com"><STRONG>PMEXT=20
+  2.22</STRONG></A>: Not made by me, but may be useful for you. You can =
+use this=20
+  application to extract .LZH compressed files from MSX-DOS.</LI>
+  <LI id=3Didefl128><A=20
+  =
+href=3D"http://www.konamiman.com/msx/misc/idefl128.com"><STRONG>IDEFL128.=
+COM</STRONG></A>:=20
+  A modified version of IDEFLOAD.COM, the Sunrise IDE flash ROM loader, =
+that=20
+  allows flashing 128K ROM files (the original IDEFLOAD tool flashes 64K =
+files=20
+  only). This tool is needed in order to flash the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+kernel, which=20
+  is 128K long, in a Sunrise IDE or Sunrise CF cartridge. Te author of =
+both the=20
+  original IDEFLOAD tool and the modified version IDEFL128 is Jon De=20
+  Schrijder.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- MSX2 Technical Handbook -->
+<HR>
+
+<H2 id=3Dmsx2th>MSX2 Technical Handbook </H2>
+<P>This is the official technical reference of the MSX2 standard, edited =
+by <A=20
+href=3D"http://www.ascii.co.jp/">ASCII corporation</A> in 1987, =
+converted to text=20
+files. I typed all of it manually in 1997, using photocopies as =
+reference (I had=20
+never seen the original book); I used about four months for the whole =
+task. I=20
+have corrected some failures of the original text and I have added =
+information=20
+about Turbo-BASIC. </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/index.txt">INDEX.TXT</A>:</SP=
+AN>=20
+  Index en english.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/indice.txt">INDICE.TXT</A>:</=
+SPAN>=20
+  Index in spanish.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-1.txt">TH-1.TXT</A>:</SPAN=
+>=20
+  Chapter 1, <STRONG>MSX System Overview.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-2.txt">TH-2.TXT</A>:</SPAN=
+>=20
+  Chapter 2, <STRONG>BASIC.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-3.txt">TH-3.TXT</A>:</SPAN=
+>=20
+  Chapter 3, <STRONG>MSX-DOS.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-4a.txt">TH-4A.TXT</A>:</SP=
+AN>=20
+  Chapter 4, <STRONG>VDP and display screen</STRONG> (parts 1-5).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-4b.txt">TH-4B.TXT</A>:</SP=
+AN>=20
+  Chapter 4, <STRONG>VDP and display screen</STRONG> (part 6).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-5a.txt">TH-5A.TXT</A>:</SP=
+AN>=20
+  Chapter 5, <STRONG>Access to peripherals through BIOS</STRONG> (parts=20
+  1-6).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-5b.txt">TH-5B.TXT</A>:</SP=
+AN>=20
+  Chapter 5, <STRONG>Access to peripherals through BIOS</STRONG> (part =
+7).</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/kunbasic.txt">KUNBASIC.TXT</A=
+>:</SPAN>=20
+  Turbo-BASIC reference manual.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/th-ap.txt">TH-AP.TXT</A>:</SP=
+AN>=20
+  Appendices. Includes:</LI>
+  <LI class=3DinnerList>Appendix 1 - BIOS listing</LI>
+  <LI class=3DinnerList>Appendix 2 - MATH-PACK</LI>
+  <LI class=3DinnerList>Appendix 3 - Bit Block Transfer</LI>
+  <LI class=3DinnerList>Appendix 4 - Work Area Listing</LI>
+  <LI class=3DinnerList>Appendix 5 - VRAM Map</LI>
+  <LI class=3DinnerList>Appendix 6 - I/O Map</LI>
+  <LI class=3DinnerList>Appendix 8 - Control Codes</LI>
+  <LI class=3DinnerList>Appendix 10- Escape Sequences</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.konamiman.com/msx/msx2th/th.lzh">TH.LZH</A>:</SPAN> =
+All the=20
+  files above packed into a single compressed file.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx2th/kunesp.txt">KUNESP.TXT</A>:</=
+SPAN>=20
+  Turbo-BASIC reference manual in spanish. Unknown author, sent by <A=20
+  href=3D"mailto:wernerkai@mailcity.com">Werner Augusto Roder =
+Kai</A>.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- Easymbler -->
+<HR>
+
+<H2 id=3Deasymbler>Easymbler </H2>
+<P>Easymbler is a Z80 assembler course (but oriented to MSX, of course) =
+that I=20
+wrote for the disk magazine Eurolink, published by MSX MEN (Ram=C3=B3n =
+Ribas and=20
+Daniel Zorita) some years ago. The basic idea was that it had to be eay =
+to=20
+understand and funny to read, and maybe with this last point I went too =
+far...=20
+<STRONG>Note: it is available in spanish only.</STRONG> For this reason, =
+the=20
+description of the downloadables below is left in spanish. </P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/easymbler/easymb1.txt">EASYMB1.TXT</=
+A>:</SPAN>=20
+  Primera entrega. <STRONG>Introducci=C3=B3n al c=C3=B3digo =
+m=C3=A1quina. Descripci=C3=B3n del=20
+  Z80.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/easymbler/easymb2.txt">EASYMB2.TXT</=
+A>:</SPAN>=20
+  Segunda entrega. <STRONG>Instrucciones del Z80.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/easymbler/easymb3.txt">EASYMB3.TXT</=
+A>:</SPAN>=20
+  Tercera entrega. <STRONG>Introducci=C3=B3n a los ensambladores y a la =
+arquitectura=20
+  del MSX. T=C3=A9cnicas b=C3=A1sicas de =
+programaci=C3=B3n.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/easymbler/easymb4.txt">EASYMB4.TXT</=
+A>:</SPAN>=20
+  Cuarta entrega. <STRONG>Funcionamiento y manejo de los slots del=20
+  MSX.</STRONG></LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/easymbler/easymb5.txt">EASYMB5.TXT</=
+A>:</SPAN>=20
+  Quinta entrega. <STRONG>La memoria mapeada del MSX.</STRONG></LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- InterNestor project -->
+<HR>
+
+<H2 id=3Dproyectointernestor>InterNestor Suite project </H2>
+<P>I studied telecommunication engineering in <A=20
+href=3D"http://www.upc.es/">UPC</A>, Barcelona, between 1993 and 2002. =
+The final=20
+project I developped in order to obtain my degree had the title =
+<EM>"InterNestor=20
+Suite: design and implementation of a TCP/IP stack for MSX =
+computers"</EM>; yes,=20
+it is the same InterNestor Suite you can download from this page. </P>
+<P>Following is the project report I wrote and the presentantion I shown =
+the=20
+exam day, december 11th 2002. By the way I obtained the maximum grade =
+for this=20
+project. :-) <STRONG>Note: it is available in spanish only.</STRONG> =
+</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/insuite/memins.zip">MEMINS.ZIP</A>:<=
+/SPAN>=20
+  Project report delivered to teachers in MS Word 97 format.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  =
+href=3D"http://www.konamiman.com/msx/insuite/presins.zip">PRESINS.ZIP</A>=
+:</SPAN>=20
+  Presentation shown the exam day in MS PowerPoint 97 format.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- MSX-UNAPI -->
+<HR>
+
+<H2 id=3Dunapi>MSX-UNAPI specification </H2>
+<P><EM>See also the <A =
+href=3D"https://sourceforge.net/projects/unapi">UNAPI=20
+project site on SourceForge.net</A>.</EM></P>
+<P>MSX-UNAPI stands for <EM>MSX unified API definition and discovery=20
+standard</EM>. It is a proposal of a coding standard aimed to hardware =
+and=20
+software developers.</P>
+<P>When MSX hobbyists develop new hardware for MSX machines, they equip =
+the=20
+devices with a ROM containing code that provides an API (Application =
+Program=20
+Interface), a set of routines that are used by software applications in =
+order to=20
+access the hardware. How this API is designed and implemented depends =
+only on=20
+the hardware developer criteria, since there is not a standarized way to =
+do it.=20
+</P>
+<P>The MSX-UNAPI specification aims to provide a standarized way to =
+<EM>define,=20
+implement, discover and use</EM> such APIs, so that devices with the =
+same=20
+function made by different developers may have compatible APIs. </P>
+<FIELDSET><LEGEND>What's new in version 1.1</LEGEND>
+<P>Now the UNAPI specification offers support for <EM>specificationless=20
+applications</EM>, that is, sotware applications that do not conform to =
+any API=20
+standard but that make use of the remaining infrastructure offered by =
+the UNAPI=20
+standard, especially the discovery procedure and the RAM helper. An =
+example of=20
+specificationless application is a TSR that installs on a RAM segment. =
+</P>
+<P>Also, the RAM helper has been improved: it now offers a routine that =
+allows=20
+calling an address on a RAM segment (not any address, but a predefined =
+set of 64=20
+addresses) with only five bytes of code. This allows to patch hooks so =
+that they=20
+invoke code on a RAM segment without having to allocate space on page 3 =
+(apart=20
+from the space for the RAM helper itself, which is installed only once). =
+</P>
+<P>Finally, installing the RAM helper is no longer mandatory for RAM =
+based=20
+implementations: they have the option to refuse to install instead if no =
+RAM=20
+helper is already installed.</P></FIELDSET>=20
+<P>It is easier than it seems (really!) and it can be really useful for =
+hardware=20
+and software developers. If you are interested, here are the available =
+documents=20
+about the MSX-UNAPI specification:</P>
+<UL>
+  <LI><SPAN class=3DlistTitle>Introduction to the MSX-UNAPI =
+specification</SPAN>:=20
+  You better start reading this. It is a short text introducing the key =
+concepts=20
+  of the specification. You have some versions to choose:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapiintro.txt">Unpaginated =
+
+  version</A>, best suited for on-screen reading.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapiintrop.txt">Paginated=20
+  version</A>, best suited for printing.</LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/unapi/unapiintro-s.txt">Unpaginated =
+
+  version</A> in spanish.</LI>
+  <LI class=3DinnerList><A=20
+  =
+href=3D"http://www.konamiman.com/msx/unapi/unapiintro-sp.txt">Paginated=20
+  version</A> in spanish.</LI>
+  <LI><SPAN class=3DlistTitle>MSX-UNAPI specification v1.1</SPAN>: The =
+complete=20
+  specification, containing all the ugly details. Available only in =
+english at=20
+  this time. Choose your version:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapi11.txt">Unpaginated=20
+  version</A></LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapi11-p.txt">Paginated=20
+  version</A></LI>
+  <LI><SPAN class=3DlistTitle>Sample code</SPAN>: The source code of =
+some fully=20
+  working examples that may help you to understand the whole thing. The=20
+  following files are available:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapirom.asm">Sample =
+implementation=20
+  in ROM</A>.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapiram.asm">Sample =
+implementation=20
+  in RAM</A>.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/unapitsr.asm">Sample=20
+  specificationless application.</A> It consists of a TSR that installs =
+on a RAM=20
+  segment and patches the timer interrupt hook to make the CAPS led =
+blink.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/ramhelpr.asm">Standalone =
+RAM helper=20
+  installer</A>.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/apilist.asm">UNAPI =
+implementations=20
+  lister, a sample client software</A>. <EM>Client software</EM> is the =
+code=20
+  that invokes API routines in order to perform some task with the=20
+hardware.</LI>
+  <LI><SPAN class=3DlistTitle>SDCC library</SPAN>: If you prefer to =
+program in C=20
+  language, there is a library that will allow you to interact with =
+UNAPI=20
+  implementations from within applications developed with the SDCC =
+compiler. See=20
+  the <A href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC=20
+  section</A>.</LI>
+  <LI><SPAN class=3DlistTitle>Utilities</SPAN>: UNAPI related =
+applications that=20
+  you may find useful:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/ramhelpr.com">Standalone =
+RAM helper=20
+  installer</A>.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/apilist.com">UNAPI =
+implementations=20
+  lister</A>.</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/eth.com">Ethernet UNAPI=20
+  implementations control program</A>. The source code is included in =
+the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">ASMLIB =
+library</A>=20
+  package.</LI></UL>
+<P>The following are UNAPI compliant API specifications I have =
+developed:</P>
+<UL>
+  <LI><SPAN class=3DlistTitle>Ethernet UNAPI specification v1.1</SPAN>: =
+The first=20
+  UNAPI compliant API specification developed, aimed to Ethernet =
+hardware=20
+  developers. Choose your version:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/ethunapi11.txt">Unpaginated =
+
+  version</A></LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/ethunapi11-p.txt">Paginated =
+
+  version</A></LI>
+  <LI id=3Dtcpipunapi><SPAN class=3DlistTitle>TCP/IP UNAPI specification =
+
+  v1.0</SPAN>: An API specification for TCP/IP stacks. Choose your =
+version:</LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://www.konamiman.com/msx/unapi/tcp-ip-unapi-10.pdf">PDF=20
+file</A></LI>
+  <LI class=3DinnerList><A=20
+  href=3D"http://docs.google.com/View?id=3Ddcfjtf5b_187kh9dbgk">View=20
+online</A></LI></UL>
+<FIELDSET><LEGEND>Ethernet vs TCP/IP UNAPIs</LEGEND>
+<P>Developers of networking hardware (or rather, developers of BIOS =
+software for=20
+networking hardware) can now choose between implementing the Ethernet =
+UNAPI=20
+specification or the TCP/IP UNAPI specification. </P>
+<P>Implementing the Ethernet UNAPI specification is simple and =
+straighforward=20
+(there are just a few routines to implement) and is the best option when =
+using=20
+simple hardware that cannot process TCP/IP by itself. However, in order =
+to use=20
+networking software a TCP/IP stack such as <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A> must be=20
+installed, which places the TCP/IP processing burden on the MSX itself. =
+</P>
+<P>On the other hand, implementing the TCP/IP UNAPI specification =
+requires more=20
+work, but is the best option for complex hardware with embedded TCP/IP=20
+capabilities. In this case, no separate TCP/IP stack installation is =
+required,=20
+and networking applications can be used right away.</P>
+<P>Please take a look at the <A=20
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor =
+Lite</A> section=20
+and the <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking=20
+software</A> section to find applications that make use of these=20
+specifications.</P></FIELDSET>=20
+<P>Comments about the MSX-UNAPI specification are welcome. If you want =
+to=20
+discuss about it, please visit one of the existing MSX-UNAPI forums:</P>
+<UL>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://www.msx.org/forumtopic7282.html">English =
+forum</A></SPAN> at <A=20
+  href=3D"http://www.msx.org/">MSX Resource Center</A>.</LI>
+  <LI><SPAN class=3DlistTitle><A=20
+  href=3D"http://es.msx.org/forumtopicl7587.html">Spanish =
+forum</A></SPAN> at <A=20
+  href=3D"http://es.msx.org/">MSX Resource Center</A>.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- News -->
+<HR>
+
+<H2 id=3Dnuevo>What's new? </H2>
+<P>In this section the changes made to this page are listed in =
+chronological=20
+order. </P>
+<P class=3DupdateDate>9 may 2014</P>
+<UL>
+  <LI>Added Nextor 2.0.3, together with updated versions of the Getting =
+Started=20
+  guide, the User Manual and the Programmers Reference, in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>Added <A href=3D"http://www.konamiman.com/msx/msx-e.html#vsft">the =
+Volume=20
+  Size Fix Tool</A> in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>CRT0 for MSXDOS fixed (it contained unusable .REL files) in the <A =
+
+  href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC =
+section</A>.</LI></UL>
+<P class=3DupdateDate>8 april 2014</P>
+<UL>
+  <LI>Added Nextor 2.0.2, together with a corrected version of the =
+Getting=20
+  Started guide, in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>Added Flattr as a new donation method in <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#donate">the donations=20
+  section</A>.</LI></UL>
+<P class=3DupdateDate>4 april 2014</P>
+<UL>
+  <LI>Added <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#donate">the=20
+  donations section</A>.</LI>
+  <LI>Added Nextor 2.0.1, together with a new version of MKNEXROM and =
+the Driver=20
+  Development guide, in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>Added Nextor 2.1 Alpha 1 in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A>=20
+section.</LI></UL>
+<P class=3DupdateDate>12 february 2014</P>
+<UL>
+  <LI>Added Nextor 2.0 final, plus the source code for FDISK and the =
+tools, in=20
+  the <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>1 february 2014</P>
+<UL>
+  <LI>Added MSX trivial dropbox 1.1 to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>.</LI>
+  <LI>Added versions 1.1 of PING and TCPCON to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>.</LI>
+  <LI>Added DenyoNet TCP/IP UNAPI BIOS 0.6, its alternative version, the =
+
+  DENYINIT.COM tool and the note for Panasonic FS-A1 GT users to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">DenYoNet=20
+  section</A>.</LI></UL>
+<P class=3DupdateDate>1 july 2013</P>
+<UL>
+  <LI>Added Nextor 2.0 Beta 2 in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A>=20
+section.</LI></UL>
+<P class=3DupdateDate>1 march 2013</P>
+<UL>
+  <LI>Added Nextor 2.0 Beta 1 in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>Added the MegaFlashROM SCC+ SD version of the Nextor kernel in the =
+<A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A>=20
+section.</LI></UL>
+<P class=3DupdateDate>1 september 2011</P>
+<UL>
+  <LI>Added Nextor 2.0 Alpha 2b in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>The Sunrise IDE driver for <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> has =
+been=20
+  updated.</LI>
+  <LI>Added the IDEFL128.COM tool in the <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">miscellaneous=
+</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>1 august 2011</P>
+<UL>
+  <LI>Added Nextor 2.0 Alpha 2b and the Nextor Getting Started Guide in =
+the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section.</LI>
+  <LI>Corrected the links to the online documentation in the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section, they=20
+  no longer require logging in to a Google acount for being =
+viewed.</LI></UL>
+<P class=3DupdateDate>1 july 2011</P>
+<UL>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#nextor">Nextor</A> =
+section, with=20
+  version 2.0 Alpha 1.</LI></UL>
+<P class=3DupdateDate>26 may 2011</P>
+<UL>
+  <LI>Published <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET BIOS =
+1.2</A>.=20
+  This version solves a bug that caused some computers to hang when =
+trying to=20
+  access the floppy disk drive.</LI>
+  <LI>Published <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">Denyonet =
+TCP/IP UNAPI=20
+  BIOS 0.5 and Ethernet UNAPI BIOS 1.5</A>. These versions solve the =
+same bug as=20
+  ObsoNET BIOS 1.2.</LI>
+  <LI>Corrected the BIOSDOS2.ROM file (<A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">Obsonet =
+section</A>),=20
+  which was corrupted.</LI></UL>
+<P class=3DupdateDate>8 april 2011</P>
+<UL>
+  <LI>Added ObsoFTP 1.0, ObsoSMB 1.0 and the disk image containing all =
+the=20
+  networking applications to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>.</LI></UL>
+<P class=3DupdateDate>4 february 2011</P>
+<UL>
+  <LI>Added HGET 1.1 and MSX trivial dropbox to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>.</LI>
+  <LI>Added PMEXT.COM to the <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">miscellaneous=
+=20
+  section</A>.</LI></UL>
+<P class=3DupdateDate>10 january 2011</P>
+<UL>
+  <LI>Added HGET and GETURL to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>.</LI>
+  <LI>Added the TCP/IP UNAPI BIOS 0.4 to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">DenYoNet=20
+  section</A>.</LI></UL>
+<P class=3DupdateDate>2 september 2010</P>
+<UL>
+  <LI>Added the MSXCHAR, CRT0_MSX, SHA1 and BASE64 libraries at the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC =
+section</A>.</LI>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#tcpipunapi">TCP/IP =
+UNAPI=20
+  specification</A> to the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">UNAPI =
+section</A>.</LI>
+  <LI><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor Lite=20
+  1</A> is now discontinued, but still available for download.</LI>
+  <LI>Added <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl2">InterNestor=20
+  Lite 2</A>, which has its own section, separated from InterNestor Lite =
+1.</LI>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#networking">networking =
+
+  applications section</A>, with the TCP/IP UNAPI version of the old INL =
+1=20
+  applications (PING, TCP console, TFTP, FTP) and four new applications: =
+a SNTP=20
+  client, MSX trivial tweeter, the Ethernet UNAPI control program, and =
+the=20
+  TCP/IP UNAPI control program. All with source code.</LI>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#denyonet">DenYoNet =
+section</A>,=20
+  with the flash ROM loader, Ethernet UNAPI BIOS 1.4, and TCP/IP UNAPI =
+BIOS=20
+  0.1.</LI></UL>
+<P class=3DupdateDate>23 february 2010</P>
+<UL>
+  <LI>Added the <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#sdcc">SDCC=20
+  section</A>, with two libraries: the already existing INLIB, and the =
+new=20
+  ASMLIB.</LI>
+  <LI>Added the Ethernet UNAPI implementations control program in the <A =
+
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">UNAPI=20
+section</A>.</LI></UL>
+<P class=3DupdateDate>19 february 2010</P>
+<UL>
+  <LI>The <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet UNAPI=20
+  RAM helper</A> stepped to version 1.1. This version does not destroy =
+the=20
+  contents of the SHELL environment item, thus avoiding "Wrong version =
+of=20
+  COMMAND" errors. </LI></UL>
+<P class=3DupdateDate>11 february 2010</P>
+<UL>
+  <LI>The <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet UNAPI=20
+  specification</A> stepped to version 1.1. </LI></UL>
+<P class=3DupdateDate>4 february 2010</P>
+<UL>
+  <LI>The <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">MSX-UNAPI=20
+  specification</A> stepped to version 1.1. </LI>
+  <LI>Added the standalone RAM helper and the sample TSR on the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">UNAPI =
+section</A>.</LI>
+  <LI>Added links to SourceForge.net on the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">UNAPI =
+section</A> and the=20
+  <A href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor =
+Lite=20
+  section</A>.</LI></UL>
+<P class=3DupdateDate>14 september 2007</P>
+<UL>
+  <LI>Published <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor Lite =
+
+  1.1.1</A>.</LI></UL>
+<P class=3DupdateDate>12 september 2007</P>
+<UL>
+  <LI>The <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">MSX-UNAPI=20
+  specification</A> stepped to version 1.0. </LI>
+  <LI>Published the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">Ethernet UNAPI=20
+  specification</A>. </LI>
+  <LI>Published <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET BIOS=20
+  1.1</A>.</LI>
+  <LI>Published <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor Lite =
+1.1</A>.=20
+  Now both InterNestor Lite versions (for serial port and for Ethernet) =
+are=20
+  distributed in a single package. Also, now there is one single user =
+manual for=20
+  both versions.</LI>
+  <LI>Published the source code of <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor =
+Lite</A>.</LI>
+  <LI>InterNestor Lite for ObsoNET is now discontinued. It has been =
+replaced by=20
+  InterNestor Lite for Ethernet.</LI></UL>
+<P class=3DupdateDate>25 july 2007</P>
+<UL>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#unapi">MSX-UNAPI =
+section</A>.=20
+  </LI></UL>
+<P class=3DupdateDate>29 june 2007</P>
+<UL>
+  <LI>Yep, the main page has disappeared. It was not useful anyway. If =
+you want=20
+  to know more about me and can read spanish, <A=20
+  href=3D"http://konamiman.blogspot.com/">visit my blog</A>.</LI>
+  <LI>This page is now XHTML compliant, and uses CSS for the =
+presentation (which=20
+  is still very simple anyway). See the nice banners at the end of the=20
+page.</LI>
+  <LI>References to Dumas have been temporarily removed. The project is=20
+  currently frozen but <DEL>I hope that</DEL> not dead.</LI></UL>
+<P class=3DupdateDate>18 may 2006</P>
+<UL>
+  <LI>Added a link to <A=20
+  href=3D"http://konamiman.blogspot.com/"><STRONG>Konamiman's =
+blog</STRONG></A>=20
+  (in spanish).</LI></UL>
+<P class=3DupdateDate>21 april 2006</P>
+<UL>
+  <LI>Removed the ObsoNET status page and added the <!-- a =
+href=3D"dumas-e.html" -->Dumas project information=20
+page<!-- /a -->.</LI></UL>
+<P class=3DupdateDate>5 december 2005</P>
+<UL>
+  <LI>Removed the link to ILAC (InterNestor Lite Applications Contest) =
+until I=20
+  decide whether I re-open it or not.</LI></UL>
+<P class=3DupdateDate>10 september 2005</P>
+<UL>
+  <LI>Added MKROMDSK 1.2 and MKROMD1 1.0 on the <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">miscellaneous=
+</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>24 april 2005</P>
+<UL>
+  <LI>Added InterNestor Lite 1.02 on both the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor =
+Lite</A>=20
+  section and the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">ObsoNET</A>=20
+  section.</LI>
+  <LI>Added version 1.01 of the FTP application on the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor =
+Lite</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>31 march 2005</P>
+<UL>
+  <LI>Added the FTP application on the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor =
+Lite</A>=20
+  section.</LI>
+  <LI>Added the <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#obsonet">Software for=20
+  ObsoNET</A> section.</LI>
+  <LI>Added MKROMDSK 1.1 on the <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">miscellaneous=
+</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>22 december 2004</P>
+<UL>
+  <LI>Added the MKROMDSK application on the <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#miscelanea">miscellaneous=
+</A>=20
+  section.</LI></UL>
+<P class=3DupdateDate>6 december 2004</P>
+<UL>
+  <LI>Added <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorbasic">NestorBASIC =
+
+  1.11</A>, also the sample program TCPCON-L on TCPCON.LZH has been=20
+updated.</LI></UL>
+<P class=3DupdateDate>5 december 2004</P>
+<UL>
+  <LI>Added <A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor=20
+  Lite 1.0</A> and the INLIB library.</LI></UL>
+<P class=3DupdateDate>20 august 2004</P>
+<UL>
+  <LI>Added the ILAC '04 page.</LI></UL>
+<P class=3DupdateDate>19 august 2004</P>
+<UL>
+  <LI>Added the <!-- a href=3D"obsonet-e.html" -->ObsoNET page<!-- /a =
+-->.</LI></UL>
+<P class=3DupdateDate>7 july 2004</P>
+<UL>
+  <LI>Added the fourth beta of <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor=20
+Lite</A>.</LI></UL>
+<P class=3DupdateDate>15 june 2004</P>
+<UL>
+  <LI>Added version 1.10 of <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorbasic">NestorBASIC<=
+/A>.</LI></UL>
+<P class=3DupdateDate>5 june 2004</P>
+<UL>
+  <LI>Added the third beta of <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor=20
+Lite</A>.</LI></UL>
+<P class=3DupdateDate>6 january 2004</P>
+<UL>
+  <LI>Added the second beta of <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor=20
+Lite</A>.</LI></UL>
+<P class=3DupdateDate>1 october 2003</P>
+<UL>
+  <LI>Added the first beta of <A=20
+  href=3D"http://www.konamiman.com/msx/msx-e.html#inl1">InterNestor=20
+Lite</A>.</LI></UL>
+<P class=3DupdateDate>7 july 2003</P>
+<UL>
+  <LI>Inauguration of the new look of the page, both the <!-- a =
+href=3D"/index.html" -->main page<!-- /a --> and the MSX page.</LI>
+  <LI>Released <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#nestorbasic">NestorBASIC =
+1.0</A>=20
+  and the new sample program TCPCON.</LI>
+  <LI>Released the university's <A=20
+  =
+href=3D"http://www.konamiman.com/msx/msx-e.html#proyectointernestor">repo=
+rt and=20
+  presentation</A> of InterNestor Suite.</LI></UL>
+<P class=3Dtop><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#index">Return to=20
+index</A></P><!-- Kolofoon -->
+<HR>
+
+<DIV class=3DlastUpdateAndW3Banners>
+<DIV class=3DvalidXHTML><A =
+href=3D"http://validator.w3.org/check?uri=3Dreferer"><IMG=20
+alt=3D"Valid XHTML 1.0 Strict"=20
+src=3D"http://www.konamiman.com/valid-xhtml10.png"></A> </DIV>
+<DIV class=3DvalidCSS><A=20
+href=3D"http://jigsaw.w3.org/css-validator/check/referer"><IMG =
+alt=3D"Valid CSS"=20
+src=3D"http://www.konamiman.com/valid-css2.png"></A> </DIV>
+<DIV class=3Dmrc><A =
+href=3D"http://www.konamiman.com/msx/msx-e.html#donate"><IMG=20
+src=3D"https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donate_LG.gif"></=
+A> <!--<form action=3D"https://www.paypal.com/cgi-bin/webscr" =
+method=3D"post" target=3D"_top">
+            <input type=3D"hidden" name=3D"cmd" value=3D"_s-xclick" />
+            <input type=3D"hidden" name=3D"hosted_button_id" =
+value=3D"NMDJC4YJBT8DE" />
+            <input type=3D"image" =
+src=3D"https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif" =
+border=3D"0" name=3D"submit" alt=3D"PayPal =E2=80=93 The safer, easier =
+way to pay online." />
+            <img alt=3D"" border=3D"0" =
+src=3D"https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width=3D"1" =
+height=3D"1" />
+        </form>--><!--
+            <a href=3D"http://www.msx.org/" title=3D"MSX Resource =
+Center">
+                <img src=3D"http://www.msx.org/banners/88x31.png" =
+alt=3D"MSX Resource Center" />
+	    </a>
+--></DIV>
+<DIV class=3DlastUpdate>Last updated: 9 may 2014 =
+</DIV></DIV></BODY></HTML>
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/msx/careers-logo.png
+
+iVBORw0KGgoAAAANSUhEUgAAAB4AAAAXCAIAAACTXWg9AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+RklEQVR42mP4Tz3wuVAZgiBchlGjR7zR75uUIGjUaOobfaROC4JGrNFbO50haMQaPb85HYKoYHRF
+RQ0EjRpNTDRSAoam0QCdWg2VPVnIXwAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/msx/linkedin-logo.jpg
+
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAdAB4DASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDuL/Qv
+iF8dP2lfHHh7R/Flzp/2K8u3Mk95KkVvbxSiNVVE69VAAHqTXkfjnUPHHw+8X6t4b1PxLqLX+mzm
+CVoNQlZGIwQVOehBB5555r2r4a+CD48/bG8e2Ka7q/h2WG61O5S+0ScQzgidV27iCNpDnIx2FaHw
+1/ZV8P8AxR+JvxW0vVtb1t38P6msFvdmdGluC/mEvMzIdzZUcjHU1+pU8VQwr/fW5Iwi7cuutle5
++G1MBiMdG9C/tJVJq7lo7XdrdNv66fNH/CwfFP8A0Mmr/wDgdJ/8VX1F/wAE/wDxr4g1n4meINM1
+DWb6/sDo7XPkXU7SKJFmiUMNxODh2HHrWp4S/Y++E3jvR9T0jQPH91q3i3TF2XlxbSIYIpuR/qtn
+Me4EcMenXNc5+wDps+jfHbxXp90oW5tNIuLeVQcgOl1CrfqDUY7FYXF4KvGlG0opbqz8maZZgcdg
+Myws68rxm3tK60Wqdja/Z2IH7b3xE/3tV/8ASmOvUv2cWx8av2gecf8AE5h/lNXlvxh/ZEGofE7X
+9WtfF0tmNTuXvjEbHc0ZlJZl3CVcgHPYdq45f2PJ0ZmXxvIrNyxXTyC31/fc15dV4LFQbdflcoRj
+8LdrNP8AQ9uh/aGBqKKw3NyTnK/PFX5k18t7m3/wTyb/AIuh4uJOf+JYv/pQtbP7Hv8Aydf8Tv8A
+rlqP/pfHXEx/scSwkmPxo8ZPUppxGfymr3j9kr9nZPhX4j1vxE+vvq081r9gEX2XyQoZ1kZid7En
+KAdu/WrzDE4SUcRVp1bucUkrPp5mWVYXHKeEoVKNlTlKTlzJ7+SP/9k=
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/email.gif
+
+R0lGODlhrwAMAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4O
+Dg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEh
+ISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0
+NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdH
+R0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpa
+WltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1t
+bW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CA
+gIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOT
+k5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaam
+pqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5
+ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zM
+zM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f
+3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy
+8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAArwAMAAAI/wD//YMD
+RKDBgwgTKlwoEAgchhAZvvsEBggQQN8EfgLyLKLHjwQ/ihwpEggAkigPOkzJ8BkICGAAAYIB4NM/
+QAB+sUQZcqfPkiffAXok8BEQKK80fnp1tOO/jReVMgUjNOpNm5+WAqEKyOq3ilA6/gL0DAqQpP++
+wfwFBcxYOAC+4dT5CNC7f6/MEv03tuxZgV+b8iULJezUu58ADS5reOvdqn9vjnWMkO3Fu3j1Cuxb
++NlhgybfwYDQES4cKACSAoEAAy4IvADAoLa5GgYYABCg0LQJoGDt27l3/4MBAhCE1ziLQ4j7r6Ja
+EC8BPHM497bNVwCgmL4JQDlz4saRd//HyRo1mH8muRfHDcP8QAAzmeMuHPvgLwCt62PXDuBhcvLt
+1ddQdjmlJSB06DGX3j/PyAVfgnd1x9eDvUH4j4T3KfbON7+AcBJONs114StggPDOOwB8eBGBiv2D
+YHNxgcidTht2+GFqCWZUYXo4qSZfQQyWVaCEFwIp0G0ZLeXiazA66KOORpqUYkYZDpiglS7h9uCC
+FVa540lFTqgYXFrOOON970DwEIowDAQFTinaFOaMIopI5nJmcunbjTrp+dRyy+lU4ZxWHjToXCL6
+OeAjEBT0TH8CjXbllag9U6WfXu4pUJfwPQrFlXXmdN+Fin0S2zsgJBbbanexJhBcz4Tc+ounoBbo
+J4+2glnhcUINCeSgAqGGWFKuvhdrrptGyedwELzyyJZgpodaXtAmK2aYmHaaHXbLzvVNXC8ZF5tZ
+Zz4I1yOvNGrmXJ5ym6eumiYK7z/H2SjorwWFZCoY2OULALrqymttoQi+g5qahaaXJRwgaBpmppNy
+OmZ3cI1VoIggwPEMBBCQZ5eZSA60HBR3yfpexjkJjO2yfn7CMU6KDfqlQOICgRkcI5eMLKE/9fwT
+dnsZ9A0MRvps9NFIJ620QaaCEBMgqNm89NRUV211Qt88YpZDOl3ttdEBAQA7
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://img1.webring.com/logo3.gif
+
+R0lGODlheAA4AIcAABhJfhxMgCBOgyZUhilUhy1XijRfjjlfkTVgjj5ik0NrlkZol0Rsl0domE5u
+nVNtmVNwnlF2nlZwnVhyn1p0nldzolhyoFp0olt2pFx3oVx2pF54ol14pl55qGB5o2F6pWJ8pWR9
+pmB6qWJ9qWR+qWCBpmaAp2aAqWeArGiBqWiBrWuEqmyFq26FrW6Nrm2GsG+IsGeUuGmVuWyXum2Y
+um6ZvHCGr3GJrnGJsXCJtHOMs3SMsHaOtnaQtXCbvXKcvXWevnmQtn6VtniRuHyTuH2YtnWfwHmg
+wH6kw3+lxKQCM6kRP6oSQK8hTLUxWbtBZsBQcsFSdMZgf8ZhgMxwjIGWuIGXvYOYuoCYvYSYuoWZ
+vIWfu4mevYugv4ukvoyhv4ykv4iewYGmxIKoxoSpxoOqyIaqyIqgwIyhwI+kw4iryIqsyI2uyo6w
+y46wzJGmwpGmxpanw5OoxJSoxJOoyJipxpqvxpqryJuuyZyvyZCwy5CxzJG0zpW1zpqwx56xypyw
+zZa20Je40Zi30Zm40Zy50Z291KKxyqG0zaS1zqa4z6i6zqy5z6G+1aa40qm60Ku80qy60a+91aTA
+16bC2KnC16/A1qrD2KvF2a3F2a7I27HB1rXC1rbG17LB2LbF2LPJ27DJ3LXL3bXM3rjF2brI3L7M
+27/M3LnP4brQ4b3R4tGAmdeQpd2gsuKwv+OxwMHK3MHN3cXR38DS4sPX5sXR4cXW5cXY5sfZ6MvT
+4cvV48zU4szX5MnZ5s7Y5sna6Mvc6czd6dTc59Ha6NDe6dbd6Mni8czj8szk8tLg6tfg6tbi7Njg
+6tri7Njm79zj7d3k7tHm8tPn9NPo9NXo9Nrm8Nzn8Nnq9dvs9t7o8d3t9ujAzO7P2e7Q2fTf5eDl
+7uLo7+Hr8+Ps8+Du9+Xq8ebs8ubu9Ont8+rt9OLw+OXx+Orx9+zy9+/09+jy+er0+e3z+O31+vTg
+5vnv8vH09/H1+fT2+fH4+/L4/PX4+/X6/Prw8/j6/Pn8/f7+/gAAACH5BAAAAP8ALAAAAAB4ADgA
+AAj/AP0JHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuX
+MGPKHBjvms2b6eLpM6jP3c1rM1XGo0bN5ridE40GDemOKFF+HW0u1ajN6T2SQKcmncb1HUp+WbUy
+5CdN2rSwKqWKTYgtWjRp6l5eQ7XWICG30bzGFCGirkBNewKPW8p3LTs2bdoMEisC2kglkA06iVxw
+spJMa9j8agi5c2dXIwuP3EeZYGeDkFutwfTQs2slIvuWhAyl4OmBauaVLggAAMLOT4I/8SywN8cO
+KkzeFtiKOBIxYpbz9n1QukDI3PwZ19ihA8rdtCMn/xHjD/IrhNtR776u5EnH7ikhUxGoW8kyyFEG
+Uu6d3jj/AfqtV54S22hHHQARGEidQF7wJ4uBBXHAgUqsUNbZEUxQ1kRk/PFXXIceDgibafsdGAGI
+Ag0AogLp+SMhSxbCdsSA7LHSmzADAYCAgjkiKOJrSrTy4ZAflgBhj9QFwYElLZ0GGTvsvVIhbC36
+t+CQQCoxBUHbpddJbycCyKVvL7r0CmQZjujPhp3lB6KHLUK4nHRdJiiQLB3aORAYKGjAw0ubEUdi
+iQfFaZx0aPZYnJ54AgBOi/ZooAFMSdCwhqABlkjPQHaGaCCAiGJHpI93WkndBRhgcOVKMsxAAw1U
+QP/GSkHyQNYEkvw9oiCKItpGqHaMdkkPqqrGmZIMrc7AXnVqCuSHp8aV0Juu7DVb7ZGk+oMnjv60
+cMEFirIUQwzI+iXQt+AiKe64MfgljAXwTmdsSe4YY68xa5EzAbyJFBTBv/+udC++WkkwwcFaSTPw
+UilI4DAaaw1MMEwbOOywuRK/JMEDEkAgwabm+pPxSiE8YPLFIQ8kMTIn7WDyyyGkbFA0Ek/skTvR
+vPwyJzInVLO9GeEjDTJEI3MMMiYv0nND4/x8LzJxJYSPOtMYc4zVRxdddDxLR8SP02D/fMzYVhc9
+WNcWqRP22lajhbZH8ahDzcBFpYPP23jnrffefPcK7fffgAcueEkBAQA7
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif
+
+R0lGODlhSgAVAPcmAP+sLf7iq/7gpf7ksf7en/+6Tf+vM7+LNv+xOu7bskBedhA+a/+0QN+aLo9/
+WHBuWxA+aoCQl0BfeXB+f2BhUc+TMn+Jg7+YU76zkZ+HVp6jmX+Nj97Qre+iKo6Xk56gke+yT/63
+R3+LiTBUdO7Tm1BdXs4HAkBfd+7ZrH+Khs+VON7MomB0fkBgeq6ojf7HbGBze765o87Bnp6hlf/s
+0M7Do/7Rhb62mjBKWxA7YjBUczBUcv64SmB2gp9+Qs7EqP/89jBTcY6Uif+lNEBedN+dNIBwSa6w
+ov/NgtEQBY6Vjb+OO/7amP++Xf+3RlBpev7UjP/Ti6+QVb++r8+hUs6/mf/05P/CYNEOBc6+lN7K
+nf7epP+oLH+MjJ6fjVBrfmBmXf/05v/ryf61Rv/ZoCBJbv/it3BoTY6WkP/py//YnyBCX/+vOkBV
+YP+/Wf63S767qP7WjP65Tf/w2f/FZu/gwv/u0++kMVBsgmB1gP7hqmB4h//uzv7dnv/w2HCAhP7Q
+f66smf+mLf/boP6/WTBMYf7Jcv+uM//y2yBIba6unv/sz//itv+pNP+yP/7mt/+pJv/15//rzv7p
+vv/syP/dqv/46v/03//OhP/w0/+/Xv+xOAAzZswAAP+ZMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACYALAAAAABKABUA
+AAj/AE0IHGjCk8GDCBMqXMiwocOEBCMONLgoTKSLGC8CAZKxo8ePIEN+tJLGoMSJcyypXMmypcuX
+MGPKfGnH00lPfi7p3Mmzp8+fQIMKDYrIJkFPYjIpXcq0qdOnUKNKncrHaMFBlLJq3cqVUoSvEaZ0
+HUuWa52yaClFMeppktu3cONOgsOpbt09cvPqfXsEz96/k6DY9MRjy6PDiBMr9sBJw6MELTj9OBxj
+gwcOhznESKBhQ4LDnDdoSJBAEacWmH9Y/qy49WEbPAy+MTSgtu3buHtwqlE7EKcuA3SPWLCA9xdO
+EkYgH4CCuATkaOzOmMFp+AIUuLMP0ENIjsExIWwE/xhPvnx5HZzI3+Ak4gOnPwFWcMoTAP2HABDS
+yxAhI8CJ9CJwcoN8JwTgnhLmJRjACyGEYJAjDDDwQh8CVGjhhRVyooCFQnDixROcaJHhhpzsMKIA
+VbCgQBklCqAAJwJ0qEAKLHCSAoYYMuFGhAwYxAYCQDJARxwEFGmkkRhwMkGRJCQCAQlEcFJkFpzA
+kOSSV5IAQRAuuKAkAVsSYEGVFpSJwZFHAnIFkGwadIgBcMZpQAF01kmnA5w8cIEUhXDiQAEPcJIB
+CG1wcgGeGRSA6AV5glCCoFRwUkIBjD6gKBgg2EmnE3LKaZAgAIQq6qikUmAXJzkYEeodONSVgw8A
+mLCqQqyczNoqJ2twskQRdVEAwBl2wUrqsKJyMRgkyCar7LIVHODsActC0mwHyDZbLbTIHtBAB9pC
+0kC33h5AbbTkIsvWEJukq+667Lbr7rvwxitvuo1Y5UkTmuSr77789uvvvwAHLLAmVgnkCRKYJKzw
+wgw37PDDEEccccETqVHJxRhnrPHGHHfs8ccck0HxUZ6YIcnJKKNMAw0pt+zyyzDHDDMjJp1E8kM4
+56wzQycFBAA7
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: https://www.paypalobjects.com/es_ES/i/scr/pixel.gif
+
+R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/msx/Skrill.gif
+
+R0lGODlhVQAlAMQAAMKQstGrxY0ubvDj7OjV4rN0npQ8d/fx9cqdu9m5z6tmlJxKgbqCqKRYi+HH
+2IUgZP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAA
+AAAALAAAAABVACUAAAX/ICSOZGmeaKqubOu+cCzPdG3feK7vfO//wGCJoGgoCEIRIQFoAhKOQ4oQ
+GNgGgodWYC05qqWDA/E6ALLadNpQcEAOAUYj7a4B1A+ACKAw0CEDAA1+Wi4JaHiJDRAOiXU0d2p6
+EI6MiS2NiZoPi5lqjzMBeAEilZ5pLYSbeJ2VNgVpBSOmlyuiiQINuoiclnigNAQOSLO/vmossHiy
+JAcJDLnHf4AO1dbAjAhNpMLXxLR4LHPGKEinWnXjagojA8ppi+pai5TG5w/iiQVSKfdu9w9IQbjF
+CoK8XvU+SSu04h2eXAoQdBnhzyAuEQB7HaQHDpmtVWoaEFv44IumSQfh/lkMWcperRWqQAbEmCgA
+ry1SBmwywGClyoR/7rUgcHNVApJFZw5MtGDixpYKhbYYkFKTAJKa6EGIpGaiz3lQg77EVCCmJigy
+H3AZwRUViadA0ZGkUc1hGgAZ1Rgg0fbBghJwO7qtsSAR3rRKtxZ8u1gwQxUDRoYxm+ceZQP8+moV
+EdhluBWN2CCoNuBL4Zr3CKoho5glY9eO8YFGnEaAGEd2H+xt/XNE56hjUeTVRMYfAU2kNANu7Nmj
+iuHLaBqj/Ff565+xWUDfwpqkGwaaCFj3zRz4ZxUHEBSoKkBBAH7SFSY4OZ5zebHnYYjxmqS///8A
+BijggAQWaOCBJIQAADs=
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/valid-xhtml10.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAADAFBMVEUBAAAIBgMMCQQLCwsSDgYX
+EgkaFQoUFBQcHBwlHQ4rIhEwJhM2KxU7Lxc9MBgjIyMoKCg0MzI7OztBNBpOPh5OSz9TQiFeSyVk
+UChqVCpuWCx1Rzl0XC5+ZDFOTk5ST0tWUk1VVVVcXFxqXUplZWVra2twcHB7e3sAWpwIX58JYJ8O
+Y6ERZaIVaKQaa6Yebaghb6klcqopdawxea82fbE4frI+grRFhrZMi7pVkb1alL9dlsBkm8NoncRt
+ocZ0pcl8qsyWBAOZAACcCASIIBmdNiegDge3PB6mPiqBZzODaDSKbjaOcTiUdjuXeDyaez26QiG/
+TCaAeWihclPATifBUCjIXy/QbzfWej3Yfj+KgWWjgkGui0WxjUa0gVi3kkm6lEq+mEyjkmuzn2e7
+pnLFnU7eikXOpFHRp1PVqlXarlfesVjjlUrmm03poFDtqVTitFrmuFzqu13ywWD7xWL+y2WDg4OX
+l5eYmJippZ61rZisrKy0tLS/v7+Crs6FsNCLtNKQt9SWu9aYvNebvtifwdqjw9uox92ryd6yzeG2
+0OPCwsLMzMzU1NTA1ufG2ujN3+zT4+7d6fL/7Mbn5+fs7Ozl7vXp8fbu9Pj09PTy9/r1+Pv+/v7M
+zMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAADn4rtgAAAAnnRSTlP/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////AD6H4/gAAAABYktHRP+lB/LFAAAACXBIWXMAAABIAAAASABGyWs+AAADSUlEQVRI
+x+2WaU8TURSGzyCLQEUxiFYtCEo8Da3sYglQbDUaluISV6pYFdsyop1Or8ElSgg2RSjgArSZ63/1
+3JkOXRBZgn7yTXpmyzwz857lFhb3XW9/CsEi317f2c71/OnZ/+C9gSdDKmNySI2GorQNxiaDpFA4
+FgrS+WgoxFhwck/gMTjBwmCJ+WCYMQso5SBUoQCcZKwGgClg2QSOt7jp7pnWGQFJ2e0tpFYX5+k3
+TUn+QTOsqAV/hRRmJngiYAVrYILAkipT+C34GzqJ+AW7BDiBhga4VgdwIFmdNMBKMcAQI3Ctz1cO
+CmPD4hEKVBX5TpdYfg/m7bhC0YHrFHvQtbY2h840fw9Hzh8tO7CaSZ6V3k2AdWXBNdaKosGtwG78
+SLED4xSd+I1rbWK37ii5cO58pirCUglYBXhIjVlywWGQoluBl7CT83VE8nUZ28lu3ZUycUlLZ8CV
+UrgGnpgeR7JgZrUxHVzh9/tjAuzxbFRFM7nwGbGZ8wF083UHLlPqDuZWxSAZrBSXqmbyGBuBEQNM
+0sFCUQJf8QiyAXbRp7uwA5fI7iXei9ifotzlgiMy3R+NqKpMRiv6gUwVzfTAlAiLyUJkxVWPUAYc
+R5fWfCGB7jV00GOciJ0an95T5133GDLAKXTMY1/K3j6HPeJ42YEJvrAX8M0M1+y8LvJhnnejURmc
+92HvH2aFGtuWa4I/Ido1qgbElH48j235YNkiwbhxc6QKpJN56NiN18bOnQ2uCV5BvCRaEC8aqAS2
+rBp76bSRPFutCT4No8chkMu95vG+ynIve3KHUAvO6i04w2d7dCu6Fwxy00LGCpsJrixlQbAVfL/3
+5Qb3VN5068M1vQW/UrG5U3EHxrXGH4IrJTfAxluqUMWicCjLva/zvC8Mf72388fmfIeIS61UIU60
+o2jFxbKGxsMwzQvfuKScyTREcxz2ZOV9XDCPtY/6ZoB+X/udzl6Rw2RDWfV7ngceonFxXIqMgj83
+eXey3Fe7HfRh0bAlondZQJKgXM2rsrsmd2rXK4j6ZHx8PMAmhM/y2CO1oH7vmdx9X0wfZLj7v0q/
+8Orcv7D8T039s/8VH7bVu2c718NbJrhuBzq2leo3nTlTX62DfwGZkKiGotSUXQAAAABJRU5ErkJg
+gg==
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.konamiman.com/valid-css2.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAB41BMVEUAAAAIBgMMCgQLCwsRDQYX
+EgkcFgoVFRUcHBwhGg0qIRAwJhMzKRQ4LBY+MRgjIyMoKCg0MzI7OztAMxlHOBxMPB5OSz9UQyFY
+RiNdSiVhTSZkUChpVClvWCx1Rzl0XC59YzFOTk5ST0tWUk1WVlZcXFxqXUplZWVra2tya2FwcHB7
+e3sAWpwIX58JYJ8OY6ERZaIVaKQaa6Yebaghb6klcqopdawxea82fbE4frI+grRFhrZMi7pVkb1a
+lL9dlsBkm8NoncRtocZ0pcl8qsyWBAOZAACcCASIIBmdNiegDge3PB6mPiqAZjOGazWIbDaNcDiT
+dTqcfD26QiG/TCahclPATifBUCjIXy/QbzfWej3Yfj+Rh2uigUCohkOtikW0gVi2kUi6lUq+mEyj
+kmuzn2e7pnLEnE3eikXLolHRp1PUqVTZrVbdsVjjlUrmm03poFDtqVTjtVrmuFzsvF7zwmH6xWL+
+y2WDg4OXl5eYmJippZ61rZisrKy0tLS/v7+Crs6FsNCLtNKQt9SWu9aYvNebvtifwdqjw9uox92r
+yd6yzeG20OPCwsLMzMzU1NTY2NjA1ufG2ujN3+zT4+7d6fL/7Mbn5+fs7Ozl7vXp8fbu9Pj09PTy
+9/r1+Pv+/v7MzMzjUJqfAAAAoXRSTlP/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////ALGggoYAAAABYktHRACIBR1IAAAACXBIWXMAAABIAAAASABGyWs+AAADPUlE
+QVRIx+2W/VMSQRjH90ixGLQ0S2EyT9NeH0YI38pwMhR61+xlegNiqOiSy8kDrrG0cppioDAtS4W5
+7U/t2T2OonLOzPqp78w9u3vMfnh49nmeheQ3XU+/MJE8Ndcndf26f3f/f/BGwWkpmmBjPKawYUJf
+/Tk4aiWEiGrEgkNclfWVCTjj9ePuue45Bim4XF5Ut4/S4pODeTqrcfCUxTImx8KqzZqQIwm1lUSV
+WMwMvAQeJL6FYwycBV3DVGsjZMt8/TwHjxEH32cXRMYTiSOcNg9FL3xA64ZVtIPgW1l5DZ4inSE7
+jjTUbFnm4D1knO+L2QixTahyEyFVIVOwH16g7YMMWg8sUa2HTdsaMAoHjtCSx82lnROtxImDPC5s
+MwUvQD+lqwAY10XoxXDzqNSwj7SiDlYsgihFQqozKl/CUxsNJeKWnWuAA4FyVnRhFN4AdFE6DH66
+6oZFPLqtFVkR24Z5MKra0doVPDxCrNFfg08HGFkH+/Cn+6APFjDcC/QkwKkCnt0PBSJLCrdJtkhJ
+8hoFcibAVAJnwKd1Hc2CfwXc+DUegH6NTm+o8s4HdOngArhzMFRw9b6GQbZedEOWvtsI+EqJa1Te
+MYxDjg6AnhmUDsGQea9IpdbmGuCXAC4NswGgwNc56DEDx61EqJP4NH35sf7uWplrgD8AnGAlCMd1
+VBa8y/qsWORg+WEFNRlXY2L8gp7c6XOBs5Pf/B0JfN+EvPCKl+AcfTXIQzHwXCcffs7BYmMFOFLN
+Y0FqDV7wkeHvyN6K7jYEK7wEP2Ky+QsZN2S0zs/45qAwXwInxcbxmEMNt0rO5njEyjxtFlgq3+S8
+4AOdG7xa2TZzfcwudGOGeMAFrBTzWzs6t5NpWgKP2iOCZHlYe8m+R7Qxj9O7SEiPcKCsYPDOD/1Y
+e8GHYXw+nvJ4TrIzfN9RUz9DDbDT1tIiOZqEZNWu1pZwtZqsFUKKUnFmCJ783UYvNkpWR50Ux+55
+0easQ48jWNXEoof8epn72zdIckpVJXwSWNBJKZVKqEoUZfT6GwZ30y/TWyXu5t/SD4Kc+xeu/8nJ
+f/a/YtZUz+6tX7cPGeC2dWj3Wmr/6c2+9noO/grkJtd5IJGhNgAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donate_LG.gif
+
+R0lGODlhXAAaAPfDAP/9+P+6T/7mtP+vM/+sLf7gpf7kr/7hqv7fof7ShP+xOP/v1v+zPf+tMUBR
+Vv61Qv+4TP/68f+zP765oIBvR/63SBA+a76qfP/TkWB0fL+OO//JdiBJbf/DaP/kup6fkO7brzBR
+bK6qlWB0fnCBhhA+aq+FO++nNjBUc56hlH+KiBA6Yv/CZb+MOP+oJP+yO/+qJ7+QQJ6fjc6/lkBe
+de7Wpv+2R4BwSf66TVBZVP61QyBJbo6Th/++Wv/HajBKW46MdyBDYN7Qqv/Uk0BSWf/cqP/nw0BR
+WCBCX492Q87Epc7Anf+9WkBbbkBfd/+pJv+0Qf+tL0Bge1Bpeo6VjK6qkXCDjv+6Tt7Kne7Une7Z
+qv/gro95SVBlb3B/gn+Mi/+5S/+xOv+qKf68Uv/cp/7CYa6smP/owp+ARv/hsv7HbO7Vof/Pg9+b
+ML61lX+Khv/qw2B1gCBCXv+4Sp6knlBrgJ9+Qr64nf/qx//Jb66pjv7CYv7MeWBhUf66Tv7dn760
+kv/is/7Nen+DdWBvcf/Nf/7ZlP7Zl/+/V/7DZP/z3+7Igv7NfX+JhP+3Sf/Eau7eukBgenB5c/+s
+Lv7Pfa+IQ8+UNP7gqP+uMf7RhP7BX/7Oe0BednBoTY6Wj9+fOXCCi/7cmv7OgP/js//y3RA+bCBH
+av/26DBUdP/v1P+xO/+2QyBKce+jLGBgT/6zPY6UiWB2gf/Gb//x2//57v/lvf7nuv7pwP/25f+o
+I//NgP/y2//v0v/BYf/syP+1Qv/Znv+qKAAzZv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAMMALAAAAABcABoA
+AAj/AIcJHDgsArAODXIFWMiwocOHECNKnEhx4aQGHYBFIMhxYAQMuViQIQWgpMmTKFOqXMmypcuT
+p9LIeoFhY0eBCyQ8SkWrp8+fQIMKHUq0qNGiigo5WnBzgaotuKJKnUq1qtWrWLNq3Rr1TACmBBeE
+CbSrrNmzaNOqXcu2rdu3Z/FcASsQAhteePPq3cu3r9+/gAML5jsKwkBgmOD4Wsy4sePHkCNLnky5
+MuQAwARK2HOrs+fPoEPfoiOstLBSViCJXs26tWvXoiQM80Agka3buHPr3m0LlDBWUqRYEFaHt/Hj
+yJMnZ0TAw4YXYy4JmE69uvXrkYRNmA5iuJLqEyaA/7guAMQEIdbDj7+uBD3599Y1vdoAQQcONQby
+69/Pv39pLfqRIIwn+aUwXGkk6IfggWYUeKAwKeR3hzCoxCLMF/1lmGEmOOgAQS4VhMjHASSWaOKJ
+Ji4hDAomqiCMCgd8IEwJH4iAgjAfHKDiiiLEIYwTB9QwowgylkAiFaU5oUINKDaJ4iF+hJhLLg9U
++UAZfxSg5ZZcdqklLMKMwKUXwrxRwA7CuKFlFcJMUYAMwuywxpthdolFaVqOIAwnXvbppyBWPjAl
+A4QSukoehiCg6KKMNpqBMDwwyoEwM8wgDAeLAiIMDQg82oiij0aaRQaTlsYpApPq0eiqrIayyRyF
+Ev86pQK01korGD5QksCuvPa6awjCXMArEMKYksAFwjQxrDCEJACssM4Gm0ATwnRxwSDCSJLAIqX5
+6q23PiBiq625QBDFAOimq+667A5QGroncFFaJQN8IkwQJwxwQhDCxOCuMOm++y+6RAiDxgAxCENE
+uww3jG4UEGwQDAEUV2zxxRhrYNrGdlR8hDBH3ICEMH0QoPEPFJ9M8cg55FCaBgTcIEwnGNds88Vi
+bOCBC8H07PPPQAdtggNEE01BGz+34soKwshBQc9DJwG1A1IH08IKK1BAgQOWBLN1C0GHLTbQLngw
+jARPjK322my37fbbPT8h2zDAwPDL3XjnrffefPec7fffgAfeNwyZ1QVFL4gnrvjijDfu+OOQRy45
+41AYNtACDfSgy+acd+7556CHLvropJfeeQ8N0IVTAywA4/rrsMcu++y012777bi7zkLqTUlgQxG1
+BC/88MQXb/zxyCevfPJF2CCB6hx91AATQxgxy/XYZ6/99tx37/334GdvxBBMNFDTTdEflNCU7Lfv
+/vvwxy///PS3j5FGNwUEADs=
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif
+
+R0lGODlhXAAaAPcPAP/x2//9+P7mtP+vM/+sLf7kr/7gpf7hqv7fof7ShP+xOP+zPUBRVv61Qr65
+oM8LAhA+a3+Ddb6qfEBedYBvR/63SGB0fL+OOxA+ahA6Yu7br56fkDBUc6+FOyBKcc6/lq6qlf/C
+ZSBJbe+nNs7AnSBDYDBKW56hlDBRbFBZVH+KiL61lf66TXCBhv/HaiBJb/61Q56knmB0fv++Wo6V
+jP+pJp6fjf/cqI6Uid+fOWBvcXBoTSBJbiBCXn+JhEBbbt7Qqu7euv/nw/+2R0BRWI6Md8+YPY6T
+h/+0Qc+UNCBHar+QQI92Q++jLEBgeyBCX//Uk2B1gH+Mi/+9Wu7Vof+tL//Eat+bMP+yO//js/7O
+e/7NenCCi/+2Q/7OgP+6T//is1Brfv7RhP/y3b60kv7cmv+5S/7ZlO7Und7LoWB2gRA7Yv+/V56W
+eXBnS87Fqv/Nf/7Zl66qkX+NkP7HbP6zPb61mWBgT//gro95SXB/gv/Jb//cp//v1H+Ok//Pg86/
+md7Opv/owv/26EBedmBhUXB/gP7BX+7Zqv7Mef7CYf7CYkBfd//z3/68Uv/Gb0BSWRA7Y1Blb/+q
+Kf66Tv/qx+7Wps+VOP7gqHB5c4BwSVBpeq6smK6unN7Knf7Pfa+IQ/+4Sv/hss7EpUBgev+uMZ+A
+Rp99P//qw1Bqe6+GP/7DZFBrgJ9+QnB/hP7dn7+MOP7NfY6Wj/7nuv7pwP/57v/lvf/Znv/25f/N
+gP/y2//v0v/BYf/syP+1Qv+qKAAzZswAAP+ZMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAA8ALAAAAABcABoA
+AAj/AB8IHDhQmMGDCBMqXMiwocOHDAlKnPhAWAg+YwJo3Mixo8ePIEOKHMlxkKhHwihKFGalT62X
+MGPKnEmzps2bOG82gpNSpTA8uIIKHUq0qNGjSJMqXRpUUM+VYHRJnUq1qtWrWLNq3cqVaqWnAoX9
+2UW2rNmzaNOqXcu2rVu0WcCWQtWrrt27ePPq3cu3r9+/er8UXESrsOHDiA/HAMYYmAc/QRJLnkyZ
+VpAYlTMj9tKTwKpZoEOLHi2ai2MnTiAAY0W6tevXbzzMeU27dSwCFbE4wiSgt+/fwH2TAuagNxDV
+o347cKAhuAANDoAAX97cdxhgnXxDL+68++9DdQzC/2BBp4D58+jTn2eM6HwLYLLMn1DNuMV6YFLo
+c5JPH9gJ8/2pUUB+jL0QiHoIoicGCzAYVMGDiRwg4YQUVngACcC8QKEKwKhwwAbAYLABCBwAs8GF
+jHEAQhTAMHKAJSGCQEOIB6ThCmMqkDAjB3awmIqFQE4YByUPGtTAkQ0o8ooBTDbppJM4ACODk3oA
+g4MBPACzApNyALOJATYAwwMVYEr5JCCMMbkCMIQwiQEwnhhARZpP1tnkFkg2YNACfPLZxR5nICDo
+oIQKagEwRxAqAjAffACMCIOSAcwECBzqg6GIIoCGBYsyRikCPgBjCAKOTjrBBIwVqioCZWgRSp98
+Gv+kwKy0zmqGC58koOuuu6IAjAS7FgGMEglIAMwPwQKjQwK+Asvsrwn8AIwkEkQATCa66gBMG8UO
+G8G33/IqbgIusFFrrQZVMcC67LbrbruMrTtCHowtMUAOwJQwwgAjRAKMvfGuG3DAkABjyrolAGPE
+vfmuawQo70YccRUG/ULAxRhnrDHGFzTmcSsYEwGMCZo8AUwhBHRswsUqX2xyCikwdsHFjO2gCgEx
+E7HDGsBcsvHPG0+SkjC/FG300Ugb3QEDTDNNwRVHN+FGBsD0QEHRSzOBNQNa/wJLDxlQQAEDSRRN
+AdWn/NLEHVSTnfTbb/ckTA1w12333XjnrXfdNTyPJYwvgAcu+OCEF2744YgnrrjhYAmDBC+QRy75
+5JRXbvnlmGeuOeVIgFXRDLmELvropJdu+umop6766qPP4HlYIdwi++y012777bjnrvvuvMsewusF
+DXGDLcQXb/zxyCev/PLMN8/8DUMAv9IUUAgBwPXYZ6/99tx37/334GcvBBRTSO8TROinr/76B6n0
+QEAAOw==
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.konamiman.com/konamiman_basic.css?date=2014-05-09
+
+BODY {
+	FONT-FAMILY: Sans-Serif; MARGIN-BOTTOM: 2em; MARGIN-LEFT: 5%; =
+MARGIN-RIGHT: 5%
+}
+H1 {
+	TEXT-ALIGN: center
+}
+H2 {
+	TEXT-ALIGN: center
+}
+FIELDSET {
+	PADDING-BOTTOM: 1ex; PADDING-LEFT: 2ex; PADDING-RIGHT: 2ex; =
+PADDING-TOP: 0.5ex
+}
+LEGEND {
+	FONT-STYLE: italic; PADDING-LEFT: 1ex; PADDING-RIGHT: 1ex
+}
+UL LI {
+	LIST-STYLE-TYPE: disc; MARGIN-BOTTOM: 0.5ex
+}
+P {
+	TEXT-ALIGN: justify
+}
+HR {
+	MARGIN-TOP: 2em
+}
+IMG {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; VERTICAL-ALIGN: =
+middle; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+P.centered {
+	TEXT-ALIGN: center
+}
+P.headerLink {
+	TEXT-ALIGN: center
+}
+P.centeredText {
+	TEXT-ALIGN: center
+}
+P.headerLink:before {
+	CONTENT: ">>> "
+}
+P.headerLink:after {
+	CONTENT: " <<<"
+}
+P.pesimized {
+	TEXT-ALIGN: center; FONT-STYLE: italic; MARGIN-TOP: 2em
+}
+P.hostedby {
+	TEXT-ALIGN: center; MARGIN-TOP: 2em; FONT-SIZE: 110%; FONT-WEIGHT: bold
+}
+P.welcometo {
+	TEXT-ALIGN: center; FONT-SIZE: 150%; FONT-WEIGHT: bold
+}
+P.top {
+	TEXT-ALIGN: center
+}
+P.top:before {
+	CONTENT: "[ "
+}
+P.top:after {
+	CONTENT: " ]"
+}
+.updateDate {
+	FONT-WEIGHT: bold
+}
+.updateDate:before {
+	CONTENT: "[ "
+}
+.updateDate:after {
+	CONTENT: " ]"
+}
+IMG.email {
+	WIDTH: 175px; HEIGHT: 12px
+}
+DIV.webring {
+	BORDER-BOTTOM: gray 1px solid; TEXT-ALIGN: center; BORDER-LEFT: gray =
+1px solid; MARGIN-TOP: 2em; MARGIN-LEFT: 25%; VERTICAL-ALIGN: middle; =
+BORDER-TOP: gray 1px solid; MARGIN-RIGHT: 25%; BORDER-RIGHT: gray 1px =
+solid
+}
+.strong {
+	FONT-WEIGHT: bold
+}
+.emphasize {
+	FONT-STYLE: italic
+}
+.listTitle {
+	FONT-WEIGHT: bold
+}
+LI.innerList {
+	LIST-STYLE-TYPE: circle; MARGIN-LEFT: 3ex
+}
+LI.innerList2 {
+	LIST-STYLE-TYPE: circle; MARGIN-LEFT: 6ex
+}
+LI P {
+	MARGIN-TOP: 0px
+}
+DIV.lastUpdateAndW3Banners {
+	HEIGHT: 31px
+}
+DIV.validXHTML {
+	TEXT-ALIGN: left; WIDTH: 100px; FLOAT: left; HEIGHT: inherit
+}
+DIV.validCSS {
+	TEXT-ALIGN: left; WIDTH: 100px; FLOAT: left; HEIGHT: inherit
+}
+.donate {
+	WIDTH: 10em; DISPLAY: inline-block; MARGIN-LEFT: auto; MARGIN-RIGHT: =
+auto
+}
+.centered {
+	TEXT-ALIGN: center; MARGIN-TOP: 2em; MARGIN-BOTTOM: 2em
+}
+DIV.mrc {
+	TEXT-ALIGN: right; WIDTH: 100px; FLOAT: right; HEIGHT: inherit
+}
+DIV.lastUpdate {
+	TEXT-ALIGN: center; HEIGHT: inherit; FONT-WEIGHT: bold; MARGIN-RIGHT: =
+200px
+}
+DIV.lastUpdate:before {
+	CONTENT: "[ "
+}
+DIV.lastUpdate:after {
+	CONTENT: " ]"
+}
+
+------=_NextPart_000_0010_01CF97E3.AC36DA00--

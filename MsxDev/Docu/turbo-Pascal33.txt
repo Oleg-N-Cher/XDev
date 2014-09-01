@@ -1,0 +1,33 @@
+Introduction Turbo Pascal version 3.3.
+
+This file was created March 1995.
+
+In this textfile will you find some information about the new
+version of turbo pascal version 3.3  (from here on shorted as
+TP33) for MSXcomputers. This version will be released on the
+fair in Tilburg 8 april 1995.  
+
+TP33 is a complete rebuild pascal compiler for msx computers.
+It is a command line compiler which include all previous
+features from version 3.0a but also much new featers like:
+
+1. 32 bit signed-integer calculations.
+2. full graphics mode support.
+3. full sprite support.
+4. mapper support through MEMMAN (tsr compatible)
+5. overlay routines linked with mapper routines.
+6. use of dos routines instead of cp/m routines.
+
+In advance of all this the routines for real calculations are
+speeded up (up to 25%), and also integer calculations are
+improved. If this isn't enough, the compiler itself is also
+faster. 
+
+If you don't believe all of this above, then you can take a
+look at the stand of MSX COMPUTER CLUB ENSCHEDE (stand nr 406
+& 407) at the fair in Tilburg 8 april 1995. 
+
+
+The price is only Ÿ40.=  (40 dutch guilders ex p&p)
+
+FOR MEOR INFO MAIL TO:    e.smit@wb.utwente.nl
