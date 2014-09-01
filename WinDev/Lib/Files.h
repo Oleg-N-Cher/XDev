@@ -29,9 +29,9 @@ typedef
 		BOOLEAN end, error;
 	} Files_FileToRead;
 
-import SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
+import BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
 import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__typ, CHAR *str, LONGINT str__len);
-#define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, SYSTEM_BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
+#define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
 #define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, LONGINT *, CHAR*, LONGINT ), (fromfile, fromfile__typ, str, str__len))
 
 typedef
@@ -41,9 +41,9 @@ typedef
 		BOOLEAN end, error;
 	} Files_FileToWrite;
 
-import void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte);
+import void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, BYTE byte);
 import void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len);
-#define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, SYSTEM_BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, BYTE), (tofile, tofile__typ, byte))
 #define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, LONGINT *, CHAR*, LONGINT ), (tofile, tofile__typ, str, str__len))
 
 
