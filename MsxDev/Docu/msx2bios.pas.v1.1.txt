@@ -1,0 +1,447 @@
+{$a-}
+{*********************************************************}
+{* Some procedures for the MSX 2, MSX 2+ and MSX turbo R *}
+{* Copyright 1987..1994 by XelaSoft                      *}
+{* Released for public domain                            *}
+{*     release data    version  changes                  *}
+{*     6-17-1994       1.0                               *}
+{*     6-29-1994       1.1      MSX 2+ screens added     *}
+{* Excuse me for the bad programming style, but I have   *}
+{* worked on this library on very different times.       *}
+{*                                                       *}
+{* For information, please contact:                      *}
+{*  XelaSoft, p.a.                                       *}
+{*  A. Wulms                                             *}
+{*  Pelikaanhof 127 c                                    *}
+{*  2312 EG Leiden (Netherlands)                         *}
+{* or email: awulms@wi.leidenuniv.nl                     *}
+{*                                                       *}
+{*********************************************************}
+var
+ jiffy  : integer absolute $fc9e;
+ logopr : byte absolute $fb02;
+ forclr : byte absolute $f3e9;
+ bakclr : byte absolute $f3ea;
+ bdrclr : byte absolute $f3eb;
+ dppage : byte absolute $faf5;
+ acpage : byte absolute $faf6;
+
+VAR
+  oldbak,
+  oldbdr: byte;
+
+ vdp_data : record
+             sx,sy,dx,dy,nx,ny : Integer;
+             color, options, commando: Byte;
+            end;
+ connorm : Integer;
+
+{ ******************************************************************** }
+
+procedure clrscr;
+
+begin
+  inline ($af/              { xor a         }
+          $fd/$2a/$c0/$fc/  { ld iy,(#fcc0) }
+          $dd/$21/$c3/$00/  { ld ix,#c3     }
+          $cd/$1c/$00);     { call #1c      }
+end;
+
+{ ******************************************************************** }
+
+procedure color(fore,back,border: byte);
+
+begin
+  forclr := fore;
+  bakclr := back;
+  bdrclr := border;
+  inline ($fd/$2a/$c0/$fc/  { ld iy,(#fcc0) }
+          $dd/$21/$62/$00/  { ld ix,#62     }
+          $cd/$1c/$00);     { call #1c      }
+end;
+
+{ ******************************************************************** }
+
+function  dosver : Integer;
+
+var
+  error     : Byte;
+  Kernel,
+  DosVersion: Integer;
+
+begin
+  inline ($0e/$6f/             { ld c,#6f           }
+          $cd/$05/$00/         { call 5             }
+          $32/error/           { ld (error),a       }
+          $ed/$43/kernel/      { ld (kernel),bc     }
+          $ed/$53/DosVersion); { ld (dosversion),de }
+  if error <> 0 then
+    dosver := 0
+  else
+    if hi(Kernel) < 2 then
+      dosver := 256
+    else
+      dosver := DosVersion;
+end;
+
+{ ******************************************************************** }
+
+procedure setpalette (nr,r,g,b: Byte);
+
+begin
+  inline ($ed/$5b/g/        { ld de,(g)          }
+          $3a/nr/$57/       { ld a,(nr): ld d,a  }
+          $3a/r/            { ld a,(rood)        }
+          $07/$07/$07/$07/  { 4* rlca            }
+          $47/              { ld b,a             }
+          $3a/b/$b0/        { ld a,(b): or b     }
+          $fd/$2a/$f7/$fa/  { ld iy,(#faf7)      }
+          $dd/$21/$4d/$01/  { ld ix,#014d        }
+          $cd/$1c/$00);     { call #1c           }
+end;
+
+{ ******************************************************************** }
+
+procedure getpalette (    nr   : Byte;
+                      var r,g,b: Byte);
+
+var
+  r2,g2,b2: Byte;
+
+begin
+  inline ($3a/nr/
+          $fd/$2a/$f7/$fa/  { ld iy,(#faf7)      }
+          $dd/$21/$49/$01/  { ld ix,#0149        }
+          $cd/$1c/$00/      { call #1c           }
+          $79/$32/g2/       { ld a,c: ld (g2),a  }
+          $78/$e6/$0f/      { ld a,b: and 15     }
+          $32/b2/           { ld (b2),a          }
+          $78/$07/$07/      { ld a,b: rlca: rlca }
+          $07/$07/$e6/$0f/  { rlca: rlca: and 15 }
+          $32/r2);          { ld (r2),a          }
+  r := r2;
+  g := g2;
+  b := b2;
+end;
+
+{ ******************************************************************** }
+
+procedure inipalette;
+
+begin
+  inline ($fd/$2a/$f7/$fa/  { ld iy,(#faf7)      }
+          $dd/$21/$41/$01/  { ld ix,#0141        }
+          $cd/$1c/$00);     { call #1c           }
+end;
+
+{ ******************************************************************** }
+
+procedure setpage(acp,dpp: byte);
+
+begin
+  dppage := dpp;
+  acpage := acp;
+  inline ($fd/$2a/$f7/$fa/  { ld iy,(#faf7)      }
+          $dd/$21/$3d/$01/  { ld ix,#013d        }
+          $cd/$1c/$00);     { call #1c           }
+end;
+
+{ ******************************************************************** }
+
+function RomBios : Byte;
+
+var
+  Versie: Byte;
+
+begin
+  inline ($3a/$c1/$fc/      { ld a,(#fcc1        }
+          $21/$2d/$00/      { ld hl,#2d          }
+          $cd/$0c/$00/      { call #0c   ; rdslt }
+          $32/Versie/       { ld (versie),a      }
+          $fb);             { ei                 }
+  RomBios := Versie;
+end;
+
+{ ******************************************************************** }
+
+procedure SetCPU(mode:byte);
+
+begin
+  if RomBios >= 3 then
+    inline ($3a/mode/         { ld a,(mode)   }
+            $fd/$2a/$c0/$fc/  { ld iy,(#fcc0) }
+            $dd/$21/$80/$01/  { ld ix,#180    }
+            $cd/$1c/$00);     { call #1c      }
+end;
+
+{ ******************************************************************** }
+
+function GetCPU: Byte;
+
+var
+  mode: byte;
+
+begin
+  if RomBios >= 3 then
+    inline ($fd/$2a/$c0/$fc/  { ld iy,(#fcc0) }
+            $dd/$21/$83/$01/  { ld ix,#183    }
+            $cd/$1c/$00/      { call #1c      }
+            $32/mode)         { ld (mode),a   }
+  else
+    mode := 0;
+  GetCPU := mode;
+end;
+
+{ ******************************************************************** }
+
+procedure IniMulTurbo;
+
+begin
+  IF (RomBios >= 3)    AND  { turbo r ??? }
+     (mem[$6f5] = $4b) AND  { en goede routine ??   }
+     (mem[$6f6] = $42)      { (==> zeker versie3.0) }
+  THEN
+  BEGIN
+    mem[$6f7] := $ed;
+    mem[$6f8] := $c3;       { muluw bc       }
+    mem[$6f9] := $c9;       { ret            }
+    IF GetCPU=0 THEN
+      SetCPU ($81);         { selecteer r800 !! }
+  END;
+end;
+
+{ ******************************************************************** }
+
+procedure RestMulTurbo;
+
+begin
+  IF (RomBios >= 3)    AND  { turbo r ??? }
+     (mem[$6f5] = $4b) AND  { en goede routine ??   }
+     (mem[$6f6] = $42)      { (==> zeker versie3.0) }
+  THEN
+  BEGIN
+    mem[$6f7] := $eb;       { ex de,hl       }
+    mem[$6f8] := $7a;       { ld a,d         }
+    mem[$6f9] := $b7;       { or a           }
+  END;
+end;
+
+{ ******************************************************************** }
+
+function readkey : char;
+
+var
+  hulpchar : char;
+
+begin
+  read (kbd,hulpchar);
+  readkey := hulpchar;
+end;
+
+{ ******************************************************************** }
+
+procedure setrd(addr:integer);
+
+begin
+ inline ($fd/$2a/$c0/$fc/
+         $dd/$21/$6e/$01/
+         $2a/addr/
+         $cd/$1c/$00);
+end;
+
+{ ******************************************************************** }
+
+procedure setwrt (addr:integer);
+begin
+ inline($fd/$2a/$c0/$fc/
+        $dd/$21/$71/$01/
+        $2a/addr/
+        $cd/$1c/$00);
+end;
+
+{ ******************************************************************** }
+
+procedure VDP(NR,DATA:BYTE);
+BEGIN
+ inline ($3A/NR/          {LD A,(NR)         }
+         $4F/             {LD C,A            }
+         $3A/DATA/        {LD A,(DATA)       }
+         $47/             {LD B,A            }
+         $DD/$21/$47/$00/ {LD IX,VDP         }
+         $FD/$2A/$C0/$FC/ {LD IY,(SLOTIND)   }
+         $CD/$1C/$00)     {CALL SLOT         }
+END;
+
+{ ******************************************************************** }
+
+function VdpStatus (NR:BYTE):BYTE;
+VAR
+  HulpStatus : BYTE;
+
+BEGIN
+  inline ($F3/            {DI                }
+          $3A/NR/         {LD A,(NR)         }
+          $D3/$99/        {OUT (#99),A       }
+          $3E/$8F/        {LD A,#8F          }
+          $D3/$99/        {OUT (#99),A       }
+          $F5/$F1/        {PUSH AF,POP AF    }
+          $DB/$99/        {IN A,(#99)        }
+          $32/HulpStatus/ {LD (HulpStatus),A }
+          $AF/            {XOR A             }
+          $D3/$99/        {OUT (#99),A       }
+          $3E/$8F/        {LD A,#8F          }
+          $D3/$99/        {OUT (#99),A       }
+          $FB);           {EI                }
+          VdpStatus := HulpStatus;
+END;
+
+{ ******************************************************************** }
+
+procedure vdp_command (commando: byte);
+
+begin
+  vdp_data.commando := commando;
+  repeat until (VdpStatus(2) AND 1)=0;
+  vdp(17,32);   { vdp(17)=32 => control registers }
+  inline ($21/vdp_data/   {LD HL,vdp_data    }
+          $01/$9B/$0F/    {LD BC,$0F9B       }
+          $ED/$B3)        {OTIR              }
+end;
+
+{ ******************************************************************** }
+
+procedure Line2 (XB,YB,XE,YE,FUNCTIE:INTEGER;COLOR:BYTE);
+
+BEGIN
+ inline ($2A/XE/          {LD HL,(X EIND) }
+         $22/$B3/$FC/     {LD (GXPOS),HL  }
+         $2A/YE/          {LD HL,(Y EIND) }
+         $22/$B5/$FC/     {LD (GYPOS),HL  }
+         $3A/COLOR/       {LD A,(COLOR)   }
+         $32/$F2/$F3/     {LD (C-CODE),A  }
+         $ED/$4B/XB/      {LD BC,(XBEGIN) }
+         $ED/$5B/YB/      {LD DE,(YBEGIN) }
+         $DD/$2A/FUNCTIE/ {LD IX,(FUNCTIE)}
+         $FD/$2A/$F7/$FA/ {LD IY,(MSX-2)  }
+         $CD/$1C/$00);    {CALL Line      }
+END;
+
+{ ******************************************************************** }
+
+procedure Line (XB,YB,XE,YE:INTEGER;COLOR:BYTE);
+
+VAR
+ FUNCTIE: INTEGER;
+
+BEGIN
+ FUNCTIE:=$0085;
+ Line2 (XB,YB,XE,YE,FUNCTIE,COLOR);
+END;
+
+{ ******************************************************************** }
+
+procedure LineBox (XB,YB,XE,YE:INTEGER;COLOR:BYTE);
+
+VAR
+ FUNCTIE:INTEGER;
+
+BEGIN
+ FUNCTIE:=$00C9;
+ Line2 (XB,YB,XE,YE,FUNCTIE,COLOR);
+END;
+
+{ ******************************************************************** }
+
+procedure FillBox (XB,YB,XE,YE:INTEGER;COLOR:BYTE);
+
+VAR
+ FUNCTIE:INTEGER;
+
+BEGIN
+ FUNCTIE:=$00CD;
+ Line2 (XB,YB,XE,YE,FUNCTIE,COLOR);
+END;
+
+{ ******************************************************************** }
+
+procedure Screen (N:BYTE);
+VAR
+  tn : byte;
+
+BEGIN
+ { if N<2 then conoutptr:=connorm else conoutptr:=addr(GRPPRT) ;}
+ if (n<=8) then
+   tn := n
+ else
+   tn := 8;
+
+ inline ($3A/tn/           {LD A,(TN)    }
+         $FD/$2A/$C0/$FC/  {LD IY,(MSX-1)}
+         $DD/$21/$5F/$00/  {LD IX,SCREEN }
+         $CD/$1C/$00);     {CALL SCREEN  }
+ if (n=10) or (n=11) then
+   vdp(25, 24)    { set YAE, YJK }
+ else if (n=12) then
+   vdp(25, 8);   { set YJK }
+END;
+
+{ ******************************************************************** }
+
+procedure Halt (error: byte);
+
+begin
+  bakclr := oldbak;
+  bdrclr  := oldbdr;
+
+  screen(0);
+  inipalette;
+  if hi(dosver) < 2 then
+    inline($c7)           { rst 0 }
+  else
+    inline($0e/$62/          { ld c,#62        }
+           $3a/error/        { ld a,(error)    }
+           $47/              { ld b,a          }
+           $c3/$05/$00)      { jp 5            }
+end;
+
+{ ******************************************************************** }
+
+procedure Pset (dx,dy: Integer; color: byte);
+
+begin
+  inline($F3/$01/$99/$8F/$11/$9B/$99/$3E/
+         $02/$ED/$79/$ED/$41/$ED/$78/$E6/
+         $01/$20/$FA/$3E/$24/$ED/$79/$3E/
+         $91/$ED/$79/$4B/$2A/dx     /$ED/
+         $69/$ED/$61/$3A/dy     /$ED/$79/
+         $3a/acpage /
+         $ED/$79/$4A/$3E/$2C/$ED/$79/$3E/
+         $91/$ED/$79/$4B/$3A/color  /$ED/
+         $79/$AF/$ED/$79/$3E/$50/$ED/$79/
+         $4A/$AF/$ED/$79/$3E/$8F/$ED/$79/
+         $FB)
+end;
+
+{ ******************************************************************** }
+
+function Point(sx,sy: Integer): Byte;
+
+var
+  color : byte;
+
+begin
+  inline($F3/$01/$99/$8F/$11/$9B/$99/$3E/
+         $02/$ED/$79/$ED/$41/$ED/$78/$E6/
+         $01/$20/$FA/$3E/$20/$ED/$79/$3E/
+         $91/$ED/$79/$4B/$2A/sx     /$ED/
+         $69/$ED/$61/$3A/sy     /$ED/$79/
+         $3a/acpage /
+         $ED/$79/$4A/$AF/$ED/$79/$3E/$AD/
+         $ED/$79/$3E/$40/$ED/$79/$3E/$AE/
+         $ED/$79/$F5/$F1/$ED/$78/$E6/$01/
+         $20/$FA/$3E/$07/$ED/$79/$ED/$41/
+         $ED/$78/$32/color  /$AF/$ED/$79/
+         $ED/$41/$FB);
+  point := color;
+end;
+
