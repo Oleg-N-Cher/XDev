@@ -3,9 +3,9 @@ MODULE Platform;	(* non-portable *)
 IMPORT SYSTEM;
 
 TYPE
-  BYTE* = SYSTEM.BYTE; (** Non-system end-user-level BYTE. *)
-  OCTET* = SYSTEM.BYTE; (** BYTE that is exactly 8 bit. *)
-  STRING* = ARRAY [1] OF CHAR; (** Untagged ARRAY OF CHAR. *)
+  Byte* = BYTE; (** Non-system end-user-level BYTE. *)
+  OCTET* = BYTE; (** BYTE that is exactly 8 bit. *)
+  STRING* = ARRAY[1] OF CHAR; (** Untagged ARRAY OF CHAR. *)
 
 PROCEDURE -free (memblock: SYSTEM.PTR)	"free(memblock)";
 
@@ -19,7 +19,7 @@ BEGIN
   RETURN SYSTEM.VAL(INTEGER, s)
 END ORD;
 
-PROCEDURE Unsigned* (i: SYSTEM.LONGCARD): BYTE;
+PROCEDURE Unsigned* (i: LONGINT): BYTE;
 BEGIN
 	RETURN SHORT(SHORT(i))
 END Unsigned;
