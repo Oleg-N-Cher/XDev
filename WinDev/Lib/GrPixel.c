@@ -40,7 +40,7 @@ void GrPixel_PutActualPixel8Lock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
 		if (SdlLib_LockSurface(GrScr_Screen)) {
-			__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(SYSTEM_BYTE, GrPixel_ink), SYSTEM_BYTE);
+			__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(BYTE, GrPixel_ink), BYTE);
 			SdlLib_UnlockSurface(GrScr_Screen);
 		}
 	}
@@ -50,7 +50,7 @@ void GrPixel_PutActualPixel8Lock (INTEGER x, INTEGER y)
 void GrPixel_PutActualPixel8NoLock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(SYSTEM_BYTE, GrPixel_ink), SYSTEM_BYTE);
+		__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(BYTE, GrPixel_ink), BYTE);
 	}
 }
 
@@ -81,7 +81,7 @@ void GrPixel_PutActualPixel24Lock (INTEGER x, INTEGER y)
 		if (SdlLib_LockSurface(GrScr_Screen)) {
 			addr = ((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)(x * 3);
 			__PUT(addr, __VAL(SHORTINT, GrPixel_ink), SHORTINT);
-			__PUT(addr + 2, (SYSTEM_BYTE)__LSHR(GrPixel_ink, 16, INTEGER), SYSTEM_BYTE);
+			__PUT(addr + 2, (BYTE)__LSHR(GrPixel_ink, 16, INTEGER), BYTE);
 			SdlLib_UnlockSurface(GrScr_Screen);
 		}
 	}
@@ -94,7 +94,7 @@ void GrPixel_PutActualPixel24NoLock (INTEGER x, INTEGER y)
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
 		addr = ((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)(x * 3);
 		__PUT(addr, __VAL(SHORTINT, GrPixel_ink), SHORTINT);
-		__PUT(addr + 2, (SYSTEM_BYTE)__LSHR(GrPixel_ink, 16, INTEGER), SYSTEM_BYTE);
+		__PUT(addr + 2, (BYTE)__LSHR(GrPixel_ink, 16, INTEGER), BYTE);
 	}
 }
 

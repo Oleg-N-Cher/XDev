@@ -17,7 +17,7 @@ BEGIN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x,
-          SYSTEM.VAL(SYSTEM.BYTE, ink));
+          SYSTEM.VAL(BYTE, ink));
         Sdl.UnlockSurface(GrScr.Screen);
       END;
   END;
@@ -29,7 +29,7 @@ BEGIN
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       SYSTEM.PUT(
         SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x,
-        SYSTEM.VAL(SYSTEM.BYTE, ink));
+        SYSTEM.VAL(BYTE, ink));
   END;
 END PutActualPixel8NoLock;
 
@@ -66,7 +66,7 @@ BEGIN
       IF Sdl.LockSurface(GrScr.Screen) THEN
         addr := SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*3;
         SYSTEM.PUT(addr,   SYSTEM.VAL(SHORTINT, ink));
-        SYSTEM.PUT(addr+2, SYSTEM.VAL(SYSTEM.BYTE, SYSTEM.LSH(ink, -16)));
+        SYSTEM.PUT(addr+2, SYSTEM.VAL(BYTE, SYSTEM.LSH(ink, -16)));
         Sdl.UnlockSurface(GrScr.Screen);
       END;
   END;
@@ -80,7 +80,7 @@ BEGIN
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
       addr := SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*3;
       SYSTEM.PUT(addr,   SYSTEM.VAL(SHORTINT, ink));
-      SYSTEM.PUT(addr+2, SYSTEM.VAL(SYSTEM.BYTE, SYSTEM.LSH(ink, -16)));
+      SYSTEM.PUT(addr+2, SYSTEM.VAL(BYTE, SYSTEM.LSH(ink, -16)));
   END;
 END PutActualPixel24NoLock;
 
