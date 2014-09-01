@@ -14,7 +14,7 @@ import GrColors_Colors Console_BlackOnBlack, Console_BlueOnBlack, Console_GreenO
 import void Console_At (INTEGER x, INTEGER y);
 import void Console_Clear (INTEGER colors);
 import void Console_SetColors (GrColors_Colors n);
-import void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
+import void Console_SetFont (BYTE *font, LONGINT font__len);
 import void Console_WriteCh (CHAR ch);
 import void Console_WriteHex (INTEGER val);
 import void Console_WriteInt (LONGINT n);
