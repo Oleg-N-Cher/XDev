@@ -6,27 +6,29 @@
 #include "SdlLib.h"
 
 typedef
-	SYSTEM_BYTE *GrTiles_Tile;
+	BYTE *GrTiles_Tile;
 
 typedef
-	SYSTEM_BYTE GrTiles_Tile8x8[8];
+	BYTE GrTiles_Tile8x8[8];
 
 typedef
-	SYSTEM_BYTE *GrTiles_TranspTile;
+	BYTE *GrTiles_TranspTile;
 
 typedef
-	SYSTEM_BYTE GrTiles_TranspTile8x8[16];
+	BYTE GrTiles_TranspTile8x8[16];
 
 
-export void (*GrTiles_DrawMonoTile)(INTEGER, INTEGER, SYSTEM_BYTE*, LONGINT , GrColors_Colors);
-export void (*GrTiles_DrawTranspMonoTile)(INTEGER, INTEGER, SYSTEM_BYTE*, LONGINT , GrColors_Colors);
+export void (*GrTiles_DrawMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrColors_Colors);
+export void (*GrTiles_DrawTranspMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrColors_Colors);
 
 
-export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
-export void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
+export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
+export void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
 
 
-void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
+/*============================================================================*/
+
+void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
 {
 	CHAR mask;
 	SHORTINT byte, bit;
@@ -39,13 +41,11 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 		return;
 	}
 	byte = 0;
-	_for__3 = 7;
-	_for__3 = (_for__3 - byte) + 1;
+	_for__3 = 8;
 	do {
 		mask = __VAL(CHAR, tile[__X(byte, tile__len)]);
 		bit = 0;
-		_for__2 = 7;
-		_for__2 = (_for__2 - bit) + 1;
+		_for__2 = 8;
 		do {
 			if (mask >= 0x80) {
 				GrPixel_Ink(colors.ink);
@@ -56,19 +56,18 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT t
 			}
 			mask = __LSHL(mask, 1, CHAR);
 			bit += 1;
-			_for__2 -= 1;
-		} while (!(_for__2 == 0));
+		} while (--_for__2);
 		y += 1;
 		byte += 1;
-		_for__3 -= 1;
-	} while (!(_for__3 == 0));
+	} while (--_for__3);
 	if (GrScr_MustLock) {
 		SdlLib_UnlockSurface(GrScr_Screen);
 	}
 	GrPixel_Ink(inkTemp);
 }
 
-void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
+/*----------------------------------------------------------------------------*/
+void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
 {
 	CHAR mask, transp;
 	SHORTINT byte, bit;
@@ -81,14 +80,12 @@ void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LON
 		return;
 	}
 	byte = 0;
-	_for__6 = 7;
-	_for__6 = (_for__6 - byte) + 1;
+	_for__6 = 8;
 	do {
 		mask = __VAL(CHAR, tile[__X(byte, tile__len)]);
 		transp = __VAL(CHAR, tile[__X(byte + 8, tile__len)]);
 		bit = 0;
-		_for__5 = 7;
-		_for__5 = (_for__5 - bit) + 1;
+		_for__5 = 8;
 		do {
 			if (transp < 0x80) {
 				if (mask >= 0x80) {
@@ -102,18 +99,17 @@ void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, SYSTEM_BYTE *tile, LON
 			mask = __LSHL(mask, 1, CHAR);
 			transp = __LSHL(transp, 1, CHAR);
 			bit += 1;
-			_for__5 -= 1;
-		} while (!(_for__5 == 0));
+		} while (--_for__5);
 		y += 1;
 		byte += 1;
-		_for__6 -= 1;
-	} while (!(_for__6 == 0));
+	} while (--_for__6);
 	if (GrScr_MustLock) {
 		SdlLib_UnlockSurface(GrScr_Screen);
 	}
 	GrPixel_Ink(inkTemp);
 }
 
+/*----------------------------------------------------------------------------*/
 
 export void *GrTiles__init(void)
 {

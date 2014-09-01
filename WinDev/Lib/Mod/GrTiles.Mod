@@ -4,10 +4,10 @@ IMPORT SYSTEM, Sdl := SdlLib, GrScr, GrPixel, GrColors;
 TYPE
   Color = GrScr.Color;
   Coords* = INTEGER;
-  Tile = ARRAY[1] OF SYSTEM.BYTE;
-  Tile8x8* = ARRAY[1] 8 OF SYSTEM.BYTE;
-  TranspTile = ARRAY[1] OF SYSTEM.BYTE;
-  TranspTile8x8* = ARRAY[1] 8 * 2 OF SYSTEM.BYTE;
+  Tile = ARRAY[1] OF BYTE;
+  Tile8x8* = ARRAY[1] 8 OF BYTE;
+  TranspTile = ARRAY[1] OF BYTE;
+  TranspTile8x8* = ARRAY[1] 8 * 2 OF BYTE;
 
 VAR
   DrawMonoTile-: PROCEDURE (
