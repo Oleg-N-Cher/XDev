@@ -1,0 +1,306 @@
+<html>
+<head>
+	<title>Avelino's MSX page</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+
+<body>
+	<center>
+		<h1>MSX Page</h1>
+		<h4><a href="mailto:avelinoherrera@gmail.com">Avelino Herrera Morales</a></h4>
+		<br>
+		<h5><a href="index_es.html">Espa&ntilde;ol</a></h5>
+		<p><a href="http://avelino.atlantes.org/blog">blog</a></p>
+	</center>
+	<br/>
+	<br/>
+	<!--
+	<p align="right">Hosted by <a href="http://www.gabiot.com">gabiot.com</a></p>
+	<a href="http://www.gabiot.com"><img src="logo_gabiot.png" width="90" align="right"></img></a>
+	-->
+	<br/>
+	<hr/>
+	<p>By this page i want to offer my MSX projects to the community. Sorry about my poor english writting. I am spanish :-)</p>
+	<ul>
+		<li><a href="#sdccmsxdos">SDCC backend for MSXDOS</a> (updated basic heap usage for <code>crt0msx_msxdos_advanced.s</code>)</li>
+		<li><a href="#sdccmsx">SDCC backend for MSX ROMs</a> (section started with Alberto Orante updates)</li>
+		<li><a href="#moonsound">Moonsound programming</a></li>
+		<li><a href="#huffman">Huffman compression</a></li>
+		<li><a href="#graphics">Graphics</a></li>
+		<li><a href="#psg">PSG</a></li>
+		<li><a href="#fixedpoint">Fixed point</a></li>
+		<li><a href="#doc">Documents</a></li>
+	</ul>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="sdccmsxdos"></a>
+	<center><h4>SDCC backend for MSXDOS</h4></center>
+	<p>The <a href="http://sdcc.sourceforge.net">SDCC</a> is a cross-compiler for small devices that runs in Windows and in Unix/Linux platforms, that allows you to generate code for a large variety of 8-bit and 16-bit platforms. Among these plataforms we have the Z80 and the Z80 with GameBoy extensions (GBZ80).</p>
+	<p>The Z80 code that SDCC generates by default is not MSX targeted and the final output is always an IntelHex file with the code. With this backend modification for MSXDOS we will be able to easily convert these IntelHex output files into .COM files. The system requirements for cross-compiling are (for both Windows/Unix/Linux platforms):</p>
+	<ul>
+		<li><a href="http://sdcc.sourceforge.net">sdcc</a> compiler installed. Version 2.9.0 or later (I recomend to use a recent snapshot).</li>
+		<li><a href="http://sourceforge.net/projects/hex2bin">hex2bin</a> conversor installed</li>
+	</ul>
+	<p>Both packages can be installed from binaries or sources. The basic files needed to generate .COM MSXDOS executables are:</p>
+	<ul>
+		<li><a href="sdcc_msx/crt0msx_msxdos.s">crt0msx_msxdos.s</a> The <i>startup</i> code that linker needs to generate an easily convertible IntelHex output file</li>
+		<li><a href="sdcc_msx/crt0msx_msxdos_advanced.s">crt0msx_msxdos_advanced.s</a> An alternate <i>startup</i> code that allows to use standard main arguments to read command line parameters (<code>int main(char **argv, int argc)</code>). It adds a few overhead bytes</li>
+		<li><a href="sdcc_msx/types.h">types.h</a> Standard types</li>
+		<li><a href="sdcc_msx/putchar.s">putchar.s</a> MSXDOS compatible <i>putchar</i> function</li>
+		<li><a href="sdcc_msx/getchar.s">getchar.s</a> MSXDOS compatible <i>getchar</i> function</li>
+		<li><a href="sdcc_msx/dos.s">dos.s</a>/<a href="sdcc_msx/dos.h">dos.h</a> MSXDOS functions</li>
+		<li><a href="sdcc_msx/dos2.s">dos2.s</a>/<a href="sdcc_msx/dos2.h">dos2.h</a> MSXDOS2 functions</li>
+		<li><a href="sdcc_msx/interrupt.s">interrupt.s</a>/<a href="sdcc_msx/interrupt.h">interrupt.h</a> Interrupt handling routines</li>
+		<li><a href="sdcc_msx/ioport.s">ioport.s</a>/<a href="sdcc_msx/ioport.h">ioport.h</a> Port addressing routines <code>in</code> and <code>out</code> to to make easy the Hitech C code compatibility</li>
+		<li><a href="sdcc_msx/conio.c">conio.c</a>/<a href="sdcc_msx/conio.h">conio.h</a> Basic console I/O routines</li>
+		<li><a href="sdcc_msx/heap.c">heap.c</a>/<a href="sdcc_msx/heap.h">heap.h</a> Basic heap routines (<i>malloc</i>, <i>free</i>)</li>
+		<li><a href="sdcc_msx/keyboard.s">keyboard.s</a>/<a href="sdcc_msx/keyboard.h">keyboard.h</a> Keyboard routines</li>
+		<li><a href="sdcc_msx/vdp.s">vdp.s</a>/<a href="sdcc_msx/vdp.h">vdp.h</a> Some VDP routines</li>
+		<li><a href="sdcc_msx/mem.c">mem.c</a>/<a href="sdcc_msx/mem.h">mem.h</a> <code>memcpy</code> and <code>memset</code> functions</li>
+	</ul>
+	<p>First we have to do is to assemble the <code>.s</code> previous files and to compile the <code>.c</code> previous files using the <code>sdasz80</code> assembler and the <code>sdcc</code> compiler included in SDCC package:</p>
+	<ul>
+		<li><code>$ sdasz80 -o crt0msx_msxdos.s</code> "or" <code>$ sdasz80 -o crt0msx_msxdos_advanced.s</code></li>
+		<li><code>$ sdasz80 -o putchar.s</code></li>
+		<li><code>$ sdasz80 -o getchar.s</code></li>
+		<li><code>$ sdasz80 -o dos.s</code></li>
+		<li><code>$ sdasz80 -o dos2.s</code></li>
+		<li><code>$ sdasz80 -o interrupt.s</code></li>
+		<li><code>$ sdasz80 -o ioport.s</code></li>
+		<li><code>$ sdasz80 -o keyboard.s</code></li>
+		<li><code>$ sdasz80 -o vdp.s</code></li>
+		<li><code>$ sdcc -mz80 -c -o conio.rel conio.c</code></li>
+		<li><code>$ sdcc -mz80 -c -o heap.rel heap.c</code></li>
+		<li><code>$ sdcc -mz80 -c -o mem.rel mem.c</code></li>
+	</ul>
+	<p>We obtain 11 object files with <code>.rel</code> extension and same name. Let's write a small C sample code for testing <code><a href="sdcc_msx/ej.c">ej.c</a></code>:
+
+	<pre>
+#include "conio.h"
+#include "dos.h"
+
+void main(void) {
+    puts("Hello, world :-)\r\n");
+    exit(0);
+}
+	</pre>
+
+	<p>That we compile this way:</p>
+	<code>$ sdcc -mz80 --code-loc XXXX --data-loc 0 --no-std-crt0 crt0msx_msxdos.rel putchar.rel getchar.rel dos.rel conio.rel ej.c</code>
+	<p>One notice the <code>--no-std-crt0</code> parameter, that indicates the compiler that should not use the default startup code for Z80, but we provide by command line. XXXX indicates code location: for <code>crt0msx_msxdos.s</code> XXXX = 0x0107 and for <code>crt0msx_msxdos_advanced.s</code> XXXX = 0x0178. Global variables will be allocated just after code.</p>
+	<p>If there are no compile-time errors, among the output files we should have the <code>ej.ihx</code> IntelHex file. Now we process this file with the <code>hex2bin</code> tool to obtain a binary code:</p>
+	<code>$ hex2bin ej.ihx</code>
+	<p>After this command we should have a <code>ej.bin</code> in the current folder, that we can rename directly to <code>ej.com</code> and execute it in our MSX:</p>
+	<code>$ mv ej.bin ej.com</code>
+
+	<h5>Usage examples</h5>
+	<ul>
+		<li>Loading a GE5 screen without palette:</li>
+<pre>
+#include "types.h"
+#include "mem.h"
+#include "dos.h"
+#include "vdp.h"
+
+uint8_t scratch[128];
+
+uint8_t ge5_load(char *file_name, uint8_t vramh, uint16_t vraml) {
+    fcb f;
+    uint8_t i;
+    memset((uint8_t *) &f, 0, sizeof(fcb));
+    f.record_size = 128;
+    f.drive = 0;
+    memcpy(f.name, file_name, 11);
+    if (open(&f) != 0)
+        return 0;
+    vdp_set_write_address(vramh, vraml);
+    for (i = 0; i < 213; i++) {
+        if (block_set_data_ptr(scratch) != 0)
+            return 0;
+        if (block_read(&f) != 0)
+            return 0;
+        if (i == 0)
+            vdp_load_screen(scratch + 7, 121);   // to skip GE5 header
+        else
+            vdp_load_screen(scratch, 128);
+    }
+    close(&f);
+    return 1;
+}
+
+int main(void) {
+    vdp_set_screen5();
+    ge5_load("EXAMPLE GE5", 0, 0x0000);        // load at visible VRAM
+    getchar();
+    vdp_set_text();
+    exit(0);
+}
+</pre>
+	</ul>
+
+	<h5>Additional files</h5>
+	<ul>
+		<li>A <a href="sdcc_msx/cc.bat">script</a> for compilation in Windows platforms by Nestor Soriano.</li>
+		<li>An example <a href="sdcc_msx/params.c">program</a> to test global data initialization and <code>main</code> function parameters (<code>crt0msx_msxdos_advanced.s</code>).</li>
+		<li><a href="sdcc_msx/msx_pnp_template.zip">A template</a> for the Programmer's Notepad.</li>
+	</ul>
+
+	<h5>Greetings</h5>
+	<ul>
+		<li>To Manuel Pazos and Armando P&eacute;rez Abad for they support in the interrupt handling routines.</li>
+		<li>To N&eacute;stor Soriano (Konami Man) for his patch for <code>main</code> function parameters and for solve global data initialization problem.</li>
+		<li>To John Ames for the Programmer's Notepad template.</li>
+		<li>To "aorante".</li>
+	</ul>
+
+	<h5>History</h5>
+	<ul>
+		<li><i>August 12th 2010</i> - <code>memcpy</code>, <code>memset</code>, additional VDP routines and a file read example added.</li>
+		<li><i>July 20th 2010</i> - Latest SDCC snapshots upgrade.</li>
+		<li><i>November 25th 2009</i> - SDCC 2.9.0 upgrade.</li>
+		<li><i>June 10th 2009</i> - A Programmer's Notepad template added.</li>
+		<li><i>March 29th 2006</i> - <code>files.h</code> and <code>files.s</code> has been patched. Now <code>lseek</code> function is POSIX compliant.</li>
+		<li><i>March 20th 2006</i> - Some minor changes due to SDCC version update</li>
+		<li><i>April 14th 2005</i> - More standard I/O port addressing methods <code>out(address, data)</code> and <code>in(address)</code> added.</li>
+		<li><i>April 1st 2005</i> - <code>read</code> and <code>write</code> file access routines return type changed from "unsigned int" to "int" to allow negative results.</li>
+		<li><i>November 22th 2004</i> - <code>main</code> function parameters support added and global variables initialization problem solved.</li>
+		<li><i>November 16th 2004</i> - Interrupt handling routines added.</li>
+		<li><i>October 26th 2004</i> - File handling routines for MSXDOS2 added.</li>
+		<li><i>October 5th 2004</i> - Initial version.</li>
+	</ul>
+
+	<h5>Additional info and related sites</h5>
+	<ul>
+		<li><a href="http://sdcc.sourceforge.net">sdcc</a></li>
+		<li><a href="http://sourceforge.net/projects/hex2bin">hex2bin</a></li>
+		<li><a href="http://www.emucamp.com/boukichi/cbios.htm">Port</a> of the SDCC backend for ROM generation (<a href="sdcc_msx/msxsdcc03.zip">local copy</a>)</li>
+		<li><a href="http://map.tni.nl/resources">MSX Assembly Page</a></li>
+		<li><a href="http://msx.konamiman.com">Konamiman's page</a> (Nestor Soriano) who has developed a SDCC library for InterNestor Lite</li>
+	</ul>
+	<br/>
+	<hr/>
+	<br/>
+
+
+	<a name="sdccmsx"></a>
+	<center><h4>SDCC backend for MSX ROMs</h4></center>
+	<p>The main difference between building COM and ROM files for MSX with SDCC is basically the <code>crt0</code> code. I recommend to read the <a href="#sdccmsxdos">previous</a> section.</p>
+	<p>In the <a href="http://www.nerlaska.com/msx/">Nerlaska's MSX web</a> there are a lot of info about this topic. Both <a href="http://aorante.blogspot.com">Alberto Orante</a> and I will contribute with additional code for building ROMs using SDCC. Here this is a modification of the MSXDOS interrupt routines by Alberto.</p>
+	<ul>
+		<li><a href="sdcc_msx/interrupt_ROM.h">interrupt_ROM.h</a> - Header for interrupt handling in ROMs.</li>
+		<li><a href="sdcc_msx/interrupt_ROM.s">interrupt_ROM.s</a> - Associated assembler.</li>
+	</ul>
+	
+	<h5>Greetings</h5>
+	<ul>
+		<li>To <a href="http://aorante.blogspot.com">Alberto Orante</a> for help supporting these projects.</li>
+	</ul>
+
+	<h5>Additional info and related sites</h5>
+	<ul>
+		<li><a href="http://www.nerlaska.com/msx/">Nerlaska's MSX web</a></li>
+	</ul>
+	<br/>
+	<hr/>
+	<br/>
+
+
+	<a name="moonsound"></a>
+	<center><h4>Moonsound programming</h4></center>
+	<p>In this section I will publish all the Moonsound related C code builded or adapted by me. All the current published codes are related to two articles appeared in the <b>Call MSX</b> spanish magazine about the MSX scene (numbers 3 and 4). These two articles are about Moonsound programming and all the source codes are spanish commented (sorry for the inconvenience).</p>
+	<ul>
+		<li>Wave table part of the OPL4:</li>
+		<ul>
+			<li>Small C program <a href="moonsound/ms2.c">ms2.c</a> written for the Hitech compiler. This program plays a piano note from the wave table part of the OPL4</li>
+			<li>The <a href="moonsound/yrw801.c">yrw801.c</a> code adapted from the <a href="http://www.alsa-project.org">ALSA</a> project source code (GPL and LGPL license) that contains the instrument map of the the YRW801 Moonsound's ROM chip</li>
+		</ul>
+		<li>FM part of the OPL4:</li>
+		<ul>
+			<li><a href="moonsound/ejsbi.c">ejsbi.c</a> written for the SDCC compiler. This program loads a SBI FM sound bank and plays a note of one random instrument</li>
+			<li>SBI General MIDI standard patches included in the <a href="ftp://ftp.alsa-project.org/pub/tools">alsa-tools</a> as a part of the <code>sbiload</code> package:</li>
+			<ul>
+                <li><a href="moonsound/std.sb">std.sb</a> - The General MIDI instruments in 2 operator format</li>
+                <li><a href="moonsound/drums.sb">drums.sb</a> - The General MIDI percussion instruments in 2 operator format</li>
+                <li><a href="moonsound/std.o3">std.o3</a> - The General MIDI instruments in 4 operator format</li>
+                <li><a href="moonsound/drums.o3">drums.o3</a> - The General MIDI percussion instruments in 4 operator format</li>
+			</ul>
+		</ul>
+	</ul>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="huffman"></a>
+	<center><h4>Huffman compression</h4></center>
+	<p>In this section I will put all my work related to Huffman compression implementation for MSX.</p>
+	<p><a href="huffman/huffman.tar.gz">huffman.tar.gz</a> contains an ANSI-C implementation of the Huffman compression/uncompression algorithms. This archive also contains an specific MSX implementation of the uncompress algorithm for the SDCC compiler. This MSX targeted version requires:</p>
+	<ul>
+		<li>The <a href="http://sdcc.sourceforget.net">SDCC</a> compiler. Versi&oacute;n 2.5.0 or later.</li>
+		<li>The IntelHex to binary conversion tool <a href="http://hex2bin.sourceforge.net">hex2bin</a>.</li>
+	</ul>
+	<p>Read the README at <code>huffman/msx</code> subfolder for further details.</p>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="graphics"></a>
+	<center><h4>Graphics</h4></center>
+	<p>In this section I will put source code, tools and data related to VDP programming.</p>
+	<ul>
+		<li>By taking one of the fonts at <a href="http://hoe.pocketheaven.com/hacks/Fonts">http://hoe.pocketheaven.com/hacks/Fonts</a>, I have built an extended char table that covers partially the ISO-8859-1 (AKA Latin1) charset. By now there is only support for native spanish characteres: <code>&aacute; &eacute; &iacute; &oacute; &uacute; &uuml; &Aacute; &Eacute; &Iacute; &Oacute; &Uacute; &Uuml; &ntilde; &Ntilde; &iexcl; &iquest;</code> and some minor symbols. Here is:<br/>
+		<center><img border="0" src="vdp/latin1_charset.png"/></center>
+		</li>
+		<li><a href="vdp/Screen2TileGenerator.tar.gz">Here</a> you can download a small Java tool that converts any B/W image to assembly data for 8x8 <code>screen 2</code> compatible tiles (1 bit per pixel, white = 1, black = 0). <a href="vdp/latin1_charset.z8a">This</a> is the result of applying this utility to the previous Latin1 charset table.</li>
+	</ul>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="psg"></a>
+	<center><h4>PSG</h4></center>
+	<p>PSG programming: tools and source code.</p>
+	<ul>
+		<li><a href="psg/psg_sample.tar.gz">psg_sample.tar.gz</a> - An example program that plays a sound sample ussing the PSG (I suggest to use <a href="http://www.arrakis.es/~ninsesabe/pasmo/">Pasmo</a> cross assembler).</li>
+		<li><a href="psg/raw2nib.c">raw2nib.c</a> - A small utility to convert RAW unsigned 8-bit samples to assembler source valid for the previous <code>psg_sample</code>. This code uses the logaritmic conversion table listed at <a href="http://map.tni.nl/articles/psg_sample.php">http://map.tni.nl/articles/psg_sample.php</a>.</li>
+	</ul>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="fixedpoint"></a>
+	<center><h4>Fixed point</h4></center>
+	<p>Fixed point math related section. For Z80 and/or MSX specific.</p>
+	<ul>
+		<li><a href="punto_fijo/punto_fijo.tar.gz">punto_fijo.tar.gz</a> - Implementation example of some fixed point routines in assembler language and an application example that solves a differential ecuations system using the Euler formula. Sourcecode fully compatible with <a href="http://www.arrakis.es/~ninsesabe/pasmo/">Pasmo</a> GPL cross assembler.</li>
+	</ul>
+
+	<br/>
+	<hr/>
+	<br/>
+
+	<a name="doc"></a>
+	<center><h4>Documents</h4></center>
+	<ul>
+		<li>A <a href="minireferencia_z80_y_bios_msx.pdf">Z80 and MSX BIOS minireference (spanish)</a> writen by <a href="http://www.konamiman.com">The Leader</a>.</li>
+	</ul>
+
+	<br/>
+	<hr/>
+        <!-- Creative Commons License -->
+        <center>
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a><br />
+        <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/">Creative Commons License</a>.</p>
+        </center>
+        <!-- /Creative Commons License -->
+        <br/><br/>
+
+	<p align="right">Page maintained by <a href="mailto:avelinoherrera@gmail.com">Avelino Herrera Morales</a></p>
+</body>
+</html>

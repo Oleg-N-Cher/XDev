@@ -1,0 +1,225 @@
+From: <Сохранено Windows Internet Explorer 8>
+Subject: MSX - The I.N.E.R.T.I.A. Howto
+Date: Fri, 4 Jul 2014 23:29:45 +0300
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CF97DF.D6FDEB60"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.3790.4862
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CF97DF.D6FDEB60
+Content-Type: text/html;
+	charset="windows-1251"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://andrear.altervista.org/contents/msx/inertia/howto/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>MSX - The I.N.E.R.T.I.A. Howto</TITLE>
+<META content=3D"text/html; charset=3Dwindows-1251" =
+http-equiv=3DContent-Type><LINK=20
+rel=3Dstylesheet type=3Dtext/css =
+href=3D"http://andrear.altervista.org/andrear.css">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.23216"></HEAD>
+<BODY>
+<TABLE border=3D0 width=3D"100%">
+  <TBODY>
+  <TR>
+    <TD><A onclick=3Djavascript:window.close()=20
+      =
+href=3D"http://andrear.altervista.org/contents/msx/inertia/howto/#">[Clos=
+e=20
+      window]</A>=20
+      <H2>MSX - The I.N.E.R.T.I.A. Howto</H2></TD><!--<td =
+align=3D"right">=0A=
+    <script language=3D"javascript" type=3D"text/javascript">=0A=
+      document.write('<s'+'cript language=3D"javascript" =
+src=3D"http://ad.altervista.org/alternet.ad?c=3D19&f=3D2&'+new =
+Date().getTime()+'"><\/s'+'cript>');=0A=
+    </script>=0A=
+  </td>--></TR></TBODY></TABLE>
+<P><I>How to install sdcc compiler, additional tools and files, =
+I.N.E.R.T.I.A.=20
+source code, and how to compile it. Instructions are for Windows, but =
+similar=20
+steps could be done on Linux machines. Please also note that I need some =
+
+feedback from you to know if suggested steps effectively work! Thanks in =
+
+advance.</I>=20
+<H3>1. install sdcc</H3>Download the executable installer from <A=20
+href=3D"http://sdcc.sourceforge.net/">http://sdcc.sourceforge.net/<A>. =
+If you have=20
+"limited user" privileges under Windows, you may want to install it in =
+your own=20
+directories instead of the usual "Program Files" folder, to have full =
+access to=20
+sdcc tree and do any kind of mess on it. I know it's not very good =
+style, but=20
+it's a bit easier to manage.=20
+<H3>2. install split</H3>You'll also need to add to the =
+<CODE>sdcc/bin</CODE>=20
+directory the free GNU utility named <CODE>split</CODE>, version for =
+Windows.=20
+SDCC builds a binary image of 64KB, and our 16KB ROM lies in the 2nd =
+quarter of=20
+the image. So we'll split file in four chunks and retrieve the second =
+one,=20
+naming it "inertia.rom".=20
+<P>I found a Windows version of GNU <CODE>split</CODE> searching on =
+Google for=20
+"UnxUtils"; you can download the binaries from <A=20
+href=3D"http://sourceforge.net/projects/unxutils">http://sourceforge.net/=
+projects/unxutils</A>.=20
+
+<P>Note: any file utility allowing to "cut" a binary file could be used =
+there; a=20
+good alternative may be the (more general) <CODE>dd</CODE> file =
+manipulation=20
+utility, which requires a bit of commandline options: input and output =
+file=20
+name, block size, offset... both <CODE>dd</CODE> and <CODE>split</CODE> =
+are=20
+available in the UnxUtils package.=20
+<H3>3. replace crt0.o</H3>When you build an executable with a C =
+compiler, it=20
+usually adds module <CODE>crt0.o</CODE> as a header to the linked =
+executable=20
+file. You'll have to replace standard <CODE>lib/z80/crt0.o</CODE> with =
+one=20
+explicitly designed to work as an MSX ROM header. Original author of =
+this file=20
+is the Japanese MSX user Boukichi, I just added at bottom the standard=20
+<CODE>initrleblock</CODE> routine, I think it's needed for sdcc to =
+handle=20
+correctly static strings and arrays of strings.=20
+<P><B>Warning</B>: <CODE>crt0.o</CODE> contains the hardcoded value of =
+0x4000 as=20
+starting address for the ROM. If you want to build for instance ROMS =
+starting at=20
+0x8000, you'll need to change that hardcoded value accordingly.=20
+<P><A=20
+href=3D"http://andrear.altervista.org/contents/msx/inertia/src/crt0.o">[D=
+ownload=20
+here crt0.o, object file to build a 16KB ROM at 0x4000]</A><BR><A=20
+href=3D"http://andrear.altervista.org/contents/msx/inertia/src/crt0msx.s"=
+>[Download=20
+here crt0msx.s, source file to build a 16KB ROM at 0x4000]</A>=20
+<H3>4. add sdcc-msx.bat startup file</H3>It's easier to start work with =
+sdcc by=20
+simply clicking an icon. I wrote my simple batch startup file and put it =
+in main=20
+<CODE>sdcc</CODE> directory, you may use it too. Just remember to change =
+the=20
+full <CODE>sdcc/bin</CODE> pathname according to your installing path. =
+To check=20
+a correct startup file, you could type <CODE>sdcc</CODE> on command line =
+(you=20
+should see the help screen for options).=20
+<P><A=20
+href=3D"http://andrear.altervista.org/contents/msx/inertia/src/sdcc-msx.b=
+at">[Download=20
+here sdcc-msx.bat file]</A>.=20
+<H3>5. extract I.N.E.R.T.I.A. sources</H3>Go to <CODE>sdcc</CODE> main =
+directory=20
+and simply unpack the source tree from zip file. Your sdcc tree should =
+now be=20
+something like this:=20
+<P>
+<CENTER><IMG=20
+src=3D"http://andrear.altervista.org/contents/msx/inertia/howto/sdcctree.=
+png"></CENTER>
+<P><A=20
+href=3D"http://andrear.altervista.org/contents/msx/inertia/src/inertia-so=
+urces.zip">[Download=20
+here ZIP file with sources]</A>=20
+<H3>6. compile!</H3>If all steps were right, you could now start=20
+<CODE>sdcc</CODE>, go into <CODE>sdcc/msx/inertia</CODE> directory, and =
+try=20
+compiling. You may also want to have a look inside =
+<CODE>make.bat</CODE>, to see=20
+what options were passed to the compiler and how the final ROM image was =
+
+obtained.=20
+<UL type=3Ddisc>
+  <LI>type <CODE>make buildall</CODE> to build and link all files (a lot =
+of=20
+  warnings are generated, as my code contains some Z80 machine code).=20
+  <LI>if you already made buildall and you are only changing main.c, =
+type=20
+  <CODE>make main</CODE> to compile only main.c file and build =
+inertia.rom;=20
+  main.c has no Z80 machine code, no warnings should arise this time.=20
+  <LI>a <CODE>make clean</CODE> command is also available. It deletes =
+all=20
+  intermediate files and inertia.rom (so be careful).=20
+  <LI>any other <CODE>make xxxxxx</CODE> option displays the usage =
+screen.=20
+</LI></UL>
+<P>Hope you enjoy and build without too much pain. Please drop me a line =
+to=20
+confirm that everything works as expected, thanks in advance.=20
+<P>Andrea </P></BODY></HTML>
+
+------=_NextPart_000_0000_01CF97DF.D6FDEB60
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://andrear.altervista.org/contents/msx/inertia/howto/sdcctree.png
+
+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
+
+------=_NextPart_000_0000_01CF97DF.D6FDEB60
+Content-Type: text/css;
+	charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://andrear.altervista.org/andrear.css
+
+BODY {
+	FONT-FAMILY: Verdana; BACKGROUND: =
+url(/home/templates/paragliding/images/content-wrap.jpg) #fff repeat-x; =
+FONT-SIZE: 80%
+}
+TABLE {
+	FONT-FAMILY: Verdana; FONT-SIZE: 80%
+}
+
+------=_NextPart_000_0000_01CF97DF.D6FDEB60--
