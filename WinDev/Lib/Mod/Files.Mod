@@ -124,7 +124,7 @@ BEGIN
   END;
 END Close;
 
-PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): SYSTEM.BYTE;
+PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): BYTE;
 VAR
   result: INTEGER;
 BEGIN
@@ -161,7 +161,7 @@ BEGIN
   str[n] := 0X;
 END ReadStr;
 
-PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: SYSTEM.BYTE);
+PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: BYTE);
 VAR
   exitcode: INTEGER;
 BEGIN

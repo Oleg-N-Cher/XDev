@@ -25,9 +25,9 @@ typedef
 		BOOLEAN end, error;
 	} Files_FileToRead;
 
-export SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
+export BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ);
 export void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__typ, CHAR *str, LONGINT str__len);
-#define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, SYSTEM_BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
+#define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, BYTE(*)(Files_FileToRead*, LONGINT *), (fromfile, fromfile__typ))
 #define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, LONGINT *, CHAR*, LONGINT ), (fromfile, fromfile__typ, str, str__len))
 
 typedef
@@ -37,9 +37,9 @@ typedef
 		BOOLEAN end, error;
 	} Files_FileToWrite;
 
-export void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte);
+export void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, BYTE byte);
 export void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, LONGINT *tofile__typ, CHAR *str, LONGINT str__len);
-#define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, SYSTEM_BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, LONGINT *, BYTE), (tofile, tofile__typ, byte))
 #define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, LONGINT *, CHAR*, LONGINT ), (tofile, tofile__typ, str, str__len))
 
 typedef
@@ -114,7 +114,7 @@ void Files_File_Close (Files_File *file, LONGINT *file__typ)
 }
 
 /*----------------------------------------------------------------------------*/
-SYSTEM_BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ)
+BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, LONGINT *fromfile__typ)
 {
 	INTEGER result;
 	if ((*fromfile).end || (*fromfile).error) {
@@ -157,7 +157,7 @@ void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, LONGINT *fromfile__ty
 }
 
 /*----------------------------------------------------------------------------*/
-void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, SYSTEM_BYTE byte)
+void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, LONGINT *tofile__typ, BYTE byte)
 {
 	INTEGER exitcode;
 	if ((*tofile).error) {
