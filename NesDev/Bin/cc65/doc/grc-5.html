@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.66">
+ <TITLE>grc -- GEOS Resource Compiler: Building a GEOS VLIR application</TITLE>
+ <LINK HREF="grc-6.html" REL=next>
+ <LINK HREF="grc-4.html" REL=previous>
+ <LINK HREF="grc.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="grc-6.html">Next</A>
+<A HREF="grc-4.html">Previous</A>
+<A HREF="grc.html#toc5">Contents</A>
+<HR>
+<H2><A NAME="building-vlir"></A> <A NAME="s5">5.</A> <A HREF="grc.html#toc5">Building a GEOS VLIR application</A></H2>
+
+<P>Currently, you can build VLIR applications only if your code is written in
+assembly -- no C code allowed.</P>
+<P>In your sources, only the command <CODE>.segment &#34;</CODE><EM>NAME</EM><CODE>&#34;</CODE>
+will decide which code/data goes where.  File-names don't matter.  Segments
+<CODE>CODE</CODE>, <CODE>RODATA</CODE>, <CODE>DATA</CODE>, and <CODE>BSS</CODE> go into VLIR part #0.  Segment
+<CODE>VLIR1</CODE> goes into VLIR part #1, <CODE>VLIR2</CODE> goes into VLIR part #2, and so
+on.</P>
+<P>The GEOS resource file's contents are similar to 
+<A HREF="grc-4.html#building-seq">the sequential-file example</A>, but there also is a
+<CODE>VLIR</CODE> section and a <CODE>structure VLIR</CODE> tag.  Here is that part:
+<BLOCKQUOTE><CODE>
+<PRE>
+VLIR vlir-head.bin 0x3000 {
+  vlir-0.bin    ; CODE, RODATA, DATA, BSS
+  vlir-1.bin    ; VLIR1
+  vlir-2.bin    ; VLIR2
+}
+</PRE>
+</CODE></BLOCKQUOTE>
+
+(Source files are only <CODE>.s</CODE>.)</P>
+<P>OK, we have &#34;<CODE>cvthead.grc</CODE>&#34;, so let's allow <B>grc</B> to compile
+it:
+<PRE>
+$ grc cvthead.grc
+</PRE>
+
+Now, there are two new files:  &#34;<CODE>cvthead.cfg</CODE>&#34; and
+&#34;<CODE>cvthead.s</CODE>&#34; -- the first one is a config. file for <B>ld65</B>,
+and the second one contains the GEOS <CODE>.cvt</CODE> header.  It can be assembled:
+<PRE>
+$ ca65 -t geos cvthead.s
+</PRE>
+
+Now, we have &#34;<CODE>cvthead.o</CODE>&#34;.  The rest of the assembly
+sources can be assembled:
+<PRE>
+$ ca65 -t geos vlir0.s
+$ ca65 -t geos vlir1.s
+$ ca65 -t geos vlir2.s
+</PRE>
+
+Note that the file-names here, although similar to those from the
+<CODE>VLIR</CODE> section of the <CODE>.grc</CODE> file, are not significant.  The only thing
+that matters is which code will go into which segment.</P>
+<P>Now, we can generate binaries.  This time, the order of the arguments on the
+command-line is not important.
+<PRE>
+$ ld65 -C cvthead.cfg vlir1.o cvthead.o vlir0.o vlir2.o
+</PRE>
+
+As defined in the <CODE>.grc</CODE> file, we now have the binary parts of the
+VLIR file:  &#34;<CODE>vlir-head.bin</CODE>&#34;, &#34;<CODE>vlir-0.bin</CODE>&#34;,
+&#34;<CODE>vlir-1.bin</CODE>&#34;, and &#34;<CODE>vlir-2.bin</CODE>&#34;.</P>
+<P>The last step is to put them together in the right order -- the order of the
+arguments <EM>is important</EM> this time!  As suggested in the comments at the end
+of &#34;<CODE>cvthead.cfg</CODE>&#34;, we do:
+<PRE>
+$ grc -vlir output.cvt vlir-head.bin vlir-0.bin vlir-1.bin vlir-2.bin
+</PRE>
+
+That is the end.  The file &#34;<CODE>output.cvt</CODE>&#34; can be
+deconverted under GEOS.  Note that <CODE>-C cvthead.cfg</CODE> was used on the
+<B>ld65</B> command-line instead of the switch <CODE>-t geos</CODE>.</P>
+
+
+
+<HR>
+<A HREF="grc-6.html">Next</A>
+<A HREF="grc-4.html">Previous</A>
+<A HREF="grc.html#toc5">Contents</A>
+</BODY>
+</HTML>

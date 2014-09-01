@@ -1,0 +1,388 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Programming NES games in C</title>
+<style>
+body{
+ font-family:Arial,sans-serif;
+ font-size:14px;
+ color:#000000;
+ margin:32px;
+ text-align:justify;
+ background:#ffffff;
+}
+blockquote{
+ margin:0px;
+ padding:10px;
+}
+h1{
+ font-family: Arial,sans-serif;
+ font-size:20px;color:#000000;
+}
+a:hover{
+ color:#FF0000;
+}
+a{
+ text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+<h1>Programming NES games in C</h1>
+by Shiru 01'12 mailto:shiru at mail dot ru
+<br><br>
+<br><br>
+
+<b>Introduction</b>
+<br><br>
+This article is aimed to the people who would like to start NES software development, but aren't yet ready to get into programming large projects in 6502 assembly, and seeking for an easier, high level alternative. It covers many topics related to programming NES games in C using <a href="http://www.cc65.org/" target="_blank">CC65 compiler</a>, with <a href="../files/nes/chase.zip">a specially developed simple game</a> provided as an example.
+<br><br>
+The goal of developing the example game was to provide a real, complete project with very simple and short code that is easy to figure out. My previous projects were rather large, and lacked comments almost completely, so they aren't too good to be used as an example. The example game also include latest version of my low level code that was developed and used in my previous NES projects.
+<br><br>
+If the example game code is still too large and complex to figure out, check <a href="../files/src/cc65_nes_examples.zip">these small example programs</a> that also use the same low level code and demonstrate how to do certain simple things such as outputting text or sprites.
+<br><br>
+<br><br>
+
+
+<b>What you need to know</b>
+<br><br>
+To make a NES game you need to have a lot of prior knowledge. It is impossible to give even brief explaination of everything that is involved in a single article, so check this list, if you don't know something, you'll probably need to learn it somewhere. There are a lot of books and articles about these things around. You can find practically all the NES-specific information in the <a href="http://nesdev.com" target="_blank">NesDev</a> wiki and forums.
+<br><br>
+<ul>
+<li>Good knowledge of C language</li>
+<blockquote>
+ <li>Bitwise operations and bit shifts</li>
+ <li>Fixed point calculations</li>
+ <li>Pointers</li>
+</blockquote>
+<li>Basic knowledge of 6502 CPU</li>
+<blockquote>
+ <li>Registers</li>
+ <li>Zero page</li>
+ <li>Stack page</li>
+</blockquote>
+<li>Basic knowledge of NES hardware, especially PPU</li>
+<blockquote>
+ <li>CHR ROM</li>
+ <li>Nametables</li>
+ <li>Palettes</li>
+ <li>Sprites</li>
+ <li>VBlank time and VRAM access</li>
+ <li>CPU and PPU memory maps</li>
+</blockquote>
+<li>Windows command line and batch files</li>
+</ul>
+<br><br>
+
+<b>Pros and cons</b>
+<br><br>
+Programming for NES in C has two major drawbacks comparing to programming in assembly. First, compiled code is always slower than handwritten assembly code. Second, it is always way larger. The size is actually could be even more important than the speed. On the other hand, smaller code is usually faster as well.
+<br><br>
+There is an advantage that comes in exchange for these drawbacks - you can develop software in C much faster, because you need to write, debug, and mantain few times less code, and the code is much more readable. Also, you get some abstraction from the hardware, so you probably will be capable to make a simple NES program even without knowledge of 6502 assembly, although it certainly could help.
+<br><br>
+Here is a practical example that could convince you that C is a real timesaver: hand-written assembly code to retrieve a value from a 32x32 map array using two 8-bit coordinates (mx,my), and its C equivalent:
+<br><br>
+<table width="90%" align="center">
+<tr>
+<td width="50%" align="left" valign="top">
+<pre>
+; assembly version
+
+ lda my		;multiply my by 32
+ sta ptr_h	;through shifting
+ ldy #0		;a 16-bit var (ptr_h,ptr_l)
+ sty ptr_l	;to the right for three times
+dup 3
+ lsr ptr_h	;shift
+ ror ptr_l
+edup
+ lda ptr_l	;add mx as 16-bit value
+ clc
+ adc mx
+ bcc @1
+ inc ptr_h
+@1:
+ clc
+ adc #&lt;map	;add map offset
+ sta ptr_l
+ lda ptr_h
+ adc #&gt;map
+ sta ptr_h
+ lda [ptr_l],y	;read the value
+</pre>
+</td>
+<td width="50%" align="left" valign="top">
+<pre>
+// C version
+
+n=map[(my<<5)+mx];
+</pre>
+</td>
+</tr>
+</table>
+<br><br><br>
+
+<b>Optimization</b>
+<br><br>
+Due to very limited NES resources, such as CPU speed, RAM and ROM size, writting a proper, clean C code isn't very effective. To make it faster and shorter you have to optimize it through doing things that otherwise aren't considered acceptable. They are disable some of C advantages, making the code more low level and less structured, but even with these limitations it remains very high level comparing to assembler.
+<br><br>
+There are suggestions that will make your code more effective, but certainly less readable:
+<br><br>
+<li>Avoid local variables as much as possible, make them static at least</li>
+<li>Avoid passing parameters to functions</li>
+<li>Avoid to use functions that only used once</li>
+<li>Use __fastcall__ calling convention</li>
+<li>Arrays of structs are slow, separate arrays are faster</li>
+<li>Fastest type is unsigned char, use it as much as possible. Don't forget that in CC65 int is 16 bit wide</li>
+<li>Signed types are slower</li>
+<li>You can put some variables into zero page using a pragma (see below), it makes them faster</li>
+<li>Don't forget that you need to declare array of pointers as const type* const if you need to put it into ROM</li>
+<li>Use preincrements where possible, they are both faster and shorter</li>
+<li>Avoid to use multiple and division as much as possible, they are very slow. Use bit shifts where possible instead</li>
+<li>If you need to process an array of objects, it is better to copy data from arrays to separate vars. Use these vars in the code, and then copy new data back to the arrays. This could make code significally shorter and faster, because access to an array item generates more code than access to a variable</li>
+<li>Declaring global variables as static also helps to find unused global variables, compiler will report about them</li>
+<br><br>
+If your program hits the CPU limit, and you need to optimize C code as much as possible, you can profile it using some debugging NES emulators. For example, there is a version of VirtuaNES that can measure time in CPU clocks between two writes into special virtual registers $401e and $401f. The emulator displays the time on the screen. There is about 30000 CPU clocks in one single frame, so you can have idea how much time a code portion takes, and see how your code tweaks affect to the execution time.
+<br><br>
+
+<b>Setup and first compile</b>
+<br><br>
+Before explaining how certain things were done in the example game, it is a good idea to setup the tools and compile the game by yourself.
+<br><br>
+My NES development enviroment is very primitive, I don't use IDEs or anything. Just a Notepad++ as code editor, CC65 as command line compiler, some bat files for build automation, and an emulator for testing. I also use set of tools to create resources, more on this later.
+<br><br>
+Download CC65 and unpack it into a directory, for example c:\cc65 - so folders like \bin\, \include\, \lib\ etc will be placed into this directory. Unpack the example game source code into the cc65 directory too, so it will be in a separate folder. Build script uses relative path, so you won't need to do anything else - just run compile.bat. It'll pause after compilation, so you could see if there were any errors, and after pressing a key it starts the compiled game in an emulator, if you have one that is associated with *.nes files.
+<br><br>
+You can alter build process by editing compile.bat, or setup an IDE. You can use a 'run' feature of a code editor, such as F5 button in Notepad++, but you probably would need to edit build script adding absolute paths. I can't give detailed explaination of all these possibilities, so research and do it on your own.
+<br><br>
+<br><br>
+
+<b>Low level code and configuration</b>
+<br><br>
+There are few low level code parts in the example game. You won't mess with them directly most of the time, but in certain cases it could be needed, so it is a good idea to look at these files briefly, and get understanding why they are there. These parts are located in *.s, *.lib, and *.cfg files.
+<br><br>
+<i>crt0.s</i> - startup code. It inits the hardware, libs, etc. There are few settings in the beginning of the file, you may need to change them if you need to use different kind of mirroring in your project or use a mapper, for example.
+<br><br>
+<i>runtime.lib</i> - C runtime, i.e. some important code of basic language functionality, such as math routines. This is a custom compile that does not contain any NES specific code. If you need to change it for some reason, you'll need to get CC65 source code and have some fun compiling it with GNU make.
+<br><br>
+<i>nes.cfg</i> - definiton of the NES memory layout. It is configured for NROM128 project, if you need to make NROM256, add samples, or add extra RAM support, you'll need to edit this as well.
+<br><br><br>
+To add some abstraction from the hardware, and make hardware-dependent operations faster, there is also my custom low level part that implements some C functions. You can freely use it in your projects, or you can use it as an example to make your own code, if this one does not have everything that you need. You could call it a library, but it is actually provided as assembly source code, because NES projects tend to require some minor tweaks, like removing unneeded functionality to save some space.
+<br><br>
+<i>neslib.s</i> - is the custom library itself<br>
+<i>neslib.h</i> - C prototypes for the library's functions. There are comments that documents the functions
+<br><br>
+The custom library also includes FamiTone2 audio library code and sound data in a few separate files:
+<br><br>
+<i>famitone.s</i> - sound library that plays music and sound effects<br>
+<i>sounds.s</i> - sound effects data generated by the nsf2data tool<br>
+<i>music.s</i> - music data generated by the text2data tool
+<br><br>
+<br><br>
+
+<b>Game code and resources</b>
+<br><br>
+Game code itself is contained in *.c and *.h files. In case of the example game it is just game.c file.
+<br><br>
+There is a lot of resources as well. They are represented in many ways - *.h files (nametables), *.s files (music), *.chr file (graphics). Potentially *.h and *.s files could be used for anything, and also include different binary formats. Usually these files are automatically generated with tools, so don't wonder why there are so many numbers inside without any explainations.
+<br><br>
+Not much to say about the game code itself - take all the information from this article into account and read the comments in the code, there are plenty of them.
+<br><br>
+More important thing to explain is how to make all the game resources, because simply being able to write and compile some code is not enough to make a game. Another important thing is how to handle certain programming related things in general.
+<br><br>
+<br><br>
+
+<b>Graphics</b>
+<br><br>
+In a NROM game there are two sets of 8x8 graphics pieces, also called characters, patterns, or tiles. There are 256 of them in each set. You can use one of sets for background graphics, and other set for sprites. Alternatively you can put both background and sprites graphics into one set, slightly modified copy into other, and switch between the sets to create a rough two-frame animation. This is how the animation done in the example game.
+<br><br>
+All the graphics for the example game is created with <a href="ftp://ftp.untergrund.net/users/shiru/nesst.zip">NES Screen Tool</a> from scratch, i.e. drawn with its built-in CHR editor. The tool outputs graphics as *.chr file, it is tileset.chr in the example game. You can also edit palettes and nametables there, they could be saved in different formats or copy/pasted as pieces of data directly into the source code.
+<br><br>
+Large letters and numbers were also drawn with NES Screen Tool. They look messy in the tileset now, but I didn't drawn them that way. Instead, I used 2x3 tiles areas for every symbol, so they had their true shape in the tileset. This lead to many repeating or empty tiles, however. To save space the Optimize function of the tool was used. To make things easier I first created nametables for Level, Game Over and Well Done screens with unoptimized tileset, and also an extra nametable with the large numbers. Then I loaded every nametable with unoptimized tileset and used Optimize - this rearranged the loaded nametable for optimized version of the tileset. This approach saved me from solving a puzzle of creating screens from messed pieces of the optimized tileset.
+<br><br>
+If you need to work with more complex, larger graphics that in the example game, NES Screen Tool could be not very comfortable. In this case you can use a normal general purpose graphics editor to create the graphics following the NES limitations, then convert and tweak it with NES Screen Tool. Check the docs provided with the tool for details.
+<br><br>
+I mostly use <a href="http://www.humanbalance.net/gale/us/" target="_blank">GraphicsGale</a> as general purpose pixel art editor, sometimes <a href="http://www.gimp.org/" target="_blank">GIMP</a> as well. You can use these or any other, just make sure that your graphics editor has some features that make this kind of work much easier. The features are:
+<br><br>
+<li>8x8 and 16x16 grids to track how many colors you used in a cell more easily and to align the graphics properly</li>
+<li>Snap to grid feature, useful when you need to move graphics around without losing alignment</li>
+<li>Layers are always useful</li>
+<li>Indexed palette control, ability to move colors around the palette, very useful for preparing the graphics for conversion</li>
+<br><br>
+
+<b>Large sprites</b>
+<br><br>
+NES graphics hardware is only capable to display small sprites, that are either 8x8 or 8x16. My low level library only supports 8x8 mode. To have larger sprites you need to construct them from few smaller ones. That's called a metasprite. To handle metasprites with my library you have to define them as an array of tile numbers, attributes, and offsets from the pivot point.
+<br><br>
+If your metasprites are basically a rectangle consisting of few tiles placed on the regular 8x8 grid, you can use NES Screen Tool to generate the definitions. You draw metasprite just like you draw a part of nametable, then select the part of the nametable with the sprite, and use Nametable/Copy metasprite function of the program. It'll place the definition into the clipboard, so you can paste it into your source code. It is possible to automatically generate a horizontally flipped copy as well - this way you will use only one set of graphics for both left and right-faced versions, but two metasprite definitions. In my library I considered that flipping a metasprite definition in runtime is not acceptable, because it is slow, and these definitions aren't take too much memory.
+<br><br>
+For complex metasprites that aren't aligned to the regular grid you'll have to write the definitions by hand.
+<br><br>
+<br><br>
+
+<b>Levels</b>
+<br><br>
+In all my NES projects that were written in C, including the example game, I took a shortcut and used NES Screen Tool as a level editor. It works well for simple games, you just draw and save a level as a nametable. For more complex games you would need to make a custom editor, or make an export script for a general purpose one, such as Tiled.
+<br><br>
+Please note that in the example game map array in the memory is twice smaller compared to the level nametable. The levels stored as RLE-packed nametables, unpacked directly into VRAM, then read back row by row to construct the map array. Object spawn positions are also defined in the nametables, they are removed in the process, and rows written back into the the VRAM. It is not very straightforward, but works well enough, and ultimately make things simpler - no need for a special map editor that would output map in an optimal format, no need to construct nametables from that optimal format in the runtime.
+<br><br>
+<br><br>
+
+<b>Sound effects</b>
+<br><br>
+The sound effects are created in <a href="http://famitracker.shoodot.net/">FamiTracker</a> for the <a href="ftp://ftp.untergrund.net/users/shiru/src/famitone2.zip">FamiTone2</a> requirements. The requirements for sound and music are detailed in the FamiTone2 docs. In short, the process of sound effects creation is like this: you make them in FamiTracker as a multi song file, each effect is a song that ends with C00 command. Then you export NSF file and convert it into an assembly file:
+<pre>
+nsf2data sounds.nsf -ca65
+</pre>
+The resulting sounds.s file is placed into the project directory, it is always included into the project from crt0.s. If you don't need sound effects in your project, you can disable them with a define there. This will exclude all related code as well.
+<br><br>
+There are very few sound effects in the example game, so handling priorities is not demonstrated well. There are four virtual channels for sound effects, numbered from 0 to 3. Virtual channels are mixed with music and each other by the volume (louder parts take priority), except for the triangle channel, which is always overlapped with a sound effect channel of the higher number. If a new effect is started on a channel while other effect plays there, the old effect will be stopped. Thus it is important to plan which effect should interrupt each other and which should not, and put them on different virtual channels.
+<br><br>
+<br><br>
+
+<b>Music</b>
+<br><br>
+Music is also created in FamiTracker for the FamiTone2 requirements. All the songs are made as a multisong file, so they share the same set of instruments. They are then exported with FamiTracker built-in text exporter and converted into an assembly file:
+<pre>
+text2data music.txt -ca65
+</pre>
+If FamiTone2 feature set is somehow too limited for you, you can hook up the native FamiTracker player instead. Its code is compilable with ca65, but it would require quite some work that requires 6502 assembly knowledge, especially if you need to have sound effects support. It is also three times larger and twice slower, so make a decision judging by how much free memory and CPU time you have in a project.
+<br><br>
+<br><br>
+
+<b>PAL and NTSC</b>
+<br><br>
+One important thing that is specific for all the computer systems that use TV as display device, including NES, is the difference between NTSC and PAL. Since TV frame rate is the main sync source in programs for these systems, and it is differs by 17% between them (50 or 60 Hz of vertical refresh), it should be handled somehow. There are three ways to do this in general.
+<br><br>
+First and probably the most accurate way is to make the program use fixed point calculations everywhere, and create two versions of the program - one with constant values (such as speed of an object) calculated for NTSC, and other with the values calculated for PAL. PAL constants are NTSC*18/15.
+<br><br>
+Mantaining two versions of the same program could be rather inconvient, so the second way is to make the program detect which system is used, and use one of two sets of constants. This way allows to have just one version of the program, but it is still unconvient. Not only you have to make all the calculations in fixed point, but now you also don't really have constants, since they are changing depending from the system - so you either need to use variables instead, or have two versions of some parts of the code.
+<br><br>
+My library uses third way, which is not very accurate, but is free from the disadvantages of the first two methods. It detects the system at start up and skips every sixth frame if the program runs on an NTSC console. So you only need to tweak your timings for PAL once, and they will work the same on NTSC, with a little bit of jerkiness added into the movements. It is used in all my NES games, so you can check them out to decide whether it is noticeable or not. If you want to use my library, but would like to handle the PAL/NTSC problem in some other way, you can disable the frameskip through a define in the crt0.s.
+<br><br>
+In any case my library will compensate the speed difference for music, but not for music pitch and speed of sound effects. It is a compomise between CPU load and extra ROM size that I assumed to be acceptable. You can change these things too, if you want, but it would require some changes in low level part, such as adding a second note frequency table, and probably a second copy of sound effects data.
+<br><br>
+Another thing that you have to remember is that the VBlank time is much longer in PAL, and that's the only time when access to the VRAM is possible with enabled display. This time is used by the library's update system that is controlled by vram_set_update and could be used for such things as displaying game stats or level scrolling. If you want to make your program work properly on both systems, you should debug it in NTSC - if it works there, it is guaranteed that it also will work in PAL, but not vice versa.
+<br><br>
+<br><br>
+
+<b>RAM usage</b>
+<br><br>
+One of things that you could always remember while desiging NES software is that it has very limited amount of RAM - just 2048 bytes. Furthermore, not all of these are available for C programs.
+<br><br>
+512 bytes of the RAM are used by CPU in a special way. It is result of the CPU design and can't be changed. First 256 bytes are given to the zero page, a special RAM location, with about 48 of these being used by libraries. Next 256 bytes are given to the CPU stack. Luckily, code that is generated by C compiler barely uses CPU stack - about 32 bytes at max even in large and complex programs. This allows to allocate some internal buffers in the remaining stack space. My library uses it for sound and music player variables and internal palette buffer.
+<br><br>
+Besides of these, another 256 bytes are used for OAM buffer that is sent through DMA into PPU every frame. That's required by the PPU design and can't be changed too.
+<br><br>
+So in the end you are given with just 1280 bytes of RAM to store your variables, arrays, buffers and so on. For comparsion, one nametable is 1024 bytes large.
+<br><br>
+To make local variables work faster you have to make them static, but this also makes them occupy a RAM location constantly. That's why making a set of general purpose global variables that are reused everywhere is recommended. Global variables are a little bit faster than local static ones as well.
+<br><br>
+You can get some extra RAM by placing some variables into zero page, which has about 200 bytes free. That will also make them work faster and make compiled code a bit smaller. Putting common set of global variables there is a good idea. You can do it by using these pragmas before the variables that should go to zero page:
+<pre>
+#pragma bssseg (push,"ZEROPAGE")
+#pragma dataseg(push,"ZEROPAGE")
+</pre>
+If you want to put some subsequent variables back to the normal place, you can use these pragmas:
+<pre>
+#pragma bssseg (push,"BSS")
+#pragma dataseg(push,"BSS")
+</pre>
+Please note that for the next release of CC65, which is currently only avaialble as a development snapshot, it should be changed to this:
+<pre>
+#pragma bss-name (push,"ZEROPAGE")
+#pragma data-name(push,"ZEROPAGE")
+</pre>
+If your project really needs more than ~1500 bytes of RAM, there is an option to use extra 8K RAM. This is not an easy decision if you going to make a physical release, because that'll require to put an extra RAM chip into every cartridge. To make this memory usable by CC65 you have to edit nes.cfg, check comments there.
+<br><br>
+<br><br>
+
+<b>ROM size</b>
+<br><br>
+As the example game is very small, it is compiled as NROM128 - one 16K bank of PRG ROM and one 8K bank of CHR ROM. The number 128 is the PRG ROM size in kilobits (16*8). For larger but still mapperless projects you should use NROM256, which is more common. It has two 16K PRG ROM banks, so 32K in total for code and data. To change the project to this configuration you need to change a define in the crt0.s, and edit nes.cfg - check for comments marked as NROM256.
+<br><br>
+You can make even larger projects with mappers as well. However, I can't give you much details on this, because I don't have such experience. You can easily control CHR banks through a custom function. I don't think the compiler is capable to place code across PRG banks and perform bankswitching automatically, though, so either your code should completely fit into the fixed bank, and use banks to access to the data, or you have to handle bankswitching somehow. You also could put music and sound player code and data into a separate bank, this would require minor changes in the library code.
+<br><br>
+As CC65 compiler does not report how much ROM space is used in an easily readable form, I made a small tool, <a href="ftp://ftp.untergrund.net/users/shiru/nessp.zip">NES Space Checker</a>, that displays it as a simple graph. You may find it handy too. Try to use it on the example game, and you'll see that less than quarter of 16K PRG is empty.
+<br><br>
+<br><br>
+
+<b>Writing functions in assembly code</b>
+<br><br>
+If you get into a situation when optimizing C code does not give needed speed or size no matter what, you have an option is to manually rewrite a piece of code into assembly. To do this, you need to know 6502 assembler and figure out RAM layout to get some room for your variables. The question that will arise here is how to create C interface to an assembly routine. Of course, the answer is buried somewhere in the docs and source code, but to save you some time I provide explaination here.
+<br><br>
+First you need a place to put your code. You can put them into a separate file, let's say myfuncs.s. To do this you need to change the build script (check ca65 calls there and add one for the new file), then add myfuncs.o into ld65 parameters before game.o. Generally it is supposed that one file contain just one function, but you can put them all into a single file as well. You can even not create any new files and simple put your functions into neslib.s if you want, just remember that this way all the code in a file will be included into the project, even if it is never called.
+<br><br>
+You also need to make a function prototype. Put it into the source code or into a header.
+<br><br>
+Simplest possible function is one that does not take any parameters and does not return anything:
+<pre>
+void __fastcall__ func(void);
+</pre>
+Assembly counterpart will look like this:
+<pre>
+ .export _func ;makes the function available outside of the file
+
+_func:
+	... ;your code
+	rts
+</pre>
+Now a function that takes a parameter and returns a parameter as well:
+<pre>
+unsigned char __fastcall__ func(unsigned char n);
+
+ .export _func
+
+_func:
+	;n is already in the register A
+	...
+	;put your return value into the register A
+	rts
+</pre>
+For 16-bit vars you should to use X:A pair, with LSB in A and MSB in X.
+<br><br>
+In case of more than one input parameter, things are more complex. The __fastcall__ calling convention puts the latest parameter into A or X:A, but all the preceding parameters are put on the software stack, which is slow. So you generally should avoid to use many parameters when possible.
+<pre>
+unsigned int func(unsigned int x,unsigned int y,unsigned char n,const unsigned char *ptr);
+
+ .export _func
+
+_func:
+	;ptr is in X:A
+	jsr popa
+	;n is in A
+	jsr popax
+	;y is in X:A
+	jsr popax
+	;x is in X:A
+	...
+	;put your return value into X:A
+	rts
+</pre>
+<br><br>
+
+<b>Debugging</b>
+<br><br>
+My low level part is tested in few actual projects and it is confirmed that it works on the real hardware. Using it you can reduce chances to make a program that works only in emulators, but not on the actual console. However, you still can write something that will not work on the hardware. So it is good idea to test your software on the console using PowerPak or some other way. Of course, testing in emulators during the development process is much more convinent. Use few emulators to test, a good set is Nestopia, Nintendulator, FCEUX and Mednafen - this could reveal some problems that aren't visible in the emulator that you use most of the time. Testing both in NTSC and PAL is a good idea too, for example in FCEUX there are things visible in PAL that are hidden in NTSC.
+<br><br>
+Sometimes there are problems that occur really briefly, or require to perform a very well timed actions. For example, a wrong palette is set for one frame, or collision check does not work properly with certain coordinates. Many emulators has features that could help you a lot with figuring out these things - slow down, frame-by-frame step, and input recording.
+<br><br>
+When you write something that seemingly should work properly, but it doesn't, the real fun begins. The problem is that there aren't many comfortable debuggers for C code compiled into 6502 assembly around (yet) - ones that allow to put breakpoints on random C lines and see what the variables contain at the moment. The only C level debugger is currently available in NESICIDE. Usually you only have an assembly level debugger in some emulators, and it is not very helpful with compiled code.
+<br><br>
+One of things that could help a bit to figure out what is wrong is outputting pieces of C source code as comments for generated assembly code. It is already enabled in the build script of the example game. Compiler places code that is generated from game.c into game.s, you can see this file after you start compile.bat and before pressing any key. This is also comes handy when you want to check out how effective your C code was compiled, and would like to try some ideas to make it compile better.
+<br><br>
+You can use things like while(1); as a crude breakpoint, or use sound effects as confirmation that certain part of code is reached, etc.
+<br><br>
+If you need to output a debug value, you can put it into an unused RAM location, usually it is end of the zero page, and check it with a built-in memory viewer in an emulator. Some emulators also allow to watch for an address in more comfortable way. You can use pointers to write something into an address in C:
+<pre>
+*(unsigned char*)0x00ff=1; //write 1 into $00ff, it is the last byte of the zero page
+</pre>
+<br><br>
+
+<b>Alternatives</b>
+<br><br>
+In this article I only explained my own approach to the things. There are alternatives for some tools, code, and methods mentioned in the article, so you have choice. I recommend you to check <a href="http://kkfos.aspekt.fi/" target="_blank">Kalle's Kanister web site</a>, specifically KNES, Pornotracker, and MUSE projects. Another very promising alternative that is going to be much simpler than the approach explained in this article is <a href="http://www.nesicide.com/" target="_blank">NESICIDE</a>, check it out too.
+
+</body>
+</html>

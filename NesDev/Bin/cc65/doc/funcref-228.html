@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.66">
+ <TITLE>cc65 function reference: Alphabetical function reference: tgi_init</TITLE>
+ <LINK HREF="funcref-229.html" REL=next>
+ <LINK HREF="funcref-227.html" REL=previous>
+ <LINK HREF="funcref.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="funcref-229.html">Next</A>
+<A HREF="funcref-227.html">Previous</A>
+<A HREF="funcref.html#toc3">Contents</A>
+<HR>
+<H2><A NAME="tgi_init"></A> 3.183 <A HREF="funcref.html#toc3.183">tgi_init</A></H2>
+
+
+<P>
+<BLOCKQUOTE>
+<DL>
+<DT><B>Function</B><DD>
+<P>Initialize the already loaded graphics driver.</P>
+<DT><B>Header</B><DD>
+<P><CODE>
+<A HREF="funcref-40.html#tgi.h">tgi.h</A></CODE></P>
+<DT><B>Declaration</B><DD>
+<P><CODE>void __fastcall__ tgi_init (void);</CODE></P>
+<DT><B>Description</B><DD>
+<P>The tgi_init function will set the default palette to the
+hardware and clear the screen.</P>
+<DT><B>Limits</B><DD>
+<P>
+<UL>
+<LI>The function is only available as fastcall function, so it may only
+be used in presence of a prototype.</LI>
+</UL>
+</P>
+<DT><B>Availability</B><DD>
+<P>cc65</P>
+<DT><B>See also</B><DD>
+<P>Other tgi functions.</P>
+<DT><B>Example</B><DD>
+<P>
+<PRE>
+extern char lynxtgi[]; //Include the driver statically instead of loading it.
+tgi_install(&amp;lynxtgi);
+tgi_init(); //Set up the default palette and clear the screen.
+</PRE>
+</P>
+</DL>
+</BLOCKQUOTE>
+</P>
+
+<HR>
+<A HREF="funcref-229.html">Next</A>
+<A HREF="funcref-227.html">Previous</A>
+<A HREF="funcref.html#toc3">Contents</A>
+</BODY>
+</HTML>
