@@ -2,14 +2,16 @@
 #include "SYSTEM.h"
 
 typedef
-	SYSTEM_BYTE *GrFonts_Font;
+	BYTE *GrFonts_Font;
 
 
-export SYSTEM_BYTE GrFonts_ZxSpecRom8x8[768];
-export SYSTEM_BYTE GrFonts_MsDosCga8x8[2048];
+export BYTE GrFonts_ZxSpecRom8x8[768], GrFonts_ZxSpecRus8x8[768];
+export BYTE GrFonts_MsDosCga8x8[2048];
 
 
 
+
+/*============================================================================*/
 
 
 export void *GrFonts__init(void)
