@@ -10,7 +10,7 @@ export GrColors_Colors Console_BlackOnBlack, Console_BlueOnBlack, Console_GreenO
 export void Console_At (INTEGER x, INTEGER y);
 export void Console_Clear (INTEGER colors);
 export void Console_SetColors (GrColors_Colors n);
-export void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len);
+export void Console_SetFont (BYTE *font, LONGINT font__len);
 export void Console_WriteCh (CHAR ch);
 export void Console_WriteHex (INTEGER val);
 export void Console_WriteInt (LONGINT n);
@@ -27,47 +27,58 @@ export void Console_WriteStrLn (CHAR *str, LONGINT str__len);
 #define Console_writeStr(str, str__len)	printf("%s", str)
 #define Console_writeStrLn(str, str__len)	printf("%s\n", str)
 
+/*============================================================================*/
+
 void Console_At (INTEGER x, INTEGER y)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_Clear (INTEGER colors)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_SetColors (GrColors_Colors n)
 {
 }
 
-void Console_SetFont (SYSTEM_BYTE *font, LONGINT font__len)
+/*----------------------------------------------------------------------------*/
+void Console_SetFont (BYTE *font, LONGINT font__len)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteInt (LONGINT n)
 {
 	Console_writeLInt(n);
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteStr (CHAR *str, LONGINT str__len)
 {
 	Console_writeStr(str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteStrLn (CHAR *str, LONGINT str__len)
 {
 	Console_writeStrLn(str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteCh (CHAR ch)
 {
 	Console_writeCh(ch);
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteLn (void)
 {
 	Console_writeLn();
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteIntWidth (INTEGER x, INTEGER n)
 {
 	INTEGER i, x0;
@@ -101,6 +112,7 @@ void Console_WriteIntWidth (INTEGER x, INTEGER n)
 	} while (!(i == 0));
 }
 
+/*----------------------------------------------------------------------------*/
 void Console_WriteHex (INTEGER val)
 {
 	INTEGER i, y;
@@ -122,6 +134,7 @@ void Console_WriteHex (INTEGER val)
 	} while (!(i == 0));
 }
 
+/*----------------------------------------------------------------------------*/
 
 export void *Console__init(void)
 {

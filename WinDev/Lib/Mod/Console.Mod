@@ -139,7 +139,7 @@ PROCEDURE SetColors* (n: Colors);
 BEGIN
 END SetColors;
 
-PROCEDURE SetFont* (font: ARRAY [1] OF SYSTEM.BYTE);
+PROCEDURE SetFont* (font: ARRAY [1] OF BYTE);
 BEGIN
 END SetFont;
 
