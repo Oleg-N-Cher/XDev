@@ -23,11 +23,13 @@ IMPORT SYSTEM, W := WinApi, Ignore;
 
 TYPE
   TColor* = INTEGER;
+  DWORD = INTEGER;
   Char = CHAR;
   Integer = INTEGER;
   LongInt = INTEGER;
   LongWord = INTEGER;
   String = ARRAY OF Char;
+  COLORREF = DWORD;
 
 CONST
 
@@ -185,15 +187,15 @@ TYPE
 
 (* Generic filename type *)
 
-{$IFDEF VirtualPascal}
+(*$IFDEF VirtualPascal*)
   TFileName = string;
   LongWord = Word;
   Int64 = LongWord;
-{$ELSE}
+(*$ELSE*)
   TFileName = type string;
-{$ENDIF}
+(*$ENDIF*)
 
-{ Search record used by FindFirst, FindNext, and FindClose }
+(* Search record used by FindFirst, FindNext, and FindClose *)
 
   TSearchRec = record
     Time: Integer;
@@ -205,7 +207,7 @@ TYPE
     FindData: TWin32FindData;
   end;
 
-{ Typed-file and untyped-file record }
+(* Typed-file and untyped-file record *)
 
   TFileRec = record
     Handle: Integer;
@@ -216,7 +218,7 @@ TYPE
     Name: array[0..259] of Char;
   end;
 
-{ Text file record structure used for Text files }
+(* Text file record structure used for Text files *)
 
   PTextBuf = ^TTextBuf;
   TTextBuf = array[0..127] of Char;
@@ -236,15 +238,15 @@ TYPE
     Buffer: TTextBuf;
   end;
 
-{ FloatToText, FloatToTextFmt, TextToFloat, and FloatToDecimal type codes }
+(* FloatToText, FloatToTextFmt, TextToFloat, and FloatToDecimal type codes *)
 
   TFloatValue = (fvExtended, fvCurrency);
 
-{ FloatToText format codes }
+(* FloatToText format codes *)
 
   TFloatFormat = (ffGeneral, ffExponent, ffFixed, ffNumber, ffCurrency);
 
-{ FloatToDecimal result record }
+(* FloatToDecimal result record *)
 
   TFloatRec = packed record
     Exponent: Smallint;
@@ -252,17 +254,17 @@ TYPE
     Digits: array[0..20] of Char;
   end;
 
-{ Date and time record }
+(* Date and time record *)
 
   TTimeStamp = record
-    Time: Integer;      { Number of milliseconds since midnight }
-    Date: Integer;      { One plus number of days since 1/1/0001 }
+    Time: Integer;      (* Number of milliseconds since midnight *)
+    Date: Integer;      (* One plus number of days since 1/1/0001 *)
   end;
 
-{ MultiByte Character Set (MBCS) byte type }
+(* MultiByte Character Set (MBCS) byte type *)
   TMbcsByteType = (mbSingleByte, mbLeadByte, mbTrailByte);
 
-{ System Locale information record }
+(* System Locale information record *)
   TSysLocale = packed record
     DefaultLCID: LCID;
     PriLangID: LANGID;
@@ -271,7 +273,7 @@ TYPE
     MiddleEast: Boolean;
   end;
 
-{ TStream abstract class }
+(* TStream abstract class *)
 
   TStreamError = (se_None,se_Create,se_Open,se_Read,se_Write,se_Pos);
   TStreamErrorEvent = procedure(Sender : TObject; AError: TStreamError) of object;
@@ -300,7 +302,7 @@ TYPE
     property OnError : TStreamErrorEvent read FOnError write FOnError;
   end;
 
-{ THandleStream class }
+(* THandleStream class *)
 
   THandleStream = class(TStream)
   private
@@ -313,7 +315,7 @@ TYPE
     property Handle: Integer read FHandle;
   end;
 
-{ TFileStream class }
+(* TFileStream class *)
 
   TFileStream = class(THandleStream)
   private
@@ -327,7 +329,7 @@ TYPE
     property Name : shortstring read FName;
   end;
 
-{ TCustomMemoryStream abstract class }
+(* TCustomMemoryStream abstract class *)
 
   TCustomMemoryStream = class(TStream)
   private
@@ -343,7 +345,7 @@ TYPE
     property Memory: Pointer read FMemory;
   end;
 
-{ TMemoryStream }
+(* TMemoryStream *)
 
   TMemoryStream = class(TCustomMemoryStream)
   private
@@ -361,7 +363,7 @@ TYPE
     function Write(const Buffer; Count: Longint): Longint; override;
   end;
 
-{Graphic routins}
+(*Graphic routins*)
 
 type
   TFillDirection = (fdTopToBottom, fdBottomToTop, fdLeftToRight, fdRightToLeft);
@@ -376,7 +378,7 @@ procedure GradientFillRect(DC : HDC;
                            Direction: TFillDirection;
                            Colors: Byte);
 
-{String management routins}
+(*String management routins*)
 
 function StrPas(Str: PChar): string;
 function StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar;
@@ -410,7 +412,7 @@ function StrToIntDef(s : string; Default: Integer) : integer;
 function StrToFloat(s: String): Real;
 function FloatToStr(m: Real): String;
 
-{ Date/time support routines }
+(* Date/time support routines *)
 
 var
   CurrencyString: string;
@@ -473,12 +475,12 @@ function FindFirst(const Path: string; Attr: Integer;
 function FindNext(var F: TSearchRec): Integer;
 procedure FindClose(var F: TSearchRec);
 
-{Version routines}
+(*Version routines*)
 
 function GetFileVersion : string;
 function GetFullFileVersion : string;
 
-{Browse for folders}
+(*Browse for folders*)
 type
   TBrowseFolderKind = (bfAll,bfDrives,bfComputers);
 
@@ -490,7 +492,7 @@ function QuotedStr(const S: string; Quote: char): string;
 function AnsiExtractQuotedStr(var Src: PChar; Quote: Char): string;
 
 
-{ OS Version }
+(* OS Version *)
 var
   OSVersionInfo: TOSVersionInfo;
 
@@ -517,13 +519,22 @@ BEGIN
   END;
   RETURN color
 END ColorToRGB;
+
+PROCEDURE RGB* (r, g, b: BYTE): COLORREF;
+BEGIN
+  RETURN
+    SYSTEM.VAL(COLORREF, r) +
+    SYSTEM.VAL(COLORREF, g) * 100H +
+    SYSTEM.VAL(COLORREF, b) * 10000H;
+END RGB;
+
 (*
 procedure GradientFillRect(DC : HDC; ARect: TRect; StartColor,
   EndColor: TColor; Direction: TFillDirection; Colors: Byte);
 var
-  StartRGB: array[0..2] of Byte;    { Start RGB values }
-  RGBDelta: array[0..2] of Integer; { Difference between start and end RGB values }
-  ColorBand: TRect;                 { Color band rectangular coordinates }
+  StartRGB: array[0..2] of Byte;    (* Start RGB values *)
+  RGBDelta: array[0..2] of Integer; (* Difference between start and end RGB values *)
+  ColorBand: TRect;                 (* Color band rectangular coordinates *)
   I, Delta: Integer;
   Brush: HBrush;
 begin
@@ -538,29 +549,29 @@ begin
   EndColor := ColorToRGB(EndColor);
   case Direction of
     fdTopToBottom, fdLeftToRight: begin
-      { Set the Red, Green and Blue colors }
+      (* Set the Red, Green and Blue colors *)
       StartRGB[0] := GetRValue(StartColor);
       StartRGB[1] := GetGValue(StartColor);
       StartRGB[2] := GetBValue(StartColor);
-      { Calculate the difference between begin and end RGB values }
+      (* Calculate the difference between begin and end RGB values *)
       RGBDelta[0] := GetRValue(EndColor) - StartRGB[0];
       RGBDelta[1] := GetGValue(EndColor) - StartRGB[1];
       RGBDelta[2] := GetBValue(EndColor) - StartRGB[2];
     end;
     fdBottomToTop, fdRightToLeft: begin
-      { Set the Red, Green and Blue colors }
-      { Reverse of TopToBottom and LeftToRight directions }
+      (* Set the Red, Green and Blue colors *)
+      (* Reverse of TopToBottom and LeftToRight directions *)
       StartRGB[0] := GetRValue(EndColor);
       StartRGB[1] := GetGValue(EndColor);
       StartRGB[2] := GetBValue(EndColor);
-      { Calculate the difference between begin and end RGB values }
-      { Reverse of TopToBottom and LeftToRight directions }
+      (* Calculate the difference between begin and end RGB values *)
+      (* Reverse of TopToBottom and LeftToRight directions *)
       RGBDelta[0] := GetRValue(StartColor) - StartRGB[0];
       RGBDelta[1] := GetGValue(StartColor) - StartRGB[1];
       RGBDelta[2] := GetBValue(StartColor) - StartRGB[2];
     end;
-  end; {case}
-  { Calculate the color band's coordinates }
+  end; (*case*)
+  (* Calculate the color band's coordinates *)
   ColorBand := ARect;
   if Direction in [fdTopToBottom, fdBottomToTop] then begin
     Colors := Max(2, Min(Colors, HeightOf(ARect)));
@@ -571,26 +582,26 @@ begin
     Delta := WidthOf(ARect) div Colors;
   end;
 //  Pen := CreatePen(ps_Solid,;
-//  with Canvas.Pen do begin { Set the pen style and mode }
+//  with Canvas.Pen do begin (* Set the pen style and mode *)
 //    Style := psSolid;
 //    Mode := pmCopy;
 //  end;
-  { Perform the fill }
+  (* Perform the fill *)
   if Delta > 0 then begin
     for I := 0 to Colors do begin
       case Direction of
-        { Calculate the color band's top and bottom coordinates }
+        (* Calculate the color band's top and bottom coordinates *)
         fdTopToBottom, fdBottomToTop: begin
           ColorBand.Top := ARect.Top + I * Delta;
           ColorBand.Bottom := ColorBand.Top + Delta;
         end;
-        { Calculate the color band's left and right coordinates }
+        (* Calculate the color band's left and right coordinates *)
         fdLeftToRight, fdRightToLeft: begin
           ColorBand.Left := ARect.Left + I * Delta;
           ColorBand.Right := ColorBand.Left + Delta;
         end;
-      end; {case}
-      { Calculate the color band's color }
+      end; (*case*)
+      (* Calculate the color band's color *)
       Brush := CreateSolidBrush(RGB(
         StartRGB[0] + MulDiv(I, RGBDelta[0], Colors - 1),
         StartRGB[1] + MulDiv(I, RGBDelta[1], Colors - 1),
@@ -604,21 +615,21 @@ begin
   else Delta := WidthOf(ARect) mod Colors;
   if Delta > 0 then begin
     case Direction of
-      { Calculate the color band's top and bottom coordinates }
+      (* Calculate the color band's top and bottom coordinates *)
       fdTopToBottom, fdBottomToTop: begin
         ColorBand.Top := ARect.Bottom - Delta;
         ColorBand.Bottom := ColorBand.Top + Delta;
       end;
-      { Calculate the color band's left and right coordinates }
+      (* Calculate the color band's left and right coordinates *)
       fdLeftToRight, fdRightToLeft: begin
         ColorBand.Left := ARect.Right - Delta;
         ColorBand.Right := ColorBand.Left + Delta;
       end;
-    end; {case}
+    end; (*case*)
     case Direction of
       fdTopToBottom, fdLeftToRight:
         Brush := CreateSolidBrush(EndColor);
-      else {fdBottomToTop, fdRightToLeft }
+      else (*fdBottomToTop, fdRightToLeft *)
         Brush := CreateSolidBrush(StartColor);
     end;
     FillRect(DC, ColorBand, Brush);
@@ -626,7 +637,7 @@ begin
   end;
 end;
 
-{String management routins}
+(*String management routins*)
 
 procedure BinToHex(Binary, Text: PChar; Count: Integer);
 const
@@ -1015,7 +1026,7 @@ begin
   if code>0 then Result:=0;
 end;
 
-{ Date/time support routines }
+(* Date/time support routines *)
 
 const
   FMSecsPerDay: Single = MSecsPerDay;
@@ -1082,7 +1093,7 @@ asm
         FIADD   [EAX].TTimeStamp.Time
 end;
 
-{ Time encoding and decoding }
+(* Time encoding and decoding *)
 
 function DoEncodeTime(Hour, Min, Sec, MSec: Word; var Time: TDateTime): Boolean;
 begin
@@ -1160,7 +1171,7 @@ begin
   Result := Copy(S, 1, I);
 end;
 
-{ Date encoding and decoding }
+(* Date encoding and decoding *)
 
 function IsLeapYear(Year: Word): Boolean;
 begin
@@ -1171,17 +1182,17 @@ type
   PDayTable = ^TDayTable;
   TDayTable = array[1..12] of Word;
 
-{ The MonthDays array can be used to quickly find the number of
-  days in a month:  MonthDays[IsLeapYear(Y), M]      }
+(* The MonthDays array can be used to quickly find the number of
+  days in a month:  MonthDays[IsLeapYear(Y), M]      *)
 
 const
   MonthDays: array [Boolean] of TDayTable =
     ((31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31),
      (31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31));
 
-{ DateToStr converts the date part of the given TDateTime value to a string.
+(* DateToStr converts the date part of the given TDateTime value to a string.
   The conversion uses the format specified by the ShortDateFormat global
-  variable. }
+  variable. *)
 
 function Now: TDateTime;
 var
@@ -1346,7 +1357,7 @@ end;
 *)
 PROCEDURE FileClose* (handle: W.HANDLE);
 BEGIN
-  Ignore.Int(W.CloseHandle(handle));
+  Ignore.Int( W.CloseHandle(handle) );
 END FileClose;
 (*
 function FileGetAttr(const FileName: shortstring): Integer;
@@ -1469,7 +1480,7 @@ begin
     if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
 end;
 
-{ The GetDiskFreeSpace Win32 API does not support partitions larger than 2GB
+(* The GetDiskFreeSpace Win32 API does not support partitions larger than 2GB
   under Win95.  A new Win32 function, GetDiskFreeSpaceEx, supports partitions
   larger than 2GB but only exists on Win NT 4.0 and Win95 OSR2.
   The GetDiskFreeSpaceEx function pointer variable below will be initialized
@@ -1477,7 +1488,7 @@ end;
   the system, or to an internal Delphi function if it does not.  When running
   on Win95 pre-OSR2, the output of this function will still be limited to
   the 2GB range reported by Win95, but at least you don't have to worry
-  about which API function to call in code you write.  }
+  about which API function to call in code you write.  *)
 
 var
   GetDiskFreeSpaceEx: function (Directory: PChar; var FreeAvailable,
@@ -1649,7 +1660,7 @@ begin
     Windows.FindClose(F.FindHandle);
 end;
 
-{ TStream }
+(* TStream *)
 
 function TStream.GetPosition: Longint;
 begin
@@ -1716,7 +1727,7 @@ begin
   FreeMem(Buffer, BufSize);
 end;
 
-{ THandleStream }
+(* THandleStream *)
 
 constructor THandleStream.Create(AHandle: Integer);
 begin
@@ -1740,7 +1751,7 @@ begin
   Result := FileSeek(FHandle, Offset, Origin);
 end;
 
-{ TFileStream }
+(* TFileStream *)
 
 constructor TFileStream.Create(const FileName: string; Mode: Word);
 begin
@@ -1788,7 +1799,7 @@ begin
   Truncate;
 end;
 
-{ TCustomMemoryStream }
+(* TCustomMemoryStream *)
 
 procedure TCustomMemoryStream.SetPointer(Ptr: Pointer; Size: Longint);
 begin
@@ -1839,10 +1850,10 @@ begin
   end;
 end;
 
-{ TMemoryStream }
+(* TMemoryStream *)
 
 const
-  MemoryDelta = $2000; { Must be a power of 2 }
+  MemoryDelta = $2000; (* Must be a power of 2 *)
 
 destructor TMemoryStream.Destroy;
 begin
@@ -1941,7 +1952,7 @@ begin
   Result := 0;
 end;
 
-{Version routines}
+(*Version routines*)
 
 function GetFileVersion : string;
 Var j,w   : Cardinal;
@@ -2003,22 +2014,22 @@ begin
   GlobalFree(Cardinal(buf));
 end;
 
-{browsing for folders and computers routines}
+(*browsing for folders and computers routines*)
 
 type
 
-{ TSHItemID -- Item ID }
+(* TSHItemID -- Item ID *)
 
   PSHItemID = ^TSHItemID;
-  TSHItemID = packed record           { mkid }
-    cb: Word;                         { Size of the ID (including cb itself) }
-    abID: array[0..0] of Byte;        { The item ID (variable length) }
+  TSHItemID = packed record           (* mkid *)
+    cb: Word;                         (* Size of the ID (including cb itself) *)
+    abID: array[0..0] of Byte;        (* The item ID (variable length) *)
   end;
 
-{ TItemIDList -- List if item IDs (combined with 0-terminator) }
+(* TItemIDList -- List if item IDs (combined with 0-terminator) *)
 
   PItemIDList = ^TItemIDList;
-  TItemIDList = packed record         { idl }
+  TItemIDList = packed record         (* idl *)
      mkid: TSHItemID;
    end;
 
@@ -2028,35 +2039,35 @@ type
   TBrowseInfo = packed record
     hwndOwner: HWND;
     pidlRoot: PItemIDList;
-    pszDisplayName: LPSTR;  { Return display name of item selected. }
-    lpszTitle: LPCSTR;      { text to go in the banner over the tree. }
-    ulFlags: UINT;          { Flags that control the return stuff }
+    pszDisplayName: LPSTR;  (* Return display name of item selected. *)
+    lpszTitle: LPCSTR;      (* text to go in the banner over the tree. *)
+    ulFlags: UINT;          (* Flags that control the return stuff *)
     lpfn: TFNBFFCallBack;
-    lParam: LPARAM;         { extra info that's passed back in callbacks }
-    iImage: Integer;        { output var: where to return the Image index. }
+    lParam: LPARAM;         (* extra info that's passed back in callbacks *)
+    iImage: Integer;        (* output var: where to return the Image index. *)
   end;
 
 const
   shell32 = 'shell32.dll';
   ole32    = 'ole32.dll';
 
-{ Browsing for directory }
+(* Browsing for directory *)
 
-  BIF_RETURNONLYFSDIRS   = $0001; { For finding a folder to start document searching }
-  BIF_DONTGOBELOWDOMAIN  = $0002; { For starting the Find Computer }
+  BIF_RETURNONLYFSDIRS   = $0001; (* For finding a folder to start document searching *)
+  BIF_DONTGOBELOWDOMAIN  = $0002; (* For starting the Find Computer *)
   BIF_STATUSTEXT         = $0004;
   BIF_RETURNFSANCESTORS  = $0008;
 
-  BIF_BROWSEFORCOMPUTER  = $1000; { Browsing for Computers }
-  BIF_BROWSEFORPRINTER   = $2000; { Browsing for Printers }
-  BIF_BROWSEINCLUDEFILES = $4000; { Browsing for Everything }
+  BIF_BROWSEFORCOMPUTER  = $1000; (* Browsing for Computers *)
+  BIF_BROWSEFORPRINTER   = $2000; (* Browsing for Printers *)
+  BIF_BROWSEINCLUDEFILES = $4000; (* Browsing for Everything *)
 
-{ message from browser }
+(* message from browser *)
 
   BFFM_INITIALIZED       = 1;
   BFFM_SELCHANGED        = 2;
 
-{ messages to browser }
+(* messages to browser *)
 
   BFFM_SETSTATUSTEXT      = (WM_USER + 100);
   BFFM_ENABLEOK           = (WM_USER + 101);
@@ -2126,7 +2137,7 @@ begin
   Result := Quote + Result + Quote;
 end;
 
-{ AnsiExtractQuotedStr removes the Quote characters from the beginning and end
+(* AnsiExtractQuotedStr removes the Quote characters from the beginning and end
   of a quoted string, and reduces pairs of Quote characters within the quoted
   string to a single character. If the first character in Src is not the Quote
   character, the function returns an empty string.  The function copies
@@ -2135,7 +2146,7 @@ end;
   updated to point to the first character following the quoted string.  If
   the Src string does not contain a matching end Quote character, the Src
   parameter is updated to point to the terminating null character in Src.
-  This function supports multibyte character strings (MBCS).  }
+  This function supports multibyte character strings (MBCS).  *)
 
 function AnsiExtractQuotedStr(var Src: PChar; Quote: Char): string;
 var
