@@ -282,7 +282,7 @@ typedef
 		SYSTEM_PTR hWnd;
 		INTEGER uCallbackMessage, uEdge;
 		WinApi_RECT rc;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 	} WinApi_APPBARDATA;
 
 typedef
@@ -356,7 +356,8 @@ typedef
 
 typedef
 	struct WinApi_BROADCASTSYSMSG {
-		INTEGER uiMessage, wParam, lParam;
+		INTEGER uiMessage;
+		SYSTEM_PTR wParam, lParam;
 	} WinApi_BROADCASTSYSMSG;
 
 typedef
@@ -667,13 +668,15 @@ typedef
 
 typedef
 	struct WinApi_CWPRETSTRUCT {
-		INTEGER lResult, lParam, wParam, message;
+		SYSTEM_PTR lResult, lParam, wParam;
+		INTEGER message;
 		SYSTEM_PTR hwnd;
 	} WinApi_CWPRETSTRUCT;
 
 typedef
 	struct WinApi_CWPSTRUCT {
-		INTEGER lParam, wParam, message;
+		SYSTEM_PTR lParam, wParam;
+		INTEGER message;
 		SYSTEM_PTR hwnd;
 	} WinApi_CWPSTRUCT;
 
@@ -734,7 +737,9 @@ typedef
 
 typedef
 	struct WinApi_DEBUGHOOKINFO {
-		INTEGER idThread, idThreadInstaller, lParam, wParam, code;
+		INTEGER idThread, idThreadInstaller;
+		SYSTEM_PTR lParam, wParam;
+		INTEGER code;
 	} WinApi_DEBUGHOOKINFO;
 
 typedef
@@ -1481,7 +1486,7 @@ typedef
 	} WinApi_HANDLETABLE;
 
 typedef
-	INTEGER (*WinApi_ENHMFENUMPROC)(SYSTEM_PTR, WinApi_HANDLETABLE*, LONGINT *, WinApi_ENHMETARECORD*, LONGINT *, INTEGER, INTEGER);
+	INTEGER (*WinApi_ENHMFENUMPROC)(SYSTEM_PTR, WinApi_HANDLETABLE*, LONGINT *, WinApi_ENHMETARECORD*, LONGINT *, INTEGER, SYSTEM_PTR);
 
 typedef
 	struct WinApi_LOGFONTA {
@@ -1618,10 +1623,10 @@ typedef
 	struct WinApi__PSP *WinApi_Ptr_PSP;
 
 typedef
-	INTEGER (*WinApi_FNADDPROPSHEETPAGE)(WinApi_Ptr_PSP, INTEGER);
+	INTEGER (*WinApi_FNADDPROPSHEETPAGE)(WinApi_Ptr_PSP, SYSTEM_PTR);
 
 typedef
-	INTEGER (*WinApi_FNADDPROPSHEETPAGES)(SYSTEM_PTR, WinApi_FNADDPROPSHEETPAGE, INTEGER);
+	INTEGER (*WinApi_FNADDPROPSHEETPAGES)(SYSTEM_PTR, WinApi_FNADDPROPSHEETPAGE, SYSTEM_PTR);
 
 typedef
 	SYSTEM_PTR (*WinApi_FNCALLBACK)(INTEGER, INTEGER, SYSTEM_PTR, SYSTEM_PTR, SYSTEM_PTR, SYSTEM_PTR, INTEGER, INTEGER);
@@ -1633,7 +1638,7 @@ typedef
 	INTEGER (*WinApi_FNDEVMODE)(SYSTEM_PTR, SYSTEM_PTR, WinApi_DEVMODEA*, LONGINT *, SYSTEM_PTR, SYSTEM_PTR, WinApi_DEVMODEA*, LONGINT *, SYSTEM_PTR, INTEGER);
 
 typedef
-	INTEGER (*WinApi_FNPROPSHEETCALLBACK)(SYSTEM_PTR, INTEGER, INTEGER);
+	INTEGER (*WinApi_FNPROPSHEETCALLBACK)(SYSTEM_PTR, INTEGER, SYSTEM_PTR);
 
 typedef
 	INTEGER (*WinApi_FNPSPCALLBACKA)(SYSTEM_PTR, INTEGER, WinApi_PtrPROPSHEETPAGEA);
@@ -1805,7 +1810,8 @@ typedef
 typedef
 	struct WinApi_HARDWAREHOOKSTRUCT {
 		SYSTEM_PTR hwnd;
-		INTEGER message, wParam, lParam;
+		INTEGER message;
+		SYSTEM_PTR wParam, lParam;
 	} WinApi_HARDWAREHOOKSTRUCT;
 
 typedef
@@ -1865,10 +1871,10 @@ typedef
 	} WinApi_HW_PROFILE_INFOW;
 
 typedef
-	INTEGER (*WinApi_ICMENUMPROCA)(SYSTEM_PTR, INTEGER);
+	INTEGER (*WinApi_ICMENUMPROCA)(SYSTEM_PTR, SYSTEM_PTR);
 
 typedef
-	INTEGER (*WinApi_ICMENUMPROCW)(SYSTEM_PTR, INTEGER);
+	INTEGER (*WinApi_ICMENUMPROCW)(SYSTEM_PTR, SYSTEM_PTR);
 
 typedef
 	struct WinApi_ICONINFO {
@@ -2304,7 +2310,7 @@ typedef
 		SYSTEM_PTR szClass, szTitle, hOwner;
 		INTEGER x, y, cx, cy;
 		SET style;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 	} WinApi_MDICREATESTRUCTA;
 
 typedef
@@ -2312,7 +2318,7 @@ typedef
 		SYSTEM_PTR szClass, szTitle, hOwner;
 		INTEGER x, y, cx, cy;
 		SET style;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 	} WinApi_MDICREATESTRUCTW;
 
 typedef
@@ -2430,7 +2436,7 @@ typedef
 	} WinApi_METARECORD;
 
 typedef
-	INTEGER (*WinApi_MFENUMPROC)(SYSTEM_PTR, WinApi_HANDLETABLE*, LONGINT *, WinApi_METARECORD*, LONGINT *, INTEGER, INTEGER);
+	INTEGER (*WinApi_MFENUMPROC)(SYSTEM_PTR, WinApi_HANDLETABLE*, LONGINT *, WinApi_METARECORD*, LONGINT *, INTEGER, SYSTEM_PTR);
 
 typedef
 	struct WinApi_MINIMIZEDMETRICS {
@@ -2532,7 +2538,8 @@ typedef
 		SYSTEM_PTR hwndTo;
 		INTEGER dwTime;
 		SYSTEM_PTR hTask;
-		INTEGER wMsg, wParam, lParam;
+		INTEGER wMsg;
+		SYSTEM_PTR wParam, lParam;
 		WinApi_DDEML_MSG_HOOK_DATA dmhd;
 	} WinApi_MONMSGSTRUCT;
 
@@ -2559,7 +2566,9 @@ typedef
 typedef
 	struct WinApi_MSG {
 		SYSTEM_PTR hwnd;
-		INTEGER message, wParam, lParam, time;
+		INTEGER message;
+		SYSTEM_PTR wParam, lParam;
+		INTEGER time;
 		WinApi_POINT pt;
 	} WinApi_MSG;
 
@@ -3032,7 +3041,7 @@ typedef
 		struct WinApi__28 u1;
 		SYSTEM_PTR pszTitle;
 		WinApi_DLGPROC pfnDlgProc;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 		WinApi_FNPSPCALLBACKA pfnCallback;
 		struct {
 			LONGINT len[1];
@@ -3049,7 +3058,7 @@ typedef
 		struct WinApi__33 u1;
 		SYSTEM_PTR pszTitle;
 		WinApi_DLGPROC pfnDlgProc;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 		WinApi_FNPSPCALLBACKW pfnCallback;
 		struct {
 			LONGINT len[1];
@@ -3070,7 +3079,7 @@ typedef
 typedef
 	struct WinApi_PSHNOTIFY {
 		WinApi_NMHDR hdr;
-		INTEGER lParam;
+		SYSTEM_PTR lParam;
 	} WinApi_PSHNOTIFY;
 
 typedef
@@ -5060,7 +5069,7 @@ typedef
 	} WinApi_WIN_TRUST_SUBJECT_FILE;
 
 typedef
-	INTEGER (*WinApi_WNDPROC)(SYSTEM_PTR, INTEGER, INTEGER, INTEGER);
+	SYSTEM_PTR (*WinApi_WNDPROC)(SYSTEM_PTR, INTEGER, SYSTEM_PTR, SYSTEM_PTR);
 
 typedef
 	struct WinApi_WNDCLASSA {
@@ -5800,9 +5809,9 @@ __EXTERN INTEGER __CALL BitBlt(SYSTEM_PTR p0, INTEGER p1, INTEGER p2, INTEGER p3
 __EXTERN INTEGER __CALL BringWindowToTop(SYSTEM_PTR hWnd);
 #define WinApi_BroadcastSystemMessage(p0, p1, p2, p3, p4)	BroadcastSystemMessageA(p0, p1, p2, p3, p4)
 #define WinApi_BroadcastSystemMessageA(p0, p1, p2, p3, p4)	BroadcastSystemMessageA(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL BroadcastSystemMessageA(SET p0, SET *p1, INTEGER p2, INTEGER p3, INTEGER p4);
+__EXTERN INTEGER __CALL BroadcastSystemMessageA(SET p0, SET *p1, INTEGER p2, SYSTEM_PTR p3, SYSTEM_PTR p4);
 #define WinApi_BroadcastSystemMessageW(p0, p1, p2, p3, p4)	BroadcastSystemMessageW(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL BroadcastSystemMessageW(SET p0, SET *p1, INTEGER p2, INTEGER p3, INTEGER p4);
+__EXTERN INTEGER __CALL BroadcastSystemMessageW(SET p0, SET *p1, INTEGER p2, SYSTEM_PTR p3, SYSTEM_PTR p4);
 #define WinApi_BuildCommDCB(lpDef, lpDCB, lpDCB__typ)	BuildCommDCBA(lpDef, lpDCB)
 #define WinApi_BuildCommDCBA(lpDef, lpDCB, lpDCB__typ)	BuildCommDCBA(lpDef, lpDCB)
 __EXTERN INTEGER __CALL BuildCommDCBA(SYSTEM_PTR lpDef, WinApi_DCB *lpDCB);
@@ -5824,12 +5833,12 @@ __EXTERN INTEGER __CALL CallNamedPipeA(SYSTEM_PTR lpNamedPipeName, SYSTEM_PTR lp
 #define WinApi_CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)	CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)
 __EXTERN INTEGER __CALL CallNamedPipeW(SYSTEM_PTR lpNamedPipeName, SYSTEM_PTR lpInBuffer, INTEGER nInBufferSize, SYSTEM_PTR lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesRead, INTEGER nTimeOut);
 #define WinApi_CallNextHookEx(hhk, nCode, wParam, lParam)	CallNextHookEx(hhk, nCode, wParam, lParam)
-__EXTERN INTEGER __CALL CallNextHookEx(SYSTEM_PTR hhk, INTEGER nCode, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL CallNextHookEx(SYSTEM_PTR hhk, INTEGER nCode, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_CallWindowProc(lpPrevWndFunc, hWnd, Msg, wParam, lParam)	CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam)
 #define WinApi_CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam)	CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL CallWindowProcA(WinApi_FARPROC lpPrevWndFunc, SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL CallWindowProcA(WinApi_FARPROC lpPrevWndFunc, SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_CallWindowProcW(lpPrevWndFunc, hWnd, Msg, wParam, lParam)	CallWindowProcW(lpPrevWndFunc, hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL CallWindowProcW(WinApi_FARPROC lpPrevWndFunc, SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL CallWindowProcW(WinApi_FARPROC lpPrevWndFunc, SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_CancelDC(p0)	CancelDC(p0)
 __EXTERN INTEGER __CALL CancelDC(SYSTEM_PTR p0);
 #define WinApi_CancelWaitableTimer(hTimer)	CancelWaitableTimer(hTimer)
@@ -6070,14 +6079,14 @@ __EXTERN SYSTEM_PTR __CALL CreateDesktopA(SYSTEM_PTR lpszDesktop, SYSTEM_PTR lps
 __EXTERN SYSTEM_PTR __CALL CreateDesktopW(SYSTEM_PTR lpszDesktop, SYSTEM_PTR lpszDevice, WinApi_DEVMODEW *pDevmode, SET dwFlags, SET dwDesiredAccess, WinApi_SECURITY_ATTRIBUTES *lpsa);
 #define WinApi_CreateDialogIndirectParam(hInstance, lpTemplate, lpTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)
 #define WinApi_CreateDialogIndirectParamA(hInstance, lpTemplate, lpTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN SYSTEM_PTR __CALL CreateDialogIndirectParamA(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *lpTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN SYSTEM_PTR __CALL CreateDialogIndirectParamA(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *lpTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_CreateDialogIndirectParamW(hInstance, lpTemplate, lpTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogIndirectParamW(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN SYSTEM_PTR __CALL CreateDialogIndirectParamW(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *lpTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN SYSTEM_PTR __CALL CreateDialogIndirectParamW(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *lpTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_CreateDialogParam(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
 #define WinApi_CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN SYSTEM_PTR __CALL CreateDialogParamA(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN SYSTEM_PTR __CALL CreateDialogParamA(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN SYSTEM_PTR __CALL CreateDialogParamW(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN SYSTEM_PTR __CALL CreateDialogParamW(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_CreateDirectory(lpPathName, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryA(lpPathName, lpSecurityAttributes)
 #define WinApi_CreateDirectoryA(lpPathName, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryA(lpPathName, lpSecurityAttributes)
 __EXTERN INTEGER __CALL CreateDirectoryA(SYSTEM_PTR lpPathName, WinApi_SECURITY_ATTRIBUTES *lpSecurityAttributes);
@@ -6147,9 +6156,9 @@ __EXTERN SYSTEM_PTR __CALL CreateIconIndirect(WinApi_ICONINFO *piconinfo);
 __EXTERN SYSTEM_PTR __CALL CreateIoCompletionPort(SYSTEM_PTR FileHandle, SYSTEM_PTR ExistingCompletionPort, INTEGER CompletionKey, INTEGER NumberOfConcurrentThreads);
 #define WinApi_CreateMDIWindow(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
 #define WinApi_CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
-__EXTERN SYSTEM_PTR __CALL CreateMDIWindowA(SYSTEM_PTR lpClassName, SYSTEM_PTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, SYSTEM_PTR hWndParent, SYSTEM_PTR hInstance, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL CreateMDIWindowA(SYSTEM_PTR lpClassName, SYSTEM_PTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, SYSTEM_PTR hWndParent, SYSTEM_PTR hInstance, SYSTEM_PTR lParam);
 #define WinApi_CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
-__EXTERN SYSTEM_PTR __CALL CreateMDIWindowW(SYSTEM_PTR lpClassName, SYSTEM_PTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, SYSTEM_PTR hWndParent, SYSTEM_PTR hInstance, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL CreateMDIWindowW(SYSTEM_PTR lpClassName, SYSTEM_PTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, SYSTEM_PTR hWndParent, SYSTEM_PTR hInstance, SYSTEM_PTR lParam);
 #define WinApi_CreateMailslot(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)
 #define WinApi_CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)
 __EXTERN SYSTEM_PTR __CALL CreateMailslotA(SYSTEM_PTR lpName, INTEGER nMaxMessageSize, INTEGER lReadTimeout, WinApi_SECURITY_ATTRIBUTES *lpSecurityAttributes);
@@ -6324,24 +6333,24 @@ __EXTERN INTEGER __CALL DebugActiveProcess(INTEGER dwProcessId);
 __EXTERN void __CALL DebugBreak(void);
 #define WinApi_DefDlgProc(hDlg, Msg, wParam, lParam)	DefDlgProcA(hDlg, Msg, wParam, lParam)
 #define WinApi_DefDlgProcA(hDlg, Msg, wParam, lParam)	DefDlgProcA(hDlg, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL DefDlgProcA(SYSTEM_PTR hDlg, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefDlgProcA(SYSTEM_PTR hDlg, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefDlgProcW(hDlg, Msg, wParam, lParam)	DefDlgProcW(hDlg, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL DefDlgProcW(SYSTEM_PTR hDlg, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefDlgProcW(SYSTEM_PTR hDlg, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefFrameProc(hWnd, hWndMDIClient, uMsg, wParam, lParam)	DefFrameProcA(hWnd, hWndMDIClient, uMsg, wParam, lParam)
 #define WinApi_DefFrameProcA(hWnd, hWndMDIClient, uMsg, wParam, lParam)	DefFrameProcA(hWnd, hWndMDIClient, uMsg, wParam, lParam)
-__EXTERN INTEGER __CALL DefFrameProcA(SYSTEM_PTR hWnd, SYSTEM_PTR hWndMDIClient, INTEGER uMsg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefFrameProcA(SYSTEM_PTR hWnd, SYSTEM_PTR hWndMDIClient, INTEGER uMsg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefFrameProcW(hWnd, hWndMDIClient, uMsg, wParam, lParam)	DefFrameProcW(hWnd, hWndMDIClient, uMsg, wParam, lParam)
-__EXTERN INTEGER __CALL DefFrameProcW(SYSTEM_PTR hWnd, SYSTEM_PTR hWndMDIClient, INTEGER uMsg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefFrameProcW(SYSTEM_PTR hWnd, SYSTEM_PTR hWndMDIClient, INTEGER uMsg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefMDIChildProc(hWnd, uMsg, wParam, lParam)	DefMDIChildProcA(hWnd, uMsg, wParam, lParam)
 #define WinApi_DefMDIChildProcA(hWnd, uMsg, wParam, lParam)	DefMDIChildProcA(hWnd, uMsg, wParam, lParam)
-__EXTERN INTEGER __CALL DefMDIChildProcA(SYSTEM_PTR hWnd, INTEGER uMsg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefMDIChildProcA(SYSTEM_PTR hWnd, INTEGER uMsg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefMDIChildProcW(hWnd, uMsg, wParam, lParam)	DefMDIChildProcW(hWnd, uMsg, wParam, lParam)
-__EXTERN INTEGER __CALL DefMDIChildProcW(SYSTEM_PTR hWnd, INTEGER uMsg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefMDIChildProcW(SYSTEM_PTR hWnd, INTEGER uMsg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefWindowProc(hWnd, Msg, wParam, lParam)	DefWindowProcA(hWnd, Msg, wParam, lParam)
 #define WinApi_DefWindowProcA(hWnd, Msg, wParam, lParam)	DefWindowProcA(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL DefWindowProcA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefWindowProcA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DefWindowProcW(hWnd, Msg, wParam, lParam)	DefWindowProcW(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL DefWindowProcW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL DefWindowProcW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags)	DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags)
 __EXTERN SYSTEM_PTR __CALL DeferWindowPos(SYSTEM_PTR hWinPosInfo, SYSTEM_PTR hWnd, SYSTEM_PTR hWndInsertAfter, INTEGER x, INTEGER y, INTEGER cx, INTEGER cy, SET uFlags);
 #define WinApi_DefineDosDevice(dwFlags, lpDeviceName, lpTargetPath)	DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath)
@@ -6442,14 +6451,14 @@ __EXTERN INTEGER __CALL DeviceCapabilitiesW(SYSTEM_PTR p0, SYSTEM_PTR p1, SHORTI
 __EXTERN INTEGER __CALL DeviceIoControl(SYSTEM_PTR hDevice, INTEGER dwIoControlCode, SYSTEM_PTR lpInBuffer, INTEGER nInBufferSize, SYSTEM_PTR lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesReturned, WinApi_OVERLAPPED *lpOverlapped);
 #define WinApi_DialogBoxIndirectParam(hInstance, hDialogTemplate, hDialogTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)
 #define WinApi_DialogBoxIndirectParamA(hInstance, hDialogTemplate, hDialogTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL DialogBoxIndirectParamA(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN INTEGER __CALL DialogBoxIndirectParamA(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_DialogBoxIndirectParamW(hInstance, hDialogTemplate, hDialogTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxIndirectParamW(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL DialogBoxIndirectParamW(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN INTEGER __CALL DialogBoxIndirectParamW(SYSTEM_PTR hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_DialogBoxParam(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
 #define WinApi_DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL DialogBoxParamA(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN INTEGER __CALL DialogBoxParamA(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL DialogBoxParamW(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, INTEGER dwInitParam);
+__EXTERN INTEGER __CALL DialogBoxParamW(SYSTEM_PTR hInstance, SYSTEM_PTR lpTemplateName, SYSTEM_PTR hWndParent, WinApi_DLGPROC lpDialogFunc, SYSTEM_PTR dwInitParam);
 #define WinApi_DisableThreadLibraryCalls(hLibModule)	DisableThreadLibraryCalls(hLibModule)
 __EXTERN INTEGER __CALL DisableThreadLibraryCalls(SYSTEM_PTR hLibModule);
 #define WinApi_DisconnectNamedPipe(hNamedPipe)	DisconnectNamedPipe(hNamedPipe)
@@ -6526,9 +6535,9 @@ __EXTERN INTEGER __CALL DrawIconEx(SYSTEM_PTR hdc, INTEGER xLeft, INTEGER yTop, 
 __EXTERN INTEGER __CALL DrawMenuBar(SYSTEM_PTR hWnd);
 #define WinApi_DrawState(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)	DrawStateA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
 #define WinApi_DrawStateA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)	DrawStateA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
-__EXTERN INTEGER __CALL DrawStateA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_DRAWSTATEPROC p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, SET p9);
+__EXTERN INTEGER __CALL DrawStateA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_DRAWSTATEPROC p2, SYSTEM_PTR p3, SYSTEM_PTR p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, SET p9);
 #define WinApi_DrawStateW(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)	DrawStateW(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
-__EXTERN INTEGER __CALL DrawStateW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_DRAWSTATEPROC p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, SET p9);
+__EXTERN INTEGER __CALL DrawStateW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_DRAWSTATEPROC p2, SYSTEM_PTR p3, SYSTEM_PTR p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, SET p9);
 #define WinApi_DrawText(hDC, lpString, nCount, lpRect, lpRect__typ, uFormat)	DrawTextA(hDC, lpString, nCount, lpRect, uFormat)
 #define WinApi_DrawTextA(hDC, lpString, nCount, lpRect, lpRect__typ, uFormat)	DrawTextA(hDC, lpString, nCount, lpRect, uFormat)
 __EXTERN INTEGER __CALL DrawTextA(SYSTEM_PTR hDC, SYSTEM_PTR lpString, INTEGER nCount, WinApi_RECT *lpRect, SET uFormat);
@@ -6584,7 +6593,7 @@ __EXTERN INTEGER __CALL EnumCalendarInfoA(WinApi_CALINFO_ENUMPROCA lpCalInfoEnum
 #define WinApi_EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType)	EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType)
 __EXTERN INTEGER __CALL EnumCalendarInfoW(WinApi_CALINFO_ENUMPROCW lpCalInfoEnumProc, INTEGER Locale, INTEGER Calendar, INTEGER CalType);
 #define WinApi_EnumChildWindows(hWndParent, lpEnumFunc, lParam)	EnumChildWindows(hWndParent, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumChildWindows(SYSTEM_PTR hWndParent, WinApi_WNDENUMPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumChildWindows(SYSTEM_PTR hWndParent, WinApi_WNDENUMPROC lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumClipboardFormats(format)	EnumClipboardFormats(format)
 __EXTERN INTEGER __CALL EnumClipboardFormats(INTEGER format);
 #define WinApi_EnumDateFormats(lpDateFmtEnumProc, Locale, dwFlags)	EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags)
@@ -6598,12 +6607,12 @@ __EXTERN INTEGER __CALL EnumDependentServicesA(SYSTEM_PTR hService, INTEGER dwSe
 #define WinApi_EnumDependentServicesW(hService, dwServiceState, lpServices, lpServices__typ, cbBufSize, pcbBytesNeeded, lpServicesReturned)	EnumDependentServicesW(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned)
 __EXTERN INTEGER __CALL EnumDependentServicesW(SYSTEM_PTR hService, INTEGER dwServiceState, WinApi_ENUM_SERVICE_STATUSW *lpServices, INTEGER cbBufSize, INTEGER *pcbBytesNeeded, INTEGER *lpServicesReturned);
 #define WinApi_EnumDesktopWindows(hDesktop, lpfn, lParam)	EnumDesktopWindows(hDesktop, lpfn, lParam)
-__EXTERN INTEGER __CALL EnumDesktopWindows(SYSTEM_PTR hDesktop, WinApi_WNDENUMPROC lpfn, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumDesktopWindows(SYSTEM_PTR hDesktop, WinApi_WNDENUMPROC lpfn, SYSTEM_PTR lParam);
 #define WinApi_EnumDesktops(hwinsta, lpEnumFunc, lParam)	EnumDesktopsA(hwinsta, lpEnumFunc, lParam)
 #define WinApi_EnumDesktopsA(hwinsta, lpEnumFunc, lParam)	EnumDesktopsA(hwinsta, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumDesktopsA(SYSTEM_PTR hwinsta, WinApi_DESKTOPENUMPROCA lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumDesktopsA(SYSTEM_PTR hwinsta, WinApi_DESKTOPENUMPROCA lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumDesktopsW(hwinsta, lpEnumFunc, lParam)	EnumDesktopsW(hwinsta, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumDesktopsW(SYSTEM_PTR hwinsta, WinApi_DESKTOPENUMPROCW lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumDesktopsW(SYSTEM_PTR hwinsta, WinApi_DESKTOPENUMPROCW lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumDisplaySettings(lpszDeviceName, iModeNum, lpDevMode, lpDevMode__typ)	EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)
 #define WinApi_EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode, lpDevMode__typ)	EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)
 __EXTERN INTEGER __CALL EnumDisplaySettingsA(SYSTEM_PTR lpszDeviceName, INTEGER iModeNum, WinApi_DEVMODEA *lpDevMode);
@@ -6613,19 +6622,19 @@ __EXTERN INTEGER __CALL EnumDisplaySettingsW(SYSTEM_PTR lpszDeviceName, INTEGER 
 __EXTERN INTEGER __CALL EnumEnhMetaFile(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_ENHMFENUMPROC p2, SYSTEM_PTR p3, WinApi_RECT *p4);
 #define WinApi_EnumFontFamilies(p0, p1, p2, p3)	EnumFontFamiliesA(p0, p1, p2, p3)
 #define WinApi_EnumFontFamiliesA(p0, p1, p2, p3)	EnumFontFamiliesA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL EnumFontFamiliesA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_NEWFONTENUMPROCA p2, INTEGER p3);
+__EXTERN INTEGER __CALL EnumFontFamiliesA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_NEWFONTENUMPROCA p2, SYSTEM_PTR p3);
 #define WinApi_EnumFontFamiliesEx(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExA(p0, p1, p2, p3, p4)
 #define WinApi_EnumFontFamiliesExA(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExA(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL EnumFontFamiliesExA(SYSTEM_PTR p0, WinApi_LOGFONTA *p1, WinApi_FONTENUMPROCEXA p2, INTEGER p3, INTEGER p4);
+__EXTERN INTEGER __CALL EnumFontFamiliesExA(SYSTEM_PTR p0, WinApi_LOGFONTA *p1, WinApi_FONTENUMPROCEXA p2, SYSTEM_PTR p3, INTEGER p4);
 #define WinApi_EnumFontFamiliesExW(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExW(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL EnumFontFamiliesExW(SYSTEM_PTR p0, WinApi_LOGFONTW *p1, WinApi_FONTENUMPROCEXW p2, INTEGER p3, INTEGER p4);
+__EXTERN INTEGER __CALL EnumFontFamiliesExW(SYSTEM_PTR p0, WinApi_LOGFONTW *p1, WinApi_FONTENUMPROCEXW p2, SYSTEM_PTR p3, INTEGER p4);
 #define WinApi_EnumFontFamiliesW(p0, p1, p2, p3)	EnumFontFamiliesW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL EnumFontFamiliesW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_NEWFONTENUMPROCW p2, INTEGER p3);
+__EXTERN INTEGER __CALL EnumFontFamiliesW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_NEWFONTENUMPROCW p2, SYSTEM_PTR p3);
 #define WinApi_EnumFonts(p0, p1, p2, p3)	EnumFontsA(p0, p1, p2, p3)
 #define WinApi_EnumFontsA(p0, p1, p2, p3)	EnumFontsA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL EnumFontsA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_FONTENUMPROCA p2, INTEGER p3);
+__EXTERN INTEGER __CALL EnumFontsA(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_FONTENUMPROCA p2, SYSTEM_PTR p3);
 #define WinApi_EnumFontsW(p0, p1, p2, p3)	EnumFontsW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL EnumFontsW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_FONTENUMPROCW p2, INTEGER p3);
+__EXTERN INTEGER __CALL EnumFontsW(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_FONTENUMPROCW p2, SYSTEM_PTR p3);
 #define WinApi_EnumForms(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)	EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)
 #define WinApi_EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)	EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)
 __EXTERN INTEGER __CALL EnumFormsA(SYSTEM_PTR hPrinter, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
@@ -6633,16 +6642,16 @@ __EXTERN INTEGER __CALL EnumFormsA(SYSTEM_PTR hPrinter, INTEGER Level, CHAR *pFo
 __EXTERN INTEGER __CALL EnumFormsW(SYSTEM_PTR hPrinter, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinApi_EnumICMProfiles(p0, p1, p2)	EnumICMProfilesA(p0, p1, p2)
 #define WinApi_EnumICMProfilesA(p0, p1, p2)	EnumICMProfilesA(p0, p1, p2)
-__EXTERN INTEGER __CALL EnumICMProfilesA(SYSTEM_PTR p0, WinApi_ICMENUMPROCA p1, INTEGER p2);
+__EXTERN INTEGER __CALL EnumICMProfilesA(SYSTEM_PTR p0, WinApi_ICMENUMPROCA p1, SYSTEM_PTR p2);
 #define WinApi_EnumICMProfilesW(p0, p1, p2)	EnumICMProfilesW(p0, p1, p2)
-__EXTERN INTEGER __CALL EnumICMProfilesW(SYSTEM_PTR p0, WinApi_ICMENUMPROCW p1, INTEGER p2);
+__EXTERN INTEGER __CALL EnumICMProfilesW(SYSTEM_PTR p0, WinApi_ICMENUMPROCW p1, SYSTEM_PTR p2);
 #define WinApi_EnumJobs(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)	EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)
 #define WinApi_EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)	EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)
 __EXTERN INTEGER __CALL EnumJobsA(SYSTEM_PTR hPrinter, INTEGER FirstJob, INTEGER NoJobs, INTEGER Level, CHAR *pJob, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinApi_EnumJobsW(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)	EnumJobsW(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned)
 __EXTERN INTEGER __CALL EnumJobsW(SYSTEM_PTR hPrinter, INTEGER FirstJob, INTEGER NoJobs, INTEGER Level, CHAR *pJob, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinApi_EnumMetaFile(p0, p1, p2, p3)	EnumMetaFile(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL EnumMetaFile(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_MFENUMPROC p2, INTEGER p3);
+__EXTERN INTEGER __CALL EnumMetaFile(SYSTEM_PTR p0, SYSTEM_PTR p1, WinApi_MFENUMPROC p2, SYSTEM_PTR p3);
 #define WinApi_EnumMonitors(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)	EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)
 #define WinApi_EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)	EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)
 __EXTERN INTEGER __CALL EnumMonitorsA(SYSTEM_PTR pName, INTEGER Level, CHAR *pMonitors, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
@@ -6680,9 +6689,9 @@ __EXTERN INTEGER __CALL EnumPrintersW(SET Flags, SYSTEM_PTR Name, INTEGER Level,
 __EXTERN INTEGER __CALL EnumPropsA(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCA lpEnumFunc);
 #define WinApi_EnumPropsEx(hWnd, lpEnumFunc, lParam)	EnumPropsExA(hWnd, lpEnumFunc, lParam)
 #define WinApi_EnumPropsExA(hWnd, lpEnumFunc, lParam)	EnumPropsExA(hWnd, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumPropsExA(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCEXA lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumPropsExA(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCEXA lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumPropsExW(hWnd, lpEnumFunc, lParam)	EnumPropsExW(hWnd, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumPropsExW(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCEXW lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumPropsExW(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCEXW lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumPropsW(hWnd, lpEnumFunc)	EnumPropsW(hWnd, lpEnumFunc)
 __EXTERN INTEGER __CALL EnumPropsW(SYSTEM_PTR hWnd, WinApi_ROPENUMPROCW lpEnumFunc);
 #define WinApi_EnumResourceLanguages(hModule, lpType, lpName, lpEnumFunc, lParam)	EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam)
@@ -6716,7 +6725,7 @@ __EXTERN INTEGER __CALL EnumSystemLocalesA(WinApi_LOCALE_ENUMPROCA lpLocaleEnumP
 #define WinApi_EnumSystemLocalesW(lpLocaleEnumProc, dwFlags)	EnumSystemLocalesW(lpLocaleEnumProc, dwFlags)
 __EXTERN INTEGER __CALL EnumSystemLocalesW(WinApi_LOCALE_ENUMPROCW lpLocaleEnumProc, SET dwFlags);
 #define WinApi_EnumThreadWindows(dwThreadId, lpfn, lParam)	EnumThreadWindows(dwThreadId, lpfn, lParam)
-__EXTERN INTEGER __CALL EnumThreadWindows(INTEGER dwThreadId, WinApi_WNDENUMPROC lpfn, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumThreadWindows(INTEGER dwThreadId, WinApi_WNDENUMPROC lpfn, SYSTEM_PTR lParam);
 #define WinApi_EnumTimeFormats(lpTimeFmtEnumProc, Locale, dwFlags)	EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags)
 #define WinApi_EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags)	EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags)
 __EXTERN INTEGER __CALL EnumTimeFormatsA(WinApi_TIMEFMT_ENUMPROCA lpTimeFmtEnumProc, INTEGER Locale, SET dwFlags);
@@ -6724,11 +6733,11 @@ __EXTERN INTEGER __CALL EnumTimeFormatsA(WinApi_TIMEFMT_ENUMPROCA lpTimeFmtEnumP
 __EXTERN INTEGER __CALL EnumTimeFormatsW(WinApi_TIMEFMT_ENUMPROCW lpTimeFmtEnumProc, INTEGER Locale, SET dwFlags);
 #define WinApi_EnumWindowStations(lpEnumFunc, lParam)	EnumWindowStationsA(lpEnumFunc, lParam)
 #define WinApi_EnumWindowStationsA(lpEnumFunc, lParam)	EnumWindowStationsA(lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumWindowStationsA(WinApi_WINSTAENUMPROCA lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumWindowStationsA(WinApi_WINSTAENUMPROCA lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumWindowStationsW(lpEnumFunc, lParam)	EnumWindowStationsW(lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumWindowStationsW(WinApi_WINSTAENUMPROCW lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumWindowStationsW(WinApi_WINSTAENUMPROCW lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EnumWindows(lpEnumFunc, lParam)	EnumWindows(lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL EnumWindows(WinApi_WNDENUMPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL EnumWindows(WinApi_WNDENUMPROC lpEnumFunc, SYSTEM_PTR lParam);
 #define WinApi_EqualPrefixSid(pSid1, pSid2)	EqualPrefixSid(pSid1, pSid2)
 __EXTERN INTEGER __CALL EqualPrefixSid(SYSTEM_PTR pSid1, SYSTEM_PTR pSid2);
 #define WinApi_EqualRect(lprc1, lprc1__typ, lprc2, lprc2__typ)	EqualRect(lprc1, lprc2)
@@ -7883,9 +7892,9 @@ __EXTERN INTEGER __CALL GlobalUnlock(SYSTEM_PTR hMem);
 __EXTERN SYSTEM_PTR __CALL GlobalWire(SYSTEM_PTR hMem);
 #define WinApi_GrayString(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)	GrayStringA(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)
 #define WinApi_GrayStringA(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)	GrayStringA(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)
-__EXTERN INTEGER __CALL GrayStringA(SYSTEM_PTR hDC, SYSTEM_PTR hBrush, WinApi_GRAYSTRINGPROC lpOutputFunc, INTEGER lpData, INTEGER nCount, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight);
+__EXTERN INTEGER __CALL GrayStringA(SYSTEM_PTR hDC, SYSTEM_PTR hBrush, WinApi_GRAYSTRINGPROC lpOutputFunc, SYSTEM_PTR lpData, INTEGER nCount, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight);
 #define WinApi_GrayStringW(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)	GrayStringW(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight)
-__EXTERN INTEGER __CALL GrayStringW(SYSTEM_PTR hDC, SYSTEM_PTR hBrush, WinApi_GRAYSTRINGPROC lpOutputFunc, INTEGER lpData, INTEGER nCount, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight);
+__EXTERN INTEGER __CALL GrayStringW(SYSTEM_PTR hDC, SYSTEM_PTR hBrush, WinApi_GRAYSTRINGPROC lpOutputFunc, SYSTEM_PTR lpData, INTEGER nCount, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight);
 #define WinApi_HeapAlloc(hHeap, dwFlags, dwBytes)	HeapAlloc(hHeap, dwFlags, dwBytes)
 __EXTERN SYSTEM_PTR __CALL HeapAlloc(SYSTEM_PTR hHeap, SET dwFlags, INTEGER dwBytes);
 #define WinApi_HeapCompact(hHeap, dwFlags)	HeapCompact(hHeap, dwFlags)
@@ -8083,7 +8092,7 @@ __EXTERN INTEGER __CALL LZStart(void);
 #define WinApi_LeaveCriticalSection(lpCriticalSection, lpCriticalSection__typ)	LeaveCriticalSection(lpCriticalSection)
 __EXTERN void __CALL LeaveCriticalSection(WinApi_RTL_CRITICAL_SECTION *lpCriticalSection);
 #define WinApi_LineDDA(p0, p1, p2, p3, p4, p5)	LineDDA(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL LineDDA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, WinApi_LINEDDAPROC p4, INTEGER p5);
+__EXTERN INTEGER __CALL LineDDA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, WinApi_LINEDDAPROC p4, SYSTEM_PTR p5);
 #define WinApi_LineTo(p0, p1, p2)	LineTo(p0, p1, p2)
 __EXTERN INTEGER __CALL LineTo(SYSTEM_PTR p0, INTEGER p1, INTEGER p2);
 #define WinApi_LoadAccelerators(hInstance, lpTableName)	LoadAcceleratorsA(hInstance, lpTableName)
@@ -8469,18 +8478,18 @@ __EXTERN INTEGER __CALL Polyline(SYSTEM_PTR p0, WinApi_POINT *p1, INTEGER p2);
 __EXTERN INTEGER __CALL PolylineTo(SYSTEM_PTR p0, WinApi_POINT *p1, INTEGER p2);
 #define WinApi_PostMessage(hWnd, Msg, wParam, lParam)	PostMessageA(hWnd, Msg, wParam, lParam)
 #define WinApi_PostMessageA(hWnd, Msg, wParam, lParam)	PostMessageA(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL PostMessageA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL PostMessageA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_PostMessageW(hWnd, Msg, wParam, lParam)	PostMessageW(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL PostMessageW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL PostMessageW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dwCompletionKey, lpOverlapped, lpOverlapped__typ)	PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dwCompletionKey, lpOverlapped)
 __EXTERN INTEGER __CALL PostQueuedCompletionStatus(SYSTEM_PTR CompletionPort, INTEGER dwNumberOfBytesTransferred, INTEGER dwCompletionKey, WinApi_OVERLAPPED *lpOverlapped);
 #define WinApi_PostQuitMessage(nExitCode)	PostQuitMessage(nExitCode)
 __EXTERN void __CALL PostQuitMessage(INTEGER nExitCode);
 #define WinApi_PostThreadMessage(idThread, Msg, wParam, lParam)	PostThreadMessageA(idThread, Msg, wParam, lParam)
 #define WinApi_PostThreadMessageA(idThread, Msg, wParam, lParam)	PostThreadMessageA(idThread, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL PostThreadMessageA(INTEGER idThread, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL PostThreadMessageA(INTEGER idThread, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_PostThreadMessageW(idThread, Msg, wParam, lParam)	PostThreadMessageW(idThread, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL PostThreadMessageW(INTEGER idThread, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL PostThreadMessageW(INTEGER idThread, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_PrepareTape(hDevice, dwOperation, bImmediate)	PrepareTape(hDevice, dwOperation, bImmediate)
 __EXTERN INTEGER __CALL PrepareTape(SYSTEM_PTR hDevice, INTEGER dwOperation, INTEGER bImmediate);
 #define WinApi_PrinterMessageBox(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)
@@ -8759,7 +8768,7 @@ __EXTERN SYSTEM_PTR __CALL RemovePropA(SYSTEM_PTR hWnd, SYSTEM_PTR lpString);
 #define WinApi_RemovePropW(hWnd, lpString)	RemovePropW(hWnd, lpString)
 __EXTERN SYSTEM_PTR __CALL RemovePropW(SYSTEM_PTR hWnd, SYSTEM_PTR lpString);
 #define WinApi_ReplyMessage(lResult)	ReplyMessage(lResult)
-__EXTERN INTEGER __CALL ReplyMessage(INTEGER lResult);
+__EXTERN INTEGER __CALL ReplyMessage(SYSTEM_PTR lResult);
 #define WinApi_ReportEvent(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)	ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)
 #define WinApi_ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)	ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)
 __EXTERN INTEGER __CALL ReportEventA(SYSTEM_PTR hEventLog, SHORTINT wType, SHORTINT wCategory, INTEGER dwEventID, SYSTEM_PTR lpUserSid, SHORTINT wNumStrings, INTEGER dwDataSize, SYSTEM_PTR *lpStrings, SYSTEM_PTR lpRawData);
@@ -8849,29 +8858,29 @@ __EXTERN SYSTEM_PTR __CALL SelectObject(SYSTEM_PTR p0, SYSTEM_PTR p1);
 __EXTERN SYSTEM_PTR __CALL SelectPalette(SYSTEM_PTR p0, SYSTEM_PTR p1, INTEGER p2);
 #define WinApi_SendDlgItemMessage(hDlg, nIDDlgItem, Msg, wParam, lParam)	SendDlgItemMessageA(hDlg, nIDDlgItem, Msg, wParam, lParam)
 #define WinApi_SendDlgItemMessageA(hDlg, nIDDlgItem, Msg, wParam, lParam)	SendDlgItemMessageA(hDlg, nIDDlgItem, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendDlgItemMessageA(SYSTEM_PTR hDlg, INTEGER nIDDlgItem, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL SendDlgItemMessageA(SYSTEM_PTR hDlg, INTEGER nIDDlgItem, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SendDlgItemMessageW(hDlg, nIDDlgItem, Msg, wParam, lParam)	SendDlgItemMessageW(hDlg, nIDDlgItem, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendDlgItemMessageW(SYSTEM_PTR hDlg, INTEGER nIDDlgItem, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL SendDlgItemMessageW(SYSTEM_PTR hDlg, INTEGER nIDDlgItem, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SendMessage(hWnd, Msg, wParam, lParam)	SendMessageA(hWnd, Msg, wParam, lParam)
 #define WinApi_SendMessageA(hWnd, Msg, wParam, lParam)	SendMessageA(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendMessageA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL SendMessageA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SendMessageCallback(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)	SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)
 #define WinApi_SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)	SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)
-__EXTERN INTEGER __CALL SendMessageCallbackA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam, WinApi_SENDASYNCPROC lpResultCallBack, INTEGER dwData);
+__EXTERN INTEGER __CALL SendMessageCallbackA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam, WinApi_SENDASYNCPROC lpResultCallBack, INTEGER dwData);
 #define WinApi_SendMessageCallbackW(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)	SendMessageCallbackW(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData)
-__EXTERN INTEGER __CALL SendMessageCallbackW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam, WinApi_SENDASYNCPROC lpResultCallBack, INTEGER dwData);
+__EXTERN INTEGER __CALL SendMessageCallbackW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam, WinApi_SENDASYNCPROC lpResultCallBack, INTEGER dwData);
 #define WinApi_SendMessageTimeout(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)	SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)
 #define WinApi_SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)	SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)
-__EXTERN INTEGER __CALL SendMessageTimeoutA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam, SET fuFlags, INTEGER uTimeout, INTEGER *lpdwResult);
+__EXTERN SYSTEM_PTR __CALL SendMessageTimeoutA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam, SET fuFlags, INTEGER uTimeout, INTEGER *lpdwResult);
 #define WinApi_SendMessageTimeoutW(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)	SendMessageTimeoutW(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult)
-__EXTERN INTEGER __CALL SendMessageTimeoutW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam, SET fuFlags, INTEGER uTimeout, INTEGER *lpdwResult);
+__EXTERN SYSTEM_PTR __CALL SendMessageTimeoutW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam, SET fuFlags, INTEGER uTimeout, INTEGER *lpdwResult);
 #define WinApi_SendMessageW(hWnd, Msg, wParam, lParam)	SendMessageW(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendMessageW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL SendMessageW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SendNotifyMessage(hWnd, Msg, wParam, lParam)	SendNotifyMessageA(hWnd, Msg, wParam, lParam)
 #define WinApi_SendNotifyMessageA(hWnd, Msg, wParam, lParam)	SendNotifyMessageA(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendNotifyMessageA(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL SendNotifyMessageA(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SendNotifyMessageW(hWnd, Msg, wParam, lParam)	SendNotifyMessageW(hWnd, Msg, wParam, lParam)
-__EXTERN INTEGER __CALL SendNotifyMessageW(SYSTEM_PTR hWnd, INTEGER Msg, INTEGER wParam, INTEGER lParam);
+__EXTERN INTEGER __CALL SendNotifyMessageW(SYSTEM_PTR hWnd, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_SetAbortProc(p0, p1)	SetAbortProc(p0, p1)
 __EXTERN INTEGER __CALL SetAbortProc(SYSTEM_PTR p0, WinApi_ABORTPROC p1);
 #define WinApi_SetAclInformation(pAcl, pAcl__typ, pAclInformation, nAclInformationLength, dwAclInformationClass)	SetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass)
@@ -9079,7 +9088,7 @@ __EXTERN INTEGER __CALL SetMenuItemInfoA(SYSTEM_PTR p0, INTEGER p1, INTEGER p2, 
 #define WinApi_SetMenuItemInfoW(p0, p1, p2, p3, p3__typ)	SetMenuItemInfoW(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL SetMenuItemInfoW(SYSTEM_PTR p0, INTEGER p1, INTEGER p2, WinApi_MENUITEMINFOW *p3);
 #define WinApi_SetMessageExtraInfo(lParam)	SetMessageExtraInfo(lParam)
-__EXTERN INTEGER __CALL SetMessageExtraInfo(INTEGER lParam);
+__EXTERN SYSTEM_PTR __CALL SetMessageExtraInfo(SYSTEM_PTR lParam);
 #define WinApi_SetMessageQueue(cMessagesMax)	SetMessageQueue(cMessagesMax)
 __EXTERN INTEGER __CALL SetMessageQueue(INTEGER cMessagesMax);
 #define WinApi_SetMetaFileBitsEx(p0, p1, p1__len)	SetMetaFileBitsEx(p0, p1)
