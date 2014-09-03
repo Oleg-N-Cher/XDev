@@ -7331,9 +7331,9 @@ MODULE WinApi (*KERNEL32.dll*);
 			Size*: INTEGER;
 		END;
 		PtrTAPE_CREATE_PARTITION* = POINTER TO TAPE_CREATE_PARTITION;
-		WPARAM* = INTEGER;
-		LPARAM* = INTEGER;
-		LRESULT* = INTEGER;
+		WPARAM* = HANDLE; (*UINT_PTR: UINT of sufficient size to hold a pointer*)
+		LPARAM* = HANDLE; (*LONG_PTR: LONG of sufficient size to hold a pointer*)
+		LRESULT* = HANDLE; (*LONG_PTR: LONG of sufficient size to hold a pointer*)
 		HWND* = HANDLE;
 		HHOOK* = HANDLE;
 		ATOM* = SHORTINT;
