@@ -8,10 +8,57 @@ typedef
 	CHAR AclLib_PChar[256];
 
 typedef
+	struct AclLib_TControlList *AclLib_PControlList;
+
+typedef
 	struct AclLib_TWinControl *AclLib_PWinControl;
 
 typedef
+	struct AclLib_TWinControlList *AclLib_PWinControlList;
+
+typedef
 	CHAR AclLib_ShortString[256];
+
+typedef
+	CHAR AclLib_TFontDataName[32];
+
+typedef
+	struct AclLib_TFontData {
+		INTEGER Height;
+		BYTE Pitch;
+		SET Style;
+		CHAR Charset;
+		AclLib_TFontDataName Name;
+	} AclLib_TFontData;
+
+typedef
+	struct AclLib_TFont {
+		SYSTEM_PTR Handle;
+		AclLib_PWinControl FControl;
+		AclLib_TFontData FFontData;
+		WinApi_LOGFONTA FLogFont;
+		INTEGER Color, FPixelsPerInch;
+	} AclLib_TFont;
+
+static void AclLib_TFont_Create (AclLib_TFont *f, LONGINT *f__typ);
+static void AclLib_TFont_Destroy (AclLib_TFont *f, LONGINT *f__typ);
+static void AclLib_TFont_SetCharset (AclLib_TFont *f, LONGINT *f__typ, CHAR value);
+typedef
+	CHAR *AclLib_TFontName;
+
+static void AclLib_TFont_SetName (AclLib_TFont *f, LONGINT *f__typ, CHAR *value, LONGINT value__len);
+static void AclLib_TFont_SetPitch (AclLib_TFont *f, LONGINT *f__typ, BYTE value);
+static void AclLib_TFont_SetSize (AclLib_TFont *f, LONGINT *f__typ, INTEGER value);
+static void AclLib_TFont_SetStyle (AclLib_TFont *f, LONGINT *f__typ, SET value);
+static void AclLib_TFont_UpdateFont (AclLib_TFont *f, LONGINT *f__typ);
+#define __AclLib_TFont_Create(f, f__typ) __SEND(f__typ, AclLib_TFont_Create, 0, void(*)(AclLib_TFont*, LONGINT *), (f, f__typ))
+#define __AclLib_TFont_Destroy(f, f__typ) __SEND(f__typ, AclLib_TFont_Destroy, 1, void(*)(AclLib_TFont*, LONGINT *), (f, f__typ))
+#define __AclLib_TFont_SetCharset(f, f__typ, value) __SEND(f__typ, AclLib_TFont_SetCharset, 2, void(*)(AclLib_TFont*, LONGINT *, CHAR), (f, f__typ, value))
+#define __AclLib_TFont_SetName(f, f__typ, value, value__len) __SEND(f__typ, AclLib_TFont_SetName, 3, void(*)(AclLib_TFont*, LONGINT *, CHAR*, LONGINT ), (f, f__typ, value, value__len))
+#define __AclLib_TFont_SetPitch(f, f__typ, value) __SEND(f__typ, AclLib_TFont_SetPitch, 4, void(*)(AclLib_TFont*, LONGINT *, BYTE), (f, f__typ, value))
+#define __AclLib_TFont_SetSize(f, f__typ, value) __SEND(f__typ, AclLib_TFont_SetSize, 5, void(*)(AclLib_TFont*, LONGINT *, INTEGER), (f, f__typ, value))
+#define __AclLib_TFont_SetStyle(f, f__typ, value) __SEND(f__typ, AclLib_TFont_SetStyle, 6, void(*)(AclLib_TFont*, LONGINT *, SET), (f, f__typ, value))
+#define __AclLib_TFont_UpdateFont(f, f__typ) __SEND(f__typ, AclLib_TFont_UpdateFont, 7, void(*)(AclLib_TFont*, LONGINT *), (f, f__typ))
 
 typedef
 	struct AclLib_TWinControl {
@@ -21,7 +68,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -37,7 +85,7 @@ typedef
 		INTEGER FHTest;
 	} AclLib_TWinControl;
 
-export void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_PWinControl AParent);
+export void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_TWinControl *aParent, LONGINT *aParent__typ);
 typedef
 	struct AclLib_TCreateParams {
 		AclLib_PChar Caption;
@@ -62,7 +110,9 @@ static BOOLEAN AclLib_TWinControl_ProcessMsg (AclLib_TWinControl *w, LONGINT *w_
 static void AclLib_TWinControl_SetBounds (AclLib_TWinControl *w, LONGINT *w__typ, WinApi_RECT *r, LONGINT *r__typ);
 export void AclLib_TWinControl_SetCaption (AclLib_TWinControl *w, LONGINT *w__typ, CHAR *value, LONGINT value__len);
 export void AclLib_TWinControl_SetColor (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value);
+static void AclLib_TWinControl_SetEnabled (AclLib_TWinControl *w, LONGINT *w__typ, BOOLEAN value);
 static void AclLib_TWinControl_SetFocus (AclLib_TWinControl *w, LONGINT *w__typ);
+static void AclLib_TWinControl_SetFont (AclLib_TWinControl *w, LONGINT *w__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ);
 export void AclLib_TWinControl_SetHeight (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value);
 export void AclLib_TWinControl_SetLeft (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value);
 export void AclLib_TWinControl_SetTextColor (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value);
@@ -71,7 +121,7 @@ export void AclLib_TWinControl_SetVisible (AclLib_TWinControl *w, LONGINT *w__ty
 export void AclLib_TWinControl_SetWidth (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value);
 static void AclLib_TWinControl_Show (AclLib_TWinControl *w, LONGINT *w__typ);
 export INTEGER AclLib_TWinControl_ShowModal (AclLib_TWinControl *w, LONGINT *w__typ);
-#define __AclLib_TWinControl_Create(w, w__typ, AParent) __SEND(w__typ, AclLib_TWinControl_Create, 0, void(*)(AclLib_TWinControl*, LONGINT *, AclLib_PWinControl), (w, w__typ, AParent))
+#define __AclLib_TWinControl_Create(w, w__typ, aParent, aParent__typ) __SEND(w__typ, AclLib_TWinControl_Create, 0, void(*)(AclLib_TWinControl*, LONGINT *, AclLib_TWinControl*, LONGINT *), (w, w__typ, aParent, aParent__typ))
 #define __AclLib_TWinControl_CreateParams(w, w__typ, Params, Params__typ) __SEND(w__typ, AclLib_TWinControl_CreateParams, 1, void(*)(AclLib_TWinControl*, LONGINT *, AclLib_TCreateParams*, LONGINT *), (w, w__typ, Params, Params__typ))
 #define __AclLib_TWinControl_CreateWindowHandle(w, w__typ, Params, Params__typ) __SEND(w__typ, AclLib_TWinControl_CreateWindowHandle, 2, void(*)(AclLib_TWinControl*, LONGINT *, AclLib_TCreateParams*, LONGINT *), (w, w__typ, Params, Params__typ))
 #define __AclLib_TWinControl_CreateWnd(w, w__typ) __SEND(w__typ, AclLib_TWinControl_CreateWnd, 3, void(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
@@ -87,15 +137,17 @@ export INTEGER AclLib_TWinControl_ShowModal (AclLib_TWinControl *w, LONGINT *w__
 #define __AclLib_TWinControl_SetBounds(w, w__typ, r, r__typ) __SEND(w__typ, AclLib_TWinControl_SetBounds, 13, void(*)(AclLib_TWinControl*, LONGINT *, WinApi_RECT*, LONGINT *), (w, w__typ, r, r__typ))
 #define __AclLib_TWinControl_SetCaption(w, w__typ, value, value__len) __SEND(w__typ, AclLib_TWinControl_SetCaption, 14, void(*)(AclLib_TWinControl*, LONGINT *, CHAR*, LONGINT ), (w, w__typ, value, value__len))
 #define __AclLib_TWinControl_SetColor(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetColor, 15, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_SetFocus(w, w__typ) __SEND(w__typ, AclLib_TWinControl_SetFocus, 16, void(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
-#define __AclLib_TWinControl_SetHeight(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetHeight, 17, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_SetLeft(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetLeft, 18, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_SetTextColor(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetTextColor, 19, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_SetTop(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetTop, 20, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_SetVisible(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetVisible, 21, void(*)(AclLib_TWinControl*, LONGINT *, BOOLEAN), (w, w__typ, value))
-#define __AclLib_TWinControl_SetWidth(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetWidth, 22, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
-#define __AclLib_TWinControl_Show(w, w__typ) __SEND(w__typ, AclLib_TWinControl_Show, 23, void(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
-#define __AclLib_TWinControl_ShowModal(w, w__typ) __SEND(w__typ, AclLib_TWinControl_ShowModal, 24, INTEGER(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
+#define __AclLib_TWinControl_SetEnabled(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetEnabled, 16, void(*)(AclLib_TWinControl*, LONGINT *, BOOLEAN), (w, w__typ, value))
+#define __AclLib_TWinControl_SetFocus(w, w__typ) __SEND(w__typ, AclLib_TWinControl_SetFocus, 17, void(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
+#define __AclLib_TWinControl_SetFont(w, w__typ, AFont, AFont__typ) __SEND(w__typ, AclLib_TWinControl_SetFont, 18, void(*)(AclLib_TWinControl*, LONGINT *, WinApi_LOGFONTA*, LONGINT *), (w, w__typ, AFont, AFont__typ))
+#define __AclLib_TWinControl_SetHeight(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetHeight, 19, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
+#define __AclLib_TWinControl_SetLeft(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetLeft, 20, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
+#define __AclLib_TWinControl_SetTextColor(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetTextColor, 21, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
+#define __AclLib_TWinControl_SetTop(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetTop, 22, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
+#define __AclLib_TWinControl_SetVisible(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetVisible, 23, void(*)(AclLib_TWinControl*, LONGINT *, BOOLEAN), (w, w__typ, value))
+#define __AclLib_TWinControl_SetWidth(w, w__typ, value) __SEND(w__typ, AclLib_TWinControl_SetWidth, 24, void(*)(AclLib_TWinControl*, LONGINT *, INTEGER), (w, w__typ, value))
+#define __AclLib_TWinControl_Show(w, w__typ) __SEND(w__typ, AclLib_TWinControl_Show, 25, void(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
+#define __AclLib_TWinControl_ShowModal(w, w__typ) __SEND(w__typ, AclLib_TWinControl_ShowModal, 26, INTEGER(*)(AclLib_TWinControl*, LONGINT *), (w, w__typ))
 
 typedef
 	struct AclLib_TStdControl { /* AclLib_TWinControl */
@@ -105,7 +157,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -129,7 +182,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -153,7 +207,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -170,6 +225,18 @@ typedef
 	} AclLib_TCheckBox;
 
 typedef
+	struct AclLib_TControl {
+		AclLib_PWinControl FOwner;
+		INTEGER Left, Top, Width, Height;
+	} AclLib_TControl;
+
+typedef
+	struct AclLib_TControlList {
+		AclLib_TControl Control;
+		AclLib_PControlList Next;
+	} AclLib_TControlList;
+
+typedef
 	struct AclLib_TLabel { /* AclLib_TStdControl */
 		SYSTEM_PTR FHandle, FParentHandle;
 		AclLib_PChar FClassName;
@@ -177,7 +244,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -201,7 +269,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -230,7 +299,8 @@ typedef
 		AclLib_ShortString FHelpFile, FTextBuf;
 		INTEGER FTextLen;
 		SYSTEM_PTR Brush, FCursorHandle;
-		SHORTINT FCursor;
+		SHORTINT Cursor;
+		AclLib_TFont FFont;
 		SYSTEM_PTR FDC;
 		INTEGER Color, TextColor;
 		BYTE FBkMode;
@@ -246,6 +316,15 @@ typedef
 		INTEGER FHTest;
 	} AclLib_TProgressBar;
 
+typedef
+	struct AclLib_TWinControlList {
+		AclLib_PWinControl WinControl;
+		AclLib_PWinControlList Next;
+	} AclLib_TWinControlList;
+
+typedef
+	SYSTEM_PTR (*AclLib_TWndProc)(SYSTEM_PTR, INTEGER, SYSTEM_PTR, SYSTEM_PTR);
+
 
 static INTEGER AclLib_ScreenLogPixels;
 static SYSTEM_PTR AclLib_HInstance;
@@ -254,6 +333,11 @@ static INTEGER AclLib_CmdShow;
 
 export LONGINT *AclLib_TObject__typ;
 export LONGINT *AclLib_TCreateParams__typ;
+export LONGINT *AclLib_TControl__typ;
+export LONGINT *AclLib_TControlList__typ;
+export LONGINT *AclLib_TWinControlList__typ;
+export LONGINT *AclLib_TFontData__typ;
+export LONGINT *AclLib_TFont__typ;
 export LONGINT *AclLib_TWinControl__typ;
 export LONGINT *AclLib_TStdControl__typ;
 export LONGINT *AclLib_TLabel__typ;
@@ -288,7 +372,93 @@ static void AclLib_InitScreenLogPixels (void)
 	Ignore_Int(WinApi_ReleaseDC(NIL, DC));
 }
 
-void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_PWinControl AParent)
+static void AclLib_TFont_Create (AclLib_TFont *f, LONGINT *f__typ)
+{
+	(*f).Handle = NIL;
+	(*f).Color = 0;
+	(*f).FPixelsPerInch = 96;
+	__AclLib_TFont_SetPitch(&*f, f__typ, 2);
+	__AclLib_TFont_SetStyle(&*f, f__typ, 0x0);
+	__AclLib_TFont_SetCharset(&*f, f__typ, 0x01);
+	__AclLib_TFont_SetName(&*f, f__typ, (void*)&"Arial", (LONGINT)6);
+	__AclLib_TFont_SetSize(&*f, f__typ, 10);
+}
+
+static void AclLib_TFont_Destroy (AclLib_TFont *f, LONGINT *f__typ)
+{
+	if ((*f).Handle != NIL) {
+		Ignore_Int(WinApi_DeleteObject((*f).Handle));
+	}
+}
+
+static void AclLib_TFont_UpdateFont (AclLib_TFont *f, LONGINT *f__typ)
+{
+	SYSTEM_PTR OldFont = NIL;
+	OldFont = (*f).Handle;
+	(*f).FLogFont.lfWidth = 0;
+	if ((*f).FControl != NIL && __VAL(LONGINT, (*f).FControl->FHandle) > 0) {
+		__AclLib_TWinControl_SetFont(&*(*f).FControl, __TYPEOF((*f).FControl), &(*f).FLogFont, WinApi_LOGFONTA__typ);
+	} else {
+		(*f).Handle = WinApi_CreateFontIndirect(&(*f).FLogFont, WinApi_LOGFONTA__typ);
+		if (OldFont != NIL) {
+			Ignore_Int(WinApi_DeleteObject(OldFont));
+		}
+	}
+}
+
+static void AclLib_TFont_SetName (AclLib_TFont *f, LONGINT *f__typ, CHAR *value, LONGINT value__len)
+{
+}
+
+static void AclLib_TFont_SetSize (AclLib_TFont *f, LONGINT *f__typ, INTEGER value)
+{
+}
+
+static void AclLib_TFont_SetStyle (AclLib_TFont *f, LONGINT *f__typ, SET value)
+{
+	if (__IN(0, value)) {
+		(*f).FLogFont.lfWeight = 700;
+	} else {
+		(*f).FLogFont.lfWeight = 400;
+	}
+	if (__IN(1, value)) {
+		(*f).FLogFont.lfItalic = 0x01;
+	} else {
+		(*f).FLogFont.lfItalic = 0x00;
+	}
+	if (__IN(2, value)) {
+		(*f).FLogFont.lfUnderline = 0x01;
+	} else {
+		(*f).FLogFont.lfUnderline = 0x00;
+	}
+	__AclLib_TFont_UpdateFont(&*f, f__typ);
+}
+
+static void AclLib_TFont_SetPitch (AclLib_TFont *f, LONGINT *f__typ, BYTE value)
+{
+	switch (value) {
+		case 0: 
+			(*f).FLogFont.lfPitchAndFamily = (CHAR)(__VAL(SET, (*f).FLogFont.lfPitchAndFamily) | 0x01);
+			break;
+		case 2: 
+			(*f).FLogFont.lfPitchAndFamily = (CHAR)(__VAL(SET, (*f).FLogFont.lfPitchAndFamily) | 0x04);
+			break;
+		case 1: 
+			(*f).FLogFont.lfPitchAndFamily = (CHAR)(__VAL(SET, (*f).FLogFont.lfPitchAndFamily) | 0x02);
+			break;
+		default: __CASECHK;
+	}
+	(*f).FFontData.Pitch = value;
+	__AclLib_TFont_UpdateFont(&*f, f__typ);
+}
+
+static void AclLib_TFont_SetCharset (AclLib_TFont *f, LONGINT *f__typ, CHAR value)
+{
+	(*f).FLogFont.lfCharSet = value;
+	__AclLib_TFont_UpdateFont(&*f, f__typ);
+}
+
+void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_TWinControl *aParent, LONGINT *aParent__typ)
 {
 	(*w).FHandle = NIL;
 	(*w).FParentHandle = NIL;
@@ -298,7 +468,7 @@ void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_P
 	(*w).Style = 0xc10000;
 	(*w).ExStyle = 0x0;
 	(*w).FCtl3D = 0;
-	(*w).Parent = AParent;
+	(*w).Parent = (AclLib_PWinControl)((LONGINT)aParent);
 	(*w).FDefWndProc = 0;
 	(*w).Left = (-2147483647-1);
 	(*w).Top = (-2147483647-1);
@@ -307,6 +477,9 @@ void AclLib_TWinControl_Create (AclLib_TWinControl *w, LONGINT *w__typ, AclLib_P
 	(*w).Color = 12632256;
 	(*w).FBkMode = 0;
 	(*w).Brush = NIL;
+	(*w).Cursor = 0;
+	(*w).FCursorHandle = WinApi_LoadCursor(NIL, (SYSTEM_PTR)32512);
+	__AclLib_TFont_Create(&(*w).FFont, AclLib_TFont__typ);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -382,6 +555,28 @@ void AclLib_TWinControl_SetHeight (AclLib_TWinControl *w, LONGINT *w__typ, INTEG
 }
 
 /*----------------------------------------------------------------------------*/
+static void AclLib_TWinControl_SetFont (AclLib_TWinControl *w, LONGINT *w__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
+{
+	SYSTEM_PTR fOld = NIL;
+	if (__VAL(LONGINT, (*w).FHandle) > 0) {
+		fOld = WinApi_SendMessage((*w).FHandle, 49, NIL, NIL);
+		(*w).FFont.Handle = WinApi_CreateFontIndirect(&*AFont, AFont__typ);
+		Ignore_Ptr(WinApi_SendMessage((*w).FHandle, 48, (SYSTEM_PTR)(*w).FFont.Handle, (SYSTEM_PTR)AclUtils_MakeLong(1, 0)));
+		if (fOld != NIL) {
+			Ignore_Int(WinApi_DeleteObject(fOld));
+		}
+		__AclLib_TWinControl_ProcessMessages(&*w, w__typ);
+	}
+}
+
+static void AclLib_TWinControl_SetEnabled (AclLib_TWinControl *w, LONGINT *w__typ, BOOLEAN value)
+{
+	(*w).Enabled = value;
+	if (__VAL(LONGINT, (*w).FHandle) > 0) {
+		Ignore_Int(WinApi_EnableWindow((*w).FHandle, __VAL(INTEGER, value)));
+	}
+}
+
 void AclLib_TWinControl_SetCaption (AclLib_TWinControl *w, LONGINT *w__typ, CHAR *value, LONGINT value__len)
 {
 	__COPY(value, (*w).FTextBuf, 256);
@@ -571,18 +766,23 @@ static void AclLib_TWinControl_SetFocus (AclLib_TWinControl *w, LONGINT *w__typ)
 static void EnumPtrs(void (*P)(void*))
 {
 	P(AclLib_HInstance);
-	__ENUMR(&AclLib_MainWindow, AclLib_TWinControl__typ, 872, 1, P);
+	__ENUMR(&AclLib_MainWindow, AclLib_TWinControl__typ, 996, 1, P);
 }
 
 __TDESC(AclLib_TObject__desc, 1, 0) = {__TDFLDS("TObject", 1), {-8}};
 __TDESC(AclLib_TCreateParams__desc, 1, 2) = {__TDFLDS("TCreateParams", 392), {280, 284, -24}};
-__TDESC(AclLib_TWinControl__desc, 26, 7) = {__TDFLDS("TWinControl", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TStdControl__desc, 26, 7) = {__TDFLDS("TStdControl", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TLabel__desc, 26, 7) = {__TDFLDS("TLabel", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TListBox__desc, 26, 7) = {__TDFLDS("TListBox", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TButton__desc, 26, 7) = {__TDFLDS("TButton", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TCheckBox__desc, 26, 7) = {__TDFLDS("TCheckBox", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
-__TDESC(AclLib_TProgressBar__desc, 26, 7) = {__TDFLDS("TProgressBar", 872), {0, 4, 788, 792, 800, 844, 852, -64}};
+__TDESC(AclLib_TControl__desc, 1, 1) = {__TDFLDS("TControl", 20), {0, -16}};
+__TDESC(AclLib_TControlList__desc, 1, 0) = {__TDFLDS("TControlList", 24), {-8}};
+__TDESC(AclLib_TWinControlList__desc, 1, 0) = {__TDFLDS("TWinControlList", 8), {-8}};
+__TDESC(AclLib_TFontData__desc, 1, 0) = {__TDFLDS("TFontData", 48), {-8}};
+__TDESC(AclLib_TFont__desc, 9, 2) = {__TDFLDS("TFont", 124), {0, 4, -24}};
+__TDESC(AclLib_TWinControl__desc, 28, 9) = {__TDFLDS("TWinControl", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TStdControl__desc, 28, 9) = {__TDFLDS("TStdControl", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TLabel__desc, 28, 9) = {__TDFLDS("TLabel", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TListBox__desc, 28, 9) = {__TDFLDS("TListBox", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TButton__desc, 28, 9) = {__TDFLDS("TButton", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TCheckBox__desc, 28, 9) = {__TDFLDS("TCheckBox", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TProgressBar__desc, 28, 9) = {__TDFLDS("TProgressBar", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
 
 export void *AclLib__init(void)
 {
@@ -593,6 +793,19 @@ export void *AclLib__init(void)
 	__REGMOD("AclLib", EnumPtrs);
 	__INITYP(AclLib_TObject, AclLib_TObject, 0);
 	__INITYP(AclLib_TCreateParams, AclLib_TCreateParams, 0);
+	__INITYP(AclLib_TControl, AclLib_TControl, 0);
+	__INITYP(AclLib_TControlList, AclLib_TControlList, 0);
+	__INITYP(AclLib_TWinControlList, AclLib_TWinControlList, 0);
+	__INITYP(AclLib_TFontData, AclLib_TFontData, 0);
+	__INITYP(AclLib_TFont, AclLib_TFont, 0);
+	__INITBP(AclLib_TFont, AclLib_TFont_Create, 0);
+	__INITBP(AclLib_TFont, AclLib_TFont_Destroy, 1);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetCharset, 2);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetName, 3);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetPitch, 4);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetSize, 5);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetStyle, 6);
+	__INITBP(AclLib_TFont, AclLib_TFont_UpdateFont, 7);
 	__INITYP(AclLib_TWinControl, AclLib_TWinControl, 0);
 	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Create, 0);
 	__INITBP(AclLib_TWinControl, AclLib_TWinControl_CreateParams, 1);
@@ -610,15 +823,17 @@ export void *AclLib__init(void)
 	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetBounds, 13);
 	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetCaption, 14);
 	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetColor, 15);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetFocus, 16);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetHeight, 17);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetLeft, 18);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTextColor, 19);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTop, 20);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetVisible, 21);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetWidth, 22);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Show, 23);
-	__INITBP(AclLib_TWinControl, AclLib_TWinControl_ShowModal, 24);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetEnabled, 16);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetFocus, 17);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetFont, 18);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetHeight, 19);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetLeft, 20);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTextColor, 21);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTop, 22);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetVisible, 23);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetWidth, 24);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Show, 25);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_ShowModal, 26);
 	__INITYP(AclLib_TStdControl, AclLib_TWinControl, 1);
 	__INITYP(AclLib_TLabel, AclLib_TStdControl, 2);
 	__INITYP(AclLib_TListBox, AclLib_TStdControl, 2);

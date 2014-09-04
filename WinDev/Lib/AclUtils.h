@@ -21,6 +21,7 @@ import SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTE
 import INTEGER AclUtils_FileRead (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER count);
 import INTEGER AclUtils_FileWrite (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER Count);
 import INTEGER AclUtils_HeightOf (WinApi_RECT r);
+import INTEGER AclUtils_MakeLong (INTEGER A, INTEGER B);
 import INTEGER AclUtils_RGB (BYTE r, BYTE g, BYTE b);
 import INTEGER AclUtils_WidthOf (WinApi_RECT r);
 import void *AclUtils__init(void);

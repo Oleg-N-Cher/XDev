@@ -9,7 +9,8 @@ typedef
 	struct AclDemo_TWnd1 { /* AclLib_TWinControl */
 		char _prvt0[788];
 		SYSTEM_PTR Brush;
-		char _prvt1[8];
+		SHORTINT Cursor;
+		char _prvt1[68];
 		INTEGER Color, TextColor;
 		char _prvt2[4];
 		SET Style, ExStyle;
@@ -62,14 +63,15 @@ static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_T
 
 static void EnumPtrs(void (*P)(void*))
 {
-	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 8720, 1, P);
+	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 9360, 1, P);
 }
 
-__TDESC(AclDemo_TWnd1__desc, 29, 70) = {__TDFLDS("TWnd1", 8720), {0, 4, 788, 792, 800, 844, 852, 872, 876, 1660, 1664, 1672, 1716, 1724, 1744, 1748, 
-	2532, 2536, 2544, 2588, 2596, 2616, 2620, 3404, 3408, 3416, 3460, 3468, 3488, 3492, 4276, 4280, 
-	4288, 4332, 4340, 4360, 4364, 5148, 5152, 5160, 5204, 5212, 5232, 5236, 6020, 6024, 6032, 6076, 
-	6084, 6104, 6108, 6892, 6896, 6904, 6948, 6956, 6976, 6980, 7764, 7768, 7776, 7820, 7828, 7848, 
-	7852, 8636, 8640, 8648, 8692, 8700, -568}};
+__TDESC(AclDemo_TWnd1__desc, 29, 90) = {__TDFLDS("TWnd1", 9360), {0, 4, 788, 792, 800, 804, 864, 908, 916, 936, 940, 1724, 1728, 1736, 1740, 1800, 
+	1844, 1852, 1872, 1876, 2660, 2664, 2672, 2676, 2736, 2780, 2788, 2808, 2812, 3596, 3600, 3608, 
+	3612, 3672, 3716, 3724, 3744, 3748, 4532, 4536, 4544, 4548, 4608, 4652, 4660, 4680, 4684, 5468, 
+	5472, 5480, 5484, 5544, 5588, 5596, 5616, 5620, 6404, 6408, 6416, 6420, 6480, 6524, 6532, 6552, 
+	6556, 7340, 7344, 7352, 7356, 7416, 7460, 7468, 7488, 7492, 8276, 8280, 8288, 8292, 8352, 8396, 
+	8404, 8424, 8428, 9212, 9216, 9224, 9228, 9288, 9332, 9340, -728}};
 
 export main(int argc, char **argv)
 {
@@ -87,7 +89,7 @@ export main(int argc, char **argv)
 	__MOVE("Sorted ListBox Sample", AclDemo_s1, 22);
 	__MOVE("SORTED LISTBOX SAMPLE", AclDemo_s2, 22);
 	AclDemo_trig = 0;
-	__AclLib_TWinControl_Create((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, NIL);
+	__AclLib_TWinControl_Create((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, NIL, NIL);
 	AclDemo_Wnd1.Style = 0xc80000;
 	__AclLib_TWinControl_SetWidth((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, 350);
 	__AclLib_TWinControl_SetHeight((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, 300);
