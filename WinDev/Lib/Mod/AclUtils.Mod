@@ -159,19 +159,19 @@ TYPE
 
   WordRec = packed record
     Lo, Hi: Byte;
-  end;
+  END;
 
   LongRec = packed record
     Lo, Hi: Word;
-  end;
+  END;
 
   Int64Rec = packed record
     Lo, Hi: DWORD;
-  end;
+  END;
 
   TMethod = record
     Code, Data: Pointer;
-  end;
+  END;
 
 (* General arrays *)
 
@@ -183,7 +183,7 @@ TYPE
 
 (* Generic procedure pointer *)
 
-  TProcedure = procedure;
+  TProcedure = PROCEDURE;
 
 (* Generic filename type *)
 
@@ -205,7 +205,7 @@ TYPE
     ExcludeAttr: Integer;
     FindHandle: THandle;
     FindData: TWin32FindData;
-  end;
+  END;
 
 (* Typed-file and untyped-file record *)
 
@@ -216,7 +216,7 @@ TYPE
     Private: array[1..28] of Byte;
     UserData: array[1..32] of Byte;
     Name: array[0..259] of Char;
-  end;
+  END;
 
 (* Text file record structure used for Text files *)
 
@@ -236,7 +236,7 @@ TYPE
     UserData: array[1..32] of Byte;
     Name: array[0..259] of Char;
     Buffer: TTextBuf;
-  end;
+  END;
 
 (* FloatToText, FloatToTextFmt, TextToFloat, and FloatToDecimal type codes *)
 
@@ -252,14 +252,14 @@ TYPE
     Exponent: Smallint;
     Negative: Boolean;
     Digits: array[0..20] of Char;
-  end;
+  END;
 
 (* Date and time record *)
 
   TTimeStamp = record
     Time: Integer;      (* Number of milliseconds since midnight *)
     Date: Integer;      (* One plus number of days since 1/1/0001 *)
-  end;
+  END;
 
 (* MultiByte Character Set (MBCS) byte type *)
   TMbcsByteType = (mbSingleByte, mbLeadByte, mbTrailByte);
@@ -271,7 +271,7 @@ TYPE
     SubLangID: LANGID;
     FarEast: Boolean;
     MiddleEast: Boolean;
-  end;
+  END;
 
 (* TStream abstract class *)
 
@@ -283,24 +283,24 @@ TYPE
     FError : TStreamError;
     FErrorInfo : integer;
     FOnError : TStreamErrorEvent;
-    function GetPosition: Longint;
-    procedure SetPosition(Pos: Longint);
-    function GetSize: Longint;
-    procedure StreamError;
+    PROCEDURE GetPosition: Longint;
+    PROCEDURE SetPosition(Pos: Longint);
+    PROCEDURE GetSize: Longint;
+    PROCEDURE StreamError;
   public
-    function Read(var Buffer; Count: Longint): Longint; virtual; abstract;
-    function Write(const Buffer; Count: Longint): Longint; virtual; abstract;
-    function Seek(Offset: Longint; Origin: Word): Longint; virtual; abstract;
-    procedure ReadBuffer(var Buffer; Count: Longint);
-    procedure WriteBuffer(const Buffer; Count: Longint);
-    function CopyFrom(Source: TStream; Count: Longint): Longint;
-    procedure SetSize(NewSize: Longint); virtual; abstract;
+    PROCEDURE Read(VAR Buffer; Count: Longint): Longint; virtual; abstract;
+    PROCEDURE Write(const Buffer; Count: Longint): Longint; virtual; abstract;
+    PROCEDURE Seek(Offset: Longint; Origin: Word): Longint; virtual; abstract;
+    PROCEDURE ReadBuffer(VAR Buffer; Count: Longint);
+    PROCEDURE WriteBuffer(const Buffer; Count: Longint);
+    PROCEDURE CopyFrom(Source: TStream; Count: Longint): Longint;
+    PROCEDURE SetSize(NewSize: Longint); virtual; abstract;
     property Position: Longint read GetPosition write SetPosition;
     property Size: Longint read GetSize;
     property Error : TStreamError read FError;
     property ErrorInfo : integer read FErrorInfo;
     property OnError : TStreamErrorEvent read FOnError write FOnError;
-  end;
+  END;
 
 (* THandleStream class *)
 
@@ -309,11 +309,11 @@ TYPE
     FHandle: Integer;
   public
     constructor Create(AHandle: Integer);
-    function Read(var Buffer; Count: Longint): Longint; override;
-    function Write(const Buffer; Count: Longint): Longint; override;
-    function Seek(Offset: Longint; Origin: Word): Longint; override;
+    PROCEDURE Read(VAR Buffer; Count: Longint): Longint; override;
+    PROCEDURE Write(const Buffer; Count: Longint): Longint; override;
+    PROCEDURE Seek(Offset: Longint; Origin: Word): Longint; override;
     property Handle: Integer read FHandle;
-  end;
+  END;
 
 (* TFileStream class *)
 
@@ -323,11 +323,11 @@ TYPE
   public
     constructor Create(const FileName: string; Mode: Word);
     destructor Destroy; override;
-    procedure Flush;
-    procedure Truncate;
-    procedure SetSize(NewSize: Longint); override;
+    PROCEDURE Flush;
+    PROCEDURE Truncate;
+    PROCEDURE SetSize(NewSize: Longint); override;
     property Name : shortstring read FName;
-  end;
+  END;
 
 (* TCustomMemoryStream abstract class *)
 
@@ -336,32 +336,32 @@ TYPE
     FMemory: Pointer;
     FSize, FPosition: Longint;
   protected
-    procedure SetPointer(Ptr: Pointer; Size: Longint);
+    PROCEDURE SetPointer(Ptr: Pointer; Size: Longint);
   public
-    function Read(var Buffer; Count: Longint): Longint; override;
-    function Seek(Offset: Longint; Origin: Word): Longint; override;
-    procedure SaveToStream(Stream: TStream);
-    procedure SaveToFile(const FileName: string);
+    PROCEDURE Read(VAR Buffer; Count: Longint): Longint; override;
+    PROCEDURE Seek(Offset: Longint; Origin: Word): Longint; override;
+    PROCEDURE SaveToStream(Stream: TStream);
+    PROCEDURE SaveToFile(const FileName: string);
     property Memory: Pointer read FMemory;
-  end;
+  END;
 
 (* TMemoryStream *)
 
   TMemoryStream = class(TCustomMemoryStream)
   private
     FCapacity: Longint;
-    procedure SetCapacity(NewCapacity: Longint);
+    PROCEDURE SetCapacity(NewCapacity: Longint);
   protected
-    function Realloc(var NewCapacity: Longint): Pointer; virtual;
+    PROCEDURE Realloc(VAR NewCapacity: Longint): Pointer; virtual;
     property Capacity: Longint read FCapacity write SetCapacity;
   public
     destructor Destroy; override;
-    procedure Clear;
-    procedure LoadFromStream(Stream: TStream);
-    procedure LoadFromFile(const FileName: string);
-    procedure SetSize(NewSize: Longint); override;
-    function Write(const Buffer; Count: Longint): Longint; override;
-  end;
+    PROCEDURE Clear;
+    PROCEDURE LoadFromStream(Stream: TStream);
+    PROCEDURE LoadFromFile(const FileName: string);
+    PROCEDURE SetSize(NewSize: Longint); override;
+    PROCEDURE Write(const Buffer; Count: Longint): Longint; override;
+  END;
 
 (*Graphic routins*)
 
@@ -371,8 +371,8 @@ type
 PROCEDURE ^ WidthOf* (r: W.RECT): Integer;
 PROCEDURE ^ HeightOf* (r: W.RECT): Integer;
 (*
-function ColorToRGB(Color: TColor): Longint;
-procedure GradientFillRect(DC : HDC;
+PROCEDURE ColorToRGB(Color: TColor): Longint;
+PROCEDURE GradientFillRect(DC : HDC;
                            ARect: TRect;
                            StartColor, EndColor: TColor;
                            Direction: TFillDirection;
@@ -380,41 +380,41 @@ procedure GradientFillRect(DC : HDC;
 
 (*String management routins*)
 
-function StrPas(Str: PChar): string;
-function StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar;
-function StrCopy(Dest, Source: PChar): PChar;
-function StrEnd(Str: PChar): PChar;
-function StrPCopy(Dest: PChar; const Source: string): PChar;
-function StrCat(Dest, Source: PChar): PChar;
-function StrLen(Str: PChar): Cardinal;
-function StrMove(Dest, Source: PChar; Count: Cardinal): PChar;
-function StrAlloc(Size: Cardinal): PChar;
-function StrNew(Str: PChar): PChar;
-function StrScan(const Str: PChar; Chr: Char): PChar;
-procedure StrDispose(Str: PChar);
-function CompareMem(P1, P2: Pointer; Length: Integer): Boolean;
-function CompareStr(const S1, S2: string): Integer;
-function AnsiCompareText(const S1, S2: string): Integer;
-function UpperCase(const S: string): string;
-function AnsiUpperCase(const S: string): string;
-function LowerCase(const S: string): string;
-function AnsiLowerCase(const S: string): string;
+PROCEDURE StrPas(Str: PChar): string;
+PROCEDURE StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar;
+PROCEDURE StrCopy(Dest, Source: PChar): PChar;
+PROCEDURE StrEnd(Str: PChar): PChar;
+PROCEDURE StrPCopy(Dest: PChar; const Source: string): PChar;
+PROCEDURE StrCat(Dest, Source: PChar): PChar;
+PROCEDURE StrLen(Str: PChar): Cardinal;
+PROCEDURE StrMove(Dest, Source: PChar; Count: Cardinal): PChar;
+PROCEDURE StrAlloc(Size: Cardinal): PChar;
+PROCEDURE StrNew(Str: PChar): PChar;
+PROCEDURE StrScan(const Str: PChar; Chr: Char): PChar;
+PROCEDURE StrDispose(Str: PChar);
+PROCEDURE CompareMem(P1, P2: Pointer; Length: Integer): Boolean;
+PROCEDURE CompareStr(const S1, S2: string): Integer;
+PROCEDURE AnsiCompareText(const S1, S2: string): Integer;
+PROCEDURE UpperCase(const S: string): string;
+PROCEDURE AnsiUpperCase(const S: string): string;
+PROCEDURE LowerCase(const S: string): string;
+PROCEDURE AnsiLowerCase(const S: string): string;
 
-function Trim(const S: string): string;
-function TrimLeft(const S: string): string;
-function TrimRight(const S: string): string;
+PROCEDURE Trim(const S: string): string;
+PROCEDURE TrimLeft(const S: string): string;
+PROCEDURE TrimRight(const S: string): string;
 
-procedure BinToHex(Binary, Text: PChar; Count: Integer);
-procedure HexToBin(Text, Binary: PChar; Count: Integer);
-function IntToStr(i : integer) : string;
-function StrToInt(s : string) : integer;
-function StrToIntDef(s : string; Default: Integer) : integer;
-function StrToFloat(s: String): Real;
-function FloatToStr(m: Real): String;
+PROCEDURE BinToHex(Binary, Text: PChar; Count: Integer);
+PROCEDURE HexToBin(Text, Binary: PChar; Count: Integer);
+PROCEDURE IntToStr(i : integer) : string;
+PROCEDURE StrToInt(s : string) : integer;
+PROCEDURE StrToIntDef(s : string; Default: Integer) : integer;
+PROCEDURE StrToFloat(s: String): Real;
+PROCEDURE FloatToStr(m: Real): String;
 
 (* Date/time support routines *)
 
-var
+VAR
   CurrencyString: string;
   CurrencyFormat: Byte;
   NegCurrFormat: Byte;
@@ -439,11 +439,11 @@ var
   TwoDigitYearCenturyWindow: Word = 0;
   ListSeparator: Char;
 
-function EncodeDate(Year, Month, Day: Word): TDateTime;
-function EncodeTime(Hour, Min, Sec, MSec: Word): TDateTime;
-procedure DecodeDate(Date: TDateTime; var Year, Month, Day: Word);
-procedure DecodeTime(Time: TDateTime; var Hour, Min, Sec, MSec: Word);
-function Now : TDateTime;
+PROCEDURE EncodeDate(Year, Month, Day: Word): TDateTime;
+PROCEDURE EncodeTime(Hour, Min, Sec, MSec: Word): TDateTime;
+PROCEDURE DecodeDate(Date: TDateTime; VAR Year, Month, Day: Word);
+PROCEDURE DecodeTime(Time: TDateTime; VAR Hour, Min, Sec, MSec: Word);
+PROCEDURE Now : TDateTime;
 
 (* File management routines *)
 *)
@@ -453,47 +453,47 @@ PROCEDURE ^ FileRead* (
   handle: W.HANDLE; VAR buffer: ARRAY OF BYTE; count: Integer): Integer;
 PROCEDURE ^ FileWrite* (
   handle: W.HANDLE; VAR buffer: ARRAY OF BYTE; Count: Integer): Integer;(*
-function FileSeek(Handle: Integer; const Offset: Int64; Origin: Integer): Int64;
-procedure FileClose(Handle: Integer);
-function FileGetAttr(const FileName: shortstring): Integer;
-function FileSetAttr(const FileName: shortstring; Attr: Integer): Integer;
-function DeleteFile(const FileName: shortstring): Boolean;
-function RenameFile(const OldName, NewName: shortstring): Boolean;
-function ChangeFileExt(const FileName, Extension: shortstring): shortstring;
-function ExtractFilePath(const FileName: shortstring): shortstring;
-function ExtractFileDir(const FileName: shortstring): shortstring;
-function ExtractFileDrive(const FileName: shortstring): shortstring;
-function ExtractFileName(const FileName: shortstring): shortstring;
-function ExtractFileExt(const FileName: shortstring): shortstring;
-function DiskFree(Drive: Byte): Int64;
-function DiskSize(Drive: Byte): Int64;
-function DiskSN(Drive : Byte) : DWORD;
-function ExeName : shortstring;
-function ExePath : shortstring;
-function FindFirst(const Path: string; Attr: Integer;
-  var F: TSearchRec): Integer;
-function FindNext(var F: TSearchRec): Integer;
-procedure FindClose(var F: TSearchRec);
+PROCEDURE FileSeek(Handle: Integer; const Offset: Int64; Origin: Integer): Int64;
+PROCEDURE FileClose(Handle: Integer);
+PROCEDURE FileGetAttr(const FileName: shortstring): Integer;
+PROCEDURE FileSetAttr(const FileName: shortstring; Attr: Integer): Integer;
+PROCEDURE DeleteFile(const FileName: shortstring): Boolean;
+PROCEDURE RenameFile(const OldName, NewName: shortstring): Boolean;
+PROCEDURE ChangeFileExt(const FileName, Extension: shortstring): shortstring;
+PROCEDURE ExtractFilePath(const FileName: shortstring): shortstring;
+PROCEDURE ExtractFileDir(const FileName: shortstring): shortstring;
+PROCEDURE ExtractFileDrive(const FileName: shortstring): shortstring;
+PROCEDURE ExtractFileName(const FileName: shortstring): shortstring;
+PROCEDURE ExtractFileExt(const FileName: shortstring): shortstring;
+PROCEDURE DiskFree(Drive: Byte): Int64;
+PROCEDURE DiskSize(Drive: Byte): Int64;
+PROCEDURE DiskSN(Drive : Byte) : DWORD;
+PROCEDURE ExeName : shortstring;
+PROCEDURE ExePath : shortstring;
+PROCEDURE FindFirst(const Path: string; Attr: Integer;
+  VAR F: TSearchRec): Integer;
+PROCEDURE FindNext(VAR F: TSearchRec): Integer;
+PROCEDURE FindClose(VAR F: TSearchRec);
 
 (*Version routines*)
 
-function GetFileVersion : string;
-function GetFullFileVersion : string;
+PROCEDURE GetFileVersion : string;
+PROCEDURE GetFullFileVersion : string;
 
 (*Browse for folders*)
 type
   TBrowseFolderKind = (bfAll,bfDrives,bfComputers);
 
-function BrowseForFolder(AParent: HWND;
+PROCEDURE BrowseForFolder(AParent: HWND;
                          ATitle : string;
                          AKind  : TBrowseFolderKind) : string;
 
-function QuotedStr(const S: string; Quote: char): string;
-function AnsiExtractQuotedStr(var Src: PChar; Quote: Char): string;
+PROCEDURE QuotedStr(const S: string; Quote: char): string;
+PROCEDURE AnsiExtractQuotedStr(VAR Src: PChar; Quote: Char): string;
 
 
 (* OS Version *)
-var
+VAR
   OSVersionInfo: TOSVersionInfo;
 
 implementation
@@ -529,26 +529,26 @@ BEGIN
 END RGB;
 
 (*
-procedure GradientFillRect(DC : HDC; ARect: TRect; StartColor,
+PROCEDURE GradientFillRect(DC : HDC; ARect: TRect; StartColor,
   EndColor: TColor; Direction: TFillDirection; Colors: Byte);
-var
+VAR
   StartRGB: array[0..2] of Byte;    (* Start RGB values *)
   RGBDelta: array[0..2] of Integer; (* Difference between start and end RGB values *)
   ColorBand: TRect;                 (* Color band rectangular coordinates *)
   I, Delta: Integer;
   Brush: HBrush;
-begin
-  if IsRectEmpty(ARect) then Exit;
-  if Colors < 2 then begin
+BEGIN
+  IF IsRectEmpty(ARect) THEN Exit;
+  IF Colors < 2 THEN BEGIN
     Brush := CreateSolidBrush(ColorToRGB(StartColor));
     FillRect(DC, ARect, Brush);
     DeleteObject(Brush);
     Exit;
-  end;
+  END;
   StartColor := ColorToRGB(StartColor);
   EndColor := ColorToRGB(EndColor);
   case Direction of
-    fdTopToBottom, fdLeftToRight: begin
+    fdTopToBottom, fdLeftToRight: BEGIN
       (* Set the Red, Green and Blue colors *)
       StartRGB[0] := GetRValue(StartColor);
       StartRGB[1] := GetGValue(StartColor);
@@ -557,8 +557,8 @@ begin
       RGBDelta[0] := GetRValue(EndColor) - StartRGB[0];
       RGBDelta[1] := GetGValue(EndColor) - StartRGB[1];
       RGBDelta[2] := GetBValue(EndColor) - StartRGB[2];
-    end;
-    fdBottomToTop, fdRightToLeft: begin
+    END;
+    fdBottomToTop, fdRightToLeft: BEGIN
       (* Set the Red, Green and Blue colors *)
       (* Reverse of TopToBottom and LeftToRight directions *)
       StartRGB[0] := GetRValue(EndColor);
@@ -569,38 +569,38 @@ begin
       RGBDelta[0] := GetRValue(StartColor) - StartRGB[0];
       RGBDelta[1] := GetGValue(StartColor) - StartRGB[1];
       RGBDelta[2] := GetBValue(StartColor) - StartRGB[2];
-    end;
-  end; (*case*)
+    END;
+  END; (*case*)
   (* Calculate the color band's coordinates *)
   ColorBand := ARect;
-  if Direction in [fdTopToBottom, fdBottomToTop] then begin
+  IF Direction in [fdTopToBottom, fdBottomToTop] THEN BEGIN
     Colors := Max(2, Min(Colors, HeightOf(ARect)));
     Delta := HeightOf(ARect) div Colors;
   end
-  else begin
+  ELSE BEGIN
     Colors := Max(2, Min(Colors, WidthOf(ARect)));
     Delta := WidthOf(ARect) div Colors;
-  end;
+  END;
 //  Pen := CreatePen(ps_Solid,;
-//  with Canvas.Pen do begin (* Set the pen style and mode *)
+//  with Canvas.Pen do BEGIN (* Set the pen style and mode *)
 //    Style := psSolid;
 //    Mode := pmCopy;
-//  end;
+//  END;
   (* Perform the fill *)
-  if Delta > 0 then begin
-    for I := 0 to Colors do begin
+  IF Delta > 0 THEN BEGIN
+    for I := 0 to Colors do BEGIN
       case Direction of
         (* Calculate the color band's top and bottom coordinates *)
-        fdTopToBottom, fdBottomToTop: begin
+        fdTopToBottom, fdBottomToTop: BEGIN
           ColorBand.Top := ARect.Top + I * Delta;
           ColorBand.Bottom := ColorBand.Top + Delta;
-        end;
+        END;
         (* Calculate the color band's left and right coordinates *)
-        fdLeftToRight, fdRightToLeft: begin
+        fdLeftToRight, fdRightToLeft: BEGIN
           ColorBand.Left := ARect.Left + I * Delta;
           ColorBand.Right := ColorBand.Left + Delta;
-        end;
-      end; (*case*)
+        END;
+      END; (*case*)
       (* Calculate the color band's color *)
       Brush := CreateSolidBrush(RGB(
         StartRGB[0] + MulDiv(I, RGBDelta[0], Colors - 1),
@@ -608,72 +608,72 @@ begin
         StartRGB[2] + MulDiv(I, RGBDelta[2], Colors - 1)));
       FillRect(DC, ColorBand, Brush);
       DeleteObject(Brush);
-    end;
-  end;
-  if Direction in [fdTopToBottom, fdBottomToTop] then
+    END;
+  END;
+  IF Direction in [fdTopToBottom, fdBottomToTop] THEN
     Delta := HeightOf(ARect) mod Colors
-  else Delta := WidthOf(ARect) mod Colors;
-  if Delta > 0 then begin
+  ELSE Delta := WidthOf(ARect) mod Colors;
+  IF Delta > 0 THEN BEGIN
     case Direction of
       (* Calculate the color band's top and bottom coordinates *)
-      fdTopToBottom, fdBottomToTop: begin
+      fdTopToBottom, fdBottomToTop: BEGIN
         ColorBand.Top := ARect.Bottom - Delta;
         ColorBand.Bottom := ColorBand.Top + Delta;
-      end;
+      END;
       (* Calculate the color band's left and right coordinates *)
-      fdLeftToRight, fdRightToLeft: begin
+      fdLeftToRight, fdRightToLeft: BEGIN
         ColorBand.Left := ARect.Right - Delta;
         ColorBand.Right := ColorBand.Left + Delta;
-      end;
-    end; (*case*)
+      END;
+    END; (*case*)
     case Direction of
       fdTopToBottom, fdLeftToRight:
         Brush := CreateSolidBrush(EndColor);
-      else (*fdBottomToTop, fdRightToLeft *)
+      ELSE (*fdBottomToTop, fdRightToLeft *)
         Brush := CreateSolidBrush(StartColor);
-    end;
+    END;
     FillRect(DC, ColorBand, Brush);
     DeleteObject(Brush);
-  end;
-end;
+  END;
+END;
 
 (*String management routins*)
 
-procedure BinToHex(Binary, Text: PChar; Count: Integer);
+PROCEDURE BinToHex(Binary, Text: PChar; Count: Integer);
 const
   HexChars: array[0..15] of Char = '0123456789ABCDEF';
-var
+VAR
   I: Integer;
-begin
+BEGIN
   for I := 0 to Count - 1 do
-  begin
+  BEGIN
     Text^ := HexChars[(Byte(Binary[I]) and $F0) SHR 4];
     Inc(Text);
     Text^ := HexChars[(Byte(Binary[I]) and $0F)];
     Inc(Text);
-  end;
-end;
+  END;
+END;
 
-procedure HexToBin(Text, Binary: PChar; Count: Integer);
-var
+PROCEDURE HexToBin(Text, Binary: PChar; Count: Integer);
+VAR
   I: Integer;
 
-  function Bt(c : char) : byte;
-  begin
-    if c < 'A' then Result := Ord(c) - 48
-               else Result := Ord(c) - 55;
-  end;
-begin
+  PROCEDURE Bt(c : char) : byte;
+  BEGIN
+    IF c < 'A' THEN Result := Ord(c) - 48
+               ELSE Result := Ord(c) - 55;
+  END;
+BEGIN
   for I := 0 to Count - 1 do
-    Binary[i] := chr((Bt(Text[2*I]) shl 4) or Bt(Text[2*I+1]));
-end;
+    Binary[i] := chr((Bt(Text[2*I]) shl 4) OR Bt(Text[2*I+1]));
+END;
 
-function StrPas(Str: PChar): string;
-begin
+PROCEDURE StrPas(Str: PChar): string;
+BEGIN
 //  Result := Str;
-end;
+END;
 
-function CompareStr(const S1, S2: string): Integer; assembler;
+PROCEDURE CompareStr(const S1, S2: string): Integer; assembler;
 asm
         PUSH    ESI
         PUSH    EDI
@@ -697,9 +697,9 @@ asm
 @@4:    SUB     EAX,EDX
         POP     EDI
         POP     ESI
-end;
+END;
 
-function CompareMem(P1, P2: Pointer; Length: Integer): Boolean; assembler;
+PROCEDURE CompareMem(P1, P2: Pointer; Length: Integer): Boolean; assembler;
 asm
         PUSH    ESI
         PUSH    EDI
@@ -718,9 +718,9 @@ asm
 @@1:    INC     EAX
 @@2:    POP     EDI
         POP     ESI
-end;
+END;
 
-function CompareText(const S1, S2: string): Integer; assembler;
+PROCEDURE CompareText(const S1, S2: string): Integer; assembler;
 asm
         PUSH    ESI
         PUSH    EDI
@@ -760,9 +760,9 @@ asm
         POP     EBX
         POP     EDI
         POP     ESI
-end;
+END;
 
-function StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar; assembler;
+PROCEDURE StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar; assembler;
 asm
         PUSH    EDI
         PUSH    ESI
@@ -791,9 +791,9 @@ asm
         POP     EBX
         POP     ESI
         POP     EDI
-end;
+END;
 
-function StrScan(const Str: PChar; Chr: Char): PChar; assembler;
+PROCEDURE StrScan(const Str: PChar; Chr: Char): PChar; assembler;
 asm
         PUSH    EDI
         PUSH    EAX
@@ -810,9 +810,9 @@ asm
         MOV     EAX,EDI
         DEC     EAX
 @@1:    POP     EDI
-end;
+END;
 
-function StrCopy(Dest, Source: PChar): PChar; assembler;
+PROCEDURE StrCopy(Dest, Source: PChar): PChar; assembler;
 asm
         PUSH    EDI
         PUSH    ESI
@@ -833,9 +833,9 @@ asm
         REP     MOVSB
         POP     ESI
         POP     EDI
-end;
+END;
 
-function StrEnd(Str: PChar): PChar; assembler;
+PROCEDURE StrEnd(Str: PChar): PChar; assembler;
 asm
         MOV     EDX,EDI
         MOV     EDI,EAX
@@ -844,20 +844,20 @@ asm
         REPNE   SCASB
         LEA     EAX,[EDI-1]
         MOV     EDI,EDX
-end;
+END;
 
-function StrPCopy(Dest: PChar; const Source: string): PChar;
-begin
+PROCEDURE StrPCopy(Dest: PChar; const Source: string): PChar;
+BEGIN
   Result := StrLCopy(Dest, PChar(Source), 255);
-end;
+END;
 
-function StrCat(Dest, Source: PChar): PChar;
-begin
+PROCEDURE StrCat(Dest, Source: PChar): PChar;
+BEGIN
   StrCopy(StrEnd(Dest), Source);
   Result := Dest;
-end;
+END;
 
-function StrLen(Str: PChar): Cardinal; assembler;
+PROCEDURE StrLen(Str: PChar): Cardinal; assembler;
 asm
         MOV     EDX,EDI
         MOV     EDI,EAX
@@ -867,9 +867,9 @@ asm
         MOV     EAX,0FFFFFFFEH
         SUB     EAX,ECX
         MOV     EDI,EDX
-end;
+END;
 
-function StrMove(Dest, Source: PChar; Count: Cardinal): PChar; assembler;
+PROCEDURE StrMove(Dest, Source: PChar; Count: Cardinal): PChar; assembler;
 asm
         PUSH    ESI
         PUSH    EDI
@@ -898,133 +898,133 @@ asm
         CLD
 @@2:    POP     EDI
         POP     ESI
-end;
+END;
 
-function StrAlloc(Size: Cardinal): PChar;
-begin
+PROCEDURE StrAlloc(Size: Cardinal): PChar;
+BEGIN
   Inc(Size, SizeOf(Cardinal));
   GetMem(Result, Size);
   Cardinal(Pointer(Result)^) := Size;
   Inc(Result, SizeOf(Cardinal));
-end;
+END;
 
-function StrNew(Str: PChar): PChar;
-var
+PROCEDURE StrNew(Str: PChar): PChar;
+VAR
   Size: Cardinal;
-begin
-  if Str = nil then Result := nil else
-  begin
+BEGIN
+  IF Str = NIL THEN Result := NIL ELSE
+  BEGIN
     Size := StrLen(Str) + 1;
     Result := StrMove(StrAlloc(Size), Str, Size);
-  end;
-end;
+  END;
+END;
 
-procedure StrDispose(Str: PChar);
-begin
-  if Str <> nil then
-  begin
+PROCEDURE StrDispose(Str: PChar);
+BEGIN
+  IF Str <> NIL THEN
+  BEGIN
     Dec(Str, SizeOf(Cardinal));
     FreeMem(Str, Cardinal(Pointer(Str)^));
-  end;
-end;
+  END;
+END;
 
-function AnsiCompareText(const S1, S2: string): Integer;
-begin
+PROCEDURE AnsiCompareText(const S1, S2: string): Integer;
+BEGIN
   Result := CompareString(LOCALE_USER_DEFAULT, NORM_IGNORECASE,
     PChar(S1), Length(S1), PChar(S2), Length(S2)) - 2;
-end;
+END;
 
-function UpperCase(const S: string): string;
-var
+PROCEDURE UpperCase(const S: string): string;
+VAR
   Ch: Char;
   L: Integer;
   Source, Dest: PChar;
-begin
+BEGIN
   L := Length(S);
   SetLength(Result, L);
   Source := Pointer(S);
   Dest := Pointer(Result);
-  while L <> 0 do
-  begin
+  WHILE L <> 0 DO
+  BEGIN
     Ch := Source^;
-    if (Ch >= 'a') and (Ch <= 'z') then Dec(Ch, 32);
+    IF (Ch >= 'a') and (Ch <= 'z') THEN Dec(Ch, 32);
     Dest^ := Ch;
     Inc(Source);
     Inc(Dest);
     Dec(L);
-  end;
-end;
+  END;
+END;
 
-function LowerCase(const S: string): string;
-var
+PROCEDURE LowerCase(const S: string): string;
+VAR
   Ch: Char;
   L: Integer;
   Source, Dest: PChar;
-begin
+BEGIN
   L := Length(S);
   SetLength(Result, L);
   Source := Pointer(S);
   Dest := Pointer(Result);
-  while L <> 0 do
-  begin
+  WHILE L <> 0 DO
+  BEGIN
     Ch := Source^;
-    if (Ch >= 'A') and (Ch <= 'Z') then Inc(Ch, 32);
+    IF (Ch >= 'A') and (Ch <= 'Z') THEN Inc(Ch, 32);
     Dest^ := Ch;
     Inc(Source);
     Inc(Dest);
     Dec(L);
-  end;
-end;
+  END;
+END;
 
-function AnsiUpperCase(const S: string): string;
-var
+PROCEDURE AnsiUpperCase(const S: string): string;
+VAR
   Len: Integer;
-begin
+BEGIN
   Len := Length(S);
   SetString(Result, PChar(S), Len);
-  if Len > 0 then CharUpperBuff(Pointer(Result), Len);
-end;
+  IF Len > 0 THEN CharUpperBuff(Pointer(Result), Len);
+END;
 
-function AnsiLowerCase(const S: string): string;
-var
+PROCEDURE AnsiLowerCase(const S: string): string;
+VAR
   Len: Integer;
-begin
+BEGIN
   Len := Length(S);
   SetString(Result, PChar(S), Len);
-  if Len > 0 then CharLowerBuff(Pointer(Result), Len);
-end;
+  IF Len > 0 THEN CharLowerBuff(Pointer(Result), Len);
+END;
 
-function IntToStr(i : integer) : string;
-begin
+PROCEDURE IntToStr(i : integer) : string;
+BEGIN
   Str(i,Result);
-end;
+END;
 
-function StrToInt(s : string) : integer;
-var j : integer;
-begin
+PROCEDURE StrToInt(s : string) : integer;
+VAR j : integer;
+BEGIN
   Val(s,Result,j);
-  if j > 0 then Result := 0;
-end;
+  IF j > 0 THEN Result := 0;
+END;
 
-function StrToIntDef(s : string; Default: Integer) : integer;
-var j : integer;
-begin
+PROCEDURE StrToIntDef(s : string; Default: Integer) : integer;
+VAR j : integer;
+BEGIN
   Val(s,Result,j);
-  if j > 0 then Result := Default;
-end;
+  IF j > 0 THEN Result := Default;
+END;
 
-function FloatToStr(m:real):string;
-begin
+PROCEDURE FloatToStr(m:real):string;
+BEGIN
  Str(m:4:1, Result);
-end;
+END;
 
 Function StrToFloat(s:String):real;
-var
+VAR
    code:integer;
-begin
+BEGIN
   Val(S, Result, Code);
-  if code>0 then Result:=0;
-end;
+  IF code>0 THEN Result:=0;
+END;
 
 (* Date/time support routines *)
 
@@ -1032,7 +1032,7 @@ const
   FMSecsPerDay: Single = MSecsPerDay;
   IMSecsPerDay: Integer = MSecsPerDay;
 
-function DateTimeToTimeStamp(DateTime: TDateTime): TTimeStamp;
+PROCEDURE DateTimeToTimeStamp(DateTime: TDateTime): TTimeStamp;
 asm
         MOV     ECX,EAX
         FLD     DateTime
@@ -1054,9 +1054,9 @@ asm
 @@2:    ADD     EAX,DateDelta
         MOV     [ECX].TTimeStamp.Time,EDX
         MOV     [ECX].TTimeStamp.Date,EAX
-end;
+END;
 
-function TimeStampToDateTime(const TimeStamp: TTimeStamp): TDateTime;
+PROCEDURE TimeStampToDateTime(const TimeStamp: TTimeStamp): TDateTime;
 asm
         MOV     ECX,[EAX].TTimeStamp.Time
         MOV     EAX,[EAX].TTimeStamp.Date
@@ -1074,9 +1074,9 @@ asm
         FILD    QWORD PTR [ESP]
         FDIV    FMSecsPerDay
         ADD     ESP,8
-end;
+END;
 
-function MSecsToTimeStamp(MSecs: Comp): TTimeStamp;
+PROCEDURE MSecsToTimeStamp(MSecs: Comp): TTimeStamp;
 asm
         MOV     ECX,EAX
         MOV     EAX,MSecs.Integer[0]
@@ -1084,39 +1084,39 @@ asm
         DIV     IMSecsPerDay
         MOV     [ECX].TTimeStamp.Time,EDX
         MOV     [ECX].TTimeStamp.Date,EAX
-end;
+END;
 
-function TimeStampToMSecs(const TimeStamp: TTimeStamp): Comp;
+PROCEDURE TimeStampToMSecs(const TimeStamp: TTimeStamp): Comp;
 asm
         FILD    [EAX].TTimeStamp.Date
         FMUL    FMSecsPerDay
         FIADD   [EAX].TTimeStamp.Time
-end;
+END;
 
 (* Time encoding and decoding *)
 
-function DoEncodeTime(Hour, Min, Sec, MSec: Word; var Time: TDateTime): Boolean;
-begin
-  Result := False;
-  if (Hour < 24) and (Min < 60) and (Sec < 60) and (MSec < 1000) then
-  begin
+PROCEDURE DoEncodeTime(Hour, Min, Sec, MSec: Word; VAR Time: TDateTime): Boolean;
+BEGIN
+  Result := FALSE;
+  IF (Hour < 24) and (Min < 60) and (Sec < 60) and (MSec < 1000) THEN
+  BEGIN
     Time := (Hour * 3600000 + Min * 60000 + Sec * 1000 + MSec) / MSecsPerDay;
-    Result := True;
-  end;
-end;
+    Result := TRUE;
+  END;
+END;
 
-procedure ConvertError(s : string);
-begin
-end;
+PROCEDURE ConvertError(s : string);
+BEGIN
+END;
 
-function EncodeTime(Hour, Min, Sec, MSec: Word): TDateTime;
-begin
-  if not DoEncodeTime(Hour, Min, Sec, MSec, Result) then
+PROCEDURE EncodeTime(Hour, Min, Sec, MSec: Word): TDateTime;
+BEGIN
+  IF not DoEncodeTime(Hour, Min, Sec, MSec, Result) THEN
     ConvertError('TimeEncodeError');
-end;
+END;
 
-procedure DivMod(Dividend: Integer; Divisor: Word;
-  var Result, Remainder: Word);
+PROCEDURE DivMod(Dividend: Integer; Divisor: Word;
+  VAR Result, Remainder: Word);
 asm
         PUSH    EBX
         MOV     EBX,EDX
@@ -1127,56 +1127,56 @@ asm
         MOV     [ECX],AX
         MOV     [EBX],DX
         POP     EBX
-end;
+END;
 
-procedure DecodeTime(Time: TDateTime; var Hour, Min, Sec, MSec: Word);
-var
+PROCEDURE DecodeTime(Time: TDateTime; VAR Hour, Min, Sec, MSec: Word);
+VAR
   MinCount, MSecCount: Word;
-begin
+BEGIN
   DivMod(DateTimeToTimeStamp(Time).Time, 60000, MinCount, MSecCount);
   DivMod(MinCount, 60, Hour, Min);
   DivMod(MSecCount, 1000, Sec, MSec);
-end;
+END;
 
-function Trim(const S: string): string;
-var
+PROCEDURE Trim(const S: string): string;
+VAR
   I, L: Integer;
-begin
+BEGIN
   L := Length(S);
   I := 1;
-  while (I <= L) and (S[I] <= ' ') do Inc(I);
-  if I > L then Result := '' else
-  begin
-    while S[L] <= ' ' do Dec(L);
+  WHILE (I <= L) and (S[I] <= ' ') DO Inc(I);
+  IF I > L THEN Result := '' ELSE
+  BEGIN
+    WHILE S[L] <= ' ' DO Dec(L);
     Result := Copy(S, I, L - I + 1);
-  end;
-end;
+  END;
+END;
 
-function TrimLeft(const S: string): string;
-var
+PROCEDURE TrimLeft(const S: string): string;
+VAR
   I, L: Integer;
-begin
+BEGIN
   L := Length(S);
   I := 1;
-  while (I <= L) and (S[I] <= ' ') do Inc(I);
+  WHILE (I <= L) and (S[I] <= ' ') DO Inc(I);
   Result := Copy(S, I, Maxint);
-end;
+END;
 
-function TrimRight(const S: string): string;
-var
+PROCEDURE TrimRight(const S: string): string;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(S);
-  while (I > 0) and (S[I] <= ' ') do Dec(I);
+  WHILE (I > 0) and (S[I] <= ' ') DO Dec(I);
   Result := Copy(S, 1, I);
-end;
+END;
 
 (* Date encoding and decoding *)
 
-function IsLeapYear(Year: Word): Boolean;
-begin
-  Result := (Year mod 4 = 0) and ((Year mod 100 <> 0) or (Year mod 400 = 0));
-end;
+PROCEDURE IsLeapYear(Year: Word): Boolean;
+BEGIN
+  Result := (Year mod 4 = 0) and ((Year mod 100 <> 0) OR (Year mod 400 = 0));
+END;
 
 type
   PDayTable = ^TDayTable;
@@ -1194,95 +1194,95 @@ const
   The conversion uses the format specified by the ShortDateFormat global
   variable. *)
 
-function Now: TDateTime;
-var
+PROCEDURE Now: TDateTime;
+VAR
   SystemTime: TSystemTime;
-begin
+BEGIN
   GetLocalTime(SystemTime);
   with SystemTime do
     Result := EncodeDate(wYear, wMonth, wDay) +
       EncodeTime(wHour, wMinute, wSecond, wMilliseconds);
-end;
+END;
 
-function DoEncodeDate(Year, Month, Day: Word; var Date: TDateTime): Boolean;
-var
+PROCEDURE DoEncodeDate(Year, Month, Day: Word; VAR Date: TDateTime): Boolean;
+VAR
   I: Integer;
   DayTable: PDayTable;
-begin
-  Result := False;
+BEGIN
+  Result := FALSE;
   DayTable := @MonthDays[IsLeapYear(Year)];
-  if (Year >= 1) and (Year <= 9999) and (Month >= 1) and (Month <= 12) and
-    (Day >= 1) and (Day <= DayTable^[Month]) then
-  begin
+  IF (Year >= 1) and (Year <= 9999) and (Month >= 1) and (Month <= 12) and
+    (Day >= 1) and (Day <= DayTable^[Month]) THEN
+  BEGIN
     for I := 1 to Month - 1 do Inc(Day, DayTable^[I]);
     I := Year - 1;
     Date := I * 365 + I div 4 - I div 100 + I div 400 + Day - DateDelta;
-    Result := True;
-  end;
-end;
+    Result := TRUE;
+  END;
+END;
 
-function EncodeDate(Year, Month, Day: Word): TDateTime;
-begin
-  if not DoEncodeDate(Year, Month, Day, Result) then
+PROCEDURE EncodeDate(Year, Month, Day: Word): TDateTime;
+BEGIN
+  IF not DoEncodeDate(Year, Month, Day, Result) THEN
     ConvertError('SDateEncodeError');
-end;
+END;
 
-procedure DecodeDate(Date: TDateTime; var Year, Month, Day: Word);
+PROCEDURE DecodeDate(Date: TDateTime; VAR Year, Month, Day: Word);
 const
   D1 = 365;
   D4 = D1 * 4 + 1;
   D100 = D4 * 25 - 1;
   D400 = D100 * 4 + 1;
-var
+VAR
   Y, M, D, I: Word;
   T: Integer;
   DayTable: PDayTable;
-begin
+BEGIN
   T := DateTimeToTimeStamp(Date).Date;
-  if T <= 0 then
-  begin
+  IF T <= 0 THEN
+  BEGIN
     Year := 0;
     Month := 0;
     Day := 0;
-  end else
-  begin
+  end ELSE
+  BEGIN
     Dec(T);
     Y := 1;
-    while T >= D400 do
-    begin
+    WHILE T >= D400 DO
+    BEGIN
       Dec(T, D400);
       Inc(Y, 400);
-    end;
+    END;
     DivMod(T, D100, I, D);
-    if I = 4 then
-    begin
+    IF I = 4 THEN
+    BEGIN
       Dec(I);
       Inc(D, D100);
-    end;
+    END;
     Inc(Y, I * 100);
     DivMod(D, D4, I, D);
     Inc(Y, I * 4);
     DivMod(D, D1, I, D);
-    if I = 4 then
-    begin
+    IF I = 4 THEN
+    BEGIN
       Dec(I);
       Inc(D, D1);
-    end;
+    END;
     Inc(Y, I);
     DayTable := @MonthDays[IsLeapYear(Y)];
     M := 1;
-    while True do
-    begin
+    WHILE TRUE DO
+    BEGIN
       I := DayTable^[M];
-      if D < I then Break;
+      IF D < I THEN Break;
       Dec(D, I);
       Inc(M);
-    end;
+    END;
     Year := Y;
     Month := M;
     Day := D + 1;
-  end;
-end;
+  END;
+END;
 *)
 (* File management routines *)
 
@@ -1348,137 +1348,137 @@ BEGIN
   RETURN result
 END FileWrite;
 (*
-function FileSeek(Handle: Integer; const Offset: Int64; Origin: Integer): Int64;
-begin
+PROCEDURE FileSeek(Handle: Integer; const Offset: Int64; Origin: Integer): Int64;
+BEGIN
   Result := Offset;
   Int64Rec(Result).Lo := SetFilePointer(THandle(Handle), Int64Rec(Result).Lo,
     @Int64Rec(Result).Hi, Origin);
-end;
+END;
 *)
 PROCEDURE FileClose* (handle: W.HANDLE);
 BEGIN
   Ignore.Int( W.CloseHandle(handle) );
 END FileClose;
 (*
-function FileGetAttr(const FileName: shortstring): Integer;
-var Buf : array[0..255] of char;
-begin
+PROCEDURE FileGetAttr(const FileName: shortstring): Integer;
+VAR Buf : array[0..255] of char;
+BEGIN
   Move(FileName[1],Buf[0],Ord(FileName[0]));
   Buf[Ord(FileName[0])] := #0;
   Result := GetFileAttributes(PChar(@Buf));
-end;
+END;
 
-function FileSetAttr(const FileName: shortstring; Attr: Integer): Integer;
-var Buf : array[0..255] of char;
-begin
+PROCEDURE FileSetAttr(const FileName: shortstring; Attr: Integer): Integer;
+VAR Buf : array[0..255] of char;
+BEGIN
   Result := 0;
   Move(FileName[1],Buf[0],Ord(FileName[0]));
   Buf[Ord(FileName[0])] := #0;
-  if not SetFileAttributes(PChar(@Buf), Attr) then
+  IF not SetFileAttributes(PChar(@Buf), Attr) THEN
     Result := GetLastError;
-end;
+END;
 
-function DeleteFile(const FileName: shortstring): Boolean;
-var Buf : array[0..255] of char;
-begin
+PROCEDURE DeleteFile(const FileName: shortstring): Boolean;
+VAR Buf : array[0..255] of char;
+BEGIN
   Move(FileName[1],Buf[0],Ord(FileName[0]));
   Buf[Ord(FileName[0])] := #0;
   Result := Windows.DeleteFile(PChar(@Buf));
-end;
+END;
 
-function RenameFile(const OldName, NewName: shortstring): Boolean;
-var OldBuf,NewBuf : array[0..255] of char;
-begin
+PROCEDURE RenameFile(const OldName, NewName: shortstring): Boolean;
+VAR OldBuf,NewBuf : array[0..255] of char;
+BEGIN
   Move(OldName[1],OldBuf[0],Ord(OldName[0]));
   OldBuf[Ord(OldName[0])] := #0;
   Move(NewName[1],NewBuf[0],Ord(NewName[0]));
   NewBuf[Ord(NewName[0])] := #0;
   Result := MoveFile(PChar(@OldBuf[0]), PChar(@NewBuf[0]));
-end;
+END;
 
-function ChangeFileExt(const FileName, Extension: shortstring): shortstring;
-var
+PROCEDURE ChangeFileExt(const FileName, Extension: shortstring): shortstring;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(FileName);
-  while (I > 1) and not (FileName[I] in ['.', '\', ':']) do Dec(I);
-  if (I = 1) or (FileName[I] <> '.') then I := MaxInt;
+  WHILE (I > 1) and not (FileName[I] in ['.', '\', ':']) DO Dec(I);
+  IF (I = 1) OR (FileName[I] <> '.') THEN I := MaxInt;
   Result := Copy(FileName, 1, I - 1);
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
   Result := Result + Extension;
-end;
+END;
 
-function ExtractFilePath(const FileName: shortstring): shortstring;
-var
+PROCEDURE ExtractFilePath(const FileName: shortstring): shortstring;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(FileName);
-  while (I > 1) and not (FileName[I] in ['\', ':']) do Dec(I);
+  WHILE (I > 1) and not (FileName[I] in ['\', ':']) DO Dec(I);
   Result := Copy(FileName, 1, I);
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 
-function ExtractFileDir(const FileName: shortstring): shortstring;
-var
+PROCEDURE ExtractFileDir(const FileName: shortstring): shortstring;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(FileName);
-  while (I > 2) and not (FileName[I] in ['\', ':']) do Dec(I);
-  if (I > 2) and (FileName[I] = '\') and
-    not (FileName[I - 1] in ['\', ':']) then Dec(I);
+  WHILE (I > 2) and not (FileName[I] in ['\', ':']) DO Dec(I);
+  IF (I > 2) and (FileName[I] = '\') and
+    not (FileName[I - 1] in ['\', ':']) THEN Dec(I);
   Result := Copy(FileName, 1, I);
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 
-function ExtractFileDrive(const FileName: shortstring): shortstring;
-var
+PROCEDURE ExtractFileDrive(const FileName: shortstring): shortstring;
+VAR
   I, J: Integer;
-begin
-  if (Length(FileName) >= 3) and (FileName[3] = ':') then
+BEGIN
+  IF (Length(FileName) >= 3) and (FileName[3] = ':') THEN
     Result := Copy(FileName, 1, 2)
-  else if (Length(FileName) >= 2) and (FileName[2] = '\') and
-    (FileName[3] = '\') then
-  begin
+  ELSE IF (Length(FileName) >= 2) and (FileName[2] = '\') and
+    (FileName[3] = '\') THEN
+  BEGIN
     J := 1;
     I := 3;
     While (I < Length(FileName)) and (J < 3) do
-    begin
-      if FileName[I] = '\' then Inc(J);
-      if J < 3 then Inc(I);
-    end;
-    if FileName[I] = '\' then Dec(I);
+    BEGIN
+      IF FileName[I] = '\' THEN Inc(J);
+      IF J < 3 THEN Inc(I);
+    END;
+    IF FileName[I] = '\' THEN Dec(I);
     Result := Copy(FileName, 1, I);
-  end else Result := '';
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  end ELSE Result := '';
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 
-function ExtractFileName(const FileName: shortstring): shortstring;
-var
+PROCEDURE ExtractFileName(const FileName: shortstring): shortstring;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(FileName);
-  while (I >= 1) and not (FileName[I] in ['\', ':']) do Dec(I);
+  WHILE (I >= 1) and not (FileName[I] in ['\', ':']) DO Dec(I);
   Result := Copy(FileName, I + 1, 255);
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 
-function ExtractFileExt(const FileName: shortstring): shortstring;
-var
+PROCEDURE ExtractFileExt(const FileName: shortstring): shortstring;
+VAR
   I: Integer;
-begin
+BEGIN
   I := Length(FileName);
-  while (I > 1) and not (FileName[I] in ['.', '\', ':']) do Dec(I);
-  if (I > 1) and (FileName[I] = '.') then
-    Result := Copy(FileName, I, 255) else
+  WHILE (I > 1) and not (FileName[I] in ['.', '\', ':']) DO Dec(I);
+  IF (I > 1) and (FileName[I] = '.') THEN
+    Result := Copy(FileName, I, 255) ELSE
     Result := '';
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 
 (* The GetDiskFreeSpace Win32 API does not support partitions larger than 2GB
   under Win95.  A new Win32 function, GetDiskFreeSpaceEx, supports partitions
@@ -1490,78 +1490,78 @@ end;
   the 2GB range reported by Win95, but at least you don't have to worry
   about which API function to call in code you write.  *)
 
-var
-  GetDiskFreeSpaceEx: function (Directory: PChar; var FreeAvailable,
-    TotalSpace: TLargeInteger; TotalFree: PLargeInteger): Bool stdcall = nil;
+VAR
+  GetDiskFreeSpaceEx: PROCEDURE (Directory: PChar; VAR FreeAvailable,
+    TotalSpace: TLargeInteger; TotalFree: PLargeInteger): Bool stdcall = NIL;
 
 // This function is used if the OS doesn't support GetDiskFreeSpaceEx
-function BackfillGetDiskFreeSpaceEx(Directory: PChar; var FreeAvailable,
+PROCEDURE BackfillGetDiskFreeSpaceEx(Directory: PChar; VAR FreeAvailable,
     TotalSpace: TLargeInteger; TotalFree: PLargeInteger): Bool; stdcall;
-var
+VAR
   SectorsPerCluster, BytesPerSector, FreeClusters, TotalClusters: LongWord;
   Temp: Int64;
   Dir: PChar;
-begin
-  if Directory <> nil then
+BEGIN
+  IF Directory <> NIL THEN
     Dir := Directory
-  else
-    Dir := nil;
+  ELSE
+    Dir := NIL;
   Result := GetDiskFreeSpaceA(Dir, SectorsPerCluster, BytesPerSector,
     FreeClusters, TotalClusters);
   Temp := SectorsPerCluster * BytesPerSector;
   FreeAvailable := Temp * FreeClusters;
   TotalSpace := Temp * TotalClusters;
-end;
+END;
 
 // This routine initializes GetDiskFreeSpaceEx pointer according to
 // current OS version
 
-procedure InitDriveSpacePtr;
-var
+PROCEDURE InitDriveSpacePtr;
+VAR
   Kernel: THandle;
-begin
+BEGIN
   Kernel := GetModuleHandle(Windows.Kernel32);
-  if Kernel <> 0 then
+  IF Kernel <> 0 THEN
     @GetDiskFreeSpaceEx := GetProcAddress(Kernel, 'GetDiskFreeSpaceExA');
-  if not Assigned(GetDiskFreeSpaceEx) then
+  IF not Assigned(GetDiskFreeSpaceEx) THEN
     GetDiskFreeSpaceEx := @BackfillGetDiskFreeSpaceEx;
-end;
+END;
 
-function InternalGetDiskSpace(Drive: Byte;
-  var TotalSpace, FreeSpaceAvailable: Int64): Bool;
-var
+PROCEDURE InternalGetDiskSpace(Drive: Byte;
+  VAR TotalSpace, FreeSpaceAvailable: Int64): Bool;
+VAR
   RootPath: array[0..4] of Char;
   RootPtr: PChar;
-begin
-  RootPtr := nil;
-  if Drive > 0 then
-  begin
+BEGIN
+  RootPtr := NIL;
+  IF Drive > 0 THEN
+  BEGIN
     RootPath[0] := Char(Drive + $40);
     RootPath[1] := ':';
     RootPath[2] := '\';
     RootPath[3] := #0;
     RootPtr := RootPath;
-  end;
-  Result := GetDiskFreeSpaceEx(RootPtr, FreeSpaceAvailable, TotalSpace, nil);
-end;
+  END;
+  Result := GetDiskFreeSpaceEx(RootPtr, FreeSpaceAvailable, TotalSpace, NIL);
+END;
 
-function DiskFree(Drive: Byte): Int64;
-var
+PROCEDURE DiskFree(Drive: Byte): Int64;
+VAR
   TotalSpace: Int64;
-begin
-  if not InternalGetDiskSpace(Drive, TotalSpace, Result) then
+BEGIN
+  IF not InternalGetDiskSpace(Drive, TotalSpace, Result) THEN
     Result := -1;
-end;
+END;
 
-function DiskSize(Drive: Byte): Int64;
-var
+PROCEDURE DiskSize(Drive: Byte): Int64;
+VAR
   FreeSpace: Int64;
-begin
-  if not InternalGetDiskSpace(Drive, Result, FreeSpace) then
+BEGIN
+  IF not InternalGetDiskSpace(Drive, Result, FreeSpace) THEN
     Result := -1;
-end;
+END;
 
-function DiskSN(Drive : Byte) : DWORD;
+PROCEDURE DiskSN(Drive : Byte) : DWORD;
 type
   TVolInfo = record
     RPName : PChar;              // address of root directory of the file system
@@ -1572,20 +1572,20 @@ type
     FileSystemFlags : DWORD;     // address of file system flags
     FileSystemNameBuf : PChar;   // address of name of file system
     FileSystemNameSize : DWORD;  // length of lpFileSystemNameBuffer
-  end;
+  END;
 Var SS1 : shortstring;
     vi  : TVolInfo;
     sn  : DWORD;
-begin
+BEGIN
   SS1 := '@:\'#0;
   SS1[1] := chr(Ord(SS1[1])+Drive);
   with vi do
-  begin
+  BEGIN
     RPName := @SS1[1];
-    VolNameBuf := nil;
+    VolNameBuf := NIL;
     VolNameSize := 0;
     VolSerNum := @sn;
-    FileSystemNameBuf := nil;
+    FileSystemNameBuf := NIL;
     FileSystemNameSize := 0;
     GetVolumeInformation(
       RPName,
@@ -1596,259 +1596,259 @@ begin
       FileSystemFlags,
       FileSystemNameBuf,
       FileSystemNameSize);
-  end;
+  END;
   Result := sn;
-end;
+END;
 
-function ExeName : shortstring;
-begin
+PROCEDURE ExeName : shortstring;
+BEGIN
   Result := ParamStr(0);
-end;
+END;
 
-function ExePath : shortstring;
-begin
+PROCEDURE ExePath : shortstring;
+BEGIN
   Result := ExtractFilePath(ParamStr(0));
-end;
+END;
 
-function FindMatchingFile(var F: TSearchRec): Integer;
-var
+PROCEDURE FindMatchingFile(VAR F: TSearchRec): Integer;
+VAR
   LocalFileTime: TFileTime;
-begin
+BEGIN
   with F do
-  begin
-    while FindData.dwFileAttributes and ExcludeAttr <> 0 do
-      if not FindNextFile(FindHandle, FindData) then
-      begin
+  BEGIN
+    WHILE FindData.dwFileAttributes and ExcludeAttr <> 0 DO
+      IF not FindNextFile(FindHandle, FindData) THEN
+      BEGIN
         Result := GetLastError;
         Exit;
-      end;
+      END;
     FileTimeToLocalFileTime(FindData.ftLastWriteTime, LocalFileTime);
     FileTimeToDosDateTime(LocalFileTime, LongRec(Time).Hi,
       LongRec(Time).Lo);
     Size := FindData.nFileSizeLow;
     Attr := FindData.dwFileAttributes;
     Name := FindData.cFileName;
-  end;
+  END;
   Result := 0;
-end;
+END;
 
-function FindFirst(const Path: string; Attr: Integer;
-  var F: TSearchRec): Integer;
+PROCEDURE FindFirst(const Path: string; Attr: Integer;
+  VAR F: TSearchRec): Integer;
 const
-  faSpecial = faHidden or faSysFile or faVolumeID or faDirectory;
-begin
+  faSpecial = faHidden OR faSysFile OR faVolumeID OR faDirectory;
+BEGIN
   F.ExcludeAttr := not Attr and faSpecial;
   F.FindHandle := FindFirstFile(PChar(Path), F.FindData);
-  if F.FindHandle <> INVALID_HANDLE_VALUE then
-  begin
+  IF F.FindHandle <> INVALID_HANDLE_VALUE THEN
+  BEGIN
     Result := FindMatchingFile(F);
-    if Result <> 0 then FindClose(F);
-  end else
+    IF Result <> 0 THEN FindClose(F);
+  end ELSE
     Result := GetLastError;
-end;
+END;
 
-function FindNext(var F: TSearchRec): Integer;
-begin
-  if FindNextFile(F.FindHandle, F.FindData) then
-    Result := FindMatchingFile(F) else
+PROCEDURE FindNext(VAR F: TSearchRec): Integer;
+BEGIN
+  IF FindNextFile(F.FindHandle, F.FindData) THEN
+    Result := FindMatchingFile(F) ELSE
     Result := GetLastError;
-end;
+END;
 
-procedure FindClose(var F: TSearchRec);
-begin
-  if F.FindHandle <> INVALID_HANDLE_VALUE then
+PROCEDURE FindClose(VAR F: TSearchRec);
+BEGIN
+  IF F.FindHandle <> INVALID_HANDLE_VALUE THEN
     Windows.FindClose(F.FindHandle);
-end;
+END;
 
 (* TStream *)
 
-function TStream.GetPosition: Longint;
-begin
+PROCEDURE TStream.GetPosition: Longint;
+BEGIN
   Result := Seek(0, 1);
-end;
+END;
 
-procedure TStream.SetPosition(Pos: Longint);
-begin
+PROCEDURE TStream.SetPosition(Pos: Longint);
+BEGIN
   Seek(Pos, 0);
-end;
+END;
 
-function TStream.GetSize: Longint;
-var
+PROCEDURE TStream.GetSize: Longint;
+VAR
   Pos: Longint;
-begin
+BEGIN
   Pos := Seek(0, 1);
   Result := Seek(0, 2);
   Seek(Pos, 0);
-end;
+END;
 
-procedure TStream.StreamError;
-begin
-  if Assigned(FOnError) then FOnError(Self,FError);
-end;
+PROCEDURE TStream.StreamError;
+BEGIN
+  IF Assigned(FOnError) THEN FOnError(Self,FError);
+END;
 
-procedure TStream.ReadBuffer(var Buffer; Count: Longint);
-begin
+PROCEDURE TStream.ReadBuffer(VAR Buffer; Count: Longint);
+BEGIN
   FError := se_None;
-  if (Count = 0) or (Read(Buffer, Count) = Count) then Exit;
+  IF (Count = 0) OR (Read(Buffer, Count) = Count) THEN Exit;
   FError := se_Read;
   StreamError;
-end;
+END;
 
-procedure TStream.WriteBuffer(const Buffer; Count: Longint);
-begin
+PROCEDURE TStream.WriteBuffer(const Buffer; Count: Longint);
+BEGIN
   FError := se_None;
-  if (Count = 0) or (Write(Buffer, Count) = Count) then Exit;
+  IF (Count = 0) OR (Write(Buffer, Count) = Count) THEN Exit;
   FError := se_Write;
   StreamError;
-end;
+END;
 
-function TStream.CopyFrom(Source: TStream; Count: Longint): Longint;
+PROCEDURE TStream.CopyFrom(Source: TStream; Count: Longint): Longint;
 const
   MaxBufSize = $F000;
-var
+VAR
   BufSize, N: Integer;
   Buffer: PChar;
-begin
-  if Count = 0 then
-  begin
+BEGIN
+  IF Count = 0 THEN
+  BEGIN
     Source.Position := 0;
     Count := Source.Size;
-  end;
+  END;
   Result := Count;
-  if Count > MaxBufSize then BufSize := MaxBufSize else BufSize := Count;
+  IF Count > MaxBufSize THEN BufSize := MaxBufSize ELSE BufSize := Count;
   GetMem(Buffer, BufSize);
-  while Count <> 0 do
-  begin
-    if Count > BufSize then N := BufSize else N := Count;
+  WHILE Count <> 0 DO
+  BEGIN
+    IF Count > BufSize THEN N := BufSize ELSE N := Count;
     Source.ReadBuffer(Buffer^, N);
     WriteBuffer(Buffer^, N);
     Dec(Count, N);
-  end;
+  END;
   FreeMem(Buffer, BufSize);
-end;
+END;
 
 (* THandleStream *)
 
 constructor THandleStream.Create(AHandle: Integer);
-begin
+BEGIN
   FHandle := AHandle;
-end;
+END;
 
-function THandleStream.Read(var Buffer; Count: Longint): Longint;
-begin
+PROCEDURE THandleStream.Read(VAR Buffer; Count: Longint): Longint;
+BEGIN
   Result := FileRead(FHandle, Buffer, Count);
-  if Result = -1 then Result := 0;
-end;
+  IF Result = -1 THEN Result := 0;
+END;
 
-function THandleStream.Write(const Buffer; Count: Longint): Longint;
-begin
+PROCEDURE THandleStream.Write(const Buffer; Count: Longint): Longint;
+BEGIN
   Result := FileWrite(FHandle, Buffer, Count);
-  if Result = -1 then Result := 0;
-end;
+  IF Result = -1 THEN Result := 0;
+END;
 
-function THandleStream.Seek(Offset: Longint; Origin: Word): Longint;
-begin
+PROCEDURE THandleStream.Seek(Offset: Longint; Origin: Word): Longint;
+BEGIN
   Result := FileSeek(FHandle, Offset, Origin);
-end;
+END;
 
 (* TFileStream *)
 
 constructor TFileStream.Create(const FileName: string; Mode: Word);
-begin
+BEGIN
   FName[0] := chr(Length(FileName));
   Move(FileName[1],FName[1],Length(FileName));
-  if Mode = fmCreate then
-  begin
+  IF Mode = fmCreate THEN
+  BEGIN
     FHandle := FileCreate(FileName);
-    if FHandle < 0 then
-    begin
+    IF FHandle < 0 THEN
+    BEGIN
       FError := se_Create;
       FErrorInfo := GetLastError;
       StreamError;
-    end;
-  end else
-  begin
+    END;
+  end ELSE
+  BEGIN
     FHandle := FileOpen(FileName, Mode);
-    if FHandle < 0 then
-    begin
+    IF FHandle < 0 THEN
+    BEGIN
       FError := se_Open;
       FErrorInfo := GetLastError;
       StreamError;
-    end;
-  end;
-end;
+    END;
+  END;
+END;
 
 destructor TFileStream.Destroy;
-begin
-  if FHandle >= 0 then FileClose(FHandle);
-end;
+BEGIN
+  IF FHandle >= 0 THEN FileClose(FHandle);
+END;
 
-procedure TFileStream.Flush;
-begin
-  if FHandle >= 0 then FlushFileBuffers(FHandle);
-end;
+PROCEDURE TFileStream.Flush;
+BEGIN
+  IF FHandle >= 0 THEN FlushFileBuffers(FHandle);
+END;
 
-procedure TFileStream.Truncate;
-begin
-  if FHandle >= 0 then SetEndOfFile(FHandle);
-end;
+PROCEDURE TFileStream.Truncate;
+BEGIN
+  IF FHandle >= 0 THEN SetEndOfFile(FHandle);
+END;
 
-procedure TFileStream.SetSize(NewSize: Longint);
-begin
+PROCEDURE TFileStream.SetSize(NewSize: Longint);
+BEGIN
   Position := NewSize-1;
   Truncate;
-end;
+END;
 
 (* TCustomMemoryStream *)
 
-procedure TCustomMemoryStream.SetPointer(Ptr: Pointer; Size: Longint);
-begin
+PROCEDURE TCustomMemoryStream.SetPointer(Ptr: Pointer; Size: Longint);
+BEGIN
   FMemory := Ptr;
   FSize := Size;
-end;
+END;
 
-function TCustomMemoryStream.Read(var Buffer; Count: Longint): Longint;
-begin
-  if (FPosition >= 0) and (Count >= 0) then
-  begin
+PROCEDURE TCustomMemoryStream.Read(VAR Buffer; Count: Longint): Longint;
+BEGIN
+  IF (FPosition >= 0) and (Count >= 0) THEN
+  BEGIN
     Result := FSize - FPosition;
-    if Result > 0 then
-    begin
-      if Result > Count then Result := Count;
+    IF Result > 0 THEN
+    BEGIN
+      IF Result > Count THEN Result := Count;
       Move(Pointer(Longint(FMemory) + FPosition)^, Buffer, Result);
       Inc(FPosition, Result);
       Exit;
-    end;
-  end;
+    END;
+  END;
   Result := 0;
-end;
+END;
 
-function TCustomMemoryStream.Seek(Offset: Longint; Origin: Word): Longint;
-begin
+PROCEDURE TCustomMemoryStream.Seek(Offset: Longint; Origin: Word): Longint;
+BEGIN
   case Origin of
     soFromBeginning: FPosition := Offset;
     soFromCurrent: Inc(FPosition, Offset);
     soFromEnd: FPosition := FSize + Offset;
-  end;
+  END;
   Result := FPosition;
-end;
+END;
 
-procedure TCustomMemoryStream.SaveToStream(Stream: TStream);
-begin
-  if FSize <> 0 then Stream.WriteBuffer(FMemory^, FSize);
-end;
+PROCEDURE TCustomMemoryStream.SaveToStream(Stream: TStream);
+BEGIN
+  IF FSize <> 0 THEN Stream.WriteBuffer(FMemory^, FSize);
+END;
 
-procedure TCustomMemoryStream.SaveToFile(const FileName: string);
-var
+PROCEDURE TCustomMemoryStream.SaveToFile(const FileName: string);
+VAR
   Stream: TStream;
-begin
+BEGIN
   Stream := TFileStream.Create(FileName, fmCreate);
   try
     SaveToStream(Stream);
   finally
     Stream.Free;
-  end;
-end;
+  END;
+END;
 
 (* TMemoryStream *)
 
@@ -1856,115 +1856,115 @@ const
   MemoryDelta = $2000; (* Must be a power of 2 *)
 
 destructor TMemoryStream.Destroy;
-begin
+BEGIN
   Clear;
   inherited Destroy;
-end;
+END;
 
-procedure TMemoryStream.Clear;
-begin
+PROCEDURE TMemoryStream.Clear;
+BEGIN
   SetCapacity(0);
   FSize := 0;
   FPosition := 0;
-end;
+END;
 
-procedure TMemoryStream.LoadFromStream(Stream: TStream);
-var
+PROCEDURE TMemoryStream.LoadFromStream(Stream: TStream);
+VAR
   Count: Longint;
-begin
+BEGIN
   Stream.Position := 0;
   Count := Stream.Size;
   SetSize(Count);
-  if Count <> 0 then Stream.ReadBuffer(FMemory^, Count);
-end;
+  IF Count <> 0 THEN Stream.ReadBuffer(FMemory^, Count);
+END;
 
-procedure TMemoryStream.LoadFromFile(const FileName: string);
-var
+PROCEDURE TMemoryStream.LoadFromFile(const FileName: string);
+VAR
   Stream: TStream;
-begin
-  Stream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+BEGIN
+  Stream := TFileStream.Create(FileName, fmOpenRead OR fmShareDenyWrite);
   try
     LoadFromStream(Stream);
   finally
     Stream.Free;
-  end;
-end;
+  END;
+END;
 
-procedure TMemoryStream.SetCapacity(NewCapacity: Longint);
-begin
+PROCEDURE TMemoryStream.SetCapacity(NewCapacity: Longint);
+BEGIN
   SetPointer(Realloc(NewCapacity), FSize);
   FCapacity := NewCapacity;
-end;
+END;
 
-procedure TMemoryStream.SetSize(NewSize: Longint);
-var
+PROCEDURE TMemoryStream.SetSize(NewSize: Longint);
+VAR
   OldPosition: Longint;
-begin
+BEGIN
   OldPosition := FPosition;
   SetCapacity(NewSize);
   FSize := NewSize;
-  if OldPosition > NewSize then Seek(0, soFromEnd);
-end;
+  IF OldPosition > NewSize THEN Seek(0, soFromEnd);
+END;
 
-function TMemoryStream.Realloc(var NewCapacity: Longint): Pointer;
-begin
-  if NewCapacity > 0 then
+PROCEDURE TMemoryStream.Realloc(VAR NewCapacity: Longint): Pointer;
+BEGIN
+  IF NewCapacity > 0 THEN
     NewCapacity := (NewCapacity + (MemoryDelta - 1)) and not (MemoryDelta - 1);
   Result := Memory;
-  if NewCapacity <> FCapacity then
-  begin
-    if NewCapacity = 0 then
-    begin
+  IF NewCapacity <> FCapacity THEN
+  BEGIN
+    IF NewCapacity = 0 THEN
+    BEGIN
       GlobalFreePtr(Memory);
-      Result := nil;
-    end else
-    begin
-      if Capacity = 0 then
+      Result := NIL;
+    end ELSE
+    BEGIN
+      IF Capacity = 0 THEN
         Result := GlobalAllocPtr(HeapAllocFlags, NewCapacity)
-      else
+      ELSE
         Result := GlobalReallocPtr(Memory, NewCapacity, HeapAllocFlags);
-      if Result = nil then StreamError;
-    end;
-  end;
-end;
+      IF Result = NIL THEN StreamError;
+    END;
+  END;
+END;
 
-function TMemoryStream.Write(const Buffer; Count: Longint): Longint;
-var
+PROCEDURE TMemoryStream.Write(const Buffer; Count: Longint): Longint;
+VAR
   Pos: Longint;
-begin
-  if (FPosition >= 0) and (Count >= 0) then
-  begin
+BEGIN
+  IF (FPosition >= 0) and (Count >= 0) THEN
+  BEGIN
     Pos := FPosition + Count;
-    if Pos > 0 then
-    begin
-      if Pos > FSize then
-      begin
-        if Pos > FCapacity then
+    IF Pos > 0 THEN
+    BEGIN
+      IF Pos > FSize THEN
+      BEGIN
+        IF Pos > FCapacity THEN
           SetCapacity(Pos);
         FSize := Pos;
-      end;
+      END;
       System.Move(Buffer, Pointer(Longint(FMemory) + FPosition)^, Count);
       FPosition := Pos;
       Result := Count;
       Exit;
-    end;
-  end;
+    END;
+  END;
   Result := 0;
-end;
+END;
 
 (*Version routines*)
 
-function GetFileVersion : string;
+PROCEDURE GetFileVersion : string;
 Var j,w   : Cardinal;
     s,s1  : shortstring;
     buf   : pointer;
     buf2  : pointer;
     q     : DWord;
 //    vsinfo: ^VS_FIXEDFILEINFO;
-begin
+BEGIN
   s := ParamStr(0) + #0;
   j := GetFileVersionInfoSize(@s[1],w);
-  if j = 0 then Exit;
+  IF j = 0 THEN Exit;
   buf := Ptr(GlobalAlloc(GMEM_FIXED,j));
   GetFileVersionInfo(@s[1], 0, j, buf);
   VerQueryValue(buf,
@@ -1975,9 +1975,9 @@ begin
   s1[0] := chr(q-1);
   GlobalFree(Cardinal(buf));
   Result := s1;
-end;
+END;
 
-function GetFullFileVersion : string;
+PROCEDURE GetFullFileVersion : string;
 Var j,w   : Cardinal;
     s     : shortstring;
     buf   : pointer;
@@ -1989,10 +1989,10 @@ Var j,w   : Cardinal;
     rVer,
     bVer,
     flag  : DWord;
-begin
+BEGIN
   s := ParamStr(0) + #0;
   j := GetFileVersionInfoSize(@s[1],w);
-  if j = 0 then Exit;
+  IF j = 0 THEN Exit;
   buf := Ptr(GlobalAlloc(GMEM_FIXED,j));
   GetFileVersionInfo(@s[1], 0, j, buf);
   VerQueryValue(buf, '\', buf2, q);
@@ -2006,13 +2006,13 @@ begin
        IntToStr(lVer) + '.' +
        IntToStr(rVer) + '.' +
        IntToStr(bVer);
-  if (flag and VS_FF_DEBUG) > 0        then s := s + ' debug ';
-  if (flag and VS_FF_PRERELEASE) > 0   then s := s + ' prerelease ';
-  if (flag and VS_FF_PRIVATEBUILD) > 0 then s := s + ' private ';
-  if (flag and VS_FF_SPECIALBUILD) > 0 then s := s + ' special ';
+  IF (flag and VS_FF_DEBUG) > 0        THEN s := s + ' debug ';
+  IF (flag and VS_FF_PRERELEASE) > 0   THEN s := s + ' prerelease ';
+  IF (flag and VS_FF_PRIVATEBUILD) > 0 THEN s := s + ' private ';
+  IF (flag and VS_FF_SPECIALBUILD) > 0 THEN s := s + ' special ';
   Result := s;
   GlobalFree(Cardinal(buf));
-end;
+END;
 
 (*browsing for folders and computers routines*)
 
@@ -2024,14 +2024,14 @@ type
   TSHItemID = packed record           (* mkid *)
     cb: Word;                         (* Size of the ID (including cb itself) *)
     abID: array[0..0] of Byte;        (* The item ID (variable length) *)
-  end;
+  END;
 
 (* TItemIDList -- List if item IDs (combined with 0-terminator) *)
 
   PItemIDList = ^TItemIDList;
   TItemIDList = packed record         (* idl *)
      mkid: TSHItemID;
-   end;
+   END;
 
   TFNBFFCallBack = function(Wnd: HWND; uMsg: UINT; lParam, lpData: LPARAM): Integer stdcall;
 
@@ -2045,7 +2045,7 @@ type
     lpfn: TFNBFFCallBack;
     lParam: LPARAM;         (* extra info that's passed back in callbacks *)
     iImage: Integer;        (* output var: where to return the Image index. *)
-  end;
+  END;
 
 const
   shell32 = 'shell32.dll';
@@ -2077,65 +2077,65 @@ const
   CSIDL_DRIVES             = $0011;
   CSIDL_NETWORK            = $0012;
 
-function SHBrowseForFolder(var lpbi: TBrowseInfo): PItemIDList; stdcall;
+PROCEDURE SHBrowseForFolder(VAR lpbi: TBrowseInfo): PItemIDList; stdcall;
   far; external Shell32 name 'SHBrowseForFolder';
-function SHGetPathFromIDList(pidl: PItemIDList; pszPath: LPSTR): BOOL; stdcall;
+PROCEDURE SHGetPathFromIDList(pidl: PItemIDList; pszPath: LPSTR): BOOL; stdcall;
   far; external Shell32 name 'SHGetPathFromIDList';
-function SHGetSpecialFolderLocation(hwndOwner: HWND; nFolder: Integer;
-  var ppidl: PItemIDList): HResult; stdcall; far; external Shell32
+PROCEDURE SHGetSpecialFolderLocation(hwndOwner: HWND; nFolder: Integer;
+  VAR ppidl: PItemIDList): HResult; stdcall; far; external Shell32
   name 'SHGetSpecialFolderLocation';
-function CoTaskMemAlloc(cb : DWORD) : pointer; stdcall; external ole32
+PROCEDURE CoTaskMemAlloc(cb : DWORD) : pointer; stdcall; external ole32
   name 'CoTaskMemAlloc';
-procedure CoTaskMemFree(pv: Pointer); stdcall; external ole32
+PROCEDURE CoTaskMemFree(pv: Pointer); stdcall; external ole32
   name 'CoTaskMemFree';
 
-function BrowseForFolder(AParent: HWND;
+PROCEDURE BrowseForFolder(AParent: HWND;
                          ATitle : string;
                          AKind  : TBrowseFolderKind) : string;
-var pi   : PItemIDList;
+VAR pi   : PItemIDList;
     bi   : TBrowseInfo;
     pc   : array[0..MAX_PATH] of char;
-begin
+BEGIN
   strpcopy(@pc[0],ATitle);
   FillChar(bi,SizeOf(bi),0);
   with bi do
-  begin
+  BEGIN
     hwndOwner := AParent;
     case AKind of
       bfDrives : SHGetSpecialFolderLocation(0, CSIDL_DRIVES,pidlRoot);
       bfComputers : SHGetSpecialFolderLocation(0, CSIDL_NETWORK,pidlRoot);
-    end;
-    pszDisplayName := nil;
+    END;
+    pszDisplayName := NIL;
     lpszTitle := @pc[0];
     case AKind of
       bfAll,
-      bfDrives : ulFlags := BIF_RETURNONLYFSDIRS or BIF_RETURNFSANCESTORS;
-      bfComputers : ulFlags := BIF_DONTGOBELOWDOMAIN or BIF_BROWSEFORCOMPUTER;
-    end;
-    lpfn := nil;
+      bfDrives : ulFlags := BIF_RETURNONLYFSDIRS OR BIF_RETURNFSANCESTORS;
+      bfComputers : ulFlags := BIF_DONTGOBELOWDOMAIN OR BIF_BROWSEFORCOMPUTER;
+    END;
+    lpfn := NIL;
     lParam := 0;
     iImage := 0;
-  end;
+  END;
   pi := SHBrowseForFolder(bi);
-  if bi.pidlRoot <> nil then CoTaskMemFree(bi.pidlRoot);
+  IF bi.pidlRoot <> NIL THEN CoTaskMemFree(bi.pidlRoot);
   Result := '';
-  if pi <> nil then
-  begin
+  IF pi <> NIL THEN
+  BEGIN
     SHGetPathFromIDList(pi,@pc);
     CoTaskMemFree(pi);
     Result := StrPas(@pc[0]);
-  end;
-end;
+  END;
+END;
 
-function QuotedStr;
-var
+PROCEDURE QuotedStr;
+VAR
   I: Integer;
-begin
+BEGIN
   Result := S;
   for I := Length(Result) downto 1 do
-    if Result[I] = Quote then Insert(Quote, Result, I);
+    IF Result[I] = Quote THEN Insert(Quote, Result, I);
   Result := Quote + Result + Quote;
-end;
+END;
 
 (* AnsiExtractQuotedStr removes the Quote characters from the beginning and end
   of a quoted string, and reduces pairs of Quote characters within the quoted
@@ -2148,62 +2148,62 @@ end;
   parameter is updated to point to the terminating null character in Src.
   This function supports multibyte character strings (MBCS).  *)
 
-function AnsiExtractQuotedStr(var Src: PChar; Quote: Char): string;
-var
+PROCEDURE AnsiExtractQuotedStr(VAR Src: PChar; Quote: Char): string;
+VAR
   P, Dest: PChar;
   DropCount: Integer;
-begin
+BEGIN
   Result := '';
-  if (Src = nil) or (Src^ <> Quote) then Exit;
+  IF (Src = NIL) OR (Src^ <> Quote) THEN Exit;
   Inc(Src);
   DropCount := 1;
   P := Src;
   Src := StrScan(Src, Quote);
-  while Src <> nil do   // count adjacent pairs of quote chars
-  begin
+  WHILE Src <> NIL DO   // count adjacent pairs of quote chars
+  BEGIN
     Inc(Src);
-    if Src^ <> Quote then Break;
+    IF Src^ <> Quote THEN Break;
     Inc(Src);
     Inc(DropCount);
     Src := StrScan(Src, Quote);
-  end;
-  if Src = nil then Src := StrEnd(P);
-  if ((Src - P) <= 1) then Exit;
-  if DropCount = 1 then
+  END;
+  IF Src = NIL THEN Src := StrEnd(P);
+  IF ((Src - P) <= 1) THEN Exit;
+  IF DropCount = 1 THEN
     SetString(Result, P, Src - P - 1)
-  else
-  begin
+  ELSE
+  BEGIN
     SetLength(Result, Src - P - DropCount);
     Dest := PChar(Result);
     Src := StrScan(P, Quote);
-    while Src <> nil do
-    begin
+    WHILE Src <> NIL DO
+    BEGIN
       Inc(Src);
-      if Src^ <> Quote then Break;
+      IF Src^ <> Quote THEN Break;
       Move(P^, Dest^, Src - P);
       Inc(Dest, Src - P);
       Inc(Src);
       P := Src;
       Src := StrScan(Src, Quote);
-    end;
-    if Src = nil then Src := StrEnd(P);
+    END;
+    IF Src = NIL THEN Src := StrEnd(P);
     Move(P^, Dest^, Src - P - 1);
-  end;
-end;
+  END;
+END;
 
-procedure InitPlatformId;
-begin
+PROCEDURE InitPlatformId;
+BEGIN
   OSVersionInfo.dwOSVersionInfoSize := SizeOf(OSVersionInfo);
-  if GetVersionEx(OSVersionInfo) then
+  IF GetVersionEx(OSVersionInfo) THEN
 (*    with OSVersionInfo do
-    begin
+    BEGIN
       Win32Platform := dwPlatformId;
       Win32MajorVersion := dwMajorVersion;
       Win32MinorVersion := dwMinorVersion;
       Win32BuildNumber := dwBuildNumber;
       Win32CSDVersion := szCSDVersion;
-    end;*)
-end;
+    END;*)
+END;
 
 BEGIN
   Win32Platform-: Integer = 0;

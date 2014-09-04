@@ -1,33 +1,33 @@
 MODULE AclDemo; (*$MAIN*)
 
 IMPORT
-   W := WinApi, Acl := AclLib, Ut := AclUtils;
+   W := WinApi, Acl := AclLib, Ut := AclUtils, Ignore;
 
 TYPE
-   TWnd1 = RECORD (Acl.TWinControl)(*
-             L1  : TLabel;
-             Lb1 : TListBox;
+   TWnd1 = RECORD (Acl.TWinControl)
+             L1  : Acl.TLabel;
+             Lb1 : Acl.TListBox;
              Ch1,
              Ch2,
              Ch3,
-             Ch4 : TCheckBox;
-             Btn1 : TButton;
-             Btn2 : TButton;
-             Prg1 : TProgressBar;
-             procedure WndCreate(Sender: TObject);
-             procedure Btn1Click(Sender: TObject);
-             procedure Btn2Click(Sender: TObject);
-           public*)
+             Ch4 : Acl.TCheckBox;
+             Btn1 : Acl.TButton;
+             Btn2 : Acl.TButton;
+             Prg1 : Acl.TProgressBar;
            END;
 
 VAR
    Wnd1   : TWnd1;
    s1,s2  : ARRAY 256 OF CHAR;
    trig   : BOOLEAN;
-(*
-procedure TWnd1.WndCreate(Sender: TObject);
-begin
-  AutoStop := true; // exit from process by closing this window
+
+PROCEDURE ^ (VAR w: TWnd1) WndCreate (sender: Acl.TObject);
+PROCEDURE ^ (VAR w: TWnd1) Btn1Click (sender: Acl.TObject);
+PROCEDURE ^ (VAR w: TWnd1) Btn2Click (sender: Acl.TObject);
+
+PROCEDURE (VAR w: TWnd1) WndCreate (sender: Acl.TObject);
+BEGIN
+  w.AutoStop := TRUE; (* exit from process by closing this window*)(*
   L1 := NewLabel(Self,
            s1,
            20,10,Self.ClientWidth - 40,20,
@@ -81,39 +81,39 @@ begin
                          clSilver,
                          clBlack);
   Prg1.Step := 1;
-end;
+*)END WndCreate;
 
-procedure TWnd1.Btn1Click(Sender: TObject);
+PROCEDURE (VAR w: TWnd1) Btn1Click (sender: Acl.TObject);(*
 var s : shortstring;
-begin
+BEGIN
   s := '';
   if Ch1.Checked then s := s + 'AAA';
   if Ch2.Checked then s := s + 'BBB';
   if Ch3.Checked then s := s + '111';
   if Ch4.Checked then s := s + '222';
   if s <> '' then
-  begin
+  BEGIN
     Lb1.Add(s);
     Lb1.Focused := Lb1.Count-1;
     Lb1.setFocus;
-  end;
+  END;
   trig := not trig;
   if trig then
-  begin
+  BEGIN
     L1.Font.Name := 'Courier New';
     L1.Caption := s2;
-  end     else
-  begin
+  END     else
+  BEGIN
     L1.Font.Name := 'Arial';
     L1.Caption := s1;
-  end;
-end;
+  END;
+*)END Btn1Click;
 
-procedure TWnd1.Btn2Click(Sender: TObject);
-begin
+PROCEDURE (VAR w: TWnd1) Btn2Click (sender: Acl.TObject);(*
+BEGIN
   Prg1.Position := Prg1.Position + 10;
-end;
-*)
+*)END Btn2Click;
+
 BEGIN
   s1 := "Sorted ListBox Sample";
   s2 := "SORTED LISTBOX SAMPLE";
@@ -127,10 +127,9 @@ BEGIN
   Wnd1.SetColor(Ut.RGB(33X, 99X, 0FFX));
   Wnd1.SetCaption("Win32 API Programming Sample");(*
   Wnd1.OnCreate := WndCreate;*)
-(*
   Wnd1.CreateWnd;
-  Wnd1.Visible := true;
-  Wnd1.Lb1.SetFocus;
-  Wnd1.ShowModal;
+  Wnd1.SetVisible(TRUE);(*
+  Wnd1.Lb1.SetFocus;*)
+  Ignore.Int( Wnd1.ShowModal() );(*
   Wnd1.Free;*)
 END AclDemo.
