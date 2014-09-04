@@ -53,110 +53,141 @@
 
 MODULE AclLib;
 
-IMPORT SYSTEM, W := WinApi, Ut := AclUtils, Ignore;(*
+IMPORT SYSTEM, W := WinApi, Ut := AclUtils, Ignore;
 
-{<fduch> }
-{.$DEFINE CaptureMouse}
-{.$DEFINE KBD}
-{</fduch>}
+(*<fduch> *)
+(*.$DEFINE CaptureMouse*)
+(*.$DEFINE KBD*)
+(*</fduch>*)
 
-*)TYPE
+TYPE
   Cardinal = INTEGER;
   Char = CHAR;
   DWORD = INTEGER;
   Integer = INTEGER;
   LongInt = INTEGER;
   PChar = ARRAY 256 OF Char;
+  Pointer = SYSTEM.PTR;
   ShortString = ARRAY 256 OF Char;
 
-CONST bk_Opaque = 0; bk_Transparent = 1; bk_Slide = 2;
-TYPE TBkMode = BYTE(*bk_Opaque,bk_Transparent,bk_Slide*);
-(*  TModalResult = Low(Integer)..High(Integer);
+CONST bk_Opaque* = 0; bk_Transparent* = 1; bk_Slide* = 2;
+TYPE TBkMode* = BYTE(*bk_Opaque,bk_Transparent,bk_Slide*);
 
-{ TModalResult values }
+  TModalResult* = Integer; (* Low(Integer)..High(Integer) *)
 
-const
-  mrNone     = 0;
-  mrOk       = idOk;
-  mrCancel   = idCancel;
-  mrAbort    = idAbort;
-  mrRetry    = idRetry;
-  mrIgnore   = idIgnore;
-  mrYes      = idYes;
-  mrNo       = idNo;
-  mrAll      = mrNo + 1;
-  mrNoToAll  = mrAll + 1;
-  mrYesToAll = mrNoToAll + 1;
+(* TModalResult values *)
 
-{ Cursor identifiers }
+CONST
+  mrNone*     = 0;
+  mrOk*       = W.IDOK;
+  mrCancel*   = W.IDCANCEL;
+  mrAbort*    = W.IDABORT;
+  mrRetry*    = W.IDRETRY;
+  mrIgnore*   = W.IDIGNORE;
+  mrYes*      = W.IDYES;
+  mrNo*       = W.IDNO;
+  mrAll*      = mrNo + 1;
+  mrNoToAll*  = mrAll + 1;
+  mrYesToAll* = mrNoToAll + 1;
 
-type
-  TCursor = -32768..32767;
+(* Cursor identifiers *)
 
-*)CONST(*
-  IDC_NODROP =    PChar(32767);
-  IDC_DRAG   =    PChar(32766);
-  IDC_HSPLIT =    PChar(32765);
-  IDC_VSPLIT =    PChar(32764);
-  IDC_MULTIDRAG = PChar(32763);
-  IDC_SQLWAIT =   PChar(32762);
-  IDC_HANDPT =   PChar(32761);
+TYPE
+  TCursor* = SHORTINT; (* -32768..32767 *)
 
-  crDefault     = TCursor(0);
-  crNone        = TCursor(-1);
-  crArrow       = TCursor(-2);
-  crCross       = TCursor(-3);
-  crIBeam       = TCursor(-4);
-  crSize        = TCursor(-22);
-  crSizeNESW    = TCursor(-6);
-  crSizeNS      = TCursor(-7);
-  crSizeNWSE    = TCursor(-8);
-  crSizeWE      = TCursor(-9);
-  crUpArrow     = TCursor(-10);
-  crHourGlass   = TCursor(-11);
-  crDrag        = TCursor(-12);
-  crNoDrop      = TCursor(-13);
-  crHSplit      = TCursor(-14);
-  crVSplit      = TCursor(-15);
-  crMultiDrag   = TCursor(-16);
-  crSQLWait     = TCursor(-17);
-  crNo          = TCursor(-18);
-  crAppStart    = TCursor(-19);
-  crHelp        = TCursor(-20);
-  crHandPoint   = TCursor(-21);
-  crSizeAll     = TCursor(-22);
+CONST
+  IDC_NODROP* =    (*PChar*)(32767);
+  IDC_DRAG*   =    (*PChar*)(32766);
+  IDC_HSPLIT* =    (*PChar*)(32765);
+  IDC_VSPLIT* =    (*PChar*)(32764);
+  IDC_MULTIDRAG* = (*PChar*)(32763);
+  IDC_SQLWAIT* =   (*PChar*)(32762);
+  IDC_HANDPT* =   (*PChar*)(32761);
 
-  WM_NOTIFYICON = WM_USER + 4000;
-*)
-  FormClassName = "TACLFORM";
-(*
-  ACL_DEFAULT_CHARSET = DEFAULT_CHARSET;
-//  ACL_DEFAULT_CHARSET = RUSSIAN_CHARSET;
-*)
-TYPE(*
-    TCreateParams = record
+  crDefault*     = (*TCursor*)(0);
+  crNone*        = (*TCursor*)(-1);
+  crArrow*       = (*TCursor*)(-2);
+  crCross*       = (*TCursor*)(-3);
+  crIBeam*       = (*TCursor*)(-4);
+  crSize*        = (*TCursor*)(-22);
+  crSizeNESW*    = (*TCursor*)(-6);
+  crSizeNS*      = (*TCursor*)(-7);
+  crSizeNWSE*    = (*TCursor*)(-8);
+  crSizeWE*      = (*TCursor*)(-9);
+  crUpArrow*     = (*TCursor*)(-10);
+  crHourGlass*   = (*TCursor*)(-11);
+  crDrag*        = (*TCursor*)(-12);
+  crNoDrop*      = (*TCursor*)(-13);
+  crHSplit*      = (*TCursor*)(-14);
+  crVSplit*      = (*TCursor*)(-15);
+  crMultiDrag*   = (*TCursor*)(-16);
+  crSQLWait*     = (*TCursor*)(-17);
+  crNo*          = (*TCursor*)(-18);
+  crAppStart*    = (*TCursor*)(-19);
+  crHelp*        = (*TCursor*)(-20);
+  crHandPoint*   = (*TCursor*)(-21);
+  crSizeAll*     = (*TCursor*)(-22);
+
+  WM_NOTIFYICON* = W.WM_USER + 4000;
+
+  FormClassName* = "TACLFORM";
+
+  ACL_DEFAULT_CHARSET* = W.DEFAULT_CHARSET;
+(*  ACL_DEFAULT_CHARSET* = RUSSIAN_CHARSET; *)
+
+TYPE
+    TObject* = RECORD(*
+      constructor Create;
+      procedure Free;
+      class function InitInstance(Instance: Pointer): TObject;
+      procedure CleanupInstance;
+      function ClassType: TClass;
+      class function ClassName: ShortString;
+      class function ClassNameIs(const Name: string): Boolean;
+      class function ClassParent: TClass;
+      class function ClassInfo: Pointer;
+      class function InstanceSize: Longint;
+      class function InheritsFrom(AClass: TClass): Boolean;
+      class function MethodAddress(const Name: ShortString): Pointer;
+      class function MethodName(Address: Pointer): ShortString;
+      function FieldAddress(const Name: ShortString): Pointer;
+      function GetInterface(const IID: TGUID; out Obj): Boolean;
+      class function GetInterfaceEntry(const IID: TGUID): PInterfaceEntry;
+      class function GetInterfaceTable: PInterfaceTable;
+      function SafeCallException(ExceptObject: TObject;
+        ExceptAddr: Pointer): HResult; virtual;
+      procedure AfterConstruction; virtual;
+      procedure BeforeDestruction; virtual;
+      procedure Dispatch(VAR Message); virtual;
+      procedure DefaultHandler(VAR Message); virtual;
+      class function NewInstance: TObject; virtual;
+      procedure FreeInstance; virtual;
+      destructor Destroy; virtual;*)
+    END;
+
+    TCreateParams* = RECORD
       Caption: PChar;
-      Style: Longint;
-      ExStyle: Longint;
+      Style: LongInt;
+      ExStyle: LongInt;
       X, Y: Integer;
       Width, Height: Integer;
-      WndParent: HWnd;
+      WndParent: W.HWND;
       Param: Pointer;
-      WindowClass: TWndClass;
-      WinClassName: array[0..63] of Char;
-    end;
-
-    TWndProc = function (Window: HWnd; AMessage, WParam, LParam: Longint): Longint; stdcall;
+      WindowClass: W.WNDCLASS;
+      WinClassName: ARRAY 64 OF Char;
+    END;
+(*
+    TWndProc = PROCEDURE (Window: HWnd; AMessage: Longint; WParam: W.WPARAM; LParam: W.LPARAM): Longint; stdcall;
     TShiftState = set of (ssShift, ssAlt, ssCtrl,
                           ssLeft, ssRight, ssMiddle, ssDouble);
     TMouseButton = (mbLeft, mbRight, mbMiddle);
 
-{<fduch> }
+(*<fduch> *)
     THKModifier = (hkAlt, hkCtrl, hkShift, hkExt);
     THKModifiers = set of THKModifier;
     THKInvalidKey = (hcNone, hcShift, hcCtrl, hcAlt, hcShiftCtrl, hcShiftAlt, hcCtrlAlt, hcShiftCtrlAlt);
     THKInvalidKeys = set of THKInvalidKey;
-{</fduch>}
+(*</fduch>*)
 
     TNotifyEvent = procedure(Sender: TObject) of object;
     TCloseEvent = function(Sender: TObject) : BOOLEAN of object;
@@ -169,10 +200,10 @@ TYPE(*
                           Shift: TShiftState) of object;
     TKeyPressEvent = procedure(Sender: TObject; Key: Char) of object;
     THitTestEvent = procedure(Sender: TObject; X, Y : Integer;
-                              var Result : Integer) of object;
-{<kvv>}
+                              VAR Result : Integer) of object;
+(*<kvv>*)
     TMenuItemEvent = procedure(Sender: TObject; wID: Word) of object;
-{</kvv>}
+(*</kvv>*)
 
     TWinControl = class;
 
@@ -185,27 +216,27 @@ TYPE(*
       FHeight : Integer;
     public
       constructor Create(AOwner : TWinControl);
-      procedure Paint(DC : HDC); virtual; abstract;
+      PROCEDURE Paint(DC : HDC); virtual; abstract;
       destructor Destroy; override;
       property Left : Integer read FLeft write FLeft;
       property Top : Integer read FTop write FTop;
       property Width : Integer read FWidth write FWidth;
       property Height : Integer read FHeight write FHeight;
-    end;
+    END;
 
     PControlList = ^TControlList;
     TControlList = packed record
       Control : TControl;
       Next : PControlList;
-    end;
+    END;
 
     PWinControlList = ^TWinControlList;
     TWinControlList = packed record
       WinControl : TWinControl;
       Next : PWinControlList;
-    end;
+    END;
 
-    {Font}
+    (*Font*)
     TFontPitch = (fpDefault, fpFixed, fpVariable);
     TFontName = type string;
     TFontCharset = 0..255;
@@ -220,7 +251,7 @@ TYPE(*
       Style: TFontStylesBase;
       Charset: TFontCharset;
       Name: TFontDataName;
-    end;
+    END;
 
     TFont = class
     private
@@ -230,25 +261,25 @@ TYPE(*
       FLogFont : TLogFont;
       FColor: Ut.TColor;
       FPixelsPerInch: Integer;
-      procedure GetData(const AFont : TLogFont; var Data : TFontData);
-      procedure SetData(const Data : TFontData; var AFont : TLogFont);
-      procedure UpdateFont;
-      procedure SetLogFont(const AFont : TLogFont);
+      PROCEDURE GetData(const AFont : TLogFont; VAR Data : TFontData);
+      PROCEDURE SetData(const Data : TFontData; VAR AFont : TLogFont);
+      PROCEDURE UpdateFont;
+      PROCEDURE SetLogFont(const AFont : TLogFont);
     protected
-      function GetHeight : Integer;
-      function GetName : TFontName;
-      function GetPitch : TFontPitch;
-      function  GetSize : Integer;
-      function GetStyle : TFontStyles;
-      function GetCharset : TFontCharset;
-      procedure SetColor(Value: Ut.TColor);
-      procedure SetHeight(Value: Integer);
-      procedure SetName(const Value: TFontName);
-      procedure SetPitch(Value: TFontPitch);
-      procedure SetSize(Value: Integer);
-      procedure SetStyle(Value: TFontStyles);
-      procedure SetCharset(Value: TFontCharset);
-      procedure SetPixelsPerInch(Value: Integer);
+      PROCEDURE GetHeight : Integer;
+      PROCEDURE GetName : TFontName;
+      PROCEDURE GetPitch : TFontPitch;
+      PROCEDURE  GetSize : Integer;
+      PROCEDURE GetStyle : TFontStyles;
+      PROCEDURE GetCharset : TFontCharset;
+      PROCEDURE SetColor(Value: Ut.TColor);
+      PROCEDURE SetHeight(Value: Integer);
+      PROCEDURE SetName(const Value: TFontName);
+      PROCEDURE SetPitch(Value: TFontPitch);
+      PROCEDURE SetSize(Value: Integer);
+      PROCEDURE SetStyle(Value: TFontStyles);
+      PROCEDURE SetCharset(Value: TFontCharset);
+      PROCEDURE SetPixelsPerInch(Value: Integer);
     public
       constructor Create;
       destructor Destroy; override;
@@ -261,7 +292,7 @@ TYPE(*
       property Pitch: TFontPitch read GetPitch write SetPitch;
       property Size: Integer read GetSize write SetSize;
       property Style: TFontStyles read GetStyle write SetStyle;
-    end;
+    END;
 
     PFontList = ^TFontList;
     TFontList = array [0..0] of TLogFont;
@@ -275,24 +306,24 @@ TYPE(*
       FSet      : TFontSet;
       FCharSet  : TFontCharSet;
     protected
-      procedure SetCharSet(Value : TFontCharSet);
-      procedure Enumerate;
-      function IsTrueType(const AFont : TLogFont) : BOOLEAN;
-      function GetFont(i : Integer) : TLogFont;
+      PROCEDURE SetCharSet(Value : TFontCharSet);
+      PROCEDURE Enumerate;
+      PROCEDURE IsTrueType(const AFont : TLogFont) : BOOLEAN;
+      PROCEDURE GetFont(i : Integer) : TLogFont;
     public
       constructor Create;
       destructor Destroy; override;
-      function IndexOf(APitch : TFontPitch;
+      PROCEDURE IndexOf(APitch : TFontPitch;
                  const AName  : string) : Integer;
-      function IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
-      function IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
-      function IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
-      function FindFont(AName : TFontName;
+      PROCEDURE IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
+      PROCEDURE IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
+      PROCEDURE IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
+      PROCEDURE FindFont(AName : TFontName;
                         APitch : TFontPitch) : TLogFont;
       property CharSet : TFontCharSet read FCharSet write SetCharSet;
       property Count : Integer read FCount;
       property Font[index : Integer] : TLogFont read GetFont;
-    end;
+    END;
 *)
     PWinControl* = POINTER TO TWinControl;
     TWinControl* = RECORD
@@ -304,29 +335,29 @@ TYPE(*
      FHelpFile      : ShortString;
      FTextBuf       : ShortString;
      FTextLen       : Cardinal;
-     Brush*         : W.HBRUSH; (* read FBrush write FBrush; *)(*
-     FCursorHandle  : HCursor;
-     FCursor        : TCursor;
+     Brush*         : W.HBRUSH; (* read FBrush write FBrush; *)
+     FCursorHandle  : W.HCURSOR;
+     FCursor        : TCursor;(*
      FFont          : TFont;*)
      FDC            : W.HDC;
      Color-         : Ut.TColor; (* read FColor write SetColor *)
      TextColor-     : Ut.TColor; (* read FTextColor write SetTextColor *)
      FBkMode        : TBkMode;
      Style*         : SET; (* read FStyle write FStyle *)
-     FExStyle       : LongInt;
+     ExStyle*       : SET; (* read FExStyle write FExStyle *)
      FCtl3D         : BOOLEAN;
      Left-          : Integer; (* read FLeft write SetLeft *)
      Top-           : Integer; (* read FTop write SetTop *)
      Width-         : Integer; (* read FWidth write SetWidth *)
      Height-        : Integer; (* read FHeight write SetHeight *)
-     FParent        : PWinControl;(*
+     Parent-        : PWinControl; (* read FParent *)(*
      FCList         : PControlList;
      FWList         : PWinControlList;*)
-     FAutoStop      : BOOLEAN;
+     AutoStop*      : BOOLEAN; (* read FAutoStop write FAutoStop *)
      FActiveControl : PWinControl;
-     FEnabled       : BOOLEAN;
-     FIsModal       : BOOLEAN;(*
-     FModalResult   : TModalResult;*)
+     Enabled-       : BOOLEAN; (* read FEnabled write SetEnabled *)
+     IsModal-       : BOOLEAN;(* IsModal : BOOLEAN read FIsModal *)
+     FModalResult   : TModalResult;
      FTabStop       : BOOLEAN;
      Visible-       : BOOLEAN; (* read FVisible write SetVisible *)
      FHTest         : LongInt;(*
@@ -349,115 +380,110 @@ TYPE(*
      FOnNILDown     : TNotifyEvent;
      FOnNILUp       : TNotifyEvent;
      FOnEndSession  : TCloseEvent;
-{<kvv>}
+(*<kvv>*)
      FOnMenuItemSelect: TMenuItemEvent;
-{</kvv>}
-     procedure Show;
-     procedure Hide;
+(*</kvv>*)
+     PROCEDURE Show;
+     PROCEDURE Hide;
     protected
-     function WndProc(AMessage, WParam, LParam : Longint): Longint; virtual; stdcall;
-     function GetWndProc : pointer;
-     function GetParentHandle : HWnd;
-     procedure SetParentHandle(Value: HWnd);
-     procedure CreateParams(var Params: TCreateParams); virtual;
-     procedure CreateWindowHandle(const Params: TCreateParams);
-     procedure DestroyWindowHandle;
+     PROCEDURE WndProc(AMessage, WParam, LParam : Longint): Longint; virtual; stdcall;
+     PROCEDURE GetWndProc : pointer;
+     PROCEDURE GetParentHandle : HWnd;
+     PROCEDURE SetParentHandle(Value: HWnd);
+     PROCEDURE CreateParams(VAR Params: TCreateParams); virtual;
+     PROCEDURE CreateWindowHandle(const Params: TCreateParams);
+     PROCEDURE DestroyWindowHandle;
      ///////////////////////////////////////////////////////////
-     procedure WMClose(var AMsg: TWMClose);
-     procedure WMDestroy(var AMsg: TWMDestroy);
-     procedure WMPaint(var AMsg: TWMPaint); virtual;
-     procedure WMEraseBkgnd(var AMsg : TWMEraseBkgnd); virtual;
-     procedure WMCtlcolor(var AMsg : TMessage);
-     procedure WMNCHitTest(var AMsg : TMessage);
-     procedure WMCommand(var AMsg : TWMCommand);
-     procedure WMSetFocus(var AMsg : TWMSetFocus);
-     procedure WMKillFocus(var AMsg : TWMKillFocus);
-     procedure WMLButtonDown(var AMsg: TWMLButtonDown);
-     procedure WMRButtonDown(var AMsg: TWMRButtonDown);
-     procedure WMLButtonDblClk(var AMsg: TWMLButtonDblClk);
-     procedure WMRButtonDblClk(var AMsg: TWMRButtonDblClk);
-     procedure WMMouseMove(var AMsg: TWMMouseMove);
-     procedure WMLButtonUp(var AMsg: TWMLButtonUp);
-     procedure WMRButtonUp(var AMsg: TWMRButtonUp);
-     procedure WMSetCursor(var AMsg: TWMSetCursor);
-     procedure WMKeyDown(var AMsg: TWMKeyDown);
-     procedure WMSysKeyDown(var AMsg: TWMKeyDown);
-     procedure WMKeyUp(var AMsg: TWMKeyUp);
-     procedure WMSysKeyUp(var AMsg: TWMKeyUp);
-     procedure WMChar(var AMsg: TWMChar);
-     procedure WMSysCommand(var AMsg: TWMSysCommand);
-     procedure WMNotifyIcon(var AMsg: TMessage);
-     procedure WMQueryEndSession(var AMsg: TMessage);
-     procedure WMHelp(var AMsg: TMessage);
-     procedure ProcessMessage(var AMsg: TMessage); virtual;
+     PROCEDURE WMClose(VAR AMsg: TWMClose);
+     PROCEDURE WMDestroy(VAR AMsg: TWMDestroy);
+     PROCEDURE WMPaint(VAR AMsg: TWMPaint); virtual;
+     PROCEDURE WMEraseBkgnd(VAR AMsg : TWMEraseBkgnd); virtual;
+     PROCEDURE WMCtlcolor(VAR AMsg : TMessage);
+     PROCEDURE WMNCHitTest(VAR AMsg : TMessage);
+     PROCEDURE WMCommand(VAR AMsg : TWMCommand);
+     PROCEDURE WMSetFocus(VAR AMsg : TWMSetFocus);
+     PROCEDURE WMKillFocus(VAR AMsg : TWMKillFocus);
+     PROCEDURE WMLButtonDown(VAR AMsg: TWMLButtonDown);
+     PROCEDURE WMRButtonDown(VAR AMsg: TWMRButtonDown);
+     PROCEDURE WMLButtonDblClk(VAR AMsg: TWMLButtonDblClk);
+     PROCEDURE WMRButtonDblClk(VAR AMsg: TWMRButtonDblClk);
+     PROCEDURE WMMouseMove(VAR AMsg: TWMMouseMove);
+     PROCEDURE WMLButtonUp(VAR AMsg: TWMLButtonUp);
+     PROCEDURE WMRButtonUp(VAR AMsg: TWMRButtonUp);
+     PROCEDURE WMSetCursor(VAR AMsg: TWMSetCursor);
+     PROCEDURE WMKeyDown(VAR AMsg: TWMKeyDown);
+     PROCEDURE WMSysKeyDown(VAR AMsg: TWMKeyDown);
+     PROCEDURE WMKeyUp(VAR AMsg: TWMKeyUp);
+     PROCEDURE WMSysKeyUp(VAR AMsg: TWMKeyUp);
+     PROCEDURE WMChar(VAR AMsg: TWMChar);
+     PROCEDURE WMSysCommand(VAR AMsg: TWMSysCommand);
+     PROCEDURE WMNotifyIcon(VAR AMsg: TMessage);
+     PROCEDURE WMQueryEndSession(VAR AMsg: TMessage);
+     PROCEDURE WMHelp(VAR AMsg: TMessage);
+     PROCEDURE ProcessMessage(VAR AMsg: TMessage); virtual;
      ////////////////////////////////////////////////////
-     procedure DoMouseDown(var AMsg: TWMMouse; Button: TMouseButton;
+     PROCEDURE DoMouseDown(VAR AMsg: TWMMouse; Button: TMouseButton;
                            Shift: TShiftState); virtual;
-     procedure DoMouseUp(var AMsg: TWMMouse; Button: TMouseButton;
+     PROCEDURE DoMouseUp(VAR AMsg: TWMMouse; Button: TMouseButton;
                          Shift: TShiftState); virtual;
-     function DoKeyDown(var AMsg: TWMKey): Boolean; virtual;
-     function DoKeyUp(var AMsg: TWMKey): Boolean; virtual;
-     function DoKeyPress(var AMsg: TWMKey): Boolean; virtual;
-     procedure SetColor(Value : Ut.TColor);
-     procedure SetTextColor(Value : Ut.TColor);
-     procedure Change; virtual;
-     procedure Click; virtual;
-     procedure DoEnter; virtual;
-     procedure DoExit; virtual;
-     procedure SetEnabled(Value: BOOLEAN);
-     procedure SetCursor(Value : TCursor);
-     function GetText : shortstring;
-     procedure SetText(const Value: shortstring);
-     function GetClientRect : TRect;
-     function GetClientWidth : Integer;
-     function GetClientHeight : Integer;
-     function IsParentHandle(AHandle : HWnd) : BOOLEAN;
-     procedure SetBounds(R : TRect);
-     procedure SetLeft(Value : Integer);
-     procedure SetTop(Value : Integer);
-     procedure SetWidth(Value : Integer);
-     procedure SetHeight(Value : Integer);
-     procedure Dispatch(var AMsg); override;
-     procedure SetVisible(Value : BOOLEAN);
+     PROCEDURE DoKeyDown(VAR AMsg: TWMKey): Boolean; virtual;
+     PROCEDURE DoKeyUp(VAR AMsg: TWMKey): Boolean; virtual;
+     PROCEDURE DoKeyPress(VAR AMsg: TWMKey): Boolean; virtual;
+     PROCEDURE SetColor(Value : Ut.TColor);
+     PROCEDURE SetTextColor(Value : Ut.TColor);
+     PROCEDURE Change; virtual;
+     PROCEDURE Click; virtual;
+     PROCEDURE DoEnter; virtual;
+     PROCEDURE DoExit; virtual;
+     PROCEDURE SetEnabled(Value: BOOLEAN);
+     PROCEDURE SetCursor(Value : TCursor);
+     PROCEDURE GetText : shortstring;
+     PROCEDURE SetText(const Value: shortstring);
+     PROCEDURE GetClientRect : TRect;
+     PROCEDURE GetClientWidth : Integer;
+     PROCEDURE GetClientHeight : Integer;
+     PROCEDURE IsParentHandle(AHandle : HWnd) : BOOLEAN;
+     PROCEDURE SetBounds(R : TRect);
+     PROCEDURE SetLeft(Value : Integer);
+     PROCEDURE SetTop(Value : Integer);
+     PROCEDURE SetWidth(Value : Integer);
+     PROCEDURE SetHeight(Value : Integer);
+     PROCEDURE Dispatch(VAR AMsg); override;
+     PROCEDURE SetVisible(Value : BOOLEAN);
     public
      ///////////////////////////////////////////////////////
      constructor Create(AParent : TWinControl); virtual;
      destructor Destroy; override;
-     procedure CreateWnd; virtual;
-     procedure DestroyWnd;
-     procedure Close;
-     function ShowModal : TModalResult;
-     procedure EndModal(Value : TModalResult);
-     function ProcessMsg(var Msg: TMsg): Boolean;
-     procedure ProcessMessages;
-     procedure Invalidate;
-     procedure SetFocus;
-     procedure SelectPrev;
-     procedure SelectNext;
-     procedure SelectFirst;
-     procedure SelectLast;
-     function IsFirstSelected : BOOLEAN;
-     function IsLastSelected : BOOLEAN;
-     procedure InsertWinControl(AControl : TWinControl);
-     procedure InsertControl(AControl : TControl);
-     procedure SetFont(const AFont : TLogFont);
+     PROCEDURE CreateWnd; virtual;
+     PROCEDURE DestroyWnd;
+     PROCEDURE Close;
+     PROCEDURE ShowModal : TModalResult;
+     PROCEDURE EndModal(Value : TModalResult);
+     PROCEDURE ProcessMsg(VAR Msg: TMsg): Boolean;
+     PROCEDURE ProcessMessages;
+     PROCEDURE Invalidate;
+     PROCEDURE SetFocus;
+     PROCEDURE SelectPrev;
+     PROCEDURE SelectNext;
+     PROCEDURE SelectFirst;
+     PROCEDURE SelectLast;
+     PROCEDURE IsFirstSelected : BOOLEAN;
+     PROCEDURE IsLastSelected : BOOLEAN;
+     PROCEDURE InsertWinControl(AControl : TWinControl);
+     PROCEDURE InsertControl(AControl : TControl);
+     PROCEDURE SetFont(const AFont : TLogFont);
      ////////////////////////////////////////////////////////////////
-     property AutoStop : BOOLEAN read FAutoStop write FAutoStop;
      property Cursor : TCursor read FCursor write SetCursor;
      property HelpContext : DWORD read FHelpContext write FHelpContext;
      property HelpFile : shortstring read FHelpFile write FHelpFile;
-     property ExStyle : LongInt read FExStyle write FExStyle;
      property Ctl3D : BOOLEAN read FCtl3D write FCtl3D;
-     property Enabled : BOOLEAN read FEnabled write SetEnabled;
      property Handle : HWnd read FHandle;
      property ParentHandle : HWnd read GetParentHandle write SetParentHandle;
      property Font : TFont read FFont;
-     property Parent : TWinControl read FParent;
      property ClientWidth : Integer read GetClientWidth;
      property ClientHeight : Integer read GetClientHeight;
      property ClientRect : TRect read GetClientRect;
      property HitTestResult : LongInt read FHTest write FHTest;
-     property IsModal : BOOLEAN read FIsModal;
      property TabStop : BOOLEAN read FTabStop write FTabStop;
      ////////////////////////////////////////////////////////////////
      property OnCreate : TNotifyEvent read FOnCreate write FOnCreate;
@@ -478,58 +504,58 @@ TYPE(*
      property OnNILUp : TNotifyEvent read FOnNILUp write FOnNILUp;
      property OnEndSession : TCloseEvent read FOnEndSession write FOnEndSession;
      ////////////////////////////////////////////////////////////////
-    *)END;(*
+    *)END;
 
-    TStdControl = class(TWinControl)
-    public
-     procedure CreateWnd; override;
-    end;
+    TStdControl* = RECORD (TWinControl)
+    (*public
+     PROCEDURE CreateWnd; override;*)
+    END;
 
-    TLabel = class(TStdControl)
+    TLabel* = RECORD (TStdControl)(*
     private
      FFormat : LongInt;
     protected
-     procedure WMPaint(var AMsg: TWMPaint); override;
-     procedure WMEraseBkgnd(var AMsg : TWMEraseBkgnd); override;
-     procedure HitTest(Sender: TObject; X, Y : Integer;
-                       var Result : Integer);
+     PROCEDURE WMPaint(VAR AMsg: TWMPaint); override;
+     PROCEDURE WMEraseBkgnd(VAR AMsg : TWMEraseBkgnd); override;
+     PROCEDURE HitTest(Sender: TObject; X, Y : Integer;
+                       VAR Result : Integer);
     public
      constructor Create(AParent : TWinControl); override;
      property BkMode : TBkMode read FBkMode write FBkMode;
-     property TextFormat : LongInt read FFormat write FFormat;
-    end;
+     property TextFormat : LongInt read FFormat write FFormat;*)
+    END;(*
 
     TEdit = class(TStdControl)
     protected
-     function DoKeyPress(var AMsg: TWMKey): Boolean; override;
-     function GetMaxLength : Integer;
-     procedure SetMaxLength(Value : Integer);
-     function GetMargin : word;
-     procedure SetMargin(Value : word);
+     PROCEDURE DoKeyPress(VAR AMsg: TWMKey): Boolean; override;
+     PROCEDURE GetMaxLength : Integer;
+     PROCEDURE SetMaxLength(Value : Integer);
+     PROCEDURE GetMargin : word;
+     PROCEDURE SetMargin(Value : word);
     public
      constructor Create(AParent : TWinControl); override;
      property MaxLength : Integer read GetMaxLength write SetMaxLength;
      property MarginWidth : word read GetMargin write SetMargin;
      property Text : shortstring read GetText write SetText;
-    end;
+    END;
 
-{<fduch> }
-    {HotKey}
+(*<fduch> *)
+    (*HotKey*)
     THotKey = class (TStdControl)
     private
       FInvalidKeys: THKInvalidKeys;
       FModifiers: THKModifiers;
       FHotKey: byte;
       FMod: Byte;
-      function GetHotKey: Byte;
-      function GetModifiers: THKModifiers;
-      function GetSHotKey: string;
-      function GetModif: byte;
-      procedure SetHotKey(const Value: Byte);
-      procedure SetInvalidKeys(const Value: THKInvalidKeys);
-      procedure SetModifiers(const Value: THKModifiers);
-      procedure SetSHotKey(const Value: string);
-      procedure SetModif(const Value: byte);
+      PROCEDURE GetHotKey: Byte;
+      PROCEDURE GetModifiers: THKModifiers;
+      PROCEDURE GetSHotKey: string;
+      PROCEDURE GetModif: byte;
+      PROCEDURE SetHotKey(const Value: Byte);
+      PROCEDURE SetInvalidKeys(const Value: THKInvalidKeys);
+      PROCEDURE SetModifiers(const Value: THKModifiers);
+      PROCEDURE SetSHotKey(const Value: string);
+      PROCEDURE SetModif(const Value: byte);
     public
       constructor Create(AParent: TWinControl); override;
       property HotKey: byte read GetHotKey write SetHotKey;
@@ -537,132 +563,132 @@ TYPE(*
       property InvalidKeys: THKInvalidKeys read FInvalidKeys write SetInvalidKeys;
       property Modifiers: THKModifiers read GetModifiers write SetModifiers;
       property StrHotKey: string read GetSHotKey write SetSHotKey;
-    end;
-{</fduch>}
-
-    TListBox = class(TStdControl)
+    END;
+(*</fduch>*)
+*)
+    TListBox* = RECORD (TStdControl)(*
     private
      FError  : Integer;
      FSorted : BOOLEAN;
     protected
-     function GetCount: Integer;
-     function Get(Index: Integer): shortstring;
-     function GetObject(Index: Integer): TObject;
-     procedure Put(Index: Integer; const S: shortstring);
-     procedure PutObject(Index: Integer; AObject: TObject);
-     function GetFocused : Integer;
-     procedure SetFocused(Value: Integer);
-     procedure SetSorted(Value: BOOLEAN);
+     PROCEDURE GetCount: Integer;
+     PROCEDURE Get(Index: Integer): shortstring;
+     PROCEDURE GetObject(Index: Integer): TObject;
+     PROCEDURE Put(Index: Integer; const S: shortstring);
+     PROCEDURE PutObject(Index: Integer; AObject: TObject);
+     PROCEDURE GetFocused : Integer;
+     PROCEDURE SetFocused(Value: Integer);
+     PROCEDURE SetSorted(Value: BOOLEAN);
     public
      constructor Create(AParent : TWinControl); override;
-     function Add(const S: shortstring): Integer;
-     procedure Insert(Index: Integer; const S: shortstring);
-     procedure Delete(Index: Integer);
-     procedure Clear;
-     procedure SelectItem(Value: Integer);
+     PROCEDURE Add(const S: shortstring): Integer;
+     PROCEDURE Insert(Index: Integer; const S: shortstring);
+     PROCEDURE Delete(Index: Integer);
+     PROCEDURE Clear;
+     PROCEDURE SelectItem(Value: Integer);
      property Count : Integer read GetCount;
      property Focused : Integer read GetFocused write SetFocused;
      property Error : Integer read FError;
      property Items[Index: Integer] : shortstring read Get write Put;
      property Objects[Index: Integer] : TObject read GetObject write PutObject;
-     property Sorted : BOOLEAN read FSorted write SetSorted;
-    end;
-
+     property Sorted : BOOLEAN read FSorted write SetSorted;*)
+    END;
+(*
     TComboBox = class(TStdControl)
     private
      FError  : Integer;
      FSorted : BOOLEAN;
     protected
-     function GetCount: Integer;
-     function Get(Index: Integer): shortstring;
-     procedure Put(Index: Integer; const S: shortstring);
-     function GetFocused : Integer;
-     procedure SetFocused(Value: Integer);
-     procedure SetSorted(Value: BOOLEAN);
-     function DoKeyDown(var AMsg: TWMKey): Boolean; override;
+     PROCEDURE GetCount: Integer;
+     PROCEDURE Get(Index: Integer): shortstring;
+     PROCEDURE Put(Index: Integer; const S: shortstring);
+     PROCEDURE GetFocused : Integer;
+     PROCEDURE SetFocused(Value: Integer);
+     PROCEDURE SetSorted(Value: BOOLEAN);
+     PROCEDURE DoKeyDown(VAR AMsg: TWMKey): Boolean; override;
 
-     {<fduch> }{$IFDEF CaptureMouse}
-     procedure TComboBox.DoMouseDown(var AMsg: TWMMouse; Button: TMouseButton;
+     (*<fduch> *)(*$IFDEF CaptureMouse*)
+     PROCEDURE TComboBox.DoMouseDown(VAR AMsg: TWMMouse; Button: TMouseButton;
                                      Shift: TShiftState);
-     {$ENDIF}{</fduch>}
+     (*$ENDIF*)(*</fduch>*)
     public
      constructor Create(AParent : TWinControl); override;
-     function Add(const S: shortstring): Integer;
-     procedure Insert(Index: Integer; const S: shortstring);
-     procedure Delete(Index: Integer);
-     procedure Clear;
+     PROCEDURE Add(const S: shortstring): Integer;
+     PROCEDURE Insert(Index: Integer; const S: shortstring);
+     PROCEDURE Delete(Index: Integer);
+     PROCEDURE Clear;
      property Count : Integer read GetCount;
      property Error : Integer read FError;
      property ItemIndex : Integer read GetFocused write SetFocused;
      property Items[Index: Integer] : shortstring read Get write Put;
      property Sorted : BOOLEAN read FSorted write SetSorted;
      property Text : shortstring read GetText write SetText;
-    end;
-
-    TButton = class(TStdControl)
+    END;
+*)
+    TButton* = RECORD (TStdControl)(*
     protected
-     procedure Click; override;
-     function GetModalResult : TModalResult;
-     procedure SetModalResult(Value: TModalResult);
+     PROCEDURE Click; override;
+     PROCEDURE GetModalResult : TModalResult;
+     PROCEDURE SetModalResult(Value: TModalResult);
     public
      constructor Create(AParent : TWinControl); override;
-     property ModalResult : TModalResult read GetModalResult write SetModalResult;
-    end;
+     property ModalResult : TModalResult read GetModalResult write SetModalResult;*)
+    END;
 
-    TCheckBox = class(TStdControl)
+    TCheckBox* = RECORD (TStdControl)(*
     private
      FChecked : BOOLEAN;
     protected
-     procedure Click; override;
-     procedure SetChecked(Value: BOOLEAN);
+     PROCEDURE Click; override;
+     PROCEDURE SetChecked(Value: BOOLEAN);
     public
      constructor Create(AParent : TWinControl); override;
-     property Checked : BOOLEAN read FChecked write SetChecked;
-    end;
-
-    TGroupBox = class(TStdControl)
+     property Checked : BOOLEAN read FChecked write SetChecked;*)
+    END;
+(*
+    TGroupBox* = class(TStdControl)
     public
      constructor Create(AParent : TWinControl); override;
-    end;
-
-    TProgressBar = class(TStdControl)
+    END;
+*)
+    TProgressBar* = RECORD(TStdControl)(*
     private
      FRange : word;
      FPosition : word;
      FStep : word;
     protected
-     function GetRange : word;
-     procedure SetRange(Value : word);
-     function GetPosition : word;
-     procedure SetPosition(Value : word);
-     function GetStep : word;
-     procedure SetStep(Value : word);
+     PROCEDURE GetRange : word;
+     PROCEDURE SetRange(Value : word);
+     PROCEDURE GetPosition : word;
+     PROCEDURE SetPosition(Value : word);
+     PROCEDURE GetStep : word;
+     PROCEDURE SetStep(Value : word);
     public
      constructor Create(AParent : TWinControl); override;
      property Range : word read GetRange write SetRange;
      property Position : word read GetPosition write SetPosition;
-     property Step : word read GetStep write SetStep;
-    end;
-
+     property Step : word read GetStep write SetStep;*)
+    END;
+(*
     TSplash = class(TWinControl)
     private
       FTextColor : Ut.TColor;
       FHCenter : BOOLEAN;
       FVCenter : BOOLEAN;
-      procedure UpdateText(Value : string);
-      procedure HitTest(Sender : TObject; X,Y : Integer;
-                        var Result : Integer);
-      procedure SetHCenter(Value : BOOLEAN);
-      procedure SetVCenter(Value : BOOLEAN);
+      PROCEDURE UpdateText(Value : string);
+      PROCEDURE HitTest(Sender : TObject; X,Y : Integer;
+                        VAR Result : Integer);
+      PROCEDURE SetHCenter(Value : BOOLEAN);
+      PROCEDURE SetVCenter(Value : BOOLEAN);
     public
      L          : TLabel;
      constructor Create(AParent : TWinControl); override;
-     procedure CreateWnd; override;
+     PROCEDURE CreateWnd; override;
      property TextColor : Ut.TColor read FTextColor write FTextColor;
      property Text : string write UpdateText;
      property HCenter : BOOLEAN read FHCenter write SetHCenter;
      property VCenter : BOOLEAN read FVCenter write SetVCenter;
-    end;
+    END;
 
     TKeyboardPosition = (kpLeftTop,kpRightTop,kpLeftBottom,kpRightBottom);
     TKeyboard = class(TLabel)
@@ -676,14 +702,14 @@ TYPE(*
      FLay1     : HICON;
      FLayout   : Integer;
      FCharSet  : Integer;
-     procedure InstallHook;
-     procedure RemoveHook;
-     procedure InitParams;
-     procedure WMPaint(var AMsg: TWMPaint); message WM_PAINT;
-     procedure LayoutChanged(ACharSet,ALayout : Integer);
-     procedure SetCharSet0(Value : Integer);
-     procedure SetCharSet1(Value : Integer);
-     procedure SetPos(Value : TKeyboardPosition);
+     PROCEDURE InstallHook;
+     PROCEDURE RemoveHook;
+     PROCEDURE InitParams;
+     PROCEDURE WMPaint(VAR AMsg: TWMPaint); message WM_PAINT;
+     PROCEDURE LayoutChanged(ACharSet,ALayout : Integer);
+     PROCEDURE SetCharSet0(Value : Integer);
+     PROCEDURE SetCharSet1(Value : Integer);
+     PROCEDURE SetPos(Value : TKeyboardPosition);
     public
      constructor Create(AParent : TWinControl); override;
      destructor Destroy; override;
@@ -692,7 +718,7 @@ TYPE(*
      property CharSet0: Integer read FCharSet0 write SetCharSet0;
      property CharSet1: Integer read FCharSet1 write SetCharSet1;
      property Position : TKeyboardPosition read FPos write SetPos;
-    end;
+    END;
 
     TTimer = class;
 
@@ -700,8 +726,8 @@ TYPE(*
     private
       FTimer : TTimer;
     protected
-      procedure ProcessMessage(var AMsg: TMessage); override;
-    end;
+      PROCEDURE ProcessMessage(VAR AMsg: TMessage); override;
+    END;
 
     TTimer = class
     private
@@ -710,19 +736,19 @@ TYPE(*
       FWindowHandle: HWND;
       FOnTimer: TNotifyEvent;
       FEnabled: Boolean;
-      procedure UpdateTimer;
-      procedure SetEnabled(Value: Boolean);
-      procedure SetInterval(Value: Cardinal);
-      procedure SetOnTimer(Value: TNotifyEvent);
+      PROCEDURE UpdateTimer;
+      PROCEDURE SetEnabled(Value: Boolean);
+      PROCEDURE SetInterval(Value: Cardinal);
+      PROCEDURE SetOnTimer(Value: TNotifyEvent);
     protected
-      procedure Timer; dynamic;
+      PROCEDURE Timer; dynamic;
     public
       constructor Create;
       destructor Destroy; override;
       property Enabled: Boolean read FEnabled write SetEnabled;
       property Interval: Cardinal read FInterval write SetInterval;
       property OnTimer: TNotifyEvent read FOnTimer write SetOnTimer;
-    end;
+    END;
 
     TScreen = packed record
                 Width : Integer;
@@ -731,11 +757,11 @@ TYPE(*
                 DesktopTop : Integer;
                 DesktopWidth : Integer;
                 DesktopHeight : Integer;
-              end;
-var
+              END;
+VAR
   Screen : TScreen;
 
-function NewLabel(AParent : TWinControl;
+PROCEDURE NewLabel(AParent : TWinControl;
                   ACaption : string;
                   ALeft,Atop,AWidth,AHeight : Integer;
                   AALignment : Integer;
@@ -743,148 +769,165 @@ function NewLabel(AParent : TWinControl;
                   ABkColor,
                   ATextColor : Ut.TColor) : TLabel;
 
-function NewEdit(AParent : TWinControl;
+PROCEDURE NewEdit(AParent : TWinControl;
                  AText : shortstring;
                  ALeft,Atop,AWidth,AHeight : Integer;
                  AStyle : Integer;
                  ABkColor,
                  ATextColor : Ut.TColor) : TEdit;
-{<fduch> }
-function NewHotKey(AParent : TWinControl;
+(*<fduch> *)
+PROCEDURE NewHotKey(AParent : TWinControl;
                    AHotKey : Word;
                    AModifiers : THKModifiers;
                    ALeft,Atop,AWidth,AHeight : Integer;
                    ABkColor,
                    ATextColor : Ut.TColor) : THotKey;
-{</fduch>}
+(*</fduch>*)
 
-function NewListBox(AParent : TWinControl;
+PROCEDURE NewListBox(AParent : TWinControl;
                     ALeft,Atop,AWidth,AHeight : Integer;
                     ASorted : BOOLEAN;
                     ABkColor,
                     ATextColor : Ut.TColor) : TListBox;
 
-function NewComboBox(AParent : TWinControl;
+PROCEDURE NewComboBox(AParent : TWinControl;
                     ALeft,Atop,AWidth,AHeight : Integer;
                     AStyle : Integer;
                     ASorted : BOOLEAN;
                     ABkColor,
                     ATextColor : Ut.TColor) : TComboBox;
 
-function NewButton(AParent : TWinControl;
+PROCEDURE NewButton(AParent : TWinControl;
                  ACaption : string;
                  AResult : TModalResult;
                  ALeft,Atop,AWidth,AHeight : Integer;
                  ABkColor,
                  ATextColor : Ut.TColor) : TButton;
 
-function NewCheckBox(AParent : TWinControl;
+PROCEDURE NewCheckBox(AParent : TWinControl;
                      ACaption : string;
                      ALeft,Atop,AWidth,AHeight : Integer;
                      ABkColor,
                      ATextColor : Ut.TColor) : TCheckBox;
 
-function NewGroupBox(AParent : TWinControl;
+PROCEDURE NewGroupBox(AParent : TWinControl;
                      ACaption : string;
                      ALeft,Atop,AWidth,AHeight : Integer;
                      ABkColor,
                      ATextColor : Ut.TColor) : TGroupBox;
 
-function NewProgressBar(AParent : TWinControl;
+PROCEDURE NewProgressBar(AParent : TWinControl;
                         ALeft,Atop,AWidth,AHeight : Integer;
                         AMin, AMax : Integer;
                         ABkColor,
                         ATextColor : Ut.TColor) : TProgressBar;
 
 
-{<kvv>}
+(*<kvv>*)
 // MenuItem adding function
-function NewMenuItem(Var Menu: HMenu; 
+PROCEDURE NewMenuItem(Var Menu: HMenu; 
           iType,State,ID : DWord; 
           Caption: ShortString; By_pos: BOOLEAN): BOOLEAN;
 
 // Insert icon into system tray
-function SetTrayIcon(AWnd: Hwnd; ID: Longint; Icon : HIcon;
+PROCEDURE SetTrayIcon(AWnd: Hwnd; ID: Longint; Icon : HIcon;
                             text: ShortString): BOOLEAN;
 
 // Delete icon from system tray
-function DeleteTrayIcon(AWnd: Hwnd; ID: Longint): BOOLEAN;
-{</kvv>}
-{<fduch> }
-function HotKeyToStr(Key: word; DModifiers: THKModifiers): shortstring;
-procedure StrToHotKey(const Value: string; var Key: word; var Modifiers: THKModifiers);
-{</fduch> }
-
-var
-  Fonts : TFonts;
+PROCEDURE DeleteTrayIcon(AWnd: Hwnd; ID: Longint): BOOLEAN;
+(*</kvv>*)
+(*<fduch> *)
+PROCEDURE HotKeyToStr(Key: word; DModifiers: THKModifiers): shortstring;
+PROCEDURE StrToHotKey(const Value: string; VAR Key: word; VAR Modifiers: THKModifiers);
+(*</fduch> *)
+*)
+VAR
+  (*Fonts : TFonts;*)
   ScreenLogPixels : Integer;
-  log : text;
+  (*log : text;
 
 implementation
 
 uses CommCtrl, multimon;
 
-{$H+}
-{$O+}
-{$R CTRLS.RES}
-{$IFDEF KBD}
- {$R KBD.RES}
-{$ENDIF}
+(*$H+*)
+(*$O+*)
+(*$R CTRLS.RES*)
+(*$IFDEF KBD*)
+ (*$R KBD.RES*)
+(*$ENDIF*)
+*)
+CONST ID_SELF = '__SELF__'; (* constant used in GetProp()/SetProp() *)
+                            (* change it if You want. *)
+VAR
+  HInstance: W.HINSTANCE;
+  MainWindow: TWinControl;
+  CmdShow: Integer; (* CmdShow parameter for CreateWindow *)
 
-const ID_SELF = '__SELF__'; // constant used in GetProp()/SetProp()
-                            // change it if You want.
-var
-  MainWindow : TWinControl;
+PROCEDURE ^ (VAR w: TWinControl) Show;
+PROCEDURE ^ (VAR w: TWinControl) Hide;
 
-function KeysToShiftState(Keys: Word): TShiftState;
-begin
+PROCEDURE GetCmdShow(): Integer;
+VAR
+  SI: W.STARTUPINFO; result: Integer;
+BEGIN
+  result := 10;            (* SW_SHOWDEFAULT *)
+  W.GetStartupInfo(SI);
+  IF 0 IN SI.dwFlags THEN (* STARTF_USESHOWWINDOW *)
+    result := SI.wShowWindow;
+  END;
+  RETURN result
+END GetCmdShow;
+(*
+PROCEDURE KeysToShiftState(Keys: Word): TShiftState;
+BEGIN
   Result := [];
-  if Keys and MK_SHIFT <> 0 then Include(Result, ssShift);
-  if Keys and MK_CONTROL <> 0 then Include(Result, ssCtrl);
-  if Keys and MK_LBUTTON <> 0 then Include(Result, ssLeft);
-  if Keys and MK_RBUTTON <> 0 then Include(Result, ssRight);
-  if Keys and MK_MBUTTON <> 0 then Include(Result, ssMiddle);
-  if GetKeyState(VK_MENU) < 0 then Include(Result, ssAlt);
-end;
+  IF Keys and MK_SHIFT <> 0 THEN Include(Result, ssShift);
+  IF Keys and MK_CONTROL <> 0 THEN Include(Result, ssCtrl);
+  IF Keys and MK_LBUTTON <> 0 THEN Include(Result, ssLeft);
+  IF Keys and MK_RBUTTON <> 0 THEN Include(Result, ssRight);
+  IF Keys and MK_MBUTTON <> 0 THEN Include(Result, ssMiddle);
+  IF GetKeyState(VK_MENU) < 0 THEN Include(Result, ssAlt);
+END;
 
-{ Convert keyboard message data to TShiftState }
+(* Convert keyboard message data to TShiftState *)
 
-function KeyDataToShiftState(KeyData: Longint): TShiftState;
+PROCEDURE KeyDataToShiftState(KeyData: Longint): TShiftState;
 const
   AltMask = $20000000;
-begin
+BEGIN
   Result := [];
-  if GetKeyState(VK_SHIFT) < 0 then Include(Result, ssShift);
-  if GetKeyState(VK_CONTROL) < 0 then Include(Result, ssCtrl);
-  if KeyData and AltMask <> 0 then Include(Result, ssAlt);
-end;
+  IF GetKeyState(VK_SHIFT) < 0 THEN Include(Result, ssShift);
+  IF GetKeyState(VK_CONTROL) < 0 THEN Include(Result, ssCtrl);
+  IF KeyData and AltMask <> 0 THEN Include(Result, ssAlt);
+END;
 
 // TControl
 
 constructor TControl.Create(AOwner : TWinControl);
-begin
+BEGIN
   inherited Create;
   FOwner := AOwner;
-end;
+END;
 
 destructor TControl.Destroy;
-begin
+BEGIN
   inherited Destroy;
-end;
+END;*)
 
-{ TFont }
+(* TFont *)
 
-procedure InitScreenLogPixels;
-var
-  DC: HDC;
-begin
-  DC := GetDC(0);
-  ScreenLogPixels := GetDeviceCaps(DC, LOGPIXELSY);
-  ReleaseDC(0,DC);
-end;
-
+PROCEDURE InitScreenLogPixels;
+VAR
+  DC: W.HDC;
+BEGIN
+  DC := W.GetDC(NIL);
+  ScreenLogPixels := W.GetDeviceCaps(DC, W.LOGPIXELSY);
+  Ignore.Int( W.ReleaseDC(NIL,DC) );
+END InitScreenLogPixels;
+(*
 constructor TFont.Create;
-begin
+BEGIN
   inherited Create;
   FHandle := 0;
   FColor := clBlack;
@@ -895,326 +938,326 @@ begin
   Name := 'Arial';
   //FPixelsPerInch := ScreenLogPixels;
   Size := 10;
-end;
+END;
 
 destructor TFont.Destroy;
-begin
-  if FHandle <> 0 then DeleteObject(FHandle);
+BEGIN
+  IF FHandle <> 0 THEN DeleteObject(FHandle);
   inherited Destroy;
-end;
+END;
 
-procedure TFont.GetData(const AFont : TLogFont; var Data : TFontData);
-begin
+PROCEDURE TFont.GetData(const AFont : TLogFont; VAR Data : TFontData);
+BEGIN
   with Data, AFont do
-  begin
+  BEGIN
     Height := lfHeight;
-    if lfWeight >= FW_BOLD then
+    IF lfWeight >= FW_BOLD THEN
       Include(Style, fsBold);
-    if lfItalic = 1 then
+    IF lfItalic = 1 THEN
       Include(Style, fsItalic);
-    if lfUnderline = 1 then
+    IF lfUnderline = 1 THEN
       Include(Style, fsUnderline);
-    if lfStrikeOut = 1 then
+    IF lfStrikeOut = 1 THEN
       Include(Style, fsStrikeOut);
     Charset := TFontCharset(lfCharSet);
     Name := lfFaceName;
     case lfPitchAndFamily and $F of
       VARIABLE_PITCH: Pitch := fpVariable;
       FIXED_PITCH:    Pitch := fpFixed;
-    else
+    ELSE
       Pitch := fpDefault;
-    end;
-  end;
-end;
+    END;
+  END;
+END;
 
-procedure TFont.SetLogFont(const AFont : TLogFont);
-begin
+PROCEDURE TFont.SetLogFont(const AFont : TLogFont);
+BEGIN
   Move(AFont, FLogFont, SizeOf(AFont));
-end;
+END;
 
-procedure TFont.SetData(const Data : TFontData; var AFont : TLogFont);
-begin
+PROCEDURE TFont.SetData(const Data : TFontData; VAR AFont : TLogFont);
+BEGIN
   with Data, AFont do
-  begin
+  BEGIN
     lfHeight := Height;
     lfWidth := 0;
-    if fsBold in Style then lfWeight := FW_BOLD
-                       else lfWeight := FW_NORMAL;
-    if fsItalic in Style then lfItalic := 1;
-    if fsUnderline in Style then lfUnderline := 1;
-    if fsStrikeOut in Style then lfStrikeOut := 1;
+    IF fsBold in Style THEN lfWeight := FW_BOLD
+                       ELSE lfWeight := FW_NORMAL;
+    IF fsItalic in Style THEN lfItalic := 1;
+    IF fsUnderline in Style THEN lfUnderline := 1;
+    IF fsStrikeOut in Style THEN lfStrikeOut := 1;
     lfCharset := Charset;
     Move(Name, lfFaceName, SizeOf(Name));
     case Pitch of
-      fpVariable : lfPitchAndFamily := lfPitchAndFamily or VARIABLE_PITCH;
-      fpFixed    : lfPitchAndFamily := lfPitchAndFamily or FIXED_PITCH;
-    end;
-  end;
-end;
+      fpVariable : lfPitchAndFamily := lfPitchAndFamily OR VARIABLE_PITCH;
+      fpFixed    : lfPitchAndFamily := lfPitchAndFamily OR FIXED_PITCH;
+    END;
+  END;
+END;
 
-procedure TFont.UpdateFont;
-var OldFont : HFont;
-begin
+PROCEDURE TFont.UpdateFont;
+VAR OldFont : HFont;
+BEGIN
   OldFont := FHandle;
   FLogFont.lfWidth := 0;
-  if (FControl <> nil) and (FControl.FHandle > 0) then
-  begin
+  IF (FControl <> NIL) and (FControl.FHandle > 0) THEN
+  BEGIN
     FControl.SetFont(FLogFont);
-  end                                             else
-  begin
+  end                                             ELSE
+  BEGIN
     FHandle := CreateFontIndirect(FLogFont);
-    if OldFont <> 0 then DeleteObject(OldFont);
-  end;
-end;
+    IF OldFont <> 0 THEN DeleteObject(OldFont);
+  END;
+END;
 
-function TFont.GetHeight : Integer;
-begin
+PROCEDURE TFont.GetHeight : Integer;
+BEGIN
   Result := FFontData.Height;
-end;
+END;
 
-function TFont.GetName: TFontName;
-begin
+PROCEDURE TFont.GetName: TFontName;
+BEGIN
   Result := string(FLogFont.lfFaceName);
-end;
+END;
 
-function TFont.GetPitch : TFontPitch;
-begin
+PROCEDURE TFont.GetPitch : TFontPitch;
+BEGIN
   Result := FFontData.Pitch;
-end;
+END;
 
-function TFont.GetStyle: TFontStyles;
-var Styles : TFontStyles;
-begin
+PROCEDURE TFont.GetStyle: TFontStyles;
+VAR Styles : TFontStyles;
+BEGIN
   Styles := [];
   with FLogFont do
-  begin
-    if lfWeight = FW_BOLD then Styles := Styles + [fsBold];
-    if lfItalic > 0 then Styles := Styles + [fsItalic];
-  end;
+  BEGIN
+    IF lfWeight = FW_BOLD THEN Styles := Styles + [fsBold];
+    IF lfItalic > 0 THEN Styles := Styles + [fsItalic];
+  END;
   Result := Styles;
-end;
+END;
 
-function TFont.GetCharset : TFontCharset;
-begin
+PROCEDURE TFont.GetCharset : TFontCharset;
+BEGIN
   Result := FFontData.Charset;
-end;
+END;
 
-procedure TFont.SetColor(Value: Ut.TColor);
-begin
-  if FColor <> Value then
-  begin
+PROCEDURE TFont.SetColor(Value: Ut.TColor);
+BEGIN
+  IF FColor <> Value THEN
+  BEGIN
     FColor := Value;
-    if (FControl <> nil) and (FControl.FHandle > 0) then
+    IF (FControl <> NIL) and (FControl.FHandle > 0) THEN
       FControl.SetTextColor(Value);
-  end;
-end;
+  END;
+END;
 
-procedure TFont.SetHeight(Value: Integer);
-begin
+PROCEDURE TFont.SetHeight(Value: Integer);
+BEGIN
   FLogFont.lfHeight := Value;
   UpdateFont;
-end;
+END;
 
-procedure TFont.SetName(const Value: TFontName);
-var AFont   : TLogFont;
+PROCEDURE TFont.SetName(const Value: TFontName);
+VAR AFont   : TLogFont;
     AHeight : LongInt;
-begin
-  if Length(Value) > 0 then
-  begin
+BEGIN
+  IF Length(Value) > 0 THEN
+  BEGIN
     AFont := Fonts.FindFont(Value, FFontData.Pitch);
-    if Assigned(FControl) and (FControl.Handle <> 0) then
-    begin
+    IF Assigned(FControl) and (FControl.Handle <> 0) THEN
+    BEGIN
       // here it needs to store all existing font attributes except for name
       AFont.lfHeight := FLogFont.lfHeight;
       AFont.lfWeight := FLogFont.lfWeight;
       AFont.lfItalic := FLogFont.lfItalic;
       AFont.lfUnderline := FLogFont.lfUnderline;
 //      AFont.lfCharSet := FLogFont.lfCharSet;
-    end;
+    END;
     SetLogFont(AFont);
     UpdateFont;
-  end;
-end;
+  END;
+END;
 
-function TFont.GetSize: Integer;
-begin
+PROCEDURE TFont.GetSize: Integer;
+BEGIN
   Result := -MulDiv(FFontData.Height, 72, FPixelsPerInch);
-end;
+END;
 
-procedure TFont.SetSize(Value: Integer);
-begin
+PROCEDURE TFont.SetSize(Value: Integer);
+BEGIN
   FFontData.Height := -MulDiv(Value, FPixelsPerInch, 72);
   SetHeight(FFontData.Height);
-end;
+END;
 
-procedure TFont.SetStyle(Value: TFontStyles);
-begin
+PROCEDURE TFont.SetStyle(Value: TFontStyles);
+BEGIN
   with FLogFont do
-  begin
-    if fsBold in Value then FLogFont.lfWeight := FW_BOLD
-                       else FLogFont.lfWeight := FW_NORMAL;
-    if fsItalic in Value then FLogFont.lfItalic := 1
-                         else FLogFont.lfItalic := 0;
-{<fduch> }
-    if fsUnderLine in Value then FLogFont.lfUnderline := 1
-                            else FLogFont.lfUnderline := 0;
-{</fduch>}
-  end;
+  BEGIN
+    IF fsBold in Value THEN FLogFont.lfWeight := FW_BOLD
+                       ELSE FLogFont.lfWeight := FW_NORMAL;
+    IF fsItalic in Value THEN FLogFont.lfItalic := 1
+                         ELSE FLogFont.lfItalic := 0;
+(*<fduch> *)
+    IF fsUnderLine in Value THEN FLogFont.lfUnderline := 1
+                            ELSE FLogFont.lfUnderline := 0;
+(*</fduch>*)
+  END;
   UpdateFont;
-end;
+END;
 
-procedure TFont.SetPitch(Value: TFontPitch);
-begin
+PROCEDURE TFont.SetPitch(Value: TFontPitch);
+BEGIN
   with FLogFont do
   case Value of
-    fpDefault  : lfPitchAndFamily := lfPitchAndFamily or DEFAULT_PITCH;
-    fpVariable : lfPitchAndFamily := lfPitchAndFamily or VARIABLE_PITCH;
-    fpFixed    : lfPitchAndFamily := lfPitchAndFamily or FIXED_PITCH;
-  end;
+    fpDefault  : lfPitchAndFamily := lfPitchAndFamily OR DEFAULT_PITCH;
+    fpVariable : lfPitchAndFamily := lfPitchAndFamily OR VARIABLE_PITCH;
+    fpFixed    : lfPitchAndFamily := lfPitchAndFamily OR FIXED_PITCH;
+  END;
   FFontData.Pitch := Value;
   UpdateFont;
-end;
+END;
 
-procedure TFont.SetCharset(Value: TFontCharset);
-begin
+PROCEDURE TFont.SetCharset(Value: TFontCharset);
+BEGIN
   FLOgFont.lfCharSet := Value;
   UpdateFont;
-end;
+END;
 
-procedure TFont.SetPixelsPerInch(Value: Integer);
-var OldS : Integer;
-begin
+PROCEDURE TFont.SetPixelsPerInch(Value: Integer);
+VAR OldS : Integer;
+BEGIN
   OldS := GetSize;
   FPixelsPerInch := Value;
   SetSize(OldS);
   UpdateFont;
-end;
+END;
 
-{ TFonts }
+(* TFonts *)
 
-function EnumFontsProc0(var LogFont: TLogFont; var TextMetric: TTextMetric;
+PROCEDURE EnumFontsProc0(VAR LogFont: TLogFont; VAR TextMetric: TTextMetric;
   FontType: Integer; Data: Pointer): Integer; stdcall;
-var
+VAR
   Fnt: TFonts;
-begin
+BEGIN
   Fnt := TFonts(Data);
-  if (Fnt.FSet = fsAll) or Fnt.IsTrueType(LogFont) then Inc(Fnt.FCount);
+  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(LogFont) THEN Inc(Fnt.FCount);
   Result := 1;
-end;
+END;
 
-function EnumFontsProc(var LogFont: TLogFont; var TextMetric: TTextMetric;
+PROCEDURE EnumFontsProc(VAR LogFont: TLogFont; VAR TextMetric: TTextMetric;
   FontType: Integer; Data: Pointer): Integer; stdcall;
-var
+VAR
   Fnt: TFonts;
-begin
-  {$R-}
+BEGIN
+  (*$R-*)
   Fnt := TFonts(Data);
-  if (Fnt.FSet = fsAll) or Fnt.IsTrueType(LogFont) then
-  begin
+  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(LogFont) THEN
+  BEGIN
     Move(LogFont,Fnt.FFonts^[Fnt.FCount],SizeOf(TLogFont));
     Inc(Fnt.FCount);
-  end;
+  END;
   Result := 1;
-end;
+END;
 
 constructor TFonts.Create;
-begin
+BEGIN
   inherited Create;
-  FFonts := nil;
+  FFonts := NIL;
   FSet := fsTrueTypeOnly;
   FCharSet := ACL_DEFAULT_CHARSET;
   Enumerate;
   FDC := 0;
-end;
+END;
 
 destructor TFonts.Destroy;
-begin
+BEGIN
   GlobalFree(Cardinal(FFonts));
   inherited Destroy;
-end;
+END;
 
-function TFonts.GetFont(i : Integer) : TLogFont;
-begin
+PROCEDURE TFonts.GetFont(i : Integer) : TLogFont;
+BEGIN
   Move(FFonts^[i],Result,SizeOf(TLogFont));
-end;
+END;
 
-function TFonts.IndexOf(APitch : TFontPitch;
+PROCEDURE TFonts.IndexOf(APitch : TFontPitch;
                   const AName  : string) : Integer;
-var i : Integer;
-begin
+VAR i : Integer;
+BEGIN
   Result := 0;
   for i := 1 to FCount do
-    if AnsiCompareText(string(FFonts^[i-1].lfFaceName),AName) = 0 then
+    IF AnsiCompareText(string(FFonts^[i-1].lfFaceName),AName) = 0 THEN
     case APitch of
-      fpDefault : begin
+      fpDefault : BEGIN
                     Result := i-1; break;
-                  end;
-      fpFixed : if IsFixedPitch(FFonts^[i-1]) then
-                begin
+                  END;
+      fpFixed : IF IsFixedPitch(FFonts^[i-1]) THEN
+                BEGIN
                   Result := i-1; break;
-                end;
-      fpVariable : if IsVariablePitch(FFonts^[i-1]) then
-                   begin
+                END;
+      fpVariable : IF IsVariablePitch(FFonts^[i-1]) THEN
+                   BEGIN
                      Result := i-1; break;
-                   end;
-    end;
-end;
+                   END;
+    END;
+END;
 
-function TFonts.IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
-begin
+PROCEDURE TFonts.IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
+BEGIN
   Result := true;
-end;
+END;
 
-function TFonts.IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
-begin
+PROCEDURE TFonts.IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
+BEGIN
   Result := (AFont.lfPitchAndFamily and $F) = FIXED_PITCH;
-end;
+END;
 
-function TFonts.IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
-begin
+PROCEDURE TFonts.IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
+BEGIN
   Result := (AFont.lfPitchAndFamily and $F) = VARIABLE_PITCH;
-end;
+END;
 
-function TFonts.FindFont(AName : TFontName;
+PROCEDURE TFonts.FindFont(AName : TFontName;
                          APitch : TFontPitch) : TLogFont;
-var i : Integer;
-begin
+VAR i : Integer;
+BEGIN
   i := IndexOf(APitch,AName);
   Move(FFonts^[i],Result,SizeOf(TLogFont));
-end;
+END;
 
-procedure TFonts.SetCharset(Value: TFontCharset);
-begin
-  if FCharSet <> Value then
-  begin
+PROCEDURE TFonts.SetCharset(Value: TFontCharset);
+BEGIN
+  IF FCharSet <> Value THEN
+  BEGIN
     FCharSet := Value;
     Enumerate;
-  end;
-end;
+  END;
+END;
 
-procedure TFonts.Enumerate;
-var
+PROCEDURE TFonts.Enumerate;
+VAR
   LFont: TLogFont;
-begin
+BEGIN
   FDC := GetDC(0);
   FillChar(LFont, sizeof(LFont), 0);
   LFont.lfCharset := FCharSet;
-  if FFonts <> nil then GlobalFree(Cardinal(FFonts));
+  IF FFonts <> NIL THEN GlobalFree(Cardinal(FFonts));
   FCount := 0;
   EnumFontFamiliesEx(FDC, LFont, @EnumFontsProc0, LongInt(Self), 0);
   FFonts := PFontList(GlobalAlloc(GMEM_FIXED,SizeOf(TLogFont)*FCount));
   FCount := 0;
   EnumFontFamiliesEx(FDC, LFont, @EnumFontsProc, LongInt(Self), 0);
   ReleaseDC(0, FDC);
-end;
+END;
 
-function TFonts.IsTrueType(const AFont : TLogFont) : BOOLEAN;
-var
+PROCEDURE TFonts.IsTrueType(const AFont : TLogFont) : BOOLEAN;
+VAR
   Metrics: TTextMetric;
   lf: TLogFont;
   oldFont, newFont: HFont;
-begin
-  with lf do begin
+BEGIN
+  with lf do BEGIN
     lfHeight := 10;
     lfWidth := 10;
     lfEscapement := 0;
@@ -1226,49 +1269,49 @@ begin
     lfOutPrecision := OUT_DEFAULT_PRECIS;
     lfClipPrecision := CLIP_DEFAULT_PRECIS;
     lfQuality := DEFAULT_QUALITY;
-    lfPitchAndFamily := DEFAULT_PITCH or FF_DONTCARE;
+    lfPitchAndFamily := DEFAULT_PITCH OR FF_DONTCARE;
     StrPCopy(lfFaceName, AFont.lfFaceName);
-  end;
+  END;
   newFont := CreateFontIndirect(lf);
   oldFont := SelectObject(FDC, newFont);
   GetTextMetrics(FDC, Metrics);
   Result := (Metrics.tmPitchAndFamily and TMPF_TRUETYPE) <> 0;
   SelectObject(FDC, oldFont);
   DeleteObject(newFont);
-end;
+END;
 
-{TWinControl}
+(*TWinControl*)
 
-function GetWindowInstance(Handle: HWND) : TWinControl;
-begin
+PROCEDURE GetWindowInstance(Handle: HWND) : TWinControl;
+BEGIN
   Result := TWincontrol(GetProp(Handle,ID_SELF));
-end;
+END;
 
-function TWinControl.WndProc(AMessage, WParam, LParam : Longint): Longint;
-var
+PROCEDURE (VAR w: TWinControl) WndProc(AMessage, WParam, LParam : Longint): Longint;
+VAR
   self_   : pointer;
   window_ : hWnd;
   AMsg    : TMessage;
-begin
+BEGIN
   window_ := HWND(Self);
   self_ := Ptr(GetProp(window_,ID_SELF));
-  if self_ <> nil then
-  begin
+  IF self_ <> NIL THEN
+  BEGIN
     AMsg.Msg := AMessage;
     AMsg.WParam := WParam;
     AMsg.LParam := LParam;
     AMsg.Result := 0;
     TWinControl(self_).ProcessMessage(AMsg);
-  end            else
+  end            ELSE
     AMsg.Result := DefWindowProc(window_, AMessage, WParam, LParam);
   Result := AMsg.Result;
-end;
+END;
 
-function TWinControl.GetWndProc : pointer; assembler;
+PROCEDURE (VAR w: TWinControl) GetWndProc : pointer; assembler;
 asm
   MOV EAX,[EAX]
   MOV EAX,[EAX]
-end;
+END;
 *)
 PROCEDURE (VAR w: TWinControl) Create* (AParent : PWinControl);
 BEGIN
@@ -1279,9 +1322,9 @@ BEGIN
   w.FTextLen := 0;
   w.FClassName := FormClassName;
   w.Style := W.WS_BORDER + W.WS_CAPTION + W.WS_EX_CONTROLPARENT;
-  w.FExStyle := 0;
+  w.ExStyle := {};
   w.FCtl3D := FALSE;
-  w.FParent := AParent;
+  w.Parent := AParent;
   w.FDefWndProc := 0;
   w.Left := W.CW_USEDEFAULT;
   w.Top := W.CW_USEDEFAULT;
@@ -1294,29 +1337,29 @@ BEGIN
   w.FCursorHandle := LoadCursor(0,IDC_ARROW);
   w.FFont := TFont.Create;
   w.FFont.FControl := Self;
-  w.FCList := nil;
-  w.FWList := nil;
+  w.FCList := NIL;
+  w.FWList := NIL;
   w.FEnabled := true;
-  w.FOnClick := nil;
-  w.FOnErase := nil;
-  w.FOnHitTest := nil;
-  w.FOnMouseDown := nil;
+  w.FOnClick := NIL;
+  w.FOnErase := NIL;
+  w.FOnHitTest := NIL;
+  w.FOnMouseDown := NIL;
 (*<kvv>*)
-  w.FOnMenuItemSelect := nil;*)
+  w.FOnMenuItemSelect := NIL;*)
 (*</kvv>*)
 END Create;
 (*
-function TWinControl.GetParentHandle : HWnd;
-begin
-  if FParent <> nil then Result := FParent.FHandle
-                    else Result := FParentHandle;
-end;
+PROCEDURE (VAR w: TWinControl) GetParentHandle : HWnd;
+BEGIN
+  IF FParent <> NIL THEN Result := FParent.FHandle
+                    ELSE Result := FParentHandle;
+END;
 
-procedure TWinControl.SetParentHandle(Value: HWnd);
-begin
-  if FParent = nil then FParentHandle := Value
-                   else FParentHandle := FParent.FHandle;
-end;
+PROCEDURE (VAR w: TWinControl) SetParentHandle(Value: HWnd);
+BEGIN
+  IF FParent = NIL THEN FParentHandle := Value
+                   ELSE FParentHandle := FParent.FHandle;
+END;
 *)
 PROCEDURE (VAR w: TWinControl) SetBounds (IN r: W.RECT);
 VAR
@@ -1384,35 +1427,35 @@ BEGIN
   END;
 END SetHeight;
 (*
-procedure TWinControl.SetFont(const AFont : TLogFont);
-var fOld : hFont;
-begin
-  if FHandle <= 0 then Exit;
+PROCEDURE (VAR w: TWinControl) SetFont(const AFont : TLogFont);
+VAR fOld : hFont;
+BEGIN
+  IF FHandle <= 0 THEN Exit;
   fOld := SendMessage(FHandle, WM_GETFONT, 0, 0);
   FFont.FHandle := CreateFontIndirect(AFont);
   SendMessage(FHandle,WM_SETFONT,WParam(FFont.FHandle),MAKELPARAM(Word(TRUE),0));
-  if fOld <> 0 then DeleteObject(fOld);
+  IF fOld <> 0 THEN DeleteObject(fOld);
   ProcessMessages;
-end;
+END;
 
-procedure TWinControl.SetEnabled(Value: BOOLEAN);
-begin
+PROCEDURE (VAR w: TWinControl) SetEnabled(Value: BOOLEAN);
+BEGIN
   FEnabled := Value;
-  if FHandle > 0 then Windows.EnableWindow(FHandle, Value);
-end;
+  IF FHandle > 0 THEN Windows.EnableWindow(FHandle, Value);
+END;
 
-function TWinControl.GetCaption() : shortstring;
-begin
-  if FHandle > 0 then
-  begin
+PROCEDURE (VAR w: TWinControl) GetCaption() : shortstring;
+BEGIN
+  IF FHandle > 0 THEN
+  BEGIN
    FTextBuf[0] := chr(SendMessage(FHandle,WM_GETTEXTLENGTH,0,0)+1);
    SendMessage(FHandle,WM_GETTEXT,ord(FTextBuf[0]),Longint(@FTextBuf[1]));
-   if FTextBuf[1] = #0 then FTextBuf[0] := #0;
-  end;
+   IF FTextBuf[1] = #0 THEN FTextBuf[0] := #0;
+  END;
   Result := FTextBuf;
-  if Result[0] > #0 then
-    if Result[Ord(Result[0])] = #0 then Dec(Result[0]);
-end;
+  IF Result[0] > #0 THEN
+    IF Result[Ord(Result[0])] = #0 THEN Dec(Result[0]);
+END;
 *)
 PROCEDURE (VAR w: TWinControl) SetCaption* (IN value: ARRAY OF Char);
 BEGIN
@@ -1446,128 +1489,128 @@ BEGIN
   Ignore.Int( W.GetClientRect(w.FHandle,r) );
   RETURN r.bottom - r.top
 END GetClientHeight;
-(*
-procedure TWinControl.SetVisible(Value : BOOLEAN);
-begin
-  FVisible := Value;
-  if FHandle = 0 then Exit;
-  if FVisible then Show
-              else Hide;
-end;
 
-procedure TWinControl.SetCursor(Value : TCursor);
+PROCEDURE (VAR w: TWinControl) SetVisible* (value: BOOLEAN);
+BEGIN
+  w.Visible := value;
+  IF w.FHandle # NIL THEN
+    IF w.Visible THEN w.Show ELSE w.Hide END;
+  END;
+END SetVisible;
+(*
+PROCEDURE (VAR w: TWinControl) SetCursor(Value : TCursor);
 const
   CursorMap: array[crSizeAll..crArrow] of PChar = (
     IDC_SIZEALL, IDC_HANDPT, IDC_HELP, IDC_APPSTARTING, IDC_NO, IDC_SQLWAIT,
     IDC_MULTIDRAG, IDC_VSPLIT, IDC_HSPLIT, IDC_NODROP, IDC_DRAG, IDC_WAIT,
     IDC_UPARROW, IDC_SIZEWE, IDC_SIZENWSE, IDC_SIZENS, IDC_SIZENESW, IDC_SIZE,
     IDC_IBEAM, IDC_CROSS, IDC_ARROW);
-var
+VAR
   Instance: THandle;
-begin
-  if Value = FCursor then Exit;
-  if ((Value >= crSqlWait) and (Value <= crDrag)) or
-     (Value = crHandPoint) then Instance := HInstance
-                           else Instance := 0;
+BEGIN
+  IF Value = FCursor THEN Exit;
+  IF ((Value >= crSqlWait) and (Value <= crDrag)) or
+     (Value = crHandPoint) THEN Instance := HInstance
+                           ELSE Instance := 0;
   FCursorHandle := LoadCursor(Instance, CursorMap[Value]);
-  if FHandle <> 0 then PostMessage(FHandle, WM_SetCursor, FHandle, HTCLIENT);
-end;
+  IF FHandle <> 0 THEN PostMessage(FHandle, WM_SetCursor, FHandle, HTCLIENT);
+END;
 
-procedure TWinControl.Close;
-begin
+PROCEDURE (VAR w: TWinControl) Close;
+BEGIN
   SendMessage(FHandle, WM_CLOSE, 0, 0);
-end;
+END;
 
-procedure TWinControl.WMDestroy(var AMsg: TWMDestroy);
-begin
-  if Assigned(FOnDestroy) then FOnDestroy(Self);
-  if FAutoStop then PostQuitMessage(0);
-end;
+PROCEDURE (VAR w: TWinControl) WMDestroy(VAR AMsg: TWMDestroy);
+BEGIN
+  IF Assigned(FOnDestroy) THEN FOnDestroy(Self);
+  IF FAutoStop THEN PostQuitMessage(0);
+END;
 
-procedure TWinControl.WMClose(var AMsg: TWMClose);
-begin
-  if not Assigned(FOnClose) or FOnClose(Self) then
-  begin
-    if FModalResult = 0 then FModalResult := mrCancel;
+PROCEDURE (VAR w: TWinControl) WMClose(VAR AMsg: TWMClose);
+BEGIN
+  IF not Assigned(FOnClose) OR FOnClose(Self) THEN
+  BEGIN
+    IF FModalResult = 0 THEN FModalResult := mrCancel;
     with TMessage(AMsg) do
       DefWindowProc(FHandle, Msg, WParam, LParam);
-  end;
+  END;
   AMsg.Result := 0;
-end;
+END;
 
-procedure TWinControl.WMNCHitTest(var AMsg : TMessage);
-begin
+PROCEDURE (VAR w: TWinControl) WMNCHitTest(VAR AMsg : TMessage);
+BEGIN
   Dispatch(AMsg);
-  if FHTest <> 0 then AMsg.Result := FHTest
-                 else
-  if Assigned(FOnHitTest) then
+  IF FHTest <> 0 THEN AMsg.Result := FHTest
+                 ELSE
+  IF Assigned(FOnHitTest) THEN
     with TWMNCHitTest(AMsg) do  FOnHitTest(Self,XPos,YPos,Result)
-                           else
+                           ELSE
     with AMsg do Result := DefWindowProc(FHandle,Msg,WParam,LParam);
-end;
+END;
 
-procedure TWinControl.WMPaint(var AMsg: TWMPaint);
-var
+PROCEDURE (VAR w: TWinControl) WMPaint(VAR AMsg: TWMPaint);
+VAR
   PaintStruct: TPaintStruct;
   PaintDC: HDC;
   pc : PControlList;
-begin
+BEGIN
   Dispatch(AMsg);
-  if AMsg.Result <> 0 then Exit;
+  IF AMsg.Result <> 0 THEN Exit;
   PaintDC := BeginPaint(FHandle, PaintStruct);
-  if FHandle > 0 then
-  begin
-    if FCList <> nil then
-    begin
+  IF FHandle > 0 THEN
+  BEGIN
+    IF FCList <> NIL THEN
+    BEGIN
       pc := FCList;
       repeat
         pc^.Control.Paint(PaintDC);
-        if pc^.Next <> nil then pc := pc^.Next
-                           else pc := nil;
-      until (pc = nil);
-    end;
-  end;
+        IF pc^.Next <> NIL THEN pc := pc^.Next
+                           ELSE pc := NIL;
+      until (pc = NIL);
+    END;
+  END;
   EndPaint(FHandle, PaintStruct);
-end;
+END;
 
-procedure TWinControl.WMSetFocus(var AMsg : TWMSetFocus);
-begin
+PROCEDURE (VAR w: TWinControl) WMSetFocus(VAR AMsg : TWMSetFocus);
+BEGIN
   Dispatch(AMsg);
-  if (FActiveControl <> nil) and
-     (FActiveControl.IsModal) then
-     begin
+  IF (FActiveControl <> NIL) and
+     (FActiveControl.IsModal) THEN
+     BEGIN
        AMsg.Result := 0;
        PostMessage(AMsg.FocusedWnd,WM_SETFOCUS,0,0);
        Exit;
-     end;
-  if FParent <> nil then
+     END;
+  IF FParent <> NIL THEN
   FParent.FActiveControl := Self;
-end;
+END;
 
-procedure TWinControl.WMKillFocus(var AMsg : TWMKillFocus);
-var r   : TRect;
+PROCEDURE (VAR w: TWinControl) WMKillFocus(VAR AMsg : TWMKillFocus);
+VAR r   : TRect;
     s   : shortstring;
     wnd : HWND;
-begin
+BEGIN
   Dispatch(AMsg);
-  if ((WS_CHILD and FStyle) <> 0) and
-    (GetWindowInstance(AMsg.FocusedWnd) <> nil) and
-    not GetWindowInstance(AMsg.FocusedWnd).FEnabled then
-  begin
+  IF ((WS_CHILD and FStyle) <> 0) and
+    (GetWindowInstance(AMsg.FocusedWnd) <> NIL) and
+    not GetWindowInstance(AMsg.FocusedWnd).FEnabled THEN
+  BEGIN
     AMsg.Result := 0;
     SetFocus;
-    if FParent <> nil then FParent.FActiveControl := Self;
-  end                                               else
-  if GetWindowInstance(AMsg.FocusedWnd) = nil then
-  begin // an "external" window receives focus:
+    IF FParent <> NIL THEN FParent.FActiveControl := Self;
+  end                                               ELSE
+  IF GetWindowInstance(AMsg.FocusedWnd) = NIL THEN
+  BEGIN // an "external" window receives focus:
         // any such window must have no parent (but may have childs)
         // except for MessageBox window (which is analyzied)
     wnd := AMsg.FocusedWnd;
     repeat
       s[0] := chr(GetClassName(wnd,@s[1],255));
-      if (s[0] > #0) and (s[ord(s[0])] = #0) then Dec(s[0]);
-      if (s[1] = '#') then break;
-      if GetParent(wnd) <> 0 then wnd := GetParent(wnd);
+      IF (s[0] > #0) and (s[ord(s[0])] = #0) THEN Dec(s[0]);
+      IF (s[1] = '#') THEN break;
+      IF GetParent(wnd) <> 0 THEN wnd := GetParent(wnd);
     until (GetParent(wnd) = 0);
     GetWindowRect(wnd,r);
     r.left := (Screen.Width + r.left - r.right) div 2;
@@ -1578,340 +1621,340 @@ begin
                  r.top,
                  0,
                  0,
-                 SWP_NOZORDER or SWP_NOSIZE or SWP_DRAWFRAME);
+                 SWP_NOZORDER OR SWP_NOSIZE OR SWP_DRAWFRAME);
     AMsg.Result := 0;
-  end;
-end;
+  END;
+END;
 
-procedure TWinControl.WMEraseBkgnd(var AMsg : TWMEraseBkgnd);
-var R : TRect;
+PROCEDURE (VAR w: TWinControl) WMEraseBkgnd(VAR AMsg : TWMEraseBkgnd);
+VAR R : TRect;
     hd : HDC;
-begin
+BEGIN
     Windows.GetClientRect(FHandle,R);
     hd := AMsg.DC;
-    if Assigned(FOnErase) then
-    begin
+    IF Assigned(FOnErase) THEN
+    BEGIN
       FOnErase(Self, hd, R);
       AMsg.Result := 1;
-    end                   else
-    if (FBkMode = bk_OPaque) or (FParent = nil) then
-      if FBrush = 0 then
+    end                   ELSE
+    IF (FBkMode = bk_OPaque) OR (FParent = NIL) THEN
+      IF FBrush = 0 THEN
         Dispatch(TMessage(AMsg))
-                    else
-      begin
+                    ELSE
+      BEGIN
         FillRect(hd,R,FBrush);
         AMsg.Result := 1;
-      end                                       else
-    if FBkMode = bk_Transparent then
-      begin
+      end                                       ELSE
+    IF FBkMode = bk_Transparent THEN
+      BEGIN
         FillRect(hd,R,FParent.FBrush);
         AMsg.Result := 1;
-      end                       else AMsg.Result := 1;
-end;
+      end                       ELSE AMsg.Result := 1;
+END;
 
-procedure TWinControl.WMCtlColor(var AMsg : TMessage);
-var ctl : TWinControl;
-begin
+PROCEDURE (VAR w: TWinControl) WMCtlColor(VAR AMsg : TMessage);
+VAR ctl : TWinControl;
+BEGIN
   with AMsg do
-  begin
+  BEGIN
    ctl := TWinControl(GetProp(HWND(LParam),ID_SELF));
-   if ctl = nil then Exit;
+   IF ctl = NIL THEN Exit;
    Windows.SetBkColor(HDC(WParam),ctl.FColor);
    Windows.SetTextColor(HDC(WParam),ctl.FTextColor);
    case ctl.FBkMode of
      bk_Opaque:
-       begin
+       BEGIN
          Windows.SetBkMode(HDC(WParam),OPAQUE);
          Result := ctl.FBrush;
-       end;
+       END;
      bk_Transparent,bk_Slide:
-       begin
+       BEGIN
          Windows.SetBkMode(HDC(WParam),TRANSPARENT);
          repeat
            ctl := ctl.FParent;
          until ctl.FBrush > 0;
          Result := ctl.FBrush;
-       end;
-   end;
-  end;
-end;
+       END;
+   END;
+  END;
+END;
 
-procedure TWinControl.WMCommand(var AMsg : TWMCommand);
-var ctrl : TWinControl;
-begin
+PROCEDURE (VAR w: TWinControl) WMCommand(VAR AMsg : TWMCommand);
+VAR ctrl : TWinControl;
+BEGIN
   Dispatch(AMsg);
   with AMsg do
-  begin
+  BEGIN
    ctrl := TWinControl(GetProp(ctl,ID_SELF));
-{<kvv>}
-   if ctrl = nil then // this is menu command
-   begin
-     if Ctl = 0 then 
-       if Assigned(FOnMenuItemSelect) then 
+(*<kvv>*)
+   IF ctrl = NIL THEN // this is menu command
+   BEGIN
+     IF Ctl = 0 THEN 
+       IF Assigned(FOnMenuItemSelect) THEN 
          FOnMenuItemSelect(Self,TMessage(AMsg).wParam);
      Exit;
-   end;
-{</kvv>}
+   END;
+(*</kvv>*)
    case NotifyCode of
      BN_CLICKED,
-     LBN_DBLCLK : if Ctrl.FEnabled then ctrl.Click;
-   end;
+     LBN_DBLCLK : IF Ctrl.FEnabled THEN ctrl.Click;
+   END;
    case NotifyCode of
      EN_CHANGE,
-     LBN_SELCHANGE : if Ctrl.FEnabled then ctrl.Change;
-   end;
+     LBN_SELCHANGE : IF Ctrl.FEnabled THEN ctrl.Change;
+   END;
    case NotifyCode of
      BN_SETFOCUS,
      EN_SETFOCUS,
      LBN_SETFOCUS,
-     CBN_SETFOCUS  : if Ctrl.FEnabled then ctrl.DoEnter;
-   end;
+     CBN_SETFOCUS  : IF Ctrl.FEnabled THEN ctrl.DoEnter;
+   END;
    case NotifyCode of
      BN_KILLFOCUS,
      EN_KILLFOCUS,
      LBN_KILLFOCUS,
-     CBN_KILLFOCUS : if Ctrl.FEnabled then ctrl.DoExit;
-   end;
-  end;
-end;
+     CBN_KILLFOCUS : IF Ctrl.FEnabled THEN ctrl.DoExit;
+   END;
+  END;
+END;
 
-procedure TWinControl.DoMouseDown(var AMsg: TWMMouse; Button: TMouseButton;
+PROCEDURE (VAR w: TWinControl) DoMouseDown(VAR AMsg: TWMMouse; Button: TMouseButton;
   Shift: TShiftState);
-begin
+BEGIN
   Dispatch(AMsg);
   with AMsg do
-    if Assigned(FOnMouseDown) then
+    IF Assigned(FOnMouseDown) THEN
       FOnMouseDown(Self,
                    Button,
                    KeysToShiftState(Keys) + Shift,
                    XPos,
                    YPos);
-end;
+END;
 
-procedure TWinControl.WMLButtonDown(var AMsg: TWMLButtonDown);
-begin
+PROCEDURE (VAR w: TWinControl) WMLButtonDown(VAR AMsg: TWMLButtonDown);
+BEGIN
   DoMouseDown(AMsg, mbLeft, []);
-end;
+END;
 
-procedure TWinControl.WMLButtonDblClk(var AMsg: TWMLButtonDblClk);
-begin
+PROCEDURE (VAR w: TWinControl) WMLButtonDblClk(VAR AMsg: TWMLButtonDblClk);
+BEGIN
   DoMouseDown(AMsg, mbLeft, [ssDouble]);
-end;
+END;
 
-procedure TWinControl.WMRButtonDown(var AMsg: TWMRButtonDown);
-begin
+PROCEDURE (VAR w: TWinControl) WMRButtonDown(VAR AMsg: TWMRButtonDown);
+BEGIN
   DoMouseDown(AMsg, mbRight, []);
-end;
+END;
 
-procedure TWinControl.WMRButtonDblClk(var AMsg: TWMRButtonDblClk);
-begin
+PROCEDURE (VAR w: TWinControl) WMRButtonDblClk(VAR AMsg: TWMRButtonDblClk);
+BEGIN
   DoMouseDown(AMsg, mbRight, [ssDouble]);
-end;
+END;
 
-procedure TWinControl.WMMouseMove(var AMsg: TWMMouseMove);
-begin
+PROCEDURE (VAR w: TWinControl) WMMouseMove(VAR AMsg: TWMMouseMove);
+BEGIN
   Dispatch(AMsg);
   with AMsg do
-    if Assigned(FOnMouseMove) then
+    IF Assigned(FOnMouseMove) THEN
       FOnMouseMove(Self,
                    KeysToShiftState(Keys),
                    XPos,
                    YPos);
-end;
+END;
 
-procedure TWinControl.DoMouseUp(var AMsg: TWMMouse; Button: TMouseButton;
+PROCEDURE (VAR w: TWinControl) DoMouseUp(VAR AMsg: TWMMouse; Button: TMouseButton;
   Shift: TShiftState);
-begin
+BEGIN
   Dispatch(AMsg);
-{$IFDEF CaptureMouse}
+(*$IFDEF CaptureMouse*)
   ReleaseCapture;
-{$ENDIF}
+(*$ENDIF*)
   with AMsg do
-  if Assigned(FOnMouseUp) then
+  IF Assigned(FOnMouseUp) THEN
     FOnMouseUp(Self,
                Button,
                KeysToShiftState(Keys) + Shift,
                XPos,
                YPos);
-end;
+END;
 
-procedure TWinControl.WMLButtonUp(var AMsg: TWMLButtonUp);
-begin
+PROCEDURE (VAR w: TWinControl) WMLButtonUp(VAR AMsg: TWMLButtonUp);
+BEGIN
   DoMouseUp(AMsg, mbLeft, []);
-end;
+END;
 
-procedure TWinControl.WMRButtonUp(var AMsg: TWMRButtonUp);
-begin
+PROCEDURE (VAR w: TWinControl) WMRButtonUp(VAR AMsg: TWMRButtonUp);
+BEGIN
   DoMouseUp(AMsg, mbRight, []);
-end;
+END;
 
-procedure TWinControl.WMSetCursor(var AMsg: TWMSetCursor);
-begin
-  if (FCursor <> crDefault) and
-     (AMsg.HitTest = HTCLIENT) then
-  begin
+PROCEDURE (VAR w: TWinControl) WMSetCursor(VAR AMsg: TWMSetCursor);
+BEGIN
+  IF (FCursor <> crDefault) and
+     (AMsg.HitTest = HTCLIENT) THEN
+  BEGIN
     Windows.SetCursor(FCursorHandle);
     AMsg.Result := 1;
-  end                          else Dispatch(AMsg);
-end;
+  end                          ELSE Dispatch(AMsg);
+END;
 
-function TWinControl.DoKeyDown(var AMsg: TWMKey): Boolean;
-var
+PROCEDURE (VAR w: TWinControl) DoKeyDown(VAR AMsg: TWMKey): Boolean;
+VAR
   ShiftState: TShiftState;
   Form: TWinControl;
-begin
-  Result := True;
+BEGIN
+  Result := TRUE;
   Form := Self;
-  while (Form.FClassName <> FormClassName) and
-        (Form.Parent <> nil) do Form := Form.Parent;
-  if (Form <> Self) and Form.DoKeyDown(AMsg) then Exit;
+  WHILE (Form.FClassName <> FormClassName) and
+        (Form.Parent <> NIL) DO Form := Form.Parent;
+  IF (Form <> Self) and Form.DoKeyDown(AMsg) THEN Exit;
   with AMsg do
-  begin
+  BEGIN
     ShiftState := KeyDataToShiftState(KeyData);
-    if CharCode = VK_Tab  then
-    begin
-      if (ssShift in ShiftState) then
-      begin
-        while (Form.FClassName <> FormClassName) and
+    IF CharCode = VK_Tab  THEN
+    BEGIN
+      IF (ssShift in ShiftState) THEN
+      BEGIN
+        WHILE (Form.FClassName <> FormClassName) and
               Form.IsFirstSelected and
-              (Form.FParent <> nil) do Form := Form.FParent;
+              (Form.FParent <> NIL) DO Form := Form.FParent;
         Form.SelectPrev;
-        if Assigned(FOnKeyDown) then FOnKeyDown(Self, CharCode, ShiftState);
+        IF Assigned(FOnKeyDown) THEN FOnKeyDown(Self, CharCode, ShiftState);
         Exit;
-      end                        else
-      begin
-        while (Form.FClassName <> FormClassName) and
+      end                        ELSE
+      BEGIN
+        WHILE (Form.FClassName <> FormClassName) and
               Form.IsLastSelected and
-              (Form.FParent <> nil) do Form := Form.FParent;
+              (Form.FParent <> NIL) DO Form := Form.FParent;
         Form.SelectNext;
-        if Assigned(FOnKeyDown) then FOnKeyDown(Self, CharCode, ShiftState);
+        IF Assigned(FOnKeyDown) THEN FOnKeyDown(Self, CharCode, ShiftState);
         Exit;
-      end;
-    end;
-    if Assigned(FOnKeyDown) then FOnKeyDown(Self, CharCode, ShiftState);
-    if CharCode = 0 then Exit;
-  end;
-  Result := False;
-end;
+      END;
+    END;
+    IF Assigned(FOnKeyDown) THEN FOnKeyDown(Self, CharCode, ShiftState);
+    IF CharCode = 0 THEN Exit;
+  END;
+  Result := FALSE;
+END;
 
-procedure TWinControl.WMKeyDown(var AMsg: TWMKeyDown);
-begin
-  if not DoKeyDown(AMsg) then Dispatch(AMsg);
-end;
+PROCEDURE (VAR w: TWinControl) WMKeyDown(VAR AMsg: TWMKeyDown);
+BEGIN
+  IF not DoKeyDown(AMsg) THEN Dispatch(AMsg);
+END;
 
-procedure TWinControl.WMSysKeyDown(var AMsg: TWMKeyDown);
-begin
-  if not DoKeyDown(AMsg) then Dispatch(TMessage(AMsg));
-end;
+PROCEDURE (VAR w: TWinControl) WMSysKeyDown(VAR AMsg: TWMKeyDown);
+BEGIN
+  IF not DoKeyDown(AMsg) THEN Dispatch(TMessage(AMsg));
+END;
 
-function TWinControl.DoKeyUp(var AMsg: TWMKey): Boolean;
-var
+PROCEDURE (VAR w: TWinControl) DoKeyUp(VAR AMsg: TWMKey): Boolean;
+VAR
   ShiftState: TShiftState;
   Form: TWinControl;
-begin
-  Result := True;
+BEGIN
+  Result := TRUE;
   Form := Self;
-  while Form.Parent <> nil do Form := Form.Parent;
-  if (Form <> Self) and Form.DoKeyUp(AMsg) then Exit;
+  WHILE Form.Parent <> NIL DO Form := Form.Parent;
+  IF (Form <> Self) and Form.DoKeyUp(AMsg) THEN Exit;
   with AMsg do
-  begin
+  BEGIN
     ShiftState := KeyDataToShiftState(KeyData);
-    if Assigned(FOnKeyUp) then FOnKeyUp(Self, CharCode, ShiftState);
-    if CharCode = 0 then Exit;
-  end;
-  Result := False;
-end;
+    IF Assigned(FOnKeyUp) THEN FOnKeyUp(Self, CharCode, ShiftState);
+    IF CharCode = 0 THEN Exit;
+  END;
+  Result := FALSE;
+END;
 
-procedure TWinControl.WMKeyUp(var AMsg: TWMKeyUp);
-begin
-  if not DoKeyUp(AMsg) then Dispatch(AMsg);
-end;
+PROCEDURE (VAR w: TWinControl) WMKeyUp(VAR AMsg: TWMKeyUp);
+BEGIN
+  IF not DoKeyUp(AMsg) THEN Dispatch(AMsg);
+END;
 
-procedure TWinControl.WMSysKeyUp(var AMsg: TWMKeyUp);
-begin
-  if not DoKeyUp(AMsg) then Dispatch(AMsg);
-end;
+PROCEDURE (VAR w: TWinControl) WMSysKeyUp(VAR AMsg: TWMKeyUp);
+BEGIN
+  IF not DoKeyUp(AMsg) THEN Dispatch(AMsg);
+END;
 
-function TWinControl.DoKeyPress(var AMsg: TWMKey): Boolean;
-var
+PROCEDURE (VAR w: TWinControl) DoKeyPress(VAR AMsg: TWMKey): Boolean;
+VAR
   Form: TWinControl;
-begin
-  Result := True;
+BEGIN
+  Result := TRUE;
   Form := Self;
-  while Form.Parent <> nil do Form := Form.Parent;
-  if (Form <> Self) and Form.DoKeyPress(AMsg) then Exit;
+  WHILE Form.Parent <> NIL DO Form := Form.Parent;
+  IF (Form <> Self) and Form.DoKeyPress(AMsg) THEN Exit;
   with AMsg do
-  begin
-    if Assigned(FOnKeyPress) then FOnKeyPress(Self,Char(CharCode));
-    if Char(CharCode) = #0 then Exit;
-  end;
-  Result := False;
-end;
+  BEGIN
+    IF Assigned(FOnKeyPress) THEN FOnKeyPress(Self,Char(CharCode));
+    IF Char(CharCode) = #0 THEN Exit;
+  END;
+  Result := FALSE;
+END;
 
-procedure TWinControl.WMChar(var AMsg: TWMChar);
-begin
-  if not DoKeyPress(AMsg) then Dispatch(AMsg);
-end;
+PROCEDURE (VAR w: TWinControl) WMChar(VAR AMsg: TWMChar);
+BEGIN
+  IF not DoKeyPress(AMsg) THEN Dispatch(AMsg);
+END;
 
-procedure TWinControl.WMSysCommand(var AMsg: TWMSysCommand);
-begin
+PROCEDURE (VAR w: TWinControl) WMSysCommand(VAR AMsg: TWMSysCommand);
+BEGIN
   Dispatch(AMsg);
-end;
+END;
 
-procedure TWinControl.WMNotifyIcon(var AMsg: TMessage);
-begin
+PROCEDURE (VAR w: TWinControl) WMNotifyIcon(VAR AMsg: TMessage);
+BEGIN
   case AMsg.LParam of
-   WM_MOUSEMOVE   :if Assigned(FOnNIMove) then FOnNIMove(Self);
-   WM_LBUTTONDOWN :if Assigned(FOnNILDown) then FOnNILDown(Self);
-   WM_LBUTTONUP   :if Assigned(FOnNILUp) then FOnNILUp(Self);
-  end;
-end;
+   WM_MOUSEMOVE   :if Assigned(FOnNIMove) THEN FOnNIMove(Self);
+   WM_LBUTTONDOWN :if Assigned(FOnNILDown) THEN FOnNILDown(Self);
+   WM_LBUTTONUP   :if Assigned(FOnNILUp) THEN FOnNILUp(Self);
+  END;
+END;
 
-procedure TWinControl.WMQueryEndSession(var AMsg: TMessage);
-begin
-  if Assigned(FOnEndSession) then
-     if FOnEndSession(Self) then AMsg.Result := 1
-                            else AMsg.Result := 0
-                             else Dispatch(AMsg);
-end;
+PROCEDURE (VAR w: TWinControl) WMQueryEndSession(VAR AMsg: TMessage);
+BEGIN
+  IF Assigned(FOnEndSession) THEN
+     IF FOnEndSession(Self) THEN AMsg.Result := 1
+                            ELSE AMsg.Result := 0
+                             ELSE Dispatch(AMsg);
+END;
 
-procedure TWinControl.Dispatch(var AMsg);
-begin
+PROCEDURE (VAR w: TWinControl) Dispatch (VAR AMsg: TMessage);
+BEGIN(*
    inherited Dispatch(AMsg);
    with TMessage(AMsg) do
-   begin
-     if TMessage(AMsg).Result <> 0 then Exit;
-     if FDefWndProc <> 0 then
+   BEGIN
+     IF TMessage(AMsg).Result <> 0 THEN Exit;
+     IF FDefWndProc <> 0 THEN
        Result := CallWindowProc(Ptr(FDefWndProc),
                                 FHandle,
                                 Msg,
                                 WParam,
                                 LParam)
-                         else
+                         ELSE
        Result := DefWindowProc(FHandle,Msg,WParam,LParam);
-   end;
-end;
+   END;
+END Dispatch;
 
-procedure TWinControl.Change;
-begin
-  if Assigned(FOnChange) then FOnChange(Self);
-end;
+PROCEDURE (VAR w: TWinControl) Change;
+BEGIN
+  IF Assigned(FOnChange) THEN FOnChange(Self);
+END;
 
-procedure TWinControl.Click;
-begin
-  if Assigned(FOnClick) then FOnClick(Self);
-end;
+PROCEDURE (VAR w: TWinControl) Click;
+BEGIN
+  IF Assigned(FOnClick) THEN FOnClick(Self);
+END;
 
-procedure TWinControl.DoEnter;
-begin
-  if Assigned(FOnEnter) then FOnEnter(Self);
-end;
+PROCEDURE (VAR w: TWinControl) DoEnter;
+BEGIN
+  IF Assigned(FOnEnter) THEN FOnEnter(Self);
+END;
 
-procedure TWinControl.DoExit;
-begin
-  if Assigned(FOnExit) then FOnExit(Self);
-end;
-*)
+PROCEDURE (VAR w: TWinControl) DoExit;
+BEGIN
+  IF Assigned(FOnExit) THEN FOnExit(Self);
+END;
+*)*)
 PROCEDURE (VAR w: TWinControl) SetColor* (value: Ut.TColor);
 VAR
   tb, ob: W.HBRUSH;
@@ -1934,33 +1977,33 @@ BEGIN
   w.TextColor := value;
 END SetTextColor;
 (*
-procedure TWinControl.WMHelp(var AMsg: TMessage);
-var hi : PHelpInfo;
+PROCEDURE (VAR w: TWinControl) WMHelp(VAR AMsg: TMessage);
+VAR hi : PHelpInfo;
     W  : TWinControl;
     s  : shortstring;
-begin
+BEGIN
   hi := Ptr(AMsg.lparam);
-  if hi^.dwContextId = 0 then // исходная точка
-  begin
+  IF hi^.dwContextId = 0 THEN // исходная точка
+  BEGIN
     W := TWinControl(GetProp(hi^.hItemHandle,ID_SELF));
-    if W.FHelpContext > 0 then
-    begin
+    IF W.FHelpContext > 0 THEN
+    BEGIN
       hi^.dwContextId := W.FHelpContext;
-      while (W.FStyle and ws_Child <> 0) and
-            (W.FParent <> nil) do W := W.FParent;
+      WHILE (W.FStyle and ws_Child <> 0) and
+            (W.FParent <> NIL) DO W := W.FParent;
       SendMessage(W.FHandle,WM_HELP,0,AMsg.lparam);
-    end;
-  end                    else
-  if FStyle and ws_Child = 0 then // если родительское окно
-  begin
+    END;
+  end                    ELSE
+  IF FStyle and ws_Child = 0 THEN // если родительское окно
+  BEGIN
     s := FHelpFile + #0;
     WinHelp(FHandle,@s[1],HELP_CONTEXT,hi^.dwContextId);
-  end;
+  END;
   AMsg.Result := 1;
-end;
+END;
 
-procedure TWinControl.ProcessMessage(var AMsg: TMessage);
-begin
+PROCEDURE (VAR w: TWinControl) ProcessMessage(VAR AMsg: TMessage);
+BEGIN
   case AMsg.Msg of
     wm_Destroy: WMDestroy(TWMDestroy(AMsg));
     wm_Close: WMClose(TWMClose(AMsg));
@@ -1991,114 +2034,114 @@ begin
     wm_NotifyIcon: WMNotifyIcon(AMsg);
     wm_QueryEndSession: WMQueryEndSession(AMsg);
     wm_Help: WMHelp(AMsg);
-    else Dispatch(AMsg);
-  end;
-end;
+    ELSE Dispatch(AMsg);
+  END;
+END;
 
-procedure FindLastControl(var ppar,pson : PControlList);
-var pp,pn : PControlList;
-begin
-   if ppar = nil then // if parent = nil
-   begin
-     pson := nil;     // then son = nil too
-   end           else
-   if ppar^.Next = nil then // if last in chain
-   begin
+PROCEDURE FindLastControl(VAR ppar,pson : PControlList);
+VAR pp,pn : PControlList;
+BEGIN
+   IF ppar = NIL THEN // if parent = NIL
+   BEGIN
+     pson := NIL;     // then son = NIL too
+   end           ELSE
+   IF ppar^.Next = NIL THEN // if last in chain
+   BEGIN
      pson := ppar; // this is the last
-     ppar := nil;  // and no parent
-   end                else
-   if ppar.Next^.Next = nil then // if pre-last
-     begin
+     ppar := NIL;  // and no parent
+   end                ELSE
+   IF ppar.Next^.Next = NIL THEN // if pre-last
+     BEGIN
        pson := ppar^.Next;
-     end                    else // if above then go down...
-     begin
+     end                    ELSE // if above then go down...
+     BEGIN
        repeat
          pp := ppar^.Next;
          pn := pp^.Next;
-         if pn <> nil then
-         begin
+         IF pn <> NIL THEN
+         BEGIN
            ppar := pp; pson := pn;
-         end;
-       until pn^.Next = nil;
-     end;
-end;
+         END;
+       until pn^.Next = NIL;
+     END;
+END;
 
-procedure FindLastWindow(var ppar,pson : PWinControlList);
-var pp,pn : PWinControlList;
-begin
-   if ppar = nil then // if parent = nil
-   begin
-     pson := nil;     // then son = nil too
-   end           else
-   if ppar^.Next = nil then // if last in chain
-   begin
+PROCEDURE FindLastWindow(VAR ppar,pson : PWinControlList);
+VAR pp,pn : PWinControlList;
+BEGIN
+   IF ppar = NIL THEN // if parent = NIL
+   BEGIN
+     pson := NIL;     // then son = NIL too
+   end           ELSE
+   IF ppar^.Next = NIL THEN // if last in chain
+   BEGIN
      pson := ppar; // this is the last
-     ppar := nil;  // and no parent
-   end                else
-   if ppar^.Next^.Next = nil then // if pre-last
-     begin
+     ppar := NIL;  // and no parent
+   end                ELSE
+   IF ppar^.Next^.Next = NIL THEN // if pre-last
+     BEGIN
        pson := ppar^.Next;
-     end                    else // if above then go down...
-     begin
+     end                    ELSE // if above then go down...
+     BEGIN
        repeat
          pp := ppar^.Next;
          pn := pp^.Next;
-         if pn <> nil then
-         begin
+         IF pn <> NIL THEN
+         BEGIN
            ppar := pp; pson := pn;
-         end;
-       until pn^.Next = nil;
-     end;
-end;
+         END;
+       until pn^.Next = NIL;
+     END;
+END;
 
 destructor TWinControl.Destroy;
-var wp,ws,wt : PWinControlList;
+VAR wp,ws,wt : PWinControlList;
     cp,cs,ct : PControlList;
-begin
+BEGIN
   repeat
     wp := FWList;
     FindLastWindow(wp,ws);
     wt := ws;
-    if ws <> nil then
-    begin
+    IF ws <> NIL THEN
+    BEGIN
       ws^.WinControl.Free;
       dispose(ws);
-      if wp <> nil then wp^.Next := nil
-                   else wt := nil;
-    end;
-  until (wt = nil);
+      IF wp <> NIL THEN wp^.Next := NIL
+                   ELSE wt := NIL;
+    END;
+  until (wt = NIL);
   repeat
     cp := FCList;
     FindLastControl(cp,cs);
     ct := cs;
-    if cs <> nil then
-    begin
+    IF cs <> NIL THEN
+    BEGIN
       cs^.Control.Free;
       dispose(cs);
-      if cp <> nil then cp^.Next := nil
-                   else ct := nil;
-    end;
-  until (ct = nil);
+      IF cp <> NIL THEN cp^.Next := NIL
+                   ELSE ct := NIL;
+    END;
+  until (ct = NIL);
   FFont.Free;
-  if FBrush <> 0 then DeleteObject(FBrush);
+  IF FBrush <> 0 THEN DeleteObject(FBrush);
   DestroyWnd;
   ProcessMessages;
   inherited Destroy;
-end;
-
-procedure TWinControl.CreateParams(var Params: TCreateParams);
-begin
+END;
+*)
+PROCEDURE (VAR w: TWinControl) CreateParams(VAR Params: TCreateParams);
+BEGIN(*
   FillChar(Params, SizeOf(Params), 0);
-  if FTextBuf[ord(FTextBuf[0])] <> #0 then FTextBuf := FTextBuf + #0;
+  IF FTextBuf[ord(FTextBuf[0])] <> #0 THEN FTextBuf := FTextBuf + #0;
   Params.Caption := @FTextBuf[1];
   Params.Style := FStyle;
   Params.ExStyle := FExStyle;
   with Params do
-  begin
+  BEGIN
     X := FLeft;
     Y := FTop;
     Width := FWidth;
-    if (FStyle and WS_CAPTION) > 0 then
+    IF (FStyle and WS_CAPTION) > 0 THEN
      FHeight := FHeight + GetSystemMetrics(SM_CYCAPTION);
     Height := FHeight;
     WndParent := 0;
@@ -2107,408 +2150,421 @@ begin
     WindowClass.lpfnWndProc := GetWndProc;
     WindowClass.hIcon := LoadIcon(HInstance, 'MAINICON');
     WindowClass.hCursor := FCursorHandle;
-    if FBrush = 0 then FBrush := CreateSolidBrush(FColor);
+    IF FBrush = 0 THEN FBrush := CreateSolidBrush(FColor);
     WindowClass.hbrBackground := FBrush;
     StrPCopy(WinClassName, FClassName);
-  end;
-end;
+  END;*)
+END CreateParams;
 
-procedure TWinControl.CreateWnd;
-var
+PROCEDURE (VAR w: TWinControl) CreateWnd* ;
+VAR
   Params: TCreateParams;
-  TempClass: TWndClass;
+  TempClass: W.WNDCLASS;
   ClassRegistered : BOOLEAN;
-begin
-  CreateParams(Params);
-  with Params do
-  begin
-    ClassRegistered := GetClassInfo(HInstance, WinClassName, TempClass);
-    if not ClassRegistered then
-    begin
-      WindowClass.lpfnWndProc := GetWndProc;
-      WindowClass.hInstance := HInstance;
-      WindowClass.lpszClassName := WinClassName;
-      if Windows.RegisterClass(WindowClass) = 0 then
-      begin
-        MessageBox(0, 'WinRegister failed', nil, mb_Ok);
-        halt;
-      end;
-    end;
-    CreateWindowHandle(Params);
-  end;
-//  Invalidate;
-end;
+BEGIN
+  w.CreateParams(Params);
+  ClassRegistered := 0 # W.GetClassInfo(HInstance,
+    SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(Params.WinClassName)), TempClass);
+  IF ~ ClassRegistered THEN
+    (*Params.WindowClass.lpfnWndProc := GetWndProc;*)
+    Params.WindowClass.hInstance := HInstance;
+    (*COPY(Params.WinClassName, Params.WindowClass.lpszClassName);*)
+    IF W.RegisterClass(Params.WindowClass) = 0 THEN
+      Ignore.Int( W.MessageBox(NIL,
+        SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("WinRegister failed")), NIL, W.MB_OK)
+      );
+      HALT(0)
+    END;
+  END;
+  (*w.CreateWindowHandle(Params);*)
+(*  Invalidate; *)
+END CreateWnd;
 
-procedure TWinControl.CreateWindowHandle(const Params: TCreateParams);
-begin
-  FHandle := CreateWindowEx(
-    FExStyle,
-    Params.WinClassName,
-    @FTextBuf[1],
-    FStyle,
-    FLeft, FTop, FWidth, FHeight,
+PROCEDURE (VAR w: TWinControl) CreateWindowHandle (IN Params: TCreateParams);
+BEGIN
+  w.FHandle := W.CreateWindowEx(
+    w.ExStyle,
+    SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(Params.WinClassName)),
+    SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(w.FTextBuf[0])),
+    w.Style,
+    w.Left, w.Top, w.Width, w.Height,
     Params.WndParent,
-    0,
+    NIL,
     HInstance,
-    nil
+    NIL
   );
-  if FHandle = 0 then
-  begin
-      MessageBox(0, 'WinCreate failed', nil, mb_Ok);
-      halt;
-  end;
-  SetProp(FHandle,ID_SELF,THandle(Self));
-  Windows.EnableWindow(FHandle, FEnabled);
-  if (FParent = nil) and (MainWindow = nil) then MainWindow := Self;
-  if Assigned(FOnCreate) then FOnCreate(Self);
-  if FFont <> nil then
-    FFont.UpdateFont;
-//  Windows.SetCursor(FCursorHandle);
-  if Visible then Show;
-end;
-
-procedure TWinControl.DestroyWnd;
-begin
+  IF w.FHandle = NIL THEN
+      Ignore.Int( W.MessageBox(NIL,
+        SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("WinCreate failed")), NIL, W.MB_OK)
+      );
+      HALT(0)
+  END;
+  Ignore.Int(
+    W.SetProp(w.FHandle,SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(ID_SELF)),
+      SYSTEM.VAL(W.HANDLE, w))
+  );
+  Ignore.Int(
+    W.EnableWindow(w.FHandle, SYSTEM.VAL(W.BOOL, w.Enabled))
+  );
+  IF (w.Parent = NIL) & (SYSTEM.VAL(PWinControl, MainWindow) = NIL) THEN
+    MainWindow := w;
+  END;
+(*  IF Assigned(FOnCreate) THEN FOnCreate(Self);
+  IF w.FFont # NIL THEN w.FFont.UpdateFont END;*)
+(*  Windows.SetCursor(FCursorHandle); *)
+  IF w.Visible THEN w.Show END;
+END CreateWindowHandle;
+(*
+PROCEDURE (VAR w: TWinControl) DestroyWnd;
+BEGIN
   DestroyWindowHandle;
-end;
+END;
 
-procedure TWinControl.DestroyWindowHandle;
-begin
+PROCEDURE (VAR w: TWinControl) DestroyWindowHandle;
+BEGIN
   RemoveProp(FHandle,ID_SELF);
   DestroyWindow(FHandle);
-  if MainWindow = Self then MainWindow := nil;
-end;
+  IF MainWindow = Self THEN MainWindow := NIL;
+END;
+*)
+PROCEDURE (VAR w: TWinControl) Show;
+BEGIN
+  Ignore.Int( W.ShowWindow(w.FHandle, W.SW_SHOW) );
+  Ignore.Int( W.UpdateWindow(w.FHandle) );
+END Show;
 
-procedure TWinControl.Show;
-begin
-  ShowWindow(FHandle, SW_SHOW);
-  UpdateWindow(FHandle);
-end;
+PROCEDURE (VAR w: TWinControl) Hide;
+BEGIN
+  Ignore.Int( W.ShowWindow(w.FHandle, W.SW_HIDE) );
+END Hide;
 
-procedure TWinControl.Hide;
-begin
-  ShowWindow(FHandle, SW_HIDE);
-end;
-
-function TWinControl.IsParentHandle(AHandle : HWnd) : BOOLEAN;
-
-  function FindHandle(Ctrl : TWinControl; Wnd : HWnd) : BOOLEAN;
-  var pp,pn : pointer;
-  begin
+PROCEDURE (VAR w: TWinControl) IsParentHandle (AHandle: W.HWND): BOOLEAN;
+(*
+  PROCEDURE FindHandle(Ctrl : TWinControl; Wnd : HWnd) : BOOLEAN;
+  VAR pp,pn : pointer;
+  BEGIN
    Result := false;
-   if Wnd = Ctrl.FHandle then // нашли самого
-   begin
+   IF Wnd = Ctrl.FHandle THEN // нашли самого
+   BEGIN
      Result := true; Exit;
-   end;
-   if (Ctrl.FWList = nil) or
-      (Ctrl.FWList^.WinControl = nil) then Exit; // нет детей
+   END;
+   IF (Ctrl.FWList = NIL) or
+      (Ctrl.FWList^.WinControl = NIL) THEN Exit; // нет детей
    pp := Ctrl.FWList;
    repeat
-     if PWinControlList(pp)^.Wincontrol.FHandle = Wnd then // нашли самого
-     begin
+     IF PWinControlList(pp)^.Wincontrol.FHandle = Wnd THEN // нашли самого
+     BEGIN
        Result := true; Exit;
-     end;
-     if PWinControlList(pp)^.Wincontrol.FWList <> nil then // есть дети
-     begin
-       if FindHandle(PWinControlList(pp)^.Wincontrol, Wnd) then
-       begin
+     END;
+     IF PWinControlList(pp)^.Wincontrol.FWList <> NIL THEN // есть дети
+     BEGIN
+       IF FindHandle(PWinControlList(pp)^.Wincontrol, Wnd) THEN
+       BEGIN
          Result := true; Exit;
-       end;
-     end;
+       END;
+     END;
      pn := PWinControlList(pp)^.Next;
-     if pn <> nil then pp := pn;
-   until (pn = nil);
-  end;
+     IF pn <> NIL THEN pp := pn;
+   until (pn = NIL);
+  END;
 
-begin
+BEGIN
    Result := false;
-   if (AHandle = INVALID_HANDLE_VALUE) or
-      (FParent = nil) or
-      (FParent.FWList = nil) or
-      (FParent.FWList^.WinControl = nil) then Exit;
+   IF (AHandle = INVALID_HANDLE_VALUE) or
+      (FParent = NIL) or
+      (FParent.FWList = NIL) or
+      (FParent.FWList^.WinControl = NIL) THEN Exit;
    Result := FindHandle(FParent, AHandle);
-end;
+*)END IsParentHandle;
 
-function TWinControl.ProcessMsg(var Msg: TMsg): Boolean;
-begin
-  Result := False;
-  if PeekMessage(Msg, 0, 0, 0, PM_REMOVE) then
-  begin
-    Result := True;
-    if Msg.Message <> WM_QUIT then
-    begin
-      TranslateMessage(Msg);
-      DispatchMessage(Msg);
-    end
-    else
-      Dispatch(Msg);
-  end;
-end;
+PROCEDURE (VAR w: TWinControl) ProcessMsg (VAR Msg: W.MSG): BOOLEAN;
+VAR
+  result: BOOLEAN;
+BEGIN
+  result := FALSE;
+  IF 0 # W.PeekMessage(Msg, NIL, 0, 0, W.PM_REMOVE) THEN
+    result := TRUE;
+    IF Msg.message # W.WM_QUIT THEN
+      Ignore.Int( W.TranslateMessage(Msg) );
+      Ignore.Int( W.DispatchMessage(Msg) );
+    ELSE
+      (*W.Dispatch(Msg);*)
+    END;
+  END;
+  RETURN result
+END ProcessMsg;
 
-procedure TWinControl.ProcessMessages;
-var
-  Msg: TMsg;
-begin
-  while ProcessMsg(Msg) do {loop};
-end;
+PROCEDURE (VAR w: TWinControl) ProcessMessages;
+VAR
+  Msg: W.MSG;
+BEGIN
+  WHILE w.ProcessMsg(Msg) DO END; (*loop*)
+END ProcessMessages;
 
-function TWinControl.ShowModal : TModalResult;
-var AMessage : TMsg;
-begin
-  FIsModal := true;
-  FModalResult := 0;
-  while FModalResult = 0 do
-  begin
-    GetMessage(AMessage, 0, 0, 0);
-    TranslateMessage(AMessage);
-    if (FParent = nil) or
-       (AMessage.message = WM_PAINT) or
-       (AMessage.message = WM_QUIT) or
-       not IsParentHandle(AMessage.hwnd) then DispatchMessage(AMessage);
-  end;
-  if (FModalResult = 0) then Result := TModalResult(AMessage.WParam)
-                        else Result := FModalResult;
-  FModalResult := 0;
-  FIsModal := false;
-end;
+PROCEDURE (VAR w: TWinControl) ShowModal* (): TModalResult;
+VAR
+  AMessage: W.MSG; result: TModalResult;
+BEGIN
+  w.IsModal := TRUE;
+  w.FModalResult := 0;
+  WHILE w.FModalResult = 0 DO
+    Ignore.Int( W.GetMessage(AMessage, NIL, 0, 0) );
+    Ignore.Int( W.TranslateMessage(AMessage) );
+    IF (w.Parent = NIL) OR
+       (AMessage.message = W.WM_PAINT) OR
+       (AMessage.message = W.WM_QUIT) OR
+       ~ w.IsParentHandle(AMessage.hwnd)
+    THEN
+      Ignore.Int( W.DispatchMessage(AMessage) );
+    END;
+  END;
+  IF (w.FModalResult = 0) THEN
+    result := SYSTEM.VAL(TModalResult, AMessage.wParam);
+  ELSE
+    result := w.FModalResult;
+  END;
+  w.FModalResult := 0;
+  w.IsModal := FALSE;
+END ShowModal;
 
-procedure TWinControl.EndModal(Value : TModalResult);
-begin
-  if FIsModal then FModalresult := Value;
-end;
+PROCEDURE (VAR w: TWinControl) EndModal (value: TModalResult);
+BEGIN
+  IF w.IsModal THEN w.FModalResult := value END;
+END EndModal;
 
-procedure TWinControl.Invalidate;
-begin
-  if Self.FParent = nil then
-     ShowWindow(FHandle, CmdShow);
-  InvalidateRect(FHandle,nil,true);
-  UpdateWindow(FHandle);
-end;
+PROCEDURE (VAR w: TWinControl) Invalidate;
+BEGIN
+  IF w.Parent = NIL THEN
+    Ignore.Int( W.ShowWindow(w.FHandle, CmdShow) );
+  END;
+  Ignore.Int( W.InvalidateRect(w.FHandle,NIL,1 (*TRUE*) ) );
+  Ignore.Int( W.UpdateWindow(w.FHandle) );
+END Invalidate;
 
-procedure TWinControl.SetFocus;
-begin
-  Windows.SetFocus(FHandle);
-end;
-
-procedure TWinControl.InsertControl(AControl : TControl);
-var pn : PControlList;
+PROCEDURE (VAR w: TWinControl) SetFocus;
+BEGIN
+  Ignore.Ptr( W.SetFocus(w.FHandle) );
+END SetFocus;
+(*
+PROCEDURE (VAR w: TWinControl) InsertControl(AControl : TControl);
+VAR pn : PControlList;
     cp,cs : PControlList;
-begin
+BEGIN
    pn := new(PControlList);
    pn^.Control := AControl;
-   pn^.Next := nil;
+   pn^.Next := NIL;
    FindLastControl(cp,cs);
-   if cs = nil then FCList := pn
-               else cs^.Next := pn;
+   IF cs = NIL THEN FCList := pn
+               ELSE cs^.Next := pn;
    Invalidate;
-end;
+END;
 
-procedure TWinControl.InsertWinControl(AControl : TWinControl);
-var pn : PWinControlList;
+PROCEDURE (VAR w: TWinControl) InsertWinControl(AControl : TWinControl);
+VAR pn : PWinControlList;
     wp,ws : PWinControlList;
-begin
+BEGIN
   pn := new(PWinControlList);
   pn^.WinControl := AControl;
-  pn^.Next := nil;
+  pn^.Next := NIL;
   wp := FWList;
   FindLastWindow(wp,ws);
-  if ws = nil then FWList := pn
-              else ws^.Next := pn;
-end;
+  IF ws = NIL THEN FWList := pn
+              ELSE ws^.Next := pn;
+END;
 
-procedure FindWindow(pl    : PWinControlList;
+PROCEDURE FindWindow(pl    : PWinControlList;
                      pp    : TWinControl;
                  Var pprev : TWinControl;
                  Var pnext : TWinControl);
-var p,temp : PWinControlList;
-begin
-   pprev := nil;
-   pnext := nil;
-   if pl <> nil then
-   begin
-     if (pp = nil) or
-        ((pp = pl^.WinControl)and (pl^.Next = nil)) then
-     begin
+VAR p,temp : PWinControlList;
+BEGIN
+   pprev := NIL;
+   pnext := NIL;
+   IF pl <> NIL THEN
+   BEGIN
+     IF (pp = NIL) or
+        ((pp = pl^.WinControl)and (pl^.Next = NIL)) THEN
+     BEGIN
        pprev := pp;
        pnext := pp;
        Exit;
-     end;
+     END;
      p := pl;
      repeat
-       if p^.WinControl = pp then // is found
-       begin
-         if p^.Next = nil then                    // the last
+       IF p^.WinControl = pp THEN // is found
+       BEGIN
+         IF p^.Next = NIL THEN                    // the last
            pnext := pl^.WinControl                // the first will be next
-                          else
+                          ELSE
            pnext := p^.Next^.WinControl;
           p := pl;
-          if p^.WinControl = pp then                 // the first
-          begin
+          IF p^.WinControl = pp THEN                 // the first
+          BEGIN
             temp := p;
             FindLastWindow(temp,pl);
             pprev := pl^.WinControl  // the last will be previous
-          end                   else
-          begin
-            while (p^.Next^.WinControl <> pp) do p := p^.Next;
+          end                   ELSE
+          BEGIN
+            WHILE (p^.Next^.WinControl <> pp) DO p := p^.Next;
             pprev := p^.WinControl;
-          end;
+          END;
           Exit;
-       end;
+       END;
        p := p^.Next;
      until false;
-   end;
-end;
+   END;
+END;
 
-procedure TWinControl.SelectPrev;
-var pp,pn : TWinControl;
-begin
-  if FActiveControl = nil then SelectFirst
-                          else
-  begin
+PROCEDURE (VAR w: TWinControl) SelectPrev;
+VAR pp,pn : TWinControl;
+BEGIN
+  IF FActiveControl = NIL THEN SelectFirst
+                          ELSE
+  BEGIN
     FindWindow(FWList,FActiveControl,pp,pn);
-    if pp <> nil then
-    begin
+    IF pp <> NIL THEN
+    BEGIN
       FActiveControl := pp;
-      if pp.FEnabled and  pp.FTabStop then pp.SetFocus
-                                      else
-        while not FActiveControl.FEnabled or
-            not FActiveControl.FTabStop do SelectPrev;
-    end;
-  end;
-end;
+      IF pp.FEnabled and  pp.FTabStop THEN pp.SetFocus
+                                      ELSE
+        WHILE not FActiveControl.FEnabled or
+            not FActiveControl.FTabStop DO SelectPrev;
+    END;
+  END;
+END;
 
-procedure TWinControl.SelectNext;
-var pp,pn : TWinControl;
-begin
-  if FActiveControl = nil then SelectFirst
-                          else
-  begin
+PROCEDURE (VAR w: TWinControl) SelectNext;
+VAR pp,pn : TWinControl;
+BEGIN
+  IF FActiveControl = NIL THEN SelectFirst
+                          ELSE
+  BEGIN
     FindWindow(FWList,FActiveControl,pp,pn);
-    if pn <> nil then
-    begin
+    IF pn <> NIL THEN
+    BEGIN
       FActiveControl := pn;
-      if pn.FEnabled and  pn.FTabStop then pn.SetFocus
-                     else
-      while not FActiveControl.FEnabled or
-            not FActiveControl.FTabStop do SelectNext;
-    end;
-  end;
-end;
+      IF pn.FEnabled and  pn.FTabStop THEN pn.SetFocus
+                     ELSE
+      WHILE not FActiveControl.FEnabled or
+            not FActiveControl.FTabStop DO SelectNext;
+    END;
+  END;
+END;
 
-procedure TWinControl.SelectFirst;
-var pp : PWinControlList;
-begin
-  if (FWList <> nil) then
-  begin
+PROCEDURE (VAR w: TWinControl) SelectFirst;
+VAR pp : PWinControlList;
+BEGIN
+  IF (FWList <> NIL) THEN
+  BEGIN
     pp := FWList;
     FActiveControl := pp^.WinControl;
-    if pp^.WinControl.FEnabled then
-    begin
+    IF pp^.WinControl.FEnabled THEN
+    BEGIN
       pp^.WinControl.SetFocus;
       FActiveControl := pp^.WinControl;
-    end                        else
-      while not FActiveControl.FEnabled do SelectNext;
-  end;
-end;
+    end                        ELSE
+      WHILE not FActiveControl.FEnabled DO SelectNext;
+  END;
+END;
 
-procedure TWinControl.SelectLast;
-var pp,temp : PWinControlList;
-begin
-  if (FWList <> nil) then
-  begin
+PROCEDURE (VAR w: TWinControl) SelectLast;
+VAR pp,temp : PWinControlList;
+BEGIN
+  IF (FWList <> NIL) THEN
+  BEGIN
     temp := FWList;
     FindLastWindow(temp,pp);
-    if pp = nil then Exit;
-    if pp^.WinControl <> nil then
-    begin
-      if pp^.WinControl.FEnabled then
-      begin
+    IF pp = NIL THEN Exit;
+    IF pp^.WinControl <> NIL THEN
+    BEGIN
+      IF pp^.WinControl.FEnabled THEN
+      BEGIN
         pp^.WinControl.SetFocus;
         FActiveControl := pp^.WinControl;
-      end                        else
-        while not FActiveControl.FEnabled do SelectPrev;
-    end;
-  end;
-end;
+      end                        ELSE
+        WHILE not FActiveControl.FEnabled DO SelectPrev;
+    END;
+  END;
+END;
 
-function TWinControl.IsFirstSelected : BOOLEAN;
-begin
-  Result := (FActiveControl <> nil) and
+PROCEDURE (VAR w: TWinControl) IsFirstSelected : BOOLEAN;
+BEGIN
+  Result := (FActiveControl <> NIL) and
             (FActiveControl = FWList^.WinControl);
-end;
+END;
 
-function TWinControl.IsLastSelected : BOOLEAN;
-var pp,ps : PWinControlList;
-begin
+PROCEDURE (VAR w: TWinControl) IsLastSelected : BOOLEAN;
+VAR pp,ps : PWinControlList;
+BEGIN
   Result := false;
-  if FActiveControl = nil then Exit;
+  IF FActiveControl = NIL THEN Exit;
   pp := FWList;
   FindLastWindow(pp,ps);
-  if ps = nil then Exit;
+  IF ps = NIL THEN Exit;
   Result := ps^.WinControl = FActiveControl;
-end;
+END;
 
-{TStdControl}
+(*TStdControl*)
 
-procedure TStdControl.CreateWnd;
-begin
-    if FCtl3D then
-    begin
-      FExStyle := FExStyle or ws_Ex_ClientEdge;
+PROCEDURE TStdControl.CreateWnd;
+BEGIN
+    IF FCtl3D THEN
+    BEGIN
+      FExStyle := FExStyle OR ws_Ex_ClientEdge;
       FStyle := FStyle and not ws_Border;
-    end;
-    if FBkMode in [bk_Transparent,bk_Slide] then
-      FExStyle := FExStyle or WS_EX_TRANSPARENT;
-    if FTextBuf[ord(FTextBuf[0])] <> #0 then FTextBuf := FTextBuf + #0;
+    END;
+    IF FBkMode in [bk_Transparent,bk_Slide] THEN
+      FExStyle := FExStyle OR WS_EX_TRANSPARENT;
+    IF FTextBuf[ord(FTextBuf[0])] <> #0 THEN FTextBuf := FTextBuf + #0;
     FHandle := CreateWindowEx(
       FExStyle,
       PChar(FClassName),
       @FTextBuf[1],
-      FStyle or ws_Child or ws_Visible,
+      FStyle OR ws_Child OR ws_Visible,
       FLeft, FTop, FWidth, FHeight,
       ParentHandle,
       0,
       HInstance,
-      nil);
-    if FHandle = 0 then
-    begin
-      MessageBox(0, 'StdCreate failed', nil, mb_Ok);
+      NIL);
+    IF FHandle = 0 THEN
+    BEGIN
+      MessageBox(0, 'StdCreate failed', NIL, mb_Ok);
       halt;
-    end;
+    END;
     SetProp(FHandle,ID_SELF,THandle(Self));
     FDefWndProc := GetWindowLong(FHandle,GWL_WNDPROC);
     SetWindowLong(FHandle,GWL_WNDPROC,Longint(GetWndProc));
     Windows.EnableWindow(FHandle, FEnabled);
-    if FFont <> nil then FFont.UpdateFont;
+    IF FFont <> NIL THEN FFont.UpdateFont;
 //    Windows.SetCursor(FCursorHandle);
-end;
+END;
 
-{TLabel}
+(*TLabel*)
 
 constructor TLabel.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 121;
   FHeight := 25;
   FBkMode := bk_Transparent;
-  FFormat := DT_VCENTER or DT_WORDBREAK;
+  FFormat := DT_VCENTER OR DT_WORDBREAK;
   FClassName := 'STATIC';
-  FStyle := ws_Child or ws_Visible;
+  FStyle := ws_Child OR ws_Visible;
   FOnHitTest := HitTest;
-end;
+END;
 
-procedure TLabel.WMPaint(var AMsg: TWMPaint);
-var
+PROCEDURE TLabel.WMPaint(VAR AMsg: TWMPaint);
+VAR
    DC : HDC;
    ps : TPaintStruct;
    PC : PChar;
    L  : Cardinal;
    R  : TRect;
    fo : HFont;
-begin
-  if FBkMode <> bk_Slide then Dispatch(AMsg)
-                         else
-  begin
+BEGIN
+  IF FBkMode <> bk_Slide THEN Dispatch(AMsg)
+                         ELSE
+  BEGIN
     L := SendMessage(FHandle,WM_GETTEXTLENGTH,0,0)+1;
     PC := PChar(GlobalAlloc(GMEM_FIXED, L));
     SendMessage(FHandle,WM_GETTEXT,L,Longint(PC));
@@ -2519,442 +2575,442 @@ begin
     fo :=SelectObject(DC,FFont.FHandle);
     Windows.SetBkColor(DC,FColor);
     Windows.SetTextColor(DC,FTextColor);
-    if (FStyle and SS_CENTER) = SS_CENTER then
-      FFormat := FFormat or DT_CENTER     else
-    if (FStyle and SS_RIGHT) = SS_RIGHT then
-      FFormat := FFormat or DT_RIGHT;
+    IF (FStyle and SS_CENTER) = SS_CENTER THEN
+      FFormat := FFormat OR DT_CENTER     ELSE
+    IF (FStyle and SS_RIGHT) = SS_RIGHT THEN
+      FFormat := FFormat OR DT_RIGHT;
     DrawTextEx(DC,      // handle to device context
                PC,      // pointer to string to draw
                L-1,     // length of string to draw
                R,       // pointer to rectangle coordinates
                FFormat, // formatting options
-               nil      // pointer to structure for more options
+               NIL      // pointer to structure for more options
                );
     SelectObject(DC,fo);
     EndPaint(FHandle,ps);
     GlobalFree(Cardinal(PC));
-  end;
-end;
+  END;
+END;
 
-procedure TLabel.WMEraseBkgnd(var AMsg : TWMEraseBkgnd);
-begin
-  if FBkMode <> bk_Slide then inherited;
-end;
+PROCEDURE TLabel.WMEraseBkgnd(VAR AMsg : TWMEraseBkgnd);
+BEGIN
+  IF FBkMode <> bk_Slide THEN inherited;
+END;
 
-procedure TLabel.HitTest(Sender: TObject; X, Y : Integer;
-                         var Result : Integer);
-begin
+PROCEDURE TLabel.HitTest(Sender: TObject; X, Y : Integer;
+                         VAR Result : Integer);
+BEGIN
   Result := HTTRANSPARENT;
-end;
+END;
 
-{TEdit}
+(*TEdit*)
 
 constructor TEdit.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 121;
   FHeight := 24;
   FClassName := 'EDIT';
-  FStyle := ws_Child or ws_Border;
+  FStyle := ws_Child OR ws_Border;
   FTabStop := true;
-end;
+END;
 
-function TEdit.DoKeyPress(var AMsg: TWMKey): Boolean;
-begin
-  Result := inherited DoKeyPress(AMsg) or (Char(AMsg.CharCode) = #9);
-end;
+PROCEDURE TEdit.DoKeyPress(VAR AMsg: TWMKey): Boolean;
+BEGIN
+  Result := inherited DoKeyPress(AMsg) OR (Char(AMsg.CharCode) = #9);
+END;
 
-function TEdit.GetMaxLength : Integer;
-begin
+PROCEDURE TEdit.GetMaxLength : Integer;
+BEGIN
   Result := SendMessage(FHandle,EM_GETLIMITTEXT,0,0);
-end;
+END;
 
-procedure TEdit.SetMaxLength(Value : Integer);
-begin
+PROCEDURE TEdit.SetMaxLength(Value : Integer);
+BEGIN
   SendMessage(FHandle,EM_SETLIMITTEXT,Value,0);
-end;
+END;
 
-function TEdit.GetMargin : word;
-begin
+PROCEDURE TEdit.GetMargin : word;
+BEGIN
   Result := Lo(SendMessage(FHandle,EM_GETMARGINS,0,0));
-end;
+END;
 
-procedure TEdit.SetMargin(Value: word);
-begin
+PROCEDURE TEdit.SetMargin(Value: word);
+BEGIN
   SendMessage(FHandle,
               EM_SETMARGINS,
-              EC_LEFTMARGIN or EC_RIGHTMARGIN,
+              EC_LEFTMARGIN OR EC_RIGHTMARGIN,
               MakeLong(Value,Value));
-end;
+END;
 
-{<fduch> }
-{ THotKey }
+(*<fduch> *)
+(* THotKey *)
 constructor THotKey.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 100;
   FHeight := 24;
   FClassName := HOTKEYCLASS;
-  FStyle := ws_Child or ws_Border;
+  FStyle := ws_Child OR ws_Border;
   FTabStop := true;
-end;
+END;
 
-function THotKey.GetHotKey: Byte;
-var
+PROCEDURE THotKey.GetHotKey: Byte;
+VAR
   AHotKey:Word;
-begin
+BEGIN
   AHotKey:=SendMessage(FHandle, HKM_GETHOTKEY, 0, 0);
   FHotKey:=Lo(AHotKey);
   FMod:=Hi(AhotKey);
   Result:=FHotKey;
-end;
+END;
 
-function THotKey.GetModifiers: THKModifiers;
-begin
+PROCEDURE THotKey.GetModifiers: THKModifiers;
+BEGIN
   FModifiers:=[];
-  if (FMod and HOTKEYF_ALT)<>0 then Include(FModifiers, hkAlt);
-  if (FMod and HOTKEYF_CONTROL)<>0 then Include(FModifiers, hkCtrl);
-  if (FMod and HOTKEYF_SHIFT)<>0 then Include(FModifiers, hkShift);
-  if (FMod and HOTKEYF_EXT)<>0 then Include(FModifiers, hkExt);
+  IF (FMod and HOTKEYF_ALT)<>0 THEN Include(FModifiers, hkAlt);
+  IF (FMod and HOTKEYF_CONTROL)<>0 THEN Include(FModifiers, hkCtrl);
+  IF (FMod and HOTKEYF_SHIFT)<>0 THEN Include(FModifiers, hkShift);
+  IF (FMod and HOTKEYF_EXT)<>0 THEN Include(FModifiers, hkExt);
   Result:=FModifiers;
-end;
+END;
 
-function THotKey.GetSHotKey: string;
-begin
-  if (hkCtrl in FModifiers) then Result:=Result+'Ctrl+';
-  if (hkAlt in FModifiers) then Result:=Result+'Alt+';
-  if (hkShift in FModifiers) then Result:=Result+'Shift+';
+PROCEDURE THotKey.GetSHotKey: string;
+BEGIN
+  IF (hkCtrl in FModifiers) THEN Result:=Result+'Ctrl+';
+  IF (hkAlt in FModifiers) THEN Result:=Result+'Alt+';
+  IF (hkShift in FModifiers) THEN Result:=Result+'Shift+';
   Result:=Result+char(FHotKey);
-end;
+END;
 
-procedure THotKey.SetSHotKey(const Value: string);
-var
+PROCEDURE THotKey.SetSHotKey(const Value: string);
+VAR
   s, CurToken: string;
-begin
+BEGIN
   s:=Value;
-  while Pos('+', S)>0 do
-  begin
+  WHILE Pos('+', S)>0 DO
+  BEGIN
     CurToken:=UpperCase(Copy(S, 1, Pos('+', S)-1));
     Delete(S, 1, Pos('+', S));
-    if CurToken='ALT' then Include(FModifiers, hkAlt);
-    if CurToken='CTRL' then Include(FModifiers, hkCtrl);
-    if CurToken='SHIFT' then Include(FModifiers, hkShift);
-  end;
+    IF CurToken='ALT' THEN Include(FModifiers, hkAlt);
+    IF CurToken='CTRL' THEN Include(FModifiers, hkCtrl);
+    IF CurToken='SHIFT' THEN Include(FModifiers, hkShift);
+  END;
   HotKey:=ord(S[1]);
-end;
+END;
 
-procedure THotKey.SetHotKey(const Value: Byte);
-begin
+PROCEDURE THotKey.SetHotKey(const Value: Byte);
+BEGIN
   SendMessage(FHandle, HKM_SETHOTKEY, MakeWord(Value, Fmod),0);
   FHotKey:=Value;
-end;
+END;
 
-procedure THotKey.SetInvalidKeys(const Value: THKInvalidKeys);
-begin
+PROCEDURE THotKey.SetInvalidKeys(const Value: THKInvalidKeys);
+BEGIN
   FInvalidKeys := Value;
   SendMessage(FHandle, HKM_SETRULES, Byte(Value), MakeLong(Byte(FModifiers), 0));
   SendMessage(FHandle, HKM_SETHOTKEY, MakeWord(FHotkey, Fmod),0);
-end;
+END;
 
-procedure THotKey.SetModifiers(const Value: THKModifiers);
-begin
+PROCEDURE THotKey.SetModifiers(const Value: THKModifiers);
+BEGIN
   FMod:=0;
-  if hkAlt in Value then FMod:=FMod or HOTKEYF_ALT;
-  if hkCtrl in Value then FMod:=FMod or HOTKEYF_CONTROL;
-  if hkShift in Value then FMod:=FMod or HOTKEYF_SHIFT;
-  if hkExt in Value then FMod:=FMod or HOTKEYF_Ext;
-end;
+  IF hkAlt in Value THEN FMod:=FMod OR HOTKEYF_ALT;
+  IF hkCtrl in Value THEN FMod:=FMod OR HOTKEYF_CONTROL;
+  IF hkShift in Value THEN FMod:=FMod OR HOTKEYF_SHIFT;
+  IF hkExt in Value THEN FMod:=FMod OR HOTKEYF_Ext;
+END;
 
-function THotKey.GetModif: byte;
-var
+PROCEDURE THotKey.GetModif: byte;
+VAR
   AHotKey:Word;
-begin
+BEGIN
   AHotKey:=SendMessage(FHandle, HKM_GETHOTKEY, 0, 0);
   FHotKey:=Lo(AHotKey);
   FMod:=Hi(AHotKey);
   Result:=FMod;
-end;
+END;
 
-procedure THotKey.SetModif(const Value: byte);
-begin
+PROCEDURE THotKey.SetModif(const Value: byte);
+BEGIN
   SendMessage(FHandle, HKM_SETHOTKEY, MakeWord(FHotKey, Value),0);
   FMod:=Value;
-end;
-{</fduch>}
+END;
+(*</fduch>*)
 
-{TListBox}
+(*TListBox*)
 
 constructor TListBox.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 120;
   FHeight := 99;
   FClassName := 'LISTBOX';
-  FStyle := ws_child or ws_Border or lbs_Notify {or lbs_Sort} or
-            lbs_NoIntegralHeight or ws_Visible;
+  FStyle := ws_child OR ws_Border OR lbs_Notify (*or lbs_Sort*) or
+            lbs_NoIntegralHeight OR ws_Visible;
   FTabStop := true;
-end;
+END;
 
-procedure TListBox.SetSorted(Value: BOOLEAN);
-begin
-  if Value then FStyle := FStyle or lbs_Sort
-           else FStyle := FStyle and not lbs_Sort;
-end;
+PROCEDURE TListBox.SetSorted(Value: BOOLEAN);
+BEGIN
+  IF Value THEN FStyle := FStyle OR lbs_Sort
+           ELSE FStyle := FStyle and not lbs_Sort;
+END;
 
-function TListBox.GetCount: Integer;
-begin
+PROCEDURE TListBox.GetCount: Integer;
+BEGIN
   Result := SendMessage(FHandle, LB_GETCOUNT, 0, 0);
-end;
+END;
 
-function TListBox.GetFocused: Integer;
-begin
+PROCEDURE TListBox.GetFocused: Integer;
+BEGIN
   Result := SendMessage(FHandle, LB_GETCARETINDEX, 0, 0);
-end;
+END;
 
-procedure TListBox.SetFocused(Value: Integer);
-begin
+PROCEDURE TListBox.SetFocused(Value: Integer);
+BEGIN
   SendMessage(FHandle, LB_SETCARETINDEX, Value, MAKELPARAM(word(false),0));
   SendMessage(FHandle, LB_SETCURSEL, Value, 0);
-end;
+END;
 
-procedure TListBox.SelectItem(Value: Integer);
-begin
+PROCEDURE TListBox.SelectItem(Value: Integer);
+BEGIN
   SendMessage(FHandle, LB_SETCURSEL, Value, 0);
-end;
+END;
 
-function TListBox.Get(Index: Integer): shortstring;
-var
+PROCEDURE TListBox.Get(Index: Integer): shortstring;
+VAR
   Text: shortstring;
-begin
+BEGIN
   Text[0] := chr(SendMessage(FHandle, LB_GETTEXT, Index, Longint(@Text[1])));
   Result := Text;
-end;
+END;
 
-function TListBox.GetObject(Index: Integer): TObject;
-begin
-  Result := nil;
-  if (Index < 0) or (Index >= Count) then Exit;
+PROCEDURE TListBox.GetObject(Index: Integer): TObject;
+BEGIN
+  Result := NIL;
+  IF (Index < 0) OR (Index >= Count) THEN Exit;
   Result := TObject(SendMessage(FHandle, LB_GETITEMDATA, Index, 0));
-  if Longint(Result) = LB_ERR then FError := -1;
-end;
+  IF Longint(Result) = LB_ERR THEN FError := -1;
+END;
 
-procedure TListBox.Put(Index: Integer; const S: shortstring);
-begin
-  if (Index < 0) or (Index > Count) then Exit;
-  if Index = Count then
-  begin
+PROCEDURE TListBox.Put(Index: Integer; const S: shortstring);
+BEGIN
+  IF (Index < 0) OR (Index > Count) THEN Exit;
+  IF Index = Count THEN
+  BEGIN
     Add(S); Exit;
-  end;
+  END;
   Delete(Index);
   Insert(Index,S);
-end;
+END;
 
-procedure TListBox.PutObject(Index: Integer; AObject: TObject);
-begin
-  if (Index < 0) or (Index >= Count) then Exit;
+PROCEDURE TListBox.PutObject(Index: Integer; AObject: TObject);
+BEGIN
+  IF (Index < 0) OR (Index >= Count) THEN Exit;
   SendMessage(FHandle, LB_SETITEMDATA, Index, Longint(AObject));
-end;
+END;
 
-function TListBox.Add(const S: shortstring): Integer;
-var ss : array [1..256] of char;
-begin
+PROCEDURE TListBox.Add(const S: shortstring): Integer;
+VAR ss : array [1..256] of char;
+BEGIN
   Move(s[1],ss[1],Ord(s[0]));
   ss[Ord(s[0])+1] := #0;
   Result := SendMessage(FHandle, LB_ADDSTRING, 0, Longint(@ss));
-  if Result < 0 then FError := -1;
-  if Count = 1 then Focused := 0;
-end;
+  IF Result < 0 THEN FError := -1;
+  IF Count = 1 THEN Focused := 0;
+END;
 
-procedure TListBox.Insert(Index: Integer; const S: shortstring);
-var ss : array [1..256] of char;
-begin
-  if (Index < 0) or (Index > Count) then Exit;
+PROCEDURE TListBox.Insert(Index: Integer; const S: shortstring);
+VAR ss : array [1..256] of char;
+BEGIN
+  IF (Index < 0) OR (Index > Count) THEN Exit;
   Move(s[1],ss[1],Ord(s[0]));
   ss[Ord(s[0])+1] := #0;
-  if SendMessage(FHandle, LB_INSERTSTRING, Index,
-    Longint(@Ss)) < 0 then FError := -1;
-  if Count = 1 then Focused := 0;
-end;
+  IF SendMessage(FHandle, LB_INSERTSTRING, Index,
+    Longint(@Ss)) < 0 THEN FError := -1;
+  IF Count = 1 THEN Focused := 0;
+END;
 
-procedure TListBox.Delete(Index: Integer);
-var cf, cc : Integer;
-begin
-  if (Index < 0) or (Index >= Count) then Exit;
+PROCEDURE TListBox.Delete(Index: Integer);
+VAR cf, cc : Integer;
+BEGIN
+  IF (Index < 0) OR (Index >= Count) THEN Exit;
   cf := Focused;
   cc := Count;
   SendMessage(FHandle, LB_DELETESTRING, Index, 0);
-  if Count = 0 then SelectItem(-1);
-  if cf >= cc - 1 then Focused := cc - 2;
-end;
+  IF Count = 0 THEN SelectItem(-1);
+  IF cf >= cc - 1 THEN Focused := cc - 2;
+END;
 
-procedure TListBox.Clear;
-begin
-  if Count <= 0 then Exit;
+PROCEDURE TListBox.Clear;
+BEGIN
+  IF Count <= 0 THEN Exit;
   SendMessage(FHandle, LB_RESETCONTENT, 0, 0);
   SelectItem(-1);
-end;
+END;
 
-{TComboBox}
+(*TComboBox*)
 
 constructor TComboBox.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 120;
   FHeight := 24;
   FClassName := 'COMBOBOX';
-  FStyle := ws_child or ws_Border or cbs_AutoHScroll or
-            cbs_NoIntegralHeight or ws_Visible
-            {<fduch> }
-            or ws_VScroll;
-            {</fduch>}
+  FStyle := ws_child OR ws_Border OR cbs_AutoHScroll or
+            cbs_NoIntegralHeight OR ws_Visible
+            (*<fduch> *)
+            OR ws_VScroll;
+            (*</fduch>*)
   FTabStop := true;
-end;
+END;
 
-function TComboBox.DoKeyDown(var AMsg: TWMKey): Boolean;
-begin
+PROCEDURE TComboBox.DoKeyDown(VAR AMsg: TWMKey): Boolean;
+BEGIN
   Result := false;
-  if (AMsg.CharCode = VK_DOWN) and
-     (SendMessage(FHandle,CB_GETDROPPEDSTATE,0,0) = 0) then
-  begin
+  IF (AMsg.CharCode = VK_DOWN) and
+     (SendMessage(FHandle,CB_GETDROPPEDSTATE,0,0) = 0) THEN
+  BEGIN
     SendMessage(FHandle,CB_SHOWDROPDOWN,WParam(true),0);
     Result := true;
-  end;
+  END;
   inherited DoKeyDown(AMsg);
-end;
+END;
 
-{<fduch> }
-{$IFDEF CaptureMouse}
-procedure TComboBox.DoMouseDown(var AMsg: TWMMouse; Button: TMouseButton;
+(*<fduch> *)
+(*$IFDEF CaptureMouse*)
+PROCEDURE TComboBox.DoMouseDown(VAR AMsg: TWMMouse; Button: TMouseButton;
                       Shift: TShiftState);
-begin
-  if (Button=mbLeft) and
-     (SendMessage(FHandle,CB_GETDROPPEDSTATE,0,0) = 0) then
-  begin
+BEGIN
+  IF (Button=mbLeft) and
+     (SendMessage(FHandle,CB_GETDROPPEDSTATE,0,0) = 0) THEN
+  BEGIN
     SendMessage(FHandle,CB_SHOWDROPDOWN,WParam(true),0);
     SendMessage(FHandle,CB_SETEXTENDEDUI,WParam(false),0);
-  end;
+  END;
 //  inherited DoMouseDown(AMsg, Button, Shift);
-end;
-{$ENDIF}
-{</fduch>}
+END;
+(*$ENDIF*)
+(*</fduch>*)
 
-procedure TComboBox.SetSorted(Value: BOOLEAN);
-begin
-  if Value then FStyle := FStyle or lbs_Sort
-           else FStyle := FStyle and not cbs_Sort;
-end;
+PROCEDURE TComboBox.SetSorted(Value: BOOLEAN);
+BEGIN
+  IF Value THEN FStyle := FStyle OR lbs_Sort
+           ELSE FStyle := FStyle and not cbs_Sort;
+END;
 
-function TComboBox.GetCount: Integer;
-begin
+PROCEDURE TComboBox.GetCount: Integer;
+BEGIN
   Result := SendMessage(FHandle, CB_GETCOUNT, 0, 0);
-end;
+END;
 
-function TComboBox.GetFocused: Integer;
-begin
+PROCEDURE TComboBox.GetFocused: Integer;
+BEGIN
   Result := SendMessage(FHandle, CB_GETCURSEL, 0, 0);
-end;
+END;
 
-procedure TComboBox.SetFocused(Value: Integer);
-begin
+PROCEDURE TComboBox.SetFocused(Value: Integer);
+BEGIN
   SendMessage(FHandle, CB_SETCURSEL, Value, 0);
-end;
+END;
 
-function TComboBox.Get(Index: Integer): shortstring;
-var
+PROCEDURE TComboBox.Get(Index: Integer): shortstring;
+VAR
   Text: shortstring;
-begin
+BEGIN
   Text[0] := chr(SendMessage(FHandle, CB_GETLBTEXT, Index, Longint(@Text[1])));
   Result := Text;
-end;
+END;
 
-procedure TComboBox.Put(Index: Integer; const S: shortstring);
-begin
-  if (Index < 0) or (Index > Count) then Exit;
-  if Index = Count then
-  begin
+PROCEDURE TComboBox.Put(Index: Integer; const S: shortstring);
+BEGIN
+  IF (Index < 0) OR (Index > Count) THEN Exit;
+  IF Index = Count THEN
+  BEGIN
     Add(S); Exit;
-  end;
+  END;
   Delete(Index);
   Insert(Index,S);
-end;
+END;
 
-function TComboBox.Add(const S: shortstring): Integer;
-var ss : array [1..256] of char;
-begin
+PROCEDURE TComboBox.Add(const S: shortstring): Integer;
+VAR ss : array [1..256] of char;
+BEGIN
   Move(s[1],ss[1],Ord(s[0]));
   ss[Ord(s[0])+1] := #0;
   Result := SendMessage(FHandle, CB_ADDSTRING, 0, Longint(@ss));
-  if Result < 0 then FError := -1;
-  if Count = 1 then SetFocused(0);
-end;
+  IF Result < 0 THEN FError := -1;
+  IF Count = 1 THEN SetFocused(0);
+END;
 
-procedure TComboBox.Insert(Index: Integer; const S: shortstring);
-var ss : array [1..256] of char;
-begin
-  if (Index < 0) or (Index > Count) then Exit;
+PROCEDURE TComboBox.Insert(Index: Integer; const S: shortstring);
+VAR ss : array [1..256] of char;
+BEGIN
+  IF (Index < 0) OR (Index > Count) THEN Exit;
   Move(s[1],ss[1],Ord(s[0]));
   ss[Ord(s[0])+1] := #0;
-  if SendMessage(FHandle, CB_INSERTSTRING, Index,
-    Longint(@Ss)) < 0 then FError := -1;
-  if Count = 1 then SetFocused(0);
-end;
+  IF SendMessage(FHandle, CB_INSERTSTRING, Index,
+    Longint(@Ss)) < 0 THEN FError := -1;
+  IF Count = 1 THEN SetFocused(0);
+END;
 
-procedure TComboBox.Delete(Index: Integer);
-var cf, cc : Integer;
-begin
-  if (Index < 0) or (Index >= Count) then Exit;
+PROCEDURE TComboBox.Delete(Index: Integer);
+VAR cf, cc : Integer;
+BEGIN
+  IF (Index < 0) OR (Index >= Count) THEN Exit;
   cf := GetFocused;
   cc := Count;
   SendMessage(FHandle, CB_DELETESTRING, Index, 0);
-  if Count = 0 then SetFocused(-1);
-  if cf >= cc - 1 then SetFocused(cc - 2);
-end;
+  IF Count = 0 THEN SetFocused(-1);
+  IF cf >= cc - 1 THEN SetFocused(cc - 2);
+END;
 
-procedure TComboBox.Clear;
-begin
-  if Count <= 0 then Exit;
+PROCEDURE TComboBox.Clear;
+BEGIN
+  IF Count <= 0 THEN Exit;
   SendMessage(FHandle, CB_RESETCONTENT, 0, 0);
   SetFocused(-1);
-end;
+END;
 
-{TButton}
+(*TButton*)
 
 constructor TButton.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 75;
   FHeight := 25;
   FClassName := 'BUTTON';
   FEnabled := true;
-  FStyle := ws_Child or bs_PushButton or ws_Ex_ControlParent;
+  FStyle := ws_Child OR bs_PushButton OR ws_Ex_ControlParent;
   FTabStop := true;
-end;
+END;
 
-function TButton.GetModalResult : TModalResult;
-begin
+PROCEDURE TButton.GetModalResult : TModalResult;
+BEGIN
   Result := FModalResult;
-end;
+END;
 
-procedure TButton.SetModalResult(Value: TModalResult);
-begin
+PROCEDURE TButton.SetModalResult(Value: TModalResult);
+BEGIN
   FModalResult := Value;
-end;
+END;
 
-procedure TButton.Click;
-begin
-  if (FModalResult <> 0) and
-     (Parent <> nil) and
+PROCEDURE TButton.Click;
+BEGIN
+  IF (FModalResult <> 0) and
+     (Parent <> NIL) and
       Parent.FIsModal and
-     (Parent.FModalResult = 0) then
+     (Parent.FModalResult = 0) THEN
        Parent.FModalResult := Self.FModalResult
-                               else
+                               ELSE
        inherited;
-end;
+END;
 
-{TCheckBox}
+(*TCheckBox*)
 
 constructor TCheckBox.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 75;
   FHeight := 25;
@@ -2962,47 +3018,47 @@ begin
   FClassName := 'BUTTON';
   FChecked := false;
   FEnabled := true;
-  FStyle := ws_child or bs_Checkbox or ws_Ex_ControlParent or bs_Notify;
+  FStyle := ws_child OR bs_Checkbox OR ws_Ex_ControlParent OR bs_Notify;
   FTabStop := true;
-end;
+END;
 
-procedure TCheckBox.SetChecked(Value: BOOLEAN);
-var code : LongInt;
-begin
+PROCEDURE TCheckBox.SetChecked(Value: BOOLEAN);
+VAR code : LongInt;
+BEGIN
   FChecked := Value;
-  if FHandle <> INVALID_HANDLE_VALUE then
-  begin
+  IF FHandle <> INVALID_HANDLE_VALUE THEN
+  BEGIN
    code := BST_UNCHECKED;
-   if FChecked then code := BST_CHECKED;
+   IF FChecked THEN code := BST_CHECKED;
    PostMessage(FHandle,BM_SETCHECK,code,0);
    Invalidate;
-  end;
-end;
+  END;
+END;
 
-procedure TCheckBox.Click;
-begin
+PROCEDURE TCheckBox.Click;
+BEGIN
   Checked := not Checked;
   inherited;
-end;
+END;
 
-{TGroupBox}
+(*TGroupBox*)
 
 constructor TGroupBox.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   FWidth := 121;
   FHeight := 121;
   FClassName := 'BUTTON';
   FBkMode := bk_Transparent;
   FEnabled := true;
-  FStyle := ws_child or bs_Groupbox or ws_Ex_ControlParent;
+  FStyle := ws_child OR bs_Groupbox OR ws_Ex_ControlParent;
   FTabStop := true;
-end;
+END;
 
-{TProgressBar}
+(*TProgressBar*)
 
 constructor TProgressBar.Create(AParent: TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   InitCommonControls;
   FWidth := 121;
@@ -3010,96 +3066,96 @@ begin
   FClassName := PROGRESS_CLASS;
   //FBkMode := bk_Transparent;
   FEnabled := true;
-  FStyle := ws_child or ws_Visible;
+  FStyle := ws_child OR ws_Visible;
   FTabStop := false;
   FRange := 100;
   FPosition := 0;
-end;
+END;
 
-function TProgressBar.GetRange : word;
-begin
+PROCEDURE TProgressBar.GetRange : word;
+BEGIN
   Result := FRange;
-end;
+END;
 
-procedure TProgressBar.SetRange(Value : word);
-begin
+PROCEDURE TProgressBar.SetRange(Value : word);
+BEGIN
   SendMessage(FHandle, PBM_SETRANGE, 0, MAKELPARAM(0,Value));
   FRange := Value;
-end;
+END;
 
-function TProgressBar.GetPosition : word;
-begin
+PROCEDURE TProgressBar.GetPosition : word;
+BEGIN
   Result := FPosition;
-end;
+END;
 
-procedure TProgressBar.SetPosition(Value : word);
-begin
+PROCEDURE TProgressBar.SetPosition(Value : word);
+BEGIN
   SendMessage(FHandle, PBM_SETPOS, Value, 0);
   FPosition := Value;
-end;
+END;
 
-function TProgressBar.GetStep : word;
-begin
+PROCEDURE TProgressBar.GetStep : word;
+BEGIN
   Result := FStep;
-end;
+END;
 
-procedure TProgressBar.SetStep(Value : word);
-begin
+PROCEDURE TProgressBar.SetStep(Value : word);
+BEGIN
   SendMessage(FHandle, PBM_SETSTEP, Value, 0);
   FStep := Value;
-end;
+END;
 
 constructor TSplash.Create(AParent : TWinControl);
-begin
+BEGIN
   inherited Create(AParent);
   OnHitTest := HitTest;
   FHCenter := true;
   FVCenter := true;
-end;
+END;
 
-procedure TSplash.SetHCenter(Value : BOOLEAN);
-begin
+PROCEDURE TSplash.SetHCenter(Value : BOOLEAN);
+BEGIN
   FHCenter := Value;
-  if Value then Left := (GetSystemMetrics(SM_CXSCREEN)-Width) div 2;
-end;
+  IF Value THEN Left := (GetSystemMetrics(SM_CXSCREEN)-Width) div 2;
+END;
 
-procedure TSplash.SetVCenter(Value : BOOLEAN);
-begin
+PROCEDURE TSplash.SetVCenter(Value : BOOLEAN);
+BEGIN
   FVCenter := Value;
-  if Value then Top := (GetSystemMetrics(SM_CYSCREEN)-Height) div 2;
-end;
+  IF Value THEN Top := (GetSystemMetrics(SM_CYSCREEN)-Height) div 2;
+END;
 
-procedure TSplash.HitTest(Sender : TObject; X,Y : Integer;
-                          var Result : Integer);
-begin
+PROCEDURE TSplash.HitTest(Sender : TObject; X,Y : Integer;
+                          VAR Result : Integer);
+BEGIN
   Result := HTNOWHERE;
-end;
+END;
 
-procedure TSplash.CreateWnd;
-var st  : LongInt;
+PROCEDURE TSplash.CreateWnd;
+VAR st  : LongInt;
     i,j : Integer;
     ss  : shortstring;
-begin
+BEGIN
   j := 1;
   for i := 1 to Length(Caption) do
-    if Caption[j] = #10 then Inc(j);
+    IF Caption[j] = #10 THEN Inc(j);
   Style := ws_Border;
   ExStyle := WS_EX_DLGMODALFRAME;
   AutoStop := false;
-  if FHCenter and FVCenter then
-  begin
+  IF FHCenter and FVCenter THEN
+  BEGIN
     ss := #13#10#13#10;
     Height := 18 * (j + 4);
     Height := Height - GetSystemMetrics(SM_CYCAPTION);
-  end;
-  if FHCenter then SetHCenter(true);
-  if FVCenter then SetVCenter(true);
+  END;
+  IF FHCenter THEN SetHCenter(true);
+  IF FVCenter THEN SetVCenter(true);
   inherited CreateWnd;
   st := GetWindowLong(FHandle,GWL_STYLE);
   st := st and not WS_CAPTION;
   SetWindowLong(FHandle,GWL_STYLE,st);
     SetWindowPos(FHandle,0,0,0,0,0,
-                 SWP_NOMOVE or SWP_NOSIZE or SWP_NOZORDER or SWP_DRAWFRAME);
+                 SWP_NOMOVE OR SWP_NOSIZE OR SWP_NOZORDER OR SWP_DRAWFRAME);
   ss := ss + Caption;
   L := NewLabel(Self,
                 ss,
@@ -3109,27 +3165,27 @@ begin
                 0,
                 TextColor);
   Caption := '';
-  if Visible then Show;
-end;
+  IF Visible THEN Show;
+END;
 
-procedure TSplash.UpdateText(Value : string);
-var p : PChar;
-begin
+PROCEDURE TSplash.UpdateText(Value : string);
+VAR p : PChar;
+BEGIN
   p := PChar(GlobalAlloc(GMEM_FIXED,Length(Value)+1));
   StrPCopy(p,Value);
   SendMessage(L.Handle,wm_settext,0,LongInt(p));
   GlobalFree(Cardinal(p));
-end;
+END;
 
-{ TKeyboard }
+(* TKeyboard *)
 
-var KbdHook : HHook;
+VAR KbdHook : HHook;
     Kbd     : TKeyboard;
 
 constructor TKeyboard.Create(AParent : TWinControl);
-var kl : HKL;
-begin
-  if Kbd <> nil then Exit;
+VAR kl : HKL;
+BEGIN
+  IF Kbd <> NIL THEN Exit;
   inherited Create(AParent);
   Visible := false;
   Charset0 := 0;
@@ -3148,189 +3204,189 @@ begin
   ActivateKeyboardLayout(HKL_PREV,0);
   ProcessMessages;
   Visible := true;
-end;
+END;
 
 destructor TKeyboard.Destroy;
-begin
+BEGIN
   RemoveHook;
-  Kbd := nil;
+  Kbd := NIL;
   inherited Destroy;
-end;
+END;
 
-procedure TKeyboard.InitParams;
-var st : LongInt;
-begin
-end;
+PROCEDURE TKeyboard.InitParams;
+VAR st : LongInt;
+BEGIN
+END;
 
-procedure TKeyboard.SetPos(Value : TKeyboardPosition);
-begin
+PROCEDURE TKeyboard.SetPos(Value : TKeyboardPosition);
+BEGIN
   FPos := Value;
   case Value of
-    kpLeftTop    : begin Left := 2; Top := 2; end;
-    kpRightTop   : begin Left := FParent.ClientWidth - 24; Top := 2; end;
-    kpLeftBottom : begin Left := 2; Top := FParent.ClientHeight - 24; end;
-    kpRightBottom : begin
+    kpLeftTop    : BEGIN Left := 2; Top := 2; END;
+    kpRightTop   : BEGIN Left := FParent.ClientWidth - 24; Top := 2; END;
+    kpLeftBottom : BEGIN Left := 2; Top := FParent.ClientHeight - 24; END;
+    kpRightBottom : BEGIN
                       Left := FParent.ClientWidth - 24;
                       Top := FParent.ClientHeight - 24;
-                    end;
-  end;
-end;
+                    END;
+  END;
+END;
 
-procedure TKeyboard.SetCharSet0(Value : Integer);
-begin
+PROCEDURE TKeyboard.SetCharSet0(Value : Integer);
+BEGIN
   FCharSet0 := Value;
   FLay0 := LoadIcon(HInstance,MakeIntResource(1000+Value));
-end;
+END;
 
-procedure TKeyboard.SetCharSet1(Value : Integer);
-begin
+PROCEDURE TKeyboard.SetCharSet1(Value : Integer);
+BEGIN
   FCharSet1 := Value;
   FLay1 := LoadIcon(HInstance,MakeIntResource(1000+Value));
-end;
+END;
 
-function HookPrc(nCode : INTEGER;
+PROCEDURE HookPrc(nCode : INTEGER;
                  wParam : WParam;
                  lParam : LParam) : INTEGER; stdcall;
-var
+VAR
   pcwr : PCWPRetStruct;
-begin
+BEGIN
   pcwr := POINTER(lParam);
-  if pcwr^.message = WM_INPUTLANGCHANGE then
-  begin
-    if Kbd <> nil then Kbd.LayoutChanged(pcwr^.wParam,pcwr^.lParam);
-  end;
-  if nCode = HC_ACTION then
+  IF pcwr^.message = WM_INPUTLANGCHANGE THEN
+  BEGIN
+    IF Kbd <> NIL THEN Kbd.LayoutChanged(pcwr^.wParam,pcwr^.lParam);
+  END;
+  IF nCode = HC_ACTION THEN
     Result := 0
-                       else
+                       ELSE
     Result := CallNextHookEx(KbdHook, nCode, wParam, lParam);
-end;
+END;
 
-procedure TKeyboard.InstallHook;
-begin
+PROCEDURE TKeyboard.InstallHook;
+BEGIN
   KbdHook := SetWindowsHookEx(WH_CALLWNDPROCRET,
                               HookPrc,
                               hInstance,
                               GetCurrentThreadID);
-end;
+END;
 
-procedure TKeyboard.RemoveHook;
-begin
-  if KbdHook <> 0 then UnhookWindowsHookEx(KbdHook);
+PROCEDURE TKeyboard.RemoveHook;
+BEGIN
+  IF KbdHook <> 0 THEN UnhookWindowsHookEx(KbdHook);
   KbdHook := 0;
   ProcessMessages;
-end;
+END;
 
-procedure TKeyboard.WMPaint(var AMsg: TWMPaint);
-var
+PROCEDURE TKeyboard.WMPaint(VAR AMsg: TWMPaint);
+VAR
    DC : HDC;
    ps : TPaintStruct;
-begin
+BEGIN
   DC := BeginPaint(FHandle,ps);
   SetBkMode(DC,TRANSPARENT);
-  if FCharSet = FCharSet0 then
-  begin
+  IF FCharSet = FCharSet0 THEN
+  BEGIN
     DrawIconEx(DC,(ClientWidth-16) div 2,
                   (ClientHeight-16) div 2,FLay0,16,16,0,0,DI_NORMAL);
-  end                   else
-  if FCharSet = FCharSet1 then
-  begin
+  end                   ELSE
+  IF FCharSet = FCharSet1 THEN
+  BEGIN
     DrawIconEx(DC,(ClientWidth-16) div 2,
                   (ClientHeight-16) div 2,FLay1,16,16,0,0,DI_NORMAL);
-  end;
+  END;
   EndPaint(FHandle,ps);
   AMsg.Result := 1;
-end;
+END;
 
-procedure TKeyboard.LayoutChanged(ACharSet,ALayout : Integer);
+PROCEDURE TKeyboard.LayoutChanged(ACharSet,ALayout : Integer);
 const s  : shortstring = '';
       s1 : shortstring = '';
-begin
+BEGIN
   FLayout := ALayout;
   FCharSet := ACharSet;
-  if Visible then Invalidate;
-end;
+  IF Visible THEN Invalidate;
+END;
 
-{ TTimer }
+(* TTimer *)
 
-procedure TTimerWindow.ProcessMessage(var AMsg: TMessage);
-begin
+PROCEDURE TTimerWindow.ProcessMessage(VAR AMsg: TMessage);
+BEGIN
   with AMsg do
-    if Msg = WM_TIMER then FTimer.Timer
-                      else Result := DefWindowProc(FHandle, Msg, wParam, lParam);
-end;
+    IF Msg = WM_TIMER THEN FTimer.Timer
+                      ELSE Result := DefWindowProc(FHandle, Msg, wParam, lParam);
+END;
 
 constructor TTimer.Create;
-begin
+BEGIN
   inherited Create;
   FEnabled := false;
   FInterval := 1000;
-  FWindow := TTimerWindow.Create(nil);
+  FWindow := TTimerWindow.Create(NIL);
   FWindow.FTimer := Self;
   FWindow.Visible := false;
   FWindow.CreateWnd;
   FWindowHandle := FWindow.FHandle;;
-end;
+END;
 
 destructor TTimer.Destroy;
-begin
-  FEnabled := False;
+BEGIN
+  FEnabled := FALSE;
   UpdateTimer;
   FWindow.Free;
   inherited Destroy;
-end;
+END;
 
-procedure TTimer.UpdateTimer;
-begin
+PROCEDURE TTimer.UpdateTimer;
+BEGIN
   KillTimer(FWindowHandle, 1);
-  if (FInterval <> 0) and FEnabled and Assigned(FOnTimer) then
-    if SetTimer(FWindowHandle, 1, FInterval, nil) = 0 then
+  IF (FInterval <> 0) and FEnabled and Assigned(FOnTimer) THEN
+    IF SetTimer(FWindowHandle, 1, FInterval, NIL) = 0 THEN
       MessageBox(0,'Out Of Resources','Error',MB_OK+MB_ICONSTOP);
-end;
+END;
 
-procedure TTimer.SetEnabled(Value: Boolean);
-begin
-  if Value <> FEnabled then
-  begin
+PROCEDURE TTimer.SetEnabled(Value: Boolean);
+BEGIN
+  IF Value <> FEnabled THEN
+  BEGIN
     FEnabled := Value;
     UpdateTimer;
-  end;
-end;
+  END;
+END;
 
-procedure TTimer.SetInterval(Value: Cardinal);
-begin
-  if Value <> FInterval then
-  begin
+PROCEDURE TTimer.SetInterval(Value: Cardinal);
+BEGIN
+  IF Value <> FInterval THEN
+  BEGIN
     FInterval := Value;
     UpdateTimer;
-  end;
-end;
+  END;
+END;
 
-procedure TTimer.SetOnTimer(Value: TNotifyEvent);
-begin
+PROCEDURE TTimer.SetOnTimer(Value: TNotifyEvent);
+BEGIN
   FOnTimer := Value;
   UpdateTimer;
-end;
+END;
 
-procedure TTimer.Timer;
-begin
-  if Assigned(FOnTimer) then FOnTimer(Self);
-end;
+PROCEDURE TTimer.Timer;
+BEGIN
+  IF Assigned(FOnTimer) THEN FOnTimer(Self);
+END;
 
-{ Procedures }
+(* Procedures *)
 
-function NewLabel(AParent : TWinControl;
+PROCEDURE NewLabel(AParent : TWinControl;
                   ACaption : string;
                   ALeft,Atop,AWidth,AHeight : Integer;
                   AALignment : Integer;
                   ABkMode : TBkMode;
                   ABkColor,
                   ATextColor : Ut.TColor) : TLabel;
-var Wnd : TLabel;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TLabel;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TLabel.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3339,27 +3395,27 @@ begin
     TextColor := ATextColor;
     Caption := ACaption;
     FBkMode := ABkMode;
-    FStyle := FStyle or AALignment;
-  end;
+    FStyle := FStyle OR AALignment;
+  END;
   Wnd.CreateWnd;
   Wnd.ProcessMessages;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewEdit(AParent : TWinControl;
+PROCEDURE NewEdit(AParent : TWinControl;
                  AText : shortstring;
                  ALeft,Atop,AWidth,AHeight : Integer;
                  AStyle : Integer;
                  ABkColor,
                  ATextColor : Ut.TColor) : TEdit;
-var Wnd : TEdit;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TEdit;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TEdit.Create(AParent);
   with Wnd do
-  begin
-    FStyle := FStyle or AStyle;
+  BEGIN
+    FStyle := FStyle OR AStyle;
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3368,26 +3424,26 @@ begin
     TextColor := ATextColor;
     Text := AText;
     FCtl3d := true;
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Wnd.SetMargin(2);
   Result := Wnd;
-end;
+END;
 
-{<fduch> }
-function NewHotKey(AParent : TWinControl;
+(*<fduch> *)
+PROCEDURE NewHotKey(AParent : TWinControl;
                    AHotKey : Word;
                    AModifiers : THKModifiers;
                    ALeft,Atop,AWidth,AHeight : Integer;
                    ABkColor,
                    ATextColor : Ut.TColor) : THotKey;
-var Wnd : THotKey;
-begin
-  if AParent = nil then halt;
+VAR Wnd : THotKey;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := THotKey.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3395,27 +3451,27 @@ begin
     Color := ABkColor;
     TextColor := ATextColor;
     FCtl3d := true;
-  end;
+  END;
   Wnd.CreateWnd;
   Wnd.Modifiers := AModifiers;
   Wnd.HotKey := AHotKey;
   Wnd.InvalidKeys := [hcNone, hcShift];
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
-{</fduch> }
+END;
+(*</fduch> *)
 
-function NewListBox(AParent : TWinControl;
+PROCEDURE NewListBox(AParent : TWinControl;
                     ALeft,Atop,AWidth,AHeight : Integer;
                     ASorted : BOOLEAN;
                     ABkColor,
                     ATextColor : Ut.TColor) : TListBox;
-var Wnd : TListBox;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TListBox;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TListBox.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3425,24 +3481,24 @@ begin
     FCtl3d := true;
     Sorted := ASorted;
     //Font.Style := [fsBold];
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewComboBox(AParent : TWinControl;
+PROCEDURE NewComboBox(AParent : TWinControl;
                      ALeft,Atop,AWidth,AHeight : Integer;
                      AStyle : Integer;
                      ASorted : BOOLEAN;
                      ABkColor,
                      ATextColor : Ut.TColor) : TComboBox;
-var Wnd : TComboBox;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TComboBox;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TComboBox.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3450,27 +3506,27 @@ begin
     Color := ABkColor;
     TextColor := ATextColor;
     FCtl3d := true;
-    FStyle := FStyle or AStyle;
+    FStyle := FStyle OR AStyle;
     Sorted := ASorted;
     //Font.Style := [fsBold];
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewButton(AParent : TWinControl;
+PROCEDURE NewButton(AParent : TWinControl;
                  ACaption : string;
                  AResult : TModalResult;
                  ALeft,Atop,AWidth,AHeight : Integer;
                  ABkColor,
                  ATextColor : Ut.TColor) : TButton;
-var Wnd : TButton;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TButton;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TButton.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Width := AWidth;
     Height := AHeight;
@@ -3479,23 +3535,23 @@ begin
     TextColor := ATextColor;
     Caption := ACaption;
     FModalResult := AResult;
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewCheckBox(AParent : TWinControl;
+PROCEDURE NewCheckBox(AParent : TWinControl;
                      ACaption : string;
                      ALeft,Atop,AWidth,AHeight : Integer;
                      ABkColor,
                      ATextColor : Ut.TColor) : TCheckBox;
-var Wnd : TCheckBox;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TCheckBox;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TCheckBox.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3504,23 +3560,23 @@ begin
     TextColor := ATextColor;
     Caption := ACaption;
     //Font.Style := [fsBold];
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewGroupBox(AParent : TWinControl;
+PROCEDURE NewGroupBox(AParent : TWinControl;
                      ACaption : string;
                      ALeft,Atop,AWidth,AHeight : Integer;
                      ABkColor,
                      ATextColor : Ut.TColor) : TGroupBox;
-var Wnd : TGroupBox;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TGroupBox;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TGroupBox.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3529,23 +3585,23 @@ begin
     TextColor := ATextColor;
     Caption := ACaption;
     //Font.Style := [fsBold];
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-function NewProgressBar(AParent : TWinControl;
+PROCEDURE NewProgressBar(AParent : TWinControl;
                         ALeft,Atop,AWidth,AHeight : Integer;
                         AMin, AMax : Integer;
                         ABkColor,
                         ATextColor : Ut.TColor) : TProgressBar;
-var Wnd : TProgressBar;
-begin
-  if AParent = nil then halt;
+VAR Wnd : TProgressBar;
+BEGIN
+  IF AParent = NIL THEN halt;
   Wnd := TProgressBar.Create(AParent);
   with Wnd do
-  begin
+  BEGIN
     Left := ALeft;
     Top := ATop;
     Width := AWidth;
@@ -3553,128 +3609,130 @@ begin
     Color := ABkColor;
     TextColor := ATextColor;
     Range := AMax;
-  end;
+  END;
   Wnd.CreateWnd;
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
-end;
+END;
 
-procedure InitScreen;
-begin
+PROCEDURE InitScreen;
+BEGIN
   with Screen do
-  begin
+  BEGIN
     Width := GetSystemMetrics(SM_CXSCREEN);
     Height := GetSystemMetrics(SM_CYSCREEN);
     DesktopLeft := GetSystemMetrics(SM_XVIRTUALSCREEN);
     DesktopTop := GetSystemMetrics(SM_YVIRTUALSCREEN);
     DesktopWidth := GetSystemMetrics(SM_CXVIRTUALSCREEN);
-    if DeskTopWidth = 0 then DesktopWidth := Width;
+    IF DeskTopWidth = 0 THEN DesktopWidth := Width;
     DesktopHeight := GetSystemMetrics(SM_CYVIRTUALSCREEN);
-    if DeskTopHeight = 0 then DesktopHeight := Height;
-  end;
-end;
+    IF DeskTopHeight = 0 THEN DesktopHeight := Height;
+  END;
+END;
 
-{<fduch> }
-function HotKeyToStr(Key: word; DModifiers: THKModifiers): shortstring;
-var
+(*<fduch> *)
+PROCEDURE HotKeyToStr(Key: word; DModifiers: THKModifiers): shortstring;
+VAR
   s: string[15];
-begin
+BEGIN
   S[0]:=#0;
-  if (hkCtrl in DModifiers) then
+  IF (hkCtrl in DModifiers) THEN
     s:=s+'Ctrl+';
-  if (hkAlt in DModifiers) then
+  IF (hkAlt in DModifiers) THEN
     s:=s+'Alt+';
-  if (hkShift in DModifiers) then
+  IF (hkShift in DModifiers) THEN
     s:=s+'Shift+';
   Result:=S+char(Key);
-end;
+END;
 
-procedure StrToHotKey(const Value: string; var Key: word; var Modifiers: THKModifiers);
-var
+PROCEDURE StrToHotKey(const Value: string; VAR Key: word; VAR Modifiers: THKModifiers);
+VAR
   s, CurToken: string;
-begin
-  if Value<>'' then
-  begin
+BEGIN
+  IF Value<>'' THEN
+  BEGIN
     s:=Value;
-    while Pos('+', S)>0 do
-    begin
+    WHILE Pos('+', S)>0 DO
+    BEGIN
       CurToken:=UpperCase(Copy(S, 1, Pos('+', S)-1));
       Delete(S, 1, Pos('+', S));
-      if CurToken='ALT' then Include(Modifiers, hkAlt);
-      if CurToken='CTRL' then Include(Modifiers, hkCtrl);
-      if CurToken='SHIFT' then Include(Modifiers, hkShift);
-    end;
+      IF CurToken='ALT' THEN Include(Modifiers, hkAlt);
+      IF CurToken='CTRL' THEN Include(Modifiers, hkCtrl);
+      IF CurToken='SHIFT' THEN Include(Modifiers, hkShift);
+    END;
     Key:=ord(S[1]);
   end
-  else
-  begin
+  ELSE
+  BEGIN
     Key:=0;
     Modifiers:=[];
-  end;
-end;
-{</fduch>}
+  END;
+END;
+(*</fduch>*)
 
-{<kvv>}
-function NewMenuItem(Var Menu: HMenu; 
+(*<kvv>*)
+PROCEDURE NewMenuItem(Var Menu: HMenu; 
           iType,State,ID : DWord; 
           Caption: ShortString; By_pos: BOOLEAN): BOOLEAN;
 
-var mii: menuiteminfo;
-begin
+VAR mii: menuiteminfo;
+BEGIN
   zeromemory(@mii,sizeof(mii));
   Caption := Caption + #0;
   with mii do
-  begin
+  BEGIN
     cbSize   := SizeOF(mii);
-    fMask    := MIIM_ID or MIIM_STATE or MIIM_TYPE;
+    fMask    := MIIM_ID OR MIIM_STATE OR MIIM_TYPE;
     fType    := iType;
     wID      := ID;
     fState   := State;
     dwTypeData := @Caption[1];
     cch      := Length(Caption);
-  end;
+  END;
   Result := InsertMenuItem(Menu,ID,By_pos,mii);
-end;
+END;
 
-function SetTrayIcon(AWnd: Hwnd; ID: Longint; Icon : HIcon;
+PROCEDURE SetTrayIcon(AWnd: Hwnd; ID: Longint; Icon : HIcon;
                             text: ShortString): BOOLEAN;
-var NiD: NOTIFYICONDATA;
-begin
-  if Length(text)>63 then text[0] := #62;
+VAR NiD: NOTIFYICONDATA;
+BEGIN
+  IF Length(text)>63 THEN text[0] := #62;
   text := text + #0;
   with NiD do
-  begin
+  BEGIN
     cbSize := SizeOf(NiD);
     Wnd := AWnd;
     uId := ID;
-    uFlags := NIF_ICON or NIF_TIP or NIF_MESSAGE;
+    uFlags := NIF_ICON OR NIF_TIP OR NIF_MESSAGE;
     hIcon := Icon;
     uCallBackMessage := wm_NotifyIcon;
     Move(text[1], szTip,length(text));
-  end;
+  END;
   Result := Shell_notifyicon(NIM_ADD,@NiD);
-  if icon<>0 then DestroyIcon(Icon);
-end;
+  IF icon<>0 THEN DestroyIcon(Icon);
+END;
 
-function DeleteTrayIcon(AWnd: Hwnd; ID: Longint): BOOLEAN;
-var NiD: NOTIFYICONDATA;
-begin
+PROCEDURE DeleteTrayIcon(AWnd: Hwnd; ID: Longint): BOOLEAN;
+VAR NiD: NOTIFYICONDATA;
+BEGIN
   with NiD do
-  begin
+  BEGIN
     cbSize := SizeOf(NiD);
     Wnd := AWnd;
     uId := ID;
     uFlags := 0;
     hIcon := 0;
     uCallBackMessage := 0;
-  end;
+  END;
   Result := Shell_notifyicon(NIM_DELETE,@NiD);
-end;
-{</kvv>}
+END;
+(*</kvv>*)
+*)
+BEGIN
 
-initialization
-
-  Kbd := nil;
+  HInstance := W.GetModuleHandle(NIL);
+  CmdShow := GetCmdShow(); (*
+  Kbd := NIL;
   KbdHook := 0;
   InitScreenLogPixels;
   Fonts := TFonts.Create;
