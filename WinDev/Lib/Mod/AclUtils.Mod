@@ -23,8 +23,9 @@ IMPORT SYSTEM, W := WinApi, Ignore;
 
 TYPE
   TColor* = INTEGER;
-  DWORD = INTEGER;
+  Cardinal = INTEGER;
   Char = CHAR;
+  DWORD = INTEGER;
   Integer = INTEGER;
   LongInt = INTEGER;
   LongWord = INTEGER;
@@ -527,6 +528,11 @@ BEGIN
     SYSTEM.VAL(COLORREF, g) * 100H +
     SYSTEM.VAL(COLORREF, b) * 10000H;
 END RGB;
+
+PROCEDURE MakeLong* (A, B: Cardinal): LongInt;
+BEGIN
+  RETURN A + (B * 1000H);
+END MakeLong;
 
 (*
 PROCEDURE GradientFillRect(DC : HDC; ARect: TRect; StartColor,

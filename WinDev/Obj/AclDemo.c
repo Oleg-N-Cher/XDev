@@ -9,19 +9,21 @@ typedef
 	struct AclDemo_TWnd1 { /* AclLib_TWinControl */
 		char _prvt0[788];
 		SYSTEM_PTR Brush;
-		char _prvt1[12];
+		char _prvt1[4];
+		SHORTINT Cursor;
+		char _prvt2[128];
 		INTEGER Color, TextColor;
-		char _prvt2[4];
-		SET Style, ExStyle;
 		char _prvt3[4];
+		SET Style, ExStyle;
+		char _prvt4[4];
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt4[7];
-		BOOLEAN Enabled, IsModal;
 		char _prvt5[7];
+		BOOLEAN Enabled, IsModal;
+		char _prvt6[7];
 		BOOLEAN Visible;
-		char _prvt6[4];
+		char _prvt7[4];
 		AclLib_TLabel L1;
 		AclLib_TListBox Lb1;
 		AclLib_TCheckBox Ch1, Ch2, Ch3, Ch4;
@@ -32,9 +34,9 @@ typedef
 static void AclDemo_TWnd1_Btn1Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
 static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
 static void AclDemo_TWnd1_WndCreate (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
-#define __AclDemo_TWnd1_Btn1Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn1Click, 25, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
-#define __AclDemo_TWnd1_Btn2Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn2Click, 26, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
-#define __AclDemo_TWnd1_WndCreate(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_WndCreate, 27, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_Btn1Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn1Click, 27, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_Btn2Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn2Click, 28, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_WndCreate(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_WndCreate, 29, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
 
 
 static AclDemo_TWnd1 AclDemo_Wnd1;
@@ -62,14 +64,15 @@ static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_T
 
 static void EnumPtrs(void (*P)(void*))
 {
-	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 8720, 1, P);
+	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 9960, 1, P);
 }
 
-__TDESC(AclDemo_TWnd1__desc, 29, 70) = {__TDFLDS("TWnd1", 8720), {0, 4, 788, 792, 800, 844, 852, 872, 876, 1660, 1664, 1672, 1716, 1724, 1744, 1748, 
-	2532, 2536, 2544, 2588, 2596, 2616, 2620, 3404, 3408, 3416, 3460, 3468, 3488, 3492, 4276, 4280, 
-	4288, 4332, 4340, 4360, 4364, 5148, 5152, 5160, 5204, 5212, 5232, 5236, 6020, 6024, 6032, 6076, 
-	6084, 6104, 6108, 6892, 6896, 6904, 6948, 6956, 6976, 6980, 7764, 7768, 7776, 7820, 7828, 7848, 
-	7852, 8636, 8640, 8648, 8692, 8700, -568}};
+__TDESC(AclDemo_TWnd1__desc, 31, 90) = {__TDFLDS("TWnd1", 9960), {0, 4, 788, 792, 800, 804, 924, 968, 976, 996, 1000, 1784, 1788, 1796, 1800, 1920, 
+	1964, 1972, 1992, 1996, 2780, 2784, 2792, 2796, 2916, 2960, 2968, 2988, 2992, 3776, 3780, 3788, 
+	3792, 3912, 3956, 3964, 3984, 3988, 4772, 4776, 4784, 4788, 4908, 4952, 4960, 4980, 4984, 5768, 
+	5772, 5780, 5784, 5904, 5948, 5956, 5976, 5980, 6764, 6768, 6776, 6780, 6900, 6944, 6952, 6972, 
+	6976, 7760, 7764, 7772, 7776, 7896, 7940, 7948, 7968, 7972, 8756, 8760, 8768, 8772, 8892, 8936, 
+	8944, 8964, 8968, 9752, 9756, 9764, 9768, 9888, 9932, 9940, -728}};
 
 export main(int argc, char **argv)
 {
@@ -80,14 +83,14 @@ export main(int argc, char **argv)
 	__IMPORT(WinApi__init);
 	__REGMAIN("AclDemo", EnumPtrs);
 	__INITYP(AclDemo_TWnd1, AclLib_TWinControl, 1);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn1Click, 25);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn2Click, 26);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_WndCreate, 27);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn1Click, 27);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn2Click, 28);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_WndCreate, 29);
 /* BEGIN */
 	__MOVE("Sorted ListBox Sample", AclDemo_s1, 22);
 	__MOVE("SORTED LISTBOX SAMPLE", AclDemo_s2, 22);
 	AclDemo_trig = 0;
-	__AclLib_TWinControl_Create((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, NIL);
+	__AclLib_TWinControl_Create((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, NIL, NIL);
 	AclDemo_Wnd1.Style = 0xc80000;
 	__AclLib_TWinControl_SetWidth((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, 350);
 	__AclLib_TWinControl_SetHeight((void*)&AclDemo_Wnd1, AclDemo_TWnd1__typ, 300);

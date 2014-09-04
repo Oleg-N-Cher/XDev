@@ -18,6 +18,7 @@ export SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTE
 export INTEGER AclUtils_FileRead (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER count);
 export INTEGER AclUtils_FileWrite (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER Count);
 export INTEGER AclUtils_HeightOf (WinApi_RECT r);
+export INTEGER AclUtils_MakeLong (INTEGER A, INTEGER B);
 export INTEGER AclUtils_RGB (BYTE r, BYTE g, BYTE b);
 export INTEGER AclUtils_WidthOf (WinApi_RECT r);
 
@@ -48,6 +49,12 @@ INTEGER AclUtils_ColorToRGB (INTEGER color)
 INTEGER AclUtils_RGB (BYTE r, BYTE g, BYTE b)
 {
 	return (__VAL(INTEGER, r) + __ASHL(__VAL(INTEGER, g), 8)) + __ASHL(__VAL(INTEGER, b), 16);
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER AclUtils_MakeLong (INTEGER A, INTEGER B)
+{
+	return A + __ASHL(B, 12);
 }
 
 /*----------------------------------------------------------------------------*/
