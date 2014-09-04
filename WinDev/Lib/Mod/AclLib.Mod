@@ -71,7 +71,7 @@ TYPE
   ShortString = ARRAY 256 OF Char;
 
 CONST bk_Opaque* = 0; bk_Transparent* = 1; bk_Slide* = 2;
-TYPE TBkMode* = BYTE(*bk_Opaque,bk_Transparent,bk_Slide*);
+TYPE TBkMode* = BYTE; (* bk_Opaque, bk_Transparent, bk_Slide *)
 
   TModalResult* = Integer; (* Low(Integer)..High(Integer) *)
 
@@ -132,7 +132,7 @@ CONST
 
   FormClassName* = "TACLFORM";
 
-  ACL_DEFAULT_CHARSET* = W.DEFAULT_CHARSET;
+  ACL_DEFAULT_CHARSET* = CHR(W.DEFAULT_CHARSET);
 (*  ACL_DEFAULT_CHARSET* = RUSSIAN_CHARSET; *)
 
 TYPE
@@ -176,12 +176,12 @@ TYPE
       WindowClass: W.WNDCLASS;
       WinClassName: ARRAY 64 OF Char;
     END;
-(*
-    TWndProc = PROCEDURE (Window: HWnd; AMessage: Longint; WParam: W.WPARAM; LParam: W.LPARAM): Longint; stdcall;
-    TShiftState = set of (ssShift, ssAlt, ssCtrl,
-                          ssLeft, ssRight, ssMiddle, ssDouble);
-    TMouseButton = (mbLeft, mbRight, mbMiddle);
 
+    TWndProc = PROCEDURE (Window: W.HWND; AMessage: LongInt; WParam: W.WPARAM; LParam: W.LPARAM): W.LRESULT;
+    TShiftState = SET; (* of (ssShift, ssAlt, ssCtrl,
+                          ssLeft, ssRight, ssMiddle, ssDouble) *)
+    TMouseButton = BYTE; (* mbLeft, mbRight, mbMiddle *)
+(*
 (*<fduch> *)
     THKModifier = (hkAlt, hkCtrl, hkShift, hkExt);
     THKModifiers = set of THKModifier;
@@ -205,47 +205,47 @@ TYPE
     TMenuItemEvent = procedure(Sender: TObject; wID: Word) of object;
 (*</kvv>*)
 
-    TWinControl = class;
+    TWinControl = class;*)
+    PWinControl* = POINTER TO TWinControl;
 
-    TControl = class
-    private
-      FOwner : TWinControl;
-      FLeft : Integer;
-      FTop : Integer;
-      FWidth : Integer;
-      FHeight : Integer;
-    public
+    TControl = RECORD
+      FOwner : PWinControl;
+      Left* : Integer; (* read FLeft write FLeft *)
+      Top* : Integer; (* read FTop write FTop *)
+      Width* : Integer; (* read FWidth write FWidth *)
+      Height* : Integer; (* read FHeight write FHeight *)
+    (*public
       constructor Create(AOwner : TWinControl);
       PROCEDURE Paint(DC : HDC); virtual; abstract;
-      destructor Destroy; override;
-      property Left : Integer read FLeft write FLeft;
-      property Top : Integer read FTop write FTop;
-      property Width : Integer read FWidth write FWidth;
-      property Height : Integer read FHeight write FHeight;
+      destructor Destroy; override;*)
     END;
 
-    PControlList = ^TControlList;
-    TControlList = packed record
+    PControlList = POINTER TO TControlList;
+    TControlList = RECORD[1]
       Control : TControl;
       Next : PControlList;
     END;
 
-    PWinControlList = ^TWinControlList;
-    TWinControlList = packed record
-      WinControl : TWinControl;
+    PWinControlList = POINTER TO TWinControlList;
+    TWinControlList = RECORD[1]
+      WinControl : PWinControl;
       Next : PWinControlList;
     END;
 
     (*Font*)
-    TFontPitch = (fpDefault, fpFixed, fpVariable);
-    TFontName = type string;
-    TFontCharset = 0..255;
-    TFontDataName = string[LF_FACESIZE - 1];
-    TFontStyle = (fsBold, fsItalic, fsUnderline, fsStrikeOut);
-    TFontStyles = set of TFontStyle;
-    TFontStylesBase = set of TFontStyle;
+    CONST fpDefault = 0; fpFixed = 1; fpVariable = 2;
+    TYPE TFontPitch = BYTE; (* fpDefault, fpFixed, fpVariable *)
+    TFontName = (*type string*) ARRAY OF Char; (*W.PtrSTR*)
+    TFontCharset = CHAR; (* 0..255 *)
+    TFontDataName = ARRAY W.LF_FACESIZE OF Char;
+    CONST
+      fsBold = 0; fsItalic = 1; fsUnderline = 2; fsStrikeOut = 3;
+    TYPE
+    TFontStyle = BYTE; (* (fsBold, fsItalic, fsUnderline, fsStrikeOut) *)
+    TFontStyles = SET;(* of TFontStyle *)
+    TFontStylesBase = SET; (* of TFontStyle *)
 
-    TFontData = packed record
+    TFontData = RECORD[1]
       Height: Integer;
       Pitch: TFontPitch;
       Style: TFontStylesBase;
@@ -253,14 +253,13 @@ TYPE
       Name: TFontDataName;
     END;
 
-    TFont = class
-    private
-      FHandle  : HFont;
-      FControl : TWinControl;
+    TFont = RECORD
+      Handle-  : W.HFONT; (* read FHandle *)
+      FControl : PWinControl;
       FFontData : TFontData;
-      FLogFont : TLogFont;
-      FColor: Ut.TColor;
-      FPixelsPerInch: Integer;
+      FLogFont : W.LOGFONT;
+      Color-: Ut.TColor; (* read FColor write SetColor *)
+      FPixelsPerInch: Integer;(*
       PROCEDURE GetData(const AFont : TLogFont; VAR Data : TFontData);
       PROCEDURE SetData(const Data : TFontData; VAR AFont : TLogFont);
       PROCEDURE UpdateFont;
@@ -283,17 +282,15 @@ TYPE
     public
       constructor Create;
       destructor Destroy; override;
-      property Handle: HFont read FHandle;
       property PixelsPerInch: Integer read FPixelsPerInch write SetPixelsPerInch;
       property Charset: TFontCharset read GetCharset write SetCharset;
-      property Color: Ut.TColor read FColor write SetColor;
       property Height: Integer read GetHeight write SetHeight;
       property Name: TFontName read GetName write SetName;
       property Pitch: TFontPitch read GetPitch write SetPitch;
       property Size: Integer read GetSize write SetSize;
-      property Style: TFontStyles read GetStyle write SetStyle;
+      property Style: TFontStyles read GetStyle write SetStyle;*)
     END;
-
+(*
     PFontList = ^TFontList;
     TFontList = array [0..0] of TLogFont;
     TFontSet = (fsAll, fsTrueTypeOnly);
@@ -325,7 +322,7 @@ TYPE
       property Font[index : Integer] : TLogFont read GetFont;
     END;
 *)
-    PWinControl* = POINTER TO TWinControl;
+
     TWinControl* = RECORD
      FHandle        : W.HWND;
      FParentHandle  : W.HWND;
@@ -335,10 +332,10 @@ TYPE
      FHelpFile      : ShortString;
      FTextBuf       : ShortString;
      FTextLen       : Cardinal;
-     Brush*         : W.HBRUSH; (* read FBrush write FBrush; *)
+     Brush*         : W.HBRUSH; (* read FBrush write FBrush *)
      FCursorHandle  : W.HCURSOR;
-     FCursor        : TCursor;(*
-     FFont          : TFont;*)
+     Cursor-        : TCursor; (* read FCursor write SetCursor *)
+     FFont          : TFont;
      FDC            : W.HDC;
      Color-         : Ut.TColor; (* read FColor write SetColor *)
      TextColor-     : Ut.TColor; (* read FTextColor write SetTextColor *)
@@ -473,7 +470,6 @@ TYPE
      PROCEDURE InsertControl(AControl : TControl);
      PROCEDURE SetFont(const AFont : TLogFont);
      ////////////////////////////////////////////////////////////////
-     property Cursor : TCursor read FCursor write SetCursor;
      property HelpContext : DWORD read FHelpContext write FHelpContext;
      property HelpFile : shortstring read FHelpFile write FHelpFile;
      property Ctl3D : BOOLEAN read FCtl3D write FCtl3D;
@@ -750,7 +746,7 @@ TYPE
       property OnTimer: TNotifyEvent read FOnTimer write SetOnTimer;
     END;
 
-    TScreen = packed record
+    TScreen = RECORD[1]
                 Width : Integer;
                 Height : Integer;
                 DesktopLeft : Integer;
@@ -849,6 +845,9 @@ VAR
 implementation
 
 uses CommCtrl, multimon;
+*)
+CONST
+  NUL = NIL;
 
 (*$H+*)
 (*$O+*)
@@ -856,7 +855,7 @@ uses CommCtrl, multimon;
 (*$IFDEF KBD*)
  (*$R KBD.RES*)
 (*$ENDIF*)
-*)
+
 CONST ID_SELF = '__SELF__'; (* constant used in GetProp()/SetProp() *)
                             (* change it if You want. *)
 VAR
@@ -917,6 +916,12 @@ END;*)
 
 (* TFont *)
 
+PROCEDURE ^ (VAR f: TFont) SetName (IN value: TFontName);
+PROCEDURE ^ (VAR f: TFont) SetSize (value: Integer);
+PROCEDURE ^ (VAR f: TFont) SetStyle (value: TFontStyles);
+PROCEDURE ^ (VAR f: TFont) SetPitch (value: TFontPitch);
+PROCEDURE ^ (VAR f: TFont) SetCharset (value: TFontCharset);
+
 PROCEDURE InitScreenLogPixels;
 VAR
   DC: W.HDC;
@@ -925,28 +930,28 @@ BEGIN
   ScreenLogPixels := W.GetDeviceCaps(DC, W.LOGPIXELSY);
   Ignore.Int( W.ReleaseDC(NIL,DC) );
 END InitScreenLogPixels;
+
+PROCEDURE (VAR f: TFont) Create;
+BEGIN
+  (*f.Create^;*)
+  f.Handle := NUL;
+  f.Color := Ut.clBlack;
+  f.FPixelsPerInch := 96;
+  f.SetPitch(fpVariable);
+  f.SetStyle({});
+  f.SetCharset(ACL_DEFAULT_CHARSET);
+  f.SetName("Arial");
+  (*f.FPixelsPerInch := ScreenLogPixels;*)
+  f.SetSize(10);
+END Create;
+
+PROCEDURE (VAR f: TFont) Destroy;
+BEGIN
+  IF f.Handle # NIL THEN Ignore.Int( W.DeleteObject(f.Handle) ) END;
+  (*inherited Destroy;*)
+END Destroy;
 (*
-constructor TFont.Create;
-BEGIN
-  inherited Create;
-  FHandle := 0;
-  FColor := clBlack;
-  FPixelsPerInch := 96;
-  Pitch:= fpVariable;
-  Style:= [];
-  Charset:= ACL_DEFAULT_CHARSET;
-  Name := 'Arial';
-  //FPixelsPerInch := ScreenLogPixels;
-  Size := 10;
-END;
-
-destructor TFont.Destroy;
-BEGIN
-  IF FHandle <> 0 THEN DeleteObject(FHandle);
-  inherited Destroy;
-END;
-
-PROCEDURE TFont.GetData(const AFont : TLogFont; VAR Data : TFontData);
+PROCEDURE (VAR f: TFont) GetData(const AFont : TLogFont; VAR Data : TFontData);
 BEGIN
   with Data, AFont do
   BEGIN
@@ -970,12 +975,12 @@ BEGIN
   END;
 END;
 
-PROCEDURE TFont.SetLogFont(const AFont : TLogFont);
+PROCEDURE (VAR f: TFont) SetLogFont(const AFont : TLogFont);
 BEGIN
   Move(AFont, FLogFont, SizeOf(AFont));
 END;
 
-PROCEDURE TFont.SetData(const Data : TFontData; VAR AFont : TLogFont);
+PROCEDURE (VAR f: TFont) SetData(const Data : TFontData; VAR AFont : TLogFont);
 BEGIN
   with Data, AFont do
   BEGIN
@@ -994,38 +999,40 @@ BEGIN
     END;
   END;
 END;
+*)
 
-PROCEDURE TFont.UpdateFont;
-VAR OldFont : HFont;
+PROCEDURE ^ (VAR w: TWinControl) SetFont (VAR AFont: W.LOGFONT);
+
+PROCEDURE (VAR f: TFont) UpdateFont;
+VAR
+  OldFont : W.HFONT;
 BEGIN
-  OldFont := FHandle;
-  FLogFont.lfWidth := 0;
-  IF (FControl <> NIL) and (FControl.FHandle > 0) THEN
-  BEGIN
-    FControl.SetFont(FLogFont);
-  end                                             ELSE
-  BEGIN
-    FHandle := CreateFontIndirect(FLogFont);
-    IF OldFont <> 0 THEN DeleteObject(OldFont);
+  OldFont := f.Handle;
+  f.FLogFont.lfWidth := 0;
+  IF (f.FControl # NIL) & (SYSTEM.VAL(LONGINT, f.FControl.FHandle) > 0) THEN
+    f.FControl.SetFont(f.FLogFont);
+  ELSE
+    f.Handle := W.CreateFontIndirect(f.FLogFont);
+    IF OldFont # NUL THEN Ignore.Int( W.DeleteObject(OldFont) ) END;
   END;
-END;
-
-PROCEDURE TFont.GetHeight : Integer;
+END UpdateFont;
+(*
+PROCEDURE (VAR f: TFont) GetHeight : Integer;
 BEGIN
   Result := FFontData.Height;
 END;
 
-PROCEDURE TFont.GetName: TFontName;
+PROCEDURE (VAR f: TFont) GetName: TFontName;
 BEGIN
   Result := string(FLogFont.lfFaceName);
 END;
 
-PROCEDURE TFont.GetPitch : TFontPitch;
+PROCEDURE (VAR f: TFont) GetPitch : TFontPitch;
 BEGIN
   Result := FFontData.Pitch;
 END;
 
-PROCEDURE TFont.GetStyle: TFontStyles;
+PROCEDURE (VAR f: TFont) GetStyle: TFontStyles;
 VAR Styles : TFontStyles;
 BEGIN
   Styles := [];
@@ -1037,12 +1044,12 @@ BEGIN
   Result := Styles;
 END;
 
-PROCEDURE TFont.GetCharset : TFontCharset;
+PROCEDURE (VAR f: TFont) GetCharset : TFontCharset;
 BEGIN
   Result := FFontData.Charset;
 END;
 
-PROCEDURE TFont.SetColor(Value: Ut.TColor);
+PROCEDURE (VAR f: TFont) SetColor(Value: Ut.TColor);
 BEGIN
   IF FColor <> Value THEN
   BEGIN
@@ -1052,13 +1059,13 @@ BEGIN
   END;
 END;
 
-PROCEDURE TFont.SetHeight(Value: Integer);
+PROCEDURE (VAR f: TFont) SetHeight(Value: Integer);
 BEGIN
   FLogFont.lfHeight := Value;
   UpdateFont;
 END;
-
-PROCEDURE TFont.SetName(const Value: TFontName);
+*)
+PROCEDURE (VAR f: TFont) SetName (IN value: TFontName);(*
 VAR AFont   : TLogFont;
     AHeight : LongInt;
 BEGIN
@@ -1077,54 +1084,65 @@ BEGIN
     SetLogFont(AFont);
     UpdateFont;
   END;
-END;
-
-PROCEDURE TFont.GetSize: Integer;
+*) END SetName;
+(*
+PROCEDURE (VAR f: TFont) GetSize: Integer;
 BEGIN
   Result := -MulDiv(FFontData.Height, 72, FPixelsPerInch);
 END;
-
-PROCEDURE TFont.SetSize(Value: Integer);
+*)
+PROCEDURE (VAR f: TFont) SetSize (value: Integer);(*
 BEGIN
   FFontData.Height := -MulDiv(Value, FPixelsPerInch, 72);
-  SetHeight(FFontData.Height);
-END;
+  SetHeight(FFontData.Height);*)
+END SetSize;
 
-PROCEDURE TFont.SetStyle(Value: TFontStyles);
+PROCEDURE (VAR f: TFont) SetStyle (value: TFontStyles);
 BEGIN
-  with FLogFont do
-  BEGIN
-    IF fsBold in Value THEN FLogFont.lfWeight := FW_BOLD
-                       ELSE FLogFont.lfWeight := FW_NORMAL;
-    IF fsItalic in Value THEN FLogFont.lfItalic := 1
-                         ELSE FLogFont.lfItalic := 0;
+  IF fsBold IN value THEN
+    f.FLogFont.lfWeight := W.FW_BOLD;
+  ELSE
+    f.FLogFont.lfWeight := W.FW_NORMAL;
+  END;
+  IF fsItalic IN value THEN
+    f.FLogFont.lfItalic := 1X;
+  ELSE
+    f.FLogFont.lfItalic := 0X;
+  END;
 (*<fduch> *)
-    IF fsUnderLine in Value THEN FLogFont.lfUnderline := 1
-                            ELSE FLogFont.lfUnderline := 0;
+  IF fsUnderline IN value THEN
+    f.FLogFont.lfUnderline := 1X
+  ELSE
+    f.FLogFont.lfUnderline := 0X;
+  END;
 (*</fduch>*)
-  END;
-  UpdateFont;
-END;
+  f.UpdateFont;
+END SetStyle;
 
-PROCEDURE TFont.SetPitch(Value: TFontPitch);
+PROCEDURE (VAR f: TFont) SetPitch (value: TFontPitch);
 BEGIN
-  with FLogFont do
-  case Value of
-    fpDefault  : lfPitchAndFamily := lfPitchAndFamily OR DEFAULT_PITCH;
-    fpVariable : lfPitchAndFamily := lfPitchAndFamily OR VARIABLE_PITCH;
-    fpFixed    : lfPitchAndFamily := lfPitchAndFamily OR FIXED_PITCH;
+  CASE value OF
+  | fpDefault :
+      f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
+        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.DEFAULT_PITCH}));
+  | fpVariable:
+      f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
+        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.VARIABLE_PITCH}));
+  | fpFixed   :
+      f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
+        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.FIXED_PITCH}));
   END;
-  FFontData.Pitch := Value;
-  UpdateFont;
-END;
+  f.FFontData.Pitch := value;
+  f.UpdateFont;
+END SetPitch;
 
-PROCEDURE TFont.SetCharset(Value: TFontCharset);
+PROCEDURE (VAR f: TFont) SetCharset (value: TFontCharset);
 BEGIN
-  FLOgFont.lfCharSet := Value;
-  UpdateFont;
-END;
-
-PROCEDURE TFont.SetPixelsPerInch(Value: Integer);
+  f.FLogFont.lfCharSet := value;
+  f.UpdateFont;
+END SetCharset;
+(*
+PROCEDURE (VAR f: TFont) SetPixelsPerInch(Value: Integer);
 VAR OldS : Integer;
 BEGIN
   OldS := GetSize;
@@ -1313,18 +1331,18 @@ asm
   MOV EAX,[EAX]
 END;
 *)
-PROCEDURE (VAR w: TWinControl) Create* (AParent : PWinControl);
+PROCEDURE (VAR w: TWinControl) Create* (VAR [nil] aParent : TWinControl);
 BEGIN
-  (*w.Create^;*)
-  w.FHandle := NIL;
-  w.FParentHandle := NIL;
+  (*w.Constructor^;*)
+  w.FHandle := NUL;
+  w.FParentHandle := NUL;
   w.FTextBuf := "";
   w.FTextLen := 0;
   w.FClassName := FormClassName;
   w.Style := W.WS_BORDER + W.WS_CAPTION + W.WS_EX_CONTROLPARENT;
   w.ExStyle := {};
   w.FCtl3D := FALSE;
-  w.Parent := AParent;
+  w.Parent := SYSTEM.VAL(PWinControl, SYSTEM.ADR(aParent));
   w.FDefWndProc := 0;
   w.Left := W.CW_USEDEFAULT;
   w.Top := W.CW_USEDEFAULT;
@@ -1332,10 +1350,10 @@ BEGIN
   w.Height := W.CW_USEDEFAULT;
   w.Color := Ut.clSilver;
   w.FBkMode := bk_Opaque;
-  w.Brush := NIL;(*
-  w.FCursor := crDefault;
-  w.FCursorHandle := LoadCursor(0,IDC_ARROW);
-  w.FFont := TFont.Create;
+  w.Brush := NUL;
+  w.Cursor := crDefault;
+  w.FCursorHandle := W.LoadCursor(NUL, SYSTEM.VAL(W.PtrSTR, W.IDC_ARROW));
+  w.FFont.Create;(*
   w.FFont.FControl := Self;
   w.FCList := NIL;
   w.FWList := NIL;
@@ -1426,24 +1444,35 @@ BEGIN
     w.SetBounds(r);
   END;
 END SetHeight;
+
+PROCEDURE ^ (VAR w: TWinControl) ProcessMessages;
+
+PROCEDURE (VAR w: TWinControl) SetFont (VAR AFont: W.LOGFONT);
+VAR
+  fOld : W.HFONT;
+BEGIN
+  IF SYSTEM.VAL(LONGINT, w.FHandle) > 0 THEN
+    fOld := W.SendMessage(w.FHandle, W.WM_GETFONT, NIL, NIL);
+    w.FFont.Handle := W.CreateFontIndirect(AFont);
+    Ignore.Ptr(
+      W.SendMessage(w.FHandle, W.WM_SETFONT,
+        SYSTEM.VAL(W.WPARAM, w.FFont.Handle),
+        SYSTEM.VAL(W.LPARAM, Ut.MakeLong(1(*Word(TRUE)*), 0))
+      )
+    );
+    IF fOld # NIL THEN Ignore.Int( W.DeleteObject(fOld) ) END;
+    w.ProcessMessages;
+  END;
+END SetFont;
+
+PROCEDURE (VAR w: TWinControl) SetEnabled (value: BOOLEAN);
+BEGIN
+  w.Enabled := value;
+  IF SYSTEM.VAL(LONGINT, w.FHandle) > 0 THEN
+    Ignore.Int( W.EnableWindow(w.FHandle, SYSTEM.VAL(W.BOOL, value)) );
+  END;
+END SetEnabled;
 (*
-PROCEDURE (VAR w: TWinControl) SetFont(const AFont : TLogFont);
-VAR fOld : hFont;
-BEGIN
-  IF FHandle <= 0 THEN Exit;
-  fOld := SendMessage(FHandle, WM_GETFONT, 0, 0);
-  FFont.FHandle := CreateFontIndirect(AFont);
-  SendMessage(FHandle,WM_SETFONT,WParam(FFont.FHandle),MAKELPARAM(Word(TRUE),0));
-  IF fOld <> 0 THEN DeleteObject(fOld);
-  ProcessMessages;
-END;
-
-PROCEDURE (VAR w: TWinControl) SetEnabled(Value: BOOLEAN);
-BEGIN
-  FEnabled := Value;
-  IF FHandle > 0 THEN Windows.EnableWindow(FHandle, Value);
-END;
-
 PROCEDURE (VAR w: TWinControl) GetCaption() : shortstring;
 BEGIN
   IF FHandle > 0 THEN
