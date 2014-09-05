@@ -451,3 +451,5 @@ H2O - Stewart Greenhill - http://sourceforge.net/projects/ooc/files/ooc2/
 Tiny C - Fabrice Bellard - http://bellard.org/tcc/
 
 TrDos library - Amxgris/Red Triangle/Mother Russia
+
+bin2tap - Michal Jurica - http://zeroteam.sk/bin2tap.html

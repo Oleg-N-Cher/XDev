@@ -1,0 +1,142 @@
+bin2tap v1.3 (APPEND edition) - binary to tape convertor (C) 2009
+
+A convertor from ordinary file to tape image file for ZX Spectrum emulator
+
+Michal Jurica
+
+
+TABLE OF CONTENTS
+*****************
+
+1. Disclaimer
+2. Installation
+3. Using
+4. Format of .tap file
+5. Bugs
+6. Contacts
+
+
+1. Disclaimer
+-------------
+
+I'm not liable for any damage caused by the use of this program.
+
+
+2. Installation
+---------------
+
+Program is distributed in source code. For installation you need C compiler to
+compile binary execution file. If you are useing gcc compiler you can compile
+program by
+  $ gcc bin2tap.c -o bin2tap
+This will produce execution file. For other compilers read their documentation.
+
+Than, copy execution file into directory, where your operating system search for
+execution files. For example:
+  $ cp bin2tap /usr/bin/
+
+
+3. Using
+--------
+
+Program convert input file into CODE block in .tap file. Program can create
+simple BASIC loader too. Program syntax is as follow:
+
+  bin2tap [options] input_file
+
+All options are optional except input file name. If some option is requied and
+not set, it's used default value. Options are:
+
+  -a address             start address of CODE block, default value is 32768
+  -o output_file         assign output .tap file. If this switch is not set,
+                         program try to replace extension of input file
+                         (extension is search in last 4 characters) by .tap
+                         extension. If he's not successfull, join extension
+                         after name of input file.
+
+  -b                     this switch include BASIC loader in output file
+  -c clear_address       set address in CLEAR command in loader, default value
+                         is 24575
+  -r run_address         set run address in loader (RANDOMIZE USR), defaul value
+                         is 32768
+  -cb value              set BORDER colour to value, default value is 0
+  -cp value              set PAPER colour to value, default value is 0
+  -ci value              set INK colour to value, default value is 7
+  -d80                   create D80 loader, name of BASIC loader is set to "run"
+  -append                append created tap at end of file
+  -hp | --header-poke    include POKE 23739,111 command for dissabling tape headers
+
+  -h  | --help           print usage information
+  -v  | --version        print program version
+
+BASIC loader looks as follow:
+10 REM loader by bin2tap1.3
+20 BORDER VAL "0": PAPER VAL "0": INK VAL "7"
+30 CLEAR VAL "24575"
+40 POKE VAL "23739", CODE "o"
+50 LOAD  "name_of_file" CODE
+60 RANDOMIZE USR VAL "32768"
+
+
+4. Format of .tap file
+----------------------
+
+The .tap files contain blocks of tape-saved data. All blocks start with two
+bytes specifying how many bytes will follow (not counting the two length bytes).
+Then raw tape data follows, including the flag and checksum bytes. The checksum
+is the bitwise XOR of all bytes including the flag byte. For example, when you
+execute the line SAVE "ROM" CODE 0,2 this will result:
+
+|------ Spectrum-generated data -------|                |------|
+13 00 00 03 52 4f 4d 7x20 02 00 00 00 00 80 f1 04 00 ff f3 af a3
+
+^^^^^...... first block is 19 bytes (17 bytes+flag+checksum)
+      ^^... flag byte (A reg, 00 for headers, ff for data blocks)
+         ^^ first byte of header, indicating a code block
+
+file name ..^^^^^^^^^^^^^
+header info ..............^^^^^^^^^^^^^^^^^
+checksum of header .........................^^
+length of second block ........................^^^^^
+flag byte ...........................................^^
+first two bytes of rom .................................^^^^^
+checksum .....................................................^^
+
+Note that it is possible to join .tap files by simply stringing them together,
+for example COPY /B FILE1.TAP + FILE2.TAP ALL.TAP
+
+Here is the structure of a tape header, which always consists of 17 bytes:
+
+Byte    Length  Description
+---------------------------
+0       1       Type (0,1,2 or 3)
+1       10      Filename (padded with blanks)
+11      2       Length of data block
+13      2       Parameter 1
+15      2       Parameter 2
+
+The type is 0,1,2 or 3 for a PROGRAM, Number array, Character array or CODE
+file. A SCREEN$ file is regarded as a CODE file with start address 16384 and
+length 6912 decimal. If the file is a PROGRAM file, parameter 1 holds the
+autostart line number (or a number >=32768 if no LINE parameter was given) and
+parameter 2 holds the start of the variable area relative to the start of the
+program. If it's a CODE file, parameter 1 holds the start of the code block when
+saved, and parameter 2 holds 32768. For data files finally, the byte at position
+14 decimal holds the variable name.
+
+
+5. Bugs
+-------
+
+If you find bug in program, contact me at email mike at zeroteam.sk. Also you
+can send tips for improve program.
+
+
+6. Contact
+----------
+
+Homepage of program is:
+  http://zeroteam.sk/utils.html
+
+Author email:
+  Michal Jurica - mike at zeroteam.sk
