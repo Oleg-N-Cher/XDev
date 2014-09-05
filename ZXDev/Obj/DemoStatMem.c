@@ -24,6 +24,8 @@ export LONGINT *DemoStatMem_Person__typ;
 
 
 
+/*============================================================================*/
+
 __TDESC(DemoStatMem_Person__desc, 1, 0) = {__TDFLDS("Person", 26), {-4}};
 
 export main(int argc, char **argv)
@@ -69,9 +71,7 @@ export main(int argc, char **argv)
 	DemoStatMem_list[3] = (DemoStatMem_PersonPtr)((LONGINT)&DemoStatMem_bob);
 	DemoStatMem_list[4] = (DemoStatMem_PersonPtr)((LONGINT)&DemoStatMem_iren);
 	DemoStatMem_n = 4;
-	DemoStatMem_n -= -1;
-	do {
-		DemoStatMem_n += -1;
+	while (DemoStatMem_n >= 0) {
 		Console_WriteStr(DemoStatMem_list[__X(DemoStatMem_n, 5)]->name, 20);
 		Console_WriteStr((CHAR*)"  ", (LONGINT)3);
 		Console_WriteCh(DemoStatMem_list[__X(DemoStatMem_n, 5)]->sex);
@@ -79,7 +79,8 @@ export main(int argc, char **argv)
 		Console_WriteInt(DemoStatMem_list[__X(DemoStatMem_n, 5)]->age);
 		Console_WriteLn();
 		Console_WriteLn();
-	} while (!(DemoStatMem_n == 0));
+		DemoStatMem_n += -1;
+	}
 	Console_WriteStr((CHAR*)"Before POKE\'ing: ", (LONGINT)18);
 	Console_WriteStrLn(DemoStatMem_john.name, 20);
 	Basic_POKE((INTEGER)((LONGINT)&DemoStatMem_john.name[0]), 72);
