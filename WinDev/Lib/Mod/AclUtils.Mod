@@ -29,10 +29,12 @@ TYPE
   Integer = INTEGER;
   LongInt = INTEGER;
   LongWord = INTEGER;
+  PChar = W.PtrSTR;
   String = ARRAY OF Char;
   COLORREF = DWORD;
 
 CONST
+  NUL = NIL;
 
   Design_PPI* = 96; (* pixels per inch at design time *)
 
@@ -381,6 +383,7 @@ PROCEDURE GradientFillRect(DC : HDC;
 
 (*String management routins*)
 
+PROCEDURE Length* (IN str: ARRAY OF Char): Integer;
 PROCEDURE StrPas(Str: PChar): string;
 PROCEDURE StrLCopy(Dest, Source: PChar; MaxLen: Cardinal): PChar;
 PROCEDURE StrCopy(Dest, Source: PChar): PChar;
@@ -501,6 +504,15 @@ implementation
 
 uses Messages;
 *)
+
+PROCEDURE FillChar* (buffer: SYSTEM.PTR; count: Integer; fill: BYTE);
+VAR
+  bufadr: LONGINT;
+BEGIN
+  bufadr := SYSTEM.VAL(LONGINT, buffer);
+  WHILE count > 0 DO SYSTEM.PUT(bufadr, fill); INC(bufadr); DEC(count) END;
+END FillChar;
+
 PROCEDURE WidthOf* (r: W.RECT): Integer;
 BEGIN
   RETURN r.right - r.left
@@ -642,9 +654,18 @@ BEGIN
     DeleteObject(Brush);
   END;
 END;
-
+*)
 (*String management routins*)
 
+PROCEDURE Length* (IN str: ARRAY OF CHAR): Integer;
+VAR
+  len: Integer;
+BEGIN
+  len := 0;
+  WHILE (len < SHORT(LEN(str))) & (str[len] # 0X) DO INC(len) END;
+  RETURN len
+END Length;
+(*
 PROCEDURE BinToHex(Binary, Text: PChar; Count: Integer);
 const
   HexChars: array[0..15] of Char = '0123456789ABCDEF';
@@ -933,13 +954,14 @@ BEGIN
     FreeMem(Str, Cardinal(Pointer(Str)^));
   END;
 END;
-
-PROCEDURE AnsiCompareText(const S1, S2: string): Integer;
+*)
+PROCEDURE AnsiCompareText* (IN S1, S2: String): Integer;
 BEGIN
-  Result := CompareString(LOCALE_USER_DEFAULT, NORM_IGNORECASE,
-    PChar(S1), Length(S1), PChar(S2), Length(S2)) - 2;
-END;
-
+  RETURN W.CompareString(W.LOCALE_USER_DEFAULT, W.NORM_IGNORECASE,
+    SYSTEM.VAL(PChar, SYSTEM.ADR(S1)), Length(S1),
+    SYSTEM.VAL(PChar, SYSTEM.ADR(S2)), Length(S2)) - 2
+END AnsiCompareText;
+(*
 PROCEDURE UpperCase(const S: string): string;
 VAR
   Ch: Char;
@@ -1314,7 +1336,7 @@ BEGIN
                        NIL,
                        OpenMode[ORD(BITS(mode) * BITS(4)) DIV 4],
                        W.FILE_ATTRIBUTE_NORMAL,
-                       NIL)
+                       NUL)
 END FileOpen;
 
 PROCEDURE FileCreate* (IN fileName: String): W.HANDLE;
@@ -1325,7 +1347,7 @@ BEGIN
                        NIL,
                        W.CREATE_ALWAYS,
                        W.FILE_ATTRIBUTE_NORMAL,
-                       NIL)
+                       NUL)
 END FileCreate;
 
 PROCEDURE FileRead* (

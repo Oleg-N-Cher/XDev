@@ -10,7 +10,7 @@ typedef
 		char _prvt0[788];
 		SYSTEM_PTR Brush;
 		SHORTINT Cursor;
-		char _prvt1[68];
+		char _prvt1[128];
 		INTEGER Color, TextColor;
 		char _prvt2[4];
 		SET Style, ExStyle;
@@ -33,9 +33,9 @@ typedef
 static void AclDemo_TWnd1_Btn1Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
 static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
 static void AclDemo_TWnd1_WndCreate (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_TObject sender);
-#define __AclDemo_TWnd1_Btn1Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn1Click, 25, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
-#define __AclDemo_TWnd1_Btn2Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn2Click, 26, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
-#define __AclDemo_TWnd1_WndCreate(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_WndCreate, 27, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_Btn1Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn1Click, 27, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_Btn2Click(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_Btn2Click, 28, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
+#define __AclDemo_TWnd1_WndCreate(w, w__typ, sender) __SEND(w__typ, AclDemo_TWnd1_WndCreate, 29, void(*)(AclDemo_TWnd1*, LONGINT *, AclLib_TObject), (w, w__typ, sender))
 
 
 static AclDemo_TWnd1 AclDemo_Wnd1;
@@ -63,15 +63,15 @@ static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_T
 
 static void EnumPtrs(void (*P)(void*))
 {
-	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 9360, 1, P);
+	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 9960, 1, P);
 }
 
-__TDESC(AclDemo_TWnd1__desc, 29, 90) = {__TDFLDS("TWnd1", 9360), {0, 4, 788, 792, 800, 804, 864, 908, 916, 936, 940, 1724, 1728, 1736, 1740, 1800, 
-	1844, 1852, 1872, 1876, 2660, 2664, 2672, 2676, 2736, 2780, 2788, 2808, 2812, 3596, 3600, 3608, 
-	3612, 3672, 3716, 3724, 3744, 3748, 4532, 4536, 4544, 4548, 4608, 4652, 4660, 4680, 4684, 5468, 
-	5472, 5480, 5484, 5544, 5588, 5596, 5616, 5620, 6404, 6408, 6416, 6420, 6480, 6524, 6532, 6552, 
-	6556, 7340, 7344, 7352, 7356, 7416, 7460, 7468, 7488, 7492, 8276, 8280, 8288, 8292, 8352, 8396, 
-	8404, 8424, 8428, 9212, 9216, 9224, 9228, 9288, 9332, 9340, -728}};
+__TDESC(AclDemo_TWnd1__desc, 31, 90) = {__TDFLDS("TWnd1", 9960), {0, 4, 788, 792, 800, 804, 924, 968, 976, 996, 1000, 1784, 1788, 1796, 1800, 1920, 
+	1964, 1972, 1992, 1996, 2780, 2784, 2792, 2796, 2916, 2960, 2968, 2988, 2992, 3776, 3780, 3788, 
+	3792, 3912, 3956, 3964, 3984, 3988, 4772, 4776, 4784, 4788, 4908, 4952, 4960, 4980, 4984, 5768, 
+	5772, 5780, 5784, 5904, 5948, 5956, 5976, 5980, 6764, 6768, 6776, 6780, 6900, 6944, 6952, 6972, 
+	6976, 7760, 7764, 7772, 7776, 7896, 7940, 7948, 7968, 7972, 8756, 8760, 8768, 8772, 8892, 8936, 
+	8944, 8964, 8968, 9752, 9756, 9764, 9768, 9888, 9932, 9940, -728}};
 
 export main(int argc, char **argv)
 {
@@ -82,9 +82,9 @@ export main(int argc, char **argv)
 	__IMPORT(WinApi__init);
 	__REGMAIN("AclDemo", EnumPtrs);
 	__INITYP(AclDemo_TWnd1, AclLib_TWinControl, 1);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn1Click, 25);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn2Click, 26);
-	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_WndCreate, 27);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn1Click, 27);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_Btn2Click, 28);
+	__INITBP(AclDemo_TWnd1, AclDemo_TWnd1_WndCreate, 29);
 /* BEGIN */
 	__MOVE("Sorted ListBox Sample", AclDemo_s1, 22);
 	__MOVE("SORTED LISTBOX SAMPLE", AclDemo_s2, 22);

@@ -69,6 +69,7 @@ TYPE
   PChar = ARRAY 256 OF Char;
   Pointer = SYSTEM.PTR;
   ShortString = ARRAY 256 OF Char;
+  String = ARRAY OF Char;
 
 CONST bk_Opaque* = 0; bk_Transparent* = 1; bk_Slide* = 2;
 TYPE TBkMode* = BYTE; (* bk_Opaque, bk_Transparent, bk_Slide *)
@@ -191,7 +192,7 @@ TYPE
 
     TNotifyEvent = procedure(Sender: TObject) of object;
     TCloseEvent = function(Sender: TObject) : BOOLEAN of object;
-    TEraseEvent = procedure(Sender: TObject; HD: HDC; R: TRect) of object;
+    TEraseEvent = procedure(Sender: TObject; HD: W.HDC; R: TRect) of object;
     TMouseEvent = procedure(Sender: TObject; Button: TMouseButton;
                             Shift: TShiftState; X, Y: Integer) of object;
     TMouseMoveEvent = procedure(Sender: TObject; Shift: TShiftState;
@@ -216,7 +217,7 @@ TYPE
       Height* : Integer; (* read FHeight write FHeight *)
     (*public
       constructor Create(AOwner : TWinControl);
-      PROCEDURE Paint(DC : HDC); virtual; abstract;
+      PROCEDURE Paint(DC : W.HDC); virtual; abstract;
       destructor Destroy; override;*)
     END;
 
@@ -236,7 +237,7 @@ TYPE
     CONST fpDefault = 0; fpFixed = 1; fpVariable = 2;
     TYPE TFontPitch = BYTE; (* fpDefault, fpFixed, fpVariable *)
     TFontName = (*type string*) ARRAY OF Char; (*W.PtrSTR*)
-    TFontCharset = CHAR; (* 0..255 *)
+    TFontCharSet = CHAR; (* 0..255 *)
     TFontDataName = ARRAY W.LF_FACESIZE OF Char;
     CONST
       fsBold = 0; fsItalic = 1; fsUnderline = 2; fsStrikeOut = 3;
@@ -249,79 +250,78 @@ TYPE
       Height: Integer;
       Pitch: TFontPitch;
       Style: TFontStylesBase;
-      Charset: TFontCharset;
+      CharSet: TFontCharSet;
       Name: TFontDataName;
     END;
 
-    TFont = RECORD
+    TFont* = RECORD
       Handle-  : W.HFONT; (* read FHandle *)
       FControl : PWinControl;
       FFontData : TFontData;
       FLogFont : W.LOGFONT;
       Color-: Ut.TColor; (* read FColor write SetColor *)
       FPixelsPerInch: Integer;(*
-      PROCEDURE GetData(const AFont : TLogFont; VAR Data : TFontData);
-      PROCEDURE SetData(const Data : TFontData; VAR AFont : TLogFont);
+      PROCEDURE GetData(const AFont : W.LOGFONT; VAR Data : TFontData);
+      PROCEDURE SetData(const Data : TFontData; VAR AFont : W.LOGFONT);
       PROCEDURE UpdateFont;
-      PROCEDURE SetLogFont(const AFont : TLogFont);
+      PROCEDURE SetLogFont(const AFont : W.LOGFONT);
     protected
       PROCEDURE GetHeight : Integer;
       PROCEDURE GetName : TFontName;
       PROCEDURE GetPitch : TFontPitch;
       PROCEDURE  GetSize : Integer;
       PROCEDURE GetStyle : TFontStyles;
-      PROCEDURE GetCharset : TFontCharset;
+      PROCEDURE GetCharSet : TFontCharSet;
       PROCEDURE SetColor(Value: Ut.TColor);
       PROCEDURE SetHeight(Value: Integer);
       PROCEDURE SetName(const Value: TFontName);
       PROCEDURE SetPitch(Value: TFontPitch);
       PROCEDURE SetSize(Value: Integer);
       PROCEDURE SetStyle(Value: TFontStyles);
-      PROCEDURE SetCharset(Value: TFontCharset);
+      PROCEDURE SetCharSet(Value: TFontCharSet);
       PROCEDURE SetPixelsPerInch(Value: Integer);
     public
       constructor Create;
       destructor Destroy; override;
       property PixelsPerInch: Integer read FPixelsPerInch write SetPixelsPerInch;
-      property Charset: TFontCharset read GetCharset write SetCharset;
+      property CharSet: TFontCharSet read GetCharSet write SetCharSet;
       property Height: Integer read GetHeight write SetHeight;
       property Name: TFontName read GetName write SetName;
       property Pitch: TFontPitch read GetPitch write SetPitch;
       property Size: Integer read GetSize write SetSize;
       property Style: TFontStyles read GetStyle write SetStyle;*)
     END;
-(*
-    PFontList = ^TFontList;
-    TFontList = array [0..0] of TLogFont;
-    TFontSet = (fsAll, fsTrueTypeOnly);
 
-    TFonts = class
-    private
-      FDC       : HDC;
-      FCount    : Integer;
-      FFonts    : PFontList;
-      FSet      : TFontSet;
-      FCharSet  : TFontCharSet;
-    protected
-      PROCEDURE SetCharSet(Value : TFontCharSet);
+    PFontList* = POINTER TO TFontList;
+    TFontList* = ARRAY (*[0..0]*) OF W.LOGFONT;
+    CONST fsAll* = 0X; fsTrueTypeOnly* = 1X;
+    TYPE TFontSet* = CHAR; (* (fsAll, fsTrueTypeOnly) *)
+
+    PFonts = POINTER TO TFonts;
+    TFonts* = RECORD
+    (*private*)
+      FDC     : W.HDC;
+      Count-  : Integer; (* read FCount *)
+      FFonts  : PFontList;
+      FSet    : TFontSet;
+      CharSet-: TFontCharSet; (* read FCharSet write SetCharSet *)
+    (*protected*)
+      (*PROCEDURE SetCharSet(Value : TFontCharSet);
       PROCEDURE Enumerate;
-      PROCEDURE IsTrueType(const AFont : TLogFont) : BOOLEAN;
-      PROCEDURE GetFont(i : Integer) : TLogFont;
-    public
-      constructor Create;
+      PROCEDURE IsTrueType(const AFont : W.LOGFONT) : BOOLEAN;
+      PROCEDURE GetFont(i : Integer) : W.LOGFONT;*)
+    (*public*)
+      (*constructor Create;
       destructor Destroy; override;
       PROCEDURE IndexOf(APitch : TFontPitch;
                  const AName  : string) : Integer;
-      PROCEDURE IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
-      PROCEDURE IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
-      PROCEDURE IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
+      PROCEDURE IsDefaultPitch(const AFont : W.LOGFONT) : BOOLEAN;
+      PROCEDURE IsFixedPitch(const AFont : W.LOGFONT) : BOOLEAN;
+      PROCEDURE IsVariablePitch(const AFont : W.LOGFONT) : BOOLEAN;
       PROCEDURE FindFont(AName : TFontName;
-                        APitch : TFontPitch) : TLogFont;
-      property CharSet : TFontCharSet read FCharSet write SetCharSet;
-      property Count : Integer read FCount;
-      property Font[index : Integer] : TLogFont read GetFont;
+                        APitch : TFontPitch) : W.LOGFONT;
+      property Font[index : Integer] : W.LOGFONT read GetFont;*)
     END;
-*)
 
     TWinControl* = RECORD
      FHandle        : W.HWND;
@@ -468,7 +468,7 @@ TYPE
      PROCEDURE IsLastSelected : BOOLEAN;
      PROCEDURE InsertWinControl(AControl : TWinControl);
      PROCEDURE InsertControl(AControl : TControl);
-     PROCEDURE SetFont(const AFont : TLogFont);
+     PROCEDURE SetFont(const AFont : W.LOGFONT);
      ////////////////////////////////////////////////////////////////
      property HelpContext : DWORD read FHelpContext write FHelpContext;
      property HelpFile : shortstring read FHelpFile write FHelpFile;
@@ -838,7 +838,7 @@ PROCEDURE StrToHotKey(const Value: string; VAR Key: word; VAR Modifiers: THKModi
 (*</fduch> *)
 *)
 VAR
-  (*Fonts : TFonts;*)
+  Fonts : TFonts;
   ScreenLogPixels : Integer;
   (*log : text;
 
@@ -920,15 +920,15 @@ PROCEDURE ^ (VAR f: TFont) SetName (IN value: TFontName);
 PROCEDURE ^ (VAR f: TFont) SetSize (value: Integer);
 PROCEDURE ^ (VAR f: TFont) SetStyle (value: TFontStyles);
 PROCEDURE ^ (VAR f: TFont) SetPitch (value: TFontPitch);
-PROCEDURE ^ (VAR f: TFont) SetCharset (value: TFontCharset);
+PROCEDURE ^ (VAR f: TFont) SetCharSet (value: TFontCharSet);
 
 PROCEDURE InitScreenLogPixels;
 VAR
   DC: W.HDC;
 BEGIN
-  DC := W.GetDC(NIL);
+  DC := W.GetDC(NUL);
   ScreenLogPixels := W.GetDeviceCaps(DC, W.LOGPIXELSY);
-  Ignore.Int( W.ReleaseDC(NIL,DC) );
+  Ignore.Int( W.ReleaseDC(NUL,DC) );
 END InitScreenLogPixels;
 
 PROCEDURE (VAR f: TFont) Create;
@@ -939,7 +939,7 @@ BEGIN
   f.FPixelsPerInch := 96;
   f.SetPitch(fpVariable);
   f.SetStyle({});
-  f.SetCharset(ACL_DEFAULT_CHARSET);
+  f.SetCharSet(ACL_DEFAULT_CHARSET);
   f.SetName("Arial");
   (*f.FPixelsPerInch := ScreenLogPixels;*)
   f.SetSize(10);
@@ -947,59 +947,61 @@ END Create;
 
 PROCEDURE (VAR f: TFont) Destroy;
 BEGIN
-  IF f.Handle # NIL THEN Ignore.Int( W.DeleteObject(f.Handle) ) END;
+  IF f.Handle # NUL THEN Ignore.Int( W.DeleteObject(f.Handle) ) END;
   (*inherited Destroy;*)
 END Destroy;
-(*
-PROCEDURE (VAR f: TFont) GetData(const AFont : TLogFont; VAR Data : TFontData);
-BEGIN
-  with Data, AFont do
-  BEGIN
-    Height := lfHeight;
-    IF lfWeight >= FW_BOLD THEN
-      Include(Style, fsBold);
-    IF lfItalic = 1 THEN
-      Include(Style, fsItalic);
-    IF lfUnderline = 1 THEN
-      Include(Style, fsUnderline);
-    IF lfStrikeOut = 1 THEN
-      Include(Style, fsStrikeOut);
-    Charset := TFontCharset(lfCharSet);
-    Name := lfFaceName;
-    case lfPitchAndFamily and $F of
-      VARIABLE_PITCH: Pitch := fpVariable;
-      FIXED_PITCH:    Pitch := fpFixed;
-    ELSE
-      Pitch := fpDefault;
-    END;
-  END;
-END;
 
-PROCEDURE (VAR f: TFont) SetLogFont(const AFont : TLogFont);
+PROCEDURE (VAR f: TFont) GetData (IN aFont: W.LOGFONT; VAR data: TFontData);
 BEGIN
-  Move(AFont, FLogFont, SizeOf(AFont));
-END;
-
-PROCEDURE (VAR f: TFont) SetData(const Data : TFontData; VAR AFont : TLogFont);
-BEGIN
-  with Data, AFont do
-  BEGIN
-    lfHeight := Height;
-    lfWidth := 0;
-    IF fsBold in Style THEN lfWeight := FW_BOLD
-                       ELSE lfWeight := FW_NORMAL;
-    IF fsItalic in Style THEN lfItalic := 1;
-    IF fsUnderline in Style THEN lfUnderline := 1;
-    IF fsStrikeOut in Style THEN lfStrikeOut := 1;
-    lfCharset := Charset;
-    Move(Name, lfFaceName, SizeOf(Name));
-    case Pitch of
-      fpVariable : lfPitchAndFamily := lfPitchAndFamily OR VARIABLE_PITCH;
-      fpFixed    : lfPitchAndFamily := lfPitchAndFamily OR FIXED_PITCH;
-    END;
+  data.Height := aFont.lfHeight;
+  IF aFont.lfWeight >= W.FW_BOLD THEN INCL(data.Style, fsBold) END;
+  IF aFont.lfItalic = 1X THEN INCL(data.Style, fsItalic) END;
+  IF aFont.lfUnderline = 1X THEN INCL(data.Style, fsUnderline) END;
+  IF aFont.lfStrikeOut = 1X THEN INCL(data.Style, fsStrikeOut) END;
+  data.CharSet := aFont.lfCharSet;
+  COPY(aFont.lfFaceName, data.Name);
+  CASE ORD(BITS(ORD(aFont.lfPitchAndFamily)) * BITS(0FH)) OF
+  | W.VARIABLE_PITCH: data.Pitch := fpVariable;
+  | W.FIXED_PITCH:    data.Pitch := fpFixed;
+  ELSE
+    data.Pitch := fpDefault;
   END;
-END;
-*)
+END GetData;
+
+PROCEDURE (VAR f: TFont) SetLogFont (IN aFont: W.LOGFONT);
+BEGIN
+  SYSTEM.MOVE(
+    SYSTEM.VAL(LONGINT, aFont),
+    SYSTEM.VAL(LONGINT, f.FLogFont),
+    SIZE(W.LOGFONT)
+  );
+END SetLogFont;
+
+PROCEDURE (VAR f: TFont) SetData (IN data: TFontData; VAR aFont: W.LOGFONT);
+BEGIN
+  aFont.lfHeight := data.Height;
+  aFont.lfWidth := 0;
+  IF fsBold IN data.Style THEN
+    aFont.lfWeight := W.FW_BOLD
+  ELSE
+    aFont.lfWeight := W.FW_NORMAL;
+  END;
+  IF fsItalic IN data.Style THEN aFont.lfItalic := 1X END;
+  IF fsUnderline IN data.Style THEN aFont.lfUnderline := 1X END;
+  IF fsStrikeOut IN data.Style THEN aFont.lfStrikeOut := 1X END;
+  aFont.lfCharSet := data.CharSet;
+  SYSTEM.MOVE(
+    SYSTEM.VAL(LONGINT, data.Name),
+    SYSTEM.VAL(LONGINT, aFont.lfFaceName),
+    SIZE(TFontDataName)
+  );
+  CASE data.Pitch OF
+  | fpVariable: aFont.lfPitchAndFamily := CHR(ORD(
+      BITS(ORD(aFont.lfPitchAndFamily)) + BITS(W.VARIABLE_PITCH)));
+  | fpFixed   : aFont.lfPitchAndFamily := CHR(ORD(
+      BITS(ORD(aFont.lfPitchAndFamily)) + BITS(W.FIXED_PITCH)));
+  ELSE END;
+END SetData;
 
 PROCEDURE ^ (VAR w: TWinControl) SetFont (VAR AFont: W.LOGFONT);
 
@@ -1016,85 +1018,86 @@ BEGIN
     IF OldFont # NUL THEN Ignore.Int( W.DeleteObject(OldFont) ) END;
   END;
 END UpdateFont;
-(*
-PROCEDURE (VAR f: TFont) GetHeight : Integer;
-BEGIN
-  Result := FFontData.Height;
-END;
 
-PROCEDURE (VAR f: TFont) GetName: TFontName;
+PROCEDURE (VAR f: TFont) GetHeight() : Integer;
 BEGIN
-  Result := string(FLogFont.lfFaceName);
-END;
+  RETURN f.FFontData.Height
+END GetHeight;
 
-PROCEDURE (VAR f: TFont) GetPitch : TFontPitch;
+PROCEDURE (VAR f: TFont) GetName (VAR result: TFontName);
 BEGIN
-  Result := FFontData.Pitch;
-END;
+  COPY(f.FLogFont.lfFaceName, result);
+END GetName;
 
-PROCEDURE (VAR f: TFont) GetStyle: TFontStyles;
-VAR Styles : TFontStyles;
+PROCEDURE (VAR f: TFont) GetPitch(): TFontPitch;
 BEGIN
-  Styles := [];
-  with FLogFont do
-  BEGIN
-    IF lfWeight = FW_BOLD THEN Styles := Styles + [fsBold];
-    IF lfItalic > 0 THEN Styles := Styles + [fsItalic];
-  END;
-  Result := Styles;
-END;
+  RETURN f.FFontData.Pitch;
+END GetPitch;
 
-PROCEDURE (VAR f: TFont) GetCharset : TFontCharset;
+PROCEDURE (VAR f: TFont) GetStyle(): TFontStyles;
+VAR
+  styles : TFontStyles;
 BEGIN
-  Result := FFontData.Charset;
-END;
+  styles := {};
+  IF f.FLogFont.lfWeight = W.FW_BOLD THEN styles := styles + {fsBold} END;
+  IF f.FLogFont.lfItalic > 0X THEN styles := styles + {fsItalic} END;
+  RETURN styles
+END GetStyle;
 
-PROCEDURE (VAR f: TFont) SetColor(Value: Ut.TColor);
+PROCEDURE (VAR f: TFont) GetCharSet(): TFontCharSet;
 BEGIN
-  IF FColor <> Value THEN
-  BEGIN
-    FColor := Value;
-    IF (FControl <> NIL) and (FControl.FHandle > 0) THEN
-      FControl.SetTextColor(Value);
-  END;
-END;
+  RETURN f.FFontData.CharSet
+END GetCharSet;
 
-PROCEDURE (VAR f: TFont) SetHeight(Value: Integer);
+PROCEDURE ^ (VAR w: TWinControl) SetTextColor* (value: Ut.TColor);
+
+PROCEDURE (VAR f: TFont) SetColor (value: Ut.TColor);
 BEGIN
-  FLogFont.lfHeight := Value;
-  UpdateFont;
-END;
-*)
-PROCEDURE (VAR f: TFont) SetName (IN value: TFontName);(*
-VAR AFont   : TLogFont;
-    AHeight : LongInt;
-BEGIN
-  IF Length(Value) > 0 THEN
-  BEGIN
-    AFont := Fonts.FindFont(Value, FFontData.Pitch);
-    IF Assigned(FControl) and (FControl.Handle <> 0) THEN
-    BEGIN
-      // here it needs to store all existing font attributes except for name
-      AFont.lfHeight := FLogFont.lfHeight;
-      AFont.lfWeight := FLogFont.lfWeight;
-      AFont.lfItalic := FLogFont.lfItalic;
-      AFont.lfUnderline := FLogFont.lfUnderline;
-//      AFont.lfCharSet := FLogFont.lfCharSet;
+  IF f.Color # value THEN
+    f.Color := value;
+    IF (f.FControl # NIL) & (SYSTEM.VAL(LONGINT, f.FControl.FHandle) > 0) THEN
+      f.FControl.SetTextColor(value);
     END;
-    SetLogFont(AFont);
-    UpdateFont;
   END;
-*) END SetName;
-(*
-PROCEDURE (VAR f: TFont) GetSize: Integer;
+END SetColor;
+
+PROCEDURE (VAR f: TFont) SetHeight (value: Integer);
 BEGIN
-  Result := -MulDiv(FFontData.Height, 72, FPixelsPerInch);
-END;
-*)
-PROCEDURE (VAR f: TFont) SetSize (value: Integer);(*
+  f.FLogFont.lfHeight := value;
+  f.UpdateFont;
+END SetHeight;
+
+PROCEDURE ^ (VAR f: TFonts) FindFont* (
+  IN aName: TFontName; aPitch: TFontPitch; VAR result: W.LOGFONT);
+
+PROCEDURE (VAR f: TFont) SetName (IN value: TFontName);
+VAR
+  aFont: W.LOGFONT;
 BEGIN
-  FFontData.Height := -MulDiv(Value, FPixelsPerInch, 72);
-  SetHeight(FFontData.Height);*)
+  IF Ut.Length(value) > 0 THEN
+      Fonts.FindFont(value, f.FFontData.Pitch, aFont);
+    IF (f.FControl # NIL) & (f.FControl.FHandle # NUL) THEN
+      (* here it needs to store all existing font attributes except for name *)
+      aFont.lfHeight := f.FLogFont.lfHeight;
+      aFont.lfWeight := f.FLogFont.lfWeight;
+      aFont.lfItalic := f.FLogFont.lfItalic;
+      aFont.lfUnderline := f.FLogFont.lfUnderline;
+(*      aFont.lfCharSet := f.FLogFont.lfCharSet; *)
+    END;
+    f.SetLogFont(aFont);
+    f.UpdateFont;
+  END;
+END SetName;
+
+PROCEDURE (VAR f: TFont) GetSize(): Integer;
+BEGIN
+  RETURN -W.MulDiv(f.FFontData.Height, 72, f.FPixelsPerInch)
+END GetSize;
+
+PROCEDURE (VAR f: TFont) SetSize (value: Integer);
+BEGIN
+  f.FFontData.Height := -W.MulDiv(value, f.FPixelsPerInch, 72);
+  f.SetHeight(f.FFontData.Height);
 END SetSize;
 
 PROCEDURE (VAR f: TFont) SetStyle (value: TFontStyles);
@@ -1124,182 +1127,210 @@ BEGIN
   CASE value OF
   | fpDefault :
       f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
-        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.DEFAULT_PITCH}));
+        SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + BITS(W.DEFAULT_PITCH));
   | fpVariable:
       f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
-        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.VARIABLE_PITCH}));
+        SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + BITS(W.VARIABLE_PITCH));
   | fpFixed   :
       f.FLogFont.lfPitchAndFamily := SYSTEM.VAL(CHAR,
-        (SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + {W.FIXED_PITCH}));
-  END;
+        SYSTEM.VAL(SET, f.FLogFont.lfPitchAndFamily) + BITS(W.FIXED_PITCH));
+  ELSE END;
   f.FFontData.Pitch := value;
   f.UpdateFont;
 END SetPitch;
 
-PROCEDURE (VAR f: TFont) SetCharset (value: TFontCharset);
+PROCEDURE (VAR f: TFont) SetCharSet (value: TFontCharSet);
 BEGIN
   f.FLogFont.lfCharSet := value;
   f.UpdateFont;
-END SetCharset;
-(*
-PROCEDURE (VAR f: TFont) SetPixelsPerInch(Value: Integer);
-VAR OldS : Integer;
+END SetCharSet;
+
+PROCEDURE (VAR f: TFont) SetPixelsPerInch (value: Integer);
+VAR
+  oldS: Integer;
 BEGIN
-  OldS := GetSize;
-  FPixelsPerInch := Value;
-  SetSize(OldS);
-  UpdateFont;
-END;
+  oldS := f.GetSize();
+  f.FPixelsPerInch := value;
+  f.SetSize(oldS);
+  f.UpdateFont;
+END SetPixelsPerInch;
 
 (* TFonts *)
 
-PROCEDURE EnumFontsProc0(VAR LogFont: TLogFont; VAR TextMetric: TTextMetric;
-  FontType: Integer; Data: Pointer): Integer; stdcall;
-VAR
-  Fnt: TFonts;
-BEGIN
-  Fnt := TFonts(Data);
-  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(LogFont) THEN Inc(Fnt.FCount);
-  Result := 1;
-END;
+PROCEDURE ^ (VAR f: TFonts) IsTrueType (IN aFont: W.LOGFONT): BOOLEAN;
 
-PROCEDURE EnumFontsProc(VAR LogFont: TLogFont; VAR TextMetric: TTextMetric;
-  FontType: Integer; Data: Pointer): Integer; stdcall;
+PROCEDURE EnumFontsProc0 (
+  logFont: W.PtrVoid(*W.ENUMLOGFONTEX*);
+  textMetric: W.PtrVoid(*W.NEWTEXTMETRICEX*);
+  fontType: Integer; data: W.LPARAM): Integer;
+TYPE
+  PLogFontT = POINTER TO W.ENUMLOGFONTEX;
 VAR
-  Fnt: TFonts;
+  Fnt: PFonts; PLogFont: PLogFontT;
+BEGIN
+  Fnt := SYSTEM.VAL(PFonts, data);
+  PLogFont := SYSTEM.VAL(PLogFontT, logFont);
+  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(PLogFont.elfLogFont) THEN INC(Fnt.Count) END;
+  RETURN 1
+END EnumFontsProc0;
+
+PROCEDURE EnumFontsProc (
+  LogFont: W.PtrVoid(*W.ENUMLOGFONTEX*);
+  TextMetric: W.PtrVoid(*W.NEWTEXTMETRICEX*);
+  fontType: Integer; data: W.LPARAM): Integer;
+VAR
+  Fnt: PFonts;
 BEGIN
   (*$R-*)
-  Fnt := TFonts(Data);
-  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(LogFont) THEN
-  BEGIN
-    Move(LogFont,Fnt.FFonts^[Fnt.FCount],SizeOf(TLogFont));
-    Inc(Fnt.FCount);
+  Fnt := SYSTEM.VAL(PFonts, data);
+  IF (Fnt.FSet = fsAll) (*OR Fnt.IsTrueType(LogFont.elfLogFont)*) THEN
+    SYSTEM.MOVE(
+      SYSTEM.VAL(LONGINT, LogFont),
+      SYSTEM.VAL(LONGINT, Fnt.FFonts^[Fnt.Count]),
+      SIZE(W.LOGFONT)
+    );
+    INC(Fnt.Count);
   END;
-  Result := 1;
-END;
+  RETURN 1
+END EnumFontsProc;
 
-constructor TFonts.Create;
-BEGIN
-  inherited Create;
-  FFonts := NIL;
-  FSet := fsTrueTypeOnly;
-  FCharSet := ACL_DEFAULT_CHARSET;
-  Enumerate;
-  FDC := 0;
-END;
+PROCEDURE ^ (VAR f: TFonts) Enumerate;
 
-destructor TFonts.Destroy;
+PROCEDURE (VAR f: TFonts) Create* ;
 BEGIN
-  GlobalFree(Cardinal(FFonts));
-  inherited Destroy;
-END;
+  (*f.Create^;*)
+  f.FFonts := NIL;
+  f.FSet := fsTrueTypeOnly;
+  f.CharSet := ACL_DEFAULT_CHARSET;
+  f.Enumerate;
+  f.FDC := NUL;
+END Create;
 
-PROCEDURE TFonts.GetFont(i : Integer) : TLogFont;
+PROCEDURE (VAR f: TFonts) Destroy* ;
 BEGIN
-  Move(FFonts^[i],Result,SizeOf(TLogFont));
-END;
+  (*GlobalFree(Cardinal(FFonts));
+  inherited Destroy;*)
+END Destroy;
 
-PROCEDURE TFonts.IndexOf(APitch : TFontPitch;
-                  const AName  : string) : Integer;
-VAR i : Integer;
+PROCEDURE (VAR f: TFonts) GetFont* (i: Integer; VAR result: W.LOGFONT);
 BEGIN
-  Result := 0;
-  for i := 1 to FCount do
-    IF AnsiCompareText(string(FFonts^[i-1].lfFaceName),AName) = 0 THEN
-    case APitch of
-      fpDefault : BEGIN
-                    Result := i-1; break;
-                  END;
-      fpFixed : IF IsFixedPitch(FFonts^[i-1]) THEN
-                BEGIN
-                  Result := i-1; break;
-                END;
-      fpVariable : IF IsVariablePitch(FFonts^[i-1]) THEN
-                   BEGIN
-                     Result := i-1; break;
-                   END;
+  SYSTEM.MOVE(
+    SYSTEM.VAL(LONGINT, f.FFonts^[i]),
+    SYSTEM.VAL(LONGINT, result),
+    SIZE(W.LOGFONT)
+  );
+END GetFont;
+
+PROCEDURE (VAR f: TFonts) IsDefaultPitch* (IN AFont: W.LOGFONT): BOOLEAN;
+BEGIN
+  RETURN TRUE
+END IsDefaultPitch;
+
+PROCEDURE (VAR f: TFonts) IsFixedPitch* (IN AFont: W.LOGFONT): BOOLEAN;
+BEGIN
+  RETURN ORD(
+    BITS(ORD(AFont.lfPitchAndFamily)) * BITS(0FH)) = W.FIXED_PITCH
+END IsFixedPitch;
+
+PROCEDURE (VAR f: TFonts) IsVariablePitch* (IN AFont : W.LOGFONT): BOOLEAN;
+BEGIN
+  RETURN ORD(
+    BITS(ORD(AFont.lfPitchAndFamily)) * BITS(0FH)) = W.VARIABLE_PITCH
+END IsVariablePitch;
+
+PROCEDURE (VAR f: TFonts) IndexOf* (
+  APitch: TFontPitch; IN AName: String): Integer;
+VAR
+  i: Integer;
+BEGIN
+  FOR i := 1 TO f.Count DO
+    IF Ut.AnsiCompareText(f.FFonts^[i-1].lfFaceName, AName) = 0 THEN
+      CASE APitch OF
+      | fpDefault: RETURN i-1
+      | fpFixed: IF f.IsFixedPitch(f.FFonts^[i-1]) THEN RETURN i-1 END;
+      | fpVariable: IF f.IsVariablePitch(f.FFonts^[i-1]) THEN RETURN i-1 END;
+      ELSE END;
     END;
-END;
-
-PROCEDURE TFonts.IsDefaultPitch(const AFont : TLogFont) : BOOLEAN;
-BEGIN
-  Result := true;
-END;
-
-PROCEDURE TFonts.IsFixedPitch(const AFont : TLogFont) : BOOLEAN;
-BEGIN
-  Result := (AFont.lfPitchAndFamily and $F) = FIXED_PITCH;
-END;
-
-PROCEDURE TFonts.IsVariablePitch(const AFont : TLogFont) : BOOLEAN;
-BEGIN
-  Result := (AFont.lfPitchAndFamily and $F) = VARIABLE_PITCH;
-END;
-
-PROCEDURE TFonts.FindFont(AName : TFontName;
-                         APitch : TFontPitch) : TLogFont;
-VAR i : Integer;
-BEGIN
-  i := IndexOf(APitch,AName);
-  Move(FFonts^[i],Result,SizeOf(TLogFont));
-END;
-
-PROCEDURE TFonts.SetCharset(Value: TFontCharset);
-BEGIN
-  IF FCharSet <> Value THEN
-  BEGIN
-    FCharSet := Value;
-    Enumerate;
   END;
-END;
+  RETURN 0
+END IndexOf;
 
-PROCEDURE TFonts.Enumerate;
+PROCEDURE (VAR f: TFonts) FindFont* (
+  IN aName: TFontName; aPitch: TFontPitch; VAR result: W.LOGFONT);
 VAR
-  LFont: TLogFont;
+  i: Integer;
 BEGIN
-  FDC := GetDC(0);
-  FillChar(LFont, sizeof(LFont), 0);
-  LFont.lfCharset := FCharSet;
-  IF FFonts <> NIL THEN GlobalFree(Cardinal(FFonts));
-  FCount := 0;
-  EnumFontFamiliesEx(FDC, LFont, @EnumFontsProc0, LongInt(Self), 0);
-  FFonts := PFontList(GlobalAlloc(GMEM_FIXED,SizeOf(TLogFont)*FCount));
-  FCount := 0;
-  EnumFontFamiliesEx(FDC, LFont, @EnumFontsProc, LongInt(Self), 0);
-  ReleaseDC(0, FDC);
-END;
+  i := f.IndexOf(aPitch, aName);
+  SYSTEM.MOVE(
+    SYSTEM.VAL(LONGINT, f.FFonts^[i]),
+    SYSTEM.VAL(LONGINT, SYSTEM.ADR(result)),
+    SIZE(W.LOGFONT)
+  );
+END FindFont;
 
-PROCEDURE TFonts.IsTrueType(const AFont : TLogFont) : BOOLEAN;
-VAR
-  Metrics: TTextMetric;
-  lf: TLogFont;
-  oldFont, newFont: HFont;
+PROCEDURE (VAR f: TFonts) SetCharSet* (value: TFontCharSet);
 BEGIN
-  with lf do BEGIN
-    lfHeight := 10;
-    lfWidth := 10;
-    lfEscapement := 0;
-    lfWeight := FW_REGULAR;
-    lfItalic := 0;
-    lfUnderline := 0;
-    lfStrikeOut := 0;
-    lfCharSet := RUSSIAN_CHARSET;
-    lfOutPrecision := OUT_DEFAULT_PRECIS;
-    lfClipPrecision := CLIP_DEFAULT_PRECIS;
-    lfQuality := DEFAULT_QUALITY;
-    lfPitchAndFamily := DEFAULT_PITCH OR FF_DONTCARE;
-    StrPCopy(lfFaceName, AFont.lfFaceName);
+  IF f.CharSet # value THEN
+    f.CharSet := value;
+    f.Enumerate;
   END;
-  newFont := CreateFontIndirect(lf);
-  oldFont := SelectObject(FDC, newFont);
-  GetTextMetrics(FDC, Metrics);
-  Result := (Metrics.tmPitchAndFamily and TMPF_TRUETYPE) <> 0;
-  SelectObject(FDC, oldFont);
-  DeleteObject(newFont);
-END;
+END SetCharSet;
+
+PROCEDURE (VAR f: TFonts) Enumerate;
+VAR
+  lFont: W.LOGFONT;
+BEGIN
+  f.FDC := W.GetDC(NUL);
+  Ut.FillChar(SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(lFont)), SIZE(W.LOGFONT), 0);
+  lFont.lfCharSet := f.CharSet;
+  IF f.FFonts # NIL THEN Ignore.Ptr( W.GlobalFree(f.FFonts) ) END;
+  f.Count := 0;
+  Ignore.Int(
+    W.EnumFontFamiliesEx(f.FDC, lFont, EnumFontsProc0,
+      SYSTEM.VAL(W.LPARAM, SYSTEM.ADR(f)), 0)
+  );
+  f.FFonts := SYSTEM.VAL(PFontList,
+    W.GlobalAlloc(W.GMEM_FIXED, SIZE(W.LOGFONT) * f.Count));
+  f.Count := 0;
+  Ignore.Int(
+    W.EnumFontFamiliesEx(f.FDC, lFont, EnumFontsProc,
+      SYSTEM.VAL(W.LPARAM, f), 0)
+  );
+  Ignore.Int( W.ReleaseDC(NUL, f.FDC) );
+END Enumerate;
+
+PROCEDURE (VAR f: TFonts) IsTrueType (IN aFont: W.LOGFONT): BOOLEAN;
+VAR
+  Metrics: W.TEXTMETRIC;
+  lf: W.LOGFONT;
+  oldFont, newFont: W.HFONT;
+  result: BOOLEAN;
+BEGIN
+  lf.lfHeight := 10;
+  lf.lfWidth := 10;
+  lf.lfEscapement := 0;
+  lf.lfWeight := W.FW_REGULAR;
+  lf.lfItalic := 0X;
+  lf.lfUnderline := 0X;
+  lf.lfStrikeOut := 0X;
+  lf.lfCharSet := CHR(W.RUSSIAN_CHARSET);
+  lf.lfOutPrecision := CHR(W.OUT_DEFAULT_PRECIS);
+  lf.lfClipPrecision := CHR(W.CLIP_DEFAULT_PRECIS);
+  lf.lfQuality := CHR(W.DEFAULT_QUALITY);
+  lf.lfPitchAndFamily := CHR(ORD(
+    BITS(W.DEFAULT_PITCH) + BITS(W.FF_DONTCARE)));
+  COPY(aFont.lfFaceName, lf.lfFaceName);
+  newFont := W.CreateFontIndirect(lf);
+  oldFont := W.SelectObject(f.FDC, newFont);
+  Ignore.Int( W.GetTextMetrics(f.FDC, Metrics) );
+  result := BITS(ORD(Metrics.tmPitchAndFamily)) * BITS(W.TMPF_TRUETYPE) # {};
+  Ignore.Ptr( W.SelectObject(f.FDC, oldFont) );
+  Ignore.Int( W.DeleteObject(newFont) );
+  RETURN result
+END IsTrueType;
 
 (*TWinControl*)
-
+(*
 PROCEDURE GetWindowInstance(Handle: HWND) : TWinControl;
 BEGIN
   Result := TWincontrol(GetProp(Handle,ID_SELF));
@@ -1353,8 +1384,8 @@ BEGIN
   w.Brush := NUL;
   w.Cursor := crDefault;
   w.FCursorHandle := W.LoadCursor(NUL, SYSTEM.VAL(W.PtrSTR, W.IDC_ARROW));
-  w.FFont.Create;(*
-  w.FFont.FControl := Self;
+  w.FFont.Create;
+  w.FFont.FControl := SYSTEM.VAL(PWinControl, SYSTEM.ADR(w));(*
   w.FCList := NIL;
   w.FWList := NIL;
   w.FEnabled := true;
@@ -1385,10 +1416,10 @@ VAR
 BEGIN
   flags := W.SWP_NOZORDER;
   IF w.Visible THEN flags := flags + W.SWP_DRAWFRAME + W.SWP_SHOWWINDOW END;
-  IF w.FHandle # NIL THEN
+  IF w.FHandle # NUL THEN
     Ignore.Int(
       W.SetWindowPos(
-        w.FHandle,NIL,r.left,r.top,r.right-r.left,r.bottom-r.top,flags)
+        w.FHandle,NUL,r.left,r.top,r.right-r.left,r.bottom-r.top,flags)
     );
   END;
   w.Left := r.left;
@@ -1452,7 +1483,7 @@ VAR
   fOld : W.HFONT;
 BEGIN
   IF SYSTEM.VAL(LONGINT, w.FHandle) > 0 THEN
-    fOld := W.SendMessage(w.FHandle, W.WM_GETFONT, NIL, NIL);
+    fOld := W.SendMessage(w.FHandle, W.WM_GETFONT, NUL, NUL);
     w.FFont.Handle := W.CreateFontIndirect(AFont);
     Ignore.Ptr(
       W.SendMessage(w.FHandle, W.WM_SETFONT,
@@ -1460,7 +1491,7 @@ BEGIN
         SYSTEM.VAL(W.LPARAM, Ut.MakeLong(1(*Word(TRUE)*), 0))
       )
     );
-    IF fOld # NIL THEN Ignore.Int( W.DeleteObject(fOld) ) END;
+    IF fOld # NUL THEN Ignore.Int( W.DeleteObject(fOld) ) END;
     w.ProcessMessages;
   END;
 END SetFont;
@@ -1489,9 +1520,9 @@ END;
 PROCEDURE (VAR w: TWinControl) SetCaption* (IN value: ARRAY OF Char);
 BEGIN
   COPY(value, w.FTextBuf);
-  IF w.FHandle # NIL THEN
+  IF SYSTEM.VAL(LONGINT, w.FHandle) > 0 THEN
     Ignore.Ptr(
-      W.SendMessage(w.FHandle, W.WM_SETTEXT, NIL,
+      W.SendMessage(w.FHandle, W.WM_SETTEXT, NUL,
         SYSTEM.VAL(W.LPARAM, SYSTEM.ADR(w.FTextBuf))
       )
     );
@@ -1522,7 +1553,7 @@ END GetClientHeight;
 PROCEDURE (VAR w: TWinControl) SetVisible* (value: BOOLEAN);
 BEGIN
   w.Visible := value;
-  IF w.FHandle # NIL THEN
+  IF w.FHandle # NUL THEN
     IF w.Visible THEN w.Show ELSE w.Hide END;
   END;
 END SetVisible;
@@ -1581,7 +1612,7 @@ END;
 PROCEDURE (VAR w: TWinControl) WMPaint(VAR AMsg: TWMPaint);
 VAR
   PaintStruct: TPaintStruct;
-  PaintDC: HDC;
+  PaintDC: W.HDC;
   pc : PControlList;
 BEGIN
   Dispatch(AMsg);
@@ -1657,7 +1688,7 @@ END;
 
 PROCEDURE (VAR w: TWinControl) WMEraseBkgnd(VAR AMsg : TWMEraseBkgnd);
 VAR R : TRect;
-    hd : HDC;
+    hd : W.HDC;
 BEGIN
     Windows.GetClientRect(FHandle,R);
     hd := AMsg.DC;
@@ -1688,17 +1719,17 @@ BEGIN
   BEGIN
    ctl := TWinControl(GetProp(HWND(LParam),ID_SELF));
    IF ctl = NIL THEN Exit;
-   Windows.SetBkColor(HDC(WParam),ctl.FColor);
-   Windows.SetTextColor(HDC(WParam),ctl.FTextColor);
+   Windows.SetBkColor(W.HDC(WParam),ctl.FColor);
+   Windows.SetTextColor(W.HDC(WParam),ctl.FTextColor);
    case ctl.FBkMode of
      bk_Opaque:
        BEGIN
-         Windows.SetBkMode(HDC(WParam),OPAQUE);
+         Windows.SetBkMode(W.HDC(WParam),OPAQUE);
          Result := ctl.FBrush;
        END;
      bk_Transparent,bk_Slide:
        BEGIN
-         Windows.SetBkMode(HDC(WParam),TRANSPARENT);
+         Windows.SetBkMode(W.HDC(WParam),TRANSPARENT);
          repeat
            ctl := ctl.FParent;
          until ctl.FBrush > 0;
@@ -1988,13 +2019,15 @@ PROCEDURE (VAR w: TWinControl) SetColor* (value: Ut.TColor);
 VAR
   tb, ob: W.HBRUSH;
 BEGIN
-  IF w.FHandle # NIL THEN
+  IF SYSTEM.VAL(LONGINT, w.FHandle) > 0 THEN
     tb := W.CreateSolidBrush(value);
     ob := W.SelectObject(w.FDC, tb);
     Ignore.Int( W.DeleteObject(ob) );
     w.Brush := tb;
   ELSE
-    IF w.Brush # NIL THEN Ignore.Int( W.DeleteObject(w.Brush) ) END;
+    IF SYSTEM.VAL(LONGINT, w.Brush) > 0 THEN
+      Ignore.Int( W.DeleteObject(w.Brush) );
+    END;
     w.Brush := W.CreateSolidBrush(value);
   END;
   w.Color := value;
@@ -2199,7 +2232,7 @@ BEGIN
     Params.WindowClass.hInstance := HInstance;
     (*COPY(Params.WinClassName, Params.WindowClass.lpszClassName);*)
     IF W.RegisterClass(Params.WindowClass) = 0 THEN
-      Ignore.Int( W.MessageBox(NIL,
+      Ignore.Int( W.MessageBox(NUL,
         SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("WinRegister failed")), NIL, W.MB_OK)
       );
       HALT(0)
@@ -2218,12 +2251,12 @@ BEGIN
     w.Style,
     w.Left, w.Top, w.Width, w.Height,
     Params.WndParent,
-    NIL,
+    NUL,
     HInstance,
     NIL
   );
-  IF w.FHandle = NIL THEN
-      Ignore.Int( W.MessageBox(NIL,
+  IF w.FHandle = NUL THEN
+      Ignore.Int( W.MessageBox(NUL,
         SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("WinCreate failed")), NIL, W.MB_OK)
       );
       HALT(0)
@@ -2311,7 +2344,7 @@ VAR
   result: BOOLEAN;
 BEGIN
   result := FALSE;
-  IF 0 # W.PeekMessage(Msg, NIL, 0, 0, W.PM_REMOVE) THEN
+  IF 0 # W.PeekMessage(Msg, NUL, 0, 0, W.PM_REMOVE) THEN
     result := TRUE;
     IF Msg.message # W.WM_QUIT THEN
       Ignore.Int( W.TranslateMessage(Msg) );
@@ -2332,23 +2365,23 @@ END ProcessMessages;
 
 PROCEDURE (VAR w: TWinControl) ShowModal* (): TModalResult;
 VAR
-  AMessage: W.MSG; result: TModalResult;
+  aMessage: W.MSG; result: TModalResult;
 BEGIN
   w.IsModal := TRUE;
   w.FModalResult := 0;
   WHILE w.FModalResult = 0 DO
-    Ignore.Int( W.GetMessage(AMessage, NIL, 0, 0) );
-    Ignore.Int( W.TranslateMessage(AMessage) );
+    Ignore.Int( W.GetMessage(aMessage, NUL, 0, 0) );
+    Ignore.Int( W.TranslateMessage(aMessage) );
     IF (w.Parent = NIL) OR
-       (AMessage.message = W.WM_PAINT) OR
-       (AMessage.message = W.WM_QUIT) OR
-       ~ w.IsParentHandle(AMessage.hwnd)
+       (aMessage.message = W.WM_PAINT) OR
+       (aMessage.message = W.WM_QUIT) OR
+       ~ w.IsParentHandle(aMessage.hwnd)
     THEN
-      Ignore.Int( W.DispatchMessage(AMessage) );
+      Ignore.Int( W.DispatchMessage(aMessage) );
     END;
   END;
   IF (w.FModalResult = 0) THEN
-    result := SYSTEM.VAL(TModalResult, AMessage.wParam);
+    result := SYSTEM.VAL(TModalResult, aMessage.wParam);
   ELSE
     result := w.FModalResult;
   END;
@@ -2584,7 +2617,7 @@ END;
 
 PROCEDURE TLabel.WMPaint(VAR AMsg: TWMPaint);
 VAR
-   DC : HDC;
+   DC : W.HDC;
    ps : TPaintStruct;
    PC : PChar;
    L  : Cardinal;
@@ -3217,7 +3250,7 @@ BEGIN
   IF Kbd <> NIL THEN Exit;
   inherited Create(AParent);
   Visible := false;
-  Charset0 := 0;
+  CharSet0 := 0;
   CharSet1 := RUSSIAN_CHARSET;
   ExStyle := ws_ex_clientedge;
   Position := kpRightBottom;
@@ -3307,7 +3340,7 @@ END;
 
 PROCEDURE TKeyboard.WMPaint(VAR AMsg: TWMPaint);
 VAR
-   DC : HDC;
+   DC : W.HDC;
    ps : TPaintStruct;
 BEGIN
   DC := BeginPaint(FHandle,ps);
@@ -3762,9 +3795,9 @@ BEGIN
   HInstance := W.GetModuleHandle(NIL);
   CmdShow := GetCmdShow(); (*
   Kbd := NIL;
-  KbdHook := 0;
+  KbdHook := 0;*)
   InitScreenLogPixels;
-  Fonts := TFonts.Create;
+  Fonts.Create; (*
   InitScreen;
 
 finalization
