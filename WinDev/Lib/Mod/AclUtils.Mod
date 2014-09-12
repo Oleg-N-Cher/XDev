@@ -505,12 +505,17 @@ implementation
 uses Messages;
 *)
 
-PROCEDURE FillChar* (buffer: SYSTEM.PTR; count: Integer; fill: BYTE);
-VAR
-  bufadr: LONGINT;
+PROCEDURE FillChar* (adr: SYSTEM.PTR; count: Integer; fill: BYTE);
 BEGIN
-  bufadr := SYSTEM.VAL(LONGINT, buffer);
-  WHILE count > 0 DO SYSTEM.PUT(bufadr, fill); INC(bufadr); DEC(count) END;
+  WHILE count > 0 DO
+    SYSTEM.PUT(adr, fill);
+    IF SIZE(SYSTEM.PTR) = SIZE(INTEGER) THEN
+      adr := SYSTEM.VAL(SYSTEM.PTR, SYSTEM.VAL(INTEGER, adr) + 1);
+    ELSE
+      adr := SYSTEM.VAL(SYSTEM.PTR, SYSTEM.VAL(LONGINT, adr) + 1);
+    END;
+    DEC(count);
+  END;
 END FillChar;
 
 PROCEDURE WidthOf* (r: W.RECT): Integer;
