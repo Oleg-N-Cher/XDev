@@ -418,8 +418,8 @@ export LONGINT *AclLib_TButton__typ;
 export LONGINT *AclLib_TCheckBox__typ;
 export LONGINT *AclLib_TProgressBar__typ;
 
-static INTEGER AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR TextMetric, INTEGER fontType, SYSTEM_PTR data);
-static INTEGER AclLib_EnumFontsProc0 (SYSTEM_PTR logFont, SYSTEM_PTR textMetric, INTEGER fontType, SYSTEM_PTR data);
+static INTEGER __CALL_1 AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR TextMetric, INTEGER fontType, SYSTEM_PTR data);
+static INTEGER __CALL_1 AclLib_EnumFontsProc0 (SYSTEM_PTR logFont, SYSTEM_PTR textMetric, INTEGER fontType, SYSTEM_PTR data);
 static INTEGER AclLib_GetCmdShow (void);
 static void AclLib_InitScreenLogPixels (void);
 
@@ -482,7 +482,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 	}
 	(*data).CharSet = (*aFont).lfCharSet;
 	__COPY((*aFont).lfFaceName, (*data).Name, 32);
-	switch ((int)(__SETOF((*aFont).lfPitchAndFamily) & 0x0f)) {
+	switch ((int)((SET)((*aFont).lfPitchAndFamily) & 0x0f)) {
 		case 2: 
 			(*data).Pitch = 2;
 			break;
@@ -522,10 +522,10 @@ static void AclLib_TFont_SetData (AclLib_TFont *f, LONGINT *f__typ, AclLib_TFont
 	__MOVE(__VAL(LONGINT, (*data).Name), __VAL(LONGINT, (*aFont).lfFaceName), 32);
 	switch ((*data).Pitch) {
 		case 2: 
-			(*aFont).lfPitchAndFamily = (CHAR)(__SETOF((*aFont).lfPitchAndFamily) | 0x02);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x02);
 			break;
 		case 1: 
-			(*aFont).lfPitchAndFamily = (CHAR)(__SETOF((*aFont).lfPitchAndFamily) | 0x01);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x01);
 			break;
 		default: 
 			break;
@@ -678,21 +678,21 @@ static void AclLib_TFont_SetPixelsPerInch (AclLib_TFont *f, LONGINT *f__typ, INT
 }
 
 typedef
-	WinApi_ENUMLOGFONTEXA *PLogFontT__62;
+	WinApi_ENUMLOGFONTEXA *PLogFont__62;
 
-static INTEGER AclLib_EnumFontsProc0 (SYSTEM_PTR logFont, SYSTEM_PTR textMetric, INTEGER fontType, SYSTEM_PTR data)
+static INTEGER __CALL_1 AclLib_EnumFontsProc0 (SYSTEM_PTR logFont, SYSTEM_PTR textMetric, INTEGER fontType, SYSTEM_PTR data)
 {
-	AclLib_PFonts Fnt = NIL;
-	PLogFontT__62 PLogFont = NIL;
-	Fnt = (AclLib_PFonts)data;
-	PLogFont = (PLogFontT__62)logFont;
-	if (Fnt->FSet == 0x00 || __AclLib_TFonts_IsTrueType(&*Fnt, __TYPEOF(Fnt), &PLogFont->elfLogFont, WinApi_LOGFONTA__typ)) {
-		Fnt->Count += 1;
+	AclLib_PFonts fnt = NIL;
+	PLogFont__62 logFnt = NIL;
+	fnt = (AclLib_PFonts)data;
+	logFnt = (PLogFont__62)logFont;
+	if (fnt->FSet == 0x00 || __AclLib_TFonts_IsTrueType(&*fnt, __TYPEOF(fnt), &logFnt->elfLogFont, WinApi_LOGFONTA__typ)) {
+		fnt->Count += 1;
 	}
 	return 1;
 }
 
-static INTEGER AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR TextMetric, INTEGER fontType, SYSTEM_PTR data)
+static INTEGER __CALL_1 AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR TextMetric, INTEGER fontType, SYSTEM_PTR data)
 {
 	AclLib_PFonts Fnt = NIL;
 	Fnt = (AclLib_PFonts)data;
@@ -732,13 +732,13 @@ BOOLEAN AclLib_TFonts_IsDefaultPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsFixedPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)(__SETOF((*AFont).lfPitchAndFamily) & 0x0f) == 1;
+	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 1;
 }
 
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsVariablePitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)(__SETOF((*AFont).lfPitchAndFamily) & 0x0f) == 2;
+	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 2;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -829,7 +829,7 @@ static BOOLEAN AclLib_TFonts_IsTrueType (AclLib_TFonts *f, LONGINT *f__typ, WinA
 	newFont = WinApi_CreateFontIndirect(&lf, WinApi_LOGFONTA__typ);
 	oldFont = WinApi_SelectObject((*f).FDC, newFont);
 	Ignore_Int(WinApi_GetTextMetrics((*f).FDC, &Metrics, WinApi_TEXTMETRICA__typ));
-	result = (__SETOF(Metrics.tmPitchAndFamily) & 0x04) != 0x0;
+	result = ((SET)(Metrics.tmPitchAndFamily) & 0x04) != 0x0;
 	Ignore_Ptr(WinApi_SelectObject((*f).FDC, oldFont));
 	Ignore_Int(WinApi_DeleteObject(newFont));
 	return result;

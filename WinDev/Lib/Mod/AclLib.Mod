@@ -1159,22 +1159,24 @@ END SetPixelsPerInch;
 
 PROCEDURE ^ (VAR f: TFonts) IsTrueType (IN aFont: W.LOGFONT): BOOLEAN;
 
-PROCEDURE EnumFontsProc0 (
+PROCEDURE [1] EnumFontsProc0 (
   logFont: W.PtrVoid(*W.ENUMLOGFONTEX*);
   textMetric: W.PtrVoid(*W.NEWTEXTMETRICEX*);
   fontType: Integer; data: W.LPARAM): Integer;
 TYPE
-  PLogFontT = POINTER TO W.ENUMLOGFONTEX;
+  PLogFont = POINTER TO W.ENUMLOGFONTEX;
 VAR
-  Fnt: PFonts; PLogFont: PLogFontT;
+  fnt: PFonts; logFnt: PLogFont;
 BEGIN
-  Fnt := SYSTEM.VAL(PFonts, data);
-  PLogFont := SYSTEM.VAL(PLogFontT, logFont);
-  IF (Fnt.FSet = fsAll) OR Fnt.IsTrueType(PLogFont.elfLogFont) THEN INC(Fnt.Count) END;
+  fnt := SYSTEM.VAL(PFonts, data);
+  logFnt := SYSTEM.VAL(PLogFont, logFont);
+  IF (fnt.FSet = fsAll) OR fnt.IsTrueType(logFnt.elfLogFont) THEN
+    INC(fnt.Count);
+  END;
   RETURN 1
 END EnumFontsProc0;
 
-PROCEDURE EnumFontsProc (
+PROCEDURE [1] EnumFontsProc (
   LogFont: W.PtrVoid(*W.ENUMLOGFONTEX*);
   TextMetric: W.PtrVoid(*W.NEWTEXTMETRICEX*);
   fontType: Integer; data: W.LPARAM): Integer;
@@ -3790,6 +3792,7 @@ BEGIN
 END;
 (*</kvv>*)
 *)
+
 BEGIN
 
   HInstance := W.GetModuleHandle(NIL);
@@ -3802,6 +3805,6 @@ BEGIN
 
 finalization
 
-  Fonts.Free;
-*)
+  Fonts.Free;*)
+
 END AclLib.

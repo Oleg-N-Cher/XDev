@@ -18,7 +18,7 @@ export SYSTEM_PTR AclUtils_FileCreate (CHAR *fileName, LONGINT fileName__len);
 export SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTEGER mode);
 export INTEGER AclUtils_FileRead (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER count);
 export INTEGER AclUtils_FileWrite (SYSTEM_PTR handle, BYTE *buffer, LONGINT buffer__len, INTEGER Count);
-export void AclUtils_FillChar (SYSTEM_PTR buffer, INTEGER count, BYTE fill);
+export void AclUtils_FillChar (SYSTEM_PTR adr, INTEGER count, BYTE fill);
 export INTEGER AclUtils_HeightOf (WinApi_RECT r);
 export INTEGER AclUtils_Length (CHAR *str, LONGINT str__len);
 export INTEGER AclUtils_MakeLong (INTEGER A, INTEGER B);
@@ -28,13 +28,11 @@ export INTEGER AclUtils_WidthOf (WinApi_RECT r);
 
 /*============================================================================*/
 
-void AclUtils_FillChar (SYSTEM_PTR buffer, INTEGER count, BYTE fill)
+void AclUtils_FillChar (SYSTEM_PTR adr, INTEGER count, BYTE fill)
 {
-	LONGINT bufadr;
-	bufadr = __VAL(LONGINT, buffer);
 	while (count > 0) {
-		__PUT(bufadr, fill, BYTE);
-		bufadr += 1;
+		__PUT(adr, fill, BYTE);
+		adr = (SYSTEM_PTR)(__VAL(INTEGER, adr) + 1);
 		count -= 1;
 	}
 }
@@ -55,7 +53,7 @@ INTEGER AclUtils_HeightOf (WinApi_RECT r)
 INTEGER AclUtils_ColorToRGB (INTEGER color)
 {
 	if (color < 0) {
-		return WinApi_GetSysColor((int)(__SETOF(color) & 0xff));
+		return WinApi_GetSysColor((int)((SET)(color) & 0xff));
 	}
 	return color;
 }
@@ -105,7 +103,7 @@ SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTEGER mod
 	ShareMode[4] = 0x03;
 	OpenMode[0] = 3;
 	OpenMode[1] = 5;
-	return WinApi_CreateFile((SYSTEM_PTR)((INTEGER)fileName), AccessMode[__X((int)(__SETOF(mode) & 0x03), 3)], ShareMode[__X(__ASHR((int)(__SETOF(mode) & 0xf0), 4), 5)], NIL, NIL, OpenMode[__X(__ASHR((int)(__SETOF(mode) & 0x04), 2), 2)], 0x80, NIL);
+	return WinApi_CreateFile((SYSTEM_PTR)((INTEGER)fileName), AccessMode[__X((int)((SET)(mode) & 0x03), 3)], ShareMode[__X(__ASHR((int)((SET)(mode) & 0xf0), 4), 5)], NIL, NIL, OpenMode[__X(__ASHR((int)((SET)(mode) & 0x04), 2), 2)], 0x80, NIL);
 }
 
 /*----------------------------------------------------------------------------*/
