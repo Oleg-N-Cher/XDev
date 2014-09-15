@@ -8,8 +8,8 @@
 @IF EXIST %2.c GOTO clib
 
 :olib
-@COPY Obj\%2.h
-%RootBin%\smartlib Obj\%2.c %3 %4 %5
+@COPY Obj64\%2.h
+%RootBin%\smartlib Obj64\%2.c %3 %4 %5
 @GOTO compile
 
 :clib
