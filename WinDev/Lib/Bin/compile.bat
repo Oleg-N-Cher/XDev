@@ -2,7 +2,6 @@
 @IF EXIST %1.c GOTO clib
 
 :olib
-@COPY Obj\%2.h
 ..\Bin\tcc\tcc -c Obj\%1.c -I "." -I Obj
 @IF errorlevel 1 GOTO noinit
 @GOTO exit
