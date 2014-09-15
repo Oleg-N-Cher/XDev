@@ -114,7 +114,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
   #define __REGCMD(name, cmd)
 #endif
 #define __EXTERN __attribute__((dllimport))
-#define __CALL __attribute__((__stdcall__))
+#define __CALL_1 __attribute__((__stdcall__))
 
 /* SYSTEM ops */
 #define __SYSNEW(p, len)	p=SYSTEM_NEWBLK((long)(len))
