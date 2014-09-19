@@ -23,11 +23,11 @@ typedef
 
 typedef
 	struct AclLib_TWinControl {
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -35,7 +35,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -67,11 +67,11 @@ import INTEGER AclLib_TWinControl_ShowModal (AclLib_TWinControl *w, LONGINT *w__
 
 typedef
 	struct AclLib_TStdControl { /* AclLib_TWinControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -79,7 +79,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -88,11 +88,11 @@ typedef
 
 typedef
 	struct AclLib_TButton { /* AclLib_TStdControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -100,7 +100,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -109,11 +109,11 @@ typedef
 
 typedef
 	struct AclLib_TCheckBox { /* AclLib_TStdControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -121,7 +121,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -130,14 +130,14 @@ typedef
 
 typedef
 	struct AclLib_TCreateParams {
-		INTEGER _prvt0;
-		char _prvt1[388];
+		LONGINT _prvt0;
+		char _prvt1[392];
 	} AclLib_TCreateParams;
 
 typedef
 	struct AclLib_TFont {
 		SYSTEM_PTR Handle;
-		char _prvt0[112];
+		char _prvt0[116];
 		INTEGER Color;
 		char _prvt1[4];
 	} AclLib_TFont;
@@ -147,9 +147,9 @@ typedef
 
 typedef
 	struct AclLib_TFonts {
-		char _prvt0[4];
+		LONGINT _prvt0;
 		INTEGER Count;
-		char _prvt1[5];
+		char _prvt1[13];
 		CHAR CharSet;
 	} AclLib_TFonts;
 
@@ -174,11 +174,11 @@ import void AclLib_TFonts_SetCharSet (AclLib_TFonts *f, LONGINT *f__typ, CHAR va
 
 typedef
 	struct AclLib_TLabel { /* AclLib_TStdControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -186,7 +186,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -195,11 +195,11 @@ typedef
 
 typedef
 	struct AclLib_TListBox { /* AclLib_TStdControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -207,7 +207,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
@@ -221,11 +221,11 @@ typedef
 
 typedef
 	struct AclLib_TProgressBar { /* AclLib_TStdControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
-		char _prvt1[4];
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt2[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
 		char _prvt3[4];
 		SET Style, ExStyle;
@@ -233,7 +233,7 @@ typedef
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt5[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
 		char _prvt6[7];
 		BOOLEAN Visible;
