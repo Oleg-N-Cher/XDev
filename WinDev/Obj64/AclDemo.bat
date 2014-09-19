@@ -1,3 +1,4 @@
+@EXIT
 @SET Bin=..\Bin
 @SET Lib=..\Lib
 @SET tcc=%Bin%\tcc64\tcc
