@@ -17,11 +17,18 @@ Host/Code/Mechanisms.ocf Host/Code/Menus.ocf
 Host/Code/Ports.ocf Host/Code/Printers.ocf
 Host/Code/Registry.ocf
 Host/Code/Windows.ocf
+Host/Rsrc/Prefs.odc
+Host/Rsrc/Setup.odc
 
 i21sys/Code/Calls.ocf
 i21sys/Code/Info.ocf
 
+Master/Code/Colors.ocf
+Master/Code/ColorScanner.ocf
 Master/Code/ColorViews.ocf
+
+Multi/Code/CardAsm.ocf
+Multi/Code/Cardinals.ocf
 
 Ofront/Code/Browser.ocf
 Ofront/Code/Cmd.ocf
@@ -34,6 +41,7 @@ Ofront/Code/OPT.ocf
 Ofront/Code/OPV.ocf
 Ofront/Rsrc/Strings.odc
 
+Ole/Code/Client.ocf
 Ole/Code/Data.ocf
 
 Std/Code/Api.ocf
@@ -54,6 +62,7 @@ System/Code/Ports.ocf System/Code/Printers.ocf System/Code/Printing.ocf System/C
 System/Code/Sequencers.ocf System/Code/Services.ocf System/Code/Stores.ocf System/Code/Strings.ocf
 System/Code/Views.ocf System/Code/Windows.ocf
 System/Rsrc/Menus.odc
+System/Rsrc/Strings.odc
 
 Text/Code/Cmds.ocf
 Text/Code/Controllers.ocf
