@@ -155,7 +155,7 @@ BEGIN
 			IF Exists(loc, "compile64.bat") THEN (* Start "Bin/compile64.bat Mod". *)
 				OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
 				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
-				loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 dir. *)
+				loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 				i21sysCalls.StartAt(loc, "..\Bin\compile64.bat " + name$);
 			END;
 
@@ -215,14 +215,17 @@ BEGIN
 			END;
 
 			IF ~Is64BitWindows THEN Close; RETURN END;
+
 			(* Additional building thread: *)
-			loc := Files.dir.This(dir + ObjDir + "64");
+			OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
+			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
 			IF Exists(loc, name) THEN
 				i21sysCalls.StartAt(loc, name); (* Start "Obj64/Module.bat" *)
 			ELSE
 				loc := Files.dir.This(dir + BinDir);
-				IF Exists(loc, "build64.bat") THEN (* Start "Bin64/build.bat Module". *)
+				IF Exists(loc, "build64.bat") THEN (* Start "Bin/build64.bat Module". *)
 					GetNameWoExt(w.name, name);
 					Strings.Find(name, " ", 0, spacePos);
 					IF spacePos # NotFound THEN
@@ -230,10 +233,7 @@ BEGIN
 						StdLog.Ln;
 						Close; RETURN
 					END;
-					OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
-					IF ~Ofront.TranslateDone() THEN Close; RETURN END;
-					loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 dir. *)
-					(* StdLog.String(loc(HostFiles.Locator).path$); StdLog.Ln; *)
+					loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 					i21sysCalls.StartAt(loc, "..\Bin\build64.bat " + name$);
 				END;
 			END;
