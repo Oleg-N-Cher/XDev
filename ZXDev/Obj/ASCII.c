@@ -17,9 +17,10 @@ export main(int argc, char **argv)
 	__IMPORT(Console__init);
 	__REGMAIN("ASCII", 0);
 /* BEGIN */
-	ASCII_n = 32;
-	do {
-		Console_WriteCh((CHAR)ASCII_n);
-	} while (++ASCII_n >= 0);
+	ASCII_n = 31;
+	while (ASCII_n <= 126) {
+		Console_WriteCh((CHAR)(ASCII_n + 1));
+		ASCII_n += 1;
+	}
 	__FINI;
 }
