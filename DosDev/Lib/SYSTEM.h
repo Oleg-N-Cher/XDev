@@ -147,8 +147,13 @@ extern void SYSTEM_ENUMR();
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
 
 /* runtime checks */
-#define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
-#define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
+#ifndef SYSTEM_Cfg_NoCheck_X
+#  define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
+#  define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
+#else
+#  define __X(i, ub)	(i)
+#  define __XF(i, ub)	(i)
+#endif
 #define __RETCHK	__retchk: __HALT(-3)
 #define __CASECHK	__HALT(-4)
 #define __GUARDP(p, typ, level)	((typ*)(__ISP(p,typ,level)?p:(__HALT(-5),p)))

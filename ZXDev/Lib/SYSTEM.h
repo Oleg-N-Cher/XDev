@@ -172,10 +172,11 @@ extern void SYSTEM_ENUMR();
 /* runtime checks */
 #ifndef SYSTEM_Cfg_NoCheck_X
 #  define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
+#  define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
 #else
 #  define __X(i, ub)	(i)
+#  define __XF(i, ub)	(i)
 #endif
-#define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
 #define __RETCHK	__retchk: __HALT(-3)
 #ifndef SYSTEM_Cfg_NoCheck_CASE
 #  define __CASECHK	__HALT(-4)
