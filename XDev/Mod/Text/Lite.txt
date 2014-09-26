@@ -70,6 +70,8 @@ Text/Code/Mappers.ocf Text/Code/Models.ocf
 Text/Code/Rulers.ocf
 Text/Code/Setters.ocf
 Text/Code/Views.ocf
+Text/Rsrc/Cmds.odc
+Text/Rsrc/Menus.odc
 
 XDev/Code/Cmd.ocf
 XDev/Code/Misc.ocf
