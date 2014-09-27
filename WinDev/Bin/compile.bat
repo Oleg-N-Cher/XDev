@@ -4,11 +4,11 @@
 
 @IF EXIST %1 GOTO config
 
-%tcc% -c %1.c -I "." -I %Lib%
+%tcc% -c %1.c -I "." -I %Lib%\Obj -I %Lib%
 GOTO exit
 
 :config
-%tcc% -c %1.c -I %1 -I %Lib%
+%tcc% -c %1.c -I %1 -I %Lib%\Obj -I %Lib%
 
 :exit
 @IF errorlevel 1 PAUSE
