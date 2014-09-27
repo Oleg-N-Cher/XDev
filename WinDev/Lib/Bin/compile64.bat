@@ -2,8 +2,8 @@
 @IF EXIST %1.c GOTO clib
 
 :olib
-IF NOT EXIST Obj64\%1.c GOTO thesame1
-..\Bin\tcc64\tcc -c Obj64\%2.c -I "." -I Obj64
+@IF NOT EXIST Obj64\%1.c GOTO thesame1
+..\Bin\tcc64\tcc -c Obj64\%1.c -I "." -I Obj64
 @GOTO errlev
 :thesame1
 ..\Bin\tcc64\tcc -c Obj\%1.c -I "." -I Obj
