@@ -97,8 +97,13 @@ void Math_Randomize (void)
 {
 __asm
   LD   A,R
+  ADD  (HL)
+  ADC  B
   LD   B,A
-  LD   C,#0
+  LD   A,(DE)
+  ADC  C
+  LD   C,A
   CALL #0x1E52
 __endasm;
 } //Math_Randomize
+

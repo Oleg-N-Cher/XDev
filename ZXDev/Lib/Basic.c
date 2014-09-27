@@ -1012,22 +1012,17 @@ __endasm;
 } //Basic_PAUSE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_RANDOMIZE (CARDINAL seed)
+void Basic_RANDOMIZE (CARDINAL seed) __naked
 {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   LD   A,R
-  ADC  4(IX)
+  ADC  C
   LD   C,A
-  LD   B,5(IX)
-  CALL #0x1E52
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x1E52
 __endasm;
 } //Basic_RANDOMIZE
 
