@@ -647,11 +647,11 @@ CONST
 	BUTTON_X1*				= 6X;
 	BUTTON_X2*				= 7X;
 
-	BUTTON_LMASK* = SHORT(CHR(ASH(PRESSED, (ORD(BUTTON_LEFT) - 1))));
-	BUTTON_MMASK* = SHORT(CHR(ASH(PRESSED, (ORD(BUTTON_MIDDLE) - 1))));
-	BUTTON_RMASK* = SHORT(CHR(ASH(PRESSED, (ORD(BUTTON_RIGHT) - 1))));
-	BUTTON_X1MASK* = SHORT(CHR(ASH(PRESSED, (ORD(BUTTON_X1) - 1))));
-	BUTTON_X2MASK* = SHORT(CHR(ASH(PRESSED, (ORD(BUTTON_X2) - 1))));
+	BUTTON_LMASK* = CHR(ASH(PRESSED, (ORD(BUTTON_LEFT) - 1)));
+	BUTTON_MMASK* = CHR(ASH(PRESSED, (ORD(BUTTON_MIDDLE) - 1)));
+	BUTTON_RMASK* = CHR(ASH(PRESSED, (ORD(BUTTON_RIGHT) - 1)));
+	BUTTON_X1MASK* = CHR(ASH(PRESSED, (ORD(BUTTON_X1) - 1)));
+	BUTTON_X2MASK* = CHR(ASH(PRESSED, (ORD(BUTTON_X2) - 1)));
 
 	(* SDL_active.h constants *)
 	(* The available application states *)
@@ -682,13 +682,13 @@ TYPE
 	(* Delphi types *)
 	Byte* 		= BYTE;
 	Cardinal* = INTEGER;
-	Char* 		= SHORTCHAR;
-	Double* 	= REAL; (* 64 bit *)
+	Char* 		= CHAR;
+	Double* 	= LONGREAL; (* 64 bit *)
 	Integer*	= INTEGER;
 	LongWord* = Cardinal;
 	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
 	Pointer*	= POINTER [1] TO ARRAY [1] OF Byte;
-	Single* 	= SHORTREAL; (* 32 bit *)
+	Single* 	= REAL; (* 32 bit *)
 	Word*		 = SHORTINT; (* 16 bit *)
 
 	Address*	= OS.Address; (* 32 bit system address *)
@@ -698,25 +698,25 @@ TYPE
 	(* Basic data types *)
 
 	Bool* = Integer; (* SDL_FALSE, SDL_TRUE *)
+	UInt8* = CHAR;
 (*
 	PUInt8Array = ^TUInt8Array;*)
 	PUInt8* = POINTER [1] TO ARRAY [1] OF UInt8;(*
 	PPUInt8 = ^PUInt8;*)
-	UInt8* = SHORTCHAR;
 (*
 	TUInt8Array = array [0..MAXINT shr 1] of UInt8;
 *)
+	UInt16* = SHORTINT;
 	PUInt16* = POINTER [1] TO ARRAY [1] OF UInt16;
-	UInt16* = SHORTINT;(*
-
+(*
 	PSInt8 = ^SInt8;*)
 	SInt8 = Byte;(*
 
 	PSInt16 = ^SInt16;*)
 	SInt16* = SHORTINT;
 
-	PUInt32* = POINTER [1] TO ARRAY [1] OF UInt32;
 	UInt32* = INTEGER;
+	PUInt32* = POINTER [1] TO ARRAY [1] OF UInt32;
 
 	SInt32* = Integer;
 (*
@@ -791,20 +791,20 @@ TYPE
 			(* Seek to 'offset' relative to whence, one of stdio's whence values:
 			SEEK_SET, SEEK_CUR, SEEK_END
 			Returns the final offset in the data source. *)
-		seek*: PROCEDURE [ccall] (
+		seek*: PROCEDURE (
 			VAR context: RWops; offset, whence: Integer): Integer;
 			(* Read up to 'num' objects each of size 'objsize' from the data
 			source to the area pointed at by 'ptr'.
 			Returns the number of objects read, or -1 if the read failed. *)
-		read*: PROCEDURE [ccall] (
+		read*: PROCEDURE (
 			VAR context: RWops; ptr: Pointer; size, maxnum: Integer): Integer;
 			(* Write exactly 'num' objects each of size 'objsize' from the area
 			pointed at by 'ptr' to data source.
 			Returns 'num', or -1 if the write failed. *)
-		write*: PROCEDURE [ccall] (
+		write*: PROCEDURE (
 			VAR context: RWops; ptr: Pointer; size, num: Integer): Integer;
 			(* Close and free an allocated SDL_FSops structure *)
-		close*: PROCEDURE [ccall] (VAR context: RWops): Integer;
+		close*: PROCEDURE (VAR context: RWops): Integer;
 		(* CASE Integer OF *)
 		type*: UInt32;
 		(* be warned! structure alignment may arise at this point *)
@@ -829,7 +829,7 @@ TYPE
 
 	(* SDL_timer.h types *)
 	(* Function prototype for the timer callback function *)
-	TimerCallback* = PROCEDURE [ccall] (interval: UInt32): UInt32;
+	TimerCallback* = PROCEDURE (interval: UInt32): UInt32;
 
 (* New timer API, supports multiple timers
 	 Written by Stephane Peter <megastep@lokigames.com> *)
@@ -839,7 +839,7 @@ TYPE
 	 the next timer interval.	If the returned value is the same as the one
 	 passed in, the periodic alarm continues, otherwise a new alarm is
 	 scheduled.	If the callback returns 0, the periodic alarm is cancelled. *)
-	NewTimerCallback* = PROCEDURE [ccall] (
+	NewTimerCallback* = PROCEDURE (
 		interval: UInt32; param: Pointer): UInt32;
 	
 	(* Definition of the timer ID type *)
@@ -852,7 +852,7 @@ TYPE
 		next*: PTimerID;
 	END;
 
-	AudioSpecCallback* = PROCEDURE [ccall] (
+	AudioSpecCallback* = PROCEDURE (
 		userdata: Pointer; VAR stream: UInt8; len: Integer);
 
 	(* SDL_audio.h types *)
@@ -1243,7 +1243,7 @@ TYPE
 
 	The filter is protypted as: *)
 
-	EventFilter* = PROCEDURE [ccall] (event: PEvent): Integer;
+	EventFilter* = PROCEDURE (event: PEvent): Integer;
 
 	(* SDL_video.h types *)
 	(* Useful data types *)
@@ -1323,7 +1323,7 @@ TYPE
 	(* typedef for private surface blitting functions *)
 	PSurface* = POINTER [1] TO Surface;
 
-	Blit* = PROCEDURE [ccall] (src: PSurface; srcrect: PRect;
+	Blit* = PROCEDURE (src: PSurface; srcrect: PRect;
 														 dst: PSurface; dstrect: PRect): Integer;
 (*
 	(* The type definition for the low level blit functions *)
@@ -1611,32 +1611,32 @@ PSDL_semaphore = ^TSDL_semaphore;
 	 Unless the SDL_INIT_NOPARACHUTE flag is set, it will install cleanup
 	 signal handlers for some commonly ignored fatal signals (like SIGSEGV) *)
 
-PROCEDURE [ccall] Init* ["SDL_Init"] (flags: SET): Integer;
+PROCEDURE -Init* ["SDL_Init"] (flags: SET): Integer;
 
 (* This procedure initializes specific SDL subsystems *)
-PROCEDURE [ccall] InitSubSystem* ["SDL_InitSubSystem"]
+PROCEDURE -InitSubSystem* ["SDL_InitSubSystem"]
 	(flags: SET) : Integer;
 
 (* This procedure cleans up specific SDL subsystems *)
-PROCEDURE [ccall] QuitSubSystem* ["SDL_QuitSubSystem"] (flags: SET);
+PROCEDURE -QuitSubSystem* ["SDL_QuitSubSystem"] (flags: SET);
 
 (* This procedure returns mask of the specified subsystems which have
 	been initialized.
 	If 'flags' is 0, it returns a mask of all initialized subsystems. *)
 
-PROCEDURE [ccall] WasInit* ["SDL_WasInit"] (flags: SET): SET;
+PROCEDURE -WasInit* ["SDL_WasInit"] (flags: SET): SET;
 
 (* This procedure cleans up all initialized subsystems and unloads the
 	dynamically linked library. You should call it upon all exit conditions. *)
-PROCEDURE [ccall] Quit* ["SDL_Quit"] ;
+PROCEDURE -Quit* ["SDL_Quit"] ;
 
 (* This should be called from your WinMain() function, if any *)
-PROCEDURE [ccall] RegisterApp* ["SDL_RegisterApp"]
+PROCEDURE -RegisterApp* ["SDL_RegisterApp"]
 	(name: PChar; style: UInt32; hInst: Pointer): Integer;
 (*
 {$IFDEF __MACH__}
 // This should be called from your main() function, if any
-PROCEDURE [ccall] InitQuickDraw* ["SDL_InitQuickDraw"] (theQd: QDGlobals);
+PROCEDURE -InitQuickDraw* ["SDL_InitQuickDraw"] (theQd: QDGlobals);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name ''{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_InitQuickDraw}
 {$ENDIF}
@@ -1646,24 +1646,24 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name ''{$ELSE} SDLLibName{$ENDIF __
 (*																		Types																	 *)
 (*----------------------------------------------------------------------------*)
 (* The number of elements in a table *)
-PROCEDURE [ccall] TableSize* ["SDL_TableSize"] (table: PChar): Integer;
+PROCEDURE -TableSize* ["SDL_TableSize"] (table: PChar): Integer;
 
 
 (*----------------------------------------------------------------------------*)
 (*															 Error handling 															*)
 (*----------------------------------------------------------------------------*)
 (* Public functions *)
-PROCEDURE [ccall] GetError* ["SDL_GetError"] (): PChar;
-PROCEDURE [ccall] SetError* ["SDL_SetError"] (fmt: PChar);
-PROCEDURE [ccall] ClearError* ["SDL_ClearError"] ;
+PROCEDURE -GetError* ["SDL_GetError"] (): PChar;
+PROCEDURE -SetError* ["SDL_SetError"] (fmt: PChar);
+PROCEDURE -ClearError* ["SDL_ClearError"] ;
 (* $IFNDEF WINDOWS}
-PROCEDURE [ccall] SDL_Error(Code: TSDL_errorcode);
+PROCEDURE -SDL_Error(Code: TSDL_errorcode);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_Error'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_Error}
 {$ENDIF*)
 
 (* Private error message procedure - used internally *)
-PROCEDURE [ccall] OutOfMemory* ["SDL_OutOfMemory"] ;
+PROCEDURE -OutOfMemory* ["SDL_OutOfMemory"] ;
 
 (*----------------------------------------------------------------------------*)
 (*																IO handling 																*)
@@ -1671,18 +1671,18 @@ PROCEDURE [ccall] OutOfMemory* ["SDL_OutOfMemory"] ;
 
 (* Functions to create SDL_RWops structures from various data sources *)
 
-PROCEDURE [ccall] RWFromFile* ["SDL_RWFromFile"] (
+PROCEDURE -RWFromFile* ["SDL_RWFromFile"] (
 	fileName, mode: PChar): PRWops;
-PROCEDURE [ccall] FreeRW* ["SDL_FreeRW"] (area: PRWops);
+PROCEDURE -FreeRW* ["SDL_FreeRW"] (area: PRWops);
 
 (* fp is FILE *fp ??? *)
-PROCEDURE [ccall] RWFromFP* ["SDL_RWFromFP"] (
+PROCEDURE -RWFromFP* ["SDL_RWFromFP"] (
 	fp: Pointer; autoClose: Integer): PRWops;
-PROCEDURE [ccall] RWFromMem* ["SDL_RWFromMem"] (
+PROCEDURE -RWFromMem* ["SDL_RWFromMem"] (
 	mem: Pointer; size: Integer): PRWops;
-PROCEDURE [ccall] RWFromConstMem* ["SDL_RWFromConstMem"] (
+PROCEDURE -RWFromConstMem* ["SDL_RWFromConstMem"] (
 	mem: Pointer; size: Integer): PRWops;
-PROCEDURE [ccall] AllocRW* ["SDL_AllocRW"] (): PRWops;
+PROCEDURE -AllocRW* ["SDL_AllocRW"] (): PRWops;
 
 (*----------------------------------------------------------------------------*)
 (*																Time handling 															*)
@@ -1690,20 +1690,20 @@ PROCEDURE [ccall] AllocRW* ["SDL_AllocRW"] (): PRWops;
 
 (* Get the number of milliseconds since the SDL library initialization. *)
 (* Note that this value wraps if the program runs for more than ~49 days. *)
-PROCEDURE [ccall] GetTicks* ["SDL_GetTicks"] (): UInt32;
+PROCEDURE -GetTicks* ["SDL_GetTicks"] (): UInt32;
 
 (* Wait a specified number of milliseconds before returning *)
-PROCEDURE [ccall] Delay* ["SDL_Delay"] (msec: Integer);
+PROCEDURE -Delay* ["SDL_Delay"] (msec: Integer);
 
 (* Add a new timer to the pool of timers already running. *)
 (* Returns a timer ID, or NULL when an error occurs. *)
-PROCEDURE [ccall] AddTimer* ["SDL_AddTimer"] (interval: UInt32; callback: NewTimerCallback; param : Pointer): PTimerID;
+PROCEDURE -AddTimer* ["SDL_AddTimer"] (interval: UInt32; callback: NewTimerCallback; param : Pointer): PTimerID;
 
 (* Remove one of the multiple timers knowing its ID. *)
 (* Returns a boolean value indicating success. *)
-PROCEDURE [ccall] RemoveTimer* ["SDL_RemoveTimer"] (t: PTimerID): Bool;
+PROCEDURE -RemoveTimer* ["SDL_RemoveTimer"] (t: PTimerID): Bool;
 
-PROCEDURE [ccall] SetTimer* ["SDL_SetTimer"] (
+PROCEDURE -SetTimer* ["SDL_SetTimer"] (
 	interval: UInt32; callback: TimerCallback): Integer;
 
 (*----------------------------------------------------------------------------*)
@@ -1714,14 +1714,14 @@ PROCEDURE [ccall] SetTimer* ["SDL_SetTimer"] (
 	 have a specific need to specify the audio driver you want to use.
 	 You should normally use SDL_Init() or SDL_InitSubSystem(). *)
 
-PROCEDURE [ccall] AudioInit* ["SDL_AudioInit"] (driverName: PChar): Integer;
-PROCEDURE [ccall] AudioQuit* ["SDL_AudioQuit"] ;
+PROCEDURE -AudioInit* ["SDL_AudioInit"] (driverName: PChar): Integer;
+PROCEDURE -AudioQuit* ["SDL_AudioQuit"] ;
 
 (* This procedure fills the given character buffer with the name of the
 	 current audio driver, and returns a Pointer to it if the audio driver has
 	 been initialized.	It returns NULL if no driver has been initialized. *)
 
-PROCEDURE [ccall] AudioDriverName* ["SDL_AudioDriverName"] (
+PROCEDURE -AudioDriverName* ["SDL_AudioDriverName"] (
 	nameBuf: PChar; maxLen: Integer): PChar;
 
 (* This procedure opens the audio device with the desired parameters, and
@@ -1764,11 +1764,11 @@ PROCEDURE [ccall] AudioDriverName* ["SDL_AudioDriverName"] (
 	 may modify the requested size of the audio buffer, you should allocate
 	 any local mixing buffers after you open the audio device. *)
 
-PROCEDURE [ccall] OpenAudio* ["SDL_OpenAudio"] (
+PROCEDURE -OpenAudio* ["SDL_OpenAudio"] (
 	desired, obtained: PAudioSpec): Integer;
 
 (* Get the current audio state: *)
-PROCEDURE [ccall] GetAudioStatus* ["SDL_GetAudioStatus"] (): AudioStatus;
+PROCEDURE -GetAudioStatus* ["SDL_GetAudioStatus"] (): AudioStatus;
 
 (* This procedure pauses and unpauses the audio callback processing.
 	 It should be called with a parameter of 0 after opening the audio
@@ -1776,7 +1776,7 @@ PROCEDURE [ccall] GetAudioStatus* ["SDL_GetAudioStatus"] (): AudioStatus;
 	 data for your callback procedure after opening the audio device.
 	 Silence will be written to the audio device during the pause. *)
 
-PROCEDURE [ccall] PauseAudio* ["SDL_PauseAudio"] (pauseOn: Integer);
+PROCEDURE -PauseAudio* ["SDL_PauseAudio"] (pauseOn: Integer);
 
 (* This procedure loads a WAVE from the data source, automatically freeing
 	 that source if 'freesrc' is non-zero.	For example, to load a WAVE file,
@@ -1794,19 +1794,19 @@ PROCEDURE [ccall] PauseAudio* ["SDL_PauseAudio"] (pauseOn: Integer);
 	 wave file cannot be opened, uses an unknown data format, or is
 	 corrupt.	Currently raw and MS-ADPCM WAVE files are supported. *)
 
-PROCEDURE [ccall] LoadWAV_RW* ["SDL_LoadWAV_RW"] (src: PRWops; freeSrc: Integer;
+PROCEDURE -LoadWAV_RW* ["SDL_LoadWAV_RW"] (src: PRWops; freeSrc: Integer;
 	spec: PAudioSpec; VAR audioBuf: UInt8; VAR audioLen: UInt32): PAudioSpec;
 
 (* This procedure frees data previously allocated with SDL_LoadWAV_RW() *)
 
-PROCEDURE [ccall] FreeWAV* ["SDL_FreeWAV"] (audioBuf: PUInt8);
+PROCEDURE -FreeWAV* ["SDL_FreeWAV"] (audioBuf: PUInt8);
 
 (* This procedure takes a source format and rate and a destination format
 	 and rate, and initializes the 'cvt' structure with information needed
 	 by SDL_ConvertAudio() to convert a buffer of audio data from one format
 	 to the other.
 	 This procedure returns 0, or -1 if there was an error. *)
-PROCEDURE [ccall] BuildAudioCVT* ["SDL_BuildAudioCVT"] (
+PROCEDURE -BuildAudioCVT* ["SDL_BuildAudioCVT"] (
 	cvt: PAudioCVT; srcFormat: UInt16; srcChannels: UInt8; srcRate: Integer;
 	dstFormat: UInt16; dstChannels: UInt8; dstRate: Integer): Integer;
 
@@ -1817,7 +1817,7 @@ PROCEDURE [ccall] BuildAudioCVT* ["SDL_BuildAudioCVT"] (
 	 The data conversion may expand the size of the audio data, so the buffer
 	 cvt->buf should be allocated after the cvt structure is initialized by
 	 SDL_BuildAudioCVT(), and should be cvt->len*cvt->len_mult bytes long. *)
-PROCEDURE [ccall] ConvertAudio* ["SDL_ConvertAudio"] (
+PROCEDURE -ConvertAudio* ["SDL_ConvertAudio"] (
 	cvt: PAudioCVT): Integer;
 
 (* This takes two audio buffers of the playing audio format and mixes
@@ -1826,19 +1826,19 @@ PROCEDURE [ccall] ConvertAudio* ["SDL_ConvertAudio"] (
 	 for full audio volume.	Note this does not change hardware volume.
 	 This is provided for convenience -- you can mix your own audio data. *)
 
-PROCEDURE [ccall] MixAudio* ["SDL_MixAudio"] (
+PROCEDURE -MixAudio* ["SDL_MixAudio"] (
 	dst, src: PUInt8; len: UInt32; volume: Integer);
 
 (* The lock manipulated by these functions protects the callback function.
 	 During a LockAudio/UnlockAudio pair, you can be guaranteed that the
 	 callback procedure is not running.	Do not call these from the callback
 	 procedure or you will cause deadlock. *)
-PROCEDURE [ccall] LockAudio* ["SDL_LockAudio"] ;
-PROCEDURE [ccall] UnlockAudio* ["SDL_UnlockAudio"] ;
+PROCEDURE -LockAudio* ["SDL_LockAudio"] ;
+PROCEDURE -UnlockAudio* ["SDL_UnlockAudio"] ;
 
 (* This procedure shuts down audio processing and closes the audio device. *)
 
-PROCEDURE [ccall] CloseAudio* ["SDL_CloseAudio"] ;
+PROCEDURE -CloseAudio* ["SDL_CloseAudio"] ;
 
 (*----------------------------------------------------------------------------*)
 (*																CD routines																 *)
@@ -1847,7 +1847,7 @@ PROCEDURE [ccall] CloseAudio* ["SDL_CloseAudio"] ;
 (* Returns the number of CD-ROM drives on the system, or -1 if
 	 SDL_Init() has not been called with the SDL_INIT_CDROM flag. *)
 
-PROCEDURE [ccall] CDNumDrives* ["SDL_CDNumDrives"] (): Integer;
+PROCEDURE -CDNumDrives* ["SDL_CDNumDrives"] (): Integer;
 
 (* Returns a human-readable, system-dependent identifier for the CD-ROM.
 		Example:
@@ -1855,7 +1855,7 @@ PROCEDURE [ccall] CDNumDrives* ["SDL_CDNumDrives"] (): Integer;
 		"E:"
 		"/dev/disk/ide/1/master" *)
 
-PROCEDURE [ccall] CDName* ["SDL_CDName"] (drive: Integer): PChar;
+PROCEDURE -CDName* ["SDL_CDName"] (drive: Integer): PChar;
 
 (* Opens a CD-ROM drive for access.	It returns a drive handle on success,
 	 or NULL if the drive was invalid or busy.	This newly opened CD-ROM
@@ -1863,13 +1863,13 @@ PROCEDURE [ccall] CDName* ["SDL_CDName"] (drive: Integer): PChar;
 	 CD-ROM handle.
 	 Drives are numbered starting with 0. Drive 0 is the system default CD-ROM. *)
 
-PROCEDURE [ccall] CDOpen* ["SDL_CDOpen"] (drive: Integer): PCD;
+PROCEDURE -CDOpen* ["SDL_CDOpen"] (drive: Integer): PCD;
 
 (* This procedure returns the current status of the given drive.
 	 If the drive has a CD in it, the table of contents of the CD and current
 	 play position of the CD will be stored in the SDL_CD structure. *)
 
-PROCEDURE [ccall] CDStatus* ["SDL_CDStatus"] (cdRom: PCD): CDstatus;
+PROCEDURE -CDStatus* ["SDL_CDStatus"] (cdRom: PCD): CDstatus;
 
 (* Play the given CD starting at 'start_track' and 'start_frame' for 'ntracks'
 	 tracks and 'nframes' frames.	If both 'ntrack' and 'nframe' are 0, play
@@ -1893,30 +1893,30 @@ PROCEDURE [ccall] CDStatus* ["SDL_CDStatus"] (cdRom: PCD): CDstatus;
 
 	 This procedure returns 0, or -1 if there was an error. *)
 
-PROCEDURE [ccall] CDPlayTracks* ["SDL_CDPlayTracks"] (
+PROCEDURE -CDPlayTracks* ["SDL_CDPlayTracks"] (
 	cdRom: PCD; startTrack, startFrame, nTracks, nFrames: Integer): Integer;
 
 
 (* Play the given CD starting at 'start' frame for 'length' frames.
 	 It returns 0, or -1 if there was an error. *)
 
-PROCEDURE [ccall] CDPlay* ["SDL_CDPlay"] (
+PROCEDURE -CDPlay* ["SDL_CDPlay"] (
 	cdRom: PCD; start, length: Integer): Integer;
 
 (* Pause play -- returns 0, or -1 on error *)
-PROCEDURE [ccall] CDPause* ["SDL_CDPause"] (cdRom: PCD): Integer;
+PROCEDURE -CDPause* ["SDL_CDPause"] (cdRom: PCD): Integer;
 
 (* Resume play -- returns 0, or -1 on error *)
-PROCEDURE [ccall] CDResume* ["SDL_CDResume"] (cdRom: PCD): Integer;
+PROCEDURE -CDResume* ["SDL_CDResume"] (cdRom: PCD): Integer;
 
 (* Stop play -- returns 0, or -1 on error *)
-PROCEDURE [ccall] CDStop* ["SDL_CDStop"] (cdRom: PCD): Integer;
+PROCEDURE -CDStop* ["SDL_CDStop"] (cdRom: PCD): Integer;
 
 (* Eject CD-ROM -- returns 0, or -1 on error *)
-PROCEDURE [ccall] CDEject* ["SDL_CDEject"] (cdRom: PCD): Integer;
+PROCEDURE -CDEject* ["SDL_CDEject"] (cdRom: PCD): Integer;
 
 (* Closes the handle for the CD-ROM drive *)
-PROCEDURE [ccall] CDClose* ["SDL_CDClose"] (cdRom: PCD);
+PROCEDURE -CDClose* ["SDL_CDClose"] (cdRom: PCD);
 
 
 (*----------------------------------------------------------------------------*)
@@ -1924,52 +1924,52 @@ PROCEDURE [ccall] CDClose* ["SDL_CDClose"] (cdRom: PCD);
 (*----------------------------------------------------------------------------*)
 
 (* Count the number of joysticks attached to the system *)
-PROCEDURE [ccall] NumJoysticks* ["SDL_NumJoysticks"] (): Integer;
+PROCEDURE -NumJoysticks* ["SDL_NumJoysticks"] (): Integer;
 
 (* Get the implementation dependent name of a joystick.
 	 This can be called before any joysticks are opened.
 	 If no name can be found, this procedure returns NULL. *)
-PROCEDURE [ccall] JoystickName* ["SDL_JoystickName"] (index: Integer): PChar;
+PROCEDURE -JoystickName* ["SDL_JoystickName"] (index: Integer): PChar;
 
 (* Open a joystick for use - the index passed as an argument refers to
 	 the N'th joystick on the system.	This index is the value which will
 	 identify this joystick in future joystick events.
 
 	 This procedure returns a joystick identifier, or NULL if an error occurred *)
-PROCEDURE [ccall] JoystickOpen* ["SDL_JoystickOpen"] (
+PROCEDURE -JoystickOpen* ["SDL_JoystickOpen"] (
 	index: Integer): PJoystick;
 
 (* Returns 1 if the joystick has been opened, or 0 if it has not. *)
-PROCEDURE [ccall] JoystickOpened* ["SDL_JoystickOpened"] (
+PROCEDURE -JoystickOpened* ["SDL_JoystickOpened"] (
 	index: Integer): Integer;
 
 (* Get the device index of an opened joystick. *)
-PROCEDURE [ccall] JoystickIndex* ["SDL_JoystickIndex"] (
+PROCEDURE -JoystickIndex* ["SDL_JoystickIndex"] (
 	joystick: PJoystick): Integer;
 
 (* Get the number of general axis controls on a joystick *)
-PROCEDURE [ccall] JoystickNumAxes* ["SDL_JoystickNumAxes"] (
+PROCEDURE -JoystickNumAxes* ["SDL_JoystickNumAxes"] (
 	joystick: PJoystick): Integer;
 
 (* Get the number of trackballs on a joystick
 	 Joystick trackballs have only relative motion events associated
 	 with them and their state cannot be polled. *)
-PROCEDURE [ccall] JoystickNumBalls* ["SDL_JoystickNumBalls"] (
+PROCEDURE -JoystickNumBalls* ["SDL_JoystickNumBalls"] (
 	joystick: PJoystick): Integer;
 
 (* Get the number of POV hats on a joystick *)
-PROCEDURE [ccall] JoystickNumHats* ["SDL_JoystickNumHats"] (
+PROCEDURE -JoystickNumHats* ["SDL_JoystickNumHats"] (
 	joystick: PJoystick): Integer;
 
 (* Get the number of buttons on a joystick *)
-PROCEDURE [ccall] JoystickNumButtons* ["SDL_JoystickNumButtons"] (
+PROCEDURE -JoystickNumButtons* ["SDL_JoystickNumButtons"] (
 	joystick: PJoystick): Integer;
 
 (* Update the current state of the open joysticks.
 	 This is called automatically by the event loop if any joystick
 	 events are enabled. *)
 
-PROCEDURE [ccall] JoystickUpdate* ["SDL_JoystickUpdate"] ;
+PROCEDURE -JoystickUpdate* ["SDL_JoystickUpdate"] ;
 
 (* Enable/disable joystick event polling.
 	 If joystick events are disabled, you must call SDL_JoystickUpdate()
@@ -1977,35 +1977,35 @@ PROCEDURE [ccall] JoystickUpdate* ["SDL_JoystickUpdate"] ;
 	 information.
 	 The state can be one of SDL_QUERY, SDL_ENABLE or SDL_IGNORE. *)
 
-PROCEDURE [ccall] JoystickEventState* ["SDL_JoystickEventState"] (
+PROCEDURE -JoystickEventState* ["SDL_JoystickEventState"] (
 	state: Integer): Integer;
 
 (* Get the current state of an axis control on a joystick
 	 The state is a value ranging from -32768 to 32767.
 	 The axis indices start at index 0. *)
 
-PROCEDURE [ccall] JoystickGetAxis* ["SDL_JoystickGetAxis"] (
+PROCEDURE -JoystickGetAxis* ["SDL_JoystickGetAxis"] (
 	joystick: PJoystick; axis: Integer): SInt16;
 
 (* The hat indices start at index 0. *)
 
-PROCEDURE [ccall] JoystickGetHat* ["SDL_JoystickGetHat"] (
+PROCEDURE -JoystickGetHat* ["SDL_JoystickGetHat"] (
 	joystick: PJoystick; hat: Integer): UInt8;
 
 (* Get the ball axis change since the last poll
 	 This returns 0, or -1 if you passed it invalid parameters.
 	 The ball indices start at index 0. *)
 
-PROCEDURE [ccall] JoystickGetBall* ["SDL_JoystickGetBall"] (
+PROCEDURE -JoystickGetBall* ["SDL_JoystickGetBall"] (
 	joystick: PJoystick; ball: Integer; VAR dx, dy: Integer): Integer;
 
 (* Get the current state of a button on a joystick
 	 The button indices start at index 0. *)
-PROCEDURE [ccall] JoystickGetButton* ["SDL_JoystickGetButton"] (
+PROCEDURE -JoystickGetButton* ["SDL_JoystickGetButton"] (
 	joystick: PJoystick; Button: Integer): UInt8;
 
 (* Close a joystick previously opened with SDL_JoystickOpen() *)
-PROCEDURE [ccall] JoystickClose* ["SDL_JoystickClose"] (joystick: PJoystick);
+PROCEDURE -JoystickClose* ["SDL_JoystickClose"] (joystick: PJoystick);
 
 
 (*----------------------------------------------------------------------------*)
@@ -2016,7 +2016,7 @@ PROCEDURE [ccall] JoystickClose* ["SDL_JoystickClose"] (joystick: PJoystick);
 	 This procedure updates the event queue and internal input device state.
 	 This should only be run in the thread that sets the video mode. *)
 
-PROCEDURE [ccall] PumpEvents* ["SDL_PumpEvents"] ;
+PROCEDURE -PumpEvents* ["SDL_PumpEvents"] ;
 
 (* Checks the event queue for messages and optionally returns them.
 	 If 'action' is SDL_ADDEVENT, up to 'numevents' events will be added to
@@ -2030,24 +2030,24 @@ PROCEDURE [ccall] PumpEvents* ["SDL_PumpEvents"] ;
 	 This procedure returns the number of events actually stored, or -1
 	 if there was an error.	This procedure is thread-safe. *)
 
-PROCEDURE [ccall] PeepEvents* ["SDL_PeepEvents"] (VAR [nil] events: Event;
+PROCEDURE -PeepEvents* ["SDL_PeepEvents"] (VAR [nil] events: Event;
 	numEvents: Integer; action: EventAction; mask: UInt32): Integer;
 
 (* Polls for currently pending events, and returns 1 if there are any pending
 	 events, or 0 if there are none available.	If 'event' is not NULL, the next
 	 event is removed from the queue and stored in that area. *)
 
-PROCEDURE [ccall] PollEvent* ["SDL_PollEvent"] (
+PROCEDURE -PollEvent* ["SDL_PollEvent"] (
 	VAR [nil] event: Event): Integer;
 
 (* Waits indefinitely for the next available event, returning 1, or 0 if there
 	 was an error while waiting for events.	If 'event' is not NULL, the next
 	 event is removed from the queue and stored in that area. *)
 
-PROCEDURE [ccall] WaitEvent* ["SDL_WaitEvent"] (
+PROCEDURE -WaitEvent* ["SDL_WaitEvent"] (
 	VAR [nil] event: Event): Integer;
 
-PROCEDURE [ccall] PushEvent* ["SDL_PushEvent"] (
+PROCEDURE -PushEvent* ["SDL_PushEvent"] (
 	VAR [nil] event: Event): Integer;
 
 (* If the filter returns 1, then the event will be added to the internal queue.
@@ -2064,12 +2064,12 @@ PROCEDURE [ccall] PushEvent* ["SDL_PushEvent"] (
 	 be closed, otherwise the window will remain open if possible.
 	 If the quit event is generated by an interrupt signal, it will bypass the
 	 internal queue and be delivered to the application at the next event poll. *)
-PROCEDURE [ccall] SetEventFilter* ["SDL_SetEventFilter"] (filter: EventFilter);
+PROCEDURE -SetEventFilter* ["SDL_SetEventFilter"] (filter: EventFilter);
 
 (* Return the current event filter - can be used to "chain" filters.
 	 If there is no event filter set, this procedure returns NULL. *)
 
-PROCEDURE [ccall] GetEventFilter* ["SDL_GetEventFilter"] (): EventFilter;
+PROCEDURE -GetEventFilter* ["SDL_GetEventFilter"] (): EventFilter;
 
 (* This procedure allows you to set the state of processing certain events.
 	 If 'state' is set to SDL_IGNORE, that event will be automatically dropped
@@ -2078,7 +2078,7 @@ PROCEDURE [ccall] GetEventFilter* ["SDL_GetEventFilter"] (): EventFilter;
 	 If 'state' is set to SDL_QUERY, SDL_EventState() will return the
 	 current processing state of the specified event. *)
 
-PROCEDURE [ccall] EventState* ["SDL_EventState"] (
+PROCEDURE -EventState* ["SDL_EventState"] (
 	type: UInt8; state: Integer): UInt8;
 
 
@@ -2090,7 +2090,7 @@ PROCEDURE [ccall] EventState* ["SDL_EventState"] (
 	 it should NOT be used to fill a version structure, instead you should
 	 use the SDL_Version() macro. *)
 
-PROCEDURE [ccall] Linked_Version* ["SDL_Linked_Version"] (): PVersion;
+PROCEDURE -Linked_Version* ["SDL_Linked_Version"] (): PVersion;
 
 (*----------------------------------------------------------------------------*)
 (*																		Video 																	*)
@@ -2109,16 +2109,16 @@ PROCEDURE [ccall] Linked_Version* ["SDL_Linked_Version"] (): PVersion;
 	 SDL_Init() before opening the sound device, otherwise under Win32 DirectX,
 	 you won't be able to set full-screen display modes. *)
 
-PROCEDURE [ccall] VideoInit* ["SDL_VideoInit"] (
+PROCEDURE -VideoInit* ["SDL_VideoInit"] (
 	driverName: PChar; flags: SET): Integer;
 
-PROCEDURE [ccall] VideoQuit* ["SDL_VideoQuit"] ;
+PROCEDURE -VideoQuit* ["SDL_VideoQuit"] ;
 
 (* This procedure fills the given character buffer with the name of the
 	 video driver, and returns a pointer to it if the video driver has
 	 been initialized.	It returns NULL if no driver has been initialized. *)
 
-PROCEDURE [ccall] VideoDriverName* ["SDL_VideoDriverName"] (
+PROCEDURE -VideoDriverName* ["SDL_VideoDriverName"] (
 	nameBuf: PChar; maxLen: Integer): PChar;
 
 (* This procedure returns a pointer to the current display surface.
@@ -2126,13 +2126,13 @@ PROCEDURE [ccall] VideoDriverName* ["SDL_VideoDriverName"] (
 	 procedure returns the publicly visible surface, not the real video
 	 surface. *)
 
-PROCEDURE [ccall] GetVideoSurface* ["SDL_GetVideoSurface"] (): PSurface;
+PROCEDURE -GetVideoSurface* ["SDL_GetVideoSurface"] (): PSurface;
 
 (* This procedure returns a read-only pointer to information about the
 	 video hardware.	If this is called before SDL_SetVideoMode(), the 'vfmt'
 	 member of the returned structure will contain the pixel format of the
 	 "best" video mode. *)
-PROCEDURE [ccall] GetVideoInfo* ["SDL_GetVideoInfo"] (): PVideoInfo;
+PROCEDURE -GetVideoInfo* ["SDL_GetVideoInfo"] (): PVideoInfo;
 
 (* Check to see if a particular video mode is supported.
 	 It returns 0 if the requested mode is not supported under any bit depth,
@@ -2144,7 +2144,7 @@ PROCEDURE [ccall] GetVideoInfo* ["SDL_GetVideoInfo"] (): PVideoInfo;
 	 The arguments to SDL_VideoModeOK() are the same ones you would pass to
 	 SDL_SetVideoMode() *)
 
-PROCEDURE [ccall] VideoModeOK* ["SDL_VideoModeOK"] (
+PROCEDURE -VideoModeOK* ["SDL_VideoModeOK"] (
 	width, height, bpp: Integer; flags: SET): Integer;
 
 (* Return a pointer to an array of available screen dimensions for the
@@ -2155,7 +2155,7 @@ PROCEDURE [ccall] VideoModeOK* ["SDL_VideoModeOK"] (
 	 if 'format' is NULL, the mode list will be for the format given
 	 by SDL_GetVideoInfo( ) - > vfmt *)
 
-PROCEDURE [ccall] ListModes* ["SDL_ListModes"] (
+PROCEDURE -ListModes* ["SDL_ListModes"] (
 	format: PPixelFormat; flags: SET): PPRect; (*Rect ** *)
 
 (* Set up a video mode with the specified width, height and bits-per-pixel.
@@ -2200,7 +2200,7 @@ PROCEDURE [ccall] ListModes* ["SDL_ListModes"] (
 
 	 This procedure returns the video framebuffer surface, or NULL if it fails. *)
 
-PROCEDURE [ccall] SetVideoMode* ["SDL_SetVideoMode"] (
+PROCEDURE -SetVideoMode* ["SDL_SetVideoMode"] (
 	width, height, bpp: Integer; flags: SET): PSurface;
 
 
@@ -2209,9 +2209,9 @@ PROCEDURE [ccall] SetVideoMode* ["SDL_SetVideoMode"] (
 	 screen.
 	 These functions should not be called while 'screen' is locked. *)
 
-PROCEDURE [ccall] UpdateRects* ["SDL_UpdateRects"] (
+PROCEDURE -UpdateRects* ["SDL_UpdateRects"] (
 	screen: PSurface; numRects: Integer; rects: PRect);
-PROCEDURE [ccall] UpdateRect* ["SDL_UpdateRect"] (
+PROCEDURE -UpdateRect* ["SDL_UpdateRect"] (
 	screen: PSurface; x, y: SInt32; w, h: UInt32);
 
 
@@ -2224,7 +2224,7 @@ PROCEDURE [ccall] UpdateRect* ["SDL_UpdateRect"] (
 	 setting the video mode for this procedure to perform hardware flipping.
 	 This procedure returns 0 if successful, or -1 if there was an error. *)
 
-PROCEDURE [ccall] Flip* ["SDL_Flip"] (screen: PSurface): Integer;
+PROCEDURE -Flip* ["SDL_Flip"] (screen: PSurface): Integer;
 
 (* Set the gamma correction for each of the color channels.
 	 The gamma values range (approximately) between 0.1 and 10.0
@@ -2233,7 +2233,7 @@ PROCEDURE [ccall] Flip* ["SDL_Flip"] (screen: PSurface): Integer;
 	 be emulated using gamma ramps, if available.	If successful, this
 	 procedure returns 0, otherwise it returns -1. *)
 
-PROCEDURE [ccall] SetGamma* ["SDL_SetGamma"] (
+PROCEDURE -SetGamma* ["SDL_SetGamma"] (
 	redGamma, greenGamma, blueGamma: Single): Integer;
 
 (* Set the gamma translation table for the red, green, and blue channels
@@ -2247,7 +2247,7 @@ PROCEDURE [ccall] SetGamma* ["SDL_SetGamma"] (
 	 hardware does not support gamma translation, or otherwise fails,
 	 this procedure will return -1. *)
 
-PROCEDURE [ccall] SetGammaRamp* ["SDL_SetGammaRamp"] (
+PROCEDURE -SetGammaRamp* ["SDL_SetGammaRamp"] (
 	redTable, greenTable, blueTable: PUInt16): Integer;
 
 (* Retrieve the current values of the gamma translation tables.
@@ -2258,7 +2258,7 @@ PROCEDURE [ccall] SetGammaRamp* ["SDL_SetGammaRamp"] (
 	 hardware does not support gamma translation, or otherwise fails,
 	 this procedure will return -1. *)
 
-PROCEDURE [ccall] GetGammaRamp* ["SDL_GetGammaRamp"] (
+PROCEDURE -GetGammaRamp* ["SDL_GetGammaRamp"] (
 	redTable, greenTable, blueTable: PUInt16): Integer;
 
 (* Sets a portion of the colormap for the given 8-bit surface.	If 'surface'
@@ -2275,7 +2275,7 @@ PROCEDURE [ccall] GetGammaRamp* ["SDL_GetGammaRamp"] (
 	 you desire, even if the window colormap has to be warped or run under
 	 emulation. *)
 
-PROCEDURE [ccall] SetColors* ["SDL_SetColors"] (surface: PSurface;
+PROCEDURE -SetColors* ["SDL_SetColors"] (surface: PSurface;
 	colors: PColor; firstColor: Integer; nColors: Integer): Integer;
 
 (* Sets a portion of the colormap for a given 8-bit surface.
@@ -2293,23 +2293,23 @@ PROCEDURE [ccall] SetColors* ["SDL_SetColors"] (surface: PSurface;
 	 SDL_SetColors() is equivalent to calling this procedure with
 	 flags = (SDL_LOGPAL or SDL_PHYSPAL). *)
 
-PROCEDURE [ccall] SetPalette* ["SDL_SetPalette"] (surface: PSurface;
+PROCEDURE -SetPalette* ["SDL_SetPalette"] (surface: PSurface;
 	flags: SET; colors: PColor; firstColor: Integer; nColors: Integer): Integer;
 
 (* Maps an RGB triple to an opaque pixel value for a given pixel format *)
-PROCEDURE [ccall] MapRGB* ["SDL_MapRGB"]
+PROCEDURE -MapRGB* ["SDL_MapRGB"]
 	(format: PPixelFormat; r, g, b: UInt8): UInt32;
 
 (* Maps an RGBA quadruple to a pixel value for a given pixel format *)
-PROCEDURE [ccall] MapRGBA* ["SDL_MapRGBA"]
+PROCEDURE -MapRGBA* ["SDL_MapRGBA"]
 	(format: PPixelFormat; r, g, b, a: UInt8): UInt32;
 
 (* Maps a pixel value into the RGB components for a given pixel format *)
-PROCEDURE [ccall] GetRGB* ["SDL_GetRGB"]
+PROCEDURE -GetRGB* ["SDL_GetRGB"]
 	(pixel: UInt32; fmt: PPixelFormat; VAR r, g, b: UInt8);
 
 (* Maps a pixel value into the RGBA components for a given pixel format *)
-PROCEDURE [ccall] GetRGBA* ["SDL_GetRGBA"]
+PROCEDURE -GetRGBA* ["SDL_GetRGBA"]
 	(pixel: UInt32; fmt: PPixelFormat; VAR r, g, b, a: UInt8);
 
 (* Allocate and free an RGB surface (must be called after SDL_SetVideoMode)
@@ -2345,17 +2345,17 @@ PROCEDURE [ccall] GetRGBA* ["SDL_GetRGBA"]
 	 reason the surface could not be placed in video memory, it will not have
 	 the SDL_HWSURFACE flag set, and will be created in system memory instead. *)
 
-PROCEDURE [ccall] AllocSurface* ["SDL_CreateRGBSurface"] (flags: SET;
+PROCEDURE -AllocSurface* ["SDL_CreateRGBSurface"] (flags: SET;
 	width, height, depth: Integer; rMask, gMask, bMask, aMask: UInt32): PSurface;
 
-PROCEDURE [ccall] CreateRGBSurface* ["SDL_CreateRGBSurface"] (flags: SET;
+PROCEDURE -CreateRGBSurface* ["SDL_CreateRGBSurface"] (flags: SET;
 	width, height, depth: Integer; rMask, gMask, bMask, aMask: UInt32): PSurface;
 
-PROCEDURE [ccall] CreateRGBSurfaceFrom* ["SDL_CreateRGBSurfaceFrom"] (
+PROCEDURE -CreateRGBSurfaceFrom* ["SDL_CreateRGBSurfaceFrom"] (
 	pixels: Pointer; width, height, depth, pitch: Integer;
 	rMask, gMask, bMask, aMask: UInt32): PSurface;
 
-PROCEDURE [ccall] FreeSurface* ["SDL_FreeSurface"] (surface: PSurface);
+PROCEDURE -FreeSurface* ["SDL_FreeSurface"] (surface: PSurface);
 
 (* SDL_LockSurface() sets up a surface for directly accessing the pixels.
 	 Between calls to SDL_LockSurface()/SDL_UnlockSurface(), you can write
@@ -2373,23 +2373,23 @@ PROCEDURE [ccall] FreeSurface* ["SDL_FreeSurface"] (surface: PSurface);
 	 pairs, as critical system locks may be held during this time.
 
 	 SDL_LockSurface() returns 0, or -1 if the surface couldn't be locked. *)
-PROCEDURE [ccall] LockSurface* ["SDL_LockSurface"] (surface: PSurface): Integer;
+PROCEDURE -LockSurface* ["SDL_LockSurface"] (surface: PSurface): Integer;
 
-PROCEDURE [ccall] UnlockSurface* ["SDL_UnlockSurface"] (surface: PSurface);
+PROCEDURE -UnlockSurface* ["SDL_UnlockSurface"] (surface: PSurface);
 
 (* Load a surface from a seekable SDL data source (memory or file.)
 	 If 'freesrc' is non-zero, the source will be closed after being read.
 	 Returns the new surface, or NULL if there was an error.
 	 The new surface should be freed with SDL_FreeSurface(). *)
 
-PROCEDURE [ccall] LoadBMP_RW* ["SDL_LoadBMP_RW"] (
+PROCEDURE -LoadBMP_RW* ["SDL_LoadBMP_RW"] (
 	src: PRWops; freeSrc: Integer): PSurface;
 
 (* Save a surface to a seekable SDL data source (memory or file.)
 	 If 'freedst' is non-zero, the source will be closed after being written.
 	 Returns 0 if successful or -1 if there was an error. *)
 
-PROCEDURE [ccall] SaveBMP_RW* ["SDL_SaveBMP_RW"] (
+PROCEDURE -SaveBMP_RW* ["SDL_SaveBMP_RW"] (
 	surface: PSurface; dst: PRWops; freeDst: Integer): Integer;
 
 (* Sets the color key (transparent pixel) in a blittable surface.
@@ -2400,7 +2400,7 @@ PROCEDURE [ccall] SaveBMP_RW* ["SDL_SaveBMP_RW"] (
 	 If 'flag' is 0, this procedure clears any current color key.
 	 This procedure returns 0, or -1 if there was an error. *)
 
-PROCEDURE [ccall] SetColorKey* ["SDL_SetColorKey"] (
+PROCEDURE -SetColorKey* ["SDL_SetColorKey"] (
 	surface: PSurface; flag: SET; key: UInt32): Integer;
 
 (* This procedure sets the alpha value for the entire surface, as opposed to
@@ -2415,7 +2415,7 @@ PROCEDURE [ccall] SetColorKey* ["SDL_SetColorKey"] (
 	 OR:ing the flag with SDL_RLEACCEL requests RLE acceleration for the
 	 surface; if SDL_RLEACCEL is not specified, the RLE accel will be removed. *)
 
-PROCEDURE [ccall] SetAlpha* ["SDL_SetAlpha"] (
+PROCEDURE -SetAlpha* ["SDL_SetAlpha"] (
 	surface: PSurface; flag: SET; alpha: UInt8): Integer;
 
 (* Sets the clipping rectangle for the destination surface in a blit.
@@ -2428,13 +2428,13 @@ PROCEDURE [ccall] SetAlpha* ["SDL_SetAlpha"] (
 
 	 Note that blits are automatically clipped to the edges of the source
 	 and destination surfaces. *)
-PROCEDURE [ccall] SetClipRect* ["SDL_SetClipRect"] (
+PROCEDURE -SetClipRect* ["SDL_SetClipRect"] (
 	surface: PSurface; VAR [nil] rect: Rect): Bool;
 
 (* Gets the clipping rectangle for the destination surface in a blit.
 	 'rect' must be a pointer to a valid rectangle which will be filled
 	 with the correct values. *)
-PROCEDURE [ccall] GetClipRect* ["SDL_GetClipRect"] (
+PROCEDURE -GetClipRect* ["SDL_GetClipRect"] (
 	surface: PSurface; VAR [nil] rect: Rect);
 
 (* Creates a new surface of the specified format, and then copies and maps
@@ -2448,7 +2448,7 @@ PROCEDURE [ccall] GetClipRect* ["SDL_GetClipRect"] (
 
 	 This procedure is used internally by SDL_DisplayFormat(). *)
 
-PROCEDURE [ccall] ConvertSurface* ["SDL_ConvertSurface"] (
+PROCEDURE -ConvertSurface* ["SDL_ConvertSurface"] (
 	src: PSurface; fmt: PPixelFormat; flags: SET): PSurface;
 
 (*
@@ -2522,17 +2522,17 @@ PROCEDURE [ccall] ConvertSurface* ["SDL_ConvertSurface"] (
 (* You should call SDL_BlitSurface() unless you know exactly how SDL
 	 blitting works internally and how to use the other blit functions. *)
 
-PROCEDURE [ccall] BlitSurface* ["SDL_UpperBlit"] (
+PROCEDURE -BlitSurface* ["SDL_UpperBlit"] (
 	src: PSurface; srcRect: PRect; dst: PSurface; dstRect: PRect): Integer;
 
 (* This is the public blit function, SDL_BlitSurface(), and it performs
 	 rectangle validation and clipping before passing it to SDL_LowerBlit() *)
-PROCEDURE [ccall] UpperBlit* ["SDL_UpperBlit"] (
+PROCEDURE -UpperBlit* ["SDL_UpperBlit"] (
 	src: PSurface; srcRect: PRect; dst: PSurface; dstRect: PRect): Integer;
 
 (* This is a semi-private blit procedure and it performs low-level surface
 	 blitting only. *)
-PROCEDURE [ccall] LowerBlit* ["SDL_LowerBlit"] (
+PROCEDURE -LowerBlit* ["SDL_LowerBlit"] (
 	src: PSurface; srcRect: PRect; dst: PSurface; dstRect: PRect): Integer;
 
 (* This procedure performs a fast fill of the given rectangle with 'color'
@@ -2543,7 +2543,7 @@ PROCEDURE [ccall] LowerBlit* ["SDL_LowerBlit"] (
 	 can be generated by the SDL_MapRGB() function.
 	 This procedure returns 0 on success, or -1 on error. *)
 
-PROCEDURE [ccall] FillRect* ["SDL_FillRect"] (
+PROCEDURE -FillRect* ["SDL_FillRect"] (
 	dst: PSurface; dstRect: PRect; color: UInt32): Integer;
 
 (* This procedure takes a surface and copies it to a new surface of the
@@ -2556,7 +2556,7 @@ PROCEDURE [ccall] FillRect* ["SDL_FillRect"] (
 
 	 If the conversion fails or runs out of memory, it returns NULL *)
 
-PROCEDURE [ccall] DisplayFormat* ["SDL_DisplayFormat"] (
+PROCEDURE -DisplayFormat* ["SDL_DisplayFormat"] (
 	surface: PSurface): PSurface;
 
 (* This procedure takes a surface and copies it to a new surface of the
@@ -2571,7 +2571,7 @@ PROCEDURE [ccall] DisplayFormat* ["SDL_DisplayFormat"] (
 	 If the conversion fails or runs out of memory, it returns NULL *)
 
 
-PROCEDURE [ccall] DisplayFormatAlpha* ["SDL_DisplayFormatAlpha"] (
+PROCEDURE -DisplayFormatAlpha* ["SDL_DisplayFormatAlpha"] (
 	surface: PSurface): PSurface;
 
 (* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
@@ -2583,14 +2583,14 @@ PROCEDURE [ccall] DisplayFormatAlpha* ["SDL_DisplayFormatAlpha"] (
 	 the contents of the display surface underneath the area where the overlay
 	 is shown is undefined - it may be overwritten with the converted YUV data. *)
 
-PROCEDURE [ccall] CreateYUVOverlay* ["SDL_CreateYUVOverlay"] (
+PROCEDURE -CreateYUVOverlay* ["SDL_CreateYUVOverlay"] (
 	width, height: Integer; format: UInt32; display: PSurface): POverlay;
 
 (* Lock an overlay for direct access, and unlock it when you are done *)
-PROCEDURE [ccall] LockYUVOverlay* ["SDL_LockYUVOverlay"] (
+PROCEDURE -LockYUVOverlay* ["SDL_LockYUVOverlay"] (
 	overlay: POverlay): Integer;
 
-PROCEDURE [ccall] UnlockYUVOverlay* ["SDL_UnlockYUVOverlay"] (
+PROCEDURE -UnlockYUVOverlay* ["SDL_UnlockYUVOverlay"] (
 	overlay: POverlay);
 
 
@@ -2600,11 +2600,11 @@ PROCEDURE [ccall] UnlockYUVOverlay* ["SDL_UnlockYUVOverlay"] (
 	 The width and height of the destination rectangle may be different from
 	 that of the overlay, but currently only 2x scaling is supported. *)
 
-PROCEDURE [ccall] DisplayYUVOverlay* ["SDL_DisplayYUVOverlay"] (
+PROCEDURE -DisplayYUVOverlay* ["SDL_DisplayYUVOverlay"] (
 	overlay: POverlay; dstRect: PRect) : Integer;
 
 (* Free a video overlay *)
-PROCEDURE [ccall] FreeYUVOverlay* ["SDL_FreeYUVOverlay"] (overlay: POverlay);
+PROCEDURE -FreeYUVOverlay* ["SDL_FreeYUVOverlay"] (overlay: POverlay);
 
 (*----------------------------------------------------------------------------*)
 (*															 OpenGL routines															*)
@@ -2619,17 +2619,17 @@ PROCEDURE [ccall] FreeYUVOverlay* ["SDL_FreeYUVOverlay"] (overlay: POverlay);
 
 	 This is disabled in default builds of SDL. *)
 
-PROCEDURE [ccall] GL_LoadLibrary* ["SDL_GL_LoadLibrary"]
+PROCEDURE -GL_LoadLibrary* ["SDL_GL_LoadLibrary"]
 	(fileName: PChar): Integer;
 
 (* Get the address of a GL procedure (for extension functions) *)
 
-PROCEDURE [ccall] GL_GetProcAddress* ["SDL_GL_GetProcAddress"] (
+PROCEDURE -GL_GetProcAddress* ["SDL_GL_GetProcAddress"] (
 	procName: PChar): Address (*Pointer*);
 
 (* Set an attribute of the OpenGL subsystem before intialization. *)
 
-PROCEDURE [ccall] GL_SetAttribute* ["SDL_GL_SetAttribute"] (
+PROCEDURE -GL_SetAttribute* ["SDL_GL_SetAttribute"] (
 	attr: GLAttr; value: Integer): Integer;
 
 (* Get an attribute of the OpenGL subsystem from the windowing
@@ -2640,22 +2640,22 @@ PROCEDURE [ccall] GL_SetAttribute* ["SDL_GL_SetAttribute"] (
 	 Developers should track the values they pass into SDL_GL_SetAttribute
 	 themselves if they want to retrieve these values. *)
 
-PROCEDURE [ccall] GL_GetAttribute* ["SDL_GL_GetAttribute"] (
+PROCEDURE -GL_GetAttribute* ["SDL_GL_GetAttribute"] (
 	attr: GLAttr; VAR value: Integer): Integer;
 
 (* Swap the OpenGL buffers, if double-buffering is supported. *)
 
-PROCEDURE [ccall] GL_SwapBuffers* ["SDL_GL_SwapBuffers"] ;
+PROCEDURE -GL_SwapBuffers* ["SDL_GL_SwapBuffers"] ;
 
 (* Internal functions that should not be called unless you have read
 	 and understood the source code for these functions. *)
 
-PROCEDURE [ccall] GL_UpdateRects* ["SDL_GL_UpdateRects"] (
+PROCEDURE -GL_UpdateRects* ["SDL_GL_UpdateRects"] (
 	numRects: Integer; rects: PRect);
 
-PROCEDURE [ccall] GL_Lock* ["SDL_GL_Lock"] ;
+PROCEDURE -GL_Lock* ["SDL_GL_Lock"] ;
 
-PROCEDURE [ccall] GL_Unlock* ["SDL_GL_Unlock"] ;
+PROCEDURE -GL_Unlock* ["SDL_GL_Unlock"] ;
 
 (* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *)
 (* These functions allow interaction with the window manager, if any.				*)
@@ -2663,23 +2663,23 @@ PROCEDURE [ccall] GL_Unlock* ["SDL_GL_Unlock"] ;
 
 (* Sets/Gets the title and icon text of the display window *)
 
-PROCEDURE [ccall] WM_GetCaption* ["SDL_WM_GetCaption"] (
+PROCEDURE -WM_GetCaption* ["SDL_WM_GetCaption"] (
 	VAR title: PChar; VAR icon: PChar);
 
-PROCEDURE [ccall] WM_SetCaption* ["SDL_WM_SetCaption"] (title, icon: PChar);
+PROCEDURE -WM_SetCaption* ["SDL_WM_SetCaption"] (title, icon: PChar);
 
 (* Sets the icon for the display window.
 	 This procedure must be called before the first call to SDL_SetVideoMode().
 	 It takes an icon surface, and a mask in MSB format.
 	 If 'mask' is NULL, the entire icon surface will be used as the icon. *)
 
-PROCEDURE [ccall] WM_SetIcon* ["SDL_WM_SetIcon"] (icon: PSurface; mask: UInt8);
+PROCEDURE -WM_SetIcon* ["SDL_WM_SetIcon"] (icon: PSurface; mask: UInt8);
 
 (* This procedure iconifies the window, and returns 1 if it succeeded.
 	 If the procedure succeeds, it generates an SDL_APPACTIVE loss event.
 	 This procedure is a noop and returns 0 in non-windowed environments. *)
 
-PROCEDURE [ccall] WM_IconifyWindow* ["SDL_WM_IconifyWindow"] (): Integer;
+PROCEDURE -WM_IconifyWindow* ["SDL_WM_IconifyWindow"] (): Integer;
 
 (* Toggle fullscreen mode without changing the contents of the screen.
 	If the display surface does not require locking before accessing
@@ -2695,14 +2695,14 @@ PROCEDURE [ccall] WM_IconifyWindow* ["SDL_WM_IconifyWindow"] (): Integer;
 
 	This is currently only implemented in the X11 video driver. *)
 
-PROCEDURE [ccall] WM_ToggleFullScreen* ["SDL_WM_ToggleFullScreen"] (
+PROCEDURE -WM_ToggleFullScreen* ["SDL_WM_ToggleFullScreen"] (
 	surface: PSurface): Integer;
 
 (* Grabbing means that the mouse is confined to the application window,
 	 and nearly all keyboard input is passed directly to the application,
 	 and not interpreted by a window manager, if any. *)
 
-PROCEDURE [ccall] WM_GrabInput* ["SDL_WM_GrabInput"] (
+PROCEDURE -WM_GrabInput* ["SDL_WM_GrabInput"] (
 	mode: GrabMode): GrabMode;
 
 (*----------------------------------------------------------------------------*)
@@ -2714,18 +2714,18 @@ PROCEDURE [ccall] WM_GrabInput* ["SDL_WM_GrabInput"] (
 	 be tested using the SDL_BUTTON(X) macros, and x and y are set to the
 	 current mouse cursor position.	You can pass NULL for either x or y. *)
 
-PROCEDURE [ccall] GetMouseState* ["SDL_GetMouseState"] (
+PROCEDURE -GetMouseState* ["SDL_GetMouseState"] (
 	VAR x, y: Integer): UInt8;
 
 (* Retrieve the current state of the mouse.
 	 The current button state is returned as a button bitmask, which can
 	 be tested using the SDL_BUTTON(X) macros, and x and y are set to the
 	 mouse deltas since the last call to SDL_GetRelativeMouseState(). *)
-PROCEDURE [ccall] GetRelativeMouseState* ["SDL_GetRelativeMouseState"] (
+PROCEDURE -GetRelativeMouseState* ["SDL_GetRelativeMouseState"] (
 	VAR x, y: Integer): UInt8;
 
 (* Set the position of the mouse cursor (generates a mouse motion event) *)
-PROCEDURE [ccall] WarpMouse* ["SDL_WarpMouse"] (x, y: UInt16);
+PROCEDURE -WarpMouse* ["SDL_WarpMouse"] (x, y: UInt16);
 
 (* Create a cursor using the specified data and mask (in MSB format).
 	 The cursor width must be a multiple of 8 bits.
@@ -2738,26 +2738,26 @@ PROCEDURE [ccall] WarpMouse* ["SDL_WarpMouse"] (x, y: UInt16);
 	 	1		 0			 Inverted color if possible, black if not.
 
 	 Cursors created with this procedure must be freed with SDL_FreeCursor(). *)
-PROCEDURE [ccall] CreateCursor* ["SDL_CreateCursor"] (
+PROCEDURE -CreateCursor* ["SDL_CreateCursor"] (
 	data, mask: PUInt8; w, h, hotX, hotY: Integer): PCursor;
 
 (* Set the currently active cursor to the specified one.
 	 If the cursor is currently visible, the change will be immediately
 	 represented on the display. *)
-PROCEDURE [ccall] SetCursor* ["SDL_SetCursor"] (cursor: PCursor);
+PROCEDURE -SetCursor* ["SDL_SetCursor"] (cursor: PCursor);
 
 (* Returns the currently active cursor. *)
-PROCEDURE [ccall] GetCursor* ["SDL_GetCursor"] (): PCursor;
+PROCEDURE -GetCursor* ["SDL_GetCursor"] (): PCursor;
 
 (* Deallocates a cursor created with SDL_CreateCursor(). *)
-PROCEDURE [ccall] FreeCursor* ["SDL_FreeCursor"] (cursor: PCursor);
+PROCEDURE -FreeCursor* ["SDL_FreeCursor"] (cursor: PCursor);
 
 (* Toggle whether or not the cursor is shown on the screen.
 	 The cursor start off displayed, but can be turned off.
 	 SDL_ShowCursor() returns 1 if the cursor was being displayed
 	 before the call, or 0 if it was not.	You can query the current
 	 state by passing a 'toggle' value of -1. *)
-PROCEDURE [ccall] ShowCursor* ["SDL_ShowCursor"] (toggle: Integer): Integer;
+PROCEDURE -ShowCursor* ["SDL_ShowCursor"] (toggle: Integer): Integer;
 
 (*----------------------------------------------------------------------------*)
 (*															Keyboard routines														 *)
@@ -2769,14 +2769,14 @@ PROCEDURE [ccall] ShowCursor* ["SDL_ShowCursor"] (toggle: Integer): Integer;
 	 If 'enable' is 0, translation is disabled.
 	 If 'enable' is -1, the translation state is not changed.
 	 It returns the previous state of keyboard translation. *)
-PROCEDURE [ccall] EnableUNICODE* ["SDL_EnableUNICODE"] (
+PROCEDURE -EnableUNICODE* ["SDL_EnableUNICODE"] (
 	enable: Integer): Integer;
 
 (* If 'delay' is set to 0, keyboard repeat is disabled. *)
-PROCEDURE [ccall] EnableKeyRepeat* ["SDL_EnableKeyRepeat"] (
+PROCEDURE -EnableKeyRepeat* ["SDL_EnableKeyRepeat"] (
 	delay, interval: Integer): Integer;
 
-PROCEDURE [ccall] GetKeyRepeat* ["SDL_GetKeyRepeat"] (
+PROCEDURE -GetKeyRepeat* ["SDL_GetKeyRepeat"] (
 	VAR delay, interval: Integer);
 
 (* Get a snapshot of the current state of the keyboard.
@@ -2786,18 +2786,18 @@ PROCEDURE [ccall] GetKeyRepeat* ["SDL_GetKeyRepeat"] (
 	 UInt8 *keystate = SDL_GetKeyState(NULL);
 	 if ( keystate[K_RETURN] ) ... <RETURN> is pressed *)
 
-PROCEDURE [ccall] GetKeyState* ["SDL_GetKeyState"] (
+PROCEDURE -GetKeyState* ["SDL_GetKeyState"] (
 	VAR numKeys: Integer): PUInt8;
 
 (* Get the current key modifier state *)
-PROCEDURE [ccall] GetModState* ["SDL_GetModState"] (): Mod;
+PROCEDURE -GetModState* ["SDL_GetModState"] (): Mod;
 
 (* Set the current key modifier state
 	 This does not change the keyboard state, only the key modifier flags. *)
-PROCEDURE [ccall] SetModState* ["SDL_SetModState"] (modState: Mod);
+PROCEDURE -SetModState* ["SDL_SetModState"] (modState: Mod);
 
 (* Get the name of an SDL virtual keysym *)
-PROCEDURE [ccall] GetKeyName* ["SDL_GetKeyName"] (key: Key): PChar;
+PROCEDURE -GetKeyName* ["SDL_GetKeyName"] (key: Key): PChar;
 
 (*----------------------------------------------------------------------------*)
 (*															Active routines 															*)
@@ -2808,36 +2808,36 @@ PROCEDURE [ccall] GetKeyName* ["SDL_GetKeyName"] (key: Key): PChar;
 	 SDL_APPACTIVE.	If SDL_APPACTIVE is set, then the user is able to
 	 see your application, otherwise it has been iconified or disabled. *)
 
-PROCEDURE [ccall] GetAppState* ["SDL_GetAppState"] (): UInt8;
+PROCEDURE -GetAppState* ["SDL_GetAppState"] (): UInt8;
 
 (*
 { Mutex functions }
 
 { Create a mutex, initialized unlocked }
 
-PROCEDURE [ccall] SDL_CreateMutex: PSDL_Mutex;
+PROCEDURE -SDL_CreateMutex: PSDL_Mutex;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CreateMutex'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CreateMutex}
 
 { Lock the mutex	(Returns 0, or -1 on error) }
 
-PROCEDURE [ccall] SDL_mutexP(mutex: PSDL_mutex): Integer;
+PROCEDURE -SDL_mutexP(mutex: PSDL_mutex): Integer;
  cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_mutexP'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 { $ EXTERNALSYM SDL_mutexP}
 
-PROCEDURE [ccall] SDL_LockMutex(mutex: PSDL_mutex): Integer;
+PROCEDURE -SDL_LockMutex(mutex: PSDL_mutex): Integer;
 {-$EXTERNALSYM SDL_LockMutex}
 
 { Unlock the mutex	(Returns 0, or -1 on error) }
-PROCEDURE [ccall] SDL_mutexV(mutex: PSDL_mutex): Integer;
+PROCEDURE -SDL_mutexV(mutex: PSDL_mutex): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_mutexV'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_mutexV}
 
-PROCEDURE [ccall] SDL_UnlockMutex(mutex: PSDL_mutex): Integer;
+PROCEDURE -SDL_UnlockMutex(mutex: PSDL_mutex): Integer;
 {-$EXTERNALSYM SDL_UnlockMutex}
 
 { Destroy a mutex }
-PROCEDURE [ccall] SDL_DestroyMutex(mutex: PSDL_mutex);
+PROCEDURE -SDL_DestroyMutex(mutex: PSDL_mutex);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_DestroyMutex'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_DestroyMutex}
 
@@ -2845,13 +2845,13 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_DestroyMutex'{$ELSE} SDLL
 { Semaphore functions																					 }
 { * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * }
 { Create a semaphore, initialized with value, returns NULL on failure. }
-PROCEDURE [ccall] SDL_CreateSemaphore(initial_value: UInt32): PSDL_Sem;
+PROCEDURE -SDL_CreateSemaphore(initial_value: UInt32): PSDL_Sem;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CreateSemaphore'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CreateSemaphore}
 
 
 { Destroy a semaphore }
-PROCEDURE [ccall] SDL_DestroySemaphore(sem: PSDL_sem);
+PROCEDURE -SDL_DestroySemaphore(sem: PSDL_sem);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_DestroySemaphore'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_DestroySemaphore}
 
@@ -2859,14 +2859,14 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_DestroySemaphore'{$ELSE} 
 	to by sem has a positive count. It then atomically decreases the semaphore
 	count. }
 
-PROCEDURE [ccall] SDL_SemWait(sem: PSDL_sem): Integer;
+PROCEDURE -SDL_SemWait(sem: PSDL_sem): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemWait'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_SemWait}
 
 { Non-blocking variant of SDL_SemWait(), returns 0 if the wait succeeds,
 	 SDL_MUTEX_TIMEDOUT if the wait would block, and -1 on error. }
 
-PROCEDURE [ccall] SDL_SemTryWait(sem: PSDL_sem): Integer;
+PROCEDURE -SDL_SemTryWait(sem: PSDL_sem): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemTryWait'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_SemTryWait}
 
@@ -2876,20 +2876,20 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemTryWait'{$ELSE} SDLLib
 	 On some platforms this procedure is implemented by looping with a delay
 	 of 1 ms, and so should be avoided if possible. }
 
-PROCEDURE [ccall] SDL_SemWaitTimeout(sem: PSDL_sem; ms: UInt32): Integer;
+PROCEDURE -SDL_SemWaitTimeout(sem: PSDL_sem; ms: UInt32): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemWaitTimeout'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_SemTryWait}
 
 { Atomically increases the semaphore's count (not blocking), returns 0,
 	 or -1 on error. }
 
-PROCEDURE [ccall] SDL_SemPost(sem: PSDL_sem): Integer;
+PROCEDURE -SDL_SemPost(sem: PSDL_sem): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemPost'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_SemTryWait}
 
 { Returns the current count of the semaphore }
 
-PROCEDURE [ccall] SDL_SemValue(sem: PSDL_sem): UInt32;
+PROCEDURE -SDL_SemValue(sem: PSDL_sem): UInt32;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemValue'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_SemValue}
 
@@ -2897,26 +2897,26 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_SemValue'{$ELSE} SDLLibNa
 { Condition variable functions																	}
 { * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * }
 { Create a condition variable }
-PROCEDURE [ccall] SDL_CreateCond: PSDL_Cond;
+PROCEDURE -SDL_CreateCond: PSDL_Cond;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CreateCond'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CreateCond}
 
 { Destroy a condition variable }
-PROCEDURE [ccall] SDL_DestroyCond(cond: PSDL_Cond);
+PROCEDURE -SDL_DestroyCond(cond: PSDL_Cond);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_DestroyCond'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_DestroyCond}
 
 { Restart one of the threads that are waiting on the condition variable,
 	 returns 0 or -1 on error. }
 
-PROCEDURE [ccall] SDL_CondSignal(cond: PSDL_cond): Integer;
+PROCEDURE -SDL_CondSignal(cond: PSDL_cond): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondSignal'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CondSignal}
 
 { Restart all threads that are waiting on the condition variable,
 	returns 0 or -1 on error. }
 
-PROCEDURE [ccall] SDL_CondBroadcast(cond: PSDL_cond): Integer;
+PROCEDURE -SDL_CondBroadcast(cond: PSDL_cond): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondBroadcast'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CondBroadcast}
 
@@ -2925,7 +2925,7 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondBroadcast'{$ELSE} SDL
 	The mutex must be locked before entering this function!
 	Returns 0 when it is signaled, or -1 on error. }
 
-PROCEDURE [ccall] SDL_CondWait(cond: PSDL_cond; mut: PSDL_mutex): Integer;
+PROCEDURE -SDL_CondWait(cond: PSDL_cond; mut: PSDL_mutex): Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondWait'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CondWait}
 
@@ -2935,7 +2935,7 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondWait'{$ELSE} SDLLibNa
 	On some platforms this procedure is implemented by looping with a delay
 	of 1 ms, and so should be avoided if possible. }
 
-PROCEDURE [ccall] SDL_CondWaitTimeout(cond: PSDL_cond; mut: PSDL_mutex; ms: UInt32) : Integer;
+PROCEDURE -SDL_CondWaitTimeout(cond: PSDL_cond; mut: PSDL_mutex; ms: UInt32) : Integer;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondWaitTimeout'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CondWaitTimeout}
 
@@ -2944,18 +2944,18 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CondWaitTimeout'{$ELSE} S
 { * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * }
 
 { Create a thread }
-PROCEDURE [ccall] SDL_CreateThread(fn: PInt; data: Pointer): PSDL_Thread;
+PROCEDURE -SDL_CreateThread(fn: PInt; data: Pointer): PSDL_Thread;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_CreateThread'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_CreateThread}
 
 { Get the 32-bit thread identifier for the current thread }
-PROCEDURE [ccall] SDL_ThreadID: UInt32;
+PROCEDURE -SDL_ThreadID: UInt32;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_ThreadID'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_ThreadID}
 
 { Get the 32-bit thread identifier for the specified thread,
 	equivalent to SDL_ThreadID() if the specified thread is NULL. }
-PROCEDURE [ccall] SDL_GetThreadID(thread: PSDL_Thread): UInt32;
+PROCEDURE -SDL_GetThreadID(thread: PSDL_Thread): UInt32;
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_GetThreadID'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_GetThreadID}
 
@@ -2963,12 +2963,12 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_GetThreadID'{$ELSE} SDLLi
 	The return code for the thread procedure is placed in the area
 	pointed to by 'status', if 'status' is not NULL. }
 
-PROCEDURE [ccall] SDL_WaitThread(thread: PSDL_Thread; var status: Integer);
+PROCEDURE -SDL_WaitThread(thread: PSDL_Thread; var status: Integer);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_WaitThread'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_WaitThread}
 
 { Forcefully kill a thread without worrying about its state }
-PROCEDURE [ccall] SDL_KillThread(thread: PSDL_Thread);
+PROCEDURE -SDL_KillThread(thread: PSDL_Thread);
 cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_KillThread'{$ELSE} SDLLibName{$ENDIF __GPC__}{$ENDIF};
 {-$EXTERNALSYM SDL_KillThread}
 
@@ -2976,41 +2976,41 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_KillThread'{$ELSE} SDLLib
 { Get Environment Routines																										 }
 {------------------------------------------------------------------------------}
 {$IFDEF WINDOWS}
-PROCEDURE [ccall] _putenv( const variable : Pchar ): integer;
+PROCEDURE -_putenv( const variable : Pchar ): integer;
 cdecl;
 {$ENDIF}
 
 {$IFDEF Unix}
 {$IFDEF FPC}
-PROCEDURE [ccall] _putenv( const variable : Pchar ): integer;
+PROCEDURE -_putenv( const variable : Pchar ): integer;
 cdecl; external 'libc.so' name 'putenv';
 {$ENDIF}
 {$ENDIF}
 
 { Put a variable of the form "name=value" into the environment }
-//PROCEDURE [ccall] SDL_putenv(const variable: PChar): integer; cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_Init'{$ELSE} SDLLibName{$ENDIF __GPC__}SDLLibName name '';
-PROCEDURE [ccall] SDL_putenv(const variable: PChar): integer;
+//PROCEDURE -SDL_putenv(const variable: PChar): integer; cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_Init'{$ELSE} SDLLibName{$ENDIF __GPC__}SDLLibName name '';
+PROCEDURE -SDL_putenv(const variable: PChar): integer;
 {-$EXTERNALSYM SDL_putenv}
 
 // The following procedure has been commented out to encourage developers to use
 // SDL_putenv as it it more portable
-//PROCEDURE [ccall] putenv(const variable: PChar): integer;
+//PROCEDURE -putenv(const variable: PChar): integer;
 //{-$EXTERNALSYM putenv}
 
 {$IFDEF WINDOWS}
 {$IFNDEF __GPC__}
-PROCEDURE [ccall] getenv( const name : Pchar ): PChar; cdecl;
+PROCEDURE -getenv( const name : Pchar ): PChar; cdecl;
 {$ENDIF}
 {$ENDIF}
 
 {* Retrieve a variable named "name" from the environment }
-//PROCEDURE [ccall] SDL_getenv(const name: PChar): PChar; cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_Init'{$ELSE} SDLLibName{$ENDIF __GPC__}SDLLibName name '';
-PROCEDURE [ccall] SDL_getenv(const name: PChar): PChar;
+//PROCEDURE -SDL_getenv(const name: PChar): PChar; cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name 'SDL_Init'{$ELSE} SDLLibName{$ENDIF __GPC__}SDLLibName name '';
+PROCEDURE -SDL_getenv(const name: PChar): PChar;
 {-$EXTERNALSYM SDL_getenv}
 
 // The following procedure has been commented out to encourage developers to use
 // SDL_getenv as it it more portable
-//PROCEDURE [ccall] getenv(const name: PChar): PChar;
+//PROCEDURE -getenv(const name: PChar): PChar;
 //{-$EXTERNALSYM getenv}
 *)
 (*
@@ -3019,7 +3019,7 @@ PROCEDURE [ccall] SDL_getenv(const name: PChar): PChar;
  * returns 1 if the procedure is implemented.	If it's not implemented, or
  * the version member of the 'info' structure is invalid, it returns 0.
  *)
-PROCEDURE [ccall] GetWMInfo* ["SDL_GetWMInfo"] (
+PROCEDURE -GetWMInfo* ["SDL_GetWMInfo"] (
 	info: OS.PSysWMinfo): Integer;
 
 (*----------------------------------------------------------------------------*)
@@ -3029,21 +3029,21 @@ PROCEDURE [ccall] GetWMInfo* ["SDL_GetWMInfo"] (
  * to the object handle (or NULL if there was an error).
  * The 'sofile' parameter is a system dependent name of the object file.
  *)
-PROCEDURE [ccall] LoadObject* ["SDL_LoadObject"] (IN soFile: PChar): Pointer;
+PROCEDURE -LoadObject* ["SDL_LoadObject"] (IN soFile: PChar): Pointer;
 
 (* Given an object handle, this procedure looks up the address of the
  * named procedure in the shared object and returns it.	This address
  * is no longer valid after calling SDL_UnloadObject().
  *)
-PROCEDURE [ccall] LoadFunction* ["SDL_LoadFunction"] (
+PROCEDURE -LoadFunction* ["SDL_LoadFunction"] (
 	handle: Pointer; IN name: PChar): Pointer;
 
 (* Unload a shared object from memory *)
-PROCEDURE [ccall] UnloadObject* ["SDL_UnloadObject"] (handle: Pointer);
+PROCEDURE -UnloadObject* ["SDL_UnloadObject"] (handle: Pointer);
 
 (*----------------------------------------------------------------------------*)
 
-PROCEDURE [ccall] SoftStretch* ["SDL_SoftStretch"] (
+PROCEDURE -SoftStretch* ["SDL_SoftStretch"] (
   src: PSurface; srcRect: PRect; dst: PSurface; dstRect: PRect): Integer;
 
 END SdlLib.

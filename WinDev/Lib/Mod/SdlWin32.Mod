@@ -52,7 +52,6 @@ CONST
 
 TYPE
 	Address*	= WinApi.PtrVoid; (* 32 bit system address *)
-  BYTE = SYSTEM.BYTE;
 
 	(* SDL_verion.h type *)
 	Version* = RECORD [1]
