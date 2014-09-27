@@ -13,7 +13,7 @@ typedef
 
 typedef
 	struct SdlWin32_Version {
-		SYSTEM_BYTE major, minor, patch;
+		BYTE major, minor, patch;
 	} SdlWin32_Version;
 
 typedef
@@ -38,6 +38,6 @@ import void *SdlWin32__init(void);
 
 #define SdlWin32_GetWMInfo(info, info__typ)	SDL_GetWMInfo(info)
 #define SdlWin32_SDL_GetWMInfo(info, info__typ)	SDL_GetWMInfo(info)
-__EXTERN INTEGER __CALL SDL_GetWMInfo(SdlWin32_SysWMinfo *info);
+__EXTERN INTEGER SDL_GetWMInfo(SdlWin32_SysWMinfo *info);
 
 #endif
