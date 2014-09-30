@@ -12,6 +12,8 @@
 @GOTO compile
 
 :clib
+@DEL %2.h
+@DEL %2.c
 %RootBin%\smartlib ..\%2.c %3 %4 %5
 
 :compile
