@@ -1,6 +1,5 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
-#include "CmdLine.h"
 
 typedef
 	CHAR (*CmdLine_ArgPtr)[1024];
@@ -10,6 +9,7 @@ typedef
 
 export void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
 
+extern INTEGER CmdLine_ParamCount;
 /*================================== Header ==================================*/
 export INTEGER CmdLine_ParamCount;
 
@@ -28,11 +28,3 @@ void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len)
 	}
 }
 
-//export void *CmdLine__init(void)
-//{
-//	__DEFMOD;
-//	__REGMOD("CmdLine", 0);
-///* BEGIN */
-//	CmdLine_paramCount = CmdLine_argc() - 1;
-//	__ENDMOD;
-//}
