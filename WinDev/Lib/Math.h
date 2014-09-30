@@ -1,5 +1,3 @@
-/*  Ofront 1.2 -xtspkae */
-
 #ifndef Math__h
 #define Math__h
 
