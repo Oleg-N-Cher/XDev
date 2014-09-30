@@ -1,7 +1,7 @@
 MODULE Input;
 
 IMPORT
-  SYSTEM, Sdl := SdlLib;
+  SYSTEM, Sdl := SdlLib, Ignore;
 
 (**
 Module Input is responsible for event timing, mouse and keyboard input.
@@ -155,9 +155,9 @@ VAR
   event: Sdl.Event;
 BEGIN
   WHILE (Sdl.PollEvent(event) # 0) DO
-    IF SYSTEM.VAL(CHAR, event.type) = Sdl.KEYDOWN THEN
+    IF event.type = Sdl.KEYDOWN THEN
       IF CheckAddKey(SYSTEM.VAL(Sdl.KeyboardEvent, event)) THEN END;
-    ELSIF SYSTEM.VAL(CHAR, event.type) = Sdl.QUITEV THEN
+    ELSIF event.type = Sdl.QUITEV THEN
       Quit
     END;
   END;
@@ -188,11 +188,11 @@ BEGIN
     LOOP
       (*Sdl.Delay(10);*)
       WHILE (Sdl.WaitEvent(event) # 0) DO
-        IF SYSTEM.VAL(CHAR, event.type) = Sdl.KEYDOWN THEN
+        IF event.type = Sdl.KEYDOWN THEN
           IF CheckAddKey(SYSTEM.VAL(Sdl.KeyboardEvent, event)) THEN
             EXIT
           END;
-        ELSIF SYSTEM.VAL(CHAR, event.type) = Sdl.QUITEV THEN
+        ELSIF event.type = Sdl.QUITEV THEN
           Quit
         END;
       END;
@@ -288,6 +288,13 @@ BEGIN
   UtoC(44FH(* ÿ *), "z");
 
   n := 0; in := 0; out := 0;
-  IF Sdl.EnableUNICODE(1) = 0 THEN END;
-  IF Sdl.EnableKeyRepeat(500, 50) = 0 THEN END;
+  Ignore.Int( Sdl.EnableUNICODE(1) );
+  Ignore.Int( Sdl.EnableKeyRepeat(500, 50) );
 END Input.
+
+(*
+  ToDo:
+
++ Belarussian Y~
+
+*)
