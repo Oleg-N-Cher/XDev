@@ -1,5 +1,5 @@
-/*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
+#include "Ignore.h"
 #include "SdlLib.h"
 
 
@@ -16,6 +16,8 @@ export CHAR Input_Read (void);
 static INTEGER Input_TimeLeft (void);
 static void Input_UtoC (SHORTINT u, CHAR c);
 
+
+/*================================== Header ==================================*/
 
 static void Input_Quit (void)
 {
@@ -82,14 +84,13 @@ static BOOLEAN Input_CheckAddKey (SdlLib_KeyboardEvent keybev)
 			break;
 		}
 		i = 71;
-		i -= -1;
-		do {
-			i += -1;
+		while (i >= 0) {
 			if (keybev.keysym.unicode == Input_Uni[__X(i, 72)]) {
 				key = Input_Ch[__X(i, 72)];
 				goto exit__0;
 			}
-		} while (!(i == 0));
+			i += -1;
+		}
 		return 0;
 	}
 	exit__0:;
@@ -113,6 +114,7 @@ INTEGER Input_Available (void)
 	return Input_n;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 static INTEGER Input_TimeLeft (void)
 {
 	INTEGER nextTime, now;
@@ -151,6 +153,7 @@ CHAR Input_Read (void)
 	return key;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 static void Input_UtoC (SHORTINT u, CHAR c)
 {
 	Input_Uni[__X(Input_n, 72)] = u;
@@ -162,6 +165,7 @@ static void Input_UtoC (SHORTINT u, CHAR c)
 export void *Input__init(void)
 {
 	__DEFMOD;
+	__IMPORT(Ignore__init);
 	__IMPORT(SdlLib__init);
 	__REGMOD("Input", 0);
 /* BEGIN */
@@ -241,9 +245,8 @@ export void *Input__init(void)
 	Input_n = 0;
 	Input_in = 0;
 	Input_out = 0;
-	if (SdlLib_EnableUNICODE(1) == 0) {
-	}
-	if (SdlLib_EnableKeyRepeat(500, 50) == 0) {
-	}
+	Ignore_Int(SdlLib_EnableUNICODE(1));
+	Ignore_Int(SdlLib_EnableKeyRepeat(500, 50));
 	__ENDMOD;
 }
+
