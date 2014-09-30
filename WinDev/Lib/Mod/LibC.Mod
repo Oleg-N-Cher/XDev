@@ -1,4 +1,4 @@
-MODULE LinLibc ["libc.so.6"];
+MODULE LinLibc;
 (**
 	project	= "BlackBox"
 	organization	= "www.oberon.ch"
@@ -376,55 +376,55 @@ MODULE LinLibc ["libc.so.6"];
 		timezone*: INTEGER; (* seconds from GMT *)		
 		stdin*, stdout*, stderr* : PtrFILE; 
 
-	PROCEDURE [ccall] calloc* (num, size: size_t): PtrVoid;
-	PROCEDURE [ccall] clock* (): clock_t;
-	PROCEDURE [ccall] closedir* (dir: PtrDIR): INTEGER;
-	PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t);
-	PROCEDURE [ccall] exit* (status: INTEGER);
-	PROCEDURE [ccall] fclose* (fp: PtrFILE): INTEGER;
-	PROCEDURE [ccall] fflush* (fp: PtrFILE): INTEGER;
-	PROCEDURE [ccall] fopen* (filename, mode: PtrSTR): PtrFILE;
-	PROCEDURE [ccall] feof* (fp: PtrFILE): INTEGER;
-	PROCEDURE [ccall] fread* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
-	PROCEDURE [ccall] fseek* (stream: PtrFILE; offset, origin: INTEGER): INTEGER;
-	PROCEDURE [ccall] free* (p: PtrVoid);
-	PROCEDURE [ccall] ftell* (stream: PtrFILE): LONGINT;
-	PROCEDURE [ccall] ftw* (filename: PtrSTR; func: __ftw_func_t; descriptors: INTEGER): INTEGER;
-	PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
-	PROCEDURE [ccall] getcwd* (buf: PtrSTR; size: size_t): PtrSTR;
-	PROCEDURE [ccall] getcontext* (ucontext_t: Ptrucontext_t): INTEGER;
-	PROCEDURE [ccall] gets* (s: PtrSTR);
-	PROCEDURE [ccall] fgets* (s: PtrSTR; n: INTEGER; fp: PtrFILE): PtrSTR;
-	PROCEDURE [ccall] gmtime* (VAR timep: time_t): tm;
-	PROCEDURE [ccall] kill* (pid: pid_t; sig: INTEGER): INTEGER;
-	PROCEDURE [ccall] localtime* (VAR timep: time_t): tm;
-	PROCEDURE [ccall] malloc* (size: size_t): PtrVoid;
-	PROCEDURE [ccall] mkdir* (pathname: PtrSTR; mode: mode_t): INTEGER;
-	PROCEDURE [ccall] mktime* (timeptr: tm): time_t;
-	PROCEDURE [ccall] opendir* (name: PtrSTR): PtrDIR;
-	PROCEDURE [ccall] printf* (s: PtrSTR): INTEGER;	
-	PROCEDURE [ccall] readdir* (dir: PtrDIR): PtrDirent;
-	PROCEDURE [ccall] remove* (filename: PtrSTR): INTEGER;
-	PROCEDURE [ccall] rename* (oldname, newname: PtrSTR): INTEGER;
-	PROCEDURE [ccall] scandir* (dir: PtrDIR; namelist: PtrDirentArray; selector: SelectorFunc; cmp: CmpFunc): INTEGER;
-	PROCEDURE [ccall] setcontext* (ucontext_t: Ptrucontext_t): INTEGER;
-	PROCEDURE [ccall] setjmp* (VAR env: jmp_buf): INTEGER;
-	PROCEDURE [ccall] sigaction* (sig_num: INTEGER; VAR [nil] act: sigaction_t; VAR [nil] oldact: sigaction_t): INTEGER;
-	PROCEDURE [ccall] sigaddset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
-	PROCEDURE [ccall] sigdelset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
-	PROCEDURE [ccall] sigemptyset* (set: Ptrsigset_t): INTEGER;
-	PROCEDURE [ccall] sigfillset* (set: Ptrsigset_t): INTEGER;
-	PROCEDURE [ccall] sigismemeber* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
-	PROCEDURE [ccall] siglongjmp* (VAR env: sigjmp_buf; val: INTEGER);
-	PROCEDURE [ccall] signal* (sig_num: INTEGER; sighandler: PtrProc): PtrProc;
-	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: INTEGER): INTEGER; 
+	PROCEDURE -calloc* (num, size: size_t): PtrVoid;
+	PROCEDURE -clock* (): clock_t;
+	PROCEDURE -closedir* (dir: PtrDIR): INTEGER;
+	PROCEDURE -chmod* (path: PtrSTR; mode: mode_t);
+	PROCEDURE -exit* (status: INTEGER);
+	PROCEDURE -fclose* (fp: PtrFILE): INTEGER;
+	PROCEDURE -fflush* (fp: PtrFILE): INTEGER;
+	PROCEDURE -fopen* (filename, mode: PtrSTR): PtrFILE;
+	PROCEDURE -feof* (fp: PtrFILE): INTEGER;
+	PROCEDURE -fread* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
+	PROCEDURE -fseek* (stream: PtrFILE; offset, origin: INTEGER): INTEGER;
+	PROCEDURE -free* (p: PtrVoid);
+	PROCEDURE -ftell* (stream: PtrFILE): LONGINT;
+	PROCEDURE -ftw* (filename: PtrSTR; func: __ftw_func_t; descriptors: INTEGER): INTEGER;
+	PROCEDURE -fwrite* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
+	PROCEDURE -getcwd* (buf: PtrSTR; size: size_t): PtrSTR;
+	PROCEDURE -getcontext* (ucontext_t: Ptrucontext_t): INTEGER;
+	PROCEDURE -gets* (s: PtrSTR);
+	PROCEDURE -fgets* (s: PtrSTR; n: INTEGER; fp: PtrFILE): PtrSTR;
+	PROCEDURE -gmtime* (VAR timep: time_t): tm;
+	PROCEDURE -kill* (pid: pid_t; sig: INTEGER): INTEGER;
+	PROCEDURE -localtime* (VAR timep: time_t): tm;
+	PROCEDURE -malloc* (size: size_t): PtrVoid;
+	PROCEDURE -mkdir* (pathname: PtrSTR; mode: mode_t): INTEGER;
+	PROCEDURE -mktime* (timeptr: tm): time_t;
+	PROCEDURE -opendir* (name: PtrSTR): PtrDIR;
+	PROCEDURE -printf* (s: PtrSTR): INTEGER;	
+	PROCEDURE -readdir* (dir: PtrDIR): PtrDirent;
+	PROCEDURE -remove* (filename: PtrSTR): INTEGER;
+	PROCEDURE -rename* (oldname, newname: PtrSTR): INTEGER;
+	PROCEDURE -scandir* (dir: PtrDIR; namelist: PtrDirentArray; selector: SelectorFunc; cmp: CmpFunc): INTEGER;
+	PROCEDURE -setcontext* (ucontext_t: Ptrucontext_t): INTEGER;
+	PROCEDURE -setjmp* (VAR env: jmp_buf): INTEGER;
+	PROCEDURE -sigaction* (sig_num: INTEGER; VAR [nil] act: sigaction_t; VAR [nil] oldact: sigaction_t): INTEGER;
+	PROCEDURE -sigaddset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE -sigdelset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE -sigemptyset* (set: Ptrsigset_t): INTEGER;
+	PROCEDURE -sigfillset* (set: Ptrsigset_t): INTEGER;
+	PROCEDURE -sigismemeber* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE -siglongjmp* (VAR env: sigjmp_buf; val: INTEGER);
+	PROCEDURE -signal* (sig_num: INTEGER; sighandler: PtrProc): PtrProc;
+	PROCEDURE -sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: INTEGER): INTEGER; 
 (*
-	PROCEDURE [ccall] stat* (filename: PtrSTR; VAR buf: stat_t): INTEGER;   stat is a macro and expands to __xstat(3, filename, buf)
+	PROCEDURE -stat* (filename: PtrSTR; VAR buf: stat_t): INTEGER;   stat is a macro and expands to __xstat(3, filename, buf)
 *)
-	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
-	PROCEDURE [ccall] strftime* (s: PtrSTR; max: size_t; format: PtrSTR; ptm: tm): size_t;
-	PROCEDURE [ccall] time* (VAR [nil] t: time_t): time_t;
+	PROCEDURE -__xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+	PROCEDURE -strftime* (s: PtrSTR; max: size_t; format: PtrSTR; ptm: tm): size_t;
+	PROCEDURE -time* (VAR [nil] t: time_t): time_t;
 
-	PROCEDURE [ccall] __errno_location*(): INTEGER;
+	PROCEDURE -__errno_location*(): INTEGER;
 	
 END LinLibc.
