@@ -39,5 +39,6 @@ import void *SdlWin32__init(void);
 #define SdlWin32_GetWMInfo(info, info__typ)	SDL_GetWMInfo(info)
 #define SdlWin32_SDL_GetWMInfo(info, info__typ)	SDL_GetWMInfo(info)
 __EXTERN INTEGER SDL_GetWMInfo(SdlWin32_SysWMinfo *info);
+#define SdlWin32__init()	/*-noinit*/
 
 #endif
