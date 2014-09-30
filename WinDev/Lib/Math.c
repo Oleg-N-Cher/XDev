@@ -4,9 +4,10 @@ export REAL Math_ArcTan (REAL x);
 export REAL Math_Cos (REAL x);
 export REAL Math_Exp (REAL x);
 export REAL Math_Ln (REAL x);
+export void Math_Randomize (void);
+export INTEGER Math_RndRange (INTEGER rangeMin, INTEGER rangeMax);
 export REAL Math_Sin (REAL x);
 export REAL Math_Sqrt (REAL x);
-export INTEGER Math_RndRange (INTEGER rangeMin, INTEGER rangeMax);
 
 void Math_NextRnd (void);
 void Math_PutSeed (INTEGER seed);
@@ -14,8 +15,8 @@ void Math_PutSeed (INTEGER seed);
 #include <math.h>
 
 #if defined(WIN32) || defined(_WIN32)
-#  include <windows.h>
-#  define Math_getTickCount()	GetTickCount()
+#  include <WinApi.h>
+#  define Math_getTickCount()	WinApi_GetTickCount()
 #else
 #  include <time.h>
 #  define Math_getTickCount()	time(0)
