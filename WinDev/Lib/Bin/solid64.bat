@@ -12,8 +12,8 @@
 @GOTO done
 
 :clib
-@DEL %2.h
-@DEL %2.c
+@IF EXIST %2.h DEL %2.h
+@IF EXIST %2.c DEL %2.c
 %tcc% -c ..\%2.c -I ".." -I "."
 
 :done
