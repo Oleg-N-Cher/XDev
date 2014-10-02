@@ -1,0 +1,95 @@
+(**************************************************************************
+
+     $RCSfile: Types.mod $
+  Description: General type declarations
+
+   Created by: fjc (Frank Copeland)
+    $Revision: 1.2 $
+      $Author: fjc $
+        $Date: 1994/05/12 19:11:02 $
+
+  Copyright © 1994, Frank Copeland.
+  This file is part of the Oberon-A Library.
+  See Oberon-A.doc for conditions of use and distribution.
+
+  Log entries are at the end of the file.
+
+  ftp://ftp.uni-stuttgart.de/pub/systems/amiga/amok/amok104/Oberon-A.lha
+
+***************************************************************************)
+
+MODULE Types;
+
+(* $P- allow non-portable code *)
+
+IMPORT SYSTEM;
+
+TYPE
+
+  APTR    * = SYSTEM.PTR;
+  LONG    * = LONGINT;
+  ULONG   * = LONGINT;
+  LONGBITS* = SET;
+  WORD    * = SHORTINT;
+  UWORD   * = SHORTINT;
+  (*WORDBITS* = SYSTEM.WORDSET;*)
+  UBYTE   * = BYTE;
+  (*BYTEBITS* = SYSTEM.BYTESET;*)
+  RPTR    * = INTEGER;
+  STRING  * = ARRAY 32767 OF CHAR;
+  STRPTR  * = POINTER[1] TO STRING;
+
+  SHORT   * = WORD;
+  USHORT  * = UWORD;
+  COUNT   * = INTEGER;
+  UCOUNT  * = INTEGER;
+  CPTR    * = ULONG;
+
+  FLOAT   * = REAL;
+  DOUBLE  * = LONGREAL;
+  BOOL    * = INTEGER;
+  TEXT    * = CHAR;
+
+CONST
+
+  NULL           * = NIL;
+  BYTEMASK       * = 0FFH;
+
+TYPE
+
+  PROC *  = PROCEDURE;
+  LBOOL * = LONGINT;
+  (*BSET *  = SYSTEM.BYTESET;*)
+  (*WSET *  = SYSTEM.WORDSET;*)
+
+CONST
+
+  LFALSE * = 0;
+  LTRUE *  = 1;
+
+TYPE
+
+  INT8 * = BYTE;
+  INT16 * = SHORTINT;
+  INT32 * = INTEGER;
+  INT64 * = LONGINT;
+  UINT8 * = BYTE;
+  UINT16 * = SHORTINT;
+  UINT32 * = INTEGER;
+  UINT64 * = LONGINT;
+
+PROCEDURE -_init* "/*-noinit*/";
+
+END Types.
+
+(**************************************************************************
+
+  $Log: Types.mod $
+  Revision 1.2  1994/05/12  19:11:02  fjc
+  - Prepared for release
+
+  Revision 1.1  1994/01/15  20:49:58  fjc
+  - Start of revision control
+
+***************************************************************************)
+
