@@ -1,5 +1,5 @@
 MODULE GrScr;	(** Versia for SDL *)
-IMPORT SYSTEM, Sdl := SdlLib, Cfg := GrConfig;
+IMPORT SYSTEM, Sdl := SdlLib, Cfg := GrConfig, Ignore;
 
 TYPE
   Color* = INTEGER;
@@ -19,7 +19,7 @@ END Close;
 
 PROCEDURE Update* ;
 BEGIN
-  IF Sdl.Flip(Screen) THEN END;
+  Ignore.Int( Sdl.Flip(Screen) );
 END Update;
 
 BEGIN
