@@ -3,18 +3,20 @@
 
 @SET RootBin=..\..\..\Bin
 @SET Bin=..\..\Bin
-@SET tcc=%Bin%\tcc\tcc.exe
+@SET DJGPP=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\djgpp.env
+@SET PATH=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\bin;%PATH%
+@SET gcc=gcc.exe @..\Bin\djgpp.opt
 
 @IF EXIST ..\C\%2.c GOTO clib
 
 :olib
-%tcc% -c %2.c -I "." -I ..\C
+%gcc% -c %2.c -I "." -I ..\C
 @GOTO done
 
 :clib
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%tcc% -c ..\C\%2.c -I "." -I ..\C
+%gcc% -c ..\C\%2.c -I "." -I ..\C
 
 :done
 @IF errorlevel 1 PAUSE

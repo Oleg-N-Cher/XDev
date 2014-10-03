@@ -1,1 +1,1 @@
-@+BuildKol.bat
+@..\Bin\buildKol.bat

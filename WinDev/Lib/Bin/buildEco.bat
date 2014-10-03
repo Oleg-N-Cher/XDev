@@ -9,10 +9,11 @@
 @CALL ..\Bin\smart %Lib% EcoLists
 
 :djgpp
+@IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\EcoDJGPP.a
 @IF EXIST %Lib% DEL %Lib%
-::@CALL ..\Bin\soliddjgpp %Lib% EcoBigSets
-::@CALL ..\Bin\soliddjgpp %Lib% EcoListen
-::@CALL ..\Bin\soliddjgpp %Lib% EcoLists
+@CALL ..\Bin\smartdjgpp %Lib% EcoBigSets
+@CALL ..\Bin\smartdjgpp %Lib% EcoListen
+@CALL ..\Bin\smartdjgpp %Lib% EcoLists
 
 :exit

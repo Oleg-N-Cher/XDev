@@ -1,1 +1,1 @@
-@+BuildAcl.bat
+@..\Bin\buildAcl.bat

@@ -1,0 +1,1 @@
+@..\Bin\buildKol64.bat
