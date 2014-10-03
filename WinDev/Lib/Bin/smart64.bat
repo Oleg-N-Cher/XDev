@@ -5,7 +5,7 @@
 @SET Bin=..\..\Bin
 @SET tcc=%Bin%\tcc64\tcc.exe
 
-@IF EXIST ..\%2.c GOTO clib
+@IF EXIST ..\C\%2.c GOTO clib
 
 :olib
 %RootBin%\smartlib %2.c %3 %4 %5
@@ -14,11 +14,11 @@
 :clib
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%RootBin%\smartlib ..\%2.c %3 %4 %5
+%RootBin%\smartlib ..\C\%2.c %3 %4 %5
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
-  %tcc% -c %%i -I ".." -I "."
+  %tcc% -c %%i -I "." -I ..\C
   @IF errorlevel 1 PAUSE
 )
 @FOR %%i IN (%2_???.o) DO %Bin%\ar64 -rc %1 %%i

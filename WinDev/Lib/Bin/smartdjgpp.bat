@@ -1,26 +1,27 @@
 @REM args:
 @REM   LibName ModName [PartName] [-noinit] [-nocut]
 
-@SET RootBin=..\..\Bin
-@SET Bin=..\Bin
+@SET RootBin=..\..\..\Bin
+@SET Bin=..\..\Bin
 @SET DJGPP=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\djgpp.env
 @SET PATH=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\bin;%PATH%
-@SET gcc=gcc.exe @Bin\djgpp.opt
+@SET gcc=gcc.exe @..\Bin\djgpp.opt
 
-@IF EXIST %2.c GOTO clib
+@IF EXIST ..\C\%2.c GOTO clib
 
 :olib
-@COPY Obj\%2.h
-%RootBin%\smartlib Obj\%2.c %3 %4 %5
+%RootBin%\smartlib %2.c %3 %4 %5
 @GOTO compile
 
 :clib
+@IF EXIST %2.h DEL %2.h
+@IF EXIST %2.c DEL %2.c
 %RootBin%\smartlib %2.c %3 %4 %5
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
-  %gcc% -c %%i -I "." -I Obj
+  %gcc% -c %%i -I "." -I ..\C
   @IF errorlevel 1 PAUSE
 )
 @FOR %%i IN (%2_???.o) DO %Bin%\ar -rc %1 %%i
-@Bin\clear
+@%Bin%\clear
