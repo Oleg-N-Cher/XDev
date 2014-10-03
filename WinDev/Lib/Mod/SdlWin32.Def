@@ -85,7 +85,9 @@ TYPE
 		the version member of the 'info' structure is invalid, it returns 0.
 		*)
 
-	PROCEDURE- SDL_GetWMInfo* (VAR (*nil*) info: SysWMinfo): INTEGER;
-	PROCEDURE- GetWMInfo* (VAR (*nil*) info: SysWMinfo): INTEGER "SDL_GetWMInfo(info)";
+	PROCEDURE -SDL_GetWMInfo* (VAR [nil] info: SysWMinfo): INTEGER;
+	PROCEDURE -GetWMInfo* (VAR [nil] info: SysWMinfo): INTEGER "SDL_GetWMInfo(info)";
+
+PROCEDURE -_init* "/*-noinit*/";
 
 END SdlWin32.

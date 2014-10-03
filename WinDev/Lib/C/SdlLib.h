@@ -151,7 +151,7 @@ typedef
 
 typedef
 	struct SdlLib_Event {
-		BYTE type;
+		CHAR type;
 		char _prvt0[32];
 	} SdlLib_Event;
 
