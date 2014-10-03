@@ -2,16 +2,17 @@
 @REM =====================
 
 :tcc
-@SET Lib=..\x86\Eco.a
+@SET Lib=..\Eco.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% EcoBigSets
 @CALL ..\Bin\smart %Lib% EcoListen
 @CALL ..\Bin\smart %Lib% EcoLists
 
 :djgpp
-@SET Lib=..\x86\EcoDJGPP.a
+@SET Lib=..\EcoDJGPP.a
 @IF EXIST %Lib% DEL %Lib%
-::@CALL ..\Bin\soliddjgpp %Lib% AclUtils
-::@CALL ..\Bin\soliddjgpp %Lib% AclLib
+::@CALL ..\Bin\soliddjgpp %Lib% EcoBigSets
+::@CALL ..\Bin\soliddjgpp %Lib% EcoListen
+::@CALL ..\Bin\soliddjgpp %Lib% EcoLists
 
 :exit
