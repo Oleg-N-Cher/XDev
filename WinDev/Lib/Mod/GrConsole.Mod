@@ -7,7 +7,7 @@ CONST
   TileSizeInBytes = 8;
 TYPE
   FontPtr = POINTER [1] TO GrFonts.Font;
-  TilePtr = POINTER [1] TO GrTiles.Tile8x8;
+  TilePtr = POINTER [1] TO GrTiles.MonoTile8x8;
   ADDRESS = LONGINT;
 VAR
   curX, curY: GrTiles.Coords; curColors: Colors.Colors; curFont: FontPtr;
@@ -22,7 +22,7 @@ VAR
   x, y: GrPixel.Coords; inkTemp: Colors.Color;
 BEGIN
   curX := 0; curY := 0;
-  IF GrScr.MustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
+  IF GrScr.MustLock & (Sdl.LockSurface(GrScr.Screen) = 0) THEN RETURN END;
   inkTemp := GrPixel.ink; GrPixel.Ink(color);
   FOR y := GrScr.Screen.h - 1 TO 0 BY -1 DO
     FOR x := GrScr.Screen.w - 1 TO 0 BY -1 DO
