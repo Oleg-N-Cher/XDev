@@ -1,8 +1,7 @@
-/*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
-#include "SdlLib.h"
-#include "GrScr.h"
 #include "GrConfig.h"
+#include "GrApp.h"
+#include "SdlLib.h"
 
 import INTEGER GrPixel_ink;
 import void (*GrPixel_Dot)(INTEGER, INTEGER);
@@ -38,10 +37,10 @@ export void (*GrPixel_Dot)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER,
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel8Lock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		if (SdlLib_LockSurface(GrScr_Screen)) {
-			__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(BYTE, GrPixel_ink), BYTE);
-			SdlLib_UnlockSurface(GrScr_Screen);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		if (SdlLib_LockSurface(GrApp_Screen)) {
+			__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + x, __VAL(BYTE, GrPixel_ink), BYTE);
+			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
 }
@@ -49,18 +48,18 @@ void GrPixel_PutActualPixel8Lock (INTEGER x, INTEGER y)
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel8NoLock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)x, __VAL(BYTE, GrPixel_ink), BYTE);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + x, __VAL(BYTE, GrPixel_ink), BYTE);
 	}
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel16Lock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		if (SdlLib_LockSurface(GrScr_Screen)) {
-			__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)__ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
-			SdlLib_UnlockSurface(GrScr_Screen);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		if (SdlLib_LockSurface(GrApp_Screen)) {
+			__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
+			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
 }
@@ -68,21 +67,21 @@ void GrPixel_PutActualPixel16Lock (INTEGER x, INTEGER y)
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel16NoLock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)__ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
 	}
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel24Lock (INTEGER x, INTEGER y)
 {
-	LONGINT addr;
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		if (SdlLib_LockSurface(GrScr_Screen)) {
-			addr = ((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)(x * 3);
+	SYSTEM_ADDRESS addr;
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		if (SdlLib_LockSurface(GrApp_Screen)) {
+			addr = ((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)(x * 3);
 			__PUT(addr, __VAL(SHORTINT, GrPixel_ink), SHORTINT);
 			__PUT(addr + 2, (BYTE)__LSHR(GrPixel_ink, 16, INTEGER), BYTE);
-			SdlLib_UnlockSurface(GrScr_Screen);
+			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
 }
@@ -90,9 +89,9 @@ void GrPixel_PutActualPixel24Lock (INTEGER x, INTEGER y)
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel24NoLock (INTEGER x, INTEGER y)
 {
-	LONGINT addr;
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		addr = ((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)(x * 3);
+	SYSTEM_ADDRESS addr;
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		addr = ((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)(x * 3);
 		__PUT(addr, __VAL(SHORTINT, GrPixel_ink), SHORTINT);
 		__PUT(addr + 2, (BYTE)__LSHR(GrPixel_ink, 16, INTEGER), BYTE);
 	}
@@ -101,10 +100,10 @@ void GrPixel_PutActualPixel24NoLock (INTEGER x, INTEGER y)
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel32Lock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		if (SdlLib_LockSurface(GrScr_Screen)) {
-			__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)__ASHL(x, 2), GrPixel_ink, INTEGER);
-			SdlLib_UnlockSurface(GrScr_Screen);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		if (SdlLib_LockSurface(GrApp_Screen)) {
+			__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2), GrPixel_ink, INTEGER);
+			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
 }
@@ -112,8 +111,8 @@ void GrPixel_PutActualPixel32Lock (INTEGER x, INTEGER y)
 /*--------------------------------- Cut here ---------------------------------*/
 void GrPixel_PutActualPixel32NoLock (INTEGER x, INTEGER y)
 {
-	if ((!ChkOutOfScreen) || (x>=0 && x<=GrScr_ActualMaxX && y>=0 && y<=GrScr_ActualMaxY)) {
-		__PUT(((LONGINT)GrScr_Screen->pixels + (LONGINT)(y * GrPixel_pitch)) + (LONGINT)__ASHL(x, 2), GrPixel_ink, INTEGER);
+	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
+		__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2), GrPixel_ink, INTEGER);
 	}
 }
 
@@ -121,11 +120,11 @@ void GrPixel_PutActualPixel32NoLock (INTEGER x, INTEGER y)
 void GrPixel_PutVirtualPixelLock (INTEGER x, INTEGER y)
 {
 	INTEGER xActual, yActual, xTemp, xNext, yNext;
-	xActual = x * GrScr_ActualWidth / GrScr_VirtualWidth;
-	yActual = y * GrScr_ActualHeight / GrScr_VirtualHeight;
-	xNext = (x + 1) * GrScr_ActualWidth / GrScr_VirtualWidth;
-	yNext = (y + 1) * GrScr_ActualHeight / GrScr_VirtualHeight;
-	if (SdlLib_LockSurface(GrScr_Screen)) {
+	xActual = x * GrApp_ActualWidth / GrApp_VirtualWidth;
+	yActual = y * GrApp_ActualHeight / GrApp_VirtualHeight;
+	xNext = (x + 1) * GrApp_ActualWidth / GrApp_VirtualWidth;
+	yNext = (y + 1) * GrApp_ActualHeight / GrApp_VirtualHeight;
+	if (SdlLib_LockSurface(GrApp_Screen)) {
 		while (yActual != yNext) {
 			xTemp = xActual;
 			while (xTemp != xNext) {
@@ -134,7 +133,7 @@ void GrPixel_PutVirtualPixelLock (INTEGER x, INTEGER y)
 			}
 			yActual += 1;
 		}
-		SdlLib_UnlockSurface(GrScr_Screen);
+		SdlLib_UnlockSurface(GrApp_Screen);
 	}
 }
 
@@ -142,10 +141,10 @@ void GrPixel_PutVirtualPixelLock (INTEGER x, INTEGER y)
 void GrPixel_PutVirtualPixelNoLock (INTEGER x, INTEGER y)
 {
 	INTEGER xActual, yActual, xTemp, xNext, yNext;
-	xActual = x * GrScr_ActualWidth / GrScr_VirtualWidth;
-	yActual = y * GrScr_ActualHeight / GrScr_VirtualHeight;
-	xNext = (x + 1) * GrScr_ActualWidth / GrScr_VirtualWidth;
-	yNext = (y + 1) * GrScr_ActualHeight / GrScr_VirtualHeight;
+	xActual = x * GrApp_ActualWidth / GrApp_VirtualWidth;
+	yActual = y * GrApp_ActualHeight / GrApp_VirtualHeight;
+	xNext = (x + 1) * GrApp_ActualWidth / GrApp_VirtualWidth;
+	yNext = (y + 1) * GrApp_ActualHeight / GrApp_VirtualHeight;
 	while (yActual != yNext) {
 		xTemp = xActual;
 		while (xTemp != xNext) {
@@ -262,19 +261,20 @@ void GrPixel_Circle (INTEGER cx, INTEGER cy, INTEGER radius)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+
 export void GrPixel__init (void)
 {
 	__DEFMOD;
-	//__IMPORT(GrScr__init);
-	//__IMPORT(SdlLib__init);
+	__IMPORT(GrApp__init);
+	__IMPORT(SdlLib__init);
 	__REGMOD("GrPixel", 0);
 /* BEGIN */
-	GrPixel_pitch = GrScr_Screen->pitch;
-	switch (__VAL(CHAR, GrScr_Screen->format->BytesPerPixel)) {
+	GrPixel_pitch = GrApp_Screen->pitch;
+	switch (__VAL(CHAR, GrApp_Screen->format->BytesPerPixel)) {
 		case 0x01: 
 			GrPixel_PutActualPixelNoLock = GrPixel_PutActualPixel8NoLock;
 			GrPixel_PutPixelNoLock = GrPixel_PutActualPixel8NoLock;
-			if (GrScr_MustLock) {
+			if (GrApp_MustLock) {
 				GrPixel_Dot = GrPixel_PutActualPixel8Lock;
 			} else {
 				GrPixel_Dot = GrPixel_PutActualPixel8NoLock;
@@ -283,7 +283,7 @@ export void GrPixel__init (void)
 		case 0x02: 
 			GrPixel_PutActualPixelNoLock = GrPixel_PutActualPixel16NoLock;
 			GrPixel_PutPixelNoLock = GrPixel_PutActualPixel16NoLock;
-			if (GrScr_MustLock) {
+			if (GrApp_MustLock) {
 				GrPixel_Dot = GrPixel_PutActualPixel16Lock;
 			} else {
 				GrPixel_Dot = GrPixel_PutActualPixel16NoLock;
@@ -292,7 +292,7 @@ export void GrPixel__init (void)
 		case 0x03: 
 			GrPixel_PutActualPixelNoLock = GrPixel_PutActualPixel24NoLock;
 			GrPixel_PutPixelNoLock = GrPixel_PutActualPixel24NoLock;
-			if (GrScr_MustLock) {
+			if (GrApp_MustLock) {
 				GrPixel_Dot = GrPixel_PutActualPixel24Lock;
 			} else {
 				GrPixel_Dot = GrPixel_PutActualPixel24NoLock;
@@ -301,7 +301,7 @@ export void GrPixel__init (void)
 		case 0x04: 
 			GrPixel_PutActualPixelNoLock = GrPixel_PutActualPixel32NoLock;
 			GrPixel_PutPixelNoLock = GrPixel_PutActualPixel32NoLock;
-			if (GrScr_MustLock) {
+			if (GrApp_MustLock) {
 				GrPixel_Dot = GrPixel_PutActualPixel32Lock;
 			} else {
 				GrPixel_Dot = GrPixel_PutActualPixel32NoLock;
@@ -310,9 +310,9 @@ export void GrPixel__init (void)
 		default:
 			break;
 	}
-  if ((GrScr_ActualWidth != GrScr_VirtualWidth) || (GrScr_ActualHeight != GrScr_VirtualHeight)) {
+  if ((GrApp_ActualWidth != GrApp_VirtualWidth) || (GrApp_ActualHeight != GrApp_VirtualHeight)) {
 		GrPixel_PutPixelNoLock = GrPixel_PutVirtualPixelNoLock;
-		if (GrScr_MustLock) {
+		if (GrApp_MustLock) {
 			GrPixel_Dot = GrPixel_PutVirtualPixelLock;
 		} else {
 			GrPixel_Dot = GrPixel_PutVirtualPixelNoLock;
