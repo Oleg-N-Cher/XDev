@@ -1,8 +1,8 @@
 MODULE GrColors;	(** Versia for SDL *)
-IMPORT Sdl := SdlLib, GrScr;
+IMPORT Sdl := SdlLib, GrApp;
 
 TYPE
-  Color* = GrScr.Color;
+  Color* = GrApp.Color;
   Colors* = RECORD [1] paper*, ink*: Color END;
 
 VAR
@@ -114,23 +114,23 @@ VAR
     : Colors;
 
 BEGIN
-  Black        := Sdl.MapRGB(GrScr.Screen.format,   0,   0,   0);
-  Blue         := Sdl.MapRGB(GrScr.Screen.format,   0,   0, 128);
-  Green        := Sdl.MapRGB(GrScr.Screen.format,   0, 128,   0);
-  Cyan         := Sdl.MapRGB(GrScr.Screen.format,   0, 128, 128);
-  Red          := Sdl.MapRGB(GrScr.Screen.format, 128,   0,   0);
-  Magenta      := Sdl.MapRGB(GrScr.Screen.format, 128,   0, 128);
-  Olive        := Sdl.MapRGB(GrScr.Screen.format, 128, 128,   0);
-  White        := Sdl.MapRGB(GrScr.Screen.format, 192, 192, 192);
-  Gray         := Sdl.MapRGB(GrScr.Screen.format, 128, 128, 128);
-  LightBlue    := Sdl.MapRGB(GrScr.Screen.format,   0,   0, 255);
-  LightGreen   := Sdl.MapRGB(GrScr.Screen.format,   0, 255,   0);
-  LightCyan    := Sdl.MapRGB(GrScr.Screen.format,   0, 255, 255);
-  LightRed     := Sdl.MapRGB(GrScr.Screen.format, 255,   0,   0);
-  LightMagenta := Sdl.MapRGB(GrScr.Screen.format, 255,   0, 255);
-  Yellow       := Sdl.MapRGB(GrScr.Screen.format, 255, 255,   0);
-  LightWhite   := Sdl.MapRGB(GrScr.Screen.format, 255, 255, 255);
-  Orange       := Sdl.MapRGB(GrScr.Screen.format, 255, 128,   0);
+  Black        := Sdl.MapRGB(GrApp.Screen.format,   0X,   0X,   0X);
+  Blue         := Sdl.MapRGB(GrApp.Screen.format,   0X,   0X,  80X);
+  Green        := Sdl.MapRGB(GrApp.Screen.format,   0X,  80X,   0X);
+  Cyan         := Sdl.MapRGB(GrApp.Screen.format,   0X,  80X,  80X);
+  Red          := Sdl.MapRGB(GrApp.Screen.format,  80X,   0X,   0X);
+  Magenta      := Sdl.MapRGB(GrApp.Screen.format,  80X,   0X,  80X);
+  Olive        := Sdl.MapRGB(GrApp.Screen.format,  80X,  80X,   0X);
+  White        := Sdl.MapRGB(GrApp.Screen.format, 0C0X, 0C0X, 0C0X);
+  Gray         := Sdl.MapRGB(GrApp.Screen.format,  80X,  80X,  80X);
+  LightBlue    := Sdl.MapRGB(GrApp.Screen.format,   0X,   0X, 0FFX);
+  LightGreen   := Sdl.MapRGB(GrApp.Screen.format,   0X, 0FFX,   0X);
+  LightCyan    := Sdl.MapRGB(GrApp.Screen.format,   0X, 0FFX, 0FFX);
+  LightRed     := Sdl.MapRGB(GrApp.Screen.format, 0FFX,   0X,   0X);
+  LightMagenta := Sdl.MapRGB(GrApp.Screen.format, 0FFX,   0X, 0FFX);
+  Yellow       := Sdl.MapRGB(GrApp.Screen.format, 0FFX, 0FFX,   0X);
+  LightWhite   := Sdl.MapRGB(GrApp.Screen.format, 0FFX, 0FFX, 0FFX);
+  Orange       := Sdl.MapRGB(GrApp.Screen.format, 0FFX,  80X,   0X);
 
   BlackOnBlack.paper    := Black; BlackOnBlack.ink    := Black;
   BlueOnBlack.paper     := Black; BlueOnBlack.ink     := Blue;
