@@ -13,7 +13,7 @@
 ::@CALL ..\Bin\smart %Lib% WinCmdLineW
 @CALL ..\Bin\smart %Lib% Math
 @CALL ..\Bin\smart %Lib% Files
-@CALL ..\Bin\solid %Lib% GrScr
+@CALL ..\Bin\solid %Lib% GrApp
 @CALL ..\Bin\smart %Lib% GrColors
 @CALL ..\Bin\smart %Lib% Console
 ::@CALL ..\Bin\smart %Lib% ConsoleW
@@ -22,7 +22,7 @@
  @CALL ..\Bin\smart %Lib% GrPixel
  @CALL ..\Bin\smart %Lib% GrTiles
  @CALL ..\Bin\smart %Lib% GrFonts
- @CALL ..\Bin\smart %Lib% GrConsole
+ @CALL ..\Bin\solid %Lib% GrConsole
 @DEL GrConfig.h
 
 @CALL ..\Bin\smart %Lib% Input
@@ -40,7 +40,7 @@
 ::@CALL ..\Bin\smartdjgpp %Lib% WinCmdLineW
 @CALL ..\Bin\smartdjgpp %Lib% Math
 @CALL ..\Bin\smartdjgpp %Lib% Files
-@CALL ..\Bin\soliddjgpp %Lib% GrScr
+@CALL ..\Bin\soliddjgpp %Lib% GrApp
 @CALL ..\Bin\smartdjgpp %Lib% GrColors
 @CALL ..\Bin\smartdjgpp %Lib% Console
 ::@CALL ..\Bin\smartdjgpp %Lib% ConsoleW
@@ -49,7 +49,7 @@
  @CALL ..\Bin\smartdjgpp %Lib% GrPixel
  @CALL ..\Bin\smartdjgpp %Lib% GrTiles
  @CALL ..\Bin\smartdjgpp %Lib% GrFonts
- @CALL ..\Bin\smartdjgpp %Lib% GrConsole
+ @CALL ..\Bin\soliddjgpp %Lib% GrConsole
 @DEL GrConfig.h
 
 @CALL ..\Bin\smartdjgpp %Lib% Input
