@@ -1,6 +1,5 @@
-/*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
-#include "GrScr.h"
+#include "GrApp.h"
 #include "SdlLib.h"
 
 typedef
@@ -19,28 +18,28 @@ __TDESC(GrColors_Colors__desc, 1, 0) = {__TDFLDS("Colors", 8), {-4}};
 export void GrColors__init (void)
 {
 	__DEFMOD;
-	//__IMPORT(GrScr__init);
+	//__IMPORT(GrApp__init);
 	//__IMPORT(SdlLib__init);
 	__REGMOD("GrColors", 0);
 	__INITYP(GrColors_Colors, GrColors_Colors, 0);
 /* BEGIN */
-	GrColors_Black = SdlLib_MapRGB(GrScr_Screen->format, 0, 0, 0);
-	GrColors_Blue = SdlLib_MapRGB(GrScr_Screen->format, 0, 0, GrScr_NormalColor);
-	GrColors_Green = SdlLib_MapRGB(GrScr_Screen->format, 0, GrScr_NormalColor, 0);
-	GrColors_Cyan = SdlLib_MapRGB(GrScr_Screen->format, 0, GrScr_NormalColor, GrScr_NormalColor);
-	GrColors_Red = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, 0, 0);
-	GrColors_Magenta = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, 0, GrScr_NormalColor);
-	GrColors_Olive = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, GrScr_NormalColor, 0);
-	GrColors_White = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor, GrScr_NormalColor, GrScr_NormalColor);
-	GrColors_Gray = SdlLib_MapRGB(GrScr_Screen->format, GrScr_NormalColor/2, GrScr_NormalColor/2, GrScr_NormalColor/2);
-	GrColors_LightBlue = SdlLib_MapRGB(GrScr_Screen->format, 0, 0, 255);
-	GrColors_LightGreen = SdlLib_MapRGB(GrScr_Screen->format, 0, 255, 0);
-	GrColors_LightCyan = SdlLib_MapRGB(GrScr_Screen->format, 0, 255, 255);
-	GrColors_LightRed = SdlLib_MapRGB(GrScr_Screen->format, 255, 0, 0);
-	GrColors_LightMagenta = SdlLib_MapRGB(GrScr_Screen->format, 255, 0, 255);
-	GrColors_Yellow = SdlLib_MapRGB(GrScr_Screen->format, 255, 255, 0);
-	GrColors_LightWhite = SdlLib_MapRGB(GrScr_Screen->format, 255, 255, 255);
-	GrColors_Orange = SdlLib_MapRGB(GrScr_Screen->format, 255, GrScr_NormalColor, 0);
+	GrColors_Black = SdlLib_MapRGB(GrApp_Screen->format, 0, 0, 0);
+	GrColors_Blue = SdlLib_MapRGB(GrApp_Screen->format, 0, 0, GrApp_NormalColor);
+	GrColors_Green = SdlLib_MapRGB(GrApp_Screen->format, 0, GrApp_NormalColor, 0);
+	GrColors_Cyan = SdlLib_MapRGB(GrApp_Screen->format, 0, GrApp_NormalColor, GrApp_NormalColor);
+	GrColors_Red = SdlLib_MapRGB(GrApp_Screen->format, GrApp_NormalColor, 0, 0);
+	GrColors_Magenta = SdlLib_MapRGB(GrApp_Screen->format, GrApp_NormalColor, 0, GrApp_NormalColor);
+	GrColors_Olive = SdlLib_MapRGB(GrApp_Screen->format, GrApp_NormalColor, GrApp_NormalColor, 0);
+	GrColors_White = SdlLib_MapRGB(GrApp_Screen->format, GrApp_NormalColor, GrApp_NormalColor, GrApp_NormalColor);
+	GrColors_Gray = SdlLib_MapRGB(GrApp_Screen->format, GrApp_NormalColor/2, GrApp_NormalColor/2, GrApp_NormalColor/2);
+	GrColors_LightBlue = SdlLib_MapRGB(GrApp_Screen->format, 0, 0, 255);
+	GrColors_LightGreen = SdlLib_MapRGB(GrApp_Screen->format, 0, 255, 0);
+	GrColors_LightCyan = SdlLib_MapRGB(GrApp_Screen->format, 0, 255, 255);
+	GrColors_LightRed = SdlLib_MapRGB(GrApp_Screen->format, 255, 0, 0);
+	GrColors_LightMagenta = SdlLib_MapRGB(GrApp_Screen->format, 255, 0, 255);
+	GrColors_Yellow = SdlLib_MapRGB(GrApp_Screen->format, 255, 255, 0);
+	GrColors_LightWhite = SdlLib_MapRGB(GrApp_Screen->format, 255, 255, 255);
+	GrColors_Orange = SdlLib_MapRGB(GrApp_Screen->format, 255, GrApp_NormalColor, 0);
 	GrColors_BlackOnBlack.paper = GrColors_Black;
 	GrColors_BlackOnBlack.ink = GrColors_Black;
 	GrColors_BlueOnBlack.paper = GrColors_Black;
