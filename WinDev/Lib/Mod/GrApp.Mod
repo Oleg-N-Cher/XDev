@@ -1,4 +1,4 @@
-MODULE GrScr;	(** Versia for SDL *)
+MODULE GrApp;	(** Ver. for SDL *)
 IMPORT SYSTEM, Sdl := SdlLib, Cfg := GrConfig, Ignore;
 
 TYPE
@@ -31,4 +31,4 @@ BEGIN
       DepthBits, Sdl.SWSURFACE + Sdl.DOUBLEBUF);
   IF Screen = NIL THEN Sdl.Quit; HALT(1) END;
   MustLock := Sdl.MustLock(Screen);
-END GrScr.
+END GrApp.

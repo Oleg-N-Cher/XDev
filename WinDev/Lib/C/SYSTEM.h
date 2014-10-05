@@ -14,7 +14,7 @@ uses double # as concatenation operator
 #include "SYSTEM_Cfg.h"
 #ifdef _SDLGUI
 #  include "GrConfig.h"
-  extern void GrScr_Init (void);
+  extern void GrApp_Init (void);
 #endif
      
 //extern void *memcpy (void *dest, const void *src, long n);
@@ -91,7 +91,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #ifdef SYSTEM_Cfg_RegisterMain
 #  ifdef _SDLGUI
 #    define __INIT(argc, argv) static void *m; \
-       SYSTEM_INIT(argc, (long)&argv); GrConfig_Init; GrScr_Init()
+       SYSTEM_INIT(argc, (long)&argv); GrConfig_Init; GrApp_Init()
 #  else
 #    define __INIT(argc, argv) static void *m; SYSTEM_INIT(argc, (long)&argv)
 #  endif
@@ -99,7 +99,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #else
 #  ifdef _SDLGUI
 #    define __INIT(argc, argv) SYSTEM_argc=argc; \
-       SYSTEM_argv=*(long*)((long)&argv); GrConfig_Init; GrScr_Init()
+       SYSTEM_argv=*(long*)((long)&argv); GrConfig_Init; GrApp_Init()
 #  else
 #    define __INIT(argc, argv) SYSTEM_argc=argc; SYSTEM_argv=*(long*)((long)&argv)
 #  endif
