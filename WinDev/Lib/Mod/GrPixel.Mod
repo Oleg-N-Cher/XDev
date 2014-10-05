@@ -14,7 +14,7 @@ PROCEDURE PutActualPixel8Lock (x, y: Coords); (* Assuming 8-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
-      IF Sdl.LockSurface(GrScr.Screen) THEN
+      IF Sdl.LockSurface(GrScr.Screen) # 0 THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x,
           SYSTEM.VAL(BYTE, ink));
@@ -37,7 +37,7 @@ PROCEDURE PutActualPixel16Lock (x, y: Coords); (* 15-bpp or 16-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
-      IF Sdl.LockSurface(GrScr.Screen) THEN
+      IF Sdl.LockSurface(GrScr.Screen) # 0 THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*2,
           SYSTEM.VAL(SHORTINT, ink));
@@ -63,7 +63,7 @@ VAR
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
-      IF Sdl.LockSurface(GrScr.Screen) THEN
+      IF Sdl.LockSurface(GrScr.Screen) # 0 THEN
         addr := SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*3;
         SYSTEM.PUT(addr,   SYSTEM.VAL(SHORTINT, ink));
         SYSTEM.PUT(addr+2, SYSTEM.VAL(BYTE, SYSTEM.LSH(ink, -16)));
@@ -88,7 +88,7 @@ PROCEDURE PutActualPixel32Lock (x, y: Coords); (* 32-bpp mode. *)
 BEGIN
   IF ~ Cfg.ChkOutOfScreen OR
     ((x>=0) & (x<=Cfg.ActualMaxX) & (y>=0) & (y<=Cfg.ActualMaxY)) THEN
-      IF Sdl.LockSurface(GrScr.Screen) THEN
+      IF Sdl.LockSurface(GrScr.Screen) # 0 THEN
         SYSTEM.PUT(
           SYSTEM.VAL(LONGINT, GrScr.Screen.pixels) + y*pitch + x*4, ink);
         Sdl.UnlockSurface(GrScr.Screen);
@@ -113,7 +113,7 @@ BEGIN
   yActual := y * Cfg.ActualHeight DIV Cfg.VirtualHeight;
   xNext := (x + 1) * Cfg.ActualWidth DIV Cfg.VirtualWidth;
   yNext := (y + 1) * Cfg.ActualHeight DIV Cfg.VirtualHeight;
-  IF Sdl.LockSurface(GrScr.Screen) THEN
+  IF Sdl.LockSurface(GrScr.Screen) # 0 THEN
     WHILE yActual # yNext DO
       xTemp := xActual;
       WHILE xTemp # xNext DO
