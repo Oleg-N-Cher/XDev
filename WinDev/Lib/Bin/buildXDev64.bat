@@ -13,7 +13,7 @@
 ::@CALL ..\Bin\smart64 %Lib% WinCmdLineW
 @CALL ..\Bin\smart64 %Lib% Math
 @CALL ..\Bin\smart64 %Lib% Files
-@CALL ..\Bin\solid64 %Lib% GrScr
+@CALL ..\Bin\solid64 %Lib% GrApp
 @CALL ..\Bin\smart64 %Lib% GrColors
 @CALL ..\Bin\smart64 %Lib% Console
 ::@CALL ..\Bin\smart64 %Lib% ConsoleW
@@ -22,7 +22,7 @@
  @CALL ..\Bin\smart64 %Lib% GrPixel
  @CALL ..\Bin\smart64 %Lib% GrTiles
  @CALL ..\Bin\smart64 %Lib% GrFonts
- @CALL ..\Bin\smart64 %Lib% GrConsole
+ @CALL ..\Bin\solid64 %Lib% GrConsole
 @DEL GrConfig.h
 
 @CALL ..\Bin\smart64 %Lib% Input
