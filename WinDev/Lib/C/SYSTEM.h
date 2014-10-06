@@ -40,6 +40,11 @@ typedef double LONGREAL;
 typedef unsigned long SET;
 typedef void *SYSTEM_PTR;
 typedef signed char BYTE;
+#ifdef sizeof(SYSTEM_PTR)==4
+  typedef unsigned int SYSTEM_ADDRESS;
+#else
+  typedef unsigned long long SYSTEM_ADDRESS;
+#endif
 
 /* runtime system routines */
 extern long SYSTEM_DIV();
