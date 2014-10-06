@@ -1,14 +1,14 @@
 MODULE GrConsole;
 IMPORT SYSTEM, Sdl := SdlLib,
-  GrScr, GrFonts, GrPixel, GrTiles, Colors := GrColors;
+  GrApp, GrFonts, GrPixel, GrTiles, Colors := GrColors;
 
 CONST
   CharSizeInBytes = 8;
   TileSizeInBytes = 8;
+
 TYPE
-  FontPtr = POINTER [1] TO GrFonts.Font;
-  TilePtr = POINTER [1] TO GrTiles.MonoTile8x8;
-  ADDRESS = LONGINT;
+  FontPtr = POINTER[1] TO GrFonts.Font;
+
 VAR
   curX, curY: GrTiles.Coords; curColors: Colors.Colors; curFont: FontPtr;
 
@@ -22,14 +22,14 @@ VAR
   x, y: GrPixel.Coords; inkTemp: Colors.Color;
 BEGIN
   curX := 0; curY := 0;
-  IF GrScr.MustLock & (Sdl.LockSurface(GrScr.Screen) = 0) THEN RETURN END;
+  IF GrApp.MustLock & (Sdl.LockSurface(GrApp.Screen) = 0) THEN RETURN END;
   inkTemp := GrPixel.ink; GrPixel.Ink(color);
-  FOR y := GrScr.Screen.h - 1 TO 0 BY -1 DO
-    FOR x := GrScr.Screen.w - 1 TO 0 BY -1 DO
+  FOR y := GrApp.Screen.h - 1 TO 0 BY -1 DO
+    FOR x := GrApp.Screen.w - 1 TO 0 BY -1 DO
       GrPixel.PutPixelNoLock(x, y);
     END;
   END;
-  IF GrScr.MustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
+  IF GrApp.MustLock THEN Sdl.UnlockSurface(GrApp.Screen) END;
   GrPixel.Ink(inkTemp);
 END Clear;
 
@@ -48,11 +48,18 @@ BEGIN
 END SetFont;
 
 PROCEDURE WriteCh* (ch: CHAR);
+TYPE
+  TilePtr = POINTER[1] TO GrTiles.MonoTile8x8;
 VAR
   tilePtr: TilePtr;
 BEGIN
-  tilePtr := SYSTEM.VAL(TilePtr,
-    TileSizeInBytes * ORD(ch) + SYSTEM.VAL(ADDRESS, curFont));
+  IF SIZE(TilePtr) = 4 THEN
+    tilePtr := SYSTEM.VAL(TilePtr,
+      TileSizeInBytes * ORD(ch) + SYSTEM.VAL(INTEGER, curFont));
+  ELSE
+    tilePtr := SYSTEM.VAL(TilePtr,
+      TileSizeInBytes * ORD(ch) + SYSTEM.VAL(LONGINT, curFont));
+  END;
   GrTiles.DrawMonoTile8x8(curX, curY, tilePtr^, curColors);
   INC(curX);
 END WriteCh;
@@ -62,15 +69,15 @@ BEGIN
   curX := 0; INC(curY);
 END WriteLn;
 
-PROCEDURE WriteStr* ((*IN*) str: ARRAY [1] OF CHAR);
+PROCEDURE WriteStr* (IN str: ARRAY OF CHAR);
 VAR
-  n: LONGINT;
+  n: INTEGER;
 BEGIN
   n := 0;
-  WHILE (n < LEN(str)) & (str[n] # 0X) DO WriteCh(str[n]); INC(n) END;
+  WHILE (n < SHORT(LEN(str))) & (str[n] # 0X) DO WriteCh(str[n]); INC(n) END;
 END WriteStr;
 
-PROCEDURE WriteStrLn* ((*IN*) str: ARRAY [1] OF CHAR);
+PROCEDURE WriteStrLn* (IN str: ARRAY OF CHAR);
 BEGIN
   WriteStr(str); WriteLn;
 END WriteStrLn;
