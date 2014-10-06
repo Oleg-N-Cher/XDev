@@ -1,28 +1,33 @@
-MODULE GrTiles;	(** Versia for SDL *)
-IMPORT SYSTEM, Sdl := SdlLib, GrScr, GrPixel, GrColors;
+MODULE GrTiles;	(** Ver. for SDL *)
+IMPORT SYSTEM, Sdl := SdlLib, GrApp, GrPixel, Gr := GrColors;
 
 TYPE
-  Color = GrScr.Color;
+  Color = GrApp.Color;
   Coords* = INTEGER;
-  Tile = ARRAY[1] OF BYTE;
-  Tile8x8* = ARRAY[1] 8 OF BYTE;
-  TranspTile = ARRAY[1] OF BYTE;
-  TranspTile8x8* = ARRAY[1] 8 * 2 OF BYTE;
+  Tile* = Sdl.PSurface;
+  MonoTile = ARRAY[1] OF BYTE;
+  MonoTile8x8* = ARRAY[1] 8 OF BYTE;
+  TranspMonoTile = ARRAY[1] OF BYTE;
+  TranspMonoTile8x8* = ARRAY[1] 8 * 2 OF BYTE;
+  Tile8x8* = RECORD
+    mono*: MonoTile8x8;
+    colors*: Gr.Colors;
+  END;
 
 VAR
   DrawMonoTile-: PROCEDURE (
-    x, y: Coords; VAR tile: Tile; colors: GrColors.Colors);
+    x, y: Coords; VAR tile: MonoTile; colors: Gr.Colors);
   DrawTranspMonoTile-: PROCEDURE (
-    x, y: Coords; VAR tile: TranspTile; colors: GrColors.Colors);
+    x, y: Coords; VAR tile: TranspMonoTile; colors: Gr.Colors);
 
 PROCEDURE DrawMonoTile8x8* (
-  x, y: Coords; VAR tile: Tile; colors: GrColors.Colors);
+  x, y: Coords; VAR tile: MonoTile; colors: Gr.Colors);
 VAR
   mask: CHAR; byte, bit: SHORTINT; inkTemp: Color;
 BEGIN
   x := x * 8; y := y * 8;
   inkTemp := GrPixel.ink;
-  IF GrScr.MustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
+  IF GrApp.MustLock & (Sdl.LockSurface(GrApp.Screen) = 0) THEN RETURN END;
   FOR byte := 0 TO 7 DO
     mask := SYSTEM.VAL(CHAR, tile[byte]);
     FOR bit := 0 TO 7 DO
@@ -37,18 +42,18 @@ BEGIN
     END;
     INC(y);
   END;
-  IF GrScr.MustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
+  IF GrApp.MustLock THEN Sdl.UnlockSurface(GrApp.Screen) END;
   GrPixel.Ink(inkTemp);
 END DrawMonoTile8x8;
 
 PROCEDURE DrawTranspMonoTile8x8* (
-  x, y: Coords; VAR tile: TranspTile; colors: GrColors.Colors);
+  x, y: Coords; VAR tile: TranspMonoTile; colors: Gr.Colors);
 VAR
   mask, transp: CHAR; byte, bit: SHORTINT; inkTemp: Color;
 BEGIN
   x := x * 8; y := y * 8;
   inkTemp := GrPixel.ink;
-  IF GrScr.MustLock & ~Sdl.LockSurface(GrScr.Screen) THEN RETURN END;
+  IF GrApp.MustLock & (Sdl.LockSurface(GrApp.Screen) = 0) THEN RETURN END;
   FOR byte := 0 TO 7 DO
     mask := SYSTEM.VAL(CHAR, tile[byte]);
     transp := SYSTEM.VAL(CHAR, tile[byte + 8]);
@@ -67,9 +72,27 @@ BEGIN
     END;
     INC(y);
   END;
-  IF GrScr.MustLock THEN Sdl.UnlockSurface(GrScr.Screen) END;
+  IF GrApp.MustLock THEN Sdl.UnlockSurface(GrApp.Screen) END;
   GrPixel.Ink(inkTemp);
 END DrawTranspMonoTile8x8;
+
+PROCEDURE SetTileAsMonoTile8x8* (
+  VAR tile: Tile; VAR monoTile: MonoTile8x8; colors: Gr.Colors);
+BEGIN
+  tile := Sdl.CreateRGBSurface(
+    Sdl.HWPALETTE, 8, 8,
+    SYSTEM.VAL(Sdl.Integer, GrApp.Screen^.format^.BitsPerPixel),
+    0, 0, 0, 0);
+  (*...*)
+END SetTileAsMonoTile8x8;
+
+PROCEDURE DrawTile8x8* (x, y: Coords; VAR tile: Tile8x8);
+BEGIN
+  DrawMonoTile8x8(x, y, tile.mono, tile.colors);
+END DrawTile8x8;
+
+PROCEDURE DrawTile* (x, y: Coords; VAR tile: Tile8x8);
+END DrawTile;
 
 BEGIN
   DrawMonoTile := DrawMonoTile8x8;
