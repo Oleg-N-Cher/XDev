@@ -20,12 +20,13 @@
 
 @COPY ..\C\GrConfigS.h GrConfig.h
  @CALL ..\Bin\smart %Lib% GrPixel
- @CALL ..\Bin\smart %Lib% GrTiles
+ @CALL ..\Bin\solid %Lib% GrTiles
  @CALL ..\Bin\smart %Lib% GrFonts
  @CALL ..\Bin\solid %Lib% GrConsole
 @DEL GrConfig.h
 
-@CALL ..\Bin\smart %Lib% Input
+@CALL ..\Bin\solid %Lib% Input
+@CALL ..\Bin\smart %Lib% Timer
 
 :djgpp
 @IF NOT EXIST .djgpp GOTO exit
@@ -47,11 +48,12 @@
 
 @COPY ..\C\GrConfigS.h GrConfig.h
  @CALL ..\Bin\smartdjgpp %Lib% GrPixel
- @CALL ..\Bin\smartdjgpp %Lib% GrTiles
+ @CALL ..\Bin\soliddjgpp %Lib% GrTiles
  @CALL ..\Bin\smartdjgpp %Lib% GrFonts
  @CALL ..\Bin\soliddjgpp %Lib% GrConsole
 @DEL GrConfig.h
 
-@CALL ..\Bin\smartdjgpp %Lib% Input
+@CALL ..\Bin\soliddjgpp %Lib% Input
+@CALL ..\Bin\smartdjgpp %Lib% Timer
 
 :exit

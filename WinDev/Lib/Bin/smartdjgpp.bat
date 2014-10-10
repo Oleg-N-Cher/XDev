@@ -16,7 +16,7 @@
 :clib
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%RootBin%\smartlib %2.c %3 %4 %5
+%RootBin%\smartlib ..\C\%2.c %3 %4 %5
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
