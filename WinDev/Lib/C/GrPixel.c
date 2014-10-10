@@ -28,9 +28,9 @@ INTEGER GrPixel_GetSign (INTEGER x);
 /*================================== Header ==================================*/
 export INTEGER GrPixel_ink;
 /*--------------------------------- Cut here ---------------------------------*/
-static INTEGER GrPixel_pitch;
+INTEGER GrPixel_pitch;
 /*--------------------------------- Cut here ---------------------------------*/
-static void (*GrPixel_PutActualPixelNoLock)(INTEGER, INTEGER);
+void (*GrPixel_PutActualPixelNoLock)(INTEGER, INTEGER);
 /*--------------------------------- Cut here ---------------------------------*/
 export void (*GrPixel_Dot)(INTEGER, INTEGER), (*GrPixel_PutPixelNoLock)(INTEGER, INTEGER);
 
