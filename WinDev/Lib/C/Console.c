@@ -1,10 +1,3 @@
-/*  Ofront 1.2 -xtspkae */
-
-#if defined(WIN32) || defined(_WIN32)
-#  include <windows.h>
-#endif
-
-#include "Console.h"
 #include "SYSTEM.h"
 
 /* WinAPI */
@@ -62,10 +55,11 @@ export void Console_WriteLn_StdIO (void)
 
 /*--------------------------------- Cut here ---------------------------------*/
 #if defined(WIN32) || defined(_WIN32)
+#include <WinApi.h>
   /* WinAPI */
   void Console_At_WinAPI (INTEGER x, INTEGER y) {
-    COORD coord; coord.X = x; coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    WinApi_COORD coord; coord.X = x; coord.Y = y;
+    WinApi_SetConsoleCursorPosition(WinApi_GetStdHandle(-11), coord);
   }
 #endif
 
@@ -78,28 +72,31 @@ export void Console_WriteLn_StdIO (void)
 
 /*--------------------------------- Cut here ---------------------------------*/
 #if defined(WIN32) || defined(_WIN32)
+#include <WinApi.h>
   void Console_WriteStr_WinAPI (CHAR *str) {
     INTEGER maxLen;
-    HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-    WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+    SYSTEM_PTR hConOutput = WinApi_GetStdHandle(-11);
+    WinApi_WriteFile(hConOutput, str, strlen(str), &maxLen, NIL, NIL);
   }
 #endif
 
 /*--------------------------------- Cut here ---------------------------------*/
 #if defined(WIN32) || defined(_WIN32)
+#include <WinApi.h>
   void Console_WriteStrLn_WinAPI (CHAR *str) {
     INTEGER maxLen;
-    HANDLE hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-    WriteFile(hConOutput, str, strlen(str), &maxLen, NULL);
+    SYSTEM_PTR hConOutput = WinApi_GetStdHandle(-11);
+    WinApi_WriteFile(hConOutput, str, strlen(str), &maxLen, NIL, NIL);
     str = "\x0D\x0A";
-    WriteFile(hConOutput, str, 2, &maxLen, NULL);
+    WinApi_WriteFile(hConOutput, str, 2, &maxLen, NIL, NIL);
   }
 #endif
 
 /*--------------------------------- Cut here ---------------------------------*/
 #if defined(WIN32) || defined(_WIN32)
+#include <WinApi.h>
   void Console_SetColors_WinAPI (INTEGER colors) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colors);
+    WinApi_SetConsoleTextAttribute(WinApi_GetStdHandle(-11), colors);
   }
 #endif
 
@@ -158,5 +155,4 @@ void Console_WriteHex_StdIO (INTEGER val)
 		printf("%c", a[__X(i, 10)]);
 	} while (i != 0);
 }
-
 
