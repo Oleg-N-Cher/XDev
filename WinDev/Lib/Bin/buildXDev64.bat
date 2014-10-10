@@ -20,11 +20,12 @@
 
 @COPY ..\C\GrConfigS.h GrConfig.h
  @CALL ..\Bin\smart64 %Lib% GrPixel
- @CALL ..\Bin\smart64 %Lib% GrTiles
+ @CALL ..\Bin\solid64 %Lib% GrTiles
  @CALL ..\Bin\smart64 %Lib% GrFonts
  @CALL ..\Bin\solid64 %Lib% GrConsole
 @DEL GrConfig.h
 
-@CALL ..\Bin\smart64 %Lib% Input
+@CALL ..\Bin\solid64 %Lib% Input
+@CALL ..\Bin\smart64 %Lib% Timer
 
 :exit
