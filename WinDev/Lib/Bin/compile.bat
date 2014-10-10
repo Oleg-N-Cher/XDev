@@ -11,6 +11,8 @@
 @GOTO exit
 
 :clib
+@IF EXIST %1.h DEL %1.h
+@IF EXIST %1.c DEL %1.c
 ..\..\Bin\tcc\tcc -c ..\C\%1.c -I "." -I ..\C
 
 :exit
