@@ -1,6 +1,6 @@
 MODULE Console;  (** portable layer for LibC - output to standard out *)
 
-IMPORT SYSTEM, GrColors(*Compatibility*);
+IMPORT SYSTEM, GrApp(*Compatibility*);
 
 CONST
   Light = 8;
@@ -8,7 +8,7 @@ CONST
 TYPE
   Color = INTEGER;
   Coords* = INTEGER;
-  Colors* = GrColors.Colors;
+  Colors* = GrApp.Colors;
 
 VAR
   Black-, Blue-, Green-, Cyan-, Red-, Magenta-, Olive-, White-,
