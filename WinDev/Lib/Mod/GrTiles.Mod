@@ -1,5 +1,5 @@
 MODULE GrTiles;	(** Ver. for SDL *)
-IMPORT SYSTEM, Sdl := SdlLib, GrApp, GrPixel, Gr := GrColors;
+IMPORT SYSTEM, Sdl := SdlLib, GrApp, GrPixel;
 
 TYPE
   Color = GrApp.Color;
@@ -11,17 +11,17 @@ TYPE
   TranspMonoTile8x8* = ARRAY[1] 8 * 2 OF BYTE;
   Tile8x8* = RECORD
     mono*: MonoTile8x8;
-    colors*: Gr.Colors;
+    colors*: GrApp.Colors;
   END;
 
 VAR
   DrawMonoTile-: PROCEDURE (
-    x, y: Coords; VAR tile: MonoTile; colors: Gr.Colors);
+    x, y: Coords; IN tile: MonoTile; colors: GrApp.Colors);
   DrawTranspMonoTile-: PROCEDURE (
-    x, y: Coords; VAR tile: TranspMonoTile; colors: Gr.Colors);
+    x, y: Coords; IN tile: TranspMonoTile; colors: GrApp.Colors);
 
 PROCEDURE DrawMonoTile8x8* (
-  x, y: Coords; VAR tile: MonoTile; colors: Gr.Colors);
+  x, y: Coords; IN tile: MonoTile; colors: GrApp.Colors);
 VAR
   mask: CHAR; byte, bit: SHORTINT; inkTemp: Color;
 BEGIN
@@ -47,7 +47,7 @@ BEGIN
 END DrawMonoTile8x8;
 
 PROCEDURE DrawTranspMonoTile8x8* (
-  x, y: Coords; VAR tile: TranspMonoTile; colors: Gr.Colors);
+  x, y: Coords; IN tile: TranspMonoTile; colors: GrApp.Colors);
 VAR
   mask, transp: CHAR; byte, bit: SHORTINT; inkTemp: Color;
 BEGIN
@@ -77,7 +77,7 @@ BEGIN
 END DrawTranspMonoTile8x8;
 
 PROCEDURE SetTileAsMonoTile8x8* (
-  VAR tile: Tile; VAR monoTile: MonoTile8x8; colors: Gr.Colors);
+  VAR tile: Tile; VAR monoTile: MonoTile8x8; colors: GrApp.Colors);
 BEGIN
   tile := Sdl.CreateRGBSurface(
     Sdl.HWPALETTE, 8, 8,
@@ -86,12 +86,12 @@ BEGIN
   (*...*)
 END SetTileAsMonoTile8x8;
 
-PROCEDURE DrawTile8x8* (x, y: Coords; VAR tile: Tile8x8);
+PROCEDURE DrawTile8x8* (x, y: Coords; IN tile: Tile8x8);
 BEGIN
   DrawMonoTile8x8(x, y, tile.mono, tile.colors);
 END DrawTile8x8;
 
-PROCEDURE DrawTile* (x, y: Coords; VAR tile: Tile8x8);
+PROCEDURE DrawTile* (x, y: Coords; IN tile: Tile8x8);
 END DrawTile;
 
 BEGIN
