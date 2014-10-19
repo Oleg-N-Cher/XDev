@@ -1,1 +1,1 @@
-@+BuildPow.bat
+@..\Bin\buildPow.bat
