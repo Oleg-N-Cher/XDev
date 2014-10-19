@@ -1,6 +1,5 @@
 /*  Ofront 1.2 -xtspkae */
 #include "SYSTEM.h"
-#include "GrColors.h"
 #include "GrApp.h"
 #include "GrFonts.h"
 #include "GrPixel.h"
@@ -15,13 +14,13 @@ typedef
 
 
 static INTEGER GrConsole_curX, GrConsole_curY;
-static GrColors_Colors GrConsole_curColors;
+static GrApp_Colors GrConsole_curColors;
 static GrConsole_FontPtr GrConsole_curFont;
 
 
 export void GrConsole_At (INTEGER x, INTEGER y);
 export void GrConsole_Clear (INTEGER color);
-export void GrConsole_SetColors (GrColors_Colors colors);
+export void GrConsole_SetColors (GrApp_Colors colors);
 export void GrConsole_SetFont (BYTE *font, LONGINT font__len);
 export void GrConsole_WriteCh (CHAR ch);
 export void GrConsole_WriteInt (INTEGER x);
@@ -65,7 +64,7 @@ void GrConsole_Clear (INTEGER color)
 }
 
 /*----------------------------------------------------------------------------*/
-void GrConsole_SetColors (GrColors_Colors colors)
+void GrConsole_SetColors (GrApp_Colors colors)
 {
 	GrConsole_curColors = colors;
 }
@@ -147,7 +146,6 @@ void GrConsole_WriteInt (INTEGER x)
 export void *GrConsole__init(void)
 {
 	__DEFMOD;
-	__IMPORT(GrColors__init);
 	__IMPORT(GrApp__init);
 	__IMPORT(GrFonts__init);
 	__IMPORT(GrPixel__init);
@@ -158,8 +156,8 @@ export void *GrConsole__init(void)
 /* BEGIN */
 	GrConsole_curX = 0;
 	GrConsole_curY = 0;
-	GrConsole_curColors.paper = GrColors_Black;
-	GrConsole_curColors.ink = GrColors_Gray;
+	GrConsole_curColors.paper = GrApp_Black;
+	GrConsole_curColors.ink = GrApp_Gray;
 	GrConsole_SetFont((void*)GrFonts_ZxSpecRom8x8, 768);
 	__ENDMOD;
 }
