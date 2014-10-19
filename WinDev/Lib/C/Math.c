@@ -15,7 +15,7 @@ void Math_PutSeed (INTEGER seed);
 #include <math.h>
 
 #if defined(WIN32) || defined(_WIN32)
-#  include <WinApi.h>
+#  include "WinApi.h"
 #  define Math_getTickCount()	WinApi_GetTickCount()
 #else
 #  include <time.h>
@@ -114,8 +114,7 @@ void Math_Randomize (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-export void Math__init (void)
-{
+void Math__init (void) {
 	Math_z = 1;
 	Math_Randomize();
 }
