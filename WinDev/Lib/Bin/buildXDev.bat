@@ -14,7 +14,6 @@
 @CALL ..\Bin\smart %Lib% Math
 @CALL ..\Bin\smart %Lib% Files
 @CALL ..\Bin\solid %Lib% GrApp
-@CALL ..\Bin\smart %Lib% GrColors
 @CALL ..\Bin\smart %Lib% Console
 ::@CALL ..\Bin\smart %Lib% ConsoleW
 
@@ -42,7 +41,6 @@
 @CALL ..\Bin\smartdjgpp %Lib% Math
 @CALL ..\Bin\smartdjgpp %Lib% Files
 @CALL ..\Bin\soliddjgpp %Lib% GrApp
-@CALL ..\Bin\smartdjgpp %Lib% GrColors
 @CALL ..\Bin\smartdjgpp %Lib% Console
 ::@CALL ..\Bin\smartdjgpp %Lib% ConsoleW
 

@@ -14,7 +14,6 @@
 @CALL ..\Bin\smart64 %Lib% Math
 @CALL ..\Bin\smart64 %Lib% Files
 @CALL ..\Bin\solid64 %Lib% GrApp
-@CALL ..\Bin\smart64 %Lib% GrColors
 @CALL ..\Bin\smart64 %Lib% Console
 ::@CALL ..\Bin\smart64 %Lib% ConsoleW
 

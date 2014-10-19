@@ -4,14 +4,14 @@
 #define GrConsole__h
 
 #include "SYSTEM.h"
-#include "GrColors.h"
+#include "GrApp.h"
 
 
 
 
 import void GrConsole_At (INTEGER x, INTEGER y);
 import void GrConsole_Clear (INTEGER color);
-import void GrConsole_SetColors (GrColors_Colors colors);
+import void GrConsole_SetColors (GrApp_Colors colors);
 import void GrConsole_SetFont (BYTE *font, LONGINT font__len);
 import void GrConsole_WriteCh (CHAR ch);
 import void GrConsole_WriteInt (INTEGER x);
