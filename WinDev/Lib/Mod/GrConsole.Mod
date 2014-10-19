@@ -1,6 +1,5 @@
 MODULE GrConsole;
-IMPORT SYSTEM, Sdl := SdlLib,
-  GrApp, GrFonts, GrPixel, GrTiles, Colors := GrColors;
+IMPORT SYSTEM, Sdl := SdlLib, GrApp, GrFonts, GrPixel, GrTiles;
 
 CONST
   CharSizeInBytes = 8;
@@ -10,16 +9,16 @@ TYPE
   FontPtr = POINTER[1] TO GrFonts.Font;
 
 VAR
-  curX, curY: GrTiles.Coords; curColors: Colors.Colors; curFont: FontPtr;
+  curX, curY: GrTiles.Coords; curColors: GrApp.Colors; curFont: FontPtr;
 
 PROCEDURE At* (x, y: GrTiles.Coords);
 BEGIN
   curX := x; curY := y;
 END At;
 
-PROCEDURE Clear* (color: Colors.Color);
+PROCEDURE Clear* (color: GrApp.Color);
 VAR
-  x, y: GrPixel.Coords; inkTemp: Colors.Color;
+  x, y: GrPixel.Coords; inkTemp: GrApp.Color;
 BEGIN
   curX := 0; curY := 0;
   IF GrApp.MustLock & (Sdl.LockSurface(GrApp.Screen) = 0) THEN RETURN END;
@@ -33,7 +32,7 @@ BEGIN
   GrPixel.Ink(inkTemp);
 END Clear;
 
-PROCEDURE SetColors* (colors: Colors.Colors);
+PROCEDURE SetColors* (colors: GrApp.Colors);
 BEGIN
   curColors := colors;
 END SetColors;
@@ -99,6 +98,6 @@ END WriteInt;
 
 BEGIN
   curX := 0; curY := 0;
-  curColors.paper := Colors.Black; curColors.ink := Colors.Gray;
+  curColors.paper := GrApp.Black; curColors.ink := GrApp.Gray;
   SetFont(GrFonts.ZxSpecRom8x8);
 END GrConsole.

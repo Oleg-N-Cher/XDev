@@ -1,5 +1,4 @@
 #include "SYSTEM.h"
-#include "GrColors.h"
 #include "GrApp.h"
 #include "GrPixel.h"
 #include "SdlLib.h"
@@ -16,7 +15,7 @@ typedef
 typedef
 	struct GrTiles_Tile8x8 {
 		GrTiles_MonoTile8x8 mono;
-		GrColors_Colors colors;
+		GrApp_Colors colors;
 	} GrTiles_Tile8x8;
 
 typedef
@@ -26,19 +25,19 @@ typedef
 	BYTE GrTiles_TranspMonoTile8x8[16];
 
 
-export void (*GrTiles_DrawMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrColors_Colors);
-export void (*GrTiles_DrawTranspMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrColors_Colors);
+export void (*GrTiles_DrawMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrApp_Colors);
+export void (*GrTiles_DrawTranspMonoTile)(INTEGER, INTEGER, BYTE*, LONGINT , GrApp_Colors);
 
 
-export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
+export void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrApp_Colors colors);
 export void GrTiles_DrawTile8x8 (INTEGER x, INTEGER y, GrTiles_Tile8x8 *tile, LONGINT *tile__typ);
-export void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors);
-export void GrTiles_SetTileAsMonoTile8x8 (SdlLib_PSurface *tile, GrTiles_MonoTile8x8 monoTile, GrColors_Colors colors);
+export void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrApp_Colors colors);
+export void GrTiles_SetTileAsMonoTile8x8 (SdlLib_PSurface *tile, GrTiles_MonoTile8x8 monoTile, GrApp_Colors colors);
 
 
 /*================================== Header ==================================*/
 
-void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
+void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrApp_Colors colors)
 {
 	CHAR mask;
 	SHORTINT byte, bit;
@@ -74,7 +73,7 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__le
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrColors_Colors colors)
+void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__len, GrApp_Colors colors)
 {
 	CHAR mask, transp;
 	SHORTINT byte, bit;
@@ -114,7 +113,7 @@ void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT ti
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrTiles_SetTileAsMonoTile8x8 (SdlLib_PSurface *tile, GrTiles_MonoTile8x8 monoTile, GrColors_Colors colors)
+void GrTiles_SetTileAsMonoTile8x8 (SdlLib_PSurface *tile, GrTiles_MonoTile8x8 monoTile, GrApp_Colors colors)
 {
 	*tile = SdlLib_CreateRGBSurface(0x20000000, 8, 8, __VAL(INTEGER, GrApp_Screen->format->BitsPerPixel), 0, 0, 0, 0);
 }
