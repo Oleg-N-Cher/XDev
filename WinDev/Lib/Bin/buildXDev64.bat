@@ -11,6 +11,7 @@
 @CALL ..\Bin\smart64 %Lib% CmdLine
 ::@CALL ..\Bin\smart64 %Lib% CmdLineW
 ::@CALL ..\Bin\smart64 %Lib% WinCmdLineW
+@CALL ..\Bin\solid64 %Lib% Debug
 @CALL ..\Bin\smart64 %Lib% Math
 @CALL ..\Bin\smart64 %Lib% Files
 @CALL ..\Bin\solid64 %Lib% GrApp
