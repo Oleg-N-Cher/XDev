@@ -26,7 +26,7 @@ export BOOLEAN KolRegistry_SetDw (SYSTEM_PTR key, CHAR *valueName, LONGINT value
 SYSTEM_PTR KolRegistry_OpenRead (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey__len)
 {
 	SYSTEM_PTR result = NIL;
-	if (WinApi_RegOpenKeyExA(key, (SYSTEM_PTR)((INTEGER)subKey), 0, 0x020019, &result) != 0) {
+	if (WinApi_RegOpenKeyExA(key, (SYSTEM_PTR)((LONGINT)subKey), 0, 0x020019, &result) != 0) {
 		result = NIL;
 	}
 	return result;
@@ -36,7 +36,7 @@ SYSTEM_PTR KolRegistry_OpenRead (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey__l
 SYSTEM_PTR KolRegistry_OpenWrite (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey__len)
 {
 	SYSTEM_PTR result = NIL;
-	if (WinApi_RegOpenKeyExA(key, (SYSTEM_PTR)((INTEGER)subKey), 0, 0x02001f, &result) != 0) {
+	if (WinApi_RegOpenKeyExA(key, (SYSTEM_PTR)((LONGINT)subKey), 0, 0x02001f, &result) != 0) {
 		result = NIL;
 	}
 	return result;
@@ -47,7 +47,7 @@ SYSTEM_PTR KolRegistry_OpenCreate (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey_
 {
 	SYSTEM_PTR result = NIL;
 	INTEGER dwDisp;
-	if (WinApi_RegCreateKeyExA(key, (SYSTEM_PTR)((INTEGER)subKey), 0, NIL, 0x0, 0x0f003f, NIL, NIL, &result, &dwDisp) != 0) {
+	if (WinApi_RegCreateKeyExA(key, (SYSTEM_PTR)((LONGINT)subKey), 0, NIL, 0x0, 0x0f003f, NIL, NIL, &result, &dwDisp) != 0) {
 		result = NIL;
 	}
 	return result;
@@ -59,7 +59,7 @@ INTEGER KolRegistry_GetDw (SYSTEM_PTR key, CHAR *valueName, LONGINT valueName__l
 	INTEGER dwType, dwSize, result;
 	dwSize = 4;
 	result = 0;
-	if ((key == NIL || WinApi_RegQueryValueExA(key, (SYSTEM_PTR)((INTEGER)valueName), NIL, &dwType, (SYSTEM_PTR)((INTEGER)&result), &dwSize) != 0) || dwType != 4) {
+	if ((key == NIL || WinApi_RegQueryValueExA(key, (SYSTEM_PTR)((LONGINT)valueName), NIL, &dwType, (SYSTEM_PTR)((LONGINT)&result), &dwSize) != 0) || dwType != 4) {
 		result = 0;
 	}
 	return result;
@@ -80,7 +80,7 @@ static BOOLEAN Query__6 (void);
 
 static BOOLEAN Query__6 (void)
 {
-	return WinApi_RegQueryValueExA(*GetStrNoGC__5_s->key, (SYSTEM_PTR)((INTEGER)GetStrNoGC__5_s->valueName), NIL, &*GetStrNoGC__5_s->dwType, (SYSTEM_PTR)((INTEGER)GetStrNoGC__5_s->result), &*GetStrNoGC__5_s->dwSize) == 0;
+	return WinApi_RegQueryValueExA(*GetStrNoGC__5_s->key, (SYSTEM_PTR)((LONGINT)GetStrNoGC__5_s->valueName), NIL, &*GetStrNoGC__5_s->dwType, (SYSTEM_PTR)((LONGINT)GetStrNoGC__5_s->result), &*GetStrNoGC__5_s->dwSize) == 0;
 }
 
 BOOLEAN KolRegistry_GetStrNoGC (SYSTEM_PTR key, CHAR *valueName, LONGINT valueName__len, CHAR *result, LONGINT result__len)
@@ -115,13 +115,13 @@ BOOLEAN KolRegistry_GetStrNoGC (SYSTEM_PTR key, CHAR *valueName, LONGINT valueNa
 /*----------------------------------------------------------------------------*/
 BOOLEAN KolRegistry_SetDw (SYSTEM_PTR key, CHAR *valueName, LONGINT valueName__len, INTEGER value)
 {
-	return key != NIL && WinApi_RegSetValueExA(key, (SYSTEM_PTR)((INTEGER)valueName), 0, 4, (SYSTEM_PTR)((INTEGER)&value), 4) == 0;
+	return key != NIL && WinApi_RegSetValueExA(key, (SYSTEM_PTR)((LONGINT)valueName), 0, 4, (SYSTEM_PTR)((LONGINT)&value), 4) == 0;
 }
 
 /*----------------------------------------------------------------------------*/
 BOOLEAN KolRegistry_KeySetStr (SYSTEM_PTR key, CHAR *valueName, LONGINT valueName__len, CHAR *value, LONGINT value__len)
 {
-	return key != NIL && WinApi_RegSetValueExA(key, (SYSTEM_PTR)((INTEGER)valueName), 0, 1, (SYSTEM_PTR)((INTEGER)value), KolStrings_Length(value, value__len) + 1) == 0;
+	return key != NIL && WinApi_RegSetValueExA(key, (SYSTEM_PTR)((LONGINT)valueName), 0, 1, (SYSTEM_PTR)((LONGINT)value), KolStrings_Length(value, value__len) + 1) == 0;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -138,7 +138,7 @@ BOOLEAN KolRegistry_Delete (SYSTEM_PTR key, CHAR *subKey, LONGINT subKey__len)
 	BOOLEAN result;
 	result = 0;
 	if (key != NIL) {
-		result = WinApi_RegDeleteKey(key, (SYSTEM_PTR)((INTEGER)subKey)) == 0;
+		result = WinApi_RegDeleteKey(key, (SYSTEM_PTR)((LONGINT)subKey)) == 0;
 	}
 	return result;
 }
