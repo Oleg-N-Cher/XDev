@@ -1,4 +1,4 @@
-MODULE Tst;
+MODULE Debug;
 IMPORT SYSTEM, W := WinApi, Ignore;
 
 TYPE
@@ -95,4 +95,4 @@ END IntBox;
 BEGIN
   IF 0=W.AllocConsole() THEN END;
   hConOut := W.GetStdHandle(W.STD_OUTPUT_HANDLE);
-END Tst.
+END Debug.
