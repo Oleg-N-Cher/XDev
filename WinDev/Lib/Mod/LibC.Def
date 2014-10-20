@@ -229,41 +229,41 @@ MODULE LinLibc;
 	TYPE 
 		__ftw_func_t* = PROCEDURE (fileName: PtrSTR; VAR [nil] stat: stat_t; flag: INTEGER): INTEGER;
 		PtrVoid* = INTEGER;
-		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
-		PtrWSTR* = POINTER TO ARRAY [untagged] OF CHAR;
+		PtrSTR* = POINTER TO ARRAY [1] OF SHORTCHAR;
+		PtrWSTR* = POINTER TO ARRAY [1] OF CHAR;
 		PtrInt* = INTEGER;
-		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
+		StrArray* = POINTER TO ARRAY [1] OF PtrSTR;
 		PtrFILE* = INTEGER;
 		PtrDIR* = INTEGER;
 		PtrProc* = INTEGER;
 		clock_t* = INTEGER;
-		jmp_buf* = ARRAY [untagged] 6 OF INTEGER; (* bx, si, di, bp, sp, pc *)
+		jmp_buf* = ARRAY [1] 6 OF INTEGER; (* bx, si, di, bp, sp, pc *)
 		mode_t* = SET;
 		off_t* = INTEGER;
 		SelectorFunc* = PROCEDURE (dirent: Dirent): INTEGER;
 		CmpFunc* = PROCEDURE (VAR [nil] dirent1, dirent2: PtrDirent): INTEGER;
 		size_t* = INTEGER; (* should be unsigned int *)
-		sigjmp_buf* = RECORD [untagged] 
+		sigjmp_buf* = RECORD [1] 
 			buf*: jmp_buf;
 			mask_was_saved*: INTEGER;
 			saved_mask*: sigset_t;
 		END; 
 		
 		PtrDirent* = POINTER TO Dirent;
-		PtrDirentArray* = POINTER TO ARRAY [untagged] OF Dirent;
-		Dirent* = RECORD  [untagged]
+		PtrDirentArray* = POINTER TO ARRAY [1] OF Dirent;
+		Dirent* = RECORD  [1]
 			d_ino*: INTEGER;	(* inode number *)
 			d_off*: off_t;	(* offset to this dirent *)
 			d_reclen*: SHORTINT;	(* length of this d_name *)
 			d_type*: BYTE;
-			d_name*: ARRAY[untagged]  NAME_MAX+1 OF SHORTCHAR;		(* file name (null-terminated) *)
+			d_name*: ARRAY[1]  NAME_MAX+1 OF SHORTCHAR;		(* file name (null-terminated) *)
 		END;
 		
 		pid_t* = INTEGER;
 		uid_t* = INTEGER;
 		sigval_t* = INTEGER;
 
-		siginfo_t* = RECORD [untagged]
+		siginfo_t* = RECORD [1]
 			si_signo*: INTEGER; 	(* Signal number *)
 			si_errno*: INTEGER;  	(* An errno value *)
 			si_code*: INTEGER;   	(* Signal code *)
@@ -281,22 +281,22 @@ MODULE LinLibc;
 		END;
 		Ptrsiginfo_t* = POINTER TO siginfo_t;
 		
-		sigset_t* = ARRAY [untagged] 128 OF BYTE;
+		sigset_t* = ARRAY [1] 128 OF BYTE;
 		Ptrsigset_t* = INTEGER;
-		sigaction_t* = RECORD [untagged]
+		sigaction_t* = RECORD [1]
 			sa_sigaction*: PROCEDURE (sig: INTEGER; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* union with sa_handler*: PtrProc;*)
 			sa_mask*: sigset_t;
 			sa_flags*: SET;
 			sa_restorer*: LONGINT;
 		END;
 		
-		stack_t* = RECORD [untagged]
+		stack_t* = RECORD [1]
 			ss_sp*: PtrVoid;    
 			ss_flags*: INTEGER;    
 			ss_size*: size_t;
 		END;
 		
-		stat_t* = RECORD [untagged]
+		stat_t* = RECORD [1]
 			st_dev*: LONGINT;	(* device *)
 			__pad1: SHORTINT;
 			st_ino*: INTEGER;	(* 64? inode *)
@@ -319,12 +319,12 @@ MODULE LinLibc;
 			__unused5:  INTEGER;
 		END;
 		
-		fpreg* = RECORD [untagged]
-			significand*: ARRAY [untagged] 4 OF CHAR;
+		fpreg* = RECORD [1]
+			significand*: ARRAY [1] 4 OF CHAR;
 			exponent*: CHAR;
 		END;
 
-		fpstate* = RECORD [untagged]
+		fpstate* = RECORD [1]
 			cw*: INTEGER; 	(* unsigned long int *)
 			sw*: INTEGER; 	(* unsigned long int *)
 			tag*: INTEGER; 	(* unsigned long int *)
@@ -332,14 +332,14 @@ MODULE LinLibc;
 			cssel*: INTEGER; 	(* unsigned long int *)
 			dataoff*: INTEGER; 	(* unsigned long int *)
 			datasel*: INTEGER; 	(* unsigned long int *)
-			_st: ARRAY [untagged] 8 OF fpreg;
+			_st: ARRAY [1] 8 OF fpreg;
 			status*: INTEGER; 	(* unsigned long int *)
 		END;
 
-		gregset_t* = ARRAY [untagged] 19 OF INTEGER;
+		gregset_t* = ARRAY [1] 19 OF INTEGER;
 		fpregset_t* = POINTER TO fpstate;
 		
-		mcontext_t*  = RECORD [untagged]
+		mcontext_t*  = RECORD [1]
 			gregs*: gregset_t;
 			fpregs*: fpregset_t;
 			oldmask*: INTEGER;	(* unsigned long int *)
@@ -347,7 +347,7 @@ MODULE LinLibc;
 		END;
 		
 		Ptrucontext_t* = POINTER TO ucontext_t;
-		ucontext_t* = RECORD [untagged]
+		ucontext_t* = RECORD [1]
 			uc_flags*: INTEGER;	(* unsigned long int *)
 			uc_link*: Ptrucontext_t;
 			uc_stack*: stack_t;
@@ -359,7 +359,7 @@ MODULE LinLibc;
 		(* Times and Dates *)
 		
 		tm* = POINTER TO tmDesc;
-		tmDesc* = RECORD [untagged]
+		tmDesc* = RECORD [1]
 			tm_sec*: INTEGER;	(* seconds *)
 			tm_min*: INTEGER;	(* minutes *)
 			tm_hour*: INTEGER;	(* hours *)
