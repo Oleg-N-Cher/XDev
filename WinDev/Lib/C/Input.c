@@ -5,8 +5,8 @@
 
 static INTEGER Input_n, Input_in, Input_out;
 static CHAR Input_keybuf[32];
-static SHORTINT Input_Uni[72];
-static CHAR Input_Ch[72];
+static SHORTINT Input_Uni[74];
+static CHAR Input_Ch[74];
 
 
 export INTEGER Input_Available (void);
@@ -48,23 +48,23 @@ static BOOLEAN Input_CheckAddKey (SdlLib_KeyboardEvent keybev)
 				key = (CHAR)keybev.keysym.sym;
 				goto exit__0;
 				break;
-			case 258: 
-				key = 0x19;
+			case 274: case 258:
+				key = 0x1f;
 				goto exit__0;
 				break;
-			case 260: 
-				key = 0x1b;
+			case 276: case 260:
+				key = 0x11;
 				goto exit__0;
 				break;
-			case 262: 
-				key = 0x1a;
+			case 275: case 262:
+				key = 0x10;
 				goto exit__0;
 				break;
-			case 264: 
-				key = 0x18;
+			case 273: case 264:
+				key = 0x1e;
 				goto exit__0;
 				break;
-			case 266: 
+			case 266:
 				key = 0x7f;
 				goto exit__0;
 				break;
@@ -75,18 +75,14 @@ static BOOLEAN Input_CheckAddKey (SdlLib_KeyboardEvent keybev)
 			default: 
 				break;
 		}
-		if (keybev.keysym.sym >= 273 && keybev.keysym.sym <= 276) {
-			key = (CHAR)((keybev.keysym.sym - 273) + 24);
-			break;
-		}
 		if (keybev.keysym.sym >= 282 && keybev.keysym.sym <= 293) {
 			key = (CHAR)((keybev.keysym.sym - 282) + 1);
 			break;
 		}
-		i = 71;
+		i = 73;
 		while (i >= 0) {
-			if (keybev.keysym.unicode == Input_Uni[__X(i, 72)]) {
-				key = Input_Ch[__X(i, 72)];
+			if (keybev.keysym.unicode == Input_Uni[__X(i, 74)]) {
+				key = Input_Ch[__X(i, 74)];
 				goto exit__0;
 			}
 			i += -1;
@@ -104,10 +100,10 @@ INTEGER Input_Available (void)
 {
 	SdlLib_Event event;
 	while (SdlLib_PollEvent(&event, SdlLib_Event__typ) != 0) {
-		if (__VAL(CHAR, event.type) == 0x02) {
+		if (event.type == 0x02) {
 			if (Input_CheckAddKey(__VAL(SdlLib_KeyboardEvent, event))) {
 			}
-		} else if (__VAL(CHAR, event.type) == 0x0c) {
+		} else if (event.type == 0x0c) {
 			Input_Quit();
 		}
 	}
@@ -134,11 +130,11 @@ CHAR Input_Read (void)
 	if (Input_Available() == 0) {
 		for (;;) {
 			while (SdlLib_WaitEvent(&event, SdlLib_Event__typ) != 0) {
-				if (__VAL(CHAR, event.type) == 0x02) {
+				if (event.type == 0x02) {
 					if (Input_CheckAddKey(__VAL(SdlLib_KeyboardEvent, event))) {
 						goto exit__1;
 					}
-				} else if (__VAL(CHAR, event.type) == 0x0c) {
+				} else if (event.type == 0x0c) {
 					Input_Quit();
 				}
 			}
@@ -156,8 +152,8 @@ CHAR Input_Read (void)
 /*--------------------------------- Cut here ---------------------------------*/
 static void Input_UtoC (SHORTINT u, CHAR c)
 {
-	Input_Uni[__X(Input_n, 72)] = u;
-	Input_Ch[__X(Input_n, 72)] = c;
+	Input_Uni[__X(Input_n, 74)] = u;
+	Input_Ch[__X(Input_n, 74)] = c;
 	Input_n += 1;
 }
 
@@ -180,6 +176,7 @@ export void *Input__init(void)
 	Input_UtoC(1028, '\"');
 	Input_UtoC(1031, '}');
 	Input_UtoC(1025, '~');
+	Input_UtoC(1038, 'O');
 	Input_UtoC(1073, ',');
 	Input_UtoC(1078, ';');
 	Input_UtoC(1093, '[');
@@ -190,6 +187,7 @@ export void *Input__init(void)
 	Input_UtoC(1108, '\'');
 	Input_UtoC(1111, ']');
 	Input_UtoC(1105, '`');
+	Input_UtoC(1118, 'o');
 	Input_UtoC(1060, 'A');
 	Input_UtoC(1048, 'B');
 	Input_UtoC(1057, 'C');
@@ -249,4 +247,3 @@ export void *Input__init(void)
 	Ignore_Int(SdlLib_EnableKeyRepeat(500, 50));
 	__ENDMOD;
 }
-
