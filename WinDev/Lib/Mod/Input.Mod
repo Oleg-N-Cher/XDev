@@ -60,10 +60,10 @@ CONST
   Space* = CHR(Sdl.K_SPACE);
 
   (* Arrows *)
-  Up* = 18X;
-  Down* = 19X;
-  Right* = 1AX;
-  Left* = 1BX;
+  Up* = 1EX;
+  Down* = 1FX;
+  Right* = 10X;
+  Left* = 11X;
 
   (* Function keys *)
   F1* = 1X;
@@ -80,7 +80,7 @@ CONST
   F12* = 0CX;
 
   KeyBufSize = 32;
-  UniArrSize = 2*10 + 2*26;
+  UniArrSize = 2*11 + 2*26;
 
 TYPE
   Key* = CHAR;
@@ -117,23 +117,19 @@ BEGIN
     | ORD(Backspace), ORD(Tab), ORD(Enter), ORD(Escape), ORD(Delete):
         key := CHR(keybev.keysym.sym); EXIT
     (* Numeric keypad: *)
-    | Sdl.K_KP2:
+    | Sdl.K_DOWN, Sdl.K_KP2:
         key := Down; EXIT
-    | Sdl.K_KP4:
+    | Sdl.K_LEFT, Sdl.K_KP4:
         key := Left; EXIT
-    | Sdl.K_KP6:
+    | Sdl.K_RIGHT, Sdl.K_KP6:
         key := Right; EXIT
-    | Sdl.K_KP8:
+    | Sdl.K_UP, Sdl.K_KP8:
         key := Up; EXIT
     | Sdl.K_KP_PERIOD:
         key := Delete; EXIT
     | Sdl.K_KP_ENTER:
         key := Enter; EXIT
     ELSE
-    END;
-    (* Arrows: *)
-    IF (keybev.keysym.sym >= Sdl.K_UP) & (keybev.keysym.sym <= Sdl.K_LEFT) THEN
-      key := CHR(keybev.keysym.sym - Sdl.K_UP + ORD(Up)); EXIT
     END;
     (* Function keys: *)
     IF (keybev.keysym.sym >= Sdl.K_F1) & (keybev.keysym.sym <= Sdl.K_F12) THEN
@@ -221,6 +217,7 @@ BEGIN
   UtoC(404H(* ª *), '"');
   UtoC(407H(* ¯ *), "}");
   UtoC(401H(* ¨ *), "~");
+  UtoC(40EH(* ¡ *), "O");
 
   UtoC(431H(* á *), ",");
   UtoC(436H(* æ *), ";");
@@ -232,6 +229,7 @@ BEGIN
   UtoC(454H(* º *), "'");
   UtoC(457H(* ¿ *), "]");
   UtoC(451H(* ¸ *), "`");
+  UtoC(45EH(* ¢ *), "o");
 
   UtoC(424H(* Ô *), "A");
   UtoC(418H(* È *), "B");
