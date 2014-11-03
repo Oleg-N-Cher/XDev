@@ -219,6 +219,7 @@ $ENDIF*)
 TYPE
   Byte = Sdl.Byte;
   Char = Sdl.Char;
+  Double = Sdl.Double;
   Integer = Sdl.Integer;
   PChar = Sdl.PChar;
   PRWops = Sdl.PRWops;
@@ -931,28 +932,20 @@ PROCEDURE -Mix_PausedMusic* (): Integer;
   This function is only implemented for MOD music formats (set pattern
   order number) and for OGG music (set position in seconds), at the
   moment.
-}
-function Mix_SetMusicPosition( position : double ) : Integer;
-cdecl; external {$IFDEF __GPC__}name 'Mix_SetMusicPosition'{$ELSE} SDL_MixerLibName{$ENDIF __GPC__};
-{$EXTERNALSYM Mix_SetMusicPosition}
+*)
+PROCEDURE -Mix_SetMusicPosition* (position: Double): Integer;
 
-{ Check the status of a specific channel.
+(* Check the status of a specific channel.
    If the specified channel is -1, check all channels.
-}
-function Mix_Playing( channel : Integer ) : Integer;
-cdecl; external {$IFDEF __GPC__}name 'Mix_Playing'{$ELSE} SDL_MixerLibName{$ENDIF __GPC__};
-{$EXTERNALSYM Mix_Playing}
+*)
+PROCEDURE -Mix_Playing* (channel: Integer): Integer;
 
-function Mix_PlayingMusic : Integer;
-cdecl; external {$IFDEF __GPC__}name 'Mix_PlayingMusic'{$ELSE} SDL_MixerLibName{$ENDIF __GPC__};
-{$EXTERNALSYM Mix_PlayingMusic}
+PROCEDURE -Mix_PlayingMusic* (): Integer;
 
-{ Stop music and set external music playback command }
-function Mix_SetMusicCMD( const command : PChar ) : Integer;
-cdecl; external {$IFDEF __GPC__}name 'Mix_SetMusicCMD'{$ELSE} SDL_MixerLibName{$ENDIF __GPC__};
-{$EXTERNALSYM Mix_SetMusicCMD}
+(* Stop music and set external music playback command *)
+PROCEDURE -Mix_SetMusicCMD* (IN command: ARRAY OF Char): Integer;
 
-{ Synchro value is set by MikMod from modules while playing }
+(* Synchro value is set by MikMod from modules while playing }
 function Mix_SetSynchroValue( value : Integer ) : Integer; overload;
 cdecl; external {$IFDEF __GPC__}name 'Mix_SetSynchroValue'{$ELSE} SDL_MixerLibName{$ENDIF __GPC__};
 {$EXTERNALSYM Mix_SetSynchroValue}
