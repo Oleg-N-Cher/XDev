@@ -109,6 +109,10 @@ __EXTERN INTEGER Mix_PausedMusic(void);
 __EXTERN INTEGER Mix_PlayChannelTimed(INTEGER channel, SdlMixer_PMix_Chunk chunk, INTEGER loops, INTEGER ticks);
 #define SdlMixer_Mix_PlayMusic(music, loops)	Mix_PlayMusic(music, loops)
 __EXTERN INTEGER Mix_PlayMusic(SdlMixer_PMix_Music music, INTEGER loops);
+#define SdlMixer_Mix_Playing(channel)	Mix_Playing(channel)
+__EXTERN INTEGER Mix_Playing(INTEGER channel);
+#define SdlMixer_Mix_PlayingMusic()	Mix_PlayingMusic()
+__EXTERN INTEGER Mix_PlayingMusic(void);
 #define SdlMixer_Mix_QuerySpec(frequency, format, channels)	Mix_QuerySpec(frequency, format, channels)
 __EXTERN INTEGER Mix_QuerySpec(INTEGER *frequency, SHORTINT *format, INTEGER *channels);
 #define SdlMixer_Mix_QuickLoad_WAV(mem)	Mix_QuickLoad_WAV(mem)
@@ -124,6 +128,10 @@ __EXTERN void Mix_RewindMusic(void);
 #define SdlMixer_Mix_SetDistance(channel, distance)	Mix_SetDistance(channel, distance)
 __EXTERN INTEGER Mix_SetDistance(INTEGER channel, CHAR distance);
 #define SdlMixer_Mix_SetError(fmt)	SDL_SetError(fmt)
+#define SdlMixer_Mix_SetMusicCMD(command, command__len)	Mix_SetMusicCMD(command)
+__EXTERN INTEGER Mix_SetMusicCMD(CHAR *command);
+#define SdlMixer_Mix_SetMusicPosition(position)	Mix_SetMusicPosition(position)
+__EXTERN INTEGER Mix_SetMusicPosition(LONGREAL position);
 #define SdlMixer_Mix_SetPanning(channel, left, right)	Mix_SetPanning(channel, left, right)
 __EXTERN INTEGER Mix_SetPanning(INTEGER channel, CHAR left, CHAR right);
 #define SdlMixer_Mix_SetPosition(channel, angle, distance)	Mix_SetPosition(channel, angle, distance)
