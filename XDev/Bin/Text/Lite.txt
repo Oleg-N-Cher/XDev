@@ -44,6 +44,7 @@ Ofront/Rsrc/Strings.odc
 
 Ole/Code/Client.ocf
 Ole/Code/Data.ocf
+Ole/Code/Storage.ocf
 
 Std/Code/Api.ocf
 Std/Code/Interpreter.ocf
@@ -62,8 +63,6 @@ System/Code/Out.ocf
 System/Code/Ports.ocf System/Code/Printers.ocf System/Code/Printing.ocf System/Code/Properties.ocf
 System/Code/Sequencers.ocf System/Code/Services.ocf System/Code/Stores.ocf System/Code/Strings.ocf
 System/Code/Views.ocf System/Code/Windows.ocf
-System/Rsrc/About.odc
-System/Rsrc/Menus.odc
 System/Rsrc/Strings.odc
 
 Text/Code/Cmds.ocf
@@ -77,7 +76,7 @@ Text/Rsrc/Menus.odc
 
 XDev/Code/Cmd.ocf
 XDev/Code/Misc.ocf
+XDev/Rsrc/About.odc
 XDev/Rsrc/Menus.odc
-
-
-MyMenus/Menus.odc => System/Rsrc/Menus.odc
+XDev/Rsrc/MainMenus.odc => System/Rsrc/Menus.odc
+XDev/Rsrc/MasterMenus.odc => Master/Rsrc/Menus.odc
