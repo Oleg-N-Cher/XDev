@@ -73,6 +73,7 @@ import void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 import void Basic_DRAW (INTEGER x, INTEGER y);
 import void Basic_FLASH (SHORTINT mode);
 import void Basic_FONT (LONGINT addr);
+import void Basic_IM2PROC (void (*proc)(void));
 import void Basic_INK (INTEGER color);
 import CHAR Basic_INKEY (void);
 import void Basic_INVERSE (SHORTINT mode);

@@ -302,7 +302,11 @@ import void Basic_Quit_IM2 (void);
 #ifdef MODE_IM2
 #  define Basic_Quit Basic_Quit_IM2
 #endif //MODE_IM2
+import void Basic__IM2ADR (void);
+#define Basic_IM2PROC(adr) __asm DI __endasm; \
+  Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
 #define Basic__init()
+
 
 #define Black 0
 #define Blue 1

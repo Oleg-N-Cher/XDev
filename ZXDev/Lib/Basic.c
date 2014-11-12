@@ -81,9 +81,7 @@ void Basic_Init_IM0 (void)
 } //Basic_Init_IM0
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Init_IM2 (void)
-
-{
+void Basic_Init_IM2 (void) __naked {
   __asm
   RES  4,1(IY) /* RESET OF 128K FLAG */
 
@@ -112,10 +110,24 @@ IMON$:
   RET
 
 IM2PROC$:
+  PUSH AF
+  PUSH BC
+  PUSH DE
+  PUSH HL
+  PUSH IX
   PUSH IY
-  LD   IY,#0x5C3A
-  RST  0x38
+  __endasm;
+}
+void Basic__IM2ADR (void) {
+  __asm
+  CALL IM2RET$
   POP  IY
+  POP  IX
+  POP  HL
+  POP  DE
+  POP  BC
+  POP  AF
+IM2RET$:
   __endasm;
 } //Basic_Init_IM2
 
