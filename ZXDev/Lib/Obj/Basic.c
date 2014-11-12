@@ -69,6 +69,7 @@ export void Basic_DEFDATAREL (INTEGER title, INTEGER size);
 export void Basic_DRAW (INTEGER x, INTEGER y);
 export void Basic_FLASH (SHORTINT mode);
 export void Basic_FONT (LONGINT addr);
+export void Basic_IM2PROC (void (*proc)(void));
 export void Basic_INK (INTEGER color);
 export CHAR Basic_INKEY (void);
 export void Basic_INVERSE (SHORTINT mode);
@@ -586,6 +587,11 @@ void Basic_DATASTRZ (CHAR *str, LONGINT str__len)
 
 /*----------------------------------------------------------------------------*/
 void Basic_Quit (void)
+{
+}
+
+/*----------------------------------------------------------------------------*/
+void Basic_IM2PROC (void (*proc)(void))
 {
 }
 
