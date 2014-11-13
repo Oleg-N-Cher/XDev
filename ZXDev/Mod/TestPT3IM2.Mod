@@ -6,7 +6,22 @@ VAR
 
   PROCEDURE ProcIM2;
   BEGIN
-    PT3x0A.Play; Asm.Code("EI");
+    Asm.Code("EX   AF,AF");
+    Asm.Code("EXX       ");
+    Asm.Code("PUSH AF   ");
+    Asm.Code("PUSH BC   ");
+    Asm.Code("PUSH DE   ");
+    Asm.Code("PUSH HL   ");
+    PT3x0A.Play;
+    Asm.Code("LD   IY,#0x5C3A");
+    Asm.Code("RST  0x38 ");
+    Asm.Code("POP  HL   ");
+    Asm.Code("POP  DE   ");
+    Asm.Code("POP  BC   ");
+    Asm.Code("POP  AF   ");
+    Asm.Code("EXX       ");
+    Asm.Code("EX   AF,AF");
+    Asm.Code("EI");
   END ProcIM2;
 
 PROCEDURE Best40Test;
