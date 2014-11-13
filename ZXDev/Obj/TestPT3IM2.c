@@ -17,7 +17,21 @@ static void TestPT3IM2_ProcIM2 (void);
 
 static void TestPT3IM2_ProcIM2 (void)
 {
+	Asm_Code((CHAR*)"EX   AF,AF", (LONGINT)11);
+	Asm_Code((CHAR*)"EXX       ", (LONGINT)11);
+	Asm_Code((CHAR*)"PUSH AF   ", (LONGINT)11);
+	Asm_Code((CHAR*)"PUSH BC   ", (LONGINT)11);
+	Asm_Code((CHAR*)"PUSH DE   ", (LONGINT)11);
+	Asm_Code((CHAR*)"PUSH HL   ", (LONGINT)11);
 	PT3x0A_Play();
+	Asm_Code((CHAR*)"LD   IY,#0x5C3A", (LONGINT)16);
+	Asm_Code((CHAR*)"RST  0x38 ", (LONGINT)11);
+	Asm_Code((CHAR*)"POP  HL   ", (LONGINT)11);
+	Asm_Code((CHAR*)"POP  DE   ", (LONGINT)11);
+	Asm_Code((CHAR*)"POP  BC   ", (LONGINT)11);
+	Asm_Code((CHAR*)"POP  AF   ", (LONGINT)11);
+	Asm_Code((CHAR*)"EXX       ", (LONGINT)11);
+	Asm_Code((CHAR*)"EX   AF,AF", (LONGINT)11);
 	Asm_Code((CHAR*)"EI", (LONGINT)3);
 }
 
