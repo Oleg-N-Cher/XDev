@@ -14,5 +14,6 @@
 @CALL ..\Bin\build-xdev.bat Timer
 @CALL ..\Bin\build-xdev.bat Input
 @CALL ..\Bin\build-xdev.bat Control
+@CALL ..\Bin\build-xdev.bat Sound
 
 @MOVE /Y ..\XDev.lib ..\z80\XDev.lib
