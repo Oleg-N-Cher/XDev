@@ -785,21 +785,16 @@ __endasm;
 } //Basic_PORTIN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value)
-{
+void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   A,6(IX)
+  POP  HL
+  POP  BC
+  POP  DE
+  LD   A,E
   OUT  (C),A
-#ifdef __SDCC
-  POP  IX
-#endif
+  PUSH DE
+  PUSH BC
+  JP   (HL)
 __endasm;
 } //Basic_PORTOUT
 
