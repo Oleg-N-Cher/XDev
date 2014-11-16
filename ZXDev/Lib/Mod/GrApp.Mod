@@ -1,4 +1,4 @@
-MODULE GrScr;
+MODULE GrApp;
 IMPORT SYSTEM;
 
 CONST
@@ -286,10 +286,7 @@ CONST
   YellowOnLWhite*     = Bright +         OliveOnWhite;
   LWhiteOnLWhite*     = Bright +         WhiteOnWhite;
 
-PROCEDURE Update* ;
-BEGIN END Update;
+PROCEDURE Update* ; END Update;
+PROCEDURE Close* ; END Close;
 
-PROCEDURE Close* ;
-BEGIN END Close;
-
-END GrScr.
+END GrApp.

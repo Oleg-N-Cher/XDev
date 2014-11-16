@@ -4,29 +4,29 @@
 
 
 
-export void GrScr_Close (void);
-export void GrScr_Update (void);
+export void GrApp_Close (void);
+export void GrApp_Update (void);
 
 
 /*============================================================================*/
 
-void GrScr_Update (void)
+void GrApp_Update (void)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void GrScr_Close (void)
+void GrApp_Close (void)
 {
 }
 
 /*----------------------------------------------------------------------------*/
 
-export void *GrScr__init(void)
+export void *GrApp__init(void)
 {
 	__DEFMOD;
-	__REGMOD("GrScr", 0);
-	__REGCMD("Close", GrScr_Close);
-	__REGCMD("Update", GrScr_Update);
+	__REGMOD("GrApp", 0);
+	__REGCMD("Close", GrApp_Close);
+	__REGCMD("Update", GrApp_Update);
 /* BEGIN */
 	__ENDMOD;
 }

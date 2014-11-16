@@ -1,5 +1,5 @@
 MODULE DemoTiles;
-IMPORT G := GrScr, T := GrTiles, B := Basic;
+IMPORT G := GrApp, T := GrTiles, B := Basic;
 
 VAR
   i: SHORTINT; square: T.Tile;
