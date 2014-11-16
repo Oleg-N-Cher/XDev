@@ -127,6 +127,7 @@ void Basic__IM2ADR (void) {
   POP  DE
   POP  BC
   POP  AF
+  EI
 IM2RET$:
   __endasm;
 } //Basic_Init_IM2
