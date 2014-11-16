@@ -6,7 +6,7 @@
 @CALL ..\Bin\build-xdev.bat Platform
 @CALL ..\Bin\build-xdev.bat Strings
 @CALL ..\Bin\build-xdev.bat Console
-::@CALL ..\Bin\build-xdev.bat GrScr
+::@CALL ..\Bin\build-xdev.bat GrApp
 @CALL ..\Bin\build-xdev.bat GrPixel
 @CALL ..\Bin\build-xdev.bat GrTiles
 @CALL ..\Bin\build-xdev.bat GrFonts
