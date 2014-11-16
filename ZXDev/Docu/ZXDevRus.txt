@@ -48,7 +48,7 @@ Sinclair ZX Spectrum. Основана на оптимизирующем компиляторе высокого класса SDC
   Console - консольный ввод-вывод
   Graph - графическая библиотека, совместимая с Turbo Pascal
   Input - ввод с клавиатуры
-  GrFonts, GrPixel, GrScr, GrTiles - кроссплатформенная графика XDev
+  GrFonts, GrPixel, GrApp, GrTiles - кроссплатформенная графика XDev
   Laser - Laser Basic для Ofront/SDCC
   Math - вещественная математика, генерация случайных чисел
   Mega - Пара процедур из Mega Basic

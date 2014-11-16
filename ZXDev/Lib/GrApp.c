@@ -1,18 +1,7 @@
-/*
-;----------------------------------------------------------------;
-;           Adapted to ZXDev/SDCC by Oleg N. Cher, 2012          ;
-;----------------------------------------------------------------;
-*/
 #include "SYSTEM.h"
-#include "GrScr.h"
 
-/*interface*/
-
-//export void GrScr_Clear (void);
-
-/*implementation*/
-
-export void GrPixel_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2);
+/*================================== Header ==================================*/
+export void GrApp_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2);
 {
 __asm
 #ifdef __SDCC
@@ -109,12 +98,8 @@ CARRY$:   ADD     A,B
 COMM1$:   INC     D           ;*
           JR      COUNT2$
 
-
-
-/*
-;--------------------------------------------------------------;
-*/
-void GrScr_Clear (void)
+/*--------------------------------- Cut here ---------------------------------*/
+void GrApp_Clear (void)
 {
 __asm
         XOR   A          // -------------------------------------
@@ -124,7 +109,7 @@ CLEAR$: DEC   HL         // Born Dead #0B
         OR    (HL)       //
         JR    Z,CLEAR$   // -------------------------------------
 __endasm;
-}//Clear
+} //GrApp_Clear
 
 /*
 ------------------------------------------
@@ -159,3 +144,4 @@ t=54 такта.
 /*
            *   *   *
 */
+
