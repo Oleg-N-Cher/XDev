@@ -27,6 +27,7 @@
 
 @CALL ..\Bin\solid %Lib% Input
 @CALL ..\Bin\smart %Lib% Timer
+@CALL ..\Bin\solid %Lib% Sound
 
 :djgpp
 @IF NOT EXIST .djgpp GOTO exit
@@ -55,5 +56,6 @@
 
 @CALL ..\Bin\soliddjgpp %Lib% Input
 @CALL ..\Bin\smartdjgpp %Lib% Timer
+@CALL ..\Bin\soliddjgpp %Lib% Sound
 
 :exit
