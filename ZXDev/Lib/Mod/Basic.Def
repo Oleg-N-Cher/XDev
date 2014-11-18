@@ -16,6 +16,7 @@ CONST
 	Olive* = 6;
 	LightGray* = 7;
 	Bright* = 40H;
+	Flash* = 80H;
 
 	LightBlue* = Blue;
 	LightRed* = Red;
