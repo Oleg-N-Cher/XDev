@@ -7,6 +7,6 @@
 @DEL *.bin
 @DEL *.asm
 @DEL *.lk
-@DEL *_0??.c
+@DEL *_???.c
 @ATTRIB -H *.sbm
 @DEL *.sbm

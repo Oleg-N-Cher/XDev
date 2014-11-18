@@ -1,1 +1,1 @@
-@XDev.bat
+@..\Bin\buildXDev.bat
