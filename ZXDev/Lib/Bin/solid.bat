@@ -1,5 +1,5 @@
 @REM args:
-@REM   LibName ModName [PartName] [-noinit] [-nocut]
+@REM   LibName ModName
 
 @SET sdcc=..\..\Bin\sdcc -mz80 --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I ".." -I ..\C\include -I ..\C
 @SET smartlib=..\..\..\Bin\smartlib
@@ -7,20 +7,17 @@
 
 :o_lib
 
-%smartlib% %2.c %3 %4 %5
-@GOTO compile
+%sdcc% -c %2.c
+@GOTO done
 
 :c_lib
 
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%smartlib% ..\C\%2.c %3 %4 %5
+%sdcc% -c ..\C\%2.c
 
-:compile
+:done
 
-@FOR %%i IN (%2_???.c) DO (
-  %sdcc% -c %%i
-  @IF errorlevel 1 PAUSE
-)
-@FOR %%i IN (%2_???.rel) DO ..\..\Bin\sdar -rc %1 %%i
-@..\Bin\clear
+@IF errorlevel 1 PAUSE
+@..\..\Bin\sdar -rc %1 %2.rel
+@DEL %2.rel
