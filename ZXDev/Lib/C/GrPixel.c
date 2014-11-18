@@ -1,11 +1,7 @@
 #include "SYSTEM.h"
-#include "GrPixel.h"
-
-/*interface*/
-
-/*implementation*/
 
 /*================================== Header ==================================*/
+
 export void GrPixel_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2)
 {
 __asm
@@ -123,4 +119,3 @@ COMM1$:   INC     D           ;*
           JR      COUNT$
 __endasm;
 } //GrPixel_Line
-
