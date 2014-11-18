@@ -68,7 +68,7 @@ __asm
   LD   C,7(IX) ;
   LD   B,8(IX) ; BC := (stepNum)
   LD   H,9(IX) ; H := (incFreq)
-#endif __SDCC
+#endif
   DI
 MAIN_LOOP$:
     LD   A,B
@@ -82,7 +82,7 @@ Arg_SoundType$:
       LD   A,#0  ; (soundType)
 #   else
       LD   A,4(IX) ; (soundType)
-#   endif __SDCC
+#   endif
     AND  A
     JR   Z,PURE_TONE$
     PUSH BC
