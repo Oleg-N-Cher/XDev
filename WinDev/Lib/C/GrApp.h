@@ -26,7 +26,7 @@ import void GrApp_Update (void);
 #define GrApp__init()
 
 
-#define GrApp_BlackOnBlack	((GrApp_Colors){GrApp_Black, GrApp_Black}))
+#define GrApp_BlackOnBlack	((GrApp_Colors){GrApp_Black, GrApp_Black})
 #define GrApp_BlueOnBlack	((GrApp_Colors){GrApp_Black, GrApp_Blue})
 #define GrApp_GreenOnBlack	((GrApp_Colors){GrApp_Black, GrApp_Green})
 #define GrApp_CyanOnBlack	((GrApp_Colors){GrApp_Black, GrApp_Cyan})
