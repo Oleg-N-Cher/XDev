@@ -6,8 +6,10 @@
 
 
 export void Sound_Play (INTEGER fx);
+export void Sound_Quit (void);
 export void Sound_RunMe50Hz (void);
 
+#define Sound__init()	Sound_Quit()
 
 /*============================================================================*/
 
@@ -85,14 +87,9 @@ void Sound_RunMe50Hz (void)
 }
 
 /*----------------------------------------------------------------------------*/
-
-export void *Sound__init(void)
+void Sound_Quit (void)
 {
-	__DEFMOD;
-	__IMPORT(Asm__init);
-	__REGMOD("Sound", 0);
-	__REGCMD("RunMe50Hz", Sound_RunMe50Hz);
-/* BEGIN */
+	Asm_Code((CHAR*)"  DI", (LONGINT)5);
 	Asm_Code((CHAR*)"  LD BC,#0xFFFD", (LONGINT)16);
 	Asm_Code((CHAR*)"  LD A,#7", (LONGINT)10);
 	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
@@ -105,5 +102,18 @@ export void *Sound__init(void)
 	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
 	Asm_Code((CHAR*)"  XOR A", (LONGINT)8);
 	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
+	Asm_Code((CHAR*)"  EI", (LONGINT)5);
+}
+
+/*----------------------------------------------------------------------------*/
+
+export void *Sound__init(void)
+{
+	__DEFMOD;
+	__IMPORT(Asm__init);
+	__REGMOD("Sound", 0);
+	__REGCMD("Quit", Sound_Quit);
+	__REGCMD("RunMe50Hz", Sound_RunMe50Hz);
+/* BEGIN */
 	__ENDMOD;
 }
