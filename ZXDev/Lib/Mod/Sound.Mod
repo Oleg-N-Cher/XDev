@@ -5,7 +5,7 @@
 *)
 
 MODULE Sound;
-IMPORT Asm;
+IMPORT SYSTEM, Asm;
 
 TYPE
   Fx* = INTEGER;
@@ -84,7 +84,9 @@ BEGIN
   Asm.Code("  OUT (C),A"); (* мл частота*)
 END RunMe50Hz;
 
+PROCEDURE Quit* ;
 BEGIN
+  Asm.Code("  DI");
   (* Basic.PORTOUT(0FFFDH,7) *)
   Asm.Code("  LD BC,#0xFFFD");
   Asm.Code("  LD A,#7");
@@ -101,4 +103,9 @@ BEGIN
   Asm.Code("  LD B,#0xBF");(*Нулевая громкость*)
   Asm.Code("  XOR A");
   Asm.Code("  OUT (C),A");
+  Asm.Code("  EI");
+END Quit;
+
+PROCEDURE -_init* "Sound_Quit()";
+
 END Sound.
