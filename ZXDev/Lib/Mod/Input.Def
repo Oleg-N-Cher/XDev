@@ -56,17 +56,17 @@ CONST
 (*
   Tab* = CHR(Sdl.K_TAB);*)
   Enter* = 0DX;
-  (* Pause* = CHR(Sdl.K_PAUSE);
-  Escape* = CHR(Sdl.K_ESCAPE);
-  Delete* = CHR(Sdl.K_DELETE); *)
+  (* Pause* = CHR(Sdl.K_PAUSE);*)
+  Escape* = "E";
+  (* Delete* = CHR(Sdl.K_DELETE); *)
   Space* = " ";
-(*
-  (* Arrows *)
-  Up* = 18X;
-  Down* = 19X;
-  Right* = 1AX;
-  Left* = 1BX;
 
+  (* Arrows *)
+  Up    * = "Q";
+  Down  * = "A";
+  Right * = "P";
+  Left  * = "O";
+(*
   (* Function keys *)
   F1* = 1X;
   F2* = 2X;
