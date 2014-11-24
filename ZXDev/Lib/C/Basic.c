@@ -48,7 +48,6 @@ export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 export CHAR Basic_INKEY (void);
-export void Basic_Reset (void);
 export void Basic_Quit_DI (void);
 export void Basic_Quit_IM0 (void);
 export void Basic_Quit_IM2 (void);
@@ -1177,14 +1176,6 @@ INKEY_RET_0X$:
     LD   L, #0
 __endasm;
 } //Basic_INKEY
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_Reset (void)
-{
-__asm
-  RST  0
-__endasm;
-} //Basic_Reset
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_DI (void)
