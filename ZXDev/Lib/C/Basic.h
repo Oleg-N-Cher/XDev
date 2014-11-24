@@ -200,8 +200,7 @@ import CHAR Basic_INKEY (void);
 
 #define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
-
-import void Basic_Reset (void);
+#define Basic_Reset() __asm RST 0 __endasm
 
 #define Basic_DEFDATA(title, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
     ld   (_##title),hl \
