@@ -162,4 +162,6 @@ BEGIN RETURN 0 END Available;
 PROCEDURE Read* (): Key;
 BEGIN RETURN 0X END Read;
 
+PROCEDURE RunMe50Hz* ; END RunMe50Hz;
+
 END Input.
