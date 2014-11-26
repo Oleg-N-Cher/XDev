@@ -1,18 +1,20 @@
 @SET CodeAddr=45056
 @SET DataAddr=63488
-@SET Bin=..\Bin
-@SET Lib=..\Lib
+@SET sdcc=..\Bin\sdcc -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --disable-warning 59 --disable-warning 85 --disable-warning 126 -I ..\Lib\C -I ..\Lib\Obj -L ..\Lib XDev.lib Graph.lib Basic.lib Laser.lib Mega.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib
 
 @IF EXIST %1 GOTO config
 
-%Bin%\sdcc %1.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I %Lib% XDev.lib Graph.lib Basic.lib Laser.lib Mega.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib
+%sdcc% %1.c -I "."
 @GOTO link
 
 :config
-%Bin%\sdcc %1.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --oldralloc --disable-warning 59 --disable-warning 85 -I %1 -I %Lib% XDev.lib Graph.lib Basic.lib Laser.lib Mega.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib
+
+%sdcc% %1.c -I %1
 
 :link
+
 @IF errorlevel 1 PAUSE
-%Bin%\hex2bin %1.ihx
-%Bin%\bin2data.exe -rem -org %CodeAddr% %1.bin ..\%1.tap %1
+..\Bin\hex2bin %1.ihx
+::..\Bin\bin2data.exe -rem -org %CodeAddr% %1.bin ..\%1.tap %1
+..\Bin\bin2tap -a %CodeAddr% -b -o ..\%1.tap %1.bin
 @START ..\%1.tap

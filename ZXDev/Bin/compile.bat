@@ -1,5 +1,15 @@
-@SET Bin=..\Bin
-@SET Lib=..\Lib
+@SET sdcc=..\Bin\sdcc -mz80 --no-std-crt0 -I ..\Lib\C -I ..\Lib\Obj --disable-warning 59 --disable-warning 85 --disable-warning 126
 
-%Bin%\sdcc -c %1.c -mz80 --opt-code-size -I "." -I %Lib% --disable-warning 59
+@IF EXIST %1 GOTO config
+
+%sdcc% -c %1.c -I "."
+@GOTO exit
+
+:config
+
+%sdcc% -c %1.c -I %1
+
+:exit
+
 @IF errorlevel 1 PAUSE
+PAUSE
