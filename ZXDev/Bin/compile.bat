@@ -12,4 +12,3 @@
 :exit
 
 @IF errorlevel 1 PAUSE
-PAUSE
