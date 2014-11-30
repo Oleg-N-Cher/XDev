@@ -64,7 +64,6 @@ char Input_keyBuf [KeyBufSize];
 
 CHAR Input_Read_RepeatBuf (void) {
 __asm
-  LD   IY,#0x5C3A
 LOOPrptbuf$:
   LD   HL,#_Input_keysAvailable+1
   LD   A,(HL)
