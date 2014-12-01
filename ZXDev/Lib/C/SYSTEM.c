@@ -1,6 +1,7 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
+export void SYSTEM_HALT_A (void /* Register A */);
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
@@ -12,6 +13,21 @@ extern CHAR *SYSTEM_str_par;
 /*================================== Header ==================================*/
 /* runtime system variables */
 CHAR *SYSTEM_str_par;
+
+/*--------------------------------- Cut here ---------------------------------*/
+void SYSTEM_HALT_A (void /* Register A */) __naked {
+__asm
+  LD   (HALTCODE$),A
+  LD   HL,#0x2758
+  EXX
+  LD   IY,#0x5C3A
+  IM   0
+  EI
+  RST  8
+HALTCODE$:
+  .DB  0xFF
+__endasm;
+} //SYSTEM_HALT_A
 
 /*--------------------------------- Cut here ---------------------------------*/
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y)
@@ -60,3 +76,4 @@ SYSTEM_PTR SYSTEM_NEWARR (CARDINAL size)
   *((LONGINT*)arrPtr) = size;
   return arrPtr;
 }
+
