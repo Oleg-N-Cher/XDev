@@ -6,7 +6,7 @@
 
 #define __hash__ #
 #define __id__(x) x
-#define __ld_a__(x) if(x==0) {__asm xor a,a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
+#define __ld_a__(x) if(x==0) {__asm xor a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 
 import void Basic_Init_DI (void);
@@ -212,7 +212,7 @@ import CHAR Basic_INKEY (void);
   __endasm; \
   }
   
-#define Basic_DEFDATAREL(title, size) if (size <= 127) { __asm xor a,a \
+#define Basic_DEFDATAREL(title, size) if (size <= 127) { __asm xor a \
     inc  a \
     call 0x1FC6 \
     ld   de,__id__(__hash__)9 \
@@ -220,7 +220,7 @@ import CHAR Basic_INKEY (void);
     ld   (_##title),hl \
     jr   2+.+size \
     __endasm; \
-  } else { __asm xor a,a \
+  } else { __asm xor a \
     inc  a \
     call 0x1FC6 \
     ld   de,__id__(__hash__)12 \
