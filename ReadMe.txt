@@ -10,6 +10,8 @@ You can develop for different platforms, such as retro and new.
 Download: https://github.com/Oleg-N-Cher/XDev/zipball/master
 Version control: https://github.com/Oleg-N-Cher/XDev
 
+<img src="http://zx.oberon2.ru/img/XDev.png">
+
 
 XDev/ZXDev
 ==========
