@@ -69,9 +69,11 @@ extern void SYSTEM_REGFIN();
 extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
-#define SYSTEM_HALT(n) __asm RST 8 \
-  .DB n-1 \
-  __endasm
+extern void SYSTEM_HALT_A (void);
+#define __SYSTEM_hash__ #
+#define __SYSTEM_id__(x) x
+#define __SYSTEM_ld_a__(x) if(x==0) {__asm xor a,a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
+#define SYSTEM_HALT(n) __SYSTEM_ld_a__(n-1); SYSTEM_HALT_A()
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR();
