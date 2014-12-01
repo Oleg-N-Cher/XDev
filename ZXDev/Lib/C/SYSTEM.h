@@ -69,7 +69,9 @@ extern void SYSTEM_REGFIN();
 extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
-extern void SYSTEM_HALT();
+#define SYSTEM_HALT(n) __asm RST 8 \
+  .DB n-1 \
+  __endasm
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR();
@@ -269,7 +271,6 @@ void SYSTEM_ENUMR(char *adr, long *typ, long size, long n, void (*P)(void*));
 long SYSTEM_DIV(unsigned long x, unsigned long y);
 long SYSTEM_MOD(unsigned long x, unsigned long y);
 long SYSTEM_ENTIER(float x);
-void SYSTEM_HALT(int n);
 */
 
 #endif
