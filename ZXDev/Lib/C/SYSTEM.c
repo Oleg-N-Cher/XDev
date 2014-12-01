@@ -15,19 +15,16 @@ extern CHAR *SYSTEM_str_par;
 CHAR *SYSTEM_str_par;
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_HALT_A (void /* Register A */) __naked {
+void SYSTEM_HALT_N (void) __naked {
 __asm
-  LD   (HALTCODE$),A
   LD   HL,#0x2758
   EXX
   LD   IY,#0x5C3A
   IM   0
   EI
-  RST  8
-HALTCODE$:
-  .DB  0xFF
+  JP   8
 __endasm;
-} //SYSTEM_HALT_A
+} //SYSTEM_HALT_N
 
 /*--------------------------------- Cut here ---------------------------------*/
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y)
