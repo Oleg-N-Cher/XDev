@@ -23,6 +23,8 @@ export LONGINT *DemoDynMem_Person__typ;
 
 
 
+/*============================================================================*/
+
 static void EnumPtrs(void (*P)(void*))
 {
 	P(DemoDynMem_john);
@@ -85,9 +87,7 @@ export main(int argc, char **argv)
 	(*DemoDynMem_list)[3] = DemoDynMem_bob;
 	(*DemoDynMem_list)[4] = DemoDynMem_iren;
 	DemoDynMem_n = 4;
-	DemoDynMem_n -= -1;
-	do {
-		DemoDynMem_n += -1;
+	while (DemoDynMem_n >= 0) {
 		Console_WriteStrLn((*DemoDynMem_list)[__X(DemoDynMem_n, 5)]->name, 20);
 		Console_WriteCh((*DemoDynMem_list)[__X(DemoDynMem_n, 5)]->sex);
 		Console_WriteLn();
@@ -97,7 +97,8 @@ export main(int argc, char **argv)
 			Console_WriteLn();
 		}
 		Platform_DISPOSE((void*)&(*DemoDynMem_list)[__X(DemoDynMem_n, 5)]);
-	} while (!(DemoDynMem_n == 0));
+		DemoDynMem_n += -1;
+	}
 	Platform_DISPOSE((void*)&DemoDynMem_list);
 	__FINI;
 }

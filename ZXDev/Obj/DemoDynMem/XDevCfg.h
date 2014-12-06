@@ -4,9 +4,9 @@
 
 /* Use ROM output (RST 10H, slow, 32x22) or COMPACT/FAST (fast, 32x24) */
 
-//#define Console_OUTPUT_COMPACT
+#define Console_OUTPUT_COMPACT
 //#define Console_OUTPUT_FAST
-#define Console_OUTPUT_ROM
+//#define Console_OUTPUT_ROM
 
 /*---------------------------------- Timer -----------------------------------*/
 
@@ -43,5 +43,4 @@
 
 /* Garbage collector */
 #define SYSTEM_NoGC
-//#define SYSTEM_Use_HEAP
-
+#define SYSTEM_Use_HEAP
