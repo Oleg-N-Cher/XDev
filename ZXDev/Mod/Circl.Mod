@@ -124,7 +124,6 @@ BEGIN (*$MAIN*)
   		Circ(x0, y0, R);
 	  END;
   END;
-  Basic.PAUSE(0);
 	EORFill;
   G.CloseGraph
 END Circl.

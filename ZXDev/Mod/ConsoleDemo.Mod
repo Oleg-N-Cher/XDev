@@ -10,6 +10,7 @@ CONST
   Str = "@@";
 
 BEGIN
+  C.Clear(C.Black);
   C.SetColors(C.BlackOnBlack);    C.WriteStr(Str);
   C.SetColors(C.BlueOnBlack);     C.WriteStr(Str);
   C.SetColors(C.GreenOnBlack);    C.WriteStr(Str);
