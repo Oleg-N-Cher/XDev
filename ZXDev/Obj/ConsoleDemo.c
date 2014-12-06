@@ -18,6 +18,7 @@ export main(int argc, char **argv)
 	__IMPORT(Console__init);
 	__REGMAIN("ConsoleDemo", 0);
 /* BEGIN */
+	Console_Clear(0);
 	Console_SetColors(0);
 	Console_WriteStr((CHAR*)"@@", (LONGINT)3);
 	Console_SetColors(1);

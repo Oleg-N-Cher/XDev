@@ -5,7 +5,7 @@
 #include "Graph.h"
 
 
-static INTEGER Circl_KD, Circl_MD, Circl_x0, Circl_y0, Circl_R, Circl_i, Circl__for__2, Circl__for__1;
+static INTEGER Circl_KD, Circl_MD, Circl_x0, Circl_y0, Circl_R, Circl_i;
 
 
 static void Circl_Circ (INTEGER x, INTEGER y, INTEGER Radius);
@@ -14,54 +14,54 @@ static void Circl_EORFill (void);
 
 /*============================================================================*/
 
-static struct Circ__3 {
+static struct Circ__1 {
 	INTEGER *x, *y;
 	INTEGER *X, *Y;
-	struct Circ__3 *lnk;
-} *Circ__3_s;
+	struct Circ__1 *lnk;
+} *Circ__1_s;
 
-static void Plot4__4 (void);
+static void Plot4__2 (void);
 
-static void Plot4__4 (void)
+static void Plot4__2 (void)
 {
 	INTEGER ty;
-	ty = *Circ__3_s->y + *Circ__3_s->Y;
+	ty = *Circ__1_s->y + *Circ__1_s->Y;
 	if (ty < 0) {
 		ty = 0;
 	} else if (ty > Graph_GetMaxY()) {
 		ty = Graph_GetMaxY();
 	}
-	Graph_PutPixel(*Circ__3_s->x + *Circ__3_s->X, ty);
-	if (*Circ__3_s->X != 0) {
-		Graph_PutPixel(*Circ__3_s->x - *Circ__3_s->X, ty);
+	Graph_PutPixel(*Circ__1_s->x + *Circ__1_s->X, ty);
+	if (*Circ__1_s->X != 0) {
+		Graph_PutPixel(*Circ__1_s->x - *Circ__1_s->X, ty);
 	}
-	ty = *Circ__3_s->y - *Circ__3_s->Y;
+	ty = *Circ__1_s->y - *Circ__1_s->Y;
 	if (ty < 0) {
 		ty = 0;
 	} else if (ty > Graph_GetMaxY()) {
 		ty = Graph_GetMaxY();
 	}
-	Graph_PutPixel(*Circ__3_s->x + *Circ__3_s->X, ty);
-	if (*Circ__3_s->X != 0) {
-		Graph_PutPixel(*Circ__3_s->x - *Circ__3_s->X, ty);
+	Graph_PutPixel(*Circ__1_s->x + *Circ__1_s->X, ty);
+	if (*Circ__1_s->X != 0) {
+		Graph_PutPixel(*Circ__1_s->x - *Circ__1_s->X, ty);
 	}
 }
 
 static void Circl_Circ (INTEGER x, INTEGER y, INTEGER Radius)
 {
 	INTEGER X, Y, A;
-	struct Circ__3 _s;
+	struct Circ__1 _s;
 	_s.x = &x;
 	_s.y = &y;
 	_s.X = &X;
 	_s.Y = &Y;
-	_s.lnk = Circ__3_s;
-	Circ__3_s = &_s;
+	_s.lnk = Circ__1_s;
+	Circ__1_s = &_s;
 	Y = Radius;
 	X = 0;
 	A = __ASHR(Radius, 1);
 	do {
-		Plot4__4();
+		Plot4__2();
 		X = X + 1;
 		A = A - X;
 		if (A < 0) {
@@ -70,17 +70,17 @@ static void Circl_Circ (INTEGER x, INTEGER y, INTEGER Radius)
 		}
 	} while (!(X >= Y));
 	A = -__ASHR(Radius, 1) - 1;
-	Plot4__4();
+	Plot4__2();
 	do {
 		A = A + Y;
 		Y = Y - 1;
 		if (A > 0) {
 			X = X + 1;
 			A = A - X;
-			Plot4__4();
+			Plot4__2();
 		}
 	} while (!(!(Y >= 0)));
-	Circ__3_s = _s.lnk;
+	Circ__1_s = _s.lnk;
 }
 
 static void Circl_EORFill (void)
@@ -146,19 +146,16 @@ export main(int argc, char **argv)
 	Graph_ClearDevice();
 	Basic_OVER(1);
 	Circl_i = 0;
-	Circl__for__2 = 21;
-	do {
+	while (Circl_i <= 20) {
 		Circl_x0 = Basic_RND(-60, Graph_GetMaxX() + 60);
 		Circl_y0 = Basic_RND(-60, Graph_GetMaxY() + 60);
 		Circl_R = 20;
-		Circl__for__1 = 3;
-		do {
+		while (Circl_R <= 60) {
 			Circl_Circ(Circl_x0, Circl_y0, Circl_R);
 			Circl_R += 20;
-		} while (--Circl__for__1);
+		}
 		Circl_i += 1;
-	} while (--Circl__for__2);
-	Basic_PAUSE(0);
+	}
 	Circl_EORFill();
 	Graph_CloseGraph();
 	__FINI;
