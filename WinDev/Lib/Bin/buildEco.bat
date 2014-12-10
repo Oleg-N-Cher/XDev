@@ -7,6 +7,7 @@
 @CALL ..\Bin\smart %Lib% EcoBigSets
 @CALL ..\Bin\smart %Lib% EcoListen
 @CALL ..\Bin\smart %Lib% EcoLists
+@CALL ..\Bin\solid %Lib% EcoVector
 
 :djgpp
 @IF NOT EXIST .djgpp GOTO exit
@@ -15,5 +16,6 @@
 @CALL ..\Bin\smartdjgpp %Lib% EcoBigSets
 @CALL ..\Bin\smartdjgpp %Lib% EcoListen
 @CALL ..\Bin\smartdjgpp %Lib% EcoLists
+@CALL ..\Bin\soliddjgpp %Lib% EcoVector
 
 :exit
