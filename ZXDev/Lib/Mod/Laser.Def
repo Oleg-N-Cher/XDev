@@ -10,12 +10,10 @@ TYPE
   BYTE = INTEGER;
   CARDINAL = LONGINT;
 
-PROCEDURE InitSprites* (sprAddr, sprSize: CARDINAL);
-  END InitSprites;
-PROCEDURE InitSpritesEx* (sprAddr, sprSize: CARDINAL);
-  END InitSpritesEx;
-PROCEDURE InitScroll* (scrollBuf: CARDINAL);
-  END InitScroll;
+PROCEDURE InitSprites* (sprAddr, sprSize: CARDINAL); END InitSprites;
+PROCEDURE InitSpritesEx* (sprAddr, sprSize: CARDINAL); END InitSpritesEx;
+PROCEDURE InitScroll* (scrollBuf: CARDINAL); END InitScroll;
+PROCEDURE CalcSpritesOffset* ; END CalcSpritesOffset;
 
 (* Procedures for screen windows processing *)
 PROCEDURE INVV* (col, row, len, hgt: BYTE); END INVV;
