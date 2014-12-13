@@ -20,15 +20,15 @@ IMPORT L := Laser, B := Basic;
 *)
 
 CONST
-  ChudikSizeBytes = 4(*phases*) * ( 5(*hdr*) + 8*20(*data*) + 20(*attrs*) );
+  ChudikSizeBytes = ( 5(*hdr*) + 8*20(*data*) + 20(*attrs*) );
 
 VAR
   chudik: INTEGER; n, s: SHORTINT;
 
 BEGIN (*MAIN*)
   B.Init;
-  B.DEFDATA(chudik, ChudikSizeBytes + 1 (*null*) );
-  B.DATA5(7, 0,0, 5, 4); (* No, Addr(fake), Width, Length *)
+  B.DEFDATA(chudik, 4(*phases*) * ChudikSizeBytes + 1 (*null*) );
+  B.DATA5(7, ChudikSizeBytes-2, 0, 5, 4); (* No, Offset, Width, Length *)
   (* Sprite 7, Phase 1, Pixels: *)
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
@@ -55,7 +55,7 @@ BEGIN (*MAIN*)
   B.DATA8(046H,046H,046H,046H,046H,046H,046H,046H);
   B.DATA4(046H,046H,046H,046H);
 
-  B.DATA5(8, 0,0, 5, 4);
+  B.DATA5(8, ChudikSizeBytes-2, 0, 5, 4);
   (* Sprite 8, Phase 2, Pixels: *)
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
@@ -82,7 +82,7 @@ BEGIN (*MAIN*)
   B.DATA8(046H,046H,046H,046H,046H,046H,046H,046H);
   B.DATA4(046H,046H,046H,046H);
 
-  B.DATA5(9, 0,0, 5, 4);
+  B.DATA5(9, ChudikSizeBytes-2, 0, 5, 4);
   (* Sprite 9, Phase 3, Pixels: *)
   B.DATA8(000H,003H,000H,030H,000H,000H,004H,0E1H);
   B.DATA8(0C8H,000H,000H,004H,092H,048H,000H,000H);
@@ -109,7 +109,7 @@ BEGIN (*MAIN*)
   B.DATA8(046H,046H,046H,046H,046H,046H,046H,046H);
   B.DATA4(046H,046H,046H,046H);
 
-  B.DATA5(10, 0,0, 5, 4);
+  B.DATA5(10, ChudikSizeBytes-2, 0, 5, 4);
   (* Sprite 10, Phase 4, Pixels: *)
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
   B.DATA8(000H,000H,000H,000H,000H,000H,000H,000H);
@@ -137,7 +137,7 @@ BEGIN (*MAIN*)
   B.DATA4(046H,046H,046H,046H);
   B.DATA1(0);
 
-  L.InitSpritesEx(chudik, ChudikSizeBytes);
+  L.InitSpritesEx(chudik, 4(*phases*) * ChudikSizeBytes);
 
   B.BORDER(B.Black); B.PAPER(B.Black); B.CLS;
   FOR s := -2 TO 30 BY 2 DO

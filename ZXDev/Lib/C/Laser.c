@@ -18,7 +18,7 @@ extern unsigned int SCRL_B; /* Scroll buffer address */
 extern unsigned long LB_069;
 extern unsigned int LB_075;
 
-export void _InitSprites (void /* Registers HL */);
+export void Laser_CalcSpritesOffset (void);
 
 /* Functions for screen windows processing */
 export void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
@@ -109,13 +109,12 @@ unsigned int LB_075;
 unsigned int SFSTRT; /* Sprite file start address */
 unsigned int SF_END; /* Sprite file end address */
 unsigned int SCRL_B; /* Scroll buffer address */
+/*--------------------------------- Cut here ---------------------------------*/
 
 /* Спрайты хранятся в памяти в следующем формате:
 Байт 1 - номер спрайта.
-Байт 2 - младший байт адреса следующего
-спрайта.
-Байт 3 - старший байт адреса следующего
-спрайта.
+Байт 2 - младший байт размера спрайта (9*HGT*LEN+3).
+Байт 3 - старший байт размера спрайта.
 Байт 4 - длина спрайта.
 Байт 5 - высота спрайта.
 8*HGT*LEN - данные о состоянии
@@ -148,15 +147,15 @@ __endasm;
     while ((sprPtr->sprN) != 0) {
       SYSTEM_ADDRESS sprSize;
       sprSize = (SYSTEM_ADDRESS)(sprPtr->sprHgt) *
-                (SYSTEM_ADDRESS)(sprPtr->sprLen) * 9 + 5;
-      sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprPtr + sprSize);
-      sprPtr = sprPtr->sprNext;
+                (SYSTEM_ADDRESS)(sprPtr->sprLen) * 9 + 3;
+      sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprSize);
+      sprPtr += sprPtr->sprNext + 2;
     }
   }
 }
 */
 
-void _InitSprites (void /* Registers HL */)
+void Laser_CalcSpritesOffset (void)
 {
 __asm
   PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
@@ -181,7 +180,7 @@ SET_ADDR$:     // while ((sprPtr->sprN) != 0) {
   LD   H,D /* LH,DE = sprLen */
   LD   B,4(IX) /* B = sprHgt */
   // sprSize = (SYSTEM_ADDRESS)(sprPtr->sprLen) *
-  //           (SYSTEM_ADDRESS)(sprPtr->sprHgt) * 9 + 5;
+  //           (SYSTEM_ADDRESS)(sprPtr->sprHgt) * 9 + 3;
 SPRMULT$:
   ADD  HL,DE
   DJNZ SPRMULT$ /* HL = sprLen * sprHgt */
@@ -191,21 +190,21 @@ SPRMULT$:
   ADD  HL,HL
   ADD  HL,HL
   ADD  HL,DE
-  LD   DE,#5
-  ADD  HL,DE
-  PUSH IX
-  POP  DE
-  ADD  HL,DE
-  LD   1(IX),L // sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprPtr + sprSize);
+  INC  HL
+  INC  HL
+  INC  HL
+  LD   1(IX),L // sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprSize);
   LD   2(IX),H
-  PUSH HL
-  POP  IX      // sprPtr = sprPtr->sprNext;
+  INC  HL
+  INC  HL
+  EX   DE,HL
+  ADD  IX,DE
   JR   SET_ADDR$
     // }
 SPREXIT$:  // }
   POP  IX
 __endasm;
-} //_InitSprites
+} //Laser_CalcSpritesOffset
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*-----------------------------------------*/
@@ -2072,7 +2071,7 @@ __asm
 LB_071$:
   LD   B,A
   LD   A,(HL)
-  OR   A //CP   #0x00
+  OR   A
   JR   NZ,#LB_072$
   SCF
   RET
@@ -2101,7 +2100,7 @@ LB_073$:
   INC  HL
   LD   D,(HL)
   //end
-  EX   DE,HL
+  ADD  HL,DE //EX   DE,HL
   LD   A,(#_LB_069)
   JR   LB_071$
 __endasm;
