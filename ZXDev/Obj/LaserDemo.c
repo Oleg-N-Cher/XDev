@@ -5,7 +5,7 @@
 
 
 static INTEGER LaserDemo_chudik;
-static SHORTINT LaserDemo_n, LaserDemo_s, LaserDemo__for__2, LaserDemo__for__1;
+static SHORTINT LaserDemo_n, LaserDemo_s;
 
 
 
@@ -22,7 +22,7 @@ export main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	Basic_DEFDATA(LaserDemo_chudik, 741);
-	Basic_DATA5(7, 0, 0, 5, 4);
+	Basic_DATA5(7, 183, 0, 5, 4);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
@@ -46,7 +46,7 @@ export main(int argc, char **argv)
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA4(70, 70, 70, 70);
-	Basic_DATA5(8, 0, 0, 5, 4);
+	Basic_DATA5(8, 183, 0, 5, 4);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(24, 0, 0, 0, 0, 36, 6, 0);
@@ -70,7 +70,7 @@ export main(int argc, char **argv)
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA4(70, 70, 70, 70);
-	Basic_DATA5(9, 0, 0, 5, 4);
+	Basic_DATA5(9, 183, 0, 5, 4);
 	Basic_DATA8(0, 3, 0, 48, 0, 0, 4, 225);
 	Basic_DATA8(200, 0, 0, 4, 146, 72, 0, 0);
 	Basic_DATA8(3, 10, 48, 0, 0, 0, 62, 0);
@@ -94,7 +94,7 @@ export main(int argc, char **argv)
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA8(70, 70, 70, 70, 70, 70, 70, 70);
 	Basic_DATA4(70, 70, 70, 70);
-	Basic_DATA5(10, 0, 0, 5, 4);
+	Basic_DATA5(10, 183, 0, 5, 4);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 0, 0);
 	Basic_DATA8(0, 0, 0, 0, 0, 0, 6, 128);
@@ -124,21 +124,15 @@ export main(int argc, char **argv)
 	Basic_PAPER(0);
 	Basic_CLS();
 	LaserDemo_s = -2;
-	LaserDemo__for__2 = 30;
-	LaserDemo__for__2 = __ASHR(LaserDemo__for__2 - LaserDemo_s, 1) + 1;
-	do {
+	while (LaserDemo_s <= 30) {
 		LaserDemo_n = 7;
-		LaserDemo__for__1 = 10;
-		LaserDemo__for__1 = (LaserDemo__for__1 - LaserDemo_n) + 1;
-		do {
+		while (LaserDemo_n <= 10) {
 			Laser_PTBL(LaserDemo_s, 5, LaserDemo_n);
 			Basic_PAUSE(5);
 			LaserDemo_n += 1;
-			LaserDemo__for__1 -= 1;
-		} while (!(LaserDemo__for__1 == 0));
+		}
 		LaserDemo_s += 2;
-		LaserDemo__for__2 -= 1;
-	} while (!(LaserDemo__for__2 == 0));
+	}
 	Basic_Quit();
 	__FINI;
 }
