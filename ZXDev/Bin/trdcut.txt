@@ -1,0 +1,36 @@
+TRDCUT v1.1
+-----------
+
+ This little utility cuts the huge 655360 bytes long TRD files, leaving them
+with their appropiate size. The part of the file that gets cutted are just
+filling zeroes, that contain no useful info.
+
+ This program works under both Windows and DOS. Windows LFN (Long FileNames)
+are supported.
+
+ It's a command line program, and it cuts all TRD files in current directory
+to their minimum size. No operands are needed. Copy it to a directory in
+your path (usually C:\WINDOWS\COMMAND or C:\DOS if you're not using Windows),
+and then type TRDCUT in the directory where your big TRD files are located.
+
+ If you're a Windows user who doesn't like DOS boxes or typing orders,
+another way of using this would be: copy the program TRDCUT.COM into the
+folder with the TRD files you want to cut and execute it. Then close the
+DOS-box with the messages.
+
+ If there's any TRD file with the read-only attribute, the program will
+exit with a "Can't erase file" message. To prevent this, remove that
+attribute with "attrib -r" from command line or from the Properties
+window.
+
+ TRDCUT is Freeware. Feel free to email me with bug-reports, suggestions to
+improve it or if you want the source code.
+
+
+
+History
+-------
+
+2001-07-17 - V1.0: First working version. 
+2001-07-18 - V1.1: Fixed a bug. Added timestamp preservation.
+2001-07-26 - V1.1: Wrote this little txt, sent to WoS.
