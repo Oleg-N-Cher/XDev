@@ -3,16 +3,18 @@
 #include "Basic.h"
 
 
-static INTEGER HelloWorld_x, HelloWorld__for__1;
+static INTEGER HelloWorld_x;
 
 
 
+
+/*============================================================================*/
 
 
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(Basic);
+	__IMPORT(Basic__init);
 	__REGMAIN("HelloWorld", 0);
 /* BEGIN */
 	Basic_Init();
@@ -20,9 +22,7 @@ export main(int argc, char **argv)
 	Basic_PAPER(0);
 	Basic_CLS();
 	HelloWorld_x = 0;
-	HelloWorld__for__1 = 245;
-	HelloWorld__for__1 = __ASHR(HelloWorld__for__1 - HelloWorld_x, 1) + 1;
-	do {
+	while (HelloWorld_x <= 245) {
 		Basic_INK(6);
 		Basic_PLOT(HelloWorld_x, 127);
 		Basic_DRAW(10, 10);
@@ -30,8 +30,7 @@ export main(int argc, char **argv)
 		Basic_PLOT(HelloWorld_x, 37);
 		Basic_DRAW(10, 10);
 		HelloWorld_x += 2;
-		HelloWorld__for__1 -= 1;
-	} while (!(HelloWorld__for__1 == 0));
+	}
 	Basic_AT(11, 1);
 	Basic_PAPER(1);
 	Basic_INK(5);
