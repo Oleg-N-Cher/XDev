@@ -625,21 +625,18 @@ void Basic_PRLN (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PLOT (SHORTINT x, SHORTINT y)
-{
+void Basic_PLOT (SHORTINT x, SHORTINT y) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
-  LD   C,4(IX)
-  LD   B,5(IX)
-  CALL #0x22E5
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+  JP   0x22E5
+  //LD   (0x5C7D),BC
+  //LD   A,#0xBF
+  //CALL 0x22AC
+  //JP   0x22EC
 __endasm;
 } //Basic_PLOT
 
@@ -686,17 +683,13 @@ __endasm;
 } //Basic_ATTR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_DRAW (SHORTINT x, SHORTINT y)
-{
+void Basic_DRAW (SHORTINT x, SHORTINT y) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
-  LD   C,4(IX)
-  LD   B,5(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   LD   HL,(#0x5C7D)
   LD   DE,#0x0101
   LD   A,C
@@ -715,10 +708,7 @@ PositiveX$:
   LD   B,A
   LD   D,#0xFF
 PositiveY$:
-  CALL #0x24BA
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x24BA
 __endasm;
 } //Basic_DRAW
 
