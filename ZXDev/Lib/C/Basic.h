@@ -15,9 +15,20 @@ import void Basic_Init_IM2 (void);
 #ifdef MODE_DI
 #  define Basic_Init Basic_Init_DI
 #endif //MODE_DI
+#ifdef MODE_DI_inline
+#  define Basic_Init() __asm \
+     DI            \
+     RES  4, 1(IY) \
+  __endasm
+#endif //MODE_DI_inline
 #ifdef MODE_IM0
 #  define Basic_Init Basic_Init_IM0
 #endif //MODE_IM0
+#ifdef MODE_IM0_inline
+#  define Basic_Init() __asm \
+     RES  4, 1(IY) \
+  __endasm
+#endif //MODE_IM0_inline
 #ifdef MODE_IM2
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
@@ -130,10 +141,10 @@ import void Basic_DRAW (SHORTINT x, SHORTINT y);
 
 import void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 import void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-#ifdef MODE_DI
+#if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_CIRCLE Basic_CIRCLE_DI
 #endif //MODE_DI
-#ifdef MODE_IM0
+#if defined (MODE_IM0) || defined (MODE_IM0_inline)
 #  define Basic_CIRCLE Basic_CIRCLE_EI
 #endif //MODE_IM0
 #ifdef MODE_IM2
@@ -171,10 +182,10 @@ import BOOLEAN Basic_KeyPressed (void);
 
 import void Basic_PAUSE_DI (CARDINAL ticks);
 import void Basic_PAUSE_EI (CARDINAL ticks);
-#ifdef MODE_DI
+#if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_PAUSE Basic_PAUSE_DI
 #endif //MODE_DI
-#ifdef MODE_IM0
+#if defined (MODE_IM0) || defined (MODE_IM0_inline)
 #  define Basic_PAUSE Basic_PAUSE_EI
 #endif //MODE_IM0
 #ifdef MODE_IM2
@@ -196,10 +207,10 @@ import SHORTINT Basic_SGN (SHORTINT x);
 
 import void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-#ifdef MODE_DI
+#if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_BEEP Basic_BEEP_DI
 #endif //MODE_DI
-#ifdef MODE_IM0
+#if defined (MODE_IM0) || defined (MODE_IM0_inline)
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM0
 #ifdef MODE_IM2
@@ -302,15 +313,44 @@ import CHAR Basic_INKEY (void);
 import void Basic_Quit_DI (void);
 import void Basic_Quit_IM0 (void);
 import void Basic_Quit_IM2 (void);
+
 #ifdef MODE_DI
 #  define Basic_Quit Basic_Quit_DI
 #endif //MODE_DI
+#ifdef MODE_DI_inline
+#  define Basic_Quit() __asm \
+     LD   HL, __id__(__hash__)0x2758 \
+     EXX                             \
+     LD   IY, __id__(__hash__)0x5C3A \
+     EI                              \
+  __endasm
+#endif //MODE_DI_inline
+
 #ifdef MODE_IM0
 #  define Basic_Quit Basic_Quit_IM0
 #endif //MODE_IM0
+#ifdef MODE_IM0_inline
+#  define Basic_Quit() __asm \
+     LD   HL, __id__(__hash__)0x2758 \
+     EXX                             \
+     LD   IY, __id__(__hash__)0x5C3A \
+  __endasm
+#endif //MODE_IM0_inline
+
 #ifdef MODE_IM2
 #  define Basic_Quit Basic_Quit_IM2
 #endif //MODE_IM2
+#ifdef MODE_IM2_inline
+#  define Basic_Quit() __asm \
+     DI                             \
+     LD   HL,__id__(__hash__)0x2758 \
+     EXX                            \
+     LD   IY,__id__(__hash__)0x5C3A \
+     IM   0                         \
+     EI                             \
+   __endasm
+#endif //MODE_IM2_inline
+
 import void Basic__IM2ADR (void);
 #define Basic_IM2PROC(adr) __asm DI __endasm; \
   Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
