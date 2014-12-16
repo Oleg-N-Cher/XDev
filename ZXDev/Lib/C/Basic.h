@@ -76,25 +76,40 @@ import void Basic_BRIGHT_fastcall (void /* Register C */);
 #endif
 
 import void Basic_INVERSE_FAST (SHORTINT mode);
-import void Basic_INVERSE_ROM (SHORTINT mode);
+import void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
+import void Basic_INVERSE_ROM_fastcall (void /* Register C */);
 #ifdef ROM_OUTPUT
-  #define Basic_INVERSE Basic_INVERSE_ROM
+#  ifndef INVERSE_fastcall
+#    define Basic_INVERSE Basic_INVERSE_ROM_stdcall
+#  else
+#    define Basic_INVERSE(mode) __ld_c__(mode); Basic_INVERSE_ROM_fastcall()
+#  endif
 #else
-  #define Basic_INVERSE Basic_INVERSE_FAST
+#  define Basic_INVERSE Basic_INVERSE_FAST
 #endif
 
 import void Basic_OVER_FAST (SHORTINT mode);
-import void Basic_OVER_ROM (SHORTINT mode);
+import void Basic_OVER_ROM_stdcall (SHORTINT mode);
+import void Basic_OVER_ROM_fastcall (void /* Register C */);
 #ifdef ROM_OUTPUT
-  #define Basic_OVER Basic_OVER_ROM
+#  ifndef OVER_fastcall
+#    define Basic_OVER Basic_OVER_ROM_stdcall
+#  else
+#    define Basic_OVER(mode) __ld_c__(mode); Basic_OVER_ROM_fastcall();
+#  endif
 #else
-  #define Basic_OVER Basic_OVER_FAST
+#  define Basic_OVER Basic_OVER_FAST
 #endif
 
 import void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-import void Basic_AT_ROM (SHORTINT y, SHORTINT x);
+import void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
+import void Basic_AT_ROM_fastcall (void /* post */);
 #ifdef ROM_OUTPUT
-  #define Basic_AT Basic_AT_ROM
+#  ifndef AT_fastcall
+#    define Basic_AT Basic_AT_ROM_stdcall
+#  else
+#    define Basic_AT(y,x) Basic_AT_ROM_fastcall(); Basic_DATA2(y,x)
+#  endif
 #else
   #define Basic_AT Basic_AT_FAST
 #endif
@@ -108,10 +123,22 @@ import void Basic_CLS_FULLSCREEN (void);
 #endif
 
 import void Basic_PRSTR_C_FAST (CHAR *str);
-import void Basic_PRSTR_C_ROM (CHAR *str);
+import void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+import void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 #ifdef ROM_OUTPUT
-  #define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM(str)
-  #define PRSTR Basic_PRSTR_C_ROM
+#  ifndef PRSTR_fastcall
+#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_stdcall(str)
+#    define PRSTR Basic_PRSTR_C_ROM_stdcall
+#  else
+#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(); __asm \
+       .ascii __arg_killer__ str \
+       .db 0x00                  \
+     __endasm
+#  define PRSTR(str) Basic_PRSTR_C_ROM_fastcall(); __asm \
+       .ascii __arg_killer__ str \
+       .db 0x00                  \
+     __endasm
+#  endif
 #else
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
   #define PRSTR Basic_PRSTR_C_FAST
