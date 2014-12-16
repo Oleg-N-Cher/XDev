@@ -30,7 +30,8 @@ export void Basic_PLOT (SHORTINT x, SHORTINT y);
 export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
-export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+export void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+export void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
@@ -713,8 +714,8 @@ __endasm;
 } //Basic_DRAW
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius)
-{
+/*
+void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) {
   SHORTINT x, y;
   INTEGER rr, xx, yy;
   x = radius; y = 0; rr = x*x; xx = rr-x; yy = 0;
@@ -732,7 +733,353 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius)
       Basic_PLOT(cx+y, cy-x); Basic_PLOT(cx-y, cy-x);
     }
   } while (x >= y);
-} //Basic_CIRCLE
+*/
+void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+  __asm
+    LD   IY, #0x5C3A
+    POP  DE
+    POP  BC
+    POP  HL
+    PUSH HL
+    PUSH BC
+    PUSH DE
+    LD   A, H
+    OR   L
+    RET  Z
+    PUSH IX
+    LD   D, #0
+    LD   E, C
+    LD   C, B
+    LD   B, D
+    PUSH DE
+    LD   DE, #0
+    PUSH DE
+    PUSH BC
+    PUSH HL
+    LD   IX, #0
+    ADD  IX, SP
+    PUSH HL
+    EXX
+    POP  HL
+    ADD  HL, HL
+    EX   DE, HL
+    LD   HL, #3
+    AND  A
+    SBC  HL, DE
+    EXX
+    JR   ENT0$
+CIRCLOOP0$:
+    AND  A
+    SBC  HL, DE
+    JP   M, EXT0$
+    POP  DE
+    POP  HL
+    ADD  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  BC
+    POP  HL
+    POP  DE
+    ADD  HL, DE
+    EX   DE, HL
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  DE
+    POP  HL
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  BC
+    POP  HL
+    POP  DE
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+ENT0$:
+    POP  DE
+    POP  HL
+    ADD  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  BC
+    POP  HL
+    POP  DE
+    ADD  HL, DE
+    EX   DE, HL
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  DE
+    POP  HL
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    POP  BC
+    POP  HL
+    POP  DE
+    LD   (POSITIV0$+1), DE
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP0$
+    EXX
+    EX   DE, HL
+    BIT  7, D
+    JR   Z, POSITIV0$
+    LD   HL, (POSITIV0$+1)
+    ADD  HL, HL
+    ADD  HL, HL
+    LD   BC, #6
+    JR   CALCDONE0$
+POSITIV0$:
+    LD   HL, #0
+    POP  BC
+    DEC  BC
+    PUSH BC
+    AND  A
+    SBC  HL, BC
+    ADD  HL, HL
+    ADD  HL, HL
+    LD   BC, #0xA
+CALCDONE0$:
+    ADD  HL, BC
+    ADD  HL, DE
+    EXX
+    POP  HL
+    POP  DE
+    POP  DE
+    INC  DE
+    PUSH DE
+    LD   SP, IX
+    JP   CIRCLOOP0$
+EXT0$:
+    LD   HL, #8
+    ADD  HL, SP
+    LD   SP, HL
+    POP  IX
+    RET
+WRAP0$:
+    LD   A, D
+    OR   A
+    RET  NZ
+    LD   A, H
+    OR   A
+    RET  NZ
+    LD   A, E
+    CP   #0xB0
+    RET  NC
+    LD   B, E
+    LD   C, L
+    JP   0x22E5
+  __endasm;
+} //Basic_CIRCLE_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+  __asm
+    LD   IY, #0x5C3A
+    POP  DE
+    POP  BC
+    POP  HL
+    PUSH HL
+    PUSH BC
+    PUSH DE
+    LD   A, H
+    OR   L
+    RET  Z
+    PUSH IX
+    DI
+    LD   D, #0
+    LD   E, C
+    LD   C, B
+    LD   B, D
+    PUSH DE
+    LD   DE, #0
+    PUSH DE
+    PUSH BC
+    PUSH HL
+    LD   IX, #0
+    ADD  IX, SP
+    PUSH HL
+    EXX
+    POP  HL
+    ADD  HL, HL
+    EX   DE, HL
+    LD   HL, #3
+    AND  A
+    SBC  HL, DE
+    EXX
+    JR   ENT1$
+CIRCLOOP1$:
+    AND  A
+    SBC  HL, DE
+    JP   M, EXT1$
+    POP  DE
+    POP  HL
+    ADD  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  BC
+    POP  HL
+    POP  DE
+    ADD  HL, DE
+    EX   DE, HL
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  DE
+    POP  HL
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  BC
+    POP  HL
+    POP  DE
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+ENT1$:
+    POP  DE
+    POP  HL
+    ADD  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  BC
+    POP  HL
+    POP  DE
+    ADD  HL, DE
+    EX   DE, HL
+    POP  HL
+    AND  A
+    SBC  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  DE
+    POP  HL
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  BC
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    POP  BC
+    POP  HL
+    POP  DE
+    LD   (POSITIV1$+1), DE
+    AND  A
+    SBC  HL, DE
+    EX   DE, HL
+    POP  HL
+    ADD  HL, BC
+    LD   SP, IX
+    CALL WRAP1$
+    EXX
+    EX   DE, HL
+    BIT  7, D
+    JR   Z, POSITIV1$
+    LD   HL, (POSITIV1$+1)
+    ADD  HL, HL
+    ADD  HL, HL
+    LD   BC, #6
+    JR   CALCDONE1$
+POSITIV1$:
+    LD   HL, #0
+    POP  BC
+    DEC  BC
+    PUSH BC
+    AND  A
+    SBC  HL, BC
+    ADD  HL, HL
+    ADD  HL, HL
+    LD   BC, #0xA
+CALCDONE1$:
+    ADD  HL, BC
+    ADD  HL, DE
+    EXX
+    POP  HL
+    POP  DE
+    POP  DE
+    INC  DE
+    PUSH DE
+    LD   SP, IX
+    JP   CIRCLOOP1$
+EXT1$:
+    LD   HL, #8
+    ADD  HL, SP
+    LD   SP, HL
+    POP  IX
+    EI
+    RET
+WRAP1$:
+    LD   A, D
+    OR   A
+    RET  NZ
+    LD   A, H
+    OR   A
+    RET  NZ
+    LD   A, E
+    CP   #0xB0
+    RET  NC
+    LD   B, E
+    LD   C, L
+    JP   0x22E5
+  __endasm;
+} //Basic_CIRCLE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius)
