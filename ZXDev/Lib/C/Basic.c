@@ -13,15 +13,19 @@ export void Basic_FLASH_fastcall (void /* Register C */);
 export void Basic_BRIGHT_stdcall (SHORTINT mode);
 export void Basic_BRIGHT_fastcall (void /* Register C */);
 export void Basic_INVERSE_FAST (SHORTINT mode);
-export void Basic_INVERSE_ROM (SHORTINT mode);
+export void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
+export void Basic_INVERSE_ROM_fastcall (void /* Register C */);
 export void Basic_OVER_FAST (SHORTINT mode);
-export void Basic_OVER_ROM (SHORTINT mode);
+export void Basic_OVER_ROM_stdcall (SHORTINT mode);
+export void Basic_OVER_ROM_fastcall (void /* Register C */);
 export void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-export void Basic_AT_ROM (SHORTINT y, SHORTINT x);
+export void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
+export void Basic_AT_ROM_fastcall (void /* post */);
 export void Basic_CLS_ZX (void);
 export void Basic_CLS_FULLSCREEN (void);
 export void Basic_PRSTR_C_FAST (CHAR *str);
-export void Basic_PRSTR_C_ROM (CHAR *str);
+export void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+export void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 export void Basic_PRCHAR_FAST (CHAR ch);
 export void Basic_PRCHAR_ROM (CHAR ch);
 export void Basic_PRDATA (void);
@@ -148,19 +152,15 @@ __endasm;
 } //Basic_BORDER_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK_stdcall (SHORTINT color)
-{
+void Basic_INK_stdcall (SHORTINT color) {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)
-#else
-  LD   C,4(IX)
-#endif
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
   LD   A,(#ATTR_T$)
   AND  #0xF8
-  OR   C
+  OR   (HL)
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
@@ -179,30 +179,25 @@ __endasm;
 } //Basic_INK_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER_stdcall (SHORTINT color)
-{
+void Basic_PAPER_stdcall (SHORTINT color) {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)
-#else
-  LD   C,4(IX)
-#endif
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
   LD   A,(#ATTR_T$)
   AND  #0xC7
-  SLA  C
-  SLA  C
-  SLA  C
-  OR   C
+  SLA  (HL)
+  SLA  (HL)
+  SLA  (HL)
+  OR   (HL)
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
 } //Basic_PAPER_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER_fastcall (void /* Register C */)
-{
+void Basic_PAPER_fastcall (void /* Register C */) {
 __asm
   LD   A,(#ATTR_T$)
   AND  #0xC7
@@ -216,76 +211,63 @@ __endasm;
 } //Basic_PAPER_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH_stdcall (SHORTINT mode)
-{
+void Basic_FLASH_stdcall (SHORTINT mode) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#18
   RST  16 // IX-safe
-  LD   A,4(IX)
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
+  LD   A,(HL)
   RST  16
-  CALL 0x1CAD
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x1CAD
 __endasm;
 } //Basic_FLASH_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH_fastcall (void /* Register C */)
-{
+void Basic_FLASH_fastcall (void /* Register C */) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#18
   RST  16 // IX-safe
   LD   A,C
   RST  16
-  CALL 0x1CAD
+  JP   0x1CAD
 __endasm;
 } //Basic_FLASH_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT_stdcall (SHORTINT mode)
-{
+void Basic_BRIGHT_stdcall (SHORTINT mode) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#19
   RST  16
-  LD   A,4(IX)
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
+  LD   A,(HL)
   RST  16
-  CALL 0x1CAD
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x1CAD
 __endasm;
 } //Basic_BRIGHT_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT_fastcall (void /* Register C */)
-{
+void Basic_BRIGHT_fastcall (void /* Register C */) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#19
   RST  16
   LD   A,C
   RST  16
-  CALL 0x1CAD
+  JP   0x1CAD
 __endasm;
 } //Basic_BRIGHT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_FAST (SHORTINT mode)
-{
+void Basic_INVERSE_FAST (SHORTINT mode) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -310,25 +292,32 @@ __endasm;
 } //Basic_INVERSE_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_ROM (SHORTINT mode)
-{
+void Basic_INVERSE_ROM_stdcall (SHORTINT mode) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#20
   RST  16 // IX-safe
-  LD   A,4(IX)
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
+  LD   A,(HL)
   RST  16
-  CALL 0x1CAD
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x1CAD
 __endasm;
-} //Basic_INVERSE_ROM
+} //Basic_INVERSE_ROM_stdcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_INVERSE_ROM_fastcall (void /* Register C */) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#20
+  RST  16 // IX-safe
+  LD   A,C
+  RST  16
+  JP   0x1CAD
+__endasm;
+} //Basic_INVERSE_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_OVER_FAST (SHORTINT mode)
@@ -357,29 +346,35 @@ __endasm;
 } //Basic_OVER_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_ROM (SHORTINT mode)
-{
+void Basic_OVER_ROM_stdcall (SHORTINT mode) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#21
   RST  16 // IX-safe
-  LD   A,4(IX)
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
+  LD   A,(HL)
   RST  16
-  CALL 0x1CAD
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   0x1CAD
 __endasm;
-} //Basic_OVER_ROM
+} //Basic_OVER_ROM_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM (SHORTINT y, SHORTINT x)
-{
+void Basic_OVER_ROM_fastcall (void /* Register C */) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#21
+  RST  16 // IX-safe
+  LD   A,C
+  RST  16
+  JP   0x1CAD
+__endasm;
+} //Basic_OVER_ROM_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -399,7 +394,26 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_AT_ROM
+} //Basic_AT_ROM_stdcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_ROM_fastcall (void /* post */) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL #0x1601 // IX-safe
+  LD   A,#22
+  RST  16
+  POP  HL
+  LD   A,(HL)  // y
+  RST  16
+  INC  HL
+  LD   A,(HL)  // x
+  RST  16
+  INC  HL
+  JP   (HL)
+__endasm;
+} //Basic_AT_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_AT_FAST (SHORTINT y, SHORTINT x)
@@ -455,8 +469,7 @@ __endasm;
 } //Basic_CLS_FULLSCREEN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM (CHAR *str)
-{
+void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
 /*
   INTEGER i;
   i = 0;
@@ -469,26 +482,37 @@ __asm
   LD   IY,#0x5C3A
   LD   A,#2
   CALL #0x1601
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)
-  INC  HL
-  LD   B,(HL)
-#else
-  LD   C,4(IX)
-  LD   B,5(IX)
-  POP  AF
-#endif
-PRSTR$:
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+PRSTRstd$:
   LD   A,(BC)
   OR   A
   RET  Z
   RST  16
   INC  BC
-  JR   PRSTR$
+  JR   PRSTRstd$
 __endasm;
-} //Basic_PRSTR_C_ROM
+} //Basic_PRSTR_C_ROM_stdcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_ROM_fastcall (void /* post */) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL #0x1601
+PRSTRfst$:
+  POP  HL
+  LD   A,(HL)
+  INC  HL
+  PUSH HL
+  OR   A
+  RET  Z
+  RST  16
+  JR   PRSTRfst$
+__endasm;
+} //Basic_PRSTR_C_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_FAST (CHAR *str)
@@ -1168,9 +1192,9 @@ void Basic_PRINT_ROM (INTEGER i)
   b[5] = 0x00;
   do {
     if (i < 0) {
-      Basic_PRSTR_C_ROM("-");
+      Basic_PRSTR_C_ROM_stdcall("-");
       if (i == -32768) {
-        Basic_PRSTR_C_ROM("32768");
+        Basic_PRSTR_C_ROM_stdcall("32768");
         return;
       }
       i = -i;
@@ -1180,7 +1204,7 @@ void Basic_PRINT_ROM (INTEGER i)
     i = __DIV(i, 10);
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C_ROM(prt);
+  Basic_PRSTR_C_ROM_stdcall(prt);
 } //Basic_PRINT_ROM
 
 /*
