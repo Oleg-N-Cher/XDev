@@ -156,7 +156,7 @@ import void Basic_PRWORD_ROM (CARDINAL n);
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
 
-import void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+import void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
@@ -352,9 +352,9 @@ import void Basic__IM2ADR (void);
 #define ATTR Basic_ATTR
 #define DRAW Basic_DRAW
 #define CIRCLE Basic_CIRCLE
+#define CIRCLEROM Basic_CIRCLEROM
 #define PRINT Basic_PRINT
 #define PRWORD Basic_PRWORD
-#define SlowCircle Basic_SlowCircle
 #define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val) (*(unsigned*) (addr) = (val))
 #define PEEK(addr)      (*(unsigned char*) (addr))

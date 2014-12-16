@@ -32,7 +32,7 @@ export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
 export void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 export void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-export void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+export void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 export void Basic_PRINT_FAST (INTEGER i);
@@ -715,7 +715,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*
-void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) {
+void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, INTEGER radius) {
   SHORTINT x, y;
   INTEGER rr, xx, yy;
   x = radius; y = 0; rr = x*x; xx = rr-x; yy = 0;
@@ -1082,7 +1082,7 @@ WRAP1$:
 } //Basic_CIRCLE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_SlowCircle (SHORTINT cx, SHORTINT cy, SHORTINT radius)
+void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius)
 {
 __asm
 #ifdef __SDCC
@@ -1101,7 +1101,7 @@ __asm
   POP  IX
 #endif
 __endasm;
-} //Basic_SlowCircle
+} //Basic_CIRCLEROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 BYTE Basic_PORTIN (SYSTEM_ADDRESS port)
