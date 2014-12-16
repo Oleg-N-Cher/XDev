@@ -128,7 +128,17 @@ import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
 import void Basic_DRAW (SHORTINT x, SHORTINT y);
 
-import void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+import void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+import void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+#ifdef MODE_DI
+#  define Basic_CIRCLE Basic_CIRCLE_DI
+#endif //MODE_DI
+#ifdef MODE_IM0
+#  define Basic_CIRCLE Basic_CIRCLE_EI
+#endif //MODE_IM0
+#ifdef MODE_IM2
+#  define Basic_CIRCLE Basic_CIRCLE_EI
+#endif //MODE_IM2
 
 export void Basic_PRINT_FAST (INTEGER i);
 export void Basic_PRINT_ROM (INTEGER i);
