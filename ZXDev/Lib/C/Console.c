@@ -45,8 +45,7 @@ extern BYTE __at(SETV_A$) Console_attrib;
 BYTE __at(SETV_A$) Console_attrib;
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_ROM (SHORTINT x, SHORTINT y)
-{
+void Console_At_ROM (SHORTINT x, SHORTINT y) __naked {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -65,13 +64,13 @@ __asm
 #ifdef __SDCC
   POP  IX
 #endif
+  RET
 __endasm;
 } //Console_At_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 
-void Console_At_COMPACT (SHORTINT x, SHORTINT y)
-{
+void Console_At_COMPACT (SHORTINT x, SHORTINT y) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -113,12 +112,12 @@ __asm
 ;На выходе обеих процедур в HL - адрес файла атрибутов.
   DEC  HL
   LD   (_ATTR_ADR_C+1),HL
+  RET
 __endasm;
 } //Console_At_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_FAST (SHORTINT x, SHORTINT y)
-{
+void Console_At_FAST (SHORTINT x, SHORTINT y) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -171,6 +170,7 @@ __asm
   AND  #0x7F           ; 7
 ;Выход: AL = экранный адрес
   LD   (#_SCR_ADR_F+1),A
+  RET
 __endasm;
 } //Console_At_FAST
 
@@ -223,8 +223,7 @@ __endasm;
 } //Console_WriteCh_COMPACT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_COMPACT (CHAR ch)
-{
+void Console_WriteCh_COMPACT (CHAR ch) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -233,8 +232,8 @@ __asm
 #else
   LD   A,4(IX)
 #endif
+  JP   _Console_WriteCh_COMPACT_fastcall
 __endasm;
-  Console_WriteCh_COMPACT_fastcall();
 } //Console_WriteCh_COMPACT
 /*--------------------------------- Cut here ---------------------------------*/
 
@@ -283,8 +282,7 @@ __endasm;
 } //Console_WriteCh_FAST_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_FAST (CHAR ch)
-{
+void Console_WriteCh_FAST (CHAR ch) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -293,8 +291,8 @@ __asm
 #else
   LD   A,4(IX)
 #endif
+  JP   _Console_WriteCh_FAST_fastcall
 __endasm;
-  Console_WriteCh_FAST_fastcall();
 } //Console_WriteCh_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -311,8 +309,7 @@ __endasm;
 } //Console_WriteCh_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_ROM (CHAR ch)
-{
+void Console_WriteCh_ROM (CHAR ch) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -325,12 +322,12 @@ __asm
   LD   A,4(IX)
 #endif
   RST  16
+  RET
 __endasm;
 } //Console_WriteCh_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteLn_ROM (void)
-{
+void Console_WriteLn_ROM (void) __naked {
 __asm
   LD   A,#0x0D
   JP   _Console_WriteCh_ROM_fastcall
@@ -591,8 +588,7 @@ void Console_WriteInt_FAST (INTEGER i)
 */
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_ROM (SHORTCARD attr)
-{
+void Console_Clear_ROM (SHORTCARD attr) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,(_Console_attrib)
@@ -609,12 +605,12 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (_Console_attrib),A
+  RET
 __endasm;
 } //Console_Clear_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_FAST (SHORTCARD attr)
-{
+void Console_Clear_FAST (SHORTCARD attr) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#0x40-8
@@ -635,12 +631,12 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (_Console_attrib),A
+  RET
 __endasm;
 } //Console_Clear_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_COMPACT (SHORTCARD attr)
-{
+void Console_Clear_COMPACT (SHORTCARD attr) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   HL,#0x5800-1
@@ -659,6 +655,7 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (_Console_attrib),A
+  RET
 __endasm;
 } //Console_Clear_COMPACT
 
