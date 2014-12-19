@@ -4,7 +4,7 @@ IMPORT G := GrApp, T := GrTiles, B := Basic;
 VAR
   i: SHORTINT; square: T.Tile;
 BEGIN (*$MAIN*)
-  B.Init; B.BORDER(B.Red);
+  B.Init; B.PAPER(B.Black); B.CLS; B.BORDER(B.Red);
   B.DEFDATA(square, 8 + 1);
   (*Pixels:*) B.DATA8(0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH);
   (*Attrib:*) B.DATA1(G.BlueOnOlive);
