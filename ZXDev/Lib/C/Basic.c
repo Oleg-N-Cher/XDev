@@ -179,20 +179,20 @@ __endasm;
 } //Basic_INK_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER_stdcall (SHORTINT color) {
+void Basic_PAPER_stdcall (SHORTINT color) __naked {
 __asm
-  POP  DE
   POP  HL
-  PUSH HL
-  PUSH DE
+  POP  BC
+  PUSH BC
   LD   A,(#ATTR_T$)
   AND  #0xC7
-  SLA  (HL)
-  SLA  (HL)
-  SLA  (HL)
-  OR   (HL)
+  SLA  C
+  SLA  C
+  SLA  C
+  OR   C
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
+  JP   (HL)
 __endasm;
 } //Basic_PAPER_stdcall
 
