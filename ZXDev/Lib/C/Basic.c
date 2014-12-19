@@ -137,32 +137,29 @@ IM2RET$:
 } //Basic_Init_IM2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BORDER_stdcall (SHORTINT color)
-{
+void Basic_BORDER_stdcall (SHORTINT color) __naked {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  CALL 0x229B // IX-safe
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+  LD   A,C
+  JP   0x229B // IX-safe
 __endasm;
 } //Basic_BORDER_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK_stdcall (SHORTINT color) {
+void Basic_INK_stdcall (SHORTINT color) __naked {
 __asm
-  POP  DE
   POP  HL
-  PUSH HL
-  PUSH DE
+  POP  BC
+  PUSH BC
   LD   A,(#ATTR_T$)
   AND  #0xF8
-  OR   (HL)
+  OR   C
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
+  JP   (HL)
 __endasm;
 } //Basic_INK_stdcall
 
@@ -216,11 +213,11 @@ __asm
   LD   IY,#0x5C3A
   LD   A,#18
   RST  16 // IX-safe
-  POP  DE
   POP  HL
+  POP  BC
+  PUSH BC
   PUSH HL
-  PUSH DE
-  LD   A,(HL)
+  LD   A,C
   RST  16
   JP   0x1CAD
 __endasm;
@@ -244,11 +241,11 @@ __asm
   LD   IY,#0x5C3A
   LD   A,#19
   RST  16
-  POP  DE
   POP  HL
+  POP  BC
+  PUSH BC
   PUSH HL
-  PUSH DE
-  LD   A,(HL)
+  LD   A,C
   RST  16
   JP   0x1CAD
 __endasm;
@@ -267,15 +264,13 @@ __endasm;
 } //Basic_BRIGHT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_FAST (SHORTINT mode) {
+void Basic_INVERSE_FAST (SHORTINT mode) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
-  LD   A,4(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C
   OR   A
   JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
   LD   A,#0x2F      /*              else poke CPL */
@@ -283,11 +278,9 @@ SetInvers$:
   LD   (#_INV_MODE),A
   LD   A,#20
   RST  16
-  LD   A,4(IX)
+  LD   A,C
   RST  16
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   (HL)
 __endasm;
 } //Basic_INVERSE_FAST
 
@@ -297,11 +290,11 @@ __asm
   LD   IY,#0x5C3A
   LD   A,#20
   RST  16 // IX-safe
-  POP  DE
   POP  HL
+  POP  BC
+  PUSH BC
   PUSH HL
-  PUSH DE
-  LD   A,(HL)
+  LD   A,C
   RST  16
   JP   0x1CAD
 __endasm;
@@ -320,16 +313,13 @@ __endasm;
 } //Basic_INVERSE_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_FAST (SHORTINT mode)
-{ // !!! NEED to be checked to IX-safety
-__asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
+void Basic_OVER_FAST (SHORTINT mode) __naked {
+__asm // !!! NEED to be checked to IX-safety
   LD   IY,#0x5C3A
-  LD   A,4(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C
   OR   A
   JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
   LD   A,#0xAE    /*           else poke XOR (HL) */
@@ -337,11 +327,9 @@ SetOver$:
   LD   (#_OVER_MODE),A
   LD   A,#21
   RST  16
-  LD   A,4(IX)
+  LD   A,C
   RST  16
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   (HL)
 __endasm;
 } //Basic_OVER_FAST
 
@@ -351,11 +339,11 @@ __asm
   LD   IY,#0x5C3A
   LD   A,#21
   RST  16 // IX-safe
-  POP  DE
   POP  HL
+  POP  BC
+  PUSH BC
   PUSH HL
-  PUSH DE
-  LD   A,(HL)
+  LD   A,C
   RST  16
   JP   0x1CAD
 __endasm;
@@ -374,25 +362,21 @@ __endasm;
 } //Basic_OVER_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) {
+void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#2
   CALL #0x1601 // IX-safe
   LD   A,#22
   RST  16
-  LD   A,4(IX) // y
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C     // y
   RST  16
-  LD   A,5(IX) // x
+  LD   A,B     // x
   RST  16
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   (HL)
 __endasm;
 } //Basic_AT_ROM_stdcall
 
@@ -416,23 +400,18 @@ __endasm;
 } //Basic_AT_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_FAST (SHORTINT y, SHORTINT x)
-{
+void Basic_AT_FAST (SHORTINT y, SHORTINT x) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
-  CALL #3742
-  LD   A,5(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+  LD   A,C     // y
+  CALL 0xE9E
+  LD   A,B     // x
   ADD  A,L
   LD   L,A
   LD   (#23684),HL
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_AT_FAST
 
@@ -515,22 +494,18 @@ __endasm;
 } //Basic_PRSTR_C_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_FAST (CHAR *str)
-{
+void Basic_PRSTR_C_FAST (CHAR *str) __naked {
 __asm
 .globl _INV_MODE
 .globl _OVER_MODE
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   L,4(IX)
-  LD   H,5(IX)
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
 pr_sta$:
   LD   A,(HL)
   OR   A
-  JR   Z,pr_end$
+  RET  Z
   PUSH HL
   LD   L,A
   BIT  7,A
@@ -591,28 +566,21 @@ p_Sy2$:
   POP  HL
   INC  HL
   JR   pr_sta$
-pr_end$:
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_ROM (CHAR ch)
-{
+void Basic_PRCHAR_ROM (CHAR ch) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
   CALL #0x1601
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C
   RST  16
+  JP   (HL)
 __endasm;
 } //Basic_PRCHAR_ROM
 
@@ -666,44 +634,30 @@ __endasm;
 } //Basic_PLOT
 
 /*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_POINT (SHORTINT x, SHORTINT y)
-{
+BYTE Basic_POINT (SHORTINT x, SHORTINT y) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
-  LD   C,4(IX)
-  LD   B,5(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   CALL #0x22CE
   CALL #0x2DD5
   LD   L,A
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_POINT
 
 /*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_ATTR (SHORTINT y, SHORTINT x)
-{
+BYTE Basic_ATTR (SHORTINT y, SHORTINT x) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
-  LD   C,4(IX)
-  LD   B,5(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   CALL #0x2583
   CALL #0x2DD5
   LD   L,A
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_ATTR
 
@@ -1106,14 +1060,11 @@ WRAP1$:
 } //Basic_CIRCLE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius)
-{
+void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
 __asm
-#ifdef __SDCC
   PUSH IX
   LD   IX,#0
   ADD  IX,SP
-#endif
   LD    A,4(IX) /* cx */
   CALL  0x2D28
   LD    A,5(IX) /* cy */
@@ -1121,27 +1072,19 @@ __asm
   LD    A,6(IX) /* radius */
   CALL  0x2D28
   CALL  0x232D
-#ifdef __SDCC
   POP  IX
-#endif
+  RET
 __endasm;
 } //Basic_CIRCLEROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_PORTIN (SYSTEM_ADDRESS port)
-{
+BYTE Basic_PORTIN (SYSTEM_ADDRESS port) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   IN   L,(C)
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_PORTIN
 
@@ -1160,8 +1103,7 @@ __endasm;
 } //Basic_PORTOUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRINT_FAST (INTEGER i)
-{
+void Basic_PRINT_FAST (INTEGER i) {
   CHAR b[6], *prt;
   INTEGER j;
   j = 5;
@@ -1184,8 +1126,7 @@ void Basic_PRINT_FAST (INTEGER i)
 } //Basic_PRINT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRINT_ROM (INTEGER i)
-{
+void Basic_PRINT_ROM (INTEGER i) {
   CHAR b[6], *prt;
   INTEGER j;
   j = 5;
@@ -1240,8 +1181,7 @@ __endasm;
 */
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRWORD_FAST (CARDINAL n)
-{
+void Basic_PRWORD_FAST (CARDINAL n) {
   CHAR b[6], *prt;
   CARDINAL j;
   j = 5;
@@ -1304,8 +1244,7 @@ __endasm;
 } //Basic_PRWORD_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-BOOLEAN Basic_KeyPressed (void)
-{ // Check to IX-safety
+BOOLEAN Basic_KeyPressed (void) { // Check to IX-safety
 __asm
     CALL  #0x28E /* Scan keys */
     LD    L,#0   /* FALSE */
@@ -1318,17 +1257,13 @@ __endasm;
 } //Basic_KeyPressed
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_DI (CARDINAL ticks)
-{
+void Basic_PAUSE_DI (CARDINAL ticks) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
   LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   EI
   LD   A,C
   OR   B
@@ -1343,45 +1278,31 @@ PauseDi$:
   JR   NZ,PauseDi$
 EndPauseDi$:
   DI
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_PAUSE_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_EI (CARDINAL ticks)
-{
+void Basic_PAUSE_EI (CARDINAL ticks) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
   LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
   LD   A,C
   OR   B
-  JR   NZ,PauseEi$
-  CALL #0x1F3D
-  JR   EndPauseEi$
+  JP   Z,0x1F3D
 PauseEi$:
   HALT
   DEC  BC
   LD   A,C
   OR   B
   JR   NZ,PauseEi$
-EndPauseEi$:
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Basic_PAUSE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_RANDOMIZE (CARDINAL seed) __naked
-{
+void Basic_RANDOMIZE (CARDINAL seed) __naked {
 __asm
   POP  HL
   POP  BC
@@ -1433,23 +1354,19 @@ CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max)
 } //Basic_RND_WORD
 
 /*--------------------------------- Cut here ---------------------------------*/
-SHORTINT Basic_SGN (SHORTINT x)
-{
+SHORTINT Basic_SGN (SHORTINT x) {
   if(x <0) return -1;
   if(x==0) return 0;
   return 1;
 } //Basic_SGN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq)
+void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq) __naked {
 /* Uses Spectrum ROM calculator */
-{
 __asm
-#ifdef __SDCC
   PUSH IX
   LD   IX,#0
   ADD  IX,SP
-#endif
   LD   C,4(IX)
   LD   B,5(IX) /* BC = ms */
   LD   A,6(IX) /* A = freq */
@@ -1473,22 +1390,18 @@ BeperDi$:
 DoBeepDi$:
   CALL #0x3F8
   DI
-#ifdef __SDCC
   POP  IX
-#endif
+  RET
 __endasm;
 } //Basic_BEEP_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq)
+void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq) __naked {
 /* Uses Spectrum ROM calculator */
-{
 __asm
-#ifdef __SDCC
   PUSH IX
   LD   IX,#0
   ADD  IX,SP
-#endif
   LD   C,4(IX)
   LD   B,5(IX) /* BC = ms */
   LD   A,6(IX) /* A = freq */
@@ -1511,9 +1424,8 @@ BeperEi$:
   .DB  27,56  /* Do it negative */
 DoBeepEi$:
   CALL #0x3F8
-#ifdef __SDCC
   POP  IX
-#endif
+  RET
 __endasm;
 } //Basic_BEEP_EI
 
