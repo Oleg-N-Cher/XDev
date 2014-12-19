@@ -7,7 +7,7 @@
 @CALL ..\Bin\smart %Lib% Platform
 @CALL ..\Bin\smart %Lib% Strings -noinit
 @CALL ..\Bin\smart %Lib% CmdLine -noinit
-@CALL ..\Bin\smart %Lib% Console
+@CALL ..\Bin\smart--reserve-regs-iy %Lib% Console
 @CALL ..\Bin\smart %Lib% GrPixel
 @CALL ..\Bin\solid %Lib% GrTiles
 @CALL ..\Bin\smart %Lib% GrFonts
