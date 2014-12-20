@@ -17,6 +17,7 @@ export main(int argc, char **argv)
 	__REGMAIN("XDevHello", 0);
 /* BEGIN */
 	Console_SetColors(77);
+	Console_Clear(0);
 	Console_WriteStr((CHAR*)"Hello Cross-platform World", (LONGINT)27);
 	__FINI;
 }
