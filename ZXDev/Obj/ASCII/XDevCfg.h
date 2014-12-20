@@ -8,6 +8,14 @@
 //#define Console_OUTPUT_FAST
 #define Console_OUTPUT_ROM
 
+/*---------------------------------- Input -----------------------------------*/
+
+#define Input_KeyNoRepeat
+//#define Input_KeyRepeat
+//#define Input_KeyRepeatBuf
+
+//#define Input_KeyRepeatCount 15
+
 /*---------------------------------- Timer -----------------------------------*/
 
 //#define Timer_MODE_DI
