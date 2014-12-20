@@ -8,7 +8,7 @@
 @IF EXIST %obj%\GraphSinus.h @DEL %obj%\GraphSinus.h
 @IF EXIST %obj%\GraphSinus.sym @DEL %obj%\GraphSinus.sym
 @IF EXIST %obj%\GraphSinus.c @MOVE /Y %obj%\GraphSinus.c
-%bin%\sdcc -mz80 --code-loc 40000 --data-loc 45000 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %lib% -L %lib%/z80 GraphSinus.c Graph.lib XDev.lib
+%bin%\sdcc GraphSinus.c -mz80 --code-loc 40000 --data-loc 45000 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 Graph.lib XDev.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
