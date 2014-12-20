@@ -1,5 +1,5 @@
 MODULE TestInPar;
-IMPORT Platform, Console;
+IMPORT SYSTEM, Platform, Console;
 TYPE
   Struct = RECORD a, b: INTEGER END;
   Struct1 = RECORD[1] a, b: INTEGER END;
