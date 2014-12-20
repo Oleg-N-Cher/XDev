@@ -20,6 +20,7 @@ export main(int argc, char **argv)
 	__IMPORT(NewSupercode__init);
 	__REGMAIN("DemoRus", 0);
 /* BEGIN */
+	Basic_Init();
 	Basic_BORDER(5);
 	Basic_PAPER(0);
 	Basic_CLS();
@@ -33,5 +34,6 @@ export main(int argc, char **argv)
 	Basic_FONT(GrFonts_MsDosCga8x8);
 	NewSupercode_LITERY(4, 130, 3, 5, 7, (void*)&"HELLO WORLD!", (LONGINT)13);
 	Basic_PAUSE(0);
+	Basic_Quit();
 	__FINI;
 }
