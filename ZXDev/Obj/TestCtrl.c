@@ -21,6 +21,7 @@ export main(int argc, char **argv)
 	__IMPORT(Laser__init);
 	__REGMAIN("TestCtrl", 0);
 /* BEGIN */
+	Basic_CLS();
 	for (;;) {
 		TestCtrl_pressed = Control_Get();
 		if (__IN(1, TestCtrl_pressed)) {

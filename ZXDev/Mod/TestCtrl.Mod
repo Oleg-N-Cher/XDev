@@ -4,6 +4,7 @@ IMPORT B := Basic, Key := Control, Laser;
 VAR
   pressed: SET;
 BEGIN (*$MAIN*)
+  B.CLS;
   LOOP
     pressed := Key.Get();
     IF Key.Left IN pressed THEN B.PAPER(B.Green) ELSE B.PAPER(B.Black) END;
