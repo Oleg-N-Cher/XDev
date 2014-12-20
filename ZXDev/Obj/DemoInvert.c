@@ -8,6 +8,8 @@
 
 
 
+/*============================================================================*/
+
 
 export main(int argc, char **argv)
 {
@@ -16,6 +18,7 @@ export main(int argc, char **argv)
 	__IMPORT(Mega__init);
 	__REGMAIN("DemoInvert", 0);
 /* BEGIN */
+	Console_Clear(0);
 	Mega_INVERT();
 	Console_WriteStr((CHAR*)" To Be Inverted!", (LONGINT)17);
 	Mega_INVERT();
