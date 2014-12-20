@@ -5,9 +5,7 @@ VAR
   key: Input.Key;
 BEGIN
   Basic.Init;
-  REPEAT
-    key := Input.Read();
-    Basic.PRCHAR(key);
+  REPEAT key := Input.Read(); Basic.PRCHAR(key);
   UNTIL key = "0";
   Basic.Quit;
 END TestInput. 
