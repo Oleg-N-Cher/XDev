@@ -10,6 +10,8 @@ static INTEGER Flower_KD, Flower_MD, Flower_x0, Flower_y0;
 static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL a1, REAL a3, REAL a5);
 
 
+/*============================================================================*/
+
 static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL a1, REAL a3, REAL a5)
 {
 	REAL b1, b3, b5, q, r, dg, rd, cosRd, sinRd;
@@ -44,8 +46,8 @@ static void Flower_Flower (INTEGER x, INTEGER y, INTEGER radius, INTEGER n, REAL
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(Graph);
-	__IMPORT(Math);
+	__IMPORT(Graph__init);
+	__IMPORT(Math__init);
 	__REGMAIN("Flower", 0);
 /* BEGIN */
 	Flower_KD = 1;
