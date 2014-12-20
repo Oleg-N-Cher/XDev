@@ -52,4 +52,3 @@
 /* Garbage collector */
 #define SYSTEM_NoGC
 //#define SYSTEM_Use_HEAP
-
