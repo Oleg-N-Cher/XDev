@@ -8,13 +8,6 @@
 //#define Console_OUTPUT_FAST
 #define Console_OUTPUT_ROM
 
-/*---------------------------------- Timer -----------------------------------*/
-
-//#define Timer_MODE_DI
-//#define Timer_MODE_EI
-//#define Timer_DELAY_HALT
-#define Timer_DELAY_fastcall
-
 /*---------------------------------- Input -----------------------------------*/
 
 #define Input_KeyNoRepeat
@@ -22,6 +15,13 @@
 //#define Input_KeyRepeatBuf
 
 //#define Input_KeyRepeatCount 15
+
+/*---------------------------------- Timer -----------------------------------*/
+
+//#define Timer_MODE_DI
+//#define Timer_MODE_EI
+//#define Timer_DELAY_HALT
+#define Timer_DELAY_fastcall
 
 /*---------------------------------- SYSTEM ----------------------------------*/
 
