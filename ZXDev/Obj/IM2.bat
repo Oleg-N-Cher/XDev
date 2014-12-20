@@ -6,7 +6,7 @@
 
 @IF EXIST %Mod%.c @MOVE /Y %Mod%.c %Mod%
 @CD %Mod%
-%Bin%\sdcc %Mod%.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --no-std-crt0 --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %Lib% -L %Lib%/z80 Basic.lib XDev.lib
+%Bin%\sdcc %Mod%.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char --disable-warning 126 -I "." -I %Lib% -I %Lib%\C -I %Lib%\Obj -L %Lib% --disable-warning 59 --disable-warning 85 Basic.lib XDev.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
