@@ -6,6 +6,6 @@ MODULE XDevHello; (*$MAIN*)
 IMPORT C := Console;
 
 BEGIN
-	C.SetColors(C.LCyanOnBlue);
+	C.SetColors(C.LCyanOnBlue); C.Clear(C.Black);
 	C.WriteStr("Hello Cross-platform World");
 END XDevHello.
