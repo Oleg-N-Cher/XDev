@@ -1,6 +1,6 @@
 #include <spr0.h>
 
-void	spr0_out0(const Sprite0* adr, BYTE x, BYTE y)__naked{
+void	spr0_out0(const Sprite0* adr, UBYTE x, UBYTE y)__naked{
 __asm
     push  ix
     ld    ix,#4
