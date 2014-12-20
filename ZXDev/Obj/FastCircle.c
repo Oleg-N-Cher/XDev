@@ -3,7 +3,7 @@
 #include "Basic.h"
 
 
-static SHORTINT FastCircle_r;
+static INTEGER FastCircle_r;
 
 
 
@@ -18,10 +18,10 @@ export main(int argc, char **argv)
 	__REGMAIN("FastCircle", 0);
 /* BEGIN */
 	Basic_Init();
-	FastCircle_r = 0;
-	while (FastCircle_r <= 72) {
-		Basic_CIRCLE(121, 85, FastCircle_r);
-		FastCircle_r += 8;
+	FastCircle_r = 160;
+	while (FastCircle_r >= 1) {
+		Basic_CIRCLE(129, 90, FastCircle_r);
+		FastCircle_r += -1;
 	}
 	Basic_Quit();
 	__FINI;
