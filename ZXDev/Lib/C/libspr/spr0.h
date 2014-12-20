@@ -1,18 +1,18 @@
 #ifndef SPR0_H_DEFINED
 #define SPR0_H_DEFINED
 
-typedef unsigned char BYTE;
-typedef unsigned int WORD;
+typedef unsigned char UBYTE;
+typedef unsigned int UWORD;
 
 typedef struct {
-    WORD    sz;
-    BYTE    w;
-    BYTE    h;
+    UWORD   sz;
+    UBYTE   w;
+    UBYTE   h;
     char    *datap;
 }Sprite0;
 
-void    spr0_out0(const Sprite0* adr, BYTE x, BYTE y)__naked;
-void    spr0_out0_attr(const Sprite0* adr, BYTE x, BYTE y)__naked;
+void    spr0_out0(const Sprite0* adr, UBYTE x, UBYTE y)__naked;
+void    spr0_out0_attr(const Sprite0* adr, UBYTE x, UBYTE y)__naked;
 
 void    spr0_out0_setopt_nop()__naked;
 void    spr0_out0_setopt_and()__naked;
