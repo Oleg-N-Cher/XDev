@@ -3,16 +3,18 @@
 #include "Basic.h"
 
 
-static INTEGER Kubik_one, Kubik_two, Kubik_three, Kubik_four, Kubik_five, Kubik_six, Kubik_n, Kubik_number, Kubik__for__1;
+static INTEGER Kubik_one, Kubik_two, Kubik_three, Kubik_four, Kubik_five, Kubik_six, Kubik_n, Kubik_number;
 
 
 
+
+/*============================================================================*/
 
 
 export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
-	__IMPORT(Basic);
+	__IMPORT(Basic__init);
 	__REGMAIN("Kubik", 0);
 /* BEGIN */
 	Basic_RANDOMIZE(0);
@@ -23,9 +25,7 @@ export main(int argc, char **argv)
 	Kubik_five = 0;
 	Kubik_six = 0;
 	Kubik_n = 1;
-	Kubik__for__1 = 1000;
-	Kubik__for__1 = (Kubik__for__1 - Kubik_n) + 1;
-	do {
+	while (Kubik_n <= 1000) {
 		Kubik_number = Basic_RND(1, 6);
 		if (Kubik_number == 1) {
 			Kubik_one = Kubik_one + 1;
@@ -46,8 +46,7 @@ export main(int argc, char **argv)
 			Kubik_six = Kubik_six + 1;
 		}
 		Kubik_n += 1;
-		Kubik__for__1 -= 1;
-	} while (!(Kubik__for__1 == 0));
+	}
 	Basic_BORDER(0);
 	Basic_PAPER(0);
 	Basic_INK(5);
