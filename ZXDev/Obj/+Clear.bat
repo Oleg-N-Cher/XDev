@@ -1,33 +1,11 @@
-@DEL *.ihx
-@DEL *.lst
-@DEL *.map
-@DEL *.noi
-@DEL *.rel
-@DEL *.sym
-@DEL *.bin
-@DEL *.asm
-@DEL *.lk
-@ATTRIB -H *.sbm
-@DEL *.sbm
-@CD IM2
-@DEL *.ihx
-@DEL *.lst
-@DEL *.map
-@DEL *.noi
-@DEL *.rel
-@DEL *.sym
-@DEL *.bin
-@DEL *.asm
-@DEL *.lk
-@ATTRIB -H *.sbm
-@DEL *.sbm
-@CD DemoDynMem
-@DEL *.ihx
-@DEL *.lst
-@DEL *.map
-@DEL *.noi
-@DEL *.sym
-@DEL *.asm
-@DEL *.lk
+@DEL /S *.ihx
+@DEL /S *.lst
+@DEL /S *.map
+@DEL /S *.noi
+@DEL /S *.rel
+@DEL /S *.sym
+@DEL /S *.bin
+@DEL /S *.asm
+@DEL /S *.lk
 @ATTRIB -H *.sbm
 @DEL *.sbm
