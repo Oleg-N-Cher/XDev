@@ -1,9 +1,9 @@
-@SET CodeAddr=46808
+@SET CodeAddr=46824
 @SET DataAddr=63488
 @SET bin=..\Bin
 @SET lib=..\Lib
 
-%bin%\sdcc TestPT3IM2.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I "TestPT3IM2" -I %lib% -L %lib%/z80 Basic.lib PT3x0A.lib Best40.lib --disable-warning 59 --disable-warning 85
+%bin%\sdcc TestPT3IM2.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I "TestPT3IM2" -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Basic.lib PT3x0A.lib Best40.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
