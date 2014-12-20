@@ -43,6 +43,8 @@ export void TestInPar_WriteIn (CHAR *str, LONGINT str__len);
 export void TestInPar_WriteVar (CHAR *str, LONGINT str__len);
 
 
+/*============================================================================*/
+
 void TestInPar_Write (CHAR *str, LONGINT str__len)
 {
 	__DUP(str, str__len, CHAR);
@@ -50,39 +52,47 @@ void TestInPar_Write (CHAR *str, LONGINT str__len)
 	__DEL(str);
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_WriteIn (CHAR *str, LONGINT str__len)
 {
 	Console_WriteStr(str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_Write1 (CHAR *str, LONGINT str__len)
 {
 	Console_WriteStr(str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_Write2 (CHAR *str, LONGINT str__len)
 {
 	Console_WriteStr(str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_WriteVar (CHAR *str, LONGINT str__len)
 {
 	Console_WriteStr(str, str__len);
 	__COPY("bla-bla-bla", str, str__len);
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_StructIn (TestInPar_Struct *str, LONGINT *str__typ)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_StructIn1 (TestInPar_Struct1 *str, LONGINT *str__typ)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 void TestInPar_StructVar (TestInPar_Struct *str, LONGINT *str__typ)
 {
 }
 
+/*----------------------------------------------------------------------------*/
 static void EnumPtrs(void (*P)(void*))
 {
 	P(TestInPar_ptr);
