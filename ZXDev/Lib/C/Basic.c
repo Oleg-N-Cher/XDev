@@ -4,6 +4,8 @@ export void Basic_Init_DI (void);
 export void Basic_Init_IM0 (void);
 export void Basic_Init_IM2 (void);
 export void Basic_BORDER_stdcall (SHORTINT color);
+export void Basic_COLOR_fastcall (void /* Register A */);
+export void Basic_COLOR_stdcall (SHORTINT attr);
 export void Basic_INK_stdcall (SHORTINT color);
 export void Basic_INK_fastcall (void /* Register C */);
 export void Basic_PAPER_stdcall (SHORTINT color);
@@ -164,8 +166,7 @@ __endasm;
 } //Basic_INK_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK_fastcall (void /* Register C */)
-{
+void Basic_INK_fastcall (void /* Register C */) {
 __asm
   LD   A,(#ATTR_T$)
   AND  #0xF8
@@ -174,6 +175,27 @@ __asm
   LD   (#ATTR_T$),A
 __endasm;
 } //Basic_INK_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_COLOR_fastcall (void /* Register A */) {
+__asm
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_COLOR_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_COLOR_stdcall (SHORTINT attr) __naked {
+__asm
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
+  JP   (HL)
+__endasm;
+} //Basic_COLOR_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAPER_stdcall (SHORTINT color) __naked {

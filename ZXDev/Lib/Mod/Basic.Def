@@ -7,27 +7,28 @@ MODULE Basic; (** non-portable *)
 IMPORT SYSTEM;
 
 CONST
-	Black* = 0;
-	Blue* = 1;
-	Red* = 2;
-	Magenta* = 3;
-	Green* = 4;
-	Cyan* = 5;
-	Olive* = 6;
-	LightGray* = 7;
-	Bright* = 40H;
-	Flash* = 80H;
+	Black        * =   0;
+	Blue         * =   1;
+	Red          * =   2;
+	Magenta      * =   3;
+	Green        * =   4;
+	Cyan         * =   5;
+	Olive        * =   6;
+	LightGray    * =   7;
+	Paper        * =   8;
+	Bright       * = 40H;
+	Flash        * = 80H;
 
-	LightBlue* = Blue;
-	LightRed* = Red;
-	LightMagenta* = Magenta;
-	LightGreen* = Green;
-	LightCyan* = Cyan;
-	Yellow* = Olive;
-	White* = LightGray;
+	LightBlue    * = Blue;
+	LightRed     * = Red;
+	LightMagenta * = Magenta;
+	LightGreen   * = Green;
+	LightCyan    * = Cyan;
+	Yellow       * = Olive;
+	White        * = LightGray;
 
-	On* = 1;
-	Off* = 0;
+	On           * = 1;
+	Off          * = 0;
 
 	WaitAKey* = 0; NoKeys* = 0X;
 	
@@ -53,6 +54,7 @@ PROCEDURE BRIGHT* (mode: Mode); END BRIGHT;
 PROCEDURE CIRCLE* (cx, cy, radius: INTEGER); END CIRCLE;
 PROCEDURE CIRCLEROM* (cx, cy, radius: Coords); END CIRCLEROM;
 PROCEDURE CLS* ; END CLS;
+PROCEDURE COLOR* (attr: UBYTE); END COLOR;
 PROCEDURE DATA* (b: UBYTE); END DATA;
 PROCEDURE DATA1* (b: UBYTE); END DATA1;
 PROCEDURE DATA2* (b1,b2: UBYTE); END DATA2;
