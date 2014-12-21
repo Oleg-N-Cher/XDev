@@ -2,7 +2,7 @@
 
 @IF EXIST %1 GOTO config
 
-%sdcc% -c %1.c -I "."
+%sdcc% -c %1.c -I ..\Lib
 @GOTO exit
 
 :config

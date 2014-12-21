@@ -3,7 +3,7 @@
 @SET bin=..\Bin
 @SET lib=..\Lib
 
-%bin%\sdcc MiraTest.c -mz80 --reserve-regs-iy --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I "." -I %lib%\C -I %lib%\Obj -L %lib% Basic.lib MiraMod2.lib --disable-warning 59 --disable-warning 85
+%bin%\sdcc MiraTest.c -mz80 --reserve-regs-iy --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% Basic.lib MiraMod2.lib --disable-warning 59 --disable-warning 85
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary

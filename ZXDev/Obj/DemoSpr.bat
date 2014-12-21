@@ -3,7 +3,7 @@
 @SET bin=..\Bin
 @SET lib=..\Lib
 
-%bin%\sdcc DemoSpr.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --no-std-crt0 --opt-code-size --funsigned-char -I "." -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% Basic.lib libspr.lib --disable-warning 59 --disable-warning 85
+%bin%\sdcc DemoSpr.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --no-std-crt0 --opt-code-size --funsigned-char -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Basic.lib libspr.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
