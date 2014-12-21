@@ -4,7 +4,7 @@
 
 @IF EXIST %1 GOTO config
 
-%sdcc% %1.c -I "."
+%sdcc% %1.c -I ..\Lib
 @GOTO link
 
 :config

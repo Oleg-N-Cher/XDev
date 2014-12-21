@@ -8,7 +8,7 @@
 @IF EXIST %obj%\Unsigned.h @DEL %obj%\Unsigned.h
 @IF EXIST %obj%\Unsigned.sym @DEL %obj%\Unsigned.sym
 @IF EXIST %obj%\Unsigned.c @MOVE /Y %obj%\Unsigned.c
-%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --opt-code-size --funsigned-char -I "." -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 158 Unsigned.c Basic.lib
+%bin%\sdcc -mz80 --code-loc 26000 --data-loc 0xF800 --opt-code-size --funsigned-char -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 158 Unsigned.c Basic.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary

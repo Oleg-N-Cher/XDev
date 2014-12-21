@@ -3,7 +3,7 @@
 @SET bin=..\Bin
 @SET lib=..\Lib
 
-%bin%\sdcc TestPT3.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I "." -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Basic.lib PT3x0A.lib
+%bin%\sdcc TestPT3.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Basic.lib PT3x0A.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
