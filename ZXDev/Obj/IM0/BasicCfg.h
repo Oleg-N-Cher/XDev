@@ -14,8 +14,12 @@
 
 /* Use fastcall model (the function parameters passed in regs.)  */
 /* Use fastcall _ONLY_ if a function's parameters are constants. */
+//#define AT_fastcall
 //#define BORDER_fastcall
 //#define INK_fastcall
 //#define PAPER_fastcall
 //#define FLASH_fastcall
 //#define BRIGHT_fastcall
+//#define OVER_fastcall
+//#define INVERSE_fastcall
+//#define PRSTR_fastcall
