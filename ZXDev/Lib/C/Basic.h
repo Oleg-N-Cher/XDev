@@ -51,6 +51,14 @@ import void Basic_INK_fastcall (void /* Register C */);
   #define Basic_INK(color) __ld_c__(color); Basic_INK_fastcall()
 #endif
 
+import void Basic_COLOR_fastcall (void /* Register A */);
+import void Basic_COLOR_stdcall (SHORTINT attr);
+#ifndef COLOR_fastcall
+  #define Basic_COLOR Basic_COLOR_stdcall
+#else //COLOR_fastcall
+  #define Basic_COLOR(attr) __ld_a__(attr); Basic_COLOR_fastcall()
+#endif
+
 import void Basic_PAPER_stdcall (SHORTINT color);
 import void Basic_PAPER_fastcall (void /* Register C */);
 #ifndef PAPER_fastcall
