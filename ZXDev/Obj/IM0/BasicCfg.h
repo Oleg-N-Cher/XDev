@@ -22,4 +22,5 @@
 //#define BRIGHT_fastcall
 //#define OVER_fastcall
 //#define INVERSE_fastcall
+//#define PAUSE_fastcall
 //#define PRSTR_fastcall
