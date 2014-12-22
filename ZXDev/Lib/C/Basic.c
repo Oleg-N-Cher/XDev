@@ -156,11 +156,11 @@ __asm
   POP  HL
   POP  BC
   PUSH BC
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   AND  #0xF8
   OR   C
-  LD   (#SETV_A$),A
-  LD   (#ATTR_T$),A
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
   JP   (HL)
 __endasm;
 } //Basic_INK_stdcall
@@ -168,11 +168,11 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INK_fastcall (void /* Register C */) {
 __asm
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   AND  #0xF8
   OR   C
-  LD   (#SETV_A$),A
-  LD   (#ATTR_T$),A
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
 __endasm;
 } //Basic_INK_fastcall
 
@@ -203,14 +203,14 @@ __asm
   POP  HL
   POP  BC
   PUSH BC
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   AND  #0xC7
   SLA  C
   SLA  C
   SLA  C
   OR   C
-  LD   (#SETV_A$),A
-  LD   (#ATTR_T$),A
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
   JP   (HL)
 __endasm;
 } //Basic_PAPER_stdcall
@@ -218,14 +218,14 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAPER_fastcall (void /* Register C */) {
 __asm
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   AND  #0xC7
   SLA  C
   SLA  C
   SLA  C
   OR   C
-  LD   (#SETV_A$),A
-  LD   (#ATTR_T$),A
+  LD   (SETV_A$),A
+  LD   (ATTR_T$),A
 __endasm;
 } //Basic_PAPER_fastcall
 
@@ -442,11 +442,11 @@ void Basic_CLS_ZX (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   PUSH AF
   CALL 0xD6B // IX-safe
   POP  AF
-  LD   (#ATTR_T$),A
+  LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_ZX
 
@@ -455,17 +455,17 @@ void Basic_CLS_FULLSCREEN (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   PUSH AF
   LD   A,(#0x5C48)
   PUSH AF
-  LD   A,(#SETV_A$)
+  LD   A,(SETV_A$)
   LD   (#0x5C48),A
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (#0x5C48),A
   POP  AF
-  LD   (#ATTR_T$),A
+  LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_FULLSCREEN
 
@@ -572,7 +572,7 @@ _OVER_MODE:
   RRCA
   ADD  A,#0x58
   LD   H,A
-  LD   A,(#ATTR_T$)
+  LD   A,(ATTR_T$)
   LD   (HL),A
   POP  HL
   INC  L
@@ -746,6 +746,8 @@ void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
     LD   A, H
     OR   L
     RET  Z
+    AND  #0x80
+    RET  NZ
     PUSH IX
     LD   D, #0
     LD   E, C
@@ -919,6 +921,8 @@ void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
     LD   A, H
     OR   L
     RET  Z
+    AND  #0x80
+    RET  NZ
     PUSH IX
     DI
     LD   D, #0
@@ -1084,17 +1088,20 @@ WRAP1$:
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
 __asm
+  LD   IY,#0x5C3A
   PUSH IX
   LD   IX,#0
   ADD  IX,SP
-  LD    A,4(IX) /* cx */
-  CALL  0x2D28
-  LD    A,5(IX) /* cy */
-  CALL  0x2D28
-  LD    A,6(IX) /* radius */
-  CALL  0x2D28
-  CALL  0x232D
+  LD   A,4(IX) /* cx */
+  CALL 0x2D28
+  LD   A,5(IX) /* cy */
+  CALL 0x2D28
+  LD   A,6(IX) /* radius */
+  CALL 0x2D28
+  CALL 0x232D
   POP  IX
+  LD   A,(SETV_A$)
+  LD   (ATTR_T$),A
   RET
 __endasm;
 } //Basic_CIRCLEROM
