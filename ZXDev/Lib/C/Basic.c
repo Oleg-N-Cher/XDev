@@ -442,10 +442,8 @@ void Basic_CLS_ZX (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(ATTR_T$)
-  PUSH AF
   CALL 0xD6B // IX-safe
-  POP  AF
+  LD   A,(SETV_A$)
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_ZX
@@ -455,8 +453,6 @@ void Basic_CLS_FULLSCREEN (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(ATTR_T$)
-  PUSH AF
   LD   A,(#0x5C48)
   PUSH AF
   LD   A,(SETV_A$)
@@ -464,7 +460,7 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (#0x5C48),A
-  POP  AF
+  LD   A,(SETV_A$)
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_FULLSCREEN
