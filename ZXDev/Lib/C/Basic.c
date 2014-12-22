@@ -66,7 +66,7 @@ import CARDINAL _Basic_RandBB (void);
 /* Video temp attrib */
 #define ATTR_T$ 0x5C8F
 /* Set video attrib */
-#define SETV_A$ 0x5C8D
+#define ATTR_P$ 0x5C8D
 /* (Font_address - 256) */
 #define CHAR_SET$ 0x5C36
 /*================================== Header ==================================*/
@@ -161,7 +161,7 @@ __asm
   LD   A,(ATTR_T$)
   AND  #0xF8
   OR   C
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
   JP   (HL)
 __endasm;
@@ -173,7 +173,7 @@ __asm
   LD   A,(ATTR_T$)
   AND  #0xF8
   OR   C
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_INK_fastcall
@@ -181,7 +181,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_COLOR_fastcall (void /* Register A */) {
 __asm
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_COLOR_fastcall
@@ -193,7 +193,7 @@ __asm
   POP  BC
   PUSH BC
   LD   A,C
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
   JP   (HL)
 __endasm;
@@ -211,7 +211,7 @@ __asm
   SLA  C
   SLA  C
   OR   C
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
   JP   (HL)
 __endasm;
@@ -226,7 +226,7 @@ __asm
   SLA  C
   SLA  C
   OR   C
-  LD   (SETV_A$),A
+  LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_PAPER_fastcall
@@ -461,7 +461,7 @@ __asm
   PUSH AF
   LD   A,(#0x5C48)
   PUSH AF
-  LD   A,(SETV_A$)
+  LD   A,(ATTR_P$)
   LD   (#0x5C48),A
   CALL 0xD6B // IX-safe
   POP  AF
@@ -1102,7 +1102,7 @@ __asm
   CALL 0x2D28
   CALL 0x232D
   POP  IX
-  LD   A,(SETV_A$)
+  LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
   RET
 __endasm;
