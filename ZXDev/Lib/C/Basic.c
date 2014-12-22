@@ -46,8 +46,10 @@ export void Basic_PRINT_ROM (INTEGER i);
 export void Basic_PRWORD_FAST (CARDINAL n);
 export void Basic_PRWORD_ROM (CARDINAL n);
 export BOOLEAN Basic_KeyPressed (void);
-export void Basic_PAUSE_DI (CARDINAL ticks);
-export void Basic_PAUSE_EI (CARDINAL ticks);
+export void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
+export void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
+export void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
+export void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 export void Basic_RANDOMIZE (CARDINAL seed);
 export SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
 export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
@@ -442,8 +444,10 @@ void Basic_CLS_ZX (void)
 {
 __asm
   LD   IY,#0x5C3A
+  LD   A,(ATTR_T$)
+  PUSH AF
   CALL 0xD6B // IX-safe
-  LD   A,(SETV_A$)
+  POP  AF
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_ZX
@@ -453,6 +457,8 @@ void Basic_CLS_FULLSCREEN (void)
 {
 __asm
   LD   IY,#0x5C3A
+  LD   A,(ATTR_T$)
+  PUSH AF
   LD   A,(#0x5C48)
   PUSH AF
   LD   A,(SETV_A$)
@@ -460,7 +466,7 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (#0x5C48),A
-  LD   A,(SETV_A$)
+  POP  AF
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_FULLSCREEN
@@ -1282,7 +1288,28 @@ __endasm;
 } //Basic_KeyPressed
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_DI (CARDINAL ticks) {
+void Basic_PAUSE_DI_fastcall (void /* Regs BC */) {
+__asm
+  LD   IY,#0x5C3A
+  EI
+  LD   A,C
+  OR   B
+  JR   NZ,PauseDiF$
+  CALL #0x1F3D
+  JR   EndPauseDiF$
+PauseDiF$:
+  HALT
+  DEC  BC
+  LD   A,C
+  OR   B
+  JR   NZ,PauseDiF$
+EndPauseDiF$:
+  DI
+__endasm;
+} //Basic_PAUSE_DI_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAUSE_DI_stdcall (CARDINAL ticks) {
 __asm
   LD   IY,#0x5C3A
   POP  HL
@@ -1292,22 +1319,38 @@ __asm
   EI
   LD   A,C
   OR   B
-  JR   NZ,PauseDi$
+  JR   NZ,PauseDiS$
   CALL #0x1F3D
-  JR   EndPauseDi$
-PauseDi$:
+  JR   EndPauseDiS$
+PauseDiS$:
   HALT
   DEC  BC
   LD   A,C
   OR   B
-  JR   NZ,PauseDi$
-EndPauseDi$:
+  JR   NZ,PauseDiS$
+EndPauseDiS$:
   DI
 __endasm;
-} //Basic_PAUSE_DI
+} //Basic_PAUSE_DI_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_EI (CARDINAL ticks) {
+void Basic_PAUSE_EI_fastcall (void /* Regs BC */) {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,C
+  OR   B
+  JP   Z,0x1F3D
+PauseEiF$:
+  HALT
+  DEC  BC
+  LD   A,C
+  OR   B
+  JR   NZ,PauseEiF$
+__endasm;
+} //Basic_PAUSE_EI_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAUSE_EI_stdcall (CARDINAL ticks) {
 __asm
   LD   IY,#0x5C3A
   POP  HL
@@ -1317,12 +1360,12 @@ __asm
   LD   A,C
   OR   B
   JP   Z,0x1F3D
-PauseEi$:
+PauseEiS$:
   HALT
   DEC  BC
   LD   A,C
   OR   B
-  JR   NZ,PauseEi$
+  JR   NZ,PauseEiS$
 __endasm;
 } //Basic_PAUSE_EI
 

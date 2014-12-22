@@ -8,6 +8,7 @@
 #define __id__(x) x
 #define __ld_a__(x) if(x==0) {__asm xor a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
+#define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
 import void Basic_Init_DI (void);
 import void Basic_Init_IM0 (void);
@@ -215,16 +216,30 @@ import void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 
 import BOOLEAN Basic_KeyPressed (void);
 
-import void Basic_PAUSE_DI (CARDINAL ticks);
-import void Basic_PAUSE_EI (CARDINAL ticks);
+import void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
+import void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
+import void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
+import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
-#  define Basic_PAUSE Basic_PAUSE_DI
+#  ifdef PAUSE_fastcall
+#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_DI_fastcall()
+#  else
+#    define Basic_PAUSE Basic_PAUSE_DI_stdcall
+#  endif
 #endif //MODE_DI
 #if defined (MODE_IM0) || defined (MODE_IM0_inline)
-#  define Basic_PAUSE Basic_PAUSE_EI
+#  ifdef PAUSE_fastcall
+#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
+#  else
+#    define Basic_PAUSE Basic_PAUSE_EI_stdcall
+#  endif
 #endif //MODE_IM0
 #ifdef MODE_IM2
-#  define Basic_PAUSE Basic_PAUSE_EI
+#  ifdef PAUSE_fastcall
+#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
+#  else
+#    define Basic_PAUSE Basic_PAUSE_EI_stdcall
+#  endif
 #endif //MODE_IM2
 
 
