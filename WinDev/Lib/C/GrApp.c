@@ -15,7 +15,7 @@ export INTEGER GrApp_Black, GrApp_Blue, GrApp_Green, GrApp_Cyan, GrApp_Red,
   GrApp_Yellow, GrApp_LightWhite, GrApp_Orange;
 
 export void GrApp_Close (void);
-export void GrApp_Update (void);
+export void GrApp_Redraw (void);
 
 
 void GrApp_Close (void)
@@ -23,8 +23,7 @@ void GrApp_Close (void)
 	SdlLib_Quit();
 }
 
-void GrApp_Update (void)
-{
+void GrApp_Redraw (void) {
 	SdlLib_Flip(GrApp_Screen);
 }
 
@@ -55,7 +54,7 @@ export void GrApp_Init (void)
 	__IMPORT(SdlLib__init);
 	__REGMOD("GrApp", 0);
 	__REGCMD("Close", GrApp_Close);
-	__REGCMD("Update", GrApp_Update);
+	__REGCMD("Redraw", GrApp_Redraw);
 /* BEGIN */
 	if (SdlLib_Init(0x20) < 0) {
 		__HALT(1);

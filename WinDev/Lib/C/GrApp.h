@@ -22,7 +22,7 @@ import INTEGER GrApp_Black, GrApp_Blue, GrApp_Green, GrApp_Cyan, GrApp_Red,
 
 
 import void GrApp_Close (void);
-import void GrApp_Update (void);
+import void GrApp_Redraw (void);
 #define GrApp__init()
 
 
