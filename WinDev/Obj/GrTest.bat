@@ -2,7 +2,8 @@
 @SET Lib=..\Lib
 @SET tcc=%Bin%\tcc\tcc
 
-%tcc% GrTest.c -D_WINGUI -I "." -I %Lib% %Lib%\WinDev.a %Lib%\Sdl\SdlLib.a %Bin%\tcc\lib\SDL.def -o GrTest.exe
+%tcc% GrTest.c -D_SDLGUI -I %Lib% -I %Lib%\C -I %Lib%\Obj %Lib%\XDev.a %Bin%\tcc\lib\SDL.def -o ..\GrTest.exe
 @IF errorlevel 1 PAUSE
-@IF EXIST GrTest.exe MOVE GrTest.exe ..
-@START ..\GrTest.exe
+
+@CD ..
+@IF EXIST GrTest.exe START GrTest.exe
