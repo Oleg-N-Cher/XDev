@@ -8,7 +8,6 @@ CONST
   BEGIN
     Asm.Code("LD   IY,#0x5C3A");
     Asm.Code("RST  0x38 ");
-    Asm.Code("EI");
   END ProcIM2;
 
 BEGIN (*$MAIN*)

@@ -15,7 +15,6 @@ static void IM2_ProcIM2 (void)
 {
 	Asm_Code((CHAR*)"LD   IY,#0x5C3A", (LONGINT)16);
 	Asm_Code((CHAR*)"RST  0x38 ", (LONGINT)11);
-	Asm_Code((CHAR*)"EI", (LONGINT)3);
 }
 
 
