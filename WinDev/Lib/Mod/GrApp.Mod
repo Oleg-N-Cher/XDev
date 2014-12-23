@@ -126,6 +126,14 @@ BEGIN
   Sdl.Quit;
 END Close;
 
+PROCEDURE FillArea* (color: Color);
+BEGIN
+  IF MustLock & (Sdl.LockSurface(Screen) = 0) THEN RETURN END;
+  (* dstrect is NIL, the whole surface will be filled with color. *)
+  Ignore.Int(Sdl.FillRect(Screen, NIL, color));
+  IF MustLock THEN Sdl.UnlockSurface(Screen) END;
+END FillArea;
+
 PROCEDURE Redraw* ;
 BEGIN
   Ignore.Int( Sdl.Flip(Screen) );
