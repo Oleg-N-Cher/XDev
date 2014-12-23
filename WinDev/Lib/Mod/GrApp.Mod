@@ -126,10 +126,10 @@ BEGIN
   Sdl.Quit;
 END Close;
 
-PROCEDURE Update* ;
+PROCEDURE Redraw* ;
 BEGIN
   Ignore.Int( Sdl.Flip(Screen) );
-END Update;
+END Redraw;
 
 BEGIN
   IF Sdl.Init(Sdl.INIT_VIDEO) < 0 THEN HALT(1) END;
