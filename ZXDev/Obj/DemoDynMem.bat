@@ -12,6 +12,5 @@
 @REM Convert Intel hex format to binary
 @REM ==================================
 %Bin%\hex2bin %Mod%.ihx
-%Bin%\bin2data.exe -rem -org %CodeAddr% %Mod%.bin ..\..\%Mod%.tap %Mod%
-@CD ..
+%Bin%\bin2data.exe -rem -org %CodeAddr% %Mod%.bin ..\%Mod%.tap %Mod%
 @START ..\%Mod%.tap
