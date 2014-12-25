@@ -142,7 +142,7 @@ END Redraw;
 BEGIN
   IF Sdl.Init(Sdl.INIT_VIDEO) < 0 THEN HALT(1) END;
   IF Cfg.AppTitle # NIL THEN
-    Sdl.WM_SetCaption(SYSTEM.VAL(Sdl.PChar, SYSTEM.ADR(AppTitle)), NIL);
+    Sdl.WM_SetCaption(AppTitle^, NIL);
   END;
     Screen := Sdl.SetVideoMode (ActualWidth, ActualHeight,
       DepthBits, Sdl.SWSURFACE + Sdl.DOUBLEBUF);
