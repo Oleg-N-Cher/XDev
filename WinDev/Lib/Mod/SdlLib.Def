@@ -686,8 +686,8 @@ TYPE
 	Double* 	= LONGREAL; (* 64 bit *)
 	Integer*	= INTEGER;
 	LongWord* = Cardinal;
-	PChar*		= SYSTEM.PTR;
-	Pointer*	= SYSTEM.PTR;
+	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
+	Pointer*	= POINTER [1] TO ARRAY [1] OF Byte;
 	Single* 	= REAL; (* 32 bit *)
 	Word*		 = SHORTINT; (* 16 bit *)
 
@@ -1642,9 +1642,9 @@ PROCEDURE -Quit* "SDL_Quit()";
 
 (* This should be called from your WinMain() function, if any *)
 PROCEDURE -SDL_RegisterApp* (
-	name: ARRAY[1] OF Char; style: UInt32; hInst: Pointer): Integer;
+	name: PChar; style: UInt32; hInst: Pointer): Integer;
 PROCEDURE -RegisterApp* (
-	name: ARRAY[1] OF Char; style: UInt32; hInst: Pointer): Integer
+	name: PChar; style: UInt32; hInst: Pointer): Integer
 	"SDL_RegisterApp(name, style, hInst)";
 (*
 {$IFDEF __MACH__}
@@ -1659,9 +1659,8 @@ cdecl; external {$IFNDEF NDS}{$IFDEF __GPC__}name ''{$ELSE} SDLLibName{$ENDIF __
 (*																		Types																	 *)
 (*----------------------------------------------------------------------------*)
 (* The number of elements in a table *)
-PROCEDURE -SDL_TableSize* (table: ARRAY[1] OF Char): Integer;
-PROCEDURE -TableSize* (table: ARRAY[1] OF Char): Integer
-	"SDL_TableSize(table)";
+PROCEDURE -SDL_TableSize* (table: PChar): Integer;
+PROCEDURE -TableSize* (table: PChar): Integer "SDL_TableSize(table)";
 
 
 (*----------------------------------------------------------------------------*)
@@ -1671,8 +1670,8 @@ PROCEDURE -TableSize* (table: ARRAY[1] OF Char): Integer
 PROCEDURE -SDL_GetError* (): PChar;
 PROCEDURE -GetError* (): PChar "SDL_GetError()";
 
-PROCEDURE -SDL_SetError* (fmt: ARRAY[1] OF Char);
-PROCEDURE -SetError* (fmt: ARRAY[1] OF Char) "SDL_SetError(fmt)";
+PROCEDURE -SDL_SetError* (fmt: PChar);
+PROCEDURE -SetError* (fmt: PChar) "SDL_SetError(fmt)";
 
 PROCEDURE -SDL_ClearError* ;
 PROCEDURE -ClearError* "SDL_ClearError()";
@@ -1692,8 +1691,8 @@ PROCEDURE -OutOfMemory* "SDL_OutOfMemory()";
 
 (* Functions to create SDL_RWops structures from various data sources *)
 
-PROCEDURE -SDL_RWFromFile* (fileName, mode: ARRAY[1] OF Char): PRWops;
-PROCEDURE -RWFromFile* (fileName, mode: ARRAY[1] OF Char): PRWops
+PROCEDURE -SDL_RWFromFile* (fileName, mode: PChar): PRWops;
+PROCEDURE -RWFromFile* (fileName, mode: PChar): PRWops
 	"SDL_RWFromFile(fileName, mode)";
 
 PROCEDURE -SDL_FreeRW* (area: PRWops);
@@ -1753,8 +1752,8 @@ PROCEDURE -SetTimer* (interval: UInt32; callback: TimerCallback): Integer
 	 have a specific need to specify the audio driver you want to use.
 	 You should normally use SDL_Init() or SDL_InitSubSystem(). *)
 
-PROCEDURE -SDL_AudioInit* (driverName: ARRAY[1] OF Char): Integer;
-PROCEDURE -AudioInit* (driverName: ARRAY[1] OF Char): Integer "SDL_AudioInit(driverName)";
+PROCEDURE -SDL_AudioInit* (driverName: PChar): Integer;
+PROCEDURE -AudioInit* (driverName: PChar): Integer "SDL_AudioInit(driverName)";
 
 PROCEDURE -SDL_AudioQuit* ;
 PROCEDURE -AudioQuit* "SDL_AudioQuit()";
@@ -1763,10 +1762,9 @@ PROCEDURE -AudioQuit* "SDL_AudioQuit()";
 	 current audio driver, and returns a Pointer to it if the audio driver has
 	 been initialized.	It returns NULL if no driver has been initialized. *)
 
-PROCEDURE -SDL_AudioDriverName* (
-	nameBuf: ARRAY[1] OF Char; maxLen: Integer): PChar;
-PROCEDURE -AudioDriverName* (nameBuf: ARRAY[1] OF Char;
-	maxLen: Integer): PChar "SDL_AudioDriverName(nameBuf, maxLen)";
+PROCEDURE -SDL_AudioDriverName* (nameBuf: PChar; maxLen: Integer): PChar;
+PROCEDURE -AudioDriverName* (nameBuf: PChar; maxLen: Integer): PChar
+	"SDL_AudioDriverName(nameBuf, maxLen)";
 
 (* This procedure opens the audio device with the desired parameters, and
 	 returns 0 if successful, placing the actual hardware parameters in the
@@ -2208,8 +2206,8 @@ PROCEDURE -Linked_Version* (): PVersion "SDL_Linked_Version()";
 	 SDL_Init() before opening the sound device, otherwise under Win32 DirectX,
 	 you won't be able to set full-screen display modes. *)
 
-PROCEDURE -SDL_VideoInit* (driverName: ARRAY[1] OF Char; flags: SET): Integer;
-PROCEDURE -VideoInit* (driverName: ARRAY[1] OF Char; flags: SET): Integer
+PROCEDURE -SDL_VideoInit* (driverName: PChar; flags: SET): Integer;
+PROCEDURE -VideoInit* (driverName: PChar; flags: SET): Integer
 	"SDL_VideoInit(driverName, flags)";
 
 PROCEDURE -SDL_VideoQuit* ;
@@ -2219,10 +2217,9 @@ PROCEDURE -VideoQuit* "SDL_VideoQuit()";
 	 video driver, and returns a pointer to it if the video driver has
 	 been initialized.	It returns NULL if no driver has been initialized. *)
 
-PROCEDURE -SDL_VideoDriverName* (
-	nameBuf: ARRAY[1] OF Char; maxLen: Integer): PChar;
-PROCEDURE -VideoDriverName* (nameBuf: ARRAY[1] OF Char;
-	maxLen: Integer): PChar "SDL_VideoDriverName(nameBuf, maxLen)";
+PROCEDURE -SDL_VideoDriverName* (nameBuf: PChar; maxLen: Integer): PChar;
+PROCEDURE -VideoDriverName* (nameBuf: PChar; maxLen: Integer): PChar
+	"SDL_VideoDriverName(nameBuf, maxLen)";
 
 (* This procedure returns a pointer to the current display surface.
 	 If SDL is doing format conversion on the display surface, this
@@ -2794,16 +2791,15 @@ PROCEDURE -FreeYUVOverlay* (overlay: POverlay) "SDL_FreeYUVOverlay(overlay)";
 
 	 This is disabled in default builds of SDL. *)
 
-PROCEDURE -SDL_GL_LoadLibrary* (fileName: ARRAY[1] OF Char): Integer;
-PROCEDURE -GL_LoadLibrary* (fileName: ARRAY[1] OF Char): Integer
+PROCEDURE -SDL_GL_LoadLibrary* (fileName: PChar): Integer;
+PROCEDURE -GL_LoadLibrary* (fileName: PChar): Integer
 	"SDL_GL_LoadLibrary(fileName)";
 
 (* Get the address of a GL procedure (for extension functions) *)
 
-PROCEDURE -SDL_GL_GetProcAddress* (
-	procName: ARRAY[1] OF Char): Address (*Pointer*) ;
-PROCEDURE -GL_GetProcAddress* (procName: ARRAY[1] OF Char): Address
-	(*Pointer*) "SDL_GL_GetProcAddress(procName)";
+PROCEDURE -SDL_GL_GetProcAddress* (procName: PChar): Address (*Pointer*) ;
+PROCEDURE -GL_GetProcAddress* (procName: PChar): Address (*Pointer*)
+	"SDL_GL_GetProcAddress(procName)";
 
 (* Set an attribute of the OpenGL subsystem before intialization. *)
 
@@ -2847,13 +2843,12 @@ PROCEDURE -GL_Unlock* "SDL_GL_Unlock()";
 
 (* Sets/Gets the title and icon text of the display window *)
 
-PROCEDURE -SDL_WM_GetCaption* (
-	VAR title: ARRAY[1] OF Char; VAR icon: ARRAY[1] OF Char);
-PROCEDURE -WM_GetCaption* (VAR title: ARRAY[1] OF Char;
-	VAR icon: ARRAY[1] OF Char) "SDL_WM_GetCaption(title, icon)";
+PROCEDURE -SDL_WM_GetCaption* (VAR title: PChar; VAR icon: PChar);
+PROCEDURE -WM_GetCaption* (VAR title: PChar; VAR icon: PChar)
+	"SDL_WM_GetCaption(title, icon)";
 
-PROCEDURE -SDL_WM_SetCaption* (VAR[nil] title, icon: ARRAY[1] OF Char);
-PROCEDURE -WM_SetCaption* (VAR[nil]title, icon: ARRAY[1] OF Char)
+PROCEDURE -SDL_WM_SetCaption* (title, icon: PChar);
+PROCEDURE -WM_SetCaption* (title, icon: PChar)
 	"SDL_WM_SetCaption(title, icon)";
 
 (* Sets the icon for the display window.
@@ -3239,18 +3234,16 @@ PROCEDURE -GetWMInfo* (info: OS.PSysWMinfo): Integer "SDL_GetWMInfo(info)";
  * to the object handle (or NULL if there was an error).
  * The 'sofile' parameter is a system dependent name of the object file.
  *)
-PROCEDURE -SDL_LoadObject* (IN soFile: ARRAY[1] OF Char): Pointer;
-PROCEDURE -LoadObject* (IN soFile: ARRAY[1] OF Char): Pointer
-	"SDL_LoadObject(soFile)";
+PROCEDURE -SDL_LoadObject* (IN soFile: PChar): Pointer;
+PROCEDURE -LoadObject* (IN soFile: PChar): Pointer "SDL_LoadObject(soFile)";
 
 (* Given an object handle, this procedure looks up the address of the
  * named procedure in the shared object and returns it.	This address
  * is no longer valid after calling SDL_UnloadObject().
  *)
-PROCEDURE -SDL_LoadFunction* (
-	handle: Pointer; IN name: ARRAY[1] OF Char): Pointer;
-PROCEDURE -LoadFunction* (handle: Pointer;
-	IN name: ARRAY[1] OF Char): Pointer "SDL_LoadFunction(handle, name)";
+PROCEDURE -SDL_LoadFunction* (handle: Pointer; IN name: PChar): Pointer;
+PROCEDURE -LoadFunction* (handle: Pointer; IN name: PChar): Pointer
+	"SDL_LoadFunction(handle, name)";
 
 (* Unload a shared object from memory *)
 PROCEDURE -SDL_UnloadObject* (handle: Pointer);

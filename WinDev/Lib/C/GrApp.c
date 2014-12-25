@@ -71,7 +71,7 @@ export void GrApp_Init (void)
   if (SdlLib_Init(0x20) < 0) {
     __HALT(1);
   }
-  SdlLib_WM_SetCaption(GrApp_AppTitle, 0, NIL, 0);
+  SdlLib_WM_SetCaption((SdlLib_PChar)GrApp_AppTitle, NIL);
   GrApp_Screen = SdlLib_SetVideoMode(GrApp_ActualWidth, GrApp_ActualHeight, GrApp_DepthBits, 0x40000000);
   if (GrApp_Screen == NIL) {
     SdlLib_Quit();

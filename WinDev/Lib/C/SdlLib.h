@@ -6,9 +6,15 @@
 #include "SYSTEM.h"
 #include "SdlWin32.h"
 
+typedef
+	struct {
+		LONGINT len[1];
+		BYTE data[1];
+	} *SdlLib_Pointer;
+
 struct SdlLib__1 {
 	INTEGER autoclose;
-	SYSTEM_PTR fp;
+	SdlLib_Pointer fp;
 };
 
 typedef
@@ -22,7 +28,7 @@ struct SdlLib__2 {
 };
 
 struct SdlLib__3 {
-	SYSTEM_PTR data1;
+	SdlLib_Pointer data1;
 };
 
 struct SdlLib__4 {
@@ -65,7 +71,7 @@ typedef
 	} SdlLib_AudioCVTFilter;
 
 typedef
-	void (*SdlLib_AudioSpecCallback)(SYSTEM_PTR, CHAR*, INTEGER);
+	void (*SdlLib_AudioSpecCallback)(SdlLib_Pointer, CHAR*, INTEGER);
 
 typedef
 	struct SdlLib_AudioSpec {
@@ -75,7 +81,7 @@ typedef
 		SHORTINT samples, padding;
 		INTEGER size;
 		SdlLib_AudioSpecCallback callback;
-		SYSTEM_PTR userdata;
+		SdlLib_Pointer userdata;
 	} SdlLib_AudioSpec;
 
 typedef
@@ -101,7 +107,7 @@ typedef
 		INTEGER s_width, s_height, s_skip;
 		SdlLib_PUInt8 d_pixels;
 		INTEGER d_width, d_height, d_skip;
-		SYSTEM_PTR aux_data;
+		SdlLib_Pointer aux_data;
 		SdlLib_PPixelFormat src;
 		SdlLib_PUInt8 table;
 		SdlLib_PPixelFormat dst;
@@ -140,7 +146,7 @@ typedef
 		SHORTINT hot_x, hot_y;
 		SdlLib_PUInt8 data, mask;
 		SdlLib_PUInt8 save[2];
-		SYSTEM_PTR wm_cursor;
+		SdlLib_Pointer wm_cursor;
 	} SdlLib_Cursor;
 
 typedef
@@ -189,6 +195,12 @@ typedef
 typedef
 	struct {
 		LONGINT len[1];
+		CHAR data[1];
+	} *SdlLib_PChar;
+
+typedef
+	struct {
+		LONGINT len[1];
 		SHORTINT data[1];
 	} *SdlLib_PUInt16;
 
@@ -201,7 +213,7 @@ typedef
 typedef
 	struct SdlLib_Joystick {
 		CHAR index;
-		SYSTEM_PTR name;
+		SdlLib_PChar name;
 		INTEGER naxes;
 		SdlLib_PUInt16 axes;
 		INTEGER nhats;
@@ -256,13 +268,13 @@ typedef
 	} SdlLib_MouseMotionEvent;
 
 typedef
-	INTEGER (*SdlLib_NewTimerCallback)(INTEGER, SYSTEM_PTR);
+	INTEGER (*SdlLib_NewTimerCallback)(INTEGER, SdlLib_Pointer);
 
 typedef
 	struct SdlLib_Overlay {
 		INTEGER format, w, h, planes;
 		SdlLib_PUInt16 pitches;
-		SYSTEM_PTR pixels;
+		SdlLib_Pointer pixels;
 		INTEGER hw_overlay;
 	} SdlLib_Overlay;
 
@@ -388,8 +400,8 @@ typedef
 typedef
 	struct SdlLib_RWops {
 		INTEGER (*seek)(SdlLib_PRWops, INTEGER, INTEGER);
-		INTEGER (*read)(SdlLib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
-		INTEGER (*write)(SdlLib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
+		INTEGER (*read)(SdlLib_PRWops, SdlLib_Pointer, INTEGER, INTEGER);
+		INTEGER (*write)(SdlLib_PRWops, SdlLib_Pointer, INTEGER, INTEGER);
 		INTEGER (*close)(SdlLib_PRWops);
 		INTEGER type;
 		struct SdlLib__4 hidden;
@@ -407,13 +419,13 @@ typedef
 		SdlLib_PPixelFormat format;
 		INTEGER w, h;
 		SHORTINT pitch;
-		SYSTEM_PTR pixels;
+		SdlLib_Pointer pixels;
 		INTEGER offset;
-		SYSTEM_PTR hwdata;
+		SdlLib_Pointer hwdata;
 		SdlLib_Rect clip_rect;
 		char _prvt0[4];
 		INTEGER locked;
-		SYSTEM_PTR map;
+		SdlLib_Pointer map;
 		INTEGER format_version, refcount;
 	} SdlLib_Surface;
 
@@ -430,7 +442,7 @@ typedef
 	struct SdlLib_TimerID {
 		INTEGER interval;
 		SdlLib_NewTimerCallback callback;
-		SYSTEM_PTR param;
+		SdlLib_Pointer param;
 		INTEGER last_alarm;
 		SdlLib_PTimerID next;
 	} SdlLib_TimerID;
@@ -439,7 +451,7 @@ typedef
 	struct SdlLib_UserEvent {
 		BYTE type;
 		INTEGER code;
-		SYSTEM_PTR data1, data2;
+		SdlLib_Pointer data1, data2;
 	} SdlLib_UserEvent;
 
 typedef
@@ -497,8 +509,8 @@ import void *SdlLib__init(void);
 #define SdlLib_AddTimer(interval, callback, param)	SDL_AddTimer(interval, callback, param)
 #define SdlLib_AllocRW()	SDL_AllocRW()
 #define SdlLib_AllocSurface(flags, width, height, depth, rMask, gMask, bMask, aMask)	SDL_CreateRGBSurface(flags, width, height, depth, rMask, gMask, bMask, aMask)
-#define SdlLib_AudioDriverName(nameBuf, nameBuf__len, maxLen)	SDL_AudioDriverName(nameBuf, maxLen)
-#define SdlLib_AudioInit(driverName, driverName__len)	SDL_AudioInit(driverName)
+#define SdlLib_AudioDriverName(nameBuf, maxLen)	SDL_AudioDriverName(nameBuf, maxLen)
+#define SdlLib_AudioInit(driverName)	SDL_AudioInit(driverName)
 #define SdlLib_AudioQuit()	SDL_AudioQuit()
 #define SdlLib_BlitSurface(src, srcRect, dst, dstRect)	SDL_UpperBlit(src, srcRect, dst, dstRect)
 #define SdlLib_BuildAudioCVT(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate)	SDL_BuildAudioCVT(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate)
@@ -536,8 +548,8 @@ import void *SdlLib__init(void);
 #define SdlLib_FreeWAV(audioBuf)	SDL_FreeWAV(audioBuf)
 #define SdlLib_FreeYUVOverlay(overlay)	SDL_FreeYUVOverlay(overlay)
 #define SdlLib_GL_GetAttribute(attr, value)	SDL_GL_GetAttribute(attr, value)
-#define SdlLib_GL_GetProcAddress(procName, procName__len)	SDL_GL_GetProcAddress(procName)
-#define SdlLib_GL_LoadLibrary(fileName, fileName__len)	SDL_GL_LoadLibrary(fileName)
+#define SdlLib_GL_GetProcAddress(procName)	SDL_GL_GetProcAddress(procName)
+#define SdlLib_GL_LoadLibrary(fileName)	SDL_GL_LoadLibrary(fileName)
 #define SdlLib_GL_Lock()	SDL_GL_Lock()
 #define SdlLib_GL_SetAttribute(attr, value)	SDL_GL_SetAttribute(attr, value)
 #define SdlLib_GL_SwapBuffers()	SDL_GL_SwapBuffers()
@@ -582,8 +594,8 @@ import void *SdlLib__init(void);
 #define SdlLib_Linked_Version()	SDL_Linked_Version()
 #define SdlLib_ListModes(format, flags)	SDL_ListModes(format, flags)
 #define SdlLib_LoadBMP_RW(src, freeSrc)	SDL_LoadBMP_RW(src, freeSrc)
-#define SdlLib_LoadFunction(handle, name, name__len)	SDL_LoadFunction(handle, name)
-#define SdlLib_LoadObject(soFile, soFile__len)	SDL_LoadObject(soFile)
+#define SdlLib_LoadFunction(handle, name)	SDL_LoadFunction(handle, name)
+#define SdlLib_LoadObject(soFile)	SDL_LoadObject(soFile)
 #define SdlLib_LoadWAV_RW(src, freeSrc, spec, audioBuf, audioLen)	SDL_LoadWAV_RW(src, freeSrc, spec, audioBuf, audioLen)
 #define SdlLib_LockAudio()	SDL_LockAudio()
 #define SdlLib_LockSurface(surface)	SDL_LockSurface(surface)
@@ -605,18 +617,18 @@ import void *SdlLib__init(void);
 #define SdlLib_QuitSubSystem(flags)	SDL_QuitSubSystem(flags)
 #define SdlLib_RWFromConstMem(mem, size)	SDL_RWFromConstMem(mem, size)
 #define SdlLib_RWFromFP(fp, autoClose)	SDL_RWFromFP(fp, autoClose)
-#define SdlLib_RWFromFile(fileName, fileName__len, mode, mode__len)	SDL_RWFromFile(fileName, mode)
+#define SdlLib_RWFromFile(fileName, mode)	SDL_RWFromFile(fileName, mode)
 #define SdlLib_RWFromMem(mem, size)	SDL_RWFromMem(mem, size)
-#define SdlLib_RegisterApp(name, name__len, style, hInst)	SDL_RegisterApp(name, style, hInst)
+#define SdlLib_RegisterApp(name, style, hInst)	SDL_RegisterApp(name, style, hInst)
 #define SdlLib_RemoveTimer(t)	SDL_RemoveTimer(t)
 #define SdlLib_SDL_AddTimer(interval, callback, param)	SDL_AddTimer(interval, callback, param)
-__EXTERN SdlLib_PTimerID SDL_AddTimer(INTEGER interval, SdlLib_NewTimerCallback callback, SYSTEM_PTR param);
+__EXTERN SdlLib_PTimerID SDL_AddTimer(INTEGER interval, SdlLib_NewTimerCallback callback, SdlLib_Pointer param);
 #define SdlLib_SDL_AllocRW()	SDL_AllocRW()
 __EXTERN SdlLib_PRWops SDL_AllocRW(void);
-#define SdlLib_SDL_AudioDriverName(nameBuf, nameBuf__len, maxLen)	SDL_AudioDriverName(nameBuf, maxLen)
-__EXTERN SYSTEM_PTR SDL_AudioDriverName(CHAR *nameBuf, INTEGER maxLen);
-#define SdlLib_SDL_AudioInit(driverName, driverName__len)	SDL_AudioInit(driverName)
-__EXTERN INTEGER SDL_AudioInit(CHAR *driverName);
+#define SdlLib_SDL_AudioDriverName(nameBuf, maxLen)	SDL_AudioDriverName(nameBuf, maxLen)
+__EXTERN SdlLib_PChar SDL_AudioDriverName(SdlLib_PChar nameBuf, INTEGER maxLen);
+#define SdlLib_SDL_AudioInit(driverName)	SDL_AudioInit(driverName)
+__EXTERN INTEGER SDL_AudioInit(SdlLib_PChar driverName);
 #define SdlLib_SDL_AudioQuit()	SDL_AudioQuit()
 __EXTERN void SDL_AudioQuit(void);
 #define SdlLib_SDL_BuildAudioCVT(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate)	SDL_BuildAudioCVT(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate)
@@ -626,7 +638,7 @@ __EXTERN void SDL_CDClose(SdlLib_PCD cdRom);
 #define SdlLib_SDL_CDEject(cdRom)	SDL_CDEject(cdRom)
 __EXTERN INTEGER SDL_CDEject(SdlLib_PCD cdRom);
 #define SdlLib_SDL_CDName(drive)	SDL_CDName(drive)
-__EXTERN SYSTEM_PTR SDL_CDName(INTEGER drive);
+__EXTERN SdlLib_PChar SDL_CDName(INTEGER drive);
 #define SdlLib_SDL_CDNumDrives()	SDL_CDNumDrives()
 __EXTERN INTEGER SDL_CDNumDrives(void);
 #define SdlLib_SDL_CDOpen(drive)	SDL_CDOpen(drive)
@@ -656,7 +668,7 @@ __EXTERN SdlLib_PCursor SDL_CreateCursor(SdlLib_PUInt8 data, SdlLib_PUInt8 mask,
 #define SdlLib_SDL_CreateRGBSurface(flags, width, height, depth, rMask, gMask, bMask, aMask)	SDL_CreateRGBSurface(flags, width, height, depth, rMask, gMask, bMask, aMask)
 __EXTERN SdlLib_PSurface SDL_CreateRGBSurface(SET flags, INTEGER width, INTEGER height, INTEGER depth, INTEGER rMask, INTEGER gMask, INTEGER bMask, INTEGER aMask);
 #define SdlLib_SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, rMask, gMask, bMask, aMask)	SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, rMask, gMask, bMask, aMask)
-__EXTERN SdlLib_PSurface SDL_CreateRGBSurfaceFrom(SYSTEM_PTR pixels, INTEGER width, INTEGER height, INTEGER depth, INTEGER pitch, INTEGER rMask, INTEGER gMask, INTEGER bMask, INTEGER aMask);
+__EXTERN SdlLib_PSurface SDL_CreateRGBSurfaceFrom(SdlLib_Pointer pixels, INTEGER width, INTEGER height, INTEGER depth, INTEGER pitch, INTEGER rMask, INTEGER gMask, INTEGER bMask, INTEGER aMask);
 #define SdlLib_SDL_CreateYUVOverlay(width, height, format, display)	SDL_CreateYUVOverlay(width, height, format, display)
 __EXTERN SdlLib_POverlay SDL_CreateYUVOverlay(INTEGER width, INTEGER height, INTEGER format, SdlLib_PSurface display);
 #define SdlLib_SDL_Delay(msec)	SDL_Delay(msec)
@@ -689,10 +701,10 @@ __EXTERN void SDL_FreeWAV(SdlLib_PUInt8 audioBuf);
 __EXTERN void SDL_FreeYUVOverlay(SdlLib_POverlay overlay);
 #define SdlLib_SDL_GL_GetAttribute(attr, value)	SDL_GL_GetAttribute(attr, value)
 __EXTERN INTEGER SDL_GL_GetAttribute(INTEGER attr, INTEGER *value);
-#define SdlLib_SDL_GL_GetProcAddress(procName, procName__len)	SDL_GL_GetProcAddress(procName)
-__EXTERN SYSTEM_PTR SDL_GL_GetProcAddress(CHAR *procName);
-#define SdlLib_SDL_GL_LoadLibrary(fileName, fileName__len)	SDL_GL_LoadLibrary(fileName)
-__EXTERN INTEGER SDL_GL_LoadLibrary(CHAR *fileName);
+#define SdlLib_SDL_GL_GetProcAddress(procName)	SDL_GL_GetProcAddress(procName)
+__EXTERN SYSTEM_PTR SDL_GL_GetProcAddress(SdlLib_PChar procName);
+#define SdlLib_SDL_GL_LoadLibrary(fileName)	SDL_GL_LoadLibrary(fileName)
+__EXTERN INTEGER SDL_GL_LoadLibrary(SdlLib_PChar fileName);
 #define SdlLib_SDL_GL_Lock()	SDL_GL_Lock()
 __EXTERN void SDL_GL_Lock(void);
 #define SdlLib_SDL_GL_SetAttribute(attr, value)	SDL_GL_SetAttribute(attr, value)
@@ -712,13 +724,13 @@ __EXTERN void SDL_GetClipRect(SdlLib_PSurface surface, SdlLib_Rect *rect);
 #define SdlLib_SDL_GetCursor()	SDL_GetCursor()
 __EXTERN SdlLib_PCursor SDL_GetCursor(void);
 #define SdlLib_SDL_GetError()	SDL_GetError()
-__EXTERN SYSTEM_PTR SDL_GetError(void);
+__EXTERN SdlLib_PChar SDL_GetError(void);
 #define SdlLib_SDL_GetEventFilter()	SDL_GetEventFilter()
 __EXTERN SdlLib_EventFilter SDL_GetEventFilter(void);
 #define SdlLib_SDL_GetGammaRamp(redTable, greenTable, blueTable)	SDL_GetGammaRamp(redTable, greenTable, blueTable)
 __EXTERN INTEGER SDL_GetGammaRamp(SdlLib_PUInt16 redTable, SdlLib_PUInt16 greenTable, SdlLib_PUInt16 blueTable);
 #define SdlLib_SDL_GetKeyName(key)	SDL_GetKeyName(key)
-__EXTERN SYSTEM_PTR SDL_GetKeyName(INTEGER key);
+__EXTERN SdlLib_PChar SDL_GetKeyName(INTEGER key);
 #define SdlLib_SDL_GetKeyRepeat(delay, interval)	SDL_GetKeyRepeat(delay, interval)
 __EXTERN void SDL_GetKeyRepeat(INTEGER *delay, INTEGER *interval);
 #define SdlLib_SDL_GetKeyState(numKeys)	SDL_GetKeyState(numKeys)
@@ -760,7 +772,7 @@ __EXTERN CHAR SDL_JoystickGetHat(SdlLib_PJoystick joystick, INTEGER hat);
 #define SdlLib_SDL_JoystickIndex(joystick)	SDL_JoystickIndex(joystick)
 __EXTERN INTEGER SDL_JoystickIndex(SdlLib_PJoystick joystick);
 #define SdlLib_SDL_JoystickName(index)	SDL_JoystickName(index)
-__EXTERN SYSTEM_PTR SDL_JoystickName(INTEGER index);
+__EXTERN SdlLib_PChar SDL_JoystickName(INTEGER index);
 #define SdlLib_SDL_JoystickNumAxes(joystick)	SDL_JoystickNumAxes(joystick)
 __EXTERN INTEGER SDL_JoystickNumAxes(SdlLib_PJoystick joystick);
 #define SdlLib_SDL_JoystickNumBalls(joystick)	SDL_JoystickNumBalls(joystick)
@@ -781,10 +793,10 @@ __EXTERN SdlLib_PVersion SDL_Linked_Version(void);
 __EXTERN SdlLib_PPRect SDL_ListModes(SdlLib_PPixelFormat format, SET flags);
 #define SdlLib_SDL_LoadBMP_RW(src, freeSrc)	SDL_LoadBMP_RW(src, freeSrc)
 __EXTERN SdlLib_PSurface SDL_LoadBMP_RW(SdlLib_PRWops src, INTEGER freeSrc);
-#define SdlLib_SDL_LoadFunction(handle, name, name__len)	SDL_LoadFunction(handle, name)
-__EXTERN SYSTEM_PTR SDL_LoadFunction(SYSTEM_PTR handle, CHAR *name);
-#define SdlLib_SDL_LoadObject(soFile, soFile__len)	SDL_LoadObject(soFile)
-__EXTERN SYSTEM_PTR SDL_LoadObject(CHAR *soFile);
+#define SdlLib_SDL_LoadFunction(handle, name)	SDL_LoadFunction(handle, name)
+__EXTERN SdlLib_Pointer SDL_LoadFunction(SdlLib_Pointer handle, SdlLib_PChar *name);
+#define SdlLib_SDL_LoadObject(soFile)	SDL_LoadObject(soFile)
+__EXTERN SdlLib_Pointer SDL_LoadObject(SdlLib_PChar *soFile);
 #define SdlLib_SDL_LoadWAV_RW(src, freeSrc, spec, audioBuf, audioLen)	SDL_LoadWAV_RW(src, freeSrc, spec, audioBuf, audioLen)
 __EXTERN SdlLib_PAudioSpec SDL_LoadWAV_RW(SdlLib_PRWops src, INTEGER freeSrc, SdlLib_PAudioSpec spec, CHAR *audioBuf, INTEGER *audioLen);
 #define SdlLib_SDL_LockAudio()	SDL_LockAudio()
@@ -822,15 +834,15 @@ __EXTERN void SDL_Quit(void);
 #define SdlLib_SDL_QuitSubSystem(flags)	SDL_QuitSubSystem(flags)
 __EXTERN void SDL_QuitSubSystem(SET flags);
 #define SdlLib_SDL_RWFromConstMem(mem, size)	SDL_RWFromConstMem(mem, size)
-__EXTERN SdlLib_PRWops SDL_RWFromConstMem(SYSTEM_PTR mem, INTEGER size);
+__EXTERN SdlLib_PRWops SDL_RWFromConstMem(SdlLib_Pointer mem, INTEGER size);
 #define SdlLib_SDL_RWFromFP(fp, autoClose)	SDL_RWFromFP(fp, autoClose)
-__EXTERN SdlLib_PRWops SDL_RWFromFP(SYSTEM_PTR fp, INTEGER autoClose);
-#define SdlLib_SDL_RWFromFile(fileName, fileName__len, mode, mode__len)	SDL_RWFromFile(fileName, mode)
-__EXTERN SdlLib_PRWops SDL_RWFromFile(CHAR *fileName, CHAR *mode);
+__EXTERN SdlLib_PRWops SDL_RWFromFP(SdlLib_Pointer fp, INTEGER autoClose);
+#define SdlLib_SDL_RWFromFile(fileName, mode)	SDL_RWFromFile(fileName, mode)
+__EXTERN SdlLib_PRWops SDL_RWFromFile(SdlLib_PChar fileName, SdlLib_PChar mode);
 #define SdlLib_SDL_RWFromMem(mem, size)	SDL_RWFromMem(mem, size)
-__EXTERN SdlLib_PRWops SDL_RWFromMem(SYSTEM_PTR mem, INTEGER size);
-#define SdlLib_SDL_RegisterApp(name, name__len, style, hInst)	SDL_RegisterApp(name, style, hInst)
-__EXTERN INTEGER SDL_RegisterApp(CHAR *name, INTEGER style, SYSTEM_PTR hInst);
+__EXTERN SdlLib_PRWops SDL_RWFromMem(SdlLib_Pointer mem, INTEGER size);
+#define SdlLib_SDL_RegisterApp(name, style, hInst)	SDL_RegisterApp(name, style, hInst)
+__EXTERN INTEGER SDL_RegisterApp(SdlLib_PChar name, INTEGER style, SdlLib_Pointer hInst);
 #define SdlLib_SDL_RemoveTimer(t)	SDL_RemoveTimer(t)
 __EXTERN INTEGER SDL_RemoveTimer(SdlLib_PTimerID t);
 #define SdlLib_SDL_SaveBMP_RW(surface, dst, freeDst)	SDL_SaveBMP_RW(surface, dst, freeDst)
@@ -845,8 +857,8 @@ __EXTERN INTEGER SDL_SetColorKey(SdlLib_PSurface surface, SET flag, INTEGER key)
 __EXTERN INTEGER SDL_SetColors(SdlLib_PSurface surface, SdlLib_PColor colors, INTEGER firstColor, INTEGER nColors);
 #define SdlLib_SDL_SetCursor(cursor)	SDL_SetCursor(cursor)
 __EXTERN void SDL_SetCursor(SdlLib_PCursor cursor);
-#define SdlLib_SDL_SetError(fmt, fmt__len)	SDL_SetError(fmt)
-__EXTERN void SDL_SetError(CHAR *fmt);
+#define SdlLib_SDL_SetError(fmt)	SDL_SetError(fmt)
+__EXTERN void SDL_SetError(SdlLib_PChar fmt);
 #define SdlLib_SDL_SetEventFilter(filter)	SDL_SetEventFilter(filter)
 __EXTERN void SDL_SetEventFilter(SdlLib_EventFilter filter);
 #define SdlLib_SDL_SetGamma(redGamma, greenGamma, blueGamma)	SDL_SetGamma(redGamma, greenGamma, blueGamma)
@@ -865,10 +877,10 @@ __EXTERN SdlLib_PSurface SDL_SetVideoMode(INTEGER width, INTEGER height, INTEGER
 __EXTERN INTEGER SDL_ShowCursor(INTEGER toggle);
 #define SdlLib_SDL_SoftStretch(src, srcRect, dst, dstRect)	SDL_SoftStretch(src, srcRect, dst, dstRect)
 __EXTERN INTEGER SDL_SoftStretch(SdlLib_PSurface src, SdlLib_PRect srcRect, SdlLib_PSurface dst, SdlLib_PRect dstRect);
-#define SdlLib_SDL_TableSize(table, table__len)	SDL_TableSize(table)
-__EXTERN INTEGER SDL_TableSize(CHAR *table);
+#define SdlLib_SDL_TableSize(table)	SDL_TableSize(table)
+__EXTERN INTEGER SDL_TableSize(SdlLib_PChar table);
 #define SdlLib_SDL_UnloadObject(handle)	SDL_UnloadObject(handle)
-__EXTERN void SDL_UnloadObject(SYSTEM_PTR handle);
+__EXTERN void SDL_UnloadObject(SdlLib_Pointer handle);
 #define SdlLib_SDL_UnlockAudio()	SDL_UnlockAudio()
 __EXTERN void SDL_UnlockAudio(void);
 #define SdlLib_SDL_UnlockSurface(surface)	SDL_UnlockSurface(surface)
@@ -881,22 +893,22 @@ __EXTERN void SDL_UpdateRect(SdlLib_PSurface screen, INTEGER x, INTEGER y, INTEG
 __EXTERN void SDL_UpdateRects(SdlLib_PSurface screen, INTEGER numRects, SdlLib_PRect rects);
 #define SdlLib_SDL_UpperBlit(src, srcRect, dst, dstRect)	SDL_UpperBlit(src, srcRect, dst, dstRect)
 __EXTERN INTEGER SDL_UpperBlit(SdlLib_PSurface src, SdlLib_PRect srcRect, SdlLib_PSurface dst, SdlLib_PRect dstRect);
-#define SdlLib_SDL_VideoDriverName(nameBuf, nameBuf__len, maxLen)	SDL_VideoDriverName(nameBuf, maxLen)
-__EXTERN SYSTEM_PTR SDL_VideoDriverName(CHAR *nameBuf, INTEGER maxLen);
-#define SdlLib_SDL_VideoInit(driverName, driverName__len, flags)	SDL_VideoInit(driverName, flags)
-__EXTERN INTEGER SDL_VideoInit(CHAR *driverName, SET flags);
+#define SdlLib_SDL_VideoDriverName(nameBuf, maxLen)	SDL_VideoDriverName(nameBuf, maxLen)
+__EXTERN SdlLib_PChar SDL_VideoDriverName(SdlLib_PChar nameBuf, INTEGER maxLen);
+#define SdlLib_SDL_VideoInit(driverName, flags)	SDL_VideoInit(driverName, flags)
+__EXTERN INTEGER SDL_VideoInit(SdlLib_PChar driverName, SET flags);
 #define SdlLib_SDL_VideoModeOK(width, height, bpp, flags)	SDL_VideoModeOK(width, height, bpp, flags)
 __EXTERN INTEGER SDL_VideoModeOK(INTEGER width, INTEGER height, INTEGER bpp, SET flags);
 #define SdlLib_SDL_VideoQuit()	SDL_VideoQuit()
 __EXTERN void SDL_VideoQuit(void);
-#define SdlLib_SDL_WM_GetCaption(title, title__len, icon, icon__len)	SDL_WM_GetCaption(title, icon)
-__EXTERN void SDL_WM_GetCaption(CHAR *title, CHAR *icon);
+#define SdlLib_SDL_WM_GetCaption(title, icon)	SDL_WM_GetCaption(title, icon)
+__EXTERN void SDL_WM_GetCaption(SdlLib_PChar *title, SdlLib_PChar *icon);
 #define SdlLib_SDL_WM_GrabInput(mode)	SDL_WM_GrabInput(mode)
 __EXTERN INTEGER SDL_WM_GrabInput(INTEGER mode);
 #define SdlLib_SDL_WM_IconifyWindow()	SDL_WM_IconifyWindow()
 __EXTERN INTEGER SDL_WM_IconifyWindow(void);
-#define SdlLib_SDL_WM_SetCaption(title, title__len, icon, icon__len)	SDL_WM_SetCaption(title, icon)
-__EXTERN void SDL_WM_SetCaption(CHAR *title, CHAR *icon);
+#define SdlLib_SDL_WM_SetCaption(title, icon)	SDL_WM_SetCaption(title, icon)
+__EXTERN void SDL_WM_SetCaption(SdlLib_PChar title, SdlLib_PChar icon);
 #define SdlLib_SDL_WM_SetIcon(icon, mask)	SDL_WM_SetIcon(icon, mask)
 __EXTERN void SDL_WM_SetIcon(SdlLib_PSurface icon, CHAR mask);
 #define SdlLib_SDL_WM_ToggleFullScreen(surface)	SDL_WM_ToggleFullScreen(surface)
@@ -913,7 +925,7 @@ __EXTERN SET SDL_WasInit(SET flags);
 #define SdlLib_SetColorKey(surface, flag, key)	SDL_SetColorKey(surface, flag, key)
 #define SdlLib_SetColors(surface, colors, firstColor, nColors)	SDL_SetColors(surface, colors, firstColor, nColors)
 #define SdlLib_SetCursor(cursor)	SDL_SetCursor(cursor)
-#define SdlLib_SetError(fmt, fmt__len)	SDL_SetError(fmt)
+#define SdlLib_SetError(fmt)	SDL_SetError(fmt)
 #define SdlLib_SetEventFilter(filter)	SDL_SetEventFilter(filter)
 #define SdlLib_SetGamma(redGamma, greenGamma, blueGamma)	SDL_SetGamma(redGamma, greenGamma, blueGamma)
 #define SdlLib_SetGammaRamp(redTable, greenTable, blueTable)	SDL_SetGammaRamp(redTable, greenTable, blueTable)
@@ -923,7 +935,7 @@ __EXTERN SET SDL_WasInit(SET flags);
 #define SdlLib_SetVideoMode(width, height, bpp, flags)	SDL_SetVideoMode(width, height, bpp, flags)
 #define SdlLib_ShowCursor(toggle)	SDL_ShowCursor(toggle)
 #define SdlLib_SoftStretch(src, srcRect, dst, dstRect)	SDL_SoftStretch(src, srcRect, dst, dstRect)
-#define SdlLib_TableSize(table, table__len)	SDL_TableSize(table)
+#define SdlLib_TableSize(table)	SDL_TableSize(table)
 #define SdlLib_UnloadObject(handle)	SDL_UnloadObject(handle)
 #define SdlLib_UnlockAudio()	SDL_UnlockAudio()
 #define SdlLib_UnlockSurface(surface)	SDL_UnlockSurface(surface)
@@ -931,14 +943,14 @@ __EXTERN SET SDL_WasInit(SET flags);
 #define SdlLib_UpdateRect(screen, x, y, w, h)	SDL_UpdateRect(screen, x, y, w, h)
 #define SdlLib_UpdateRects(screen, numRects, rects)	SDL_UpdateRects(screen, numRects, rects)
 #define SdlLib_UpperBlit(src, srcRect, dst, dstRect)	SDL_UpperBlit(src, srcRect, dst, dstRect)
-#define SdlLib_VideoDriverName(nameBuf, nameBuf__len, maxLen)	SDL_VideoDriverName(nameBuf, maxLen)
-#define SdlLib_VideoInit(driverName, driverName__len, flags)	SDL_VideoInit(driverName, flags)
+#define SdlLib_VideoDriverName(nameBuf, maxLen)	SDL_VideoDriverName(nameBuf, maxLen)
+#define SdlLib_VideoInit(driverName, flags)	SDL_VideoInit(driverName, flags)
 #define SdlLib_VideoModeOK(width, height, bpp, flags)	SDL_VideoModeOK(width, height, bpp, flags)
 #define SdlLib_VideoQuit()	SDL_VideoQuit()
-#define SdlLib_WM_GetCaption(title, title__len, icon, icon__len)	SDL_WM_GetCaption(title, icon)
+#define SdlLib_WM_GetCaption(title, icon)	SDL_WM_GetCaption(title, icon)
 #define SdlLib_WM_GrabInput(mode)	SDL_WM_GrabInput(mode)
 #define SdlLib_WM_IconifyWindow()	SDL_WM_IconifyWindow()
-#define SdlLib_WM_SetCaption(title, title__len, icon, icon__len)	SDL_WM_SetCaption(title, icon)
+#define SdlLib_WM_SetCaption(title, icon)	SDL_WM_SetCaption(title, icon)
 #define SdlLib_WM_SetIcon(icon, mask)	SDL_WM_SetIcon(icon, mask)
 #define SdlLib_WM_ToggleFullScreen(surface)	SDL_WM_ToggleFullScreen(surface)
 #define SdlLib_WaitEvent(event, event__typ)	SDL_WaitEvent(event)
