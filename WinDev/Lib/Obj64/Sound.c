@@ -19,7 +19,7 @@ export void Sound_Quit (void);
 void Sound_Load (SdlMixer_PMix_Chunk *sound, CHAR *fileName, LONGINT fileName__len)
 {
 	if (Sound_initOk) {
-		*sound = SdlMixer_Mix_LoadWAV(fileName, fileName__len);
+		*sound = SdlMixer_Mix_LoadWAV((SYSTEM_PTR)((LONGINT)fileName));
 	} else {
 		*sound = NIL;
 	}

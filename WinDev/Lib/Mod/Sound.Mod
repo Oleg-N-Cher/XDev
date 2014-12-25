@@ -1,6 +1,6 @@
 MODULE Sound;
 IMPORT
-  Sdl := SdlLib, Mixer := SdlMixer, Ignore;
+  SYSTEM, Sdl := SdlLib, Mixer := SdlMixer, Ignore;
 
 TYPE
   Rsrc* = Mixer.PMix_Chunk;
@@ -11,7 +11,7 @@ VAR
 PROCEDURE Load* (VAR sound: Rsrc; IN fileName: ARRAY OF CHAR);
 BEGIN
   IF initOk THEN
-    sound := Mixer.Mix_LoadWAV(fileName);
+    sound := Mixer.Mix_LoadWAV(SYSTEM.VAL(Sdl.PChar, SYSTEM.ADR(fileName)));
   ELSE
     sound := NIL;
   END;
