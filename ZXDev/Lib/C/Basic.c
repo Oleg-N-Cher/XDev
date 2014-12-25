@@ -63,10 +63,10 @@ export void Basic_Quit_IM2 (void);
 
 import CARDINAL _Basic_RandBB (void);
 
-/* Video temp attrib */
-#define ATTR_T$ 0x5C8F
 /* Set video attrib */
 #define ATTR_P$ 0x5C8D
+/* Video temp attrib */
+#define ATTR_T$ 0x5C8F
 /* (Font_address - 256) */
 #define CHAR_SET$ 0x5C36
 /*================================== Header ==================================*/
@@ -158,7 +158,7 @@ __asm
   POP  HL
   POP  BC
   PUSH BC
-  LD   A,(ATTR_T$)
+  LD   A,(ATTR_P$)
   AND  #0xF8
   OR   C
   LD   (ATTR_P$),A
@@ -170,7 +170,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INK_fastcall (void /* Register C */) {
 __asm
-  LD   A,(ATTR_T$)
+  LD   A,(ATTR_P$)
   AND  #0xF8
   OR   C
   LD   (ATTR_P$),A
@@ -205,7 +205,7 @@ __asm
   POP  HL
   POP  BC
   PUSH BC
-  LD   A,(ATTR_T$)
+  LD   A,(ATTR_P$)
   AND  #0xC7
   SLA  C
   SLA  C
@@ -220,7 +220,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAPER_fastcall (void /* Register C */) {
 __asm
-  LD   A,(ATTR_T$)
+  LD   A,(ATTR_P$)
   AND  #0xC7
   SLA  C
   SLA  C
@@ -444,10 +444,8 @@ void Basic_CLS_ZX (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(ATTR_T$)
-  PUSH AF
   CALL 0xD6B // IX-safe
-  POP  AF
+  LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_ZX
@@ -457,8 +455,6 @@ void Basic_CLS_FULLSCREEN (void)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,(ATTR_T$)
-  PUSH AF
   LD   A,(#0x5C48)
   PUSH AF
   LD   A,(ATTR_P$)
@@ -466,7 +462,7 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (#0x5C48),A
-  POP  AF
+  LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_CLS_FULLSCREEN
@@ -574,7 +570,7 @@ _OVER_MODE:
   RRCA
   ADD  A,#0x58
   LD   H,A
-  LD   A,(ATTR_T$)
+  LD   A,(ATTR_P$)
   LD   (HL),A
   POP  HL
   INC  L
