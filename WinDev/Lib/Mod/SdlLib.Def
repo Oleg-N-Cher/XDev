@@ -686,8 +686,8 @@ TYPE
 	Double* 	= LONGREAL; (* 64 bit *)
 	Integer*	= INTEGER;
 	LongWord* = Cardinal;
-	PChar*		= POINTER [1] TO ARRAY [1] OF Char;
-	Pointer*	= POINTER [1] TO ARRAY [1] OF Byte;
+	PChar*		= SYSTEM.PTR;
+	Pointer*	= SYSTEM.PTR;
 	Single* 	= REAL; (* 32 bit *)
 	Word*		 = SHORTINT; (* 16 bit *)
 
@@ -701,13 +701,13 @@ TYPE
 	UInt8* = CHAR;
 (*
 	PUInt8Array = ^TUInt8Array;*)
-	PUInt8* = POINTER [1] TO ARRAY [1] OF UInt8;(*
+	PUInt8* = SYSTEM.PTR;(*
 	PPUInt8 = ^PUInt8;*)
 (*
 	TUInt8Array = array [0..MAXINT shr 1] of UInt8;
 *)
 	UInt16* = SHORTINT;
-	PUInt16* = POINTER [1] TO ARRAY [1] OF UInt16;
+	PUInt16* = SYSTEM.PTR;
 (*
 	PSInt8 = ^SInt8;*)
 	SInt8 = Byte;(*
@@ -716,7 +716,7 @@ TYPE
 	SInt16* = SHORTINT;
 
 	UInt32* = INTEGER;
-	PUInt32* = POINTER [1] TO ARRAY [1] OF UInt32;
+	PUInt32* = SYSTEM.PTR;
 
 	SInt32* = Integer;
 (*
@@ -3234,15 +3234,15 @@ PROCEDURE -GetWMInfo* (info: OS.PSysWMinfo): Integer "SDL_GetWMInfo(info)";
  * to the object handle (or NULL if there was an error).
  * The 'sofile' parameter is a system dependent name of the object file.
  *)
-PROCEDURE -SDL_LoadObject* (IN soFile: PChar): Pointer;
-PROCEDURE -LoadObject* (IN soFile: PChar): Pointer "SDL_LoadObject(soFile)";
+PROCEDURE -SDL_LoadObject* (soFile: PChar): Pointer;
+PROCEDURE -LoadObject* (soFile: PChar): Pointer "SDL_LoadObject(soFile)";
 
 (* Given an object handle, this procedure looks up the address of the
  * named procedure in the shared object and returns it.	This address
  * is no longer valid after calling SDL_UnloadObject().
  *)
-PROCEDURE -SDL_LoadFunction* (handle: Pointer; IN name: PChar): Pointer;
-PROCEDURE -LoadFunction* (handle: Pointer; IN name: PChar): Pointer
+PROCEDURE -SDL_LoadFunction* (handle: Pointer; name: PChar): Pointer;
+PROCEDURE -LoadFunction* (handle: Pointer; name: PChar): Pointer
 	"SDL_LoadFunction(handle, name)";
 
 (* Unload a shared object from memory *)
