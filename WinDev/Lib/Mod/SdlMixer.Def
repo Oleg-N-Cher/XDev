@@ -490,10 +490,10 @@ PROCEDURE -Mix_QuerySpec* (VAR frequency: Integer;
 (* Load a wave file or a music (.mod .s3m .it .xm) file *)
 PROCEDURE -Mix_LoadWAV_RW* (src: PRWops; freesrc: Integer): PMix_Chunk;
 
-PROCEDURE -Mix_LoadWAV* (file: ARRAY[1] OF Char): PMix_Chunk
-  'Mix_LoadWAV_RW(SDL_RWFromFile(file, "rb"), 1)';
+PROCEDURE -Mix_LoadWAV* (file: PChar): PMix_Chunk
+  'Mix_LoadWAV_RW(SDL_RWFromFile((SYSTEM_PTR)file, (SYSTEM_PTR)"rb"), 1)';
 
-PROCEDURE -Mix_LoadMUS* (file: ARRAY[1] OF Char): PMix_Music;
+PROCEDURE -Mix_LoadMUS* (file: PChar): PMix_Music;
 
 (*#if 0 { This hasn't been hooked into music.c yet *)
 (* Load a music file from an SDL_RWop object (MikMod-specific currently)
@@ -943,7 +943,7 @@ PROCEDURE -Mix_Playing* (channel: Integer): Integer;
 PROCEDURE -Mix_PlayingMusic* (): Integer;
 
 (* Stop music and set external music playback command *)
-PROCEDURE -Mix_SetMusicCMD* (IN command: ARRAY OF Char): Integer;
+PROCEDURE -Mix_SetMusicCMD* (command: PChar): Integer;
 
 (* Synchro value is set by MikMod from modules while playing }
 function Mix_SetSynchroValue( value : Integer ) : Integer; overload;
