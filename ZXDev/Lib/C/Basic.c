@@ -748,7 +748,7 @@ void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
     LD   A, H
     OR   L
     RET  Z
-    AND  #0x80
+    BIT  7, H
     RET  NZ
     PUSH IX
     LD   D, #0
@@ -923,7 +923,7 @@ void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
     LD   A, H
     OR   L
     RET  Z
-    AND  #0x80
+    BIT  7, H
     RET  NZ
     PUSH IX
     DI
