@@ -85,7 +85,7 @@ Save_keyOut$:
 __endasm;
 } //Input_Read_RepeatBuf
 
-void Input_RunMe50Hz (void) __naked {
+void Input_RunMe50Hz (void) {
 __asm
   LD   IY,#0x5C3A
   RST  0x38
@@ -106,10 +106,10 @@ Save_keyIn$:
 .globl _Input_keysAvailable
 _Input_keysAvailable:
   LD   A,#0              ; Check overflow:
-  CP   #8                ; IF keysAvailable > 8 THEN keysAvailable := 8 END;
-  ADC  #0
+  CP   #KeyBufSize       ; IF keysAvailable > 8 THEN keysAvailable := 8 END;
+  JR   NC,_Input_keyOut
+  INC  A
   LD   (_Input_keysAvailable+1),A
-  RET  C
-  JR   _Input_keyOut
 __endasm;
 } //Input_RunMe50Hz
+
