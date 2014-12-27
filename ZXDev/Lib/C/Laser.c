@@ -210,81 +210,59 @@ __endasm;
 /*-----------------------------------------*/
 /* Functions for screen windows processing */
 /*-----------------------------------------*/
-void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Inverts the window */
+void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Inverts the window
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_053
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_INVV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Mirroring the window */
+void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Mirroring the window
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_049
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_MIRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Mirroring the window attributes */
+void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Mirroring the window attributes
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  //  NOP  //?
-  CALL __Laser_LB_001
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_001
 __endasm;
 } //Laser_MARV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Sets the attributes of the window */
+// Sets the attributes of the window
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   CALL __Laser_LB_064
   CALL __Laser_LB_068
   PUSH HL
@@ -302,93 +280,65 @@ LB_054$:
   ADD  HL,DE
   POP  BC
   DJNZ LB_054$
-  //RET
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Laser_SETV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Clears the attributes of the window */
+void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Clears the attributes of the window
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_055
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_CLSV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 1 pixel circularly */
+void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 1 pixel circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_037
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_WL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 1 pixel circularly */
+void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 1 pixel circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_034
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_WR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 4 pixels circularly */
+void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 4 pixels circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_WL4V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_WL4V
 __endasm;
 } //Laser_WL4V
 
@@ -411,22 +361,16 @@ __endasm;
 } //_Laser_LB_WL4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 4 pixels circularly */
+void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 4 pixels circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_WR4V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_WR4V
 __endasm;
 } //Laser_WR4V
 
@@ -459,64 +403,46 @@ __endasm;
 } //_Laser_LB_WR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 8 pixels circularly */
+void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 8 pixels circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_046
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_WL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 8 pixels circularly */
+void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 8 pixels circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_048
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_WR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 1 pixel */
+void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 1 pixel
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_SL1V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_SL1V
 __endasm;
 } //Laser_SL1V
 
@@ -529,22 +455,16 @@ __endasm;
 } //_Laser_LB_SL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 1 pixel */
+void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 1 pixel
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_SR1V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_SR1V
 __endasm;
 } //Laser_SR1V
 
@@ -557,22 +477,16 @@ __endasm;
 } //_Laser_LB_SR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 4 pixels */
+void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 4 pixels
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_SL4V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_SL4V
 __endasm;
 } //Laser_SL4V
 
@@ -593,22 +507,16 @@ __endasm;
 } //_Laser_LB_SL4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 4 pixels */
+void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 4 pixels
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_SR4V
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_SR4V
 __endasm;
 } //Laser_SR4V
 
@@ -629,44 +537,32 @@ __endasm;
 } //_Laser_LB_SR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window left by 8 pixels */
+void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window left by 8 pixels
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_045
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_SL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window right by 8 pixels */
+void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window right by 8 pixels
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_047
-  CALL __Laser_LB_056
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_056
 __endasm;
 } //Laser_SR8V
 
@@ -713,135 +609,97 @@ __endasm;
 } //Laser_SCRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes left circularly */
+void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window attributes left circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  CALL __Laser_LB_AWLV
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
+  JP   __Laser_LB_AWLV
 __endasm;
 } //Laser_AWLV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes left */
+// Scrolls the window attributes left
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_045
   LD   (#LB_004+1),DE
   CALL __Laser_LB_AWLV
   LD   DE,#__Laser_LB_046
   LD   (#LB_004+1),DE
-  //RET
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Laser_ASLV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes right circularly */
+void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+{ // Scrolls the window attributes right circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_048
-  CALL __Laser_LB_013
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_013
 __endasm;
 } //Laser_AWRV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes right */
+// Scrolls the window attributes right
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   LD   DE,#__Laser_LB_047
   LD   (#LB_004+1),DE
   CALL __Laser_LB_AWLV
   LD   DE,#__Laser_LB_046
   LD   (#LB_004+1),DE
-  //RET
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Laser_ASRV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes up circularly */
+// Scrolls the window attributes up circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   CALL __Laser_LB_064
   CALL __Laser_LB_068
   CALL __Laser_LB_058
   CALL C,__Laser_LB_006
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //Laser_ATUV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
-/* Scrolls the window attributes down circularly */
+// Scrolls the window attributes down circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-#ifdef __SDCC
-  POP  IX
-#endif
+  POP  DE
+  POP  BC
+  POP  HL
+  PUSH HL
+  PUSH BC
+  PUSH DE
   CALL __Laser_LB_064
   CALL __Laser_LB_068
   CALL __Laser_LB_058
@@ -856,7 +714,6 @@ __asm
   CALL __Laser_LB_006
   LD   A,#0x5A
   LD   (#LB_011+1),A
-  //RET
 __endasm;
 } //Laser_ATDV
 
