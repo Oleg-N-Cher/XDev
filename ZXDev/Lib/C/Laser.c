@@ -756,18 +756,20 @@ __endasm;
 } //Laser_INVM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN) __naked {
+void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN) {
 __asm
   LD   HL,#2
   ADD  HL,SP
-  LD   C,(HL) /* x */
+  LD   C,(HL) // x
   INC  HL
-  LD   B,(HL) /* y */
+  LD   B,(HL) // y
   INC  HL
-  LD   A,(HL) /* Sprite number */
+  LD   A,(HL) // Sprite number
   LD   HL,#__Laser_LB_149
   LD   DE,#__Laser_LB_PWBL
-  JP   __Laser_LB_196
+  PUSH IX     // __Laser_LB_196 breaks IX
+  CALL __Laser_LB_196
+  POP  IX
 __endasm;
 } //Laser_PTBL
 
