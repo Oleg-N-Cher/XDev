@@ -245,14 +245,8 @@ import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 
 import void Basic_RANDOMIZE (CARDINAL seed);
 
-import SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
-import CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
-#ifdef RND_SHORTCARD
-  #define Basic_RND Basic_RND_BYTE
-#else
-  #define Basic_RND Basic_RND_WORD
-#endif
-
+import SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+import CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
 import SHORTINT Basic_SGN (SHORTINT x);
 
 import void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
