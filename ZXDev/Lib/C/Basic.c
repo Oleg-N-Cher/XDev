@@ -51,8 +51,8 @@ export void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
 export void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
 export void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 export void Basic_RANDOMIZE (CARDINAL seed);
-export SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max);
-export CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max);
+export SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+export CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
 export SHORTINT Basic_SGN (SHORTINT x);
 export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
@@ -1406,16 +1406,14 @@ __endasm;
 } //__Basic_RandBB
 
 /*--------------------------------- Cut here ---------------------------------*/
-SHORTCARD Basic_RND_BYTE (SHORTCARD min, SHORTCARD max)
-{
+SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max) {
   return _Basic_RandBB()%(max-min+1) + min;
-} //Basic_RND_BYTE
+} //Basic_RND
 
 /*--------------------------------- Cut here ---------------------------------*/
-CARDINAL Basic_RND_WORD (CARDINAL min, CARDINAL max)
-{
+CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max) {
   return _Basic_RandBB()%(max-min+1) + min;
-} //Basic_RND_WORD
+} //Basic_RNDW
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT Basic_SGN (SHORTINT x) {
