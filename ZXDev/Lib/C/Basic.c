@@ -1372,9 +1372,6 @@ __asm
   POP  BC
   PUSH BC
   PUSH HL
-  LD   A,R
-  ADC  C
-  LD   C,A
   JP   0x1E52
 __endasm;
 } //Basic_RANDOMIZE
