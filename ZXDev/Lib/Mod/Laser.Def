@@ -2,7 +2,7 @@ MODULE Laser; (** non-portable *)
 (*-----------------------------------*)
 (* LASER BASIC v3.17 for Ofront/SDCC *)
 (* Adapted to Ofront by Oleg N. Cher *)
-(*  VEDAsoft Oberon Club, 2012-2013  *)
+(*  VEDAsoft Oberon Club, 2012-2015  *)
 (* Thanx to Raydac & Michailov (HVG) *)
 (*-----------------------------------*)
 

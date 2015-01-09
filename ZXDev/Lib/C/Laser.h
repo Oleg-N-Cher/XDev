@@ -1,9 +1,9 @@
-/*---------------------------------*/
-/* LASER BASIC for SDCC  >>> v3.17 */
-/* Adapted to SDCC by Oleg N. Cher */
-/*    (Vedanta software), 2011     */
-/*    Thanks to Michailov (HVG)    */
-/*---------------------------------*/
+/*-----------------------------------*/
+/* LASER BASIC v3.17 for Ofront/SDCC */
+/* Adapted to Ofront by Oleg N. Cher */
+/*  VEDAsoft Oberon Club, 2012-2015  */
+/* Thanx to Raydac & Michailov (HVG) */
+/*-----------------------------------*/
 
 #ifndef Laser__h
 #define Laser__h
