@@ -1,9 +1,9 @@
-/* ------------------------------- */
-/* LASER BASIC for SDCC  >>> v3.17 */
-/* Adapted to SDCC by Oleg N. Cher */
-/*    (Vedanta software), 2011     */
-/*    Thanks to Michailov (HVG)    */
-/* ------------------------------- */
+/*-----------------------------------*/
+/* LASER BASIC v3.17 for Ofront/SDCC */
+/* Adapted to Ofront by Oleg N. Cher */
+/*  VEDAsoft Oberon Club, 2012-2015  */
+/* Thanx to Raydac & Michailov (HVG) */
+/*-----------------------------------*/
 
 #include "SYSTEM.h"
 #include "Laser.h"
@@ -155,8 +155,7 @@ __endasm;
 }
 */
 
-void Laser_CalcSpritesOffset (void)
-{
+void Laser_CalcSpritesOffset (void) {
 __asm
   PUSH IX      // IX is a calle-saves register (see SDCC tracker #3567945)
 //  LD   HL,#scrollBuf
@@ -567,44 +566,44 @@ __endasm;
 } //Laser_SR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) {
-/* Scrolls the window by npx pixels vertically (+Up, -Down) and circularly */
+void Laser_WCRV (
+  SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) __naked
+{ // Scrolls the window by npx pixels vertically (+Up, -Down) and circularly
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  LD   A,8(IX)
-  CALL __Laser_LB_015+1
-#ifdef __SDCC
-  POP  IX
-#endif
+  LD   HL,#2
+  ADD  HL,SP
+  LD   C,(HL)
+  INC  HL
+  LD   B,(HL)
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  INC  HL
+  LD   A,(HL)
+  EX   DE,HL
+  JP   __Laser_LB_015+1
 __endasm;
 } //Laser_WCRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) {
-/* Scrolls the window by npx pixels vertically (+Up, -Down) */
+void Laser_SCRV (
+  SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) __naked
+{ // Scrolls the window by npx pixels vertically (+Up, -Down)
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  LD   L,6(IX)
-  LD   H,7(IX)
-  LD   A,8(IX)
-  CALL __Laser_LB_SCRV
-#ifdef __SDCC
-  POP  IX
-#endif
+  LD   HL,#2
+  ADD  HL,SP
+  LD   C,(HL)
+  INC  HL
+  LD   B,(HL)
+  INC  HL
+  LD   E,(HL)
+  INC  HL
+  LD   D,(HL)
+  INC  HL
+  LD   A,(HL)
+  EX   DE,HL
+  JP   __Laser_LB_SCRV
 __endasm;
 } //Laser_SCRV
 
@@ -721,37 +720,25 @@ __endasm;
 /*-------------------------------------*/
 /* Functions for sprites manipulations */
 /*-------------------------------------*/
-void Laser_CLSM (SHORTCARD spN) {
-/* Clears the sprite */
+void Laser_CLSM (SHORTCARD spN) __naked {
+// Clears the sprite
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
-  CALL __Laser_LB_CLSM
-#ifdef __SDCC
-  POP  IX
-#endif
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
+  JP   __Laser_LB_CLSM
 __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_INVM (SHORTCARD spN) {
+void Laser_INVM (SHORTCARD spN) __naked {
 /* Inverts the sprite */
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_053
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_INVM
 
@@ -837,126 +824,84 @@ __endasm;
 } //_Laser_LB_PWND
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL1M (SHORTCARD spN) {
+void Laser_WL1M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_037
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_WL1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR1M (SHORTCARD spN) {
+void Laser_WR1M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_034
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_WR1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL4M (SHORTCARD spN) {
+void Laser_WL4M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   HL,#LB_156
   LD   (#LB_043+1),HL
   CALL __Laser_LB_WL4V
-  CALL __Laser_LB_163_3
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_163_3
 __endasm;
 } //Laser_WL4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR4M (SHORTCARD spN) {
+void Laser_WR4M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   HL,#LB_156
   LD   (#LB_040+1),HL
   CALL __Laser_LB_WR4V
-  CALL __Laser_LB_162_3
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_162_3
 __endasm;
 } //Laser_WR4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL8M (SHORTCARD spN) {
+void Laser_WL8M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_046
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_WL8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR8M (SHORTCARD spN) {
+void Laser_WR8M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_048
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_WR8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL1M (SHORTCARD spN) {
+void Laser_SL1M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
-  CALL _LB_SL1M
-#ifdef __SDCC
-  POP  IX
-#endif
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
+  JP   _LB_SL1M
 __endasm;
-}
+} //Laser_SL1M
 
 /*--------------------------------- Cut here ---------------------------------*/
 void LB_SL1M (void) __naked {
@@ -986,20 +931,14 @@ __endasm;
 } //LB_SL1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR1M (SHORTCARD spN) {
+void Laser_SR1M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
-  CALL _LB_SR1M
-#ifdef __SDCC
-  POP  IX
-#endif
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
+  JP   _LB_SR1M
 __endasm;
-}
+} //Laser_SR1M
 
 /*--------------------------------- Cut here ---------------------------------*/
 void LB_SR1M (void) {
@@ -1018,74 +957,50 @@ __endasm;
 } //LB_SR1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL4M (SHORTCARD spN) {
+void Laser_SL4M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   HL,#_LB_SL1M
   LD   (#LB_039+1),HL
   CALL __Laser_LB_SL4V
-  CALL __Laser_LB_161_3
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_161_3
 __endasm;
 } //Laser_SL4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR4M (SHORTCARD spN) {
+void Laser_SR4M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   HL,#_LB_SR1M
   LD   (#LB_038+1),HL
   CALL __Laser_LB_SR4V
-  CALL __Laser_LB_160_3
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   __Laser_LB_160_3
 __endasm;
 } //Laser_SR4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL8M (SHORTCARD spN) {
+void Laser_SL8M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_045
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_SL8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR8M (SHORTCARD spN) {
+void Laser_SR8M (SHORTCARD spN) __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   A,4(IX)
+  LD   HL,#2
+  ADD  HL,SP
+  LD   A,(HL)
   LD   DE,#__Laser_LB_047
-  CALL LB_156
-#ifdef __SDCC
-  POP  IX
-#endif
+  JP   LB_156
 __endasm;
 } //Laser_SR8M
 
