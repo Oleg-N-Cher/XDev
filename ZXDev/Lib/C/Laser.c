@@ -3036,7 +3036,7 @@ __endasm;
 } //_Laser_LB_007
 
 /*--------------------------------- Cut here ---------------------------------*/
-void _Laser_LB_015 (void) __naked {
+void _Laser_LB_015 (void) {
 __asm
   NOP
   CALL __Laser_LB_068
@@ -3120,7 +3120,6 @@ LB_020:
   CALL LB_032
   LD  HL,#LB_027
   LD  (HL),#0x04
-  //RET
 __endasm;
 } //_Laser_LB_015
 
