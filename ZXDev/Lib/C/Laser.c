@@ -809,7 +809,7 @@ __asm
   LD   B,(HL) /* y */
   INC  HL
   LD   A,(HL) /* Sprite number */
-  LD   HL,#LB_153
+  LD   HL,#__Laser_LB_153
   LD   DE,#__Laser_LB_PWND
   JP   __Laser_LB_196
 __endasm;
@@ -3386,7 +3386,7 @@ __endasm;
 /* ---------------------------- */
 
 /*--------------------------------- Cut here ---------------------------------*/
-void __Asm_Laser_2__ (void) {
+void __Asm_Laser_2__ (void) __naked {
 /* ---------------------------- */
 /* LASER BASIC for ASSEMBLER ZX */
 /*    HOME VIDEO GAMES Ent.     */
@@ -3824,13 +3824,22 @@ SETM$:
   RET  Z
   INC  BC
   JP   LB_144
-  
-LB_153:
+__endasm;
+} //__Asm_Laser_2__
+
+/*--------------------------------- Cut here ---------------------------------*/
+void _Laser_LB_153 (void) __naked {
+__asm
   LD   HL,#LB_085+1
   LD   (HL),#0xA6
   CALL __Laser_LB_151
   JP   LB_092_3
+__endasm;
+} //_Laser_LB_153
 
+/*--------------------------------- Cut here ---------------------------------*/
+void __Asm_Laser_3__ (void) __naked {
+__asm
   LD   HL,(#LB_179+2)
   LD   H,#0x00
   LD   D,#0x00
@@ -3857,7 +3866,7 @@ void _Laser_LB_201 (void) __naked {
 __asm
   LD   HL,#__Laser_LB_149+3+1
   LD   (HL),#0x00
-  CALL LB_153
+  CALL __Laser_LB_153
   JP   LB_155
 __endasm;
 } //_Laser_LB_201
