@@ -2118,12 +2118,14 @@ LB_088$:
 __endasm;
 } //_Laser_LB_089
   
-
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_091 (void) {
 __asm
   LD   HL,#LB_085+1
   LD   (HL),#0xAE
+.globl LB_092
+LB_092:
+  CALL __Laser_LB_151
 .globl LB_092_3
 LB_092_3:
   LD   HL,#LB_085+1
@@ -3832,8 +3834,7 @@ void _Laser_LB_153 (void) __naked {
 __asm
   LD   HL,#LB_085+1
   LD   (HL),#0xA6
-  CALL __Laser_LB_151
-  JP   LB_092_3
+  JP   LB_092
 __endasm;
 } //_Laser_LB_153
 
