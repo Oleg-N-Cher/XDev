@@ -117,8 +117,8 @@ BEGIN (*$MAIN*)
   G.SetBkColor(G.Green); G.SetColor(G.Black); G.ClearDevice;
   Basic.OVER(1);
 	FOR i:=0 TO 20 DO
-	  x0 := Basic.RND(-60,G.GetMaxX()+60);
-  	y0 := Basic.RND(-60,G.GetMaxY()+60);
+	  x0 := Basic.RNDW(-60,G.GetMaxX()+60);
+  	y0 := Basic.RNDW(-60,G.GetMaxY()+60);
 	  
 		FOR R:=20 TO 60 BY 20 DO
   		Circ(x0, y0, R);
