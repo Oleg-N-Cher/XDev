@@ -147,8 +147,8 @@ export main(int argc, char **argv)
 	Basic_OVER(1);
 	Circl_i = 0;
 	while (Circl_i <= 20) {
-		Circl_x0 = Basic_RND(-60, Graph_GetMaxX() + 60);
-		Circl_y0 = Basic_RND(-60, Graph_GetMaxY() + 60);
+		Circl_x0 = Basic_RNDW(-60, Graph_GetMaxX() + 60);
+		Circl_y0 = Basic_RNDW(-60, Graph_GetMaxY() + 60);
 		Circl_R = 20;
 		while (Circl_R <= 60) {
 			Circl_Circ(Circl_x0, Circl_y0, Circl_R);
