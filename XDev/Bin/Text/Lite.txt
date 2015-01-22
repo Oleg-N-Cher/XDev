@@ -1,10 +1,10 @@
- DevLinker.Link XDev.exe :=
+ DevLinker.Link XDevLite.exe :=
 Characters Kernel$+ Files HostFiles HostPackedFiles StdLoader
 1 favicon.ico 2 Doclogo.ico 3 SFLogo.ico 4 CFLogo.ico 5 DtyLogo.ico
 6 folderimg.ico 7 openimg.ico 8 leafimg.ico
 1 Move.cur 2 Copy.cur 3 Link.cur 4 Pick.cur 5 Stop.cur 6 Hand.cur 7 Table.cur
 
-DevPacker.PackThis XDev.exe :=
+DevPacker.PackThis XDevLite.exe :=
 Dev/Code/Markers.ocf
 
 Form/Code/Controllers.ocf

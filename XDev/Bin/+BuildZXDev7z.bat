@@ -1,2 +1,3 @@
-@Bin\7z.exe u -r -ssc -x@ZXDev-.lst ZXDev @ZXDev+.lst
-@PAUSE
+@CD ..\..
+Bin\7z.exe u -ssc -x@XDev\Bin\ZXDev-.lst ZXDev @XDev\Bin\ZXDev+.lst
+@IF errorlevel 1 PAUSE
