@@ -1,3 +1,7 @@
-ZXDev\Bin\bin2trd.c
-ZXDev\Bin\stripbin.dpr
-ZXDev\Bin\stripbin.exe
+ZXDev\Bin\MakeZX\
+ZXDev\Bin\*.c
+ZXDev\Bin\*.dpr
+
+Games\BegaMyshej\Mod\BegaMyshej.odc
+Games\Dice\.git\
+Games\Dice\Dice.pas
