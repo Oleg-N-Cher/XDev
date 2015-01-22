@@ -115,6 +115,8 @@ extern void SYSTEM_ENUMR();
 #define __MOVE(s, d, n)	memcpy((char*)(d),(char*)(s),n)
 
 /* std procs and operator mappings */
+#define __CONSTARR const
+#define __CONSTARRLOC const
 #define __SHORT(x, y)	((int)((unsigned long)(x)+(y)<(y)+(y)?(x):(__HALT(-8),0)))
 #define __SHORTF(x, y)	((int)(__RF((x)+(y),(y)+(y))-(y)))
 #define __CHR(x)	((CHAR)__R(x, 256))
