@@ -1,17 +1,20 @@
 Bin/proguard/
 DosDev/Obj/*.OBJ
 DosDev2/
+DroNDK/
+DroSDK/
 Games/
 gpcp-JVM/
 JmeDev/
 Ofront/Arch/
 Ofront/.gitignore
+Pdp11Dev/
 Rose/
 Samurai/
 Sdl/
 WinDev/Obj/*.o
 ZXDev/Obj/*.sym
-ZXDev/Lib/*.sym
+ZXDev/Lib/Obj/*.sym
 ZXDev/Bin/MakeZX
 *.dll
 *.asm
@@ -22,3 +25,4 @@ ZXDev/Bin/MakeZX
 *.map
 *.noi
 *.rel
+*.sbm
