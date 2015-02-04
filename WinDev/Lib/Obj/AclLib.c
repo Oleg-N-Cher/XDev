@@ -482,7 +482,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 	}
 	(*data).CharSet = (*aFont).lfCharSet;
 	__COPY((*aFont).lfFaceName, (*data).Name, 32);
-	switch ((int)((SET)((*aFont).lfPitchAndFamily) & 0x0f)) {
+	switch ((int)((SET)(*aFont).lfPitchAndFamily & 0x0f)) {
 		case 2: 
 			(*data).Pitch = 2;
 			break;
@@ -497,7 +497,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 
 static void AclLib_TFont_SetLogFont (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFONTA *aFont, LONGINT *aFont__typ)
 {
-	__MOVE(__VAL(LONGINT, *aFont), __VAL(LONGINT, (*f).FLogFont), 60);
+	__MOVE((SYSTEM_PTR)((INTEGER)aFont), (SYSTEM_PTR)((INTEGER)&(*f).FLogFont), 60);
 }
 
 static void AclLib_TFont_SetData (AclLib_TFont *f, LONGINT *f__typ, AclLib_TFontData *data, LONGINT *data__typ, WinApi_LOGFONTA *aFont, LONGINT *aFont__typ)
@@ -519,13 +519,13 @@ static void AclLib_TFont_SetData (AclLib_TFont *f, LONGINT *f__typ, AclLib_TFont
 		(*aFont).lfStrikeOut = 0x01;
 	}
 	(*aFont).lfCharSet = (*data).CharSet;
-	__MOVE(__VAL(LONGINT, (*data).Name), __VAL(LONGINT, (*aFont).lfFaceName), 32);
+	__MOVE((SYSTEM_PTR)((INTEGER)(*data).Name), (SYSTEM_PTR)((INTEGER)(*aFont).lfFaceName), 32);
 	switch ((*data).Pitch) {
 		case 2: 
-			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x02);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)(*aFont).lfPitchAndFamily | 0x02);
 			break;
 		case 1: 
-			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x01);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)(*aFont).lfPitchAndFamily | 0x01);
 			break;
 		default: 
 			break;
@@ -697,7 +697,7 @@ static INTEGER __CALL_1 AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR Tex
 	AclLib_PFonts Fnt = NIL;
 	Fnt = (AclLib_PFonts)data;
 	if (Fnt->FSet == 0x00) {
-		__MOVE(__VAL(LONGINT, LogFont), __VAL(LONGINT, (Fnt->FFonts->data)[__X(Fnt->Count, Fnt->FFonts->len[0])]), 60);
+		__MOVE((SYSTEM_PTR)((INTEGER)&LogFont), (SYSTEM_PTR)((INTEGER)&(Fnt->FFonts->data)[__X(Fnt->Count, Fnt->FFonts->len[0])]), 60);
 		Fnt->Count += 1;
 	}
 	return 1;
@@ -720,7 +720,7 @@ void AclLib_TFonts_Destroy (AclLib_TFonts *f, LONGINT *f__typ)
 /*----------------------------------------------------------------------------*/
 void AclLib_TFonts_GetFont (AclLib_TFonts *f, LONGINT *f__typ, INTEGER i, WinApi_LOGFONTA *result, LONGINT *result__typ)
 {
-	__MOVE(__VAL(LONGINT, ((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), __VAL(LONGINT, *result), 60);
+	__MOVE((SYSTEM_PTR)((INTEGER)&((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (SYSTEM_PTR)((INTEGER)result), 60);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -732,13 +732,13 @@ BOOLEAN AclLib_TFonts_IsDefaultPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsFixedPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 1;
+	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 1;
 }
 
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsVariablePitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 2;
+	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 2;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -777,7 +777,7 @@ void AclLib_TFonts_FindFont (AclLib_TFonts *f, LONGINT *f__typ, CHAR *aName, LON
 {
 	INTEGER i;
 	i = __AclLib_TFonts_IndexOf(&*f, f__typ, aPitch, (void*)aName, aName__len);
-	__MOVE(__VAL(LONGINT, ((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (LONGINT)((INTEGER)result), 60);
+	__MOVE((SYSTEM_PTR)((INTEGER)&((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (SYSTEM_PTR)((INTEGER)result), 60);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -803,7 +803,7 @@ static void AclLib_TFonts_Enumerate (AclLib_TFonts *f, LONGINT *f__typ)
 	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc0, (SYSTEM_PTR)((INTEGER)f), 0));
 	(*f).FFonts = (AclLib_PFontList)WinApi_GlobalAlloc(0x0, 60 * (*f).Count);
 	(*f).Count = 0;
-	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc, __VAL(SYSTEM_PTR, *f), 0));
+	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc, (SYSTEM_PTR)((INTEGER)f), 0));
 	Ignore_Int(WinApi_ReleaseDC(NIL, (*f).FDC));
 }
 
@@ -829,7 +829,7 @@ static BOOLEAN AclLib_TFonts_IsTrueType (AclLib_TFonts *f, LONGINT *f__typ, WinA
 	newFont = WinApi_CreateFontIndirect(&lf, WinApi_LOGFONTA__typ);
 	oldFont = WinApi_SelectObject((*f).FDC, newFont);
 	Ignore_Int(WinApi_GetTextMetrics((*f).FDC, &Metrics, WinApi_TEXTMETRICA__typ));
-	result = ((SET)(Metrics.tmPitchAndFamily) & 0x04) != 0x0;
+	result = ((SET)Metrics.tmPitchAndFamily & 0x04) != 0x0;
 	Ignore_Ptr(WinApi_SelectObject((*f).FDC, oldFont));
 	Ignore_Int(WinApi_DeleteObject(newFont));
 	return result;
