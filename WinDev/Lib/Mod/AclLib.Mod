@@ -971,8 +971,8 @@ END GetData;
 PROCEDURE (VAR f: TFont) SetLogFont (IN aFont: W.LOGFONT);
 BEGIN
   SYSTEM.MOVE(
-    SYSTEM.VAL(LONGINT, aFont),
-    SYSTEM.VAL(LONGINT, f.FLogFont),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(aFont)),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(f.FLogFont)),
     SIZE(W.LOGFONT)
   );
 END SetLogFont;
@@ -991,8 +991,8 @@ BEGIN
   IF fsStrikeOut IN data.Style THEN aFont.lfStrikeOut := 1X END;
   aFont.lfCharSet := data.CharSet;
   SYSTEM.MOVE(
-    SYSTEM.VAL(LONGINT, data.Name),
-    SYSTEM.VAL(LONGINT, aFont.lfFaceName),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(data.Name)),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(aFont.lfFaceName)),
     SIZE(TFontDataName)
   );
   CASE data.Pitch OF
@@ -1187,8 +1187,8 @@ BEGIN
   Fnt := SYSTEM.VAL(PFonts, data);
   IF (Fnt.FSet = fsAll) (*OR Fnt.IsTrueType(LogFont.elfLogFont)*) THEN
     SYSTEM.MOVE(
-      SYSTEM.VAL(LONGINT, LogFont),
-      SYSTEM.VAL(LONGINT, Fnt.FFonts^[Fnt.Count]),
+      SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(LogFont)),
+      SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(Fnt.FFonts^[Fnt.Count])),
       SIZE(W.LOGFONT)
     );
     INC(Fnt.Count);
@@ -1217,8 +1217,8 @@ END Destroy;
 PROCEDURE (VAR f: TFonts) GetFont* (i: Integer; VAR result: W.LOGFONT);
 BEGIN
   SYSTEM.MOVE(
-    SYSTEM.VAL(LONGINT, f.FFonts^[i]),
-    SYSTEM.VAL(LONGINT, result),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(f.FFonts^[i])),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(result)),
     SIZE(W.LOGFONT)
   );
 END GetFont;
@@ -1264,8 +1264,8 @@ VAR
 BEGIN
   i := f.IndexOf(aPitch, aName);
   SYSTEM.MOVE(
-    SYSTEM.VAL(LONGINT, f.FFonts^[i]),
-    SYSTEM.VAL(LONGINT, SYSTEM.ADR(result)),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(f.FFonts^[i])),
+    SYSTEM.VAL(SYSTEM.PTR, SYSTEM.ADR(result)),
     SIZE(W.LOGFONT)
   );
 END FindFont;
@@ -1296,7 +1296,7 @@ BEGIN
   f.Count := 0;
   Ignore.Int(
     W.EnumFontFamiliesEx(f.FDC, lFont, EnumFontsProc,
-      SYSTEM.VAL(W.LPARAM, f), 0)
+      SYSTEM.VAL(W.LPARAM, SYSTEM.ADR(f)), 0)
   );
   Ignore.Int( W.ReleaseDC(NUL, f.FDC) );
 END Enumerate;

@@ -7,22 +7,22 @@
 
 typedef
 	struct AclDemo_TWnd1 { /* AclLib_TWinControl */
-		char _prvt0[788];
+		char _prvt0[800];
 		SYSTEM_PTR Brush;
+		char _prvt1[8];
 		SHORTINT Cursor;
-		char _prvt1[128];
+		char _prvt2[148];
 		INTEGER Color, TextColor;
-		char _prvt2[4];
-		SET Style, ExStyle;
 		char _prvt3[4];
+		SET Style, ExStyle;
+		char _prvt4[4];
 		INTEGER Left, Top, Width, Height;
 		AclLib_PWinControl Parent;
 		BOOLEAN AutoStop;
-		char _prvt4[7];
+		char _prvt5[15];
 		BOOLEAN Enabled, IsModal;
-		char _prvt5[7];
+		char _prvt6[7];
 		BOOLEAN Visible;
-		char _prvt6[4];
 		AclLib_TLabel L1;
 		AclLib_TListBox Lb1;
 		AclLib_TCheckBox Ch1, Ch2, Ch3, Ch4;
@@ -63,15 +63,15 @@ static void AclDemo_TWnd1_Btn2Click (AclDemo_TWnd1 *w, LONGINT *w__typ, AclLib_T
 
 static void EnumPtrs(void (*P)(void*))
 {
-	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 9960, 1, P);
+	__ENUMR(&AclDemo_Wnd1, AclDemo_TWnd1__typ, 10480, 1, P);
 }
 
-__TDESC(AclDemo_TWnd1__desc, 31, 90) = {__TDFLDS("TWnd1", 9960), {0, 4, 788, 792, 800, 804, 924, 968, 976, 996, 1000, 1784, 1788, 1796, 1800, 1920, 
-	1964, 1972, 1992, 1996, 2780, 2784, 2792, 2796, 2916, 2960, 2968, 2988, 2992, 3776, 3780, 3788, 
-	3792, 3912, 3956, 3964, 3984, 3988, 4772, 4776, 4784, 4788, 4908, 4952, 4960, 4980, 4984, 5768, 
-	5772, 5780, 5784, 5904, 5948, 5956, 5976, 5980, 6764, 6768, 6776, 6780, 6900, 6944, 6952, 6972, 
-	6976, 7760, 7764, 7772, 7776, 7896, 7940, 7948, 7968, 7972, 8756, 8760, 8768, 8772, 8892, 8936, 
-	8944, 8964, 8968, 9752, 9756, 9764, 9768, 9888, 9932, 9940, -728}};
+__TDESC(AclDemo_TWnd1__desc, 31, 90) = {__TDFLDS("TWnd1", 10480), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, 1048, 1056, 1848, 1856, 1872, 1880, 2008, 
+	2056, 2072, 2096, 2104, 2896, 2904, 2920, 2928, 3056, 3104, 3120, 3144, 3152, 3944, 3952, 3968, 
+	3976, 4104, 4152, 4168, 4192, 4200, 4992, 5000, 5016, 5024, 5152, 5200, 5216, 5240, 5248, 6040, 
+	6048, 6064, 6072, 6200, 6248, 6264, 6288, 6296, 7088, 7096, 7112, 7120, 7248, 7296, 7312, 7336, 
+	7344, 8136, 8144, 8160, 8168, 8296, 8344, 8360, 8384, 8392, 9184, 9192, 9208, 9216, 9344, 9392, 
+	9408, 9432, 9440, 10232, 10240, 10256, 10264, 10392, 10440, 10456, -728}};
 
 export main(int argc, char **argv)
 {

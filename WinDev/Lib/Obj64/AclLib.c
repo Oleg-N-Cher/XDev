@@ -482,7 +482,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 	}
 	(*data).CharSet = (*aFont).lfCharSet;
 	__COPY((*aFont).lfFaceName, (*data).Name, 32);
-	switch ((int)((SET)((*aFont).lfPitchAndFamily) & 0x0f)) {
+	switch ((int)((SET)(*aFont).lfPitchAndFamily & 0x0f)) {
 		case 2: 
 			(*data).Pitch = 2;
 			break;
@@ -497,7 +497,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 
 static void AclLib_TFont_SetLogFont (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFONTA *aFont, LONGINT *aFont__typ)
 {
-	__MOVE(__VAL(LONGINT, *aFont), __VAL(LONGINT, (*f).FLogFont), 60);
+	__MOVE((SYSTEM_PTR)((LONGINT)aFont), (SYSTEM_PTR)((LONGINT)&(*f).FLogFont), 60);
 }
 
 static void AclLib_TFont_SetData (AclLib_TFont *f, LONGINT *f__typ, AclLib_TFontData *data, LONGINT *data__typ, WinApi_LOGFONTA *aFont, LONGINT *aFont__typ)
@@ -519,13 +519,13 @@ static void AclLib_TFont_SetData (AclLib_TFont *f, LONGINT *f__typ, AclLib_TFont
 		(*aFont).lfStrikeOut = 0x01;
 	}
 	(*aFont).lfCharSet = (*data).CharSet;
-	__MOVE(__VAL(LONGINT, (*data).Name), __VAL(LONGINT, (*aFont).lfFaceName), 32);
+	__MOVE((SYSTEM_PTR)((LONGINT)(*data).Name), (SYSTEM_PTR)((LONGINT)(*aFont).lfFaceName), 32);
 	switch ((*data).Pitch) {
 		case 2: 
-			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x02);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)(*aFont).lfPitchAndFamily | 0x02);
 			break;
 		case 1: 
-			(*aFont).lfPitchAndFamily = (CHAR)((SET)((*aFont).lfPitchAndFamily) | 0x01);
+			(*aFont).lfPitchAndFamily = (CHAR)((SET)(*aFont).lfPitchAndFamily | 0x01);
 			break;
 		default: 
 			break;
@@ -697,7 +697,7 @@ static INTEGER __CALL_1 AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR Tex
 	AclLib_PFonts Fnt = NIL;
 	Fnt = (AclLib_PFonts)data;
 	if (Fnt->FSet == 0x00) {
-		__MOVE((LONGINT)LogFont, __VAL(LONGINT, (Fnt->FFonts->data)[__X(Fnt->Count, Fnt->FFonts->len[0])]), 60);
+		__MOVE((SYSTEM_PTR)((LONGINT)&LogFont), (SYSTEM_PTR)((LONGINT)&(Fnt->FFonts->data)[__X(Fnt->Count, Fnt->FFonts->len[0])]), 60);
 		Fnt->Count += 1;
 	}
 	return 1;
@@ -720,7 +720,7 @@ void AclLib_TFonts_Destroy (AclLib_TFonts *f, LONGINT *f__typ)
 /*----------------------------------------------------------------------------*/
 void AclLib_TFonts_GetFont (AclLib_TFonts *f, LONGINT *f__typ, INTEGER i, WinApi_LOGFONTA *result, LONGINT *result__typ)
 {
-	__MOVE(__VAL(LONGINT, ((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), __VAL(LONGINT, *result), 60);
+	__MOVE((SYSTEM_PTR)((LONGINT)&((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (SYSTEM_PTR)((LONGINT)result), 60);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -732,13 +732,13 @@ BOOLEAN AclLib_TFonts_IsDefaultPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsFixedPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 1;
+	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 1;
 }
 
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsVariablePitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)((*AFont).lfPitchAndFamily) & 0x0f) == 2;
+	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 2;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -777,7 +777,7 @@ void AclLib_TFonts_FindFont (AclLib_TFonts *f, LONGINT *f__typ, CHAR *aName, LON
 {
 	INTEGER i;
 	i = __AclLib_TFonts_IndexOf(&*f, f__typ, aPitch, (void*)aName, aName__len);
-	__MOVE(__VAL(LONGINT, ((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (LONGINT)((LONGINT)result), 60);
+	__MOVE((SYSTEM_PTR)((LONGINT)&((*f).FFonts->data)[__X(i, (*f).FFonts->len[0])]), (SYSTEM_PTR)((LONGINT)result), 60);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -803,7 +803,7 @@ static void AclLib_TFonts_Enumerate (AclLib_TFonts *f, LONGINT *f__typ)
 	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc0, (SYSTEM_PTR)((LONGINT)f), 0));
 	(*f).FFonts = (AclLib_PFontList)WinApi_GlobalAlloc(0x0, 60 * (*f).Count);
 	(*f).Count = 0;
-	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc, __VAL(SYSTEM_PTR, *f), 0));
+	Ignore_Int(WinApi_EnumFontFamiliesEx((*f).FDC, &lFont, WinApi_LOGFONTA__typ, AclLib_EnumFontsProc, (SYSTEM_PTR)((LONGINT)f), 0));
 	Ignore_Int(WinApi_ReleaseDC(NIL, (*f).FDC));
 }
 
@@ -829,7 +829,7 @@ static BOOLEAN AclLib_TFonts_IsTrueType (AclLib_TFonts *f, LONGINT *f__typ, WinA
 	newFont = WinApi_CreateFontIndirect(&lf, WinApi_LOGFONTA__typ);
 	oldFont = WinApi_SelectObject((*f).FDC, newFont);
 	Ignore_Int(WinApi_GetTextMetrics((*f).FDC, &Metrics, WinApi_TEXTMETRICA__typ));
-	result = ((SET)(Metrics.tmPitchAndFamily) & 0x04) != 0x0;
+	result = ((SET)Metrics.tmPitchAndFamily & 0x04) != 0x0;
 	Ignore_Ptr(WinApi_SelectObject((*f).FDC, oldFont));
 	Ignore_Int(WinApi_DeleteObject(newFont));
 	return result;
@@ -1119,3 +1119,135 @@ INTEGER AclLib_TWinControl_ShowModal (AclLib_TWinControl *w, LONGINT *w__typ)
 	__RETCHK;
 }
 
+/*----------------------------------------------------------------------------*/
+static void AclLib_TWinControl_EndModal (AclLib_TWinControl *w, LONGINT *w__typ, INTEGER value)
+{
+	if ((*w).IsModal) {
+		(*w).FModalResult = value;
+	}
+}
+
+static void AclLib_TWinControl_Invalidate (AclLib_TWinControl *w, LONGINT *w__typ)
+{
+	if ((*w).Parent == NIL) {
+		Ignore_Int(WinApi_ShowWindow((*w).FHandle, AclLib_CmdShow));
+	}
+	Ignore_Int(WinApi_InvalidateRect((*w).FHandle, NIL, NIL, 1));
+	Ignore_Int(WinApi_UpdateWindow((*w).FHandle));
+}
+
+static void AclLib_TWinControl_SetFocus (AclLib_TWinControl *w, LONGINT *w__typ)
+{
+	Ignore_Ptr(WinApi_SetFocus((*w).FHandle));
+}
+
+static void EnumPtrs(void (*P)(void*))
+{
+	__ENUMR(&AclLib_Fonts, AclLib_TFonts__typ, 32, 1, P);
+	P(AclLib_HInstance);
+	__ENUMR(&AclLib_MainWindow, AclLib_TWinControl__typ, 1048, 1, P);
+}
+
+__TDESC(AclLib_TObject__desc, 1, 0) = {__TDFLDS("TObject", 1), {-8}};
+__TDESC(AclLib_TCreateParams__desc, 1, 2) = {__TDFLDS("TCreateParams", 400), {280, 288, -24}};
+__TDESC(AclLib_TControl__desc, 1, 1) = {__TDFLDS("TControl", 24), {0, -16}};
+__TDESC(AclLib_TControlList__desc, 1, 0) = {__TDFLDS("TControlList", 32), {-8}};
+__TDESC(AclLib_TWinControlList__desc, 1, 0) = {__TDFLDS("TWinControlList", 16), {-8}};
+__TDESC(AclLib_TFontData__desc, 1, 0) = {__TDFLDS("TFontData", 48), {-8}};
+__TDESC(AclLib_TFont__desc, 21, 2) = {__TDFLDS("TFont", 136), {0, 8, -24}};
+__TDESC(AclLib_TFonts__desc, 12, 2) = {__TDFLDS("TFonts", 32), {0, 16, -24}};
+__TDESC(AclLib_TWinControl__desc, 28, 9) = {__TDFLDS("TWinControl", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TStdControl__desc, 28, 9) = {__TDFLDS("TStdControl", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TLabel__desc, 28, 9) = {__TDFLDS("TLabel", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TListBox__desc, 28, 9) = {__TDFLDS("TListBox", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TButton__desc, 28, 9) = {__TDFLDS("TButton", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TCheckBox__desc, 28, 9) = {__TDFLDS("TCheckBox", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+__TDESC(AclLib_TProgressBar__desc, 28, 9) = {__TDFLDS("TProgressBar", 1048), {0, 8, 800, 808, 824, 832, 960, 1008, 1024, -80}};
+
+export void *AclLib__init(void)
+{
+	__DEFMOD;
+	__IMPORT(Ignore__init);
+	__IMPORT(AclUtils__init);
+	__IMPORT(WinApi__init);
+	__REGMOD("AclLib", EnumPtrs);
+	__INITYP(AclLib_TObject, AclLib_TObject, 0);
+	__INITYP(AclLib_TCreateParams, AclLib_TCreateParams, 0);
+	__INITYP(AclLib_TControl, AclLib_TControl, 0);
+	__INITYP(AclLib_TControlList, AclLib_TControlList, 0);
+	__INITYP(AclLib_TWinControlList, AclLib_TWinControlList, 0);
+	__INITYP(AclLib_TFontData, AclLib_TFontData, 0);
+	__INITYP(AclLib_TFont, AclLib_TFont, 0);
+	__INITBP(AclLib_TFont, AclLib_TFont_Create, 0);
+	__INITBP(AclLib_TFont, AclLib_TFont_Destroy, 1);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetCharSet, 2);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetData, 3);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetHeight, 4);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetName, 5);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetPitch, 6);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetSize, 7);
+	__INITBP(AclLib_TFont, AclLib_TFont_GetStyle, 8);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetCharSet, 9);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetColor, 10);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetData, 11);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetHeight, 12);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetLogFont, 13);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetName, 14);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetPitch, 15);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetPixelsPerInch, 16);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetSize, 17);
+	__INITBP(AclLib_TFont, AclLib_TFont_SetStyle, 18);
+	__INITBP(AclLib_TFont, AclLib_TFont_UpdateFont, 19);
+	__INITYP(AclLib_TFonts, AclLib_TFonts, 0);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_Create, 0);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_Destroy, 1);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_Enumerate, 2);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_FindFont, 3);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_GetFont, 4);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_IndexOf, 5);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_IsDefaultPitch, 6);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_IsFixedPitch, 7);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_IsTrueType, 8);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_IsVariablePitch, 9);
+	__INITBP(AclLib_TFonts, AclLib_TFonts_SetCharSet, 10);
+	__INITYP(AclLib_TWinControl, AclLib_TWinControl, 0);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Create, 0);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_CreateParams, 1);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_CreateWindowHandle, 2);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_CreateWnd, 3);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_EndModal, 4);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_GetClientHeight, 5);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_GetClientRect, 6);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_GetClientWidth, 7);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Hide, 8);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Invalidate, 9);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_IsParentHandle, 10);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_ProcessMessages, 11);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_ProcessMsg, 12);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetBounds, 13);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetCaption, 14);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetColor, 15);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetEnabled, 16);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetFocus, 17);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetFont, 18);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetHeight, 19);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetLeft, 20);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTextColor, 21);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetTop, 22);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetVisible, 23);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_SetWidth, 24);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_Show, 25);
+	__INITBP(AclLib_TWinControl, AclLib_TWinControl_ShowModal, 26);
+	__INITYP(AclLib_TStdControl, AclLib_TWinControl, 1);
+	__INITYP(AclLib_TLabel, AclLib_TStdControl, 2);
+	__INITYP(AclLib_TListBox, AclLib_TStdControl, 2);
+	__INITYP(AclLib_TButton, AclLib_TStdControl, 2);
+	__INITYP(AclLib_TCheckBox, AclLib_TStdControl, 2);
+	__INITYP(AclLib_TProgressBar, AclLib_TStdControl, 2);
+/* BEGIN */
+	AclLib_HInstance = WinApi_GetModuleHandle(NIL);
+	AclLib_CmdShow = AclLib_GetCmdShow();
+	AclLib_InitScreenLogPixels();
+	__AclLib_TFonts_Create(&AclLib_Fonts, AclLib_TFonts__typ);
+	__ENDMOD;
+}
