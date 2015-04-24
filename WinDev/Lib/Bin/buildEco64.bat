@@ -8,5 +8,6 @@
 @CALL ..\Bin\smart64 %Lib% EcoListen
 @CALL ..\Bin\smart64 %Lib% EcoLists
 @CALL ..\Bin\solid64 %Lib% EcoVector
+@CALL ..\Bin\solid64 %Lib% EcoParser
 
 :exit
