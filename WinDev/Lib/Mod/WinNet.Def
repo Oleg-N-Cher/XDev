@@ -1,4 +1,4 @@
-MODULE WinNet ["MPR.dll"];
+MODULE WinNet;
 (**
 	project	= "BlackBox"
 	organization	= "www.oberon.ch"
@@ -11,7 +11,7 @@ MODULE WinNet ["MPR.dll"];
 
 **)
 
-	IMPORT WinApi;
+	IMPORT SYSTEM, WinApi;
 
 	CONST (* macros *)
 		INVALID_SOCKET* = -1;
@@ -550,7 +550,7 @@ MODULE WinNet ["MPR.dll"];
 		GuaranteedService* = 2;
 
 	TYPE
-		NETRESOURCEA* = RECORD [untagged]
+		NETRESOURCEA* = RECORD [1]
 			dwScope*: INTEGER;
 			dwType*: INTEGER;
 			dwDisplayType*: INTEGER;
@@ -561,7 +561,7 @@ MODULE WinNet ["MPR.dll"];
 			lpProvider*: WinApi.PtrSTR;
 		END;
 		PtrNETRESOURCEA* = POINTER TO NETRESOURCEA;
-		NETRESOURCEW* = RECORD [untagged]
+		NETRESOURCEW* = RECORD [1]
 			dwScope*: INTEGER;
 			dwType*: INTEGER;
 			dwDisplayType*: INTEGER;
@@ -574,7 +574,7 @@ MODULE WinNet ["MPR.dll"];
 		PtrNETRESOURCEW* = POINTER TO NETRESOURCEW;
 		NETRESOURCE* = NETRESOURCEA;
 		PtrNETRESOURCE* = PtrNETRESOURCEA;
-		CONNECTDLGSTRUCTA* = RECORD [untagged]
+		CONNECTDLGSTRUCTA* = RECORD [1]
 			cbStructure*: INTEGER;
 			hwndOwner*: WinApi.HWND;
 			lpConnRes*: PtrNETRESOURCEA;
@@ -582,7 +582,7 @@ MODULE WinNet ["MPR.dll"];
 			dwDevNum*: INTEGER;
 		END;
 		PtrCONNECTDLGSTRUCTA* = POINTER TO CONNECTDLGSTRUCTA;
-		CONNECTDLGSTRUCTW* = RECORD [untagged]
+		CONNECTDLGSTRUCTW* = RECORD [1]
 			cbStructure*: INTEGER;
 			hwndOwner*: WinApi.HWND;
 			lpConnRes*: PtrNETRESOURCEW;
@@ -592,7 +592,7 @@ MODULE WinNet ["MPR.dll"];
 		PtrCONNECTDLGSTRUCTW* = POINTER TO CONNECTDLGSTRUCTW;
 		CONNECTDLGSTRUCT* = CONNECTDLGSTRUCTA;
 		PtrCONNECTDLGSTRUCT* = PtrCONNECTDLGSTRUCTA;
-		DISCDLGSTRUCTA* = RECORD [untagged]
+		DISCDLGSTRUCTA* = RECORD [1]
 			cbStructure*: INTEGER;
 			hwndOwner*: WinApi.HWND;
 			lpLocalName*: WinApi.PtrSTR;
@@ -600,7 +600,7 @@ MODULE WinNet ["MPR.dll"];
 			dwFlags*: SET;
 		END;
 		PtrDISCDLGSTRUCTA* = POINTER TO DISCDLGSTRUCTA;
-		DISCDLGSTRUCTW* = RECORD [untagged]
+		DISCDLGSTRUCTW* = RECORD [1]
 			cbStructure*: INTEGER;
 			hwndOwner*: WinApi.HWND;
 			lpLocalName*: WinApi.PtrWSTR;
@@ -610,23 +610,23 @@ MODULE WinNet ["MPR.dll"];
 		PtrDISCDLGSTRUCTW* = POINTER TO DISCDLGSTRUCTW;
 		DISCDLGSTRUCT* = DISCDLGSTRUCTA;
 		PtrDISCDLGSTRUCT* = PtrDISCDLGSTRUCTA;
-		UNIVERSAL_NAME_INFOA* = RECORD [untagged]
+		UNIVERSAL_NAME_INFOA* = RECORD [1]
 			lpUniversalName*: WinApi.PtrSTR;
 		END;
 		PtrUNIVERSAL_NAME_INFOA* = POINTER TO UNIVERSAL_NAME_INFOA;
-		UNIVERSAL_NAME_INFOW* = RECORD [untagged]
+		UNIVERSAL_NAME_INFOW* = RECORD [1]
 			lpUniversalName*: WinApi.PtrWSTR;
 		END;
 		PtrUNIVERSAL_NAME_INFOW* = POINTER TO UNIVERSAL_NAME_INFOW;
 		UNIVERSAL_NAME_INFO* = UNIVERSAL_NAME_INFOA;
 		PtrUNIVERSAL_NAME_INFO* = PtrUNIVERSAL_NAME_INFOA;
-		REMOTE_NAME_INFOA* = RECORD [untagged]
+		REMOTE_NAME_INFOA* = RECORD [1]
 			lpUniversalName*: WinApi.PtrSTR;
 			lpConnectionName*: WinApi.PtrSTR;
 			lpRemainingPath*: WinApi.PtrSTR;
 		END;
 		PtrREMOTE_NAME_INFOA* = POINTER TO REMOTE_NAME_INFOA;
-		REMOTE_NAME_INFOW* = RECORD [untagged]
+		REMOTE_NAME_INFOW* = RECORD [1]
 			lpUniversalName*: WinApi.PtrWSTR;
 			lpConnectionName*: WinApi.PtrWSTR;
 			lpRemainingPath*: WinApi.PtrWSTR;
@@ -634,7 +634,7 @@ MODULE WinNet ["MPR.dll"];
 		PtrREMOTE_NAME_INFOW* = POINTER TO REMOTE_NAME_INFOW;
 		REMOTE_NAME_INFO* = REMOTE_NAME_INFOA;
 		PtrREMOTE_NAME_INFO* = PtrREMOTE_NAME_INFOA;
-		NETINFOSTRUCT* = RECORD [untagged]
+		NETINFOSTRUCT* = RECORD [1]
 			cbStructure*: INTEGER;
 			dwProviderVersion*: INTEGER;
 			dwStatus*: SET;
@@ -651,7 +651,7 @@ MODULE WinNet ["MPR.dll"];
 		FNRECONCILEPROFILEW* = PROCEDURE (pszCentralFile: WinApi.PtrWSTR; pszLocalFile: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
 		FNPROCESSPOLICIESA* = PROCEDURE (hwnd: WinApi.HWND; pszPath: WinApi.PtrSTR; pszUsername: WinApi.PtrSTR; pszComputerName: WinApi.PtrSTR; dwFlags: SET): WinApi.BOOL;
 		FNPROCESSPOLICIESW* = PROCEDURE (hwnd: WinApi.HWND; pszPath: WinApi.PtrWSTR; pszUsername: WinApi.PtrWSTR; pszComputerName: WinApi.PtrWSTR; dwFlags: SET): WinApi.BOOL;
-		NETCONNECTINFOSTRUCT* = RECORD [untagged]
+		NETCONNECTINFOSTRUCT* = RECORD [1]
 			cbStructure*: INTEGER;
 			dwFlags*: SET;
 			dwSpeed*: INTEGER;
@@ -660,25 +660,25 @@ MODULE WinNet ["MPR.dll"];
 		END;
 		PtrNETCONNECTINFOSTRUCT* = POINTER TO NETCONNECTINFOSTRUCT;
 		PtrNCB* = POINTER TO NCB;
-		NCB* = RECORD [untagged]
+		NCB* = RECORD [1]
 			ncb_command*: SHORTCHAR;
 			ncb_retcode*: SHORTCHAR;
 			ncb_lsn*: SHORTCHAR;
 			ncb_num*: SHORTCHAR;
 			ncb_buffer*: WinApi.PtrSTR;
 			ncb_length*: SHORTINT;
-			ncb_callname*: ARRAY [untagged] 16 OF SHORTCHAR;
-			ncb_name*: ARRAY [untagged] 16 OF SHORTCHAR;
+			ncb_callname*: ARRAY [1] 16 OF SHORTCHAR;
+			ncb_name*: ARRAY [1] 16 OF SHORTCHAR;
 			ncb_rto*: SHORTCHAR;
 			ncb_sto*: SHORTCHAR;
 			ncb_post*: PROCEDURE (p0: PtrNCB);
 			ncb_lana_num*: SHORTCHAR;
 			ncb_cmd_cplt*: SHORTCHAR;
-			ncb_reserve*: ARRAY [untagged] 10 OF SHORTCHAR;
+			ncb_reserve*: ARRAY [1] 10 OF SHORTCHAR;
 			ncb_event*: WinApi.HANDLE;
 		END;
-		ADAPTER_STATUS* = RECORD [untagged]
-			adapter_address*: ARRAY [untagged] 6 OF SHORTCHAR;
+		ADAPTER_STATUS* = RECORD [1]
+			adapter_address*: ARRAY [1] 6 OF SHORTCHAR;
 			rev_major*: SHORTCHAR;
 			reserved0*: SHORTCHAR;
 			adapter_type*: SHORTCHAR;
@@ -707,49 +707,49 @@ MODULE WinNet ["MPR.dll"];
 			name_count*: SHORTINT;
 		END;
 		PtrADAPTER_STATUS* = POINTER TO ADAPTER_STATUS;
-		NAME_BUFFER* = RECORD [untagged]
-			name*: ARRAY [untagged] 16 OF SHORTCHAR;
+		NAME_BUFFER* = RECORD [1]
+			name*: ARRAY [1] 16 OF SHORTCHAR;
 			name_num*: SHORTCHAR;
 			name_flags*: SHORTCHAR;
 		END;
 		PtrNAME_BUFFER* = POINTER TO NAME_BUFFER;
-		SESSION_HEADER* = RECORD [untagged]
+		SESSION_HEADER* = RECORD [1]
 			sess_name*: SHORTCHAR;
 			num_sess*: SHORTCHAR;
 			rcv_dg_outstanding*: SHORTCHAR;
 			rcv_any_outstanding*: SHORTCHAR;
 		END;
 		PtrSESSION_HEADER* = POINTER TO SESSION_HEADER;
-		SESSION_BUFFER* = RECORD [untagged]
+		SESSION_BUFFER* = RECORD [1]
 			lsn*: SHORTCHAR;
 			state*: SHORTCHAR;
-			local_name*: ARRAY [untagged] 16 OF SHORTCHAR;
-			remote_name*: ARRAY [untagged] 16 OF SHORTCHAR;
+			local_name*: ARRAY [1] 16 OF SHORTCHAR;
+			remote_name*: ARRAY [1] 16 OF SHORTCHAR;
 			rcvs_outstanding*: SHORTCHAR;
 			sends_outstanding*: SHORTCHAR;
 		END;
 		PtrSESSION_BUFFER* = POINTER TO SESSION_BUFFER;
-		LANA_ENUM* = RECORD [untagged]
+		LANA_ENUM* = RECORD [1]
 			length*: SHORTCHAR;
-			lana*: ARRAY [untagged] 255 OF SHORTCHAR;
+			lana*: ARRAY [1] 255 OF SHORTCHAR;
 		END;
 		PtrLANA_ENUM* = POINTER TO LANA_ENUM;
-		FIND_NAME_HEADER* = RECORD [untagged]
+		FIND_NAME_HEADER* = RECORD [1]
 			node_count*: SHORTINT;
 			reserved*: SHORTCHAR;
 			unique_group*: SHORTCHAR;
 		END;
 		PtrFIND_NAME_HEADER* = POINTER TO FIND_NAME_HEADER;
-		FIND_NAME_BUFFER* = RECORD [untagged]
+		FIND_NAME_BUFFER* = RECORD [1]
 			length*: SHORTCHAR;
 			access_control*: SHORTCHAR;
 			frame_control*: SHORTCHAR;
-			destination_addr*: ARRAY [untagged] 6 OF SHORTCHAR;
-			source_addr*: ARRAY [untagged] 6 OF SHORTCHAR;
-			routing_info*: ARRAY [untagged] 18 OF SHORTCHAR;
+			destination_addr*: ARRAY [1] 6 OF SHORTCHAR;
+			source_addr*: ARRAY [1] 6 OF SHORTCHAR;
+			routing_info*: ARRAY [1] 18 OF SHORTCHAR;
 		END;
 		PtrFIND_NAME_BUFFER* = POINTER TO FIND_NAME_BUFFER;
-		ACTION_HEADER* = RECORD [untagged]
+		ACTION_HEADER* = RECORD [1]
 			transport_id*: INTEGER;
 			action_code*: SHORTINT;
 			reserved*: SHORTINT;
@@ -760,52 +760,52 @@ MODULE WinNet ["MPR.dll"];
 		u_int* = INTEGER;
 		u_long* = INTEGER;
 		SOCKET* = u_int;
-		fd_set* = RECORD [untagged]
+		fd_set* = RECORD [1]
 			fd_count*: u_int;
-			fd_array*: ARRAY [untagged] 64 OF SOCKET;
+			fd_array*: ARRAY [1] 64 OF SOCKET;
 		END;
 		Ptrfd_set* = POINTER TO fd_set;
-		timeval* = RECORD [untagged]
+		timeval* = RECORD [1]
 			tv_sec*: INTEGER;
 			tv_usec*: INTEGER;
 		END;
 		Ptrtimeval* = POINTER TO timeval;
-		hostent* = RECORD [untagged]
+		hostent* = RECORD [1]
 			h_name*: WinApi.PtrSTR;
-			h_aliases*: POINTER TO (*?*) ARRAY [untagged] OF WinApi.PtrSTR;
+			h_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
 			h_addrtype*: SHORTINT;
 			h_length*: SHORTINT;
-			h_addr_list*: POINTER TO (*?*) ARRAY [untagged] OF POINTER TO ARRAY [untagged] OF in_addr;
+			h_addr_list*: POINTER TO (*?*) ARRAY [1] OF POINTER TO ARRAY [1] OF in_addr;
 		END;
 		Ptrhostent* = POINTER TO hostent;
-		netent* = RECORD [untagged]
+		netent* = RECORD [1]
 			n_name*: WinApi.PtrSTR;
-			n_aliases*: POINTER TO (*?*) ARRAY [untagged] OF WinApi.PtrSTR;
+			n_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
 			n_addrtype*: SHORTINT;
 			n_net*: u_long;
 		END;
-		servent* = RECORD [untagged]
+		servent* = RECORD [1]
 			s_name*: WinApi.PtrSTR;
-			s_aliases*: POINTER TO (*?*) ARRAY [untagged] OF WinApi.PtrSTR;
+			s_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
 			s_port*: SHORTINT;
 			s_proto*: WinApi.PtrSTR;
 		END;
 		Ptrservent* = POINTER TO servent;
-		protoent* = RECORD [untagged]
+		protoent* = RECORD [1]
 			p_name*: WinApi.PtrSTR;
-			p_aliases*: POINTER TO (*?*) ARRAY [untagged] OF WinApi.PtrSTR;
+			p_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
 			p_proto*: SHORTINT;
 		END;
 		Ptrprotoent* = POINTER TO protoent;
-		in_addr* = RECORD [untagged]
+		in_addr* = RECORD [1]
 			S_un*: RECORD [union]
-				S_un_b*: RECORD [untagged]
+				S_un_b*: RECORD [1]
 					s_b1*: u_char;
 					s_b2*: u_char;
 					s_b3*: u_char;
 					s_b4*: u_char;
 				END;
-				S_un_w*: RECORD [untagged]
+				S_un_w*: RECORD [1]
 					s_w1*: u_short;
 					s_w2*: u_short;
 				END;
@@ -813,39 +813,39 @@ MODULE WinNet ["MPR.dll"];
 			END;
 		END;
 		Ptrin_addr* = POINTER TO in_addr;
-		sockaddr_in* = RECORD [untagged]
+		sockaddr_in* = RECORD [1]
 			sin_family*: SHORTINT;
 			sin_port*: u_short;
 			sin_addr*: in_addr;
-			sin_zero*: ARRAY [untagged] 8 OF SHORTCHAR;
+			sin_zero*: ARRAY [1] 8 OF SHORTCHAR;
 		END;
 		Ptrsockaddr_in* = POINTER TO sockaddr_in;
-		WSADATA* = RECORD [untagged]
+		WSADATA* = RECORD [1]
 			wVersion*: SHORTINT;
 			wHighVersion*: SHORTINT;
-			szDescription*: ARRAY [untagged] 257 OF SHORTCHAR;
-			szSystemStatus*: ARRAY [untagged] 129 OF SHORTCHAR;
+			szDescription*: ARRAY [1] 257 OF SHORTCHAR;
+			szSystemStatus*: ARRAY [1] 129 OF SHORTCHAR;
 			iMaxSockets*: SHORTINT;
 			iMaxUdpDg*: SHORTINT;
 			lpVendorInfo*: WinApi.PtrSTR;
 		END;
 		PtrWSADATA* = POINTER TO WSADATA;
-		sockaddr* = RECORD [untagged]
+		sockaddr* = RECORD [1]
 			sa_family*: u_short;
-			sa_data*: ARRAY [untagged] 14 OF SHORTCHAR;
+			sa_data*: ARRAY [1] 14 OF SHORTCHAR;
 		END;
 		Ptrsockaddr* = POINTER TO sockaddr;
-		sockproto* = RECORD [untagged]
+		sockproto* = RECORD [1]
 			sp_family*: u_short;
 			sp_protocol*: u_short;
 		END;
-		linger* = RECORD [untagged]
+		linger* = RECORD [1]
 			l_onoff*: u_short;
 			l_linger*: u_short;
 		END;
 		Ptrlinger* = POINTER TO linger;
 		WSAEVENT* = INTEGER;
-		WSAOVERLAPPED* = RECORD [untagged]
+		WSAOVERLAPPED* = RECORD [1]
 			Internal*: INTEGER;
 			InternalHigh*: INTEGER;
 			Offset*: INTEGER;
@@ -853,14 +853,14 @@ MODULE WinNet ["MPR.dll"];
 			hEvent*: WSAEVENT;
 		END;
 		PtrWSAOVERLAPPED* = POINTER TO WSAOVERLAPPED;
-		WSABUF* = RECORD [untagged]
+		WSABUF* = RECORD [1]
 			len*: u_long;
 			buf*: WinApi.PtrSTR;
 		END;
 		PtrWSABUF* = POINTER TO WSABUF;
 		GUARANTEE* = INTEGER;
 		int32* = INTEGER;
-		FLOWSPEC* = RECORD [untagged]
+		FLOWSPEC* = RECORD [1]
 			TokenRate*: int32;
 			TokenBucketSize*: int32;
 			PeakBandwidth*: int32;
@@ -871,23 +871,23 @@ MODULE WinNet ["MPR.dll"];
 			NetworkAvailability*: int32;
 		END;
 		PtrFLOWSPEC* = POINTER TO FLOWSPEC;
-		QOS* = RECORD [untagged]
+		QOS* = RECORD [1]
 			SendingFlowspec*: WSABUF;
 			ReceivingFlowspec*: WSABUF;
 		END;
 		PtrQOS* = POINTER TO QOS;
 		GROUP* = INTEGER;
-		WSANETWORKEVENTS* = RECORD [untagged]
+		WSANETWORKEVENTS* = RECORD [1]
 			lNetworkEvents*: INTEGER;
-			iErrorCode*: ARRAY [untagged] 8 OF INTEGER;
+			iErrorCode*: ARRAY [1] 8 OF INTEGER;
 		END;
 		PtrWSANETWORKEVENTS* = POINTER TO WSANETWORKEVENTS;
-		WSAPROTOCOLCHAIN* = RECORD [untagged]
+		WSAPROTOCOLCHAIN* = RECORD [1]
 			ChainLen*: INTEGER;
-			ChainEntries*: ARRAY [untagged] 8 OF INTEGER;
+			ChainEntries*: ARRAY [1] 8 OF INTEGER;
 		END;
 		PtrWSAPROTOCOLCHAIN* = POINTER TO WSAPROTOCOLCHAIN;
-		WSAPROTOCOL_INFOA* = RECORD [untagged]
+		WSAPROTOCOL_INFOA* = RECORD [1]
 			dwServiceFlags1*: INTEGER;
 			dwServiceFlags2*: INTEGER;
 			dwServiceFlags3*: INTEGER;
@@ -907,10 +907,10 @@ MODULE WinNet ["MPR.dll"];
 			bFirst*: WinApi.BOOL;
 			dwMessageSize*: INTEGER;
 			dwProviderReserved*: INTEGER;
-			szProtocol*: ARRAY [untagged] 256 OF SHORTCHAR;
+			szProtocol*: ARRAY [1] 256 OF SHORTCHAR;
 		END;
 		PtrWSAPROTOCOL_INFOA* = POINTER TO WSAPROTOCOL_INFOA;
-		WSAPROTOCOL_INFOW* = RECORD [untagged]
+		WSAPROTOCOL_INFOW* = RECORD [1]
 			dwServiceFlags1*: INTEGER;
 			dwServiceFlags2*: INTEGER;
 			dwServiceFlags3*: INTEGER;
@@ -930,7 +930,7 @@ MODULE WinNet ["MPR.dll"];
 			bFirst*: WinApi.BOOL;
 			dwMessageSize*: INTEGER;
 			dwProviderReserved*: INTEGER;
-			szProtocol*: ARRAY [untagged] 256 OF CHAR;
+			szProtocol*: ARRAY [1] 256 OF CHAR;
 		END;
 		PtrWSAPROTOCOL_INFOW* = POINTER TO WSAPROTOCOL_INFOW;
 		WSAPROTOCOL_INFO* = WSAPROTOCOL_INFOA;
@@ -955,7 +955,7 @@ MODULE WinNet ["MPR.dll"];
 		PtrPROTOENT* = Ptrprotoent;
 		TIMEVAL* = timeval;
 		PtrTIMEVAL* = Ptrtimeval;
-		TRANSMIT_FILE_BUFFERS* = RECORD [untagged]
+		TRANSMIT_FILE_BUFFERS* = RECORD [1]
 			Head*: WinApi.PtrVoid;
 			HeadLength*: INTEGER;
 			Tail*: WinApi.PtrVoid;
