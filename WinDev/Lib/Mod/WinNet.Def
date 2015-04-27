@@ -550,6 +550,7 @@ MODULE WinNet;
 		GuaranteedService* = 2;
 
 	TYPE
+		WCHAR = SHORTINT;
 		NETRESOURCEA* = RECORD [1]
 			dwScope*: INTEGER;
 			dwType*: INTEGER;
@@ -661,28 +662,28 @@ MODULE WinNet;
 		PtrNETCONNECTINFOSTRUCT* = POINTER TO NETCONNECTINFOSTRUCT;
 		PtrNCB* = POINTER TO NCB;
 		NCB* = RECORD [1]
-			ncb_command*: SHORTCHAR;
-			ncb_retcode*: SHORTCHAR;
-			ncb_lsn*: SHORTCHAR;
-			ncb_num*: SHORTCHAR;
+			ncb_command*: CHAR;
+			ncb_retcode*: CHAR;
+			ncb_lsn*: CHAR;
+			ncb_num*: CHAR;
 			ncb_buffer*: WinApi.PtrSTR;
 			ncb_length*: SHORTINT;
-			ncb_callname*: ARRAY [1] 16 OF SHORTCHAR;
-			ncb_name*: ARRAY [1] 16 OF SHORTCHAR;
-			ncb_rto*: SHORTCHAR;
-			ncb_sto*: SHORTCHAR;
+			ncb_callname*: ARRAY [1] 16 OF CHAR;
+			ncb_name*: ARRAY [1] 16 OF CHAR;
+			ncb_rto*: CHAR;
+			ncb_sto*: CHAR;
 			ncb_post*: PROCEDURE (p0: PtrNCB);
-			ncb_lana_num*: SHORTCHAR;
-			ncb_cmd_cplt*: SHORTCHAR;
-			ncb_reserve*: ARRAY [1] 10 OF SHORTCHAR;
+			ncb_lana_num*: CHAR;
+			ncb_cmd_cplt*: CHAR;
+			ncb_reserve*: ARRAY [1] 10 OF CHAR;
 			ncb_event*: WinApi.HANDLE;
 		END;
 		ADAPTER_STATUS* = RECORD [1]
-			adapter_address*: ARRAY [1] 6 OF SHORTCHAR;
-			rev_major*: SHORTCHAR;
-			reserved0*: SHORTCHAR;
-			adapter_type*: SHORTCHAR;
-			rev_minor*: SHORTCHAR;
+			adapter_address*: ARRAY [1] 6 OF CHAR;
+			rev_major*: CHAR;
+			reserved0*: CHAR;
+			adapter_type*: CHAR;
+			rev_minor*: CHAR;
 			duration*: SHORTINT;
 			frmr_recv*: SHORTINT;
 			frmr_xmit*: SHORTINT;
@@ -708,45 +709,45 @@ MODULE WinNet;
 		END;
 		PtrADAPTER_STATUS* = POINTER TO ADAPTER_STATUS;
 		NAME_BUFFER* = RECORD [1]
-			name*: ARRAY [1] 16 OF SHORTCHAR;
-			name_num*: SHORTCHAR;
-			name_flags*: SHORTCHAR;
+			name*: ARRAY [1] 16 OF CHAR;
+			name_num*: CHAR;
+			name_flags*: CHAR;
 		END;
 		PtrNAME_BUFFER* = POINTER TO NAME_BUFFER;
 		SESSION_HEADER* = RECORD [1]
-			sess_name*: SHORTCHAR;
-			num_sess*: SHORTCHAR;
-			rcv_dg_outstanding*: SHORTCHAR;
-			rcv_any_outstanding*: SHORTCHAR;
+			sess_name*: CHAR;
+			num_sess*: CHAR;
+			rcv_dg_outstanding*: CHAR;
+			rcv_any_outstanding*: CHAR;
 		END;
 		PtrSESSION_HEADER* = POINTER TO SESSION_HEADER;
 		SESSION_BUFFER* = RECORD [1]
-			lsn*: SHORTCHAR;
-			state*: SHORTCHAR;
-			local_name*: ARRAY [1] 16 OF SHORTCHAR;
-			remote_name*: ARRAY [1] 16 OF SHORTCHAR;
-			rcvs_outstanding*: SHORTCHAR;
-			sends_outstanding*: SHORTCHAR;
+			lsn*: CHAR;
+			state*: CHAR;
+			local_name*: ARRAY [1] 16 OF CHAR;
+			remote_name*: ARRAY [1] 16 OF CHAR;
+			rcvs_outstanding*: CHAR;
+			sends_outstanding*: CHAR;
 		END;
 		PtrSESSION_BUFFER* = POINTER TO SESSION_BUFFER;
 		LANA_ENUM* = RECORD [1]
-			length*: SHORTCHAR;
-			lana*: ARRAY [1] 255 OF SHORTCHAR;
+			length*: CHAR;
+			lana*: ARRAY [1] 255 OF CHAR;
 		END;
 		PtrLANA_ENUM* = POINTER TO LANA_ENUM;
 		FIND_NAME_HEADER* = RECORD [1]
 			node_count*: SHORTINT;
-			reserved*: SHORTCHAR;
-			unique_group*: SHORTCHAR;
+			reserved*: CHAR;
+			unique_group*: CHAR;
 		END;
 		PtrFIND_NAME_HEADER* = POINTER TO FIND_NAME_HEADER;
 		FIND_NAME_BUFFER* = RECORD [1]
-			length*: SHORTCHAR;
-			access_control*: SHORTCHAR;
-			frame_control*: SHORTCHAR;
-			destination_addr*: ARRAY [1] 6 OF SHORTCHAR;
-			source_addr*: ARRAY [1] 6 OF SHORTCHAR;
-			routing_info*: ARRAY [1] 18 OF SHORTCHAR;
+			length*: CHAR;
+			access_control*: CHAR;
+			frame_control*: CHAR;
+			destination_addr*: ARRAY [1] 6 OF CHAR;
+			source_addr*: ARRAY [1] 6 OF CHAR;
+			routing_info*: ARRAY [1] 18 OF CHAR;
 		END;
 		PtrFIND_NAME_BUFFER* = POINTER TO FIND_NAME_BUFFER;
 		ACTION_HEADER* = RECORD [1]
@@ -755,7 +756,7 @@ MODULE WinNet;
 			reserved*: SHORTINT;
 		END;
 		PtrACTION_HEADER* = POINTER TO ACTION_HEADER;
-		u_char* = SHORTCHAR;
+		u_char* = CHAR;
 		u_short* = SHORTINT;
 		u_int* = INTEGER;
 		u_long* = INTEGER;
@@ -817,14 +818,14 @@ MODULE WinNet;
 			sin_family*: SHORTINT;
 			sin_port*: u_short;
 			sin_addr*: in_addr;
-			sin_zero*: ARRAY [1] 8 OF SHORTCHAR;
+			sin_zero*: ARRAY [1] 8 OF CHAR;
 		END;
 		Ptrsockaddr_in* = POINTER TO sockaddr_in;
 		WSADATA* = RECORD [1]
 			wVersion*: SHORTINT;
 			wHighVersion*: SHORTINT;
-			szDescription*: ARRAY [1] 257 OF SHORTCHAR;
-			szSystemStatus*: ARRAY [1] 129 OF SHORTCHAR;
+			szDescription*: ARRAY [1] 257 OF CHAR;
+			szSystemStatus*: ARRAY [1] 129 OF CHAR;
 			iMaxSockets*: SHORTINT;
 			iMaxUdpDg*: SHORTINT;
 			lpVendorInfo*: WinApi.PtrSTR;
@@ -832,7 +833,7 @@ MODULE WinNet;
 		PtrWSADATA* = POINTER TO WSADATA;
 		sockaddr* = RECORD [1]
 			sa_family*: u_short;
-			sa_data*: ARRAY [1] 14 OF SHORTCHAR;
+			sa_data*: ARRAY [1] 14 OF CHAR;
 		END;
 		Ptrsockaddr* = POINTER TO sockaddr;
 		sockproto* = RECORD [1]
@@ -907,7 +908,7 @@ MODULE WinNet;
 			bFirst*: WinApi.BOOL;
 			dwMessageSize*: INTEGER;
 			dwProviderReserved*: INTEGER;
-			szProtocol*: ARRAY [1] 256 OF SHORTCHAR;
+			szProtocol*: ARRAY [1] 256 OF CHAR;
 		END;
 		PtrWSAPROTOCOL_INFOA* = POINTER TO WSAPROTOCOL_INFOA;
 		WSAPROTOCOL_INFOW* = RECORD [1]
@@ -930,7 +931,7 @@ MODULE WinNet;
 			bFirst*: WinApi.BOOL;
 			dwMessageSize*: INTEGER;
 			dwProviderReserved*: INTEGER;
-			szProtocol*: ARRAY [1] 256 OF CHAR;
+			szProtocol*: ARRAY [1] 256 OF WCHAR;
 		END;
 		PtrWSAPROTOCOL_INFOW* = POINTER TO WSAPROTOCOL_INFOW;
 		WSAPROTOCOL_INFO* = WSAPROTOCOL_INFOA;
@@ -1152,7 +1153,7 @@ MODULE WinNet;
 	PROCEDURE MultinetGetConnectionPerformance* ["MultinetGetConnectionPerformanceA"] (VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
 	(*END MultinetGetConnectionPerformance;*)
 
-	PROCEDURE Netbios* ["NETAPI32.dll", ""] (VAR [nil] pncb: NCB): SHORTCHAR;
+	PROCEDURE Netbios* ["NETAPI32.dll", ""] (VAR [nil] pncb: NCB): CHAR;
 	(*END Netbios;*)
 
 	PROCEDURE __WSAFDIsSet* ["WSOCK32.dll", ""] (p0: SOCKET; VAR [nil] p1: fd_set): INTEGER;
