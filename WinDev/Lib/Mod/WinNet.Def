@@ -771,6 +771,22 @@ MODULE WinNet;
 			tv_usec*: INTEGER;
 		END;
 		Ptrtimeval* = POINTER TO timeval;
+		in_addr* = RECORD [1]
+			S_un*: RECORD [1] (* [union] *)
+				(*S_un_b*: RECORD [1]
+					s_b1*: u_char;
+					s_b2*: u_char;
+					s_b3*: u_char;
+					s_b4*: u_char;
+				END;
+				S_un_w*: RECORD [1]
+					s_w1*: u_short;
+					s_w2*: u_short;
+				END;*)
+				S_addr*: u_long;
+			END;
+		END;
+		Ptrin_addr* = POINTER TO in_addr;
 		hostent* = RECORD [1]
 			h_name*: WinApi.PtrSTR;
 			h_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
@@ -798,22 +814,6 @@ MODULE WinNet;
 			p_proto*: SHORTINT;
 		END;
 		Ptrprotoent* = POINTER TO protoent;
-		in_addr* = RECORD [1]
-			S_un*: RECORD [union]
-				S_un_b*: RECORD [1]
-					s_b1*: u_char;
-					s_b2*: u_char;
-					s_b3*: u_char;
-					s_b4*: u_char;
-				END;
-				S_un_w*: RECORD [1]
-					s_w1*: u_short;
-					s_w2*: u_short;
-				END;
-				S_addr*: u_long;
-			END;
-		END;
-		Ptrin_addr* = POINTER TO in_addr;
 		sockaddr_in* = RECORD [1]
 			sin_family*: SHORTINT;
 			sin_port*: u_short;
