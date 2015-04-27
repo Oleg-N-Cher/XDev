@@ -646,12 +646,12 @@ MODULE WinNet;
 			dwDrives*: INTEGER;
 		END;
 		PtrNETINFOSTRUCT* = POINTER TO NETINFOSTRUCT;
-		FNGETPROFILEPATHA* = PROCEDURE (pszUsername: WinApi.PtrSTR; pszBuffer: WinApi.PtrSTR; cbBuffer: INTEGER): INTEGER;
-		FNGETPROFILEPATHW* = PROCEDURE (pszUsername: WinApi.PtrWSTR; pszBuffer: WinApi.PtrWSTR; cbBuffer: INTEGER): INTEGER;
-		FNRECONCILEPROFILEA* = PROCEDURE (pszCentralFile: WinApi.PtrSTR; pszLocalFile: WinApi.PtrSTR; dwFlags: SET): INTEGER;
-		FNRECONCILEPROFILEW* = PROCEDURE (pszCentralFile: WinApi.PtrWSTR; pszLocalFile: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
-		FNPROCESSPOLICIESA* = PROCEDURE (hwnd: WinApi.HWND; pszPath: WinApi.PtrSTR; pszUsername: WinApi.PtrSTR; pszComputerName: WinApi.PtrSTR; dwFlags: SET): WinApi.BOOL;
-		FNPROCESSPOLICIESW* = PROCEDURE (hwnd: WinApi.HWND; pszPath: WinApi.PtrWSTR; pszUsername: WinApi.PtrWSTR; pszComputerName: WinApi.PtrWSTR; dwFlags: SET): WinApi.BOOL;
+		FNGETPROFILEPATHA* = PROCEDURE [1] (pszUsername: WinApi.PtrSTR; pszBuffer: WinApi.PtrSTR; cbBuffer: INTEGER): INTEGER;
+		FNGETPROFILEPATHW* = PROCEDURE [1] (pszUsername: WinApi.PtrWSTR; pszBuffer: WinApi.PtrWSTR; cbBuffer: INTEGER): INTEGER;
+		FNRECONCILEPROFILEA* = PROCEDURE [1] (pszCentralFile: WinApi.PtrSTR; pszLocalFile: WinApi.PtrSTR; dwFlags: SET): INTEGER;
+		FNRECONCILEPROFILEW* = PROCEDURE [1] (pszCentralFile: WinApi.PtrWSTR; pszLocalFile: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
+		FNPROCESSPOLICIESA* = PROCEDURE [1] (hwnd: WinApi.HWND; pszPath: WinApi.PtrSTR; pszUsername: WinApi.PtrSTR; pszComputerName: WinApi.PtrSTR; dwFlags: SET): WinApi.BOOL;
+		FNPROCESSPOLICIESW* = PROCEDURE [1] (hwnd: WinApi.HWND; pszPath: WinApi.PtrWSTR; pszUsername: WinApi.PtrWSTR; pszComputerName: WinApi.PtrWSTR; dwFlags: SET): WinApi.BOOL;
 		NETCONNECTINFOSTRUCT* = RECORD [1]
 			cbStructure*: INTEGER;
 			dwFlags*: SET;
@@ -672,7 +672,7 @@ MODULE WinNet;
 			ncb_name*: ARRAY [1] 16 OF CHAR;
 			ncb_rto*: CHAR;
 			ncb_sto*: CHAR;
-			ncb_post*: PROCEDURE (p0: PtrNCB);
+			ncb_post*: PROCEDURE [1] (p0: PtrNCB);
 			ncb_lana_num*: CHAR;
 			ncb_cmd_cplt*: CHAR;
 			ncb_reserve*: ARRAY [1] 10 OF CHAR;
@@ -936,8 +936,8 @@ MODULE WinNet;
 		PtrWSAPROTOCOL_INFOW* = POINTER TO WSAPROTOCOL_INFOW;
 		WSAPROTOCOL_INFO* = WSAPROTOCOL_INFOA;
 		PtrWSAPROTOCOL_INFO* = PtrWSAPROTOCOL_INFOA;
-		CONDITIONPROC* = PROCEDURE (VAR [nil] lpCallerId: WSABUF; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS; VAR [nil] lpCalleeId: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] g: GROUP; dwCallbackData: INTEGER): INTEGER;
-		WSAOVERLAPPED_COMPLETION_ROUTINE* = PROCEDURE (dwError: INTEGER; cbTransferred: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; dwFlags: SET);
+		CONDITIONPROC* = PROCEDURE [1] (VAR [nil] lpCallerId: WSABUF; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS; VAR [nil] lpCalleeId: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] g: GROUP; dwCallbackData: INTEGER): INTEGER;
+		WSAOVERLAPPED_COMPLETION_ROUTINE* = PROCEDURE [1] (dwError: INTEGER; cbTransferred: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; dwFlags: SET);
 		SOCKADDR* = sockaddr;
 		PtrSOCKADDR* = Ptrsockaddr;
 		SOCKADDR_IN* = sockaddr_in;
@@ -964,445 +964,445 @@ MODULE WinNet;
 		END;
 		PtrTRANSMIT_FILE_BUFFERS* = POINTER TO TRANSMIT_FILE_BUFFERS;
 
-	PROCEDURE WNetAddConnectionA* (lpRemoteName: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; lpLocalName: WinApi.PtrSTR): INTEGER;
+	PROCEDURE [1] -WNetAddConnectionA* (lpRemoteName: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; lpLocalName: WinApi.PtrSTR): INTEGER;
 	(*END WNetAddConnectionA;*)
 
-	PROCEDURE WNetAddConnectionW* (lpRemoteName: WinApi.PtrWSTR; lpPassword: WinApi.PtrWSTR; lpLocalName: WinApi.PtrWSTR): INTEGER;
+	PROCEDURE [1] -WNetAddConnectionW* (lpRemoteName: WinApi.PtrWSTR; lpPassword: WinApi.PtrWSTR; lpLocalName: WinApi.PtrWSTR): INTEGER;
 	(*END WNetAddConnectionW;*)
 
-	PROCEDURE WNetAddConnection* ["WNetAddConnectionA"] (lpRemoteName: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; lpLocalName: WinApi.PtrSTR): INTEGER;
+	PROCEDURE [1] -WNetAddConnection* ["WNetAddConnectionA"] (lpRemoteName: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; lpLocalName: WinApi.PtrSTR): INTEGER;
 	(*END WNetAddConnection;*)
 
-	PROCEDURE WNetAddConnection2A* (VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection2A* (VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection2A;*)
 
-	PROCEDURE WNetAddConnection2W* (VAR [nil] lpNetResource: NETRESOURCEW; lpPassword: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection2W* (VAR [nil] lpNetResource: NETRESOURCEW; lpPassword: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection2W;*)
 
-	PROCEDURE WNetAddConnection2* ["WNetAddConnection2A"] (VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection2* ["WNetAddConnection2A"] (VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection2;*)
 
-	PROCEDURE WNetAddConnection3A* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection3A* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection3A;*)
 
-	PROCEDURE WNetAddConnection3W* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEW; lpPassword: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection3W* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEW; lpPassword: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection3W;*)
 
-	PROCEDURE WNetAddConnection3* ["WNetAddConnection3A"] (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -WNetAddConnection3* ["WNetAddConnection3A"] (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpPassword: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; dwFlags: SET): INTEGER;
 	(*END WNetAddConnection3;*)
 
-	PROCEDURE WNetCancelConnectionA* (lpName: WinApi.PtrSTR; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnectionA* (lpName: WinApi.PtrSTR; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnectionA;*)
 
-	PROCEDURE WNetCancelConnectionW* (lpName: WinApi.PtrWSTR; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnectionW* (lpName: WinApi.PtrWSTR; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnectionW;*)
 
-	PROCEDURE WNetCancelConnection* ["WNetCancelConnectionA"] (lpName: WinApi.PtrSTR; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnection* ["WNetCancelConnectionA"] (lpName: WinApi.PtrSTR; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnection;*)
 
-	PROCEDURE WNetCancelConnection2A* (lpName: WinApi.PtrSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnection2A* (lpName: WinApi.PtrSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnection2A;*)
 
-	PROCEDURE WNetCancelConnection2W* (lpName: WinApi.PtrWSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnection2W* (lpName: WinApi.PtrWSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnection2W;*)
 
-	PROCEDURE WNetCancelConnection2* ["WNetCancelConnection2A"] (lpName: WinApi.PtrSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WNetCancelConnection2* ["WNetCancelConnection2A"] (lpName: WinApi.PtrSTR; dwFlags: SET; fForce: WinApi.BOOL): INTEGER;
 	(*END WNetCancelConnection2;*)
 
-	PROCEDURE WNetGetConnectionA* (lpLocalName: WinApi.PtrSTR; lpRemoteName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetConnectionA* (lpLocalName: WinApi.PtrSTR; lpRemoteName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetConnectionA;*)
 
-	PROCEDURE WNetGetConnectionW* (lpLocalName: WinApi.PtrWSTR; lpRemoteName: WinApi.PtrWSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetConnectionW* (lpLocalName: WinApi.PtrWSTR; lpRemoteName: WinApi.PtrWSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetConnectionW;*)
 
-	PROCEDURE WNetGetConnection* ["WNetGetConnectionA"] (lpLocalName: WinApi.PtrSTR; lpRemoteName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetConnection* ["WNetGetConnectionA"] (lpLocalName: WinApi.PtrSTR; lpRemoteName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetConnection;*)
 
-	PROCEDURE WNetUseConnectionA* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpUserID: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; dwFlags: SET; lpAccessName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetUseConnectionA* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpUserID: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; dwFlags: SET; lpAccessName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
 	(*END WNetUseConnectionA;*)
 
-	PROCEDURE WNetUseConnectionW* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEW; lpUserID: WinApi.PtrWSTR; lpPassword: WinApi.PtrWSTR; dwFlags: SET; lpAccessName: WinApi.PtrWSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetUseConnectionW* (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEW; lpUserID: WinApi.PtrWSTR; lpPassword: WinApi.PtrWSTR; dwFlags: SET; lpAccessName: WinApi.PtrWSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
 	(*END WNetUseConnectionW;*)
 
-	PROCEDURE WNetUseConnection* ["WNetUseConnectionA"] (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpUserID: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; dwFlags: SET; lpAccessName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetUseConnection* ["WNetUseConnectionA"] (hwndOwner: WinApi.HWND; VAR [nil] lpNetResource: NETRESOURCEA; lpUserID: WinApi.PtrSTR; lpPassword: WinApi.PtrSTR; dwFlags: SET; lpAccessName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER; VAR [nil] lpResult: INTEGER): INTEGER;
 	(*END WNetUseConnection;*)
 
-	PROCEDURE WNetSetConnectionA* (lpName: WinApi.PtrSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
+	PROCEDURE [1] -WNetSetConnectionA* (lpName: WinApi.PtrSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
 	(*END WNetSetConnectionA;*)
 
-	PROCEDURE WNetSetConnectionW* (lpName: WinApi.PtrWSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
+	PROCEDURE [1] -WNetSetConnectionW* (lpName: WinApi.PtrWSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
 	(*END WNetSetConnectionW;*)
 
-	PROCEDURE WNetSetConnection* ["WNetSetConnectionA"] (lpName: WinApi.PtrSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
+	PROCEDURE [1] -WNetSetConnection* ["WNetSetConnectionA"] (lpName: WinApi.PtrSTR; dwProperties: INTEGER; pvValues: WinApi.PtrVoid): INTEGER;
 	(*END WNetSetConnection;*)
 
-	PROCEDURE WNetConnectionDialog* (hwnd: WinApi.HWND; dwType: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetConnectionDialog* (hwnd: WinApi.HWND; dwType: INTEGER): INTEGER;
 	(*END WNetConnectionDialog;*)
 
-	PROCEDURE WNetDisconnectDialog* (hwnd: WinApi.HWND; dwType: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetDisconnectDialog* (hwnd: WinApi.HWND; dwType: INTEGER): INTEGER;
 	(*END WNetDisconnectDialog;*)
 
-	PROCEDURE WNetConnectionDialog1A* (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTA): INTEGER;
+	PROCEDURE [1] -WNetConnectionDialog1A* (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTA): INTEGER;
 	(*END WNetConnectionDialog1A;*)
 
-	PROCEDURE WNetConnectionDialog1W* (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTW): INTEGER;
+	PROCEDURE [1] -WNetConnectionDialog1W* (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTW): INTEGER;
 	(*END WNetConnectionDialog1W;*)
 
-	PROCEDURE WNetConnectionDialog1* ["WNetConnectionDialog1A"] (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTA): INTEGER;
+	PROCEDURE [1] -WNetConnectionDialog1* ["WNetConnectionDialog1A"] (VAR [nil] lpConnDlgStruct: CONNECTDLGSTRUCTA): INTEGER;
 	(*END WNetConnectionDialog1;*)
 
-	PROCEDURE WNetDisconnectDialog1A* (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTA): INTEGER;
+	PROCEDURE [1] -WNetDisconnectDialog1A* (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTA): INTEGER;
 	(*END WNetDisconnectDialog1A;*)
 
-	PROCEDURE WNetDisconnectDialog1W* (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTW): INTEGER;
+	PROCEDURE [1] -WNetDisconnectDialog1W* (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTW): INTEGER;
 	(*END WNetDisconnectDialog1W;*)
 
-	PROCEDURE WNetDisconnectDialog1* ["WNetDisconnectDialog1A"] (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTA): INTEGER;
+	PROCEDURE [1] -WNetDisconnectDialog1* ["WNetDisconnectDialog1A"] (VAR [nil] lpConnDlgStruct: DISCDLGSTRUCTA): INTEGER;
 	(*END WNetDisconnectDialog1;*)
 
-	PROCEDURE WNetOpenEnumA* (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
+	PROCEDURE [1] -WNetOpenEnumA* (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
 	(*END WNetOpenEnumA;*)
 
-	PROCEDURE WNetOpenEnumW* (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEW; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
+	PROCEDURE [1] -WNetOpenEnumW* (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEW; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
 	(*END WNetOpenEnumW;*)
 
-	PROCEDURE WNetOpenEnum* ["WNetOpenEnumA"] (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
+	PROCEDURE [1] -WNetOpenEnum* ["WNetOpenEnumA"] (dwScope: INTEGER; dwType: INTEGER; dwUsage: INTEGER; VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lphEnum: WinApi.HANDLE): INTEGER;
 	(*END WNetOpenEnum;*)
 
-	PROCEDURE WNetEnumResourceA* (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetEnumResourceA* (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetEnumResourceA;*)
 
-	PROCEDURE WNetEnumResourceW* (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetEnumResourceW* (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetEnumResourceW;*)
 
-	PROCEDURE WNetEnumResource* ["WNetEnumResourceA"] (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetEnumResource* ["WNetEnumResourceA"] (hEnum: WinApi.HANDLE; VAR [nil] lpcCount: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetEnumResource;*)
 
-	PROCEDURE WNetCloseEnum* (hEnum: WinApi.HANDLE): INTEGER;
+	PROCEDURE [1] -WNetCloseEnum* (hEnum: WinApi.HANDLE): INTEGER;
 	(*END WNetCloseEnum;*)
 
-	PROCEDURE WNetGetResourceParentA* (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetResourceParentA* (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
 	(*END WNetGetResourceParentA;*)
 
-	PROCEDURE WNetGetResourceParentW* (VAR [nil] lpNetResource: NETRESOURCEW; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetResourceParentW* (VAR [nil] lpNetResource: NETRESOURCEW; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
 	(*END WNetGetResourceParentW;*)
 
-	PROCEDURE WNetGetResourceParent* ["WNetGetResourceParentA"] (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetResourceParent* ["WNetGetResourceParentA"] (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER): INTEGER;
 	(*END WNetGetResourceParent;*)
 
-	PROCEDURE WNetGetResourceInformationA* (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrSTR): INTEGER;
+	PROCEDURE [1] -WNetGetResourceInformationA* (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrSTR): INTEGER;
 	(*END WNetGetResourceInformationA;*)
 
-	PROCEDURE WNetGetResourceInformationW* (VAR [nil] lpNetResource: NETRESOURCEW; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrWSTR): INTEGER;
+	PROCEDURE [1] -WNetGetResourceInformationW* (VAR [nil] lpNetResource: NETRESOURCEW; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrWSTR): INTEGER;
 	(*END WNetGetResourceInformationW;*)
 
-	PROCEDURE WNetGetResourceInformation* ["WNetGetResourceInformationA"] (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrSTR): INTEGER;
+	PROCEDURE [1] -WNetGetResourceInformation* ["WNetGetResourceInformationA"] (VAR [nil] lpNetResource: NETRESOURCEA; lpBuffer: WinApi.PtrVoid; VAR [nil] cbBuffer: INTEGER; VAR [nil] lplpSystem: WinApi.PtrSTR): INTEGER;
 	(*END WNetGetResourceInformation;*)
 
-	PROCEDURE WNetGetUniversalNameA* (lpLocalPath: WinApi.PtrSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUniversalNameA* (lpLocalPath: WinApi.PtrSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetUniversalNameA;*)
 
-	PROCEDURE WNetGetUniversalNameW* (lpLocalPath: WinApi.PtrWSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUniversalNameW* (lpLocalPath: WinApi.PtrWSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetUniversalNameW;*)
 
-	PROCEDURE WNetGetUniversalName* ["WNetGetUniversalNameA"] (lpLocalPath: WinApi.PtrSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUniversalName* ["WNetGetUniversalNameA"] (lpLocalPath: WinApi.PtrSTR; dwInfoLevel: INTEGER; lpBuffer: WinApi.PtrVoid; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetUniversalName;*)
 
-	PROCEDURE WNetGetUserA* (lpName: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUserA* (lpName: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetUserA;*)
 
-	PROCEDURE WNetGetUserW* (lpName: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUserW* (lpName: WinApi.PtrWSTR; lpUserName: WinApi.PtrWSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetUserW;*)
 
-	PROCEDURE WNetGetUser* ["WNetGetUserA"] (lpName: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetUser* ["WNetGetUserA"] (lpName: WinApi.PtrSTR; lpUserName: WinApi.PtrSTR; VAR [nil] lpnLength: INTEGER): INTEGER;
 	(*END WNetGetUser;*)
 
-	PROCEDURE WNetGetProviderNameA* (dwNetType: INTEGER; lpProviderName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetProviderNameA* (dwNetType: INTEGER; lpProviderName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetProviderNameA;*)
 
-	PROCEDURE WNetGetProviderNameW* (dwNetType: INTEGER; lpProviderName: WinApi.PtrWSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetProviderNameW* (dwNetType: INTEGER; lpProviderName: WinApi.PtrWSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetProviderNameW;*)
 
-	PROCEDURE WNetGetProviderName* ["WNetGetProviderNameA"] (dwNetType: INTEGER; lpProviderName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetProviderName* ["WNetGetProviderNameA"] (dwNetType: INTEGER; lpProviderName: WinApi.PtrSTR; VAR [nil] lpBufferSize: INTEGER): INTEGER;
 	(*END WNetGetProviderName;*)
 
-	PROCEDURE WNetGetNetworkInformationA* (lpProvider: WinApi.PtrSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -WNetGetNetworkInformationA* (lpProvider: WinApi.PtrSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
 	(*END WNetGetNetworkInformationA;*)
 
-	PROCEDURE WNetGetNetworkInformationW* (lpProvider: WinApi.PtrWSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -WNetGetNetworkInformationW* (lpProvider: WinApi.PtrWSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
 	(*END WNetGetNetworkInformationW;*)
 
-	PROCEDURE WNetGetNetworkInformation* ["WNetGetNetworkInformationA"] (lpProvider: WinApi.PtrSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -WNetGetNetworkInformation* ["WNetGetNetworkInformationA"] (lpProvider: WinApi.PtrSTR; VAR [nil] lpNetInfoStruct: NETINFOSTRUCT): INTEGER;
 	(*END WNetGetNetworkInformation;*)
 
-	PROCEDURE WNetGetLastErrorA* (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrSTR; nNameBufSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetLastErrorA* (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrSTR; nNameBufSize: INTEGER): INTEGER;
 	(*END WNetGetLastErrorA;*)
 
-	PROCEDURE WNetGetLastErrorW* (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrWSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrWSTR; nNameBufSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetLastErrorW* (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrWSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrWSTR; nNameBufSize: INTEGER): INTEGER;
 	(*END WNetGetLastErrorW;*)
 
-	PROCEDURE WNetGetLastError* ["WNetGetLastErrorA"] (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrSTR; nNameBufSize: INTEGER): INTEGER;
+	PROCEDURE [1] -WNetGetLastError* ["WNetGetLastErrorA"] (VAR [nil] lpError: INTEGER; lpErrorBuf: WinApi.PtrSTR; nErrorBufSize: INTEGER; lpNameBuf: WinApi.PtrSTR; nNameBufSize: INTEGER): INTEGER;
 	(*END WNetGetLastError;*)
 
-	PROCEDURE MultinetGetConnectionPerformanceA* (VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -MultinetGetConnectionPerformanceA* (VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
 	(*END MultinetGetConnectionPerformanceA;*)
 
-	PROCEDURE MultinetGetConnectionPerformanceW* (VAR [nil] lpNetResource: NETRESOURCEW; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -MultinetGetConnectionPerformanceW* (VAR [nil] lpNetResource: NETRESOURCEW; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
 	(*END MultinetGetConnectionPerformanceW;*)
 
-	PROCEDURE MultinetGetConnectionPerformance* ["MultinetGetConnectionPerformanceA"] (VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
+	PROCEDURE [1] -MultinetGetConnectionPerformance* ["MultinetGetConnectionPerformanceA"] (VAR [nil] lpNetResource: NETRESOURCEA; VAR [nil] lpNetConnectInfoStruct: NETCONNECTINFOSTRUCT): INTEGER;
 	(*END MultinetGetConnectionPerformance;*)
 
-	PROCEDURE Netbios* ["NETAPI32.dll", ""] (VAR [nil] pncb: NCB): CHAR;
+	PROCEDURE [1] -Netbios* ["NETAPI32.dll", ""] (VAR [nil] pncb: NCB): CHAR;
 	(*END Netbios;*)
 
-	PROCEDURE __WSAFDIsSet* ["WSOCK32.dll", ""] (p0: SOCKET; VAR [nil] p1: fd_set): INTEGER;
+	PROCEDURE [1] -__WSAFDIsSet* ["WSOCK32.dll", ""] (p0: SOCKET; VAR [nil] p1: fd_set): INTEGER;
 	(*END __WSAFDIsSet;*)
 
-	PROCEDURE accept* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] addr: sockaddr; VAR [nil] addrlen: INTEGER): SOCKET;
+	PROCEDURE [1] -accept* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] addr: sockaddr; VAR [nil] addrlen: INTEGER): SOCKET;
 	(*END accept;*)
 
-	PROCEDURE bind* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER): INTEGER;
+	PROCEDURE [1] -bind* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER): INTEGER;
 	(*END bind;*)
 
-	PROCEDURE closesocket* ["WSOCK32.dll", ""] (s: SOCKET): INTEGER;
+	PROCEDURE [1] -closesocket* ["WSOCK32.dll", ""] (s: SOCKET): INTEGER;
 	(*END closesocket;*)
 
-	PROCEDURE connect* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER): INTEGER;
+	PROCEDURE [1] -connect* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER): INTEGER;
 	(*END connect;*)
 
-	PROCEDURE ioctlsocket* ["WSOCK32.dll", ""] (s: SOCKET; cmd: INTEGER; VAR [nil] argp: u_long): INTEGER;
+	PROCEDURE [1] -ioctlsocket* ["WSOCK32.dll", ""] (s: SOCKET; cmd: INTEGER; VAR [nil] argp: u_long): INTEGER;
 	(*END ioctlsocket;*)
 
-	PROCEDURE getpeername* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; VAR [nil] namelen: INTEGER): INTEGER;
+	PROCEDURE [1] -getpeername* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; VAR [nil] namelen: INTEGER): INTEGER;
 	(*END getpeername;*)
 
-	PROCEDURE getsockname* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; VAR [nil] namelen: INTEGER): INTEGER;
+	PROCEDURE [1] -getsockname* ["WSOCK32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; VAR [nil] namelen: INTEGER): INTEGER;
 	(*END getsockname;*)
 
-	PROCEDURE getsockopt* ["WSOCK32.dll", ""] (s: SOCKET; level: INTEGER; optname: INTEGER; optval: WinApi.PtrSTR; VAR [nil] optlen: INTEGER): INTEGER;
+	PROCEDURE [1] -getsockopt* ["WSOCK32.dll", ""] (s: SOCKET; level: INTEGER; optname: INTEGER; optval: WinApi.PtrSTR; VAR [nil] optlen: INTEGER): INTEGER;
 	(*END getsockopt;*)
 
-	PROCEDURE htonl* ["WSOCK32.dll", ""] (hostlong: u_long): u_long;
+	PROCEDURE [1] -htonl* ["WSOCK32.dll", ""] (hostlong: u_long): u_long;
 	(*END htonl;*)
 
-	PROCEDURE htons* ["WSOCK32.dll", ""] (hostshort: u_short): u_short;
+	PROCEDURE [1] -htons* ["WSOCK32.dll", ""] (hostshort: u_short): u_short;
 	(*END htons;*)
 
-	PROCEDURE inet_addr* ["WSOCK32.dll", ""] (cp: WinApi.PtrSTR): INTEGER;
+	PROCEDURE [1] -inet_addr* ["WSOCK32.dll", ""] (cp: WinApi.PtrSTR): INTEGER;
 	(*END inet_addr;*)
 
-	PROCEDURE inet_ntoa* ["WSOCK32.dll", ""] (in: in_addr): WinApi.PtrSTR;
+	PROCEDURE [1] -inet_ntoa* ["WSOCK32.dll", ""] (in: in_addr): WinApi.PtrSTR;
 	(*END inet_ntoa;*)
 
-	PROCEDURE listen* ["WSOCK32.dll", ""] (s: SOCKET; backlog: INTEGER): INTEGER;
+	PROCEDURE [1] -listen* ["WSOCK32.dll", ""] (s: SOCKET; backlog: INTEGER): INTEGER;
 	(*END listen;*)
 
-	PROCEDURE ntohl* ["WSOCK32.dll", ""] (netlong: u_long): u_long;
+	PROCEDURE [1] -ntohl* ["WSOCK32.dll", ""] (netlong: u_long): u_long;
 	(*END ntohl;*)
 
-	PROCEDURE ntohs* ["WSOCK32.dll", ""] (netshort: u_short): u_short;
+	PROCEDURE [1] -ntohs* ["WSOCK32.dll", ""] (netshort: u_short): u_short;
 	(*END ntohs;*)
 
-	PROCEDURE recv* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET): INTEGER;
+	PROCEDURE [1] -recv* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET): INTEGER;
 	(*END recv;*)
 
-	PROCEDURE recvfrom* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET; VAR [nil] from: sockaddr; VAR [nil] fromlen: INTEGER): INTEGER;
+	PROCEDURE [1] -recvfrom* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET; VAR [nil] from: sockaddr; VAR [nil] fromlen: INTEGER): INTEGER;
 	(*END recvfrom;*)
 
-	PROCEDURE select* ["WSOCK32.dll", ""] (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR [nil] timeout: timeval): INTEGER;
+	PROCEDURE [1] -select* ["WSOCK32.dll", ""] (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR [nil] timeout: timeval): INTEGER;
 	(*END select;*)
 
-	PROCEDURE send* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET): INTEGER;
+	PROCEDURE [1] -send* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET): INTEGER;
 	(*END send;*)
 
-	PROCEDURE sendto* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET; VAR [nil] to: sockaddr; tolen: INTEGER): INTEGER;
+	PROCEDURE [1] -sendto* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; flags: SET; VAR [nil] to: sockaddr; tolen: INTEGER): INTEGER;
 	(*END sendto;*)
 
-	PROCEDURE setsockopt* ["WSOCK32.dll", ""] (s: SOCKET; level: INTEGER; optname: INTEGER; optval: WinApi.PtrSTR; optlen: INTEGER): INTEGER;
+	PROCEDURE [1] -setsockopt* ["WSOCK32.dll", ""] (s: SOCKET; level: INTEGER; optname: INTEGER; optval: WinApi.PtrSTR; optlen: INTEGER): INTEGER;
 	(*END setsockopt;*)
 
-	PROCEDURE shutdown* ["WSOCK32.dll", ""] (s: SOCKET; how: INTEGER): INTEGER;
+	PROCEDURE [1] -shutdown* ["WSOCK32.dll", ""] (s: SOCKET; how: INTEGER): INTEGER;
 	(*END shutdown;*)
 
-	PROCEDURE socket* ["WSOCK32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER): SOCKET;
+	PROCEDURE [1] -socket* ["WSOCK32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER): SOCKET;
 	(*END socket;*)
 
-	PROCEDURE gethostbyaddr* ["WSOCK32.dll", ""] (addr: WinApi.PtrSTR; len: INTEGER; type: INTEGER): Ptrhostent;
+	PROCEDURE [1] -gethostbyaddr* ["WSOCK32.dll", ""] (addr: WinApi.PtrSTR; len: INTEGER; type: INTEGER): Ptrhostent;
 	(*END gethostbyaddr;*)
 
-	PROCEDURE gethostbyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR): Ptrhostent;
+	PROCEDURE [1] -gethostbyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR): Ptrhostent;
 	(*END gethostbyname;*)
 
-	PROCEDURE gethostname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR; namelen: INTEGER): INTEGER;
+	PROCEDURE [1] -gethostname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR; namelen: INTEGER): INTEGER;
 	(*END gethostname;*)
 
-	PROCEDURE getservbyport* ["WSOCK32.dll", ""] (port: INTEGER; proto: WinApi.PtrSTR): Ptrservent;
+	PROCEDURE [1] -getservbyport* ["WSOCK32.dll", ""] (port: INTEGER; proto: WinApi.PtrSTR): Ptrservent;
 	(*END getservbyport;*)
 
-	PROCEDURE getservbyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR; proto: WinApi.PtrSTR): Ptrservent;
+	PROCEDURE [1] -getservbyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR; proto: WinApi.PtrSTR): Ptrservent;
 	(*END getservbyname;*)
 
-	PROCEDURE getprotobynumber* ["WSOCK32.dll", ""] (number: INTEGER): Ptrprotoent;
+	PROCEDURE [1] -getprotobynumber* ["WSOCK32.dll", ""] (number: INTEGER): Ptrprotoent;
 	(*END getprotobynumber;*)
 
-	PROCEDURE getprotobyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR): Ptrprotoent;
+	PROCEDURE [1] -getprotobyname* ["WSOCK32.dll", ""] (name: WinApi.PtrSTR): Ptrprotoent;
 	(*END getprotobyname;*)
 
-	PROCEDURE WSAStartup* ["WSOCK32.dll", ""] (wVersionRequested: SHORTINT; VAR [nil] lpWSAData: WSADATA): INTEGER;
+	PROCEDURE [1] -WSAStartup* ["WSOCK32.dll", ""] (wVersionRequested: SHORTINT; VAR [nil] lpWSAData: WSADATA): INTEGER;
 	(*END WSAStartup;*)
 
-	PROCEDURE WSACleanup* ["WSOCK32.dll", ""] (): INTEGER;
+	PROCEDURE [1] -WSACleanup* ["WSOCK32.dll", ""] (): INTEGER;
 	(*END WSACleanup;*)
 
-	PROCEDURE WSASetLastError* ["WSOCK32.dll", ""] (iError: INTEGER);
+	PROCEDURE [1] -WSASetLastError* ["WSOCK32.dll", ""] (iError: INTEGER);
 	(*END WSASetLastError;*)
 
-	PROCEDURE WSAGetLastError* ["WSOCK32.dll", ""] (): INTEGER;
+	PROCEDURE [1] -WSAGetLastError* ["WSOCK32.dll", ""] (): INTEGER;
 	(*END WSAGetLastError;*)
 
-	PROCEDURE WSAIsBlocking* ["WSOCK32.dll", ""] (): WinApi.BOOL;
+	PROCEDURE [1] -WSAIsBlocking* ["WSOCK32.dll", ""] (): WinApi.BOOL;
 	(*END WSAIsBlocking;*)
 
-	PROCEDURE WSAUnhookBlockingHook* ["WSOCK32.dll", ""] (): INTEGER;
+	PROCEDURE [1] -WSAUnhookBlockingHook* ["WSOCK32.dll", ""] (): INTEGER;
 	(*END WSAUnhookBlockingHook;*)
 
-	PROCEDURE WSASetBlockingHook* ["WSOCK32.dll", ""] (lpBlockFunc: WinApi.FARPROC): WinApi.FARPROC;
+	PROCEDURE [1] -WSASetBlockingHook* ["WSOCK32.dll", ""] (lpBlockFunc: WinApi.FARPROC): WinApi.FARPROC;
 	(*END WSASetBlockingHook;*)
 
-	PROCEDURE WSACancelBlockingCall* ["WSOCK32.dll", ""] (): INTEGER;
+	PROCEDURE [1] -WSACancelBlockingCall* ["WSOCK32.dll", ""] (): INTEGER;
 	(*END WSACancelBlockingCall;*)
 
-	PROCEDURE WSAAsyncGetServByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; proto: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetServByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; proto: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetServByName;*)
 
-	PROCEDURE WSAAsyncGetServByPort* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; port: INTEGER; proto: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetServByPort* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; port: INTEGER; proto: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetServByPort;*)
 
-	PROCEDURE WSAAsyncGetProtoByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetProtoByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetProtoByName;*)
 
-	PROCEDURE WSAAsyncGetProtoByNumber* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; number: INTEGER; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetProtoByNumber* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; number: INTEGER; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetProtoByNumber;*)
 
-	PROCEDURE WSAAsyncGetHostByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetHostByName* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; name: WinApi.PtrSTR; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetHostByName;*)
 
-	PROCEDURE WSAAsyncGetHostByAddr* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; addr: WinApi.PtrSTR; len: INTEGER; type: INTEGER; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
+	PROCEDURE [1] -WSAAsyncGetHostByAddr* ["WSOCK32.dll", ""] (hWnd: WinApi.HWND; wMsg: u_int; addr: WinApi.PtrSTR; len: INTEGER; type: INTEGER; buf: WinApi.PtrSTR; buflen: INTEGER): WinApi.HANDLE;
 	(*END WSAAsyncGetHostByAddr;*)
 
-	PROCEDURE WSACancelAsyncRequest* ["WSOCK32.dll", ""] (hAsyncTaskHandle: WinApi.HANDLE): INTEGER;
+	PROCEDURE [1] -WSACancelAsyncRequest* ["WSOCK32.dll", ""] (hAsyncTaskHandle: WinApi.HANDLE): INTEGER;
 	(*END WSACancelAsyncRequest;*)
 
-	PROCEDURE WSAAsyncSelect* ["WSOCK32.dll", ""] (s: SOCKET; hWnd: WinApi.HWND; wMsg: u_int; lEvent: INTEGER): INTEGER;
+	PROCEDURE [1] -WSAAsyncSelect* ["WSOCK32.dll", ""] (s: SOCKET; hWnd: WinApi.HWND; wMsg: u_int; lEvent: INTEGER): INTEGER;
 	(*END WSAAsyncSelect;*)
 
-	PROCEDURE WSAAccept* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] addr: sockaddr; VAR [nil] addrlen: INTEGER; lpfnCondition: CONDITIONPROC; dwCallbackData: INTEGER): SOCKET;
+	PROCEDURE [1] -WSAAccept* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] addr: sockaddr; VAR [nil] addrlen: INTEGER; lpfnCondition: CONDITIONPROC; dwCallbackData: INTEGER): SOCKET;
 	(*END WSAAccept;*)
 
-	PROCEDURE WSACloseEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
+	PROCEDURE [1] -WSACloseEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
 	(*END WSACloseEvent;*)
 
-	PROCEDURE WSAConnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS): INTEGER;
+	PROCEDURE [1] -WSAConnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS): INTEGER;
 	(*END WSAConnect;*)
 
-	PROCEDURE WSACreateEvent* ["WS2_32.dll", ""] (): WSAEVENT;
+	PROCEDURE [1] -WSACreateEvent* ["WS2_32.dll", ""] (): WSAEVENT;
 	(*END WSACreateEvent;*)
 
-	PROCEDURE WSADuplicateSocketA* ["WS2_32.dll", ""] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA): INTEGER;
+	PROCEDURE [1] -WSADuplicateSocketA* ["WS2_32.dll", ""] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA): INTEGER;
 	(*END WSADuplicateSocketA;*)
 
-	PROCEDURE WSADuplicateSocketW* ["WS2_32.dll", ""] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOW): INTEGER;
+	PROCEDURE [1] -WSADuplicateSocketW* ["WS2_32.dll", ""] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOW): INTEGER;
 	(*END WSADuplicateSocketW;*)
 
-	PROCEDURE WSADuplicateSocket* ["WS2_32.dll", "WSADuplicateSocketA"] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA): INTEGER;
+	PROCEDURE [1] -WSADuplicateSocket* ["WS2_32.dll", "WSADuplicateSocketA"] (s: SOCKET; dwProcessId: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA): INTEGER;
 	(*END WSADuplicateSocket;*)
 
-	PROCEDURE WSAEnumNetworkEvents* ["WS2_32.dll", ""] (s: SOCKET; hEventObject: WSAEVENT; VAR [nil] lpNetworkEvents: WSANETWORKEVENTS): INTEGER;
+	PROCEDURE [1] -WSAEnumNetworkEvents* ["WS2_32.dll", ""] (s: SOCKET; hEventObject: WSAEVENT; VAR [nil] lpNetworkEvents: WSANETWORKEVENTS): INTEGER;
 	(*END WSAEnumNetworkEvents;*)
 
-	PROCEDURE WSAEnumProtocolsA* ["WS2_32.dll", ""] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOA; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WSAEnumProtocolsA* ["WS2_32.dll", ""] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOA; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
 	(*END WSAEnumProtocolsA;*)
 
-	PROCEDURE WSAEnumProtocolsW* ["WS2_32.dll", ""] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOW; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WSAEnumProtocolsW* ["WS2_32.dll", ""] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOW; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
 	(*END WSAEnumProtocolsW;*)
 
-	PROCEDURE WSAEnumProtocols* ["WS2_32.dll", "WSAEnumProtocolsA"] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOA; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
+	PROCEDURE [1] -WSAEnumProtocols* ["WS2_32.dll", "WSAEnumProtocolsA"] (VAR [nil] lpiProtocols: INTEGER; VAR [nil] lpProtocolBuffer: WSAPROTOCOL_INFOA; VAR [nil] lpdwBufferLength: INTEGER): INTEGER;
 	(*END WSAEnumProtocols;*)
 
-	PROCEDURE WSAEventSelect* ["WS2_32.dll", ""] (s: SOCKET; hEventObject: WSAEVENT; lNetworkEvents: INTEGER): INTEGER;
+	PROCEDURE [1] -WSAEventSelect* ["WS2_32.dll", ""] (s: SOCKET; hEventObject: WSAEVENT; lNetworkEvents: INTEGER): INTEGER;
 	(*END WSAEventSelect;*)
 
-	PROCEDURE WSAGetOverlappedResult* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpOverlapped: WSAOVERLAPPED; VAR [nil] lpcbTransfer: INTEGER; fWait: WinApi.BOOL; VAR [nil] lpdwFlags: SET): WinApi.BOOL;
+	PROCEDURE [1] -WSAGetOverlappedResult* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpOverlapped: WSAOVERLAPPED; VAR [nil] lpcbTransfer: INTEGER; fWait: WinApi.BOOL; VAR [nil] lpdwFlags: SET): WinApi.BOOL;
 	(*END WSAGetOverlappedResult;*)
 
-	PROCEDURE WSAGetQOSByName* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpQOSName: WSABUF; VAR [nil] lpQOS: QOS): WinApi.BOOL;
+	PROCEDURE [1] -WSAGetQOSByName* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpQOSName: WSABUF; VAR [nil] lpQOS: QOS): WinApi.BOOL;
 	(*END WSAGetQOSByName;*)
 
-	PROCEDURE WSAHtonl* ["WS2_32.dll", ""] (s: SOCKET; hostlong: u_long; VAR [nil] lpnetlong: u_long): INTEGER;
+	PROCEDURE [1] -WSAHtonl* ["WS2_32.dll", ""] (s: SOCKET; hostlong: u_long; VAR [nil] lpnetlong: u_long): INTEGER;
 	(*END WSAHtonl;*)
 
-	PROCEDURE WSAHtons* ["WS2_32.dll", ""] (s: SOCKET; hostshort: u_short; VAR [nil] lpnetshort: u_short): INTEGER;
+	PROCEDURE [1] -WSAHtons* ["WS2_32.dll", ""] (s: SOCKET; hostshort: u_short; VAR [nil] lpnetshort: u_short): INTEGER;
 	(*END WSAHtons;*)
 
-	PROCEDURE WSAIoctl* ["WS2_32.dll", ""] (s: SOCKET; dwIoControlCode: INTEGER; lpvInBuffer: WinApi.PtrVoid; cbInBuffer: INTEGER; lpvOutBuffer: WinApi.PtrVoid; cbOutBuffer: INTEGER; VAR [nil] lpcbBytesReturned: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
+	PROCEDURE [1] -WSAIoctl* ["WS2_32.dll", ""] (s: SOCKET; dwIoControlCode: INTEGER; lpvInBuffer: WinApi.PtrVoid; cbInBuffer: INTEGER; lpvOutBuffer: WinApi.PtrVoid; cbOutBuffer: INTEGER; VAR [nil] lpcbBytesReturned: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
 	(*END WSAIoctl;*)
 
-	PROCEDURE WSAJoinLeaf* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS; dwFlags: SET): SOCKET;
+	PROCEDURE [1] -WSAJoinLeaf* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] name: sockaddr; namelen: INTEGER; VAR [nil] lpCallerData: WSABUF; VAR [nil] lpCalleeData: WSABUF; VAR [nil] lpSQOS: QOS; VAR [nil] lpGQOS: QOS; dwFlags: SET): SOCKET;
 	(*END WSAJoinLeaf;*)
 
-	PROCEDURE WSANtohl* ["WS2_32.dll", ""] (s: SOCKET; netlong: u_long; VAR [nil] lphostlong: u_long): INTEGER;
+	PROCEDURE [1] -WSANtohl* ["WS2_32.dll", ""] (s: SOCKET; netlong: u_long; VAR [nil] lphostlong: u_long): INTEGER;
 	(*END WSANtohl;*)
 
-	PROCEDURE WSANtohs* ["WS2_32.dll", ""] (s: SOCKET; netshort: u_short; VAR [nil] lphostshort: u_short): INTEGER;
+	PROCEDURE [1] -WSANtohs* ["WS2_32.dll", ""] (s: SOCKET; netshort: u_short; VAR [nil] lphostshort: u_short): INTEGER;
 	(*END WSANtohs;*)
 
-	PROCEDURE WSARecv* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesRecvd: INTEGER; VAR [nil] lpFlags: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
+	PROCEDURE [1] -WSARecv* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesRecvd: INTEGER; VAR [nil] lpFlags: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
 	(*END WSARecv;*)
 
-	PROCEDURE WSARecvDisconnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpInboundDisconnectData: WSABUF): INTEGER;
+	PROCEDURE [1] -WSARecvDisconnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpInboundDisconnectData: WSABUF): INTEGER;
 	(*END WSARecvDisconnect;*)
 
-	PROCEDURE WSARecvFrom* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesRecvd: INTEGER; VAR [nil] lpFlags: INTEGER; VAR [nil] lpFrom: sockaddr; VAR [nil] lpFromlen: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
+	PROCEDURE [1] -WSARecvFrom* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesRecvd: INTEGER; VAR [nil] lpFlags: INTEGER; VAR [nil] lpFrom: sockaddr; VAR [nil] lpFromlen: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
 	(*END WSARecvFrom;*)
 
-	PROCEDURE WSAResetEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
+	PROCEDURE [1] -WSAResetEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
 	(*END WSAResetEvent;*)
 
-	PROCEDURE WSASend* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesSent: INTEGER; dwFlags: SET; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
+	PROCEDURE [1] -WSASend* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesSent: INTEGER; dwFlags: SET; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
 	(*END WSASend;*)
 
-	PROCEDURE WSASendDisconnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpOutboundDisconnectData: WSABUF): INTEGER;
+	PROCEDURE [1] -WSASendDisconnect* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpOutboundDisconnectData: WSABUF): INTEGER;
 	(*END WSASendDisconnect;*)
 
-	PROCEDURE WSASendTo* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesSent: INTEGER; dwFlags: SET; VAR [nil] lpTo: sockaddr; iTolen: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
+	PROCEDURE [1] -WSASendTo* ["WS2_32.dll", ""] (s: SOCKET; VAR [nil] lpBuffers: WSABUF; dwBufferCount: INTEGER; VAR [nil] lpNumberOfBytesSent: INTEGER; dwFlags: SET; VAR [nil] lpTo: sockaddr; iTolen: INTEGER; VAR [nil] lpOverlapped: WSAOVERLAPPED; lpCompletionRoutine: WSAOVERLAPPED_COMPLETION_ROUTINE): INTEGER;
 	(*END WSASendTo;*)
 
-	PROCEDURE WSASetEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
+	PROCEDURE [1] -WSASetEvent* ["WS2_32.dll", ""] (hEvent: WSAEVENT): WinApi.BOOL;
 	(*END WSASetEvent;*)
 
-	PROCEDURE WSASocketA* ["WS2_32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA; g: GROUP; dwFlags: SET): SOCKET;
+	PROCEDURE [1] -WSASocketA* ["WS2_32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA; g: GROUP; dwFlags: SET): SOCKET;
 	(*END WSASocketA;*)
 
-	PROCEDURE WSASocketW* ["WS2_32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOW; g: GROUP; dwFlags: SET): SOCKET;
+	PROCEDURE [1] -WSASocketW* ["WS2_32.dll", ""] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOW; g: GROUP; dwFlags: SET): SOCKET;
 	(*END WSASocketW;*)
 
-	PROCEDURE WSASocket* ["WS2_32.dll", "WSASocketA"] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA; g: GROUP; dwFlags: SET): SOCKET;
+	PROCEDURE [1] -WSASocket* ["WS2_32.dll", "WSASocketA"] (af: INTEGER; type: INTEGER; protocol: INTEGER; VAR [nil] lpProtocolInfo: WSAPROTOCOL_INFOA; g: GROUP; dwFlags: SET): SOCKET;
 	(*END WSASocket;*)
 
-	PROCEDURE WSAWaitForMultipleEvents* ["WS2_32.dll", ""] (cEvents: INTEGER; VAR [nil] lphEvents: WSAEVENT; fWaitAll: WinApi.BOOL; dwTimeout: INTEGER; fAlertable: WinApi.BOOL): INTEGER;
+	PROCEDURE [1] -WSAWaitForMultipleEvents* ["WS2_32.dll", ""] (cEvents: INTEGER; VAR [nil] lphEvents: WSAEVENT; fWaitAll: WinApi.BOOL; dwTimeout: INTEGER; fAlertable: WinApi.BOOL): INTEGER;
 	(*END WSAWaitForMultipleEvents;*)
 
-	PROCEDURE WSARecvEx* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; VAR [nil] flags: SET): INTEGER;
+	PROCEDURE [1] -WSARecvEx* ["WSOCK32.dll", ""] (s: SOCKET; buf: WinApi.PtrSTR; len: INTEGER; VAR [nil] flags: SET): INTEGER;
 	(*END WSARecvEx;*)
 
-	PROCEDURE TransmitFile* ["WSOCK32.dll", ""] (hSocket: SOCKET; hFile: WinApi.HANDLE; nNumberOfBytesToWrite: INTEGER; nNumberOfBytesPerSend: INTEGER; VAR [nil] lpOverlapped: WinApi.OVERLAPPED; VAR [nil] lpTransmitBuffers: TRANSMIT_FILE_BUFFERS; dwReserved: INTEGER): WinApi.BOOL;
+	PROCEDURE [1] -TransmitFile* ["WSOCK32.dll", ""] (hSocket: SOCKET; hFile: WinApi.HANDLE; nNumberOfBytesToWrite: INTEGER; nNumberOfBytesPerSend: INTEGER; VAR [nil] lpOverlapped: WinApi.OVERLAPPED; VAR [nil] lpTransmitBuffers: TRANSMIT_FILE_BUFFERS; dwReserved: INTEGER): WinApi.BOOL;
 	(*END TransmitFile;*)
 
-	PROCEDURE AcceptEx* ["WSOCK32.dll", ""] (sListenSocket: SOCKET; sAcceptSocket: SOCKET; lpOutputBuffer: WinApi.PtrVoid; dwReceiveDataLength: INTEGER; dwLocalAddressLength: INTEGER; dwRemoteAddressLength: INTEGER; VAR [nil] lpdwBytesReceived: INTEGER; VAR [nil] lpOverlapped: WinApi.OVERLAPPED): WinApi.BOOL;
+	PROCEDURE [1] -AcceptEx* ["WSOCK32.dll", ""] (sListenSocket: SOCKET; sAcceptSocket: SOCKET; lpOutputBuffer: WinApi.PtrVoid; dwReceiveDataLength: INTEGER; dwLocalAddressLength: INTEGER; dwRemoteAddressLength: INTEGER; VAR [nil] lpdwBytesReceived: INTEGER; VAR [nil] lpOverlapped: WinApi.OVERLAPPED): WinApi.BOOL;
 	(*END AcceptEx;*)
 
-	PROCEDURE GetAcceptExSockaddrs* ["WSOCK32.dll", ""] (lpOutputBuffer: WinApi.PtrVoid; dwReceiveDataLength: INTEGER; dwLocalAddressLength: INTEGER; dwRemoteAddressLength: INTEGER; VAR [nil] LocalSockaddr: Ptrsockaddr; VAR [nil] LocalSockaddrLength: INTEGER; VAR [nil] RemoteSockaddr: Ptrsockaddr; VAR [nil] RemoteSockaddrLength: INTEGER);
+	PROCEDURE [1] -GetAcceptExSockaddrs* ["WSOCK32.dll", ""] (lpOutputBuffer: WinApi.PtrVoid; dwReceiveDataLength: INTEGER; dwLocalAddressLength: INTEGER; dwRemoteAddressLength: INTEGER; VAR [nil] LocalSockaddr: Ptrsockaddr; VAR [nil] LocalSockaddrLength: INTEGER; VAR [nil] RemoteSockaddr: Ptrsockaddr; VAR [nil] RemoteSockaddrLength: INTEGER);
 	(*END GetAcceptExSockaddrs;*)
 
 END WinNet.
