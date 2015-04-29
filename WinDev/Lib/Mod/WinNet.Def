@@ -760,7 +760,7 @@ MODULE WinNet;
 		u_short* = SHORTINT;
 		u_int* = INTEGER;
 		u_long* = INTEGER;
-		SOCKET* = u_int;
+		SOCKET* = WinApi.PtrVoid;
 		fd_set* = RECORD [1]
 			fd_count*: u_int;
 			fd_array*: ARRAY [1] 64 OF SOCKET;
@@ -1404,6 +1404,11 @@ MODULE WinNet;
 
 	PROCEDURE [1] -GetAcceptExSockaddrs* (lpOutputBuffer: WinApi.PtrVoid; dwReceiveDataLength: INTEGER; dwLocalAddressLength: INTEGER; dwRemoteAddressLength: INTEGER; VAR [nil] LocalSockaddr: Ptrsockaddr; VAR [nil] LocalSockaddrLength: INTEGER; VAR [nil] RemoteSockaddr: Ptrsockaddr; VAR [nil] RemoteSockaddrLength: INTEGER);
 	(*END GetAcceptExSockaddrs;*)
+
+PROCEDURE -IOCPARM_MASK_F* (): INTEGER "0x7f";
+PROCEDURE -IOC_IN_F* (): INTEGER "0x80000000";
+PROCEDURE -_IOW* (x: CHAR; y: INTEGER; t: WinApi.PtrVoid) "(WinNet_IOC_IN_F()|(((long)sizeof(t)&WinNet_IOCPARM_MASK_F())<<16)|((x)<<8)|(y))";
+PROCEDURE -FIONBIO* (): INTEGER "WinNet__IOW('f', 126, unsigned long)";
 
 PROCEDURE -_init* "/*-noinit*/";
 
