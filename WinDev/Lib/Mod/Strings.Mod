@@ -1,4 +1,4 @@
-MODULE Strings;	(** portable layer for LibC - strings *)
+MODULE Strings;
 
 IMPORT SYSTEM;
 
@@ -24,6 +24,26 @@ BEGIN
   WHILE (len < SHORT(LEN(str))) & (str[len] # 0X) DO INC(len) END;
   RETURN len
 END Length;
+
+(** This function returns the position of the <pattern> in the string <str>.
+    If <pattern> does not occur in <str> -1 is returned. If the <pattern>
+    occurs several times the position of the first occurrence is returned. *)
+PROCEDURE Find* (IN str, pattern: ARRAY OF CHAR; start: INTEGER): INTEGER;
+VAR
+  j, pos: INTEGER;
+BEGIN
+  IF start < 0 THEN start := 0 END;
+  IF (start = 0) OR (start <= Length(str) - Length(pattern)) THEN
+    (* start = 0 is optimization: need not call Len *)
+    pos := start;
+    WHILE str[pos] # 0X DO j := 0;
+      WHILE (str[pos+j] = pattern[j]) & (pattern[j] # 0X) DO INC(j) END;
+      IF pattern[j] = 0X THEN RETURN pos END;
+      INC(pos);
+    END;
+  END;
+  RETURN -1 (* pattern not found *)
+END Find;
 
 PROCEDURE IntToStr* (n: INTEGER; VAR str: ARRAY OF CHAR);
   (** UNSAFE! Make sure that size of array 'str' is enough. *)

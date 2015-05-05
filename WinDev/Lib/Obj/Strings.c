@@ -7,6 +7,7 @@ typedef
 
 
 
+export INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT pattern__len, INTEGER start);
 export void Strings_IntToStr (INTEGER n, CHAR *str, LONGINT str__len);
 export void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
 export void Strings_LIntToStr (LONGINT n, CHAR *str, LONGINT str__len);
@@ -28,6 +29,29 @@ INTEGER Strings_Length (CHAR *str, LONGINT str__len)
 		len += 1;
 	}
 	return len;
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT pattern__len, INTEGER start)
+{
+	INTEGER j, pos;
+	if (start < 0) {
+		start = 0;
+	}
+	if (start == 0 || start <= Strings_Length((void*)str, str__len) - Strings_Length((void*)pattern, pattern__len)) {
+		pos = start;
+		while (str[__X(pos, str__len)] != 0x00) {
+			j = 0;
+			while (str[__X(pos + j, str__len)] == pattern[__X(j, pattern__len)] && pattern[__X(j, pattern__len)] != 0x00) {
+				j += 1;
+			}
+			if (pattern[__X(j, pattern__len)] == 0x00) {
+				return pos;
+			}
+			pos += 1;
+		}
+	}
+	return -1;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -380,12 +404,3 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 	}
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *Strings__init(void)
-{
-	__DEFMOD;
-	__REGMOD("Strings", 0);
-/* BEGIN */
-	__ENDMOD;
-}
