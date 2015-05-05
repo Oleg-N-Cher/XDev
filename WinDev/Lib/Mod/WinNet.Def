@@ -281,6 +281,7 @@ MODULE WinNet;
 		IN_CLASSD_NET* = -268435456;
 		IN_CLASSD_NSHIFT* = 28;
 		IN_CLASSD_HOST* = 268435455;
+		INADDR_ANY* = 0;
 		INADDR_LOOPBACK* = 2130706433;
 		INADDR_NONE* = -1;
 		WSADESCRIPTION_LEN* = 256;
@@ -789,28 +790,28 @@ MODULE WinNet;
 		Ptrin_addr* = POINTER TO in_addr;
 		hostent* = RECORD [1]
 			h_name*: WinApi.PtrSTR;
-			h_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
+			h_aliases*: SYSTEM.PTR(*POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR*);
 			h_addrtype*: SHORTINT;
 			h_length*: SHORTINT;
-			h_addr_list*: POINTER TO (*?*) ARRAY [1] OF POINTER TO ARRAY [1] OF in_addr;
+			h_addr_list*: SYSTEM.PTR(*POINTER TO (*?*) ARRAY [1] OF POINTER TO ARRAY [1] OF in_addr*);
 		END;
 		Ptrhostent* = POINTER TO hostent;
 		netent* = RECORD [1]
 			n_name*: WinApi.PtrSTR;
-			n_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
+			n_aliases*: SYSTEM.PTR(*POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR*);
 			n_addrtype*: SHORTINT;
 			n_net*: u_long;
 		END;
 		servent* = RECORD [1]
 			s_name*: WinApi.PtrSTR;
-			s_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
+			s_aliases*: SYSTEM.PTR(*POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR*);
 			s_port*: SHORTINT;
 			s_proto*: WinApi.PtrSTR;
 		END;
 		Ptrservent* = POINTER TO servent;
 		protoent* = RECORD [1]
 			p_name*: WinApi.PtrSTR;
-			p_aliases*: POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR;
+			p_aliases*: SYSTEM.PTR(*POINTER TO (*?*) ARRAY [1] OF WinApi.PtrSTR*);
 			p_proto*: SHORTINT;
 		END;
 		Ptrprotoent* = POINTER TO protoent;

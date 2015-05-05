@@ -123,26 +123,16 @@ typedef
 	INTEGER (__CALL_1 *WinNet_FNRECONCILEPROFILEW)(SYSTEM_PTR, SYSTEM_PTR, SET);
 
 typedef
+	struct WinNet_hostent {
+		SYSTEM_PTR h_name, h_aliases;
+		SHORTINT h_addrtype, h_length;
+		SYSTEM_PTR h_addr_list;
+	} WinNet_hostent;
+
+typedef
 	struct WinNet_in_addr {
 		struct WinNet__1 S_un;
 	} WinNet_in_addr;
-
-typedef
-	struct WinNet_hostent {
-		SYSTEM_PTR h_name;
-		struct {
-			LONGINT len[1];
-			SYSTEM_PTR data[1];
-		} *h_aliases;
-		SHORTINT h_addrtype, h_length;
-		struct {
-			LONGINT len[1];
-			struct {
-				LONGINT len[1];
-				WinNet_in_addr data[1];
-			} *data[1];
-		} *h_addr_list;
-	} WinNet_hostent;
 
 typedef
 	struct WinNet_LANA_ENUM {
@@ -208,11 +198,7 @@ typedef
 
 typedef
 	struct WinNet_protoent {
-		SYSTEM_PTR p_name;
-		struct {
-			LONGINT len[1];
-			SYSTEM_PTR data[1];
-		} *p_aliases;
+		SYSTEM_PTR p_name, p_aliases;
 		SHORTINT p_proto;
 	} WinNet_protoent;
 
@@ -339,11 +325,7 @@ typedef
 
 typedef
 	struct WinNet_servent {
-		SYSTEM_PTR s_name;
-		struct {
-			LONGINT len[1];
-			SYSTEM_PTR data[1];
-		} *s_aliases;
+		SYSTEM_PTR s_name, s_aliases;
 		SHORTINT s_port;
 		SYSTEM_PTR s_proto;
 	} WinNet_servent;
@@ -444,11 +426,7 @@ typedef
 
 typedef
 	struct WinNet_netent {
-		SYSTEM_PTR n_name;
-		struct {
-			LONGINT len[1];
-			SYSTEM_PTR data[1];
-		} *n_aliases;
+		SYSTEM_PTR n_name, n_aliases;
 		SHORTINT n_addrtype;
 		INTEGER n_net;
 	} WinNet_netent;
