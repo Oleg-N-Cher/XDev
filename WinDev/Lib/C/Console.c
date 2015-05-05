@@ -12,6 +12,7 @@
 /* StdIO */
 export void Console_WriteCh_StdIO (CHAR ch);
 export void Console_WriteInt_StdIO (LONGINT n);
+export void Console_WriteReal_StdIO (REAL r);
 export void Console_WriteLn_StdIO (void);
 export void Console_WriteStr_StdIO (CHAR *str);
 export void Console_WriteStrLn_StdIO (CHAR *str);
@@ -27,6 +28,11 @@ export void Console_WriteHex_StdIO (INTEGER val);
 export void Console_WriteInt_StdIO (LONGINT n)
 {
   printf("%ld", n);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+export void Console_WriteReal_StdIO (REAL r) {
+  printf("%f", r);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

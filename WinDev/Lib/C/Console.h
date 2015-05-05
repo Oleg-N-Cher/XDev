@@ -7,6 +7,7 @@
 /* StdIO */
 import void Console_WriteCh_StdIO (CHAR ch);
 import void Console_WriteInt_StdIO (LONGINT n);
+import void Console_WriteReal_StdIO (REAL r);
 import void Console_WriteLn_StdIO (void);
 import void Console_WriteStr_StdIO (CHAR *str);
 import void Console_WriteStrLn_StdIO (CHAR *str);
@@ -25,6 +26,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_SetColors(colors)
 #  define Console_WriteCh	Console_WriteCh_StdIO
 #  define Console_WriteInt	Console_WriteInt_StdIO
+#  define Console_WriteReal	Console_WriteReal_StdIO
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_StdIO(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_StdIO(str)
 #  define Console_WriteLn	Console_WriteLn_StdIO

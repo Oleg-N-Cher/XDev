@@ -122,6 +122,7 @@ PROCEDURE -includestdio()  "#include <stdio.h>";
 
 PROCEDURE -writeInt (n: LONGINT)  'printf("%ld", n)';
 PROCEDURE -writeLInt (n: LONGINT)  'printf("%lld", n)';
+PROCEDURE -writeReal (r: REAL)  'printf("%f", r)';
 PROCEDURE -writeStr (str: ARRAY [1] OF CHAR)  'printf("%s", str)';
 PROCEDURE -writeStrLn (str: ARRAY [1] OF CHAR)  'printf("%s\n", str)';
 PROCEDURE -writeCh (ch: CHAR)  'printf("%c", ch)';
@@ -148,6 +149,11 @@ BEGIN
   IF SIZE(LONGINT) = 4 THEN writeInt(n) END;
   IF SIZE(LONGINT) = 8 THEN writeLInt(n) END;
 END WriteInt;
+
+PROCEDURE WriteReal* (r: REAL);
+BEGIN
+  writeReal(r);
+END WriteReal;
 
 PROCEDURE WriteStr* (str: ARRAY [1] OF CHAR); (* Write ANSI string into console. *)
   (** UNSAFE! Make sure that value of array 'str' is null-terminated. *)
