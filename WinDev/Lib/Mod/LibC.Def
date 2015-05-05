@@ -380,6 +380,7 @@ MODULE LibC;
     timezone*: INTEGER; (* seconds from GMT *)
     stdin*, stdout*, stderr* : PtrFILE;
 
+  PROCEDURE -atoi* (nptr: PtrSTR): INTEGER "atoi((const char *)nptr)";
   PROCEDURE -calloc* (num, size: size_t): PtrVoid;
   PROCEDURE -clock* (): clock_t;
   PROCEDURE -closedir* (dir: PtrDIR): INTEGER;
@@ -403,10 +404,12 @@ MODULE LibC;
   PROCEDURE -kill* (pid: pid_t; sig: INTEGER): INTEGER;
   PROCEDURE -localtime* (VAR timep: time_t): tm;
   PROCEDURE -malloc* (size: size_t): PtrVoid;
+PROCEDURE -memcpy* (dst, src: PtrVoid; n: size_t): PtrVoid "memcpy((void*)dst, (const void*)src, n)";
+PROCEDURE -memset* (s: PtrVoid; c: INTEGER; n: size_t): PtrVoid "memset((void*)s, c, n)";
   PROCEDURE -mkdir* (pathname: PtrSTR; mode: mode_t): INTEGER;
   PROCEDURE -mktime* (timeptr: tm): time_t;
   PROCEDURE -opendir* (name: PtrSTR): PtrDIR;
-  PROCEDURE -printf* (s: PtrSTR): INTEGER;
+  PROCEDURE -printf* (s: PtrSTR): INTEGER "printf(s)";
   PROCEDURE -readdir* (dir: PtrDIR): PtrDirent;
   PROCEDURE -remove* (filename: PtrSTR): INTEGER;
   PROCEDURE -rename* (oldname, newname: PtrSTR): INTEGER;
@@ -422,9 +425,17 @@ MODULE LibC;
   PROCEDURE -siglongjmp* (VAR env: sigjmp_buf; val: INTEGER);
   PROCEDURE -signal* (sig_num: INTEGER; sighandler: PtrProc): PtrProc;
   PROCEDURE -sigsetjmp* (VAR env: sigjmp_buf; savemask: INTEGER): INTEGER "__sigsetjmp(sigjmp_buf, savemask)";
+PROCEDURE -sprintf* (str: PtrSTR; n: INTEGER)  'sprintf(str, "%ld", n)'; 
+PROCEDURE -sprintfL* (str: PtrSTR; n: LONGINT)  'sprintf(str, "%lld", n)';
+PROCEDURE -sscanfai* (src, format, a: PtrSTR; VAR i: INTEGER): INTEGER "sscanf((const char*)src, (const char*)format, a, i)";
+PROCEDURE -sscanfi* (src, format: PtrSTR; VAR i: INTEGER): INTEGER "sscanf((const char*)src, (const char*)format, i)";
 (*
   PROCEDURE -stat* (filename: PtrSTR; VAR buf: stat_t): INTEGER;   stat is a macro and expands to __xstat(3, filename, buf)
 *)
+(* https://ru.wikipedia.org/wiki/String.h *)
+PROCEDURE -strchr* (str: PtrSTR; ch: CHAR): PtrSTR "((SYSTEM_PTR)strchr((const char *)str, (char)ch))";
+PROCEDURE -strlen* (str: PtrSTR): INTEGER "strlen((const char *)str)";
+PROCEDURE -strstr* (str, substr: PtrSTR): PtrSTR "((SYSTEM_PTR)strstr((const char *)str, (const char *)substr))";
   PROCEDURE -__xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
   PROCEDURE -strftime* (s: PtrSTR; max: size_t; format: PtrSTR; ptm: tm): size_t;
   PROCEDURE -time* (VAR [nil] t: time_t): time_t;

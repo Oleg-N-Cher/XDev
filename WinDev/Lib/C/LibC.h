@@ -162,6 +162,7 @@ __EXTERN INTEGER __errno_location(void);
 #define LibC___xstat(version, filename, buf, buf__typ)	__xstat(version, filename, buf)
 __EXTERN INTEGER __xstat(INTEGER version, SYSTEM_PTR filename, LibC_stat_t *buf);
 #define LibC__init()	/*-noinit*/
+#define LibC_atoi(nptr)	atoi((const char *)nptr)
 #define LibC_calloc(num, size)	calloc(num, size)
 __EXTERN SYSTEM_PTR calloc(SYSTEM_PTR num, SYSTEM_PTR size);
 #define LibC_chmod(path, mode)	chmod(path, mode)
@@ -208,6 +209,8 @@ __EXTERN INTEGER kill(INTEGER pid, INTEGER sig);
 __EXTERN LibC_tm localtime(INTEGER *timep);
 #define LibC_malloc(size)	malloc(size)
 __EXTERN SYSTEM_PTR malloc(SYSTEM_PTR size);
+#define LibC_memcpy(dst, src, n)	memcpy((void*)dst, (const void*)src, n)
+#define LibC_memset(s, c, n)	memset((void*)s, c, n)
 #define LibC_mkdir(pathname, mode)	mkdir(pathname, mode)
 __EXTERN INTEGER mkdir(SYSTEM_PTR pathname, SET mode);
 #define LibC_mktime(timeptr)	mktime(timeptr)
@@ -215,7 +218,6 @@ __EXTERN INTEGER mktime(LibC_tm timeptr);
 #define LibC_opendir(name)	opendir(name)
 __EXTERN SYSTEM_PTR opendir(SYSTEM_PTR name);
 #define LibC_printf(s)	printf(s)
-__EXTERN INTEGER printf(SYSTEM_PTR s);
 #define LibC_readdir(dir)	readdir(dir)
 __EXTERN LibC_PtrDirent readdir(SYSTEM_PTR dir);
 #define LibC_remove(filename)	remove(filename)
@@ -245,8 +247,15 @@ __EXTERN void siglongjmp(LibC_sigjmp_buf *env, INTEGER val);
 #define LibC_signal(sig_num, sighandler)	signal(sig_num, sighandler)
 __EXTERN SYSTEM_PTR signal(INTEGER sig_num, SYSTEM_PTR sighandler);
 #define LibC_sigsetjmp(env, env__typ, savemask)	__sigsetjmp(sigjmp_buf, savemask)
+#define LibC_sprintf(str, n)	sprintf(str, "%ld", n)
+#define LibC_sprintfL(str, n)	sprintf(str, "%lld", n)
+#define LibC_sscanfai(src, format, a, i)	sscanf((const char*)src, (const char*)format, a, i)
+#define LibC_sscanfi(src, format, i)	sscanf((const char*)src, (const char*)format, i)
+#define LibC_strchr(str, ch)	((SYSTEM_PTR)strchr((const char *)str, (char)ch))
 #define LibC_strftime(s, max, format, ptm)	strftime(s, max, format, ptm)
 __EXTERN SYSTEM_PTR strftime(SYSTEM_PTR s, SYSTEM_PTR max, SYSTEM_PTR format, LibC_tm ptm);
+#define LibC_strlen(str)	strlen((const char *)str)
+#define LibC_strstr(str, substr)	((SYSTEM_PTR)strstr((const char *)str, (const char *)substr))
 #define LibC_time(t)	time(t)
 __EXTERN INTEGER time(INTEGER *t);
 
