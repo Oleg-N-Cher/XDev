@@ -1149,7 +1149,7 @@ static void EnumPtrs(void (*P)(void*))
 }
 
 __TDESC(AclLib_TObject__desc, 1, 0) = {__TDFLDS("TObject", 1), {-8}};
-__TDESC(AclLib_TCreateParams__desc, 1, 2) = {__TDFLDS("TCreateParams", 400), {280, 288, -24}};
+__TDESC(AclLib_TCreateParams__desc, 1, 2) = {__TDFLDS("TCreateParams", 432), {280, 288, -24}};
 __TDESC(AclLib_TControl__desc, 1, 1) = {__TDFLDS("TControl", 24), {0, -16}};
 __TDESC(AclLib_TControlList__desc, 1, 0) = {__TDFLDS("TControlList", 32), {-8}};
 __TDESC(AclLib_TWinControlList__desc, 1, 0) = {__TDFLDS("TWinControlList", 16), {-8}};

@@ -53,7 +53,7 @@ INTEGER AclUtils_HeightOf (WinApi_RECT r)
 INTEGER AclUtils_ColorToRGB (INTEGER color)
 {
 	if (color < 0) {
-		return WinApi_GetSysColor((int)((SET)(color) & 0xff));
+		return WinApi_GetSysColor((int)((SET)color & 0xff));
 	}
 	return color;
 }
@@ -103,7 +103,7 @@ SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTEGER mod
 	ShareMode[4] = 0x03;
 	OpenMode[0] = 3;
 	OpenMode[1] = 5;
-	return WinApi_CreateFile((SYSTEM_PTR)((LONGINT)fileName), AccessMode[__X((int)((SET)(mode) & 0x03), 3)], ShareMode[__X(__ASHR((int)((SET)(mode) & 0xf0), 4), 5)], NIL, NIL, OpenMode[__X(__ASHR((int)((SET)(mode) & 0x04), 2), 2)], 0x80, NIL);
+	return WinApi_CreateFile((SYSTEM_PTR)((LONGINT)fileName), AccessMode[__X((int)((SET)mode & 0x03), 3)], ShareMode[__X(__ASHR((int)((SET)mode & 0xf0), 4), 5)], NIL, NIL, OpenMode[__X(__ASHR((int)((SET)mode & 0x04), 2), 2)], 0x80, NIL);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -138,3 +138,14 @@ void AclUtils_FileClose (SYSTEM_PTR handle)
 	Ignore_Int(WinApi_CloseHandle(handle));
 }
 
+/*----------------------------------------------------------------------------*/
+
+export void *AclUtils__init(void)
+{
+	__DEFMOD;
+	__IMPORT(Ignore__init);
+	__IMPORT(WinApi__init);
+	__REGMOD("AclUtils", 0);
+/* BEGIN */
+	__ENDMOD;
+}

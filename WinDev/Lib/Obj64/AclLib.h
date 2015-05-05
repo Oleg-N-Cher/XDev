@@ -131,7 +131,7 @@ typedef
 typedef
 	struct AclLib_TCreateParams {
 		LONGINT _prvt0;
-		char _prvt1[392];
+		char _prvt1[424];
 	} AclLib_TCreateParams;
 
 typedef
