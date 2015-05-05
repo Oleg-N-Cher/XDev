@@ -24,7 +24,13 @@ extern void exit (int status);
 /* runtime system routines */
 extern void SYSTEM_INIT (int argc, long argvadr);
 extern void SYSTEM_HALT (int n);
+extern long SYSTEM_XCHK(long i, long ub);
+extern long SYSTEM_RCHK(long i, long ub);
+extern long SYSTEM_ASH(long i, long n);
+extern long SYSTEM_ABS(long i);
+extern double SYSTEM_ABSD(double i);
 extern long SYSTEM_MOD (unsigned long x, unsigned long y);
+extern long SYSTEM_ENTIER (double x);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*));
 export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
@@ -45,12 +51,39 @@ LONGINT SYSTEM_argv;
 //}
 
 /*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_XCHK(i, ub) long i, ub; {return __X(i, ub);}
+
+/*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_RCHK(i, ub) long i, ub; {return __R(i, ub);}
+
+/*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_ASH(i, n) long i, n; {return __ASH(i, n);}
+
+/*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_ABS(i) long i; {return __ABS(i);}
+
+/*--------------------------------- Cut here ---------------------------------*/
+double SYSTEM_ABSD(i) double i; {return __ABS(i);}
+
+/*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_MOD (unsigned long x, unsigned long y)
 { unsigned long m;
   if ((long) x >= 0) return (x % y);
   else { m = (-x) % y;
     if (m != 0) return (y - m); else return 0;
   }
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_ENTIER (double x)
+{
+	long y;
+	if (x >= 0)
+		return (long)x;
+	else {
+		y = (long)x;
+		if (y <= x) return y; else return y - 1;
+	}
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -80,16 +113,6 @@ void SYSTEM_HALT (int n)
 {
   exit(n);
 }
-
-//void SYSTEM_FINALL (void)
-//{
-  //exit(0);
-//}
-
-//void SYSTEM_FINI (void)
-//{
-  //SYSTEM_FINALL();
-//}
 
 /*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size)
