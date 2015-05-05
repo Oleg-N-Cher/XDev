@@ -2809,7 +2809,7 @@ TYPE
 
 (*  Thread Local Storage *)
 
-  PIMAGE_TLS_CALLBACK* = PROCEDURE (*APICALL*) ( DllHandle: WD.LPVOID;  
+  PIMAGE_TLS_CALLBACK* = PROCEDURE [1] ( DllHandle: WD.LPVOID;  
                                   Reason: WD.DWORD; Reserved: WD.LPVOID );
 
   PtrPIMAGE_TLS_CALLBACK* = WD.LP;  (*POINTER TO PIMAGE_TLS_CALLBACK;*)
@@ -3272,45 +3272,45 @@ TYPE
   END;
   PTAPE_CREATE_PARTITION* = POINTER TO TAPE_CREATE_PARTITION;
 
-PROCEDURE- (*APICALL*) NtCurrentTeb* (  ): LPTEB;
+PROCEDURE [1] -NtCurrentTeb* (  ): LPTEB;
 
-PROCEDURE- (*APICALL*) RtlEqualMemory* ( Source1: WD.LPVOID; Source2: WD.LPVOID;
+PROCEDURE [1] -RtlEqualMemory* ( Source1: WD.LPVOID; Source2: WD.LPVOID;
                            Length: WD.DWORD ): WD.DWORD;
 
-PROCEDURE- (*APICALL*) RtlCopyMemory* ( Destination: WD.LPVOID; Source: WD.LPVOID;
+PROCEDURE [1] -RtlCopyMemory* ( Destination: WD.LPVOID; Source: WD.LPVOID;
                           Length: WD.DWORD );
 
-PROCEDURE- (*APICALL*) RtlCopyMemory32* ( Destination: WD.LPVOID; Source: WD.LPVOID;
+PROCEDURE [1] -RtlCopyMemory32* ( Destination: WD.LPVOID; Source: WD.LPVOID;
                             Length: WD.DWORD );
 
-PROCEDURE- (*APICALL*) RtlMoveMemory* ( Destination: WD.LPVOID; Source: WD.LPVOID;
+PROCEDURE [1] -RtlMoveMemory* ( Destination: WD.LPVOID; Source: WD.LPVOID;
                           Length: WD.DWORD );
 
-PROCEDURE- (*APICALL*) RtlFillMemory* ( Destination: WD.LPVOID; Length: WD.DWORD;
+PROCEDURE [1] -RtlFillMemory* ( Destination: WD.LPVOID; Length: WD.DWORD;
                           Fill: WD.BYTE );
 
-PROCEDURE- (*APICALL*) RtlZeroMemory* ( Destination: WD.LPVOID; Length: WD.DWORD );
+PROCEDURE [1] -RtlZeroMemory* ( Destination: WD.LPVOID; Length: WD.DWORD );
 
 (*Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) __TEXT* ( quote: ARRAY OF BYTE );
+PROCEDURE [1] -__TEXT* ( quote: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / __TEXT* ( quote: ARRAY OF BYTE );
+PROCEDURE [1] - / __TEXT* ( quote: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) TEXT* ( quote: ARRAY OF BYTE );
+PROCEDURE [1] -TEXT* ( quote: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / TEXT* ( quote: ARRAY OF BYTE );
+PROCEDURE [1] - / TEXT* ( quote: ARRAY OF BYTE );
 <* END *>
 end Macros*)
 (*Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) DECLARE_HANDLE* ( name: ARRAY OF BYTE );
+PROCEDURE [1] -DECLARE_HANDLE* ( name: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / DECLARE_HANDLE* ( name: ARRAY OF BYTE );
+PROCEDURE [1] - / DECLARE_HANDLE* ( name: ARRAY OF BYTE );
 <* END *>
 end Macros*)
 (*  *)
@@ -3319,9 +3319,9 @@ end Macros*)
 (* Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) FIELD_OFFSET* ( type, field: ARRAY OF BYTE );
+PROCEDURE [1] -FIELD_OFFSET* ( type, field: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / FIELD_OFFSET* ( type, field: ARRAY OF BYTE );
+PROCEDURE [1] - / FIELD_OFFSET* ( type, field: ARRAY OF BYTE );
 <* END *>
 (*  *)
 (*  Calculate the address of the base of the structure given its type, and an *)
@@ -3329,9 +3329,9 @@ PROCEDURE- (*APICALL*)  / FIELD_OFFSET* ( type, field: ARRAY OF BYTE );
 (*  *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) CONTAINING_RECORD* ( address, type, field: ARRAY OF BYTE );
+PROCEDURE [1] -CONTAINING_RECORD* ( address, type, field: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / CONTAINING_RECORD* ( address, type, field: ARRAY OF BYTE );
+PROCEDURE [1] - / CONTAINING_RECORD* ( address, type, field: ARRAY OF BYTE );
 <* END *>
 end Macros *)
 (*  *)
@@ -3346,21 +3346,21 @@ end Macros *)
 (*Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) MAKELANGID* ( p, s: ARRAY OF BYTE );
+PROCEDURE [1] -MAKELANGID* ( p, s: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / MAKELANGID* ( p, s: ARRAY OF BYTE );
+PROCEDURE [1] - / MAKELANGID* ( p, s: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) PRIMARYLANGID* ( lgid: ARRAY OF BYTE );
+PROCEDURE [1] -PRIMARYLANGID* ( lgid: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / PRIMARYLANGID* ( lgid: ARRAY OF BYTE );
+PROCEDURE [1] - / PRIMARYLANGID* ( lgid: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) SUBLANGID* ( lgid: ARRAY OF BYTE );
+PROCEDURE [1] -SUBLANGID* ( lgid: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / SUBLANGID* ( lgid: ARRAY OF BYTE );
+PROCEDURE [1] - / SUBLANGID* ( lgid: ARRAY OF BYTE );
 <* END *>
 (*  *)
 (*   A locale ID is a 32 bit value which is the combination of a *)
@@ -3381,21 +3381,21 @@ PROCEDURE- (*APICALL*)  / SUBLANGID* ( lgid: ARRAY OF BYTE );
 (*  *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) MAKELCID* ( lgid, srtid: ARRAY OF BYTE );
+PROCEDURE [1] -MAKELCID* ( lgid, srtid: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / MAKELCID* ( lgid, srtid: ARRAY OF BYTE );
+PROCEDURE [1] - / MAKELCID* ( lgid, srtid: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) LANGIDFROMLCID* ( lcid: ARRAY OF BYTE );
+PROCEDURE [1] -LANGIDFROMLCID* ( lcid: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / LANGIDFROMLCID* ( lcid: ARRAY OF BYTE );
+PROCEDURE [1] - / LANGIDFROMLCID* ( lcid: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) SORTIDFROMLCID* ( lcid: ARRAY OF BYTE );
+PROCEDURE [1] -SORTIDFROMLCID* ( lcid: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / SORTIDFROMLCID* ( lcid: ARRAY OF BYTE );
+PROCEDURE [1] - / SORTIDFROMLCID* ( lcid: ARRAY OF BYTE );
 <* END *>
 (*  *)
 (*   Default System and User IDs for language and locale. *)
@@ -3419,101 +3419,101 @@ PROCEDURE- (*APICALL*)  / SORTIDFROMLCID* ( lcid: ARRAY OF BYTE );
 (*  *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
+PROCEDURE [1] -UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
+PROCEDURE [1] - / UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) DBG_UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
+PROCEDURE [1] -DBG_UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / DBG_UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
+PROCEDURE [1] - / DBG_UNREFERENCED_PARAMETER* ( P: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) DBG_UNREFERENCED_LOCAL_VARIABLE* ( V: ARRAY OF BYTE );
+PROCEDURE [1] -DBG_UNREFERENCED_LOCAL_VARIABLE* ( V: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / DBG_UNREFERENCED_LOCAL_VARIABLE* ( V: ARRAY OF BYTE );
+PROCEDURE [1] - / DBG_UNREFERENCED_LOCAL_VARIABLE* ( V: ARRAY OF BYTE );
 <* END *>
 end Macros *)
 (*  MACROS 
 (*  Basic Type of  x *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) BTYPE* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -BTYPE* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / BTYPE* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / BTYPE* ( x: ARRAY OF BYTE );
 <* END *>
 (*  Is x a pointer? *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) ISPTR* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -ISPTR* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / ISPTR* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / ISPTR* ( x: ARRAY OF BYTE );
 <* END *>
 (*  Is x a function? *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) ISFCN* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -ISFCN* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / ISFCN* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / ISFCN* ( x: ARRAY OF BYTE );
 <* END *>
 (*  Is x an array? *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) ISARY* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -ISARY* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / ISARY* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / ISARY* ( x: ARRAY OF BYTE );
 <* END *>
 (*  Is x a structure, union, or enumeration TAG? *)
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) ISTAG* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -ISTAG* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / ISTAG* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / ISTAG* ( x: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) INCREF* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -INCREF* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / INCREF* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / INCREF* ( x: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) DECREF* ( x: ARRAY OF BYTE );
+PROCEDURE [1] -DECREF* ( x: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / DECREF* ( x: ARRAY OF BYTE );
+PROCEDURE [1] - / DECREF* ( x: ARRAY OF BYTE );
 <* END *>
 end Macros *)
 (* Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) IMAGE_SNAP_BY_ORDINAL* ( Ordinal: ARRAY OF BYTE );
+PROCEDURE [1] -IMAGE_SNAP_BY_ORDINAL* ( Ordinal: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / IMAGE_SNAP_BY_ORDINAL* ( Ordinal: ARRAY OF BYTE );
+PROCEDURE [1] - / IMAGE_SNAP_BY_ORDINAL* ( Ordinal: ARRAY OF BYTE );
 <* END *>
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) IMAGE_ORDINAL* ( Ordinal: ARRAY OF BYTE );
+PROCEDURE [1] -IMAGE_ORDINAL* ( Ordinal: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / IMAGE_ORDINAL* ( Ordinal: ARRAY OF BYTE );
+PROCEDURE [1] - / IMAGE_ORDINAL* ( Ordinal: ARRAY OF BYTE );
 <*- GENTYPEDEF *>
 <* END *>
 end Macros*)
 (* Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) HEAP_MAKE_TAG_FLAGS* ( b, o: ARRAY OF BYTE );
+PROCEDURE [1] -HEAP_MAKE_TAG_FLAGS* ( b, o: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / HEAP_MAKE_TAG_FLAGS* ( b, o: ARRAY OF BYTE );
+PROCEDURE [1] - / HEAP_MAKE_TAG_FLAGS* ( b, o: ARRAY OF BYTE );
 <* END *>
 end Macros*)
 (* Macros
 <* IF __GEN_C__ THEN *>
 (* H2D: this procedure corresponds to a macro. *)
-PROCEDURE- (*APICALL*) IMAGE_FIRST_SECTION* ( ntheader: ARRAY OF BYTE );
+PROCEDURE [1] -IMAGE_FIRST_SECTION* ( ntheader: ARRAY OF BYTE );
 <* ELSE *>
-PROCEDURE- (*APICALL*)  / IMAGE_FIRST_SECTION* ( ntheader: ARRAY OF BYTE );
+PROCEDURE [1] - / IMAGE_FIRST_SECTION* ( ntheader: ARRAY OF BYTE );
 <* END *>
 end Macros*)
 
