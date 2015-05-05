@@ -1,1 +1,1 @@
--Zpe -D_WIN32 -O1 -s -I "." -I ..\Lib -I ..\Lib\C -I ..\Lib\Obj -I ..\Bin\djgpp\include\win32 ..\Lib\XDevDJGPP.a ..\Lib\KolDJGPP.a ..\Bin\djgpp\lib\libmsvcrt.a ..\Bin\djgpp\lib\libgdi32.a
+-Zpe -D_WIN32 -O1 -s -I "." -I ..\Lib -I ..\Lib\C -I ..\Lib\Obj -I ..\Bin\djgpp\include\win32 ..\Lib\RoseDJGPP.a ..\Lib\XDevDJGPP.a ..\Lib\KolDJGPP.a ..\Bin\djgpp\lib\libmsvcrt.a ..\Bin\djgpp\lib\libgdi32.a ..\Bin\djgpp\lib\libwsock.a
