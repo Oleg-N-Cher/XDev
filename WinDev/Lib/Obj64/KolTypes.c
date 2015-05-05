@@ -206,13 +206,3 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 	}
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *KolTypes__init(void)
-{
-	__DEFMOD;
-	__IMPORT(WinApi__init);
-	__REGMOD("KolTypes", 0);
-/* BEGIN */
-	__ENDMOD;
-}
