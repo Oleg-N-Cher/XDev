@@ -252,9 +252,13 @@ __EXTERN SYSTEM_PTR signal(INTEGER sig_num, SYSTEM_PTR sighandler);
 #define LibC_sscanfai(src, format, a, i)	sscanf((const char*)src, (const char*)format, a, i)
 #define LibC_sscanfi(src, format, i)	sscanf((const char*)src, (const char*)format, i)
 #define LibC_strchr(str, ch)	((SYSTEM_PTR)strchr((const char *)str, (char)ch))
+#define LibC_strcmp(str1, str2)	strcmp((const char*)str1, (const char*)str2)
+#define LibC_strcpy(dst, src)	(SYSTEM_PTR)strcpy((char*)dst, (const char*)src)
 #define LibC_strftime(s, max, format, ptm)	strftime(s, max, format, ptm)
 __EXTERN SYSTEM_PTR strftime(SYSTEM_PTR s, SYSTEM_PTR max, SYSTEM_PTR format, LibC_tm ptm);
 #define LibC_strlen(str)	strlen((const char *)str)
+#define LibC_strncmp(str1, str2, count)	strncmp((const char*)str1, (const char*)str2, count)
+#define LibC_strncpy(dst, src, len)	(SYSTEM_PTR)strncpy((char*)dst, (const char*)src, len)
 #define LibC_strstr(str, substr)	((SYSTEM_PTR)strstr((const char *)str, (const char *)substr))
 #define LibC_time(t)	time(t)
 __EXTERN INTEGER time(INTEGER *t);

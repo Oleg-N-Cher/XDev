@@ -434,6 +434,10 @@ PROCEDURE -sscanfi* (src, format: PtrSTR; VAR i: INTEGER): INTEGER "sscanf((cons
 *)
 (* https://ru.wikipedia.org/wiki/String.h *)
 PROCEDURE -strchr* (str: PtrSTR; ch: CHAR): PtrSTR "((SYSTEM_PTR)strchr((const char *)str, (char)ch))";
+PROCEDURE -strcmp* (str1, str2: PtrSTR): INTEGER "strcmp((const char*)str1, (const char*)str2)"; 
+PROCEDURE -strncmp* (str1, str2: PtrSTR; count: size_t): INTEGER "strncmp((const char*)str1, (const char*)str2, count)";
+PROCEDURE -strcpy* (dst, src: PtrSTR): PtrSTR "(SYSTEM_PTR)strcpy((char*)dst, (const char*)src)";
+PROCEDURE -strncpy* (dst, src: PtrSTR; len: size_t): PtrSTR "(SYSTEM_PTR)strncpy((char*)dst, (const char*)src, len)";
 PROCEDURE -strlen* (str: PtrSTR): INTEGER "strlen((const char *)str)";
 PROCEDURE -strstr* (str, substr: PtrSTR): PtrSTR "((SYSTEM_PTR)strstr((const char *)str, (const char *)substr))";
   PROCEDURE -__xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
