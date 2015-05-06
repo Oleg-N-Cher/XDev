@@ -1,0 +1,1 @@
+@..\Bin\buildRose64.bat
