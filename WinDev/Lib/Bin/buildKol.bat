@@ -8,6 +8,8 @@
 @CALL ..\Bin\smart %Lib% KolStrings -noinit
 @CALL ..\Bin\smart %Lib% KolRegistry -noinit
 @CALL ..\Bin\smart %Lib% KolWindows
+@CALL ..\Bin\solid %Lib% KolObj
+@CALL ..\Bin\solid %Lib% KolXXSocket
 
 :djgpp
 @IF NOT EXIST .djgpp GOTO exit
@@ -17,5 +19,7 @@
 @CALL ..\Bin\smartdjgpp %Lib% KolStrings -noinit
 @CALL ..\Bin\smartdjgpp %Lib% KolRegistry -noinit
 @CALL ..\Bin\smartdjgpp %Lib% KolWindows
+@CALL ..\Bin\soliddjgpp %Lib% KolObj
+@CALL ..\Bin\soliddjgpp %Lib% KolXXSocket
 
 :exit
