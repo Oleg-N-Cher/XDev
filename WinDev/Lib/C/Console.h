@@ -5,6 +5,7 @@
 #include "ConsoleCfg.h"
 
 /* StdIO */
+import void Console_WriteBool_StdIO (BOOLEAN b);
 import void Console_WriteCh_StdIO (CHAR ch);
 import void Console_WriteInt_StdIO (LONGINT n);
 import void Console_WriteReal_StdIO (REAL r);
@@ -16,6 +17,7 @@ import void Console_WriteHex_StdIO (INTEGER val);
 
 /* WinAPI */
 import void Console_At_WinAPI (INTEGER x, INTEGER y);
+import void Console_WriteBool_WinAPI (BOOLEAN b);
 import void Console_WriteLn_WinAPI (void);
 import void Console_WriteStr_WinAPI (CHAR *str);
 import void Console_WriteStrLn_WinAPI (CHAR *str);
@@ -24,6 +26,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 /* StdIO */
 #ifdef OUTPUT_STDIO
 #  define Console_SetColors(colors)
+#  define Console_WriteBool	Console_WriteBool_StdIO
 #  define Console_WriteCh	Console_WriteCh_StdIO
 #  define Console_WriteInt	Console_WriteInt_StdIO
 #  define Console_WriteReal	Console_WriteReal_StdIO
@@ -47,6 +50,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 /* WinAPI */
 #ifdef OUTPUT_WINAPI
 #  define Console_At	Console_At_WinAPI
+#  define Console_WriteBool Console_WriteBool_WinAPI
 #  define Console_WriteCh(ch)	printf("%c", ch)
 #  define Console_WriteInt(i)	printf("%ld", i)
 #  define Console_WriteLn Console_WriteLn_WinAPI

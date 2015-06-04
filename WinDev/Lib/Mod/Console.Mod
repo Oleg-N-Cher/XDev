@@ -163,6 +163,11 @@ PROCEDURE WriteStrLn* (str: ARRAY [1] OF CHAR); (* Write ANSI string into consol
   (** UNSAFE! Make sure that value of array 'str' is null-terminated. *)
 BEGIN writeStrLn(str) END WriteStrLn;
 
+PROCEDURE WriteBool* (b: BOOLEAN);
+BEGIN
+  IF b THEN WriteStr("TRUE") ELSE WriteStr("FALSE") END;
+END WriteBool;
+
 PROCEDURE WriteCh* (ch: CHAR); (** Write ANSI character. *)
 BEGIN writeCh(ch) END WriteCh;
 

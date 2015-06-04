@@ -4,12 +4,14 @@
 #if defined(WIN32) || defined(_WIN32)
   export void Console_At_WinAPI (INTEGER x, INTEGER y);
   export void Console_SetColors_WinAPI (INTEGER colors);
+  export void Console_WriteBool_WinAPI (BOOLEAN b);
   export void Console_WriteLn_WinAPI (void);
   export void Console_WriteStrLn_WinAPI (CHAR *str);
   export void Console_WriteStr_WinAPI (CHAR *str);
 #endif
 
 /* StdIO */
+export void Console_WriteBool_StdIO (BOOLEAN b);
 export void Console_WriteCh_StdIO (CHAR ch);
 export void Console_WriteInt_StdIO (LONGINT n);
 export void Console_WriteReal_StdIO (REAL r);
@@ -48,6 +50,11 @@ export void Console_WriteStrLn_StdIO (CHAR *str)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+export void Console_WriteBool_StdIO (BOOLEAN b) {
+  if (b) printf("TRUE"); else printf("FALSE");
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
 export void Console_WriteCh_StdIO (CHAR ch)
 {
   printf("%c", ch);
@@ -73,6 +80,13 @@ export void Console_WriteLn_StdIO (void)
 #if defined(WIN32) || defined(_WIN32)
   void Console_WriteLn_WinAPI (void) {
     printf("\n");
+  }
+#endif
+
+/*--------------------------------- Cut here ---------------------------------*/
+#if defined(WIN32) || defined(_WIN32)
+  void Console_WriteBool_WinAPI (BOOLEAN b) {
+    if (b) printf("TRUE"); else printf("FALSE");
   }
 #endif
 
