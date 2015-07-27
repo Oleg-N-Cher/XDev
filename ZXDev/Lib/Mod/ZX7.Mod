@@ -1,0 +1,117 @@
+(*-----------------------------------------------------------------------------
+' Z88DK LIBRARY FOR ZX7 DECOMPRESSORS
+'
+' USAGE:
+'
+' 1. Copy files "zx7.bas" and "*.asm" to same folder as your program.
+'
+' 2. Include this library in your program like this:
+'    #include "zx7.bas"
+'
+' 3. Choose a ZX7 decompressor and use it in your program like this:
+'    dzx7Turbo(51200, 16384)
+'
+' 4. Compile your program like this:
+'    zxb.exe -T -B -O2 prog.bas
+'
+' Original version and further information is available at
+' http://www.worldofspectrum.org/infoseekid.cgi?id=0027996
+' http://www.worldofspectrum.org/infoseekid.cgi?id=0028048
+'
+' Copyleft (k) Einar Saukas
+' ---------------------------------------------------------------------------*)
+
+MODULE ZX7;
+
+(*-----------------------------------------------------------------------------
+' Decompress (from source to destination address) data that was previously
+' compressed using ZX7. This is the smallest version of the ZX7 decompressor.
+'
+' Parameters:
+'     src: source address (compressed data)
+'     dst: destination address (decompressing)
+' -----------------------------------------------------------------------------
+sub FASTCALL dzx7Standard(src as UINTEGER, dst as UINTEGER)
+    asm
+        pop bc          ; RET address
+        pop de          ; DE=dst
+        push bc         ; restore RET address
+#include "dzx7_standard.asm"
+    end asm
+end sub
+
+
+' -----------------------------------------------------------------------------
+' Decompress (from source to destination address) data that was previously
+' compressed using ZX7. This is the intermediate version of the ZX7
+' decompressor, providing the best balance between speed and size.
+'
+' Parameters:
+'     src: source address (compressed data)
+'     dst: destination address (decompressing)
+' -----------------------------------------------------------------------------
+sub FASTCALL dzx7Turbo(src as UINTEGER, dst as UINTEGER)
+    asm
+        pop bc          ; RET address
+        pop de          ; DE=dst
+        push bc         ; restore RET address
+#include "dzx7_turbo.asm"
+    end asm
+end sub
+
+
+' -----------------------------------------------------------------------------
+' Decompress (from source to destination address) data that was previously
+' compressed using ZX7. This is the fastest version of the ZX7 decompressor.
+'
+' Parameters:
+'     src: source address (compressed data)
+'     dst: destination address (decompressing)
+' ---------------------------------------------------------------------------*)
+PROCEDURE Mega* (src, dst: INTEGER); END Mega;
+
+(*-----------------------------------------------------------------------------
+' Decompress (from source to destination address) data that was previously
+' compressed using ZX7. This is the smallest version of the integrated RCS+ZX7
+' decompressor.
+'
+' IMPORTANT: Data decompressed directly to the ZX-Spectrum screen must be both
+' RCS encoded and ZX7 compressed, everything else must be ZX7 compressed only.
+'
+' Parameters:
+'     src: source address (compressed data)
+'     dst: destination address (decompressing)
+' -----------------------------------------------------------------------------
+sub FASTCALL dzx7SmartRCS(src as UINTEGER, dst as UINTEGER)
+    asm
+        pop bc          ; RET address
+        pop de          ; DE=dst
+        push bc         ; restore RET address
+#include "dzx7_smartRCS.asm"
+    end asm
+end sub
+
+
+' -----------------------------------------------------------------------------
+' Decompress (from source to destination address) data that was previously
+' compressed using ZX7. This is the fastest version of the integrated RCS+ZX7
+' decompressor.
+'
+' IMPORTANT: Data decompressed directly to the ZX-Spectrum screen must be both
+' RCS encoded and ZX7 compressed, everything else must be ZX7 compressed only.
+'
+' Parameters:
+'     src: source address (compressed data)
+'     dst: destination address (decompressing)
+' -----------------------------------------------------------------------------
+sub FASTCALL dzx7AgileRCS(src as UINTEGER, dst as UINTEGER)
+    asm
+        pop bc          ; RET address
+        pop de          ; DE=dst
+        push bc         ; restore RET address
+#include "dzx7_agileRCS.asm"
+    end asm
+end sub
+
+*)
+END ZX7.
