@@ -1,0 +1,953 @@
+MODULE Sdl2Lib;
+
+  IMPORT
+    SYSTEM, WinApi;
+
+  CONST
+    LIL_ENDIAN* = 1234;
+    BIG_ENDIAN* = 4321;
+    BYTEORDER* = LIL_ENDIAN; (* http://en.wikipedia.org/wiki/Endianness *)
+
+    INIT_TIMER* = BITS(01H);
+    INIT_AUDIO* = BITS(010H);
+    INIT_VIDEO* = BITS(020H); (* SDL_INIT_VIDEO implies SDL_INIT_EVENTS *)
+    INIT_JOYSTICK* = BITS(0200H); (* SDL_INIT_JOYSTICK implies SDL_INIT_EVENTS *)
+    INIT_HAPTIC* = BITS(01000H);
+    INIT_GAMECONTROLLER* = BITS(02000H); (* SDL_INIT_GAMECONTROLLER implies SDL_INIT_JOYSTICK *)
+    INIT_EVENTS* = BITS(04000H);
+    INIT_NOPARACHUTE* = BITS(0100000H); (* Don't catch fatal signals *)
+    INIT_EVERYTHING* = INIT_TIMER + INIT_AUDIO + INIT_VIDEO + INIT_EVENTS + INIT_JOYSTICK + INIT_HAPTIC + INIT_GAMECONTROLLER;
+
+    WINDOWPOS_UNDEFINED* = 01FFF0000H;
+
+    QUERY* = -1; (* returns the current processing state of the specified event *)
+    IGNORE* = 0; (* the event will automatically be dropped from the event queue and will not be filtered *)
+    DISABLE* = IGNORE;
+    ENABLE* = 1; (* the event will be processed normally *)
+
+    PRESSED* = 1;
+    RELEASED* = 0;
+
+    (* ???????, ??. http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l57 *)
+    FIRSTEVENT* = BITS(0); (* Unused (do not remove) *)
+    (* Application events *)
+    QUIT* = 0100H;
+    (* User-requested quit *)
+    (* These application events have special meaning on iOS, see README-ios.txt for details *)
+    APP_TERMINATING* = 0101H;
+    APP_LOWMEMORY* = 0102H;
+    APP_WILLENTERBACKGROUND* = 0103H;
+    APP_DIDENTERBACKGROUND* = 0104H;
+    APP_WILLENTERFOREGROUND* = 0105H;
+    APP_DIDENTERFOREGROUND* = 0106H;
+    WINDOWEVENT* = 0200H; (* Window state change *)
+    SYSWMEVENT* = 0201H; (* System specific event *)
+    (* Keyboard events *)
+    KEYDOWN* = 0300H; (* Key pressed *)
+    KEYUP* = 0301H; (* Key released *)
+    TEXTEDITING* = 0302H; (* Keyboard text editing (composition) *)
+    TEXTINPUT* = 0303H; (* Keyboard text input *)
+    (* Mouse events *)
+    MOUSEMOTION* = 0400H; (* Mouse moved *)
+    MOUSEBUTTONDOWN* = 0401H; (* Mouse button pressed *)
+    MOUSEBUTTONUP* = 0402H; (* Mouse button released *)
+    MOUSEWHEEL* = 0403H; (* Mouse wheel motion *)
+    (* Joystick events *)
+    JOYAXISMOTION* = 0600H; (* Joystick axis motion *)
+    JOYBALLMOTION* = 0601H; (* Joystick trackball motion *)
+    JOYHATMOTION* = 0602H; (* Joystick hat position change *)
+    JOYBUTTONDOWN* = 0603H; (* Joystick button pressed *)
+    JOYBUTTONUP* = 0604H; (* Joystick button released *)
+    JOYDEVICEADDED* = 0605H; (* A new joystick has been inserted into the system *)
+    JOYDEVICEREMOVED* = 0606H; (* An opened joystick has been removed *) (* Game controller events *)
+    CONTROLLERAXISMOTION* = 0650H; (* Game controller axis motion *)
+    CONTROLLERBUTTONDOWN* = 0651H; (* Game controller button pressed *)
+    CONTROLLERBUTTONUP* = 0652H; (* Game controller button released *)
+    CONTROLLERDEVICEADDED* = 0653H; (* A new Game controller has been inserted into the system *)
+    CONTROLLERDEVICEREMOVED* = 0654H; (* An opened Game controller has been removed *)
+    CONTROLLERDEVICEREMAPPED* = 0655H; (* The controller mapping was updated *) (* Touch events *)
+    FINGERDOWN* = 0700H;
+    FINGERUP* = 0701H;
+    FINGERMOTION* = 0702H;
+    (* Gesture events *)
+    DOLLARGESTURE* = 0800H;
+    DOLLARRECORD* = 0801H;
+    MULTIGESTURE* = 0802H;
+    (* Clipboard events *)
+    CLIPBOARDUPDATE* = 0900H; (* The clipboard changed *)
+    (* Drag and drop events *)
+    DROPFILE* = 01000H; (* The system requests a file open *)
+    USEREVENT* = 08000H;
+    (* This last event is only for bounding internal arrays *)
+    LASTEVENT* = 0FFFFH;
+
+    (*  ????????? ? ???? ??????? ??????? ??? ???? *)
+
+  (* ??????? ????, ??. http://wiki.libsdl.org/SDL_WindowEvent *)
+  (* 21.01.2014 16:01 ??????????? ???????, ??????? ? 0, ??. http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_video.h#l135 *)
+    WINDOWEVENT_NONE* = 0; (* /**< Never used */ *)
+    WINDOWEVENT_SHOWN* = 1; (* /**< Window has been shown */ *)
+    WINDOWEVENT_HIDDEN* = 2; (* /**< Window has been hidden */ *)
+    WINDOWEVENT_EXPOSED* = 3; (* /**< Window has been exposed and should be redrawn */ *)
+    WINDOWEVENT_MOVED* = 4; (* /**< Window has been moved to data1, data2 */ *)
+    WINDOWEVENT_RESIZED* = 5; (* /**< Window has been resized to data1xdata2 */ *)
+    WINDOWEVENT_SIZE_CHANGED* = 6; (* /**< The window size has changed, either as a result of an API call or through the system or user changing the window size. */ *)
+    WINDOWEVENT_MINIMIZED* = 7; (* /**< Window has been minimized */ *)
+    WINDOWEVENT_MAXIMIZED* = 8; (* /**< Window has been maximized */ *)
+    WINDOWEVENT_RESTORED* = 9; (* /**< Window has been restored to normal size and position */ *)
+    WINDOWEVENT_ENTER* = 10; (* /**< Window has gained mouse focus */ *)
+    WINDOWEVENT_LEAVE* = 11; (* /**< Window has lost mouse focus */ *)
+    WINDOWEVENT_FOCUS_GAINED* = 12; (* /**< Window has gained keyboard focus */ *)
+    WINDOWEVENT_FOCUS_LOST* = 13; (* /**< Window has lost keyboard focus */ *)
+    WINDOWEVENT_CLOSE* = 14; (* /**< The window manager requests that the window be closed */ *)
+
+    (* ?????? ???? *)
+    WINDOW_FULLSCREEN* = BITS(1H);
+    WINDOW_OPENGL* = BITS(2H);
+    WINDOW_SHOWN* = BITS(4H);
+    WINDOW_HIDDEN* = BITS(8H);
+    WINDOW_BORDERLESS* = BITS(10H);
+    WINDOW_RESIZABLE* = BITS(20H);
+    WINDOW_MINIMIZED* = BITS(40H);
+    WINDOW_MAXIMIZED* = BITS(80H);
+    WINDOW_INPUT_GRABBED* = BITS(100H);
+    WINDOW_INPUT_FOCUS* = BITS(200H);
+    WINDOW_MOUSE_FOCUS* = BITS(400H);
+    WINDOW_FULLSCREEN_DESKTOP* = BITS(1001H);
+    WINDOW_FOREIGN* = BITS(800H);
+
+    (* 12.02.2014 16:45 ?????? ????????? *)
+    RENDERER_SOFTWARE* = 1; (* The renderer is a software fallback *)
+    RENDERER_ACCELERATED* = 2; (* The renderer uses hardware acceleration *)
+    RENDERER_PRESENTVSYNC* = 4; (* Present is synchronized with the refresh rate *)
+    RENDERER_TARGETTEXTURE* = 8; (* The renderer supports *)
+
+    (* 28.05.2014 ?????? ????????? *)
+    (* no blending, dstRGBA = srcRGBA *)
+    BLENDMODE_NONE* = 00000000H;
+    (* alpha blending: dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)), dstA = srcA + (dstA * (1-srcA)) *)
+    BLENDMODE_BLEND* = 000000001H;
+    (* additive blending, dstRGB = (srcRGB * srcA) + dstRGB, dstA = dstA *)
+    BLENDMODE_ADD* = 000000002H;
+    (* color modulate, dstRGB = srcRGB * dstRGB, dstA = dstA *)
+    BLENDMODE_MOD* = 000000004H;
+
+    (* SDL_Keymod *)
+    KMOD_NONE* = 0000H;
+    KMOD_LSHIFT* = 0001H;
+    KMOD_RSHIFT* = 0002H;
+    KMOD_LCTRL* = 0040H;
+    KMOD_RCTRL* = 0080H;
+    KMOD_LALT* = 0100H;
+    KMOD_RALT* = 0200H;
+    KMOD_LGUI* = 0400H;
+    KMOD_RGUI* = 0800H;
+    KMOD_NUM* = 1000H;
+    KMOD_CAPS* = 2000H;
+    KMOD_MODE* = 4000H;
+    KMOD_RESERVED* = 8000H;
+
+    (* mouse *)
+    BUTTON_LEFT* = 1;
+    BUTTON_MIDDLE* = 2;
+    BUTTON_RIGHT* = 3;
+    BUTTON_X1* = 4;
+    BUTTON_X2* = 5;
+
+    (* cursors *)
+    SYSTEM_CURSOR_ARROW* = 0; (*< Arrow *)
+    SYSTEM_CURSOR_IBEAM* = 1; (*< I-beam *)
+    SYSTEM_CURSOR_WAIT* = 2; (*< Wait *)
+    SYSTEM_CURSOR_CROSSHAIR* = 3; (*< Crosshair *)
+    SYSTEM_CURSOR_WAITARROW* = 4; (*< Small wait cursor (or Wait if not available) *)
+    SYSTEM_CURSOR_SIZENWSE* = 5; (*< Double arrow pointing northwest and southeast *)
+    SYSTEM_CURSOR_SIZENESW* = 6; (*< Double arrow pointing northeast and southwest *)
+    SYSTEM_CURSOR_SIZEWE* = 7; (*< Double arrow pointing west and east *)
+    SYSTEM_CURSOR_SIZENS* = 8; (*< Double arrow pointing north and south *)
+    SYSTEM_CURSOR_SIZEALL* = 9; (*< Four pointed arrow pointing north, south, east, and west *)
+    SYSTEM_CURSOR_NO* = 10; (*< Slashed circle or crossbones *)
+    SYSTEM_CURSOR_HAND* = 11; (*< Hand *)
+    NUM_SYSTEM_CURSORS* = 12; (* ? *)
+
+    (* http://wiki.libsdl.org/SDLKeycodeLookup *)
+    SDLK_UNKNOWN* = 0;
+    SDLK_BACKSPACE* = 8;
+    SDLK_TAB* = 9;
+    SDLK_RETURN* = 13;
+    SDLK_ESCAPE* = 27;
+    SDLK_SPACE* = 32;
+    SDLK_EXCLAIM* = 33;
+    SDLK_QUOTEDBL* = 34;
+    SDLK_HASH* = 35;
+    SDLK_DOLLAR* = 36;
+    SDLK_PERCENT* = 37;
+    SDLK_AMPERSAND* = 38;
+    SDLK_QUOTE* = 39;
+    SDLK_LEFTPAREN* = 40;
+    SDLK_RIGHTPAREN* = 41;
+    SDLK_ASTERISK* = 42;
+    SDLK_PLUS* = 43;
+    SDLK_COMMA* = 44;
+    SDLK_MINUS* = 45;
+    SDLK_PERIOD* = 46;
+    SDLK_SLASH* = 47;
+    SDLK_0* = 48;
+    SDLK_1* = 49;
+    SDLK_2* = 50;
+    SDLK_3* = 51;
+    SDLK_4* = 52;
+    SDLK_5* = 53;
+    SDLK_6* = 54;
+    SDLK_7* = 55;
+    SDLK_8* = 56;
+    SDLK_9* = 57;
+    SDLK_COLON* = 58;
+    SDLK_SEMICOLON* = 59;
+    SDLK_LESS* = 60;
+    SDLK_EQUALS* = 61;
+    SDLK_GREATER* = 62;
+    SDLK_QUESTION* = 63;
+    SDLK_AT* = 64;
+    SDLK_LEFTBRACKET* = 91;
+    SDLK_BACKSLASH* = 92;
+    SDLK_RIGHTBRACKET* = 93;
+    SDLK_CARET* = 94;
+    SDLK_UNDERSCORE* = 95;
+    SDLK_BACKQUOTE* = 96;
+    SDLK_a* = 97;
+    SDLK_b* = 98;
+    SDLK_c* = 99;
+    SDLK_d* = 100;
+    SDLK_e* = 101;
+    SDLK_f* = 102;
+    SDLK_g* = 103;
+    SDLK_h* = 104;
+    SDLK_i* = 105;
+    SDLK_j* = 106;
+    SDLK_k* = 107;
+    SDLK_l* = 108;
+    SDLK_m* = 109;
+    SDLK_n* = 110;
+    SDLK_o* = 111;
+    SDLK_p* = 112;
+    SDLK_q* = 113;
+    SDLK_r* = 114;
+    SDLK_s* = 115;
+    SDLK_t* = 116;
+    SDLK_u* = 117;
+    SDLK_v* = 118;
+    SDLK_w* = 119;
+    SDLK_x* = 120;
+    SDLK_y* = 121;
+    SDLK_z* = 122;
+    SDLK_DELETE* = 127;
+    SDLK_CAPSLOCK* = 1073741881;
+    SDLK_F1* = 1073741882;
+    SDLK_F2* = 1073741883;
+    SDLK_F3* = 1073741884;
+    SDLK_F4* = 1073741885;
+    SDLK_F5* = 1073741886;
+    SDLK_F6* = 1073741887;
+    SDLK_F7* = 1073741888;
+    SDLK_F8* = 1073741889;
+    SDLK_F9* = 1073741890;
+    SDLK_F10* = 1073741891;
+    SDLK_F11* = 1073741892;
+    SDLK_F12* = 1073741893;
+    SDLK_PRINTSCREEN* = 1073741894;
+    SDLK_SCROLLLOCK* = 1073741895;
+    SDLK_PAUSE* = 1073741896;
+    SDLK_INSERT* = 1073741897;
+    SDLK_HOME* = 1073741898;
+    SDLK_PAGEUP* = 1073741899;
+    SDLK_END* = 1073741901;
+    SDLK_PAGEDOWN* = 1073741902;
+    SDLK_RIGHT* = 1073741903;
+    SDLK_LEFT* = 1073741904;
+    SDLK_DOWN* = 1073741905;
+    SDLK_UP* = 1073741906;
+    SDLK_NUMLOCKCLEAR* = 1073741907;
+    SDLK_KP_DIVIDE* = 1073741908;
+    SDLK_KP_MULTIPLY* = 1073741909;
+    SDLK_KP_MINUS* = 1073741910;
+    SDLK_KP_PLUS* = 1073741911;
+    SDLK_KP_ENTER* = 1073741912;
+    SDLK_KP_1* = 1073741913;
+    SDLK_KP_2* = 1073741914;
+    SDLK_KP_3* = 1073741915;
+    SDLK_KP_4* = 1073741916;
+    SDLK_KP_5* = 1073741917;
+    SDLK_KP_6* = 1073741918;
+    SDLK_KP_7* = 1073741919;
+    SDLK_KP_8* = 1073741920;
+    SDLK_KP_9* = 1073741921;
+    SDLK_KP_0* = 1073741922;
+    SDLK_KP_PERIOD* = 1073741923;
+    SDLK_APPLICATION* = 1073741925;
+    SDLK_POWER* = 1073741926;
+    SDLK_KP_EQUALS* = 1073741927;
+    SDLK_F13* = 1073741928;
+    SDLK_F14* = 1073741929;
+    SDLK_F15* = 1073741930;
+    SDLK_F16* = 1073741931;
+    SDLK_F17* = 1073741932;
+    SDLK_F18* = 1073741933;
+    SDLK_F19* = 1073741934;
+    SDLK_F20* = 1073741935;
+    SDLK_F21* = 1073741936;
+    SDLK_F22* = 1073741937;
+    SDLK_F23* = 1073741938;
+    SDLK_F24* = 1073741939;
+    SDLK_EXECUTE* = 1073741940;
+    SDLK_HELP* = 1073741941;
+    SDLK_MENU* = 1073741942;
+    SDLK_SELECT* = 1073741943;
+    SDLK_STOP* = 1073741944;
+    SDLK_AGAIN* = 1073741945;
+    SDLK_UNDO* = 1073741946;
+    SDLK_CUT* = 1073741947;
+    SDLK_COPY* = 1073741948;
+    SDLK_PASTE* = 1073741949;
+    SDLK_FIND* = 1073741950;
+    SDLK_MUTE* = 1073741951;
+    SDLK_VOLUMEUP* = 1073741952;
+    SDLK_VOLUMEDOWN* = 1073741953;
+    SDLK_KP_COMMA* = 1073741957;
+    SDLK_KP_EQUALSAS400* = 1073741958;
+    SDLK_ALTERASE* = 1073741977;
+    SDLK_SYSREQ* = 1073741978;
+    SDLK_CANCEL* = 1073741979;
+    SDLK_CLEAR* = 1073741980;
+    SDLK_PRIOR* = 1073741981;
+    SDLK_RETURN2* = 1073741982;
+    SDLK_SEPARATOR* = 1073741983;
+    SDLK_OUT* = 1073741984;
+    SDLK_OPER* = 1073741985;
+    SDLK_CLEARAGAIN* = 1073741986;
+    SDLK_CRSEL* = 1073741987;
+    SDLK_EXSEL* = 1073741988;
+    SDLK_KP_00* = 1073742000;
+    SDLK_KP_000* = 1073742001;
+    SDLK_THOUSANDSSEPARATOR* = 1073742002;
+    SDLK_DECIMALSEPARATOR* = 1073742003;
+    SDLK_CURRENCYUNIT* = 1073742004;
+    SDLK_CURRENCYSUBUNIT* = 1073742005;
+    SDLK_KP_LEFTPAREN* = 1073742006;
+    SDLK_KP_RIGHTPAREN* = 1073742007;
+    SDLK_KP_LEFTBRACE* = 1073742008;
+    SDLK_KP_RIGHTBRACE* = 1073742009;
+    SDLK_KP_TAB* = 1073742010;
+    SDLK_KP_BACKSPACE* = 1073742011;
+    SDLK_KP_A* = 1073742012;
+    SDLK_KP_B* = 1073742013;
+    SDLK_KP_C* = 1073742014;
+    SDLK_KP_D* = 1073742015;
+    SDLK_KP_E* = 1073742016;
+    SDLK_KP_F* = 1073742017;
+    SDLK_KP_XOR* = 1073742018;
+    SDLK_KP_POWER* = 1073742019;
+    SDLK_KP_PERCENT* = 1073742020;
+    SDLK_KP_LESS* = 1073742021;
+    SDLK_KP_GREATER* = 1073742022;
+    SDLK_KP_AMPERSAND* = 1073742023;
+    SDLK_KP_DBLAMPERSAND* = 1073742024;
+    SDLK_KP_VERTICALBAR* = 1073742025;
+    SDLK_KP_DBLVERTICALBAR* = 1073742026;
+    SDLK_KP_COLON* = 1073742027;
+    SDLK_KP_HASH* = 1073742028;
+    SDLK_KP_SPACE* = 1073742029;
+    SDLK_KP_AT* = 1073742030;
+    SDLK_KP_EXCLAM* = 1073742031;
+    SDLK_KP_MEMSTORE* = 1073742032;
+    SDLK_KP_MEMRECALL* = 1073742033;
+    SDLK_KP_MEMCLEAR* = 1073742034;
+    SDLK_KP_MEMADD* = 1073742035;
+    SDLK_KP_MEMSUBTRACT* = 1073742036;
+    SDLK_KP_MEMMULTIPLY* = 1073742037;
+    SDLK_KP_MEMDIVIDE* = 1073742038;
+    SDLK_KP_PLUSMINUS* = 1073742039;
+    SDLK_KP_CLEAR* = 1073742040;
+    SDLK_KP_CLEARENTRY* = 1073742041;
+    SDLK_KP_BINARY* = 1073742042;
+    SDLK_KP_OCTAL* = 1073742043;
+    SDLK_KP_DECIMAL* = 1073742044;
+    SDLK_KP_HEXADECIMAL* = 1073742045;
+    SDLK_LCTRL* = 1073742048;
+    SDLK_LSHIFT* = 1073742049;
+    SDLK_LALT* = 1073742050;
+    SDLK_LGUI* = 1073742051;
+    SDLK_RCTRL* = 1073742052;
+    SDLK_RSHIFT* = 1073742053;
+    SDLK_RALT* = 1073742054;
+    SDLK_RGUI* = 1073742055;
+    SDLK_MODE* = 1073742081;
+    SDLK_AUDIONEXT* = 1073742082;
+    SDLK_AUDIOPREV* = 1073742083;
+    SDLK_AUDIOSTOP* = 1073742084;
+    SDLK_AUDIOPLAY* = 1073742085;
+    SDLK_AUDIOMUTE* = 1073742086;
+    SDLK_MEDIASELECT* = 1073742087;
+    SDLK_WWW* = 1073742088;
+    SDLK_MAIL* = 1073742089;
+    SDLK_CALCULATOR* = 1073742090;
+    SDLK_COMPUTER* = 1073742091;
+    SDLK_AC_SEARCH* = 1073742092;
+    SDLK_AC_HOME* = 1073742093;
+    SDLK_AC_BACK* = 1073742094;
+    SDLK_AC_FORWARD* = 1073742095;
+    SDLK_AC_STOP* = 1073742096;
+    SDLK_AC_REFRESH* = 1073742097;
+    SDLK_AC_BOOKMARKS* = 1073742098;
+    SDLK_BRIGHTNESSDOWN* = 1073742099;
+    SDLK_BRIGHTNESSUP* = 1073742100;
+    SDLK_DISPLAYSWITCH* = 1073742101;
+    SDLK_KBDILLUMTOGGLE* = 1073742102;
+    SDLK_KBDILLUMDOWN* = 1073742103;
+    SDLK_KBDILLUMUP* = 1073742104;
+    SDLK_EJECT* = 1073742105;
+    SDLK_SLEEP* = 1073742106;
+    (*
+PROCEDURE Scancode* (keycode: INTEGER): INTEGER;
+      VAR ret: INTEGER;
+    BEGIN
+      IF keycode > 40000000H THEN
+        ret := ORD(BITS(keycode) - BITS(40000000H))
+      ELSE
+        ret := keycode
+      END;
+      RETURN ret
+    END Scancode;
+  *)
+
+  CONST
+    SDL_TEXTINPUTEVENT_TEXT_SIZE = 32;
+
+  TYPE
+    UInt32* = INTEGER;
+    UInt64* = LONGINT; (* крайний бит, конечно, теряется *)
+    UInt8* = CHAR;
+    PUInt8* = SYSTEM.PTR;
+
+    Enum* = UInt32; (* 01.02.2014 16:16 kia специально для фиксации C enum *)
+
+    SInt8* = BYTE;
+    SInt32* = INTEGER;
+
+    UInt16* = SHORTINT;
+    PUInt16* = SYSTEM.PTR;
+
+    Pointer*  = SYSTEM.PTR;
+
+    Integer* = INTEGER;
+    PChar* = SYSTEM.PTR;
+    Single* = REAL;
+
+    Bool* = INTEGER; (* SDL_FALSE = 0, SDL_TRUE = 1*)
+
+    PSDL_version* = POINTER [1] TO SDL_version;
+    SDL_version* = RECORD [1]
+      major*: UInt8;
+      minor: UInt8;
+      patch: UInt8
+    END;
+
+    PRect* = POINTER [1] TO Rect;
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_rect.h#l63 *)
+    Rect* = RECORD [1]
+      x*, y*, w*, h*: Integer
+    END;
+
+    PPoint* = POINTER [1] TO Point;
+    Point* = RECORD [1]
+      x*, y*: Integer
+    END;
+
+    Texture* = POINTER [1] TO RECORD [1] END;
+
+    DisplayMode* = RECORD [1]
+      format*: UInt32;
+      w*, h*: SInt32;
+      refresh_rate*: SInt32;
+      driverdata: WinApi.PtrVoid
+    END;
+
+    PColor* = POINTER [1] TO Color;
+    Color* = RECORD [1]
+      r*: UInt8;
+      g*: UInt8;
+      b*: UInt8;
+      a*: UInt8;
+    END;
+
+    PColorArray* = POINTER [1] TO ColorArray;
+    ColorArray* = ARRAY [1] 65000+1 OF Color;
+
+    Cursor* = POINTER [1] TO RECORD [1] END;
+
+    PPalette* = POINTER [1] TO Palette;
+    Palette* = RECORD [1]
+      ncolors*: Integer;
+      colors*: PColorArray;
+      version-: UInt32;
+      refcount-: Integer
+    END;
+
+    PPixelFormat* = POINTER [1] TO PixelFormat;
+    PixelFormat* = RECORD [1]
+      format-: UInt32;
+      palette-: PPalette;
+      BitsPerPixel-: UInt8;
+      BytesPerPixel-: UInt8;
+      padding-: ARRAY 2 OF UInt8;
+      Rmask-: UInt32;
+      Gmask-: UInt32;
+      Bmask-: UInt32;
+      Amask-: UInt32;
+    END;
+
+    GLContext* = POINTER [1] TO RECORD [1] END;
+
+    (* http://wiki.libsdl.org/SDL_Surface *)
+    PSurface* = POINTER  [1] TO Surface;
+    Surface* = RECORD [1]
+      flags-: UInt32;
+      format-: PPixelFormat;
+      w-, h-: SInt32;
+      pitch-: SInt32;
+      pixels-: WinApi.PtrVoid;
+      userdata*: WinApi.PtrVoid;
+      locked-: SInt32;
+      lock_data-: WinApi.PtrVoid;
+      clip_rect*: PRect;
+      map*: WinApi.PtrVoid;
+      refcount*: SInt32;
+    END;
+
+    (* Выпуск SDL 2.01, Wed, 23 Oct 2013
+      см. http://hg.libsdl.org/SDL/file/b9663c77f5c9/src/video/SDL_sysvideo.h *)
+
+    PWindowShaper = POINTER [1] TO WindowShaper;
+    PWindowUserData = POINTER [1] TO WindowUserData;
+
+    Window* = POINTER [1] TO RECORD [1]
+      magic*: WinApi.PtrVoid;
+      id*: UInt32;
+      title*: PChar;
+      icon*: Surface;
+      x*, y*: SInt32;
+      w*, h*: SInt32;
+      min_w*, min_h*: SInt32;
+      max_w*, max_h*: SInt32;
+      flags*: UInt32;
+      (* last_fullscreen_flags*: UInt32; новый *)
+      windowed*: Rect;
+      fullscreen_mode*: DisplayMode;
+      brightness*:  REAL;
+      gamma*: PUInt16;
+      saved_gamma*: PUInt16;
+      surface*: PSurface;
+      surface_valid*: WinApi.BOOL;
+      (* is_destroying*: WinApi.BOOL; новый *)
+      shaper*: PWindowShaper;
+      data*: PWindowUserData;
+      driverdata-: WinApi.PtrVoid;
+      prev*: Window;
+      next*: Window;
+    END;
+
+    WindowShapeParams = RECORD [1] (* [union] *)
+      binarizationCutoff: UInt8;
+      colorKey: Color;
+    END;
+
+    PWindowShapeMode = POINTER [1] TO WindowShapeMode;
+    WindowShapeMode = RECORD [1]
+      mode: INTEGER; (* см. WindowShapeMode*);
+      parameters: WindowShapeParams;
+    END;
+
+    WindowShaper = RECORD [1]
+      window*: Window;
+      userx*, usery*: UInt32;
+      mode*: WindowShapeMode;
+      hasshape*: WinApi.BOOL;
+      driverdata*: WinApi.PtrVoid;
+    END;
+
+    WindowUserData = RECORD [1]
+      name: PChar;
+      data: WinApi.PtrVoid;
+      next: PWindowUserData;
+    END;
+
+    (* Выпуск SDL 2.01, Wed, 23 Oct 2013
+      см. http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_render.h#l121 *)
+    Renderer* = POINTER [1] TO RECORD [1] END;
+
+    PKeySym* = POINTER [1] TO KeySym;
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_keyboard.h#l47 *)
+    KeySym* = RECORD [1]
+      scancode*: Enum; (* hardware specific scancode *)
+      sym*: SInt32; (* SDL virtual keysym *)
+      modifier*: UInt16; (* current key modifiers *)
+      unicode*: UInt32; (* translated character *)
+    END;
+
+    (* Keyboard event structure *)
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l176 *)
+    KeyboardEvent* = RECORD [1]
+      type*: UInt32;  (* SDL_KEYDOWN or SDL_KEYUP *)
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      state*: UInt8; (* SDL_PRESSED or SDL_RELEASED *)
+      repeat*: UInt8;
+      padding2*: UInt8;
+      padding3*: UInt8;
+      keysym*: KeySym;
+    END;
+
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l207 *)
+    TextInputEvent* = RECORD [1]
+      type*: UInt32;  (* SDL_TEXTINPUT *)
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      text*: ARRAY SDL_TEXTINPUTEVENT_TEXT_SIZE OF UInt8
+    END;
+
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l218 *)
+    MouseMotionEvent* = RECORD [1]
+      type*: UInt32;  (* SDL_MOUSEMOTION *)
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      which*: UInt32; (* The mouse instance id, or SDL_TOUCH_MOUSEID *)
+      state*: UInt32; (* 0 - нет нажатия, 1, 2, 4 - ЛКМ, СКМ, ПКМ, а если вместе нажать, то коды просто складываются = 3, 5, 6, 7 *)
+      x*, y*, xrel*, yrel*: SInt32
+    END;
+
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l234 *)
+    MouseButtonEvent* = RECORD [1]
+      type*: UInt32;  (* SDL_MOUSEBUTTONDOWN or  SDL_MOUSEBUTTONUP *)
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      which*: UInt32; (* The mouse instance id, or SDL_TOUCH_MOUSEID *)
+      button*: UInt8; (* The mouse button index, 1, 2, 3 *)
+      state*: UInt8; (* 0 or 1 *)
+      clicks*: UInt8; (* 1 for single-click, 2 for double-click >= SDL 2.02 *)
+      x*, y*: SInt32 (* X (Y) coordinate, relative to window *)
+    END;
+
+    (* http://hg.libsdl.org/SDL/file/b9663c77f5c9/include/SDL_events.h#l251 *)
+    MouseWheelEvent* = RECORD [1]
+      type*: UInt32;  (* SDL_MOUSEWHEEL *)
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      which*: UInt32; (* The mouse instance id, or SDL_TOUCH_MOUSEID *)
+      x*, y*: SInt32 (* The amount scrolled horizontally (vertically) *)
+    END;
+
+    (* http://wiki.libsdl.org/SDL_Event *)
+
+    QuitEvent* = RECORD [1]
+      type*: UInt32;
+      timestamp*: UInt32;
+    END;
+
+    (* SDL\include\SDL_events.h *)
+    WindowEvent* = RECORD [1]
+      type*: UInt32;
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      event*: UInt8;
+      padding1*: UInt8;
+      padding2*: UInt8;
+      padding3*: UInt8;
+      data1*: SInt32;
+      data2*: SInt32;
+    END;
+
+    TimerCallback* = PROCEDURE [1] (interval: UInt32; param: Pointer): UInt32;
+    TimerID* = Integer;
+
+    UserEvent* = RECORD [1]
+      type*: UInt32;
+      timestamp*: UInt32;
+      windowID*: UInt32;
+      code*: SInt32;
+      data1*: Pointer;
+      data2*: Pointer;
+    END;
+
+    PEvent* = POINTER [1] TO Event;
+    Event* = RECORD [1]  (* [union] *)
+      type*: UInt32;
+      window*: WindowEvent; (* 21.01.2014 15:22 kia *)
+      key*: KeyboardEvent; (* 01.02.2014 12:53 kia *)
+      text*: TextInputEvent; (* 25.06.2014 kia *)
+      motion*: MouseMotionEvent; (* 26.06.2014 kia *)
+      button*: MouseButtonEvent; (* 26.06.2014 kia *)
+      wheel*: MouseWheelEvent; (* 26.06.2014 kia *)
+      user*: UserEvent; (* 02.07.2014 kia *)
+      quit*: QuitEvent;
+      _data: ARRAY [1] 1000 OF BYTE; (* до завершения описания всех структур *)
+    END;
+
+    EventFilter* = PROCEDURE [1] (userData: Pointer; VAR [nil] event: Event): Integer;
+
+(* SDL_rwops.h types *)
+(* This is the read/write operation structure -- very basic *)
+(* some helper types to handle the unions *)
+(* "packed" is only guessed *)
+
+  (* first declare the pointer types *)
+  PRWops* = POINTER [1] TO RWops;
+  (* now the pointer to procedure types *)
+  Seek = PROCEDURE [1] (context: PRWops; offset: Integer; whence: Integer): Integer;
+  Read = PROCEDURE [1] (context: PRWops; ptr: Pointer; size: Integer; maxNum: Integer): Integer;
+  Write = PROCEDURE [1] (context: PRWops; ptr: Pointer; size: Integer; num: Integer): Integer;
+  Close = PROCEDURE [1] (context: PRWops): Integer;
+  (* the variant record itself *)
+  RWops* = RECORD [1]
+      (* Seek to 'offset' relative to whence, one of stdio's whence values:
+      SEEK_SET, SEEK_CUR, SEEK_END
+      Returns the final offset in the data source. *)
+    seek*: Seek;
+      (* Read up to 'num' objects each of size 'objsize' from the data
+      source to the area pointed at by 'ptr'.
+      Returns the number of objects read, or -1 if the read failed. *)
+    read*: Read;
+      (* Write exactly 'num' objects each of size 'objsize' from the area
+      pointed at by 'ptr' to data source.
+      Returns 'num', or -1 if the write failed. *)
+    write*: Write;
+      (* Close and free an allocated SDL_FSops structure *)
+    close*: Close;
+    (* CASE Integer OF *)
+    type*: UInt32;
+    (* be warned! structure alignment may arise at this point *)
+    hidden-: RECORD [1] (* [union] *)
+      (* 0: stdio: Stdio; *)
+      stdio-: RECORD [1]
+        autoclose-: Integer;
+        fp-: Pointer
+      END;
+      (* 1: mem: Mem; *)
+      mem-: RECORD [1]
+        base-: PUInt8;
+        here-: PUInt8;
+        stop-: PUInt8
+      END;
+      (* 2: unknown: Unknown; *)
+      unknown-: RECORD [1]
+        data1-: Pointer
+      END;
+    END;
+  END;
+
+(* Sdl2Win *)
+
+PROCEDURE -SDL_Init* (flags: SET): Integer;
+PROCEDURE -Init* (flags: SET): Integer "SDL_Init(flags)";
+
+PROCEDURE -SDL_Quit* ;
+PROCEDURE -Quit* "SDL_Quit()";
+
+PROCEDURE -SDL_GetError* (): PChar;
+PROCEDURE -GetError* (): PChar "SDL_GetError()";
+
+    (* окна *)
+
+PROCEDURE -SDL_CreateWindow* (title: PChar; x, y, w, h: Integer; flags: UInt32): Window;
+PROCEDURE -CreateWindow* (title: PChar; x, y, w, h: Integer; flags: UInt32): Window "SDL_CreateWindow(title, x, y, w, h, flags)";
+
+PROCEDURE -SDL_DestroyWindow* (window: Window);
+PROCEDURE -DestroyWindow* (window: Window) "SDL_DestroyWindow(window)";
+
+PROCEDURE -SDL_RaiseWindow* (window: Window);
+PROCEDURE -RaiseWindow* (window: Window) "SDL_RaiseWindow(window)";
+
+PROCEDURE -SDL_GetWindowPosition* (window: Window; VAR x, y: INTEGER);
+PROCEDURE -GetWindowPosition* (window: Window; VAR x, y: INTEGER) "SDL_GetWindowPosition(window, x, y)";
+
+PROCEDURE -SDL_GetWindowSize* (window: Window; VAR w, h: INTEGER);
+PROCEDURE -GetWindowSize* (window: Window; VAR w, h: INTEGER) "SDL_GetWindowSize(window, w, h)";
+
+    (* OpenGL *)
+
+PROCEDURE -SDL_GL_CreateContext* (window: Window): GLContext;
+PROCEDURE -GL_CreateContext* (window: Window): GLContext "SDL_GL_CreateContext(window)";
+
+PROCEDURE -SDL_GL_DeleteContext* (c: GLContext);
+PROCEDURE -GL_DeleteContext* (c: GLContext) "SDL_GL_DeleteContext(c)";
+
+PROCEDURE -SDL_GL_GetCurrentContext* (): GLContext;
+PROCEDURE -GL_GetCurrentContext* (): GLContext "SDL_GL_GetCurrentContext()";
+
+PROCEDURE -SDL_GL_MakeCurrent* (window: Window; c: GLContext);
+PROCEDURE -GL_MakeCurrent* (window: Window; c: GLContext) "SDL_GL_MakeCurrent(window, c)";
+
+PROCEDURE -SDL_GL_SwapWindow* (window: Window);
+PROCEDURE -GL_SwapWindow* (window: Window) "SDL_GL_SwapWindow(window)";
+
+    (* обработка событий *)
+
+PROCEDURE -SDL_PollEvent* (VAR [nil] event: Event): Integer;
+PROCEDURE -PollEvent* (VAR [nil] event: Event): Integer "SDL_PollEvent(event)";
+
+PROCEDURE -SDL_PumpEvents* ;
+PROCEDURE -PumpEvents* "SDL_PumpEvents()";
+
+PROCEDURE -SDL_WaitEvent* (VAR [nil] event: Event): Integer;
+PROCEDURE -WaitEvent* (VAR [nil] event: Event): Integer "SDL_WaitEvent(event)";
+
+PROCEDURE -SDL_WaitEventTimeout* (VAR [nil] event: Event; timeout: Integer): Integer;
+PROCEDURE -WaitEventTimeout* (VAR [nil] event: Event; timeout: Integer): Integer "SDL_WaitEventTimeout(event, timeout)";
+
+PROCEDURE -SDL_PushEvent* (event: PEvent): Integer;
+PROCEDURE -PushEvent* (event: PEvent): Integer "SDL_PushEvent(event)";
+
+PROCEDURE -SDL_EventState* (type: UInt32; state: Integer): UInt8;
+PROCEDURE -EventState* (type: UInt32; state: Integer): UInt8 "SDL_EventState(type, state)";
+
+PROCEDURE -SDL_RegisterEvents* (num: Integer): UInt32;
+PROCEDURE -RegisterEvents* (num: Integer): UInt32 "SDL_RegisterEvents(num)";
+
+PROCEDURE -SDL_HasEvent* (type: UInt32): Bool;
+PROCEDURE -HasEvent* (type: UInt32): Bool "SDL_HasEvent(type)";
+
+PROCEDURE -SDL_HasEvents* (minType, maxType: UInt32): Bool;
+PROCEDURE -HasEvents* (minType, maxType: UInt32): Bool "SDL_HasEvents(minType, maxType)";
+
+PROCEDURE -SDL_AddEventWatch* (filter: EventFilter; userData: Pointer);
+PROCEDURE -AddEventWatch* (filter: EventFilter; userData: Pointer) "SDL_AddEventWatch(filter, userData)";
+
+PROCEDURE -SDL_DelEventWatch* (filter: EventFilter; userData: Pointer);
+PROCEDURE -DelEventWatch* (filter: EventFilter; userData: Pointer) "SDL_DelEventWatch(filter, userData)";
+
+    (* рендер *)
+
+PROCEDURE -SDL_CreateRenderer* (window: Window; index: Integer; flags: UInt32): Renderer;
+PROCEDURE -CreateRenderer* (window: Window; index: Integer; flags: UInt32): Renderer "SDL_CreateRenderer(window, index, flags)";
+
+PROCEDURE -SDL_DestroyRenderer* (renderer: Renderer);
+PROCEDURE -DestroyRenderer* (renderer: Renderer) "SDL_DestroyRenderer(renderer)";
+
+PROCEDURE -SDL_SetRenderDrawColor* (renderer: Renderer; r, g, b, a: UInt8): Integer;
+PROCEDURE -SetRenderDrawColor* (renderer: Renderer; r, g, b, a: UInt8): Integer "SDL_SetRenderDrawColor(renderer, r, g, b, a)";
+
+PROCEDURE -SDL_RenderPresent* (renderer: Renderer): Integer;
+PROCEDURE -RenderPresent* (renderer: Renderer): Integer "SDL_RenderPresent(renderer)";
+
+PROCEDURE -SDL_RenderClear* (renderer: Renderer): Integer;
+PROCEDURE -RenderClear* (renderer: Renderer): Integer "SDL_RenderClear(renderer)";
+
+PROCEDURE -SDL_RenderDrawLine* (renderer: Renderer; x1, y1, x2, y2: Integer): Integer;
+PROCEDURE -RenderDrawLine* (renderer: Renderer; x1, y1, x2, y2: Integer): Integer "SDL_RenderDrawLine(renderer, x1, y1, x2, y2)";
+
+PROCEDURE -SDL_RenderDrawLines* (renderer: Renderer; points: PPoint; count: Integer): Integer;
+PROCEDURE -RenderDrawLines* (renderer: Renderer; points: PPoint; count: Integer): Integer "SDL_RenderDrawLines(renderer, points, count)";
+
+PROCEDURE -SDL_RenderDrawPoint* (renderer: Renderer; x, y: Integer): Integer;
+PROCEDURE -RenderDrawPoint* (renderer: Renderer; x, y: Integer): Integer "SDL_RenderDrawPoint(renderer, x, y)";
+
+PROCEDURE -SDL_RenderDrawPoints* (renderer: Renderer; points: PPoint; count: Integer): Integer;
+PROCEDURE -RenderDrawPoints* (renderer: Renderer; points: PPoint; count: Integer): Integer "SDL_RenderDrawPoints(renderer, points, count)";
+
+PROCEDURE -SDL_RenderDrawRect* (renderer: Renderer; rect: PRect): Integer;
+PROCEDURE -RenderDrawRect* (renderer: Renderer; rect: PRect): Integer "SDL_RenderDrawRect(renderer, rect)";
+
+PROCEDURE -SDL_RenderDrawRects* (renderer: Renderer; rect: PRect; count: Integer): Integer;
+PROCEDURE -RenderDrawRects* (renderer: Renderer; rect: PRect; count: Integer): Integer "SDL_RenderDrawRects(renderer, rect, count)";
+
+PROCEDURE -SDL_RenderFillRect* (renderer: Renderer; rect: PRect): Integer;
+PROCEDURE -RenderFillRect* (renderer: Renderer; rect: PRect): Integer "SDL_RenderFillRect(renderer, rect)";
+
+PROCEDURE -SDL_RenderFillRects* (renderer: Renderer; rect: PRect; count: Integer): Integer;
+PROCEDURE -RenderFillRects* (renderer: Renderer; rect: PRect; count: Integer): Integer "SDL_RenderFillRects(renderer, rect, count)";
+
+PROCEDURE -SDL_RenderCopy* (renderer: Renderer; texture: Texture; src, dst: PRect): Integer;
+PROCEDURE -RenderCopy* (renderer: Renderer; texture: Texture; src, dst: PRect): Integer "SDL_RenderCopy(renderer, texture, src, dst)";
+
+PROCEDURE -SDL_CreateTextureFromSurface* (renderer: Renderer; surface: PSurface): Texture;
+PROCEDURE -CreateTextureFromSurface* (renderer: Renderer; surface: PSurface): Texture "SDL_CreateTextureFromSurface(renderer, surface)";
+
+PROCEDURE -SDL_FreeSurface* (surface: PSurface);
+PROCEDURE -FreeSurface* (surface: PSurface) "SDL_FreeSurface(surface)";
+
+PROCEDURE -SDL_SetSurfaceAlphaMod* (surface: PSurface; alpha: UInt8);
+PROCEDURE -SetSurfaceAlphaMod* (surface: PSurface; alpha: UInt8) "SDL_SetSurfaceAlphaMod(surface, alpha)";
+
+PROCEDURE -SDL_GetSurfaceAlphaMod* (surface: PSurface; VAR alpha: UInt8);
+PROCEDURE -GetSurfaceAlphaMod* (surface: PSurface; VAR alpha: UInt8) "SDL_GetSurfaceAlphaMod(surface, alpha)";
+
+PROCEDURE -SDL_SetSurfaceBlendMode* (surface: PSurface; blend: Enum);
+PROCEDURE -SetSurfaceBlendMode* (surface: PSurface; blend: Enum) "SDL_SetSurfaceBlendMode(surface, blend)";
+
+PROCEDURE -SDL_GetSurfaceBlendMode* (surface: PSurface; VAR blend: Enum);
+PROCEDURE -GetSurfaceBlendMode* (surface: PSurface; VAR blend: Enum) "SDL_GetSurfaceBlendMode(surface, blend)";
+
+PROCEDURE -SDL_CreateRGBSurface* (flags, width, height, depth, rMask, gMask, bMask, aMask: UInt32): PSurface;
+PROCEDURE -CreateRGBSurface* (flags, width, height, depth, rMask, gMask, bMask, aMask: UInt32): PSurface "SDL_CreateRGBSurface(flags, width, height, depth, rMask, gMask, bMask, aMask)";
+
+PROCEDURE -SDL_GL_BindTexture* (texture: Texture; VAR texw, texh: Single): Integer;
+PROCEDURE -GL_BindTexture* (texture: Texture; VAR texw, texh: Single): Integer "SDL_GL_BindTexture(texture, texw, texh)";
+
+PROCEDURE -SDL_ConvertSurfaceFormat* (surface: PSurface; pixel_format: UInt32; flags: UInt32): PSurface;
+PROCEDURE -ConvertSurfaceFormat* (surface: PSurface; pixel_format: UInt32; flags: UInt32): PSurface "SDL_ConvertSurfaceFormat(surface, pixel_format, flags)";
+
+PROCEDURE -SDL_MasksToPixelFormatEnum* (bpp: Integer; rMask, gMask, bMask, aMask: UInt32): UInt32;
+PROCEDURE -MasksToPixelFormatEnum* (bpp: Integer; rMask, gMask, bMask, aMask: UInt32): UInt32 "SDL_MasksToPixelFormatEnum(bpp, rMask, gMask, bMask, aMask)";
+
+PROCEDURE -SDL_UpperBlit* (src: PSurface; srcrect: PRect; VAR dst: PSurface; dstrect: PRect): Integer;
+PROCEDURE -BlitSurface* (src: PSurface; srcrect: PRect; VAR dst: PSurface; dstrect: PRect): Integer "SDL_UpperBlit(src, srcrect, dst, dstrect)";
+
+PROCEDURE -SDL_UnlockSurface* (surface: PSurface);
+PROCEDURE -UnlockSurface* (surface: PSurface) "SDL_UnlockSurface(surface)";
+
+    (* клавиатура и мышь *)
+
+PROCEDURE -SDL_GetKeyboardState* (VAR numkeys: Integer): PUInt8;
+PROCEDURE -GetKeyBoardState* (VAR numkeys: Integer): PUInt8 "SDL_GetKeyboardState(numkeys)";
+
+PROCEDURE -SDL_GetMouseState* (VAR x, y: Integer): UInt32;
+PROCEDURE -GetMouseState* (VAR x, y: Integer): UInt32 "SDL_GetMouseState(x, y)";
+
+PROCEDURE -SDL_GetModState* (): UInt32;
+PROCEDURE -GetModState* (): UInt32 "SDL_GetModState()";
+
+(* только в 2.0.4
+PROCEDURE -SDL_GetGlobalMouseState* (VAR x, y: Integer): UInt32;
+PROCEDURE -GetGlobalMouseState* (VAR x, y: Integer): UInt32 "SDL_GetGlobalMouseState(x, y)";
+*)
+
+PROCEDURE -SDL_GetMouseFocus* (): Window;
+PROCEDURE -GetMouseFocus* (): Window "SDL_GetMouseFocus()";
+
+PROCEDURE -SDL_SetCursor* (cursor: Cursor);
+PROCEDURE -SetCursor* (cursor: Cursor) "SDL_SetCursor(cursor)";
+
+PROCEDURE -SDL_CreateSystemCursor* (id: Integer): Cursor;
+PROCEDURE -CreateSystemCursor* (id: Integer): Cursor "SDL_CreateSystemCursor(id)";
+
+    (* таймер *)
+
+PROCEDURE -SDL_AddTimer* (interval: UInt32; callback: TimerCallback; param: Pointer): TimerID;
+PROCEDURE -AddTimer* (interval: UInt32; callback: TimerCallback; param: Pointer): TimerID "SDL_AddTimer(interval, callback, param)";
+
+PROCEDURE -SDL_Delay* (ms: UInt32);
+PROCEDURE -Delay* (ms: UInt32) "SDL_Delay(ms)";
+
+PROCEDURE -SDL_GetPerformanceCounter* (): UInt64;
+PROCEDURE -GetPerformanceCounter* (): UInt64 "SDL_GetPerformanceCounter()";
+
+PROCEDURE -SDL_GetPerformanceFrequency* (): UInt64;
+PROCEDURE -GetPerformanceFrequency* (): UInt64 "SDL_GetPerformanceFrequency()";
+
+PROCEDURE -SDL_GetTicks* (): UInt32;
+PROCEDURE -GetTicks* (): UInt32 "SDL_GetTicks()";
+
+PROCEDURE -SDL_RemoveTimer* (t: TimerID): Bool;
+PROCEDURE -RemoveTimer* (t: TimerID): Bool "SDL_RemoveTimer(t)";
+
+PROCEDURE -_init* "/*-noinit*/";
+
+END Sdl2Lib.
