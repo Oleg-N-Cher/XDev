@@ -665,7 +665,7 @@ PROCEDURE Scancode* (keycode: INTEGER): INTEGER;
       data2*: SInt32;
     END;
 
-    TimerCallback* = PROCEDURE [1] (interval: UInt32; param: Pointer): UInt32;
+    TimerCallback* = PROCEDURE (interval: UInt32; param: Pointer): UInt32;
     TimerID* = Integer;
 
     UserEvent* = RECORD [1]
@@ -691,7 +691,7 @@ PROCEDURE Scancode* (keycode: INTEGER): INTEGER;
       _data: ARRAY [1] 1000 OF BYTE; (* до завершения описания всех структур *)
     END;
 
-    EventFilter* = PROCEDURE [1] (userData: Pointer; VAR [nil] event: Event): Integer;
+    EventFilter* = PROCEDURE (userData: Pointer; VAR [nil] event: Event): Integer;
 
 (* SDL_rwops.h types *)
 (* This is the read/write operation structure -- very basic *)
@@ -701,10 +701,10 @@ PROCEDURE Scancode* (keycode: INTEGER): INTEGER;
   (* first declare the pointer types *)
   PRWops* = POINTER [1] TO RWops;
   (* now the pointer to procedure types *)
-  Seek = PROCEDURE [1] (context: PRWops; offset: Integer; whence: Integer): Integer;
-  Read = PROCEDURE [1] (context: PRWops; ptr: Pointer; size: Integer; maxNum: Integer): Integer;
-  Write = PROCEDURE [1] (context: PRWops; ptr: Pointer; size: Integer; num: Integer): Integer;
-  Close = PROCEDURE [1] (context: PRWops): Integer;
+  Seek = PROCEDURE (context: PRWops; offset: Integer; whence: Integer): Integer;
+  Read = PROCEDURE (context: PRWops; ptr: Pointer; size: Integer; maxNum: Integer): Integer;
+  Write = PROCEDURE (context: PRWops; ptr: Pointer; size: Integer; num: Integer): Integer;
+  Close = PROCEDURE (context: PRWops): Integer;
   (* the variant record itself *)
   RWops* = RECORD [1]
       (* Seek to 'offset' relative to whence, one of stdio's whence values:
