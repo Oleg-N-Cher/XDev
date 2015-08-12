@@ -3,6 +3,7 @@
 #include "LibC.h"
 #include "Ignore.h"
 #include "WinNet.h"
+#include "WinApi.h"
 
 typedef
 	CHAR Rose_Adr[262];
@@ -38,6 +39,7 @@ export LONGINT *Rose_Socket__typ;
 export LONGINT *Rose_Listener__typ;
 
 export BOOLEAN Rose_Init (void);
+export void Rose_MainLoop (void);
 export void Rose_Quit (void);
 static BOOLEAN Rose_Resolve (Rose_Socket *self, LONGINT *self__typ, CHAR *adr, LONGINT adr__len);
 static BOOLEAN Rose_ResolveHost (Rose_Socket *self, LONGINT *self__typ);
@@ -84,12 +86,12 @@ void Rose_Socket_Close (Rose_Socket *self, LONGINT *self__typ)
 
 /*----------------------------------------------------------------------------*/
 typedef
-	INTEGER (*IPv4Ptr__7)[1];
+	INTEGER (*IPv4Ptr__8)[1];
 
 static BOOLEAN Rose_ResolveHost (Rose_Socket *self, LONGINT *self__typ)
 {
 	WinNet_Ptrhostent hp = NIL;
-	IPv4Ptr__7 ipv4 = NIL;
+	IPv4Ptr__8 ipv4 = NIL;
 	(*self).ipv4 = WinNet_inet_addr((SYSTEM_PTR)((INTEGER)(*self).host));
 	if ((*self).ipv4 != -1) {
 		return 1;
@@ -97,7 +99,7 @@ static BOOLEAN Rose_ResolveHost (Rose_Socket *self, LONGINT *self__typ)
 	if (__STRCMP((*self).host, "localhost") == 0) {
 		hp = WinNet_gethostbyname((SYSTEM_PTR)((INTEGER)(*self).host));
 		if (hp != NIL) {
-			__GET(hp->h_addr_list, ipv4, IPv4Ptr__7);
+			__GET(hp->h_addr_list, ipv4, IPv4Ptr__8);
 			(*self).ipv4 = (*ipv4)[0];
 			return 1;
 		}
@@ -140,7 +142,7 @@ void Rose_Listener_Listen (Rose_Listener *self, LONGINT *self__typ, CHAR *localA
 		sock_addr.sin_family = 2;
 		if (Rose_Resolve((void*)&*self, self__typ, (void*)localAdr, localAdr__len)) {
 			sock_addr.sin_addr.S_un.S_addr = (*self).ipv4;
-			Ignore_Ptr(LibC_strncpy((SYSTEM_PTR)((INTEGER)(*self).ip), WinNet_inet_ntoa(sock_addr.sin_addr), (SYSTEM_PTR)16));
+			Ignore_Ptr(LibC_strncpy((SYSTEM_PTR)((INTEGER)(*self).ip), (SYSTEM_PTR)WinNet_inet_ntoa(sock_addr.sin_addr), (SYSTEM_PTR)16));
 			if ((*self).port >= 0 && (*self).port <= 65535) {
 				sock_addr.sin_port = WinNet_htons((int)(*self).port);
 				if (WinNet_bind((*self).handle, (WinNet_sockaddr*)&sock_addr, WinNet_sockaddr_in__typ, 16) != -1) {
@@ -169,6 +171,18 @@ void Rose_Listener_Listen (Rose_Listener *self, LONGINT *self__typ, CHAR *localA
 }
 
 /*----------------------------------------------------------------------------*/
+void Rose_MainLoop (void)
+{
+	WinApi_MSG msg;
+	Ignore_Int(WinApi_Beep(1000, 1000));
+	while (WinApi_GetMessage(&msg, WinApi_MSG__typ, NIL, 0, 0) != 0) {
+		Ignore_Int(WinApi_TranslateMessage(&msg, WinApi_MSG__typ));
+		Ignore_Int(WinApi_DispatchMessage(&msg, WinApi_MSG__typ));
+	}
+	Ignore_Int(WinApi_Beep(1000, 1000));
+}
+
+/*----------------------------------------------------------------------------*/
 __TDESC(Rose_Socket__desc, 2, 1) = {__TDFLDS("Socket", 284), {0, -16}};
 __TDESC(Rose_Listener__desc, 3, 1) = {__TDFLDS("Listener", 292), {0, -16}};
 
@@ -178,7 +192,9 @@ export void *Rose__init(void)
 	__IMPORT(LibC__init);
 	__IMPORT(Ignore__init);
 	__IMPORT(WinNet__init);
+	__IMPORT(WinApi__init);
 	__REGMOD("Rose", 0);
+	__REGCMD("MainLoop", Rose_MainLoop);
 	__REGCMD("Quit", Rose_Quit);
 	__INITYP(Rose_Socket, Rose_Socket, 0);
 	__INITBP(Rose_Socket, Rose_Socket_Close, 0);
