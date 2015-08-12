@@ -104,7 +104,7 @@ typedef
 	struct Sdl2Lib_RWops *Sdl2Lib_PRWops;
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_Close)(Sdl2Lib_PRWops);
+	INTEGER (*Sdl2Lib_Close)(Sdl2Lib_PRWops);
 
 typedef
 	struct Sdl2Lib_Color {
@@ -187,7 +187,7 @@ typedef
 	} Sdl2Lib_Event;
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_EventFilter)(SYSTEM_PTR, Sdl2Lib_Event*, LONGINT *);
+	INTEGER (*Sdl2Lib_EventFilter)(SYSTEM_PTR, Sdl2Lib_Event*, LONGINT *);
 
 typedef
 	struct Sdl2Lib__2 *Sdl2Lib_GLContext;
@@ -235,13 +235,13 @@ typedef
 	} Sdl2Lib_Point;
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_Seek)(Sdl2Lib_PRWops, INTEGER, INTEGER);
+	INTEGER (*Sdl2Lib_Seek)(Sdl2Lib_PRWops, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_Read)(Sdl2Lib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
+	INTEGER (*Sdl2Lib_Read)(Sdl2Lib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_Write)(Sdl2Lib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
+	INTEGER (*Sdl2Lib_Write)(Sdl2Lib_PRWops, SYSTEM_PTR, INTEGER, INTEGER);
 
 typedef
 	struct Sdl2Lib_RWops {
@@ -266,7 +266,7 @@ typedef
 	struct Sdl2Lib__8 *Sdl2Lib_Texture;
 
 typedef
-	INTEGER (__CALL_1 *Sdl2Lib_TimerCallback)(INTEGER, SYSTEM_PTR);
+	INTEGER (*Sdl2Lib_TimerCallback)(INTEGER, SYSTEM_PTR);
 
 typedef
 	struct Sdl2Lib_WindowShapeMode {
