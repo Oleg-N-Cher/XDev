@@ -1,5 +1,5 @@
-MODULE Rose;
-IMPORT SYSTEM, Net := WinNet, C := LibC, Ignore;
+MODULE Rose; (* Rational Oberon Socket Engine *)
+IMPORT SYSTEM, Ignore, Net := WinNet, C := LibC, WinApi;
 
 CONST
   ErrSocket * = 20;
@@ -137,7 +137,7 @@ BEGIN
       Ignore.Ptr(
         C.strncpy(
           SYSTEM.VAL(C.PtrSTR, SYSTEM.ADR(self.ip)),
-          Net.inet_ntoa(sock_addr.sin_addr),
+          SYSTEM.VAL(C.PtrSTR, Net.inet_ntoa(sock_addr.sin_addr)),
           SYSTEM.VAL(C.size_t, LEN(self.ip))
         )
       );
@@ -168,6 +168,16 @@ BEGIN
   self.error := TRUE;
 END Listen;
 
+PROCEDURE MainLoop* ;
+VAR
+  msg: WinApi.MSG;
+BEGIN
+  WHILE WinApi.GetMessage(msg, NIL, 0, 0) # 0 DO
+    Ignore.Int( WinApi.TranslateMessage(msg) );
+    Ignore.Int( WinApi.DispatchMessage(msg) );
+  END;
+END MainLoop;
+
 BEGIN
   started := FALSE;
 END Rose.
@@ -181,4 +191,39 @@ END Rose.
 
   Программирование сокетов в Linux
   http://rsdn.ru/article/unix/sockets.xml
+
+  Использование сокетов в Delphi
+  http://www.delphikingdom.com/asp/viewitem.asp?catalogid=1021
+  http://www.delphikingdom.com/asp/viewitem.asp?catalogid=1060
+*)
+
+(*
+
+DnsQuery, DnsQueryExA: dnsapi.dll
+  https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms682016%28v=vs.85%29.aspx
+
+gethostbyname(), gethostbyname_r()
+  http://unix.derkeiler.com/Newsgroups/comp.unix.programmer/2007-02/msg00007.html
+
+WSAAsyncGetHostByName
+  http://forum.sources.ru/index.php?showtopic=272612&st=0&#entry2269771
+
+*)
+
+(* ToDo:
+
+1. Реализовать поддержку номера порта 0, таким образом заставляя ядро выделить эфемерный порт. Вызываем getsockname, чтобы узнать номер этого порта. Это нужно в ряде случаев когда требуется выделить произвольный свободный порт.
+
+2. select не предназначен для обработки большого числа соединий, для этого в Windows есть IOCP, в Linux - epoll, в FreeBSD - kqueue. И да, лучший метод, специфичный для конкретной платформы - используется тем же Boost.ASIO.
+
+Во-первых select() или poll() при большой нагрузке начинают тормозить. Для решения этой проблемы в линухе 2.6 добавили epoll(7), в BSD есть всякие kqueue, etc.
+
+Во-вторых кол-во файловых дескрипторов на процесс обычно ограничено 1024, и изменить (увеличить) это может только root. Впрочем это обычно не большая проблема, т.к. сервера которым нужно обрабатывать больше тысячи клиентов обычно запускаются на своём дедике.
+
+Вот классическая ссылка по теме: http://www.kegel.com/c10k.html
+
+http://nginx.org/ru/docs/events.html
+
+Это что касается сервера. Для клиента есть ещё такие грабли как DNS - чтобы качать сотнями/тысячами потоков с разных серверов (есть и такие задачки :-)) нужно уметь быстро и асинхронно ресолвить их IPшники.
+
 *)

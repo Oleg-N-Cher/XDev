@@ -40,6 +40,7 @@ import LONGINT *Rose_Socket__typ;
 import LONGINT *Rose_Listener__typ;
 
 import BOOLEAN Rose_Init (void);
+import void Rose_MainLoop (void);
 import void Rose_Quit (void);
 import void *Rose__init(void);
 
