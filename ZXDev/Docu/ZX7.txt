@@ -74,6 +74,9 @@ HISTORY
 2013-01-05: Further improvements in the "Standard" Z80 routine (thanks to
             Metalbrain!)
 
+2013-02-25: Further improvements in the "Turbo" Z80 routine, released libraries
+            for z88dk and Boriel's ZX BASIC.
+
 
 =======
 CREDITS
@@ -92,5 +95,4 @@ The main speed improvement used in "Turbo" version was originally suggested by
 The optimal LZ77/LZSS compress algorithm was invented by myself (Einar Saukas).
   To the best of my knowledge, there was no similar high-performance solution
   available. I thereby present this implementation as evidence of "prior art",
-  thus preventing anyone from ever patenting it. Software patents are evil!!! 
-
+  thus preventing anyone from ever patenting it. Software patents are evil!!!
