@@ -30,18 +30,10 @@ MODULE ZX7;
 ' Parameters:
 '     src: source address (compressed data)
 '     dst: destination address (decompressing)
-' -----------------------------------------------------------------------------
-sub FASTCALL dzx7Standard(src as UINTEGER, dst as UINTEGER)
-    asm
-        pop bc          ; RET address
-        pop de          ; DE=dst
-        push bc         ; restore RET address
-#include "dzx7_standard.asm"
-    end asm
-end sub
+' ---------------------------------------------------------------------------*)
+PROCEDURE Standard* (src, dst: LONGINT); END Standard;
 
-
-' -----------------------------------------------------------------------------
+(*-----------------------------------------------------------------------------
 ' Decompress (from source to destination address) data that was previously
 ' compressed using ZX7. This is the intermediate version of the ZX7
 ' decompressor, providing the best balance between speed and size.
@@ -49,18 +41,10 @@ end sub
 ' Parameters:
 '     src: source address (compressed data)
 '     dst: destination address (decompressing)
-' -----------------------------------------------------------------------------
-sub FASTCALL dzx7Turbo(src as UINTEGER, dst as UINTEGER)
-    asm
-        pop bc          ; RET address
-        pop de          ; DE=dst
-        push bc         ; restore RET address
-#include "dzx7_turbo.asm"
-    end asm
-end sub
+' ---------------------------------------------------------------------------*)
+PROCEDURE Turbo* (src, dst: LONGINT); END Turbo;
 
-
-' -----------------------------------------------------------------------------
+(*-----------------------------------------------------------------------------
 ' Decompress (from source to destination address) data that was previously
 ' compressed using ZX7. This is the fastest version of the ZX7 decompressor.
 '
@@ -68,7 +52,7 @@ end sub
 '     src: source address (compressed data)
 '     dst: destination address (decompressing)
 ' ---------------------------------------------------------------------------*)
-PROCEDURE Mega* (src, dst: INTEGER); END Mega;
+PROCEDURE Mega* (src, dst: LONGINT); END Mega;
 
 (*-----------------------------------------------------------------------------
 ' Decompress (from source to destination address) data that was previously
