@@ -1,6 +1,181 @@
+void ZX7_Standard (unsigned int src, unsigned int dst);
+void ZX7_Turbo (unsigned int src, unsigned int dst);
 void ZX7_Mega (unsigned int src, unsigned int dst);
 /*================================== Header ==================================*/
 
+void ZX7_Standard (unsigned int src, unsigned int dst) __naked {
+  __asm
+        pop  bc         ; RET address
+        pop  hl         ; HL=src
+        pop  de         ; DE=dst
+        push de
+        push hl
+        push bc         ; restore RET address
+; -----------------------------------------------------------------------------
+; ZX7 decoder by Einar Saukas, Antonio Villena & Metalbrain
+; "Standard" version (69 bytes only)
+; -----------------------------------------------------------------------------
+; Parameters:
+;   HL: source address (compressed data)
+;   DE: destination address (decompressing)
+; -----------------------------------------------------------------------------
+
+dzx7_standard:
+        ld      a, #0x80
+dzx7s_copy_byte_loop:
+        ldi                             ; copy literal byte
+dzx7s_main_loop:
+        call    dzx7s_next_bit
+        jr      nc, dzx7s_copy_byte_loop ; next bit indicates either literal or sequence
+
+; determine number of bits used for length (Elias gamma coding)
+        push    de
+        ld      bc, #0
+        ld      d, b
+dzx7s_len_size_loop:
+        inc     d
+        call    dzx7s_next_bit
+        jr      nc, dzx7s_len_size_loop
+
+; determine length
+dzx7s_len_value_loop:
+        call    nc, dzx7s_next_bit
+        rl      c
+        rl      b
+        jr      c, dzx7s_exit           ; check end marker
+        dec     d
+        jr      nz, dzx7s_len_value_loop
+        inc     bc                      ; adjust length
+
+; determine offset
+        ld      e, (hl)                 ; load offset flag (1 bit) + offset value (7 bits)
+        inc     hl
+        .db     #0xcb, #0x33            ; opcode for undocumented instruction "SLL E" aka "SLS E"
+        jr      nc, dzx7s_offset_end    ; if offset flag is set, load 4 extra bits
+        ld      d, #0x10                ; bit marker to load 4 bits
+dzx7s_rld_next_bit:
+        call    dzx7s_next_bit
+        rl      d                       ; insert next bit into D
+        jr      nc, dzx7s_rld_next_bit  ; repeat 4 times, until bit marker is out
+        inc     d                       ; add 128 to DE
+        srl	d			; retrieve fourth bit from D
+dzx7s_offset_end:
+        rr      e                       ; insert fourth bit into E
+
+; copy previous sequence
+        ex      (sp), hl                ; store source, restore destination
+        push    hl                      ; store destination
+        sbc     hl, de                  ; HL = destination - offset - 1
+        pop     de                      ; DE = destination
+        ldir
+dzx7s_exit:
+        pop     hl                      ; restore source address (compressed data)
+        jr      nc, dzx7s_main_loop
+dzx7s_next_bit:
+        add     a, a                    ; check next bit
+        ret     nz                      ; no more bits left?
+        ld      a, (hl)                 ; load another group of 8 bits
+        inc     hl
+        rla
+        ret
+
+; -----------------------------------------------------------------------------
+  __endasm;
+} //ZX7_Standard
+
+/*--------------------------------- Cut here ---------------------------------*/
+void ZX7_Turbo (unsigned int src, unsigned int dst) __naked {
+  __asm
+        pop  bc         ; RET address
+        pop  hl         ; HL=src
+        pop  de         ; DE=dst
+        push de
+        push hl
+        push bc         ; restore RET address
+; -----------------------------------------------------------------------------
+; ZX7 decoder by Einar Saukas & Urusergi
+; "Turbo" version (88 bytes, 25% faster)
+; -----------------------------------------------------------------------------
+; Parameters:
+;   HL: source address (compressed data)
+;   DE: destination address (decompressing)
+; -----------------------------------------------------------------------------
+
+dzx7_turbo:
+        ld      a, #0x80
+dzx7t_copy_byte_loop:
+        ldi                             ; copy literal byte
+dzx7t_main_loop:
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        jr      nc, dzx7t_copy_byte_loop ; next bit indicates either literal or sequence
+
+; determine number of bits used for length (Elias gamma coding)
+        push    de
+        ld      bc, #1
+        ld      d, b
+dzx7t_len_size_loop:
+        inc     d
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        jr      nc, dzx7t_len_size_loop
+        jp      dzx7t_len_value_start
+
+; determine length
+dzx7t_len_value_loop:
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        rl      c
+        rl      b
+        jr      c, dzx7t_exit           ; check end marker
+dzx7t_len_value_start:
+        dec     d
+        jr      nz, dzx7t_len_value_loop
+        inc     bc                      ; adjust length
+
+; determine offset
+        ld      e, (hl)                 ; load offset flag (1 bit) + offset value (7 bits)
+        inc     hl
+        .db     #0xcb, #0x33            ; opcode for undocumented instruction "SLL E" aka "SLS E"
+        jr      nc, dzx7t_offset_end    ; if offset flag is set, load 4 extra bits
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        rl      d                       ; insert first bit into D
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        rl      d                       ; insert second bit into D
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        rl      d                       ; insert third bit into D
+        add     a, a                    ; check next bit
+        call    z, dzx7t_load_bits      ; no more bits left?
+        ccf
+        jr      c, dzx7t_offset_end
+        inc     d                       ; equivalent to adding 128 to DE
+dzx7t_offset_end:
+        rr      e                       ; insert inverted fourth bit into E
+
+; copy previous sequence
+        ex      (sp), hl                ; store source, restore destination
+        push    hl                      ; store destination
+        sbc     hl, de                  ; HL = destination - offset - 1
+        pop     de                      ; DE = destination
+        ldir
+dzx7t_exit:
+        pop     hl                      ; restore source address (compressed data)
+        jp      nc, dzx7t_main_loop
+
+dzx7t_load_bits:
+        ld      a, (hl)                 ; load another group of 8 bits
+        inc     hl
+        rla
+        ret
+
+; -----------------------------------------------------------------------------
+  __endasm;
+} //ZX7_Turbo
+
+/*--------------------------------- Cut here ---------------------------------*/
 void ZX7_Mega (unsigned int src, unsigned int dst) __naked {
   __asm
         pop  bc         ; RET address
@@ -72,7 +247,7 @@ dzx7m_offset_start_od:
 ; determine offset
         ld      e, (hl)                 ; load offset flag (1 bit) + offset value (7 bits)
         inc     hl
-        .db     #0xCB, #0x33            ; opcode for undocumented instruction "SLL E" aka "SLS E"
+        .db     #0xcb, #0x33            ; opcode for undocumented instruction "SLL E" aka "SLS E"
         jr      nc, dzx7m_offset_end_od ; if offset flag is set, load 4 extra bits
         add     a, a                    ; check next bit
         rl      d                       ; insert first bit into D
@@ -229,4 +404,3 @@ dzx7m_load_bits7:
 ; -----------------------------------------------------------------------------
   __endasm;
 } //ZX7_Mega
-
