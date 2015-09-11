@@ -46,54 +46,36 @@ MODULE UMath; IMPORT SYSTEM, B := Basic;
 
 VAR a, b: SHORTINT;
 
-PROCEDURE -UMultBytes (a, b: SHORTINT):
-   SHORTINT
-   "( ((CHAR)a) * ((CHAR)b) )";
-PROCEDURE -UMultWords (a, b: INTEGER):
-   INTEGER
-   "(((unsigned int)a)*((unsigned int)b))";
-PROCEDURE -UDivBytes (a, b: SHORTINT):
-   SHORTINT
-   "( ((CHAR)a) / ((CHAR)b) )";
-PROCEDURE -UDivWords (a, b: INTEGER):
-   INTEGER
-   "(((unsigned int)a)/((unsigned int)b))";
+PROCEDURE -UMultBytes (a, b: SHORTINT): SHORTINT
+  "( ((unsigned char)a) * ((unsigned char)b) )";
+PROCEDURE -UMultWords (a, b: INTEGER): INTEGER
+  "( ((unsigned int)a) * ((unsigned int)b) )";
+PROCEDURE -UDivBytes (a, b: SHORTINT): SHORTINT
+  "( ((unsigned char)a) / ((unsigned char)b) )";
+PROCEDURE -UDivWords (a, b: INTEGER): INTEGER
+  "( ((unsigned int)a) / ((unsigned int)b) )";
 
 BEGIN (*$MAIN*)
-   B.Init;
-   (* Приводим т.к. значение >
-                         SIZE(SHORTINT): *)
-   a := SYSTEM.VAL(SHORTINT, 255);
-   b := SYSTEM.VAL(SHORTINT, 255);
-
-   (* Печатает: 65025 (255*255): *)
-   B.PRWORD( UMultBytes(a, b) );
-   B.PRLN;
-
-   (* Печатает: 1 ( (-1)*(-1) ): *)
-   B.PRWORD( a * b );
-   B.PRLN;
-   a := SYSTEM.VAL(SHORTINT, 255); b := 5;
-
-   (* Печатает: 51 (255 DIV 5): *)
-   B.PRWORD( UDivBytes(a, b) );
-   B.PRLN;
-
-   (* Печатает: 0 (-1 DIV 5): *)
-   B.PRWORD( a DIV b );
-   B.Quit
+  B.Init; (* Приводим т.к. значение > SIZE(SHORTINT): *)
+  a := SYSTEM.VAL(SHORTINT, 255);
+  b := SYSTEM.VAL(SHORTINT, 255);
+  B.PRWORD( UMultBytes(a, b) ); (* Печатает: 65025 (255*255) *)
+  B.PRLN;
+  B.PRWORD( a * b ); (* Печатает: 1 ( (-1)*(-1) ) *)
+  B.PRLN;
+  a := SYSTEM.VAL(SHORTINT, 255); b := 5;
+  B.PRWORD( UDivBytes(a, b) ); (* Печатает: 51 (255 DIV 5) *)
+  B.PRLN;
+  B.PRWORD( a DIV b ); (* Печатает: 0 (-1 DIV 5) *)
+  B.Quit
 END UMath.
 
 Обратите внимание на странный на первый взгляд результат процедур — UMultiBytes и остальных — он того же размера, что и аргументы. Это должно значить, что переполнение при умножении даст потерю разрядности результата, однако же, на практике этого не происходит, потому что изнутри эти операции устроены так:
 
-#define UMath_UDivBytes(a, b)            \
-   ( ((CHAR)a) / ((CHAR)b) )
-#define UMath_UDivWords(a, b)            \
-   (((unsigned int)a)/((unsigned int)b))
-#define UMath_UMultBytes(a, b)           \
-   ( ((CHAR)a) * ((CHAR)b) )
-#define UMath_UMultWords(a, b)           \
-   (((unsigned int)a)*((unsigned int)b))
+#define UMath_UDivBytes(a, b)	( ((unsigned char)a) / ((unsigned char)b) )
+#define UMath_UDivWords(a, b)	( ((unsigned int)a) / ((unsigned int)b) )
+#define UMath_UMultBytes(a, b) ( ((unsigned char)a) * ((unsigned char)b) )
+#define UMath_UMultWords(a, b) ( ((unsigned int)a) * ((unsigned int)b) )
 
 Здесь я применил при описании результата короткий тип (байт), чтобы результат был совместим с коротким типом (в случае присваивания результата переменной длиной в 1 байт) без удлинения, т.е.:
 
@@ -120,20 +102,16 @@ END UMath.
 
 Эквивалент логических побитовых операций для целых a и b:
 
-a AND b = ORD(BITS(a) * BITS(b))
-a XOR b = ORD(BITS(a) / BITS(b))
-a OR b = ORD(BITS(a) + BITS(b))
-NOT a = ORD(-BITS(a))
+  a AND b = ORD(BITS(a) * BITS(b))
+  a XOR b = ORD(BITS(a) / BITS(b))
+  a OR b = ORD(BITS(a) + BITS(b))
+  NOT a = ORD(-BITS(a))
 
 Где ORD это преобразование битового множества в целое, а BITS — целого во множество. Идеология Оберона не поощряет работу с целыми как с битами и наоборот, ибо это, по мнению Вирта, ведёт к неряшливому использованию типов и нивелирует преимущества строгой типизации, поэтому функций BITS() и ORD(set) в стандарте Оберона нет, но есть в Компонентном Паскале (и в XDev тоже).
 
-   IF 0 IN set THEN (* if(set & 1) ... *)
-
-   (* if (set & 0x23) ... *)
-   IF BITS(23H) * set # {} THEN (* ... *)
-
-   (* if (set & 0x23) ... *)
-   IF {0, 1, 5} * set # {} THEN (* ... *)
+  IF 0 IN set THEN (* if(set & 1) ... *)
+  IF BITS(23H) * set # {} THEN (* if (set & 0x23) ... *)
+  IF {0, 1, 5} * set # {} THEN (* if (set & 0x23) ... *)
 
 Последний вариант, как мне кажется, более наглядно показывает, что в наборе проверяется состояние битов №№ 0, 1 и 5. Пусть вас не вводит в заблуждение некоторая вычурность записи битовых операций, особенно это кажущееся “умножить” — машкод получается что надо:
 
@@ -204,8 +182,7 @@ OF CHAR (или ARRAY N OF BYTE).
 1. Прямая вставка сишного файла в Оберон-программу
 
 IMPORT SYSTEM;
-PROCEDURE -includemain
-   '#include "Main.c"';
+PROCEDURE -includemain '#include "Main.c"';
 
 // --- Main.c ---
 void main (void) {
@@ -221,45 +198,31 @@ void main (void) {
 Как мы знаем, Оберон-строки являются нуль-терминированными, но в отличие от сишных к ним прикреплено значение максимальной длины строки. Если процедуры для работы со строками всегда будут действовать в рамках этой длины — код всегда будет работать корректно. Но можно ли работать на Обероне со строками целиком в сишном стиле без дополнительного поля макс. длины? Конечно можно. Вот мы опишем вызовы сишных функций в обёртке обероновских процедур, и они могут даже не совпадать по параметрам (см., например, IntToStr):
 
 TYPE
-   (* C-like null-terminated string: *)
-   CString = SYSTEM.PTR;
+  CString = SYSTEM.PTR; (* C-like null-terminated string. *)
 
-PROCEDURE -includestdlib
-   "#include <stdlib.h>";
-PROCEDURE -includestring
-   "#include <string.h>";
-PROCEDURE -Length (
-   str: CString): INTEGER
-     "strlen((char*)str)";
-PROCEDURE -CopyStr (dest, src: CString)
-   "strcpy((char*)dest, (char*)src)";
-PROCEDURE -IntToStr (
-   n: INTEGER; str: CString)
-     "_itoa(n, (char*)str, 10)";
-PROCEDURE -UIntToStr (
-   u: INTEGER; s: CString)
-"_uitoa((unsigned int)u, (char*)s, 10)";
-PROCEDURE -Concat (dest, src: CString)
-   "strcat((char*)dest, (char*)src)";
+PROCEDURE -includestdlib "#include <stdlib.h>";
+PROCEDURE -includestring "#include <string.h>";
+PROCEDURE -Length (str: CString): INTEGER "strlen((char*)str)";
+PROCEDURE -CopyStr (dest, src: CString) "strcpy((char*)dest, (char*)src)";
+PROCEDURE -IntToStr (n: INTEGER; str: CString) "_itoa(n, (char*)str, 10)";
+PROCEDURE -UIntToStr (u: INTEGER; str: CString)
+              "_uitoa((unsigned int)u, (char*)str, 10)";
+PROCEDURE -Concat (dest, src: CString) "strcat((char*)dest, (char*)src)";
 
 Пример использования:
 
 IMPORT SYSTEM, B := Basic;
 CONST
-   MaxIntSize = 7; (* “-12345” + 0X. *)
+  MaxIntSize = 7; (* “-12345” + 0X. *)
 VAR
-   num: SHORTINT;
-   strBuf: ARRAY MaxIntSize OF CHAR;
+  num: SHORTINT;
+  strBuf: ARRAY MaxIntSize OF CHAR; (* Convert integer to string. *)
 BEGIN
-   num := B.RND(1, 4);
-   UIntToStr(num, SYSTEM.VAL(
-     CString, SYSTEM.ADR(strBuf))
-   );
-   Concat(SYSTEM.VAL(CString,
-     SYSTEM.ADR(strBuf)),
-     SYSTEM.VAL(CString,
-       SYSTEM.ADR(" is my number"))
-   );
+  num := B.RND(1, 4);
+  UIntToStr(num, SYSTEM.VAL(CString, SYSTEM.ADR(strBuf)));
+  Concat(SYSTEM.VAL(CString, SYSTEM.ADR(strBuf)),
+    SYSTEM.VAL(CString, SYSTEM.ADR(" is my number"))
+  );
 
 
 2. Биндинг
@@ -284,13 +247,11 @@ CONST
 TYPE
    Key* = CHAR;
 
-(** Returns the number of keystrokes
-     in the keyboard input buffer. *)
+(** Returns the number of keystrokes in the keyboard input buffer. *)
 PROCEDURE Available* (): SHORTINT;
 BEGIN RETURN 0 END Available;
 
-(** Read a key from the keyboard buffer.
-     Blocks if no key is available. *)
+(** Read a key from the keyboard buffer. Blocks if no key is available. *)
 PROCEDURE Read* (): Key;
 BEGIN RETURN 0X END Read;
 
@@ -346,7 +307,7 @@ END Input.
 
 Ещё хотелось бы отметить, что я не видел ни одного удовлетворительного решения для одномоментной разработки для Спека и других платформ. Вы можете возразить, что никого не интересует скрещивание Спека с ПЦ. Я же могу возразить в ответ — а почему одинаковая программа или игра должна быть написана по-разному для разных платформ? И особенно на разных языках, которых сейчас как собак нерезаных. Устаю удивляться, когда просто читаю новые названия языков. Не кроется ли здесь проблема, которой вы не заметили?
 
-Так почему же я не считаю Си таким хорошим средством для одномоментной разработки. Во-первых, см. выше о том, как Си ложится на современные платформы, а, вернее, уже не ложится. Во-вторых, посмотрите непредвзятым взглядом на исходники любой игрушки для Спектрума, написанной на Си (ну, не считая игр на движке Churrera - Ред.). Вы не обращали ранее внимания на обилие вставок на асме? Так вот, я вас уверяю: это приговор. Хотя и приятно, что не целиком всё на асме. Вобщем, не видел ни одного средства разработки, при помощи которого удалось бы хотя бы частично автоматизировать процесс вытаскивания игры из рамок спектрумных ограничений. Нужно всё переписывать заново. XDev тоже не является таким средством, но Оберон как язык при всей жёсткости его каркаса и обилии ограничений — вобщем-то хорошая основа для мультитаргетной разработки, как мне кажется. Но предстоит изучение его возможностей в этом плане и, разумеется, их совершенствование. Важно понимать, что я не предлагаю панацею, просто обозначаю проблему и призываю искать пути её решения, если вам это интересно.
+Так почему же я не считаю Си таким хорошим средством для одномоментной разработки. Во-первых, см. выше о том, как Си ложится на современные платформы, а, вернее, уже не ложится. Во-вторых, посмотрите непредвзятым взглядом на исходники любой игрушки для Спектрума, написанной на Си (ну, не считая игр на движке Churrera - Ред.). Вы не обращали ранее внимания на обилие вставок на асме? Так вот, я вас уверяю: это приговор. Хотя и приятно, что не целиком всё на асме. В общем, не видел ни одного средства разработки, при помощи которого удалось бы хотя бы частично автоматизировать процесс вытаскивания игры из рамок спектрумных ограничений. Нужно всё переписывать заново. XDev тоже не является таким средством, но Оберон как язык при всей жёсткости его каркаса и обилии ограничений — в общем-то хорошая основа для мультитаргетной разработки, как мне кажется. Но предстоит изучение его возможностей в этом плане и, разумеется, их совершенствование. Важно понимать, что я не предлагаю панацею, просто обозначаю проблему и призываю искать пути её решения, если вам это интересно.
 
 Мы мигрируем от Z80-асма к Си, но, не найдя в нём достаточной опоры для прикладного высокоуровневого программирования — безопасного, наглядного средства для программ со сложной структурой и мета-программирования (скриптования) (http://forum.oberoncore.ru/viewtopic.php?f=6&t=5267), оставаясь в рамках компилируемого кода, мы движемся дальше, к Оберону, но оставляем за собой возможность юзать для низкого уровня и асм, и Си, и Java, если понадобится (последнее не для ZX конечно, а для Java-based платформ). Вот поэтому я вижу язык Си в применении к другим платформам в роли асма Z80 для Спека. Хорошо для низкого уровня, но начинает нервировать, когда идёт работа со сложной прикладной логикой.
 

@@ -36,54 +36,36 @@ MODULE UMath; IMPORT SYSTEM, B := Basic;
 
 VAR a, b: SHORTINT;
 
-PROCEDURE -UMultBytes (a, b: SHORTINT):
-   SHORTINT
-   "( ((CHAR)a) * ((CHAR)b) )";
-PROCEDURE -UMultWords (a, b: INTEGER):
-   INTEGER
-   "(((unsigned int)a)*((unsigned int)b))";
-PROCEDURE -UDivBytes (a, b: SHORTINT):
-   SHORTINT
-   "( ((CHAR)a) / ((CHAR)b) )";
-PROCEDURE -UDivWords (a, b: INTEGER):
-   INTEGER
-   "(((unsigned int)a)/((unsigned int)b))";
+PROCEDURE -UMultBytes (a, b: SHORTINT): SHORTINT
+  "( ((unsigned char)a) * ((unsigned char)b) )";
+PROCEDURE -UMultWords (a, b: INTEGER): INTEGER
+  "( ((unsigned int)a) * ((unsigned int)b) )";
+PROCEDURE -UDivBytes (a, b: SHORTINT): SHORTINT
+  "( ((unsigned char)a) / ((unsigned char)b) )";
+PROCEDURE -UDivWords (a, b: INTEGER): INTEGER
+  "( ((unsigned int)a) / ((unsigned int)b) )";
 
 BEGIN (*$MAIN*)
-   B.Init;
-   (* ѕриводим т.к. значение >
-                         SIZE(SHORTINT): *)
-   a := SYSTEM.VAL(SHORTINT, 255);
-   b := SYSTEM.VAL(SHORTINT, 255);
-
-   (* ѕечатает: 65025 (255*255): *)
-   B.PRWORD( UMultBytes(a, b) );
-   B.PRLN;
-
-   (* ѕечатает: 1 ( (-1)*(-1) ): *)
-   B.PRWORD( a * b );
-   B.PRLN;
-   a := SYSTEM.VAL(SHORTINT, 255); b := 5;
-
-   (* ѕечатает: 51 (255 DIV 5): *)
-   B.PRWORD( UDivBytes(a, b) );
-   B.PRLN;
-
-   (* ѕечатает: 0 (-1 DIV 5): *)
-   B.PRWORD( a DIV b );
-   B.Quit
+  B.Init; (* Casting because value > SIZE(SHORTINT): *)
+  a := SYSTEM.VAL(SHORTINT, 255);
+  b := SYSTEM.VAL(SHORTINT, 255);
+  B.PRWORD( UMultBytes(a, b) ); (* Output: 65025 (255*255) *)
+  B.PRLN;
+  B.PRWORD( a * b ); (* Output: 1 ( (-1)*(-1) ) *)
+  B.PRLN;
+  a := SYSTEM.VAL(SHORTINT, 255); b := 5;
+  B.PRWORD( UDivBytes(a, b) ); (* Output: 51 (255 DIV 5) *)
+  B.PRLN;
+  B.PRWORD( a DIV b ); (* Output: 0 (-1 DIV 5) *)
+  B.Quit
 END UMath.
 
 Note the result that can seem strange in procedures UMultiBytes and the rest Ч it's the same size as the arguments. This can mean that multiplication overflow will drop bits in the result. In fact, this doesn't happen because these operations look this way inside:
 
-#define UMath_UDivBytes(a, b)            \
-   ( ((CHAR)a) / ((CHAR)b) )
-#define UMath_UDivWords(a, b)            \
-   (((unsigned int)a)/((unsigned int)b))
-#define UMath_UMultBytes(a, b)           \
-   ( ((CHAR)a) * ((CHAR)b) )
-#define UMath_UMultWords(a, b)           \
-   (((unsigned int)a)*((unsigned int)b))
+#define UMath_UDivBytes(a, b)	( ((unsigned char)a) / ((unsigned char)b) )
+#define UMath_UDivWords(a, b)	( ((unsigned int)a) / ((unsigned int)b) )
+#define UMath_UMultBytes(a, b) ( ((unsigned char)a) * ((unsigned char)b) )
+#define UMath_UMultWords(a, b) ( ((unsigned int)a) * ((unsigned int)b) )
 
 I used here a short type (byte) to make the result compatible with short type (in case of evaluating a 1 byte variable with this result) without lengthening, i.e.:
 
@@ -110,20 +92,20 @@ MOD operation (remainder after integer division) for certain divisors will be op
 
 Logical bitwise operations analogs for integer a and b:
 
-a AND b = ORD(BITS(a) * BITS(b))
-a XOR b = ORD(BITS(a) / BITS(b))
-a OR b = ORD(BITS(a) + BITS(b))
-NOT a = ORD(-BITS(a))
+  a AND b = ORD(BITS(a) * BITS(b))
+  a XOR b = ORD(BITS(a) / BITS(b))
+  a OR b = ORD(BITS(a) + BITS(b))
+  NOT a = ORD(-BITS(a))
 
 Where ORD converts bit set into integer, and BITS converts integer into bit set. Oberon ideology doesn't encourage using integers as bits and vice versa because Wirth thinks this leads to loose typing and drop out the benefits of strict typing. So there are no BITS() and ORD(set) functions in Oberon standard but there are in Component Pascal (and in XDev too).
 
-   IF 0 IN set THEN (* if(set & 1) ... *)
+  IF 0 IN set THEN (* if(set & 1) ... *)
 
-   (* if (set & 0x23) ... *)
-   IF BITS(23H) * set # {} THEN (* ... *)
+  (* if (set & 0x23) ... *)
+  IF BITS(23H) * set # {} THEN (* ... *)
 
-   (* if (set & 0x23) ... *)
-   IF {0, 1, 5} * set # {} THEN (* ... *)
+  (* if (set & 0x23) ... *)
+  IF {0, 1, 5} * set # {} THEN (* ... *)
 
 For my opinion, the latter version shows more clearly that the bits 0, 1, and 5 are tested in the set. Don't let the mannered form of bit operations meslead you, especially in the case of 'multiply' Ч the machine code looks well:
 
@@ -180,8 +162,7 @@ You can insert arbitrary pieces of C and assembly code into Oberon programs. The
 1. Including C source in Oberon program
 
 IMPORT SYSTEM;
-PROCEDURE -includemain
-   '#include "Main.c"';
+PROCEDURE -includemain '#include "Main.c"';
 
 // --- Main.c ---
 void main (void) {
@@ -197,45 +178,31 @@ It's more reasonable to add individual functions this way, although it gives wid
 As we know, Oberon string are null terminated but unlike C strings, they have maximum string length attached to them. If string procedures don't access memory outside this length, the code will work corrently. Can we use C strings in Oberon, without the length field? Of course we can. We describe C function calls in Oberon wrappers, they even can differ in arguments (see for example IntToStr):
 
 TYPE
-   (* C-like null-terminated string: *)
-   CString = SYSTEM.PTR;
+  CString = SYSTEM.PTR; (* C-like null-terminated string. *)
 
-PROCEDURE -includestdlib
-   "#include <stdlib.h>";
-PROCEDURE -includestring
-   "#include <string.h>";
-PROCEDURE -Length (
-   str: CString): INTEGER
-     "strlen((char*)str)";
-PROCEDURE -CopyStr (dest, src: CString)
-   "strcpy((char*)dest, (char*)src)";
-PROCEDURE -IntToStr (
-   n: INTEGER; str: CString)
-     "_itoa(n, (char*)str, 10)";
-PROCEDURE -UIntToStr (
-   u: INTEGER; s: CString)
-"_uitoa((unsigned int)u, (char*)s, 10)";
-PROCEDURE -Concat (dest, src: CString)
-   "strcat((char*)dest, (char*)src)";
+PROCEDURE -includestdlib "#include <stdlib.h>";
+PROCEDURE -includestring "#include <string.h>";
+PROCEDURE -Length (str: CString): INTEGER "strlen((char*)str)";
+PROCEDURE -CopyStr (dest, src: CString) "strcpy((char*)dest, (char*)src)";
+PROCEDURE -IntToStr (n: INTEGER; str: CString) "_itoa(n, (char*)str, 10)";
+PROCEDURE -UIntToStr (u: INTEGER; str: CString)
+              "_uitoa((unsigned int)u, (char*)str, 10)";
+PROCEDURE -Concat (dest, src: CString) "strcat((char*)dest, (char*)src)";
 
 Usage example:
 
 IMPORT SYSTEM, B := Basic;
 CONST
-   MaxIntSize = 7; (* У-12345Ф + 0X. *)
+  MaxIntSize = 7; (* У-12345Ф + 0X. *)
 VAR
-   num: SHORTINT;
-   strBuf: ARRAY MaxIntSize OF CHAR;
+  num: SHORTINT;
+  strBuf: ARRAY MaxIntSize OF CHAR; (* Convert integer to string. *)
 BEGIN
-   num := B.RND(1, 4);
-   UIntToStr(num, SYSTEM.VAL(
-     CString, SYSTEM.ADR(strBuf))
-   );
-   Concat(SYSTEM.VAL(CString,
-     SYSTEM.ADR(strBuf)),
-     SYSTEM.VAL(CString,
-       SYSTEM.ADR(" is my number"))
-   );
+  num := B.RND(1, 4);
+  UIntToStr(num, SYSTEM.VAL(CString, SYSTEM.ADR(strBuf)));
+  Concat(SYSTEM.VAL(CString, SYSTEM.ADR(strBuf)),
+    SYSTEM.VAL(CString, SYSTEM.ADR(" is my number"))
+  );
 
 
 2. Binding
@@ -260,13 +227,11 @@ CONST
 TYPE
    Key* = CHAR;
 
-(** Returns the number of keystrokes
-     in the keyboard input buffer. *)
+(** Returns the number of keystrokes in the keyboard input buffer. *)
 PROCEDURE Available* (): SHORTINT;
 BEGIN RETURN 0 END Available;
 
-(** Read a key from the keyboard buffer.
-     Blocks if no key is available. *)
+(** Read a key from the keyboard buffer. Blocks if no key is available. *)
 PROCEDURE Read* (): Key;
 BEGIN RETURN 0X END Read;
 
