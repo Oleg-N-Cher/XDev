@@ -1,0 +1,418 @@
+Details of Oberon Programming in ZXDev
+
+Oleg N. Cher, VEDAsoft Oberon Club
+
+The idea of XDev (and its ZXDev subsystem intended for ZX Spectrum development) was taking shape for several years and made its realisation (first version) just recently Ч in the end of January 2015. The main features:
+
+1. The input language is Oberon and its supersets Ч Oberon-2 and Component Pascal (few features from it).
+
+2. Code generation is made through Oberon to C translation and calling a C compiler. The base C compiler used is SDCC. One can change the scripts to use another compiler, z88dk for example.
+
+3. Multi-target compilation. XDev repository (https://github.com/Oleg-N-Cher/XDev) contains subsystems for such targets as MSX, MS-DOS, Windows (32/64 bit), Linux, at different stages of readiness. Subsystems are planned for NES/Nintendo, Java ME, and Android. The first version of ZXDev subsystem with the basic set of libraries is released, with the examples of simple games made in Oberon Ч https://sourceforge.net/projects/bb-xdev
+
+Oberon is very compact modular programming language (component-based, object-oriented - depends on the dialect) with structured paradigm, strict typing, and automatic memory management, designed for general use (including system programming where it plays a acript language role too Ч in ETH Oberon, A2/Bluebottle operating systems). It's a distilled work of computer science classic Dr. Niklaus Wirth, author of Pascal and Modula-2. Unlike the contemporary "mainstream" big languages (based on sophisticated runtime packages and virtual architectures and developing with growing complexity), Oberon uses only the base terms of computer science: module, procedure, structure (record).
+
+Oberon paradigm is fragmented as other areas in IT. So Oberon has dialects, such as Oberon-07 (minimalistic revision of Oberon-1), OberonX (math extension), Active Oberon (multi-threaded dialect), Oberon-2 (with extra means for object oriented programming), and my beloved Component Pascal (Oberon-2 superset for industrial use).
+
+
+Unsigned calculus
+
+Oberon language doesn't have unsigned types, this is like Z80 not having unsigned registers or memory addresses. Their values can be interpreted as unsigned numbers though, and can be used in unsigned operations. It looks like Forth language also, where all the values on the stack are untyped (can be treated as signed or unsigned, or even double word) and you have signed multiply ( * ) and unsigned multiply ( U* ), the same with comparison, division etc. So, a system programmer will not be shocked with the absence of unsigned types, he just have to know that ZXDev has 3 integer types: 1, 2, and 4 bytes long. Let's see how we can define efficient unsigned operations in ZXDev.
+
+Unsigned byte comparison. I invented this trick while porting "Durak" card game, where are many signed comparisons that can be easily changed to unsigned to produce faster Z80 code.
+
+Signed comparison:
+
+IF a > b THEN ...
+
+Unsigned comparison:
+
+IF CHR( a ) > CHR( b ) THEN ...
+Signed values are converted to unsigned CHAR type then compared.
+
+Addition and subtraction are the same for signed and unsigned numbers. Now we'll try to make efficient (no extra charge) unsigned division and multiplication operations for bytes and words. This way we can create any other operations absent in the language (there are because you can't provide for every eventuality):
+
+MODULE UMath; IMPORT SYSTEM, B := Basic;
+
+VAR a, b: SHORTINT;
+
+PROCEDURE -UMultBytes (a, b: SHORTINT):
+   SHORTINT
+   "( ((CHAR)a) * ((CHAR)b) )";
+PROCEDURE -UMultWords (a, b: INTEGER):
+   INTEGER
+   "(((unsigned int)a)*((unsigned int)b))";
+PROCEDURE -UDivBytes (a, b: SHORTINT):
+   SHORTINT
+   "( ((CHAR)a) / ((CHAR)b) )";
+PROCEDURE -UDivWords (a, b: INTEGER):
+   INTEGER
+   "(((unsigned int)a)/((unsigned int)b))";
+
+BEGIN (*$MAIN*)
+   B.Init;
+   (* ѕриводим т.к. значение >
+                         SIZE(SHORTINT): *)
+   a := SYSTEM.VAL(SHORTINT, 255);
+   b := SYSTEM.VAL(SHORTINT, 255);
+
+   (* ѕечатает: 65025 (255*255): *)
+   B.PRWORD( UMultBytes(a, b) );
+   B.PRLN;
+
+   (* ѕечатает: 1 ( (-1)*(-1) ): *)
+   B.PRWORD( a * b );
+   B.PRLN;
+   a := SYSTEM.VAL(SHORTINT, 255); b := 5;
+
+   (* ѕечатает: 51 (255 DIV 5): *)
+   B.PRWORD( UDivBytes(a, b) );
+   B.PRLN;
+
+   (* ѕечатает: 0 (-1 DIV 5): *)
+   B.PRWORD( a DIV b );
+   B.Quit
+END UMath.
+
+Note the result that can seem strange in procedures UMultiBytes and the rest Ч it's the same size as the arguments. This can mean that multiplication overflow will drop bits in the result. In fact, this doesn't happen because these operations look this way inside:
+
+#define UMath_UDivBytes(a, b)            \
+   ( ((CHAR)a) / ((CHAR)b) )
+#define UMath_UDivWords(a, b)            \
+   (((unsigned int)a)/((unsigned int)b))
+#define UMath_UMultBytes(a, b)           \
+   ( ((CHAR)a) * ((CHAR)b) )
+#define UMath_UMultWords(a, b)           \
+   (((unsigned int)a)*((unsigned int)b))
+
+I used here a short type (byte) to make the result compatible with short type (in case of evaluating a 1 byte variable with this result) without lengthening, i.e.:
+
+   short := UMultBytes(short1, short2);
+
+instead of more Oberonish SHORT() converting to shorter type (guess which method is more optimal?):
+
+   short:=SHORT(UMultBytes(short1,short2));
+
+If a result type is medium size (i.e. word), its most significant bit isn't skipped, as you see:
+
+   integer := UMultBytes(short1, short2);
+
+(Oberon requires explicit using of SHORT() to convert to shorter type; this is to control result distortion if you cast longer types to shorter ones).
+
+
+Bitwise calculus
+
+Niklaus Wirth tried to make bitwise operations look more like mathematical abstractions, so the bits of a word are used as a set of integers that are bit positions (http://oberoncore.ru/library/wirth_sets). So in Oberon, instead of a universal set type, there are small sets of integers. SET type in Oberon is in fact a bit set independent of a byte order of a platform (the order of most significant byte Ч MSB, and least significant byte Ч LSB). Because of this, Oberon doesn't like casting integers to sets and vice versa, as this casting is low level enough to be dependent of byte order. Such a casting can lead to unpredicted behaviour in platforms of different byte order. Althout this is not a case for Z80.
+
+SET type size in Oberon is 4 bytes for sake of contemporary CPUs (GPCP has LONGSET type of 8 bytes), but in ZXDev we can select any set size in Ofront.par configuration file. I recommend 1 byte which is the most optimal for Z80.
+
+MOD operation (remainder after integer division) for certain divisors will be optimized to corresponding logical AND, for example Oberon's 'a MOD 8' will look as 'a & 7' in C after translation.
+
+Logical bitwise operations analogs for integer a and b:
+
+a AND b = ORD(BITS(a) * BITS(b))
+a XOR b = ORD(BITS(a) / BITS(b))
+a OR b = ORD(BITS(a) + BITS(b))
+NOT a = ORD(-BITS(a))
+
+Where ORD converts bit set into integer, and BITS converts integer into bit set. Oberon ideology doesn't encourage using integers as bits and vice versa because Wirth thinks this leads to loose typing and drop out the benefits of strict typing. So there are no BITS() and ORD(set) functions in Oberon standard but there are in Component Pascal (and in XDev too).
+
+   IF 0 IN set THEN (* if(set & 1) ... *)
+
+   (* if (set & 0x23) ... *)
+   IF BITS(23H) * set # {} THEN (* ... *)
+
+   (* if (set & 0x23) ... *)
+   IF {0, 1, 5} * set # {} THEN (* ... *)
+
+For my opinion, the latter version shows more clearly that the bits 0, 1, and 5 are tested in the set. Don't let the mannered form of bit operations meslead you, especially in the case of 'multiply' Ч the machine code looks well:
+
+; if ((0x23 & _set) != 0x0) {
+	ld	a,(#_set + 0)
+	and	a, #0x23
+	jr	Z, ...
+
+So you can write low level programs in Oberon. For example, a ZX Spectrum emulator.
+
+Constant arrays
+
+If you want to include resources and binary files in you code, Oberon doesn't provide anything but evaluation, element after element. I thank Oleg Komlev (Saferoll) a lot for his effort for adding a non-standard language extension in ZXDev Ч constant arrays. I give him the floor:
+
+Saferoll:
+
+What we achieved with constant arrays for May, 2015:
+
+1) Any number of dimensions for constant arrays.
+
+2) Types of elements - integer types (including BYTE), BOOLEAN or 
+CHAR. All these types become integer constants in C source.
+
+3) If an array consists of CHARs or BYTEs, the elements can be written either as a list in parentheses ('f', 20X, "7"), or as a string "ab". A string is 0X-terminated, so you must reserve place for it!
+
+You can write less symbols in quotes than the actual size of the array. If you do so, the symbols after 0X will be undetermined - depends on your C compiler. Emply string "" can be used for any ARRAY N 
+OF CHAR (or ARRAY N OF BYTE).
+
+Examples:
+
+   TYPE
+     MsgStr = ARRAY 3, 7 OF CHAR;
+   CONST
+     Way = MsgStr("Hello","Error","Try");
+   TYPE
+     Labirint = ARRAY 3, 16 OF CHAR;
+   CONST
+     Map = Labirint(
+       "...o..##...oo12",
+       "...o..##...oo35",
+       "...o..##...oo78"
+     );
+
+Not yet implemented: exporting the constant arrays (we are struggling with this);
+skipping array size to let Ofront find it automatically; $ setting for a fixed character array.
+Maybe there will be problems again with symbol/string confusion.
+The implementation can be more efficient, but what is made already is quite useful.
+
+
+Oberon and C joint usage
+
+You can insert arbitrary pieces of C and assembly code into Oberon programs. There are several means to do this (http://zx.oberon2.ru/forum/viewtopic.php?f=10&t=202):
+
+1. Including C source in Oberon program
+
+IMPORT SYSTEM;
+PROCEDURE -includemain
+   '#include "Main.c"';
+
+// --- Main.c ---
+void main (void) {
+   Basic_Init();
+   Laser_InitScroll(65392);
+   Laser_InitSprites(Rsrc_SprStart, 4769);
+   ...
+   Basic_Quit();
+}
+
+It's more reasonable to add individual functions this way, although it gives wider possibilities. Just take into account that Oberon module must know somehow about this C code to interact with it.
+
+As we know, Oberon string are null terminated but unlike C strings, they have maximum string length attached to them. If string procedures don't access memory outside this length, the code will work corrently. Can we use C strings in Oberon, without the length field? Of course we can. We describe C function calls in Oberon wrappers, they even can differ in arguments (see for example IntToStr):
+
+TYPE
+   (* C-like null-terminated string: *)
+   CString = SYSTEM.PTR;
+
+PROCEDURE -includestdlib
+   "#include <stdlib.h>";
+PROCEDURE -includestring
+   "#include <string.h>";
+PROCEDURE -Length (
+   str: CString): INTEGER
+     "strlen((char*)str)";
+PROCEDURE -CopyStr (dest, src: CString)
+   "strcpy((char*)dest, (char*)src)";
+PROCEDURE -IntToStr (
+   n: INTEGER; str: CString)
+     "_itoa(n, (char*)str, 10)";
+PROCEDURE -UIntToStr (
+   u: INTEGER; s: CString)
+"_uitoa((unsigned int)u, (char*)s, 10)";
+PROCEDURE -Concat (dest, src: CString)
+   "strcat((char*)dest, (char*)src)";
+
+Usage example:
+
+IMPORT SYSTEM, B := Basic;
+CONST
+   MaxIntSize = 7; (* У-12345Ф + 0X. *)
+VAR
+   num: SHORTINT;
+   strBuf: ARRAY MaxIntSize OF CHAR;
+BEGIN
+   num := B.RND(1, 4);
+   UIntToStr(num, SYSTEM.VAL(
+     CString, SYSTEM.ADR(strBuf))
+   );
+   Concat(SYSTEM.VAL(CString,
+     SYSTEM.ADR(strBuf)),
+     SYSTEM.VAL(CString,
+       SYSTEM.ADR(" is my number"))
+   );
+
+
+2. Binding
+
+To interact with C code in Oberon, we must bind to it in some way. We need to make a description of the interface of C library, in the style of Oberon module, to call its procedures from other modules, use its constants etc. For this we must create a binding where the alien module interface is described complete with all the constants, types, and procedures (with empty bodies in the case of XDev). This is a common practice for linking module languages with C libraries (used not only in Oberons but also in Ada, Modula-2, Modula-3).
+
+XDev contains sufficient means to create bindings, with the possibilities of different calling conventions, changing one call with another, function prototypes etc. This made possible to create bindings for WinAPI and libSDL in XDev/WinDev. An example of simple binding (read the details in forum thread http://zx.oberon2.ru/forum/viewtopic.php?f=10&t=94).
+
+MODULE Input; IMPORT SYSTEM;
+
+CONST
+   Backspace* = 0CX;
+   Enter* = 0DX;
+   Escape* = "E";
+   Space* = " ";
+   (* Arrows *)
+   Up    * = "Q";
+   Down  * = "A";
+   Right * = "P";
+   Left  * = "O";
+
+TYPE
+   Key* = CHAR;
+
+(** Returns the number of keystrokes
+     in the keyboard input buffer. *)
+PROCEDURE Available* (): SHORTINT;
+BEGIN RETURN 0 END Available;
+
+(** Read a key from the keyboard buffer.
+     Blocks if no key is available. *)
+PROCEDURE Read* (): Key;
+BEGIN RETURN 0X END Read;
+
+PROCEDURE RunMe50Hz* ; END RunMe50Hz;
+
+END Input.
+
+The translator converts this binding to a C file with empty function bodies, plus needed 1) header file Obj/Input.h included in compilation, and 2) symbol file Sym/Input.sym that is like ones generated for native Oberon modules. It holds encoded interface of the module. We ignore the auto-generated empty C implementation, and at the time of compilation change it to handwritten one (written in C or assembly), that resides in /C directory and implements the functionality claimed in the interface.
+
+
+3. Binding with ready-made C header and self-written readdressing header
+
+I see the following variation: if needed, we can ignore even the header (*.h) generated by Oberon translator. Make a binding module in Oberon (to obtain a symbol file), and at the compile time a handmade C header is included, which 1) includes a standard C header, not adapted for Oberon's name prefixing etc; 2) describes the readdressing of Oberon procedures to C functions or even macros. This way trdos.lib library binding is made (see XDev package).
+
+
+Using the assembly language
+
+Passing the arguments. Register arguments are not supported in SDCC, but Philipp Krause said he'll think about this. Arguments are passed to functions in the stack, the last is return address. There are few ways to read the arguments, you should select the most suitable for you. If the argument(s) take 1 or 2 bytes, this code will do:
+
+  POP  HL ; Return address
+  POP  BC
+  PUSH BC ; One byte argument in C or two byte argument in BC
+  PUSH HL ; If the procedure doesn't change HL, PUSH HL:RET may be changed to JP (HL)
+
+or this (count the t-states and bytes):
+
+  LD   HL,#2
+  ADD  HL,SP
+  LD   C,(HL) ; 1st byte of argument(s)
+  INC  HL
+  LD   B,(HL) ; 2nd byte of argument(s)
+
+If somewhere deep inside the subroutine the arguments are needed in random order, then maybe IX addressing will be optimal:
+
+  PUSH IX
+  LD   IX,#0
+  ADD  IX,SP
+  LD   C,4(IX) ; 1st byte of argument(s)
+  LD   B,5(IX) ; 2nd byte of argument(s)
+  ...
+  POP  IX
+
+Function can't pop its arguments from the stack because in the default calling convention they are automatically popped after the function call (this helps to optimize the code sometimes). The function also must keep IX value as it is used to access the locals.
+
+Function result is returned (depending of size) in L, or in HL, or in DE:HL.
+
+Effective way to portable Z80 coding
+
+Let's discuss such an interesting topic as porting Spectrum games to other platforms. You know, the assembly code is not that clear but large. To understand its logic we must dig in large chunks of code to describe their functions. Results of a thorough work like this can be documented in a high level language. XDev can help here, presenting a language simple enough to be ported to different platforms, but not obsolete despite its 30 year age, well using the resources of all the today's platforms as I showed with Oberon midlets (http://zx.oberon2.ru/forum/viewtopic.php?f=27&t=38) and some Android development attempts (http://zx.oberon2.ru/forum/viewtopic.php?f=87&t=244). Compare this to C that, as far as I know, can't be compiled to Dalvik byte code or Java .class'es, because C allows too many dangerous things, denied in Java machines at byte code level. The same applies to browser applications. Oberon works well even on microcontrollers (http://www.youtube.com/watch?v=zlnj6FCY1tY), as well as on JVM and .NET (http://gpcp.codeplex.com).
+
+Sadly the format of this paper isn't suitable to describe all details of code migration from Z80 elsewhere, but if you want to see library interfaces and application code translated to different (very different!) targets, see XDev (and its subsystems for a number of platforms) and Monkey X environment (http://monkey-x.ru) that provides multi-target translation too. Despite all of the shortcomings of current implementations (they are far from universal but can evolve) this saves time and efforts, otherwise spent to master dozens of languages (changing with time), platforms and their APIs.
+
+I should note that I haven't seen a decent solution for development for ZX Spectrum and other platforms at the same time. You might say then nobody is interested in Spectrum-PC crossbreeding. I'll oppose - why the same utility or a game must be written differently for different platforms? Especially in different languages, there are tons of them now. I'm tired just reading their names. Maybe an unnoticed problem is here?
+
+Why I don't consider C a nice tool for simultaneous multiplatform development? First see above how C meets contemporary platform needs or maybe doesn't. Second, look with unbiased sight at any Spectrum game written in C (well, not counting Churrera games - Ed.). Did you notice plenty of assembly language pieces? So I assure you: that's a doom. Fortunately they are not all assembly. In short, I've never seen a development tool to automatize (at least partially) the process of removing ZX Spectrum limitations in a game. One should rewrite everything. XDev is not a tool for this. But Oberon, despite of its hard frame and its own limitations, doesn't seem bad for multi-target coding. Its facilities for this must be learned and of course improved. You should understand that I don't offer a panacea, I just state the problem and invite everyone to find means to solve it if you want.
+
+We migrate from Z80 assembly to C but don't find there a strong base for high level application programming, a safe and clear tool for complex programs and metaprogramming (scripting) (http://forum.oberoncore.ru/viewtopic.php?f=6&t=5267). If we move to Oberon keeping the paradigm of compiled code, we reserve the possibility to write low level in assembly, C, or Java, if needed (not for ZX of course, but for Java-based platforms). That's why I see C a kind of assembly language for other platforms. Good for low level but annoying for complex application logic.
+
+Because Z80 code is good with comments in a high level language, able to compile and run (for many targets ideally!), I skip all the compatibility and library/interface problems and so on, I just show a game code excerpt working on ZX Spectrum and other platforms at the same time. I don't state that XDev is ideal for this (now assembly coders shout "must die" and convulse of hating high level languages for Spectrum).
+
+So here is a keyboard scanning routine from "Durak" game by CopperFeet, ported to Oberon from Laser Basic, then supplemented with alternative assembly code:
+
+MODULE Durak;
+IMPORT M := Asm, B := Basic, Cfg;
+
+TYPE KeyCode = CHAR; VAR time: INTEGER;
+
+(* Scan keys & return a control code: *)
+PROCEDURE GetKey (): KeyCode;
+BEGIN
+   IF Cfg.Oberon THEN
+
+     (* ~ 2 min 50 sec to play music: *)
+     DEC(time, 9); B.PAUSE(9);
+     (* <Y>, <U>, <I>, <O>, <P>: *)
+     IF BITS(B.PORTIN(0DFFEH))*BITS(1FH)
+       # BITS(1FH) THEN RETURN 2X END;
+     (* <Q>, <W>, <E>, <R>, <T>: *)
+     IF BITS(B.PORTIN(0FBFEH))*BITS(1FH)
+       # BITS(1FH) THEN RETURN 1X END;
+     (* <A>, <S>, <D>, <F>, <G>:  *)
+     IF BITS(B.PORTIN(0FDFEH))*BITS(1FH)
+       # BITS(1FH) THEN RETURN 3X END;
+     (* <H>, <J>, <K>, <L>, <Enter>: *)
+     IF BITS(B.PORTIN(0BFFEH))*BITS(1FH)
+       # BITS(1FH) THEN RETURN 4X END;
+     (* <B>, <N>, <M>, <SS>, <Space>: *)
+     IF BITS(B.PORTIN( 7FFEH))*BITS(1FH)
+       # BITS(1FH) THEN RETURN 5X END;
+
+   ELSE
+
+    (* DEC(time, 9): *)
+    M.Code("LD   HL, (_Durak_time)      ");
+    M.Code("LD   DE, #0-9               ");
+    M.Code("ADD  HL, DE                 ");
+    M.Code("LD   (_Durak_time), HL      ");
+    (* B.PAUSE(9): *)
+    M.Code("LD   HL, #9                 ");
+    M.Code("PUSH HL                     ");
+    M.Code("CALL _Basic_PAUSE_DI_stdcall");
+    (* <Y>, <U>, <I>, <O>, <P>: *)
+    M.Code("LD   BC, #0xDFFE            ");
+    M.Code("IN   A, (C)                 ");
+    M.Code("CPL                         ");
+    M.Code("AND  #0x1F                  ");
+    M.Code("LD   L, #2                  ");
+    M.Code("RET  Z                      ");
+    (* <Q>, <W>, <E>, <R>, <T>: *)
+    M.Code("DEC  L                      ");
+    M.Code("LD   BC, #0xFBFE            ");
+    M.Code("IN   A, (C)                 ");
+    M.Code("CPL                         ");
+    M.Code("AND  #0x1F                  ");
+    M.Code("RET  Z                      ");
+    (* <A>, <S>, <D>, <F>, <G>:  *)
+    M.Code("LD   BC,#0xFDFE             ");
+    M.Code("IN   A, (C)                 ");
+    M.Code("CPL                         ");
+    M.Code("AND  #0x1F                  ");
+    M.Code("LD   L, #3                  ");
+    M.Code("RET  Z                      ");
+    (* <H>, <J>, <K>, <L>, <Enter>: *)
+    M.Code("INC  L                      ");
+    M.Code("LD   BC, #0xBFFE            ");
+    M.Code("IN   A, (C)                 ");
+    M.Code("CPL                         ");
+    M.Code("AND  #0x1F                  ");
+    M.Code("RET  Z                      ");
+    (* <B>, <N>, <M>, <SS>, <Space>: *)
+    M.Code("INC  L                      ");
+    M.Code("LD   BC, #0x7FFE            ");
+    M.Code("IN   A, (C)                 ");
+    M.Code("CPL                         ");
+    M.Code("AND  #0x1F                  ");
+    M.Code("RET  Z                      ");
+   END;
+
+   RETURN 0X
+END GetKey;
+
+END Durak.
+
+Interesting thing is, the assembly code is smaller but if we compress with Hrum, compressed Oberon version is smaller than compressed assembly version. This leads to a conclusion: having sufficient memory and speed to decompress machine code (if decompression is not slow) we must save address space, and in this case this main resource (if it's scarce) is the best argument for assembly language; but for some problems we prefer easiness and flexibility of development (planning, prototyping, debugging) to saving the address space (however we can use a kind of p-code to save address space, losing the speed - Ed.).
+
+
+Features of Oberon languages missing in ZXDev
+
+There are a number of Oberon possibilities that seem to be never implemented on Z80. Dynamic module handling (loading-saving modules on the fly), automatic memory management (garbage collector; one can use dynamic memory though, disposing it with Platform.DISPOSE), metaprogramming abilities of the core, exception handling, instant (posthumous) debugging etc. You know, the speed and memory (mostly address space) of Z80 are too short for feeling all the delight of Oberon language development.
