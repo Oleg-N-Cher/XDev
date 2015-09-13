@@ -1,0 +1,47 @@
+MODULE MegaLZ;
+
+TYPE
+  UINTEGER = LONGINT;
+
+PROCEDURE Depack* (source, dest: UINTEGER); END Depack;
+
+(*
+    Z80 depacker FOR megalz V4 packed files   (C) fyrex^mhm
+
+    DESCRIPTION:
+
+    Depacker is fully relocatable, NOT self-modifying,
+    it's length is 110 bytes starting from DEC40.
+    Register usage: AF,AF',BC,DE,HL. Must be CALL'ed, return is done by RET.
+    Provide extra stack location FOR store 2 bytes (1 word). Depacker does NOT
+    disable OR enable interrupts, AS well AS could be interrupted AT any time
+    (no f*cking wicked stack usage :).
+
+     USAGE:
+
+     - put depacker anywhere you want,
+     - put starting address of packed block in HL,
+     - put location where you want data TO be depacked in DE,
+       (much like LDIR command, but without BC)
+     - make CALL TO depacker (DEC40).
+     - enjoy! ;)
+
+     PRECAUTIONS:
+
+     Be very careful IF packed AND depacked blocks coincide somewhere in memory.
+     Here are some advices:
+
+     1. put packed block TO the highest addresses possible.
+         Best IF last BYTE of packed block has address #FFFF.
+
+     2. Leave some gap between ends of packed AND depacked block.
+         FOR example, last BYTE of depacked block AT #FF00,
+         last BYTE of packed block AT #FFFF.
+
+     3. Place nonpackable data TO the END of block.
+
+     4. Always check whether depacking occurs OK AND neither corrupts
+         depacked data nor hangs computer.
+*)
+
+END MegaLZ.
