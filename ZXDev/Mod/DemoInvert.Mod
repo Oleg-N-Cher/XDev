@@ -1,11 +1,11 @@
 MODULE DemoInvert; (*$MAIN*)
-IMPORT Console, Mega;
+IMPORT Console, MegaBasic;
 
 BEGIN
 	Console.Clear(Console.Black);
-	Mega.INVERT;
+	MegaBasic.INVERT;
 	Console.WriteStr(" To Be Inverted!");
-	Mega.INVERT;
+	MegaBasic.INVERT;
 	Console.WriteStr(" To Be Inverted!");
-	Mega.INVERT;
+	MegaBasic.INVERT;
 END DemoInvert.

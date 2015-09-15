@@ -7,16 +7,15 @@
 /* -------------------- */
 
 #include "SYSTEM.h"
-#include "Mega.h"
 
-export void Mega_INVERT (void);
-export void Mega_PLAY (BOOLEAN soundType,
+export void MegaBasic_INVERT (void);
+export void MegaBasic_PLAY (BOOLEAN soundType,
   SHORTCARD stepLen, SHORTCARD startFreq, CARDINAL stepNum, SHORTCARD incFreq);
 
 /*================================== Header ==================================*/
 
 /* "INVERT" - инвертирование экрана: тон становится фоном, а фон - тоном. */
-void Mega_INVERT (void)
+void MegaBasic_INVERT (void)
 {
 __asm
   LD   HL, #0x4000
@@ -31,7 +30,7 @@ INV_LOOP$:
   OR   C
   JR   NZ, INV_LOOP$
 __endasm;
-} //Mega_INVERT
+} //MegaBasic_INVERT
 
 /*--------------------------------- Cut here ---------------------------------*/
 /* PLAY_N,L,S,D,F[,D,F...]
@@ -41,7 +40,7 @@ __endasm;
 приращение частоты после каждого шага. Переменные D и F при
 необходимости могут быть повторены нужное количество раз. */
 
-void Mega_PLAY (BOOLEAN soundType,
+void MegaBasic_PLAY (BOOLEAN soundType,
   SHORTCARD stepLen, SHORTCARD startFreq, CARDINAL stepNum, SHORTCARD incFreq)
 {
   // n = [#C2FA]; l = [#C2FB]; s = [#C2FC]
@@ -153,4 +152,4 @@ C2FC$:
 EXITPLAY$:
   EI
 __endasm;
-} //Mega_PLAY
+} //BasicMega_PLAY
