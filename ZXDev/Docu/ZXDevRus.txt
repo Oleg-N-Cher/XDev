@@ -49,7 +49,7 @@ Best40 - "40 лучших процедур" от SerzhSoft. На самом деле меньше. :)
 Graph - основа порта графической библиотеки Graph (из Turbo Pascal)
 Laser - графические операторы расширения Laser Basic
 libspr - вывод спрайтов
-Mega - пара операторов из Mega Basic
+MegaBasic - пара операторов из Mega Basic
 MiraMod2 - порт модуля GRAPH0 с Mira Modula-2 как пример Оберон-библиотеки
 NewSupercode - несколько процедур из пакета "New Supercode"
 PT3x0A - быстрый и короткий PT3.x Player от RSM

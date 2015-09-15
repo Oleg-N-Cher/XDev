@@ -1,4 +1,4 @@
-MODULE Mega; (** non-portable *)
+MODULE MegaBasic; (** non-portable *)
 (* -------------------- *)
 (* MEGA BASIC for ZXDev *)
 (*   by Oleg N. Cher    *)
@@ -14,11 +14,11 @@ TYPE
 	WORD = LONGINT;
 	SoundType = BOOLEAN;
 
-PROCEDURE INVERT* ; BEGIN END INVERT;
+PROCEDURE INVERT* ; END INVERT;
 
 (* Procedures for sound: *)
 PROCEDURE PLAY* (
 	sound: SoundType; stepLen, startFreq: UBYTE; stepNum: WORD; incFreq: UBYTE);
-BEGIN END PLAY;
+END PLAY;
 
-END Mega.
+END MegaBasic.
