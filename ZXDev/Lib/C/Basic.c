@@ -36,8 +36,8 @@ export void Basic_PLOT (SHORTINT x, SHORTINT y);
 export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
-export void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-export void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+export void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+export void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 export void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
@@ -713,7 +713,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*
-void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, INTEGER radius) {
+void Basic_CIRCLEW (SHORTINT cx, SHORTINT cy, INTEGER radius) {
   SHORTINT x, y;
   INTEGER rr, xx, yy;
   x = radius; y = 0; rr = x*x; xx = rr-x; yy = 0;
@@ -732,7 +732,7 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, INTEGER radius) {
     }
   } while (x >= y);
 */
-void Basic_CIRCLE_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -904,10 +904,10 @@ WRAP0$:
     LD   C, L
     JP   0x22E5
   __endasm;
-} //Basic_CIRCLE_DI
+} //Basic_CIRCLEW_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLE_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -1081,7 +1081,7 @@ WRAP1$:
     LD   C, L
     JP   0x22E5
   __endasm;
-} //Basic_CIRCLE_EI
+} //Basic_CIRCLEW_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
