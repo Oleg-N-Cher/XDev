@@ -4,90 +4,28 @@ void Gfx_Fill (unsigned char x, unsigned char y, unsigned char atr);
 
 void Gfx_Fill (unsigned char x, unsigned char y, unsigned char atr) __naked {
   __asm
-        JP LOC_7DBF
+        POP  HL
+        POP  DE            ; y, x
+        POP  BC            ; atr
+        PUSH BC
+        PUSH DE
+        PUSH HL
+        LD   A, D
+        CP   #0xC0
+        RET  NC            ; y > 191
+        
+        LD A,D
+        LD D,E
+        LD E,A
 
-SUB_7DA0:
-        JR LOC_7DAB
-        ; ====================
-        RST    0x18 ; GET_CHAR
-        CP    #0x2C
-        SCF
-        RET    NZ
-        PUSH    DE
-        RST    0x20 ; NEXT_CHAR
-        CALL   0x24FB ; SCANNING
-        POP    DE
+        LD   L, #0
+        LD   A, C          ; atr
+        CP   #8
+        JR   NC, LOC_7DF2$
+        LD   L, #0xF8
+        LD   H, C
 
-LOC_7DAB:                ; CODE XREF: SUB_7DB1+27J
-        AND    A
-        RET
-; END OF FUNCTION SUB_7DA0
-
-
-; =============== S U B    R O U T    I N E =======================================
-
-
-SUB_7DAD:                ; CODE XREF: SUB_7DB1+EP SUB_7DB1+32P
-        ;CALL    SUB_7DA0
-        ;RET    C
-; END OF FUNCTION SUB_7DAD
-
-
-; =============== S U B    R O U T    I N E =======================================
-
-
-SUB_7DB1:                ; CODE XREF: SUB_7DB1+29P
-        PUSH    DE
-        ; CALL    0x2DA2 ; FP_TO_BC
-        LD  BC, #0x1 ; ‘иктивный аргумент
-        LD  A,#0
-        AND A      ; —брос флага C
-        POP    DE
-        JR    C, LOC_7DBD
-        JR    NZ, LOC_7DBD
-        LD    A, B
-        AND    A
-        RET    Z
-
-LOC_7DBD:                ; CODE XREF: SUB_7DB1+5J SUB_7DB1+7J ...
-        RST    8
-        INC    B
-LOC_7DBF:
-        CALL    SUB_7DAD
-        JR    NC, LOC_7DC6
-
-LOC_7DC4:                ; CODE XREF: SUB_7DB1+19J
-        RST    8
-        ADD    HL, DE
-
-LOC_7DC6:                ; CODE XREF: SUB_7DB1+11J
-        LD    D, C
-        CALL    SUB_7DA0
-        JR    C, LOC_7DC4
-        PUSH    DE
-        RST    0x28
-        AND    C
-        LD    SP, #0x310F
-        RRCA
-        LD    SP, #0x310F
-        RRCA
-        RRCA
-        JR    C, LOC_7DAB
-        CALL    SUB_7DB1
-        LD    A, C
-        CP    #0xC0
-        JR    NC, LOC_7DBD
-        LD    E, C
-        CALL    SUB_7DAD
-        LD    L, #0
-        JR    C, LOC_7DF2
-        LD    A, C
-        CP    #8
-        JR    NC, LOC_7DF2
-        LD    L, #0xF8
-        LD    H, C
-
-LOC_7DF2:                ; CODE XREF: SUB_7DB1+37J SUB_7DB1+3CJ
+LOC_7DF2$:
         PUSH    DE
         PUSH    HL
         LD    HL, #0
@@ -100,10 +38,10 @@ LOC_7DF2:                ; CODE XREF: SUB_7DB1+37J SUB_7DB1+3CJ
         RR    L
         LD    B, #0xA
 
-LOC_7E08:                ; CODE XREF: SUB_7DB1+58J
-        DEC    HL
-        DJNZ    LOC_7E08
-        EX    DE, HL
+LOC_7E08$:
+        DEC  HL
+        DJNZ LOC_7E08$
+        EX   DE, HL
         POP    HL
         EXX
         LD    HL, #0x4000
@@ -259,15 +197,9 @@ SUB_7EA1:                ; CODE XREF: SUB_7EF3+C5P
 ; =============== S U B    R O U T    I N E =======================================
 
 
-SUB_7EB9:                ; CODE XREF: SUB_7DB1+76P SUB_7EF3+DBP
+SUB_7EB9:
         LD    A, E
-; END OF FUNCTION SUB_7EB9
-
-
-; =============== S U B    R O U T    I N E =======================================
-
-
-SUB_7EBA:                ; CODE XREF: SUB_7EF3+E2P
+SUB_7EBA:
         INC    H
         DEC    E
         AND    #7
@@ -581,9 +513,6 @@ LOC_7FEB:                ; CODE XREF: SUB_7EF3+E0J
         INC    IX
         RET
 ; END OF FUNCTION SUB_7EF3
-
-; ---------------------------------------------------------------------------
-        .DB    0
 
   __endasm;
 } //Gfx_Fill
