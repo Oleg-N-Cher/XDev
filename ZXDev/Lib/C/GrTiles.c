@@ -51,15 +51,13 @@ __endasm;
 void GrTiles_DrawMonoTile8x8 (
     unsigned char x, unsigned char y, unsigned int tile, unsigned char colors) {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   E,4(IX) ; x
-  LD   D,5(IX) ; y
-  LD   L,6(IX)
-  LD   H,7(IX) ; tile address
+  LD   HL, #2
+  ADD  HL, SP
+  LD   E, (HL) // E = x
+  INC  HL
+  LD   D, (HL) // D = y
+  INC  HL
+; ====================================
   LD   A,D     ; Здесь вычисляется адрес
   RRCA         ;  строки, номер которой задан
   RRCA         ;  в регистре A
@@ -71,6 +69,15 @@ __asm
   AND  #0x18
   OR   #0x40
   LD   D,A     ; Счётчик цикла рисования
+; ====================================
+  LD   A, (HL)
+  INC  HL
+  LD   B, (HL) // BA = tile address
+  INC  HL
+  LD   C, (HL) // C = colors
+  LD   L, A
+  LD   H, B    ; HL = tile address
+; ====================================
   LD   B,#7
 DRLOOPM$:
   LD   A,(HL)  ; Берём байт из фонта
@@ -90,11 +97,8 @@ DRLOOPM$:
   AND  #3      ; 7
   OR   #0x58   ; 7
   LD   D,A     ; 4 = 34t
-  LD   A,8(IX) ; tile attrib
+  LD   A,C     ; tile attrib
   LD   (DE),A
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //GrTiles_DrawMonoTile8x8
 
