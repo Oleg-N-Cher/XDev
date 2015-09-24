@@ -422,38 +422,3 @@ END Grx.
 (Best40_ или Basic_), эмулируя квалифицированный импорт из Оберонов. Также поступает
 и Ofront. В то же время, остаётся возможность из сишных частей программы вызывать
 такие функции без префиксов, что реализуется с помощью препроцессора.
-
-
-Авторские права
-===============
-
-Сборка XDev и подсистема ZXDev - Oleg N. Cher & Saferoll, VEDAsoft Oberon Club '2015
-  ( http://zx.oberon2.ru  ICQ 2-20-84-03  allot -bk- ru )
-
-BlackBox Component Builder - Oberon microsystems AG - www.oberon.ch
-
-Пакет русской документации для BlackBox 1.6 - проект ИНФОРМАТИКА-21
-
-Ofront - Software Templ OG - www.software-templ.com/shareware.html
-
-Small Device C Compiler - SDCC Team - http://sdcc.sourceforge.net/
-
-Laser Basic for ZX Spectrum - Oasis Software (Kevin Hambleton) -
-    http://www.worldofspectrum.org/infoseekid.cgi?id=0008327
-  E.Michailov (HVG) -
-    http://zx.pk.ru/showthread.php?t=11615
-PC110 Micro C (+Laser Basic lib) - Raydac Soft'93 A.G. (I.Maznitsa, E.Michailov)
-
-BIN2TRD - Copper Feet '1999 (V.Mednonogov)
-
-HEX2BIN - Rockwell Automation (Jacques Pelletier)
-
-StripBIN, SmartLib - VEDAsoft Oberon Club (Oleg N. Cher)
-
-H2O - Stewart Greenhill - http://sourceforge.net/projects/ooc/files/ooc2/
-
-Tiny C - Fabrice Bellard - http://bellard.org/tcc/
-
-TrDos library - Amxgris/Red Triangle/Mother Russia
-
-bin2tap - Michal Jurica - http://zeroteam.sk/bin2tap.html

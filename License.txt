@@ -1,10 +1,5 @@
 Copyright (c) 2012-2015 XDev team & VEDAsoft Oberon Club.
 
-BlackBox Component Builder - (c) 1994-2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
-Ofront (Oberon-2 to C translator) - (c) 1992-2013 Software Templ OG. All rights reserved.
-BlackBox Component Builder CPC Edition - (c) 2014-2015 Helmut Zinn.
-
-
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -21,3 +16,22 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+CREDITS
+
+BlackBox Component Builder by Oberon microsystems AG, Inc. - www.oberon.ch
+Ofront (Oberon-2 to C translator) by Software Templ OG - www.software-templ.com
+"Right FOR" & constant arrays features for Ofront by Oleg Komlev (Saferoll)
+BlackBox 1.7 CPC Edition by Helmut Zinn - www.zinnamturm.eu
+Russian doc. for BlackBox 1.6 by INFORMATIKA-21 project - www.inr.ac.ru/~info21/
+H2O tool by Stewart Greenhill - http://sourceforge.net/projects/ooc/files/ooc2/
+Small Device C Compiler by "SDCC Team" - http://sdcc.sourceforge.net
+Laser Basic extended - Raydac Soft A.G. ( I. Maznitsa, E. Michailov (HVG) )
+Hex2bin by Rockwell Automation (Jacques Pelletier) - http://hex2bin.sf.net
+bin2tap by Michal Jurica - http://zeroteam.sk/bin2tap.html
+bin2trd by Copper Feet (Vyacheslav Mednonogov)
+TrDos library by Amxgris/Red Triangle/Mother Russia
+ZX7: an "optimal" LZ77 packer by Einar Saukas - www.ime.usp.br/~einar/
+Tiny C by Fabrice Bellard - http://bellard.org/tcc/
+
