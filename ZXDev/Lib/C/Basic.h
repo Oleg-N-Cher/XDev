@@ -175,6 +175,8 @@ import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
 import void Basic_DRAW (SHORTINT x, SHORTINT y);
 
+import void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+
 import void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 import void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
@@ -435,6 +437,7 @@ import void Basic__IM2ADR (void);
 #define POINT Basic_POINT
 #define ATTR Basic_ATTR
 #define DRAW Basic_DRAW
+#define CIRCLE Basic_CIRCLE
 #define CIRCLEW Basic_CIRCLEW
 #define CIRCLEROM Basic_CIRCLEROM
 #define PRINT Basic_PRINT
