@@ -36,6 +36,7 @@ export void Basic_PLOT (SHORTINT x, SHORTINT y);
 export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 export void Basic_DRAW (SHORTINT x, SHORTINT y);
+export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
 export void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 export void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 export void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
@@ -390,7 +391,7 @@ void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601 // IX-safe
+  CALL 0x1601 // IX-safe
   LD   A,#22
   RST  16
   POP  HL
@@ -409,7 +410,7 @@ void Basic_AT_ROM_fastcall (void /* post */) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601 // IX-safe
+  CALL 0x1601 // IX-safe
   LD   A,#22
   RST  16
   POP  HL
@@ -480,7 +481,7 @@ void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601
+  CALL 0x1601
   POP  HL
   POP  BC
   PUSH BC
@@ -500,7 +501,7 @@ void Basic_PRSTR_C_ROM_fastcall (void /* post */) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601
+  CALL 0x1601
 PRSTRfst$:
   POP  HL
   LD   A,(HL)
@@ -543,8 +544,8 @@ PO_GR$:
   LD   B,A
   LD   HL,#PO_GR_BUF$
   PUSH HL
-  CALL #0xB3E /* Generate po_gr char to buffer */
-  CALL #0xB3E
+  CALL 0xB3E /* Generate po_gr char to buffer */
+  CALL 0xB3E
   POP  HL
 USER_FONT$:
   LD   DE,(#23684)
@@ -594,7 +595,7 @@ void Basic_PRCHAR_ROM (CHAR ch) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601
+  CALL 0x1601
   POP  HL
   POP  BC
   PUSH BC
@@ -617,7 +618,7 @@ void Basic_PRDATA (void)
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
-  CALL #0x1601
+  CALL 0x1601
   POP  HL
 PRDATA$:
   LD   A,(HL)
@@ -661,8 +662,8 @@ __asm
   POP  BC
   PUSH BC
   PUSH HL
-  CALL #0x22CE
-  CALL #0x2DD5
+  CALL 0x22CE
+  CALL 0x2DD5
   LD   L,A
 __endasm;
 } //Basic_POINT
@@ -675,8 +676,8 @@ __asm
   POP  BC
   PUSH BC
   PUSH HL
-  CALL #0x2583
-  CALL #0x2DD5
+  CALL 0x2583
+  CALL 0x2DD5
   LD   L,A
 __endasm;
 } //Basic_ATTR
@@ -710,6 +711,81 @@ PositiveY$:
   JP   0x24BA
 __endasm;
 } //Basic_DRAW
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
+  __asm
+        POP  BC
+        POP  HL     ; L = x; H = y
+        POP  DE     ; E = radius
+        PUSH DE
+        PUSH HL
+        PUSH BC
+        LD   C, #0
+        LD   B, E
+LOOPCI$:
+        CALL DOTCI$ ; sector 1
+        LD   A, B
+        NEG
+        LD   B, A
+        CALL DOTCI$ ; sector 4
+        LD   A, C
+        NEG
+        LD   C, A
+        CALL DOTCI$ ; sector 5
+        LD   A, B
+        NEG
+        LD   B, A
+        CALL DOTCI$ ; sector 8
+        LD   A, C
+        LD   C, B
+        LD   B, A
+        CALL DOTCI$ ; sector 3
+        LD   A, C
+        NEG
+        LD   C, A
+        CALL DOTCI$ ; sector 6
+        LD   A, B
+        NEG
+        LD   B, A
+        CALL DOTCI$ ; sector 7
+        LD   A, C
+        NEG
+        LD   C, A
+        CALL DOTCI$ ; sector 8
+        LD   A, C
+        LD   C, B
+        LD   B, A
+        INC  C
+        LD   A, E
+        SUB  C
+        LD   E, A
+        JR   NC, LOOPCI$
+        DEC  B
+        LD   A, E
+        ADD  A, B
+        LD   E, A
+        LD   A, B
+        CP   C
+        JR   NC, LOOPCI$
+        RET
+
+DOTCI$: PUSH HL
+        PUSH DE
+        PUSH BC
+        LD   A, H
+        ADD  A, B
+        LD   B, A
+        LD   A, L
+        ADD  A, C
+        LD   C, A
+        CALL 0x22E5
+        POP  BC
+        POP  DE
+        POP  HL
+        RET
+__endasm;
+} //Basic_CIRCLE
 
 /*--------------------------------- Cut here ---------------------------------*/
 /*
@@ -894,15 +970,20 @@ WRAP0$:
     LD   A, D
     OR   A
     RET  NZ
-    LD   A, H
-    OR   A
-    RET  NZ
     LD   A, E
     CP   #0xB0
     RET  NC
+    LD   A, H
+    OR   A
+    RET  NZ
     LD   B, E
     LD   C, L
-    JP   0x22E5
+WRAP01$: // fixed for OVER 1 by Destr
+    LD   HL, #0xFFFF
+    LD   (WRAP01$+1), BC
+    SBC  HL, BC
+    JP   NZ, 0x22E5
+    RET
   __endasm;
 } //Basic_CIRCLEW_DI
 
@@ -1071,15 +1152,20 @@ WRAP1$:
     LD   A, D
     OR   A
     RET  NZ
-    LD   A, H
-    OR   A
-    RET  NZ
     LD   A, E
     CP   #0xB0
     RET  NC
+    LD   A, H
+    OR   A
+    RET  NZ
     LD   B, E
     LD   C, L
-    JP   0x22E5
+WRAP11$: // fixed for OVER 1 by Destr
+    LD   HL, #0xFFFF
+    LD   (WRAP11$+1), BC
+    SBC  HL, BC
+    JP   NZ, 0x22E5
+    RET
   __endasm;
 } //Basic_CIRCLEW_EI
 
@@ -1185,7 +1271,7 @@ __asm
 #endif
   LD   C,4(IX)
   LD   B,5(IX)
-  CALL #0x2D2B // BC-TO-FP
+  CALL 0x2D2B // BC-TO-FP
   BIT  7,5(IX)
   JR   Z,Positive$
 Negative$:
@@ -1198,8 +1284,8 @@ Negative$:
   .DB  #38   // end-calc
 Positive$:
   LD   A,#2
-  CALL #0x1601
-  CALL #0x2DE3 // PRINT-FP
+  CALL 0x1601
+  CALL 0x2DE3 // PRINT-FP
 #ifdef __SDCC
   POP  IX
 #endif
@@ -1291,7 +1377,7 @@ __asm
   LD   A,C
   OR   B
   JR   NZ,PauseDiF$
-  CALL #0x1F3D
+  CALL 0x1F3D
   JR   EndPauseDiF$
 PauseDiF$:
   HALT
@@ -1316,7 +1402,7 @@ __asm
   LD   A,C
   OR   B
   JR   NZ,PauseDiS$
-  CALL #0x1F3D
+  CALL 0x1F3D
   JR   EndPauseDiS$
 PauseDiS$:
   HALT
@@ -1439,15 +1525,15 @@ __asm
   POP  AF
   AND  A
   JP   M,BeperDi$ /* If freq < 0 then goto BeperDi$ */
-  CALL #0x2D28 /* Put positive freq into stack */
+  CALL 0x2D28 /* Put positive freq into stack */
   JR   DoBeepDi$
 BeperDi$:
   NEG         /* Make absolute value */
-  CALL #0x2D28 /* and put it into stack */
+  CALL 0x2D28 /* and put it into stack */
   RST  40
   .DB  27,56  /* Do it negative */
 DoBeepDi$:
-  CALL #0x3F8
+  CALL 0x3F8
   DI
   POP  IX
   RET
@@ -1474,15 +1560,15 @@ __asm
   POP  AF
   AND  A
   JP   M,BeperEi$ /* If freq < 0 then goto BEPER1$ */
-  CALL #0x2D28 /* Put positive freq into stack */
+  CALL 0x2D28 /* Put positive freq into stack */
   JR   DoBeepEi$
 BeperEi$:
   NEG         /* Make absolute value */
-  CALL #0x2D28 /* and put it into stack */
+  CALL 0x2D28 /* and put it into stack */
   RST  40
   .DB  27,56  /* Do it negative */
 DoBeepEi$:
-  CALL #0x3F8
+  CALL 0x3F8
   POP  IX
   RET
 __endasm;
