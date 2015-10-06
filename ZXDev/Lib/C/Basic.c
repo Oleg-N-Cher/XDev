@@ -714,15 +714,29 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
-  __asm
+  __asm // Fixed for OVER 1 by Reobne
         POP  BC
         POP  HL     ; L = x; H = y
         POP  DE     ; E = radius
         PUSH DE
         PUSH HL
         PUSH BC
+        
+        LD   C, E
+        LD   B, #0
+        CALL DOTCI$
+        LD   A, C
+        NEG
+        LD   C, A
+        CALL DOTCI$
+        LD   B, C
         LD   C, #0
-        LD   B, E
+        CALL DOTCI$
+        LD   A, B
+        NEG
+        LD   B, A
+        CALL DOTCI$
+        JR   DLOOPCI$
 LOOPCI$:
         CALL DOTCI$ ; sector 1
         LD   A, B
@@ -737,6 +751,7 @@ LOOPCI$:
         NEG
         LD   B, A
         CALL DOTCI$ ; sector 8
+HLOOPCI$:
         LD   A, C
         LD   C, B
         LD   B, A
@@ -756,6 +771,7 @@ LOOPCI$:
         LD   A, C
         LD   C, B
         LD   B, A
+DLOOPCI$:
         INC  C
         LD   A, E
         SUB  C
@@ -765,9 +781,10 @@ LOOPCI$:
         LD   A, E
         ADD  A, B
         LD   E, A
-        LD   A, B
-        CP   C
-        JR   NC, LOOPCI$
+        LD   A, C
+        CP   B
+        JR   C, LOOPCI$
+        JR   Z, HLOOPCI$
         RET
 
 DOTCI$: PUSH HL
@@ -788,26 +805,6 @@ __endasm;
 } //Basic_CIRCLE
 
 /*--------------------------------- Cut here ---------------------------------*/
-/*
-void Basic_CIRCLEW (SHORTINT cx, SHORTINT cy, INTEGER radius) {
-  SHORTINT x, y;
-  INTEGER rr, xx, yy;
-  x = radius; y = 0; rr = x*x; xx = rr-x; yy = 0;
-  do {
-    Basic_PLOT(cx+x, cy+y); Basic_PLOT(cx-x, cy+y);
-    Basic_PLOT(cx+x, cy-y); Basic_PLOT(cx-x, cy-y);
-    Basic_PLOT(cx+y, cy+x); Basic_PLOT(cx-y, cy+x);
-    Basic_PLOT(cx+y, cy-x); Basic_PLOT(cx-y, cy-x);
-    yy += y+y+1; y++;
-    if (xx > (rr-yy)) {
-      xx += 1-x-x; x--;
-      Basic_PLOT(cx+x, cy+y); Basic_PLOT(cx-x, cy+y);
-      Basic_PLOT(cx+x, cy-y); Basic_PLOT(cx-x, cy-y);
-      Basic_PLOT(cx+y, cy+x); Basic_PLOT(cx-y, cy+x);
-      Basic_PLOT(cx+y, cy-x); Basic_PLOT(cx-y, cy-x);
-    }
-  } while (x >= y);
-*/
 void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
   __asm
     LD   IY, #0x5C3A
