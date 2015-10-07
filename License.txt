@@ -25,6 +25,7 @@ Ofront (Oberon-2 to C translator) by Software Templ OG - www.software-templ.com
 "Right FOR" & constant arrays features for Ofront by Oleg Komlev (Saferoll)
 BlackBox 1.7 CPC Edition by Helmut Zinn - www.zinnamturm.eu
 Russian doc. for BlackBox 1.6 by INFORMATIKA-21 project - www.inr.ac.ru/~info21/
+Master subsystem for syntax highlighting - Sergey Yu. Gubanov
 H2O tool by Stewart Greenhill - http://sourceforge.net/projects/ooc/files/ooc2/
 Small Device C Compiler by "SDCC Team" - http://sdcc.sourceforge.net
 Laser Basic extended - Raydac Soft A.G. ( I. Maznitsa, E. Michailov (HVG) )
@@ -34,4 +35,3 @@ bin2trd by Copper Feet (Vyacheslav Mednonogov)
 TrDos library by Amxgris/Red Triangle/Mother Russia
 ZX7: an "optimal" LZ77 packer by Einar Saukas - www.ime.usp.br/~einar/
 Tiny C by Fabrice Bellard - http://bellard.org/tcc/
-
