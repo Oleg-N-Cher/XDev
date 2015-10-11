@@ -1,9 +1,9 @@
 /* Configuration file of the library Basic: */
 
-/* Interrupt mode of your program: DI, IM0, IM2. */
-/* For IM 0 mode use SDCC option --reserve-regs-iy */
+/* Interrupt mode of your program: DI, IM1, IM2. */
+/* For IM 1 mode use SDCC option --reserve-regs-iy */
 //#define MODE_DI
-//#define MODE_IM0
+//#define MODE_IM1
 #define MODE_IM2
 
 /* Use ROM output (RST 10H, slow, 32x22) or CUSTOM (fast, 32x24) */

@@ -14,7 +14,7 @@ export main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);
-	__REGMAIN("IM0", 0);
+	__REGMAIN("IM1", 0);
 /* BEGIN */
 	Basic_Init();
 	Basic_POKE(23560, 0);

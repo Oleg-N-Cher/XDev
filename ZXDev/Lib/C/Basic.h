@@ -11,7 +11,7 @@
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
 import void Basic_Init_DI (void);
-import void Basic_Init_IM0 (void);
+import void Basic_Init_IM1 (void);
 import void Basic_Init_IM2 (void);
 #ifdef MODE_DI
 #  define Basic_Init Basic_Init_DI
@@ -22,14 +22,14 @@ import void Basic_Init_IM2 (void);
      RES  4, 1(IY) \
   __endasm
 #endif //MODE_DI_inline
-#ifdef MODE_IM0
-#  define Basic_Init Basic_Init_IM0
-#endif //MODE_IM0
-#ifdef MODE_IM0_inline
+#ifdef MODE_IM1
+#  define Basic_Init Basic_Init_IM1
+#endif //MODE_IM1
+#ifdef MODE_IM1_inline
 #  define Basic_Init() __asm \
      RES  4, 1(IY) \
   __endasm
-#endif //MODE_IM0_inline
+#endif //MODE_IM1_inline
 #ifdef MODE_IM2
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
@@ -182,9 +182,9 @@ import void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_DI
 #endif //MODE_DI
-#if defined (MODE_IM0) || defined (MODE_IM0_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  define Basic_CIRCLEW Basic_CIRCLE_EIW
-#endif //MODE_IM0
+#endif //MODE_IM1
 #ifdef MODE_IM2
 #  define Basic_CIRCLEW Basic_CIRCLEW_EI
 #endif //MODE_IM2
@@ -229,13 +229,13 @@ import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 #    define Basic_PAUSE Basic_PAUSE_DI_stdcall
 #  endif
 #endif //MODE_DI
-#if defined (MODE_IM0) || defined (MODE_IM0_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  ifdef PAUSE_fastcall
 #    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
 #  else
 #    define Basic_PAUSE Basic_PAUSE_EI_stdcall
 #  endif
-#endif //MODE_IM0
+#endif //MODE_IM1
 #ifdef MODE_IM2
 #  ifdef PAUSE_fastcall
 #    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
@@ -256,9 +256,9 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_BEEP Basic_BEEP_DI
 #endif //MODE_DI
-#if defined (MODE_IM0) || defined (MODE_IM0_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  define Basic_BEEP Basic_BEEP_EI
-#endif //MODE_IM0
+#endif //MODE_IM1
 #ifdef MODE_IM2
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
@@ -357,7 +357,7 @@ import CHAR Basic_INKEY (void);
   __endasm
 
 import void Basic_Quit_DI (void);
-import void Basic_Quit_IM0 (void);
+import void Basic_Quit_IM1 (void);
 import void Basic_Quit_IM2 (void);
 
 #ifdef MODE_DI
@@ -372,16 +372,16 @@ import void Basic_Quit_IM2 (void);
   __endasm
 #endif //MODE_DI_inline
 
-#ifdef MODE_IM0
-#  define Basic_Quit Basic_Quit_IM0
-#endif //MODE_IM0
-#ifdef MODE_IM0_inline
+#ifdef MODE_IM1
+#  define Basic_Quit Basic_Quit_IM1
+#endif //MODE_IM1
+#ifdef MODE_IM1_inline
 #  define Basic_Quit() __asm \
      LD   HL, __id__(__hash__)0x2758 \
      EXX                             \
      LD   IY, __id__(__hash__)0x5C3A \
   __endasm
-#endif //MODE_IM0_inline
+#endif //MODE_IM1_inline
 
 #ifdef MODE_IM2
 #  define Basic_Quit Basic_Quit_IM2
@@ -392,7 +392,7 @@ import void Basic_Quit_IM2 (void);
      LD   HL,__id__(__hash__)0x2758 \
      EXX                            \
      LD   IY,__id__(__hash__)0x5C3A \
-     IM   0                         \
+     IM   1                         \
      EI                             \
    __endasm
 #endif //MODE_IM2_inline

@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 
 export void Basic_Init_DI (void);
-export void Basic_Init_IM0 (void);
+export void Basic_Init_IM1 (void);
 export void Basic_Init_IM2 (void);
 export void Basic_BORDER_stdcall (SHORTINT color);
 export void Basic_COLOR_fastcall (void /* Register A */);
@@ -59,7 +59,7 @@ export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
 export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 export CHAR Basic_INKEY (void);
 export void Basic_Quit_DI (void);
-export void Basic_Quit_IM0 (void);
+export void Basic_Quit_IM1 (void);
 export void Basic_Quit_IM2 (void);
 
 import CARDINAL _Basic_RandBB (void);
@@ -82,12 +82,12 @@ void Basic_Init_DI (void)
 } //Basic_Init_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Init_IM0 (void)
+void Basic_Init_IM1 (void)
 {
   __asm
   RES  4,1(IY) /* RESET OF 128K FLAG */
   __endasm;
-} //Basic_Init_IM0
+} //Basic_Init_IM1
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Init_IM2 (void) __naked {
@@ -727,6 +727,7 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
         CALL DOTCI$
         LD   A, C
         NEG
+        RET  Z
         LD   C, A
         CALL DOTCI$
         LD   B, C
@@ -736,6 +737,8 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
         NEG
         LD   B, A
         CALL DOTCI$
+        DEC  E
+        RET  Z
         JR   DLOOPCI$
 LOOPCI$:
         CALL DOTCI$ ; sector 1
@@ -1604,14 +1607,14 @@ __endasm;
 } //Basic_Quit_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Quit_IM0 (void)
+void Basic_Quit_IM1 (void)
 {
 __asm
   LD   HL,#0x2758
   EXX
   LD   IY,#0x5C3A
 __endasm;
-} //Basic_Quit_IM0
+} //Basic_Quit_IM1
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_IM2 (void)
@@ -1621,8 +1624,9 @@ __asm
   LD   HL,#0x2758
   EXX
   LD   IY,#0x5C3A
-  IM   0
+  LD   A,#0x3F
+  LD   I,A
+  IM   1
   EI
 __endasm;
 } //Basic_Quit_IM2
-
