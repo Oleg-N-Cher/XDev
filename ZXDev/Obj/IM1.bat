@@ -1,4 +1,4 @@
-@SET Mod=IM0
+@SET Mod=IM1
 @SET Bin=..\Bin
 @SET Lib=..\Lib
 @SET CodeAddr=26000

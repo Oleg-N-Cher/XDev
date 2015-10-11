@@ -20,7 +20,7 @@ __asm
   LD   HL,#0x2758
   EXX
   LD   IY,#0x5C3A
-  IM   0
+  IM   1
   EI
   JP   8
 __endasm;
