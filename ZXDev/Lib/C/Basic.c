@@ -714,7 +714,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
-  __asm // Fixed for OVER 1 by Reobne
+  __asm // Fixed for OVER 1 & small radius by Reobne
         POP  BC
         POP  HL     ; L = x; H = y
         POP  DE     ; E = radius
