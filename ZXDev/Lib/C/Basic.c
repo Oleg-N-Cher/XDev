@@ -695,16 +695,16 @@ __asm
   LD   A,C
   ADD  L
   JR   NC,PositiveX$
-  LD   A,C
-  NEG
+  XOR  A
+  SUB  C
   LD   C,A
   LD   E,#0xFF
 PositiveX$:
   LD   A,B
   ADD  H
   JR   NC,PositiveY$
-  LD   A,B
-  NEG
+  XOR  A
+  SUB  B
   LD   B,A
   LD   D,#0xFF
 PositiveY$:
@@ -725,16 +725,16 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
         LD   C, E
         LD   B, #0
         CALL DOTCI$
-        LD   A, C
-        NEG
+        XOR  A
+        SUB  C
         RET  Z
         LD   C, A
         CALL DOTCI$
         LD   B, C
         LD   C, #0
         CALL DOTCI$
-        LD   A, B
-        NEG
+        XOR  A
+        SUB  B
         LD   B, A
         CALL DOTCI$
         DEC  E
@@ -742,16 +742,16 @@ void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
         JR   DLOOPCI$
 LOOPCI$:
         CALL DOTCI$ ; sector 1
-        LD   A, B
-        NEG
+        XOR  A
+        SUB  B
         LD   B, A
         CALL DOTCI$ ; sector 4
-        LD   A, C
-        NEG
+        XOR  A
+        SUB  C
         LD   C, A
         CALL DOTCI$ ; sector 5
-        LD   A, B
-        NEG
+        XOR  A
+        SUB  B
         LD   B, A
         CALL DOTCI$ ; sector 8
 HLOOPCI$:
@@ -759,16 +759,16 @@ HLOOPCI$:
         LD   C, B
         LD   B, A
         CALL DOTCI$ ; sector 3
-        LD   A, C
-        NEG
+        XOR  A
+        SUB  C
         LD   C, A
         CALL DOTCI$ ; sector 6
-        LD   A, B
-        NEG
+        XOR  A
+        SUB  B
         LD   B, A
         CALL DOTCI$ ; sector 7
-        LD   A, C
-        NEG
+        XOR  A
+        SUB  C
         LD   C, A
         CALL DOTCI$ ; sector 8
         LD   A, C
