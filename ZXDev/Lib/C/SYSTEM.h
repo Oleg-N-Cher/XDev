@@ -81,8 +81,10 @@ extern void SYSTEM_ENUMR();
 #  define __REGMOD(name, enum)	if(m==0)m=SYSTEM_REGMOD((CHAR*)name,enum); else return m
 #  define __ENDMOD	return m
 #else
-#  define __DEFMOD	static char m; if(m!=0)return
-#  define __REGMOD(name, enum)	m=1
+#  define __DEFMOD	__asm LD HL,#. \
+     LD (HL),#0xC9 \
+     __endasm; // static char m; if(m!=0)return
+#  define __REGMOD(name, enum)
 #  define __ENDMOD
 #endif
 #ifdef SYSTEM_RegisterMain
