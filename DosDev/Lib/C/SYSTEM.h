@@ -47,7 +47,7 @@ extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
 extern SYSTEM_PTR SYSTEM_NEWARR (LONGINT size);
 extern SYSTEM_PTR SYSTEM_REGMOD();
-#ifdef SYSTEM_Cfg_IncRef
+#ifdef SYSTEM_IncRef
   extern void SYSTEM_INCREF();
 #else
   #define SYSTEM_INCREF(proc) proc
@@ -64,16 +64,16 @@ extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR();
 
 /* module registry */
-#ifdef SYSTEM_Cfg_RegisterModules
+#ifdef SYSTEM_RegisterModules
   #define __DEFMOD	static void *m; if(m!=0)return m
   #define __REGMOD(name, enum)	if(m==0)m=SYSTEM_REGMOD((CHAR*)name,enum); else return m
   #define __ENDMOD	return m
 #else
-  #define __DEFMOD
-  #define __REGMOD(name, enum)
+  #define __DEFMOD	static char m; if(m!=0)return
+  #define __REGMOD(name,enum)	m=1
   #define __ENDMOD
 #endif
-#ifdef SYSTEM_Cfg_RegisterMain
+#ifdef SYSTEM_RegisterMain
   #define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
   #define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
@@ -82,7 +82,7 @@ extern void SYSTEM_ENUMR();
 #endif
 #define __FINI	SYSTEM_FINI(); return 0
 #define __IMPORT(name__init) name__init()
-#ifdef SYSTEM_Cfg_RegisterCommands
+#ifdef SYSTEM_RegisterCommands
   #define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
 #else
   #define __REGCMD(name, cmd)
@@ -114,7 +114,7 @@ extern void SYSTEM_ENUMR();
 #define __MOD(x, y)	((x)>=0?(x)%(y):__MODF(x,y))
 #define __MODF(x, y)	SYSTEM_MOD((long)(x),(long)(y))
 
-#ifdef SYSTEM_Cfg_NoGC
+#ifdef SYSTEM_NoGC
 #  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(struct t))
 #  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
 	SYSTEM_NEWARR(elemalgn*va_alist);
@@ -149,7 +149,7 @@ extern void SYSTEM_ENUMR();
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
 
 /* runtime checks */
-#ifndef SYSTEM_Cfg_NoCheck_X
+#ifndef SYSTEM_NoCheck_X
 #  define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
 #  define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
 #else
@@ -168,7 +168,7 @@ extern void SYSTEM_ENUMR();
 #define __RF(i, ub)	SYSTEM_RCHK((long)(i),(long)(ub))
 
 /* record type descriptors */
-#ifdef SYSTEM_Cfg_RecTypeDesc
+#ifdef SYSTEM_RecTypeDesc
   #define __TDESC(t__desc, m, n) \
 	static struct t__desc {\
 		long tproc[m]; \
@@ -194,7 +194,7 @@ extern void SYSTEM_ENUMR();
 #define __ENUMP(adr, n, P)	SYSTEM_ENUMP(adr, (long)(n), P)
 #define __ENUMR(adr, typ, size, n, P)	SYSTEM_ENUMR(adr, typ, (long)(size), (long)(n), P)
 
-#ifdef SYSTEM_Cfg_InitTypes
+#ifdef SYSTEM_InitTypes
   #define __INITYP(t, t0, level) \
 	t##__typ= &t##__desc.blksz; \
 	memcpy(t##__desc.base, t0##__typ - __BASEOFF, level*sizeof(long)); \
@@ -209,7 +209,7 @@ extern void SYSTEM_ENUMR();
 #endif
 
 /* Oberon-2 type bound procedures support */
-#ifdef SYSTEM_Cfg_TypeBoundProcDynCalls
+#ifdef SYSTEM_TypeBoundProcDynCalls
   #define __INITBP(t, proc, num)	*(t##__typ-(__TPROC0OFF+num))=(long)proc
   #define __SEND(typ, procname, num, funtyp, parlist)	((funtyp)(*(typ-(__TPROC0OFF+num))))parlist
 #else
