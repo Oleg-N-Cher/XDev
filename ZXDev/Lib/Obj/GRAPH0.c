@@ -9,7 +9,7 @@ export void GRAPH0_CLS2 (void);
 export void GRAPH0_GCLS (void);
 export void GRAPH0_SCRDOT (void);
 export void GRAPH0_SCRNAD (void);
-export void GRAPH0_SETATTRS (CARDINAL X, CARDINAL Y, SHORTCARD L, SHORTCARD C);
+export void GRAPH0_SETATTRS (INTEGER X, INTEGER Y, SHORTINT L, SHORTINT C);
 
 #define GRAPH0__init()	/*noinit*/
 
@@ -69,7 +69,7 @@ void GRAPH0_GCLS (void)
 }
 
 /*----------------------------------------------------------------------------*/
-void GRAPH0_SETATTRS (CARDINAL X, CARDINAL Y, SHORTCARD L, SHORTCARD C)
+void GRAPH0_SETATTRS (INTEGER X, INTEGER Y, SHORTINT L, SHORTINT C)
 {
 	Asm_Code((CHAR*)"POP  BC                     ", (LONGINT)29);
 	Asm_Code((CHAR*)"POP  DE                     ", (LONGINT)29);

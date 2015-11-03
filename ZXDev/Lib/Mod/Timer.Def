@@ -1,7 +1,5 @@
 MODULE Timer; (** non-portable *)
 
-PROCEDURE Delay* (msec: LONGINT);
-BEGIN
-END Delay;
+PROCEDURE Delay* (msec: LONGINT); END Delay;
 
 END Timer.

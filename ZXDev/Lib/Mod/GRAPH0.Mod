@@ -10,7 +10,7 @@ MODULE GRAPH0; (* For the ZX Spectrum  (c) Mira Software 1991 *)
     SCRDOT and SCRNAD are imported by other graphic modules,
         and are not useable as procedures on their own. *)
 
-IMPORT S := SYSTEM, Asm;
+IMPORT SYSTEM, Asm;
 
 CONST
   width* = 256; height* = 192;
@@ -69,7 +69,7 @@ BEGIN
   Asm.Code("EXX                         ");
 END GCLS;
 
-PROCEDURE SETATTRS* (X, Y: S.CARDINAL; L, C: S.SHORTCARD); (** sets L character
+PROCEDURE SETATTRS* (X, Y: INTEGER; L, C: SHORTINT); (** sets L character
   squares to have attribute C starting at character position (X, Y). *)
 BEGIN
   Asm.Code("POP  BC                     ");
