@@ -6,7 +6,7 @@ MODULE Unsigned; (*$MAIN*)
 IMPORT SYSTEM, P := Platform, B := Basic;
 
 TYPE
-	BYTE = SYSTEM.SHORTCARD;
+	BYTE = (* UNSIGNED*) SHORTINT;
 VAR
 	byte: BYTE; (* 0..255 *)
 
