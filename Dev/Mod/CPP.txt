@@ -1081,21 +1081,24 @@ MODULE DevCPP;
 		BEGIN
 			n := 0;
 			IF sym = string THEN
-				NEW(ext, DevCPS.intval);
-				WHILE DevCPS.str[n] # 0X DO ext[n+1] := DevCPS.str[n]; INC(n) END ;
-				ext^[0] := SHORT(CHR(n)); DevCPS.Get(sym);
+				IF DevCPS.intval # 1 THEN
+					NEW(ext, DevCPS.intval - 1);
+					WHILE DevCPS.str[n] # 0X DO ext[n] := DevCPS.str[n]; INC(n) END ;
+				END ;
+				DevCPS.Get(sym);
 			ELSE
 				NEW(s, 256);
 				LOOP
-					IF sym = number THEN c := DevCPS.intval; INC(n); i := LEN(s^);
-						IF n > i THEN	(* if overflow then increase size of array s *)
+					IF sym = number THEN c := DevCPS.intval; i := LEN(s^);
+						IF n >= i THEN	(* if overflow then increase size of array s *)
 							NEW(s2, i * 2); WHILE i > 0 DO DEC(i); s2^[i] := s^[i] END; s := s2; s2 := NIL;
 						END;
-						IF (c < 0) OR (c > 255) OR (n = MAX(INTEGER)) THEN
-							err(64); c := 1; n := 1
+						IF (c < 0) OR (c > 255) THEN
+							err(63); c := 1; n := 0
 						END ;
-						DevCPS.Get(sym); s[n - 1] := SHORT(CHR(c))
+						DevCPS.Get(sym); s[n] := SHORT(CHR(c))
 					END ;
+					INC(n);
 					IF sym = comma THEN DevCPS.Get(sym)
 					ELSIF sym = number THEN err(comma)
 					ELSE EXIT
@@ -1104,7 +1107,6 @@ MODULE DevCPP;
 				IF n # 0 THEN 
 					NEW(ext, n); i := 0;
 					WHILE i < n DO ext[i] := s[i]; INC(i) END;
-				ELSE ext := NIL
 				END
 			END;
 			proc.conval.ext := ext;
