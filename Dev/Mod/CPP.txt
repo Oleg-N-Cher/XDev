@@ -1104,10 +1104,8 @@ MODULE DevCPP;
 					ELSE EXIT
 					END
 				END;
-				IF n # 0 THEN 
-					NEW(ext, n); i := 0;
-					WHILE i < n DO ext[i] := s[i]; INC(i) END;
-				END
+				NEW(ext, n); i := 0;
+				WHILE i < n DO ext[i] := s[i]; INC(i) END;
 			END;
 			proc.conval.ext := ext;
 			INCL(proc.conval.setval, hasBody)
