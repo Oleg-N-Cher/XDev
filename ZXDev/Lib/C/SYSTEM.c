@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-export void SYSTEM_HALT_A (void /* Register A */);
+export void SYSTEM_HALT_N (void /* Postparameter */);
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
@@ -17,8 +17,6 @@ CHAR *SYSTEM_str_par;
 /*--------------------------------- Cut here ---------------------------------*/
 void SYSTEM_HALT_N (void) __naked {
 __asm
-  LD   HL,#0x2758
-  EXX
   LD   IY,#0x5C3A
   IM   1
   EI
