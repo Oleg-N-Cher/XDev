@@ -1,7 +1,5 @@
 #include "SYSTEM.h"
 
-export void Basic_Init_DI (void);
-export void Basic_Init_IM1 (void);
 export void Basic_Init_IM2 (void);
 export void Basic_BORDER_stdcall (SHORTINT color);
 export void Basic_COLOR_fastcall (void /* Register A */);
@@ -72,28 +70,8 @@ import CARDINAL _Basic_RandBB (void);
 #define CHAR_SET$ 0x5C36
 /*================================== Header ==================================*/
 
-void Basic_Init_DI (void)
-{
-  __asm
-  DI
-//  LD   IY,#0x5C3A
-  RES  4,1(IY) /* RESET OF 128K FLAG */
-  __endasm;
-} //Basic_Init_DI
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_Init_IM1 (void)
-{
-  __asm
-  RES  4,1(IY) /* RESET OF 128K FLAG */
-  __endasm;
-} //Basic_Init_IM1
-
-/*--------------------------------- Cut here ---------------------------------*/
 void Basic_Init_IM2 (void) __naked {
   __asm
-  RES  4,1(IY) /* RESET OF 128K FLAG */
-
 ; ************************************************
 ; * Set IM2 mode (need for correct work with IY) *
 ; ************************************************
@@ -1596,8 +1574,7 @@ __endasm;
 } //Basic_INKEY
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Quit_DI (void)
-{
+void Basic_Quit_DI (void) {
 __asm
   LD   HL,#0x2758
   EXX
@@ -1607,18 +1584,15 @@ __endasm;
 } //Basic_Quit_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Quit_IM1 (void)
-{
+void Basic_Quit_IM1 (void) {
 __asm
   LD   HL,#0x2758
   EXX
-  LD   IY,#0x5C3A
 __endasm;
 } //Basic_Quit_IM1
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_Quit_IM2 (void)
-{
+void Basic_Quit_IM2 (void) {
 __asm
   DI
   LD   HL,#0x2758

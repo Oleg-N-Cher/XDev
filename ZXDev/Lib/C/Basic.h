@@ -10,26 +10,13 @@
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
-import void Basic_Init_DI (void);
-import void Basic_Init_IM1 (void);
 import void Basic_Init_IM2 (void);
 #ifdef MODE_DI
-#  define Basic_Init Basic_Init_DI
+#  define Basic_Init() __asm DI __endasm
 #endif //MODE_DI
-#ifdef MODE_DI_inline
-#  define Basic_Init() __asm \
-     DI            \
-     RES  4, 1(IY) \
-  __endasm
-#endif //MODE_DI_inline
 #ifdef MODE_IM1
-#  define Basic_Init Basic_Init_IM1
+#  define Basic_Init()
 #endif //MODE_IM1
-#ifdef MODE_IM1_inline
-#  define Basic_Init() __asm \
-     RES  4, 1(IY) \
-  __endasm
-#endif //MODE_IM1_inline
 #ifdef MODE_IM2
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
