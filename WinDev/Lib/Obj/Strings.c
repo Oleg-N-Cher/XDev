@@ -7,6 +7,7 @@ typedef
 
 
 
+export BOOLEAN Strings_CP1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len);
 export INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT pattern__len, INTEGER start);
 export void Strings_IntToStr (INTEGER n, CHAR *str, LONGINT str__len);
 export void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
@@ -404,3 +405,349 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 	}
 }
 
+/*----------------------------------------------------------------------------*/
+BOOLEAN Strings_CP1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len)
+{
+	INTEGER i, j, n, len;
+	CHAR ch;
+	CHAR utf8[3];
+	INTEGER _for__3, _for__2;
+	j = 0;
+	_for__3 = Strings_Length((void*)s, s__len) - 1;
+	i = 0;
+	while (i <= _for__3) {
+		len = 1;
+		ch = s[__X(i, s__len)];
+		if (ch >= 0x01 && ch <= 0x7f) {
+			utf8[0] = s[__X(i, s__len)];
+			len -= 1;
+		} else if (ch >= 0xc0 && ch <= 0xef) {
+			utf8[0] = 0xd0;
+			utf8[1] = (CHAR)((int)ch - 48);
+		} else if (ch >= 0xf0 && ch <= 0xff) {
+			utf8[0] = 0xd1;
+			utf8[1] = (CHAR)((int)ch - 112);
+		} else {
+			switch (ch) {
+				case 0x80: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x82;
+					break;
+				case 0x81: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x83;
+					break;
+				case 0x82: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x9a;
+					len += 1;
+					break;
+				case 0x83: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x93;
+					break;
+				case 0x84: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x9e;
+					len += 1;
+					break;
+				case 0x85: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xa6;
+					len += 1;
+					break;
+				case 0x86: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xa0;
+					len += 1;
+					break;
+				case 0x87: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xa1;
+					len += 1;
+					break;
+				case 0x88: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x82;
+					utf8[2] = 0xac;
+					len += 1;
+					break;
+				case 0x89: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xb0;
+					len += 1;
+					break;
+				case 0x8a: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x89;
+					break;
+				case 0x8b: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xb9;
+					len += 1;
+					break;
+				case 0x8c: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x8a;
+					break;
+				case 0x8d: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x8c;
+					break;
+				case 0x8e: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x8b;
+					break;
+				case 0x8f: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x8f;
+					break;
+				case 0x90: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x92;
+					break;
+				case 0x91: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x98;
+					len += 1;
+					break;
+				case 0x92: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x99;
+					len += 1;
+					break;
+				case 0x93: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x9c;
+					len += 1;
+					break;
+				case 0x94: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x9d;
+					len += 1;
+					break;
+				case 0x95: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xa2;
+					len += 1;
+					break;
+				case 0x96: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x93;
+					len += 1;
+					break;
+				case 0x97: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0x94;
+					len += 1;
+					break;
+				case 0x98: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0x98;
+					break;
+				case 0x99: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x84;
+					utf8[2] = 0xa2;
+					len += 1;
+					break;
+				case 0x9a: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x99;
+					break;
+				case 0x9b: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x80;
+					utf8[2] = 0xba;
+					len += 1;
+					break;
+				case 0x9c: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x9a;
+					break;
+				case 0x9d: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x9c;
+					break;
+				case 0x9e: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x9b;
+					break;
+				case 0x9f: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x9f;
+					break;
+				case 0xa0: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xa0;
+					break;
+				case 0xa1: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x8e;
+					break;
+				case 0xa2: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x9e;
+					break;
+				case 0xa3: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x88;
+					break;
+				case 0xa4: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xa4;
+					break;
+				case 0xa5: 
+					utf8[0] = 0xd2;
+					utf8[1] = 0x90;
+					break;
+				case 0xa6: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xa6;
+					break;
+				case 0xa7: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xa7;
+					break;
+				case 0xa8: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x81;
+					break;
+				case 0xa9: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xa9;
+					break;
+				case 0xaa: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x84;
+					break;
+				case 0xab: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xab;
+					break;
+				case 0xac: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xac;
+					break;
+				case 0xad: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xad;
+					break;
+				case 0xae: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xae;
+					break;
+				case 0xaf: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x87;
+					break;
+				case 0xb0: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xb0;
+					break;
+				case 0xb1: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xb1;
+					break;
+				case 0xb2: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x86;
+					break;
+				case 0xb3: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x96;
+					break;
+				case 0xb4: 
+					utf8[0] = 0xd2;
+					utf8[1] = 0x91;
+					break;
+				case 0xb5: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xb5;
+					break;
+				case 0xb6: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xb6;
+					break;
+				case 0xb7: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xb7;
+					break;
+				case 0xb8: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x91;
+					break;
+				case 0xb9: 
+					utf8[0] = 0xe2;
+					utf8[1] = 0x84;
+					utf8[2] = 0x96;
+					len += 1;
+					break;
+				case 0xba: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x94;
+					break;
+				case 0xbb: 
+					utf8[0] = 0xc2;
+					utf8[1] = 0xbb;
+					break;
+				case 0xbc: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x98;
+					break;
+				case 0xbd: 
+					utf8[0] = 0xd0;
+					utf8[1] = 0x85;
+					break;
+				case 0xbe: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x95;
+					break;
+				case 0xbf: 
+					utf8[0] = 0xd1;
+					utf8[1] = 0x97;
+					break;
+				default: 
+					break;
+			}
+		}
+		if ((LONGINT)((j + len) + 1) >= res__len) {
+			res[__X(j, res__len)] = 0x00;
+			return 0;
+		}
+		_for__2 = len;
+		n = 0;
+		while (n <= _for__2) {
+			res[__X(j, res__len)] = utf8[__X(n, 3)];
+			j += 1;
+			n += 1;
+		}
+		i += 1;
+	}
+	res[__X(j, res__len)] = 0x00;
+	return 1;
+}
+
+/*----------------------------------------------------------------------------*/
+
+export void *Strings__init(void)
+{
+	__DEFMOD;
+	__REGMOD("Strings", 0);
+/* BEGIN */
+	__ENDMOD;
+}
