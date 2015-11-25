@@ -243,7 +243,7 @@ BEGIN
   IF si < LEN(s) THEN s[si] := 0X ELSE HALT(23) END
 END LIntToStrForm;
 
-PROCEDURE CP1251ToUtf8* (
+PROCEDURE Win1251ToUtf8* (
   IN s: ARRAY OF CHAR; VAR res: ARRAY OF CHAR): BOOLEAN;
 (*
   http://freepascal.ru/forum/viewtopic.php?f=5&t=2389&start=15
@@ -252,106 +252,220 @@ PROCEDURE CP1251ToUtf8* (
 VAR
   i, j, n, len: INTEGER; ch: CHAR; utf8: ARRAY 3 OF CHAR;
 BEGIN
-  j := 0;
-  FOR i := 0 TO Length(s)-1 DO
+  i := 0; j := 0;
+  WHILE (i < LEN(s)) & (s[i] # 0X) DO
     len := 1; ch := s[i];
-    IF (ch >= 1X) & (ch <= 7FX) THEN (* One-byte and Russian characters *)
-      utf8[0] := s[i]; DEC(len);
+    IF (ch >= 1X) & (ch <= 7FX) THEN
+      utf8[0] := s[i]; DEC(len); (* One-byte and Russian characters *)
     ELSIF (ch >= 0C0X) & (ch <= 0EFX) THEN
-      utf8[0] := 0D0X; utf8[1] := CHR(ORD(ch) - 48);
+      utf8[0] := 0D0X; utf8[1] := CHR(ORD(ch) - 48);  (* "À".."ï" *)
     ELSIF (ch >= 0F0X) & (ch <= 0FFX) THEN
-      utf8[0] := 0D1X; utf8[1] := CHR(ORD(ch) - 112);
+      utf8[0] := 0D1X; utf8[1] := CHR(ORD(ch) - 112); (* "ð".."ÿ" *)
     ELSE
       CASE ch OF
-      |  80X: utf8[0] := 0D0X; utf8[1] :=  82X;                  (* € *)
-      |  81X: utf8[0] := 0D0X; utf8[1] :=  83X;                  (*  *)
-      |  82X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9AX; (* ‚ *)
+      |  80X: utf8[0] := 0D0X; utf8[1] :=  82X;                  (* "€" *)
+      |  81X: utf8[0] := 0D0X; utf8[1] :=  83X;                  (* "" *)
+      |  82X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9AX; (* "‚" *)
               INC(len);
-      |  83X: utf8[0] := 0D1X; utf8[1] :=  93X;                  (* ƒ *)
-      |  84X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9EX; (* „ *)
+      |  83X: utf8[0] := 0D1X; utf8[1] :=  93X;                  (* "ƒ" *)
+      |  84X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9EX; (* "„" *)
               INC(len);
-      |  85X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A6X; (* … *)
+      |  85X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A6X; (* "…" *)
               INC(len);
-      |  86X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A0X; (* † *)
+      |  86X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A0X; (* "†" *)
               INC(len);
-      |  87X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A1X; (* ‡ *)
+      |  87X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A1X; (* "‡" *)
               INC(len);
-      |  88X: utf8[0] := 0E2X; utf8[1] :=  82X; utf8[2] := 0ACX; (* ˆ *)
+      |  88X: utf8[0] := 0E2X; utf8[1] :=  82X; utf8[2] := 0ACX; (* "ˆ" *)
               INC(len);
-      |  89X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0B0X; (* ‰ *)
+      |  89X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0B0X; (* "‰" *)
               INC(len);
-      |  8AX: utf8[0] := 0D0X; utf8[1] :=  89X;                  (* Š *)
-      |  8BX: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0B9X; (* ‹ *)
+      |  8AX: utf8[0] := 0D0X; utf8[1] :=  89X;                  (* "Š" *)
+      |  8BX: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0B9X; (* "‹" *)
               INC(len);
-      |  8CX: utf8[0] := 0D0X; utf8[1] :=  8AX;                  (* Œ *)
-      |  8DX: utf8[0] := 0D0X; utf8[1] :=  8CX;                  (*  *)
-      |  8EX: utf8[0] := 0D0X; utf8[1] :=  8BX;                  (* Ž *)
-      |  8FX: utf8[0] := 0D0X; utf8[1] :=  8FX;                  (*  *)
-      |  90X: utf8[0] := 0D1X; utf8[1] :=  92X;                  (*  *)
-      |  91X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  98X; (* ‘ *)
+      |  8CX: utf8[0] := 0D0X; utf8[1] :=  8AX;                  (* "Œ" *)
+      |  8DX: utf8[0] := 0D0X; utf8[1] :=  8CX;                  (* "" *)
+      |  8EX: utf8[0] := 0D0X; utf8[1] :=  8BX;                  (* "Ž" *)
+      |  8FX: utf8[0] := 0D0X; utf8[1] :=  8FX;                  (* "" *)
+      |  90X: utf8[0] := 0D1X; utf8[1] :=  92X;                  (* "" *)
+      |  91X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  98X; (* "‘" *)
               INC(len);
-      |  92X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  99X; (* ’ *)
+      |  92X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  99X; (* "’" *)
               INC(len);
-      |  93X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9CX; (* “ *)
+      |  93X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9CX; (* "“" *)
               INC(len);
-      |  94X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9DX; (* ” *)
+      |  94X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  9DX; (* "”" *)
               INC(len);
-      |  95X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A2X; (* • *)
+      |  95X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0A2X; (* "•" *)
               INC(len);
-      |  96X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  93X; (* – *)
+      |  96X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  93X; (* "–" *)
               INC(len);
-      |  97X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  94X; (* — *)
+      |  97X: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] :=  94X; (* "—" *)
               INC(len);
       |  98X: utf8[0] := 0C2X; utf8[1] :=  98X;                  (* ? *)
-      |  99X: utf8[0] := 0E2X; utf8[1] :=  84X; utf8[2] := 0A2X; (* ™ *)
+      |  99X: utf8[0] := 0E2X; utf8[1] :=  84X; utf8[2] := 0A2X; (* "™" *)
               INC(len);
-      |  9AX: utf8[0] := 0D1X; utf8[1] :=  99X;                  (* š *)
-      |  9BX: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0BAX; (* › *)
+      |  9AX: utf8[0] := 0D1X; utf8[1] :=  99X;                  (* "š" *)
+      |  9BX: utf8[0] := 0E2X; utf8[1] :=  80X; utf8[2] := 0BAX; (* "›" *)
               INC(len);
-      |  9CX: utf8[0] := 0D1X; utf8[1] :=  9AX;                  (* œ *)
-      |  9DX: utf8[0] := 0D1X; utf8[1] :=  9CX;                  (*  *)
-      |  9EX: utf8[0] := 0D1X; utf8[1] :=  9BX;                  (* ž *)
-      |  9FX: utf8[0] := 0D1X; utf8[1] :=  9FX;                  (* Ÿ *)
-      | 0A0X: utf8[0] := 0C2X; utf8[1] := 0A0X;                  (*_ _*)
-      | 0A1X: utf8[0] := 0D0X; utf8[1] :=  8EX;                  (* ¡ *)
-      | 0A2X: utf8[0] := 0D1X; utf8[1] :=  9EX;                  (* ¢ *)
-      | 0A3X: utf8[0] := 0D0X; utf8[1] :=  88X;                  (* £ *)
-      | 0A4X: utf8[0] := 0C2X; utf8[1] := 0A4X;                  (* ¤ *)
-      | 0A5X: utf8[0] := 0D2X; utf8[1] :=  90X;                  (* ¥ *)
-      | 0A6X: utf8[0] := 0C2X; utf8[1] := 0A6X;                  (* ¦ *)
-      | 0A7X: utf8[0] := 0C2X; utf8[1] := 0A7X;                  (* § *)
-      | 0A8X: utf8[0] := 0D0X; utf8[1] :=  81X;                  (* ¨ *)
-      | 0A9X: utf8[0] := 0C2X; utf8[1] := 0A9X;                  (* © *)
-      | 0AAX: utf8[0] := 0D0X; utf8[1] :=  84X;                  (* ª *)
-      | 0ABX: utf8[0] := 0C2X; utf8[1] := 0ABX;                  (* « *)
-      | 0ACX: utf8[0] := 0C2X; utf8[1] := 0ACX;                  (* ¬ *)
+      |  9CX: utf8[0] := 0D1X; utf8[1] :=  9AX;                  (* "œ" *)
+      |  9DX: utf8[0] := 0D1X; utf8[1] :=  9CX;                  (* "" *)
+      |  9EX: utf8[0] := 0D1X; utf8[1] :=  9BX;                  (* "ž" *)
+      |  9FX: utf8[0] := 0D1X; utf8[1] :=  9FX;                  (* "Ÿ" *)
+      | 0A0X: utf8[0] := 0C2X; utf8[1] := 0A0X;                  (* " " *)
+      | 0A1X: utf8[0] := 0D0X; utf8[1] :=  8EX;                  (* "¡" *)
+      | 0A2X: utf8[0] := 0D1X; utf8[1] :=  9EX;                  (* "¢" *)
+      | 0A3X: utf8[0] := 0D0X; utf8[1] :=  88X;                  (* "£" *)
+      | 0A4X: utf8[0] := 0C2X; utf8[1] := 0A4X;                  (* "¤" *)
+      | 0A5X: utf8[0] := 0D2X; utf8[1] :=  90X;                  (* "¥" *)
+      | 0A6X: utf8[0] := 0C2X; utf8[1] := 0A6X;                  (* "¦" *)
+      | 0A7X: utf8[0] := 0C2X; utf8[1] := 0A7X;                  (* "§" *)
+      | 0A8X: utf8[0] := 0D0X; utf8[1] :=  81X;                  (* "¨" *)
+      | 0A9X: utf8[0] := 0C2X; utf8[1] := 0A9X;                  (* "©" *)
+      | 0AAX: utf8[0] := 0D0X; utf8[1] :=  84X;                  (* "ª" *)
+      | 0ABX: utf8[0] := 0C2X; utf8[1] := 0ABX;                  (* "«" *)
+      | 0ACX: utf8[0] := 0C2X; utf8[1] := 0ACX;                  (* "¬" *)
       | 0ADX: utf8[0] := 0C2X; utf8[1] := 0ADX;                  (* ­? *)
-      | 0AEX: utf8[0] := 0C2X; utf8[1] := 0AEX;                  (* ® *)
-      | 0AFX: utf8[0] := 0D0X; utf8[1] :=  87X;                  (* ¯ *)
-      | 0B0X: utf8[0] := 0C2X; utf8[1] := 0B0X;                  (* ° *)
-      | 0B1X: utf8[0] := 0C2X; utf8[1] := 0B1X;                  (* ± *)
-      | 0B2X: utf8[0] := 0D0X; utf8[1] :=  86X;                  (* ² *)
-      | 0B3X: utf8[0] := 0D1X; utf8[1] :=  96X;                  (* ³ *)
-      | 0B4X: utf8[0] := 0D2X; utf8[1] :=  91X;                  (* ´ *)
-      | 0B5X: utf8[0] := 0C2X; utf8[1] := 0B5X;                  (* µ *)
-      | 0B6X: utf8[0] := 0C2X; utf8[1] := 0B6X;                  (* ¶ *)
-      | 0B7X: utf8[0] := 0C2X; utf8[1] := 0B7X;                  (* • *)
-      | 0B8X: utf8[0] := 0D1X; utf8[1] :=  91X;                  (* ¸ *)
-      | 0B9X: utf8[0] := 0E2X; utf8[1] :=  84X; utf8[2] :=  96X; (* ¹ *)
+      | 0AEX: utf8[0] := 0C2X; utf8[1] := 0AEX;                  (* "®" *)
+      | 0AFX: utf8[0] := 0D0X; utf8[1] :=  87X;                  (* "¯" *)
+      | 0B0X: utf8[0] := 0C2X; utf8[1] := 0B0X;                  (* "°" *)
+      | 0B1X: utf8[0] := 0C2X; utf8[1] := 0B1X;                  (* "±" *)
+      | 0B2X: utf8[0] := 0D0X; utf8[1] :=  86X;                  (* "²" *)
+      | 0B3X: utf8[0] := 0D1X; utf8[1] :=  96X;                  (* "³" *)
+      | 0B4X: utf8[0] := 0D2X; utf8[1] :=  91X;                  (* "´" *)
+      | 0B5X: utf8[0] := 0C2X; utf8[1] := 0B5X;                  (* "µ" *)
+      | 0B6X: utf8[0] := 0C2X; utf8[1] := 0B6X;                  (* "¶" *)
+      | 0B7X: utf8[0] := 0C2X; utf8[1] := 0B7X;                  (* "•" *)
+      | 0B8X: utf8[0] := 0D1X; utf8[1] :=  91X;                  (* "¸" *)
+      | 0B9X: utf8[0] := 0E2X; utf8[1] :=  84X; utf8[2] :=  96X; (* "¹" *)
               INC(len);
-      | 0BAX: utf8[0] := 0D1X; utf8[1] :=  94X;                  (* º *)
-      | 0BBX: utf8[0] := 0C2X; utf8[1] := 0BBX;                  (* » *)
-      | 0BCX: utf8[0] := 0D1X; utf8[1] :=  98X;                  (* ¼ *)
-      | 0BDX: utf8[0] := 0D0X; utf8[1] :=  85X;                  (* ½ *)
-      | 0BEX: utf8[0] := 0D1X; utf8[1] :=  95X;                  (* ¾ *)
-      | 0BFX: utf8[0] := 0D1X; utf8[1] :=  97X;                  (* ¿ *)
+      | 0BAX: utf8[0] := 0D1X; utf8[1] :=  94X;                  (* "º" *)
+      | 0BBX: utf8[0] := 0C2X; utf8[1] := 0BBX;                  (* "»" *)
+      | 0BCX: utf8[0] := 0D1X; utf8[1] :=  98X;                  (* "¼" *)
+      | 0BDX: utf8[0] := 0D0X; utf8[1] :=  85X;                  (* "½" *)
+      | 0BEX: utf8[0] := 0D1X; utf8[1] :=  95X;                  (* "¾" *)
+      | 0BFX: utf8[0] := 0D1X; utf8[1] :=  97X;                  (* "¿" *)
       ELSE END; (* CASE *)
     END; (* IF *)
     IF j + len + 1 >= LEN(res) THEN res[j] := 0X; RETURN FALSE END;
     FOR n := 0 TO len DO res[j] := utf8[n]; INC(j) END;
-  END; (* FOR *)
+    INC(i);
+  END; (* WHILE *)
   res[j] := 0X; RETURN TRUE
-END CP1251ToUtf8;
+END Win1251ToUtf8;
+
+PROCEDURE Utf8ToWin1251* (
+  IN s: ARRAY OF CHAR; VAR res: ARRAY OF CHAR): BOOLEAN;
+(*
+  http://freepascal.ru/forum/viewtopic.php?f=5&t=2389&start=45
+*)
+VAR
+  i, j: INTEGER; ch: CHAR;
+BEGIN
+  i := 0; j := 0;
+  WHILE (i < LEN(s)) & (s[i] # 0X) DO
+    IF j+1 >= LEN(res) THEN res[j] := 0X; RETURN FALSE END;
+    ch := s[i];
+    IF (ch >= 1X) & (ch <= 7FX) THEN (* One byte and latin characters *)
+      res[j] := ch;
+    ELSE
+      CASE ch OF
+      | 0C2X: INC(i); res[j] := s[i];
+      | 0D0X: INC(i); ch := s[i];
+        IF (ch >= 90X) & (ch <= 0BFX) THEN
+          res[j] := CHR(ORD(ch) + 48); (* "À".."ï" *)
+        ELSE
+          CASE ch OF
+          | 81X: res[j] := 0A8X; (* "¨" *) 
+          | 82X: res[j] :=  80X; (* "€" *)
+          | 83X: res[j] :=  81X; (* "" *)
+          | 84X: res[j] := 0AAX; (* "ª" *)
+          | 85X: res[j] := 0BDX; (* "½" *)
+          | 86X: res[j] := 0B2X; (* "²" *)
+          | 87X: res[j] := 0AFX; (* "¯" *)
+          | 88X: res[j] := 0A3X; (* "£" *)
+          | 89X: res[j] :=  8AX; (* "Š" *)
+          | 8AX: res[j] :=  8CX; (* "Œ" *)
+          | 8BX: res[j] :=  8EX; (* "Ž" *)
+          | 8CX: res[j] :=  8DX; (* "" *)
+          | 8EX: res[j] := 0A1X; (* "¡" *)
+          | 8FX: res[j] :=  8FX; (* "" *)
+          ELSE
+            res[j] := 0X; RETURN FALSE
+          END;
+        END;
+      | 0D1X: INC(i); ch := s[i];
+        IF (ch >= 80X) & (ch <= 8FX) THEN
+          res[j] := CHR(ORD(ch) + 112); (* "ð".."ÿ" *)
+        ELSE
+          CASE ch OF
+          | 91X: res[j] := 0B8X; (* "¸" *)
+          | 92X: res[j] :=  90X; (* "" *)
+          | 93X: res[j] :=  83X; (* "ƒ" *)
+          | 94X: res[j] := 0BAX; (* "º" *)
+          | 95X: res[j] := 0BEX; (* "¾" *)
+          | 96X: res[j] := 0B3X; (* "³" *)
+          | 97X: res[j] := 0BFX; (* "¿" *)
+          | 98X: res[j] := 0BCX; (* "¼" *)
+          | 99X: res[j] :=  9AX; (* "š" *)
+          | 9AX: res[j] :=  9CX; (* "œ" *)
+          | 9BX: res[j] :=  9EX; (* "ž" *)
+          | 9CX: res[j] :=  9DX; (* "" *)
+          | 9EX: res[j] := 0A2X; (* "¢" *)
+          | 9FX: res[j] :=  9FX; (* "Ÿ" *)
+          ELSE
+            res[j] := 0X; RETURN FALSE
+          END;
+        END;
+      | 0D2X: INC(i);
+          CASE s[i] OF
+          | 90X: res[j] := 0A5X; (* "¥" *)
+          | 91X: res[j] := 0B4X; (* "´" *)
+          ELSE
+            res[j] := 0X; RETURN FALSE
+          END;
+      | 0E2X: INC(i);
+        CASE s[i] OF
+        | 80X: INC(i);
+          CASE s[i] OF
+          |  93X: res[j] := 96X; (* "–" *)
+          |  94X: res[j] := 97X; (* "—" *)
+          |  98X: res[j] := 91X; (* "‘" *)
+          |  99X: res[j] := 92X; (* "’" *)
+          |  9AX: res[j] := 82X; (* "‚" *)
+          |  9CX: res[j] := 93X; (* "“" *)
+          |  9DX: res[j] := 94X; (* "”" *)
+          |  9EX: res[j] := 84X; (* "„" *)
+          | 0A0X: res[j] := 86X; (* "†" *)
+          | 0A1X: res[j] := 87X; (* "‡" *)
+          | 0A2X: res[j] := 95X; (* "•" *)
+          | 0A6X: res[j] := 85X; (* "…" *)
+          | 0B0X: res[j] := 89X; (* "‰" *)
+          | 0B9X: res[j] := 8BX; (* "‹" *)
+          | 0BAX: res[j] := 9BX; (* "›" *)
+          ELSE
+            res[j] := 0X; RETURN FALSE
+          END;
+        | 82X: INC(i); res[j]:= 88X; (* 0ACX ? *)
+        | 84X: INC(i);
+          CASE s[i] OF
+          |  96X: res[j] := 0B9X; (* "¹" *)
+          | 0A2X: res[j] :=  99X; (* "™" *)
+          ELSE
+            res[j] := 0X; RETURN FALSE
+          END;
+        ELSE
+          res[j] := 0X; RETURN FALSE
+        END;
+      | 0X: res[j] := 0X; RETURN TRUE
+      ELSE
+        res[j] := 0X; RETURN FALSE
+      END; (* CASE *)
+    END; (* IF *)
+    INC(i); INC(j);
+  END; (* WHILE *)
+  res[j] := 0X; RETURN TRUE
+END Utf8ToWin1251;
 
 PROCEDURE- _init* "/*-noinit*/";
 
