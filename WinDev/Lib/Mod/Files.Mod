@@ -62,6 +62,7 @@ PROCEDURE -NULL(): PtrFILE "((SYSTEM_PTR)NULL)";
 
 PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
 PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)
+PROCEDURE -rename (oldname, newname: PtrSTR): INTEGER "rename(oldname, newname)";
 
 PROCEDURE ^ (VAR file: File) Close* ;
 
@@ -207,6 +208,12 @@ VAR
 BEGIN
   f.OpenToRead(fname); f.Close; RETURN ~f.error
 END ExistsFile;
+
+PROCEDURE RenameFile* (IN oldname, newname: ARRAY OF CHAR): BOOLEAN;
+  (** UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
+BEGIN
+  RETURN rename(oldname, newname) = 0
+END RenameFile;
 
 END Files.
 
