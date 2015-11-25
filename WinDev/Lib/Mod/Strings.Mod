@@ -6,7 +6,6 @@ CONST
   CharCode* = -1; Decimal* = 10; Hexadecimal* = -2; Roman*= -3;
 
 TYPE
-  STRLEN = INTEGER;
   PtrSTR = ARRAY OF CHAR;
 
 PROCEDURE -includestdio()	"#include <stdio.h>";
@@ -16,9 +15,9 @@ PROCEDURE -sprintf (str: PtrSTR; n: LONGINT)	'sprintf(str, "%ld", n)';
 PROCEDURE -sprintfL (str: PtrSTR; n: LONGINT)	'sprintf(str, "%lld", n)';
 (*PROCEDURE -Length* (str: PtrSTR): STRLEN	"strlen(str)";*)
 
-PROCEDURE Length* (IN str: ARRAY OF CHAR): STRLEN;
+PROCEDURE Length* (IN str: ARRAY OF CHAR): INTEGER;
 VAR
-  len: STRLEN;
+  len: INTEGER;
 BEGIN
   len := 0;
   WHILE (len < SHORT(LEN(str))) & (str[len] # 0X) DO INC(len) END;
@@ -44,6 +43,48 @@ BEGIN
   END;
   RETURN -1 (* pattern not found *)
 END Find;
+
+PROCEDURE HexToInt* (IN hex: ARRAY OF CHAR): INTEGER;
+VAR
+  res, n: INTEGER; ch: CHAR;
+BEGIN
+  res := 0; n := 0;
+  REPEAT
+    ch := hex[n];
+    IF (ch >= "0") & (ch <= "9") THEN
+      res := res * 16 + ORD(ch) - ORD("0");
+    ELSIF (ch >= "A") & (ch <= "F") THEN
+      res := res * 16 + ORD(ch) - ORD("A") + 10;
+    ELSIF (ch >= "a") & (ch <= "f") THEN
+      res := res * 16 + ORD(ch) - ORD("a") + 10;
+    ELSIF (ch = 0X) & (n # 0) THEN RETURN res
+    ELSE
+      RETURN -1
+    END;
+  INC(n) UNTIL n # LEN(hex);
+  RETURN res
+END HexToInt;
+
+PROCEDURE HexToLInt* (IN hex: ARRAY OF CHAR): LONGINT;
+VAR
+  res: LONGINT; n: INTEGER; ch: CHAR;
+BEGIN
+  res := 0; n := 0;
+  REPEAT
+    ch := hex[n];
+    IF (ch >= "0") & (ch <= "9") THEN
+      res := res * 16 + ORD(ch) - ORD("0");
+    ELSIF (ch >= "A") & (ch <= "F") THEN
+      res := res * 16 + ORD(ch) - ORD("A") + 10;
+    ELSIF (ch >= "a") & (ch <= "f") THEN
+      res := res * 16 + ORD(ch) - ORD("a") + 10;
+    ELSIF (ch = 0X) & (n # 0) THEN RETURN res
+    ELSE
+      RETURN -1
+    END;
+  INC(n) UNTIL n # LEN(hex);
+  RETURN res
+END HexToLInt;
 
 PROCEDURE IntToStr* (n: INTEGER; VAR str: ARRAY OF CHAR);
   (** UNSAFE! Make sure that size of array 'str' is enough. *)
@@ -253,7 +294,7 @@ VAR
   i, j, n, len: INTEGER; ch: CHAR; utf8: ARRAY 3 OF CHAR;
 BEGIN
   i := 0; j := 0;
-  WHILE (i < LEN(s)) & (s[i] # 0X) DO
+  REPEAT
     len := 1; ch := s[i];
     IF (ch >= 1X) & (ch <= 7FX) THEN
       utf8[0] := s[i]; DEC(len); (* One-byte and Russian characters *)
@@ -345,12 +386,14 @@ BEGIN
       | 0BDX: utf8[0] := 0D0X; utf8[1] :=  85X;                  (* "½" *)
       | 0BEX: utf8[0] := 0D1X; utf8[1] :=  95X;                  (* "¾" *)
       | 0BFX: utf8[0] := 0D1X; utf8[1] :=  97X;                  (* "¿" *)
-      ELSE END; (* CASE *)
+      | 0X: res[j] := 0X; RETURN i # 0
+      ELSE res[j] := 0X; RETURN FALSE
+      END; (* CASE *)
     END; (* IF *)
     IF j + len + 1 >= LEN(res) THEN res[j] := 0X; RETURN FALSE END;
     FOR n := 0 TO len DO res[j] := utf8[n]; INC(j) END;
     INC(i);
-  END; (* WHILE *)
+  UNTIL i = LEN(s);
   res[j] := 0X; RETURN TRUE
 END Win1251ToUtf8;
 
@@ -363,7 +406,7 @@ VAR
   i, j: INTEGER; ch: CHAR;
 BEGIN
   i := 0; j := 0;
-  WHILE (i < LEN(s)) & (s[i] # 0X) DO
+  REPEAT
     IF j+1 >= LEN(res) THEN res[j] := 0X; RETURN FALSE END;
     ch := s[i];
     IF (ch >= 1X) & (ch <= 7FX) THEN (* One byte and latin characters *)
@@ -457,13 +500,13 @@ BEGIN
         ELSE
           res[j] := 0X; RETURN FALSE
         END;
-      | 0X: res[j] := 0X; RETURN TRUE
+      | 0X: res[j] := 0X; RETURN i # 0
       ELSE
         res[j] := 0X; RETURN FALSE
       END; (* CASE *)
     END; (* IF *)
-    INC(i); INC(j);
-  END; (* WHILE *)
+    INC(j); INC(i);
+  UNTIL i = LEN(s);
   res[j] := 0X; RETURN TRUE
 END Utf8ToWin1251;
 

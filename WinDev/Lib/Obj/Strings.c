@@ -8,6 +8,8 @@ typedef
 
 
 export INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT pattern__len, INTEGER start);
+export INTEGER Strings_HexToInt (CHAR *hex, LONGINT hex__len);
+export LONGINT Strings_HexToLInt (CHAR *hex, LONGINT hex__len);
 export void Strings_IntToStr (INTEGER n, CHAR *str, LONGINT str__len);
 export void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
 export void Strings_LIntToStr (LONGINT n, CHAR *str, LONGINT str__len);
@@ -54,6 +56,57 @@ INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT patter
 		}
 	}
 	return -1;
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER Strings_HexToInt (CHAR *hex, LONGINT hex__len)
+{
+	INTEGER res, n;
+	CHAR ch;
+	res = 0;
+	n = 0;
+	do {
+		ch = hex[__X(n, hex__len)];
+		if (ch >= '0' && ch <= '9') {
+			res = (__ASHL(res, 4) + (int)ch) - 48;
+		} else if (ch >= 'A' && ch <= 'F') {
+			res = ((__ASHL(res, 4) + (int)ch) - 65) + 10;
+		} else if (ch >= 'a' && ch <= 'f') {
+			res = ((__ASHL(res, 4) + (int)ch) - 97) + 10;
+		} else if (ch == 0x00 && n != 0) {
+			return res;
+		} else {
+			return -1;
+		}
+		n += 1;
+	} while (!((LONGINT)n != hex__len));
+	return res;
+}
+
+/*----------------------------------------------------------------------------*/
+LONGINT Strings_HexToLInt (CHAR *hex, LONGINT hex__len)
+{
+	LONGINT res;
+	INTEGER n;
+	CHAR ch;
+	res = 0;
+	n = 0;
+	do {
+		ch = hex[__X(n, hex__len)];
+		if (ch >= '0' && ch <= '9') {
+			res = (__ASHL(res, 4) + (LONGINT)ch) - 48;
+		} else if (ch >= 'A' && ch <= 'F') {
+			res = ((__ASHL(res, 4) + (LONGINT)ch) - 65) + 10;
+		} else if (ch >= 'a' && ch <= 'f') {
+			res = ((__ASHL(res, 4) + (LONGINT)ch) - 97) + 10;
+		} else if (ch == 0x00 && n != 0) {
+			return res;
+		} else {
+			return -1;
+		}
+		n += 1;
+	} while (!((LONGINT)n != hex__len));
+	return res;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -412,10 +465,10 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 	INTEGER i, j, n, len;
 	CHAR ch;
 	CHAR utf8[3];
-	INTEGER _for__9;
+	INTEGER _for__11;
 	i = 0;
 	j = 0;
-	while ((LONGINT)i < s__len && s[__X(i, s__len)] != 0x00) {
+	do {
 		len = 1;
 		ch = s[__X(i, s__len)];
 		if (ch >= 0x01 && ch <= 0x7f) {
@@ -721,7 +774,13 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					utf8[0] = 0xd1;
 					utf8[1] = 0x97;
 					break;
+				case 0x00: 
+					res[__X(j, res__len)] = 0x00;
+					return i != 0;
+					break;
 				default: 
+					res[__X(j, res__len)] = 0x00;
+					return 0;
 					break;
 			}
 		}
@@ -729,15 +788,15 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 			res[__X(j, res__len)] = 0x00;
 			return 0;
 		}
-		_for__9 = len;
+		_for__11 = len;
 		n = 0;
-		while (n <= _for__9) {
+		while (n <= _for__11) {
 			res[__X(j, res__len)] = utf8[__X(n, 3)];
 			j += 1;
 			n += 1;
 		}
 		i += 1;
-	}
+	} while (!((LONGINT)i == s__len));
 	res[__X(j, res__len)] = 0x00;
 	return 1;
 }
@@ -749,7 +808,7 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 	CHAR ch;
 	i = 0;
 	j = 0;
-	while ((LONGINT)i < s__len && s[__X(i, s__len)] != 0x00) {
+	do {
 		if ((LONGINT)(j + 1) >= res__len) {
 			res[__X(j, res__len)] = 0x00;
 			return 0;
@@ -974,7 +1033,7 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					break;
 				case 0x00: 
 					res[__X(j, res__len)] = 0x00;
-					return 1;
+					return i != 0;
 					break;
 				default: 
 					res[__X(j, res__len)] = 0x00;
@@ -982,9 +1041,9 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					break;
 			}
 		}
-		i += 1;
 		j += 1;
-	}
+		i += 1;
+	} while (!((LONGINT)i == s__len));
 	res[__X(j, res__len)] = 0x00;
 	return 1;
 }
