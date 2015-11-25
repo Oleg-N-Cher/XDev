@@ -47,6 +47,7 @@ typedef
 
 export BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
+export BOOLEAN Files_RenameFile (CHAR *oldname, LONGINT oldname__len, CHAR *newname, LONGINT newname__len);
 
 #define Files_EOF()	EOF
 #define Files_NULL()	((SYSTEM_PTR)NULL)
@@ -59,6 +60,7 @@ export BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
 #define Files_fputc(c, file)	fputc(c, (FILE*)file)
 #include <stdio.h>
 #include <unistd.h>
+#define Files_rename(oldname, oldname__len, newname, newname__len)	rename(oldname, newname)
 #define Files_unlink(filename, filename__len)	unlink(filename)
 
 extern LONGINT *Files_File__typ;
@@ -202,6 +204,12 @@ BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len)
 	__Files_File_OpenToRead((void*)&f, Files_FileToRead__typ, fname, fname__len);
 	__Files_File_Close((void*)&f, Files_FileToRead__typ);
 	return !f.error;
+}
+
+/*----------------------------------------------------------------------------*/
+BOOLEAN Files_RenameFile (CHAR *oldname, LONGINT oldname__len, CHAR *newname, LONGINT newname__len)
+{
+	return Files_rename(oldname, oldname__len, newname, newname__len) == 0;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

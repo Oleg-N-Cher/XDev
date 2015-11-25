@@ -54,6 +54,7 @@ import LONGINT *Files_FileToWrite__typ;
 
 import BOOLEAN Files_DeleteFile (CHAR *fname, LONGINT fname__len);
 import BOOLEAN Files_ExistsFile (CHAR *fname, LONGINT fname__len);
+import BOOLEAN Files_RenameFile (CHAR *oldname, LONGINT oldname__len, CHAR *newname, LONGINT newname__len);
 #define Files__init()
 
 
