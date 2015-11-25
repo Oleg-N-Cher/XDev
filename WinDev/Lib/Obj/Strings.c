@@ -7,13 +7,14 @@ typedef
 
 
 
-export BOOLEAN Strings_CP1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len);
 export INTEGER Strings_Find (CHAR *str, LONGINT str__len, CHAR *pattern, LONGINT pattern__len, INTEGER start);
 export void Strings_IntToStr (INTEGER n, CHAR *str, LONGINT str__len);
 export void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
 export void Strings_LIntToStr (LONGINT n, CHAR *str, LONGINT str__len);
 export void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len);
 export INTEGER Strings_Length (CHAR *str, LONGINT str__len);
+export BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len);
+export BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len);
 
 #define Strings__init()	/*-noinit*/
 #include <stdio.h>
@@ -406,16 +407,15 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 }
 
 /*----------------------------------------------------------------------------*/
-BOOLEAN Strings_CP1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len)
+BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len)
 {
 	INTEGER i, j, n, len;
 	CHAR ch;
 	CHAR utf8[3];
-	INTEGER _for__3, _for__2;
-	j = 0;
-	_for__3 = Strings_Length((void*)s, s__len) - 1;
+	INTEGER _for__9;
 	i = 0;
-	while (i <= _for__3) {
+	j = 0;
+	while ((LONGINT)i < s__len && s[__X(i, s__len)] != 0x00) {
 		len = 1;
 		ch = s[__X(i, s__len)];
 		if (ch >= 0x01 && ch <= 0x7f) {
@@ -729,14 +729,261 @@ BOOLEAN Strings_CP1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__l
 			res[__X(j, res__len)] = 0x00;
 			return 0;
 		}
-		_for__2 = len;
+		_for__9 = len;
 		n = 0;
-		while (n <= _for__2) {
+		while (n <= _for__9) {
 			res[__X(j, res__len)] = utf8[__X(n, 3)];
 			j += 1;
 			n += 1;
 		}
 		i += 1;
+	}
+	res[__X(j, res__len)] = 0x00;
+	return 1;
+}
+
+/*----------------------------------------------------------------------------*/
+BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__len)
+{
+	INTEGER i, j;
+	CHAR ch;
+	i = 0;
+	j = 0;
+	while ((LONGINT)i < s__len && s[__X(i, s__len)] != 0x00) {
+		if ((LONGINT)(j + 1) >= res__len) {
+			res[__X(j, res__len)] = 0x00;
+			return 0;
+		}
+		ch = s[__X(i, s__len)];
+		if (ch >= 0x01 && ch <= 0x7f) {
+			res[__X(j, res__len)] = ch;
+		} else {
+			switch (ch) {
+				case 0xc2: 
+					i += 1;
+					res[__X(j, res__len)] = s[__X(i, s__len)];
+					break;
+				case 0xd0: 
+					i += 1;
+					ch = s[__X(i, s__len)];
+					if (ch >= 0x90 && ch <= 0xbf) {
+						res[__X(j, res__len)] = (CHAR)((int)ch + 48);
+					} else {
+						switch (ch) {
+							case 0x81: 
+								res[__X(j, res__len)] = 0xa8;
+								break;
+							case 0x82: 
+								res[__X(j, res__len)] = 0x80;
+								break;
+							case 0x83: 
+								res[__X(j, res__len)] = 0x81;
+								break;
+							case 0x84: 
+								res[__X(j, res__len)] = 0xaa;
+								break;
+							case 0x85: 
+								res[__X(j, res__len)] = 0xbd;
+								break;
+							case 0x86: 
+								res[__X(j, res__len)] = 0xb2;
+								break;
+							case 0x87: 
+								res[__X(j, res__len)] = 0xaf;
+								break;
+							case 0x88: 
+								res[__X(j, res__len)] = 0xa3;
+								break;
+							case 0x89: 
+								res[__X(j, res__len)] = 0x8a;
+								break;
+							case 0x8a: 
+								res[__X(j, res__len)] = 0x8c;
+								break;
+							case 0x8b: 
+								res[__X(j, res__len)] = 0x8e;
+								break;
+							case 0x8c: 
+								res[__X(j, res__len)] = 0x8d;
+								break;
+							case 0x8e: 
+								res[__X(j, res__len)] = 0xa1;
+								break;
+							case 0x8f: 
+								res[__X(j, res__len)] = 0x8f;
+								break;
+							default: 
+								res[__X(j, res__len)] = 0x00;
+								return 0;
+								break;
+						}
+					}
+					break;
+				case 0xd1: 
+					i += 1;
+					ch = s[__X(i, s__len)];
+					if (ch >= 0x80 && ch <= 0x8f) {
+						res[__X(j, res__len)] = (CHAR)((int)ch + 112);
+					} else {
+						switch (ch) {
+							case 0x91: 
+								res[__X(j, res__len)] = 0xb8;
+								break;
+							case 0x92: 
+								res[__X(j, res__len)] = 0x90;
+								break;
+							case 0x93: 
+								res[__X(j, res__len)] = 0x83;
+								break;
+							case 0x94: 
+								res[__X(j, res__len)] = 0xba;
+								break;
+							case 0x95: 
+								res[__X(j, res__len)] = 0xbe;
+								break;
+							case 0x96: 
+								res[__X(j, res__len)] = 0xb3;
+								break;
+							case 0x97: 
+								res[__X(j, res__len)] = 0xbf;
+								break;
+							case 0x98: 
+								res[__X(j, res__len)] = 0xbc;
+								break;
+							case 0x99: 
+								res[__X(j, res__len)] = 0x9a;
+								break;
+							case 0x9a: 
+								res[__X(j, res__len)] = 0x9c;
+								break;
+							case 0x9b: 
+								res[__X(j, res__len)] = 0x9e;
+								break;
+							case 0x9c: 
+								res[__X(j, res__len)] = 0x9d;
+								break;
+							case 0x9e: 
+								res[__X(j, res__len)] = 0xa2;
+								break;
+							case 0x9f: 
+								res[__X(j, res__len)] = 0x9f;
+								break;
+							default: 
+								res[__X(j, res__len)] = 0x00;
+								return 0;
+								break;
+						}
+					}
+					break;
+				case 0xd2: 
+					i += 1;
+					switch (s[__X(i, s__len)]) {
+						case 0x90: 
+							res[__X(j, res__len)] = 0xa5;
+							break;
+						case 0x91: 
+							res[__X(j, res__len)] = 0xb4;
+							break;
+						default: 
+							res[__X(j, res__len)] = 0x00;
+							return 0;
+							break;
+					}
+					break;
+				case 0xe2: 
+					i += 1;
+					switch (s[__X(i, s__len)]) {
+						case 0x80: 
+							i += 1;
+							switch (s[__X(i, s__len)]) {
+								case 0x93: 
+									res[__X(j, res__len)] = 0x96;
+									break;
+								case 0x94: 
+									res[__X(j, res__len)] = 0x97;
+									break;
+								case 0x98: 
+									res[__X(j, res__len)] = 0x91;
+									break;
+								case 0x99: 
+									res[__X(j, res__len)] = 0x92;
+									break;
+								case 0x9a: 
+									res[__X(j, res__len)] = 0x82;
+									break;
+								case 0x9c: 
+									res[__X(j, res__len)] = 0x93;
+									break;
+								case 0x9d: 
+									res[__X(j, res__len)] = 0x94;
+									break;
+								case 0x9e: 
+									res[__X(j, res__len)] = 0x84;
+									break;
+								case 0xa0: 
+									res[__X(j, res__len)] = 0x86;
+									break;
+								case 0xa1: 
+									res[__X(j, res__len)] = 0x87;
+									break;
+								case 0xa2: 
+									res[__X(j, res__len)] = 0x95;
+									break;
+								case 0xa6: 
+									res[__X(j, res__len)] = 0x85;
+									break;
+								case 0xb0: 
+									res[__X(j, res__len)] = 0x89;
+									break;
+								case 0xb9: 
+									res[__X(j, res__len)] = 0x8b;
+									break;
+								case 0xba: 
+									res[__X(j, res__len)] = 0x9b;
+									break;
+								default: 
+									res[__X(j, res__len)] = 0x00;
+									return 0;
+									break;
+							}
+							break;
+						case 0x82: 
+							i += 1;
+							res[__X(j, res__len)] = 0x88;
+							break;
+						case 0x84: 
+							i += 1;
+							switch (s[__X(i, s__len)]) {
+								case 0x96: 
+									res[__X(j, res__len)] = 0xb9;
+									break;
+								case 0xa2: 
+									res[__X(j, res__len)] = 0x99;
+									break;
+								default: 
+									res[__X(j, res__len)] = 0x00;
+									return 0;
+									break;
+							}
+							break;
+						default: 
+							res[__X(j, res__len)] = 0x00;
+							return 0;
+							break;
+					}
+					break;
+				case 0x00: 
+					res[__X(j, res__len)] = 0x00;
+					return 1;
+					break;
+				default: 
+					res[__X(j, res__len)] = 0x00;
+					return 0;
+					break;
+			}
+		}
+		i += 1;
+		j += 1;
 	}
 	res[__X(j, res__len)] = 0x00;
 	return 1;
