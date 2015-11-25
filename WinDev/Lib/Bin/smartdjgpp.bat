@@ -20,7 +20,7 @@
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
-  %gcc% -c %%i -I "." -I ..\C
+  %gcc% -c %%i -I ".." -I ..\C
   @IF errorlevel 1 PAUSE
 )
 @FOR %%i IN (%2_???.o) DO %Bin%\ar -rc %1 %%i

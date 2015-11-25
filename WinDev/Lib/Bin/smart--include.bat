@@ -18,7 +18,7 @@
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
-  %tcc% -c %%i -I %Bin%\tcc\include -I "." -I ..\C
+  %tcc% -c %%i -I %Bin%\tcc\include -I ".." -I ..\C
   @IF errorlevel 1 PAUSE
 )
 @FOR %%i IN (%2_???.o) DO %Bin%\ar -rc %1 %%i

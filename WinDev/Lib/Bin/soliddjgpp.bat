@@ -10,13 +10,13 @@
 @IF EXIST ..\C\%2.c GOTO clib
 
 :olib
-%gcc% -c %2.c -I "." -I ..\C
+%gcc% -c %2.c -I ".." -I ..\C
 @GOTO done
 
 :clib
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%gcc% -c ..\C\%2.c -I "." -I ..\C
+%gcc% -c ..\C\%2.c -I ".." -I ..\C
 
 :done
 @IF errorlevel 1 PAUSE

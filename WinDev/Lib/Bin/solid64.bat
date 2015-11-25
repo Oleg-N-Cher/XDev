@@ -8,13 +8,13 @@
 @IF EXIST ..\C\%2.c GOTO clib
 
 :olib
-%tcc% -c %2.c -I "." -I ..\C
+%tcc% -c %2.c -I ".." -I ..\C
 @GOTO done
 
 :clib
 @IF EXIST %2.h DEL %2.h
 @IF EXIST %2.c DEL %2.c
-%tcc% -c ..\C\%2.c -I "." -I ..\C
+%tcc% -c ..\C\%2.c -I ".." -I ..\C
 
 :done
 @IF errorlevel 1 PAUSE
