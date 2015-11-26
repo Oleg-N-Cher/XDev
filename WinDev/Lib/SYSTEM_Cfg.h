@@ -21,4 +21,7 @@
 /* Garbage collector */
 #define SYSTEM_Cfg_NoGC
 
+/* runtime checks */
+#define SYSTEM_Cfg_NoCheck_X
+
 #endif
