@@ -10,6 +10,7 @@
 @CALL ..\Bin\smart64 %Lib% KolRegistry -noinit
 @CALL ..\Bin\smart64 %Lib% KolWindows
 @CALL ..\Bin\solid64 %Lib% KolObj
+@CALL ..\Bin\smart64 %Lib% KolFiles -noinit
 @CALL ..\Bin\solid64 %Lib% KolXXSocket
 
 :exit

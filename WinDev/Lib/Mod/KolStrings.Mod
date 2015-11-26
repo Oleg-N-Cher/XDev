@@ -76,6 +76,50 @@ BEGIN
 	COPY(value, str^);
 END Assign;
 *)
+
+PROCEDURE StrRScan* (IN str: KOLString; ch: CHAR): INTEGER;
+VAR
+ count, index: INTEGER;
+BEGIN
+  count := Length(str);
+  IF ch = 0X THEN RETURN count END;
+  FOR index := count-1 TO 0 BY -1 DO
+    IF ch = str[index] THEN RETURN index END;
+  END;
+  RETURN -1
+END StrRScan;
+
+PROCEDURE DelimiterLast* (IN str, delimiters: KOLString): INTEGER;
+VAR
+  delimiterN, f, result: INTEGER;
+BEGIN
+  delimiterN := 0; result := Length(str);
+  WHILE delimiters[delimiterN] # 0X DO
+    f := StrRScan(str, delimiters[delimiterN]);
+    IF f # -1 THEN
+      IF (str[result] = 0X) OR (f > result) THEN result := f END;
+    END;
+    INC(delimiterN);
+  END;
+  RETURN result
+END DelimiterLast;
+
+PROCEDURE SubStr* (
+  IN s: ARRAY OF CHAR; pos, len: INTEGER; VAR res: ARRAY OF CHAR): BOOLEAN;
+VAR
+  i, j, max: INTEGER;
+BEGIN
+	ASSERT(len >= 0, 20); ASSERT(pos >= 0, 21);
+	i := 0; j := 0; max := SHORT(LEN(res)) - 1;
+	WHILE (i < pos) & (s[i] # 0X) DO INC(i) END;
+	WHILE (j < len) & (j < max) & (s[i] # 0X) DO
+	  res[j] := s[i]; INC(j); INC(i);
+	END;
+	res[j] := 0X;
+  IF s[i] = 0X THEN len := j-1 END;
+	RETURN len < max
+END SubStr;
+
 PROCEDURE- _init* "/*-noinit*/";
 (*
 BEGIN
