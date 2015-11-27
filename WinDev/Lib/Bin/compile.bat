@@ -6,8 +6,10 @@
 @GOTO exit
 
 :noinit
+@COPY /Y %1.c %1.c__
 ..\..\..\Bin\smartlib %1.c -noinit -nocut
 ..\..\Bin\tcc\tcc -c %1.c -I ".." -I ..\C
+@MOVE /Y %1.c__ %1.c
 @GOTO exit
 
 :clib
