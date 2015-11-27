@@ -38,7 +38,7 @@ BOOLEAN KolFiles_ExtractFileName (CHAR *path, LONGINT path__len, CHAR *name, LON
 	INTEGER p;
 	p = KolStrings_DelimiterLast(path, path__len, (void*)&":\\/", (LONGINT)4);
 	if (path[__X(p, path__len)] != 0x00) {
-		return KolStrings_SubStr((void*)path, path__len, p + 1, 2147483647, (void*)name, name__len);
+		return KolStrings_SubStr((void*)path, path__len, p + 1, (int)path__len, (void*)name, name__len);
 	}
 	return KolStrings_SubStr((void*)path, path__len, 0, p - 1, (void*)name, name__len);
 }
