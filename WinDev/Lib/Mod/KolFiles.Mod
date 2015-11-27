@@ -1137,7 +1137,7 @@ VAR
 BEGIN
   p := KolStrings.DelimiterLast(path, DirDelimiters);
   IF path[p] # 0X THEN
-    RETURN KolStrings.SubStr(path, p+1, MAX(INTEGER), name);
+    RETURN KolStrings.SubStr(path, p+1, SHORT(LEN(path)), name);
   END;
   RETURN KolStrings.SubStr(path, 0, p-1, name);
 END ExtractFileName;
