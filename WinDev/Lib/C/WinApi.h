@@ -807,7 +807,7 @@ typedef
 	} WinApi_DLGITEMTEMPLATE;
 
 typedef
-	INTEGER (__CALL_1 *WinApi_DLGPROC)(void);
+	SYSTEM_PTR (__CALL_1 *WinApi_DLGPROC)(SYSTEM_PTR, INTEGER, SYSTEM_PTR, SYSTEM_PTR);
 
 typedef
 	struct WinApi_DLGTEMPLATE {
@@ -5959,6 +5959,8 @@ __EXTERN INTEGER __CALL_1 CloseServiceHandle(SYSTEM_PTR hSCObject);
 __EXTERN INTEGER __CALL_1 CloseWindow(SYSTEM_PTR hWnd);
 #define WinApi_CloseWindowStation(hWinSta)	CloseWindowStation(hWinSta)
 __EXTERN INTEGER __CALL_1 CloseWindowStation(SYSTEM_PTR hWinSta);
+#define WinApi_CmdLine()	__lpCmdLine
+#define WinApi_CmdShow()	__nCmdShow
 #define WinApi_ColorMatchToTarget(p0, p1, p2)	ColorMatchToTarget(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 ColorMatchToTarget(SYSTEM_PTR p0, SYSTEM_PTR p1, INTEGER p2);
 #define WinApi_CombineRgn(p0, p1, p2, p3)	CombineRgn(p0, p1, p2, p3)
@@ -7958,6 +7960,7 @@ __EXTERN INTEGER __CALL_1 InsertMenuItemA(SYSTEM_PTR p0, INTEGER p1, INTEGER p2,
 __EXTERN INTEGER __CALL_1 InsertMenuItemW(SYSTEM_PTR p0, INTEGER p1, INTEGER p2, WinApi_MENUITEMINFOW *p3);
 #define WinApi_InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)	InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)
 __EXTERN INTEGER __CALL_1 InsertMenuW(SYSTEM_PTR hMenu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, SYSTEM_PTR lpNewItem);
+#define WinApi_Instance()	__hInstance
 #define WinApi_InterlockedCompareExchange(Destination, Exchange, Comperand)	InterlockedCompareExchange(Destination, Exchange, Comperand)
 __EXTERN SYSTEM_PTR __CALL_1 InterlockedCompareExchange(struct {
 	LONGINT len[1];
@@ -8492,6 +8495,7 @@ __EXTERN INTEGER __CALL_1 PostThreadMessageA(INTEGER idThread, INTEGER Msg, SYST
 __EXTERN INTEGER __CALL_1 PostThreadMessageW(INTEGER idThread, INTEGER Msg, SYSTEM_PTR wParam, SYSTEM_PTR lParam);
 #define WinApi_PrepareTape(hDevice, dwOperation, bImmediate)	PrepareTape(hDevice, dwOperation, bImmediate)
 __EXTERN INTEGER __CALL_1 PrepareTape(SYSTEM_PTR hDevice, INTEGER dwOperation, INTEGER bImmediate);
+#define WinApi_PrevInstance()	__hPrevInstance
 #define WinApi_PrinterMessageBox(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)
 #define WinApi_PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)
 __EXTERN INTEGER __CALL_1 PrinterMessageBoxA(SYSTEM_PTR hPrinter, INTEGER Error, SYSTEM_PTR hWnd, SYSTEM_PTR pText, SYSTEM_PTR pCaption, INTEGER dwType);

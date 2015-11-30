@@ -9322,7 +9322,7 @@ MODULE WinApi (*KERNEL32.dll*);
 		LPMENUTEMPLATEW* = PtrVoid;
 		LPMENUTEMPLATE* = LPMENUTEMPLATEA;
 		WNDPROC* = PROCEDURE [1] (p0: HWND; p1: INTEGER; p2: WPARAM; p3: LPARAM): LRESULT;
-		DLGPROC* = PROCEDURE [1] (): INTEGER;
+		DLGPROC* = PROCEDURE [1] (p0: HWND; p1: INTEGER; p2: WPARAM; p3: LPARAM): PtrVoid(*INT_PTR*);
 		TIMERPROC* = PROCEDURE [1] (): INTEGER;
 		GRAYSTRINGPROC* = PROCEDURE [1] (): INTEGER;
 		WNDENUMPROC* = PROCEDURE [1] (): INTEGER;
@@ -11220,6 +11220,11 @@ MODULE WinApi (*KERNEL32.dll*);
 		RetGetSidSubAuthority* = POINTER TO (*?*) ARRAY [1] OF INTEGER;
 		RetDdeAccessData* = POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
 		RetCommandLineToArgvW* = POINTER TO (*?*) ARRAY [1] OF PtrWSTR;
+
+  PROCEDURE -Instance* (): HINSTANCE "__hInstance";
+  PROCEDURE -PrevInstance* (): HINSTANCE "__hPrevInstance";
+  PROCEDURE -CmdLine* (): PtrSTR "__lpCmdLine";
+  PROCEDURE -CmdShow* (): INTEGER "__nCmdShow";
 
 	PROCEDURE [1] -InterlockedIncrement* (VAR [nil] lpAddend: INTEGER): INTEGER;
 	(*END InterlockedIncrement;*)
