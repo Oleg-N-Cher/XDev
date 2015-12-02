@@ -1,12 +1,14 @@
 (*
 
-	ADW-Modula-2 example Clock
-	
-	Portions Copyright © 1987-1990 Microsoft Corp.
-	
-	2014. Edited by Frank Schoonjans
-	
-*)	
+  ADW-Modula-2 example Clock
+
+  Portions Copyright © 1987-1990 Microsoft Corp.
+
+  2014. Edited by Frank Schoonjans
+
+  XDev Oberon port by Oleg N. Cher, 2015
+
+*)
 
 (***************************************************************************
  *                                                                         *
@@ -68,55 +70,9 @@
  *                                                                         *
  ***************************************************************************)
 
-MODULE Clock;
-<*/NOWARN:F*>
-<*/Resource:CLOCK.RES*>
+MODULE Clock; (*$MAIN*)
 
-IMPORT SysClock;
-
-FROM SYSTEM IMPORT
-    ADR, CAST, UNREFERENCED_PARAMETER;
-
-FROM WIN32 IMPORT
-    WORD, WPARAM, LPARAM, UINT, BOOL, POINT, RECT, INT_PTR,
-    LRESULT,
-    HMENU, HBRUSH, HPEN, HWND, HDC,
-    GlobalLock, GlobalAlloc, GPTR;
-
-FROM WINUSER IMPORT
-    GetDC, ReleaseDC, OffsetRect, InflateRect, SetRect,
-    InvalidateRect, GetClientRect, RegisterClass,
-    MessageBox, GetSystemMenu, ChangeMenu, ShowWindow,
-    GetMessage, TranslateMessage, DispatchMessage,
-    LoadString, LoadCursor, LoadIcon, IDC_ARROW,
-    FillRect, DefWindowProc, UpdateWindow, PostQuitMessage,
-    KillTimer, SetTimer, DialogBox,
-    BeginPaint, EndPaint, GetSystemMetrics,
-    CreateWindow, GetSysColor, EndDialog,
-    LOWORD, HIWORD,
-    MB_OK, MB_ICONHAND, MB_SYSTEMMODAL,
-    SIZE_MINIMIZED, COLOR_WINDOWTEXT, COLOR_WINDOW,
-    SM_CXFRAME, SM_CYFRAME, SM_CYCAPTION,
-    WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, MF_APPEND, MF_STRING,
-    CS_VREDRAW, CS_HREDRAW, CS_BYTEALIGNCLIENT,
-    WM_INITDIALOG, WM_COMMAND, WM_SYSCOMMAND, WM_SIZE, WM_DESTROY,
-    WM_PAINT, WM_TIMECHANGE, WM_TIMER, WM_SYSCOLORCHANGE,
-    WM_ERASEBKGND,
-    WNDCLASS, TIMERPROC, MSG, PAINTSTRUCT;
-
-FROM WINGDI IMPORT
-    CreateSolidBrush, CreatePen, GetDeviceCaps,
-    SetBkMode, MoveToEx, LineTo, SetROP2,
-    R2_NOT, R2_COPYPEN,
-    VERTRES, HORZRES, VERTSIZE, HORZSIZE, TRANSPARENT;
-
-FROM WINX IMPORT
-    DeletePen, DeleteBrush, SelectPen,
-    NULL_HWND, NULL_HMENU, NIL_POINT, NIL_RECT, NULL_HBRUSH,
-    NULL_HINSTANCE,
-    Instance, PrevInstance, CmdShow;
-
-TYPE
+IMPORT SYSTEM, W := WinApi, D := Delphi, Ignore;
 
 CONST
 
@@ -138,11 +94,11 @@ CONST
     PAINTALL      = 0;
     HANDPAINT     = 1;
 
-    (* timer interval when the clock window is ...            *)
+    (* timer interval when the clock window is ...  *)
     OPEN_TLEN     = 450;    (* ... open   (every second) *)
     ICON_TLEN     = 59000;  (* ... iconic (every minute) *)
 
-    (* distance from the center of the clock to ...                 *)
+    (* distance from the center of the clock to ... *)
     HOURSIDE      = 7;   (* ... either side of the hour hand   *)
     MINUTESIDE    = 5;   (* ... either side of the minute hand *)
     HOURTIP       = 65;  (* ... the tip of the hour hand       *)
@@ -155,15 +111,16 @@ CONST
     CIRTABSCALE   = 8000; (* circle table values scale down value  *)
     MMPERDM       = 100;  (* millimeters per decimeter             *)
 
-    (* number of hand positions on ...                                     *)
+    (* number of hand positions on ... *)
     HANDPOSITIONS = 60;                    (* ... entire clock         *)
-    SIDESHIFT     = (HANDPOSITIONS / 4); (* ...  90 degrees of clock *)
-    TAILSHIFT     = (HANDPOSITIONS / 2); (* ... 180 degrees of clock *)
+    SIDESHIFT     = (HANDPOSITIONS DIV 4); (* ...  90 degrees of clock *)
+    TAILSHIFT     = (HANDPOSITIONS DIV 2); (* ... 180 degrees of clock *)
 
 VAR
-    bFirst  : BOOL = TRUE;   (* TRUE if this is the 1st instance; FALSE otherwise  *)
-    TimerID : INTEGER = 1;   (* number used for timer-id                           *)
-    bIconic : BOOL = FALSE;  (* TRUE if clock is currently iconic; FALSE otherwise *)
+    bFirst  : BOOLEAN;  (* TRUE if this is the 1st instance; FALSE otherwise  *)
+    TimerID : INTEGER;  (* number used for timer-id                           *)
+    bIconic : BOOLEAN;  (* TRUE if clock is currently iconic; FALSE otherwise *)
+    Instance: W.HINSTANCE;
 
 TYPE
     TIME = RECORD
@@ -172,61 +129,61 @@ TYPE
     second  : INTEGER;
     END;
 
-    arrPOINT    = ARRAY [0..60-1] OF POINT;
+    arrPOINT    = ARRAY 2*60 OF INTEGER;
 
 CONST
 
-    CirTab = arrPOINT
-    {
-    {     0,  -7999},   {   836,  -7956},
-    {  1663,  -7825},   {  2472,  -7608},
-    {  3253,  -7308},   {  3999,  -6928},
-    {  4702,  -6472},   {  5353,  -5945},
-    {  5945,  -5353},   {  6472,  -4702},
-    {  6928,  -4000},   {  7308,  -3253},
-    {  7608,  -2472},   {  7825,  -1663},
-    {  7956,  -836},    {  8000,  0},
-    {  7956,  836}, {  7825,  1663},
-    {  7608,  2472},    {  7308,  3253},
-    {  6928,  4000},    {  6472,  4702},
-    {  5945,  5353},    {  5353,  5945},
-    {  4702,  6472},    {  3999,  6928},
-    {  3253,  7308},    {  2472,  7608},
-    {  1663,  7825},    {  836,  7956},
-    {     0,  7999},   {  -836,  7956},
-    {  -1663,  7825},   {  -2472,  7608},
-    {  -3253,  7308},   {  -4000,  6928},
-    {  -4702,  6472},   {  -5353,  5945},
-    {  -5945,  5353},   {  -6472,  4702},
-    {  -6928,  3999},   {  -7308,  3253},
-    {  -7608,  2472},   {  -7825,  1663},
-    {  -7956,  836},    {  -7999,  0},
-    {  -7956,  -836},   {  -7825,  -1663},
-    {  -7608,  -2472},  {  -7308,  -3253},
-    {  -6928,  -4000},  {  -6472,  -4702},
-    {  -5945,  -5353},  {  -5353,  -5945},
-    {  -4702,  -6472},  {  -3999,  -6928},
-    {  -3253,  -7308},  {  -2472,  -7608},
-    {  -1663,  -7825},  {  -836,  -7956}
-    };
+    CirTabConst = arrPOINT
+    (
+         0,  -7999,      836,  -7956,
+      1663,  -7825,     2472,  -7608,
+      3253,  -7308,     3999,  -6928,
+      4702,  -6472,     5353,  -5945,
+      5945,  -5353,     6472,  -4702,
+      6928,  -4000,     7308,  -3253,
+      7608,  -2472,     7825,  -1663,
+      7956,  -836,      8000,  0,
+      7956,  836,       7825,  1663,
+      7608,  2472,      7308,  3253,
+      6928,  4000,      6472,  4702,
+      5945,  5353,      5353,  5945,
+      4702,  6472,      3999,  6928,
+      3253,  7308,      2472,  7608,
+      1663,  7825,      836,   7956,
+         0,  7999,      -836,  7956,
+      -1663,  7825,     -2472,  7608,
+      -3253,  7308,     -4000,  6928,
+      -4702,  6472,     -5353,  5945,
+      -5945,  5353,     -6472,  4702,
+      -6928,  3999,     -7308,  3253,
+      -7608,  2472,     -7825,  1663,
+      -7956,  836,      -7999,  0,
+      -7956,  -836,     -7825,  -1663,
+      -7608,  -2472,    -7308,  -3253,
+      -6928,  -4000,    -6472,  -4702,
+      -5945,  -5353,    -5353,  -5945,
+      -4702,  -6472,    -3999,  -6928,
+      -3253,  -7308,    -2472,  -7608,
+      -1663,  -7825,    -836,  -7956
+    );
 
 VAR
     oTime   : TIME;             (* the time currently displayed on the clock          *)
 
-    hbrForegnd  : HBRUSH;       (* foreground brush -- system window text color       *)
-    hbrBackgnd  : HBRUSH;       (* background brush -- system window backbround color *)
-    hpenForegnd : HPEN;         (* foreground pen   -- system window text color       *)
-    hpenBackgnd : HPEN;         (* background pen   -- system window background color *)
+    hbrForegnd  : W.HBRUSH;       (* foreground brush -- system window text color       *)
+    hbrBackgnd  : W.HBRUSH;       (* background brush -- system window backbround color *)
+    hpenForegnd : W.HPEN;         (* foreground pen   -- system window text color       *)
+    hpenBackgnd : W.HPEN;         (* background pen   -- system window background color *)
 
-    lpCirTab    :  POINTER TO arrPOINT;  (* Pointer to the circle table                        *)
+    CirTab      : arrPOINT;       (* the circle table *)
 
     (* buffer for stringtable data *)
-    szBuffer    : ARRAY [0..BUFLEN] OF CHAR;
+    szBuffer    : ARRAY BUFLEN+1 OF CHAR;
 
-    ClockRect   : RECT;         (* rectangle that EXACTLY bounds the clock face       *)
+    ClockRect   : W.RECT;       (* rectangle that EXACTLY bounds the clock face       *)
 
     ClockRadius : INTEGER;      (* clock face radius                                  *)
-    ClockCenter : POINT;        (* clock face center                                  *)
+    ClockCenter : W.POINT;      (* clock face center                                  *)
 
     HRes        : INTEGER;      (* width of the display (in pixels)                   *)
     VRes        : INTEGER;      (* height of the display (in raster lines)            *)
@@ -236,9 +193,9 @@ VAR
 
 
 VAR
-    Wnd     : HWND;
-    mess    : MSG;
-    Menu    : HMENU;
+    Wnd     : W.HWND;
+    mess    : W.MSG;
+    Menu    : W.HMENU;
     nTime   : TIME;
 
     sysWidth    : INTEGER;  (* width of left and right frames                  *)
@@ -246,16 +203,20 @@ VAR
     width   : INTEGER;      (* width of entire clock window                    *)
     height  : INTEGER;      (* height of entire clock window                   *)
 
-    pszTooMany  : POINTER TO ARRAY[0..511] OF CHAR;
+TYPE
+    pszTooManyPtr = POINTER TO ARRAY 512 OF CHAR;
 
-PROCEDURE GetTime(VAR t : TIME);
 VAR
-    dt  : SysClock.DateTime;
+    pszTooMany  : pszTooManyPtr;
+
+PROCEDURE GetTime (VAR t : TIME);
+VAR
+    dt  : W.SYSTEMTIME;
 BEGIN
-    SysClock.GetClock(dt);
-    t.hour := dt.hour;
-    t.minute := dt.minute;
-    t.second := dt.second;
+    W.GetLocalTime(dt);
+    t.hour := dt.wHour;
+    t.minute := dt.wMinute;
+    t.second := dt.wSecond;
 END GetTime;
 
 (***************************************************************************
@@ -270,9 +231,9 @@ END GetTime;
 PROCEDURE HourHandPos(t : TIME) : INTEGER;
 BEGIN
     IF t.hour < 12 THEN
-        RETURN (t.hour*5) + (t.minute / 12);
+        RETURN (t.hour*5) + (t.minute DIV 12);
     ELSE
-        RETURN ((t.hour - 12)*5) + (t.minute / 12);
+        RETURN ((t.hour - 12)*5) + (t.minute DIV 12);
     END;
 END HourHandPos;
 
@@ -286,7 +247,7 @@ END HourHandPos;
  ***************************************************************************)
 PROCEDURE VertEquiv(l : INTEGER) : INTEGER;
 BEGIN
-    RETURN l * AspectV / AspectH;
+    RETURN l * AspectV DIV AspectH;
 END VertEquiv;
 
 (***************************************************************************
@@ -299,12 +260,12 @@ END VertEquiv;
  ***************************************************************************)
 PROCEDURE HorzEquiv(l : INTEGER) : INTEGER;
 BEGIN
-    RETURN l * AspectH / AspectV;
+    RETURN l * AspectH DIV AspectV;
 END HorzEquiv;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : CreateTools ()                                              *
+ *  PROCEDURE : CreateTools                                                *
  *                                                                         *
  *  PURPOSE  : Creates brushes and pens to coincide with the current       *
  *             system colors.                                              *
@@ -312,30 +273,30 @@ END HorzEquiv;
  ***************************************************************************)
 PROCEDURE CreateTools;
 BEGIN
-    hbrForegnd  := CreateSolidBrush(GetSysColor(COLOR_WINDOWTEXT));
-    hbrBackgnd  := CreateSolidBrush(GetSysColor(COLOR_WINDOW));
-    hpenForegnd := CreatePen(0, 1, GetSysColor(COLOR_WINDOWTEXT));
-    hpenBackgnd := CreatePen(0, 1, GetSysColor(COLOR_WINDOW));
+    hbrForegnd  := W.CreateSolidBrush(W.GetSysColor(W.COLOR_WINDOWTEXT));
+    hbrBackgnd  := W.CreateSolidBrush(W.GetSysColor(W.COLOR_WINDOW));
+    hpenForegnd := W.CreatePen(0, 1, W.GetSysColor(W.COLOR_WINDOWTEXT));
+    hpenBackgnd := W.CreatePen(0, 1, W.GetSysColor(W.COLOR_WINDOW));
 END CreateTools;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : DeleteTools ()                                              *
+ *  PROCEDURE : DeleteTools                                                *
  *                                                                         *
  *  PURPOSE  : Destroys the brushes and pens created by CreateTools.       *
  *                                                                         *
  ***************************************************************************)
 PROCEDURE DeleteTools;
 BEGIN
-    DeleteBrush(hbrForegnd);
-    DeleteBrush(hbrBackgnd);
-    DeletePen(hpenForegnd);
-    DeletePen(hpenBackgnd);
+  Ignore.Int( W.DeleteObject(hbrForegnd) );
+  Ignore.Int( W.DeleteObject(hbrBackgnd) );
+  Ignore.Int( W.DeleteObject(hpenForegnd) );
+  Ignore.Int( W.DeleteObject(hpenBackgnd) );
 END DeleteTools;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockCreate ()                                              *
+ *  PROCEDURE : ClockCreate                                                *
  *                                                                         *
  *  PURPOSE  : First, for drawing the clock, ClockCreate computes the      *
  *             aspect ratio and creates the necessary pens and brushes.    *
@@ -349,32 +310,32 @@ VAR
     pos     : INTEGER; (* hand position index into the circle table *)
     vSize   : INTEGER; (* height of the display in millimeters      *)
     hSize   : INTEGER; (* width of the display in millimeters       *)
-    dc      : HDC;
+    dc      : W.HDC;
 BEGIN
     (* Get display size in (pixels X raster lines) *)
     (* and in (millimeters X millimeters)          *)
 
-    dc      := GetDC(NULL_HWND);
-    VRes    := GetDeviceCaps(dc, VERTRES);
-    HRes    := GetDeviceCaps(dc, HORZRES);
-    vSize   := GetDeviceCaps(dc, VERTSIZE);
-    hSize   := GetDeviceCaps(dc, HORZSIZE);
-    ReleaseDC(NULL_HWND, dc);
+    dc      := W.GetDC(NIL);
+    VRes    := W.GetDeviceCaps(dc, W.VERTRES);
+    HRes    := W.GetDeviceCaps(dc, W.HORZRES);
+    vSize   := W.GetDeviceCaps(dc, W.VERTSIZE);
+    hSize   := W.GetDeviceCaps(dc, W.HORZSIZE);
+    Ignore.Int( W.ReleaseDC(NIL, dc) );
 
     (* Compute (raster lines / decimeter) and (pixels / decimeter) *)
 
-    AspectV := (VRes * MMPERDM) / vSize;
-    AspectH := (HRes * MMPERDM) / hSize;
+    AspectV := (VRes * MMPERDM) DIV vSize;
+    AspectH := (HRes * MMPERDM) DIV hSize;
 
-    CreateTools();
+    CreateTools;
 
     (* Scale cosines for aspect ratio if this is the first instance *)
 
-    IF bFirst <> FALSE THEN
+    IF bFirst # FALSE THEN
         pos := 0;
 
         WHILE pos < HANDPOSITIONS DO
-            lpCirTab^[pos].y := VertEquiv(lpCirTab^[pos].y);
+            CirTab[2*pos+1](*y*) := VertEquiv(CirTab[2*pos+1](*y*));
             INC(pos);
         END;
     END;
@@ -384,7 +345,7 @@ END ClockCreate;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : CircleClock (int, int)                                      *
+ *  PROCEDURE : CircleClock (int, int)                                     *
  *                                                                         *
  *  PURPOSE  : Resizes the clock rectangle to keep the face circular.      *
  *                                                                         *
@@ -398,21 +359,21 @@ BEGIN
         (* too wide -- decrease width to keep face circular *)
 
         clockWidth := HorzEquiv(maxHeight);
-        ClockRect.left := ClockRect.left + ((maxWidth - clockWidth) / 2);
+        ClockRect.left := ClockRect.left + ((maxWidth - clockWidth) DIV 2);
         ClockRect.right := ClockRect.left + clockWidth;
 
     ELSE
         (* too tall -- decrease height to keep face circular *)
 
         clockHeight := VertEquiv(maxWidth);
-        ClockRect.top := ClockRect.top + ((maxHeight - clockHeight) / 2);
+        ClockRect.top := ClockRect.top + ((maxHeight - clockHeight) DIV 2);
         ClockRect.bottom := ClockRect.top + clockHeight;
     END;
 END CircleClock;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockSize (HWND, int, int, WORD)                            *
+ *  PROCEDURE : ClockSize (HWND, int, int, WORD)                           *
  *                                                                         *
  *  PURPOSE  : Resize the clock to the largest possible circle that will   *
  *             fit in the client area. If switching from not iconic to     *
@@ -421,48 +382,48 @@ END CircleClock;
  *             every second.                                               *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE ClockSize(W : HWND;
+PROCEDURE ClockSize(w : W.HWND;
             newWidth, newHeight : INTEGER;
-            sizeType : WORD);
+            sizeType : INTEGER);
 BEGIN
 
-    (* Set ClockRect to bound the largest possible circle in the window *)
-    SetRect(ClockRect, 0, 0, newWidth, newHeight);
-    CircleClock(newWidth, newHeight);
+  (* Set ClockRect to bound the largest possible circle in the window *)
+  Ignore.Int( W.SetRect(ClockRect, 0, 0, newWidth, newHeight) );
+  CircleClock(newWidth, newHeight);
 
-    IF sizeType = SIZE_MINIMIZED THEN
-        (* Update once every minute in the iconic state *)
+  IF sizeType = W.SIZE_MINIMIZED THEN
+    (* Update once every minute in the iconic state *)
 
-        KillTimer(W, TimerID);
-        SetTimer(W, TimerID, ICON_TLEN, CAST(TIMERPROC, 0));
-        bIconic := TRUE;
-    ELSIF bIconic <> FALSE THEN
-        (* Update every second in the opened state (ignore tiling) *)
+    Ignore.Int( W.KillTimer(w, TimerID) );
+    Ignore.Int( W.SetTimer(w, TimerID, ICON_TLEN, SYSTEM.VAL(W.TIMERPROC, 0)));
+    bIconic := TRUE;
+  ELSIF bIconic # FALSE THEN
+    (* Update every second in the opened state (ignore tiling) *)
 
-        KillTimer(W, TimerID);
-        SetTimer(W, TimerID, OPEN_TLEN, CAST(TIMERPROC, 0));
-        bIconic := FALSE;
-    END;
+    Ignore.Int( W.KillTimer(w, TimerID) );
+    Ignore.Int( W.SetTimer(w, TimerID, OPEN_TLEN, SYSTEM.VAL(W.TIMERPROC, 0)));
+    bIconic := FALSE;
+  END;
 END ClockSize;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : DrawFace (HDC)                                              *
+ *  PROCEDURE : DrawFace (HDC)                                             *
  *                                                                         *
  *  PURPOSE  : Draws the clock face.                                       *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE DrawFace(DC : HDC);
+PROCEDURE DrawFace(DC : W.HDC);
 VAR
-    pos     : INTEGER;  (* hand position index into the circle table *)
+    pos         : INTEGER;  (* hand position index into the circle table *)
     dotHeight   : INTEGER;  (* height of the hour-marking dot            *)
     dotWidth    : INTEGER;  (* width of the hour-marking dot             *)
-    dotCenter   : POINT;    (* center point of the hour-marking dot      *)
-    rc      : RECT;
+    dotCenter   : W.POINT;  (* center point of the hour-marking dot      *)
+    rc          : W.RECT;
 BEGIN
     (* Compute hour-marking dot width, height, and center point *)
 
-    dotWidth := (MAXDOTWIDTH * (ClockRect.right - ClockRect.left)) / HRes;
+    dotWidth := (MAXDOTWIDTH * (ClockRect.right - ClockRect.left)) DIV HRes;
     dotHeight := VertEquiv(dotWidth);
 
     IF dotHeight < MINDOTHEIGHT THEN
@@ -473,33 +434,33 @@ BEGIN
         dotWidth := MINDOTWIDTH;
     END;
 
-    dotCenter.x := dotWidth / 2;
-    dotCenter.y := dotHeight / 2;
+    dotCenter.x := dotWidth DIV 2;
+    dotCenter.y := dotHeight DIV 2;
 
     (* Compute the clock center and radius *)
 
-    InflateRect(ClockRect, -dotCenter.y, -dotCenter.x);
+    Ignore.Int( W.InflateRect(ClockRect, -dotCenter.y, -dotCenter.x) );
 
-    ClockRadius := ((ClockRect.right - ClockRect.left) / 2);
+    ClockRadius := ((ClockRect.right - ClockRect.left) DIV 2);
     ClockCenter.x := ClockRect.left + ClockRadius;
-    ClockCenter.y := ClockRect.top + ((ClockRect.bottom - ClockRect.top) / 2);
+    ClockCenter.y := ClockRect.top + ((ClockRect.bottom - ClockRect.top) DIV 2);
 
-    InflateRect(ClockRect, dotCenter.y, dotCenter.x);
+    Ignore.Int( W.InflateRect(ClockRect, dotCenter.y, dotCenter.x) );
 
     (* Draw the large hour-marking dots and small minute-marking dots *)
 
     FOR pos := 0 TO HANDPOSITIONS-1 DO
-        rc.top := (lpCirTab^[pos].y * ClockRadius) / CIRTABSCALE + ClockCenter.y;
-        rc.left := (lpCirTab^[pos].x * ClockRadius) / CIRTABSCALE + ClockCenter.x;
+        rc.top := (CirTab[2*pos+1](*y*) * ClockRadius) DIV CIRTABSCALE + ClockCenter.y;
+        rc.left := (CirTab[2*pos](*x*) * ClockRadius) DIV CIRTABSCALE + ClockCenter.x;
 
-        IF (pos REM 5) <> 0 THEN
+        IF (pos MOD 5) # 0 THEN
 
-            IF ((dotWidth > MINDOTWIDTH) AND (dotHeight > MINDOTHEIGHT)) THEN
+            IF ((dotWidth > MINDOTWIDTH) & (dotHeight > MINDOTHEIGHT)) THEN
                 (* Draw small minute-marking dot *)
 
                 rc.right := rc.left + 1;
                 rc.bottom := rc.top + 1;
-                FillRect(DC, rc, hbrForegnd);
+                Ignore.Int( W.FillRect(DC, rc, hbrForegnd) );
             END;
 
         ELSE
@@ -508,23 +469,23 @@ BEGIN
             rc.right := rc.left + dotWidth;
             rc.bottom := rc.top + dotHeight;
 
-            OffsetRect(rc, -dotCenter.x, -dotCenter.y);
-            FillRect(DC, rc, hbrForegnd);
+            Ignore.Int( W.OffsetRect(rc, -dotCenter.x, -dotCenter.y) );
+            Ignore.Int( W.FillRect(DC, rc, hbrForegnd) );
         END;
     END;
 END DrawFace;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : DrawHand (HDC, int, HPEN, int, int)                         *
+ *  PROCEDURE : DrawHand (HDC, int, HPEN, int, int)                        *
  *                                                                         *
  *  PURPOSE  : Draws a thin hand with the specified pen in the specified   *
  *             hand position.                                              *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE DrawHand(DC : HDC;
+PROCEDURE DrawHand(DC : W.HDC;
            pos : INTEGER;
-           Pen : HPEN;
+           Pen : W.HPEN;
            scale : INTEGER;
            patMode : INTEGER);
 VAR
@@ -533,51 +494,51 @@ VAR
 BEGIN
     (* scale length of hand *)
 
-    radius := (ClockRadius * scale) / 100;
+    radius := (ClockRadius * scale) DIV 100;
     (* set pattern mode for hand *)
 
-    SetROP2(DC, patMode);
+    Ignore.Int( W.SetROP2(DC, patMode) );
 
     (* select pen for hand *)
 
-    SelectPen(DC, Pen);
+    Ignore.Ptr( W.SelectObject(DC, Pen) );
 
     (* Draw thin hand *)
 
-    xr := (lpCirTab^[pos].x * radius) / CIRTABSCALE;
-    yr := (lpCirTab^[pos].y * radius) / CIRTABSCALE;
+    xr := (CirTab[2*pos](*x*) * radius) DIV CIRTABSCALE;
+    yr := (CirTab[2*pos+1](*y*) * radius) DIV CIRTABSCALE;
 
-    MoveToEx(DC, ClockCenter.x, ClockCenter.y, NIL_POINT);
-    LineTo(DC, ClockCenter.x + xr, ClockCenter.y + yr);
+    Ignore.Int( W.MoveToEx(DC, ClockCenter.x, ClockCenter.y, NIL) );
+    Ignore.Int( W.LineTo(DC, ClockCenter.x + xr, ClockCenter.y + yr) );
 END DrawHand;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : DrawFatHand (HDC, int, HPEN, BOOL)                          *
+ *  PROCEDURE : DrawFatHand (HDC, int, HPEN, BOOL)                         *
  *                                                                         *
  *  PURPOSE  : Draws a fat hand with the specified pen in the specified    *
  *             hand position.                                              *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE DrawFatHand(DC : HDC;
+PROCEDURE DrawFatHand(DC : W.HDC;
               pos : INTEGER;
-              Pen : HPEN;
-              whichHand : WORD);
+              Pen : W.HPEN;
+              whichHand : INTEGER);
 VAR
-    ptTip   : POINT;    (* coordinates for the tip of the hand        *)
-    ptTail  : POINT;    (* coordinates for the tail of the hand       *)
-    ptSide  : POINT;    (* coordinates for the side of the hand       *)
+    ptTip   : W.POINT;  (* coordinates for the tip of the hand        *)
+    ptTail  : W.POINT;  (* coordinates for the tail of the hand       *)
+    ptSide  : W.POINT;  (* coordinates for the side of the hand       *)
     index   : INTEGER;  (* position index into the circle table       *)
     scale   : INTEGER;  (* ClockRadius percentage to scale drawing to *)
     toPaint : INTEGER;
 BEGIN
     (* set pattern mode for hand *)
 
-    SetROP2(DC, 13);
+    Ignore.Int( W.SetROP2(DC, 13) );
 
     (* select pen for hand *)
 
-    SelectPen(DC, Pen);
+    Ignore.Ptr( W.SelectObject(DC, Pen) );
 
     (* compute coordinates for the side of the hand *)
 
@@ -587,10 +548,10 @@ BEGIN
         toPaint := MINUTESIDE;
     END;
 
-    scale := (ClockRadius * toPaint) / 100;
-    index := (pos + SIDESHIFT) REM HANDPOSITIONS;
-    ptSide.y := (lpCirTab^[index].y * scale) / CIRTABSCALE;
-    ptSide.x := (lpCirTab^[index].x * scale) / CIRTABSCALE;
+    scale := (ClockRadius * toPaint) DIV 100;
+    index := (pos + SIDESHIFT) MOD HANDPOSITIONS;
+    ptSide.y := (CirTab[2*index+1](*y*) * scale) DIV CIRTABSCALE;
+    ptSide.x := (CirTab[2*index](*x*) * scale) DIV CIRTABSCALE;
 
     (* compute coordinates for the tip of the hand *)
 
@@ -600,9 +561,9 @@ BEGIN
         toPaint := MINUTETIP;
     END;
 
-    scale := (ClockRadius * toPaint) / 100;
-    ptTip.y := (lpCirTab^[pos].y * scale) / CIRTABSCALE;
-    ptTip.x := (lpCirTab^[pos].x * scale) / CIRTABSCALE;
+    scale := (ClockRadius * toPaint) DIV 100;
+    ptTip.y := (CirTab[2*pos+1](*y*) * scale) DIV CIRTABSCALE;
+    ptTip.x := (CirTab[2*pos](*x*) * scale) DIV CIRTABSCALE;
 
     (* compute coordinates for the tail of the hand *)
 
@@ -612,72 +573,79 @@ BEGIN
         toPaint := MINUTETAIL;
     END;
 
-    scale := (ClockRadius * toPaint) / 100;
-    index := (pos + TAILSHIFT) REM HANDPOSITIONS;
-    ptTail.y := (lpCirTab^[index].y * scale) / CIRTABSCALE;
-    ptTail.x := (lpCirTab^[index].x * scale) / CIRTABSCALE;
+    scale := (ClockRadius * toPaint) DIV 100;
+    index := (pos + TAILSHIFT) MOD HANDPOSITIONS;
+    ptTail.y := (CirTab[2*index+1](*y*) * scale) DIV CIRTABSCALE;
+    ptTail.x := (CirTab[2*index](*x*) * scale) DIV CIRTABSCALE;
 
     (* Draw tip of hand *)
-
-    MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL_POINT);
-    LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y);
-    MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL_POINT);
-    LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y);
+  Ignore.Int(
+    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL));
+  Ignore.Int(
+    W.LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y));
+  Ignore.Int(
+    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL));
+  Ignore.Int(
+    W.LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y));
 
     (* Draw tail of hand *)
 
-    MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL_POINT);
-    LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y);
-    MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL_POINT);
-    LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y);
+  Ignore.Int(
+    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL));
+  Ignore.Int(
+    W.LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y));
+  Ignore.Int(
+    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL));
+  Ignore.Int(
+    W.LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y));
 END DrawFatHand;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockPaint (HWND, HDC, int)                                 *
+ *  PROCEDURE : ClockPaint (HWND, HDC, int)                                *
  *                                                                         *
  *  PURPOSE  : Paint the clock to display the most recent time.            *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE ClockPaint(dc : HDC; paintType : INTEGER);
+PROCEDURE ClockPaint(dc : W.HDC; paintType : INTEGER);
 VAR
     nTime : TIME;
 BEGIN
-    SetBkMode(dc, TRANSPARENT);
+    Ignore.Int( W.SetBkMode(dc, W.TRANSPARENT) );
 
     IF paintType = PAINTALL THEN
         (* Paint entire clock -- face and hands *)
 
-        FillRect(dc, ClockRect, hbrBackgnd);
+        Ignore.Int( W.FillRect(dc, ClockRect, hbrBackgnd) );
         DrawFace(dc);
         DrawFatHand(dc, HourHandPos(oTime), hpenForegnd, HHAND);
         DrawFatHand(dc, oTime.minute, hpenForegnd, MHAND);
         IF bIconic = FALSE THEN
             (* Erase old second hand *)
 
-            DrawHand(dc, oTime.second, hpenBackgnd, SECONDTIP, R2_NOT);
+            DrawHand(dc, oTime.second, hpenBackgnd, SECONDTIP, W.R2_NOT);
         END;
     ELSIF paintType = HANDPAINT THEN
         GetTime(nTime);
 
-        IF ((bIconic = FALSE) AND (nTime.second <> oTime.second)) THEN
+        IF ((bIconic = FALSE) & (nTime.second # oTime.second)) THEN
             (* Second has changed -- erase old second hand *)
-            DrawHand(dc, oTime.second, hpenBackgnd, SECONDTIP, R2_NOT);
+            DrawHand(dc, oTime.second, hpenBackgnd, SECONDTIP, W.R2_NOT);
         END;
 
-        IF ((nTime.minute <> oTime.minute) OR (nTime.hour <> oTime.hour)) THEN
+        IF ((nTime.minute # oTime.minute) OR (nTime.hour # oTime.hour)) THEN
             (* Hour and/or minute have changed -- update hands *)
 
-            IF bIconic <> FALSE THEN
+            IF bIconic # FALSE THEN
                 (* Erase old minute and hour hands *)
 
-                DrawHand(dc, oTime.minute, hpenBackgnd, MINUTETIP, R2_COPYPEN);
-                DrawHand(dc, HourHandPos(oTime), hpenBackgnd, HOURTIP, R2_COPYPEN);
+                DrawHand(dc, oTime.minute, hpenBackgnd, MINUTETIP, W.R2_COPYPEN);
+                DrawHand(dc, HourHandPos(oTime), hpenBackgnd, HOURTIP, W.R2_COPYPEN);
 
                 (* Draw new minute and hour hands *)
 
-                DrawHand(dc, nTime.minute, hpenForegnd, MINUTETIP, R2_COPYPEN);
-                DrawHand(dc, HourHandPos(nTime), hpenForegnd, HOURTIP, R2_COPYPEN);
+                DrawHand(dc, nTime.minute, hpenForegnd, MINUTETIP, W.R2_COPYPEN);
+                DrawHand(dc, HourHandPos(nTime), hpenForegnd, HOURTIP, W.R2_COPYPEN);
 
             ELSE
                 (* Erase old minute and hour fat hands *)
@@ -692,9 +660,9 @@ BEGIN
             END;
         END;
 
-        IF ((bIconic = FALSE) AND (nTime.second <> oTime.second)) THEN
+        IF ((bIconic = FALSE) & (nTime.second # oTime.second)) THEN
             (* second has changed -- draw new second hand *)
-            DrawHand(dc, nTime.second, hpenBackgnd, SECONDTIP, R2_NOT);
+            DrawHand(dc, nTime.second, hpenBackgnd, SECONDTIP, W.R2_NOT);
         END;
 
         (* Store most recent time *)
@@ -707,116 +675,117 @@ END ClockPaint;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockTimer (HWND)                                           *
+ *  PROCEDURE : ClockTimer (HWND)                                          *
  *                                                                         *
  *  PURPOSE  : Update the clock to reflect the most recent time.           *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE ClockTimer(W : HWND);
+PROCEDURE ClockTimer(w : W.HWND);
 VAR
     nTime   : TIME;
-    dc      : HDC;
+    dc      : W.HDC;
 BEGIN
     GetTime(nTime);
 
     (* It's possible to change any part of the system at any time through *)
     (* the Control Panel. Check for any change in second, minute, or hour *)
 
-    IF ((nTime.second <> oTime.second) OR
-        (nTime.minute <> oTime.minute) OR
-        (nTime.hour   <> oTime.hour))
+    IF ((nTime.second # oTime.second) OR
+        (nTime.minute # oTime.minute) OR
+        (nTime.hour   # oTime.hour))
     THEN
         (* The time has changed -- update the clock *)
-        dc := GetDC(W);
+        dc := W.GetDC(w);
         ClockPaint(dc, HANDPAINT);
-        ReleaseDC(W, dc);
+        Ignore.Int( W.ReleaseDC(w, dc) );
     END;
 END ClockTimer;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : About (HWND, unsigned, WORD, LONG)                          *
+ *  PROCEDURE : About (HWND, unsigned, WORD, LONG)                         *
  *                                                                         *
  *  PURPOSE  : Dialog function for the "About..." menu item dialog.        *
  *                                                                         *
  ***************************************************************************)
 
-PROCEDURE AboutProc(hDlg : HWND;
-           message : UINT;
-           wParam : WPARAM;
-           lParam : LPARAM) : INT_PTR [EXPORT, OSCall];
+PROCEDURE [1] AboutProc(hDlg : W.HWND;
+           message : INTEGER;
+           wParam : W.WPARAM;
+           lParam : W.LPARAM) : W.PtrVoid;
 BEGIN
+(*
     UNREFERENCED_PARAMETER(wParam);
     UNREFERENCED_PARAMETER(lParam);
-
+*)
     CASE message OF
-    | WM_INITDIALOG:
-    | WM_COMMAND   : EndDialog(hDlg, 1);
-    ELSE RETURN 0;
+    | W.WM_INITDIALOG:
+    | W.WM_COMMAND   : Ignore.Int( W.EndDialog(hDlg, 1) );
+    ELSE RETURN SYSTEM.VAL(W.PtrVoid, 0)
     END;
-    RETURN 1;
+    RETURN SYSTEM.VAL(W.PtrVoid, 1)
 END AboutProc;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockWndProc (HWND, unsigned, WORD, LONG)                   *
+ *  PROCEDURE : ClockWndProc (HWND, unsigned, WORD, LONG)                  *
  *                                                                         *
  *  PURPOSE  : Window function for the application.                        *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE ClockWndProc(wnd : HWND;
-              message : UINT;
-              wParam : WPARAM;
-              lParam : LPARAM) : LRESULT [EXPORT, OSCall];
+PROCEDURE [1] ClockWndProc(wnd : W.HWND;
+              message : INTEGER;
+              wParam : W.WPARAM;
+              lParam : W.LPARAM) : W.LRESULT;
 VAR
-    ps : PAINTSTRUCT;
-    rc : RECT;
+    ps : W.PAINTSTRUCT;
+    rc : W.RECT;
 BEGIN
     CASE message OF
-    | WM_SYSCOMMAND:
-                    IF wParam = IDM_ABOUT THEN
+    | W.WM_SYSCOMMAND:
+                    IF wParam = SYSTEM.VAL(W.WPARAM, IDM_ABOUT) THEN
                         (* Draw and handle messages for the "About..." Dialog *)
-                        DialogBox(Instance, "#1", wnd, AboutProc);
+                        Ignore.Int( W.DialogBoxParam(Instance, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("#1")), wnd, AboutProc, NIL) );
                     ELSE
                         (* Perform the default window processing *)
-                        RETURN DefWindowProc(wnd, message, wParam, lParam);
+                        RETURN W.DefWindowProc(wnd, message, wParam, lParam);
                     END;
-    | WM_SIZE:
+    | W.WM_SIZE:
                     (* Resize clock based on window size and redraw *)
-                    ClockSize(wnd, LOWORD(lParam), HIWORD(lParam), wParam);
-                    UpdateWindow(wnd);
-    | WM_DESTROY:
+                    ClockSize(wnd, D.LoWord(SYSTEM.VAL(INTEGER, lParam)), D.HiWord(SYSTEM.VAL(INTEGER, lParam)), SYSTEM.VAL(INTEGER, wParam));
+                    Ignore.Int( W.UpdateWindow(wnd) );
+    | W.WM_DESTROY:
                     (* Destroy clock's timer and tools before exiting *)
-                    KillTimer(wnd, TimerID);
-                    DeleteTools();
-                    PostQuitMessage(0);
-    | WM_PAINT:
+                    Ignore.Int( W.KillTimer(wnd, TimerID) );
+                    DeleteTools;
+                    W.PostQuitMessage(0);
+    | W.WM_PAINT:
                     (* Paint clock displaying current time *)
-                    InvalidateRect(wnd, NIL_RECT, TRUE);
-                    BeginPaint(wnd, ps);
+                    Ignore.Int( W.InvalidateRect(wnd, NIL, SYSTEM.VAL(INTEGER, TRUE)) );
+                    Ignore.Ptr( W.BeginPaint(wnd, ps) );
                     ClockPaint(ps.hdc, PAINTALL);
-                    EndPaint(wnd, ps);
-    | WM_TIMECHANGE, WM_TIMER:
+                    Ignore.Int( W.EndPaint(wnd, ps) );
+    | W.WM_TIMECHANGE, W.WM_TIMER:
                     (* Update clock to display new time *)
                     ClockTimer(wnd);
-    | WM_SYSCOLORCHANGE:
+    | W.WM_SYSCOLORCHANGE:
                     (* Change tools to coincide with system window colors *)
-                    DeleteTools();
-                    CreateTools();
-    | WM_ERASEBKGND:
+                    DeleteTools;
+                    CreateTools;
+    | W.WM_ERASEBKGND:
                     (* Paint over the entire client area *)
-                    GetClientRect(wnd, rc);
-                    FillRect(CAST(HDC, wParam), rc, hbrBackgnd);
+                    Ignore.Int( W.GetClientRect(wnd, rc) );
+                    Ignore.Int( W.FillRect(SYSTEM.VAL(W.HDC, wParam), rc, hbrBackgnd) );
     ELSE
                     (* Perform the default window processing *)
-                    RETURN DefWindowProc(wnd, message, wParam, lParam);
+                    RETURN W.DefWindowProc(wnd, message, wParam, lParam)
     END;
-    RETURN 0;
+    RETURN NIL
 END ClockWndProc;
 
 (***************************************************************************
  *                                                                         *
- *  PROCEDURE : ClockInit ()                                                *
+ *  PROCEDURE : ClockInit ()                                               *
  *                                                                         *
  *  PURPOSE  : Registers the applicatoin windwo class and initializes the  *
  *             circle values for the clock face.                           *
@@ -825,15 +794,15 @@ END ClockWndProc;
 
 PROCEDURE ClockInit() : BOOLEAN;
 VAR
-    clockClass  : WNDCLASS;
+    clockClass  : W.WNDCLASS;
 BEGIN
-    clockClass.lpszClassName := ADR(szBuffer);
-    clockClass.hbrBackground := NULL_HBRUSH;
-    clockClass.style         := CS_VREDRAW + CS_HREDRAW + CS_BYTEALIGNCLIENT;
+    clockClass.lpszClassName := SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer));
+    clockClass.hbrBackground := NIL;
+    clockClass.style         := W.CS_VREDRAW + W.CS_HREDRAW + W.CS_BYTEALIGNCLIENT;
     clockClass.hInstance     := Instance;
     clockClass.lpfnWndProc   := ClockWndProc;
-    clockClass.hCursor       := LoadCursor(Instance, IDC_ARROW^);
-    clockClass.hIcon         := LoadIcon(Instance, 'Clock');
+    clockClass.hCursor       := W.LoadCursor(Instance, SYSTEM.VAL(W.HCURSOR, W.IDC_ARROW));
+    clockClass.hIcon         := W.LoadIcon(Instance, SYSTEM.VAL(W.HICON, 100));
 
     (* added in conversion from C *)
 
@@ -841,24 +810,28 @@ BEGIN
     clockClass.cbWndExtra   := 0;
     clockClass.lpszMenuName := NIL;
 
-    IF RegisterClass(clockClass) = 0 THEN
+    IF W.RegisterClass(clockClass) = 0 THEN
         (* Error registering class -- return *)
         RETURN FALSE;
     END;
 
     (* Load in pre-computed circle table cosine values from resource file *)
-    lpCirTab := ADR(CirTab);
+    CirTab := CirTabConst;
 
     RETURN TRUE;
 END ClockInit;
 
 BEGIN
+    bFirst  := TRUE;   (* TRUE if this is the 1st instance; FALSE otherwise  *)
+    TimerID := 1;      (* number used for timer-id                           *)
+    bIconic := FALSE;  (* TRUE if clock is currently iconic; FALSE otherwise *)
+    Instance := W.Instance();
 
-    LoadString(Instance, IDS_APPNAME, szBuffer, BUFLEN);
+    Ignore.Int( W.LoadString(W.Instance(), IDS_APPNAME, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), BUFLEN) );
 
-    IF PrevInstance = NULL_HINSTANCE THEN
+    IF W.PrevInstance() = NIL THEN
     (* First instance -- register window class *)
-        IF NOT ClockInit() THEN
+        IF ~ ClockInit() THEN
             HALT(1);
         END;
     ELSE
@@ -866,61 +839,62 @@ BEGIN
         bFirst := FALSE;
     END;
 
-    ClockCreate();
+    ClockCreate;
 
     (* compute window height and width *)
 
-    sysWidth  := GetSystemMetrics(SM_CXFRAME) * 2;
-    sysHeight := GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYFRAME) * 2);
-    width := (HRes / 3) + sysWidth;
+    sysWidth  := W.GetSystemMetrics(W.SM_CXFRAME) * 2;
+    sysHeight := W.GetSystemMetrics(W.SM_CYCAPTION) + (W.GetSystemMetrics(W.SM_CYFRAME) * 2);
+    width := (HRes DIV 3) + sysWidth;
     height := VertEquiv(width) + sysHeight;
 
-    Wnd := CreateWindow( szBuffer,  (* class name              *)
-             szBuffer,  (* The window name         *)
-             WS_OVERLAPPEDWINDOW, (* window style            *)
-             CW_USEDEFAULT, (* use default positioning *)
-             0,             (* y not used              *)
-             width,         (* window width            *)
-             height,        (* window height           *)
-             NULL_HWND,     (* NULL parent handle      *)
-             NULL_HMENU,    (* NULL menu/child handle  *)
-             Instance,      (* program instance        *)
-             NIL        (* NULL data structure ref.*)
+    Wnd := W.CreateWindowEx( {},
+             SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)),  (* class name              *)
+             SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)),  (* The window name         *)
+             W.WS_OVERLAPPEDWINDOW, (* window style      *)
+             W.CW_USEDEFAULT, (* use default positioning *)
+             0,               (* y not used              *)
+             width,           (* window width            *)
+             height,          (* window height           *)
+             NIL,             (* NULL parent handle      *)
+             NIL,             (* NULL menu/child handle  *)
+             W.Instance(),    (* program instance        *)
+             NIL              (* NULL data structure ref.*)
                );
 
     GetTime(nTime);
     GetTime(oTime);
-    WHILE ((nTime.second = oTime.second) AND
-       (nTime.minute = oTime.minute) AND
+    WHILE ((nTime.second = oTime.second) &
+       (nTime.minute = oTime.minute) &
        (nTime.hour   = oTime.hour) ) DO
         GetTime(oTime);
     END;
 
-    IF SetTimer(Wnd, TimerID, OPEN_TLEN, CAST(TIMERPROC, 0)) = 0 THEN
+    IF W.SetTimer(Wnd, TimerID, OPEN_TLEN, SYSTEM.VAL(W.TIMERPROC, 0)) = 0 THEN
         (* 16 public timers already in use -- post error and exit *)
 
-        pszTooMany := GlobalLock(GlobalAlloc(GPTR, 40));
-        LoadString(Instance, IDS_TOOMANY, pszTooMany^, 40);
+        pszTooMany := SYSTEM.VAL(pszTooManyPtr, W.GlobalLock(W.GlobalAlloc(W.GPTR, 40)));
+        Ignore.Int( W.LoadString(W.Instance(), IDS_TOOMANY, pszTooMany, 40) );
 
-        MessageBox(NULL_HWND, pszTooMany^, szBuffer, MB_OK + MB_ICONHAND + MB_SYSTEMMODAL);
+        Ignore.Int( W.MessageBox(NIL, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(pszTooMany)), SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), W.MB_OK + W.MB_ICONHAND + W.MB_SYSTEMMODAL) );
 
-        DeleteTools();
+        DeleteTools;
         HALT(1);
     END;
 
     (* Add the "About..." menu item to the bottom of the system menu *)
 
-    LoadString(Instance, IDS_ABOUTMENU, szBuffer, BUFLEN);
-    Menu := GetSystemMenu(Wnd, FALSE);
-    ChangeMenu(Menu, 0, szBuffer, IDM_ABOUT, MF_APPEND + MF_STRING);
+    Ignore.Int( W.LoadString(W.Instance(), IDS_ABOUTMENU, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), BUFLEN) );
+    Menu := W.GetSystemMenu(Wnd, 0);
+    Ignore.Int( W.ChangeMenu(Menu, 0, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), IDM_ABOUT, W.MF_APPEND + W.MF_STRING) );
 
-    ShowWindow(Wnd, CmdShow);
+    Ignore.Int( W.ShowWindow(Wnd, W.CmdShow()) );
 
     (* Process messages until program termination *)
 
-    WHILE GetMessage(mess, NULL_HWND, 0, 0) DO
-        TranslateMessage(mess);
-        DispatchMessage(mess);
+    WHILE W.GetMessage(mess, NIL, 0, 0) # 0 DO
+        Ignore.Int( W.TranslateMessage(mess) );
+        Ignore.Int( W.DispatchMessage(mess) );
     END;
 
 END Clock.
