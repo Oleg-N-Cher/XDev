@@ -9,6 +9,7 @@ export SYSTEM_PTR KolFiles_hInstance;
 
 
 export BOOLEAN KolFiles_ExtractFileName (CHAR *path, LONGINT path__len, CHAR *name, LONGINT name__len);
+export BOOLEAN KolFiles_ExtractFilePath (CHAR *path, LONGINT path__len, CHAR *res, LONGINT res__len);
 export BOOLEAN KolFiles_FileClose (SYSTEM_PTR handle);
 export SYSTEM_PTR KolFiles_FileCreate (CHAR *fileName, LONGINT fileName__len, SET openFlags);
 
@@ -33,6 +34,18 @@ BOOLEAN KolFiles_FileClose (SYSTEM_PTR handle)
 }
 
 /*----------------------------------------------------------------------------*/
+BOOLEAN KolFiles_ExtractFilePath (CHAR *path, LONGINT path__len, CHAR *res, LONGINT res__len)
+{
+	INTEGER p;
+	p = KolStrings_DelimiterLast(path, path__len, (void*)&":\\/", (LONGINT)4);
+	if (path[__X(p, path__len)] != 0x00) {
+		return KolStrings_SubStr((void*)path, path__len, 0, p + 1, (void*)res, res__len);
+	}
+	res[0] = 0x00;
+	return 1;
+}
+
+/*----------------------------------------------------------------------------*/
 BOOLEAN KolFiles_ExtractFileName (CHAR *path, LONGINT path__len, CHAR *name, LONGINT name__len)
 {
 	INTEGER p;
@@ -40,7 +53,7 @@ BOOLEAN KolFiles_ExtractFileName (CHAR *path, LONGINT path__len, CHAR *name, LON
 	if (path[__X(p, path__len)] != 0x00) {
 		return KolStrings_SubStr((void*)path, path__len, p + 1, (int)path__len, (void*)name, name__len);
 	}
-	return KolStrings_SubStr((void*)path, path__len, 0, p - 1, (void*)name, name__len);
+	return KolStrings_SubStr((void*)path, path__len, 0, p, (void*)name, name__len);
 }
 
 /*----------------------------------------------------------------------------*/

@@ -99,6 +99,8 @@ CONST
 
   MAX_PATH* = W.MAX_PATH;
 
+  DirDelimiters = ":\/";
+
 TYPE
   DWORD = KolTypes.DWORD;
   Integer = KolTypes.Integer;
@@ -1065,46 +1067,17 @@ begin
   if Length( Result ) = 1 then
     Result := Result + ':\';
 end;
+*)
 
-//[FUNCTION ExtractFilePath]
-{$IFDEF ASM_LStrFromPCharLen} // LStrFromPCharLen - there are no in D2
-function ExtractFilePath( const Path : AnsiString ) : AnsiString;
-asm
-        PUSH     EDX
-        MOV      EDX, [DirDelimiters]
-        CALL     EAX2PChar
-        PUSH     EAX
-        CALL     __DelimiterLast
-        XCHG     EDX, EAX
-        XOR      ECX, ECX  // ECX = 0
-        POP      EAX
-        CMP      byte ptr [EDX], CL
-        JZ       @@ret_0
-        SUB      EDX, EAX
-        INC      EDX
-        XCHG     EDX, EAX
-        XCHG     ECX, EAX  // EAX = 0
-@@ret_0:
-        POP      EAX
-        {$IFDEF _D2009orHigher}
-        PUSH     0 
-        {$ENDIF}
-        CALL     System.@LStrFromPCharLen
-end;
-{$ELSE} //Pascal
-function ExtractFilePath( const Path : KOLString ) : KOLString;
-//var I : Integer;
-var P, P0: PKOLChar;
-begin
-  P0 := PKOLChar( Path );
-  P := __DelimiterLast( P0, ':\/' );
-  if P^ = #0 then
-    Result := ''
-  else
-    Result := Copy( Path, 1, P - P0 + 1 );
-end;
-{$ENDIF ASM_VERSION}
-
+PROCEDURE ExtractFilePath* (IN path: KOLString; VAR res: KOLString): BOOLEAN;
+VAR
+  p: INTEGER;
+BEGIN
+  p := KolStrings.DelimiterLast(path, DirDelimiters);
+  IF path[p] # 0X THEN RETURN KolStrings.SubStr(path, 0, p+1, res) END;
+  res[0] := 0X; RETURN TRUE
+END ExtractFilePath;
+(*
 {$IFDEF _D3orHigher}
 function WExtractFilePath( const Path: WideString ) : WideString;
 var P, P0: PWideChar;
@@ -1130,16 +1103,14 @@ begin
 end;*)
 
 PROCEDURE ExtractFileName* (IN path: KOLString; VAR name: KOLString): BOOLEAN;
-CONST
-  DirDelimiters = ":\/";
 VAR
   p: INTEGER;
 BEGIN
   p := KolStrings.DelimiterLast(path, DirDelimiters);
   IF path[p] # 0X THEN
-    RETURN KolStrings.SubStr(path, p+1, SHORT(LEN(path)), name);
+    RETURN KolStrings.SubStr(path, p+1, SHORT(LEN(path)), name)
   END;
-  RETURN KolStrings.SubStr(path, 0, p-1, name);
+  RETURN KolStrings.SubStr(path, 0, p, name)
 END ExtractFileName;
 
 (*//[function ExtractFileNameWOext]
