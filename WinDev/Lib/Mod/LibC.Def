@@ -382,9 +382,10 @@ MODULE LibC;
 
   PROCEDURE -atoi* (nptr: PtrSTR): INTEGER "atoi((const char *)nptr)";
   PROCEDURE -calloc* (num, size: size_t): PtrVoid;
+  PROCEDURE -chdir* (path: PtrSTR): INTEGER;
+  PROCEDURE -chmod* (path: PtrSTR; mode: mode_t);
   PROCEDURE -clock* (): clock_t;
   PROCEDURE -closedir* (dir: PtrDIR): INTEGER;
-  PROCEDURE -chmod* (path: PtrSTR; mode: mode_t);
   PROCEDURE -exit* (status: INTEGER);
   PROCEDURE -fclose* (fp: PtrFILE): INTEGER;
   PROCEDURE -fflush* (fp: PtrFILE): INTEGER;

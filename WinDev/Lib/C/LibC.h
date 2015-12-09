@@ -165,6 +165,8 @@ __EXTERN INTEGER __xstat(INTEGER version, SYSTEM_PTR filename, LibC_stat_t *buf)
 #define LibC_atoi(nptr)	atoi((const char *)nptr)
 #define LibC_calloc(num, size)	calloc(num, size)
 __EXTERN SYSTEM_PTR calloc(SYSTEM_PTR num, SYSTEM_PTR size);
+#define LibC_chdir(path)	chdir(path)
+__EXTERN INTEGER chdir(SYSTEM_PTR path);
 #define LibC_chmod(path, mode)	chmod(path, mode)
 __EXTERN void chmod(SYSTEM_PTR path, SET mode);
 #define LibC_clock()	clock()
