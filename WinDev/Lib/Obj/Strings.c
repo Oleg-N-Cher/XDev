@@ -123,13 +123,13 @@ void Strings_LIntToStr (LONGINT n, CHAR *str, LONGINT str__len)
 
 /*----------------------------------------------------------------------------*/
 typedef
-	CHAR Digits__6[17];
+	CHAR Digits__6[16];
 
 void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len)
 {
 	__CONSTARRLOC Digits__6 digits =
 		{48,49,50,51,52,53,54,55,56,57,
-		65,66,67,68,69,70,0};
+		65,66,67,68,69,70};
 	INTEGER base, i, j, k, si;
 	BOOLEAN mSign;
 	CHAR a[128];
@@ -194,7 +194,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			minWidth -= 1;
 		}
 		do {
-			a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 17)];
+			a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 16)];
 			x = __DIV(x, base);
 			i += 1;
 		} while (!((x == 0 || x == -1) || i == 128));
@@ -211,7 +211,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 					a[__X(i, 128)] = digits[0];
 					x = __DIV(x, base);
 				} else {
-					a[__X(i, 128)] = digits[__X(base - (int)__MOD(x, base), 17)];
+					a[__X(i, 128)] = digits[__X(base - (int)__MOD(x, base), 16)];
 					x = __DIV(x, base) + 1;
 				}
 				i += 1;
@@ -220,7 +220,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			i = 0;
 			mSign = 0;
 			do {
-				a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 17)];
+				a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 16)];
 				x = __DIV(x, base);
 				i += 1;
 			} while (!(x == 0 || i == 128));
@@ -278,12 +278,12 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			si += 1;
 		} else if (form < 10 && (LONGINT)si < s__len - 1) {
 			s[__X(si, s__len)] = '%';
-			s[__X(si + 1, s__len)] = digits[__X(base, 17)];
+			s[__X(si + 1, s__len)] = digits[__X(base, 16)];
 			si += 2;
 		} else if ((LONGINT)si < s__len - 2) {
 			s[__X(si, s__len)] = '%';
-			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 17)];
-			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 17)];
+			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 16)];
+			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 16)];
 			si += 3;
 		}
 	}
@@ -296,13 +296,13 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 
 /*----------------------------------------------------------------------------*/
 typedef
-	CHAR Digits__9[17];
+	CHAR Digits__9[16];
 
 void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len)
 {
 	__CONSTARRLOC Digits__9 digits =
 		{48,49,50,51,52,53,54,55,56,57,
-		65,66,67,68,69,70,0};
+		65,66,67,68,69,70};
 	INTEGER base, i, j, k, si;
 	BOOLEAN mSign;
 	CHAR a[128];
@@ -367,7 +367,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 			minWidth -= 1;
 		}
 		do {
-			a[__X(i, 128)] = digits[__X(__MOD(x, (LONGINT)base), 17)];
+			a[__X(i, 128)] = digits[__X(__MOD(x, (LONGINT)base), 16)];
 			x = __DIV(x, (LONGINT)base);
 			i += 1;
 		} while (!((x == 0 || x == -1) || i == 128));
@@ -384,7 +384,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 					a[__X(i, 128)] = digits[0];
 					x = __DIV(x, (LONGINT)base);
 				} else {
-					a[__X(i, 128)] = digits[__X((LONGINT)base - __MOD(x, (LONGINT)base), 17)];
+					a[__X(i, 128)] = digits[__X((LONGINT)base - __MOD(x, (LONGINT)base), 16)];
 					x = __DIV(x, (LONGINT)base) + 1;
 				}
 				i += 1;
@@ -393,7 +393,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 			i = 0;
 			mSign = 0;
 			do {
-				a[__X(i, 128)] = digits[__X(__MOD(x, (LONGINT)base), 17)];
+				a[__X(i, 128)] = digits[__X(__MOD(x, (LONGINT)base), 16)];
 				x = __DIV(x, (LONGINT)base);
 				i += 1;
 			} while (!(x == 0 || i == 128));
@@ -451,12 +451,12 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 			si += 1;
 		} else if (form < 10 && (LONGINT)si < s__len - 1) {
 			s[__X(si, s__len)] = '%';
-			s[__X(si + 1, s__len)] = digits[__X(base, 17)];
+			s[__X(si + 1, s__len)] = digits[__X(base, 16)];
 			si += 2;
 		} else if ((LONGINT)si < s__len - 2) {
 			s[__X(si, s__len)] = '%';
-			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 17)];
-			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 17)];
+			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 16)];
+			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 16)];
 			si += 3;
 		}
 	}

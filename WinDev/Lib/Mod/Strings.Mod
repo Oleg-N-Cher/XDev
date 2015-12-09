@@ -104,9 +104,10 @@ PROCEDURE IntToStrForm* (
   x: INTEGER; form, minWidth: INTEGER; fillCh: CHAR;
   showBase: BOOLEAN; VAR(*OUT*) s: ARRAY OF CHAR);
 TYPE
-  Digits = ARRAY 17 OF CHAR;
+  Digits = ARRAY 16 OF CHAR;
 CONST
-  digits = Digits("0123456789ABCDEF");
+  digits = Digits
+    ("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
 VAR
   base, i, j, k, si: INTEGER; mSign: BOOLEAN;
   a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR;
@@ -199,9 +200,10 @@ PROCEDURE LIntToStrForm* (
   x: LONGINT; form, minWidth: INTEGER; fillCh: CHAR;
   showBase: BOOLEAN; VAR(*OUT*) s: ARRAY OF CHAR);
 TYPE
-  Digits = ARRAY 17 OF CHAR;
+  Digits = ARRAY 16 OF CHAR;
 CONST
-  digits = Digits("0123456789ABCDEF");
+  digits = Digits
+    ("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
 VAR
   base, i, j, k, si: INTEGER; mSign: BOOLEAN;
   a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR;
