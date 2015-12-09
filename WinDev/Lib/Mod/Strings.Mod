@@ -61,7 +61,7 @@ BEGIN
     ELSE
       RETURN -1
     END;
-  INC(n) UNTIL n # LEN(hex);
+  INC(n) UNTIL n = LEN(hex);
   RETURN res
 END HexToInt;
 
