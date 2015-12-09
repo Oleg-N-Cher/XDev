@@ -36,7 +36,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_WriteIntWidth	Console_WriteIntWidth_StdIO
 #  define Console_WriteHex	Console_WriteHex_StdIO
 #  define Console__init()
-#endif OUTPUT_STDIO
+#endif //OUTPUT_STDIO
 
 /* ConIO */
 /*
@@ -44,7 +44,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_SetColors(colors)
 #  define Console_WriteStr(str, str__len)	_cputs(str)
 #  define Console__init()
-#endif OUTPUT_CONIO
+#endif //OUTPUT_CONIO
 */
 
 /* WinAPI */
@@ -58,7 +58,7 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_WinAPI(str)
 #  define Console_SetColors	Console_SetColors_WinAPI
 #  define Console__init()
-#endif OUTPUT_WINAPI
+#endif //OUTPUT_WINAPI
 
 /* SDL */
 #ifdef OUTPUT_SDL
@@ -694,11 +694,11 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #  define Console_YellowOnLWhite		((Console_LightWhite << 4) + Console_Yellow)
 #  define Console_LWhiteOnLWhite		((LightWhite << 4) + Console_LightWhite)
 
-#endif OUTPUT_SDL
+#endif //OUTPUT_SDL
 
 
 #define WriteStr	Console_WriteStr
 #define SetColors	Console_SetColors
 
 
-#endif __Console_h
+#endif //__Console_h
