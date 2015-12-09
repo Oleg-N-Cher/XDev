@@ -79,7 +79,7 @@ INTEGER Strings_HexToInt (CHAR *hex, LONGINT hex__len)
 			return -1;
 		}
 		n += 1;
-	} while (!((LONGINT)n != hex__len));
+	} while (!((LONGINT)n == hex__len));
 	return res;
 }
 
