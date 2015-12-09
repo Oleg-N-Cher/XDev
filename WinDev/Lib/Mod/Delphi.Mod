@@ -1,0 +1,17 @@
+MODULE Delphi;
+
+IMPORT SYSTEM;
+
+PROCEDURE HiWord* (i: INTEGER): INTEGER;
+BEGIN
+  RETURN i DIV 10000H
+END HiWord;
+
+PROCEDURE LoWord* (i: INTEGER): INTEGER;
+BEGIN
+  RETURN ORD( BITS(i) * BITS(0FFFFH) )
+END LoWord;
+
+PROCEDURE- _init* "/*-noinit*/"; 
+
+END Delphi.

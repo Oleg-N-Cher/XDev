@@ -28,5 +28,6 @@
 @CALL ..\Bin\solid64 %Lib% Input
 @CALL ..\Bin\smart64 %Lib% Timer
 @CALL ..\Bin\solid64 %Lib% Sound
+@CALL ..\Bin\smart64 %Lib% Delphi -noinit
 
 :exit

@@ -28,6 +28,7 @@
 @CALL ..\Bin\solid %Lib% Input
 @CALL ..\Bin\smart %Lib% Timer
 @CALL ..\Bin\solid %Lib% Sound
+@CALL ..\Bin\smart %Lib% Delphi -noinit
 
 :djgpp
 @IF NOT EXIST .djgpp GOTO exit
@@ -57,5 +58,6 @@
 @CALL ..\Bin\soliddjgpp %Lib% Input
 @CALL ..\Bin\smartdjgpp %Lib% Timer
 @CALL ..\Bin\soliddjgpp %Lib% Sound
+@CALL ..\Bin\smartdjgpp %Lib% Delphi -noinit
 
 :exit
