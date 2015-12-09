@@ -103,11 +103,14 @@ END LIntToStr;
 PROCEDURE IntToStrForm* (
   x: INTEGER; form, minWidth: INTEGER; fillCh: CHAR;
   showBase: BOOLEAN; VAR(*OUT*) s: ARRAY OF CHAR);
+TYPE
+  Digits = ARRAY 17 OF CHAR;
+CONST
+  digits = Digits("0123456789ABCDEF");
 VAR
   base, i, j, k, si: INTEGER; mSign: BOOLEAN;
-  a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR; digits: ARRAY 17 OF CHAR;
+  a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR;
 BEGIN
-  digits := "0123456789ABCDEF";
   ASSERT((form = CharCode) OR (form = Hexadecimal) OR
     (form = Roman) OR ((form >= 2) & (form <= 16)), 20);
   ASSERT(minWidth >= 0, 22);
@@ -195,11 +198,14 @@ END IntToStrForm;
 PROCEDURE LIntToStrForm* (
   x: LONGINT; form, minWidth: INTEGER; fillCh: CHAR;
   showBase: BOOLEAN; VAR(*OUT*) s: ARRAY OF CHAR);
+TYPE
+  Digits = ARRAY 17 OF CHAR;
+CONST
+  digits = Digits("0123456789ABCDEF");
 VAR
   base, i, j, k, si: INTEGER; mSign: BOOLEAN;
-  a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR; digits: ARRAY 17 OF CHAR;
+  a: ARRAY 128 OF CHAR; c1, c5, c10: CHAR;
 BEGIN
-  digits := "0123456789ABCDEF";
   ASSERT((form = CharCode) OR (form = Hexadecimal) OR
     (form = Roman) OR ((form >= 2) & (form <= 16)), 20);
   ASSERT(minWidth >= 0, 22);

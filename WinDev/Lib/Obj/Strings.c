@@ -122,14 +122,18 @@ void Strings_LIntToStr (LONGINT n, CHAR *str, LONGINT str__len)
 }
 
 /*----------------------------------------------------------------------------*/
+typedef
+	CHAR Digits__6[17];
+
 void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len)
 {
+	__CONSTARRLOC Digits__6 digits =
+		{48,49,50,51,52,53,54,55,56,57,
+		65,66,67,68,69,70,0};
 	INTEGER base, i, j, k, si;
 	BOOLEAN mSign;
 	CHAR a[128];
 	CHAR c1, c5, c10;
-	CHAR digits[17];
-	__MOVE("0123456789ABCDEF", digits, 17);
 	__ASSERT(((form == -1 || form == -2) || form == -3) || form >= 2 && form <= 16, 20);
 	__ASSERT(minWidth >= 0, 22);
 	if (form == -1) {
@@ -291,14 +295,18 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 }
 
 /*----------------------------------------------------------------------------*/
+typedef
+	CHAR Digits__9[17];
+
 void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fillCh, BOOLEAN showBase, CHAR *s, LONGINT s__len)
 {
+	__CONSTARRLOC Digits__9 digits =
+		{48,49,50,51,52,53,54,55,56,57,
+		65,66,67,68,69,70,0};
 	INTEGER base, i, j, k, si;
 	BOOLEAN mSign;
 	CHAR a[128];
 	CHAR c1, c5, c10;
-	CHAR digits[17];
-	__MOVE("0123456789ABCDEF", digits, 17);
 	__ASSERT(((form == -1 || form == -2) || form == -3) || form >= 2 && form <= 16, 20);
 	__ASSERT(minWidth >= 0, 22);
 	if (form == -1) {
@@ -465,7 +473,7 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 	INTEGER i, j, n, len;
 	CHAR ch;
 	CHAR utf8[3];
-	INTEGER _for__11;
+	INTEGER _for__13;
 	i = 0;
 	j = 0;
 	do {
@@ -788,9 +796,9 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 			res[__X(j, res__len)] = 0x00;
 			return 0;
 		}
-		_for__11 = len;
+		_for__13 = len;
 		n = 0;
-		while (n <= _for__11) {
+		while (n <= _for__13) {
 			res[__X(j, res__len)] = utf8[__X(n, 3)];
 			j += 1;
 			n += 1;
