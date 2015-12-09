@@ -13,17 +13,10 @@
 */
 
 #include "SYSTEM.h"
-#ifdef __STDC__
-#  include "stdarg.h"
-#else
-#  include "varargs.h"
-#endif
-
-extern void exit (int status);
 
 /* runtime system routines */
 extern void SYSTEM_INIT (int argc, long argvadr);
-extern void SYSTEM_HALT (int n);
+extern void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count);
 extern long SYSTEM_XCHK(long i, long ub);
 extern long SYSTEM_RCHK(long i, long ub);
 extern long SYSTEM_ASH(long i, long n);
@@ -49,6 +42,12 @@ LONGINT SYSTEM_argv;
 //  SYSTEM_argv = *(long*)argvadr;
 //  //SYSTEM__init();
 //}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count) {
+  char* dest = (char*)from;
+  while(count--) *(char*)to++ = *dest++; return from;
+} //SYSTEM_MEMCPY
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_XCHK(i, ub) long i, ub; {return __X(i, ub);}
@@ -109,12 +108,6 @@ void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*))
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_HALT (int n)
-{
-  exit(n);
-}
-
-/*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size)
 {
   SYSTEM_PTR mem = SYSTEM_malloc(size);
@@ -142,6 +135,12 @@ SYSTEM_PTR SYSTEM_NEWARR (LONGINT size)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+#ifdef __STDC__
+#  include "stdarg.h"
+#else
+#  include "varargs.h"
+#endif
+
 #define Lock
 #define Unlock
 
@@ -220,4 +219,3 @@ SYSTEM_PTR SYSTEM_NEWARR (LONGINT size)
 }
 
 /* ----------- end of SYSTEM.co ------------- */
-

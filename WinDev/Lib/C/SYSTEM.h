@@ -16,10 +16,6 @@ uses double # as concatenation operator
 #  include "GrConfig.h"
   extern void GrApp_Init (void);
 #endif
-     
-//extern void *memcpy (void *dest, const void *src, long n);
-//extern void *malloc (long size);
-//extern void exit (int status);
 
 #define export
 #define import extern
@@ -47,6 +43,20 @@ typedef signed char BYTE;
 #endif
 
 /* runtime system routines */
+void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count);
+#ifdef SYSTEM_Cfg_KERNEL32
+#  define __MEMCPY SYSTEM_MEMCPY
+   __attribute__((dllimport)) void __attribute__((__stdcall__)) ExitProcess (int);
+#  define SYSTEM_HALT ExitProcess
+#else
+#  define __MEMCPY memcpy
+#  define SYSTEM_HALT exit
+#endif
+
+//extern void *memcpy (void *dest, const void *src, long n);
+//extern void *malloc (long size);
+//extern void exit (int status);
+
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
 extern long SYSTEM_ENTIER();
@@ -77,7 +87,7 @@ extern void SYSTEM_REGFIN();
 extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
-extern void SYSTEM_HALT (int n);
+//extern void SYSTEM_HALT (int n);
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(void*));
@@ -138,7 +148,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #define __ROTR(x, n, t)	((t)((unsigned)(x)>>(n)|(unsigned)(x)<<(8*sizeof(t)-(n))))
 #define __ROT(x, n, t)	((n)>=0? __ROTL(x, n, t): __ROTR(x, -(n), t))
 #define __BIT(x, n)	(*(unsigned long*)(x)>>(n)&1)
-#define __MOVE(s, d, n)	memcpy((char*)(d),(char*)(s),n)
+#define __MOVE(s, d, n)	__MEMCPY((char*)(d),(char*)(s),n)
 
 /* std procs and operator mappings */
 #define __CONSTARR const
@@ -162,7 +172,11 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #endif
 
 #define __HALT(x)	SYSTEM_HALT(x)
-#define __ASSERT(cond, x)	if (!(cond)) SYSTEM_HALT(x)
+#ifndef SYSTEM_Cfg_NoASSERT
+#  define __ASSERT(cond, x)	if (!(cond)) SYSTEM_HALT(x)
+#else
+#  define __ASSERT(cond, x)	if (cond) ;
+#endif
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ABS(x)	(((x)<0)?-(x):(x))
 #define __ABSF(x)	SYSTEM_ABS((long)(x))
@@ -179,8 +193,8 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #define __ASHL(x, n)	((long)(x)<<(n))
 #define __ASHR(x, n)	((long)(x)>>(n))
 #define __ASHF(x, n)	SYSTEM_ASH((long)(x), (long)(n))
-#define __DUP(x, l, t)	x=(void*)memcpy(malloc(l*sizeof(t)),x,l*sizeof(t))
-#define __DUPARR(v, t)	v=(void*)memcpy(v##__copy,v,sizeof(t))
+#define __DUP(x, l, t)	x=(void*)__MEMCPY(malloc(l*sizeof(t)),x,l*sizeof(t))
+#define __DUPARR(v, t)	v=(void*)__MEMCPY(v##__copy,v,sizeof(t))
 #define __DEL(x)	free(x)
 #define __IS(tag, typ, level)	(*(tag-(__BASEOFF-level))==(long)typ##__typ)
 #define __TYPEOF(p)	(*(((long**)(p))-1))
@@ -235,7 +249,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #ifdef SYSTEM_Cfg_InitTypes
   #define __INITYP(t, t0, level) \
 	t##__typ= &t##__desc.blksz; \
-	memcpy(t##__desc.base, t0##__typ - __BASEOFF, level*sizeof(long)); \
+	__MEMCPY(t##__desc.base, t0##__typ - __BASEOFF, level*sizeof(long)); \
 	t##__desc.base[level]=t##__typ; \
 	t##__desc.module=(long)m; \
 	if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15); \
@@ -258,7 +272,7 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 /* runtime system variables */
 extern LONGINT SYSTEM_argc;
 extern LONGINT SYSTEM_argv;
-extern void (*SYSTEM_Halt)();
+//extern void (*SYSTEM_Halt)();
 extern LONGINT SYSTEM_halt;
 //extern LONGINT SYSTEM_assert;
 extern SYSTEM_PTR SYSTEM_modules;
