@@ -1,0 +1,1 @@
+cat ../makeflags makefile > makefl; mv makefl makefile

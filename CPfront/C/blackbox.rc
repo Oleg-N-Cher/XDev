@@ -1,0 +1,85 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "winver.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+Icon1                   ICON    DISCARDABLE     "applogo.ico"
+Icon4                   ICON    DISCARDABLE     "CFLogo.ico"
+Icon2                   ICON    DISCARDABLE     "doclogo.ico"
+Icon5                   ICON    DISCARDABLE     "DtyLogo.ico"
+Icon3                   ICON    DISCARDABLE     "SFLogo.ico"
+Icon6                   ICON    DISCARDABLE     "folderimg.ico"
+Icon7                   ICON    DISCARDABLE     "openimg.ico"
+Icon8                   ICON    DISCARDABLE     "leafimg.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""winver.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+Cursor2                 CURSOR  DISCARDABLE     "copy.cur"
+Cursor6                 CURSOR  DISCARDABLE     "hand.cur"
+Cursor3                 CURSOR  DISCARDABLE     "link.cur"
+Cursor1                 CURSOR  DISCARDABLE     "move.cur"
+Cursor4                 CURSOR  DISCARDABLE     "pick.cur"
+Cursor5                 CURSOR  DISCARDABLE     "stop.cur"
+Cursor7                 CURSOR  DISCARDABLE     "Table.cur"
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
