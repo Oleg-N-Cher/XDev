@@ -2,8 +2,8 @@
 @REM   LibName ModName [PartName] [-noinit] [-nocut]
 
 @SET RootBin=..\..\..\Bin
-@SET Bin=..\..\Bin
-@SET tcc=%Bin%\tcc64\tcc.exe
+@SET PATH=..\..\Bin\MinGW64\bin;%PATH%
+@SET gcc=gcc.exe -ffunction-sections
 
 @IF EXIST ..\C\%2.c GOTO clib
 
@@ -18,8 +18,8 @@
 
 :compile
 @FOR %%i IN (%2_???.c) DO (
-  %tcc% -c %%i -I ".." -I ..\C
+  %gcc% -c %%i -I ".." -I ..\C
   @IF errorlevel 1 PAUSE
 )
-@FOR %%i IN (%2_???.o) DO %Bin%\ar64 -rc %1 %%i
-@%Bin%\clear
+@FOR %%i IN (%2_???.o) DO ar.exe -rc %1 %%i
+@..\Bin\clean.bat
