@@ -1,7 +1,7 @@
 @REM Build the library Kol
 @REM =====================
 
-:tcc
+:MinGW
 @SET Lib=..\Kol.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% KolTypes -noinit
@@ -12,7 +12,7 @@
 @CALL ..\Bin\smart %Lib% KolFiles -noinit
 @CALL ..\Bin\solid %Lib% KolXXSocket
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\KolDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

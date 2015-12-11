@@ -1,13 +1,13 @@
 @REM Build the library Oak
 @REM =====================
 
-:tcc
+:MinGW
 @SET Lib=..\Rose.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\solid %Lib% Rose
 @CALL ..\Bin\solid %Lib% RoseRedir
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\RoseDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

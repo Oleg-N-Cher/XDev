@@ -1,7 +1,7 @@
 @REM Build the library Oak
 @REM =====================
 
-:tcc
+:MinGW
 @SET Lib=..\Eco.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% EcoBigSets
@@ -10,7 +10,7 @@
 @CALL ..\Bin\solid %Lib% EcoVector
 @CALL ..\Bin\solid %Lib% EcoParser
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\EcoDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

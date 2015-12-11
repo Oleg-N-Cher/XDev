@@ -2,8 +2,8 @@
 @REM   LibName ModName
 
 @SET RootBin=..\..\..\Bin
-@SET PATH=..\..\Bin\MinGW\bin;%PATH%
-@SET gcc=gcc.exe -ffunction-sections
+@SET PATH=..\..\Bin\MinGW\bin
+@SET gcc=gcc.exe -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections
 
 @IF EXIST ..\C\%2.c GOTO clib
 

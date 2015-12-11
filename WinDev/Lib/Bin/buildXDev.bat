@@ -1,7 +1,7 @@
 @REM Build the library XDev
 @REM ======================
 
-:tcc
+:MinGW
 @SET Lib=..\XDev.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% SYSTEM
@@ -30,7 +30,7 @@
 @CALL ..\Bin\solid %Lib% Sound
 @CALL ..\Bin\smart %Lib% Delphi -noinit
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\XDevDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

@@ -2,8 +2,8 @@
 @REM   LibName ModName [PartName] [-noinit] [-nocut]
 
 @SET RootBin=..\..\..\Bin
-@SET PATH=..\..\Bin\MinGW\bin;%PATH%
-@SET gcc=gcc.exe -ffunction-sections
+@SET PATH=..\..\Bin\MinGW\bin
+@SET gcc=gcc.exe -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections
 
 @IF EXIST ..\C\%2.c GOTO clib
 
@@ -22,4 +22,4 @@
   @IF errorlevel 1 PAUSE
 )
 @FOR %%i IN (%2_???.o) DO ar.exe -rc %1 %%i
-..\Bin\clean
+@..\Bin\clean
