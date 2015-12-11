@@ -1,12 +1,12 @@
 @REM Build the library Pow
 @REM =====================
 
-:tcc
+:MinGW
 @SET Lib=..\Pow.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% PowStrings -noinit
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\PowDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

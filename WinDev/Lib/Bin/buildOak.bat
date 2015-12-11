@@ -1,12 +1,12 @@
 @REM Build the library Oak
 @REM =====================
 
-:tcc
+:MinGW
 @SET Lib=..\Oak.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% Out
 
-:djgpp
+:DJGPP
 @IF NOT EXIST .djgpp GOTO exit
 @SET Lib=..\OakDJGPP.a
 @IF EXIST %Lib% DEL %Lib%

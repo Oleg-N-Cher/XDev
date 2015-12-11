@@ -4,7 +4,7 @@
 @SET RootBin=..\..\..\Bin
 @SET Bin=..\..\Bin
 @SET DJGPP=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\djgpp.env
-@SET PATH=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\bin;%PATH%
+@SET PATH=d:\Archive\Projects\XDev\WinDev\Bin\djgpp\bin
 @SET gcc=gcc.exe @..\Bin\djgpp.opt
 
 @IF EXIST ..\C\%2.c GOTO clib
