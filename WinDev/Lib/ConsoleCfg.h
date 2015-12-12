@@ -8,4 +8,4 @@
 #define OUTPUT_WINAPI
 //#define OUTPUT_SDL
 
-#endif __Console_Cfg_h
+#endif //__Console_Cfg_h
