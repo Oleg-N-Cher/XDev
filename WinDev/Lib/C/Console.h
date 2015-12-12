@@ -18,10 +18,12 @@ import void Console_WriteHex_StdIO (INTEGER val);
 /* WinAPI */
 import void Console_At_WinAPI (INTEGER x, INTEGER y);
 import void Console_WriteBool_WinAPI (BOOLEAN b);
+import void Console_WriteCh_WinAPI (CHAR ch);
 import void Console_WriteLn_WinAPI (void);
 import void Console_WriteStr_WinAPI (CHAR *str);
 import void Console_WriteStrLn_WinAPI (CHAR *str);
 import void Console_SetColors_WinAPI (INTEGER colors);
+import void Console__init_WinAPI (void);
 
 /* StdIO */
 #ifdef OUTPUT_STDIO
@@ -51,13 +53,13 @@ import void Console_SetColors_WinAPI (INTEGER colors);
 #ifdef OUTPUT_WINAPI
 #  define Console_At	Console_At_WinAPI
 #  define Console_WriteBool Console_WriteBool_WinAPI
-#  define Console_WriteCh(ch)	printf("%c", ch)
+#  define Console_WriteCh Console_WriteCh_WinAPI
 #  define Console_WriteInt(i)	printf("%ld", i)
 #  define Console_WriteLn Console_WriteLn_WinAPI
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_WinAPI(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_WinAPI(str)
 #  define Console_SetColors	Console_SetColors_WinAPI
-#  define Console__init()
+#  define Console__init() Console__init_WinAPI()
 #endif //OUTPUT_WINAPI
 
 /* SDL */
