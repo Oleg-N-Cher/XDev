@@ -387,6 +387,11 @@ typedef
 	} AclLib_TProgressBar;
 
 typedef
+	struct AclLib_TScreen {
+		INTEGER Width, Height, DesktopLeft, DesktopTop, DesktopWidth, DesktopHeight;
+	} AclLib_TScreen;
+
+typedef
 	struct AclLib_TWinControlList {
 		AclLib_PWinControl WinControl;
 		AclLib_PWinControlList Next;
@@ -396,6 +401,7 @@ typedef
 	SYSTEM_PTR (*AclLib_TWndProc)(SYSTEM_PTR, INTEGER, SYSTEM_PTR, SYSTEM_PTR);
 
 
+static AclLib_TScreen AclLib_Screen;
 static AclLib_TFonts AclLib_Fonts;
 static INTEGER AclLib_ScreenLogPixels;
 static SYSTEM_PTR AclLib_HInstance;
@@ -417,10 +423,12 @@ export LONGINT *AclLib_TListBox__typ;
 export LONGINT *AclLib_TButton__typ;
 export LONGINT *AclLib_TCheckBox__typ;
 export LONGINT *AclLib_TProgressBar__typ;
+export LONGINT *AclLib_TScreen__typ;
 
 static INTEGER __CALL_1 AclLib_EnumFontsProc (SYSTEM_PTR LogFont, SYSTEM_PTR TextMetric, INTEGER fontType, SYSTEM_PTR data);
 static INTEGER __CALL_1 AclLib_EnumFontsProc0 (SYSTEM_PTR logFont, SYSTEM_PTR textMetric, INTEGER fontType, SYSTEM_PTR data);
 static INTEGER AclLib_GetCmdShow (void);
+static void AclLib_InitScreen (void);
 static void AclLib_InitScreenLogPixels (void);
 
 
@@ -1141,6 +1149,22 @@ static void AclLib_TWinControl_SetFocus (AclLib_TWinControl *w, LONGINT *w__typ)
 	Ignore_Ptr(WinApi_SetFocus((*w).FHandle));
 }
 
+static void AclLib_InitScreen (void)
+{
+	AclLib_Screen.Width = WinApi_GetSystemMetrics(0);
+	AclLib_Screen.Height = WinApi_GetSystemMetrics(1);
+	AclLib_Screen.DesktopLeft = WinApi_GetSystemMetrics(76);
+	AclLib_Screen.DesktopTop = WinApi_GetSystemMetrics(77);
+	AclLib_Screen.DesktopWidth = WinApi_GetSystemMetrics(78);
+	if (AclLib_Screen.DesktopWidth == 0) {
+		AclLib_Screen.DesktopWidth = AclLib_Screen.Width;
+	}
+	AclLib_Screen.DesktopHeight = WinApi_GetSystemMetrics(79);
+	if (AclLib_Screen.DesktopHeight == 0) {
+		AclLib_Screen.DesktopHeight = AclLib_Screen.Height;
+	}
+}
+
 static void EnumPtrs(void (*P)(void*))
 {
 	__ENUMR(&AclLib_Fonts, AclLib_TFonts__typ, 16, 1, P);
@@ -1163,6 +1187,7 @@ __TDESC(AclLib_TListBox__desc, 28, 9) = {__TDFLDS("TListBox", 996), {0, 4, 788, 
 __TDESC(AclLib_TButton__desc, 28, 9) = {__TDFLDS("TButton", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
 __TDESC(AclLib_TCheckBox__desc, 28, 9) = {__TDFLDS("TCheckBox", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
 __TDESC(AclLib_TProgressBar__desc, 28, 9) = {__TDFLDS("TProgressBar", 996), {0, 4, 788, 792, 800, 804, 924, 968, 976, -80}};
+__TDESC(AclLib_TScreen__desc, 1, 0) = {__TDFLDS("TScreen", 24), {-8}};
 
 export void *AclLib__init(void)
 {
@@ -1244,10 +1269,12 @@ export void *AclLib__init(void)
 	__INITYP(AclLib_TButton, AclLib_TStdControl, 2);
 	__INITYP(AclLib_TCheckBox, AclLib_TStdControl, 2);
 	__INITYP(AclLib_TProgressBar, AclLib_TStdControl, 2);
+	__INITYP(AclLib_TScreen, AclLib_TScreen, 0);
 /* BEGIN */
 	AclLib_HInstance = WinApi_GetModuleHandle(NIL);
 	AclLib_CmdShow = AclLib_GetCmdShow();
 	AclLib_InitScreenLogPixels();
 	__AclLib_TFonts_Create(&AclLib_Fonts, AclLib_TFonts__typ);
+	AclLib_InitScreen();
 	__ENDMOD;
 }
