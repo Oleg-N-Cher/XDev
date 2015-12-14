@@ -745,7 +745,7 @@ TYPE
       property Interval: Cardinal read FInterval write SetInterval;
       property OnTimer: TNotifyEvent read FOnTimer write SetOnTimer;
     END;
-
+*)
     TScreen = RECORD[1]
                 Width : Integer;
                 Height : Integer;
@@ -756,7 +756,7 @@ TYPE
               END;
 VAR
   Screen : TScreen;
-
+(*
 PROCEDURE NewLabel(AParent : TWinControl;
                   ACaption : string;
                   ALeft,Atop,AWidth,AHeight : Integer;
@@ -3678,21 +3678,18 @@ BEGIN
   AParent.InsertWinControl(Wnd);
   Result := Wnd;
 END;
-
+*)
 PROCEDURE InitScreen;
 BEGIN
-  with Screen do
-  BEGIN
-    Width := GetSystemMetrics(SM_CXSCREEN);
-    Height := GetSystemMetrics(SM_CYSCREEN);
-    DesktopLeft := GetSystemMetrics(SM_XVIRTUALSCREEN);
-    DesktopTop := GetSystemMetrics(SM_YVIRTUALSCREEN);
-    DesktopWidth := GetSystemMetrics(SM_CXVIRTUALSCREEN);
-    IF DeskTopWidth = 0 THEN DesktopWidth := Width;
-    DesktopHeight := GetSystemMetrics(SM_CYVIRTUALSCREEN);
-    IF DeskTopHeight = 0 THEN DesktopHeight := Height;
-  END;
-END;
+  Screen.Width := W.GetSystemMetrics(W.SM_CXSCREEN);
+  Screen.Height := W.GetSystemMetrics(W.SM_CYSCREEN);
+  Screen.DesktopLeft := W.GetSystemMetrics(W.SM_XVIRTUALSCREEN);
+  Screen.DesktopTop := W.GetSystemMetrics(W.SM_YVIRTUALSCREEN);
+  Screen.DesktopWidth := W.GetSystemMetrics(W.SM_CXVIRTUALSCREEN);
+  IF Screen.DesktopWidth = 0 THEN Screen.DesktopWidth := Screen.Width END;
+  Screen.DesktopHeight := W.GetSystemMetrics(W.SM_CYVIRTUALSCREEN);
+  IF Screen.DesktopHeight = 0 THEN Screen.DesktopHeight := Screen.Height END;
+END InitScreen;(*
 
 (*<fduch> *)
 PROCEDURE HotKeyToStr(Key: word; DModifiers: THKModifiers): shortstring;
@@ -3800,9 +3797,9 @@ BEGIN
   Kbd := NIL;
   KbdHook := 0;*)
   InitScreenLogPixels;
-  Fonts.Create; (*
+  Fonts.Create;
   InitScreen;
-
+(*
 finalization
 
   Fonts.Free;*)
