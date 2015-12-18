@@ -36,7 +36,7 @@ static void EnumPtrs(void (*P)(void*))
 	P(DemoDynMem_list);
 }
 
-__TDESC(DemoDynMem_Person__desc, 1, 1) = {__TDFLDS("Person", 32), {28, -16}};
+__TDESC(DemoDynMem_Person__desc, 1, 1) = {__TDFLDS("Person", 40), {32, -16}};
 
 export main(int argc, char **argv)
 {
@@ -80,7 +80,7 @@ export main(int argc, char **argv)
 		DemoDynMem_person = DemoDynMem_person->next;
 	}
 	Console_WriteLn();
-	DemoDynMem_list = __NEWARR(POINTER__typ, 4, 4, 1, 0, 5);
+	DemoDynMem_list = __NEWARR(POINTER__typ, 8, 8, 1, 0, 5);
 	(*DemoDynMem_list)[0] = DemoDynMem_john;
 	(*DemoDynMem_list)[1] = DemoDynMem_mike;
 	(*DemoDynMem_list)[2] = DemoDynMem_lisa;
