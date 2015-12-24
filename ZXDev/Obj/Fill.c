@@ -19,17 +19,22 @@ export main(int argc, char **argv)
 	__REGMAIN("Fill", 0);
 /* BEGIN */
 	Basic_Init();
-	Basic_INK(0);
-	Basic_PAPER(7);
+	Basic_POKE(23693, 56);
 	Basic_BORDER(7);
 	Basic_CLS();
 	Basic_PLOT(0, 0);
 	Basic_DRAW(255, 0);
 	Basic_PLOT(128, 0);
 	Basic_DRAW(0, 175);
-	Basic_CIRCLE(60, 88, 60);
-	Basic_CIRCLE(194, 88, 60);
-	Gfx_Fill(1, 1, 1);
+	Basic_CIRCLEROM(60, 88, 60);
+	Basic_CIRCLEROM(194, 88, 60);
+	Gfx_Fill(1, 17, 1);
+	Gfx_Fill(250, 17, 2);
+	Basic_PAUSE(100);
+	Basic_CLS();
+	Basic_CIRCLEROM(128, 88, 87);
+	Gfx_Fill(128, 18, 4);
+	Basic_PAUSE(0);
 	Basic_Quit();
 	__FINI;
 }
