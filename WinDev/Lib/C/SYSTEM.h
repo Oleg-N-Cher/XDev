@@ -84,7 +84,7 @@ extern void SYSTEM_REGTYP();
 extern void SYSTEM_REGFIN();
 //extern void SYSTEM_FINALL();
 #define SYSTEM_FINALL()
-extern void SYSTEM_INIT();
+//extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
 //extern void SYSTEM_HALT (int n);
@@ -105,18 +105,18 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 
 #ifdef SYSTEM_Cfg_RegisterMain
 #  ifdef _SDLGUI
-#    define __INIT(argc, argv) static void *m; \
-       SYSTEM_INIT(argc, (long)&argv); GrConfig_Init; GrApp_Init()
+#    define __INIT(argc, argv) static void *m; SYSTEM_argc=argc; \
+       SYSTEM_argv=(SYSTEM_PTR)argv; GrConfig_Init; GrApp_Init()
 #  else
-#    define __INIT(argc, argv) static void *m; SYSTEM_INIT(argc, (long)&argv)
+#    define __INIT(argc, argv) static void *m; //SYSTEM_INIT(argc, (long)&argv)
 #  endif
 #  define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
 #  ifdef _SDLGUI
 #    define __INIT(argc, argv) SYSTEM_argc=argc; \
-       SYSTEM_argv=*(long*)((long)&argv); GrConfig_Init; GrApp_Init()
+       SYSTEM_argv=(SYSTEM_PTR)argv; GrConfig_Init; GrApp_Init()
 #  else
-#    define __INIT(argc, argv) SYSTEM_argc=argc; SYSTEM_argv=*(long*)((long)&argv)
+#    define __INIT(argc, argv) SYSTEM_argc=argc; SYSTEM_argv=(SYSTEM_PTR)argv
 #  endif
 #  define __REGMAIN(name, enum)
 #endif
@@ -270,8 +270,8 @@ extern void SYSTEM_ENUMR (char *adr, long *typ, long size, long n, void (*P)(voi
 #endif
 
 /* runtime system variables */
-extern LONGINT SYSTEM_argc;
-extern LONGINT SYSTEM_argv;
+extern INTEGER SYSTEM_argc;
+extern SYSTEM_PTR SYSTEM_argv;
 //extern void (*SYSTEM_Halt)();
 extern LONGINT SYSTEM_halt;
 //extern LONGINT SYSTEM_assert;
