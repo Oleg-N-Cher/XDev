@@ -65,9 +65,9 @@ export void Console_WriteLn_StdIO (void) {
 } //Console_WriteLn_StdIO
 
 /*--------------------------------- Cut here ---------------------------------*/
+/* WinAPI */
 #if defined(WIN32) || defined(_WIN32)
 #include <WinApi.h>
-  /* WinAPI */
   void Console_At_WinAPI (INTEGER x, INTEGER y) {
     WinApi_COORD coord; coord.X = x; coord.Y = y;
     WinApi_SetConsoleCursorPosition(WinApi_GetStdHandle(-11), coord);
@@ -76,6 +76,7 @@ export void Console_WriteLn_StdIO (void) {
 
 /*--------------------------------- Cut here ---------------------------------*/
 #if defined(WIN32) || defined(_WIN32)
+#include <WinApi.h>
   void Console_WriteLn_WinAPI (void) {
     INTEGER maxLen; CHAR *cr = "\x0D\x0A";
     WinApi_WriteFile(__hConOutput, cr, 2, &maxLen, NIL, NIL);
