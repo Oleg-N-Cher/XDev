@@ -1,0 +1,21 @@
+(*DEFINITION*) MODULE Kol;
+
+IMPORT
+  Files := KolFiles,
+  Obj := KolObj,
+  Registry := KolRegistry,
+  Strings := KolStrings,
+  Types := KolTypes,
+  Windows := KolWindows;
+
+(* KolFiles *)
+
+PROCEDURE ExtractFileName*
+  (IN path: Types.KOLString; VAR name: Types.KOLString): BOOLEAN;
+END ExtractFileName;
+
+PROCEDURE ExtractFilePath* (
+  IN path: Types.KOLString; VAR res: Types.KOLString): BOOLEAN;
+END ExtractFilePath;
+
+END Kol.
