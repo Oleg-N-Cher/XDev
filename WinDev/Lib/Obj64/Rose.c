@@ -174,12 +174,10 @@ void Rose_Listener_Listen (Rose_Listener *self, LONGINT *self__typ, CHAR *localA
 void Rose_MainLoop (void)
 {
 	WinApi_MSG msg;
-	Ignore_Int(WinApi_Beep(1000, 1000));
 	while (WinApi_GetMessage(&msg, WinApi_MSG__typ, NIL, 0, 0) != 0) {
 		Ignore_Int(WinApi_TranslateMessage(&msg, WinApi_MSG__typ));
 		Ignore_Int(WinApi_DispatchMessage(&msg, WinApi_MSG__typ));
 	}
-	Ignore_Int(WinApi_Beep(1000, 1000));
 }
 
 /*----------------------------------------------------------------------------*/
