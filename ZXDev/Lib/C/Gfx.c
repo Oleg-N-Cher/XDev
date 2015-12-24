@@ -18,6 +18,7 @@ void Gfx_Fill (unsigned char x, unsigned char y, unsigned char atr) __naked {
          LD D,E             ; D = x
          LD E,A             ; E = y
 
+           PUSH IX
            LD   L, #0
            LD   A, C         ; atr
            CP   #8
@@ -70,71 +71,56 @@ LOC_7E32$: RLA
            CALL C, SUB_7E4C$
            EXX
            LD   A, B
-        ; LD    SP, (0x5C3D) ; ERR_SP
            AND  A
-           RET  Z ; JP    Z, 0x1BF4 ; STMT_NEXT
-        RST    8
-        INC    BC
-; END OF FUNCTION SUB_7DB1
+           POP  IX
+           RET  Z
+           RST  8
+           .DB  3
 
-
-; =============== S U B    R O U T    I N E =======================================
-
-
-SUB_7E4C$:                ; CODE XREF: SUB_7DB1+85P SUB_7DB1+8CP
-        PUSH    IX
-        PUSH    HL
-        PUSH    DE
-        LD    IX, #0x5800
-        LD    HL, #0x4000
-        LD    D, #3
-
-LOC_7E59$:                ; CODE XREF: SUB_7E4C+3EJ
-        LD    E, #0
-
-LOC_7E5B$:                ; CODE XREF: SUB_7E4C+37J
-        LD    B, #8
-        PUSH    HL
-
-LOC_7E5E$:                ; CODE XREF: SUB_7E4C+16J
-        LD    A, (HL)
-        CPL
-        LD    (HL), A
-        INC    H
-        DJNZ    LOC_7E5E$
-        LD    A, 0(IX)
-        LD    C, A
-        AND    #7
-        LD    H, A
-        LD    A, C
-        AND    #0x38
-        LD    B, #3
-
-LOC_7E70$:                ; CODE XREF: SUB_7E4C+27J
-        RRCA
-        RL    H
-        DJNZ    LOC_7E70$
-        OR    H
-        LD    H, A
-        LD    A, C
-        AND    #0xC0
-        OR    H
-        LD    0(IX),    A
-        POP    HL
-        INC    HL
-        INC    IX
-        DEC    E
-        JR    NZ, LOC_7E5B$
-        LD    A, H
-        ADD    A, #7
-        LD    H, A
-        DEC    D
-        JR    NZ, LOC_7E59$
-        POP    DE
-        POP    HL
-        POP    IX
-        RET
-; END OF FUNCTION SUB_7E4C
+SUB_7E4C$: PUSH IX
+           PUSH HL
+           PUSH DE
+           LD   IX, #0x5800
+           LD   HL, #0x4000
+           LD   D, #3
+LOC_7E59$: LD   E, #0
+LOC_7E5B$: LD   B, #8
+           PUSH HL
+LOC_7E5E$: LD   A, (HL)
+           CPL
+           LD   (HL), A
+           INC  H
+           DJNZ LOC_7E5E$
+           LD   A, 0(IX)
+           LD   C, A
+           AND  #7
+           LD   H, A
+           LD   A, C
+           AND  #0x38
+           LD   B, #3
+LOC_7E70$: RRCA
+           RL   H
+           DJNZ LOC_7E70$
+           OR   H
+           LD   H, A
+           LD   A, C
+           AND  #0xC0
+           OR   H
+           LD   0(IX), A
+           POP  HL
+           INC  HL
+           INC  IX
+           DEC  E
+           JR   NZ, LOC_7E5B$
+           LD   A, H
+           ADD  A, #7
+           LD   H, A
+           DEC  D
+           JR   NZ, LOC_7E59$
+           POP  DE
+           POP  HL
+           POP  IX
+           RET
 
 SUB_7E91$: EXX
            BIT 7, L
@@ -147,8 +133,6 @@ SUB_7E91$: EXX
            EXX
            LD  0(IX), A
            RET
-
-; =============== S U B    R O U T    I N E =======================================
 
 SUB_7EA1$: INC  E
            LD   A, E
@@ -248,37 +232,25 @@ LOC_7F1C$: EXX
            INC  DE
            EXX
            RET
-; ---------------------------------------------------------------------------
-
-LOC_7F20$:
-        AND    #0xF8
-        ADD    A, #8
-        LD    D, A
-        JR    Z, LOC_7F1C$
-        JR    LOC_7F19$
-; ---------------------------------------------------------------------------
-
-LOC_7F29$:
-        LD    (HL), A
-        LD    A, D
-        DEC    A
-        AND    #0xF8
-        ADD    A, B
-        LD    C, A
-        DEC    B
-        JR    Z, LOC_7F38$
-        LD    A, (HL)
-
-LOC_7F34$:
-        RRCA
-        DJNZ    LOC_7F34$
-        LD    (HL), A
-
-LOC_7F38$:
-        LD    A, D
-        JR    LOC_7F87$
-; ---------------------------------------------------------------------------
-
+LOC_7F20$: AND  #0xF8
+           ADD  A, #8
+           LD   D, A
+           JR   Z, LOC_7F1C$
+           JR   LOC_7F19$
+LOC_7F29$: LD   (HL), A
+           LD   A, D
+           DEC  A
+           AND  #0xF8
+           ADD  A, B
+           LD   C, A
+           DEC  B
+           JR   Z, LOC_7F38$
+           LD   A, (HL)
+LOC_7F34$: RRCA
+           DJNZ LOC_7F34$
+           LD   (HL), A
+LOC_7F38$: LD   A, D
+           JR   LOC_7F87$
 LOC_7F3B$: INC  D
            BIT  3, C
            JR   NZ, LOC_7F47$
@@ -295,105 +267,78 @@ LOC_7F48$: SCF
            LD   (HL), A
            LD   A, D
            JR   LOC_7F5A$
-; ---------------------------------------------------------------------------
-
-LOC_7F52$:
-        LD    (HL), #0xFF
-        LD    A, D
-        AND    #0xF8
-        ADD    A, #8
-        INC    D
-
-LOC_7F5A$:
-        LD    C, A
-        PUSH    HL
-        PUSH    IX
-
-LOC_7F5E$:
-        LD    A, D
-        DEC    A
-        AND    #0xF8
-        LD    D, A
-        JR    Z, LOC_7F81$
-        DEC    HL
-        DEC    IX
-        CALL    SUB_7E91$
-        LD    A, (HL)
-        LD    (HL), #0xFF
-        AND    A
-        JR    Z, LOC_7F5E$
-        LD    B, #0
-        SCF
-
-LOC_7F74$:
-        INC    B
-        RRA
-        JR    NC, LOC_7F74$
-        DEC    B
-
-LOC_7F79$:
-        SCF
-        RLA
-        JR    NC, LOC_7F79$
-        LD    (HL), A
-        LD    A, D
-        SUB    B
-        LD    D, A
-
-LOC_7F81$:
-        POP    IX
-        POP    HL
-        LD    A, C
-        LD    C, D
-        LD    D, A
-
-LOC_7F87$:
-        AND    #7
-        JR    NZ, LOC_7FB1$
-        LD    A, D
-        AND    A
-
-LOC_7F8D$:
-        JR    Z, LOC_7FB1$
-        INC    HL
-        INC    IX
-        CALL    SUB_7E91$
-        LD    A, (HL)
-        AND    A
-        JR    NZ, LOC_7FA1$
-        LD    (HL), #0xFF
-        LD    A, D
-        ADD    A, #8
-        LD    D, A
-        JR    LOC_7F8D$
-; ---------------------------------------------------------------------------
-
-LOC_7FA1$:
-        LD    B, #0
-        SCF
-
-LOC_7FA4$:
-        INC    B
-        RLA
-        JR    NC, LOC_7FA4$
-        DEC    B
-
-LOC_7FA9$:
-        SCF
-        RRA
-        JR    NC, LOC_7FA9$
-        LD    (HL), A
-        LD    A, D
-        ADD    A, B
-        LD    D, A
-
-LOC_7FB1$:
-
-        LD    B, D
-        DEC    B
-        LD    A, E
-        CP    #0xBF
-        JR    NC, LOC_7FD1$
+LOC_7F52$: LD   (HL), #0xFF
+           LD   A, D
+           AND  #0xF8
+           ADD  A, #8
+           INC  D
+LOC_7F5A$: LD   C, A
+           PUSH HL
+           PUSH IX
+LOC_7F5E$: LD   A, D
+           DEC  A
+           AND  #0xF8
+           LD   D, A
+           JR   Z, LOC_7F81$
+           DEC  HL
+           DEC  IX
+           CALL SUB_7E91$
+           LD   A, (HL)
+           LD   (HL), #0xFF
+           AND  A
+           JR   Z, LOC_7F5E$
+           LD   B, #0
+           SCF
+LOC_7F74$: INC  B
+           RRA
+           JR   NC, LOC_7F74$
+           DEC  B
+LOC_7F79$: SCF
+           RLA
+           JR   NC, LOC_7F79$
+           LD   (HL), A
+           LD   A, D
+           SUB  B
+           LD   D, A
+LOC_7F81$: POP  IX
+           POP  HL
+           LD   A, C
+           LD   C, D
+           LD   D, A
+LOC_7F87$: AND  #7
+           JR   NZ, LOC_7FB1$
+           LD   A, D
+           AND  A
+LOC_7F8D$: JR   Z, LOC_7FB1$
+           INC  HL
+           INC  IX
+           CALL SUB_7E91$
+           LD   A, (HL)
+           AND  A
+           JR   NZ, LOC_7FA1$
+           LD   (HL), #0xFF
+           LD   A, D
+           ADD  A, #8
+           LD   D, A
+           JR   LOC_7F8D$
+LOC_7FA1$: LD   B, #0
+           SCF
+LOC_7FA4$: INC  B
+           RLA
+           JR   NC, LOC_7FA4$
+           DEC  B
+LOC_7FA9$: SCF
+           RRA
+           JR   NC, LOC_7FA9$
+           LD   (HL), A
+           LD   A, D
+           ADD  A, B
+           LD   D, A
+LOC_7FB1$: LD   B, D
+           DEC  B
+           LD   A, E
+           CP   #0xBF
+           JR   NC, LOC_7FD1$
            CALL SUB_7EA1$
            CALL SUB_7ED2$
 LOC_7FBE$: PUSH BC
@@ -406,27 +351,20 @@ LOC_7FBE$: PUSH BC
            JR   C, LOC_7FBE$
 LOC_7FCB$: CALL SUB_7ED2$
            CALL SUB_7EB9$
-
-LOC_7FD1$:
-        LD    A, E
-        AND    A
-        JR    Z, LOC_7FEB$
-        CALL    SUB_7EBA$
-        CALL    SUB_7ED2$
-
-LOC_7FDB$:
-        PUSH    BC
-        CALL    SUB_7EF3$
-        POP    BC
-        LD    A, D
-        SUB    #1
-        JR    C, LOC_7FE8$
-        CP    B
-        JR    C, LOC_7FDB$
-
-LOC_7FE8$:
-        CALL    SUB_7EA1$
-
+LOC_7FD1$: LD   A, E
+           AND  A
+           JR   Z, LOC_7FEB$
+           CALL SUB_7EBA$
+           CALL SUB_7ED2$
+LOC_7FDB$: PUSH BC
+           CALL SUB_7EF3$
+           POP  BC
+           LD   A, D
+           SUB  #1
+           JR   C, LOC_7FE8$
+           CP   B
+           JR   C, LOC_7FDB$
+LOC_7FE8$: CALL SUB_7EA1$
 LOC_7FEB$: LD   C, B
            CALL SUB_7ED2$
            EXX
