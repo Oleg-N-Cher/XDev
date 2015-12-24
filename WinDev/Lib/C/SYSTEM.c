@@ -15,7 +15,6 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-extern void SYSTEM_INIT (int argc, long argvadr);
 extern void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count);
 extern long SYSTEM_XCHK(long i, long ub);
 extern long SYSTEM_RCHK(long i, long ub);
@@ -33,15 +32,8 @@ export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
 /*================================== Header ==================================*/
 
 /* runtime system variables */
-LONGINT SYSTEM_argc;
-LONGINT SYSTEM_argv;
-
-//void SYSTEM_INIT (int argc, long argvadr)
-//{
-//  SYSTEM_argc = argc;
-//  SYSTEM_argv = *(long*)argvadr;
-//  //SYSTEM__init();
-//}
+INTEGER SYSTEM_argc;
+SYSTEM_PTR SYSTEM_argv;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count) {
