@@ -1,0 +1,193 @@
+Download from:
+http://nightly.z88dk.org/Releases/
+
+The release candidate will be available for testing until December 23 when it will be replaced by an official release of v1.99A.
+
+The download options are a binary win32 build, a binary mac osx build and a generic source tree for other platforms. Installation hints can be found here: http://www.z88dk.org/wiki/doku.php?id=t … tallation. Instructions for installing the MacOSX binary are missing so if a MacOSX user is able to submit those, it would be appreciated
+
+z88dk has undergone some significant development in the past two years. The version number reflects this (v1.99) and anticipates a v2.0 when the development roadmap is completed.
+
+WHAT'S NEW
+
+Quite a lot and we don't have a complete list of changes yet.
+
+In broad terms:
+
+* [z80asm] Sections introduced for creating memory maps and compiling for bankswitched memory
+* [z80asm] Modern operator syntax introduced
+* [z80asm] PUBLIC, EXTERN, GLOBAL scoping keywords introduced to replace XDEF, XREF, XLIB, LIB, etc
+
+* [sccz80] Numerous bugfixes
+
+* [classic c library] New targets and new libraries which will be enumerated at official release
+
+* [new c library] A new c library has been written from scratch in assembly language and currently contains more than 700 functions
+* [new c library] Compatible with sdcc
+* [new c library] Many unique libraries including zx7 (compression), adt (C++ STL containers), fzx (proportional fonts), BIFROST/NIRVANA/SP1 (zx), tritone music and bitfx sound effects for 1-bit audio devices.
+* [new c library] Object oriented stdio allowing writing of sophisticated drivers using code inheritance from the library. Currently base classes implement serial character devices and terminal (console) devices.
+* [new c library] Targets supported initially include cp/m, embedded (generic z80) and zx (zx spectrum). The built-in crts allow creation of terminal windows with assignable input source using fixed width or proportional fonts, output as ROM or RAM-resident programs.
+* [new c library] The library and crts are highly configurable. Library build time options allow selection between fast and small library code and the crts can be configured at compile time by embedded pragmas in the C source code.
+
+* [sdcc] sdcc is fully supported as alternate C compiler using the new C library.
+* [sdcc] sdcc's output is improved by an additional 400 peephole rules supplied by z88dk
+* [sdcc] sdcc's calls to its primitives are modified to use smaller and faster callee linkage
+
+The combination sdcc+z88dk supplies a C compiler that behaves similarly to 32-bit C compilers. sdcc implements a large subset of C90/C95/C11 standards and the z88dk library completes the compliance. The only missing element is the disk i/o which is currently under development.
+
+sccz80 will often create smaller code than sdcc particularly when longs and floats are in use.
+
+Some benchmarks including Dhrystone 2.1 and Whetstone 1.2 comparing with some other commercial compilers:
+http://www.z88dk.org/wiki/doku.php?id=t … benchmarks
+
+New documentation under construction:
+http://www.z88dk.org/wiki/doku.php?id=temp:front
+
+Collection of links describing how to compile with sdcc:
+http://www.z88dk.org/wiki/doku.php?id=t … _with_sdcc
+
+Example programs using the classic library:
+z88dk/examples
+
+Example programs using the new c library and sdcc:
+z88dk/libsrc/_DEVELOPMENT/EXAMPLES
+
+PURPOSE OF A RELEASE CANDIDATE
+
+We are hoping to identify problems with installation and use before an official release. Particularly we are looking for problems with using the new elements in the release.
+
+1. Try making the new c library.
+
+cd z88dk/libsrc/_DEVELOPMENT
+windows: "Winmake all" (10-15 mins to complete)
+other: "make"
+
+2. Try compiling your own programs and some of the examples.
+
+Thanks to anyone who can find the time at this time of year to do a little testing.
+
+
+
+The library in z88dk is much larger and much more complete. The sdcc library is minimal, just enough for what is considered essential for embedded applications, and is missing quite a few things. But sdcc's library is written in C which makes it portable to all of sdcc's targets: the z80, z180, tls90, stm8, msp430, 8051 .... and this means sdcc can provide the same C library to all of its targets. sdcc is not interested in breaking this by importing libraries written for specific processors; doing so would mean different processors had different levels of C compliance, different corner case behaviours, and would require independent maintenance by people who were experts in those processors. This is something that we've talked about briefly with sdcc. Instead what what has happened in the past year is sdcc has been modified to accommodate z88dk and vice versa and this release is the first result of bringing the two projects closer together.
+
+The z88dk library is also not confining itself to the C standard. There are libraries for music synthesis, proportional font printing, graphics, game engines, and so on. None of this would be accepted in sdcc. And finally, z88dk tries to directly support any z80 target by incorporating crts and tweaking library code for each target, allowing programs to be compiled without the user having to understand compiler details. How many times has someone asked for a crt to use to compile with sdcc? Some of those crts I have seen are incomplete because the people writing them are themselves not familiar with the compiler details. The problem is more complicated with z88dk because the libraries are more extensive. z88dk supports about 50 targets now (only three at the moment on the new / sdcc-compatible side); sdcc has no interest in directly supporting specific z80 machines.
+
+So those are the reasons the two projects will not be merging. There is also another side to this: z88dk is now written to interface with any sort of compiler. At the moment that's sccz80 and sdcc but in the future maybe other C compilers or other language compilers could be interfaced to the z88dk libraries and its support for specific z80 targets.
+
+You can look at some example C programs here:
+http://z88dk.cvs.sourceforge.net/vie...MENT/EXAMPLES/
+None of these can be compiled using sdcc alone because of missing elements in its libraries but it can compile them when used in combination with z88dk.
+
+В её внутренности не смотрел, но по названию понимаю (предполагаю), что sdcc_чего-то там_ix или _iy ведёт к употреблению регистра ix. а он в свою очередь жуткий тормоз. в чём оптимизация-то?
+z88dk supports 50 different z80 machines. Some of those machines do not allow use of one or both index registers. So the library has been written to use one index register - IX. The assembler is able to swap IX and IY in output code so if the target is unable to use IX, the library code can be swapped to IY.
+
+sdcc complicates things a little bit because it uses IX as frame pointer. On targets that have no restriction on IX/IY, sdcc can be given IX and the library can use IY (the sdcc_iy library). On other targets, sdcc and the library must share IX (the sdcc_ix library). What this means is if a particular library function uses IX, it must save IX for sdcc. That's extra code that must be inserted. Because the library passes parameters by register or using callee linkage, the extra code can spoil a clean interface between compiler and library and this leads to larger code in the output. So you always want to use sdcc_iy if you can.
+
+I can give you one example in the qsort() function which uses IX as a function pointer.
+
+sdcc_ix C interface:
+
+Код:
+
+_qsort_callee:
+
+   pop af
+   pop bc
+   pop hl
+   pop de
+   exx
+   pop bc
+   push af
+   
+l0_qsort_callee:
+
+   push bc
+   exx
+   
+   ex (sp),ix
+   
+   call asm_qsort
+   
+   pop ix
+   ret
+
+sdcc_iy C interface (the assembler will change ix to iy):
+
+Код:
+
+_qsort_callee:
+
+   pop af
+   pop bc
+   pop hl
+   pop de
+   pop ix
+   push af
+   
+   jp asm_qsort
+
+For the zx target:
+
+* If the rom interrupt is enabled, code cannot use IY. In this case sdcc programs must be compiled with the sdcc_ix library (library uses IX) and --reserve-regs-iy so that sdcc does not use IY.
+* If the rom interrupt is disabled, code can use IY so it's preferable to compile against sdcc_iy.
+
+I'm not sure if I understood the rest correctly but if you are asking if sdcc's generated code is improved, the answer is yes. sdcc's output is improved between 5-10% in size and speed, depending on the program, by the peephole rules supplied with z88dk. These are something that may be incorporated into sdcc in the future. Aside from that, z88dk changes sdcc's calls to its primitives to use callee linkage rather than standard C linkage. This will also shave a few hundred bytes off large programs.
+
+http://zx-pk.ru/showthread.php?t=25934&p=847073#post847073
+
+
+z88dk 1.99A has been released and is available at sourceforge for download.
+
+Thanks to anyone who had a chance to do some testing. A few minor issues were found and corrected in the release.
+
+
+CHANGES (brief)
+
+
+z88dk 1.99A 23.Dec.2015
+Major changes incorporated into z88dk. This is a transition release in anticipation of v2.0.
+
+Two C compilers are supported (sccz80 - z88dk's native C compiler - and sdcc).
+Two different C libraries are present (classic - the same library as pre 1.99A - and new).
+
+Accordingly, there are now three different compile modes:
+
+1. Compile with sccz80 and the classic C library. This is equivalent to pre-1.99A.
+2. Compile with sccz80 and the new C library. Compile lines include "-clib=new".
+3. Compile with sdcc and the new C library. Compile lines include "-clib=sdcc_ix" or "-clib=sdcc_iy".
+
+[z80asm] Sections have been introduced for generating memory maps and compiling to bankswitched memory.
+[z80asm] Modern logical operators have been adopted.
+[z80asm] New scoping keywords PUBLIC, EXTERN and GLOBAL introduced.
+[z80asm] Relocate files are generated for output binaries for patching assembled code to a new address at load time.
+[sccz80] Numerous bugfixes.
+[sdcc] SDCC is now fully supported as alternate C compiler for the new C library.
+[sdcc] SDCC's generated code is improved by a large set of aggressive peephole rules (use -SO3 to enable).
+[sdcc] SDCC's calls to its primitive functions are modified to use callee linkage.
+[new c lib] New C library written in assembly language from scratch aiming for a subset of C11 compliance. Contains more than 700 functions currently.
+[new c lib] Stdio made object-oriented so that drivers can inherit library code to implement features with a minimal amount of additional code.
+[new c lib] Stdio base classes currently include serial character i/o and terminal i/o implementing windows and proportional fonts. Disk i/o is missing in this release.
+[new c lib] Unique stdio implementation allows removal of high level buffers without affecting performance.
+[new c lib] Many functions from GNU and POSIX are present beyond the C11 standard.
+[new c lib] Many unique libraries including some C++ STL containers, data compression, obstacks, game libraries, sound, fzx proportional fonts, etc. The new C lib contains libraries not present in the classic C lib and vice versa. Over time the two libraries will homogenize.
+[new c lib] CRTs are supplied for three initial targets: embedded (generic z80), cpm, zx (zx spectrum). Specialized crts allow immediate compilation without customization by the user.
+[new c lib] The library and crts are highly configurable at library build time and at compile time. Options allow easy generation of binaries for ROM or RAM targets.
+[tools] New tool ticks is a command line z80 emulator able to exactly measure execution time of a code block.
+[tools] New tool dzx7 is a decompressor counterpart to zx7.
+[tools] New tool zx7 is an optimal lz77/lzss data compressor with companion decompression subroutines in the z80 library.
+[appmake] +rom added to manipulate raw binaries; options include code injection, extraction and conversion to intel hex format.
+
+The new C library completes C standards compliance for sdcc and leads to much smaller and faster output binaries. sdcc's longlong type is not supported in this release.
+
+Documentation is a work in progress.
+
+Installation:
+http://www.z88dk.org/wiki/doku.php?i...t#installation
+
+Overview, Classic C Library Information:
+http://www.z88dk.org/wiki/doku.php
+
+Overview, New C Library Description, SDCC compilation described:
+http://www.z88dk.org/wiki/doku.php?id=temp:front
+
+Some benchmarks:
+http://www.z88dk.org/wiki/doku.php?i...ont#benchmarks
