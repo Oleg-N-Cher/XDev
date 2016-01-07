@@ -1,8 +1,0 @@
-MODULE Gfx;
-
-TYPE
-  UBYTE = INTEGER;
-
-PROCEDURE Fill* (x, y, atr: UBYTE); END Fill;
- 
-END Gfx.

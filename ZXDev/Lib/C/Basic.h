@@ -118,6 +118,7 @@ import void Basic_CLS_FULLSCREEN (void);
   #define Basic_CLS Basic_CLS_ZX
 #endif
 
+import void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
 import void Basic_PRSTR_C_FAST (CHAR *str);
 import void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
 import void Basic_PRSTR_C_ROM_fastcall (void /* post */);
@@ -419,6 +420,7 @@ import void Basic__IM2ADR (void);
 #define OVER Basic_OVER
 #define AT Basic_AT
 #define CLS Basic_CLS
+#define PAINT Basic_PAINT
 #define PRCHAR Basic_PRCHAR
 #define PLOT Basic_PLOT
 #define POINT Basic_POINT
