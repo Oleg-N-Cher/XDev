@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-export void SYSTEM_HALT_N (void /* Postparameter */);
+export void SYSTEM_HALT_m1 (unsigned char n);
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
@@ -15,14 +15,20 @@ extern CHAR *SYSTEM_str_par;
 CHAR *SYSTEM_str_par;
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_HALT_N (void) __naked {
+void SYSTEM_HALT_m1 (unsigned char n) __naked {
 __asm
   LD   IY,#0x5C3A
   IM   1
   EI
-  JP   8
+  POP  HL ; јдрес возврата больше не нужен (не возвращаемс€)
+  DEC  SP ; ¬ыравним стек чтобы достать аргумент в рег. A
+  POP  AF
+  LD   (HALTCODE$),A
+  RST  8
+HALTCODE$:
+  .DB  0xFF
 __endasm;
-} //SYSTEM_HALT_N
+} //SYSTEM_HALT_m1
 
 /*--------------------------------- Cut here ---------------------------------*/
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y)
