@@ -69,8 +69,8 @@ extern void SYSTEM_REGFIN();
 extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
-extern void SYSTEM_HALT_N (void);
-#define SYSTEM_HALT(n) SYSTEM_HALT_N(); __asm .DB n-1 __endasm
+extern void SYSTEM_HALT_m1 (unsigned char n);
+#define SYSTEM_HALT(n) SYSTEM_HALT_m1(n-1)
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
 extern void SYSTEM_ENUMR();
@@ -249,7 +249,7 @@ extern void SYSTEM_ENUMR();
 
 /* runtime system variables */
 extern CHAR *SYSTEM_str_par;
-extern void (*SYSTEM_Halt)();
+/*extern void (*SYSTEM_Halt)();
 extern LONGINT SYSTEM_halt;
 extern LONGINT SYSTEM_assert;
 extern SYSTEM_PTR SYSTEM_modules;
@@ -257,7 +257,7 @@ extern LONGINT SYSTEM_heapsize;
 extern LONGINT SYSTEM_allocated;
 extern LONGINT SYSTEM_lock;
 extern SHORTINT SYSTEM_gclock;
-extern BOOLEAN SYSTEM_interrupted;
+extern BOOLEAN SYSTEM_interrupted;*/
 
 /* ANSI prototypes; not used so far
 int SYSTEM_STRCMP(CHAR *x, CHAR *y);
