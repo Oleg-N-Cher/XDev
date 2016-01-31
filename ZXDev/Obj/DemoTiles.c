@@ -22,7 +22,6 @@ export main(int argc, char **argv)
 	__IMPORT(GrTiles__init);
 	__REGMAIN("DemoTiles", 0);
 /* BEGIN */
-	Basic_Init();
 	Basic_PAPER(0);
 	Basic_CLS();
 	Basic_BORDER(2);
