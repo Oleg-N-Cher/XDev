@@ -34,4 +34,3 @@ bin2tap by Michal Jurica - http://zeroteam.sk/bin2tap.html
 bin2trd by Copper Feet (Vyacheslav Mednonogov)
 TrDos library by Amxgris/Red Triangle/Mother Russia
 ZX7: an "optimal" LZ77 packer by Einar Saukas - www.ime.usp.br/~einar/
-Tiny C by Fabrice Bellard - http://bellard.org/tcc/
