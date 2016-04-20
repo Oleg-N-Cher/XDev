@@ -23,5 +23,5 @@
   %gcc% -c %%i -I ".." -I ..\C
   @IF errorlevel 1 PAUSE
 )
-@FOR %%i IN (%2_???.o) DO %Bin%\ar -rc %1 %%i
+@FOR %%i IN (%2_???.o) DO ar.exe -rc %1 %%i
 @%Bin%\clear
