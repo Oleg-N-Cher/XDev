@@ -21,5 +21,5 @@
 :done
 @IF errorlevel 1 PAUSE
 
-@%Bin%\ar -rc %1 %2.o
+@ar.exe -rc %1 %2.o
 @DEL %2.o
