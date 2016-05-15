@@ -1,7 +1,7 @@
 @SET Name=%1
 @SET RootBin=..\..\..\Bin
 @SET PATH=..\..\Bin\MinGW64\bin
-@SET gcc=gcc.exe -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections
+@SET gcc=gcc.exe -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections
 
 IF EXIST ..\%Name%64.a DEL ..\%Name%64.a
 %RootBin%\smartlib %1.c

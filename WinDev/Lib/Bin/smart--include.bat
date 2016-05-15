@@ -3,7 +3,7 @@
 
 @SET RootBin=..\..\..\Bin
 @SET PATH=..\..\Bin\MinGW\bin
-@SET gcc=gcc.exe -ffunction-sections
+@SET gcc=gcc.exe -ffunction-sections -fdata-sections
 
 @IF EXIST ..\C\%2.c GOTO clib
 
