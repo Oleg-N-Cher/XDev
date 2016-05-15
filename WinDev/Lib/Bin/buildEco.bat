@@ -5,6 +5,7 @@
 @SET Lib=..\Eco.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smart %Lib% EcoBigSets
+@CALL ..\Bin\solid %Lib% EcoBuffer
 @CALL ..\Bin\smart %Lib% EcoListen
 @CALL ..\Bin\smart %Lib% EcoLists
 @CALL ..\Bin\solid %Lib% EcoVector
@@ -15,6 +16,7 @@
 @SET Lib=..\EcoDJGPP.a
 @IF EXIST %Lib% DEL %Lib%
 @CALL ..\Bin\smartdjgpp %Lib% EcoBigSets
+@CALL ..\Bin\soliddjgpp %Lib% EcoBuffer
 @CALL ..\Bin\smartdjgpp %Lib% EcoListen
 @CALL ..\Bin\smartdjgpp %Lib% EcoLists
 @CALL ..\Bin\soliddjgpp %Lib% EcoVector
