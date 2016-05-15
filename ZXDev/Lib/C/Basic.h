@@ -11,13 +11,13 @@
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
 import void Basic_Init_IM2 (void);
-#ifdef MODE_DI
+#if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_Init() __asm DI __endasm
 #endif //MODE_DI
 #ifdef MODE_IM1
 #  define Basic_Init()
 #endif //MODE_IM1
-#ifdef MODE_IM2
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
@@ -173,7 +173,7 @@ import void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
 #if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  define Basic_CIRCLEW Basic_CIRCLE_EIW
 #endif //MODE_IM1
-#ifdef MODE_IM2
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_EI
 #endif //MODE_IM2
 
@@ -224,7 +224,7 @@ import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 #    define Basic_PAUSE Basic_PAUSE_EI_stdcall
 #  endif
 #endif //MODE_IM1
-#ifdef MODE_IM2
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  ifdef PAUSE_fastcall
 #    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
 #  else
@@ -247,7 +247,7 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM1
-#ifdef MODE_IM2
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
