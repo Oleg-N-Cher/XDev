@@ -31,14 +31,14 @@ export void Basic_PRCHAR_FAST (CHAR ch);
 export void Basic_PRCHAR_ROM (CHAR ch);
 export void Basic_PRDATA (void);
 export void Basic_PRLN (void);
-export void Basic_PLOT (SHORTINT x, SHORTINT y);
+export void Basic_PLOT (unsigned char x, unsigned char y);
 export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
-export void Basic_DRAW (SHORTINT x, SHORTINT y);
-export void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
-export void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-export void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-export void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+export void Basic_DRAW (unsigned char x, unsigned char y);
+export void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
+export void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
+export void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
+export void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
 export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 export void Basic_PRINT_FAST (INTEGER i);
@@ -1001,7 +1001,7 @@ void Basic_PRLN (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PLOT (SHORTINT x, SHORTINT y) __naked {
+void Basic_PLOT (unsigned char x, unsigned char y) __naked {
 __asm
   LD   IY,#0x5C3A
   POP  HL
@@ -1045,7 +1045,7 @@ __endasm;
 } //Basic_ATTR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_DRAW (SHORTINT x, SHORTINT y) __naked {
+void Basic_DRAW (unsigned char x, unsigned char y) __naked {
 __asm
   LD   IY,#0x5C3A
   POP  HL
@@ -1075,7 +1075,7 @@ __endasm;
 } //Basic_DRAW
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
+void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
   __asm // Fixed for OVER 1 & small radius by Reobne
         POP  BC
         POP  HL     ; L = x; H = y
@@ -1170,7 +1170,7 @@ __endasm;
 } //Basic_CIRCLE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius) __naked {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -1350,7 +1350,7 @@ WRAP01$: // fixed for OVER 1 by Destr
 } //Basic_CIRCLEW_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius) __naked {
+void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius) __naked {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -1532,7 +1532,7 @@ WRAP11$: // fixed for OVER 1 by Destr
 } //Basic_CIRCLEW_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius) __naked {
+void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
 __asm
   LD   IY,#0x5C3A
   PUSH IX
