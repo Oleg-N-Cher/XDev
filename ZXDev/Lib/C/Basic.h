@@ -155,18 +155,18 @@ import void Basic_PRDATA (void);
 
 import void Basic_PRLN (void);
 
-import void Basic_PLOT (SHORTINT x, SHORTINT y);
+import void Basic_PLOT (unsigned char x, unsigned char y);
 
 import BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 
 import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
-import void Basic_DRAW (SHORTINT x, SHORTINT y);
+import void Basic_DRAW (unsigned char x, unsigned char y);
 
-import void Basic_CIRCLE (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+import void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 
-import void Basic_CIRCLEW_DI (SHORTINT cx, SHORTINT cy, INTEGER radius);
-import void Basic_CIRCLEW_EI (SHORTINT cx, SHORTINT cy, INTEGER radius);
+import void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
+import void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_DI
 #endif //MODE_DI
@@ -193,7 +193,7 @@ import void Basic_PRWORD_ROM (CARDINAL n);
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
 
-import void Basic_CIRCLEROM (SHORTINT cx, SHORTINT cy, SHORTINT radius);
+import void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius);
 
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
