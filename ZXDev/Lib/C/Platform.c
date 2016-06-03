@@ -1,4 +1,5 @@
-#include <stdlib.h>
+/*  Ofront 1.2 -xtspkae */
+#include <malloc.h>
 #include "SYSTEM.h"
 #include "Platform.h"
 

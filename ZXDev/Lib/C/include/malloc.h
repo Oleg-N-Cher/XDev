@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-   features.h - Z80 specific features.
+   malloc.h - malloc header file
 
-   Copyright (C) 2001, Michael Hope
+   Copyright (C) 1997, Dmitry S. Obukhov <dmitry.obukhov AT gmail.com>
 
    This library is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the
@@ -26,25 +26,25 @@
    might be covered by the GNU General Public License.
 -------------------------------------------------------------------------*/
 
-#ifndef __SDCC_ASM_Z80_FEATURES_H
-#define __SDCC_ASM_Z80_FEATURES_H   1
+#ifndef __SDCC51_MALLOC_H
+#define __SDCC51_MALLOC_H
+#include <sdcc-lib.h>
+#include <stddef.h>
 
-#define _REENTRANT
-#define _CODE
-#define _AUTOMEM
-#define _STATMEM
+#if _SDCC_MALLOC_TYPE_MLH
 
-#define _SDCC_MANGLES_SUPPORT_FUNS	1
-#define _SDCC_Z80_STYLE_LIB_OPT		1
+void * calloc (size_t nmemb, size_t size);
+void * malloc (size_t size);
+void * realloc (void * ptr, size_t size);
+void free (void * ptr);
 
-/* The following are disabled to make the dhrystone test more authentic.
- */
-#define _SDCC_PORT_PROVIDES_MEMCPY	0
-#define _SDCC_PORT_PROVIDES_STRCMP	0
-/* Register allocator is as good as hand coded asm.  Cool. */
-#define _SDCC_PORT_PROVIDES_STRCPY	0
+#else
 
-#define _SDCC_MALLOC_TYPE_MLH		1
+extern void __xdata * calloc (size_t nmemb, size_t size);
+extern void __xdata * malloc (size_t size);
+extern void __xdata * realloc (void * ptr, size_t size);
+extern void free (void * ptr);
 
 #endif
 
+#endif
