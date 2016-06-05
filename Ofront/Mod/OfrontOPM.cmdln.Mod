@@ -169,12 +169,10 @@ MODULE OfrontOPM;	(* RC 6.3.89 / 28.6.89, J.Templ 10.7.89 / 22.7.96  *)
 	BEGIN
 		IF Args.argc = 1 THEN stop := TRUE;
 			Console.Ln;
-			Console.String("OfrontPlus - Oberon-2 to C Translator v1.0"); Console.Ln;
-			Console.String("Copyright (c) Software Templ OEG, 1995-2007"); Console.Ln;
-			Console.String("              VEDAsoft Oberon Club, 2012-2016");
-			Console.Ln; Console.Ln;
+			Console.String("OfrontPlus - Oberon-2 to C Translator v1.0 #1"); Console.Ln;
+			Console.String("Copyright (c) Software Templ OEG, 1995-2007 & VEDAsoft Oberon Club, 2013-2016"); Console.Ln; Console.Ln;
 			Console.String("SYNOPSIS"); Console.Ln;
-				Console.String('  command = "ofront" options {file options}.'); Console.Ln;
+				Console.String('  command = "ofront+" options {file options}.'); Console.Ln;
 			Console.String('  options = ["-" {option} ].'); Console.Ln;
 			Console.String('  option  = "m" | "s" | "e" | "i" | "l" | "k" | "r" | "x" | "a" | "p" | "t".'); Console.Ln;
 			Console.Ln;
@@ -387,13 +385,13 @@ MODULE OfrontOPM;	(* RC 6.3.89 / 28.6.89, J.Templ 10.7.89 / 22.7.96  *)
 			GetProperty(S, "ENDIAN", ByteOrder, BitOrder);	(*currently not used*)
 		ELSE Mark(-156, -1)
 		END ;
-		IF RealSize = 4 THEN MaxReal := 3.40282346D38
-		ELSIF RealSize = 8 THEN MaxReal := 1.7976931348623157D307 * 9.999999
-			(*should be 1.7976931348623157D308 *)
+		IF RealSize = 4 THEN MaxReal := 3.402823466D38
+		ELSIF RealSize = 8 THEN MaxReal := 1.7976931348623158D307 * 9.999999
+			(*should be 1.7976931348623158D308 *)
 		END ;
-		IF LRealSize = 4 THEN MaxLReal := 3.40282346D38
-		ELSIF LRealSize = 8 THEN MaxLReal := 1.7976931348623157D307 * 9.999999
-			(*should be 1.7976931348623157D308 *)
+		IF LRealSize = 4 THEN MaxLReal := 3.402823466D38
+		ELSIF LRealSize = 8 THEN MaxLReal := 1.7976931348623158D307 * 9.999999
+			(*should be 1.7976931348623158D308 *)
 		END ;
 		MinReal := -MaxReal;
 		MinLReal := -MaxLReal;
