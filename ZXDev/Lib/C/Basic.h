@@ -161,7 +161,7 @@ import BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 
 import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
-import void Basic_DRAW (unsigned char x, unsigned char y);
+import void Basic_DRAW (signed char x, signed char y);
 
 import void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 
