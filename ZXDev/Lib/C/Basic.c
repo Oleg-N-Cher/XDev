@@ -34,7 +34,7 @@ export void Basic_PRLN (void);
 export void Basic_PLOT (unsigned char x, unsigned char y);
 export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
-export void Basic_DRAW (unsigned char x, unsigned char y);
+export void Basic_DRAW (signed char x, signed char y);
 export void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 export void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
 export void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
@@ -1045,7 +1045,7 @@ __endasm;
 } //Basic_ATTR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_DRAW (unsigned char x, unsigned char y) __naked {
+void Basic_DRAW (signed char x, signed char y) __naked {
 __asm
   LD   IY,#0x5C3A
   POP  HL
