@@ -823,61 +823,60 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 		}
 		ch = s[__X(i, s__len)];
 		if (ch >= 0x01 && ch <= 0x7f) {
-			res[__X(j, res__len)] = ch;
 		} else {
 			switch (ch) {
 				case 0xc2: 
 					i += 1;
-					res[__X(j, res__len)] = s[__X(i, s__len)];
+					ch = s[__X(i, s__len)];
 					break;
 				case 0xd0: 
 					i += 1;
 					ch = s[__X(i, s__len)];
 					if (ch >= 0x90 && ch <= 0xbf) {
-						res[__X(j, res__len)] = (CHAR)((int)ch + 48);
+						ch = (CHAR)((int)ch + 48);
 					} else {
 						switch (ch) {
 							case 0x81: 
-								res[__X(j, res__len)] = 0xa8;
+								ch = 0xa8;
 								break;
 							case 0x82: 
-								res[__X(j, res__len)] = 0x80;
+								ch = 0x80;
 								break;
 							case 0x83: 
-								res[__X(j, res__len)] = 0x81;
+								ch = 0x81;
 								break;
 							case 0x84: 
-								res[__X(j, res__len)] = 0xaa;
+								ch = 0xaa;
 								break;
 							case 0x85: 
-								res[__X(j, res__len)] = 0xbd;
+								ch = 0xbd;
 								break;
 							case 0x86: 
-								res[__X(j, res__len)] = 0xb2;
+								ch = 0xb2;
 								break;
 							case 0x87: 
-								res[__X(j, res__len)] = 0xaf;
+								ch = 0xaf;
 								break;
 							case 0x88: 
-								res[__X(j, res__len)] = 0xa3;
+								ch = 0xa3;
 								break;
 							case 0x89: 
-								res[__X(j, res__len)] = 0x8a;
+								ch = 0x8a;
 								break;
 							case 0x8a: 
-								res[__X(j, res__len)] = 0x8c;
+								ch = 0x8c;
 								break;
 							case 0x8b: 
-								res[__X(j, res__len)] = 0x8e;
+								ch = 0x8e;
 								break;
 							case 0x8c: 
-								res[__X(j, res__len)] = 0x8d;
+								ch = 0x8d;
 								break;
 							case 0x8e: 
-								res[__X(j, res__len)] = 0xa1;
+								ch = 0xa1;
 								break;
 							case 0x8f: 
-								res[__X(j, res__len)] = 0x8f;
+								ch = 0x8f;
 								break;
 							default: 
 								res[__X(j, res__len)] = 0x00;
@@ -890,50 +889,50 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					i += 1;
 					ch = s[__X(i, s__len)];
 					if (ch >= 0x80 && ch <= 0x8f) {
-						res[__X(j, res__len)] = (CHAR)((int)ch + 112);
+						ch = (CHAR)((int)ch + 112);
 					} else {
 						switch (ch) {
 							case 0x91: 
-								res[__X(j, res__len)] = 0xb8;
+								ch = 0xb8;
 								break;
 							case 0x92: 
-								res[__X(j, res__len)] = 0x90;
+								ch = 0x90;
 								break;
 							case 0x93: 
-								res[__X(j, res__len)] = 0x83;
+								ch = 0x83;
 								break;
 							case 0x94: 
-								res[__X(j, res__len)] = 0xba;
+								ch = 0xba;
 								break;
 							case 0x95: 
-								res[__X(j, res__len)] = 0xbe;
+								ch = 0xbe;
 								break;
 							case 0x96: 
-								res[__X(j, res__len)] = 0xb3;
+								ch = 0xb3;
 								break;
 							case 0x97: 
-								res[__X(j, res__len)] = 0xbf;
+								ch = 0xbf;
 								break;
 							case 0x98: 
-								res[__X(j, res__len)] = 0xbc;
+								ch = 0xbc;
 								break;
 							case 0x99: 
-								res[__X(j, res__len)] = 0x9a;
+								ch = 0x9a;
 								break;
 							case 0x9a: 
-								res[__X(j, res__len)] = 0x9c;
+								ch = 0x9c;
 								break;
 							case 0x9b: 
-								res[__X(j, res__len)] = 0x9e;
+								ch = 0x9e;
 								break;
 							case 0x9c: 
-								res[__X(j, res__len)] = 0x9d;
+								ch = 0x9d;
 								break;
 							case 0x9e: 
-								res[__X(j, res__len)] = 0xa2;
+								ch = 0xa2;
 								break;
 							case 0x9f: 
-								res[__X(j, res__len)] = 0x9f;
+								ch = 0x9f;
 								break;
 							default: 
 								res[__X(j, res__len)] = 0x00;
@@ -946,10 +945,10 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					i += 1;
 					switch (s[__X(i, s__len)]) {
 						case 0x90: 
-							res[__X(j, res__len)] = 0xa5;
+							ch = 0xa5;
 							break;
 						case 0x91: 
-							res[__X(j, res__len)] = 0xb4;
+							ch = 0xb4;
 							break;
 						default: 
 							res[__X(j, res__len)] = 0x00;
@@ -964,49 +963,49 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 							i += 1;
 							switch (s[__X(i, s__len)]) {
 								case 0x93: 
-									res[__X(j, res__len)] = 0x96;
+									ch = 0x96;
 									break;
 								case 0x94: 
-									res[__X(j, res__len)] = 0x97;
+									ch = 0x97;
 									break;
 								case 0x98: 
-									res[__X(j, res__len)] = 0x91;
+									ch = 0x91;
 									break;
 								case 0x99: 
-									res[__X(j, res__len)] = 0x92;
+									ch = 0x92;
 									break;
 								case 0x9a: 
-									res[__X(j, res__len)] = 0x82;
+									ch = 0x82;
 									break;
 								case 0x9c: 
-									res[__X(j, res__len)] = 0x93;
+									ch = 0x93;
 									break;
 								case 0x9d: 
-									res[__X(j, res__len)] = 0x94;
+									ch = 0x94;
 									break;
 								case 0x9e: 
-									res[__X(j, res__len)] = 0x84;
+									ch = 0x84;
 									break;
 								case 0xa0: 
-									res[__X(j, res__len)] = 0x86;
+									ch = 0x86;
 									break;
 								case 0xa1: 
-									res[__X(j, res__len)] = 0x87;
+									ch = 0x87;
 									break;
 								case 0xa2: 
-									res[__X(j, res__len)] = 0x95;
+									ch = 0x95;
 									break;
 								case 0xa6: 
-									res[__X(j, res__len)] = 0x85;
+									ch = 0x85;
 									break;
 								case 0xb0: 
-									res[__X(j, res__len)] = 0x89;
+									ch = 0x89;
 									break;
 								case 0xb9: 
-									res[__X(j, res__len)] = 0x8b;
+									ch = 0x8b;
 									break;
 								case 0xba: 
-									res[__X(j, res__len)] = 0x9b;
+									ch = 0x9b;
 									break;
 								default: 
 									res[__X(j, res__len)] = 0x00;
@@ -1016,16 +1015,16 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 							break;
 						case 0x82: 
 							i += 1;
-							res[__X(j, res__len)] = 0x88;
+							ch = 0x88;
 							break;
 						case 0x84: 
 							i += 1;
 							switch (s[__X(i, s__len)]) {
 								case 0x96: 
-									res[__X(j, res__len)] = 0xb9;
+									ch = 0xb9;
 									break;
 								case 0xa2: 
-									res[__X(j, res__len)] = 0x99;
+									ch = 0x99;
 									break;
 								default: 
 									res[__X(j, res__len)] = 0x00;
@@ -1049,6 +1048,7 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					break;
 			}
 		}
+		res[__X(j, res__len)] = ch;
 		j += 1;
 		i += 1;
 	} while (!((LONGINT)i == s__len));

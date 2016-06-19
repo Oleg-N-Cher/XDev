@@ -418,60 +418,59 @@ BEGIN
     IF j+1 >= LEN(res) THEN res[j] := 0X; RETURN FALSE END;
     ch := s[i];
     IF (ch >= 1X) & (ch <= 7FX) THEN (* One byte and latin characters *)
-      res[j] := ch;
     ELSE
       CASE ch OF
-      | 0C2X: INC(i); res[j] := s[i];
+      | 0C2X: INC(i); ch := s[i];
       | 0D0X: INC(i); ch := s[i];
         IF (ch >= 90X) & (ch <= 0BFX) THEN
-          res[j] := CHR(ORD(ch) + 48); (* "À".."ï" *)
+          ch := CHR(ORD(ch) + 48); (* "À".."ï" *)
         ELSE
           CASE ch OF
-          | 81X: res[j] := 0A8X; (* "¨" *) 
-          | 82X: res[j] :=  80X; (* "€" *)
-          | 83X: res[j] :=  81X; (* "" *)
-          | 84X: res[j] := 0AAX; (* "ª" *)
-          | 85X: res[j] := 0BDX; (* "½" *)
-          | 86X: res[j] := 0B2X; (* "²" *)
-          | 87X: res[j] := 0AFX; (* "¯" *)
-          | 88X: res[j] := 0A3X; (* "£" *)
-          | 89X: res[j] :=  8AX; (* "Š" *)
-          | 8AX: res[j] :=  8CX; (* "Œ" *)
-          | 8BX: res[j] :=  8EX; (* "Ž" *)
-          | 8CX: res[j] :=  8DX; (* "" *)
-          | 8EX: res[j] := 0A1X; (* "¡" *)
-          | 8FX: res[j] :=  8FX; (* "" *)
+          | 81X: ch := 0A8X; (* "¨" *) 
+          | 82X: ch :=  80X; (* "€" *)
+          | 83X: ch :=  81X; (* "" *)
+          | 84X: ch := 0AAX; (* "ª" *)
+          | 85X: ch := 0BDX; (* "½" *)
+          | 86X: ch := 0B2X; (* "²" *)
+          | 87X: ch := 0AFX; (* "¯" *)
+          | 88X: ch := 0A3X; (* "£" *)
+          | 89X: ch :=  8AX; (* "Š" *)
+          | 8AX: ch :=  8CX; (* "Œ" *)
+          | 8BX: ch :=  8EX; (* "Ž" *)
+          | 8CX: ch :=  8DX; (* "" *)
+          | 8EX: ch := 0A1X; (* "¡" *)
+          | 8FX: ch :=  8FX; (* "" *)
           ELSE
             res[j] := 0X; RETURN FALSE
           END;
         END;
       | 0D1X: INC(i); ch := s[i];
         IF (ch >= 80X) & (ch <= 8FX) THEN
-          res[j] := CHR(ORD(ch) + 112); (* "ð".."ÿ" *)
+          ch := CHR(ORD(ch) + 112); (* "ð".."ÿ" *)
         ELSE
           CASE ch OF
-          | 91X: res[j] := 0B8X; (* "¸" *)
-          | 92X: res[j] :=  90X; (* "" *)
-          | 93X: res[j] :=  83X; (* "ƒ" *)
-          | 94X: res[j] := 0BAX; (* "º" *)
-          | 95X: res[j] := 0BEX; (* "¾" *)
-          | 96X: res[j] := 0B3X; (* "³" *)
-          | 97X: res[j] := 0BFX; (* "¿" *)
-          | 98X: res[j] := 0BCX; (* "¼" *)
-          | 99X: res[j] :=  9AX; (* "š" *)
-          | 9AX: res[j] :=  9CX; (* "œ" *)
-          | 9BX: res[j] :=  9EX; (* "ž" *)
-          | 9CX: res[j] :=  9DX; (* "" *)
-          | 9EX: res[j] := 0A2X; (* "¢" *)
-          | 9FX: res[j] :=  9FX; (* "Ÿ" *)
+          | 91X: ch := 0B8X; (* "¸" *)
+          | 92X: ch :=  90X; (* "" *)
+          | 93X: ch :=  83X; (* "ƒ" *)
+          | 94X: ch := 0BAX; (* "º" *)
+          | 95X: ch := 0BEX; (* "¾" *)
+          | 96X: ch := 0B3X; (* "³" *)
+          | 97X: ch := 0BFX; (* "¿" *)
+          | 98X: ch := 0BCX; (* "¼" *)
+          | 99X: ch :=  9AX; (* "š" *)
+          | 9AX: ch :=  9CX; (* "œ" *)
+          | 9BX: ch :=  9EX; (* "ž" *)
+          | 9CX: ch :=  9DX; (* "" *)
+          | 9EX: ch := 0A2X; (* "¢" *)
+          | 9FX: ch :=  9FX; (* "Ÿ" *)
           ELSE
             res[j] := 0X; RETURN FALSE
           END;
         END;
       | 0D2X: INC(i);
           CASE s[i] OF
-          | 90X: res[j] := 0A5X; (* "¥" *)
-          | 91X: res[j] := 0B4X; (* "´" *)
+          | 90X: ch := 0A5X; (* "¥" *)
+          | 91X: ch := 0B4X; (* "´" *)
           ELSE
             res[j] := 0X; RETURN FALSE
           END;
@@ -479,29 +478,29 @@ BEGIN
         CASE s[i] OF
         | 80X: INC(i);
           CASE s[i] OF
-          |  93X: res[j] := 96X; (* "–" *)
-          |  94X: res[j] := 97X; (* "—" *)
-          |  98X: res[j] := 91X; (* "‘" *)
-          |  99X: res[j] := 92X; (* "’" *)
-          |  9AX: res[j] := 82X; (* "‚" *)
-          |  9CX: res[j] := 93X; (* "“" *)
-          |  9DX: res[j] := 94X; (* "”" *)
-          |  9EX: res[j] := 84X; (* "„" *)
-          | 0A0X: res[j] := 86X; (* "†" *)
-          | 0A1X: res[j] := 87X; (* "‡" *)
-          | 0A2X: res[j] := 95X; (* "•" *)
-          | 0A6X: res[j] := 85X; (* "…" *)
-          | 0B0X: res[j] := 89X; (* "‰" *)
-          | 0B9X: res[j] := 8BX; (* "‹" *)
-          | 0BAX: res[j] := 9BX; (* "›" *)
+          |  93X: ch := 96X; (* "–" *)
+          |  94X: ch := 97X; (* "—" *)
+          |  98X: ch := 91X; (* "‘" *)
+          |  99X: ch := 92X; (* "’" *)
+          |  9AX: ch := 82X; (* "‚" *)
+          |  9CX: ch := 93X; (* "“" *)
+          |  9DX: ch := 94X; (* "”" *)
+          |  9EX: ch := 84X; (* "„" *)
+          | 0A0X: ch := 86X; (* "†" *)
+          | 0A1X: ch := 87X; (* "‡" *)
+          | 0A2X: ch := 95X; (* "•" *)
+          | 0A6X: ch := 85X; (* "…" *)
+          | 0B0X: ch := 89X; (* "‰" *)
+          | 0B9X: ch := 8BX; (* "‹" *)
+          | 0BAX: ch := 9BX; (* "›" *)
           ELSE
             res[j] := 0X; RETURN FALSE
           END;
-        | 82X: INC(i); res[j]:= 88X; (* 0ACX ? *)
+        | 82X: INC(i); ch := 88X; (* 0ACX ? *)
         | 84X: INC(i);
           CASE s[i] OF
-          |  96X: res[j] := 0B9X; (* "¹" *)
-          | 0A2X: res[j] :=  99X; (* "™" *)
+          |  96X: ch := 0B9X; (* "¹" *)
+          | 0A2X: ch :=  99X; (* "™" *)
           ELSE
             res[j] := 0X; RETURN FALSE
           END;
@@ -513,7 +512,7 @@ BEGIN
         res[j] := 0X; RETURN FALSE
       END; (* CASE *)
     END; (* IF *)
-    INC(j); INC(i);
+    res[j] := ch; INC(j); INC(i);
   UNTIL i = LEN(s);
   res[j] := 0X; RETURN TRUE
 END Utf8ToWin1251;
