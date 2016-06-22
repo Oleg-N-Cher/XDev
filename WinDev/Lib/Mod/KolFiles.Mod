@@ -2533,6 +2533,46 @@ begin
   end;
 end;
 *)
+
+PROCEDURE SameFile* (IN fileName1, fileName2: KOLString): BOOLEAN;
+(*
+	dwVolumeSerialNumber
+			Serial number of the volume that contains the file.
+	nFileIndexHigh
+			High-order word of a unique identifier associated with the file.
+	nFileIndexLow
+			Low-order word of a unique identifier associated with the file. This identifier and the volume serial number uniquely identify a file. This number may change when the system is restarted or when the file is opened. After a process opens a file, the identifier is constant until the file is closed. An application can use this identifier and the volume serial number to determine whether two handles refer to the same file.
+			Note that this value is useful only while the file is open by at least one process. If no processes have it open, the index may change the next time the file is opened.
+			The identifier (low and high parts) and the volume serial number uniquely identify a file on a single computer. To determine whether two open handles represent the same file, combine this identifier and the volume serial number for each file and compare them.
+*)
+VAR
+	fileInfo1, fileInfo2: W.BY_HANDLE_FILE_INFORMATION;
+	handle1, handle2: W.HANDLE; same: BOOLEAN; res: W.BOOL;
+BEGIN
+	same := FALSE;
+	(* File 1 *) 
+	handle1 := W.CreateFileA(
+		S.VAL(W.PtrSTR, S.ADR(fileName1)), W.GENERIC_READ,
+		W.FILE_SHARE_READ, NIL, W.OPEN_EXISTING, {}, NIL);
+	IF handle1 # S.VAL(W.HANDLE, W.INVALID_HANDLE_VALUE) THEN
+		(* File 2 *)
+		handle2 := W.CreateFileA(
+			S.VAL(W.PtrSTR, S.ADR(fileName2)), W.GENERIC_READ,
+			W.FILE_SHARE_READ, NIL, W.OPEN_EXISTING, {}, NIL);
+		IF handle2 # S.VAL(W.HANDLE, W.INVALID_HANDLE_VALUE) THEN
+			same :=
+				(W.GetFileInformationByHandle(handle1, fileInfo1) # 0) &
+				(W.GetFileInformationByHandle(handle2, fileInfo2) # 0) &
+				(fileInfo1.nFileIndexLow = fileInfo2.nFileIndexLow) &
+				(fileInfo1.nFileIndexHigh = fileInfo2.nFileIndexHigh) &
+				(fileInfo1.dwVolumeSerialNumber = fileInfo2.dwVolumeSerialNumber);
+			res := W.CloseHandle(handle2);
+		END;
+		res := W.CloseHandle(handle1);
+	END;
+	RETURN same
+END SameFile;
+
 (*
 BEGIN
   hInstance := W.GetModuleHandle(NIL);*)
