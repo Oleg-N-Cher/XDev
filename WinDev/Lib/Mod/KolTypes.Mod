@@ -63,6 +63,7 @@ TYPE
   PKOLString* = POINTER TO KOLString;
   TDateTime* = Double;
   THandle* = WinApi.HANDLE;
+  ANYPTR* = POINTER [1] TO ARRAY 1 OF SYSTEM.PTR;
   (* Single = SHORTREAL 32 bit *)
 (*
   VAR eps, e: REAL; (* For SystemMath from BlackBox *)

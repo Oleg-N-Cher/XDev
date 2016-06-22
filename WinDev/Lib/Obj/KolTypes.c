@@ -3,6 +3,9 @@
 #include "WinApi.h"
 
 typedef
+	SYSTEM_PTR (*KolTypes_ANYPTR)[1];
+
+typedef
 	CHAR *KolTypes_AnsiString;
 
 typedef
