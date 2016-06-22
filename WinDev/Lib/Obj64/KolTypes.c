@@ -3,6 +3,9 @@
 #include "WinApi.h"
 
 typedef
+	SYSTEM_PTR (*KolTypes_ANYPTR)[1];
+
+typedef
 	CHAR *KolTypes_AnsiString;
 
 typedef
@@ -206,3 +209,13 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 	}
 }
 
+/*----------------------------------------------------------------------------*/
+
+export void *KolTypes__init(void)
+{
+	__DEFMOD;
+	__IMPORT(WinApi__init);
+	__REGMOD("KolTypes", 0);
+/* BEGIN */
+	__ENDMOD;
+}
