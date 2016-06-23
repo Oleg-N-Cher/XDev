@@ -27,7 +27,10 @@ typedef
 	struct Files_Handle {
 		Files_FileName workName, registerName;
 		BOOLEAN tempFile;
-		LONGINT dev, ino, mtime, fd, len, pos;
+		INTEGER dev;
+		SHORTINT ino;
+		Unix_SizeT mtime;
+		LONGINT fd, len, pos;
 		Files_Buffer bufs[4];
 		INTEGER swapper, state;
 	} Files_Handle;
@@ -58,7 +61,7 @@ export LONGINT *Files_Rider__typ;
 export LONGINT *Files_TimeDesc__typ;
 
 export Files_File Files_Base (Files_Rider *r, LONGINT *r__typ);
-static Files_File Files_CacheEntry (LONGINT dev, LONGINT ino, LONGINT mtime);
+static Files_File Files_CacheEntry (INTEGER dev, SHORTINT ino, Unix_SizeT mtime);
 export void Files_ChangeDirectory (CHAR *path, LONGINT path__len, INTEGER *res);
 export void Files_Close (Files_File f);
 static void Files_Create (Files_File f);
@@ -246,7 +249,6 @@ static void Files_Create (Files_File f)
 				f->pos = 0;
 				errno = Unix_Fstat(f->fd, &stat, Unix_Status__typ);
 				f->dev = stat.dev;
-				f->ino = stat.ino;
 				f->mtime = stat.mtime;
 			}
 		} else {
@@ -274,7 +276,7 @@ static void Files_Flush (Files_Buffer buf)
 		if (buf->org != f->pos) {
 			res = Unix_Lseek(f->fd, buf->org, 0);
 		}
-		res = Unix_Write(f->fd, (LONGINT)buf->data, buf->size);
+		res = Unix_Write(f->fd, (INTEGER)buf->data, buf->size);
 		if (res < 0) {
 			Files_Err((CHAR*)"error in writing file", (LONGINT)22, f, Unix_errno());
 		}
@@ -378,7 +380,7 @@ static BOOLEAN Files_HasDir (CHAR *name, LONGINT name__len)
 	return ch == '/';
 }
 
-static Files_File Files_CacheEntry (LONGINT dev, LONGINT ino, LONGINT mtime)
+static Files_File Files_CacheEntry (INTEGER dev, SHORTINT ino, Unix_SizeT mtime)
 {
 	return NIL;
 }
@@ -432,7 +434,7 @@ Files_File Files_Old (CHAR *name, LONGINT name__len)
 			}
 			if (done) {
 				res = Unix_Fstat(fd, &stat, Unix_Status__typ);
-				f = Files_CacheEntry(stat.dev, stat.ino, stat.mtime);
+				f = Files_CacheEntry(stat.dev, 0, stat.mtime);
 				if (f != NIL) {
 					res = Unix_Close(fd);
 					__DEL(name);
@@ -454,7 +456,6 @@ Files_File Files_Old (CHAR *name, LONGINT name__len)
 					f->registerName[0] = 0x00;
 					f->tempFile = 0;
 					f->dev = stat.dev;
-					f->ino = stat.ino;
 					f->mtime = stat.mtime;
 					__DEL(name);
 					return f;
@@ -632,7 +633,7 @@ void Files_ReadBytes (Files_Rider *r, LONGINT *r__typ, BYTE *x, LONGINT x__len, 
 		} else {
 			min = n;
 		}
-		__MOVE((LONGINT)buf->data + offset, (LONGINT)x + xpos, min);
+		__MOVE((INTEGER)buf->data + offset, (INTEGER)x + xpos, min);
 		offset += min;
 		(*r).offset = offset;
 		xpos += min;
@@ -693,7 +694,7 @@ void Files_WriteBytes (Files_Rider *r, LONGINT *r__typ, BYTE *x, LONGINT x__len,
 		} else {
 			min = n;
 		}
-		__MOVE((LONGINT)x + xpos, (LONGINT)buf->data + offset, min);
+		__MOVE((INTEGER)x + xpos, (INTEGER)buf->data + offset, min);
 		offset += min;
 		(*r).offset = offset;
 		if (offset > buf->size) {
@@ -724,9 +725,9 @@ static BOOLEAN Files_SameFile (CHAR *fileName1, LONGINT fileName1__len, CHAR *fi
 	BOOLEAN same;
 	LONGINT res;
 	same = 0;
-	handle1 = WinApi_CreateFileA((SYSTEM_PTR)((LONGINT)fileName1), 0x80000000, 0x01, NIL, NIL, 3, 0x0, NIL);
+	handle1 = WinApi_CreateFileA((SYSTEM_PTR)((INTEGER)fileName1), 0x80000000, 0x01, NIL, NIL, 3, 0x0, NIL);
 	if (handle1 != (SYSTEM_PTR)-1) {
-		handle2 = WinApi_CreateFileA((SYSTEM_PTR)((LONGINT)fileName2), 0x80000000, 0x01, NIL, NIL, 3, 0x0, NIL);
+		handle2 = WinApi_CreateFileA((SYSTEM_PTR)((INTEGER)fileName2), 0x80000000, 0x01, NIL, NIL, 3, 0x0, NIL);
 		if (handle2 != (SYSTEM_PTR)-1) {
 			same = (((WinApi_GetFileInformationByHandle(handle1, &fileInfo1, WinApi_BY_HANDLE_FILE_INFORMATION__typ) != 0 && WinApi_GetFileInformationByHandle(handle2, &fileInfo2, WinApi_BY_HANDLE_FILE_INFORMATION__typ) != 0) && fileInfo1.nFileIndexLow == fileInfo2.nFileIndexLow) && fileInfo1.nFileIndexHigh == fileInfo2.nFileIndexHigh) && fileInfo1.dwVolumeSerialNumber == fileInfo2.dwVolumeSerialNumber;
 			res = WinApi_CloseHandle(handle2);
@@ -768,16 +769,16 @@ void Files_Rename (CHAR *old, LONGINT old__len, CHAR *new, LONGINT new__len, INT
 					__DEL(new);
 					return;
 				}
-				n = Unix_Read(fdold, (LONGINT)buf, 4096);
+				n = Unix_Read(fdold, (INTEGER)buf, 4096);
 				while (n > 0) {
-					r = Unix_Write(fdnew, (LONGINT)buf, n);
+					r = Unix_Write(fdnew, (INTEGER)buf, n);
 					if (r < 0) {
 						errno = Unix_errno();
 						r = Unix_Close(fdold);
 						r = Unix_Close(fdnew);
 						Files_Err((CHAR*)"cannot move file", (LONGINT)17, NIL, errno);
 					}
-					n = Unix_Read(fdold, (LONGINT)buf, 4096);
+					n = Unix_Read(fdold, (INTEGER)buf, 4096);
 				}
 				errno = Unix_errno();
 				r = Unix_Close(fdold);
@@ -846,7 +847,7 @@ static void Files_FlipBytes (BYTE *src, LONGINT src__len, BYTE *dest, LONGINT de
 			j += 1;
 		}
 	} else {
-		__MOVE((LONGINT)src, (LONGINT)dest, src__len);
+		__MOVE((INTEGER)src, (INTEGER)dest, src__len);
 	}
 }
 
@@ -868,7 +869,7 @@ void Files_ReadLInt (Files_Rider *R, LONGINT *R__typ, LONGINT *x)
 {
 	CHAR b[4];
 	Files_ReadBytes(&*R, R__typ, (void*)b, 4, 4);
-	*x = ((LONGINT)((int)b[0] + __ASHL((int)b[1], 8)) + __ASHL((LONGINT)b[2], 16)) + __ASHL((LONGINT)b[3], 24);
+	*x = (((int)b[0] + __ASHL((int)b[1], 8)) + __ASHL((int)b[2], 16)) + __ASHL((int)b[3], 24);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -876,7 +877,7 @@ void Files_ReadSet (Files_Rider *R, LONGINT *R__typ, SET *x)
 {
 	CHAR b[4];
 	Files_ReadBytes(&*R, R__typ, (void*)b, 4, 4);
-	*x = (SET)(((LONGINT)((int)b[0] + __ASHL((int)b[1], 8)) + __ASHL((LONGINT)b[2], 16)) + __ASHL((LONGINT)b[3], 24));
+	*x = (SET)((((int)b[0] + __ASHL((int)b[1], 8)) + __ASHL((int)b[2], 16)) + __ASHL((int)b[3], 24));
 }
 
 /*----------------------------------------------------------------------------*/
@@ -1031,7 +1032,7 @@ static void Files_Init (void)
 	Kernel_nofiles = 0;
 }
 
-__TDESC(Files_Handle__desc, 1, 4) = {__TDFLDS("Handle", 248), {228, 232, 236, 240, -20}};
+__TDESC(Files_Handle__desc, 1, 4) = {__TDFLDS("Handle", 252), {228, 232, 236, 240, -20}};
 __TDESC(Files_BufDesc__desc, 1, 1) = {__TDFLDS("BufDesc", 4112), {0, -8}};
 __TDESC(Files_Rider__desc, 1, 1) = {__TDFLDS("Rider", 20), {8, -8}};
 __TDESC(Files_TimeDesc__desc, 1, 0) = {__TDFLDS("TimeDesc", 40), {-4}};

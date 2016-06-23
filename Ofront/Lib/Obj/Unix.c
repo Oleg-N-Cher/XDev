@@ -2,6 +2,9 @@
 #include "SYSTEM.h"
 
 typedef
+	SYSTEM_PTR (*Unix_ANYPTR)[1];
+
+typedef
 	struct Unix_Dirent {
 		LONGINT ino, off;
 		INTEGER reclen;
@@ -16,7 +19,9 @@ typedef
 
 typedef
 	struct Unix_Hostent {
-		LONGINT name, aliases, addrtype, length, addrlist;
+		Unix_ANYPTR name, aliases;
+		SHORTINT addrtype, length;
+		Unix_ANYPTR addrlist;
 	} Unix_Hostent;
 
 typedef
@@ -26,7 +31,7 @@ typedef
 
 typedef
 	struct Unix_Timeval {
-		LONGINT sec, usec;
+		INTEGER sec, usec;
 	} Unix_Timeval;
 
 typedef
@@ -43,9 +48,12 @@ typedef
 	CHAR *Unix_Name;
 
 typedef
+	SYSTEM_PTR (*Unix_SizeT)[1];
+
+typedef
 	struct Unix_Pollfd {
-		LONGINT fd;
-		INTEGER events, revents;
+		Unix_SizeT fd;
+		SHORTINT events, revents;
 	} Unix_Pollfd;
 
 typedef
@@ -67,9 +75,9 @@ typedef
 
 typedef
 	struct Unix_Sockaddr {
-		INTEGER family, port;
-		LONGINT internetAddr;
-		CHAR pad[8];
+		SHORTINT family, port;
+		INTEGER internetAddr;
+		BYTE pad[8];
 	} Unix_Sockaddr;
 
 typedef
@@ -77,20 +85,21 @@ typedef
 
 typedef
 	struct Unix_Status {
-		LONGINT dev;
-		INTEGER ino, mode, nlink, uid, gid;
-		LONGINT rdev, size, atime, mtime, ctime;
+		INTEGER dev;
+		SHORTINT ino, mode, nlink, uid, gid;
+		INTEGER rdev, size;
+		Unix_SizeT atime, mtime, ctime;
 	} Unix_Status;
 
 typedef
 	struct Unix_Timeb {
-		LONGINT time;
-		INTEGER millitm, timezone, dstflag;
+		Unix_SizeT time;
+		SHORTINT millitm, timezone, dstflag;
 	} Unix_Timeb;
 
 typedef
 	struct Unix_Timezone {
-		LONGINT minuteswest, dsttime;
+		INTEGER minuteswest, dsttime;
 	} Unix_Timezone;
 
 
@@ -176,7 +185,7 @@ void Unix_Gettimeofday (Unix_Timeval *tv, LONGINT *tv__typ, Unix_Timezone *tz, L
 {
 	Unix_Timeb timebuf;
 	Unix_Ftime(&timebuf, Unix_Timeb__typ);
-	(*tv).sec = timebuf.time;
+	(*tv).sec = __VAL(INTEGER, timebuf.time);
 	(*tv).usec = timebuf.millitm * 1000;
 }
 
@@ -211,7 +220,7 @@ __TDESC(Unix_Rusage__desc, 1, 0) = {__TDFLDS("Rusage", 72), {-4}};
 __TDESC(Unix_Iovec__desc, 1, 0) = {__TDFLDS("Iovec", 8), {-4}};
 __TDESC(Unix_Pollfd__desc, 1, 0) = {__TDFLDS("Pollfd", 8), {-4}};
 __TDESC(Unix_Sockaddr__desc, 1, 0) = {__TDFLDS("Sockaddr", 16), {-4}};
-__TDESC(Unix_Hostent__desc, 1, 0) = {__TDFLDS("Hostent", 20), {-4}};
+__TDESC(Unix_Hostent__desc, 1, 0) = {__TDFLDS("Hostent", 16), {-4}};
 
 export void *Unix__init(void)
 {
