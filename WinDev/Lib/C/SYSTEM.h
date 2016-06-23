@@ -37,9 +37,9 @@ typedef unsigned long SET;
 typedef void *SYSTEM_PTR;
 typedef signed char BYTE;
 #if _WIN64 || __amd64__
-  typedef unsigned int SYSTEM_ADDRESS;
-#else
   typedef unsigned long long SYSTEM_ADDRESS;
+#else
+  typedef unsigned int SYSTEM_ADDRESS;
 #endif
 
 /* runtime system routines */
