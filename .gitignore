@@ -8,9 +8,9 @@ gpcp-JVM/
 JmeDev/
 Ofront/Arch/
 Ofront/Bin/
-Ofront/Lib/Test/
-Ofront/Lib/Test64/
+Ofront/Lib/
 Ofront/Linux/
+Ofront/Mod/
 Ofront/.gitignore
 Pdp11Dev/
 Rose/
