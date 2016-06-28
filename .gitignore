@@ -11,6 +11,7 @@ Ofront/Bin/
 Ofront/Lib/
 Ofront/Linux/
 Ofront/Mod/
+Ofront/Sym/*.sym
 Ofront/.gitignore
 Pdp11Dev/
 Rose/
