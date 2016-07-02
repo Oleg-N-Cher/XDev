@@ -306,7 +306,7 @@ void SYSTEM_HALT(int n);
 #  else
 #    define __stdcall __attribute__((__stdcall__))
 #  endif
-#  define main(argc, argv) int __stdcall WinMain( \
+#  define main(argc, argv) __stdcall WinMain( \
      void* __hInstance, void* __hPrevInstance, char* __lpCmdLine, int __nCmdShow)
 #  define argc SYSTEM_argc
 #  define argv SYSTEM_argv
