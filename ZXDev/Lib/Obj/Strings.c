@@ -30,13 +30,13 @@ BOOLEAN Strings_StrToInt (CHAR *str, LONGINT str__len, INTEGER *result)
 			case '0': case '1': case '2': case '3': case '4': 
 			case '5': case '6': case '7': case '8': case '9': 
 				prev = *result;
-				*result = (*result * 10 + (int)ch) - 48;
+				*result = (*result * 10 + (INTEGER)ch) - 48;
 				if (*result < prev) {
 					return 0;
 				}
 				break;
 			case 0x00: 
-				*result = *result * (int)sign;
+				*result = *result * (INTEGER)sign;
 				return pos > 0;
 				break;
 			default: 
@@ -45,7 +45,7 @@ BOOLEAN Strings_StrToInt (CHAR *str, LONGINT str__len, INTEGER *result)
 		}
 		pos += 1;
 	}
-	*result = *result * (int)sign;
+	*result = *result * (INTEGER)sign;
 	return pos > 0;
 }
 

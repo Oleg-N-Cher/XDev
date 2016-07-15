@@ -9,7 +9,7 @@
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__REGMAIN("Empty", 0);
