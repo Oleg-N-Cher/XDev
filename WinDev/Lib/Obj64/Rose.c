@@ -144,7 +144,7 @@ void Rose_Listener_Listen (Rose_Listener *self, LONGINT *self__typ, CHAR *localA
 			sock_addr.sin_addr.S_un.S_addr = (*self).ipv4;
 			Ignore_Ptr(LibC_strncpy((SYSTEM_PTR)((LONGINT)(*self).ip), (SYSTEM_PTR)WinNet_inet_ntoa(sock_addr.sin_addr), (SYSTEM_PTR)16));
 			if ((*self).port >= 0 && (*self).port <= 65535) {
-				sock_addr.sin_port = WinNet_htons((int)(*self).port);
+				sock_addr.sin_port = WinNet_htons((INTEGER)(*self).port);
 				if (WinNet_bind((*self).handle, (WinNet_sockaddr*)&sock_addr, WinNet_sockaddr_in__typ, 16) != -1) {
 					if (WinNet_listen((*self).handle, 5) != -1) {
 						mode = 1;

@@ -166,7 +166,7 @@ CHAR PowStrings_UpCaseChar (CHAR x)
 		case 'p': case 'q': case 'r': case 's': case 't': 
 		case 'u': case 'v': case 'w': case 'x': case 'y': 
 		case 'z': 
-			x = (CHAR)(((int)x + 65) - 97);
+			x = (CHAR)(((INTEGER)x + 65) - 97);
 			break;
 		case 0xf6: 
 			x = 0xd6;
@@ -312,7 +312,7 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 	l = PowStrings_Length(t, t__len);
 	if (l < 1) {
 		__DEL(t);
-		return (-2147483647-1);
+		return (-9223372036854775807-1);
 	}
 	hex = __CAP(t[__X(l - 1, t__len)]) == 'H';
 	if (hex) {
@@ -320,7 +320,7 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 		t[__X(l, t__len)] = 0x00;
 		if (l < 1) {
 			__DEL(t);
-			return (-2147483647-1);
+			return (-9223372036854775807-1);
 		}
 	}
 	inx = 0;
@@ -344,16 +344,16 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 			while (inx < l && !exit) {
 				ch = __CAP(t[__X(inx, t__len)]);
 				if (ch >= '0' && ch <= '9') {
-					v = (int)ch - 48;
+					v = (INTEGER)ch - 48;
 				} else if (ch >= 'A' && ch <= 'F') {
-					v = ((int)ch - 65) + 10;
+					v = ((INTEGER)ch - 65) + 10;
 				} else {
 					v = -1;
 				}
-				if ((v < 0 || v > 15) || res < -134217727) {
+				if ((v < 0 || v > 15) || res < -576460752303423487) {
 					exit = 1;
 				} else {
-					res = __ASHL(res, 4) - v;
+					res = __ASHL(res, 4, LONGINT) - v;
 					inx += 1;
 				}
 			}
@@ -361,16 +361,16 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 			while (inx < l && !exit) {
 				ch = __CAP(t[__X(inx, t__len)]);
 				if (ch >= '0' && ch <= '9') {
-					v = (int)ch - 48;
+					v = (INTEGER)ch - 48;
 				} else if (ch >= 'A' && ch <= 'F') {
-					v = ((int)ch - 65) + 10;
+					v = ((INTEGER)ch - 65) + 10;
 				} else {
 					v = -1;
 				}
-				if ((v < 0 || v > 15) || res > 134217727) {
+				if ((v < 0 || v > 15) || res > 576460752303423487) {
 					exit = 1;
 				} else {
-					res = __ASHL(res, 4) + v;
+					res = __ASHL(res, 4, LONGINT) + v;
 					inx += 1;
 				}
 			}
@@ -378,8 +378,8 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 	} else {
 		if (neg) {
 			while (inx < l && !exit) {
-				v = (int)t[__X(inx, t__len)] - 48;
-				if (((v < 0 || v > 9) || res < -214748364) || res == -214748364 && v > 8) {
+				v = (INTEGER)t[__X(inx, t__len)] - 48;
+				if (((v < 0 || v > 9) || res < -922337203685477580) || res == -922337203685477580 && v > 8) {
 					exit = 1;
 				} else {
 					res = res * 10 - v;
@@ -388,8 +388,8 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 			}
 		} else {
 			while (inx < l && !exit) {
-				v = (int)t[__X(inx, t__len)] - 48;
-				if (((v < 0 || v > 9) || res > 214748364) || res == 214748364 && v > 7) {
+				v = (INTEGER)t[__X(inx, t__len)] - 48;
+				if (((v < 0 || v > 9) || res > 922337203685477580) || res == 922337203685477580 && v > 7) {
 					exit = 1;
 				} else {
 					res = res * 10 + v;
@@ -400,7 +400,7 @@ LONGINT PowStrings_Val (CHAR *t, LONGINT t__len)
 	}
 	if (exit) {
 		__DEL(t);
-		return (-2147483647-1);
+		return (-9223372036854775807-1);
 	} else {
 		__DEL(t);
 		return res;
@@ -453,16 +453,16 @@ INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 			while (inx < l && !exit) {
 				ch = __CAP(t[__X(inx, t__len)]);
 				if (ch >= '0' && ch <= '9') {
-					v = (int)ch - 48;
+					v = (INTEGER)ch - 48;
 				} else if (ch >= 'A' && ch <= 'F') {
-					v = ((int)ch - 65) + 10;
+					v = ((INTEGER)ch - 65) + 10;
 				} else {
 					v = -1;
 				}
-				if (((v < 0 || v > 15) || res < -134217728) || res == -134217728 && v > 0) {
+				if (((v < 0 || v > 15) || res < -576460752303423488) || res == -576460752303423488 && v > 0) {
 					exit = 1;
 				} else {
-					res = __ASHL(res, 4) - v;
+					res = __ASHL(res, 4, LONGINT) - v;
 					inx += 1;
 				}
 			}
@@ -470,16 +470,16 @@ INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 			while (inx < l && !exit) {
 				ch = __CAP(t[__X(inx, t__len)]);
 				if (ch >= '0' && ch <= '9') {
-					v = (int)ch - 48;
+					v = (INTEGER)ch - 48;
 				} else if (ch >= 'A' && ch <= 'F') {
-					v = ((int)ch - 65) + 10;
+					v = ((INTEGER)ch - 65) + 10;
 				} else {
 					v = -1;
 				}
-				if ((v < 0 || v > 15) || res > 134217727) {
+				if ((v < 0 || v > 15) || res > 576460752303423487) {
 					exit = 1;
 				} else {
-					res = __ASHL(res, 4) + v;
+					res = __ASHL(res, 4, LONGINT) + v;
 					inx += 1;
 				}
 			}
@@ -487,8 +487,8 @@ INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 	} else {
 		if (neg) {
 			while (inx < l && !exit) {
-				v = (int)t[__X(inx, t__len)] - 48;
-				if (((v < 0 || v > 9) || res < -214748364) || res == -214748364 && v > 8) {
+				v = (INTEGER)t[__X(inx, t__len)] - 48;
+				if (((v < 0 || v > 9) || res < -922337203685477580) || res == -922337203685477580 && v > 8) {
 					exit = 1;
 				} else {
 					res = res * 10 - v;
@@ -497,8 +497,8 @@ INTEGER PowStrings_ValResult (CHAR *t, LONGINT t__len)
 			}
 		} else {
 			while (inx < l && !exit) {
-				v = (int)t[__X(inx, t__len)] - 48;
-				if (((v < 0 || v > 9) || res > 214748364) || res == 214748364 && v > 7) {
+				v = (INTEGER)t[__X(inx, t__len)] - 48;
+				if (((v < 0 || v > 9) || res > 922337203685477580) || res == 922337203685477580 && v > 7) {
 					exit = 1;
 				} else {
 					res = res * 10 + v;
@@ -547,7 +547,7 @@ void PowStrings_Str (LONGINT x, CHAR *t, LONGINT t__len)
 		i = 0;
 		neg = x < 0;
 		if (neg) {
-			if (x == (-2147483647-1)) {
+			if (x == (-9223372036854775807-1)) {
 				__COPY("-2147483648", t, t__len);
 				if (PowStrings_Length(t, t__len) != 11) {
 					_for__26 = maxlen - 1;
@@ -612,7 +612,7 @@ void PowStrings_HexStr (LONGINT x, CHAR *t, LONGINT t__len)
 		i = 1;
 		neg = x < 0;
 		if (neg) {
-			if (x == (-2147483647-1)) {
+			if (x == (-9223372036854775807-1)) {
 				__COPY("-80000000h", t, t__len);
 				if (PowStrings_Length(t, t__len) != 10) {
 					_for__8 = maxlen - 1;
@@ -635,7 +635,7 @@ void PowStrings_HexStr (LONGINT x, CHAR *t, LONGINT t__len)
 			} else {
 				t[__X(i, t__len)] = (CHAR)(55 + digit);
 			}
-			x = __ASHR(x, 4);
+			x = __ASHR(x, 4, LONGINT);
 			i += 1;
 		}
 		if (x != 0 || neg && i >= maxlen) {

@@ -18,7 +18,8 @@
 extern void* SYSTEM_MEMCPY (void* to, const void* from, SYSTEM_ADDRESS count);
 extern long SYSTEM_XCHK(long i, long ub);
 extern long SYSTEM_RCHK(long i, long ub);
-extern long SYSTEM_ASH(long i, long n);
+extern INTEGER SYSTEM_ASH (INTEGER x, INTEGER n);
+extern LONGINT SYSTEM_ASHL (LONGINT x, INTEGER n);
 extern long SYSTEM_ABS(long i);
 extern double SYSTEM_ABSD(double i);
 extern long SYSTEM_MOD (unsigned long x, unsigned long y);
@@ -48,7 +49,16 @@ long SYSTEM_XCHK(i, ub) long i, ub; {return __X(i, ub);}
 long SYSTEM_RCHK(i, ub) long i, ub; {return __R(i, ub);}
 
 /*--------------------------------- Cut here ---------------------------------*/
-long SYSTEM_ASH(i, n) long i, n; {return __ASH(i, n);}
+INTEGER SYSTEM_ASH (INTEGER x, INTEGER n) {
+	if (n >= 0) return x << n;
+  return x >> (-n);
+} //SYSTEM_ASH
+
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_ASHL (LONGINT x, INTEGER n) {
+	if (n >= 0) return x << n;
+	return x >> (-n);
+} //SYSTEM_ASHL
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_ABS(i) long i; {return __ABS(i);}

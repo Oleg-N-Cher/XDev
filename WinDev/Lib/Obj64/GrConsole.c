@@ -86,7 +86,7 @@ typedef
 void GrConsole_WriteCh (CHAR ch)
 {
 	TilePtr__6 tilePtr = NIL;
-	tilePtr = (TilePtr__6)((LONGINT)__ASHL((int)ch, 3) + (LONGINT)GrConsole_curFont);
+	tilePtr = (TilePtr__6)((LONGINT)__ASHL((INTEGER)ch, 3, INTEGER) + (LONGINT)GrConsole_curFont);
 	GrTiles_DrawMonoTile8x8(GrConsole_curX, GrConsole_curY, (void*)*tilePtr, 8, GrConsole_curColors);
 	GrConsole_curX += 1;
 }
@@ -103,7 +103,7 @@ void GrConsole_WriteStr (CHAR *str, LONGINT str__len)
 {
 	INTEGER n;
 	n = 0;
-	while (n < (int)str__len && str[__X(n, str__len)] != 0x00) {
+	while (n < (INTEGER)str__len && str[__X(n, str__len)] != 0x00) {
 		GrConsole_WriteCh(str[__X(n, str__len)]);
 		n += 1;
 	}
@@ -131,7 +131,7 @@ void GrConsole_WriteInt (INTEGER x)
 	}
 	i = 0;
 	do {
-		buf[__X(i, 10)] = (CHAR)((int)__MOD(x, 10) + 48);
+		buf[__X(i, 10)] = (CHAR)((INTEGER)__MOD(x, 10) + 48);
 		x = __DIV(x, 10);
 		i += 1;
 	} while (!(x == 0));

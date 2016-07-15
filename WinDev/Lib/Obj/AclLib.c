@@ -490,7 +490,7 @@ static void AclLib_TFont_GetData (AclLib_TFont *f, LONGINT *f__typ, WinApi_LOGFO
 	}
 	(*data).CharSet = (*aFont).lfCharSet;
 	__COPY((*aFont).lfFaceName, (*data).Name, 32);
-	switch ((int)((SET)(*aFont).lfPitchAndFamily & 0x0f)) {
+	switch ((INTEGER)((SET)(*aFont).lfPitchAndFamily & 0x0f)) {
 		case 2: 
 			(*data).Pitch = 2;
 			break;
@@ -740,13 +740,13 @@ BOOLEAN AclLib_TFonts_IsDefaultPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsFixedPitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 1;
+	return (INTEGER)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 1;
 }
 
 /*----------------------------------------------------------------------------*/
 BOOLEAN AclLib_TFonts_IsVariablePitch (AclLib_TFonts *f, LONGINT *f__typ, WinApi_LOGFONTA *AFont, LONGINT *AFont__typ)
 {
-	return (int)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 2;
+	return (INTEGER)((SET)(*AFont).lfPitchAndFamily & 0x0f) == 2;
 }
 
 /*----------------------------------------------------------------------------*/

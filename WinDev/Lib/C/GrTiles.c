@@ -42,8 +42,8 @@ void GrTiles_DrawMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT tile__le
 	CHAR mask;
 	SHORTINT byte, bit;
 	INTEGER inkTemp;
-	x = __ASHL(x, 3);
-	y = __ASHL(y, 3);
+	x = __ASHL(x, 3, INTEGER);
+	y = __ASHL(y, 3, INTEGER);
 	inkTemp = GrPixel_ink;
 	if (GrApp_MustLock && SdlLib_LockSurface(GrApp_Screen) == 0) {
 		return;
@@ -78,8 +78,8 @@ void GrTiles_DrawTranspMonoTile8x8 (INTEGER x, INTEGER y, BYTE *tile, LONGINT ti
 	CHAR mask, transp;
 	SHORTINT byte, bit;
 	INTEGER inkTemp;
-	x = __ASHL(x, 3);
-	y = __ASHL(y, 3);
+	x = __ASHL(x, 3, INTEGER);
+	y = __ASHL(y, 3, INTEGER);
 	inkTemp = GrPixel_ink;
 	if (GrApp_MustLock && SdlLib_LockSurface(GrApp_Screen) == 0) {
 		return;

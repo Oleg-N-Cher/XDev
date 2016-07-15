@@ -17,7 +17,7 @@ export BOOLEAN KolStrings_SubStr (CHAR *s, LONGINT s__len, INTEGER pos, INTEGER 
 INTEGER KolStrings_Length (CHAR *str, LONGINT str__len)
 {
 	INTEGER len, maxLen;
-	maxLen = (int)str__len;
+	maxLen = (INTEGER)str__len;
 	len = 0;
 	while (len < maxLen && str[__X(len, str__len)] != 0x00) {
 		len += 1;
@@ -69,7 +69,7 @@ BOOLEAN KolStrings_SubStr (CHAR *s, LONGINT s__len, INTEGER pos, INTEGER len, CH
 	__ASSERT(pos >= 0, 21);
 	i = 0;
 	j = 0;
-	max = (int)res__len - 1;
+	max = (INTEGER)res__len - 1;
 	while (i < pos && s[__X(i, s__len)] != 0x00) {
 		i += 1;
 	}

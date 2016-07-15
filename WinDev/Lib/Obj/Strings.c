@@ -29,7 +29,7 @@ INTEGER Strings_Length (CHAR *str, LONGINT str__len)
 {
 	INTEGER len;
 	len = 0;
-	while (len < (int)str__len && str[__X(len, str__len)] != 0x00) {
+	while (len < (INTEGER)str__len && str[__X(len, str__len)] != 0x00) {
 		len += 1;
 	}
 	return len;
@@ -68,11 +68,11 @@ INTEGER Strings_HexToInt (CHAR *hex, LONGINT hex__len)
 	do {
 		ch = hex[__X(n, hex__len)];
 		if (ch >= '0' && ch <= '9') {
-			res = (__ASHL(res, 4) + (int)ch) - 48;
+			res = (__ASHL(res, 4, INTEGER) + (INTEGER)ch) - 48;
 		} else if (ch >= 'A' && ch <= 'F') {
-			res = ((__ASHL(res, 4) + (int)ch) - 65) + 10;
+			res = ((__ASHL(res, 4, INTEGER) + (INTEGER)ch) - 65) + 10;
 		} else if (ch >= 'a' && ch <= 'f') {
-			res = ((__ASHL(res, 4) + (int)ch) - 97) + 10;
+			res = ((__ASHL(res, 4, INTEGER) + (INTEGER)ch) - 97) + 10;
 		} else if (ch == 0x00 && n != 0) {
 			return res;
 		} else {
@@ -94,11 +94,11 @@ LONGINT Strings_HexToLInt (CHAR *hex, LONGINT hex__len)
 	do {
 		ch = hex[__X(n, hex__len)];
 		if (ch >= '0' && ch <= '9') {
-			res = (__ASHL(res, 4) + (LONGINT)ch) - 48;
+			res = (__ASHL(res, 4, LONGINT) + (LONGINT)ch) - 48;
 		} else if (ch >= 'A' && ch <= 'F') {
-			res = ((__ASHL(res, 4) + (LONGINT)ch) - 65) + 10;
+			res = ((__ASHL(res, 4, LONGINT) + (LONGINT)ch) - 65) + 10;
 		} else if (ch >= 'a' && ch <= 'f') {
-			res = ((__ASHL(res, 4) + (LONGINT)ch) - 97) + 10;
+			res = ((__ASHL(res, 4, LONGINT) + (LONGINT)ch) - 97) + 10;
 		} else if (ch == 0x00 && n != 0) {
 			return res;
 		} else {
@@ -164,8 +164,8 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			} else {
 				c1 = 'M';
 			}
-			k = (int)__DIV(x, base);
-			x = (int)__MOD(x, base);
+			k = (INTEGER)__DIV(x, base);
+			x = (INTEGER)__MOD(x, base);
 			if (__IN(k, 0x0210)) {
 				a[__X(i, 128)] = c1;
 				i += 1;
@@ -178,7 +178,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 				a[__X(i, 128)] = c10;
 				i += 1;
 			} else if (__IN(k, 0x01ce)) {
-				j = (int)__MOD(k, 5);
+				j = (INTEGER)__MOD(k, 5);
 				do {
 					a[__X(i, 128)] = c1;
 					i += 1;
@@ -194,7 +194,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			minWidth -= 1;
 		}
 		do {
-			a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 16)];
+			a[__X(i, 128)] = digits[__X((INTEGER)__MOD(x, base), 16)];
 			x = __DIV(x, base);
 			i += 1;
 		} while (!((x == 0 || x == -1) || i == 128));
@@ -207,11 +207,11 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			mSign = 1;
 			minWidth -= 1;
 			do {
-				if ((int)__MOD(x, base) == 0) {
+				if ((INTEGER)__MOD(x, base) == 0) {
 					a[__X(i, 128)] = digits[0];
 					x = __DIV(x, base);
 				} else {
-					a[__X(i, 128)] = digits[__X(base - (int)__MOD(x, base), 16)];
+					a[__X(i, 128)] = digits[__X(base - (INTEGER)__MOD(x, base), 16)];
 					x = __DIV(x, base) + 1;
 				}
 				i += 1;
@@ -220,7 +220,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 			i = 0;
 			mSign = 0;
 			do {
-				a[__X(i, 128)] = digits[__X((int)__MOD(x, base), 16)];
+				a[__X(i, 128)] = digits[__X((INTEGER)__MOD(x, base), 16)];
 				x = __DIV(x, base);
 				i += 1;
 			} while (!(x == 0 || i == 128));
@@ -283,7 +283,7 @@ void Strings_IntToStrForm (INTEGER x, INTEGER form, INTEGER minWidth, CHAR fillC
 		} else if ((LONGINT)si < s__len - 2) {
 			s[__X(si, s__len)] = '%';
 			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 16)];
-			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 16)];
+			s[__X(si + 2, s__len)] = digits[__X((INTEGER)__MOD(base, 10), 16)];
 			si += 3;
 		}
 	}
@@ -337,7 +337,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 			} else {
 				c1 = 'M';
 			}
-			k = (int)__DIV(x, (LONGINT)base);
+			k = (INTEGER)__DIV(x, (LONGINT)base);
 			x = __MOD(x, (LONGINT)base);
 			if (__IN(k, 0x0210)) {
 				a[__X(i, 128)] = c1;
@@ -351,7 +351,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 				a[__X(i, 128)] = c10;
 				i += 1;
 			} else if (__IN(k, 0x01ce)) {
-				j = (int)__MOD(k, 5);
+				j = (INTEGER)__MOD(k, 5);
 				do {
 					a[__X(i, 128)] = c1;
 					i += 1;
@@ -456,7 +456,7 @@ void Strings_LIntToStrForm (LONGINT x, INTEGER form, INTEGER minWidth, CHAR fill
 		} else if ((LONGINT)si < s__len - 2) {
 			s[__X(si, s__len)] = '%';
 			s[__X(si + 1, s__len)] = digits[__X(__DIV(base, 10), 16)];
-			s[__X(si + 2, s__len)] = digits[__X((int)__MOD(base, 10), 16)];
+			s[__X(si + 2, s__len)] = digits[__X((INTEGER)__MOD(base, 10), 16)];
 			si += 3;
 		}
 	}
@@ -484,10 +484,10 @@ BOOLEAN Strings_Win1251ToUtf8 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 			len -= 1;
 		} else if (ch >= 0xc0 && ch <= 0xef) {
 			utf8[0] = 0xd0;
-			utf8[1] = (CHAR)((int)ch - 48);
+			utf8[1] = (CHAR)((INTEGER)ch - 48);
 		} else if (ch >= 0xf0 && ch <= 0xff) {
 			utf8[0] = 0xd1;
-			utf8[1] = (CHAR)((int)ch - 112);
+			utf8[1] = (CHAR)((INTEGER)ch - 112);
 		} else {
 			switch (ch) {
 				case 0x80: 
@@ -833,7 +833,7 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					i += 1;
 					ch = s[__X(i, s__len)];
 					if (ch >= 0x90 && ch <= 0xbf) {
-						ch = (CHAR)((int)ch + 48);
+						ch = (CHAR)((INTEGER)ch + 48);
 					} else {
 						switch (ch) {
 							case 0x81: 
@@ -889,7 +889,7 @@ BOOLEAN Strings_Utf8ToWin1251 (CHAR *s, LONGINT s__len, CHAR *res, LONGINT res__
 					i += 1;
 					ch = s[__X(i, s__len)];
 					if (ch >= 0x80 && ch <= 0x8f) {
-						ch = (CHAR)((int)ch + 112);
+						ch = (CHAR)((INTEGER)ch + 112);
 					} else {
 						switch (ch) {
 							case 0x91: 

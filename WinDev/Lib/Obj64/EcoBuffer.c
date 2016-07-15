@@ -17,7 +17,7 @@ void EcoBuffer_put (INTEGER x)
 {
 	if (EcoBuffer_n < 100) {
 		EcoBuffer_buf[__X(EcoBuffer_in, 100)] = x;
-		EcoBuffer_in = (int)__MOD(EcoBuffer_in + 1, 100);
+		EcoBuffer_in = (INTEGER)__MOD(EcoBuffer_in + 1, 100);
 		EcoBuffer_n += 1;
 		EcoBuffer_nonfull = EcoBuffer_n < 100;
 		EcoBuffer_nonempty = 1;
@@ -29,7 +29,7 @@ void EcoBuffer_get (INTEGER *x)
 {
 	if (EcoBuffer_n > 0) {
 		*x = EcoBuffer_buf[__X(EcoBuffer_out, 100)];
-		EcoBuffer_out = (int)__MOD(EcoBuffer_out + 1, 100);
+		EcoBuffer_out = (INTEGER)__MOD(EcoBuffer_out + 1, 100);
 		EcoBuffer_n -= 1;
 		EcoBuffer_nonempty = EcoBuffer_n > 0;
 		EcoBuffer_nonfull = 1;

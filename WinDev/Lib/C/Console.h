@@ -51,10 +51,11 @@ import void Console__init_WinAPI (void);
 
 /* WinAPI */
 #ifdef OUTPUT_WINAPI
+#  include <stdio.h>
 #  define Console_At	Console_At_WinAPI
 #  define Console_WriteBool Console_WriteBool_WinAPI
 #  define Console_WriteCh Console_WriteCh_WinAPI
-#  define Console_WriteInt(i)	printf("%ld", i)
+#  define Console_WriteInt(i)	printf("%lld", (long long)(i))
 #  define Console_WriteLn Console_WriteLn_WinAPI
 #  define Console_WriteStr(str, str__len)	Console_WriteStr_WinAPI(str)
 #  define Console_WriteStrLn(str, str__len)	Console_WriteStrLn_WinAPI(str)

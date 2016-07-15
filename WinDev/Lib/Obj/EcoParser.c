@@ -164,7 +164,7 @@ void EcoParser_Parser_PopContext (EcoParser_Parser *prs, LONGINT *prs__typ)
 INTEGER EcoParser_Length (CHAR *str, LONGINT str__len)
 {
 	INTEGER len, maxLen;
-	maxLen = (int)str__len;
+	maxLen = (INTEGER)str__len;
 	len = 0;
 	while (len < maxLen && str[__X(len, str__len)] != 0x00) {
 		len += 1;
@@ -422,7 +422,7 @@ void EcoParser_Parser_Init (EcoParser_Parser *prs, LONGINT *prs__typ, EcoParser_
 	} else if ((LONGINT)bufLen <= buf->len[0]) {
 		(*prs).inpAvl = bufLen;
 	} else {
-		(*prs).inpAvl = (int)buf->len[0];
+		(*prs).inpAvl = (INTEGER)buf->len[0];
 	}
 	if (ctxDeep != 0) {
 		(*prs).ctxStk = __NEWARR(POINTER__typ, 4, 4, 1, 1, (LONGINT)ctxDeep);

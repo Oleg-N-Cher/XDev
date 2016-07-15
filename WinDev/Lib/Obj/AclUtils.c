@@ -53,7 +53,7 @@ INTEGER AclUtils_HeightOf (WinApi_RECT r)
 INTEGER AclUtils_ColorToRGB (INTEGER color)
 {
 	if (color < 0) {
-		return WinApi_GetSysColor((int)((SET)color & 0xff));
+		return WinApi_GetSysColor((INTEGER)((SET)color & 0xff));
 	}
 	return color;
 }
@@ -61,13 +61,13 @@ INTEGER AclUtils_ColorToRGB (INTEGER color)
 /*----------------------------------------------------------------------------*/
 INTEGER AclUtils_RGB (BYTE r, BYTE g, BYTE b)
 {
-	return (__VAL(INTEGER, r) + __ASHL(__VAL(INTEGER, g), 8)) + __ASHL(__VAL(INTEGER, b), 16);
+	return (__VAL(INTEGER, r) + __ASHL(__VAL(INTEGER, g), 8, INTEGER)) + __ASHL(__VAL(INTEGER, b), 16, INTEGER);
 }
 
 /*----------------------------------------------------------------------------*/
 INTEGER AclUtils_MakeLong (INTEGER A, INTEGER B)
 {
-	return A + __ASHL(B, 12);
+	return A + __ASHL(B, 12, INTEGER);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -75,7 +75,7 @@ INTEGER AclUtils_Length (CHAR *str, LONGINT str__len)
 {
 	INTEGER len;
 	len = 0;
-	while (len < (int)str__len && str[__X(len, str__len)] != 0x00) {
+	while (len < (INTEGER)str__len && str[__X(len, str__len)] != 0x00) {
 		len += 1;
 	}
 	return len;
@@ -103,7 +103,7 @@ SYSTEM_PTR AclUtils_FileOpen (CHAR *fileName, LONGINT fileName__len, INTEGER mod
 	ShareMode[4] = 0x03;
 	OpenMode[0] = 3;
 	OpenMode[1] = 5;
-	return WinApi_CreateFile((SYSTEM_PTR)((INTEGER)fileName), AccessMode[__X((int)((SET)mode & 0x03), 3)], ShareMode[__X(__ASHR((int)((SET)mode & 0xf0), 4), 5)], NIL, NIL, OpenMode[__X(__ASHR((int)((SET)mode & 0x04), 2), 2)], 0x80, NIL);
+	return WinApi_CreateFile((SYSTEM_PTR)((INTEGER)fileName), AccessMode[__X((INTEGER)((SET)mode & 0x03), 3)], ShareMode[__X(__ASHR((INTEGER)((SET)mode & 0xf0), 4, INTEGER), 5)], NIL, NIL, OpenMode[__X(__ASHR((INTEGER)((SET)mode & 0x04), 2, INTEGER), 2)], 0x80, NIL);
 }
 
 /*----------------------------------------------------------------------------*/
