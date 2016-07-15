@@ -6,6 +6,7 @@ DroSDK/
 Games/
 gpcp-JVM/
 JmeDev/
+MsxDev/Lib/*.sym
 Ofront/Arch/
 Ofront/Bin/
 Ofront/Lib/
@@ -18,9 +19,10 @@ Rose/
 Samurai/
 Sdl/
 WinDev/Obj/*.o
-ZXDev/Obj/*.sym
+ZXDev/Bin/MakeZX/
 ZXDev/Lib/Obj/*.sym
-ZXDev/Bin/MakeZX
+ZXDev/Obj/*.sym
+ZXDev/ToDo/
 *.dll
 *.asm
 *.bin
