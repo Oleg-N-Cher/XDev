@@ -99,6 +99,7 @@ void GRAPHIC_Pset (INTEGER Destination_x, INTEGER Destination_y, SHORTINT Destin
 	Asm_Code((CHAR*)"OUT  (0x99), A                ", (LONGINT)31);
 	Asm_Code((CHAR*)"LD   A, #0x8F                 ", (LONGINT)31);
 	Asm_Code((CHAR*)"OUT  (0x63), A                ", (LONGINT)31);
+	Asm_Code((CHAR*)"EI                            ", (LONGINT)31);
 }
 
 /*----------------------------------------------------------------------------*/

@@ -3,6 +3,8 @@
 /* runtime system routines */
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
+export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y);
+export LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 
 extern CHAR *SYSTEM_str_par;
@@ -33,6 +35,20 @@ export long SYSTEM_ENTIER (float x)
 		if (y <= x) return y; else return y - 1;
 	}
 }
+
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y)
+{
+	if (y >= 0) return x << y;
+	return x >> (-y);
+} //SYSTEM_ASH
+
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y)
+{
+	if (y >= 0) return x << y;
+	return x >> (-y);
+} //SYSTEM_ASHL
 
 /*--------------------------------- Cut here ---------------------------------*/
 float SYSTEM_ABSD (float i)

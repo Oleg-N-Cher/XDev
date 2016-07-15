@@ -21,23 +21,23 @@ export void Asm_Byte6 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b
 export void Asm_Byte7 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7);
 export void Asm_Byte8 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8);
 export void Asm_Byte9 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INTEGER b6, INTEGER b7, INTEGER b8, INTEGER b9);
-export void Asm_Char (SYSTEM_BYTE b);
-export void Asm_Char1 (SYSTEM_BYTE b);
-export void Asm_Char10 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10);
-export void Asm_Char11 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11);
-export void Asm_Char12 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12);
-export void Asm_Char13 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13);
-export void Asm_Char14 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14);
-export void Asm_Char15 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14, SYSTEM_BYTE b15);
-export void Asm_Char16 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14, SYSTEM_BYTE b15, SYSTEM_BYTE b16);
-export void Asm_Char2 (SYSTEM_BYTE b1, SYSTEM_BYTE b2);
-export void Asm_Char3 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3);
-export void Asm_Char4 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4);
-export void Asm_Char5 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5);
-export void Asm_Char6 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6);
-export void Asm_Char7 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7);
-export void Asm_Char8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8);
-export void Asm_Char9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9);
+export void Asm_Char (BYTE b);
+export void Asm_Char1 (BYTE b);
+export void Asm_Char10 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10);
+export void Asm_Char11 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11);
+export void Asm_Char12 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12);
+export void Asm_Char13 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13);
+export void Asm_Char14 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14);
+export void Asm_Char15 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14, BYTE b15);
+export void Asm_Char16 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14, BYTE b15, BYTE b16);
+export void Asm_Char2 (BYTE b1, BYTE b2);
+export void Asm_Char3 (BYTE b1, BYTE b2, BYTE b3);
+export void Asm_Char4 (BYTE b1, BYTE b2, BYTE b3, BYTE b4);
+export void Asm_Char5 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5);
+export void Asm_Char6 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6);
+export void Asm_Char7 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7);
+export void Asm_Char8 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8);
+export void Asm_Char9 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9);
 export void Asm_Code (CHAR *str, LONGINT str__len);
 export void Asm_String (CHAR *str, LONGINT str__len);
 export void Asm_StringZ (CHAR *str, LONGINT str__len);
@@ -147,87 +147,87 @@ void Asm_Byte16 (INTEGER b1, INTEGER b2, INTEGER b3, INTEGER b4, INTEGER b5, INT
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char (SYSTEM_BYTE b)
+void Asm_Char (BYTE b)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char1 (SYSTEM_BYTE b)
+void Asm_Char1 (BYTE b)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char2 (SYSTEM_BYTE b1, SYSTEM_BYTE b2)
+void Asm_Char2 (BYTE b1, BYTE b2)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char3 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3)
+void Asm_Char3 (BYTE b1, BYTE b2, BYTE b3)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char4 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4)
+void Asm_Char4 (BYTE b1, BYTE b2, BYTE b3, BYTE b4)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char5 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5)
+void Asm_Char5 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char6 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6)
+void Asm_Char6 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char7 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7)
+void Asm_Char7 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char8 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8)
+void Asm_Char8 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char9 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9)
+void Asm_Char9 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char10 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10)
+void Asm_Char10 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char11 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11)
+void Asm_Char11 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char12 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12)
+void Asm_Char12 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char13 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13)
+void Asm_Char13 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char14 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14)
+void Asm_Char14 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char15 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14, SYSTEM_BYTE b15)
+void Asm_Char15 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14, BYTE b15)
 {
 }
 
 /*----------------------------------------------------------------------------*/
-void Asm_Char16 (SYSTEM_BYTE b1, SYSTEM_BYTE b2, SYSTEM_BYTE b3, SYSTEM_BYTE b4, SYSTEM_BYTE b5, SYSTEM_BYTE b6, SYSTEM_BYTE b7, SYSTEM_BYTE b8, SYSTEM_BYTE b9, SYSTEM_BYTE b10, SYSTEM_BYTE b11, SYSTEM_BYTE b12, SYSTEM_BYTE b13, SYSTEM_BYTE b14, SYSTEM_BYTE b15, SYSTEM_BYTE b16)
+void Asm_Char16 (BYTE b1, BYTE b2, BYTE b3, BYTE b4, BYTE b5, BYTE b6, BYTE b7, BYTE b8, BYTE b9, BYTE b10, BYTE b11, BYTE b12, BYTE b13, BYTE b14, BYTE b15, BYTE b16)
 {
 }
 
