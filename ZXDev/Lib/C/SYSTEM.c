@@ -4,8 +4,8 @@
 export void SYSTEM_HALT_m1 (unsigned char n);
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
-export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y);
-export LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y);
+export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
+export LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 
 extern CHAR *SYSTEM_str_par;
@@ -54,17 +54,17 @@ export long SYSTEM_ENTIER (float x)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y)
+INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n)
 {
-	if (y >= 0) return x << y;
-	return x >> (-y);
+	if (n >= 0) return x << n;
+	return x >> (-n);
 } //SYSTEM_ASH
 
 /*--------------------------------- Cut here ---------------------------------*/
-LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y)
+LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n)
 {
-	if (y >= 0) return x << y;
-	return x >> (-y);
+	if (n >= 0) return x << n;
+	return x >> (-n);
 } //SYSTEM_ASHL
 
 /*--------------------------------- Cut here ---------------------------------*/
