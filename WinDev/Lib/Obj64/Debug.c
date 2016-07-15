@@ -36,7 +36,7 @@ void Debug_WriteStr (CHAR *str, LONGINT str__len)
 {
 	INTEGER strLen, maxLen;
 	strLen = 0;
-	maxLen = (int)str__len;
+	maxLen = (INTEGER)str__len;
 	while (strLen < maxLen && str[__X(strLen, str__len)] != 0x00) {
 		Debug_WriteCh(str[__X(strLen, str__len)]);
 		strLen += 1;
@@ -49,7 +49,7 @@ void Debug_WriteInt (LONGINT x)
 	LONGINT n;
 	CHAR buf[20];
 	if (x < 0) {
-		if (x == (-2147483647-1)) {
+		if (x == (-9223372036854775807-1)) {
 			Debug_WriteStr((void*)&"-9223372036854775808", (LONGINT)21);
 			return;
 		}

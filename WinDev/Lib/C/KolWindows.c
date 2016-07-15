@@ -15,7 +15,7 @@ BYTE KolWindows_WinVer (void)
 	if (KolWindows_saveWinVer == 0xff) {
 		dwVersion = WinApi_GetVersion();
 		majorVersion = (CHAR)dwVersion;
-		minorVersion = (CHAR)__ASHR(dwVersion, 8);
+		minorVersion = (CHAR)__ASHR(dwVersion, 8, INTEGER);
 		if (dwVersion >= 0) {
 			KolWindows_saveWinVer = 0x04;
 			if (majorVersion >= 0x06) {

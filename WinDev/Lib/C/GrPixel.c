@@ -58,7 +58,7 @@ void GrPixel_PutActualPixel16Lock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
 		if (SdlLib_LockSurface(GrApp_Screen)) {
-			__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
+			__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1, INTEGER), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
 			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
@@ -68,7 +68,7 @@ void GrPixel_PutActualPixel16Lock (INTEGER x, INTEGER y)
 void GrPixel_PutActualPixel16NoLock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
-		__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
+		__PUT((GrApp_Screen->pixels + (y * GrPixel_pitch)) + __ASHL(x, 1, INTEGER), __VAL(SHORTINT, GrPixel_ink), SHORTINT);
 	}
 }
 
@@ -102,7 +102,7 @@ void GrPixel_PutActualPixel32Lock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
 		if (SdlLib_LockSurface(GrApp_Screen)) {
-			__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2), GrPixel_ink, INTEGER);
+			__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2, INTEGER), GrPixel_ink, INTEGER);
 			SdlLib_UnlockSurface(GrApp_Screen);
 		}
 	}
@@ -112,7 +112,7 @@ void GrPixel_PutActualPixel32Lock (INTEGER x, INTEGER y)
 void GrPixel_PutActualPixel32NoLock (INTEGER x, INTEGER y)
 {
 	if ((!ChkOutOfScreen) || (x>=0 && x<=GrApp_ActualMaxX && y>=0 && y<=GrApp_ActualMaxY)) {
-		__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2), GrPixel_ink, INTEGER);
+		__PUT(((SYSTEM_ADDRESS)GrApp_Screen->pixels + (SYSTEM_ADDRESS)(y * GrPixel_pitch)) + (SYSTEM_ADDRESS)__ASHL(x, 2, INTEGER), GrPixel_ink, INTEGER);
 	}
 }
 

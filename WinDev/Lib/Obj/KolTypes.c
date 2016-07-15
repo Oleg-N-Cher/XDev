@@ -38,7 +38,7 @@ void KolTypes_IntToString (LONGINT x, CHAR *s, LONGINT s__len)
 	INTEGER j, k;
 	CHAR ch;
 	CHAR a[32];
-	if (x != (-2147483647-1)) {
+	if (x != (-9223372036854775807-1)) {
 		if (x < 0) {
 			s[0] = '-';
 			k = 1;
@@ -105,16 +105,16 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 			digits = 0;
 			while (*res == 0 && ('0' <= ch && ch <= '9' || 'A' <= ch && ch <= 'F')) {
 				if (ch < 'A') {
-					k = (int)ch - 48;
+					k = (INTEGER)ch - 48;
 				} else {
-					k = ((int)ch - 65) + 10;
+					k = ((INTEGER)ch - 65) + 10;
 				}
 				if (digits < 8) {
 					*x = __MASK(*x, -268435456);
 					if (*x >= 134217728) {
 						*x = *x - 268435456;
 					}
-					*x = __ASHL(*x, 4) + k;
+					*x = __ASHL(*x, 4, INTEGER) + k;
 					i += 1;
 					ch = s[__X(i, s__len)];
 				} else {
@@ -136,12 +136,12 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 			ch = s[__X(j, s__len)];
 			base = 0;
 			if ('0' <= ch && ch <= '9') {
-				k = (int)ch - 48;
+				k = (INTEGER)ch - 48;
 				do {
 					base = base * 10 + k;
 					j += 1;
 					ch = s[__X(j, s__len)];
-					k = (int)ch - 48;
+					k = (INTEGER)ch - 48;
 				} while (!((ch < '0' || ch > '9') || base > __DIV(2147483647 - k, 10)));
 				if ('0' <= ch && ch <= '9') {
 					base = 0;
@@ -152,7 +152,7 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 		}
 		if (base < 2 || base > 16) {
 			*res = 2;
-		} else if (base <= 10 && (int)top < base + 48 || base > 10 && (int)top < (base - 10) + 65) {
+		} else if (base <= 10 && (INTEGER)top < base + 48 || base > 10 && (INTEGER)top < (base - 10) + 65) {
 			*x = 0;
 			ch = s[__X(i, s__len)];
 			neg = 0;
@@ -170,9 +170,9 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 			}
 			if ('0' <= ch && ch <= '9' || 'A' <= ch && ch <= 'F') {
 				if (ch <= '9') {
-					k = (int)ch - 48;
+					k = (INTEGER)ch - 48;
 				} else {
-					k = ((int)ch - 65) + 10;
+					k = ((INTEGER)ch - 65) + 10;
 				}
 				while (('0' <= ch && ch <= '9' || 'A' <= ch && ch <= 'F') && *res == 0) {
 					if (*x >= __DIV(((-2147483647-1) + (base - 1)) + k, base)) {
@@ -180,9 +180,9 @@ void KolTypes_StringToInt (CHAR *s, LONGINT s__len, INTEGER *x, INTEGER *res)
 						i += 1;
 						ch = s[__X(i, s__len)];
 						if (ch <= '9') {
-							k = (int)ch - 48;
+							k = (INTEGER)ch - 48;
 						} else {
-							k = ((int)ch - 65) + 10;
+							k = ((INTEGER)ch - 65) + 10;
 						}
 					} else {
 						*res = 1;

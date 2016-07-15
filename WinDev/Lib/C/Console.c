@@ -31,7 +31,7 @@ export void Console_WriteHex_StdIO (INTEGER val);
 #define Console_writeLInt(n)	printf("%lld", n)
 */
 export void Console_WriteInt_StdIO (LONGINT n) {
-  printf("%ld", n);
+  printf("%lld", n);
 } //Console_WriteInt_StdIO
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -179,7 +179,7 @@ void Console_WriteHex_StdIO (INTEGER val) {
 		} else {
 			a[__X(i, 10)] = (CHAR)(y + 55);
 		}
-		val = __ASHR(val, 4);
+		val = __ASHR(val, 4, INTEGER);
 		i += 1;
 	} while (val != 0);
 	do {

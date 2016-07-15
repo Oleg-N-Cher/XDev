@@ -50,7 +50,7 @@ BOOLEAN EcoBigSets_IsEmpty (SET *set, LONGINT set__len)
 BOOLEAN EcoBigSets_In (SET *set, LONGINT set__len, INTEGER element)
 {
 	INTEGER index, bit;
-	index = __ASHR(element, 5);
+	index = __ASHR(element, 5, INTEGER);
 	bit = __MASK(element, -32);
 	return __IN(bit, set[__X(index, set__len)]);
 }
@@ -59,7 +59,7 @@ BOOLEAN EcoBigSets_In (SET *set, LONGINT set__len, INTEGER element)
 void EcoBigSets_Incl (SET *set, LONGINT set__len, INTEGER element)
 {
 	INTEGER index, bit;
-	index = __ASHR(element, 5);
+	index = __ASHR(element, 5, INTEGER);
 	bit = __MASK(element, -32);
 	set[__X(index, set__len)] |= __SETOF(bit);
 }
@@ -68,7 +68,7 @@ void EcoBigSets_Incl (SET *set, LONGINT set__len, INTEGER element)
 void EcoBigSets_Excl (SET *set, LONGINT set__len, INTEGER element)
 {
 	INTEGER index, bit;
-	index = __ASHR(element, 5);
+	index = __ASHR(element, 5, INTEGER);
 	bit = __MASK(element, -32);
 	set[__X(index, set__len)] &= ~__SETOF(bit);
 }
@@ -77,7 +77,7 @@ void EcoBigSets_Excl (SET *set, LONGINT set__len, INTEGER element)
 void EcoBigSets_InclRange (SET *set, LONGINT set__len, INTEGER firstElement, INTEGER lastElement)
 {
 	INTEGER index, bit, count;
-	index = __ASHR(firstElement, 5);
+	index = __ASHR(firstElement, 5, INTEGER);
 	bit = __MASK(firstElement, -32);
 	count = (lastElement - firstElement) + 1;
 	while (count > 0) {
@@ -95,7 +95,7 @@ void EcoBigSets_InclRange (SET *set, LONGINT set__len, INTEGER firstElement, INT
 void EcoBigSets_ExclRange (SET *set, LONGINT set__len, INTEGER firstElement, INTEGER lastElement)
 {
 	INTEGER index, bit, count;
-	index = __ASHR(firstElement, 5);
+	index = __ASHR(firstElement, 5, INTEGER);
 	bit = __MASK(firstElement, -32);
 	count = (lastElement - firstElement) + 1;
 	while (count > 0) {
@@ -114,7 +114,7 @@ void EcoBigSets_Union (SET *firstSet, LONGINT firstSet__len, SET *secondSet, LON
 {
 	INTEGER index, maxIndex;
 	index = 0;
-	maxIndex = (int)firstSet__len;
+	maxIndex = (INTEGER)firstSet__len;
 	while (index < maxIndex) {
 		destSet[__X(index, destSet__len)] = firstSet[__X(index, firstSet__len)] | secondSet[__X(index, secondSet__len)];
 		index += 1;
@@ -126,7 +126,7 @@ void EcoBigSets_Difference (SET *firstSet, LONGINT firstSet__len, SET *secondSet
 {
 	INTEGER index, maxIndex;
 	index = 0;
-	maxIndex = (int)firstSet__len;
+	maxIndex = (INTEGER)firstSet__len;
 	while (index < maxIndex) {
 		destSet[__X(index, destSet__len)] = firstSet[__X(index, firstSet__len)] & ~secondSet[__X(index, secondSet__len)];
 		index += 1;
@@ -138,7 +138,7 @@ void EcoBigSets_Intersection (SET *firstSet, LONGINT firstSet__len, SET *secondS
 {
 	INTEGER index, maxIndex;
 	index = 0;
-	maxIndex = (int)firstSet__len;
+	maxIndex = (INTEGER)firstSet__len;
 	while (index < maxIndex) {
 		destSet[__X(index, destSet__len)] = firstSet[__X(index, firstSet__len)] & secondSet[__X(index, secondSet__len)];
 		index += 1;
@@ -150,7 +150,7 @@ void EcoBigSets_SymmetricDiff (SET *firstSet, LONGINT firstSet__len, SET *second
 {
 	INTEGER index, maxIndex;
 	index = 0;
-	maxIndex = (int)firstSet__len;
+	maxIndex = (INTEGER)firstSet__len;
 	while (index < maxIndex) {
 		destSet[__X(index, destSet__len)] = firstSet[__X(index, firstSet__len)] ^ secondSet[__X(index, secondSet__len)];
 		index += 1;

@@ -13,13 +13,13 @@ export INTEGER Delphi_LoWord (INTEGER i);
 
 INTEGER Delphi_HiWord (INTEGER i)
 {
-	return __ASHR(i, 16);
+	return __ASHR(i, 16, INTEGER);
 }
 
 /*----------------------------------------------------------------------------*/
 INTEGER Delphi_LoWord (INTEGER i)
 {
-	return (int)((SET)i & 0xffff);
+	return (INTEGER)((SET)i & 0xffff);
 }
 
 /*----------------------------------------------------------------------------*/
