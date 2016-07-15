@@ -24,6 +24,8 @@ extern void exit (int status);
 /* runtime system routines */
 extern void SYSTEM_INIT (int argc, long argvadr);
 extern void SYSTEM_HALT (int n);
+extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
+extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
 extern long SYSTEM_MOD (unsigned long x, unsigned long y);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
@@ -35,6 +37,20 @@ export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
 /* runtime system variables */
 LONGINT SYSTEM_argc;
 LONGINT SYSTEM_argv;
+
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n)
+{
+	if (n >= 0) return x << n;
+	return x >> (-n);
+} //SYSTEM_ASH
+
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n)
+{
+	if (n >= 0) return x << n;
+	return x >> (-n);
+} //SYSTEM_ASHL
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_MOD (unsigned long x, unsigned long y)
