@@ -46,7 +46,8 @@ typedef signed char BYTE;
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
 extern long SYSTEM_ENTIER (REAL x);
-extern long SYSTEM_ASH();
+extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y);
+extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y);
 extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
@@ -163,10 +164,11 @@ extern void SYSTEM_ENUMR();
 #define __MASK(x, m)	((x)&~(m))
 #define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
 #define __STRCMP SYSTEM_STRCMP
-#define __ASH(x, n)	((n)>=0?__ASHL(x,n):__ASHR(x,-(n)))
-#define __ASHL(x, n)	((long)(x)<<(n))
-#define __ASHR(x, n)	((long)(x)>>(n))
-#define __ASHF(x, n)	SYSTEM_ASH((long)(x), (long)(n))
+#define __ASH(x, n, t)	((n)>=0?__ASHL(x,n,t):__ASHR(x,-(n),t))
+#define __ASHL(x, n, t)	((t)(x)<<(n))
+#define __ASHR(x, n, t) ((t)(x)>>(n))
+#define __ASHF(x, n, t)	SYSTEM_ASH(x, n)
+#define __ASHFL(x, n, t)	SYSTEM_ASHL(x, n)
 #define __DUP(x, l, t)	x=(void*)memcpy(malloc(l*sizeof(t)),x,l*sizeof(t))
 #define __DUPARR(v, t)	v=(void*)memcpy(v##__copy,v,sizeof(t))
 #define __DEL(x)	free(x)
@@ -265,7 +267,8 @@ void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
 long SYSTEM_XCHK(long i, long ub);
 long SYSTEM_RCHK(long i, long ub);
-long SYSTEM_ASH(long i, long n);
+INTEGER SYSTEM_ASH (INTEGER x, SHORTINT y);
+LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT y);
 long SYSTEM_ABS(long i);
 float SYSTEM_ABSD(float i);
 void SYSTEM_INHERIT(long *t, long *t0);

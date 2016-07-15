@@ -2,29 +2,29 @@ MODULE Asm; (* CPU Z80 *)
 IMPORT SYSTEM;
 
 TYPE
-	BYTE = INTEGER; WORD = INTEGER;
+  INT8 = INTEGER; WORD = INTEGER;
 
-PROCEDURE Byte* (b: BYTE); END Byte;
-PROCEDURE Byte1* (b: BYTE); END Byte1;
-PROCEDURE Byte2* (b1,b2: BYTE); END Byte2;
-PROCEDURE Byte3* (b1,b2,b3: BYTE); END Byte3;
-PROCEDURE Byte4* (b1,b2,b3,b4: BYTE); END Byte4;
-PROCEDURE Byte5* (b1,b2,b3,b4,b5: BYTE); END Byte5;
-PROCEDURE Byte6* (b1,b2,b3,b4,b5,b6: BYTE); END Byte6;
-PROCEDURE Byte7* (b1,b2,b3,b4,b5,b6,b7: BYTE); END Byte7;
-PROCEDURE Byte8* (b1,b2,b3,b4,b5,b6,b7,b8: BYTE); END Byte8;
-PROCEDURE Byte9* (b1,b2,b3,b4,b5,b6,b7,b8,b9: BYTE); END Byte9;
-PROCEDURE Byte10* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10: BYTE); END Byte10;
-PROCEDURE Byte11* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11: BYTE); END Byte11;
-PROCEDURE Byte12* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12: BYTE); END Byte12;
-PROCEDURE Byte13* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13: BYTE);
+PROCEDURE Byte* (b: INT8); END Byte;
+PROCEDURE Byte1* (b: INT8); END Byte1;
+PROCEDURE Byte2* (b1,b2: INT8); END Byte2;
+PROCEDURE Byte3* (b1,b2,b3: INT8); END Byte3;
+PROCEDURE Byte4* (b1,b2,b3,b4: INT8); END Byte4;
+PROCEDURE Byte5* (b1,b2,b3,b4,b5: INT8); END Byte5;
+PROCEDURE Byte6* (b1,b2,b3,b4,b5,b6: INT8); END Byte6;
+PROCEDURE Byte7* (b1,b2,b3,b4,b5,b6,b7: INT8); END Byte7;
+PROCEDURE Byte8* (b1,b2,b3,b4,b5,b6,b7,b8: INT8); END Byte8;
+PROCEDURE Byte9* (b1,b2,b3,b4,b5,b6,b7,b8,b9: INT8); END Byte9;
+PROCEDURE Byte10* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10: INT8); END Byte10;
+PROCEDURE Byte11* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11: INT8); END Byte11;
+PROCEDURE Byte12* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12: INT8); END Byte12;
+PROCEDURE Byte13* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13: INT8);
   END Byte13;
-PROCEDURE Byte14* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14: BYTE);
+PROCEDURE Byte14* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14: INT8);
   END Byte14;
 PROCEDURE Byte15* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15:
-  BYTE); END Byte15;
+  INT8); END Byte15;
 PROCEDURE Byte16* (b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16:
-  BYTE); END Byte16;
+  INT8); END Byte16;
 
 PROCEDURE Char* (b: BYTE); END Char;
 PROCEDURE Char1* (b: BYTE); END Char1;
