@@ -15,11 +15,12 @@ MODULE WinApi (*KERNEL32.dll*);
 	IMPORT SYSTEM;
 
 	TYPE (* base types *)
-		PtrVoid* = SYSTEM.PTR;
+		PtrVoid* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
+		SIZE_T* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
 		SHORTCHAR = CHAR;
 		WCHAR = SHORTINT;
-		PtrSTR* = SYSTEM.PTR(*POINTER TO ARRAY[1] OF SHORTCHAR*);
-		PtrWSTR* = SYSTEM.PTR(*POINTER TO ARRAY[1] OF WCHAR*);
+		PtrSTR* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
+		PtrWSTR* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
 		DATE* = REAL;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
@@ -11266,13 +11267,13 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE [1] -GetVersion* (): INTEGER;
 	(*END GetVersion;*)
 
-	PROCEDURE [1] -GlobalAlloc* (uFlags: SET; dwBytes: INTEGER): HGLOBAL;
+	PROCEDURE [1] -GlobalAlloc* (uFlags: SET; dwBytes: SIZE_T): HGLOBAL;
 	(*END GlobalAlloc;*)
 
-	PROCEDURE [1] -GlobalReAlloc* (hMem: HGLOBAL; dwBytes: INTEGER; uFlags: SET): HGLOBAL;
+	PROCEDURE [1] -GlobalReAlloc* (hMem: HGLOBAL; dwBytes: SIZE_T; uFlags: SET): HGLOBAL;
 	(*END GlobalReAlloc;*)
 
-	PROCEDURE [1] -GlobalSize* (hMem: HGLOBAL): INTEGER;
+	PROCEDURE [1] -GlobalSize* (hMem: HGLOBAL): SIZE_T;
 	(*END GlobalSize;*)
 
 	PROCEDURE [1] -GlobalFlags* (hMem: HGLOBAL): INTEGER;
@@ -11290,7 +11291,7 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE [1] -GlobalFree* (hMem: HGLOBAL): HGLOBAL;
 	(*END GlobalFree;*)
 
-	PROCEDURE [1] -GlobalCompact* (dwMinFree: INTEGER): INTEGER;
+	PROCEDURE [1] -GlobalCompact* (dwMinFree: INTEGER): SIZE_T;
 	(*END GlobalCompact;*)
 
 	PROCEDURE [1] -GlobalFix* (hMem: HGLOBAL);
@@ -11308,10 +11309,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE [1] -GlobalMemoryStatus* (VAR [nil] lpBuffer: MEMORYSTATUS);
 	(*END GlobalMemoryStatus;*)
 
-	PROCEDURE [1] -LocalAlloc* (uFlags: SET; uBytes: INTEGER): HLOCAL;
+	PROCEDURE [1] -LocalAlloc* (uFlags: SET; uBytes: SIZE_T): HLOCAL;
 	(*END LocalAlloc;*)
 
-	PROCEDURE [1] -LocalReAlloc* (hMem: HLOCAL; uBytes: INTEGER; uFlags: SET): HLOCAL;
+	PROCEDURE [1] -LocalReAlloc* (hMem: HLOCAL; uBytes: SIZE_T; uFlags: SET): HLOCAL;
 	(*END LocalReAlloc;*)
 
 	PROCEDURE [1] -LocalLock* (hMem: HLOCAL): PtrVoid;
@@ -11332,55 +11333,58 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE [1] -LocalFree* (hMem: HLOCAL): HLOCAL;
 	(*END LocalFree;*)
 
-	PROCEDURE [1] -LocalShrink* (hMem: HLOCAL; cbNewSize: INTEGER): INTEGER;
+	PROCEDURE [1] -LocalShrink* (hMem: HLOCAL; cbNewSize: INTEGER): SIZE_T;
 	(*END LocalShrink;*)
 
-	PROCEDURE [1] -LocalCompact* (uMinFree: INTEGER): INTEGER;
+	PROCEDURE [1] -LocalCompact* (uMinFree: INTEGER): SIZE_T;
 	(*END LocalCompact;*)
 
 	PROCEDURE [1] -FlushInstructionCache* (hProcess: HANDLE; lpBaseAddress: PtrVoid; dwSize: INTEGER): BOOL;
 	(*END FlushInstructionCache;*)
 
-	PROCEDURE [1] -VirtualAlloc* (lpAddress: PtrVoid; dwSize: INTEGER; flAllocationType: SET; flProtect: SET): PtrVoid;
+	PROCEDURE [1] -VirtualAlloc* (lpAddress: PtrVoid; dwSize: SIZE_T; flAllocationType: SET; flProtect: SET): PtrVoid;
 	(*END VirtualAlloc;*)
 
-	PROCEDURE [1] -VirtualFree* (lpAddress: PtrVoid; dwSize: INTEGER; dwFreeType: SET): BOOL;
+	PROCEDURE [1] -VirtualAllocEx* (hProcess: HANDLE; lpAddress: PtrVoid; dwSize: SIZE_T; flAllocationType: SET; flProtect: SET): PtrVoid;
+	(*END VirtualAllocEx;*)
+	
+	PROCEDURE [1] -VirtualFree* (lpAddress: PtrVoid; dwSize: SIZE_T; dwFreeType: SET): BOOL;
 	(*END VirtualFree;*)
 
-	PROCEDURE [1] -VirtualProtect* (lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
+	PROCEDURE [1] -VirtualProtect* (lpAddress: PtrVoid; dwSize: SIZE_T; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
 	(*END VirtualProtect;*)
 
-	PROCEDURE [1] -VirtualQuery* (lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
+	PROCEDURE [1] -VirtualQuery* (lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: SIZE_T): SIZE_T;
 	(*END VirtualQuery;*)
 
-	PROCEDURE [1] -VirtualProtectEx* (hProcess: HANDLE; lpAddress: PtrVoid; dwSize: INTEGER; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
+	PROCEDURE [1] -VirtualProtectEx* (hProcess: HANDLE; lpAddress: PtrVoid; dwSize: SIZE_T; flNewProtect: SET; VAR [nil] lpflOldProtect: INTEGER): BOOL;
 	(*END VirtualProtectEx;*)
 
-	PROCEDURE [1] -VirtualQueryEx* (hProcess: HANDLE; lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: INTEGER): INTEGER;
+	PROCEDURE [1] -VirtualQueryEx* (hProcess: HANDLE; lpAddress: PtrVoid; VAR [nil] lpBuffer: MEMORY_BASIC_INFORMATION; dwLength: SIZE_T): SIZE_T;
 	(*END VirtualQueryEx;*)
 
-	PROCEDURE [1] -HeapCreate* (flOptions: SET; dwInitialSize: INTEGER; dwMaximumSize: INTEGER): HANDLE;
+	PROCEDURE [1] -HeapCreate* (flOptions: SET; dwInitialSize: SIZE_T; dwMaximumSize: SIZE_T): HANDLE;
 	(*END HeapCreate;*)
 
 	PROCEDURE [1] -HeapDestroy* (hHeap: HANDLE): BOOL;
 	(*END HeapDestroy;*)
 
-	PROCEDURE [1] -HeapAlloc* (hHeap: HANDLE; dwFlags: SET; dwBytes: INTEGER): PtrVoid;
+	PROCEDURE [1] -HeapAlloc* (hHeap: HANDLE; dwFlags: SET; dwBytes: SIZE_T): PtrVoid;
 	(*END HeapAlloc;*)
 
-	PROCEDURE [1] -HeapReAlloc* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid; dwBytes: INTEGER): PtrVoid;
+	PROCEDURE [1] -HeapReAlloc* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid; dwBytes: SIZE_T): PtrVoid;
 	(*END HeapReAlloc;*)
 
 	PROCEDURE [1] -HeapFree* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid): BOOL;
 	(*END HeapFree;*)
 
-	PROCEDURE [1] -HeapSize* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid): INTEGER;
+	PROCEDURE [1] -HeapSize* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid): SIZE_T;
 	(*END HeapSize;*)
 
 	PROCEDURE [1] -HeapValidate* (hHeap: HANDLE; dwFlags: SET; lpMem: PtrVoid): BOOL;
 	(*END HeapValidate;*)
 
-	PROCEDURE [1] -HeapCompact* (hHeap: HANDLE; dwFlags: SET): INTEGER;
+	PROCEDURE [1] -HeapCompact* (hHeap: HANDLE; dwFlags: SET): SIZE_T;
 	(*END HeapCompact;*)
 
 	PROCEDURE [1] -GetProcessHeap* (): HANDLE;
@@ -13159,10 +13163,10 @@ MODULE WinApi (*KERNEL32.dll*);
 	PROCEDURE [1] -ReadDirectoryChangesW* (hDirectory: HANDLE; lpBuffer: PtrVoid; nBufferLength: INTEGER; bWatchSubtree: BOOL; dwNotifyFilter: SET; VAR [nil] lpBytesReturned: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END ReadDirectoryChangesW;*)
 
-	PROCEDURE [1] -VirtualLock* (lpAddress: PtrVoid; dwSize: INTEGER): BOOL;
+	PROCEDURE [1] -VirtualLock* (lpAddress: PtrVoid; dwSize: SIZE_T): BOOL;
 	(*END VirtualLock;*)
 
-	PROCEDURE [1] -VirtualUnlock* (lpAddress: PtrVoid; dwSize: INTEGER): BOOL;
+	PROCEDURE [1] -VirtualUnlock* (lpAddress: PtrVoid; dwSize: SIZE_T): BOOL;
 	(*END VirtualUnlock;*)
 
 	PROCEDURE [1] -MapViewOfFileEx* (hFileMappingObject: HANDLE; dwDesiredAccess: SET; dwFileOffsetHigh: INTEGER; dwFileOffsetLow: INTEGER; dwNumberOfBytesToMap: INTEGER; lpBaseAddress: PtrVoid): PtrVoid;
