@@ -81,16 +81,16 @@ _CHAR* SYSTEM_LSTR(char *x)
 	return str;
 }
 
-INTEGER SYSTEM_ASH(INTEGER x, INTEGER y)
+INTEGER SYSTEM_ASH(INTEGER x, INTEGER n)
 {
-	if (y >= 0) return x << y;
-	else return x >> (-y);
+	if (n >= 0) return x << n;
+	else return x >> (-n);
 }
 
-LONGINT SYSTEM_ASHL(LONGINT x, INTEGER y)
+LONGINT SYSTEM_ASHL(LONGINT x, INTEGER n)
 {
-	if (y >= 0) return x << y;
-	else return x >> (-y);
+	if (n >= 0) return x << n;
+	else return x >> (-n);
 }
 
 INTEGER SYSTEM_ABS(INTEGER x)
