@@ -58,7 +58,7 @@ extern INTEGER SYSTEM_MOD(INTEGER x, INTEGER y);
 extern INTEGER SYSTEM_MIN(INTEGER x, INTEGER y);
 extern INTEGER SYSTEM_MAX(INTEGER x, INTEGER y);
 extern INTEGER SYSTEM_ENTIER(REAL x);
-extern INTEGER SYSTEM_ASH(INTEGER x, INTEGER y);
+extern INTEGER SYSTEM_ASH(INTEGER x, INTEGER n);
 extern INTEGER SYSTEM_ABS(INTEGER x);
 extern INTEGER SYSTEM_XCHK(INTEGER i, INTEGER ub);
 extern void *SYSTEM_NEWARR(INTEGER type, INTEGER n);
@@ -89,7 +89,7 @@ extern LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y);
 extern LONGINT SYSTEM_MODL(LONGINT x, LONGINT y);
 extern LONGINT SYSTEM_MINL(LONGINT x, LONGINT y);
 extern LONGINT SYSTEM_MAXL(LONGINT x, LONGINT y);
-extern LONGINT SYSTEM_ASHL(LONGINT x, INTEGER y);
+extern LONGINT SYSTEM_ASHL(LONGINT x, INTEGER n);
 extern LONGINT SYSTEM_ABSL(LONGINT x);
 extern SHORTREAL SYSTEM_INT2SR(INTEGER x);
 extern REAL SYSTEM_LONG2R(LONGINT x);
@@ -282,11 +282,11 @@ SYSTEM_DLINK *SYSTEM_dlink;
 #define __STRAPNDSL(x, y, n)	SYSTEM_STRAPNDSL(x, y, n)	/* ly := ly + LONG(sx) */
 #define __STRAPNDTL(x, y, n)	SYSTEM_STRAPNDTL(x, y, n)	/* ly := ly + LONG(SHORT(lx)) */
 
-#define __ASH(x, n)	((n)>=0?__ASHL(x,n):__ASHR(x,-(n)))
-#define __ASHL(x, n)	((INTEGER)(x)<<(n))
-#define __ASHR(x, n)	((INTEGER)(x)>>(n))
-#define __ASHF(x, n)	SYSTEM_ASH(x, n)
-#define __ASHFL(x, n)	SYSTEM_ASHL(x, n)
+#define __ASH(x, n, t)	((n)>=0?__ASHL(x,n,t):__ASHR(x,-(n),t))
+#define __ASHL(x, n, t)	((t)(x)<<(n))
+#define __ASHR(x, n, t) ((t)(x)>>(n))
+#define __ASHF(x, n, t)	SYSTEM_ASH(x, n)
+#define __ASHFL(x, n, t)	SYSTEM_ASHL(x, n)
 #define __DUP(x, l)	x=(void*)memcpy(alloca(l*sizeof(*x)),x,l*sizeof(*x))
 #define __DUPARR(v)	v=(void*)memcpy(v##__copy,v,sizeof(v##__copy))
 #define __DEL(x)	/* DUP with alloca frees storage automatically */
