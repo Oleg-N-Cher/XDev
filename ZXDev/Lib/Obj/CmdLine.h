@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/* Ofront+ 1.0 -tspkae */
 
 #ifndef CmdLine__h
 #define CmdLine__h
@@ -11,7 +11,7 @@ typedef
 
 
 
-import void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
+import void CmdLine_GetParam (INTEGER n, CHAR *param, SHORTINT param__len);
 import void *CmdLine__init(void);
 
 #define CmdLine__init()	/*-noinit*/

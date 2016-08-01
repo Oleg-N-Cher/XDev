@@ -1,15 +1,15 @@
-/*  Ofront 1.2 -xtspkae */
+/* Ofront+ 1.0 -tspkae */
 #include "SYSTEM.h"
 
 
 
 
-export BOOLEAN Strings_StrToInt (CHAR *str, LONGINT str__len, INTEGER *result);
+export BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result);
 
 
 /*============================================================================*/
 
-BOOLEAN Strings_StrToInt (CHAR *str, LONGINT str__len, INTEGER *result)
+BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result)
 {
 	SHORTINT pos, sign;
 	CHAR ch;
@@ -17,8 +17,8 @@ BOOLEAN Strings_StrToInt (CHAR *str, LONGINT str__len, INTEGER *result)
 	*result = 0;
 	pos = 0;
 	sign = 1;
-	while ((LONGINT)pos < str__len) {
-		ch = str[__X(pos, str__len)];
+	while (pos < str__len) {
+		ch = str[pos];
 		switch (ch) {
 			case '-': 
 				if (pos == 0) {
