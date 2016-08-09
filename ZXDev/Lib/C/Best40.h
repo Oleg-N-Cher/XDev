@@ -35,6 +35,9 @@ import void Best40_PFIGURE_E (SHORTINT x, SHORTINT y, CHAR *pattern);
 import void Best40_PSCALER (
   SHORTINT x1_old, SHORTINT y1_old, SHORTINT x2_old, SHORTINT y2_old,
   SHORTINT xscale, SHORTINT yscale, SHORTINT x_new, SHORTINT y_new);
+import void Best40_PUTSPR (
+  unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
+  unsigned int adr, unsigned char mode);
 
 #define Best40__init()
 
