@@ -1781,7 +1781,7 @@ MODULE CPfrontCPC;
 				BegStat; 
 				IF var^.typ^.comp = Array THEN
 					OPG.WriteString(DupArrFunc);
-					Ident(var); typ := var^.typ;
+					Ident(var)
 				ELSE
 					OPG.WriteString(DupFunc);
 					Ident(var); OPG.WriteString(Comma); Ident(var); OPG.WriteString(LenExt);
