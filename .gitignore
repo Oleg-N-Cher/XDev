@@ -9,10 +9,15 @@ JmeDev/
 MsxDev/Lib/*.sym
 Ofront/Arch/
 Ofront/Bin/
+Ofront/Bin64/
 Ofront/Lib/
 Ofront/Linux/
 Ofront/Mod/
+Ofront/Obj/
+Ofront/Obj64/
 Ofront/Sym/*.sym
+Ofront/Sym64/
+Ofront/Work/
 Ofront/.gitignore
 Pdp11Dev/
 Rose/
