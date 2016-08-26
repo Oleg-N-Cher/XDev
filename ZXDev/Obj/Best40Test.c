@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -xtspkaem */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Best40.h"
@@ -13,7 +13,7 @@ static INTEGER Best40Test_udg;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);
@@ -55,12 +55,12 @@ export main(int argc, char **argv)
 	Best40_ACHANGE(247, 1);
 	Best40Test_i = 127;
 	while (Best40Test_i >= 1) {
-		Best40_PFIGURE(__ASHL(Best40Test_i, 1), Best40Test_i, (CHAR*)"065088060", (LONGINT)10);
+		Best40_PFIGURE(__ASHL(Best40Test_i, 1, SHORTINT), Best40Test_i, (CHAR*)"065088060", 10);
 		Best40Test_i += -2;
 	}
 	Best40Test_i = 127;
 	while (Best40Test_i >= 1) {
-		Best40_PFIGURE(__ASHL(Best40Test_i, 1), Best40Test_i + 10, (CHAR*)"065088060", (LONGINT)10);
+		Best40_PFIGURE(__ASHL(Best40Test_i, 1, SHORTINT), Best40Test_i + 10, (CHAR*)"065088060", 10);
 		Best40Test_i += -2;
 	}
 	Best40Test_i = 16;
@@ -73,7 +73,7 @@ export main(int argc, char **argv)
 	}
 	Best40Test_i = 99;
 	while (Best40Test_i >= 1) {
-		Best40_PFIGURE(__ASHL(Best40Test_i, 1), Best40Test_i + 26, (CHAR*)"06050808060", (LONGINT)12);
+		Best40_PFIGURE(__ASHL(Best40Test_i, 1, SHORTINT), Best40Test_i + 26, (CHAR*)"06050808060", 12);
 		Best40Test_i += -2;
 	}
 	Best40_ASRL_RG(39);
@@ -128,7 +128,7 @@ export main(int argc, char **argv)
 	Basic_PRLN();
 	Best40Test_i = 0;
 	while (Best40Test_i <= 56) {
-		Best40_SINV_LR(Best40Test_udg + (int)Best40Test_i);
+		Best40_SINV_LR(Best40Test_udg + (INTEGER)Best40Test_i);
 		Best40Test_i += 8;
 	}
 	Basic_PRUDG('A');
@@ -142,7 +142,7 @@ export main(int argc, char **argv)
 	Basic_PRLN();
 	Best40Test_i = 0;
 	while (Best40Test_i <= 56) {
-		Best40_SINV_UD(Best40Test_udg + (int)Best40Test_i);
+		Best40_SINV_UD(Best40Test_udg + (INTEGER)Best40Test_i);
 		Best40Test_i += 8;
 	}
 	Basic_PRUDG('A');
@@ -156,7 +156,7 @@ export main(int argc, char **argv)
 	Basic_PRLN();
 	Best40Test_i = 0;
 	while (Best40Test_i <= 56) {
-		Best40_SINV_LR(Best40Test_udg + (int)Best40Test_i);
+		Best40_SINV_LR(Best40Test_udg + (INTEGER)Best40Test_i);
 		Best40Test_i += 8;
 	}
 	Basic_PRUDG('A');
@@ -170,8 +170,8 @@ export main(int argc, char **argv)
 	Basic_PRLN();
 	Best40Test_i = 0;
 	while (Best40Test_i <= 56) {
-		Best40_SINV_UD(Best40Test_udg + (int)Best40Test_i);
-		Best40_SROTATE(Best40Test_udg + (int)Best40Test_i);
+		Best40_SINV_UD(Best40Test_udg + (INTEGER)Best40Test_i);
+		Best40_SROTATE(Best40Test_udg + (INTEGER)Best40Test_i);
 		Best40Test_i += 8;
 	}
 	Basic_PRUDG('A');
@@ -185,8 +185,8 @@ export main(int argc, char **argv)
 	Basic_PRLN();
 	Best40Test_i = 0;
 	while (Best40Test_i <= 56) {
-		Best40_SROTATE(Best40Test_udg + (int)Best40Test_i);
-		Best40_SROTATE(Best40Test_udg + (int)Best40Test_i);
+		Best40_SROTATE(Best40Test_udg + (INTEGER)Best40Test_i);
+		Best40_SROTATE(Best40Test_udg + (INTEGER)Best40Test_i);
 		Best40Test_i += 8;
 	}
 	Basic_PRUDG('A');
@@ -201,6 +201,7 @@ export main(int argc, char **argv)
 	Best40_PSCALER(0, 0, 63, 47, 3, 3, 32, 48);
 	Basic_BORDER(6);
 	Basic_PAUSE(0);
+	Best40_SCREEN_APART(16);
 	Basic_Quit();
 	__FINI;
 }

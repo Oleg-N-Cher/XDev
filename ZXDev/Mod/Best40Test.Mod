@@ -69,5 +69,7 @@ BEGIN
 
 	B40.PSCALER(0, 0, 63, 47, 3, 3, 32, 48);
 
-	B.BORDER(B.Olive); B.PAUSE(B.WaitAKey); B.Quit;
+	B.BORDER(B.Olive); B.PAUSE(B.WaitAKey);
+	B40.SCREEN_APART(16);
+	B.Quit;
 END Best40Test.
