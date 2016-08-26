@@ -23,6 +23,11 @@
 //#define Timer_DELAY_HALT
 #define Timer_DELAY_fastcall
 
+/*--------------------------------- GrPixel -----------------------------------*/
+
+#define GrPixel_PixelTable
+#define GrPixel_PLOTTBL 0xFB
+
 /*---------------------------------- SYSTEM ----------------------------------*/
 
 /* Runtime system routines */
