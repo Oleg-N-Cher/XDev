@@ -149,7 +149,7 @@ import void Basic_PRCHAR_ROM (CHAR ch);
   #define Basic_PRCHAR Basic_PRCHAR_FAST
 #endif
 
-#define Basic_PRUDG(udg) Basic_PRCHAR_ROM(udg+79)
+#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((CHAR)(udg+79))
 
 import void Basic_PRDATA (void);
 
