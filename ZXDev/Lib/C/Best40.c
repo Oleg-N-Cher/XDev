@@ -11,40 +11,41 @@
 
 #include "SYSTEM.h"
 
-extern SHORTINT Best40_attrib;
+extern unsigned char Best40_attrib;
 
-export void Best40_ASRL_LF_A (void);
-export void Best40_ASRL_RG_A (void);
-export void Best40_ASRL_UP_A (void);
-export void Best40_ASRL_DN_A (void);
-export void Best40_SSRL_LF (void);
-export void Best40_SSRL_RG (void);
-export void Best40_SSRL_UP (void);
-export void Best40_SSRL_DN (void);
-export void Best40_PSRL_LF (void);
-export void Best40_PSRL_RG (void);
-export void Best40_PSRL_UP (void);
-export void Best40_PSRL_DN (void);
-export void Best40_SCR_MRG (SYSTEM_ADDRESS scr_addr);
-export void Best40_SCR_INV (void);
-export void Best40_SINV_UD (SYSTEM_ADDRESS char_addr);
-export void Best40_SINV_LR (SYSTEM_ADDRESS char_addr);
-export void Best40_SROTATE (SYSTEM_ADDRESS char_addr);
-export void Best40_ACHANGE (SHORTINT attr_and, SHORTINT attr_or);
-export void Best40_AREPLC (SHORTINT attr_from, SHORTINT attr_to);
-export void Best40_PAINT (SHORTINT x, SHORTINT y);
-export BOOLEAN Best40_POINT (SHORTINT x, SHORTINT y);
-export void Best40_PFIGURE (SHORTINT x, SHORTINT y, CHAR *pattern);
-export void Best40_PSCALER (
-  SHORTINT x1_old, SHORTINT y1_old, SHORTINT x2_old, SHORTINT y2_old,
-  SHORTINT xscale, SHORTINT yscale, SHORTINT x_new, SHORTINT y_new);
-export void Best40_PUTSPR (
+void Best40_ASRL_LF_A (void);
+void Best40_ASRL_RG_A (void);
+void Best40_ASRL_UP_A (void);
+void Best40_ASRL_DN_A (void);
+void Best40_SSRL_LF (void);
+void Best40_SSRL_RG (void);
+void Best40_SSRL_UP (void);
+void Best40_SSRL_DN (void);
+void Best40_PSRL_LF (void);
+void Best40_PSRL_RG (void);
+void Best40_PSRL_UP (void);
+void Best40_PSRL_DN (void);
+void Best40_SCR_MRG (SYSTEM_ADDRESS scr_addr);
+void Best40_SCR_INV (void);
+void Best40_SINV_UD (SYSTEM_ADDRESS char_addr);
+void Best40_SINV_LR (SYSTEM_ADDRESS char_addr);
+void Best40_SROTATE (SYSTEM_ADDRESS char_addr);
+void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or);
+void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to);
+void Best40_PAINT (unsigned char x, unsigned char y);
+BOOLEAN Best40_POINT (unsigned char x, unsigned char y);
+void Best40_PFIGURE (unsigned char x, unsigned char y, CHAR *pattern);
+void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
+  unsigned char x2_old, unsigned char y2_old, unsigned char xscale,
+  unsigned char yscale, unsigned char x_new, unsigned char y_new);
+void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
   unsigned int adr, unsigned char mode);
+void Best40_SCREEN_APART (unsigned char steps);
   
 /*================================== Header ==================================*/
 
-SHORTINT Best40_attrib; // Цвет атрибутов при атрибутных сдвигах
+unsigned char Best40_attrib; // Цвет атрибутов при атрибутных сдвигах
 
 /*--------------------------------- Cut here ---------------------------------*/
 
@@ -475,7 +476,7 @@ __endasm;
 
 // Изменение атрибута (16<=21)
 
-void Best40_ACHANGE (SHORTINT attr_and, SHORTINT attr_or) __naked {
+void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or) __naked {
 __asm
           POP     HL
           POP     BC           // C - маска битов для операции AND
@@ -496,7 +497,7 @@ __endasm;
 
 // Смена атрибута (18<=22)
 
-void Best40_AREPLC (SHORTINT attr_from, SHORTINT attr_to) __naked {
+void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to) __naked {
 __asm
           POP     HL
           POP     DE           // E - что искать
@@ -519,7 +520,7 @@ __endasm;
 // Закрашивание контура (123<=263)
 //  123=88+35 - вместе с процедурой POINT
 
-void Best40_PAINT (SHORTINT x, SHORTINT y) __naked {
+void Best40_PAINT (unsigned char x, unsigned char y) __naked {
 __asm
           POP     DE
           POP     HL           // L = координата X начальной точки
@@ -591,7 +592,7 @@ __endasm;
 
 // Проверка состояния точки и вычисление адреса в экране (35<=70)
 
-BOOLEAN Best40_POINT (SHORTINT x, SHORTINT y) {
+BOOLEAN Best40_POINT (unsigned char x, unsigned char y) {
 __asm
           POP     HL
           POP     DE           // E = координата X
@@ -645,7 +646,7 @@ __endasm;
 // Построение шаблонов (98<=196)
 //  98+35=133 - вместе с процедурой POINT
 
-void Best40_PFIGURE_E (SHORTINT x, SHORTINT y, CHAR *pattern) __naked {
+void Best40_PFIGURE_E (unsigned char x, unsigned char y, CHAR *pattern) __naked {
 __asm
           POP     BC
           POP     DE           // координаты E=X, D=Y начальной точки
@@ -693,9 +694,9 @@ __endasm;
 // Увеличение экрана и копирование (174<=335)
 //  174+35=209 - вместе с процедурой POINT
 
-void Best40_PSCALER (
-  SHORTINT x1_old, SHORTINT y1_old, SHORTINT x2_old, SHORTINT y2_old,
-  SHORTINT xscale, SHORTINT yscale, SHORTINT x_new, SHORTINT y_new) __naked {
+void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
+  unsigned char x2_old, unsigned char y2_old, unsigned char xscale,
+  unsigned char yscale, unsigned char x_new, unsigned char y_new) __naked {
 __asm
           PUSH    IX
           LD      IX,#4
@@ -852,15 +853,6 @@ GO_PSC7$: EXX                  ;переход к альтернативным регистрам
 __endasm;
 } //Best40_PSCALER
 
-/*
-;--------------------------------------------------------------;
-; end of         40 New Best Routines (graphic)                ;
-;--------------------------------------------------------------;
-
-Сохранение: SAVE "nbestg.c" CODE 62000,861
-
-           *   *   *
-*/
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 
@@ -882,8 +874,7 @@ Listing 2. Быстрый вывод спрайта
 
 void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode)
-{
+  unsigned int adr, unsigned char mode) {
 __asm
          PUSH    IX
          LD      IX,#4
@@ -1040,3 +1031,43 @@ TBL_OR$: .DB     #0x00,#0x7F,#0x3F,#0x1F,#0x0F,#0x07,#0x03,#0x01
 ;END OF SPRITE OUTPUT 2.3
 __endasm;
 } //Best40_PUTSPR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Best40_SCREEN_APART (unsigned char steps) {
+__asm
+;  SCREEN-APART
+;(c) SerzhSoft, 11 july 1997
+
+          LD      HL,#2
+          ADD     HL,SP
+          LD      B,(HL)      ;B=число пар сдвигов экрана в стороны
+APART$:                       ;Используется переменная ATTR_P
+LP_APR1$: PUSH    BC          ;сохраняем счетчик сдвигов на стеке
+          LD      A,(23693)   ;A=атрибуты для заполн. после сдига
+          LD      DE,#0x5AFF  ;самый последний байт атрибутов
+LP_APR2$: LD      H,D         ;скопировали этот адрес
+          LD      L,E         ; в HL и уменьшили на 1:
+          DEC     HL          ; адрес предпоследнего байта линии
+          LD      BC,#0x000F  ;сдвигать: 15 байт
+          LDDR                ;сдвиг правой полу-линии вправо
+          LD      (DE),A      ;устанавливаем новое значение
+          LD      BC,#0xFFF2  ;коррекция р-ра HL - теперь он
+          ADD     HL,BC       ; указывает на второй байт линии
+          LD      E,L         ;DE=HL
+          DEC     E           ;первый байт слева в линии
+          LD      BC,#0x000F  ;будем сдвигать 15 байт
+          LDIR                ;сдвиг левой полу-линии влево
+          LD      (DE),A      ;устанавливаем новый байт (очистка)
+          LD      BC,#0xFFEF  ;коррекция регистра DE -
+          ADD     HL,BC       ; переход на одну
+          EX      DE,HL       ; линию вверх в экране (атрибутах)
+          BIT     3,D         ;если атрибуты не кончились,
+          JR      NZ,LP_APR2$ ; то крутим цикл
+          XOR     A           ;перешли в область графики
+          BIT     6,D         ;если мы пока еще не залезли в ПЗУ,
+          JR      NZ,LP_APR2$ ; то продолжаем крутить цикл
+          POP     BC          ;восстанавливаем счетчик сдвигов
+          DJNZ    LP_APR1$    ;крутим цикл положенное число раз
+__endasm;
+} //Best40_SCREEN_APART
+
