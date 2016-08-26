@@ -1,0 +1,15 @@
+MODULE GrPixel; (** non-portable *)
+(*-----------------------------------*)
+(* Sinclair ZX Spectrum pixel graphic*)
+(* for Ofront & SDCC by Oleg N. Cher *)
+(*  VEDAsoft Oberon Club, 2012-2013  *)
+(*-----------------------------------*)
+
+TYPE
+	BYTE = INTEGER;
+	Coords* = BYTE;
+
+PROCEDURE PutPixel* (x, y: Coords);       END PutPixel;
+PROCEDURE Line* (x1, y1, x2, y2: Coords); END Line;
+
+END GrPixel.

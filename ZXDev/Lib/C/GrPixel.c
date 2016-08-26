@@ -1,8 +1,11 @@
 #include "SYSTEM.h"
 
+void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y);
+void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y);
+
 /*================================== Header ==================================*/
 
-export void GrPixel_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2)
+void GrPixel_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2)
 {
 __asm
 #ifdef __SDCC
@@ -119,3 +122,92 @@ COMM1$:   INC     D           ;*
           JR      COUNT$
 __endasm;
 } //GrPixel_Line
+
+/*--------------------------------- Cut here ---------------------------------*/
+void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y) __naked
+{
+__asm
+          POP  HL
+          POP  BC
+          PUSH BC
+          PUSH HL
+          LD   IY, #0x5C3A
+PLOT_ROM$:
+          LD   (0x5C7D), BC
+          LD   A, B
+          CP   #0xC0
+          JP   NC, 0x24F9 ; REPORT_B_3
+          CALL 0x22B1
+          JP   0x22EC
+__endasm;
+} //GrPixel_PutPixel_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y)
+{
+__asm
+;--------------------------------------------------
+; ¬ывод точки на экран DE(y,x)
+;--------------------------------------------------
+          POP  HL
+          POP  DE
+          PUSH DE
+          PUSH HL
+PLOTTBL$: LD   H, #GrPixel_PLOTTBL ; старший байт
+          LD   L, D
+          LD   B, (HL)
+          INC  H
+          LD   A, (HL)
+          LD   L, E
+          INC  H
+          OR   (HL)
+          INC  H
+          LD   C, A
+          LD   A, (BC)
+          OR   (HL)
+          LD   (BC),A
+__endasm;
+} //GrPixel_PutPixel_TBL
+
+/*--------------------------------- Cut here ---------------------------------*/
+void GrPixel__init (void)
+{
+__asm
+FORMER$:  LD   DE, #0x4000
+          LD   BC, #0x8000
+          LD   L, E  ; формирование таблички
+FLP1$:    LD   H, #GrPixel_PLOTTBL ; старший байт
+          LD   (HL), D
+          INC  H
+          LD   (HL), E
+          INC  H
+          LD   (HL), C
+          INC  H
+          LD   (HL), B
+          RRC  B
+          LD   A, C
+          ADC  A, #0
+          LD   C, A
+FBR1$:    INC  D
+          LD   A, D
+          AND  #7
+          JR   NZ, FNXT$
+          LD   A, E
+          ADD  A, #32
+          LD   E, A
+          JR   C, FNXT$
+          LD   A, D
+          SUB  #8
+          LD   D, A
+FNXT$:    INC  L
+          JR   NZ, FLP1$
+          LD   HL, #GrPixel_PLOTTBL + 0xC0
+          LD   BC, #0x3F
+          LD   E, L
+          LD   D, L
+          INC  E
+          LD   (HL), #0
+          LDIR
+          DI
+__endasm;
+} //GrPixel__init

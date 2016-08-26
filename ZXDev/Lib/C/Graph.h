@@ -4,7 +4,6 @@
 #define Graph__h
 
 #include "SYSTEM.h"
-#include "GrPixel.h"
 
 
 import void Graph_ClearDevice (void);
