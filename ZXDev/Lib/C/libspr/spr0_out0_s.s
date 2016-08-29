@@ -67,8 +67,7 @@ spr0_out0_opt:
     ld    (hl),a
     inc    hl
     inc    de
-    dec    b
-    jr nz,    spr0_out0_line
+    djnz   spr0_out0_line
     pop    hl
 
     ; следующая линия экрана
@@ -148,7 +147,7 @@ spr0_outattr0_line:
     ld    a,(de)
     ld    (hl),a
     inc    de
-    inc    hl
+    inc    l
     dec    c
     jr nz, spr0_outattr0_line
 

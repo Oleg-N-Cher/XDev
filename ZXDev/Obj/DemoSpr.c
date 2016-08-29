@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -xtspkaem */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "GrSpr.h"
@@ -20,7 +20,7 @@ export LONGINT *DemoSpr__1__typ;
 
 __TDESC(DemoSpr__1__desc, 1, 0) = {__TDFLDS("", 2), {-4}};
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);
