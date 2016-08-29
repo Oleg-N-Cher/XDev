@@ -4,7 +4,7 @@
 @SET bin=..\Bin
 @SET lib=..\Lib
 
-%bin%\sdcc %Name%.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --funsigned-char -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Gfx.lib Basic.lib
+%bin%\sdcc %Name%.c -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size -I %lib% -I %lib%\C -I %lib%\Obj -L %lib% --disable-warning 59 --disable-warning 85 --disable-warning 126 Gfx.lib Basic.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary

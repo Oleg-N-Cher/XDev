@@ -6,7 +6,7 @@
 
 %Bin%\sdasz80 -o heap.rel %Mod%\heap.s
 @IF errorlevel 1 PAUSE
-%Bin%\sdcc %Mod%.c -mz80 heap.rel --code-loc %CodeAddr% --data-loc %DataAddr% --reserve-regs-iy --opt-code-size --funsigned-char --disable-warning 59 --disable-warning 85 -I %Mod% -I %Lib%\C -I %Lib%\Obj -L %Lib% Basic.lib XDev.lib
+%Bin%\sdcc %Mod%.c -mz80 heap.rel --code-loc %CodeAddr% --data-loc %DataAddr% --reserve-regs-iy --opt-code-size --disable-warning 59 --disable-warning 85 -I %Mod% -I %Lib%\C -I %Lib%\Obj -L %Lib% Basic.lib XDev.lib
 @IF errorlevel 1 PAUSE
 
 @REM Convert Intel hex format to binary
