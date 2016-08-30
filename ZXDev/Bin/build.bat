@@ -1,20 +1,48 @@
-@SET CodeAddr=45056
-@SET DataAddr=63488
-@SET sdcc=..\Bin\sdcc -mz80 --code-loc %CodeAddr% --data-loc %DataAddr% --opt-code-size --disable-warning 59 --disable-warning 85 --disable-warning 126 -I ..\Lib\C -I ..\Lib\Obj -L ..\Lib XDev.lib Graph.lib Basic.lib Laser.lib MegaBasic.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib Wham.lib ZX7.lib
+@SET ZXDev=%XDev%\ZXDev
+@IF "%XDev%"=="" SET ZXDev=..
 
-@IF EXIST %1 GOTO config
+@IF "%MainMod%"=="" SET MainMod=%1
+@IF "%MainMod%"=="%1" GOTO Build
 
-%sdcc% %1.c -I ..\Lib
-@GOTO link
+:Compile
 
-:config
+@IF EXIST %1.sym MOVE /Y %1.sym %1.osm
+@CALL %ZXDev%\Bin\compile.bat %1
+@IF EXIST %1.osm MOVE /Y %1.osm %1.sym
 
-%sdcc% %1.c -I %1
+:Build
 
-:link
+@IF "%CodeAdr%"=="" SET CodeAdr=45056
+@IF "%DataAdr%"=="" SET DataAdr=63488
+@SET Options=%Options% -mz80 --no-xinit-opt --opt-code-size --code-loc %CodeAdr% --data-loc %DataAdr% --disable-warning 59 --disable-warning 85 --disable-warning 126
+@SET Include=%Include% -I %ZXDev%\Lib\C -I %ZXDev%\Lib\Obj
+@SET Libraries=%Libraries% -L %ZXDev%\Lib XDev.lib Graph.lib Basic.lib Laser.lib MegaBasic.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib Wham.lib ZX7.lib
+@IF "%Target%"=="" SET Target=tap
+@IF "%Clean%"=="" SET Clean=true
+
+@SET SDCC=%ZXDev%\Bin\sdcc.exe %Options% %Include% %Modules% %Libraries%
+
+@IF EXIST %MainMod% GOTO Config
+
+%SDCC% %MainMod%.c -I %ZXDev%\Lib
+@GOTO Link
+
+:Config
+
+%SDCC% %MainMod%.c -I %MainMod%
+
+:Link
 
 @IF errorlevel 1 PAUSE
-..\Bin\hex2bin %1.ihx
-::..\Bin\bin2data.exe -rem -org %CodeAddr% %1.bin ..\%1.tap %1
-..\Bin\bin2tap -c 24999 -a %CodeAddr% -r %CodeAddr% -b -o ..\%1.tap %1.bin
-@START ..\%1.tap
+
+%ZXDev%\Bin\hex2bin.exe %MainMod%.ihx
+@IF "%Target%"=="rem" %ZXDev%\Bin\bin2data.exe -rem -org %CodeAdr% %MainMod%.bin ..\%MainMod%.tap %MainMod%
+@IF "%Target%"=="tap" %ZXDev%\Bin\bin2tap.exe -c 24999 -a %CodeAdr% -r %CodeAdr% -b -o ..\%MainMod%.tap %MainMod%.bin
+
+@IF NOT "%Clean%"=="true" GOTO Done
+@DEL *.asm *.bin *.ihx *.lk *.lst *.map *.noi %MainMod%.h %MainMod%.sym %MainMod%.rel
+@IF "%Modules%"=="" DEL %MainMod%.c
+
+:Done
+
+@START ..\%MainMod%.tap
