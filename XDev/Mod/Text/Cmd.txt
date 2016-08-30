@@ -76,13 +76,20 @@ END GetSubsysDirByLocator;
 
 PROCEDURE Exists (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
 VAR
-	f: Files.File; found: BOOLEAN;
+	file: Files.File; found: BOOLEAN;
 BEGIN
-	f := Files.dir.Old(loc, fileName$, TRUE);
-	found := f # NIL;
-	IF found THEN f.Close END;
+	file := Files.dir.Old(loc, fileName$, TRUE);
+	found := file # NIL;
+	IF found THEN file.Close END;
 RETURN found
 END Exists;
+
+PROCEDURE ExistsDir (IN subSys, dirName: ARRAY OF CHAR): BOOLEAN;
+VAR
+	dir: Files.File; found: BOOLEAN;
+BEGIN
+	RETURN XDevMisc.DirectoryExists(subSys + "\" + dirName)
+END ExistsDir;
 
 PROCEDURE HaveMainAttribute (t: TextModels.Model): BOOLEAN;
 VAR
@@ -124,7 +131,7 @@ BEGIN
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, dir, TRUE, "");
+			OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
 			OfrontOPM.options.mainprog := HaveMainAttribute(t);
 			Dialog.UpdateBool(OfrontOPM.options.mainprog);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
@@ -151,7 +158,7 @@ BEGIN
 			(* Additional compiling thread: *)
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile64.bat") THEN (* Start "Bin/compile64.bat Mod". *)
-				OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
+				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym64") ,"64");
 				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 				loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 				i21sysCalls.StartAt(loc, "..\Bin\compile64.bat " + name$);
@@ -181,7 +188,7 @@ BEGIN
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, dir, TRUE, "");
+			OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
 			OfrontOPM.options.mainprog := HaveMainAttribute(t);
 			Dialog.UpdateBool(OfrontOPM.options.mainprog);
 			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
@@ -216,7 +223,7 @@ BEGIN
 			loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
 			IF Exists(loc, name) THEN
-				OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
+				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym64"), "64");
 				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 				i21sysCalls.StartAt(loc, name); (* Start "Obj64/Module.bat" *)
 			ELSE
@@ -229,7 +236,7 @@ BEGIN
 						StdLog.Ln;
 						Close; RETURN
 					END;
-					OfrontOPM.SetWorkDir(dir, dir, TRUE, "64");
+					OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym64"), "64");
 					IF ~Ofront.TranslateDone() THEN Close; RETURN END;
 					loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 					i21sysCalls.StartAt(loc, "..\Bin\build64.bat " + name$);
@@ -257,7 +264,7 @@ BEGIN
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
 			(* Call the OfrontBrowser.ShowDef with the defined work paths: *)
-			OfrontOPM.SetWorkDir(dir, dir, TRUE, "");
+			OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
 			OfrontBrowser.ShowDef;
 		END;
 	END;
