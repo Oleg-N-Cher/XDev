@@ -1,0 +1,23 @@
+MODULE Laser2; (** non-portable *)
+
+(*********************)
+(*   LASER BASIC 2   *)
+(*  by Oleg N. Cher  *)
+(*   zx.oberon2.ru   *)
+(*********************)
+
+TYPE
+  ADR   = LONGINT;
+  UBYTE = INTEGER;
+
+PROCEDURE InitSprites   * (adr, size: ADR);          END InitSprites;
+PROCEDURE InitSpritesAr * (sprites: ARRAY OF CHAR); END InitSpritesAr;
+PROCEDURE InitSpritesEx * (adr, size: ADR);          END InitSpritesEx;
+
+(* Procedures for sprites manipulations *)
+PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE); END PTBL;
+PROCEDURE PTOR * (col, row: SHORTINT; spN: UBYTE); END PTOR;
+PROCEDURE PTND * (col, row: SHORTINT; spN: UBYTE); END PTND;
+PROCEDURE PTXR * (col, row: SHORTINT; spN: UBYTE); END PTXR;
+
+END Laser2.
