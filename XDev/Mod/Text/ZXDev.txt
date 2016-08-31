@@ -1,0 +1,168 @@
+(* Copyright (C) 2012-2016 Oleg N. Cher, VEDAsoft Oberon Club *)
+(* http://zx.oberon2.ru *)
+
+MODULE XDevZXDev;
+
+IMPORT
+	Dialog, Controllers, Cmd := XDevCmd, Files, HostFiles, StdCmds,
+	StdLog, Stores, Strings, TextModels, TextViews, Windows;
+
+CONST
+	Config = "Config.odc"; ConfigWoExt = "Config";
+
+VAR
+	MainMod*: ARRAY 40 OF CHAR;
+	CodeAdr*, DataAdr*: ARRAY 9 OF CHAR;
+	Options*, Modules*, Include*, Libraries*: ARRAY 256 OF CHAR;
+	Target*, str: ARRAY 7 OF CHAR;
+	Clean*, Start*: BOOLEAN;
+
+PROCEDURE GetSubsysNameByDir (IN subsysdir: ARRAY OF CHAR; OUT name: ARRAY OF CHAR);
+VAR
+  n, pos: INTEGER;
+BEGIN
+	pos := 0;
+	FOR n := 0 TO LEN(subsysdir$)-2 DO
+		IF (subsysdir[n] = "/") OR (subsysdir[n] = "\") THEN pos := n END;
+	END;
+	Strings.Extract(subsysdir, pos+1, LEN(subsysdir$)-pos-2, name);
+END GetSubsysNameByDir;
+
+PROCEDURE LoadProjectSettings*;
+VAR
+	t: TextModels.Model; w: Windows.Window; dir: Files.Name;
+BEGIN
+	Cmd.Open;
+	(* Try to find exact file name of current opened document: *)
+	t := TextViews.FocusText();
+	IF t # NIL THEN
+		w := Windows.dir.Focus(Controllers.targetPath);
+		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+			Cmd.GetSubsysDirByLocator(w.loc, dir); dir := dir + "Bin";
+			Cmd.MapString(dir, Config, "CodeAdr", CodeAdr);
+			IF CodeAdr = "CodeAdr" THEN CodeAdr := "32832" END;
+			Cmd.MapString(dir, Config, "DataAdr", DataAdr);
+			IF DataAdr = "DataAdr" THEN DataAdr := "50000" END;
+			Cmd.MapString(dir, Config, "Target", Target);
+			IF Target = "Target" THEN Target := "" END;
+			Cmd.MapString(dir, Config, "MainMod", MainMod);
+			IF MainMod = "MainMod" THEN MainMod := "" END;
+			Cmd.MapString(dir, Config, "Modules", Modules);
+			IF Modules = "Modules" THEN Modules := "" END;
+			Cmd.MapString(dir, Config, "Include", Include);
+			IF Include = "Include" THEN Include := "" END;
+			Cmd.MapString(dir, Config, "Libraries", Libraries);
+			IF Libraries = "Libraries" THEN Libraries := "" END;
+			Cmd.MapString(dir, Config, "Options", Options);
+			IF Options = "Options" THEN Options := "" END;
+			Cmd.MapString(dir, Config, "Start", str);
+			IF str = "Start" THEN str := "TRUE" END;
+			Start := str = "TRUE";
+			Cmd.MapString(dir, Config, "Clean", str);
+			IF str = "Clean" THEN str := "TRUE" END;
+			Clean := str = "TRUE";
+			StdCmds.OpenToolDialog("XDev/Rsrc/ZXDev", "ZXDev Project Setup");
+		ELSE (* Module's file name not found. *)
+			StdLog.String("First, specify a file name of the module, please.");
+			StdLog.Ln;
+		END;
+	ELSE
+		Dialog.ShowMsg("#XDev:NoTextViewFound");
+	END;
+	Cmd.Close
+END LoadProjectSettings;
+
+PROCEDURE SaveProjectSettings*;
+VAR
+	t: TextModels.Model; w: Windows.Window; dir: Files.Name; loc: Files.Locator;
+	bat: Files.File; wr: Stores.Writer; odc: Cmd.tOdc; res: INTEGER;
+
+	PROCEDURE Emit(IN str: ARRAY OF CHAR);
+	VAR
+		n: INTEGER;
+	BEGIN
+		FOR n := 0 TO LEN(str$)-1 DO wr.WriteSChar(SHORT(str[n])) END;
+		wr.WriteSChar(0DX); wr.WriteSChar(0AX);
+	END Emit;
+
+BEGIN
+	Cmd.Open;
+	(* Try to find exact file name of current opened document: *)
+	t := TextViews.FocusText();
+	IF t # NIL THEN
+		w := Windows.dir.Focus(Controllers.targetPath);
+		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
+			Cmd.GetSubsysDirByLocator(w.loc, dir); dir := dir + "Bin";
+
+			(* Generate "Subsys/?/Config.odc: *)
+
+			NEW(odc); odc.OpenAt(dir);
+			odc.String("MainMod=" + MainMod$); odc.Ln;
+			odc.String("CodeAdr=" + CodeAdr$); odc.Ln;
+			odc.String("DataAdr=" + DataAdr$); odc.Ln;
+			odc.String("Options=" + Options$); odc.Ln;
+			odc.String("Modules=" + Modules$); odc.Ln;
+			odc.String("Include=" + Include$); odc.Ln;
+			odc.String("Libraries=" + Libraries$); odc.Ln;
+			odc.String("Target=" + Target$); odc.Ln;
+			odc.String("Clean="); odc.Bool(Clean); odc.Ln;
+			odc.String("Start="); odc.Bool(Start); odc.Ln;
+			odc.Save(ConfigWoExt);
+
+			(* Generate .bat scripts for building: *)
+
+			loc := Files.dir.This(dir);
+
+			(* Compile.bat *)
+			bat := Files.dir.New(loc, Files.dontAsk);
+			ASSERT(bat # NIL);
+			wr.ConnectTo(NIL); wr.ConnectTo(bat);
+			Emit('@IF NOT "%XDev%"=="" GOTO XDev');
+			Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
+			Emit("@PAUSE");
+			Emit("@EXIT");
+			Emit("");
+			Emit(":XDev");
+			Emit("");
+			IF MainMod # "" THEN Emit("@SET MainMod=" + MainMod) END;
+			IF Options # "" THEN Emit("@SET Options=" + Options) END;
+			IF Include # "" THEN Emit("@SET Include=" + Include) END;
+			IF ~ Clean THEN Emit("@SET Clean=false") END;
+			IF ~ Start THEN Emit("@SET Start=false") END;
+			Emit("%XDev%\ZXDev\Bin\Compile.bat %1");
+			bat.Register("Compile" ,"bat", Files.dontAsk, res);
+			bat.Close;
+
+			(* Build.bat *)
+			bat := Files.dir.New(loc, Files.dontAsk);
+			ASSERT(bat # NIL);
+			wr.ConnectTo(NIL); wr.ConnectTo(bat);
+			Emit('@IF NOT "%XDev%"=="" GOTO XDev');
+			Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
+			Emit("@PAUSE");
+			Emit("@EXIT");
+			Emit("");
+			Emit(":XDev");
+			Emit("");
+			IF MainMod # "" THEN Emit("@SET MainMod=" + MainMod) END;
+			IF CodeAdr # "" THEN Emit("@SET CodeAdr=" + CodeAdr) END;
+			IF DataAdr # "" THEN Emit("@SET DataAdr=" + DataAdr) END;
+			IF Modules # "" THEN Emit("@SET Modules=" + Modules) END;
+			IF Options # "" THEN Emit("@SET Options=" + Options) END;
+			IF Include # "" THEN Emit("@SET Include=" + Include) END;
+			IF Libraries # "" THEN Emit("@SET Libraries=" + Libraries) END;
+			IF Target # "" THEN Emit("@SET Target=" + Target) END;
+			IF ~ Clean THEN Emit("@SET Clean=false") END;
+			IF ~ Start THEN Emit("@SET Start=false") END;
+			Emit("%XDev%\ZXDev\Bin\Build.bat %1");
+			bat.Register("Build" ,"bat", Files.dontAsk, res);
+			bat.Close;
+			Dialog.ShowMsg("Saved");
+		END;
+	ELSE
+		Dialog.ShowMsg("#XDev:NoTextViewFound");
+	END;
+	Cmd.Close
+END SaveProjectSettings;
+
+END XDevZXDev.
