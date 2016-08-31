@@ -3,9 +3,9 @@
 
 MODULE XDevCmd;
 IMPORT
-	Controllers, Dialog, Files, HostFiles, i21sysCalls, Kernel,
+	Controllers, Converters, Dialog, Files, HostFiles, i21sysCalls, Kernel,
 	XDevMisc, Ofront := OfrontCmd, OfrontBrowser, OfrontOPM, StdLog,
-	Strings, TextModels, TextViews, Windows;
+	Strings, TextMappers, TextModels, TextViews, Views, Windows;
 
 CONST
 	BinDir = "Bin";
@@ -15,13 +15,114 @@ CONST
 VAR
 	rootDir: HostFiles.FullName;
 
-PROCEDURE Open;
+TYPE
+	tOdc* = POINTER TO RECORD
+		f: TextMappers.Formatter;
+		t*: TextModels.Model; v: TextViews.View;
+		loc: Files.Locator;
+		res: INTEGER;
+		conv: Converters.Converter;
+		fileName: Files.Name;
+	END;
+
+PROCEDURE (odc: tOdc) OpenAt* (IN folderName: ARRAY OF CHAR), NEW;
+BEGIN
+	odc.loc := Files.dir.This(folderName);
+	odc.t := TextModels.dir.New(); (* ???????? ??????? ???????? ?????? *)
+	odc.f.ConnectTo(odc.t);
+END OpenAt;
+
+PROCEDURE (odc: tOdc) Save* (IN fileName: ARRAY OF CHAR), NEW;
+VAR
+	res: INTEGER;
+BEGIN 
+	odc.v := TextViews.dir.New(odc.t); (* ???????? ??????????? ?????? ??? ?????????? ???? ?????? *)
+	odc.fileName := fileName$;
+	odc.conv := NIL;
+	Views.Register(odc.v, FALSE, odc.loc, odc.fileName, odc.conv, odc.res);
+END Save;
+
+PROCEDURE (odc: tOdc) String* (IN str: ARRAY OF CHAR), NEW;
+VAR
+	n: INTEGER;
+BEGIN
+	n := 0;
+	WHILE str[n] # 0X DO
+		IF str[n] = 9X THEN odc.f.WriteTab ELSE odc.f.WriteChar(str[n]) END;
+		INC(n);
+	END;
+END String;
+
+PROCEDURE (odc: tOdc) Ln*, NEW;
+BEGIN
+	odc.f.WriteLn;
+END Ln;
+
+PROCEDURE (odc: tOdc) Tab*, NEW;
+BEGIN
+	odc.f.WriteTab;
+END Tab;
+
+PROCEDURE (odc: tOdc) Bool* (bool: BOOLEAN), NEW;
+BEGIN
+	IF bool THEN odc.String("TRUE") ELSE odc.String("FALSE") END;
+END Bool;
+
+PROCEDURE (odc: tOdc) Int* (int: INTEGER), NEW;
+VAR
+	str: ARRAY 16 OF CHAR;
+BEGIN
+	Strings.IntToString(int, str); odc.String(str);
+END Int;
+
+PROCEDURE (odc: tOdc) Real* (real: REAL), NEW;
+VAR
+	str: ARRAY 32 OF CHAR;
+BEGIN
+	Strings.RealToString(real, str); odc.String(str);
+END Real;
+
+PROCEDURE MapString* (
+	IN dir, name: Files.Name; IN opt: ARRAY OF CHAR; OUT val: ARRAY OF CHAR);
+VAR
+	s: Dialog.String;
+	loc: Files.Locator;  
+	v: Views.View; t: TextModels.Model; 
+	r: TextModels.Reader;
+	n: INTEGER;
+	ch: CHAR;
+	found: BOOLEAN;
+BEGIN
+	found := FALSE; val := 0X;
+	v := Views.OldView(Files.dir.This(dir), name$);
+	IF (v # NIL) & (v IS TextViews.View) THEN
+		t := v.ThisModel()(TextModels.Model);
+		r := t.NewReader(NIL);
+		s := 0X; n := 0;
+		WHILE (~r.eot) DO
+			r.ReadChar(ch);
+			IF (ch = "=") OR (ch = 9X) THEN
+				s[n] := 0X;
+				IF s$ = opt THEN found := TRUE END;
+				s := 0X; n := 0;
+			ELSIF (ch = TextModels.line) OR (ch = TextModels.para) THEN
+				s[n] := 0X;
+				IF found THEN val := s$; RETURN END;
+				s := 0X; n := 0;
+			ELSE
+				s[n]:= ch; INC(n);
+			END;
+		END;
+	END
+END MapString;
+
+PROCEDURE Open*;
 BEGIN
 	Dialog.ShowStatus("#XDev:Building");
 	StdLog.buf.Delete(0, StdLog.buf.Length());
 END Open;
 
-PROCEDURE Close;
+PROCEDURE Close*;
 BEGIN
 	StdLog.text.Append(StdLog.buf);
 	IF OfrontOPM.noerr THEN Dialog.ShowStatus("#XDev:Ok") END;
@@ -43,7 +144,7 @@ BEGIN
 	woext := name$; woext[pos] := 0X;
 END GetNameWoExt;
 
-PROCEDURE GetSubsysDirByLocator (loc: Files.Locator; OUT subdir: ARRAY OF CHAR);
+PROCEDURE GetSubsysDirByLocator* (loc: Files.Locator; OUT subdir: ARRAY OF CHAR);
 VAR
 	s1, s2: HostFiles.FullName; dis, i, j, pos: INTEGER; ch: CHAR;
 BEGIN
@@ -74,7 +175,7 @@ BEGIN
 	END;
 END GetSubsysDirByLocator;
 
-PROCEDURE Exists (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
+PROCEDURE Exists* (loc: Files.Locator; IN fileName: ARRAY OF CHAR): BOOLEAN;
 VAR
 	file: Files.File; found: BOOLEAN;
 BEGIN
@@ -119,7 +220,7 @@ VAR
 
 PROCEDURE OfrontCompile* ; (** Call "Bin/compile.bat" script. *)
 VAR
-	t: TextModels.Model; w: Windows.Window; 
+	t: TextModels.Model; w: Windows.Window;
 	loc: Files.Locator; name, dir: Files.Name;
 	spacePos: INTEGER;
 BEGIN
