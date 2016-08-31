@@ -18,7 +18,8 @@
 @SET Include=%Include% -I %ZXDev%\Lib\C -I %ZXDev%\Lib\Obj
 @SET Libraries=%Libraries% -L %ZXDev%\Lib XDev.lib Graph.lib Basic.lib Laser.lib MegaBasic.lib Best40.lib trdos.lib libspr.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib Wham.lib ZX7.lib
 @IF "%Target%"=="" SET Target=tap
-@IF "%Clean%"=="" SET Clean=true
+@IF "%Clean%"=="" SET Clean=TRUE
+@IF "%Start%"=="" SET Start=TRUE
 
 @SET SDCC=%ZXDev%\Bin\sdcc.exe %Options% %Include% %Modules% %Libraries%
 
@@ -39,10 +40,10 @@
 @IF "%Target%"=="rem" %ZXDev%\Bin\bin2data.exe -rem -org %CodeAdr% %MainMod%.bin ..\%MainMod%.tap %MainMod%
 @IF "%Target%"=="tap" %ZXDev%\Bin\bin2tap.exe -c 24999 -a %CodeAdr% -r %CodeAdr% -b -o ..\%MainMod%.tap %MainMod%.bin
 
-@IF NOT "%Clean%"=="true" GOTO Done
+@IF NOT "%Clean%"=="TRUE" GOTO Done
 @DEL *.asm *.bin *.ihx *.lk *.lst *.map *.noi %MainMod%.h %MainMod%.sym %MainMod%.rel
 @IF "%Modules%"=="" DEL %MainMod%.c
 
 :Done
 
-@START ..\%MainMod%.tap
+@IF "%Start%"=="TRUE" START ..\%MainMod%.tap
