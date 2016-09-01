@@ -8,7 +8,7 @@ IMPORT
 	StdLog, Stores, Strings, TextModels, TextViews, Windows;
 
 CONST
-	Config = "Config.odc"; ConfigWoExt = "Config";
+	Config = "Config.pzx"; ConfigWoExt = "Config"; ConfigExt = "pzx";
 
 VAR
 	MainMod*: ARRAY 40 OF CHAR;
@@ -30,7 +30,7 @@ END GetSubsysNameByDir;
 
 PROCEDURE LoadProjectSettings*;
 VAR
-	t: TextModels.Model; w: Windows.Window; dir: Files.Name;
+	t: TextModels.Model; w: Windows.Window; dir: Files.Name; pos: INTEGER;
 BEGIN
 	Cmd.Open;
 	(* Try to find exact file name of current opened document: *)
@@ -38,30 +38,38 @@ BEGIN
 	IF t # NIL THEN
 		w := Windows.dir.Focus(Controllers.targetPath);
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-			Cmd.GetSubsysDirByLocator(w.loc, dir); dir := dir + "Bin";
-			Cmd.MapString(dir, Config, "CodeAdr", CodeAdr);
-			IF CodeAdr = "CodeAdr" THEN CodeAdr := "32832" END;
-			Cmd.MapString(dir, Config, "DataAdr", DataAdr);
-			IF DataAdr = "DataAdr" THEN DataAdr := "50000" END;
-			Cmd.MapString(dir, Config, "Target", Target);
-			IF Target = "Target" THEN Target := "" END;
-			Cmd.MapString(dir, Config, "MainMod", MainMod);
-			IF MainMod = "MainMod" THEN MainMod := "" END;
-			Cmd.MapString(dir, Config, "Modules", Modules);
-			IF Modules = "Modules" THEN Modules := "" END;
-			Cmd.MapString(dir, Config, "Include", Include);
-			IF Include = "Include" THEN Include := "" END;
-			Cmd.MapString(dir, Config, "Libraries", Libraries);
-			IF Libraries = "Libraries" THEN Libraries := "" END;
-			Cmd.MapString(dir, Config, "Options", Options);
-			IF Options = "Options" THEN Options := "" END;
-			Cmd.MapString(dir, Config, "Start", str);
-			IF str = "Start" THEN str := "TRUE" END;
-			Start := str = "TRUE";
-			Cmd.MapString(dir, Config, "Clean", str);
-			IF str = "Clean" THEN str := "TRUE" END;
-			Clean := str = "TRUE";
-			StdCmds.OpenToolDialog("XDev/Rsrc/ZXDev", "ZXDev Project Setup");
+			Cmd.GetSubsysDirByLocator(w.loc, dir);
+			Strings.Find(dir, "/XDev/", 0, pos);
+			IF pos = -1 THEN
+				IF ~ Cmd.Exists(w.loc, Config) THEN dir := dir + "Bin" END;
+				StdLog.String(dir);
+				Cmd.MapStringTxt(dir, Config, "CodeAdr", CodeAdr);
+				StdLog.String(CodeAdr);
+				IF CodeAdr = "" THEN CodeAdr := "32832" END;
+				Cmd.MapStringTxt(dir, Config, "DataAdr", DataAdr);
+				IF DataAdr = "" THEN DataAdr := "50000" END;
+				Cmd.MapStringTxt(dir, Config, "Target", Target); StdLog.String(Target);
+				IF Target = "" THEN Target := "TAP" END;
+				Cmd.MapStringTxt(dir, Config, "MainMod", MainMod);
+				IF MainMod = "" THEN MainMod := "" END;
+				Cmd.MapStringTxt(dir, Config, "Modules", Modules);
+				IF Modules = "" THEN Modules := "" END;
+				Cmd.MapStringTxt(dir, Config, "Include", Include);
+				IF Include = "" THEN Include := "" END;
+				Cmd.MapStringTxt(dir, Config, "Libraries", Libraries);
+				IF Libraries = "" THEN Libraries := "" END;
+				Cmd.MapStringTxt(dir, Config, "Options", Options); StdLog.String(Options);
+				IF Options = "" THEN Options := "" END;
+				Cmd.MapStringTxt(dir, Config, "Start", str);
+				IF str = "" THEN str := "TRUE" END;
+				Start := str = "TRUE";
+				Cmd.MapStringTxt(dir, Config, "Clean", str);
+				IF str = "" THEN str := "TRUE" END;
+				Clean := str = "TRUE";
+				StdCmds.OpenToolDialog("XDev/Rsrc/ZXDev", "ZXDev Project Setup");
+			ELSE
+				Dialog.ShowMsg("You can't generate Config inside a XDev's subsystem");
+			END;
 		ELSE (* Module's file name not found. *)
 			StdLog.String("First, specify a file name of the module, please.");
 			StdLog.Ln;
@@ -75,7 +83,7 @@ END LoadProjectSettings;
 PROCEDURE SaveProjectSettings*;
 VAR
 	t: TextModels.Model; w: Windows.Window; dir: Files.Name; loc: Files.Locator;
-	bat: Files.File; wr: Stores.Writer; odc: Cmd.tOdc; res: INTEGER;
+	file: Files.File; wr: Stores.Writer; res: INTEGER;
 
 	PROCEDURE Emit(IN str: ARRAY OF CHAR);
 	VAR
@@ -92,31 +100,39 @@ BEGIN
 	IF t # NIL THEN
 		w := Windows.dir.Focus(Controllers.targetPath);
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
-			Cmd.GetSubsysDirByLocator(w.loc, dir); dir := dir + "Bin";
+			Cmd.GetSubsysDirByLocator(w.loc, dir);
+			IF Cmd.Exists(w.loc, Config) THEN
+				loc := Files.dir.This(dir);
+			ELSE
+				loc := Files.dir.This(dir + "Bin");
+			END;
 
-			(* Generate "Subsys/?/Config.odc: *)
+			(* Generate "Subsys/?/Config.pzx: *)
 
-			NEW(odc); odc.OpenAt(dir);
-			odc.String("MainMod=" + MainMod$); odc.Ln;
-			odc.String("CodeAdr=" + CodeAdr$); odc.Ln;
-			odc.String("DataAdr=" + DataAdr$); odc.Ln;
-			odc.String("Options=" + Options$); odc.Ln;
-			odc.String("Modules=" + Modules$); odc.Ln;
-			odc.String("Include=" + Include$); odc.Ln;
-			odc.String("Libraries=" + Libraries$); odc.Ln;
-			odc.String("Target=" + Target$); odc.Ln;
-			odc.String("Clean="); odc.Bool(Clean); odc.Ln;
-			odc.String("Start="); odc.Bool(Start); odc.Ln;
-			odc.Save(ConfigWoExt);
+			file := Files.dir.New(loc, Files.dontAsk);
+			ASSERT(file # NIL);
+			wr.ConnectTo(NIL); wr.ConnectTo(file);
+			Emit("MainMod=" + MainMod$);
+			Emit("CodeAdr=" + CodeAdr$);
+			Emit("DataAdr=" + DataAdr$);
+			Emit("Options=" + Options$);
+			Emit("Modules=" + Modules$);
+			Emit("Include=" + Include$);
+			Emit("Libraries=" + Libraries$);
+			Emit("Target=" + Target$);
+			IF Clean THEN Emit("Clean=TRUE") ELSE Emit("Clean=FALSE") END;
+			IF Start THEN Emit("Start=TRUE") ELSE Emit("Start=FALSE") END;
+			file.Register(ConfigWoExt, ConfigExt, Files.dontAsk, res);
+			file.Close;
 
 			(* Generate .bat scripts for building: *)
 
-			loc := Files.dir.This(dir);
+			loc := Files.dir.This(dir + "Bin");
 
 			(* Compile.bat *)
-			bat := Files.dir.New(loc, Files.dontAsk);
-			ASSERT(bat # NIL);
-			wr.ConnectTo(NIL); wr.ConnectTo(bat);
+			file := Files.dir.New(loc, Files.dontAsk);
+			ASSERT(file # NIL);
+			wr.ConnectTo(NIL); wr.ConnectTo(file);
 			Emit('@IF NOT "%XDev%"=="" GOTO XDev');
 			Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
 			Emit("@PAUSE");
@@ -130,13 +146,13 @@ BEGIN
 			IF ~ Clean THEN Emit("@SET Clean=false") END;
 			IF ~ Start THEN Emit("@SET Start=false") END;
 			Emit("%XDev%\ZXDev\Bin\Compile.bat %1");
-			bat.Register("Compile" ,"bat", Files.dontAsk, res);
-			bat.Close;
+			file.Register("Compile" ,"bat", Files.dontAsk, res);
+			file.Close;
 
 			(* Build.bat *)
-			bat := Files.dir.New(loc, Files.dontAsk);
-			ASSERT(bat # NIL);
-			wr.ConnectTo(NIL); wr.ConnectTo(bat);
+			file := Files.dir.New(loc, Files.dontAsk);
+			ASSERT(file # NIL);
+			wr.ConnectTo(NIL); wr.ConnectTo(file);
 			Emit('@IF NOT "%XDev%"=="" GOTO XDev');
 			Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
 			Emit("@PAUSE");
@@ -155,8 +171,33 @@ BEGIN
 			IF ~ Clean THEN Emit("@SET Clean=false") END;
 			IF ~ Start THEN Emit("@SET Start=false") END;
 			Emit("%XDev%\ZXDev\Bin\Build.bat %1");
-			bat.Register("Build" ,"bat", Files.dontAsk, res);
-			bat.Close;
+			file.Register("Build" ,"bat", Files.dontAsk, res);
+			file.Close;
+
+			(* Generate "Subsys/Obj/Ofront.par: *)
+
+			loc := Files.dir.This(dir + "Obj");
+			IF ~ Cmd.Exists(loc, "Ofront.par") THEN
+				file := Files.dir.New(loc, Files.dontAsk);
+				ASSERT(file # NIL);
+				wr.ConnectTo(NIL); wr.ConnectTo(file);
+				Emit("CHAR     1 1");
+				Emit("BOOLEAN  1 1");
+				Emit("SHORTINT 1 1");
+				Emit("INTEGER  2 2");
+				Emit("LONGINT  4 4");
+				Emit("SET      1 1");
+				Emit("REAL     4 4");
+				Emit("LONGREAL 4 4");
+				Emit("PTR      2 2");
+				Emit("PROC     2 2");
+				Emit("RECORD   2 2");
+				Emit("ARRLEN   1");
+				Emit("ENDIAN   0 0");
+				file.Register("Ofront", "par", Files.dontAsk, res);
+				file.Close;
+			END;
+
 			Dialog.ShowMsg("Saved");
 		END;
 	ELSE

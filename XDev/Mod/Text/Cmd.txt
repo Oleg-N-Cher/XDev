@@ -5,7 +5,7 @@ MODULE XDevCmd;
 IMPORT
 	Controllers, Converters, Dialog, Files, HostFiles, i21sysCalls, Kernel,
 	XDevMisc, Ofront := OfrontCmd, OfrontBrowser, OfrontOPM, StdLog,
-	Strings, TextMappers, TextModels, TextViews, Views, Windows;
+	Stores, Strings, TextMappers, TextModels, TextViews, Views, Windows;
 
 CONST
 	BinDir = "Bin";
@@ -82,12 +82,12 @@ BEGIN
 	Strings.RealToString(real, str); odc.String(str);
 END Real;
 
-PROCEDURE MapString* (
+PROCEDURE MapStringOdc* (
 	IN dir, name: Files.Name; IN opt: ARRAY OF CHAR; OUT val: ARRAY OF CHAR);
 VAR
 	s: Dialog.String;
-	loc: Files.Locator;  
-	v: Views.View; t: TextModels.Model; 
+	loc: Files.Locator;
+	v: Views.View; t: TextModels.Model;
 	r: TextModels.Reader;
 	n: INTEGER;
 	ch: CHAR;
@@ -99,7 +99,7 @@ BEGIN
 		t := v.ThisModel()(TextModels.Model);
 		r := t.NewReader(NIL);
 		s := 0X; n := 0;
-		WHILE (~r.eot) DO
+		WHILE ~ r.eot DO
 			r.ReadChar(ch);
 			IF (ch = "=") OR (ch = 9X) THEN
 				s[n] := 0X;
@@ -113,8 +113,40 @@ BEGIN
 				s[n]:= ch; INC(n);
 			END;
 		END;
-	END
-END MapString;
+	END;
+END MapStringOdc;
+
+PROCEDURE MapStringTxt* (
+	IN dir, name: Files.Name; IN opt: ARRAY OF CHAR; OUT val: ARRAY OF CHAR);
+VAR
+	s: Dialog.String;
+	file: Files.File; rd: Stores.Reader;
+	n: INTEGER;
+	ch: SHORTCHAR;
+	found: BOOLEAN;
+BEGIN
+	found := FALSE; val := 0X;
+	file := Files.dir.Old(Files.dir.This(dir), name$, TRUE);
+	IF file # NIL THEN
+		rd.ConnectTo(NIL); rd.ConnectTo(file);
+		s := 0X; n := 0;
+		WHILE ~rd.rider.eof DO
+			rd.ReadSChar(ch);
+			IF (ch = "=") OR (ch = 9X) THEN
+				s[n] := 0X;
+				IF s$ = opt THEN found := TRUE END;
+				s := 0X; n := 0;
+			ELSIF (ch = 0DX) OR (ch = 0AX) THEN
+				s[n] := 0X;
+				IF found THEN val := s$; file.Close; RETURN END;
+				s := 0X; n := 0;
+			ELSE
+				s[n]:= ch; INC(n);
+			END;
+		END;
+		file.Close;
+	END;
+END MapStringTxt;
 
 PROCEDURE Open*;
 BEGIN
