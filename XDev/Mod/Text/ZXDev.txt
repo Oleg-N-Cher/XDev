@@ -53,7 +53,7 @@ BEGIN
 				Cmd.MapStringTxt(dir, Config, "Modules", Modules);
 				IF Modules = "" THEN Modules := "" END;
 				Cmd.MapStringTxt(dir, Config, "Include", Include);
-				IF Include = "" THEN Include := "" END;
+				IF Include = "" THEN Include := "-I ..\Lib\C -I ..\Lib\Obj" END;
 				Cmd.MapStringTxt(dir, Config, "Libraries", Libraries);
 				IF Libraries = "" THEN Libraries := "" END;
 				Cmd.MapStringTxt(dir, Config, "Options", Options);
@@ -145,6 +145,7 @@ BEGIN
 				IF Include # "" THEN Emit("@SET Include=" + Include) END;
 				IF ~ Clean THEN Emit("@SET Clean=false") END;
 				IF ~ Start THEN Emit("@SET Start=false") END;
+				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Compile.bat %1");
 				file.Register("Compile" ,"bat", Files.dontAsk, res);
 				file.Close;
@@ -170,6 +171,7 @@ BEGIN
 				IF Target # "" THEN Emit("@SET Target=" + Target) END;
 				IF ~ Clean THEN Emit("@SET Clean=false") END;
 				IF ~ Start THEN Emit("@SET Start=false") END;
+				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Build.bat %1");
 				file.Register("Build" ,"bat", Files.dontAsk, res);
 				file.Close;
