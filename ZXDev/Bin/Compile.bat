@@ -5,7 +5,7 @@ IF "%XDev%"=="" SET ZXDev=..
 IF "%MainMod%"=="" SET MainMod=%1
 
 SET Options=%Options% -mz80 --no-xinit-opt --opt-code-size --disable-warning 59 --disable-warning 85 --disable-warning 126
-SET Include=%Include% -I %ZXDev%\Lib\C -I %ZXDev%\Lib\Obj
+SET Include=%Include% -I . -I %ZXDev%\Lib\C -I %ZXDev%\Lib\Obj
 IF "%Clean%"=="" SET Clean=TRUE
 
 IF EXIST %1.sym MOVE /Y %1.sym %1.osm
