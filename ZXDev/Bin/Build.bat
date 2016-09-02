@@ -35,7 +35,7 @@ GOTO Link
 
 :Config
 
-%SDCC% %MainMod%.c -I %MainMod%
+%SDCC% %MainMod%.c -I %MainMod% -I %ZXDev%\Lib
 
 :Link
 
