@@ -13,6 +13,6 @@ BEGIN (*$MAIN*)
   c.add;            (*    + *)
   c.End;
   b.PRSTR("1000 + 24 + PI = ");
-  c.PrintFP;
+  c.Print_PopReal();
   b.Quit
 END TestCalc.
