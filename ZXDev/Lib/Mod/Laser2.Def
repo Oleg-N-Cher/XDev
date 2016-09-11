@@ -1,25 +1,34 @@
 MODULE Laser2; (** non-portable *)
 
-(*********************)
-(*   LASER BASIC 2   *)
-(*  by Oleg N. Cher  *)
-(*   zx.oberon2.ru   *)
-(*********************)
+(***********************)
+(*    LASER BASIC 2    *)
+(*   by Oleg N. Cher   *)
+(* zx.oberon2.ru/forum *)
+(***********************)
 
 TYPE
-  ADR   = LONGINT;
-  UBYTE = INTEGER;
+  ADR     = LONGINT;
+  UBYTE   = INTEGER;
+  SPRITES = ARRAY OF CHAR;
 
-PROCEDURE InitSprites   * (adr, size: ADR);          END InitSprites;
-PROCEDURE InitSpritesAr * (sprites: ARRAY OF CHAR); END InitSpritesAr;
-PROCEDURE InitSpritesEx * (adr, size: ADR);          END InitSpritesEx;
+(** New procedures: *)
+PROCEDURE SPRT  * (adr: ADR) (** Init sprites *)  ; END SPRT;
+PROCEDURE SPRTv * (adr: ADR) (** in variable *)   ; END SPRTv;
+PROCEDURE SPRTa * (sprites: SPRITES) (** array *) ; END SPRTa;
+PROCEDURE SCRN  * (adr: ADR) (** Set screen *)    ; END SCRN;
 
-(* Procedures for sprites manipulations *)
-PROCEDURE ATOF * ;                                 END ATOF;
-PROCEDURE ATON * ;                                 END ATON;
-PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE); END PTBL;
-PROCEDURE PTOR * (col, row: SHORTINT; spN: UBYTE); END PTOR;
-PROCEDURE PTND * (col, row: SHORTINT; spN: UBYTE); END PTND;
-PROCEDURE PTXR * (col, row: SHORTINT; spN: UBYTE); END PTXR;
+(** Synonyms for the new procedures: *)
+PROCEDURE InitSprites  * (adr: ADR)               ; END InitSprites;
+PROCEDURE InitSpritesV * (adr: ADR) (** in var *) ; END InitSpritesV;
+PROCEDURE InitSpritesA * (sprites: SPRITES)       ; END InitSpritesA;
+PROCEDURE SetScreen    * (adr: ADR)               ; END SetScreen;
+
+(** Procedures for sprite manipulations: *)
+PROCEDURE ATOF *                                  ; END ATOF;
+PROCEDURE ATON *                                  ; END ATON;
+PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE) ; END PTBL;
+PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
+PROCEDURE PTND * (col, row: SHORTINT; spn: UBYTE) ; END PTND;
+PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 
 END Laser2.
