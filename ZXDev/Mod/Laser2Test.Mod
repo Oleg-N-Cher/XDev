@@ -11,8 +11,8 @@ TYPE
 CONST
   BluePearl = Sprite1X1
     (1X, CHR(8 + 1 + 3), 0X, 1X, 1X,
-     04FX,
-     0E7X, 081X, 0B1X, 020X, 000X, 081X, 081X, 0E7X
+     0E7X, 081X, 0B1X, 020X, 000X, 081X, 081X, 0E7X,
+     04FX
     );
 
 BEGIN (*$MAIN*)
@@ -20,6 +20,7 @@ BEGIN (*$MAIN*)
   L.InitSpritesAr(BluePearl);
 
   B.BORDER(B.Black); B.PAPER(B.Black); B.INK(B.Yellow); B.CLS;
+
   L.PTBL(5, 5, 1); L.PTBL(5, 6, 1); L.PTBL(6, 5, 1);
   L.ATOF;
   L.PTBL(15, 5, 1); L.PTBL(15, 6, 1); L.PTBL(16, 5, 1);
