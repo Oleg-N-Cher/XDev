@@ -15,21 +15,27 @@ extern unsigned int SFSTRT; /* Sprite file start address */
 extern unsigned int SF_END; /* Sprite file end address */
 extern unsigned int SCRL_B; /* Scroll buffer address */
 
-#define Laser_InitSprites(sprStart, sprSize) __asm \
-  ld hl,__id__(__hash__)sprStart + sprSize \
-  ld (__id__(__hash__)_SF_END),hl \
-  ld hl,__id__(__hash__)sprStart \
-  ld (__id__(__hash__)_SFSTRT),hl \
+#define Laser_InitSprites(adr, size) __asm   \
+  ld hl,__id__(__hash__)adr + size           \
+  ld (__id__(__hash__)_SF_END),hl            \
+  ld hl,__id__(__hash__)adr                  \
+  ld (__id__(__hash__)_SFSTRT),hl            \
   __endasm;
-  //SFSTRT = sprStart; SF_END = sprStart + sprSize; _InitSprites()
-#define Laser_InitSpritesEx(sprStart, sprSize) __asm \
-  ld hl,(__id__(__hash__)_##sprStart) \
-  ld (__id__(__hash__)_SFSTRT),hl \
-  push hl \
-  ld de,__id__(__hash__)sprSize \
-  add hl,de \
-  ld (__id__(__hash__)_SF_END),hl \
-  pop hl \
+  //SFSTRT = adr; SF_END = adr + size; _InitSprites()
+#define Laser_InitSpritesEx(adr, size) __asm \
+  ld hl,(__id__(__hash__)_##adr)             \
+  ld (__id__(__hash__)_SFSTRT),hl            \
+  push hl                                    \
+  ld de,__id__(__hash__)size                 \
+  add hl,de                                  \
+  ld (__id__(__hash__)_SF_END),hl            \
+  pop hl                                     \
+  __endasm;
+#define Laser_InitSpritesAr(adr, size) __asm \
+  ld hl,__id__(__hash__)_##adr + size - 1    \
+  ld (__id__(__hash__)_SF_END),hl            \
+  ld hl,__id__(__hash__)_##adr               \
+  ld (__id__(__hash__)_SFSTRT),hl            \
   __endasm;
 
 #define Laser_InitScroll(scrollBuf) __asm \
