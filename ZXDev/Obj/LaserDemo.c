@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -xtspkaem */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Laser.h"
@@ -13,7 +13,7 @@ static SHORTINT LaserDemo_n, LaserDemo_s;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);
