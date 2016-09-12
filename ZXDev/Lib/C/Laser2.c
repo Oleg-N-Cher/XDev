@@ -82,11 +82,11 @@ void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __n
 {
   __asm
                   POP   HL
-                  POP   BC        ; C = col; B = row
+                  POP   BC           ; C = col; B = row
                   DEC   SP
-                  POP   DE        ; D = spn
+                  POP   DE           ; D = spn
                   PUSH  HL
-                  XOR   A         ; "NOP"
+                  LD    HL, #0x7E00  ; "NOP" "LD A,(HL)"
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTBL_INSCR
@@ -96,11 +96,11 @@ void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __n
 {
   __asm
                   POP   HL
-                  POP   BC        ; C = col; B = row
+                  POP   BC           ; C = col; B = row
                   DEC   SP
-                  POP   DE        ; D = spn
+                  POP   DE           ; D = spn
                   PUSH  HL
-                  LD    A, #0xB6  ; "OR (HL)"
+                  LD    HL, #0xB61A  ; "LD A,(DE)" "OR (HL)"
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTOR_INSCR
@@ -110,11 +110,11 @@ void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __n
 {
   __asm
                   POP   HL
-                  POP   BC        ; C = col; B = row
+                  POP   BC           ; C = col; B = row
                   DEC   SP
-                  POP   DE        ; D = spn
+                  POP   DE           ; D = spn
                   PUSH  HL
-                  LD    A, #0xAE  ; "XOR (HL)"
+                  LD    HL, #0xAE1A  ; "LD A,(DE)" "XOR (HL)"
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTXR_INSCR
@@ -124,11 +124,11 @@ void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __n
 {
   __asm
                   POP   HL
-                  POP   BC        ; C = col; B = row
+                  POP   BC           ; C = col; B = row
                   DEC   SP
-                  POP   DE        ; D = spn
+                  POP   DE           ; D = spn
                   PUSH  HL
-                  LD    A, #0xA6  ; "AND (HL)"
+                  LD    HL, #0xA61A  ; "LD A,(DE)" "AND (HL)"
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTND_INSCR
@@ -289,7 +289,7 @@ __asm
 .globl Laser2_SCR_IN
 .globl Laser2_SCRATR_IN
 
-                  LD    (SPRT_MODE_IN$), A ; Set draw mode
+                  LD    (SPRT_MODE_IN$), HL ; Set draw mode
 
 ; Процедура расчёта адреса экрана из координат
 ; Вход:  C = x; B = y
@@ -321,8 +321,9 @@ SPRT_HLINE_IN$:   LD    A, E            ; Begin of loop on charlines
                   LD    (SCR_LOBYTE_IN$+1), A
                   PUSH  BC
                   LD    B, #8           ; Draw 8 bytes (one charline)
-SPRT_CHAR_IN$:    LD    A, (HL)
-SPRT_MODE_IN$:    NOP                   ; NOP | AND (HL) | OR (HL) | XOR (HL)
+SPRT_CHAR_IN$:
+SPRT_MODE_IN$:    LD    A, (HL)         ; "LD A, (HL)" | "LD A, (DE)"
+                  NOP                   ; "NOP"        | "AND (HL)" | "OR (HL)" | "XOR (HL)"
                   LD    (DE), A
                   INC   HL
                   INC   D
