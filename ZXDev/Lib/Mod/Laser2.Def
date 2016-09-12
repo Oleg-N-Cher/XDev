@@ -26,6 +26,7 @@ PROCEDURE SetScreen    * (adr: ADR)               ; END SetScreen;
 (** Procedures for sprite manipulations: *)
 PROCEDURE ATOF *                                  ; END ATOF;
 PROCEDURE ATON *                                  ; END ATON;
+PROCEDURE INVM * (spn: UBYTE)                     ; END INVM;
 PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE) ; END PTBL;
 PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
 PROCEDURE PTND * (col, row: SHORTINT; spn: UBYTE) ; END PTND;
