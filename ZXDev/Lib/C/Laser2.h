@@ -68,7 +68,7 @@ extern unsigned int Laser2_SPRT_ADR;  // Sprite file start address
 #   define Laser2_PTND  Laser2_PTND_INSCR
 #   define Laser2_PTXR  Laser2_PTXR_INSCR
 #endif
-
+void Laser2_INVM (unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
 
 #define Laser2__init()
 

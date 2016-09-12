@@ -10,6 +10,7 @@ extern unsigned int Laser2_SPRT_ADR;  // Sprite file start address
 
 void Laser2_ATOF_INSCR (void);
 void Laser2_ATON_INSCR (void);
+void Laser2_INVM (unsigned char spn) __z88dk_callee;
 void Laser2_SCRN_INSCR (unsigned int adr) __z88dk_callee;
 void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
 void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
@@ -77,7 +78,8 @@ void Laser2_SCRN_INSCR (unsigned int adr) __naked __z88dk_callee
 } //Laser2_SCRN_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee {
+void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
   __asm
                   POP   HL
                   POP   BC        ; C = col; B = row
@@ -90,7 +92,8 @@ void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __n
 } //Laser2_PTBL_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee {
+void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
   __asm
                   POP   HL
                   POP   BC        ; C = col; B = row
@@ -103,7 +106,8 @@ void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __n
 } //Laser2_PTOR_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee {
+void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
   __asm
                   POP   HL
                   POP   BC        ; C = col; B = row
@@ -116,7 +120,8 @@ void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __n
 } //Laser2_PTXR_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee {
+void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
   __asm
                   POP   HL
                   POP   BC        ; C = col; B = row
@@ -128,6 +133,31 @@ void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __n
   __endasm;
 } //Laser2_PTND_INSCR
 
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_FindSprite (void) __naked
+// Input:  D = spn
+// Output: Z = not found | NZ = found
+//         HL = adr
+{
+  __asm
+                  LD    HL, (_Laser2_SPRT_ADR)
+FIND_BY_N_IN$:    LD    A, (HL)         ; N of a sprite
+                  OR    A
+                  RET   Z               ; Return Z
+                  INC   HL
+                  CP    D               ; spn
+                  JR    Z, SPRT_FOUND_IN$
+                  LD    C, (HL)
+                  INC   HL
+                  LD    B, (HL)
+                  ADD   HL, BC          ; + offset to next sprite
+                  JR    FIND_BY_N_IN$
+SPRT_FOUND_IN$:   INC   HL
+                  INC   HL
+                  OR    A               ; Return NZ
+                  RET
+  __endasm;
+} //Laser2_FindSprite
 /*--------------------------------- Cut here ---------------------------------*/
 
 /* Спрайты хранятся в памяти в следующем формате:
@@ -146,20 +176,8 @@ void Laser2_PUT_SPRITE_OUTSCR (void) __naked {
 __asm
              LD    (SPRT_MODE$), A ; Set draw mode
              LD    (SPRT_XY$+1), HL
-             LD    HL, (_Laser2_SPRT_ADR)
-FIND_BY_N$:  LD    A, (HL)         ; N of a sprite
-             OR    A
+             CALL  _Laser2_FindSprite
              RET   Z
-             INC   HL
-             CP    E               ; spn
-             JR    Z, SPRT_FOUND$
-             LD    C, (HL)
-             INC   HL
-             LD    B, (HL)
-             ADD   HL, BC          ; + offset to next sprite
-             JR    FIND_BY_N$
-SPRT_FOUND$: INC   HL
-             INC   HL
 SPRT_XY$:    LD    DE, #0
              LD    A, #32          ; 32
              SUB   D               ; - col
@@ -291,20 +309,8 @@ Laser2_SCR_IN:    OR    #0x40
 
                   LD    (SCR_ADR_IN$+1), HL
 
-                  LD    HL, (_Laser2_SPRT_ADR)
-FIND_BY_N_IN$:    LD    A, (HL)         ; N of a sprite
-                  OR    A
+                  CALL  _Laser2_FindSprite
                   RET   Z
-                  INC   HL
-                  CP    D               ; spn
-                  JR    Z, SPRT_FOUND_IN$
-                  LD    C, (HL)
-                  INC   HL
-                  LD    B, (HL)
-                  ADD   HL, BC          ; + offset to next sprite
-                  JR    FIND_BY_N_IN$
-SPRT_FOUND_IN$:   INC   HL
-                  INC   HL
                   LD    C, (HL)         ; length of sprite
                   INC   HL
                   LD    B, (HL)         ; height of sprite
@@ -365,3 +371,34 @@ SPRT_HGT_DIS_IN$: ADD   #0
                   RET
 __endasm;
 } //Laser2_PUT_SPRITE_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_INVM (unsigned char spn) __naked __z88dk_callee {
+__asm
+                  POP   HL
+                  DEC   SP
+                  POP   DE        ; D = spn
+                  PUSH  HL
+
+                  CALL  _Laser2_FindSprite
+                  RET   Z
+                  LD    A, (HL)         ; length of sprite
+                  ADD   A
+                  ADD   A               ; This code works only for length <= 32
+                  ADD   A
+                  LD    E, A            ; 32*8 MOD 256 = 0
+                  INC   HL
+                  LD    D, (HL)         ; height of sprite
+                  INC   HL
+                  
+NEXT_LINE_IN$:    LD    B, E
+NEXT_BYTE_IN$:    LD    A, (HL)
+                  CPL
+                  LD    (HL), A
+                  INC   HL
+                  DJNZ  NEXT_BYTE_IN$
+                  DEC   D
+                  JR    NZ, NEXT_LINE_IN$
+                  RET
+__endasm;
+} //Laser2_INVM
