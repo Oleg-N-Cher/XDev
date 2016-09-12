@@ -1,4 +1,4 @@
-MODULE LaserDemo; (*$MAIN*)
+MODULE LaserDemo;
 
 (* Laser Basic Demo for Sinclair ZX Spectrum, 48 Kb.  *)
 (* Copyright (C) 2012 Oleg N. Cher, VEDANTA software. *)
@@ -25,7 +25,7 @@ CONST
 VAR
   chudik: INTEGER; n, s: SHORTINT;
 
-BEGIN (*MAIN*)
+BEGIN (*$MAIN*)
   B.Init;
   B.DEFDATA(chudik, 4(*phases*) * ChudikSizeBytes + 1 (*null*) );
   B.DATA5(7, ChudikSizeBytes-2, 0, 5, 4); (* No, Offset, Width, Length *)
