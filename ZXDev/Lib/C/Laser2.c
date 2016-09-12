@@ -6,7 +6,7 @@
 
 extern unsigned int Laser2_SPRT_ADR;  // Sprite file start address
 
-// Functions for screen windows processing
+// Procedures for sprite manipulations:
 
 void Laser2_ATOF_INSCR (void);
 void Laser2_ATON_INSCR (void);
@@ -21,6 +21,12 @@ void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn);
 void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn);
 void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn);
 void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn);
+
+// Procedures for screen windows processing:
+
+void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+
 
 /* Спрайты хранятся в памяти в следующем формате:
 Байт 1 - номер спрайта.
@@ -86,7 +92,7 @@ void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __n
                   DEC   SP
                   POP   DE           ; D = spn
                   PUSH  HL
-                  LD    HL, #0x7E00  ; "NOP" "LD A,(HL)"
+                  LD    HL, #0x007E  ; "LD A,(HL)" "NOP"
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTBL_INSCR
@@ -134,7 +140,30 @@ void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __n
 } //Laser2_PTND_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_FindSprite (void) __naked
+void Laser2_XYtoADR (void) {
+// Процедура расчёта адреса экрана из координат
+//  Вход: C = x; B = y
+// Выход: HL = адрес видеопамяти
+  __asm
+  
+.globl Laser2_SCR_IN
+
+                  LD    A, B
+                  AND   #7
+                  RRCA
+                  RRCA
+                  RRCA
+                  OR    C
+                  LD    L, A
+                  LD    A, B
+                  AND   #24
+Laser2_SCR_IN:    OR    #0x40
+                  LD    H, A            ; 14 байт, 53 такта
+  __endasm;
+} //Laser2_XYtoADR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_FindSprite (void)
 // Input:  D = spn
 // Output: Z = not found | NZ = found
 //         HL = adr
@@ -155,7 +184,6 @@ FIND_BY_N_IN$:    LD    A, (HL)         ; N of a sprite
 SPRT_FOUND_IN$:   INC   HL
                   INC   HL
                   OR    A               ; Return NZ
-                  RET
   __endasm;
 } //Laser2_FindSprite
 /*--------------------------------- Cut here ---------------------------------*/
@@ -286,27 +314,10 @@ void Laser2_PUT_SPRITE_INSCR (void) __naked {
 //  A: mode; C: col; B: row; D: spn
 __asm
 .globl Laser2_ATOF_IN
-.globl Laser2_SCR_IN
 .globl Laser2_SCRATR_IN
-
                   LD    (SPRT_MODE_IN$), HL ; Set draw mode
 
-; Процедура расчёта адреса экрана из координат
-; Вход:  C = x; B = y
-; Выход: HL = адрес видеопамяти
-
-                  LD    A, B
-                  AND   #7
-                  RRCA
-                  RRCA
-                  RRCA
-                  OR    C
-                  LD    L, A
-                  LD    A, B
-                  AND   #24
-Laser2_SCR_IN:    OR    #0x40
-                  LD    H, A            ; 14 байт, 53 такта
-
+                  CALL  _Laser2_XYtoADR
                   LD    (SCR_ADR_IN$+1), HL
 
                   CALL  _Laser2_FindSprite
@@ -316,7 +327,7 @@ Laser2_SCR_IN:    OR    #0x40
                   LD    B, (HL)         ; height of sprite
                   LD    (SPRT_HGT_LEN_IN$+1), BC
                   INC   HL
-SCR_ADR_IN$:      LD    DE, #0          ; adr of sprite (up left corner)
+SCR_ADR_IN$:      LD    DE, #0          ; adr at screen (up left corner)
 SPRT_HLINE_IN$:   LD    A, E            ; Begin of loop on charlines
                   LD    (SCR_LOBYTE_IN$+1), A
                   PUSH  BC
@@ -403,3 +414,245 @@ NEXT_BYTE_IN$:    LD    A, (HL)
                   RET
 __endasm;
 } //Laser2_INVM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoADR
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+
+CLSV_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    E, L
+                  LD    D, H
+                  XOR   A
+CLSV_PUT_ZERO0$:  LD    B, #8
+CLSV_PUT_ZERO$:   LD    (HL), A
+                  INC   H
+                  DJNZ  CLSV_PUT_ZERO$
+                  LD    H, D            ; Restore H
+                  INC   L               ; Next screen line
+                  DEC   C
+                  JR    NZ, CLSV_PUT_ZERO0$
+                  LD    A, E            ; Restore L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    NC, CONTIN_1_3_CLSV$
+                  LD    A, H            ; Next third of screen
+                  ADD   #8
+                  LD    H, A            ; DE := DE + 0x0800
+CONTIN_1_3_CLSV$: POP   BC
+                  DJNZ  CLSV_HLINE$     ; End of loop on charlines (the same third)
+                  RET
+  __endasm;
+} //Laser2_CLSV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoADR
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+
+INVV_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    E, L
+                  LD    D, H
+INVV_INV_BYTE0$:  LD    B, #8
+INVV_INV_BYTE$:   LD    A, (HL)
+                  CPL
+                  LD    (HL), A
+                  INC   H
+                  DJNZ  INVV_INV_BYTE$
+                  LD    H, D            ; Restore H
+                  INC   L               ; Next screen line
+                  DEC   C
+                  JR    NZ, INVV_INV_BYTE0$
+                  LD    A, E            ; Restore L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    NC, CONTIN_1_3_INVV$
+                  LD    A, H            ; Next third of screen
+                  ADD   #8
+                  LD    H, A            ; DE := DE + 0x0800
+CONTIN_1_3_INVV$: POP   BC
+                  DJNZ  INVV_HLINE$     ; End of loop on charlines (the same third)
+                  RET
+  __endasm;
+} //Laser2_INVV
+
+/*--------------------------------- Cut here ---------------------------------*/
+/*
+SETV   LD    DE,#5800    ;адрес начала области атрибутов экрана
+       LD    BC,(LEN)    ;C = LEN, B = HGT
+       LD    A,(ROW)
+       LD    L,A         ;расчет адреса левого верхнего угла окна
+       LD    H,0         ; в области атрибутов экрана
+       ADD   HL,HL       ;умножаем на 32 (2 в 5-ой степени)
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,DE       ;полученное смещение складываем
+                         ; с началом области атрибутов
+       LD    A,(COL)     ;добавляем горизонтальное смещение окна
+       ADD   A,L
+       LD    L,A
+       LD    A,(ATTR)    ;в аккумуляторе байт атрибутов
+SETV1  PUSH  BC
+       PUSH  HL
+SETV2  LD    (HL),A      ;помещаем в видеобуфер
+       INC   HL
+       DEC   C           ;до правого края окна
+       JR    NZ,SETV2
+       POP   HL
+       POP   BC
+       LD    DE,32       ;переходим к следующей строке
+       ADD   HL,DE       ; (длина строки 32 знакоместа)
+       DJNZ  SETV1       ;повторяем, пока не дойдем до нижнего
+                         ; края окна
+       RET
+*/
+/*--------------------------------- Cut here ---------------------------------*/
+/*
+MIRV   LD    BC,(LEN)
+       LD    A,(ROW)
+MIRV1  PUSH  AF
+       PUSH  BC
+       CALL  3742        ;в HL - адрес экрана
+       LD    A,(COL)
+       OR    L
+       LD    L,A         ;начальный адрес левого края окна
+; В DE получаем соответствующий адрес противоположного края окна
+       LD    D,H
+       LD    A,C
+       ADD   A,L
+       DEC   A
+       LD    E,A
+       LD    B,8         ;8 рядов пикселей
+MIRV2  PUSH  DE
+       PUSH  HL
+       PUSH  BC
+       SRL   C           ;делим ширину окна на 2
+       JR    NC,MIRV3    ;продолжаем, если разделилось без остатка
+       INC   C           ;иначе увеличиваем счетчик на 1
+MIRV3  LD    A,(HL)      ;получаем байт с левой стороны
+       CALL  MIRV0       ;зеркально отображаем его
+       PUSH  BC          ;запоминаем его
+       LD    A,(DE)      ;берем байт с правой стороны
+       CALL  MIRV0       ;отображаем
+       POP   AF          ;восстанавливаем предыдущий байт
+                         ; в аккумуляторе
+       LD    (HL),B      ;записываем «правый» байт
+                         ; на левую сторону окна
+       LD    (DE),A      ; и наоборот
+       INC   HL          ;приближаемся с двух сторон
+       DEC   DE          ; к середине окна
+       DEC   C
+       JR    NZ,MIRV3    ;повторяем, если еще не дошли до середины
+       POP   BC
+       POP   HL
+       POP   DE
+       INC   H           ;переходим к следующему ряду пикселей
+       INC   D
+       DJNZ  MIRV2
+       POP   BC
+       POP   AF
+       INC   A           ;переходим к следующей строке экрана
+       DJNZ  MIRV1
+       RET
+; Подпрограмма зеркального отображения байта в аккумуляторе
+MIRV0  RLA
+       RR    B           ;отображенный байт получится в B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RLA
+       RR    B
+       RET
+*/
+/*--------------------------------- Cut here ---------------------------------*/
+/*
+MARV   LD    BC,(LEN)
+       LD    A,(ROW)
+       LD    L,A
+       LD    H,0
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,HL
+       ADD   HL,HL
+       LD    DE,#5800
+       ADD   HL,DE
+       LD    A,(COL)
+       ADD   A,L
+       LD    L,A
+       LD    D,H
+       LD    A,C
+       ADD   A,L
+       DEC   A
+       LD    E,A
+MARV1  PUSH  BC
+       PUSH  DE
+       PUSH  HL
+       SRL   C
+       JR    NC,MARV2
+       INC   C
+MARV2  LD    A,(HL)
+       EX    AF,AF'
+       LD    A,(DE)
+       LD    (HL),A
+       EX    AF,AF'
+       LD    (DE),A
+       INC   HL
+       DEC   DE
+       DEC   C
+       JR    NZ,MARV2
+       POP   DE
+       POP   HL
+       LD    BC,32
+       ADD   HL,BC
+       EX    DE,HL
+       ADD   HL,BC
+       POP   BC
+       DJNZ  MARV1
+       RET
+*/
+/*--------------------------------- Cut here ---------------------------------*/
+/*
+Для определенности будем скроллировать 21-ю строку экрана:
+       ORG   60000
+       LD    A,21        ;21-я строка экрана
+SCRLIN CALL  3742        ;получаем ее адрес в HL
+; Так как строка должна бежать слева направо, то раньше нужно сдвигать
+;  последние байты, поэтому определяем адрес конца строки
+       LD    A,L
+       OR    31
+       LD    L,A
+       LD    C,8         ;высота строки 8 пикселей
+SCRL1  LD    B,32        ;длина строки 32 байта
+       AND   A           ;очистка флага CY
+       PUSH  HL          ;сохраняем адрес
+SCRL2  RL    (HL)        ;последовательно сдвигаем все байты
+       DEC   HL
+       DJNZ  SCRL2
+       POP   HL          ;восстанавливаем адрес
+       INC   H           ;переходим к следующему ряду пикселей
+       DEC   C           ;повторяем
+       JR    NZ,SCRL1
+       RET
+*/

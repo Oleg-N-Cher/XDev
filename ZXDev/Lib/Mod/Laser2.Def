@@ -32,4 +32,8 @@ PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
 PROCEDURE PTND * (col, row: SHORTINT; spn: UBYTE) ; END PTND;
 PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 
+(** Procedures for screen windows processing: *)
+PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
+PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
+
 END Laser2.
