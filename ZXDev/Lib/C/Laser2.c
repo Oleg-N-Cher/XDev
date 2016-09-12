@@ -349,7 +349,7 @@ Laser2_SCRATR_IN: OR    #0x58
 
 SPRT_HGT_LEN_IN$: LD    BC, #0
                   LD    A, #32
-                  SUB   A, B              ; 32 - len
+                  SUB   A, C              ; 32 - len
                   LD    (SPRT_HGT_DIS_IN$+1), A
 DRAW_ATRLINE_IN$: PUSH  BC                ; Begin of loop on charlines
                   LD    B, #0
