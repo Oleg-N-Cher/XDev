@@ -35,5 +35,6 @@ PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 (** Procedures for screen windows processing: *)
 PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
 PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
+PROCEDURE SETV * (col, row, len, hgt: UBYTE)      ; END SETV;
 
 END Laser2.
