@@ -1,35 +1,45 @@
-/***********************/
-/*    LASER BASIC 2    */
-/*   by Oleg N. Cher   */
-/* zx.oberon2.ru/forum */
-/***********************/
+/**************************/
+/* LASER 2 Graphic Engine */
+/*    by Oleg N. Cher     */
+/*  zx.oberon2.ru/forum   */
+/**************************/
 
 extern unsigned int Laser2_SPRT_ADR;  // Sprite file start address
 
 // Procedures for sprite manipulations:
 
-void Laser2_ATOF_INSCR (void);
-void Laser2_ATON_INSCR (void);
-void Laser2_INVM (unsigned char spn) __z88dk_fastcall;
-void Laser2_SCRN_INSCR (unsigned int adr) __z88dk_callee;
-void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
-void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
-void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
-void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
-
-void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn);
-void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn);
-void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn);
-void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn);
+void Laser2_ATOF_INSCR  (void);
+void Laser2_ATOF_OUTSCR (void);
+void Laser2_ATON_INSCR  (void);
+void Laser2_ATON_OUTSCR (void);
+void Laser2_INVM        (unsigned char spn)      __z88dk_fastcall;
+void Laser2_SCRN_INSCR  (unsigned char hbyteadr) __z88dk_fastcall;
+void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall;
+void Laser2_PTBL_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTND_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTNV_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTOR_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTXR_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
 
 // Procedures for screen windows processing:
 
+void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
-
+void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 
 /* Спрайты хранятся в памяти в следующем формате:
+
 Байт 1 - номер спрайта.
 Байт 2 - младший байт размера спрайта (9*HGT*LEN+3).
 Байт 3 - старший байт размера спрайта.
@@ -39,8 +49,6 @@ void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsig
 пикселей.
 HGT*LEN - атрибуты.
   ИТОГО: 9*HGT*LEN+5 байтов.
-*/
-/* This is C realization of Set sprite relocs ===
 
 static typedef struct Sprite {
   BYTE sprN;
@@ -72,15 +80,14 @@ void Laser2_ATON_INSCR (void)
 } //Laser2_ATON_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_SCRN_INSCR (unsigned int adr) __naked __z88dk_callee
+void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall
 {
   __asm
-                  POP   HL
-                  POP   AF
+                  LD    A, L
                   LD    (Laser2_SCR_IN+1), A
                   ADD   #0x18
                   LD    (Laser2_SCRATR_IN+1), A
-                  JP    (HL)
+                  LD    (Laser2_SCRATR+1), A
   __endasm;
 } //Laser2_SCRN_INSCR
 
@@ -97,6 +104,34 @@ void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __n
                   JP    _Laser2_PUT_SPRITE_INSCR
   __endasm;
 } //Laser2_PTBL_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xA61A  ; "LD A,(DE)" "AND (HL)"
+                  JP    _Laser2_PUT_SPRITE_INSCR
+  __endasm;
+} //Laser2_PTND_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_PTNV_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0x2F7E  ; "LD A,(HL)" "CPL"
+                  JP    _Laser2_PUT_SPRITE_INSCR
+  __endasm;
+} //Laser2_PTNV_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
@@ -127,21 +162,7 @@ void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __n
 } //Laser2_PTXR_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
-{
-  __asm
-                  POP   HL
-                  POP   BC           ; C = col; B = row
-                  DEC   SP
-                  POP   DE           ; D = spn
-                  PUSH  HL
-                  LD    HL, #0xA61A  ; "LD A,(DE)" "AND (HL)"
-                  JP    _Laser2_PUT_SPRITE_INSCR
-  __endasm;
-} //Laser2_PTND_INSCR
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Laser2_XYtoADR (void) {
+void Laser2_XYtoScr (void) {
 // Процедура расчёта адреса экрана из координат
 //  Вход: C = x; B = y
 // Выход: HL = адрес видеопамяти
@@ -161,7 +182,36 @@ void Laser2_XYtoADR (void) {
 Laser2_SCR_IN:    OR    #0x40
                   LD    H, A            ; 14 байт, 53 такта
   __endasm;
-} //Laser2_XYtoADR
+} //Laser2_XYtoScr
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_XYtoScrAtr (void) {
+// Процедура вычисления адреса на экране по координатам
+//  Вход: L=x, H=y
+// Выход: HL = адрес памяти атрибутов
+  __asm
+  
+.globl Laser2_SCRATR
+
+                  ; HL = y
+                  LD    A, L
+                  LD    L, H
+                  LD    H, #0
+                  ; HL = y*32
+                  ADD   HL, HL
+                  ADD   HL, HL
+                  ADD   HL, HL
+                  ADD   HL, HL
+                  ADD   HL, HL
+                  ; HL = y*32 + x
+                  ADD   A, L
+                  LD    L, A
+                  ;
+                  LD    A, H     ; 4t
+Laser2_SCRATR:    ADD   #0x58    ; 7t
+                  LD    H, A     ; 4t
+  __endasm;
+} //Laser2_XYtoScrAtr
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_FindSprite (void)
@@ -187,20 +237,9 @@ SPRT_FOUND_IN$:   INC   HL
                   OR    A               ; Return NZ
   __endasm;
 } //Laser2_FindSprite
+
 /*--------------------------------- Cut here ---------------------------------*/
-
-/* Спрайты хранятся в памяти в следующем формате:
-Байт 1 - номер спрайта.
-Байт 2 - младший байт размера спрайта (9*HGT*LEN+3).
-Байт 3 - старший байт размера спрайта.
-Байт 4 - ширина спрайта в знакоместах.
-Байт 5 - высота спрайта в знакоместах.
-8*HGT*LEN - данные о состоянии пикселей.
-HGT*LEN - атрибуты.
-  ИТОГО: 9*HGT*LEN+5 байтов.
-*/
-
-void Laser2_PUT_SPRITE_OUTSCR (void) __naked {
+void Laser2_PUT_SPRITE_OUTSCR (void) {
 //  A: mode; C: col; D: row; E: spn
 __asm
              LD    (SPRT_MODE$), A ; Set draw mode
@@ -243,18 +282,6 @@ Laser2_ATON$:
              LD    A, L            ;  4
              OR    E               ;  4
              LD    L, A            ;  4
-/*
-;Второй вариант (H = X; L = Y; 10B; 74T):
-             LD    A, H            ;  4
-             ADD   HL, HL          ; 11
-             ADD   HL, HL          ; 11
-             ADD   HL, HL          ; 11
-             LD    H, #0x16        ;  7
-             ADD   HL, HL          ; 11
-             ADD   HL, HL          ; 11
-             ADD   A, L            ;  4
-             LD    L, A            ;  4
-*/
 ;На выходе обеих процедур в HL - адрес файла атрибутов.
 
 OUT_ATR_HLINE$:
@@ -306,19 +333,19 @@ SPRT_MODE$:  NOP                   ; NOP | AND (HL) | OR (HL) | XOR (HL)
              LD    H, A            ; HL = HL + 0x0800
 CONTIN_1_3$: POP   BC
              DJNZ  SPRT_HLINE$     ; End of loop on charlines (the same third)
-             RET
 __endasm;
 } //Laser2_PUT_SPRITE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_PUT_SPRITE_INSCR (void) __naked {
+void Laser2_PUT_SPRITE_INSCR (void) {
 //  A: mode; C: col; B: row; D: spn
 __asm
 .globl Laser2_ATOF_IN
 .globl Laser2_SCRATR_IN
+
                   LD    (SPRT_MODE_IN$), HL ; Set draw mode
 
-                  CALL  _Laser2_XYtoADR
+                  CALL  _Laser2_XYtoScr
                   LD    (SCR_ADR_IN$+1), HL
 
                   CALL  _Laser2_FindSprite
@@ -334,8 +361,8 @@ SPRT_HLINE_IN$:   LD    A, E            ; Begin of loop on charlines
                   PUSH  BC
                   LD    B, #8           ; Draw 8 bytes (one charline)
 SPRT_CHAR_IN$:
-SPRT_MODE_IN$:    LD    A, (HL)         ; "LD A, (HL)" | "LD A, (DE)"
-                  NOP                   ; "NOP"        | "AND (HL)" | "OR (HL)" | "XOR (HL)"
+SPRT_MODE_IN$:    LD    A, (HL)         ; "LD A, (HL) " | "LD A, (DE)"
+                  NOP                   ; "NOP" | "CPL" | "AND (HL)" | "OR (HL)" | "XOR (HL)"
                   LD    (DE), A
                   INC   HL
                   INC   D
@@ -381,46 +408,16 @@ SPRT_HGT_DIS_IN$: ADD   #0
                   LD    D, A
                   POP   BC
                   DJNZ  DRAW_ATRLINE_IN$
-                  RET
 __endasm;
 } //Laser2_PUT_SPRITE_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_INVM (unsigned char spn) __naked __z88dk_fastcall
-{
-  __asm
-                  LD    D, L      ; D = spn
-
-                  CALL  _Laser2_FindSprite
-                  RET   Z
-                  LD    A, (HL)         ; length of sprite
-                  ADD   A
-                  ADD   A               ; This code works only for length <= 32
-                  ADD   A
-                  LD    E, A            ; 32*8 MOD 256 = 0
-                  INC   HL
-                  LD    D, (HL)         ; height of sprite
-                  INC   HL
-                  
-NEXT_LINE_IN$:    LD    B, E
-NEXT_BYTE_IN$:    LD    A, (HL)
-                  CPL
-                  LD    (HL), A
-                  INC   HL
-                  DJNZ  NEXT_BYTE_IN$
-                  DEC   D
-                  JR    NZ, NEXT_LINE_IN$
-                  RET
-__endasm;
-} //Laser2_INVM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
 {
   __asm
                   POP   DE
                   POP   BC              ; C = col; B = row
-                  CALL  _Laser2_XYtoADR
+                  CALL  _Laser2_XYtoScr
                   POP   BC              ; C = len; B = hgt
                   PUSH  DE
 
@@ -445,17 +442,44 @@ CLSV_PUT_ZERO$:   LD    (DE), A
                   LD    D, A            ; DE := DE + 0x0800
 CONTIN_1_3_CLSV$: POP   BC
                   DJNZ  CLSV_HLINE$     ; End of loop on charlines (the same third)
-                  RET
   __endasm;
 } //Laser2_CLSV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+void Laser2_INVM (unsigned char spn) __z88dk_fastcall
+{
+  __asm
+                  LD    D, L      ; D = spn
+
+                  CALL  _Laser2_FindSprite
+                  RET   Z
+                  LD    A, (HL)         ; length of sprite
+                  ADD   A
+                  ADD   A               ; This code works only for length <= 32
+                  ADD   A
+                  LD    E, A            ; 32*8 MOD 256 = 0
+                  INC   HL
+                  LD    D, (HL)         ; height of sprite
+                  INC   HL
+
+INVM_NEXT_LINE$:  LD    B, E
+INVM_NEXT_BYTE$:  LD    A, (HL)
+                  CPL
+                  LD    (HL), A
+                  INC   HL
+                  DJNZ  INVM_NEXT_BYTE$
+                  DEC   D
+                  JR    NZ, INVM_NEXT_LINE$
+__endasm;
+} //Laser2_INVM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
 {
   __asm
                   POP   DE
                   POP   BC              ; C = col; B = row
-                  CALL  _Laser2_XYtoADR
+                  CALL  _Laser2_XYtoScr
                   POP   BC              ; C = len; B = hgt
                   PUSH  DE
 
@@ -475,18 +499,17 @@ INVV_INV_BYTE$:   LD    A, (DE)
                   LD    A, L            ; Restore E
                   ADD   #0x20           ; Next charline
                   LD    E, A            ; If carry then jump to next third of screen
-                  JR    NC, CONTIN_1_3_INVV$
+                  JR    NC, INVV_CONTIN_1_3$
                   LD    A, D            ; Next third of screen
                   ADD   #8
                   LD    D, A            ; DE := DE + 0x0800
-CONTIN_1_3_INVV$: POP   BC
+INVV_CONTIN_1_3$: POP   BC
                   DJNZ  INVV_HLINE$     ; End of loop on charlines (the same third)
-                  RET
   __endasm;
 } //Laser2_INVV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
 {
   __asm
                   POP   DE
@@ -494,31 +517,7 @@ void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsig
                   POP   BC              ; C = len; B = hgt
                   PUSH  DE
                   
-                  ;-------------------------------------------------
-                  ; Процедура вычисления адреса на экране по координатам
-                  ; Вход:
-                  ;    L=x, H=y
-                  ; Выход:
-                  ;    HL = адрес памяти атрибутов
-                  ;
-
-                  ; HL = y
-                  LD    A, L
-                  LD    L, H
-                  LD    H, #0
-                  ; HL = y*32
-                  ADD   HL, HL
-                  ADD   HL, HL
-                  ADD   HL, HL
-                  ADD   HL, HL
-                  ADD   HL, HL
-                  ; HL = y*32 + x
-                  ADD   A, L
-                  LD    L, A
-                  ;
-                  LD    A, H     ; 4t
-Laser2_SCRATR:    ADD   #0x58    ; 7t
-                  LD    H, A     ; 4t
+                  CALL  _Laser2_XYtoScrAtr
 
                   LD    A, #32
                   SUB   A, C
@@ -526,17 +525,274 @@ Laser2_SCRATR:    ADD   #0x58    ; 7t
                   LD    D, #0           ; DE := 32 - len
 
                   LD    A, (0x5C8D)     ; (ATTR_P)
-SetAtrRect_SETV$: PUSH  BC
-SetAtrLine_SETV$: LD    (HL), A
+SETV_SetAtrRect$: PUSH  BC
+SETV_SetAtrLine$: LD    (HL), A
                   INC   HL
                   DEC   C
-                  JR    NZ, SetAtrLine_SETV$
+                  JR    NZ, SETV_SetAtrLine$
                   POP   BC
                   ADD   HL, DE          ; Jump to next attribute line
-                  DJNZ  SetAtrRect_SETV$
-                  RET
+                  DJNZ  SETV_SetAtrRect$
   __endasm;
 } //Laser2_SETV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  RET   Z               ; IF len = 1 THEN RETURN
+                  CALL  _Laser2_XYtoScrAtr
+
+                  LD    A, #32
+                  SUB   C
+                  LD    (AWLV_LEN_DIS$+1), A
+
+AWLV_ROLL_ATRLN$: PUSH  BC              ; Begin of loop on charlines
+                  LD    E, L
+                  LD    D, H
+                  INC   L
+                  LD    B, #0
+                  LD    A, (DE)
+                  LDIR
+                  LD    (DE), A
+                  LD    A, E
+AWLV_LEN_DIS$:    ADD   #0
+                  LD    L, A
+                  LD    A, D
+                  ADC   B
+                  LD    H, A
+                  POP   BC
+                  DJNZ  AWLV_ROLL_ATRLN$
+  __endasm;
+} //Laser2_AWLV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  RET   Z               ; IF len = 1 THEN RETURN
+
+                  CALL  _Laser2_XYtoScrAtr
+                  LD    A, L
+                  ADD   C               ; adr := adr + len
+                  LD    L, A
+                  
+                  LD    A, #32
+                  ADD   C
+                  LD    (AWRV_LEN_DIS$+1), A
+
+AWRV_ROLL_ATRLN$: PUSH  BC              ; Begin of loop on charlines
+                  LD    E, L
+                  LD    D, H
+                  DEC   L
+                  LD    B, #0
+                  LD    A, (DE)
+                  LDDR
+                  LD    (DE), A
+                  LD    A, E
+AWRV_LEN_DIS$:    ADD   #0
+                  LD    L, A
+                  LD    A, D
+                  ADC   B
+                  LD    H, A
+                  POP   BC
+                  DJNZ  AWRV_ROLL_ATRLN$
+  __endasm;
+} //Laser2_AWRV
+
+/*--------------------------------- Cut here ---------------------------------*/
+
+void Laser2_SX8V (void) // C = 0; B = hgt; HL = screen adr
+{
+  __asm
+                  LD    D, #8           ; Begin of loop on charlines
+SX8V_CHAR$:       LD    (HL), C         ; [HL] := 0
+                  INC   H
+                  DEC   D
+                  JR    NZ, SX8V_CHAR$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, SX8V_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+SX8V_CONT_1_3$:   DJNZ  SX8V_CHAR$
+  __endasm;
+} //Laser2_SX8V
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoScr
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  JP    Z, _Laser2_SX8V ; IF len = 1 THEN Clear rect of len = 1
+
+SL8V_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    B, #8
+                  XOR   A
+SL8V_LINE8$:      LD    (SL8V_SCRADR$+1), HL
+                  LD    E, L
+                  LD    D, H
+                  INC   L
+                  PUSH  BC
+                  LD    B, A
+                  LDIR
+                  LD    (DE), A
+SL8V_SCRADR$:     LD    HL, #0
+                  INC   H
+                  POP   BC
+                  DJNZ  SL8V_LINE8$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, SL8V_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+SL8V_CONT_1_3$:   POP   BC
+                  DJNZ  SL8V_HLINE$     ; End of loop on charlines (the same third)
+  __endasm;
+} //Laser2_SL8V
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoScr
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  JP    Z, _Laser2_SX8V ; IF len = 1 THEN Clear rect of len = 1
+                  LD    A, L
+                  ADD   C
+                  LD    L, A
+
+SR8V_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    B, #8
+                  XOR   A
+SR8V_LINE8$:      LD    (SR8V_SCRADR$+1), HL
+                  LD    E, L
+                  LD    D, H
+                  DEC   L
+                  PUSH  BC
+                  LD    B, A
+                  LDDR
+                  LD    (DE), A
+SR8V_SCRADR$:     LD    HL, #0
+                  INC   H
+                  POP   BC
+                  DJNZ  SR8V_LINE8$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, SR8V_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+SR8V_CONT_1_3$:   POP   BC
+                  DJNZ  SR8V_HLINE$     ; End of loop on charlines (the same third)
+  __endasm;
+} //Laser2_SR8V
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoScr
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  RET   Z               ; IF len = 1 THEN RETURN
+
+WL8V_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    B, #8
+WL8V_LINE8$:      LD    (WL8V_SCRADR$+1), HL
+                  LD    E, L
+                  LD    D, H
+                  INC   L
+                  PUSH  BC
+                  LD    B, #0
+                  LD    A, (DE)
+                  LDIR
+                  LD    (DE), A
+WL8V_SCRADR$:     LD    HL, #0
+                  INC   H
+                  POP   BC
+                  DJNZ  WL8V_LINE8$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, WL8V_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+WL8V_CONT_1_3$:   POP   BC
+                  DJNZ  WL8V_HLINE$     ; End of loop on charlines (the same third)
+  __endasm;
+} //Laser2_WL8V
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  _Laser2_XYtoScr
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   C
+                  RET   Z               ; IF len = 1 THEN RETURN
+                  LD    A, L
+                  ADD   C
+                  LD    L, A
+
+WR8V_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    B, #8
+WR8V_LINE8$:      LD    (WR8V_SCRADR$+1), HL
+                  LD    E, L
+                  LD    D, H
+                  DEC   L
+                  PUSH  BC
+                  LD    B, #0
+                  LD    A, (DE)
+                  LDDR
+                  LD    (DE), A
+WR8V_SCRADR$:     LD    HL, #0
+                  INC   H
+                  POP   BC
+                  DJNZ  WR8V_LINE8$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, WR8V_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+WR8V_CONT_1_3$:   POP   BC
+                  DJNZ  WR8V_HLINE$     ; End of loop on charlines (the same third)
+  __endasm;
+} //Laser2_WR8V
+
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 MIRV   LD    BC,(LEN)

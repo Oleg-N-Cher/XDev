@@ -1,10 +1,10 @@
 MODULE Laser2; (** non-portable *)
 
-(***********************)
-(*    LASER BASIC 2    *)
-(*   by Oleg N. Cher   *)
-(* zx.oberon2.ru/forum *)
-(***********************)
+(**************************)
+(* LASER 2 Graphic Engine *)
+(*    by Oleg N. Cher     *)
+(*  zx.oberon2.ru/forum   *)
+(**************************)
 
 TYPE
   ADR     = LONGINT;
@@ -28,13 +28,20 @@ PROCEDURE ATOF *                                  ; END ATOF;
 PROCEDURE ATON *                                  ; END ATON;
 PROCEDURE INVM * (spn: UBYTE)                     ; END INVM;
 PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE) ; END PTBL;
-PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
 PROCEDURE PTND * (col, row: SHORTINT; spn: UBYTE) ; END PTND;
+PROCEDURE PTNV * (col, row: SHORTINT; spn: UBYTE) ; END PTNV;
+PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
 PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 
 (** Procedures for screen windows processing: *)
+PROCEDURE AWLV * (col, row, len, hgt: UBYTE)      ; END AWLV;
+PROCEDURE AWRV * (col, row, len, hgt: UBYTE)      ; END AWRV;
 PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
 PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
 PROCEDURE SETV * (col, row, len, hgt: UBYTE)      ; END SETV;
+PROCEDURE SL8V * (col, row, len, hgt: UBYTE)      ; END SL8V;
+PROCEDURE SR8V * (col, row, len, hgt: UBYTE)      ; END SR8V;
+PROCEDURE WL8V * (col, row, len, hgt: UBYTE)      ; END WL8V;
+PROCEDURE WR8V * (col, row, len, hgt: UBYTE)      ; END WR8V;
 
 END Laser2.
