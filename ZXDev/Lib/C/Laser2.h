@@ -1,8 +1,8 @@
-/***********************/
-/*    LASER BASIC 2    */
-/*   by Oleg N. Cher   */
-/* zx.oberon2.ru/forum */
-/***********************/
+/**************************/
+/* LASER 2 Graphic Engine */
+/*    by Oleg N. Cher     */
+/*  zx.oberon2.ru/forum   */
+/**************************/
 
 #ifndef Laser2__h
 #define Laser2__h
@@ -40,41 +40,51 @@ extern unsigned int Laser2_SPRT_ADR;  // Sprite file start address
 #ifdef OUT_OF_SCREEN
     extern void Laser2_ATOF_OUTSCR (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
     extern void Laser2_ATON_OUTSCR (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
-    extern void Laser2_SCRN_OUTSCR (unsigned int adr) __z88dk_callee __preserves_regs(b,c,d,e,iyl,iyh);
+    extern void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
     extern void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
-    extern void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
     extern void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
+    extern void Laser2_PTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
+    extern void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
     extern void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
-#   define Laser2_ATOF  Laser2_ATOF_OUTSCR
-#   define Laser2_ATON  Laser2_ATON_OUTSCR
-#   define Laser2_SCRN  Laser2_SCRN_OUTSCR
-#   define Laser2_PTBL  Laser2_PTBL_OUTSCR
-#   define Laser2_PTOR  Laser2_PTOR_OUTSCR
-#   define Laser2_PTND  Laser2_PTND_OUTSCR
-#   define Laser2_PTXR  Laser2_PTXR_OUTSCR
+#   define Laser2_ATOF       Laser2_ATOF_OUTSCR
+#   define Laser2_ATON       Laser2_ATON_OUTSCR
+#   define Laser2_SCRN(adr)  Laser2_SCRN_OUTSCR((unsigned int)(adr)>>8)
+#   define Laser2_PTBL       Laser2_PTBL_OUTSCR
+#   define Laser2_PTND       Laser2_PTND_OUTSCR
+#   define Laser2_PTNV       Laser2_PTNV_OUTSCR
+#   define Laser2_PTOR       Laser2_PTOR_OUTSCR
+#   define Laser2_PTXR       Laser2_PTXR_OUTSCR
 #else // IN_SCREEN
     extern void Laser2_ATOF_INSCR (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
     extern void Laser2_ATON_INSCR (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
-    extern void Laser2_SCRN_INSCR (unsigned int adr) __z88dk_callee __preserves_regs(b,c,d,e,iyl,iyh);
+    extern void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
     extern void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
     extern void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
     extern void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
+    extern void Laser2_PTNV_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
     extern void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee __preserves_regs(iyl,iyh);
-#   define Laser2_ATOF  Laser2_ATOF_INSCR
-#   define Laser2_ATON  Laser2_ATON_INSCR
-#   define Laser2_SCRN  Laser2_SCRN_INSCR
-#   define Laser2_PTBL  Laser2_PTBL_INSCR
-#   define Laser2_PTOR  Laser2_PTOR_INSCR
-#   define Laser2_PTND  Laser2_PTND_INSCR
-#   define Laser2_PTXR  Laser2_PTXR_INSCR
+#   define Laser2_ATOF       Laser2_ATOF_INSCR
+#   define Laser2_ATON       Laser2_ATON_INSCR
+#   define Laser2_SCRN(adr)  Laser2_SCRN_INSCR((unsigned int)(adr)>>8)
+#   define Laser2_PTBL       Laser2_PTBL_INSCR
+#   define Laser2_PTND       Laser2_PTND_INSCR
+#   define Laser2_PTNV       Laser2_PTNV_INSCR
+#   define Laser2_PTOR       Laser2_PTOR_INSCR
+#   define Laser2_PTXR       Laser2_PTXR_INSCR
 #endif
 extern void Laser2_INVM (unsigned char spn) __z88dk_fastcall __preserves_regs(iyl,iyh);
 
 // Procedures for screen windows processing:
 
+extern void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 
 
 #define Laser2__init()
