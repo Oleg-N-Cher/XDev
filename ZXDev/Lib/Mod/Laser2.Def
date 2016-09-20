@@ -12,18 +12,21 @@ TYPE
   SPRITES = ARRAY OF CHAR;
 
 (** New procedures: *)
+
 PROCEDURE SPRT  * (adr: ADR) (** Init sprites *)  ; END SPRT;
 PROCEDURE SPRTv * (adr: ADR) (** in variable *)   ; END SPRTv;
 PROCEDURE SPRTa * (sprites: SPRITES) (** array *) ; END SPRTa;
 PROCEDURE SCRN  * (adr: ADR) (** Set screen *)    ; END SCRN;
 
 (** Synonyms for the new procedures: *)
+
 PROCEDURE InitSprites  * (adr: ADR)               ; END InitSprites;
 PROCEDURE InitSpritesV * (adr: ADR) (** in var *) ; END InitSpritesV;
 PROCEDURE InitSpritesA * (sprites: SPRITES)       ; END InitSpritesA;
 PROCEDURE SetScreen    * (adr: ADR)               ; END SetScreen;
 
-(** Procedures for sprite manipulations: *)
+(** Sprite manipulations: *)
+
 PROCEDURE ATOF *                                  ; END ATOF;
 PROCEDURE ATON *                                  ; END ATON;
 PROCEDURE INVM * (spn: UBYTE)                     ; END INVM;
@@ -33,15 +36,27 @@ PROCEDURE PTNV * (col, row: SHORTINT; spn: UBYTE) ; END PTNV;
 PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE) ; END PTOR;
 PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 
-(** Procedures for screen windows processing: *)
-PROCEDURE AWLV * (col, row, len, hgt: UBYTE)      ; END AWLV;
-PROCEDURE AWRV * (col, row, len, hgt: UBYTE)      ; END AWRV;
+(** Screen windows processing: *)
+
 PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
 PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
-PROCEDURE SETV * (col, row, len, hgt: UBYTE)      ; END SETV;
+PROCEDURE SL1V * (col, row, len, hgt: UBYTE)      ; END SL1V;
+PROCEDURE SL4V * (col, row, len, hgt: UBYTE)      ; END SL4V;
 PROCEDURE SL8V * (col, row, len, hgt: UBYTE)      ; END SL8V;
+PROCEDURE SR1V * (col, row, len, hgt: UBYTE)      ; END SR1V;
+PROCEDURE SR4V * (col, row, len, hgt: UBYTE)      ; END SR4V;
 PROCEDURE SR8V * (col, row, len, hgt: UBYTE)      ; END SR8V;
+PROCEDURE WL1V * (col, row, len, hgt: UBYTE)      ; END WL1V;
+PROCEDURE WL4V * (col, row, len, hgt: UBYTE)      ; END WL4V;
 PROCEDURE WL8V * (col, row, len, hgt: UBYTE)      ; END WL8V;
+PROCEDURE WR1V * (col, row, len, hgt: UBYTE)      ; END WR1V;
+PROCEDURE WR4V * (col, row, len, hgt: UBYTE)      ; END WR4V;
 PROCEDURE WR8V * (col, row, len, hgt: UBYTE)      ; END WR8V;
+
+(** Attribute windows processing: *)
+
+PROCEDURE AWLV * (col, row, len, hgt: UBYTE)      ; END AWLV;
+PROCEDURE AWRV * (col, row, len, hgt: UBYTE)      ; END AWRV;
+PROCEDURE SETV * (col, row, len, hgt: UBYTE)      ; END SETV;
 
 END Laser2.
