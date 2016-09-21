@@ -30,18 +30,18 @@ extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
     __endasm;
 #endif
 
-extern void Basic_COLOR_fastcall (void /* Register A */);
-extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
+extern void Basic_COLOR_fastcall (void /* Register A */) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
+extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 #ifndef COLOR_fastcall
   #define Basic_COLOR Basic_COLOR_z88dk_fastcall
 #else //COLOR_fastcall
   #define Basic_COLOR(atr) __ld_a__(atr); Basic_COLOR_fastcall()
 #endif
 
-extern void Basic_INK    (unsigned char color) __z88dk_fastcall;
-extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall;
-extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall;
-extern void Basic_BRIGHT (unsigned char mode)  __z88dk_fastcall;
+extern void Basic_INK    (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
+extern void Basic_BRIGHT (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
 extern void Basic_INVERSE_FAST (SHORTINT mode);
 extern void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
