@@ -10,7 +10,7 @@
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
-import void Basic_Init_IM2 (void);
+extern void Basic_Init_IM2 (void);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_Init() __asm DI __endasm
 #endif //MODE_DI
@@ -21,59 +21,31 @@ import void Basic_Init_IM2 (void);
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
-import void Basic_BORDER_stdcall (SHORTINT color);
+extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
 #ifndef BORDER_fastcall
-  #define Basic_BORDER Basic_BORDER_stdcall
+  #define Basic_BORDER Basic_BORDER_z88dk_fastcall
 #else //BORDER_fastcall
-  #define Basic_BORDER(color) __ld_a__(color); \
-    __asm \
+  #define Basic_BORDER(color) __ld_a__(color); __asm \
     call 0x229B \
     __endasm;
 #endif
 
-import void Basic_INK_stdcall (SHORTINT color);
-import void Basic_INK_fastcall (void /* Register C */);
-#ifndef INK_fastcall
-  #define Basic_INK Basic_INK_stdcall
-#else //INK_fastcall
-  #define Basic_INK(color) __ld_c__(color); Basic_INK_fastcall()
-#endif
-
-import void Basic_COLOR_fastcall (void /* Register A */);
-import void Basic_COLOR_stdcall (SHORTINT attr);
+extern void Basic_COLOR_fastcall (void /* Register A */);
+extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
 #ifndef COLOR_fastcall
-  #define Basic_COLOR Basic_COLOR_stdcall
+  #define Basic_COLOR Basic_COLOR_z88dk_fastcall
 #else //COLOR_fastcall
-  #define Basic_COLOR(attr) __ld_a__(attr); Basic_COLOR_fastcall()
+  #define Basic_COLOR(atr) __ld_a__(atr); Basic_COLOR_fastcall()
 #endif
 
-import void Basic_PAPER_stdcall (SHORTINT color);
-import void Basic_PAPER_fastcall (void /* Register C */);
-#ifndef PAPER_fastcall
-  #define Basic_PAPER Basic_PAPER_stdcall
-#else //PAPER_fastcall
-  #define Basic_PAPER(color) __ld_c__(color); Basic_PAPER_fastcall()
-#endif
+extern void Basic_INK    (unsigned char color) __z88dk_fastcall;
+extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall;
+extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall;
+extern void Basic_BRIGHT (unsigned char mode)  __z88dk_fastcall;
 
-import void Basic_FLASH_stdcall (SHORTINT mode);
-import void Basic_FLASH_fastcall (void /* Register C */);
-#ifndef FLASH_fastcall
-  #define Basic_FLASH Basic_FLASH_stdcall
-#else //FLASH_fastcall
-  #define Basic_FLASH(mode) __ld_c__(mode); Basic_FLASH_fastcall()
-#endif
-
-import void Basic_BRIGHT_stdcall (SHORTINT mode);
-import void Basic_BRIGHT_fastcall (void /* Register C */);
-#ifndef BRIGHT_fastcall
-  #define Basic_BRIGHT Basic_BRIGHT_stdcall
-#else //BRIGHT_fastcall
-  #define Basic_BRIGHT(mode) __ld_c__(mode); Basic_BRIGHT_fastcall()
-#endif
-
-import void Basic_INVERSE_FAST (SHORTINT mode);
-import void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
-import void Basic_INVERSE_ROM_fastcall (void /* Register C */);
+extern void Basic_INVERSE_FAST (SHORTINT mode);
+extern void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
+extern void Basic_INVERSE_ROM_fastcall (void /* Register C */);
 #ifdef ROM_OUTPUT
 #  ifndef INVERSE_fastcall
 #    define Basic_INVERSE Basic_INVERSE_ROM_stdcall
@@ -84,9 +56,9 @@ import void Basic_INVERSE_ROM_fastcall (void /* Register C */);
 #  define Basic_INVERSE Basic_INVERSE_FAST
 #endif
 
-import void Basic_OVER_FAST (SHORTINT mode);
-import void Basic_OVER_ROM_stdcall (SHORTINT mode);
-import void Basic_OVER_ROM_fastcall (void /* Register C */);
+extern void Basic_OVER_FAST (SHORTINT mode);
+extern void Basic_OVER_ROM_stdcall (SHORTINT mode);
+extern void Basic_OVER_ROM_fastcall (void /* Register C */);
 #ifdef ROM_OUTPUT
 #  ifndef OVER_fastcall
 #    define Basic_OVER Basic_OVER_ROM_stdcall
@@ -97,9 +69,9 @@ import void Basic_OVER_ROM_fastcall (void /* Register C */);
 #  define Basic_OVER Basic_OVER_FAST
 #endif
 
-import void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-import void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
-import void Basic_AT_ROM_fastcall (void /* post */);
+extern void Basic_AT_FAST (SHORTINT y, SHORTINT x);
+extern void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
+extern void Basic_AT_ROM_fastcall (void /* post */);
 #ifdef ROM_OUTPUT
 #  ifndef AT_fastcall
 #    define Basic_AT Basic_AT_ROM_stdcall
@@ -110,18 +82,18 @@ import void Basic_AT_ROM_fastcall (void /* post */);
   #define Basic_AT Basic_AT_FAST
 #endif
 
-import void Basic_CLS_ZX (void);
-import void Basic_CLS_FULLSCREEN (void);
+extern void Basic_CLS_ZX (void);
+extern void Basic_CLS_FULLSCREEN (void);
 #ifdef CLS_FULLSCREEN
   #define Basic_CLS Basic_CLS_FULLSCREEN
 #else
   #define Basic_CLS Basic_CLS_ZX
 #endif
 
-import void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
-import void Basic_PRSTR_C_FAST (CHAR *str);
-import void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
-import void Basic_PRSTR_C_ROM_fastcall (void /* post */);
+extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
+extern void Basic_PRSTR_C_FAST (CHAR *str);
+extern void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 #ifdef ROM_OUTPUT
 #  ifndef PRSTR_fastcall
 #    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_stdcall(str)
@@ -141,8 +113,8 @@ import void Basic_PRSTR_C_ROM_fastcall (void /* post */);
   #define PRSTR Basic_PRSTR_C_FAST
 #endif
 
-import void Basic_PRCHAR_FAST (CHAR ch);
-import void Basic_PRCHAR_ROM (CHAR ch);
+extern void Basic_PRCHAR_FAST (CHAR ch);
+extern void Basic_PRCHAR_ROM (CHAR ch);
 #ifdef ROM_OUTPUT
   #define Basic_PRCHAR Basic_PRCHAR_ROM
 #else
@@ -151,23 +123,23 @@ import void Basic_PRCHAR_ROM (CHAR ch);
 
 #define Basic_PRUDG(udg) Basic_PRCHAR_ROM((CHAR)(udg+79))
 
-import void Basic_PRDATA (void);
+extern void Basic_PRDATA (void);
 
-import void Basic_PRLN (void);
+extern void Basic_PRLN (void);
 
-import void Basic_PLOT (unsigned char x, unsigned char y);
+extern void Basic_PLOT (unsigned char x, unsigned char y);
 
-import BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+extern BYTE Basic_POINT (SHORTINT x, SHORTINT y);
 
-import BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
+extern BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
-import void Basic_DRAW_S (signed char x, signed char y);
+extern void Basic_DRAW_S (signed char x, signed char y);
 #define Basic_DRAW(x, y) Basic_DRAW_S((signed char)(x), (signed char)(y))
 
-import void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
+extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 
-import void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
-import void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
+extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
+extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_DI
 #endif //MODE_DI
@@ -186,31 +158,31 @@ export void Basic_PRINT_ROM (INTEGER i);
   #define Basic_PRINT Basic_PRINT_FAST
 #endif
 
-import void Basic_PRWORD_FAST (CARDINAL n);
-import void Basic_PRWORD_ROM (CARDINAL n);
+extern void Basic_PRWORD_FAST (CARDINAL n);
+extern void Basic_PRWORD_ROM (CARDINAL n);
 #ifdef ROM_OUTPUT
   #define Basic_PRWORD Basic_PRWORD_ROM
 #else
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
 
-import void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius);
+extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius);
 
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
 #define Basic_PEEK(addr)      (*(unsigned char*) (addr))
 #define Basic_PEEKW(addr)     (*(unsigned*) (addr))
 
-import BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+extern BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 
-import void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
+extern void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 
-import BOOLEAN Basic_KeyPressed (void);
+extern BOOLEAN Basic_KeyPressed (void);
 
-import void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
-import void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
-import void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
-import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
+extern void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
+extern void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
+extern void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
+extern void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  ifdef PAUSE_fastcall
 #    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_DI_fastcall()
@@ -234,14 +206,14 @@ import void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 #endif //MODE_IM2
 
 
-import void Basic_RANDOMIZE (CARDINAL seed);
+extern void Basic_RANDOMIZE (CARDINAL seed);
 
-import SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
-import CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
-import SHORTINT Basic_SGN (SHORTINT x);
+extern SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+extern CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
+extern SHORTINT Basic_SGN (SHORTINT x);
 
-import void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
-import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
+extern void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
+extern void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_BEEP Basic_BEEP_DI
 #endif //MODE_DI
@@ -252,7 +224,7 @@ import void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
-import CHAR Basic_INKEY (void);
+extern CHAR Basic_INKEY (void);
 
 #define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
@@ -345,15 +317,15 @@ import CHAR Basic_INKEY (void);
   .db 0x00 \
   __endasm
 
-import void Basic_Quit_DI (void);
-import void Basic_Quit_IM1 (void);
-import void Basic_Quit_IM2 (void);
+extern void Basic_Quit_DI  (void);
+extern void Basic_Quit_IM1 (void);
+extern void Basic_Quit_IM2 (void);
 
 #ifdef MODE_DI
 #  define Basic_Quit Basic_Quit_DI
 #endif //MODE_DI
 #ifdef MODE_DI_inline
-#  define Basic_Quit() __asm \
+#  define Basic_Quit() __asm         \
      LD   HL, __id__(__hash__)0x2758 \
      EXX                             \
      LD   IY, __id__(__hash__)0x5C3A \
@@ -365,7 +337,7 @@ import void Basic_Quit_IM2 (void);
 #  define Basic_Quit Basic_Quit_IM1
 #endif //MODE_IM1
 #ifdef MODE_IM1_inline
-#  define Basic_Quit() __asm \
+#  define Basic_Quit() __asm         \
      LD   HL, __id__(__hash__)0x2758 \
      EXX                             \
      LD   IY, __id__(__hash__)0x5C3A \
@@ -376,7 +348,7 @@ import void Basic_Quit_IM2 (void);
 #  define Basic_Quit Basic_Quit_IM2
 #endif //MODE_IM2
 #ifdef MODE_IM2_inline
-#  define Basic_Quit() __asm \
+#  define Basic_Quit() __asm        \
      DI                             \
      LD   HL,__id__(__hash__)0x2758 \
      EXX                            \
@@ -386,7 +358,7 @@ import void Basic_Quit_IM2 (void);
    __endasm
 #endif //MODE_IM2_inline
 
-import void Basic__IM2ADR (void);
+extern void Basic__IM2ADR (void);
 #define Basic_IM2PROC(adr) __asm DI __endasm; \
   Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
 #define Basic__init()

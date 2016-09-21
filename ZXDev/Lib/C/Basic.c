@@ -1,67 +1,63 @@
 #include "SYSTEM.h"
 
-export void Basic_Init_IM2 (void);
-export void Basic_BORDER_stdcall (SHORTINT color);
-export void Basic_COLOR_fastcall (void /* Register A */);
-export void Basic_COLOR_stdcall (SHORTINT attr);
-export void Basic_INK_stdcall (SHORTINT color);
-export void Basic_INK_fastcall (void /* Register C */);
-export void Basic_PAPER_stdcall (SHORTINT color);
-export void Basic_PAPER_fastcall (void /* Register C */);
-export void Basic_FLASH_stdcall (SHORTINT mode);
-export void Basic_FLASH_fastcall (void /* Register C */);
-export void Basic_BRIGHT_stdcall (SHORTINT mode);
-export void Basic_BRIGHT_fastcall (void /* Register C */);
-export void Basic_INVERSE_FAST (SHORTINT mode);
-export void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
-export void Basic_INVERSE_ROM_fastcall (void /* Register C */);
-export void Basic_OVER_FAST (SHORTINT mode);
-export void Basic_OVER_ROM_stdcall (SHORTINT mode);
-export void Basic_OVER_ROM_fastcall (void /* Register C */);
-export void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-export void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
-export void Basic_AT_ROM_fastcall (void /* post */);
-export void Basic_CLS_ZX (void);
-export void Basic_CLS_FULLSCREEN (void);
-export void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
-export void Basic_PRSTR_C_FAST (CHAR *str);
-export void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
-export void Basic_PRSTR_C_ROM_fastcall (void /* post */);
-export void Basic_PRCHAR_FAST (CHAR ch);
-export void Basic_PRCHAR_ROM (CHAR ch);
-export void Basic_PRDATA (void);
-export void Basic_PRLN (void);
-export void Basic_PLOT (unsigned char x, unsigned char y);
-export BYTE Basic_POINT (SHORTINT x, SHORTINT y);
-export BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
-export void Basic_DRAW_S (signed char x, signed char y);
-export void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
-export void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
-export void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
-export void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
-export BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
-export void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
-export void Basic_PRINT_FAST (INTEGER i);
-export void Basic_PRINT_ROM (INTEGER i);
-export void Basic_PRWORD_FAST (CARDINAL n);
-export void Basic_PRWORD_ROM (CARDINAL n);
-export BOOLEAN Basic_KeyPressed (void);
-export void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
-export void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
-export void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
-export void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
-export void Basic_RANDOMIZE (CARDINAL seed);
-export SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
-export CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
-export SHORTINT Basic_SGN (SHORTINT x);
-export void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
-export void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-export CHAR Basic_INKEY (void);
-export void Basic_Quit_DI (void);
-export void Basic_Quit_IM1 (void);
-export void Basic_Quit_IM2 (void);
+void Basic_Init_IM2 (void);
+void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
+void Basic_COLOR_fastcall (void /* Register A */);
+void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
+void Basic_INK (unsigned char color) __z88dk_fastcall;
+void Basic_PAPER (unsigned char color) __z88dk_fastcall;
+void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
+void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
+void Basic_INVERSE_FAST (SHORTINT mode);
+void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
+void Basic_INVERSE_ROM_fastcall (void /* Register C */);
+void Basic_OVER_FAST (SHORTINT mode);
+void Basic_OVER_ROM_stdcall (SHORTINT mode);
+void Basic_OVER_ROM_fastcall (void /* Register C */);
+void Basic_AT_FAST (SHORTINT y, SHORTINT x);
+void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
+void Basic_AT_ROM_fastcall (void /* post */);
+void Basic_CLS_ZX (void);
+void Basic_CLS_FULLSCREEN (void);
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
+void Basic_PRSTR_C_FAST (CHAR *str);
+void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+void Basic_PRSTR_C_ROM_fastcall (void /* post */);
+void Basic_PRCHAR_FAST (CHAR ch);
+void Basic_PRCHAR_ROM (CHAR ch);
+void Basic_PRDATA (void);
+void Basic_PRLN (void);
+void Basic_PLOT (unsigned char x, unsigned char y);
+BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
+void Basic_DRAW_S (signed char x, signed char y);
+void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
+void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
+void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
+BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
+void Basic_PRINT_FAST (INTEGER i);
+void Basic_PRINT_ROM (INTEGER i);
+void Basic_PRWORD_FAST (CARDINAL n);
+void Basic_PRWORD_ROM (CARDINAL n);
+BOOLEAN Basic_KeyPressed (void);
+void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
+void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
+void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
+void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
+void Basic_RANDOMIZE (CARDINAL seed);
+SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
+SHORTINT Basic_SGN (SHORTINT x);
+void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
+void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
+CHAR Basic_INKEY (void);
+void Basic_Quit_DI (void);
+void Basic_Quit_IM1 (void);
+void Basic_Quit_IM2 (void);
 
-import CARDINAL _Basic_RandBB (void);
+extern CARDINAL _Basic_RandBB (void);
 
 /* Set video attrib */
 #define ATTR_P$ 0x5C8D
@@ -121,42 +117,24 @@ IM2RET$:
 } //Basic_Init_IM2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BORDER_stdcall (SHORTINT color) __naked {
-__asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
-  JP   0x229B // IX-safe
-__endasm;
-} //Basic_BORDER_stdcall
+void Basic_BORDER_z88dk_fastcall (unsigned char color) __naked __z88dk_fastcall
+{
+  __asm
+    LD   A,L
+    JP   0x229B // IX-safe
+  __endasm;
+} //Basic_BORDER_z88dk_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK_stdcall (SHORTINT color) __naked {
-__asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,(ATTR_P$)
-  AND  #0xF8
-  OR   C
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-  JP   (HL)
-__endasm;
-} //Basic_INK_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK_fastcall (void /* Register C */) {
+void Basic_INK (unsigned char color) __z88dk_fastcall {
 __asm
   LD   A,(ATTR_P$)
   AND  #0xF8
-  OR   C
+  OR   L
   LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
-} //Basic_INK_fastcall
+} //Basic_INK
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_COLOR_fastcall (void /* Register A */) {
@@ -167,105 +145,51 @@ __endasm;
 } //Basic_COLOR_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_COLOR_stdcall (SHORTINT attr) __naked {
+void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall {
 __asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,C
+  LD   A,L
   LD   (ATTR_P$),A
   LD   (ATTR_T$),A
-  JP   (HL)
 __endasm;
-} //Basic_COLOR_stdcall
+} //Basic_COLOR_z88dk_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER_stdcall (SHORTINT color) __naked {
-__asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,(ATTR_P$)
-  AND  #0xC7
-  SLA  C
-  SLA  C
-  SLA  C
-  OR   C
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-  JP   (HL)
-__endasm;
-} //Basic_PAPER_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER_fastcall (void /* Register C */) {
+void Basic_PAPER (unsigned char color) __z88dk_fastcall {
 __asm
   LD   A,(ATTR_P$)
   AND  #0xC7
-  SLA  C
-  SLA  C
-  SLA  C
-  OR   C
+  SLA  L
+  SLA  L
+  SLA  L
+  OR   L
   LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
-} //Basic_PAPER_fastcall
+} //Basic_PAPER
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH_stdcall (SHORTINT mode) __naked {
+void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#18
   RST  16 // IX-safe
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
+  LD   A,L
   RST  16
   JP   0x1CAD
 __endasm;
-} //Basic_FLASH_stdcall
+} //Basic_FLASH
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH_fastcall (void /* Register C */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#18
-  RST  16 // IX-safe
-  LD   A,C
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_FLASH_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT_stdcall (SHORTINT mode) __naked {
+void Basic_BRIGHT (unsigned char mode) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#19
   RST  16
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
+  LD   A,L
   RST  16
   JP   0x1CAD
 __endasm;
-} //Basic_BRIGHT_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT_fastcall (void /* Register C */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#19
-  RST  16
-  LD   A,C
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_BRIGHT_fastcall
+} //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INVERSE_FAST (SHORTINT mode) __naked {
