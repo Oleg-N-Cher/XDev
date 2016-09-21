@@ -30,6 +30,7 @@ void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __
 
 void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
@@ -47,6 +48,7 @@ void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsig
 
 void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 
 /* Спрайты хранятся в памяти в следующем формате:
@@ -1066,72 +1068,120 @@ WR8V_CONT_1_3$:   POP   BC
 } //Laser2_WR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-/*
-MIRV   LD    BC,(LEN)
-       LD    A,(ROW)
-MIRV1  PUSH  AF
-       PUSH  BC
-       CALL  3742        ;в HL - адрес экрана
-       LD    A,(COL)
-       OR    L
-       LD    L,A         ;начальный адрес левого края окна
-; В DE получаем соответствующий адрес противоположного края окна
-       LD    D,H
-       LD    A,C
-       ADD   A,L
-       DEC   A
-       LD    E,A
-       LD    B,8         ;8 рядов пикселей
-MIRV2  PUSH  DE
-       PUSH  HL
-       PUSH  BC
-       SRL   C           ;делим ширину окна на 2
-       JR    NC,MIRV3    ;продолжаем, если разделилось без остатка
-       INC   C           ;иначе увеличиваем счетчик на 1
-MIRV3  LD    A,(HL)      ;получаем байт с левой стороны
-       CALL  MIRV0       ;зеркально отображаем его
-       PUSH  BC          ;запоминаем его
-       LD    A,(DE)      ;берем байт с правой стороны
-       CALL  MIRV0       ;отображаем
-       POP   AF          ;восстанавливаем предыдущий байт
-                         ; в аккумуляторе
-       LD    (HL),B      ;записываем «правый» байт
-                         ; на левую сторону окна
-       LD    (DE),A      ; и наоборот
-       INC   HL          ;приближаемся с двух сторон
-       DEC   DE          ; к середине окна
-       DEC   C
-       JR    NZ,MIRV3    ;повторяем, если еще не дошли до середины
-       POP   BC
-       POP   HL
-       POP   DE
-       INC   H           ;переходим к следующему ряду пикселей
-       INC   D
-       DJNZ  MIRV2
-       POP   BC
-       POP   AF
-       INC   A           ;переходим к следующей строке экрана
-       DJNZ  MIRV1
-       RET
-; Подпрограмма зеркального отображения байта в аккумуляторе
-MIRV0  RLA
-       RR    B           ;отображенный байт получится в B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RLA
-       RR    B
-       RET
-*/
+void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  CALL  __Laser2_XYtoScr
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  LD    A, C
+                  LD    (MIRV_WIDTH$+1), A
+                  INC   A
+                  SRL   A
+                  LD    (MIRV_WIDTH_DIV2$+1), A
+MIRV_HLINE$:      PUSH  BC              ; Begin of loop on charlines
+                  LD    A, #8
+MIRV_LINE8$:      EX    AF, AF
+                  LD    (MIRV_SCR_ADR$+1), HL
+                  LD    A, L
+MIRV_WIDTH$:      ADD   #0
+                  LD    E, A
+                  LD    D, H
+MIRV_WIDTH_DIV2$: LD    B, #0
+
+MIRV_COL_MIRROR$: DEC   E
+                  LD    A, (DE)
+                  LD    C, (HL)
+
+                  ; ------------------
+                  ; 2 bytes mirroring
+                  ; ------------------
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  RLA
+                  RR    C
+                  ; ------------------
+
+                  RLA
+                  LD    (DE), A
+                  LD    (HL), C
+                  INC   L
+                  DJNZ  MIRV_COL_MIRROR$
+MIRV_SCR_ADR$:    LD    HL, #0
+                  INC   H
+                  EX    AF, AF
+                  DEC   A
+                  JR    NZ, MIRV_LINE8$
+                  LD    A, L
+                  ADD   #0x20           ; Next charline
+                  LD    L, A            ; If carry then jump to next third of screen
+                  JR    C, MIRV_CONT_1_3$
+                  LD    A, H
+                  SUB   #8              ; HL := HL - 0x0800
+                  LD    H, A
+MIRV_CONT_1_3$:   POP   BC
+                  DJNZ  MIRV_HLINE$     ; End of loop on charlines (the same third)
+  __endasm;
+} //Laser2_MIRV
+
+/*--------------------------------- Cut here ---------------------------------*/
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  LD    A, C
+                  SRL   A
+                  LD    (MARV_WIDTH_DIV2$+2), A
+                  DEC   C
+                  RET   Z               ; IF len = 1 THEN RETURN
+                  CALL  __Laser2_XYtoScrAtr
+
+MARV_MIRR_RECT$:  PUSH  BC              ; Begin of loop on charlines
+                  PUSH  HL
+                  LD    A, L
+                  ADD   C
+                  LD    E, A
+                  LD    D, H
+
+MARV_WIDTH_DIV2$: LD    BC, #0x00FF
+MARV_MIRR_LINE$:  LD    A, (DE)
+                  LDI
+                  DEC   L
+                  LD    (HL), A
+                  INC   L
+                  DEC   DE
+                  DEC   E
+                  DJNZ  MARV_MIRR_LINE$
+                  POP   HL
+                  LD    A, L
+                  ADD   #32
+                  LD    L, A
+                  LD    A, H
+                  ADC   B
+                  LD    H, A
+                  POP   BC
+                  DJNZ  MARV_MIRR_RECT$
+  __endasm;
+} //Laser2_MARV
+
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 MARV   LD    BC,(LEN)
