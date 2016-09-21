@@ -40,6 +40,7 @@ PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 
 PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
 PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
+PROCEDURE MIRV * (col, row, len, hgt: UBYTE)      ; END MIRV;
 PROCEDURE SL1V * (col, row, len, hgt: UBYTE)      ; END SL1V;
 PROCEDURE SL4V * (col, row, len, hgt: UBYTE)      ; END SL4V;
 PROCEDURE SL8V * (col, row, len, hgt: UBYTE)      ; END SL8V;
@@ -57,6 +58,7 @@ PROCEDURE WR8V * (col, row, len, hgt: UBYTE)      ; END WR8V;
 
 PROCEDURE AWLV * (col, row, len, hgt: UBYTE)      ; END AWLV;
 PROCEDURE AWRV * (col, row, len, hgt: UBYTE)      ; END AWRV;
+PROCEDURE MARV * (col, row, len, hgt: UBYTE)      ; END MARV;
 PROCEDURE SETV * (col, row, len, hgt: UBYTE)      ; END SETV;
 
 END Laser2.
