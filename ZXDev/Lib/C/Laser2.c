@@ -31,6 +31,7 @@ void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_SCRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee;
 void Laser2_SL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
@@ -317,7 +318,7 @@ void _Laser2_XYtoScrAtr (void) {
                   ADD   HL, HL
                   ADD   HL, HL
                   ; HL = y*32 + x
-                  ADD   A, L
+                  ADD   L
                   LD    L, A
                   ;
                   LD    A, H     ; 4t
@@ -1418,3 +1419,196 @@ MARV_MIRR_LINE$:  LD    A, (DE)
   __endasm;
 } //Laser2_MARV
 
+/*
+SCR_UP LD    A,(COL)
+       LD    C,A
+       LD    A,(HGT)
+       LD    B,A
+       LD    A,(ROW)
+; Значения из переменных ROW, COL и HGT умножаем на 8,
+;  то есть переводим знакоместа в пиксели
+       SLA   A
+       SLA   A
+       SLA   A
+       SLA   B
+       SLA   B
+       SLA   B
+       DEC   B           ;потому что один ряд пикселей просто
+                         ; заполняется нулями
+       SLA   C
+       SLA   C
+       SLA   C
+       PUSH  AF
+       PUSH  BC
+       CALL  8880        ;вычисляем адрес верхнего левого угла окна
+       POP   BC
+       POP   AF
+SCRUP1 INC   A           ;следующий ряд пикселей
+       PUSH  AF
+       PUSH  BC
+       PUSH  HL
+       CALL  8880        ;вычисляем адрес
+       POP   DE
+       PUSH  HL
+       LD    A,(LEN)     ;пересылаем столько байт, сколько
+                         ; умещается по ширине окна
+       LD    C,A
+       LD    B,0
+       LDIR
+       POP   HL
+       POP   BC
+       POP   AF
+       DJNZ  SCRUP1
+       LD    (HL),0      ;в последний ряд пикселей записываем нули
+       LD    D,H
+       LD    E,L
+       INC   DE
+       LD    A,(LEN)     ;по ширине окна,
+       DEC   A           ; минус 1
+       RET   Z           ;выходим, если только одно знакоместо
+       LD    C,A
+       LD    B,0
+       LDIR              ;иначе обнуляем и все остальные байты ряда
+       RET
+       
+SCR_DN LD    A,(COL)
+       LD    C,A
+       LD    A,(HGT)
+       LD    B,A
+       LD    A,(ROW)
+       ADD   A,B         ;начинаем перемещать изображение не
+                         ; сверху, как в SCR_UP, а снизу
+       SLA   A
+       SLA   A
+       SLA   A
+       DEC   A
+       SLA   B
+       SLA   B
+       SLA   B
+       DEC   B
+       SLA   C
+       SLA   C
+       SLA   C
+       PUSH  AF
+       PUSH  BC
+       CALL  8880
+       POP   BC
+       POP   AF
+SCRDN1 DEC   A           ;следующий ряд пикселей (идем вверх)
+       PUSH  AF
+       PUSH  BC
+       PUSH  HL
+       CALL  8880
+       POP   DE
+       PUSH  HL
+       LD    A,(LEN)
+       LD    C,A
+       LD    B,0
+       LDIR
+       POP   HL
+       POP   BC
+       POP   AF
+       DJNZ  SCRDN1
+       LD    (HL),0
+       LD    D,H
+       LD    E,L
+       INC   DE
+       LD    A,(LEN)
+       DEC   A
+       RET   Z
+       LD    C,A
+       LD    B,0
+       LDIR
+       RET
+*/
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_SCRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee
+{
+  __asm
+                  POP   DE
+                  POP   BC              ; C = col; B = row
+                  POP   HL              ; L = len; H = hgt
+                  LD    (SCRV_LEN_HGT$+1), HL
+                  LD    A, H
+                  ADD   A
+                  ADD   A
+                  ADD   A
+                  DEC   SP
+                  POP   HL              ; H = npx
+                  SUB H               ; 8*hgt - npx
+                  LD    (SCRV_LEN_HGT$+2), A
+                  PUSH  DE
+                  LD    D, H
+                  PUSH  HL
+                  CALL  __Laser2_XYtoScr
+                  LD    A, B
+                  ADD   A
+                  ADD   A
+                  ADD   A
+                  ADD   D               ; 8*col + npx
+                  LD    B, A
+                  EX    DE, HL          ; DE = dest adr
+                  CALL  0x22B1          ; HL = src adr
+SCRV_LEN_HGT$:    LD    BC, #0
+SCRV_SCRL_RECT$:  LD    A, B
+                  SUB   #8
+                  JR    C, SCRV_MOVE_REST$
+                  LD    B, A
+                  PUSH  BC
+                  LD    B, #8
+                  CALL  SCRV_SCRL_LINE$
+                  CALL  DOWN_DE$
+                  POP   BC
+                  JR    SCRV_SCRL_RECT$
+SCRV_MOVE_REST$:  ADD   #8
+                  CALL  NZ, SCRV_SCRL_LINE$
+                  POP   HL
+SCRV_ZERO_RECT$:  XOR   A
+                  LD    B, C
+                  LD    L, E
+SCRV_ZERO_LINE$:  LD    (DE), A
+                  INC   E
+                  DJNZ  SCRV_ZERO_LINE$
+                  LD    E, L
+
+                  INC   D
+                  LD    A, D
+                  AND   #7
+                  CALL  Z, DOWN_DE$
+                  DEC   H
+                  JR    NZ, SCRV_ZERO_RECT$
+                  RET
+                  
+SCRV_SCRL_LINE$:  PUSH  BC
+                  LD    B, #0
+                  PUSH  DE
+                  PUSH  HL
+                  LDIR
+                  POP   HL
+                  POP   DE
+                  POP   BC
+                  INC   D
+                  INC   H               ; ---------------------------------;
+                  LD    A, H            ;             DOWN_HL
+                  AND   #7              ;  стандартная последовательность
+                  JR    NZ, SCRV_DN_HL$ ;  команд для перехода на линию
+                  LD    A, L            ;      вниз в экранной области
+                  ADD   #0x20           ;         (для регистра HL)
+                  LD    L, A            ;
+                  JR    C, SCRV_DN_HL$  ;  на входе:  HL - адрес линии
+                  LD    A, H            ;  на выходе: HL - адрес линии ниже
+                  SUB   #8              ;   используется аккумулятор
+                  LD    H, A            ; ---------------------------------;
+SCRV_DN_HL$:      DJNZ  SCRV_SCRL_LINE$
+                  RET
+                  
+DOWN_DE$:         LD    A, E            ; ---------------------------------;
+                  ADD   #0x20           ;             DOWN_DE
+                  LD    E, A            ;  перехода на линию вниз в экр.
+                  RET   C               ;    области (для регистра DE)
+                  LD    A, D            ;  на входе:  DE - адрес линии
+                  SUB   #8              ;  на выходе: DE - адрес линии ниже
+                  LD    D, A            ; ---------------------------------;
+  __endasm;
+} //Laser2_SCRV
