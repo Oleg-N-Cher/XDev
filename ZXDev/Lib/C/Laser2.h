@@ -1,8 +1,8 @@
-/**************************/
-/* LASER 2 Graphic Engine */
-/*    by Oleg N. Cher     */
-/*  zx.oberon2.ru/forum   */
-/**************************/
+/***************************/
+/* LASER 2  Graphic Engine */
+/*  Coded by Oleg N. Cher  */
+/*   zx.oberon2.ru/forum   */
+/***************************/
 
 #ifndef Laser2__h
 #define Laser2__h
@@ -10,11 +10,23 @@
 #include "Laser2Cfg.h"
 #include "Basic.h"
 
-
+extern unsigned int _Laser2_SCRL_BUF;  // Scroll buffer start address
 extern unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 
 // New procedures:
 
+#define Laser2_SCRL(adr) __asm              \
+  ld hl,__id__(__hash__)adr                 \
+  ld (__id__(__hash__)__Laser2_SCRL_BUF),hl \
+  __endasm;
+#define Laser2_SCRLv(adr, size) __asm       \
+  ld hl,(__id__(__hash__)_##adr)            \
+  ld (__id__(__hash__)__Laser2_SCRL_BUF),hl \
+  __endasm;
+#define Laser2_SCRLa(adr, size) __asm       \
+  ld hl,__id__(__hash__)_##adr              \
+  ld (__id__(__hash__)__Laser2_SCRL_BUF),hl \
+  __endasm;
 #define Laser2_SPRT(adr) __asm              \
   ld hl,__id__(__hash__)adr                 \
   ld (__id__(__hash__)__Laser2_SPRT_ADR),hl \
@@ -30,6 +42,9 @@ extern unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 
 // Synonyms for the new procedures:
 
+#define Laser2_InitScroll    Laser2_SCRL
+#define Laser2_InitScrollV   Laser2_SCRLv
+#define Laser2_InitScrollA   Laser2_SCRLa
 #define Laser2_InitSprites   Laser2_SPRT
 #define Laser2_InitSpritesV  Laser2_SPRTv
 #define Laser2_InitSpritesA  Laser2_SPRTa
@@ -79,7 +94,8 @@ extern void Laser2_INVM (unsigned char spn) __z88dk_fastcall __preserves_regs(iy
 extern void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
-extern void Laser2_SCRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_SDNV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_SUPV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_SL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_SL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
@@ -92,6 +108,7 @@ extern void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len
 extern void Laser2_WR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_WR4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 
 // Attribute windows processing:
 

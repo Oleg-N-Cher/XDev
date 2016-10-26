@@ -1,18 +1,22 @@
 MODULE Laser2; (** non-portable *)
 
-(**************************)
-(* LASER 2 Graphic Engine *)
-(*    by Oleg N. Cher     *)
-(*  zx.oberon2.ru/forum   *)
-(**************************)
+(***************************)
+(* LASER 2  Graphic Engine *)
+(*  Coded by Oleg N. Cher  *)
+(*   zx.oberon2.ru/forum   *)
+(***************************)
 
 TYPE
   ADR     = LONGINT;
-  UBYTE   = INTEGER;
+  BUFFER  = ARRAY OF CHAR;
   SPRITES = ARRAY OF CHAR;
+  UBYTE   = INTEGER;
 
 (** New procedures: *)
 
+PROCEDURE SCRL  * (adr: ADR) (** Init sprites *)  ; END SCRL;
+PROCEDURE SCRLv * (adr: ADR) (** in variable *)   ; END SCRLv;
+PROCEDURE SCRLa * (buf: BUFFER) (** in array *)   ; END SCRLa;
 PROCEDURE SPRT  * (adr: ADR) (** Init sprites *)  ; END SPRT;
 PROCEDURE SPRTv * (adr: ADR) (** in variable *)   ; END SPRTv;
 PROCEDURE SPRTa * (sprites: SPRITES) (** array *) ; END SPRTa;
@@ -20,6 +24,9 @@ PROCEDURE SCRN  * (adr: ADR) (** Set screen *)    ; END SCRN;
 
 (** Synonyms for the new procedures: *)
 
+PROCEDURE InitScroll   * (adr: ADR)               ; END InitScroll;
+PROCEDURE InitScrollV  * (adr: ADR) (** in var *) ; END InitScrollV;
+PROCEDURE InitScrollA  * (buf: BUFFER)            ; END InitScrollA;
 PROCEDURE InitSprites  * (adr: ADR)               ; END InitSprites;
 PROCEDURE InitSpritesV * (adr: ADR) (** in var *) ; END InitSpritesV;
 PROCEDURE InitSpritesA * (sprites: SPRITES)       ; END InitSpritesA;
@@ -41,7 +48,8 @@ PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE) ; END PTXR;
 PROCEDURE CLSV * (col, row, len, hgt: UBYTE)      ; END CLSV;
 PROCEDURE INVV * (col, row, len, hgt: UBYTE)      ; END INVV;
 PROCEDURE MIRV * (col, row, len, hgt: UBYTE)      ; END MIRV;
-PROCEDURE SCRV * (col, row, len, hgt, npx: UBYTE) ; END SCRV;
+PROCEDURE SDNV * (col, row, len, hgt, npx: UBYTE) ; END SDNV;
+PROCEDURE SUPV * (col, row, len, hgt, npx: UBYTE) ; END SUPV;
 PROCEDURE SL1V * (col, row, len, hgt: UBYTE)      ; END SL1V;
 PROCEDURE SL4V * (col, row, len, hgt: UBYTE)      ; END SL4V;
 PROCEDURE SL8V * (col, row, len, hgt: UBYTE)      ; END SL8V;
@@ -54,6 +62,7 @@ PROCEDURE WL8V * (col, row, len, hgt: UBYTE)      ; END WL8V;
 PROCEDURE WR1V * (col, row, len, hgt: UBYTE)      ; END WR1V;
 PROCEDURE WR4V * (col, row, len, hgt: UBYTE)      ; END WR4V;
 PROCEDURE WR8V * (col, row, len, hgt: UBYTE)      ; END WR8V;
+PROCEDURE WU1V * (col, row, len, hgt: UBYTE)      ; END WU1V;
 
 (** Attribute windows processing: *)
 
