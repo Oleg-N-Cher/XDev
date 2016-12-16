@@ -14,7 +14,6 @@
 //#define AT_fastcall
 //#define BORDER_fastcall
 //#define COLOR_fastcall
-//#define OVER_fastcall
 //#define PAUSE_fastcall
 //#define PRSTR_fastcall
 
