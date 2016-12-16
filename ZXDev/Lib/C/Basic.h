@@ -43,15 +43,10 @@ extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall __preserves_regs
 extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 extern void Basic_BRIGHT (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
-extern void Basic_INVERSE_FAST (SHORTINT mode);
-extern void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
-extern void Basic_INVERSE_ROM_fastcall (void /* Register C */);
+extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
+extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
-#  ifndef INVERSE_fastcall
-#    define Basic_INVERSE Basic_INVERSE_ROM_stdcall
-#  else
-#    define Basic_INVERSE(mode) __ld_c__(mode); Basic_INVERSE_ROM_fastcall()
-#  endif
+#  define Basic_INVERSE Basic_INVERSE_ROM
 #else
 #  define Basic_INVERSE Basic_INVERSE_FAST
 #endif

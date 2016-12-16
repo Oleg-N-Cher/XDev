@@ -8,9 +8,8 @@ void Basic_INK (unsigned char color) __z88dk_fastcall;
 void Basic_PAPER (unsigned char color) __z88dk_fastcall;
 void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
 void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
-void Basic_INVERSE_FAST (SHORTINT mode);
-void Basic_INVERSE_ROM_stdcall (SHORTINT mode);
-void Basic_INVERSE_ROM_fastcall (void /* Register C */);
+void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
+void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_FAST (SHORTINT mode);
 void Basic_OVER_ROM_stdcall (SHORTINT mode);
 void Basic_OVER_ROM_fastcall (void /* Register C */);
@@ -192,13 +191,10 @@ __endasm;
 } //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_FAST (SHORTINT mode) __naked {
+void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,C
+  LD   A,L
   OR   A
   JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
   LD   A,#0x2F      /*              else poke CPL */
@@ -206,39 +202,22 @@ SetInvers$:
   LD   (#_INV_MODE),A
   LD   A,#20
   RST  16
-  LD   A,C
+  LD   A,L
   RST  16
-  JP   (HL)
 __endasm;
 } //Basic_INVERSE_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_ROM_stdcall (SHORTINT mode) __naked {
+void Basic_INVERSE_ROM (unsigned char mode) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#20
   RST  16 // IX-safe
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
+  LD   A,L
   RST  16
   JP   0x1CAD
 __endasm;
-} //Basic_INVERSE_ROM_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_ROM_fastcall (void /* Register C */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#20
-  RST  16 // IX-safe
-  LD   A,C
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_INVERSE_ROM_fastcall
+} //Basic_INVERSE_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_OVER_FAST (SHORTINT mode) __naked {
