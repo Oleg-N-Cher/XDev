@@ -51,15 +51,10 @@ extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_
 #  define Basic_INVERSE Basic_INVERSE_FAST
 #endif
 
-extern void Basic_OVER_FAST (SHORTINT mode);
-extern void Basic_OVER_ROM_stdcall (SHORTINT mode);
-extern void Basic_OVER_ROM_fastcall (void /* Register C */);
+extern void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
+extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
-#  ifndef OVER_fastcall
-#    define Basic_OVER Basic_OVER_ROM_stdcall
-#  else
-#    define Basic_OVER(mode) __ld_c__(mode); Basic_OVER_ROM_fastcall();
-#  endif
+#  define Basic_OVER Basic_OVER_ROM
 #else
 #  define Basic_OVER Basic_OVER_FAST
 #endif

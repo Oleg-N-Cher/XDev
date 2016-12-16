@@ -10,9 +10,8 @@ void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
 void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
-void Basic_OVER_FAST (SHORTINT mode);
-void Basic_OVER_ROM_stdcall (SHORTINT mode);
-void Basic_OVER_ROM_fastcall (void /* Register C */);
+void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
+void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
 void Basic_AT_FAST (SHORTINT y, SHORTINT x);
 void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
 void Basic_AT_ROM_fastcall (void /* post */);
@@ -220,13 +219,10 @@ __endasm;
 } //Basic_INVERSE_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_FAST (SHORTINT mode) __naked {
+void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall {
 __asm // !!! NEED to be checked to IX-safety
   LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,C
+  LD   A,L
   OR   A
   JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
   LD   A,#0xAE    /*           else poke XOR (HL) */
@@ -234,39 +230,22 @@ SetOver$:
   LD   (#_OVER_MODE),A
   LD   A,#21
   RST  16
-  LD   A,C
+  LD   A,L
   RST  16
-  JP   (HL)
 __endasm;
 } //Basic_OVER_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_ROM_stdcall (SHORTINT mode) __naked {
+void Basic_OVER_ROM (unsigned char mode) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#21
   RST  16 // IX-safe
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
+  LD   A,L
   RST  16
   JP   0x1CAD
 __endasm;
-} //Basic_OVER_ROM_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_ROM_fastcall (void /* Register C */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#21
-  RST  16 // IX-safe
-  LD   A,C
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_OVER_ROM_fastcall
+} //Basic_OVER_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) __naked {
