@@ -136,7 +136,7 @@ BEGIN
   b.POKE(23624, b.Bright + b.Black*b.Paper + b.Yellow); b.CLS;
   gr.InitSpritesA(Chudik); gr.ATOF;
 
-  FOR x := -2+2 TO 30-2 BY 2 DO
+  FOR x := -2 TO 30 BY 2 DO
     FOR phase := 1 TO 4 DO
       gr.PTBL(x, 0, phase); gr.PTBL(x, 5, phase); gr.PTBL(x, 10, phase);
       gr.PTBL(x, 15, phase); gr.PTBL(x, 20, phase);
