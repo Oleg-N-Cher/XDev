@@ -1,5 +1,5 @@
 MODULE TestCtrl;
-IMPORT B := Basic, Key := Control, Laser;
+IMPORT B := Basic, Key := Control, Laser := Laser2;
 
 VAR
   pressed: SET;
