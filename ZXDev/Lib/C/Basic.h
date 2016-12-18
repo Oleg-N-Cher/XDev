@@ -59,14 +59,14 @@ extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_reg
 #  define Basic_OVER Basic_OVER_FAST
 #endif
 
-extern void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-extern void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
-extern void Basic_AT_ROM_fastcall (void /* post */);
+extern void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(e,iyl,iyh);
+extern void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
 #  ifndef AT_fastcall
 #    define Basic_AT Basic_AT_ROM_stdcall
 #  else
-#    define Basic_AT(y,x) Basic_AT_ROM_fastcall(); Basic_DATA2(y,x)
+#    define Basic_AT(y,x) Basic_AT_ROM_z88dk_fastcall(((x)<<8) + (y))
 #  endif
 #else
   #define Basic_AT Basic_AT_FAST

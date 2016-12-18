@@ -12,9 +12,9 @@ void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
-void Basic_AT_FAST (SHORTINT y, SHORTINT x);
-void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x);
-void Basic_AT_ROM_fastcall (void /* post */);
+void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
 void Basic_CLS_ZX (void);
 void Basic_CLS_FULLSCREEN (void);
 void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
@@ -248,16 +248,15 @@ __endasm;
 } //Basic_OVER_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_stdcall (SHORTINT y, SHORTINT x) __naked {
+void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __naked __z88dk_callee {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
   CALL 0x1601 // IX-safe
-  LD   A,#22
-  RST  16
   POP  HL
   POP  BC
-  PUSH BC
+  LD   A,#22
+  RST  16
   LD   A,C     // y
   RST  16
   LD   A,B     // x
@@ -267,30 +266,27 @@ __endasm;
 } //Basic_AT_ROM_stdcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_fastcall (void /* post */) __naked {
+void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
+  PUSH HL
   CALL 0x1601 // IX-safe
+  POP  HL
   LD   A,#22
   RST  16
-  POP  HL
-  LD   A,(HL)  // y
+  LD   A,L     // y
   RST  16
-  INC  HL
-  LD   A,(HL)  // x
+  LD   A,H     // x
   RST  16
-  INC  HL
-  JP   (HL)
 __endasm;
-} //Basic_AT_ROM_fastcall
+} //Basic_AT_ROM_z88dk_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_FAST (SHORTINT y, SHORTINT x) {
+void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee {
 __asm
   POP  HL
   POP  BC
-  PUSH BC
   PUSH HL
   LD   A,C     // y
   CALL 0xE9E
