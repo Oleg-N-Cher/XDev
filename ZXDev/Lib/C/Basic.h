@@ -10,7 +10,7 @@
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
-extern void Basic_Init_IM2 (void);
+extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_Init() __asm DI __endasm
 #endif //MODE_DI
@@ -21,7 +21,34 @@ extern void Basic_Init_IM2 (void);
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
-extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
+extern void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(e,iyl,iyh);
+extern void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
+#ifdef ROM_OUTPUT
+#  ifndef AT_fastcall
+#    define Basic_AT Basic_AT_ROM_stdcall
+#  else
+#    define Basic_AT(y,x) Basic_AT_ROM_z88dk_fastcall(((x)<<8) + (y))
+#  endif
+#else
+  #define Basic_AT Basic_AT_FAST
+#endif
+
+extern unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee;
+
+extern void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
+extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  define Basic_BEEP Basic_BEEP_DI
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#  define Basic_BEEP Basic_BEEP_EI
+#endif //MODE_IM1
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  define Basic_BEEP Basic_BEEP_EI
+#endif //MODE_IM2
+
+extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 #ifndef BORDER_fastcall
   #define Basic_BORDER Basic_BORDER_z88dk_fastcall
 #else //BORDER_fastcall
@@ -29,6 +56,8 @@ extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
     call 0x229B \
     __endasm;
 #endif
+
+extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 
 extern void Basic_COLOR_fastcall (void /* Register A */) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
 extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
@@ -41,7 +70,6 @@ extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall __pr
 extern void Basic_INK    (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
-extern void Basic_BRIGHT (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
 extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
 extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
@@ -57,19 +85,6 @@ extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_reg
 #  define Basic_OVER Basic_OVER_ROM
 #else
 #  define Basic_OVER Basic_OVER_FAST
-#endif
-
-extern void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(e,iyl,iyh);
-extern void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
-extern void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
-#ifdef ROM_OUTPUT
-#  ifndef AT_fastcall
-#    define Basic_AT Basic_AT_ROM_stdcall
-#  else
-#    define Basic_AT(y,x) Basic_AT_ROM_z88dk_fastcall(((x)<<8) + (y))
-#  endif
-#else
-  #define Basic_AT Basic_AT_FAST
 #endif
 
 extern void Basic_CLS_ZX (void);
@@ -120,8 +135,6 @@ extern void Basic_PRLN (void);
 extern void Basic_PLOT (unsigned char x, unsigned char y);
 
 extern BYTE Basic_POINT (SHORTINT x, SHORTINT y);
-
-extern BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
 
 extern void Basic_DRAW_S (signed char x, signed char y);
 #define Basic_DRAW(x, y) Basic_DRAW_S((signed char)(x), (signed char)(y))
@@ -201,18 +214,6 @@ extern void Basic_RANDOMIZE (CARDINAL seed);
 extern SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
 extern CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
 extern SHORTINT Basic_SGN (SHORTINT x);
-
-extern void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
-extern void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-#if defined (MODE_DI) || defined (MODE_DI_inline)
-#  define Basic_BEEP Basic_BEEP_DI
-#endif //MODE_DI
-#if defined (MODE_IM1) || defined (MODE_IM1_inline)
-#  define Basic_BEEP Basic_BEEP_EI
-#endif //MODE_IM1
-#if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_BEEP Basic_BEEP_EI
-#endif //MODE_IM2
 
 extern CHAR Basic_INKEY (void);
 
