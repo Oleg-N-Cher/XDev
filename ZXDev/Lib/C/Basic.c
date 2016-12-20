@@ -1,56 +1,58 @@
 #include "SYSTEM.h"
 
 void Basic_Init_IM2 (void);
-void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
-void Basic_COLOR_fastcall (void /* Register A */);
-void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
-void Basic_INK (unsigned char color) __z88dk_fastcall;
-void Basic_PAPER (unsigned char color) __z88dk_fastcall;
-void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
-void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
-void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
-void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
-void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
-void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
+
 void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee;
 void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
 void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
-void Basic_CLS_ZX (void);
-void Basic_CLS_FULLSCREEN (void);
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
-void Basic_PRSTR_C_FAST (CHAR *str);
-void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
-void Basic_PRSTR_C_ROM_fastcall (void /* post */);
-void Basic_PRCHAR_FAST (CHAR ch);
-void Basic_PRCHAR_ROM (CHAR ch);
-void Basic_PRDATA (void);
-void Basic_PRLN (void);
-void Basic_PLOT (unsigned char x, unsigned char y);
-BYTE Basic_POINT (SHORTINT x, SHORTINT y);
-BYTE Basic_ATTR (SHORTINT y, SHORTINT x);
-void Basic_DRAW_S (signed char x, signed char y);
+unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
+void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
+void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
+void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
 void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
 void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
 void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
-BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
-void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
-void Basic_PRINT_FAST (INTEGER i);
-void Basic_PRINT_ROM (INTEGER i);
-void Basic_PRWORD_FAST (CARDINAL n);
-void Basic_PRWORD_ROM (CARDINAL n);
+void Basic_CLS_ZX (void);
+void Basic_CLS_FULLSCREEN (void);
+void Basic_COLOR_fastcall (void /* Register A */);
+void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
+void Basic_DRAW_S (signed char x, signed char y);
+void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
+void Basic_INK (unsigned char color) __z88dk_fastcall;
+CHAR Basic_INKEY (void);
+void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
+void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
 BOOLEAN Basic_KeyPressed (void);
+void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
+void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
+void Basic_PAPER (unsigned char color) __z88dk_fastcall;
 void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
 void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
+void Basic_PLOT (unsigned char x, unsigned char y);
+BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
+void Basic_PRCHAR_FAST (CHAR ch);
+void Basic_PRCHAR_ROM (CHAR ch);
+void Basic_PRDATA (void);
+void Basic_PRINT_FAST (INTEGER i);
+void Basic_PRINT_ROM (INTEGER i);
+void Basic_PRLN (void);
+void Basic_PRSTR_C_FAST (CHAR *str);
+void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+void Basic_PRSTR_C_ROM_fastcall (void /* post */);
+void Basic_PRWORD_FAST (CARDINAL n);
+void Basic_PRWORD_ROM (CARDINAL n);
 void Basic_RANDOMIZE (CARDINAL seed);
 SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
 CARDINAL Basic_RNDW (CARDINAL min, CARDINAL max);
 SHORTINT Basic_SGN (SHORTINT x);
-void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq);
-void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq);
-CHAR Basic_INKEY (void);
+
 void Basic_Quit_DI (void);
 void Basic_Quit_IM1 (void);
 void Basic_Quit_IM2 (void);
@@ -115,6 +117,136 @@ IM2RET$:
 } //Basic_Init_IM2
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __naked __z88dk_callee {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL 0x1601 // IX-safe
+  POP  HL
+  POP  DE
+  LD   A,#22
+  RST  16
+  LD   A,E     // y
+  RST  16
+  LD   A,D     // x
+  RST  16
+  JP   (HL)
+__endasm;
+} //Basic_AT_ROM_stdcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  PUSH HL
+  CALL 0x1601 // IX-safe
+  POP  HL
+  LD   A,#22
+  RST  16
+  LD   A,L     // y
+  RST  16
+  LD   A,H     // x
+  RST  16
+__endasm;
+} //Basic_AT_ROM_z88dk_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee {
+__asm
+  POP  HL
+  POP  BC
+  PUSH HL
+  LD   A,C     // y
+  CALL 0xE9E
+  LD   A,B     // x
+  ADD  A,L
+  LD   L,A
+  LD   (#23684),HL
+__endasm;
+} //Basic_AT_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee {
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH HL
+  CALL 0x2583
+  CALL 0x2DD5
+  LD   L,A
+__endasm;
+} //Basic_ATTR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee {
+/* Uses Spectrum ROM calculator */
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC      /* BC = ms */
+  DEC  SP
+  POP  AF      /* A = freq */
+  PUSH HL
+  PUSH AF
+  CALL 0x2D2B /* Put ms into stack */
+  LD   BC,#1000
+  CALL 0x2D2B /* Put 1000 into stack */
+  RST  40
+  .DB  5,56   /* Divide */
+  POP  AF
+  AND  A
+  JP   M,BeperDi$ /* If freq < 0 then goto BeperDi$ */
+  CALL 0x2D28 /* Put positive freq into stack */
+  JR   DoBeepDi$
+BeperDi$:
+  NEG         /* Make absolute value */
+  CALL 0x2D28 /* and put it into stack */
+  RST  40
+  .DB  27,56  /* Do it negative */
+DoBeepDi$:
+  PUSH IX
+  CALL 0x3F8
+  POP  IX
+  DI
+__endasm;
+} //Basic_BEEP_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee {
+/* Uses Spectrum ROM calculator */
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC      /* BC = ms */
+  DEC  SP
+  POP  AF      /* A = freq */
+  PUSH HL
+  PUSH AF
+  CALL 0x2D2B /* Put ms into stack */
+  LD   BC,#1000
+  CALL 0x2D2B /* Put 1000 into stack */
+  RST  40
+  .DB  5,56   /* Divide */
+  POP  AF
+  AND  A
+  JP   M,BeperEi$ /* If freq < 0 then goto BEPER1$ */
+  CALL 0x2D28 /* Put positive freq into stack */
+  JR   DoBeepEi$
+BeperEi$:
+  NEG         /* Make absolute value */
+  CALL 0x2D28 /* and put it into stack */
+  RST  40
+  .DB  27,56  /* Do it negative */
+DoBeepEi$:
+  PUSH IX
+  CALL 0x3F8
+  POP  IX
+__endasm;
+} //Basic_BEEP_EI
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Basic_BORDER_z88dk_fastcall (unsigned char color) __naked __z88dk_fastcall
 {
   __asm
@@ -124,15 +256,16 @@ void Basic_BORDER_z88dk_fastcall (unsigned char color) __naked __z88dk_fastcall
 } //Basic_BORDER_z88dk_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK (unsigned char color) __z88dk_fastcall {
+void Basic_BRIGHT (unsigned char mode) __naked __z88dk_fastcall {
 __asm
-  LD   A,(ATTR_P$)
-  AND  #0xF8
-  OR   L
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
+  LD   IY,#0x5C3A
+  LD   A,#19
+  RST  16
+  LD   A,L
+  RST  16
+  JP   0x1CAD
 __endasm;
-} //Basic_INK
+} //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_COLOR_fastcall (void /* Register A */) {
@@ -178,16 +311,15 @@ __endasm;
 } //Basic_FLASH
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BRIGHT (unsigned char mode) __naked __z88dk_fastcall {
+void Basic_INK (unsigned char color) __z88dk_fastcall {
 __asm
-  LD   IY,#0x5C3A
-  LD   A,#19
-  RST  16
-  LD   A,L
-  RST  16
-  JP   0x1CAD
+  LD   A,(ATTR_P$)
+  AND  #0xF8
+  OR   L
+  LD   (ATTR_P$),A
+  LD   (ATTR_T$),A
 __endasm;
-} //Basic_BRIGHT
+} //Basic_INK
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
@@ -246,56 +378,6 @@ __asm
   JP   0x1CAD
 __endasm;
 } //Basic_OVER_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __naked __z88dk_callee {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601 // IX-safe
-  POP  HL
-  POP  BC
-  LD   A,#22
-  RST  16
-  LD   A,C     // y
-  RST  16
-  LD   A,B     // x
-  RST  16
-  JP   (HL)
-__endasm;
-} //Basic_AT_ROM_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  PUSH HL
-  CALL 0x1601 // IX-safe
-  POP  HL
-  LD   A,#22
-  RST  16
-  LD   A,L     // y
-  RST  16
-  LD   A,H     // x
-  RST  16
-__endasm;
-} //Basic_AT_ROM_z88dk_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee {
-__asm
-  POP  HL
-  POP  BC
-  PUSH HL
-  LD   A,C     // y
-  CALL 0xE9E
-  LD   A,B     // x
-  ADD  A,L
-  LD   L,A
-  LD   (#23684),HL
-__endasm;
-} //Basic_AT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CLS_ZX (void)
@@ -907,20 +989,6 @@ __asm
   LD   L,A
 __endasm;
 } //Basic_POINT
-
-/*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_ATTR (SHORTINT y, SHORTINT x) {
-__asm
-  LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  CALL 0x2583
-  CALL 0x2DD5
-  LD   L,A
-__endasm;
-} //Basic_ATTR
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_DRAW_S (signed char x, signed char y) __naked {
@@ -1744,75 +1812,6 @@ SHORTINT Basic_SGN (SHORTINT x) {
   if(x==0) return 0;
   return 1;
 } //Basic_SGN
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_DI (CARDINAL ms, SHORTINT freq) __naked {
-/* Uses Spectrum ROM calculator */
-__asm
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-  LD   C,4(IX)
-  LD   B,5(IX) /* BC = ms */
-  LD   A,6(IX) /* A = freq */
-  LD   IY,#0x5C3A
-  PUSH AF
-  CALL 0x2D2B /* Put ms into stack */
-  LD   BC,#1000
-  CALL 0x2D2B /* Put 1000 into stack */
-  RST  40
-  .DB  5,56   /* Divide */
-  POP  AF
-  AND  A
-  JP   M,BeperDi$ /* If freq < 0 then goto BeperDi$ */
-  CALL 0x2D28 /* Put positive freq into stack */
-  JR   DoBeepDi$
-BeperDi$:
-  NEG         /* Make absolute value */
-  CALL 0x2D28 /* and put it into stack */
-  RST  40
-  .DB  27,56  /* Do it negative */
-DoBeepDi$:
-  CALL 0x3F8
-  DI
-  POP  IX
-  RET
-__endasm;
-} //Basic_BEEP_DI
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_EI (CARDINAL ms, SHORTINT freq) __naked {
-/* Uses Spectrum ROM calculator */
-__asm
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-  LD   C,4(IX)
-  LD   B,5(IX) /* BC = ms */
-  LD   A,6(IX) /* A = freq */
-  LD   IY,#0x5C3A
-  PUSH AF
-  CALL 0x2D2B /* Put ms into stack */
-  LD   BC,#1000
-  CALL 0x2D2B /* Put 1000 into stack */
-  RST  40
-  .DB  5,56   /* Divide */
-  POP  AF
-  AND  A
-  JP   M,BeperEi$ /* If freq < 0 then goto BEPER1$ */
-  CALL 0x2D28 /* Put positive freq into stack */
-  JR   DoBeepEi$
-BeperEi$:
-  NEG         /* Make absolute value */
-  CALL 0x2D28 /* and put it into stack */
-  RST  40
-  .DB  27,56  /* Do it negative */
-DoBeepEi$:
-  CALL 0x3F8
-  POP  IX
-  RET
-__endasm;
-} //Basic_BEEP_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 CHAR Basic_INKEY (void) {
