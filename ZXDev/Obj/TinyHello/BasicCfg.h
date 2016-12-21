@@ -12,10 +12,10 @@
 #define ROM_OUTPUT
 
 /* Use fastcall model (the function parameters passed in regs.)  */
-/* Use fastcall _ONLY_ if a function's parameters are constants. */
 
 //#define AT_fastcall
-//#define BORDER_fastcall
+//#define ATTR_fastcall
+//#define BORDER_inline
 //#define INK_fastcall
 //#define PAPER_fastcall
 //#define FLASH_fastcall

@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 	Basic_CLS();
 	Basic_AT(1, 0);
 	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"AT_FAST_fastcall ", 18);
 	Debug_SaveRegsDef();
 	Basic_AT(4, 9);
 	Debug_CheckRegs();
