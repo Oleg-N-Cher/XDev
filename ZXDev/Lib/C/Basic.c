@@ -2,13 +2,15 @@
 
 void Basic_Init_IM2 (void);
 
-void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee;
-void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
-void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
-unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall;
+void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
+void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
+unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
+unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
 void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
 void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
-void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall;
+void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall;
 void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
 void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
 void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
@@ -16,8 +18,7 @@ void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
 void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
 void Basic_CLS_ZX (void);
 void Basic_CLS_FULLSCREEN (void);
-void Basic_COLOR_fastcall (void /* Register A */);
-void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall;
+void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
 void Basic_DRAW_S (signed char x, signed char y);
 void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
 void Basic_INK (unsigned char color) __z88dk_fastcall;
@@ -117,7 +118,7 @@ IM2RET$:
 } //Basic_Init_IM2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __naked __z88dk_callee {
+void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __naked __z88dk_callee {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -132,10 +133,10 @@ __asm
   RST  16
   JP   (HL)
 __endasm;
-} //Basic_AT_ROM_stdcall
+} //Basic_AT_ROM_callee
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall {
+void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -149,25 +150,38 @@ __asm
   LD   A,H     // x
   RST  16
 __endasm;
-} //Basic_AT_ROM_z88dk_fastcall
+} //Basic_AT_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee {
+void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee {
 __asm
   POP  HL
-  POP  BC
-  PUSH HL
-  LD   A,C     // y
+  EX   (SP),HL
+  LD   A,L     // y
+  LD   E,H     // x
   CALL 0xE9E
-  LD   A,B     // x
-  ADD  A,L
+  LD   A,L
+  ADD  E       // + x
   LD   L,A
   LD   (#23684),HL
 __endasm;
 } //Basic_AT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee {
+void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall {
+__asm
+  LD   A,L     // y
+  LD   E,H     // x
+  CALL 0xE9E
+  LD   A,L
+  ADD  E       // + x
+  LD   L,A
+  LD   (#23684),HL
+__endasm;
+} //Basic_AT_FAST_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee {
 __asm
   LD   IY,#0x5C3A
   POP  HL
@@ -177,7 +191,19 @@ __asm
   CALL 0x2DD5
   LD   L,A
 __endasm;
-} //Basic_ATTR
+} //Basic_ATTR_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   C,L
+  LD   B,H
+  CALL 0x2583
+  CALL 0x2DD5
+  LD   L,A
+__endasm;
+} //Basic_ATTR_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee {
@@ -247,13 +273,13 @@ __endasm;
 } //Basic_BEEP_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BORDER_z88dk_fastcall (unsigned char color) __naked __z88dk_fastcall
+void Basic_BORDER_fastcall (unsigned char color) __naked __z88dk_fastcall
 {
   __asm
     LD   A,L
     JP   0x229B // IX-safe
   __endasm;
-} //Basic_BORDER_z88dk_fastcall
+} //Basic_BORDER_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_BRIGHT (unsigned char mode) __naked __z88dk_fastcall {
@@ -268,21 +294,13 @@ __endasm;
 } //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_COLOR_fastcall (void /* Register A */) {
-__asm
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_COLOR_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall {
+void Basic_COLOR (unsigned char atr) __z88dk_fastcall {
 __asm
   LD   A,L
   LD   (ATTR_P$),A
   LD   (ATTR_T$),A
 __endasm;
-} //Basic_COLOR_z88dk_fastcall
+} //Basic_COLOR
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAPER (unsigned char color) __z88dk_fastcall {

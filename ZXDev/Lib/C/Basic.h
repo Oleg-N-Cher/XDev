@@ -10,6 +10,7 @@
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
+// Init
 extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_Init() __asm DI __endasm
@@ -21,21 +22,35 @@ extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
-extern void Basic_AT_FAST (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(e,iyl,iyh);
-extern void Basic_AT_ROM_stdcall (unsigned char y, unsigned char x) __z88dk_callee;
-extern void Basic_AT_ROM_z88dk_fastcall (unsigned int yx) __z88dk_fastcall;
+// AT (y, x: TextCoords)
+extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(b,c,iyl,iyh);
+extern void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
+extern void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
 #  ifndef AT_fastcall
-#    define Basic_AT Basic_AT_ROM_stdcall
+#    define Basic_AT Basic_AT_ROM_callee
 #  else
-#    define Basic_AT(y,x) Basic_AT_ROM_z88dk_fastcall(((x)<<8) + (y))
+#    define Basic_AT(y,x) Basic_AT_ROM_fastcall(((x)<<8) + (y))
 #  endif
 #else
-  #define Basic_AT Basic_AT_FAST
+#  ifndef AT_fastcall
+#    define Basic_AT Basic_AT_FAST_callee
+#  else
+#    define Basic_AT(y,x) Basic_AT_FAST_fastcall(((x)<<8) + (y))
+#  endif
 #endif
 
-extern unsigned char Basic_ATTR (unsigned char y, unsigned char x) __z88dk_callee;
+// ATTR (y, x: TextCoords): UBYTE
+extern unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
+#ifndef ATTR_fastcall
+#  define Basic_ATTR Basic_ATTR_callee
+#else
+#  define Basic_ATTR(y,x) Basic_ATTR_fastcall(((x)<<8) + (y))
+#endif
 
+// BEEP (ms: CARDINAL; freq: SHORTINT)
 extern void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
 extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 #if defined (MODE_DI) || defined (MODE_DI_inline)
@@ -48,28 +63,25 @@ extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
-extern void Basic_BORDER_z88dk_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
-#ifndef BORDER_fastcall
-  #define Basic_BORDER Basic_BORDER_z88dk_fastcall
-#else //BORDER_fastcall
+// BORDER (color: Color)
+extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+#ifndef BORDER_inline
+  #define Basic_BORDER Basic_BORDER_fastcall
+#else //BORDER_inline
   #define Basic_BORDER(color) __ld_a__(color); __asm \
     call 0x229B \
     __endasm;
 #endif
 
+// BRIGHT (mode: Mode)
 extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 
-extern void Basic_COLOR_fastcall (void /* Register A */) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
-extern void Basic_COLOR_z88dk_fastcall (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
-#ifndef COLOR_fastcall
-  #define Basic_COLOR Basic_COLOR_z88dk_fastcall
-#else //COLOR_fastcall
-  #define Basic_COLOR(atr) __ld_a__(atr); Basic_COLOR_fastcall()
-#endif
+// COLOR (attr: UBYTE)
+extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
-extern void Basic_INK    (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
-extern void Basic_PAPER  (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
-extern void Basic_FLASH  (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
+extern void Basic_INK   (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
 extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
 extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);

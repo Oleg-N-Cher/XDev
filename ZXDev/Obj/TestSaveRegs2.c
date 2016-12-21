@@ -22,9 +22,15 @@ int main(int argc, char **argv)
 	Basic_CLS();
 	Basic_AT(1, 0);
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"AT_ROM_z88dk_fastcall ", 23);
+	Basic_PRSTR((CHAR*)"AT_ROM_fastcall ", 17);
 	Debug_SaveRegsDef();
-	Basic_AT(1, 22);
+	Basic_AT(1, 16);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"ATTR_fastcall ", 15);
+	Debug_SaveRegsDef();
+	if (Basic_ATTR(1, 15) == 0) {
+	}
 	Debug_CheckRegs();
 	Basic_COLOR(6);
 	Basic_PRSTR((CHAR*)"BEEP_EI ", 9);

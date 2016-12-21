@@ -10,10 +10,10 @@
 //#define ROM_OUTPUT
 
 /* Use fastcall model (the function parameters passed in regs.)  */
-/* Use fastcall _ONLY_ if a function's parameters are constants. */
 
-//#define BORDER_fastcall
-//#define COLOR_fastcall
+#define AT_fastcall
+//#define ATTR_fastcall
+//#define BORDER_inline
 //#define PAUSE_fastcall
 //#define PRSTR_fastcall
 
