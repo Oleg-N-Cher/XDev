@@ -10,7 +10,7 @@
 #define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
 #define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
 
-// Init
+//------------------------------------ Init ------------------------------------
 extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_Init() __asm DI __endasm
@@ -22,7 +22,7 @@ extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
-// AT (y, x: TextCoords)
+//--------------------------- AT (y, x: TextCoords) ----------------------------
 extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(b,c,iyl,iyh);
 extern void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
 extern void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
@@ -41,7 +41,7 @@ extern void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
 #  endif
 #endif
 
-// ATTR (y, x: TextCoords): UBYTE
+//----------------------- ATTR (y, x: TextCoords): UBYTE -----------------------
 extern unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
 extern unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
 #ifndef ATTR_fastcall
@@ -50,7 +50,7 @@ extern unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
 #  define Basic_ATTR(y,x) Basic_ATTR_fastcall(((x)<<8) + (y))
 #endif
 
-// BEEP (ms: CARDINAL; freq: SHORTINT)
+//-------------------- BEEP (ms: CARDINAL; freq: SHORTINT) ---------------------
 extern void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
 extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 #if defined (MODE_DI) || defined (MODE_DI_inline)
@@ -63,7 +63,7 @@ extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 #  define Basic_BEEP Basic_BEEP_EI
 #endif //MODE_IM2
 
-// BORDER (color: Color)
+//--------------------------- BORDER (color: Color) ----------------------------
 extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 #ifndef BORDER_inline
   #define Basic_BORDER Basic_BORDER_fastcall
@@ -73,10 +73,10 @@ extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __prese
     __endasm;
 #endif
 
-// BRIGHT (mode: Mode)
+//---------------------------- BRIGHT (mode: Mode) -----------------------------
 extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 
-// COLOR (attr: UBYTE)
+//---------------------------- COLOR (attr: UBYTE) -----------------------------
 extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 extern void Basic_INK   (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
@@ -146,7 +146,7 @@ extern void Basic_PRLN (void);
 
 extern void Basic_PLOT (unsigned char x, unsigned char y);
 
-extern BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 
 extern void Basic_DRAW_S (signed char x, signed char y);
 #define Basic_DRAW(x, y) Basic_DRAW_S((signed char)(x), (signed char)(y))

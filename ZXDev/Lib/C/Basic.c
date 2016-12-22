@@ -35,7 +35,7 @@ void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
 void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 void Basic_PLOT (unsigned char x, unsigned char y);
-BYTE Basic_POINT (SHORTINT x, SHORTINT y);
+unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 void Basic_PRCHAR_FAST (CHAR ch);
@@ -215,7 +215,7 @@ __asm
   PUSH AF
   CALL 0x2D2B /* IY := 0x5C3A; Put ms into stack */
   LD   BC,#1000
-  CALL 0x2D2B /* Put 1000 into stack */
+  CALL 0x2D2F /* Put 1000 into stack */
   RST  40
   .DB  5,56   /* Divide */
   POP  AF
@@ -248,7 +248,7 @@ __asm
   PUSH AF
   CALL 0x2D2B /* IY := 0x5C3A; Put ms into stack */
   LD   BC,#1000
-  CALL 0x2D2B /* Put 1000 into stack */
+  CALL 0x2D2F /* Put 1000 into stack */
   RST  40
   .DB  5,56   /* Divide */
   POP  AF
@@ -949,8 +949,7 @@ void Basic_PRCHAR_FAST (CHAR ch)
 } //Basic_PRCHAR_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRDATA (void)
-{
+void Basic_PRDATA (void) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -991,11 +990,10 @@ __endasm;
 } //Basic_PLOT
 
 /*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_POINT (SHORTINT x, SHORTINT y) {
+unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee {
 __asm
   POP  HL
   POP  BC
-  PUSH BC
   PUSH HL
   CALL 0x22CE
   CALL 0x2DD5
