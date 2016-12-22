@@ -183,7 +183,6 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee {
 __asm
-  LD   IY,#0x5C3A
   POP  HL
   POP  BC
   PUSH HL
@@ -196,7 +195,6 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall {
 __asm
-  LD   IY,#0x5C3A
   LD   C,L
   LD   B,H
   CALL 0x2583
@@ -209,14 +207,13 @@ __endasm;
 void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee {
 /* Uses Spectrum ROM calculator */
 __asm
-  LD   IY,#0x5C3A
   POP  HL
   POP  BC      /* BC = ms */
   DEC  SP
   POP  AF      /* A = freq */
   PUSH HL
   PUSH AF
-  CALL 0x2D2B /* Put ms into stack */
+  CALL 0x2D2B /* IY := 0x5C3A; Put ms into stack */
   LD   BC,#1000
   CALL 0x2D2B /* Put 1000 into stack */
   RST  40
@@ -243,14 +240,13 @@ __endasm;
 void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee {
 /* Uses Spectrum ROM calculator */
 __asm
-  LD   IY,#0x5C3A
   POP  HL
   POP  BC      /* BC = ms */
   DEC  SP
   POP  AF      /* A = freq */
   PUSH HL
   PUSH AF
-  CALL 0x2D2B /* Put ms into stack */
+  CALL 0x2D2B /* IY := 0x5C3A; Put ms into stack */
   LD   BC,#1000
   CALL 0x2D2B /* Put 1000 into stack */
   RST  40
@@ -997,7 +993,6 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 BYTE Basic_POINT (SHORTINT x, SHORTINT y) {
 __asm
-  LD   IY,#0x5C3A
   POP  HL
   POP  BC
   PUSH BC
@@ -1498,7 +1493,6 @@ WRAP11$: // fixed for OVER 1 by Destr
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
 __asm
-  LD   IY,#0x5C3A
   PUSH IX
   LD   IX,#0
   ADD  IX,SP
