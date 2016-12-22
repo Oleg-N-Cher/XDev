@@ -80,6 +80,12 @@ extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(
 extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 extern void Basic_INK   (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------- IM2PROC (proc: PROCEDURE) --------------------------
+extern void Basic__IM2ADR (void);
+#define Basic_IM2PROC(adr) __asm DI __endasm; \
+  Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
+
 extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
@@ -144,8 +150,10 @@ extern void Basic_PRDATA (void);
 
 extern void Basic_PRLN (void);
 
-extern void Basic_PLOT (unsigned char x, unsigned char y);
+//---------------------------- PLOT (x, y: INTEGER) ----------------------------
+extern void Basic_PLOT (unsigned char x, unsigned char y) __z88dk_callee;
 
+//----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
 extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 
 extern void Basic_DRAW_S (signed char x, signed char y);
@@ -192,7 +200,7 @@ extern BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 
 extern void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
 
-extern BOOLEAN Basic_KeyPressed (void);
+extern BOOLEAN Basic_PRESSED (void);
 
 extern void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
 extern void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
@@ -231,7 +239,9 @@ extern CHAR Basic_INKEY (void);
 
 #define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
-#define Basic_Reset() __asm RST 0 __endasm
+
+//------------------------------------ USR0 ------------------------------------
+#define Basic_USR0() __asm RST 0 __endasm
 
 #define Basic_DEFDATA(title, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
     ld   (_##title),hl \
@@ -320,6 +330,7 @@ extern CHAR Basic_INKEY (void);
   .db 0x00 \
   __endasm
 
+//------------------------------------ Quit ------------------------------------
 extern void Basic_Quit_DI  (void);
 extern void Basic_Quit_IM1 (void);
 extern void Basic_Quit_IM2 (void);
@@ -361,65 +372,72 @@ extern void Basic_Quit_IM2 (void);
    __endasm
 #endif //MODE_IM2_inline
 
-extern void Basic__IM2ADR (void);
-#define Basic_IM2PROC(adr) __asm DI __endasm; \
-  Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
 #define Basic__init()
 
 
-#define Black 0
-#define Blue 1
-#define Red 2
-#define Magenta 3
-#define Green 4
-#define Cyan 5
-#define Brown 6
-#define LightGray 7
+#ifdef __Use_C_only__
+#  define Black 0
+#  define Blue 1
+#  define Red 2
+#  define Magenta 3
+#  define Green 4
+#  define Cyan 5
+#  define Brown 6
+#  define LightGray 7
+#  define LightBlue 1
+#  define LightRed 2
+#  define LightMagenta 3
+#  define LightGreen 4
+#  define LightCyan 5
+#  define Yellow 6
+#  define White 7
 
-#define LightBlue 1
-#define LightRed 2
-#define LightMagenta 3
-#define LightGreen 4
-#define LightCyan 5
-#define Yellow 6
-#define White 7
+#  define On 1
+#  define Off 0
 
-#define On 1
-#define Off 0
-
-#define BORDER Basic_BORDER
-#define INK Basic_INK
-#define PAPER Basic_PAPER
-#define FLASH Basic_FLASH
-#define BRIGHT Basic_BRIGHT
-#define INVERSE Basic_INVERSE
-#define OVER Basic_OVER
-#define AT Basic_AT
-#define CLS Basic_CLS
-#define PAINT Basic_PAINT
-#define PRCHAR Basic_PRCHAR
-#define PLOT Basic_PLOT
-#define POINT Basic_POINT
-#define ATTR Basic_ATTR
-#define DRAW Basic_DRAW
-#define CIRCLE Basic_CIRCLE
-#define CIRCLEW Basic_CIRCLEW
-#define CIRCLEROM Basic_CIRCLEROM
-#define PRINT Basic_PRINT
-#define PRWORD Basic_PRWORD
-#define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
-#define POKEW(addr,val) (*(unsigned*) (addr) = (val))
-#define PEEK(addr)      (*(unsigned char*) (addr))
-#define PEEKW(addr)     (*(unsigned*) (addr))
-#define PORTIN Basic_PORTIN
-#define PORTOUT Basic_PORTOUT
-#define KeyPressed Basic_KeyPressed
-#define PAUSE Basic_PAUSE
-#define RANDOMIZE Basic_RANDOMIZE
-#define RND Basic_RND
-#define SGN Basic_SGN
-#define BEEP Basic_BEEP
-#define FONT Basic_FONT
-#define Reset Basic_Reset
+#  define AT Basic_AT
+#  define ATTR Basic_ATTR
+#  define BEEP Basic_BEEP
+#  define BORDER Basic_BORDER
+#  define BRIGHT Basic_BRIGHT
+#  define CIRCLE Basic_CIRCLE
+#  define CIRCLEW Basic_CIRCLEW
+#  define CIRCLEROM Basic_CIRCLEROM
+#  define CLS Basic_CLS
+#  define COLOR Basic_COLOR
+#  define DRAW Basic_DRAW
+#  define FLASH Basic_FLASH
+#  define FONT Basic_FONT
+#  define IM2PROC Basic_IM2PROC
+#  define INK Basic_INK
+#  define INKEY Basic_INKEY
+#  define INVERSE Basic_INVERSE
+#  define OVER Basic_OVER
+#  define PAINT Basic_PAINT
+#  define PAPER Basic_PAPER
+#  define PAUSE Basic_PAUSE
+#  define PEEK(addr)      (*(unsigned char*) (addr))
+#  define PEEKW(addr)     (*(unsigned*) (addr))
+#  define PLOT Basic_PLOT
+#  define POINT Basic_POINT
+#  define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
+#  define POKEW(addr,val) (*(unsigned*) (addr) = (val))
+#  define PORTIN Basic_PORTIN
+#  define PORTOUT Basic_PORTOUT
+#  define PRCHAR Basic_PRCHAR
+#  define PRDATA Basic_PRDATA
+#  define PRESSED Basic_PRESSED
+#  define PRINT Basic_PRINT
+#  define PRLN Basic_PRLN
+#  define PRSTR Basic_PRSTR
+#  define PRUDG Basic_PRUDG
+#  define PRWORD Basic_PRWORD
+#  define RANDOMIZE Basic_RANDOMIZE
+#  define RND Basic_RND
+#  define RNDW Basic_RNDW
+#  define SGN Basic_SGN
+#  define UDG Basic_UDG
+#  define USR0 Basic_USR0
+#endif //__Use_C_only__
 
 #endif
