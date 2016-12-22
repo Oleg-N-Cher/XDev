@@ -25,7 +25,7 @@ void Basic_INK (unsigned char color) __z88dk_fastcall;
 CHAR Basic_INKEY (void);
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
-BOOLEAN Basic_KeyPressed (void);
+BOOLEAN Basic_PRESSED (void);
 void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
 void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
@@ -34,7 +34,7 @@ void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
 void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
-void Basic_PLOT (unsigned char x, unsigned char y);
+void Basic_PLOT (unsigned char x, unsigned char y) __z88dk_callee;
 unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
@@ -297,20 +297,6 @@ __asm
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_COLOR
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER (unsigned char color) __z88dk_fastcall {
-__asm
-  LD   A,(ATTR_P$)
-  AND  #0xC7
-  SLA  L
-  SLA  L
-  SLA  L
-  OR   L
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_PAPER
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {
@@ -805,6 +791,20 @@ LOC_7FEB$: LD   C, B
 } //Basic_PAINT
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAPER (unsigned char color) __z88dk_fastcall {
+__asm
+  LD   A,(ATTR_P$)
+  AND  #0xC7
+  SLA  L
+  SLA  L
+  SLA  L
+  OR   L
+  LD   (ATTR_P$),A
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_PAPER
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
 /*
   INTEGER i;
@@ -974,12 +974,11 @@ void Basic_PRLN (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PLOT (unsigned char x, unsigned char y) __naked {
+void Basic_PLOT (unsigned char x, unsigned char y) __naked __z88dk_callee {
 __asm
   LD   IY,#0x5C3A
   POP  HL
   POP  BC
-  PUSH BC
   PUSH HL
   JP   0x22E5
   //LD   (0x5C7D),BC
@@ -1675,7 +1674,7 @@ __endasm;
 } //Basic_PRWORD_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-BOOLEAN Basic_KeyPressed (void) { // Check to IX-safety
+BOOLEAN Basic_PRESSED (void) { // Check to IX-safety
 __asm
     CALL  #0x28E /* Scan keys */
     LD    L,#0   /* FALSE */
@@ -1685,7 +1684,7 @@ __asm
     RET   Z
     INC   L      /* TRUE */
 __endasm;
-} //Basic_KeyPressed
+} //Basic_PRESSED
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAUSE_DI_fastcall (void /* Regs BC */) {
