@@ -47,6 +47,11 @@ int main(int argc, char **argv)
 	Debug_SaveRegsDef();
 	Basic_BRIGHT(1);
 	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PLOT_callee ", 13);
+	Debug_SaveRegsDef();
+	Basic_PLOT(255, 175);
+	Debug_CheckRegs();
 	Basic_Quit();
 	__FINI;
 }
