@@ -113,7 +113,18 @@ extern void Basic_CLS_FULLSCREEN (void);
   #define Basic_CLS Basic_CLS_ZX
 #endif
 
-extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
+//-------------------------- PAINT (x, y, ink: UBYTE) --------------------------
+extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
+
+//---------------------------- PLOT (x, y: INTEGER) ----------------------------
+extern void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef PLOT_fastcall
+#  define Basic_PLOT Basic_PLOT_callee
+#else
+#  define Basic_PLOT(x,y) Basic_PLOT_fastcall(((y)<<8) + (x))
+#endif
+
 extern void Basic_PRSTR_C_FAST (CHAR *str);
 extern void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
 extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
@@ -149,9 +160,6 @@ extern void Basic_PRCHAR_ROM (CHAR ch);
 extern void Basic_PRDATA (void);
 
 extern void Basic_PRLN (void);
-
-//---------------------------- PLOT (x, y: INTEGER) ----------------------------
-extern void Basic_PLOT (unsigned char x, unsigned char y) __z88dk_callee;
 
 //----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
 extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;

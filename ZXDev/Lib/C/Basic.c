@@ -28,13 +28,14 @@ void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
 BOOLEAN Basic_PRESSED (void);
 void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink);
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
 void Basic_PAPER (unsigned char color) __z88dk_fastcall;
 void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_DI_stdcall (CARDINAL ticks);
 void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
 void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
-void Basic_PLOT (unsigned char x, unsigned char y) __z88dk_callee;
+void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
 void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
@@ -290,747 +291,6 @@ __endasm;
 } //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_COLOR (unsigned char atr) __z88dk_fastcall {
-__asm
-  LD   A,L
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_COLOR
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#18
-  RST  16 // IX-safe
-  LD   A,L
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_FLASH
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_INK (unsigned char color) __z88dk_fastcall {
-__asm
-  LD   A,(ATTR_P$)
-  AND  #0xF8
-  OR   L
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_INK
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,L
-  OR   A
-  JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
-  LD   A,#0x2F      /*              else poke CPL */
-SetInvers$:
-  LD   (#_INV_MODE),A
-  LD   A,#20
-  RST  16
-  LD   A,L
-  RST  16
-__endasm;
-} //Basic_INVERSE_FAST
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_INVERSE_ROM (unsigned char mode) __naked __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#20
-  RST  16 // IX-safe
-  LD   A,L
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_INVERSE_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall {
-__asm // !!! NEED to be checked to IX-safety
-  LD   IY,#0x5C3A
-  LD   A,L
-  OR   A
-  JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
-  LD   A,#0xAE    /*           else poke XOR (HL) */
-SetOver$:
-  LD   (#_OVER_MODE),A
-  LD   A,#21
-  RST  16
-  LD   A,L
-  RST  16
-__endasm;
-} //Basic_OVER_FAST
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_OVER_ROM (unsigned char mode) __naked __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#21
-  RST  16 // IX-safe
-  LD   A,L
-  RST  16
-  JP   0x1CAD
-__endasm;
-} //Basic_OVER_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_ZX (void)
-{
-__asm
-  LD   IY,#0x5C3A
-  CALL 0xD6B // IX-safe
-  LD   A,(ATTR_P$)
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_CLS_ZX
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_FULLSCREEN (void)
-{
-__asm
-  LD   IY,#0x5C3A
-  LD   A,(#0x5C48)
-  PUSH AF
-  LD   A,(ATTR_P$)
-  LD   (#0x5C48),A
-  CALL 0xD6B // IX-safe
-  POP  AF
-  LD   (#0x5C48),A
-  LD   A,(ATTR_P$)
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_CLS_FULLSCREEN
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __naked {
-  __asm
-           POP  HL
-           POP  DE           ; E = x; D = y
-           POP  BC           ; C = atr
-           PUSH BC
-           PUSH DE
-           PUSH HL
-           LD   A, D
-           CP   #0xC0
-           RET  NC           ; y > 191
-
-         LD A,D
-         LD D,E             ; D = x
-         LD E,A             ; E = y
-
-           PUSH IX
-           LD   L, #0
-           LD   A, C         ; atr
-           CP   #8
-           JR   NC, LOC_7DF2$
-           LD   L, #0xF8
-           LD   H, C
-LOC_7DF2$: PUSH DE
-           PUSH HL
-           LD   HL, #0
-           ADD  HL, SP
-           LD   BC, (0x5C65) ; STK_END
-           SBC  HL, BC
-           SRL  H
-           RR   L
-           SRL  H
-           RR   L
-           LD   B, #0xA
-LOC_7E08$: DEC  HL
-           DJNZ LOC_7E08$
-           EX   DE, HL
-           POP  HL
-           EXX
-           LD   HL, #0x4000
-           LD   IX, #0x5800
-           POP  DE
-           LD   C, D         ; x
-           LD   B, #3
-LOC_7E19$: SRL  C
-           DJNZ LOC_7E19$
-           ADD  HL, BC
-           ADD  IX, BC
-           LD   C, E         ; y
-           LD   E, #0xBF
-LOC_7E23$: LD   A, E
-           CP   C
-           JR   Z, LOC_7E2C$
-           CALL SUB_7EB9$
-           JR   LOC_7E23$
-LOC_7E2C$: LD   A, D
-           AND  #7
-           INC  A
-           LD   B, A
-           LD   A, (HL)
-LOC_7E32$: RLA
-           DJNZ LOC_7E32$
-           PUSH AF
-           CALL C, SUB_7E4C$
-           CALL SUB_7EF3$
-           POP  AF
-           CALL C, SUB_7E4C$
-           EXX
-           LD   A, B
-           AND  A
-           POP  IX
-           RET  Z
-           RST  8
-           .DB  3
-
-SUB_7E4C$: PUSH IX
-           PUSH HL
-           PUSH DE
-           LD   IX, #0x5800
-           LD   HL, #0x4000
-           LD   D, #3
-LOC_7E59$: LD   E, #0
-LOC_7E5B$: LD   B, #8
-           PUSH HL
-LOC_7E5E$: LD   A, (HL)
-           CPL
-           LD   (HL), A
-           INC  H
-           DJNZ LOC_7E5E$
-           LD   A, 0(IX)
-           LD   C, A
-           AND  #7
-           LD   H, A
-           LD   A, C
-           AND  #0x38
-           LD   B, #3
-LOC_7E70$: RRCA
-           RL   H
-           DJNZ LOC_7E70$
-           OR   H
-           LD   H, A
-           LD   A, C
-           AND  #0xC0
-           OR   H
-           LD   0(IX), A
-           POP  HL
-           INC  HL
-           INC  IX
-           DEC  E
-           JR   NZ, LOC_7E5B$
-           LD   A, H
-           ADD  A, #7
-           LD   H, A
-           DEC  D
-           JR   NZ, LOC_7E59$
-           POP  DE
-           POP  HL
-           POP  IX
-           RET
-
-SUB_7E91$: EXX
-           BIT 7, L
-           EXX
-           RET Z
-           LD  A, 0(IX)
-           EXX
-           AND L
-           OR  H
-           EXX
-           LD  0(IX), A
-           RET
-
-SUB_7EA1$: INC  E
-           LD   A, E
-           DEC  H
-           AND  #7
-           RET  NZ
-           PUSH BC
-           LD   BC, #0xFFE0
-           ADD  IX, BC
-           ADD  HL, BC
-           INC  H
-           POP  BC
-           LD   A, E
-           AND  #0x3F
-           RET  Z
-           LD   A, H
-           ADD  A, #7
-           LD   H, A
-           RET
-
-SUB_7EB9$: LD   A, E
-SUB_7EBA$: INC  H
-           DEC  E
-           AND  #7
-           RET  NZ
-           PUSH BC
-           LD   BC, #0x20
-           ADD  IX, BC
-           ADD  HL, BC
-           DEC  H
-           POP  BC
-           LD   A, E
-           INC  A
-           AND  #0x3F
-           RET  Z
-           LD   A, H
-           SUB  #7
-           LD   H, A
-           RET
-
-SUB_7ED2$: PUSH BC
-           LD   B, C
-           SRL  B
-           SRL  B
-           SRL  B
-           LD   A, L
-           AND  #0xE0
-           OR   B
-           LD   L, A
-           PUSH IX
-           EX   (SP), HL
-           LD   A, L
-           AND  #0xE0
-           OR   B
-           LD   L, A
-           EX   (SP), HL
-           POP  IX
-           POP  BC
-           LD   D, C
-           RET
-
-LOC_7EED$: LD   B, D
-           INC  DE
-           EXX
-           LD   D, #0
-           RET
-
-SUB_7EF3$: EXX
-           DEC  DE
-           BIT  7, D
-           JR   NZ, LOC_7EED$
-           EXX
-           CALL SUB_7E91$
-           LD   A, (HL)
-           AND  A
-           JR   Z, LOC_7F52$
-           LD   C, A
-           INC  A
-           LD   A, D
-           JR   Z, LOC_7F20$
-           AND  #7
-           INC  A
-           LD   B, A
-           LD   A, C
-           LD   C, B
-LOC_7F0C$: RLCA
-           DJNZ LOC_7F0C$
-           JR   NC, LOC_7F3B$
-           INC  D
-           JR   Z, LOC_7F1C$
-           LD   A, D
-           AND  #7
-           JR   NZ, LOC_7F1C$
-LOC_7F19$: INC  HL
-           INC  IX
-LOC_7F1C$: EXX
-           INC  DE
-           EXX
-           RET
-LOC_7F20$: AND  #0xF8
-           ADD  A, #8
-           LD   D, A
-           JR   Z, LOC_7F1C$
-           JR   LOC_7F19$
-LOC_7F29$: LD   (HL), A
-           LD   A, D
-           DEC  A
-           AND  #0xF8
-           ADD  A, B
-           LD   C, A
-           DEC  B
-           JR   Z, LOC_7F38$
-           LD   A, (HL)
-LOC_7F34$: RRCA
-           DJNZ LOC_7F34$
-           LD   (HL), A
-LOC_7F38$: LD   A, D
-           JR   LOC_7F87$
-LOC_7F3B$: INC  D
-           BIT  3, C
-           JR   NZ, LOC_7F47$
-           RLCA
-           JR   C, LOC_7F46$
-           INC  C
-           JR   LOC_7F3B$
-LOC_7F46$: RRCA
-LOC_7F47$: LD   B, C
-LOC_7F48$: SCF
-           RRA
-           JR   C, LOC_7F29$
-           DJNZ LOC_7F48$
-           LD   (HL), A
-           LD   A, D
-           JR   LOC_7F5A$
-LOC_7F52$: LD   (HL), #0xFF
-           LD   A, D
-           AND  #0xF8
-           ADD  A, #8
-           INC  D
-LOC_7F5A$: LD   C, A
-           PUSH HL
-           PUSH IX
-LOC_7F5E$: LD   A, D
-           DEC  A
-           AND  #0xF8
-           LD   D, A
-           JR   Z, LOC_7F81$
-           DEC  HL
-           DEC  IX
-           CALL SUB_7E91$
-           LD   A, (HL)
-           LD   (HL), #0xFF
-           AND  A
-           JR   Z, LOC_7F5E$
-           LD   B, #0
-           SCF
-LOC_7F74$: INC  B
-           RRA
-           JR   NC, LOC_7F74$
-           DEC  B
-LOC_7F79$: SCF
-           RLA
-           JR   NC, LOC_7F79$
-           LD   (HL), A
-           LD   A, D
-           SUB  B
-           LD   D, A
-LOC_7F81$: POP  IX
-           POP  HL
-           LD   A, C
-           LD   C, D
-           LD   D, A
-LOC_7F87$: AND  #7
-           JR   NZ, LOC_7FB1$
-           LD   A, D
-           AND  A
-LOC_7F8D$: JR   Z, LOC_7FB1$
-           INC  HL
-           INC  IX
-           CALL SUB_7E91$
-           LD   A, (HL)
-           AND  A
-           JR   NZ, LOC_7FA1$
-           LD   (HL), #0xFF
-           LD   A, D
-           ADD  A, #8
-           LD   D, A
-           JR   LOC_7F8D$
-LOC_7FA1$: LD   B, #0
-           SCF
-LOC_7FA4$: INC  B
-           RLA
-           JR   NC, LOC_7FA4$
-           DEC  B
-LOC_7FA9$: SCF
-           RRA
-           JR   NC, LOC_7FA9$
-           LD   (HL), A
-           LD   A, D
-           ADD  A, B
-           LD   D, A
-LOC_7FB1$: LD   B, D
-           DEC  B
-           LD   A, E
-           CP   #0xBF
-           JR   NC, LOC_7FD1$
-           CALL SUB_7EA1$
-           CALL SUB_7ED2$
-LOC_7FBE$: PUSH BC
-           CALL SUB_7EF3$
-           POP  BC
-           LD   A, D
-           SUB  #1
-           JR   C, LOC_7FCB$
-           CP   B
-           JR   C, LOC_7FBE$
-LOC_7FCB$: CALL SUB_7ED2$
-           CALL SUB_7EB9$
-LOC_7FD1$: LD   A, E
-           AND  A
-           JR   Z, LOC_7FEB$
-           CALL SUB_7EBA$
-           CALL SUB_7ED2$
-LOC_7FDB$: PUSH BC
-           CALL SUB_7EF3$
-           POP  BC
-           LD   A, D
-           SUB  #1
-           JR   C, LOC_7FE8$
-           CP   B
-           JR   C, LOC_7FDB$
-LOC_7FE8$: CALL SUB_7EA1$
-LOC_7FEB$: LD   C, B
-           CALL SUB_7ED2$
-           EXX
-           INC  DE
-           EXX
-           INC  D
-           RET  Z
-           INC  D
-           RET  Z
-           LD   A, D
-           AND  #7
-           CP   #2
-           RET  NC
-           INC  HL
-           INC  IX
-           RET
-  __endasm;
-} //Basic_PAINT
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAPER (unsigned char color) __z88dk_fastcall {
-__asm
-  LD   A,(ATTR_P$)
-  AND  #0xC7
-  SLA  L
-  SLA  L
-  SLA  L
-  OR   L
-  LD   (ATTR_P$),A
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_PAPER
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
-/*
-  INTEGER i;
-  i = 0;
-  while (str[i] != 0x00) {
-    PRCHAR(str[i]);
-    i += 1;
-  }
-*/
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-PRSTRstd$:
-  LD   A,(BC)
-  OR   A
-  RET  Z
-  RST  16
-  INC  BC
-  JR   PRSTRstd$
-__endasm;
-} //Basic_PRSTR_C_ROM_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_fastcall (void /* post */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-PRSTRfst$:
-  POP  HL
-  LD   A,(HL)
-  INC  HL
-  PUSH HL
-  OR   A
-  RET  Z
-  RST  16
-  JR   PRSTRfst$
-__endasm;
-} //Basic_PRSTR_C_ROM_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_FAST (CHAR *str) __naked {
-__asm
-.globl _INV_MODE
-.globl _OVER_MODE
-  POP  DE
-  POP  HL
-  PUSH HL
-  PUSH DE
-pr_sta$:
-  LD   A,(HL)
-  OR   A
-  RET  Z
-  PUSH HL
-  LD   L,A
-  BIT  7,A
-  JR   NZ,PO_GR$
-  LD   H,#0
-  ADD  HL,HL
-  ADD  HL,HL
-  ADD  HL,HL
-  LD   DE,(#CHAR_SET$)
-  ADD  HL,DE
-  JR   USER_FONT$
-PO_GR_BUF$:
-  .DB  #0,#0,#0,#0,#0,#0,#0,#0
-PO_GR$:
-  LD   B,A
-  LD   HL,#PO_GR_BUF$
-  PUSH HL
-  CALL 0xB3E /* Generate po_gr char to buffer */
-  CALL 0xB3E
-  POP  HL
-USER_FONT$:
-  LD   DE,(#23684)
-  EX   DE,HL
-  PUSH HL
-  LD   B,#8
-p_Sy1$:
-  LD   A,(DE)
-_INV_MODE:
-  NOP
-_OVER_MODE:
-  NOP
-  LD   (HL),A
-  INC  DE
-  INC  H
-  DJNZ p_Sy1$
-  POP  HL
-  PUSH HL
-  LD   A,H
-  AND  #0x18
-  RRCA
-  RRCA
-  RRCA
-  ADD  A,#0x58
-  LD   H,A
-  LD   A,(ATTR_P$)
-  LD   (HL),A
-  POP  HL
-  INC  L
-  JR   NZ,p_Sy2$
-  LD   A,H
-  ADD  A,#8
-  LD   H,A
-  CP   #0x58
-  JR   C,p_Sy2$
-  LD   H,#0x40
-p_Sy2$:
-  LD   (#23684),HL
-  POP  HL
-  INC  HL
-  JR   pr_sta$
-__endasm;
-} //Basic_PRSTR_C_FAST
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_ROM (CHAR ch) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,C
-  RST  16
-  JP   (HL)
-__endasm;
-} //Basic_PRCHAR_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_FAST (CHAR ch)
-{
-  CHAR str[2];
-  str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
-} //Basic_PRCHAR_FAST
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRDATA (void) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-  POP  HL
-PRDATA$:
-  LD   A,(HL)
-  OR   A
-  JR   Z,PRDATA_EX$
-  RST  16
-  INC  HL
-  JR   PRDATA$
-PRDATA_EX$:
-  JP   (HL)
-__endasm;
-} //Basic_PRDATA
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRLN (void)
-{
-  Basic_PRCHAR_ROM('\x0D');
-}
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PLOT (unsigned char x, unsigned char y) __naked __z88dk_callee {
-__asm
-  LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH HL
-  JP   0x22E5
-  //LD   (0x5C7D),BC
-  //LD   A,#0xBF
-  //CALL 0x22AC
-  //JP   0x22EC
-__endasm;
-} //Basic_PLOT
-
-/*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee {
-__asm
-  POP  HL
-  POP  BC
-  PUSH HL
-  CALL 0x22CE
-  CALL 0x2DD5
-  LD   L,A
-__endasm;
-} //Basic_POINT
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_DRAW_S (signed char x, signed char y) __naked {
-__asm
-  LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   HL,(#0x5C7D)
-  LD   DE,#0x0101
-  LD   A,C
-  ADD  L
-  JR   NC,PositiveX$
-  XOR  A
-  SUB  C
-  LD   C,A
-  LD   E,#0xFF
-PositiveX$:
-  LD   A,B
-  ADD  H
-  JR   NC,PositiveY$
-  XOR  A
-  SUB  B
-  LD   B,A
-  LD   D,#0xFF
-PositiveY$:
-  JP   0x24BA
-__endasm;
-} //Basic_DRAW_S
-
-/*--------------------------------- Cut here ---------------------------------*/
 void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
   __asm // Fixed for OVER 1 & small radius by Reobne
         POP  BC
@@ -1039,7 +299,7 @@ void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __n
         PUSH DE
         PUSH HL
         PUSH BC
-        
+
         LD   C, E
         LD   B, #0
         CALL DOTCI$
@@ -1508,6 +768,547 @@ __endasm;
 } //Basic_CIRCLEROM
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Basic_COLOR (unsigned char atr) __z88dk_fastcall {
+__asm
+  LD   A,L
+  LD   (ATTR_P$),A
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_COLOR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#18
+  RST  16 // IX-safe
+  LD   A,L
+  RST  16
+  JP   0x1CAD
+__endasm;
+} //Basic_FLASH
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_INK (unsigned char color) __z88dk_fastcall {
+__asm
+  LD   A,(ATTR_P$)
+  AND  #0xF8
+  OR   L
+  LD   (ATTR_P$),A
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_INK
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,L
+  OR   A
+  JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
+  LD   A,#0x2F      /*              else poke CPL */
+SetInvers$:
+  LD   (#_INV_MODE),A
+  LD   A,#20
+  RST  16
+  LD   A,L
+  RST  16
+__endasm;
+} //Basic_INVERSE_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_INVERSE_ROM (unsigned char mode) __naked __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#20
+  RST  16 // IX-safe
+  LD   A,L
+  RST  16
+  JP   0x1CAD
+__endasm;
+} //Basic_INVERSE_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall {
+__asm // !!! NEED to be checked to IX-safety
+  LD   IY,#0x5C3A
+  LD   A,L
+  OR   A
+  JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
+  LD   A,#0xAE    /*           else poke XOR (HL) */
+SetOver$:
+  LD   (#_OVER_MODE),A
+  LD   A,#21
+  RST  16
+  LD   A,L
+  RST  16
+__endasm;
+} //Basic_OVER_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_OVER_ROM (unsigned char mode) __naked __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#21
+  RST  16 // IX-safe
+  LD   A,L
+  RST  16
+  JP   0x1CAD
+__endasm;
+} //Basic_OVER_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CLS_ZX (void)
+{
+__asm
+  LD   IY,#0x5C3A
+  CALL 0xD6B // IX-safe
+  LD   A,(ATTR_P$)
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_CLS_ZX
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CLS_FULLSCREEN (void)
+{
+__asm
+  LD   IY,#0x5C3A
+  LD   A,(#0x5C48)
+  PUSH AF
+  LD   A,(ATTR_P$)
+  LD   (#0x5C48),A
+  CALL 0xD6B // IX-safe
+  POP  AF
+  LD   (#0x5C48),A
+  LD   A,(ATTR_P$)
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_CLS_FULLSCREEN
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __naked __z88dk_callee {
+  __asm
+           POP  BC
+           POP  DE           ; E = x; D = y
+           DEC  SP
+           POP  HL           ; H = ink
+           PUSH BC
+           LD   A, D
+           CP   #0xC0
+           RET  NC           ; y > 191
+
+           LD D,E            ; D = x
+           LD E,A            ; E = y
+
+           PUSH IX
+           LD   L, #0
+           LD   A, H         ; ink
+           CP   #8
+           JR   NC, LOC_7DF2$
+           LD   L, #0xF8
+LOC_7DF2$: PUSH DE
+           PUSH HL
+           LD   HL, #0
+           ADD  HL, SP
+           LD   BC, (0x5C65) ; STK_END
+           SBC  HL, BC
+           SRL  H
+           RR   L
+           SRL  H
+           RR   L
+           LD   B, #0xA
+LOC_7E08$: DEC  HL
+           DJNZ LOC_7E08$
+           EX   DE, HL
+           POP  HL
+           EXX
+           LD   HL, #0x4000
+           LD   IX, #0x5800
+           POP  DE
+           LD   C, D         ; x
+           LD   B, #3
+LOC_7E19$: SRL  C
+           DJNZ LOC_7E19$
+           ADD  HL, BC
+           ADD  IX, BC
+           LD   C, E         ; y
+           LD   E, #0xBF
+LOC_7E23$: LD   A, E
+           CP   C
+           JR   Z, LOC_7E2C$
+           CALL SUB_7EB9$
+           JR   LOC_7E23$
+LOC_7E2C$: LD   A, D
+           AND  #7
+           INC  A
+           LD   B, A
+           LD   A, (HL)
+LOC_7E32$: RLA
+           DJNZ LOC_7E32$
+           PUSH AF
+           CALL C, SUB_7E4C$
+           CALL SUB_7EF3$
+           POP  AF
+           CALL C, SUB_7E4C$
+           EXX
+           LD   A, B
+           AND  A
+           POP  IX
+           RET  Z
+           RST  8
+           .DB  3
+
+SUB_7E4C$: PUSH IX
+           PUSH HL
+           PUSH DE
+           LD   IX, #0x5800
+           LD   HL, #0x4000
+           LD   D, #3
+LOC_7E59$: LD   E, #0
+LOC_7E5B$: LD   B, #8
+           PUSH HL
+LOC_7E5E$: LD   A, (HL)
+           CPL
+           LD   (HL), A
+           INC  H
+           DJNZ LOC_7E5E$
+           LD   A, 0(IX)
+           LD   C, A
+           AND  #7
+           LD   H, A
+           LD   A, C
+           AND  #0x38
+           LD   B, #3
+LOC_7E70$: RRCA
+           RL   H
+           DJNZ LOC_7E70$
+           OR   H
+           LD   H, A
+           LD   A, C
+           AND  #0xC0
+           OR   H
+           LD   0(IX), A
+           POP  HL
+           INC  HL
+           INC  IX
+           DEC  E
+           JR   NZ, LOC_7E5B$
+           LD   A, H
+           ADD  A, #7
+           LD   H, A
+           DEC  D
+           JR   NZ, LOC_7E59$
+           POP  DE
+           POP  HL
+           POP  IX
+           RET
+
+SUB_7E91$: EXX
+           BIT 7, L
+           EXX
+           RET Z
+           LD  A, 0(IX)
+           EXX
+           AND L
+           OR  H
+           EXX
+           LD  0(IX), A
+           RET
+
+SUB_7EA1$: INC  E
+           LD   A, E
+           DEC  H
+           AND  #7
+           RET  NZ
+           PUSH BC
+           LD   BC, #0xFFE0
+           ADD  IX, BC
+           ADD  HL, BC
+           INC  H
+           POP  BC
+           LD   A, E
+           AND  #0x3F
+           RET  Z
+           LD   A, H
+           ADD  A, #7
+           LD   H, A
+           RET
+
+SUB_7EB9$: LD   A, E
+SUB_7EBA$: INC  H
+           DEC  E
+           AND  #7
+           RET  NZ
+           PUSH BC
+           LD   BC, #0x20
+           ADD  IX, BC
+           ADD  HL, BC
+           DEC  H
+           POP  BC
+           LD   A, E
+           INC  A
+           AND  #0x3F
+           RET  Z
+           LD   A, H
+           SUB  #7
+           LD   H, A
+           RET
+
+SUB_7ED2$: PUSH BC
+           LD   B, C
+           SRL  B
+           SRL  B
+           SRL  B
+           LD   A, L
+           AND  #0xE0
+           OR   B
+           LD   L, A
+           PUSH IX
+           EX   (SP), HL
+           LD   A, L
+           AND  #0xE0
+           OR   B
+           LD   L, A
+           EX   (SP), HL
+           POP  IX
+           POP  BC
+           LD   D, C
+           RET
+
+LOC_7EED$: LD   B, D
+           INC  DE
+           EXX
+           LD   D, #0
+           RET
+
+SUB_7EF3$: EXX
+           DEC  DE
+           BIT  7, D
+           JR   NZ, LOC_7EED$
+           EXX
+           CALL SUB_7E91$
+           LD   A, (HL)
+           AND  A
+           JR   Z, LOC_7F52$
+           LD   C, A
+           INC  A
+           LD   A, D
+           JR   Z, LOC_7F20$
+           AND  #7
+           INC  A
+           LD   B, A
+           LD   A, C
+           LD   C, B
+LOC_7F0C$: RLCA
+           DJNZ LOC_7F0C$
+           JR   NC, LOC_7F3B$
+           INC  D
+           JR   Z, LOC_7F1C$
+           LD   A, D
+           AND  #7
+           JR   NZ, LOC_7F1C$
+LOC_7F19$: INC  HL
+           INC  IX
+LOC_7F1C$: EXX
+           INC  DE
+           EXX
+           RET
+LOC_7F20$: AND  #0xF8
+           ADD  A, #8
+           LD   D, A
+           JR   Z, LOC_7F1C$
+           JR   LOC_7F19$
+LOC_7F29$: LD   (HL), A
+           LD   A, D
+           DEC  A
+           AND  #0xF8
+           ADD  A, B
+           LD   C, A
+           DEC  B
+           JR   Z, LOC_7F38$
+           LD   A, (HL)
+LOC_7F34$: RRCA
+           DJNZ LOC_7F34$
+           LD   (HL), A
+LOC_7F38$: LD   A, D
+           JR   LOC_7F87$
+LOC_7F3B$: INC  D
+           BIT  3, C
+           JR   NZ, LOC_7F47$
+           RLCA
+           JR   C, LOC_7F46$
+           INC  C
+           JR   LOC_7F3B$
+LOC_7F46$: RRCA
+LOC_7F47$: LD   B, C
+LOC_7F48$: SCF
+           RRA
+           JR   C, LOC_7F29$
+           DJNZ LOC_7F48$
+           LD   (HL), A
+           LD   A, D
+           JR   LOC_7F5A$
+LOC_7F52$: LD   (HL), #0xFF
+           LD   A, D
+           AND  #0xF8
+           ADD  A, #8
+           INC  D
+LOC_7F5A$: LD   C, A
+           PUSH HL
+           PUSH IX
+LOC_7F5E$: LD   A, D
+           DEC  A
+           AND  #0xF8
+           LD   D, A
+           JR   Z, LOC_7F81$
+           DEC  HL
+           DEC  IX
+           CALL SUB_7E91$
+           LD   A, (HL)
+           LD   (HL), #0xFF
+           AND  A
+           JR   Z, LOC_7F5E$
+           LD   B, #0
+           SCF
+LOC_7F74$: INC  B
+           RRA
+           JR   NC, LOC_7F74$
+           DEC  B
+LOC_7F79$: SCF
+           RLA
+           JR   NC, LOC_7F79$
+           LD   (HL), A
+           LD   A, D
+           SUB  B
+           LD   D, A
+LOC_7F81$: POP  IX
+           POP  HL
+           LD   A, C
+           LD   C, D
+           LD   D, A
+LOC_7F87$: AND  #7
+           JR   NZ, LOC_7FB1$
+           LD   A, D
+           AND  A
+LOC_7F8D$: JR   Z, LOC_7FB1$
+           INC  HL
+           INC  IX
+           CALL SUB_7E91$
+           LD   A, (HL)
+           AND  A
+           JR   NZ, LOC_7FA1$
+           LD   (HL), #0xFF
+           LD   A, D
+           ADD  A, #8
+           LD   D, A
+           JR   LOC_7F8D$
+LOC_7FA1$: LD   B, #0
+           SCF
+LOC_7FA4$: INC  B
+           RLA
+           JR   NC, LOC_7FA4$
+           DEC  B
+LOC_7FA9$: SCF
+           RRA
+           JR   NC, LOC_7FA9$
+           LD   (HL), A
+           LD   A, D
+           ADD  A, B
+           LD   D, A
+LOC_7FB1$: LD   B, D
+           DEC  B
+           LD   A, E
+           CP   #0xBF
+           JR   NC, LOC_7FD1$
+           CALL SUB_7EA1$
+           CALL SUB_7ED2$
+LOC_7FBE$: PUSH BC
+           CALL SUB_7EF3$
+           POP  BC
+           LD   A, D
+           SUB  #1
+           JR   C, LOC_7FCB$
+           CP   B
+           JR   C, LOC_7FBE$
+LOC_7FCB$: CALL SUB_7ED2$
+           CALL SUB_7EB9$
+LOC_7FD1$: LD   A, E
+           AND  A
+           JR   Z, LOC_7FEB$
+           CALL SUB_7EBA$
+           CALL SUB_7ED2$
+LOC_7FDB$: PUSH BC
+           CALL SUB_7EF3$
+           POP  BC
+           LD   A, D
+           SUB  #1
+           JR   C, LOC_7FE8$
+           CP   B
+           JR   C, LOC_7FDB$
+LOC_7FE8$: CALL SUB_7EA1$
+LOC_7FEB$: LD   C, B
+           CALL SUB_7ED2$
+           EXX
+           INC  DE
+           EXX
+           INC  D
+           RET  Z
+           INC  D
+           RET  Z
+           LD   A, D
+           AND  #7
+           CP   #2
+           RET  NC
+           INC  HL
+           INC  IX
+           RET
+  __endasm;
+} //Basic_PAINT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAPER (unsigned char color) __z88dk_fastcall {
+__asm
+  LD   A,(ATTR_P$)
+  AND  #0xC7
+  SLA  L
+  SLA  L
+  SLA  L
+  OR   L
+  LD   (ATTR_P$),A
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_PAPER
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PLOT_callee (unsigned char x, unsigned char y) __naked __z88dk_callee {
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH HL
+  JP   0x22E5
+  //LD   (0x5C7D),BC
+  //LD   A,#0xBF
+  //CALL 0x22AC
+  //JP   0x22EC
+__endasm;
+} //Basic_PLOT_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PLOT_fastcall (unsigned int xy) __naked __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   C,L
+  LD   B,H
+  JP   0x22E5
+  //LD   (0x5C7D),BC
+  //LD   A,#0xBF
+  //CALL 0x22AC
+  //JP   0x22EC
+__endasm;
+} //Basic_PLOT_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
 BYTE Basic_PORTIN (SYSTEM_ADDRESS port) {
 __asm
   POP  HL
@@ -1531,6 +1332,217 @@ __asm
   JP   (HL)
 __endasm;
 } //Basic_PORTOUT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
+/*
+  INTEGER i;
+  i = 0;
+  while (str[i] != 0x00) {
+    PRCHAR(str[i]);
+    i += 1;
+  }
+*/
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL 0x1601
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+PRSTRstd$:
+  LD   A,(BC)
+  OR   A
+  RET  Z
+  RST  16
+  INC  BC
+  JR   PRSTRstd$
+__endasm;
+} //Basic_PRSTR_C_ROM_stdcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_ROM_fastcall (void /* post */) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL 0x1601
+PRSTRfst$:
+  POP  HL
+  LD   A,(HL)
+  INC  HL
+  PUSH HL
+  OR   A
+  RET  Z
+  RST  16
+  JR   PRSTRfst$
+__endasm;
+} //Basic_PRSTR_C_ROM_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_FAST (CHAR *str) __naked {
+__asm
+.globl _INV_MODE
+.globl _OVER_MODE
+  POP  DE
+  POP  HL
+  PUSH HL
+  PUSH DE
+pr_sta$:
+  LD   A,(HL)
+  OR   A
+  RET  Z
+  PUSH HL
+  LD   L,A
+  BIT  7,A
+  JR   NZ,PO_GR$
+  LD   H,#0
+  ADD  HL,HL
+  ADD  HL,HL
+  ADD  HL,HL
+  LD   DE,(#CHAR_SET$)
+  ADD  HL,DE
+  JR   USER_FONT$
+PO_GR_BUF$:
+  .DB  #0,#0,#0,#0,#0,#0,#0,#0
+PO_GR$:
+  LD   B,A
+  LD   HL,#PO_GR_BUF$
+  PUSH HL
+  CALL 0xB3E /* Generate po_gr char to buffer */
+  CALL 0xB3E
+  POP  HL
+USER_FONT$:
+  LD   DE,(#23684)
+  EX   DE,HL
+  PUSH HL
+  LD   B,#8
+p_Sy1$:
+  LD   A,(DE)
+_INV_MODE:
+  NOP
+_OVER_MODE:
+  NOP
+  LD   (HL),A
+  INC  DE
+  INC  H
+  DJNZ p_Sy1$
+  POP  HL
+  PUSH HL
+  LD   A,H
+  AND  #0x18
+  RRCA
+  RRCA
+  RRCA
+  ADD  A,#0x58
+  LD   H,A
+  LD   A,(ATTR_P$)
+  LD   (HL),A
+  POP  HL
+  INC  L
+  JR   NZ,p_Sy2$
+  LD   A,H
+  ADD  A,#8
+  LD   H,A
+  CP   #0x58
+  JR   C,p_Sy2$
+  LD   H,#0x40
+p_Sy2$:
+  LD   (#23684),HL
+  POP  HL
+  INC  HL
+  JR   pr_sta$
+__endasm;
+} //Basic_PRSTR_C_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRCHAR_ROM (CHAR ch) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL 0x1601
+  POP  HL
+  POP  BC
+  PUSH BC
+  LD   A,C
+  RST  16
+  JP   (HL)
+__endasm;
+} //Basic_PRCHAR_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRCHAR_FAST (CHAR ch)
+{
+  CHAR str[2];
+  str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
+} //Basic_PRCHAR_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRDATA (void) __naked {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,#2
+  CALL 0x1601
+  POP  HL
+PRDATA$:
+  LD   A,(HL)
+  OR   A
+  JR   Z,PRDATA_EX$
+  RST  16
+  INC  HL
+  JR   PRDATA$
+PRDATA_EX$:
+  JP   (HL)
+__endasm;
+} //Basic_PRDATA
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRLN (void)
+{
+  Basic_PRCHAR_ROM('\x0D');
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee {
+__asm
+  POP  HL
+  POP  BC
+  PUSH HL
+  CALL 0x22CE
+  CALL 0x2DD5
+  LD   L,A
+__endasm;
+} //Basic_POINT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_DRAW_S (signed char x, signed char y) __naked {
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH BC
+  PUSH HL
+  LD   HL,(#0x5C7D)
+  LD   DE,#0x0101
+  LD   A,C
+  ADD  L
+  JR   NC,PositiveX$
+  XOR  A
+  SUB  C
+  LD   C,A
+  LD   E,#0xFF
+PositiveX$:
+  LD   A,B
+  ADD  H
+  JR   NC,PositiveY$
+  XOR  A
+  SUB  B
+  LD   B,A
+  LD   D,#0xFF
+PositiveY$:
+  JP   0x24BA
+__endasm;
+} //Basic_DRAW_S
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRINT_FAST (INTEGER i) {

@@ -42,6 +42,11 @@ int main(int argc, char **argv)
 	Debug_SaveRegsDef();
 	Basic_BORDER(3);
 	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PLOT_fastcall ", 15);
+	Debug_SaveRegsDef();
+	Basic_PLOT(255, 175);
+	Debug_CheckRegs();
 	Basic_Quit();
 	__FINI;
 }

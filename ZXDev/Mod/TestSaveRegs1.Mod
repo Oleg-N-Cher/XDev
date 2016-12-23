@@ -18,5 +18,8 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("BRIGHT ");
   d.SaveRegsDef; b.BRIGHT(1); d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("PLOT_callee ");
+  d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
+
   b.Quit
 END TestSaveRegs1.

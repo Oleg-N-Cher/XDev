@@ -15,5 +15,8 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("BORDER ");
   d.SaveRegsDef; b.BORDER(3); d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("PLOT_fastcall ");
+  d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
+
   b.Quit
 END TestSaveRegs2.
