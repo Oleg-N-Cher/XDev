@@ -19,5 +19,4 @@
 //#define PRSTR_fastcall
 
 /* Use CLS for whole screen (with PAPER attributes in bottom lines): */
-//#define CLS_FULLSCREEN
-
+#define CLS_FULLSCREEN

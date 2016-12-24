@@ -15,6 +15,12 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("BORDER ");
   d.SaveRegsDef; b.BORDER(3); d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("CIRCLEW_EI ");
+  d.SaveRegsDef; b.CIRCLEW(250, 170, 5); d.CheckRegs;
+
+  (*b.COLOR(b.Yellow); b.PRSTR("CLS_FULLSCREEN ");
+  d.SaveRegsDef; b.CLS; d.CheckRegs;*)
+
   b.COLOR(b.Yellow); b.PRSTR("PLOT_fastcall ");
   d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
 

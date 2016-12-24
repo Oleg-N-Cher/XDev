@@ -76,6 +76,34 @@ extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __prese
 //---------------------------- BRIGHT (mode: Mode) -----------------------------
 extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
 
+//----------------------- CIRCLE (cx, cy, radius: UBYTE) -----------------------
+extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee __preserves_regs(d);
+
+//--------------------- CIRCLEROM (cx, cy, radius: UBYTE) ----------------------
+extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius) __z88dk_callee;
+
+//------------------ CIRCLEW (cx, cy: UBYTE; radius: INTEGER) ------------------
+extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  define Basic_CIRCLEW Basic_CIRCLEW_DI
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#  define Basic_CIRCLEW Basic_CIRCLEW_EI
+#endif //MODE_IM1
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  define Basic_CIRCLEW Basic_CIRCLEW_EI
+#endif //MODE_IM2
+
+//------------------------------------ CLS -------------------------------------
+extern void Basic_CLS_FULLSCREEN (void);
+extern void Basic_CLS_ZX (void);
+#ifdef CLS_FULLSCREEN
+  #define Basic_CLS Basic_CLS_FULLSCREEN
+#else
+  #define Basic_CLS Basic_CLS_ZX
+#endif
+
 //---------------------------- COLOR (attr: UBYTE) -----------------------------
 extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
@@ -103,14 +131,6 @@ extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_reg
 #  define Basic_OVER Basic_OVER_ROM
 #else
 #  define Basic_OVER Basic_OVER_FAST
-#endif
-
-extern void Basic_CLS_ZX (void);
-extern void Basic_CLS_FULLSCREEN (void);
-#ifdef CLS_FULLSCREEN
-  #define Basic_CLS Basic_CLS_FULLSCREEN
-#else
-  #define Basic_CLS Basic_CLS_ZX
 #endif
 
 //-------------------------- PAINT (x, y, ink: UBYTE) --------------------------
@@ -167,20 +187,6 @@ extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_call
 extern void Basic_DRAW_S (signed char x, signed char y);
 #define Basic_DRAW(x, y) Basic_DRAW_S((signed char)(x), (signed char)(y))
 
-extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
-
-extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
-extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
-#if defined (MODE_DI) || defined (MODE_DI_inline)
-#  define Basic_CIRCLEW Basic_CIRCLEW_DI
-#endif //MODE_DI
-#if defined (MODE_IM1) || defined (MODE_IM1_inline)
-#  define Basic_CIRCLEW Basic_CIRCLE_EIW
-#endif //MODE_IM1
-#if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_CIRCLEW Basic_CIRCLEW_EI
-#endif //MODE_IM2
-
 export void Basic_PRINT_FAST (INTEGER i);
 export void Basic_PRINT_ROM (INTEGER i);
 #ifdef ROM_OUTPUT
@@ -196,8 +202,6 @@ extern void Basic_PRWORD_ROM (CARDINAL n);
 #else
   #define Basic_PRWORD Basic_PRWORD_FAST
 #endif
-
-extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius);
 
 #define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
 #define Basic_POKEW(addr,val) (*(unsigned*) (addr) = (val))
