@@ -204,9 +204,11 @@ extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius
 #define Basic_PEEK(addr)      (*(unsigned char*) (addr))
 #define Basic_PEEKW(addr)     (*(unsigned*) (addr))
 
-extern BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
+//----------------------- PORTIN (port: ADDRESS): UBYTE ------------------------
+extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall __preserves_regs(a,d,e,iyl,iyh);
 
-extern void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
+//------------------- PORTOUT (port: ADDRESS; value: UBYTE) --------------------
+extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee __preserves_regs(d,e,iyl,iyh);
 
 extern BOOLEAN Basic_PRESSED (void);
 

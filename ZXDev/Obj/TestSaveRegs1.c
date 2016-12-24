@@ -52,6 +52,17 @@ int main(int argc, char **argv)
 	Debug_SaveRegsDef();
 	Basic_PLOT(255, 175);
 	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PORTIN ", 8);
+	Debug_SaveRegsDef();
+	if (Basic_PORTIN(254) == 0) {
+	}
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PORTOUT ", 9);
+	Debug_SaveRegsDef();
+	Basic_PORTOUT(254, 0);
+	Debug_CheckRegs();
 	Basic_Quit();
 	__FINI;
 }
