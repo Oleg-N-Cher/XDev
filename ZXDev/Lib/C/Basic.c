@@ -12,12 +12,12 @@ void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
 void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall;
 void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
-void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius);
-void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius);
-void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius);
-void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius);
-void Basic_CLS_ZX (void);
+void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
+void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
 void Basic_CLS_FULLSCREEN (void);
+void Basic_CLS_ZX (void);
 void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
 void Basic_DRAW_S (signed char x, signed char y);
 void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
@@ -291,16 +291,16 @@ __endasm;
 } //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
+void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee {
   __asm // Fixed for OVER 1 & small radius by Reobne
+        LD   IY, #0x5C3A
         POP  BC
         POP  HL     ; L = x; H = y
-        POP  DE     ; E = radius
-        PUSH DE
-        PUSH HL
+        DEC  SP
+        POP  AF     ; A = radius
         PUSH BC
-
-        LD   C, E
+        LD   E, A
+        LD   C, A
         LD   B, #0
         CALL DOTCI$
         XOR  A
@@ -381,19 +381,40 @@ DOTCI$: PUSH HL
         POP  BC
         POP  DE
         POP  HL
-        RET
 __endasm;
 } //Basic_CIRCLE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius) __naked {
+void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee {
+__asm
+  POP  HL
+  DEC  SP
+  EX   (SP),HL
+  LD   A,H     /* cx */
+  CALL 0x2D28
+  POP  HL
+  DEC  SP
+  EX   (SP),HL
+  LD   A,H     /* cy */
+  CALL 0x2D28
+  POP  HL
+  DEC  SP
+  EX   (SP),HL
+  LD   A,H     /* radius */
+  CALL 0x2D28
+  CALL 0x232D
+  LD   A,(ATTR_P$)
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_CIRCLEROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius) __z88dk_callee {
   __asm
     LD   IY, #0x5C3A
     POP  DE
     POP  BC
     POP  HL
-    PUSH HL
-    PUSH BC
     PUSH DE
     LD   A, H
     OR   L
@@ -561,27 +582,24 @@ WRAP01$: // fixed for OVER 1 by Destr
     LD   (WRAP01$+1), BC
     SBC  HL, BC
     JP   NZ, 0x22E5
-    RET
   __endasm;
 } //Basic_CIRCLEW_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, INTEGER radius) __naked {
+void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee {
   __asm
     LD   IY, #0x5C3A
     POP  DE
     POP  BC
     POP  HL
-    PUSH HL
-    PUSH BC
     PUSH DE
     LD   A, H
     OR   L
     RET  Z
     BIT  7, H
     RET  NZ
-    PUSH IX
     DI
+    PUSH IX
     LD   D, #0
     LD   E, C
     LD   C, B
@@ -743,29 +761,34 @@ WRAP11$: // fixed for OVER 1 by Destr
     LD   (WRAP11$+1), BC
     SBC  HL, BC
     JP   NZ, 0x22E5
-    RET
   __endasm;
 } //Basic_CIRCLEW_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __naked {
+void Basic_CLS_FULLSCREEN (void) {
 __asm
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-  LD   A,4(IX) /* cx */
-  CALL 0x2D28
-  LD   A,5(IX) /* cy */
-  CALL 0x2D28
-  LD   A,6(IX) /* radius */
-  CALL 0x2D28
-  CALL 0x232D
-  POP  IX
+  LD   IY,#0x5C3A
+  LD   A,(#0x5C48)
+  EX   AF,AF
+  LD   A,(ATTR_P$)
+  LD   (#0x5C48),A
+  CALL 0xD6B // IX-safe
+  EX   AF,AF
+  LD   (#0x5C48),A
   LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
-  RET
 __endasm;
-} //Basic_CIRCLEROM
+} //Basic_CLS_FULLSCREEN
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_CLS_ZX (void) {
+__asm
+  LD   IY,#0x5C3A
+  CALL 0xD6B // IX-safe
+  LD   A,(ATTR_P$)
+  LD   (ATTR_T$),A
+__endasm;
+} //Basic_CLS_ZX
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_COLOR (unsigned char atr) __z88dk_fastcall {
@@ -856,34 +879,6 @@ __asm
   JP   0x1CAD
 __endasm;
 } //Basic_OVER_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_ZX (void)
-{
-__asm
-  LD   IY,#0x5C3A
-  CALL 0xD6B // IX-safe
-  LD   A,(ATTR_P$)
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_CLS_ZX
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_FULLSCREEN (void)
-{
-__asm
-  LD   IY,#0x5C3A
-  LD   A,(#0x5C48)
-  PUSH AF
-  LD   A,(ATTR_P$)
-  LD   (#0x5C48),A
-  CALL 0xD6B // IX-safe
-  POP  AF
-  LD   (#0x5C48),A
-  LD   A,(ATTR_P$)
-  LD   (ATTR_T$),A
-__endasm;
-} //Basic_CLS_FULLSCREEN
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee {

@@ -43,6 +43,11 @@ int main(int argc, char **argv)
 	Basic_BORDER(3);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"CIRCLEW_EI ", 12);
+	Debug_SaveRegsDef();
+	Basic_CIRCLEW(250, 170, 5);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
 	Basic_PRSTR((CHAR*)"PLOT_fastcall ", 15);
 	Debug_SaveRegsDef();
 	Basic_PLOT(255, 175);

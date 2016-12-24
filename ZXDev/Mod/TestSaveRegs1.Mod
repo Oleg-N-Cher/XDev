@@ -18,6 +18,18 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("BRIGHT ");
   d.SaveRegsDef; b.BRIGHT(1); d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("CIRCLE ");
+  d.SaveRegsDef; b.CIRCLE(250, 170, 3); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("CIRCLEROM ");
+  d.SaveRegsDef; b.CIRCLEROM(240, 170, 3); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("CIRCLEW_DI ");
+  d.SaveRegsDef; b.CIRCLEW(250, 170, 5); d.CheckRegs;
+
+  (*b.COLOR(b.Yellow); b.PRSTR("CLS_ZX ");
+  d.SaveRegsDef; b.CLS; d.CheckRegs;*)
+
   b.COLOR(b.Yellow); b.PRSTR("PLOT_callee ");
   d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
 
