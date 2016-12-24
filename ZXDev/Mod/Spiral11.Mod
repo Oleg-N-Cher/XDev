@@ -6,7 +6,7 @@ MODULE Spiral11;
 IMPORT Basic, G := GrPixel, Math;
  
 CONST
-  cx = 128; cy = 88;
+  cx = 128; cy = 88; (* Coords of screen center *)
   R  = 80; (* Radius. Can be changed from 1 to 88 *)
   A  = 30; (* Angle. Can be changed from 0 to 90 *)
   V  = 20; (* Number of turns. Can be changed from 1 to .. *)
@@ -40,17 +40,18 @@ BEGIN (*$MAIN*)
 
   yr1 := R * Sina[A]; (* Размах по y *)
   yr2 := R * Cosa[A]; (* Начало по y *)
+
   i := V * 36;
   REPEAT
     (* Когда i дойдёт до V*36, первый косинус должен V раз дойти до 360. *)
     (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
     G.PutPixel(
-      cx + SHORT(ENTIER(R*Cosa[(i*10) MOD 360]*Sina[(i*5) DIV V])),
+      cx + SHORT(ENTIER(R*Cosa[i*10 MOD 360] * Sina[i*5 DIV V])),
       (* Когда i дойдёт до V*36, первый синус должен v раз дойти до 360. *)
       (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
       (* Когда i дойдёт до V*36, третий косинус должен дойти до 180. *)
-      cy + SHORT(ENTIER(yr1*Sina[(i*10) MOD 360]*Sina[(i*5) DIV V]
-         - yr2*Cosa[(i*5) DIV V]))
+      cy + SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
+         - yr2*Cosa[i*5 DIV V]))
     );
   DEC(i);
   UNTIL i < 0;
