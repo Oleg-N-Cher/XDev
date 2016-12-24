@@ -37,8 +37,8 @@ void Basic_PAUSE_EI_stdcall (CARDINAL ticks);
 void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
 void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
-BYTE Basic_PORTIN (SYSTEM_ADDRESS port);
-void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value);
+unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
+void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
 void Basic_PRCHAR_FAST (CHAR ch);
 void Basic_PRCHAR_ROM (CHAR ch);
 void Basic_PRDATA (void);
@@ -886,7 +886,7 @@ __endasm;
 } //Basic_CLS_FULLSCREEN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __naked __z88dk_callee {
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee {
   __asm
            POP  BC
            POP  DE           ; E = x; D = y
@@ -1261,7 +1261,6 @@ LOC_7FEB$: LD   C, B
            RET  NC
            INC  HL
            INC  IX
-           RET
   __endasm;
 } //Basic_PAINT
 
@@ -1287,10 +1286,6 @@ __asm
   POP  BC
   PUSH HL
   JP   0x22E5
-  //LD   (0x5C7D),BC
-  //LD   A,#0xBF
-  //CALL 0x22AC
-  //JP   0x22EC
 __endasm;
 } //Basic_PLOT_callee
 
@@ -1301,34 +1296,26 @@ __asm
   LD   C,L
   LD   B,H
   JP   0x22E5
-  //LD   (0x5C7D),BC
-  //LD   A,#0xBF
-  //CALL 0x22AC
-  //JP   0x22EC
 __endasm;
 } //Basic_PLOT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-BYTE Basic_PORTIN (SYSTEM_ADDRESS port) {
+unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall {
 __asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
+  LD   C,L
+  LD   B,H
   IN   L,(C)
 __endasm;
 } //Basic_PORTIN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PORTOUT (SYSTEM_ADDRESS port, BYTE value) __naked {
+void Basic_PORTOUT (unsigned int port, unsigned char value) __naked __z88dk_callee {
 __asm
   POP  HL
   POP  BC
-  POP  DE
-  LD   A,E
+  DEC  SP
+  POP  AF
   OUT  (C),A
-  PUSH DE
-  PUSH BC
   JP   (HL)
 __endasm;
 } //Basic_PORTOUT
