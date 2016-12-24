@@ -1,4 +1,4 @@
 @SET Options=--no-std-crt0
-@SET Target=rem
+@SET Target=REM
 
 @..\Bin\build ASCII
