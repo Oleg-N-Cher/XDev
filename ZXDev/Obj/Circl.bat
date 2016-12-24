@@ -1,3 +1,3 @@
-@SET Target=rem
+@SET Target=REM
 
 @..\Bin\build Circl
