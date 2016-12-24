@@ -1,5 +1,5 @@
 MODULE DemoSpr2; (*$MAIN*)
-IMPORT B := Basic, Laser2;
+IMPORT B := Basic, Laser2, Laser;
 
 CONST
   SpriteSizeBytes = 5(*hdr*) + 9*16*12(*data*) ;
@@ -622,13 +622,16 @@ BEGIN
   coords[2].x :=  0; coords[2].y := 12;
   coords[3].x := 16; coords[3].y := 12;
 
-  B.BORDER(B.Black); i := 0;
-  LOOP
+  B.BORDER(B.Black); i := 0; Laser2.ATOF; B.BORDER(5);
+
     Laser2.PTBL(coords[(i  ) MOD 4].x, coords[(i  ) MOD 4].y, 1);
     Laser2.PTBL(coords[(i+1) MOD 4].x, coords[(i+1) MOD 4].y, 2);
     Laser2.PTBL(coords[(i+2) MOD 4].x, coords[(i+2) MOD 4].y, 3);
-    Laser2.PTBL(coords[(i+3) MOD 4].x, coords[(i+3) MOD 4].y, 4);
+    Laser2.PTBL(coords[(i+3) MOD 4].x, coords[(i+3) MOD 4].y, 4);B.PAUSE(0);
     INC(i); B.PAUSE(50);
+Laser2.SCRL(32000);
+  LOOP
+    Laser2.WU1V(8, 2, 16, 20); B.PAUSE(0);
   END;
 
 END DemoSpr2.
