@@ -107,15 +107,34 @@ extern void Basic_CLS_ZX (void);
 //---------------------------- COLOR (attr: UBYTE) -----------------------------
 extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
-extern void Basic_INK   (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+//---------------------------- DRAW (x, y: INTEGER) ----------------------------
+extern void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
+extern void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef DRAW_fastcall
+#  define Basic_DRAW(x,y) Basic_DRAW_callee((signed char)(x), (signed char)(y))
+#else
+#  define Basic_DRAW(x,y) Basic_DRAW_fastcall((unsigned int)((y)<<8) + (unsigned char)((x)&0xFF))
+//#  define Basic_DRAW(x,y) Basic_DRAW_fastcall((((y)&0xFF)<<8) + (unsigned char)((x)&0xFF))
+#endif
+
+//----------------------------- FLASH (mode: Mode) -----------------------------
+extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
+
+//---------------------------- FONT (addr: ADDRESS) ----------------------------
+#define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 
 //------------------------- IM2PROC (proc: PROCEDURE) --------------------------
 extern void Basic__IM2ADR (void);
 #define Basic_IM2PROC(adr) __asm DI __endasm; \
   Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
 
+//----------------------------- INK (color: Color) -----------------------------
+extern void Basic_INK (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------------- INKEY (): CHAR -------------------------------
+extern unsigned char Basic_INKEY (void);
+
 extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
-extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
 extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
 extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
@@ -133,7 +152,7 @@ extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_reg
 #  define Basic_OVER Basic_OVER_FAST
 #endif
 
-//-------------------------- PAINT (x, y, ink: UBYTE) --------------------------
+//---------------------- PAINT (x, y: UBYTE; ink: Color) -----------------------
 extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
 
 //---------------------------- PLOT (x, y: INTEGER) ----------------------------
@@ -183,9 +202,6 @@ extern void Basic_PRLN (void);
 
 //----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
 extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
-
-extern void Basic_DRAW_S (signed char x, signed char y);
-#define Basic_DRAW(x, y) Basic_DRAW_S((signed char)(x), (signed char)(y))
 
 export void Basic_PRINT_FAST (INTEGER i);
 export void Basic_PRINT_ROM (INTEGER i);
@@ -251,7 +267,6 @@ extern SHORTINT Basic_SGN (SHORTINT x);
 
 extern CHAR Basic_INKEY (void);
 
-#define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
 
 //------------------------------------ USR0 ------------------------------------
@@ -409,14 +424,15 @@ extern void Basic_Quit_IM2 (void);
 #  define On 1
 #  define Off 0
 
+#  define Init Basic_Init
 #  define AT Basic_AT
 #  define ATTR Basic_ATTR
 #  define BEEP Basic_BEEP
 #  define BORDER Basic_BORDER
 #  define BRIGHT Basic_BRIGHT
 #  define CIRCLE Basic_CIRCLE
-#  define CIRCLEW Basic_CIRCLEW
 #  define CIRCLEROM Basic_CIRCLEROM
+#  define CIRCLEW Basic_CIRCLEW
 #  define CLS Basic_CLS
 #  define COLOR Basic_COLOR
 #  define DRAW Basic_DRAW
