@@ -19,10 +19,11 @@ void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_c
 void Basic_CLS_FULLSCREEN (void);
 void Basic_CLS_ZX (void);
 void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
-void Basic_DRAW_S (signed char x, signed char y);
+void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
+void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
 void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
 void Basic_INK (unsigned char color) __z88dk_fastcall;
-CHAR Basic_INKEY (void);
+unsigned char Basic_INKEY (void);
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
 BOOLEAN Basic_PRESSED (void);
@@ -800,6 +801,63 @@ __endasm;
 } //Basic_COLOR
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Basic_DRAW_callee (signed char x, signed char y) __naked __z88dk_callee {
+__asm
+  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  PUSH HL
+  LD   HL,(#0x5C7D)
+  LD   DE,#0x0101
+  LD   A,C
+  ADD  L
+  JR   NC,PositiveXc$
+  XOR  A
+  SUB  C
+  LD   C,A
+  LD   E,#0xFF
+PositiveXc$:
+  LD   A,B
+  ADD  H
+  JR   NC,PositiveYc$
+  XOR  A
+  SUB  B
+  LD   B,A
+  LD   D,#0xFF
+PositiveYc$:
+  JP   0x24BA
+__endasm;
+} //Basic_DRAW_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_DRAW_fastcall (unsigned int xy) __naked __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   C,L
+  LD   B,H
+  LD   HL,(#0x5C7D)
+  LD   DE,#0x0101
+  LD   A,C
+  ADD  L
+  JR   NC,PositiveXf$
+  XOR  A
+  SUB  C
+  LD   C,A
+  LD   E,#0xFF
+PositiveXf$:
+  LD   A,B
+  ADD  H
+  JR   NC,PositiveYf$
+  XOR  A
+  SUB  B
+  LD   B,A
+  LD   D,#0xFF
+PositiveYf$:
+  JP   0x24BA
+__endasm;
+} //Basic_DRAW_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
@@ -821,6 +879,27 @@ __asm
   LD   (ATTR_T$),A
 __endasm;
 } //Basic_INK
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_INKEY (void) {
+__asm
+    LD   A, (#0x5C07)
+    CP   #0xFF
+    JR   Z, INKEY_RET_0X$
+    CALL 0x28E
+    LD   C, #0
+    JR   NZ, INKEY_RET_0X$
+    CALL 0x31E
+    JR   NC, INKEY_RET_0X$
+    DEC  D
+    LD   E, A
+    CALL 0x333
+    LD   L, A
+    RET
+INKEY_RET_0X$:
+    LD   L, #0
+__endasm;
+} //Basic_INKEY
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
@@ -1497,36 +1576,6 @@ __endasm;
 } //Basic_POINT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_DRAW_S (signed char x, signed char y) __naked {
-__asm
-  LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   HL,(#0x5C7D)
-  LD   DE,#0x0101
-  LD   A,C
-  ADD  L
-  JR   NC,PositiveX$
-  XOR  A
-  SUB  C
-  LD   C,A
-  LD   E,#0xFF
-PositiveX$:
-  LD   A,B
-  ADD  H
-  JR   NC,PositiveY$
-  XOR  A
-  SUB  B
-  LD   B,A
-  LD   D,#0xFF
-PositiveY$:
-  JP   0x24BA
-__endasm;
-} //Basic_DRAW_S
-
-/*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRINT_FAST (INTEGER i) {
   CHAR b[6], *prt;
   INTEGER j;
@@ -1815,27 +1864,6 @@ SHORTINT Basic_SGN (SHORTINT x) {
   if(x==0) return 0;
   return 1;
 } //Basic_SGN
-
-/*--------------------------------- Cut here ---------------------------------*/
-CHAR Basic_INKEY (void) {
-__asm
-    LD   A, (#0x5C07)
-    CP   #0xFF
-    JR   Z, INKEY_RET_0X$
-    CALL 0x28E
-    LD   C, #0
-    JR   NZ, INKEY_RET_0X$
-    CALL 0x31E
-    JR   NC, INKEY_RET_0X$
-    DEC  D
-    LD   E, A
-    CALL 0x333
-    LD   L, A
-    RET
-INKEY_RET_0X$:
-    LD   L, #0
-__endasm;
-} //Basic_INKEY
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_DI (void) {
