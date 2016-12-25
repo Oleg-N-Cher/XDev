@@ -722,13 +722,13 @@ CLSV_PUT_ZERO$:   LD    (DE), A
                   INC   E               ; Next screen line
                   DEC   C
                   JR    NZ, CLSV_PUT_ZERO0$
-                  LD    A, L            ; Restore E
+                  LD    A, L
                   ADD   #0x20           ; Next charline
-                  LD    E, A            ; If carry then jump to next third of screen
+                  LD    L, A            ; If carry then jump to next third of screen
                   JR    NC, CONTIN_1_3_CLSV$
-                  LD    A, D            ; Next third of screen
+                  LD    A, H            ; Next third of screen
                   ADD   #8
-                  LD    D, A            ; DE := DE + 0x0800
+                  LD    H, A            ; HL := HL + 0x0800
 CONTIN_1_3_CLSV$: POP   BC
                   DJNZ  CLSV_HLINE$     ; End of loop on charlines (the same third)
   __endasm;
@@ -785,13 +785,13 @@ INVV_INV_BYTE$:   LD    A, (DE)
                   INC   E               ; Next screen line
                   DEC   C
                   JR    NZ, INVV_INV_BYTE0$
-                  LD    A, L            ; Restore E
+                  LD    A, L
                   ADD   #0x20           ; Next charline
-                  LD    E, A            ; If carry then jump to next third of screen
+                  LD    L, A            ; If carry then jump to next third of screen
                   JR    NC, INVV_CONTIN_1_3$
-                  LD    A, D            ; Next third of screen
+                  LD    A, H            ; Next third of screen
                   ADD   #8
-                  LD    D, A            ; DE := DE + 0x0800
+                  LD    H, A            ; HL := HL + 0x0800
 INVV_CONTIN_1_3$: POP   BC
                   DJNZ  INVV_HLINE$     ; End of loop on charlines (the same third)
   __endasm;
