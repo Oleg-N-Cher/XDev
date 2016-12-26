@@ -15,10 +15,9 @@
 //#define ATTR_fastcall
 //#define BORDER_inline
 //#define DRAW_fastcall
-//#define PAUSE_fastcall
 //#define PLOT_fastcall
+//#define POINT_fastcall
 //#define PRSTR_fastcall
 
 /* Use CLS for whole screen (with PAPER attributes in bottom lines): */
 //#define CLS_FULLSCREEN
-

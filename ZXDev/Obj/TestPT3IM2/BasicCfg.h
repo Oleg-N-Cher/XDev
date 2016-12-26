@@ -15,9 +15,6 @@
 //#define ATTR_fastcall
 //#define BORDER_inline
 //#define DRAW_fastcall
-//#define PAPER_fastcall
 //#define PLOT_fastcall
-//#define FLASH_fastcall
-//#define BRIGHT_fastcall
-//#define PAUSE_fastcall
+//#define POINT_fastcall
 //#define PRSTR_fastcall

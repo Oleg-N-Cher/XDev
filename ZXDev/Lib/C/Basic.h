@@ -112,37 +112,7 @@ extern void Basic_CLS_ZX (void);
 //---------------------------- COLOR (attr: UBYTE) -----------------------------
 extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
-//--------------------------------- DATA (...) ---------------------------------
-#define Basic_DEFDATA(title, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
-    ld   (_##title),hl \
-    jr   2+.+size \
-    __endasm; \
-  } else { __asm ld hl,__id__(__hash__).+9 \
-    ld   (_##title),hl \
-    jp   3+.+size \
-  __endasm; \
-  }
-
-#define Basic_DEFDATAREL(title, size) if (size <= 127) { __asm xor a \
-    inc  a \
-    call 0x1FC6 \
-    ld   de,__id__(__hash__)9 \
-    add  hl,de \
-    ld   (_##title),hl \
-    jr   2+.+size \
-    __endasm; \
-  } else { __asm xor a \
-    inc  a \
-    call 0x1FC6 \
-    ld   de,__id__(__hash__)12 \
-    add  hl,de \
-    ld   (_##title),hl \
-    ld   de,__id__(__hash__)size \
-    add  hl,de \
-    jp   (hl) \
-  __endasm; \
-  }
-#define Basic_READ(addr) (*(unsigned char*) (addr++))
+//------------------- DATA (...); DATACH (...); DATAW (...) --------------------
 #define Basic_DATA(b) __asm .db b __endasm
 #define Basic_DATA1(b) __asm .db b __endasm
 #define Basic_DATA2(b1,b2) __asm .db b1,b2 __endasm
@@ -194,11 +164,47 @@ extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,
 #define Basic_DATAW14(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14 __endasm
 #define Basic_DATAW15(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 __endasm
 #define Basic_DATAW16(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16 __endasm
+
+//------------------------ DATASTR (str: ARRAY OF CHAR) ------------------------
 #define __arg_killer__(a)
 #define Basic_DATASTR(str, str__len)	__asm .ascii __arg_killer__ str __endasm
+
+//----------------------- DATASTRZ (str: ARRAY OF CHAR) ------------------------
 #define Basic_DATASTRZ(str, str__len)	__asm .ascii __arg_killer__ str \
   .db 0x00 \
   __endasm
+
+//------------------------ DEFDATA (var, size: INTEGER) ------------------------
+#define Basic_DEFDATA(var, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
+    ld   (_##var),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm ld hl,__id__(__hash__).+9 \
+    ld   (_##var),hl \
+    jp   3+.+size \
+  __endasm; \
+  }
+
+//---------------------- DEFDATAREL (var, size: INTEGER) -----------------------
+#define Basic_DEFDATAREL(var, size) if (size <= 127) { __asm xor a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)9 \
+    add  hl,de \
+    ld   (_##var),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm xor a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)12 \
+    add  hl,de \
+    ld   (_##var),hl \
+    ld   de,__id__(__hash__)size \
+    add  hl,de \
+    jp   (hl) \
+  __endasm; \
+  }
 
 //---------------------------- DRAW (x, y: INTEGER) ----------------------------
 extern void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
@@ -212,8 +218,8 @@ extern void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
 //----------------------------- FLASH (mode: Mode) -----------------------------
 extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
 
-//---------------------------- FONT (addr: ADDRESS) ----------------------------
-#define Basic_FONT(fontAddr) (*(unsigned*) (0x5C36) = (fontAddr - 256))
+//---------------------------- FONT (adr: ADDRESS) -----------------------------
+#define Basic_FONT(fontAdr) (*(unsigned*) (0x5C36) = (fontAdr - 256))
 
 //------------------------- IM2PROC (proc: PROCEDURE) --------------------------
 extern void Basic__IM2ADR (void);
@@ -245,14 +251,14 @@ extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_reg
 #endif
 
 //---------------------- PAINT (x, y: UBYTE; ink: Color) -----------------------
-extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
+extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee __preserves_regs(iyl,iyh);
 
 //---------------------------- PAPER (color: Color) ----------------------------
 extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 //-------------------------- PAUSE (ticks: CARDINAL) ---------------------------
-extern void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
-extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
+extern void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall __preserves_regs(d,e);
+extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall __preserves_regs(d,e);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_PAUSE Basic_PAUSE_DI
 #endif //MODE_DI
@@ -263,11 +269,11 @@ extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
 #  define Basic_PAUSE Basic_PAUSE_EI
 #endif //MODE_IM2
 
-//------------------------ PEEK (addr: ADDRESS): UBYTE -------------------------
-#define Basic_PEEK(addr)      (*(unsigned char*) (addr))
+//------------------------- PEEK (adr: ADDRESS): UBYTE -------------------------
+#define Basic_PEEK(adr)      (*(unsigned char*) (adr))
 
-//---------------------- PEEKW (addr: ADDRESS): CARDINAL -----------------------
-#define Basic_PEEKW(addr)     (*(unsigned int*) (addr))
+//----------------------- PEEKW (adr: ADDRESS): CARDINAL -----------------------
+#define Basic_PEEKW(adr)     (*(unsigned int*) (adr))
 
 //----------------------------- PLOT (x, y: UBYTE) -----------------------------
 extern void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
@@ -279,13 +285,19 @@ extern void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
 #endif
 
 //----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
-extern unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
+extern unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef POINT_fastcall
+#  define Basic_POINT Basic_POINT_callee
+#else
+#  define Basic_POINT(x,y) Basic_POINT_fastcall(((y)<<8) + (x))
+#endif
 
-//--------------------- POKE (addr: ADDRESS; value: UBYTE) ---------------------
-#define Basic_POKE(addr,val)  (*(unsigned char*) (addr) = (val))
+//--------------------- POKE (adr: ADDRESS; value: UBYTE) ----------------------
+#define Basic_POKE(adr,val)  (*(unsigned char*) (adr) = (val))
 
-//------------------- POKEW (addr: ADDRESS; value: CARDINAL) -------------------
-#define Basic_POKEW(addr,val) (*(unsigned int*) (addr) = (val))
+//------------------- POKEW (adr: ADDRESS; value: CARDINAL) --------------------
+#define Basic_POKEW(adr,val) (*(unsigned int*) (adr) = (val))
 
 //----------------------- PORTIN (port: ADDRESS): UBYTE ------------------------
 extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall __preserves_regs(a,d,e,iyl,iyh);
@@ -358,6 +370,9 @@ extern void Basic_PRWORD_ROM (unsigned int n);
 //------------------------- RANDOMIZE (seed: CARDINAL) -------------------------
 extern void Basic_RANDOMIZE (unsigned int seed);
 
+//------------------------- READ (adr: ADDRESS): UBYTE -------------------------
+#define Basic_READ(adr) (*(unsigned char*) (adr++))
+
 //------------------------ RND (min, max: UBYTE): UBYTE ------------------------
 extern unsigned char Basic_RND (unsigned char min, unsigned char max);
 
@@ -368,7 +383,7 @@ extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 extern signed char Basic_SGN (signed char x);
 
 //------------------------------------ Init ------------------------------------
-#define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
+#define Basic_UDG(udgAdr) (*(unsigned*) (0x5C7B) = udgAdr)
 
 //------------------------------------ USR0 ------------------------------------
 #define Basic_USR0() __asm RST 0 __endasm
@@ -460,12 +475,12 @@ extern void Basic_Quit_IM2 (void);
 #  define PAINT Basic_PAINT
 #  define PAPER Basic_PAPER
 #  define PAUSE Basic_PAUSE
-#  define PEEK(addr)      (*(unsigned char*) (addr))
-#  define PEEKW(addr)     (*(unsigned*) (addr))
+#  define PEEK(adr)      (*(unsigned char*) (adr))
+#  define PEEKW(adr)     (*(unsigned*) (adr))
 #  define PLOT Basic_PLOT
 #  define POINT Basic_POINT
-#  define POKE(addr,val)  (*(unsigned char*) (addr) = (val))
-#  define POKEW(addr,val) (*(unsigned*) (addr) = (val))
+#  define POKE(adr,val)  (*(unsigned char*) (adr) = (val))
+#  define POKEW(adr,val) (*(unsigned*) (adr) = (val))
 #  define PORTIN Basic_PORTIN
 #  define PORTOUT Basic_PORTOUT
 #  define PRCHAR Basic_PRCHAR
