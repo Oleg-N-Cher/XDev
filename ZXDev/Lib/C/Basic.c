@@ -1,4 +1,8 @@
-#include "SYSTEM.h"
+/*************************/
+/* ZX-BASIC 48k features */
+/* Coded by Oleg N. Cher */
+/*  zx.oberon2.ru/forum  */
+/*************************/
 
 void Basic_Init_IM2 (void);
 
@@ -26,35 +30,33 @@ void Basic_INK (unsigned char color) __z88dk_fastcall;
 unsigned char Basic_INKEY (void);
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
-BOOLEAN Basic_PRESSED (void);
+unsigned char Basic_PRESSED (void);
 void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
 void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
 void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
 void Basic_PAPER (unsigned char color) __z88dk_fastcall;
-void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
-void Basic_PAUSE_DI_stdcall (unsigned int ticks);
-void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
-void Basic_PAUSE_EI_stdcall (unsigned int ticks);
+void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
+void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
 void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
 void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
 void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
-void Basic_PRCHAR_FAST (CHAR ch);
-void Basic_PRCHAR_ROM (CHAR ch);
+void Basic_PRCHAR_FAST (unsigned char ch);
+void Basic_PRCHAR_ROM (unsigned char ch);
 void Basic_PRDATA (void);
 void Basic_PRINT_FAST (int n);
 void Basic_PRINT_ROM (int n);
 void Basic_PRLN (void);
-void Basic_PRSTR_C_FAST (CHAR *str);
-void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+void Basic_PRSTR_C_FAST (unsigned char *str);
+void Basic_PRSTR_C_ROM_stdcall (unsigned char *str);
 void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 void Basic_PRWORD_FAST (unsigned int n);
 void Basic_PRWORD_ROM (unsigned int n);
 void Basic_RANDOMIZE (unsigned int seed);
-SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+unsigned char Basic_RND (unsigned char min, unsigned char max);
 unsigned int Basic_RNDW (unsigned int min, unsigned int max);
-SHORTINT Basic_SGN (signed char x);
+signed char Basic_SGN (signed char x);
 
 void Basic_Quit_DI (void);
 void Basic_Quit_IM1 (void);
@@ -410,7 +412,7 @@ __endasm;
 } //Basic_CIRCLEROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, INTEGER radius) __z88dk_callee {
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -1395,7 +1397,7 @@ __endasm;
 } //Basic_PORTOUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_stdcall (CHAR *str) __naked {
+void Basic_PRSTR_C_ROM_stdcall (unsigned char *str) __naked {
 /*
   INTEGER i;
   i = 0;
@@ -1441,7 +1443,7 @@ __endasm;
 } //Basic_PRSTR_C_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_FAST (CHAR *str) __naked {
+void Basic_PRSTR_C_FAST (unsigned char *str) __naked {
 __asm
 .globl _INV_MODE
 .globl _OVER_MODE
@@ -1517,7 +1519,7 @@ __endasm;
 } //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_ROM (CHAR ch) __naked {
+void Basic_PRCHAR_ROM (unsigned char ch) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -1532,9 +1534,9 @@ __endasm;
 } //Basic_PRCHAR_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_FAST (CHAR ch)
+void Basic_PRCHAR_FAST (unsigned char ch)
 {
-  CHAR str[2];
+  unsigned char str[2];
   str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
 } //Basic_PRCHAR_FAST
 
@@ -1577,8 +1579,8 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRINT_FAST (int n) {
-  CHAR b[6], *prt;
-  INTEGER j;
+  unsigned char b[6], *prt;
+  int j;
   j = 5;
   b[5] = 0x00;
   do {
@@ -1591,8 +1593,8 @@ void Basic_PRINT_FAST (int n) {
       n = -n;
     }
     j -= 1;
-    b[j] = (CHAR)((int)__MOD(n, 10) + 48);
-    n = __DIV(n, 10);
+    b[j] = (unsigned char)(n%10 + 48);
+    n = n/10;
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
   Basic_PRSTR_C_FAST(prt);
@@ -1600,8 +1602,8 @@ void Basic_PRINT_FAST (int n) {
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRINT_ROM (int n) {
-  CHAR b[6], *prt;
-  INTEGER j;
+  unsigned char b[6], *prt;
+  int j;
   j = 5;
   b[5] = 0x00;
   do {
@@ -1614,8 +1616,8 @@ void Basic_PRINT_ROM (int n) {
       n = -n;
     }
     j -= 1;
-    b[j] = (CHAR)((int)__MOD(n, 10) + 48);
-    n = __DIV(n, 10);
+    b[j] = (unsigned char)(n%10 + 48);
+    n = n/10;
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
   Basic_PRSTR_C_ROM_stdcall(prt);
@@ -1655,13 +1657,13 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRWORD_FAST (unsigned int n) {
-  CHAR b[6], *prt;
+  unsigned char b[6], *prt;
   unsigned int j;
   j = 5;
   b[5] = 0x00;
   do {
     j -= 1;
-    b[j] = (CHAR)((unsigned int)__MOD(n, 10) + 48);
+    b[j] = (unsigned char)(n%10 + 48);
     n = n / 10;
   } while (!(j == 0));
   for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
@@ -1717,7 +1719,7 @@ __endasm;
 } //Basic_PRWORD_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-BOOLEAN Basic_PRESSED (void) { // Check to IX-safety
+unsigned char Basic_PRESSED (void) { // Check to IX-safety
 __asm
     CALL  #0x28E /* Scan keys */
     LD    L,#0   /* FALSE */
@@ -1730,84 +1732,43 @@ __endasm;
 } //Basic_PRESSED
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_DI_fastcall (void /* Regs BC */) {
+void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   EI
-  LD   A,C
-  OR   B
-  JR   NZ,PauseDiF$
+  LD   A,L
+  OR   H
+  JR   NZ,PauseDI$
+  LD   C,L
+  LD   B,H
   CALL 0x1F3D
-  JR   EndPauseDiF$
-PauseDiF$:
+  DI
+  RET
+PauseDI$:
   HALT
-  DEC  BC
-  LD   A,C
-  OR   B
-  JR   NZ,PauseDiF$
-EndPauseDiF$:
+  DEC  HL
+  LD   A,L
+  OR   H
+  JR   NZ,PauseDI$
   DI
 __endasm;
-} //Basic_PAUSE_DI_fastcall
+} //Basic_PAUSE_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_DI_stdcall (unsigned int ticks) {
+void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  EI
-  LD   A,C
-  OR   B
-  JR   NZ,PauseDiS$
-  CALL 0x1F3D
-  JR   EndPauseDiS$
-PauseDiS$:
-  HALT
-  DEC  BC
-  LD   A,C
-  OR   B
-  JR   NZ,PauseDiS$
-EndPauseDiS$:
-  DI
-__endasm;
-} //Basic_PAUSE_DI_stdcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_EI_fastcall (void /* Regs BC */) {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,C
-  OR   B
+  LD   A,L
+  OR   H
+  LD   C,L
+  LD   B,H
   JP   Z,0x1F3D
-PauseEiF$:
+PauseEI$:
   HALT
-  DEC  BC
-  LD   A,C
-  OR   B
-  JR   NZ,PauseEiF$
-__endasm;
-} //Basic_PAUSE_EI_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_EI_stdcall (unsigned int ticks) {
-__asm
-  LD   IY,#0x5C3A
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  LD   A,C
-  OR   B
-  JP   Z,0x1F3D
-PauseEiS$:
-  HALT
-  DEC  BC
-  LD   A,C
-  OR   B
-  JR   NZ,PauseEiS$
+  DEC  HL
+  LD   A,L
+  OR   H
+  JR   NZ,PauseEI$
 __endasm;
 } //Basic_PAUSE_EI
 
@@ -1849,7 +1810,7 @@ __endasm;
 } //__Basic_RandBB
 
 /*--------------------------------- Cut here ---------------------------------*/
-SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max) {
+unsigned char Basic_RND (unsigned char min, unsigned char max) {
   return _Basic_RandBB()%(max-min+1) + min;
 } //Basic_RND
 
@@ -1859,7 +1820,7 @@ unsigned int Basic_RNDW (unsigned int min, unsigned int max) {
 } //Basic_RNDW
 
 /*--------------------------------- Cut here ---------------------------------*/
-SHORTINT Basic_SGN (signed char x) {
+signed char Basic_SGN (signed char x) {
   if(x <0) return -1;
   if(x==0) return 0;
   return 1;
