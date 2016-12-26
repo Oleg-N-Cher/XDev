@@ -21,8 +21,14 @@ BEGIN
   (*b.COLOR(b.Yellow); b.PRSTR("CLS_FULLSCREEN ");
   d.SaveRegsDef; b.CLS; d.CheckRegs;*)
 
+  b.COLOR(b.Yellow); b.PRSTR("DRAW_fastcall "); b.PLOT(0, 0);
+  d.SaveRegsDef; b.DRAW(3, 3); d.CheckRegs;
+
   b.COLOR(b.Yellow); b.PRSTR("PLOT_fastcall ");
   d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("POINT_fastcall ");
+  d.SaveRegsDef; IF b.POINT(0, 0) THEN END; d.CheckRegs;
 
   b.Quit
 END TestSaveRegs2.

@@ -48,9 +48,21 @@ int main(int argc, char **argv)
 	Basic_CIRCLEW(250, 170, 5);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"DRAW_fastcall ", 15);
+	Basic_PLOT(0, 0);
+	Debug_SaveRegsDef();
+	Basic_DRAW(3, 3);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
 	Basic_PRSTR((CHAR*)"PLOT_fastcall ", 15);
 	Debug_SaveRegsDef();
 	Basic_PLOT(255, 175);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"POINT_fastcall ", 16);
+	Debug_SaveRegsDef();
+	if (Basic_POINT(0, 0)) {
+	}
 	Debug_CheckRegs();
 	Basic_Quit();
 	__FINI;

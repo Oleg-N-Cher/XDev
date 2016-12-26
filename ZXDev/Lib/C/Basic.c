@@ -39,7 +39,8 @@ void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
 void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
 void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
 void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
-unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee;
+unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
 void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
 void Basic_PRCHAR_FAST (unsigned char ch);
@@ -885,16 +886,17 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Basic_INKEY (void) {
 __asm
+    LD   IY,#0x5C3A
     LD   A, (#0x5C07)
     CP   #0xFF
     JR   Z, INKEY_RET_0X$
     CALL 0x28E
-    LD   C, #0
     JR   NZ, INKEY_RET_0X$
     CALL 0x31E
     JR   NC, INKEY_RET_0X$
     DEC  D
     LD   E, A
+    LD   C, #0
     CALL 0x333
     LD   L, A
     RET
@@ -1355,6 +1357,47 @@ __endasm;
 } //Basic_PAPER
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  EI
+  LD   A,L
+  OR   H
+  JR   NZ,PauseDI$
+  LD   C,L
+  LD   B,H
+  CALL 0x1F3D
+  DI
+  RET
+PauseDI$:
+  HALT
+  DEC  HL
+  LD   A,L
+  OR   H
+  JR   NZ,PauseDI$
+  DI
+__endasm;
+} //Basic_PAUSE_DI
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall {
+__asm
+  LD   IY,#0x5C3A
+  LD   A,L
+  OR   H
+  LD   C,L
+  LD   B,H
+  JP   Z,0x1F3D
+PauseEI$:
+  HALT
+  DEC  HL
+  LD   A,L
+  OR   H
+  JR   NZ,PauseEI$
+__endasm;
+} //Basic_PAUSE_EI
+
+/*--------------------------------- Cut here ---------------------------------*/
 void Basic_PLOT_callee (unsigned char x, unsigned char y) __naked __z88dk_callee {
 __asm
   LD   IY,#0x5C3A
@@ -1374,6 +1417,29 @@ __asm
   JP   0x22E5
 __endasm;
 } //Basic_PLOT_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee {
+__asm
+  POP  HL
+  POP  BC
+  PUSH HL
+  CALL 0x22CE
+  CALL 0x2DD5
+  LD   L,A
+__endasm;
+} //Basic_POINT_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall {
+__asm
+  LD   C,L
+  LD   B,H
+  CALL 0x22CE
+  CALL 0x2DD5
+  LD   L,A
+__endasm;
+} //Basic_POINT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall {
@@ -1566,18 +1632,6 @@ void Basic_PRLN (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_POINT (unsigned char x, unsigned char y) __z88dk_callee {
-__asm
-  POP  HL
-  POP  BC
-  PUSH HL
-  CALL 0x22CE
-  CALL 0x2DD5
-  LD   L,A
-__endasm;
-} //Basic_POINT
-
-/*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRINT_FAST (int n) {
   unsigned char b[6], *prt;
   int j;
@@ -1730,47 +1784,6 @@ __asm
     INC   L      /* TRUE */
 __endasm;
 } //Basic_PRESSED
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  EI
-  LD   A,L
-  OR   H
-  JR   NZ,PauseDI$
-  LD   C,L
-  LD   B,H
-  CALL 0x1F3D
-  DI
-  RET
-PauseDI$:
-  HALT
-  DEC  HL
-  LD   A,L
-  OR   H
-  JR   NZ,PauseDI$
-  DI
-__endasm;
-} //Basic_PAUSE_DI
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,L
-  OR   H
-  LD   C,L
-  LD   B,H
-  JP   Z,0x1F3D
-PauseEI$:
-  HALT
-  DEC  HL
-  LD   A,L
-  OR   H
-  JR   NZ,PauseEI$
-__endasm;
-} //Basic_PAUSE_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_RANDOMIZE (unsigned int seed) __naked {
