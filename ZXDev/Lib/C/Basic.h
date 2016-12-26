@@ -1,7 +1,12 @@
+/*************************/
+/* ZX-BASIC 48k features */
+/* Coded by Oleg N. Cher */
+/*  zx.oberon2.ru/forum  */
+/*************************/
+
 #ifndef Basic__h
 #define Basic__h
 
-#include "SYSTEM.h"
 #include "BasicCfg.h"
 
 #define __hash__ #
@@ -80,7 +85,7 @@ extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(
 extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee __preserves_regs(d);
 
 //--------------------- CIRCLEROM (cx, cy, radius: UBYTE) ----------------------
-extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, SHORTINT radius) __z88dk_callee;
+extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
 
 //------------------ CIRCLEW (cx, cy: UBYTE; radius: INTEGER) ------------------
 extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
@@ -213,7 +218,7 @@ extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(
 //------------------------- IM2PROC (proc: PROCEDURE) --------------------------
 extern void Basic__IM2ADR (void);
 #define Basic_IM2PROC(adr) __asm DI __endasm; \
-  Basic_POKEW((int)Basic__IM2ADR+1, (int)adr); __asm EI __endasm
+  Basic_POKEW((unsigned int)Basic__IM2ADR+1, (unsigned int)adr); __asm EI __endasm
 
 //----------------------------- INK (color: Color) -----------------------------
 extern void Basic_INK (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
@@ -246,30 +251,16 @@ extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __
 extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 //-------------------------- PAUSE (ticks: CARDINAL) ---------------------------
-extern void Basic_PAUSE_DI_fastcall (void /* Regs BC */);
-extern void Basic_PAUSE_DI_stdcall (unsigned int ticks);
-extern void Basic_PAUSE_EI_fastcall (void /* Regs BC */);
-extern void Basic_PAUSE_EI_stdcall (unsigned int ticks);
+extern void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
+extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
 #if defined (MODE_DI) || defined (MODE_DI_inline)
-#  ifdef PAUSE_fastcall
-#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_DI_fastcall()
-#  else
-#    define Basic_PAUSE Basic_PAUSE_DI_stdcall
-#  endif
+#  define Basic_PAUSE Basic_PAUSE_DI
 #endif //MODE_DI
 #if defined (MODE_IM1) || defined (MODE_IM1_inline)
-#  ifdef PAUSE_fastcall
-#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
-#  else
-#    define Basic_PAUSE Basic_PAUSE_EI_stdcall
-#  endif
+#  define Basic_PAUSE Basic_PAUSE_EI
 #endif //MODE_IM1
 #if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  ifdef PAUSE_fastcall
-#    define Basic_PAUSE(ticks) __ld_bc__(ticks); Basic_PAUSE_EI_fastcall()
-#  else
-#    define Basic_PAUSE Basic_PAUSE_EI_stdcall
-#  endif
+#  define Basic_PAUSE Basic_PAUSE_EI
 #endif //MODE_IM2
 
 //------------------------ PEEK (addr: ADDRESS): UBYTE -------------------------
@@ -303,8 +294,8 @@ extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall __preserv
 extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee __preserves_regs(d,e,iyl,iyh);
 
 //----------------------------- PRCHAR (ch: CHAR) ------------------------------
-extern void Basic_PRCHAR_FAST (CHAR ch);
-extern void Basic_PRCHAR_ROM (CHAR ch);
+extern void Basic_PRCHAR_FAST (unsigned char ch);
+extern void Basic_PRCHAR_ROM (unsigned char ch);
 #ifdef ROM_OUTPUT
   #define Basic_PRCHAR Basic_PRCHAR_ROM
 #else
@@ -315,7 +306,7 @@ extern void Basic_PRCHAR_ROM (CHAR ch);
 extern void Basic_PRDATA (void);
 
 //---------------------------- PRESSED (): BOOLEAN -----------------------------
-extern BOOLEAN Basic_PRESSED (void);
+extern unsigned char Basic_PRESSED (void);
 
 //----------------------------- PRINT (n: INTEGER) -----------------------------
 extern void Basic_PRINT_FAST (int n);
@@ -330,8 +321,8 @@ extern void Basic_PRINT_ROM (int n);
 extern void Basic_PRLN (void);
 
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
-extern void Basic_PRSTR_C_FAST (CHAR *str);
-extern void Basic_PRSTR_C_ROM_stdcall (CHAR *str);
+extern void Basic_PRSTR_C_FAST (unsigned char *str);
+extern void Basic_PRSTR_C_ROM_stdcall (unsigned char *str);
 extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 #ifdef ROM_OUTPUT
 #  ifndef PRSTR_fastcall
@@ -353,7 +344,7 @@ extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 #endif
 
 //----------------------------- PRUDG (udg: CHAR) ------------------------------
-#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((CHAR)(udg+79))
+#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg+79))
 
 //---------------------------- PRWORD (n: LONGINT) -----------------------------
 extern void Basic_PRWORD_FAST (unsigned int n);
@@ -368,13 +359,13 @@ extern void Basic_PRWORD_ROM (unsigned int n);
 extern void Basic_RANDOMIZE (unsigned int seed);
 
 //------------------------ RND (min, max: UBYTE): UBYTE ------------------------
-extern SHORTCARD Basic_RND (SHORTCARD min, SHORTCARD max);
+extern unsigned char Basic_RND (unsigned char min, unsigned char max);
 
 //------------------------- RNDW (min, max: CARDINAL) --------------------------
 extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 
 //------------------------- SGN (x: INTEGER): SHORTINT -------------------------
-extern SHORTINT Basic_SGN (signed char x);
+extern signed char Basic_SGN (signed char x);
 
 //------------------------------------ Init ------------------------------------
 #define Basic_UDG(udgAddr) (*(unsigned*) (0x5C7B) = udgAddr)
