@@ -379,18 +379,21 @@ extern unsigned char Basic_RND (unsigned char min, unsigned char max);
 //------------------------- RNDW (min, max: CARDINAL) --------------------------
 extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 
-//------------------------- SGN (x: INTEGER): SHORTINT -------------------------
-extern signed char Basic_SGN (signed char x);
+//------------------------ SGN (x: SHORTINT): SHORTINT -------------------------
+extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------ SGNI (x: INTEGER): SHORTINT -------------------------
+extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
 
 //------------------------------------ Init ------------------------------------
-#define Basic_UDG(udgAdr) (*(unsigned*) (0x5C7B) = udgAdr)
+#define Basic_UDG(udgAdr) (*(unsigned int*) (0x5C7B) = udgAdr)
 
 //------------------------------------ USR0 ------------------------------------
 #define Basic_USR0() __asm RST 0 __endasm
 
 //------------------------------------ Quit ------------------------------------
-extern void Basic_Quit_DI  (void);
-extern void Basic_Quit_IM1 (void);
+extern void Basic_Quit_DI  (void) __preserves_regs(a);
+extern void Basic_Quit_IM1 (void) __preserves_regs(a,iyl,iyh);
 extern void Basic_Quit_IM2 (void);
 
 #ifdef MODE_DI

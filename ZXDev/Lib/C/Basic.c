@@ -57,7 +57,8 @@ void Basic_PRWORD_ROM (unsigned int n);
 void Basic_RANDOMIZE (unsigned int seed);
 unsigned char Basic_RND (unsigned char min, unsigned char max);
 unsigned int Basic_RNDW (unsigned int min, unsigned int max);
-signed char Basic_SGN (signed char x);
+signed char Basic_SGN (signed char x) __z88dk_fastcall;
+signed char Basic_SGNI (signed int x) __z88dk_fastcall;
 
 void Basic_Quit_DI (void);
 void Basic_Quit_IM1 (void);
@@ -1833,18 +1834,37 @@ unsigned int Basic_RNDW (unsigned int min, unsigned int max) {
 } //Basic_RNDW
 
 /*--------------------------------- Cut here ---------------------------------*/
-signed char Basic_SGN (signed char x) {
-  if(x <0) return -1;
-  if(x==0) return 0;
-  return 1;
+signed char Basic_SGN (signed char x) __z88dk_fastcall {
+__asm
+    LD   A,L
+    OR   L
+    RET  Z
+    BIT  7,L
+    LD   L,#0xFF
+    RET  NZ
+    LD   L,#1
+__endasm;
 } //Basic_SGN
+
+/*--------------------------------- Cut here ---------------------------------*/
+signed char Basic_SGNI (signed int x) __z88dk_fastcall {
+__asm
+    LD   A,H
+    OR   L
+    RET  Z
+    BIT  7,H
+    LD   L,#0xFF
+    RET  NZ
+    LD   L,#1
+__endasm;
+} //Basic_SGNI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_DI (void) {
 __asm
+  LD   IY,#0x5C3A
   LD   HL,#0x2758
   EXX
-  LD   IY,#0x5C3A
   EI
 __endasm;
 } //Basic_Quit_DI
@@ -1860,11 +1880,11 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_IM2 (void) {
 __asm
-  DI
+  LD   IY,#0x5C3A
   LD   HL,#0x2758
   EXX
-  LD   IY,#0x5C3A
   LD   A,#0x3F
+  DI
   LD   I,A
   IM   1
   EI
