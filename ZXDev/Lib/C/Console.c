@@ -956,3 +956,13 @@ INTEGER Console_ReadInt_FAST (void)
 	return Console_ReadIntRange_FAST(-32768, 32767);
 }
 
+/*
+Ќа Z80 в свое врем€ была така€ маги€:
+
+; вход Ч в A число от 0 до 15
+ADD A,90h
+DAA
+ADC A,40h
+DAA
+; выход Ч в A код символов '0'-'9', 'A'-'F'
+*/
