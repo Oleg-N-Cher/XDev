@@ -6,6 +6,8 @@
 
 void Basic_Init_IM2 (void);
 
+signed char Basic_ABS (signed char x) __z88dk_fastcall;
+signed int Basic_ABSI (signed int x) __z88dk_fastcall;
 void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee;
 void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall;
 void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
@@ -122,6 +124,30 @@ void Basic__IM2ADR (void) {
 IM2RET$:
   __endasm;
 } //Basic_Init_IM2
+
+/*--------------------------------- Cut here ---------------------------------*/
+signed char Basic_ABS (signed char x) __z88dk_fastcall {
+__asm
+    BIT  7,L
+    RET  Z
+    XOR  A
+    SUB  L
+    LD   L,A
+__endasm;
+} //Basic_ABS
+
+/*--------------------------------- Cut here ---------------------------------*/
+signed int Basic_ABSI (signed int x) __z88dk_fastcall {
+__asm
+    BIT  7,H
+    RET  Z
+    EX   DE,HL
+    XOR  A
+    LD   L,A
+    LD   H,A
+    SBC  HL,DE
+__endasm;
+} //Basic_ABSI
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __naked __z88dk_callee {
@@ -1835,27 +1861,25 @@ unsigned int Basic_RNDW (unsigned int min, unsigned int max) {
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed char Basic_SGN (signed char x) __z88dk_fastcall {
-__asm
-    LD   A,L
-    OR   L
-    RET  Z
-    BIT  7,L
-    LD   L,#0xFF
-    RET  NZ
-    LD   L,#1
+__asm // Code by NEO SPECTRUMAN
+    RLC  L        ; 8
+    RET  Z        ; 5 11
+    LD   L,#1     ; 7
+    RET  NC       ; 5 11
+    LD   L,#0xFF  ; 7
 __endasm;
 } //Basic_SGN
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed char Basic_SGNI (signed int x) __z88dk_fastcall {
 __asm
-    LD   A,H
-    OR   L
+    LD   A,L
+    OR   H
     RET  Z
     BIT  7,H
-    LD   L,#0xFF
-    RET  NZ
     LD   L,#1
+    RET  Z
+    LD   L,#0xFF
 __endasm;
 } //Basic_SGNI
 

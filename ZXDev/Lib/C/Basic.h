@@ -27,6 +27,12 @@ extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #  define Basic_Init Basic_Init_IM2
 #endif //MODE_IM2
 
+//------------------------ ABS (x: SHORTINT): SHORTINT -------------------------
+extern signed char Basic_ABS (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------- ABSI (x: INTEGER): INTEGER -------------------------
+extern signed int Basic_ABSI (signed int x) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
+
 //--------------------------- AT (y, x: TextCoords) ----------------------------
 extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(b,c,iyl,iyh);
 extern void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
@@ -380,7 +386,7 @@ extern unsigned char Basic_RND (unsigned char min, unsigned char max);
 extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 
 //------------------------ SGN (x: SHORTINT): SHORTINT -------------------------
-extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(a,b,c,d,e,h,iyl,iyh);
 
 //------------------------ SGNI (x: INTEGER): SHORTINT -------------------------
 extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
@@ -393,7 +399,7 @@ extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b
 
 //------------------------------------ Quit ------------------------------------
 extern void Basic_Quit_DI  (void) __preserves_regs(a);
-extern void Basic_Quit_IM1 (void) __preserves_regs(a,iyl,iyh);
+extern void Basic_Quit_IM1 (void) __preserves_regs(a);
 extern void Basic_Quit_IM2 (void);
 
 #ifdef MODE_DI
