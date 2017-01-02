@@ -46,17 +46,17 @@ unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
 void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
 void Basic_PRCHAR_FAST (unsigned char ch);
-void Basic_PRCHAR_ROM (unsigned char ch);
+void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 void Basic_PRDATA (void);
 void Basic_PRINT_FAST (int n);
-void Basic_PRINT_ROM (int n);
+void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 void Basic_PRLN (void);
 void Basic_PRSTR_C_FAST (unsigned char *str);
 void Basic_PRSTR_C_ROM_stdcall (unsigned char *str);
 void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 void Basic_PRWORD_FAST (unsigned int n);
-void Basic_PRWORD_ROM (unsigned int n);
-void Basic_RANDOMIZE (unsigned int seed);
+void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
+void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
 unsigned char Basic_RND (unsigned char min, unsigned char max);
 unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 signed char Basic_SGN (signed char x) __z88dk_fastcall;
@@ -1612,17 +1612,15 @@ __endasm;
 } //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_ROM (unsigned char ch) __naked {
+void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
+  LD   A,L
+  EX   AF,AF
   LD   A,#2
   CALL 0x1601
-  POP  HL
-  POP  BC
-  PUSH BC
-  LD   A,C
+  EX   AF,AF
   RST  16
-  JP   (HL)
 __endasm;
 } //Basic_PRCHAR_ROM
 
@@ -1682,26 +1680,20 @@ void Basic_PRINT_FAST (int n) {
 } //Basic_PRINT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRINT_ROM (int n) {
-  unsigned char b[6], *prt;
-  int j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    if (n < 0) {
-      Basic_PRSTR_C_ROM_stdcall("-");
-      if (n == -32768) {
-        Basic_PRSTR_C_ROM_stdcall("32768");
-        return;
-      }
-      n = -n;
-    }
-    j -= 1;
-    b[j] = (unsigned char)(n%10 + 48);
-    n = n/10;
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C_ROM_stdcall(prt);
+void Basic_PRINT_ROM (int n) __naked __z88dk_fastcall {
+__asm
+    BIT   7,H
+    JP    Z,_Basic_PRWORD_ROM
+    EX    DE,HL
+    XOR   A
+    LD    L,A
+    LD    H,A
+    SBC   HL,DE
+    PUSH  HL
+    LD    L,#0x2D
+    CALL  _Basic_PRCHAR_ROM
+    JP    _Basic_PRWORD_ROM+10
+__endasm;
 } //Basic_PRINT_ROM
 
 /*
@@ -1752,15 +1744,9 @@ void Basic_PRWORD_FAST (unsigned int n) {
 } //Basic_PRWORD_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRWORD_ROM (unsigned int n) __naked {
+void Basic_PRWORD_ROM (unsigned int n) __naked __z88dk_fastcall {
 __asm
           LD    IY,#0x5C3A
-          LD    A,#2
-          CALL  #0x1601
-          POP   DE
-          POP   HL
-          PUSH  HL
-          PUSH  DE
 /* Из журнала Deja Vu #04, Кемерово, 01.04.98
     (c) Колотов Сеpгей, г.Шадpинск, SerzhSoft
 Доработано для печати только значащих цифр */
@@ -1768,6 +1754,8 @@ __asm
 ;Печать десятичного числа в HL (0..65535)
 ;----------------------------------------;
           PUSH  HL            ;закинули печатаемое число на стек
+          LD    A,#2          ;открываем канал 2
+          CALL  #0x1601       ;(печать в области основного экрана)
           LD    HL,#DECTB_W$  ;адрес таблицы степеней десятки
           LD    BC,#0x505     ;макс. возможное количество цифр: 5
           ;установим также рег. C - кол-во незначащих нулей + 1
@@ -1813,13 +1801,11 @@ __endasm;
 } //Basic_PRESSED
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_RANDOMIZE (unsigned int seed) __naked {
+void Basic_RANDOMIZE (unsigned int seed) __naked __z88dk_fastcall {
 __asm
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-  JP   0x1E52
+    LD   C,L
+    LD   B,H
+    JP   0x1E52
 __endasm;
 } //Basic_RANDOMIZE
 

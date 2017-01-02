@@ -313,7 +313,7 @@ extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_calle
 
 //----------------------------- PRCHAR (ch: CHAR) ------------------------------
 extern void Basic_PRCHAR_FAST (unsigned char ch);
-extern void Basic_PRCHAR_ROM (unsigned char ch);
+extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRCHAR Basic_PRCHAR_ROM
 #else
@@ -328,7 +328,7 @@ extern unsigned char Basic_PRESSED (void);
 
 //----------------------------- PRINT (n: INTEGER) -----------------------------
 extern void Basic_PRINT_FAST (int n);
-extern void Basic_PRINT_ROM (int n);
+extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRINT Basic_PRINT_ROM
 #else
@@ -366,7 +366,7 @@ extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
 
 //---------------------------- PRWORD (n: LONGINT) -----------------------------
 extern void Basic_PRWORD_FAST (unsigned int n);
-extern void Basic_PRWORD_ROM (unsigned int n);
+extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRWORD Basic_PRWORD_ROM
 #else
@@ -374,7 +374,7 @@ extern void Basic_PRWORD_ROM (unsigned int n);
 #endif
 
 //------------------------- RANDOMIZE (seed: CARDINAL) -------------------------
-extern void Basic_RANDOMIZE (unsigned int seed);
+extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall __preserves_regs(d,e,iyl,iyh);
 
 //------------------------- READ (adr: ADDRESS): UBYTE -------------------------
 #define Basic_READ(adr) (*(unsigned char*) (adr++))
