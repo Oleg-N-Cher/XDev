@@ -7,7 +7,7 @@
 extern unsigned int _Laser2_SCRL_BUF;  // Scroll buffer start address
 extern unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 
-// Sprite engine:
+// Sprite engine (the coordinates can be outside the screen):
 
 void Laser2_ATOF_INSCR  (void);
 void Laser2_ATOF_OUTSCR (void);
@@ -27,7 +27,7 @@ void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_PTXR_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
 void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
 
-// Screen windows processing:
+// Screen windows processing (coordinates CANNOT be outside the screen):
 
 void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
@@ -48,7 +48,7 @@ void Laser2_WR4V (unsigned char col, unsigned char row, unsigned char len, unsig
 void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 
-// Attribute windows processing:
+// Attribute windows processing (coordinates CANNOT be outside the screen):
 
 void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
