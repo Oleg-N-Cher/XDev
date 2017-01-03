@@ -52,8 +52,8 @@ void Basic_PRINT_FAST (int n);
 void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 void Basic_PRLN (void);
 void Basic_PRSTR_C_FAST (unsigned char *str);
-void Basic_PRSTR_C_ROM_stdcall (unsigned char *str);
-void Basic_PRSTR_C_ROM_fastcall (void /* post */);
+void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
+void Basic_PRSTR_C_ROM_postpar (void /* post */);
 void Basic_PRWORD_FAST (unsigned int n);
 void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
@@ -1490,35 +1490,24 @@ __endasm;
 } //Basic_PORTOUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_stdcall (unsigned char *str) __naked {
-/*
-  INTEGER i;
-  i = 0;
-  while (str[i] != 0x00) {
-    PRCHAR(str[i]);
-    i += 1;
-  }
-*/
+void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __naked __z88dk_fastcall {
 __asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-  POP  HL
-  POP  BC
-  PUSH BC
-  PUSH HL
-PRSTRstd$:
-  LD   A,(BC)
-  OR   A
-  RET  Z
-  RST  16
-  INC  BC
-  JR   PRSTRstd$
+            LD   IY,#0x5C3A
+            LD   A,#2
+            PUSH HL
+            CALL 0x1601
+            POP  HL
+PRSTRstd$:  LD   A,(HL)
+            OR   A
+            RET  Z
+            RST  16
+            INC  HL
+            JR   PRSTRstd$
 __endasm;
-} //Basic_PRSTR_C_ROM_stdcall
+} //Basic_PRSTR_C_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_fastcall (void /* post */) __naked {
+void Basic_PRSTR_C_ROM_postpar (void /* post */) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,#2
@@ -1533,7 +1522,7 @@ PRSTRfst$:
   RST  16
   JR   PRSTRfst$
 __endasm;
-} //Basic_PRSTR_C_ROM_fastcall
+} //Basic_PRSTR_C_ROM_postpar
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_FAST (unsigned char *str) __naked {
@@ -1651,8 +1640,7 @@ __endasm;
 } //Basic_PRDATA
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRLN (void)
-{
+void Basic_PRLN (void) {
   Basic_PRCHAR_ROM('\x0D');
 }
 
@@ -1684,11 +1672,22 @@ void Basic_PRINT_ROM (int n) __naked __z88dk_fastcall {
 __asm
     BIT   7,H
     JP    Z,_Basic_PRWORD_ROM
-    EX    DE,HL
-    XOR   A
-    LD    L,A
-    LD    H,A
-    SBC   HL,DE
+
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+    
+;   LD    A,L   ;  4
+;   CPL         ;  4
+;   LD    L,A   ;  4
+;   LD    A,H   ;  4
+;   CPL         ;  4
+;   LD    H,A   ;  4
+;   INC   HL    ;  6 => 30t
+
     PUSH  HL
     LD    L,#0x2D
     CALL  _Basic_PRCHAR_ROM
@@ -1847,12 +1846,12 @@ unsigned int Basic_RNDW (unsigned int min, unsigned int max) {
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed char Basic_SGN (signed char x) __z88dk_fastcall {
-__asm // Code by NEO SPECTRUMAN
-    RLC  L        ; 8
-    RET  Z        ; 5 11
-    LD   L,#1     ; 7
-    RET  NC       ; 5 11
-    LD   L,#0xFF  ; 7
+__asm // Code by char & SaNchez
+    RLC  L
+    RET  Z
+    SBC  A
+    OR   #1
+    LD   L,A
 __endasm;
 } //Basic_SGN
 

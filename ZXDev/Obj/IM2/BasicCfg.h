@@ -17,4 +17,4 @@
 //#define DRAW_fastcall
 //#define PLOT_fastcall
 //#define POINT_fastcall
-//#define PRSTR_fastcall
+//#define PRSTR_postpar
