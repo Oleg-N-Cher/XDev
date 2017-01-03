@@ -1603,8 +1603,8 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall {
 __asm
-  LD   IY,#0x5C3A
   LD   A,L
+  LD   IY,#0x5C3A
   EX   AF,AF
   LD   A,#2
   CALL 0x1601
@@ -1672,6 +1672,25 @@ void Basic_PRINT_ROM (int n) __naked __z88dk_fastcall {
 __asm
     BIT   7,H
     JP    Z,_Basic_PRWORD_ROM
+    
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+
+    PUSH  HL
+    LD    A,#0x2D
+    CALL  _Basic_PRCHAR_ROM+1
+    POP   BC
+    JP    _Basic_PRWORD_ROM+2
+__endasm;
+
+/*
+__asm
+    BIT   7,H
+    JP    Z,_Basic_PRWORD_ROM
 
     ; HL := -HL
     EX    DE,HL ;  4
@@ -1689,43 +1708,13 @@ __asm
 ;   INC   HL    ;  6 => 30t
 
     PUSH  HL
-    LD    L,#0x2D
-    CALL  _Basic_PRCHAR_ROM
+    LD    A,#0x2D
+    CALL  _Basic_PRCHAR_ROM+1
     JP    _Basic_PRWORD_ROM+10
 __endasm;
-} //Basic_PRINT_ROM
 
-/*
-{
-__asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
-  LD   C,4(IX)
-  LD   B,5(IX)
-  CALL 0x2D2B // BC-TO-FP
-  BIT  7,5(IX)
-  JR   Z,Positive$
-Negative$:
-  LD   BC,#0xFFFF
-  RST  0x28  // FP_CALC
-  .DB  #0xA1 // 1
-  .DB  #0x0F // ADD
-  .DB  #0x1B // NEG
-  .DB  #0x03 // SUB
-  .DB  #38   // end-calc
-Positive$:
-  LD   A,#2
-  CALL 0x1601
-  CALL 0x2DE3 // PRINT-FP
-#ifdef __SDCC
-  POP  IX
-#endif
-__endasm;
-}
 */
+} //Basic_PRINT_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRWORD_FAST (unsigned int n) {
@@ -1745,10 +1734,20 @@ void Basic_PRWORD_FAST (unsigned int n) {
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRWORD_ROM (unsigned int n) __naked __z88dk_fastcall {
 __asm
+  LD   C,L
+  LD   B,H
+  CALL 0x2D2B // BC-TO-FP
+  LD   A,#2
+  CALL 0x1601
+  JP   0x2DE3 // PRINT-FP
+__endasm;
+
+/*
+__asm
           LD    IY,#0x5C3A
-/* Из журнала Deja Vu #04, Кемерово, 01.04.98
-    (c) Колотов Сеpгей, г.Шадpинск, SerzhSoft
-Доработано для печати только значащих цифр */
+// Из журнала Deja Vu #04, Кемерово, 01.04.98
+//  (c) Колотов Сеpгей, г.Шадpинск, SerzhSoft
+// Доработано для печати только значащих цифр
 ;----------------------------------------;
 ;Печать десятичного числа в HL (0..65535)
 ;----------------------------------------;
@@ -1784,6 +1783,8 @@ LP_NOPR$: EX    (SP),HL       ;HL=адрес эл-та, число -> на стек
 DECTB_W$: .DW   10000,1000,100,10,1  ;Таблица степеней десятки;
 ;----------------------------------------;
 __endasm;
+
+*/
 } //Basic_PRWORD_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
