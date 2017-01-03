@@ -177,7 +177,7 @@ extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,
 
 //----------------------- DATASTRZ (str: ARRAY OF CHAR) ------------------------
 #define Basic_DATASTRZ(str, str__len)	__asm .ascii __arg_killer__ str \
-  .db 0x00 \
+  .db 0 \
   __endasm
 
 //------------------------ DEFDATA (var, size: INTEGER) ------------------------
@@ -340,25 +340,20 @@ extern void Basic_PRLN (void);
 
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
 extern void Basic_PRSTR_C_FAST (unsigned char *str);
-extern void Basic_PRSTR_C_ROM_stdcall (unsigned char *str);
-extern void Basic_PRSTR_C_ROM_fastcall (void /* post */);
+extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
+extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
 #ifdef ROM_OUTPUT
-#  ifndef PRSTR_fastcall
-#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_stdcall(str)
-#    define PRSTR Basic_PRSTR_C_ROM_stdcall
+#  ifndef PRSTR_postpar
+#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
 #  else
-#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(); __asm \
-       .ascii __arg_killer__ str \
-       .db 0x00                  \
-     __endasm
-#  define PRSTR(str) Basic_PRSTR_C_ROM_fastcall(); __asm \
-       .ascii __arg_killer__ str \
-       .db 0x00                  \
+#    define Basic_PRSTR(str,len) __asm \
+       call _Basic_PRSTR_C_ROM_postpar \
+       .ascii __arg_killer__ str       \
+       .db 0                           \
      __endasm
 #  endif
 #else
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
-  #define PRSTR Basic_PRSTR_C_FAST
 #endif
 
 //----------------------------- PRUDG (udg: CHAR) ------------------------------
@@ -386,7 +381,7 @@ extern unsigned char Basic_RND (unsigned char min, unsigned char max);
 extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
 
 //------------------------ SGN (x: SHORTINT): SHORTINT -------------------------
-extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(a,b,c,d,e,h,iyl,iyh);
+extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 //------------------------ SGNI (x: INTEGER): SHORTINT -------------------------
 extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
@@ -497,7 +492,7 @@ extern void Basic_Quit_IM2 (void);
 #  define PRESSED Basic_PRESSED
 #  define PRINT Basic_PRINT
 #  define PRLN Basic_PRLN
-#  define PRSTR Basic_PRSTR
+#  define PRSTR(str) Basic_PRSTR(str,0)
 #  define PRUDG Basic_PRUDG
 #  define PRWORD Basic_PRWORD
 #  define RANDOMIZE Basic_RANDOMIZE
