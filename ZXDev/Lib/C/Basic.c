@@ -45,13 +45,14 @@ unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_call
 unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
 unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
 void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
-void Basic_PRCHAR_FAST (unsigned char ch);
+void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall;
 void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
-void Basic_PRDATA (void);
+void Basic_PRDATA_FAST (void);
+void Basic_PRDATA_ROM (void);
 void Basic_PRINT_FAST (int n);
 void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 void Basic_PRLN (void);
-void Basic_PRSTR_C_FAST (unsigned char *str);
+void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_postpar (void /* post */);
 void Basic_PRWORD_FAST (unsigned int n);
@@ -1532,115 +1533,60 @@ __endasm;
 } //Basic_PORTOUT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __naked __z88dk_fastcall {
-__asm
-            LD   IY,#0x5C3A
-            LD   A,#2
-            PUSH HL
-            CALL 0x1601
-            POP  HL
-PRSTRstd$:  LD   A,(HL)
-            OR   A
-            RET  Z
-            RST  16
-            INC  HL
-            JR   PRSTRstd$
-__endasm;
-} //Basic_PRSTR_C_ROM_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_postpar (void /* post */) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-PRSTRfst$:
-  POP  HL
-  LD   A,(HL)
-  INC  HL
-  PUSH HL
-  OR   A
-  RET  Z
-  RST  16
-  JR   PRSTRfst$
-__endasm;
-} //Basic_PRSTR_C_ROM_postpar
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_FAST (unsigned char *str) __naked {
+void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall {
 __asm
 .globl _INV_MODE
 .globl _OVER_MODE
-  POP  DE
-  POP  HL
-  PUSH HL
-  PUSH DE
-pr_sta$:
-  LD   A,(HL)
-  OR   A
-  RET  Z
-  PUSH HL
-  LD   L,A
-  BIT  7,A
-  JR   NZ,PO_GR$
-  LD   H,#0
-  ADD  HL,HL
-  ADD  HL,HL
-  ADD  HL,HL
-  LD   DE,(#CHAR_SET$)
-  ADD  HL,DE
-  JR   USER_FONT$
-PO_GR_BUF$:
-  .DB  #0,#0,#0,#0,#0,#0,#0,#0
-PO_GR$:
-  LD   B,A
-  LD   HL,#PO_GR_BUF$
-  PUSH HL
-  CALL 0xB3E /* Generate po_gr char to buffer */
-  CALL 0xB3E
-  POP  HL
-USER_FONT$:
-  LD   DE,(#23684)
-  EX   DE,HL
-  PUSH HL
-  LD   B,#8
-p_Sy1$:
-  LD   A,(DE)
-_INV_MODE:
-  NOP
-_OVER_MODE:
-  NOP
-  LD   (HL),A
-  INC  DE
-  INC  H
-  DJNZ p_Sy1$
-  POP  HL
-  PUSH HL
-  LD   A,H
-  AND  #0x18
-  RRCA
-  RRCA
-  RRCA
-  ADD  A,#0x58
-  LD   H,A
-  LD   A,(ATTR_P$)
-  LD   (HL),A
-  POP  HL
-  INC  L
-  JR   NZ,p_Sy2$
-  LD   A,H
-  ADD  A,#8
-  LD   H,A
-  CP   #0x58
-  JR   C,p_Sy2$
-  LD   H,#0x40
-p_Sy2$:
-  LD   (#23684),HL
-  POP  HL
-  INC  HL
-  JR   pr_sta$
+            BIT  7,L
+            JR   NZ,PO_GR$
+            LD   H,#0
+            ADD  HL,HL
+            ADD  HL,HL
+            ADD  HL,HL
+            LD   DE,(#CHAR_SET$)
+            ADD  HL,DE
+            JR   USER_FONT$
+PO_GR_BUF$: .DB  #0,#0,#0,#0,#0,#0,#0,#0
+PO_GR$:     LD   B,L
+            LD   HL,#PO_GR_BUF$
+            PUSH HL
+            CALL 0xB3E /* Generate po_gr char to buffer */
+            CALL 0xB3E
+            POP  HL
+USER_FONT$: LD   DE,(#23684)
+            EX   DE,HL
+            PUSH HL
+            LD   B,#8
+p_Sy1$:     LD   A,(DE)
+_INV_MODE:  NOP
+_OVER_MODE: NOP
+            LD   (HL),A
+            INC  DE
+            INC  H
+            DJNZ p_Sy1$
+            POP  HL
+            PUSH HL
+            LD   A,H
+            AND  #0x18
+            RRCA
+            RRCA
+            RRCA
+            ADD  A,#0x58
+            LD   H,A
+            LD   A,(ATTR_P$)
+            LD   (HL),A
+            POP  HL
+            INC  L
+            JR   NZ,p_Sy2$
+            LD   A,H
+            ADD  A,#8
+            LD   H,A
+            CP   #0x58
+            JR   C,p_Sy2$
+            LD   H,#0x40
+p_Sy2$:     LD   (#23684),HL
 __endasm;
-} //Basic_PRSTR_C_FAST
+} //Basic_PRCHAR_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall {
@@ -1656,30 +1602,38 @@ __endasm;
 } //Basic_PRCHAR_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRCHAR_FAST (unsigned char ch)
-{
-  unsigned char str[2];
-  str[0] = ch; str[1] = '\x0'; Basic_PRSTR_C_FAST(str);
-} //Basic_PRCHAR_FAST
+void Basic_PRDATA_FAST (void) __naked {
+__asm
+            POP  HL
+PRDATAfast$:LD   A,(HL)
+            OR   A
+            JR   Z,PRDATA_EXf$
+            PUSH HL
+            LD   L,A
+            CALL _Basic_PRCHAR_FAST
+            POP  HL
+            INC  HL
+            JR   PRDATAfast$
+PRDATA_EXf$:JP   (HL)
+__endasm;
+} //Basic_PRDATA_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRDATA (void) __naked {
+void Basic_PRDATA_ROM (void) __naked {
 __asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL 0x1601
-  POP  HL
-PRDATA$:
-  LD   A,(HL)
-  OR   A
-  JR   Z,PRDATA_EX$
-  RST  16
-  INC  HL
-  JR   PRDATA$
-PRDATA_EX$:
-  JP   (HL)
+            LD   IY,#0x5C3A
+            LD   A,#2
+            CALL 0x1601
+            POP  HL
+PRDATArom$: LD   A,(HL)
+            OR   A
+            JR   Z,PRDATA_EXr$
+            RST  16
+            INC  HL
+            JR   PRDATArom$
+PRDATA_EXr$:JP   (HL)
 __endasm;
-} //Basic_PRDATA
+} //Basic_PRDATA_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRLN (void) {
@@ -1757,6 +1711,55 @@ __endasm;
 
 */
 } //Basic_PRINT_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __naked __z88dk_fastcall {
+__asm
+            LD   IY,#0x5C3A
+            LD   A,#2
+            PUSH HL
+            CALL 0x1601
+            POP  HL
+PRSTR_fast$:LD   A,(HL)
+            OR   A
+            RET  Z
+            RST  16
+            INC  HL
+            JR   PRSTR_fast$
+__endasm;
+} //Basic_PRSTR_C_ROM_fastcall
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_ROM_postpar (void /* post */) __naked {
+__asm
+            LD   IY,#0x5C3A
+            LD   A,#2
+            CALL 0x1601
+PRSTR_post$:POP  HL
+            LD   A,(HL)
+            INC  HL
+            PUSH HL
+            OR   A
+            RET  Z
+            RST  16
+            JR   PRSTR_post$
+__endasm;
+} //Basic_PRSTR_C_ROM_postpar
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRSTR_C_FAST (unsigned char *str) __naked __z88dk_fastcall {
+__asm
+            LD   A,(HL)
+            OR   A
+            RET  Z
+            PUSH HL
+            LD   L,A
+            CALL _Basic_PRCHAR_FAST
+            POP  HL
+            INC  HL
+            JR   _Basic_PRSTR_C_FAST
+__endasm;
+} //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRWORD_FAST (unsigned int n) {
