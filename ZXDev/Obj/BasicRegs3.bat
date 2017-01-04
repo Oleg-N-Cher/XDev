@@ -1,4 +1,4 @@
 @SET Target=TAP
 @SET Clean=FALSE
 
-@..\Bin\build TestSaveRegs3
+@..\Bin\build BasicRegs3
