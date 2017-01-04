@@ -30,5 +30,11 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("POINT_fastcall ");
   d.SaveRegsDef; IF b.POINT(0, 0) THEN END; d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("PORTIN ");
+  d.SaveRegsDef; IF b.PORTIN(254) = 0 THEN END; d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("PORTOUT ");
+  d.SaveRegsDef; b.PORTOUT(254, 0); d.CheckRegs;
+
   b.Quit
 END BasicRegs2.

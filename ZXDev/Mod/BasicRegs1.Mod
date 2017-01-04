@@ -1,10 +1,16 @@
 MODULE BasicRegs1; (*$MAIN*)
 IMPORT b := Basic, d := Debug;
 BEGIN
-  b.Init; b.CLS; b.AT(0, 0);
+  b.Init; b.CLS;
+
+  b.COLOR(b.Yellow); b.PRSTR("ABS ");
+  d.SaveRegsDef; IF b.ABS(-1) = 0 THEN END; d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("ABSI ");
+  d.SaveRegsDef; IF b.ABSI(-1) = 0 THEN END; d.CheckRegs;
 
   b.COLOR(b.Yellow); b.PRSTR("AT_ROM_callee ");
-  d.SaveRegsDef; b.AT(0, 14); d.CheckRegs;
+  d.SaveRegsDef; b.AT(2, 14); d.CheckRegs;
 
   b.COLOR(b.Yellow); b.PRSTR("ATTR_callee ");
   d.SaveRegsDef; IF b.ATTR(1, 15) = 0 THEN END; d.CheckRegs;
@@ -65,12 +71,6 @@ BEGIN
 
   b.COLOR(b.Yellow); b.PRSTR("POINT_callee ");
   d.SaveRegsDef; IF b.POINT(0, 0) THEN END; d.CheckRegs;
-
-  b.COLOR(b.Yellow); b.PRSTR("PORTIN ");
-  d.SaveRegsDef; IF b.PORTIN(254) = 0 THEN END; d.CheckRegs;
-
-  b.COLOR(b.Yellow); b.PRSTR("PORTOUT ");
-  d.SaveRegsDef; b.PORTOUT(254, 0); d.CheckRegs;
 
   b.Quit
 END BasicRegs1.
