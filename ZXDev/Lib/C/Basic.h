@@ -31,7 +31,7 @@ extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 extern signed char Basic_ABS (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
 
 //------------------------- ABSI (x: INTEGER): INTEGER -------------------------
-extern signed int Basic_ABSI (signed int x) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
+extern signed int Basic_ABSI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
 
 //--------------------------- AT (y, x: TextCoords) ----------------------------
 extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(b,c,iyl,iyh);

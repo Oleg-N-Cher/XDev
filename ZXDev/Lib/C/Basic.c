@@ -138,15 +138,57 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed int Basic_ABSI (signed int x) __z88dk_fastcall {
-__asm
-    BIT  7,H
-    RET  Z
-    EX   DE,HL
-    XOR  A
-    LD   L,A
-    LD   H,A
-    SBC  HL,DE
+__asm // Code by Titus
+    LD   A,H     ;  4
+    OR   A       ;  4
+    RET  P       ; 11/5
+    CPL          ;  4
+    LD   H,A     ;  4
+    LD   A,L     ;  4
+    CPL          ;  4
+    LD   L,A     ;  4
+    INC  HL      ;  6 => 39/19
 __endasm;
+
+/*
+__asm
+    BIT  7,H     ;  8
+    RET  Z       ; 11/5
+    EX   DE,HL   ;  4
+    XOR  A       ;  4
+    LD   L,A     ;  4
+    LD   H,A     ;  4
+    SBC  HL,DE   ; 15 => 44/19
+__endasm;
+*/
+
+/*
+__asm // Code by NEO SPECTRUMAN
+    LD   A,H     ;  4
+    CP   #0x80   ;  7
+    RET  C       ; 11/5
+    CPL          ;  4
+    LD   H,A     ;  4
+    LD   A,L     ;  4
+    CPL          ;  4
+    LD   L,A     ;  4
+    INC  HL      ;  6 => 42/22
+__endasm;
+*/
+
+/*
+__asm // Code by Titus
+    LD   A,#0xFF ;  7
+    XOR  H       ;  4
+    RET  M       ; 11/5
+    LD   H,A     ;  4
+    LD   A,L     ;  4
+    CPL          ;  4
+    LD   L,A     ;  4
+    INC  HL      ;  6 => 38/22
+__endasm;
+*/
+
 } //Basic_ABSI
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -1858,14 +1900,14 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed char Basic_SGNI (signed int x) __z88dk_fastcall {
-__asm
+__asm // Code by char & SaNchez
     LD   A,L
     OR   H
     RET  Z
-    BIT  7,H
-    LD   L,#1
-    RET  Z
-    LD   L,#0xFF
+    RLC  H
+    SBC  A
+    OR   #1
+    LD   L,A
 __endasm;
 } //Basic_SGNI
 
