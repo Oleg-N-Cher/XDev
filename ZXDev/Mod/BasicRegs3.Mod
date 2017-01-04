@@ -1,4 +1,4 @@
-MODULE TestSaveRegs3; (*$MAIN*)
+MODULE BasicRegs3; (*$MAIN*)
 IMPORT b := Basic, d := Debug;
 BEGIN
   b.Init; b.CLS; b.AT(1, 0);
@@ -15,4 +15,4 @@ BEGIN
   d.SaveRegsDef; b.OVER(b.Off); d.CheckRegs;
 
   b.Quit
-END TestSaveRegs3.
+END BasicRegs3.
