@@ -63,7 +63,7 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("PAPER ");
   d.SaveRegsDef; b.PAPER(b.Black); d.CheckRegs;
 
-  b.COLOR(b.Yellow); b.PRSTR("PAUSE ");
+  b.COLOR(b.Yellow); b.PRSTR("PAUSE_DI ");
   d.SaveRegsDef; b.PAUSE(1); d.CheckRegs;
 
   b.COLOR(b.Yellow); b.PRSTR("PLOT_callee ");

@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 	Basic_PAPER(0);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"PAUSE ", 7);
+	Basic_PRSTR((CHAR*)"PAUSE_DI ", 10);
 	Debug_SaveRegsDef();
 	Basic_PAUSE(1);
 	Debug_CheckRegs();

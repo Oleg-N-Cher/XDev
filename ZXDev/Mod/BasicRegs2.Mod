@@ -24,6 +24,9 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("DRAW_fastcall "); b.PLOT(0, 0);
   d.SaveRegsDef; b.DRAW(3, 3); d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.PRSTR("PAUSE_EI ");
+  d.SaveRegsDef; b.PAUSE(1); d.CheckRegs;
+
   b.COLOR(b.Yellow); b.PRSTR("PLOT_fastcall ");
   d.SaveRegsDef; b.PLOT(255, 175); d.CheckRegs;
 
@@ -35,6 +38,12 @@ BEGIN
 
   b.COLOR(b.Yellow); b.PRSTR("PORTOUT ");
   d.SaveRegsDef; b.PORTOUT(254, 0); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("PRCHAR_ROM");
+  d.SaveRegsDef; b.PRCHAR(" "); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("PRDATA_ROM");
+  d.SaveRegsDef; b.PRDATA; b.DATACH2(" ", 0X); d.CheckRegs;
 
   b.Quit
 END BasicRegs2.

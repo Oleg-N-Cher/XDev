@@ -67,12 +67,9 @@ extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_BEEP Basic_BEEP_DI
 #endif //MODE_DI
-#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_BEEP Basic_BEEP_EI
-#endif //MODE_IM1
-#if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_BEEP Basic_BEEP_EI
-#endif //MODE_IM2
+#endif //MODE_IM1 & MODE_IM2
 
 //--------------------------- BORDER (color: Color) ----------------------------
 extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
@@ -99,12 +96,9 @@ extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_DI
 #endif //MODE_DI
-#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_CIRCLEW Basic_CIRCLEW_EI
-#endif //MODE_IM1
-#if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_CIRCLEW Basic_CIRCLEW_EI
-#endif //MODE_IM2
+#endif //MODE_IM1 & MODE_IM2
 
 //------------------------------------ CLS -------------------------------------
 extern void Basic_CLS_FULLSCREEN (void);
@@ -268,12 +262,9 @@ extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall __preserves_reg
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  define Basic_PAUSE Basic_PAUSE_DI
 #endif //MODE_DI
-#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
 #  define Basic_PAUSE Basic_PAUSE_EI
-#endif //MODE_IM1
-#if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_PAUSE Basic_PAUSE_EI
-#endif //MODE_IM2
+#endif //MODE_IM1 & MODE_IM2
 
 //------------------------- PEEK (adr: ADDRESS): UBYTE -------------------------
 #define Basic_PEEK(adr)      (*(unsigned char*) (adr))
@@ -312,7 +303,7 @@ extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall __preserv
 extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee __preserves_regs(d,e,iyl,iyh);
 
 //----------------------------- PRCHAR (ch: CHAR) ------------------------------
-extern void Basic_PRCHAR_FAST (unsigned char ch);
+extern void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRCHAR Basic_PRCHAR_ROM
@@ -321,7 +312,13 @@ extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 #endif
 
 //----------------------------------- PRDATA -----------------------------------
-extern void Basic_PRDATA (void);
+extern void Basic_PRDATA_FAST (void) __preserves_regs(iyl,iyh);
+extern void Basic_PRDATA_ROM (void);
+#ifdef ROM_OUTPUT
+  #define Basic_PRDATA Basic_PRDATA_ROM
+#else
+  #define Basic_PRDATA Basic_PRDATA_FAST
+#endif
 
 //---------------------------- PRESSED (): BOOLEAN -----------------------------
 extern unsigned char Basic_PRESSED (void);
@@ -339,7 +336,7 @@ extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 extern void Basic_PRLN (void);
 
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
-extern void Basic_PRSTR_C_FAST (unsigned char *str);
+extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
 extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
 extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
 #ifdef ROM_OUTPUT
@@ -402,9 +399,9 @@ extern void Basic_Quit_IM2 (void);
 #endif //MODE_DI
 #ifdef MODE_DI_inline
 #  define Basic_Quit() __asm         \
+     LD   IY, __id__(__hash__)0x5C3A \
      LD   HL, __id__(__hash__)0x2758 \
      EXX                             \
-     LD   IY, __id__(__hash__)0x5C3A \
      EI                              \
   __endasm
 #endif //MODE_DI_inline
@@ -416,7 +413,6 @@ extern void Basic_Quit_IM2 (void);
 #  define Basic_Quit() __asm         \
      LD   HL, __id__(__hash__)0x2758 \
      EXX                             \
-     LD   IY, __id__(__hash__)0x5C3A \
   __endasm
 #endif //MODE_IM1_inline
 
@@ -425,10 +421,12 @@ extern void Basic_Quit_IM2 (void);
 #endif //MODE_IM2
 #ifdef MODE_IM2_inline
 #  define Basic_Quit() __asm        \
-     DI                             \
+     LD   IY,__id__(__hash__)0x5C3A \
      LD   HL,__id__(__hash__)0x2758 \
      EXX                            \
-     LD   IY,__id__(__hash__)0x5C3A \
+     LD   A,__id__(__hash__)0x3F    \
+     DI                             \
+     LD   I,A                       \
      IM   1                         \
      EI                             \
    __endasm
@@ -438,6 +436,7 @@ extern void Basic_Quit_IM2 (void);
 
 
 #ifdef __Use_C_only__
+
 #  define Black 0
 #  define Blue 1
 #  define Red 2
@@ -458,6 +457,9 @@ extern void Basic_Quit_IM2 (void);
 #  define Off 0
 
 #  define Init Basic_Init
+
+#  define ABS Basic_ABS
+#  define ABSI Basic_ABSI
 #  define AT Basic_AT
 #  define ATTR Basic_ATTR
 #  define BEEP Basic_BEEP
@@ -499,8 +501,10 @@ extern void Basic_Quit_IM2 (void);
 #  define RND Basic_RND
 #  define RNDW Basic_RNDW
 #  define SGN Basic_SGN
+#  define SGNI Basic_SGNI
 #  define UDG Basic_UDG
 #  define USR0 Basic_USR0
+
 #endif //__Use_C_only__
 
 #endif
