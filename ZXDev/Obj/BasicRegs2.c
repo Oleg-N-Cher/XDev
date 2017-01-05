@@ -22,61 +22,61 @@ int main(int argc, char **argv)
 	Basic_CLS();
 	Basic_AT(1, 0);
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"AT_ROM_fastcall ", 17);
+	Basic_PRSTR((CHAR*)"AT_ROM_fastcall", 16);
 	Debug_SaveRegsDef();
-	Basic_AT(1, 16);
+	Basic_AT(1, 15);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"ATTR_fastcall ", 15);
+	Basic_PRSTR((CHAR*)"ATTR_fastcall", 14);
 	Debug_SaveRegsDef();
 	if (Basic_ATTR(1, 15) == 0) {
 	}
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"BEEP_EI ", 9);
+	Basic_PRSTR((CHAR*)"BEEP_EI", 8);
 	Debug_SaveRegsDef();
 	Basic_BEEP(10, 1);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"BORDER ", 8);
+	Basic_PRSTR((CHAR*)"BORDER", 7);
 	Debug_SaveRegsDef();
 	Basic_BORDER(3);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"CIRCLEW_EI ", 12);
+	Basic_PRSTR((CHAR*)"CIRCLEW_EI", 11);
 	Debug_SaveRegsDef();
 	Basic_CIRCLEW(250, 170, 5);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"DRAW_fastcall ", 15);
+	Basic_PRSTR((CHAR*)"DRAW_fastcall", 14);
 	Basic_PLOT(0, 0);
 	Debug_SaveRegsDef();
 	Basic_DRAW(3, 3);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"PAUSE_EI ", 10);
+	Basic_PRSTR((CHAR*)"PAUSE_EI", 9);
 	Debug_SaveRegsDef();
 	Basic_PAUSE(1);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"PLOT_fastcall ", 15);
+	Basic_PRSTR((CHAR*)"PLOT_fastcall", 14);
 	Debug_SaveRegsDef();
 	Basic_PLOT(255, 175);
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"POINT_fastcall ", 16);
+	Basic_PRSTR((CHAR*)"POINT_fastcall", 15);
 	Debug_SaveRegsDef();
 	if (Basic_POINT(0, 0)) {
 	}
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"PORTIN ", 8);
+	Basic_PRSTR((CHAR*)"PORTIN", 7);
 	Debug_SaveRegsDef();
 	if (Basic_PORTIN(254) == 0) {
 	}
 	Debug_CheckRegs();
 	Basic_COLOR(6);
-	Basic_PRSTR((CHAR*)"PORTOUT ", 9);
+	Basic_PRSTR((CHAR*)"PORTOUT", 8);
 	Debug_SaveRegsDef();
 	Basic_PORTOUT(254, 0);
 	Debug_CheckRegs();
@@ -90,6 +90,22 @@ int main(int argc, char **argv)
 	Debug_SaveRegsDef();
 	Basic_PRDATA();
 	Basic_DATACH2(' ', 0x00);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PRESSED", 8);
+	Debug_SaveRegsDef();
+	if (Basic_PRESSED()) {
+	}
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PRINT_ROM ", 11);
+	Debug_SaveRegsDef();
+	Basic_PRINT(-12345);
+	Debug_CheckRegs();
+	Basic_COLOR(6);
+	Basic_PRSTR((CHAR*)"PRWORD_ROM ", 12);
+	Debug_SaveRegsDef();
+	Basic_PRWORD(12345);
 	Debug_CheckRegs();
 	Basic_Quit();
 	__FINI;

@@ -49,13 +49,13 @@ void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall;
 void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 void Basic_PRDATA_FAST (void);
 void Basic_PRDATA_ROM (void);
-void Basic_PRINT_FAST (int n);
+void Basic_PRINT_FAST (int n) __z88dk_fastcall;
 void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 void Basic_PRLN (void);
 void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_postpar (void /* post */);
-void Basic_PRWORD_FAST (unsigned int n);
+void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
 void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
 unsigned char Basic_RND (unsigned char min, unsigned char max);
@@ -839,28 +839,30 @@ WRAP11$: // fixed for OVER 1 by Destr
 } //Basic_CIRCLEW_EI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_FULLSCREEN (void) {
+void Basic_CLS_FULLSCREEN (void) __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,(#0x5C48)
   EX   AF,AF
   LD   A,(ATTR_P$)
   LD   (#0x5C48),A
-  CALL 0xD6B // IX-safe
+  CALL 0xD6B       ; IX-safe
   EX   AF,AF
   LD   (#0x5C48),A
   LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
+  JP   0x1642      ; CHAN_S
 __endasm;
 } //Basic_CLS_FULLSCREEN
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CLS_ZX (void) {
+void Basic_CLS_ZX (void) __naked {
 __asm
   LD   IY,#0x5C3A
-  CALL 0xD6B // IX-safe
+  CALL 0xD6B       ; IX-safe
   LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
+  JP   0x1642      ; CHAN_S
 __endasm;
 } //Basic_CLS_ZX
 
@@ -984,7 +986,7 @@ __asm
   JR   Z,SetInvers$ /* If INVERSE 0 then poke NOP */
   LD   A,#0x2F      /*              else poke CPL */
 SetInvers$:
-  LD   (#_INV_MODE),A
+  LD   (#_Basic_INV_MODE),A
   LD   A,#20
   RST  16
   LD   A,L
@@ -1013,7 +1015,7 @@ __asm // !!! NEED to be checked to IX-safety
   JR   Z,SetOver$ /* If OVER 0 then poke NOP      */
   LD   A,#0xAE    /*           else poke XOR (HL) */
 SetOver$:
-  LD   (#_OVER_MODE),A
+  LD   (#_Basic_OVER_MODE),A
   LD   A,#21
   RST  16
   LD   A,L
@@ -1535,8 +1537,8 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall {
 __asm
-.globl _INV_MODE
-.globl _OVER_MODE
+.globl _Basic_INV_MODE
+.globl _Basic_OVER_MODE
             BIT  7,L
             JR   NZ,PO_GR$
             LD   H,#0
@@ -1558,8 +1560,10 @@ USER_FONT$: LD   DE,(#23684)
             PUSH HL
             LD   B,#8
 p_Sy1$:     LD   A,(DE)
-_INV_MODE:  NOP
-_OVER_MODE: NOP
+_Basic_INV_MODE:
+            NOP
+_Basic_OVER_MODE:
+            NOP
             LD   (HL),A
             INC  DE
             INC  H
@@ -1591,13 +1595,10 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall {
 __asm
-  LD   A,L
-  LD   IY,#0x5C3A
-  EX   AF,AF
-  LD   A,#2
-  CALL 0x1601
-  EX   AF,AF
-  RST  16
+            LD   A,L
+            LD   IY,#0x5C3A
+//          JP   0x09F4       ; PRINT_OUT
+            RST  16
 __endasm;
 } //Basic_PRCHAR_ROM
 
@@ -1622,8 +1623,6 @@ __endasm;
 void Basic_PRDATA_ROM (void) __naked {
 __asm
             LD   IY,#0x5C3A
-            LD   A,#2
-            CALL 0x1601
             POP  HL
 PRDATArom$: LD   A,(HL)
             OR   A
@@ -1636,31 +1635,37 @@ __endasm;
 } //Basic_PRDATA_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRLN (void) {
-  Basic_PRCHAR_ROM('\x0D');
-}
+unsigned char Basic_PRESSED (void) {
+__asm
+            CALL  #0x28E      ; KEY_SCAN
+            INC   DE
+            LD    A,E
+            OR    D
+            LD    L,A         ; FALSE
+            RET   Z
+            INC   L           ; TRUE
+__endasm;
+} //Basic_PRESSED
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRINT_FAST (int n) {
-  unsigned char b[6], *prt;
-  int j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    if (n < 0) {
-      Basic_PRSTR_C_FAST("-");
-      if (n == -32768) {
-        Basic_PRSTR_C_FAST("32768");
-        return;
-      }
-      n = -n;
-    }
-    j -= 1;
-    b[j] = (unsigned char)(n%10 + 48);
-    n = n/10;
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C_FAST(prt);
+void Basic_PRINT_FAST (int n) __naked __z88dk_fastcall {
+__asm
+    BIT   7,H
+    JP    Z,_Basic_PRWORD_FAST
+
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+
+    PUSH  HL
+    LD    L,#0x2D
+    CALL  _Basic_PRCHAR_FAST
+    POP   HL
+    JP    _Basic_PRWORD_FAST
+__endasm;
 } //Basic_PRINT_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -1682,47 +1687,23 @@ __asm
     POP   BC
     JP    _Basic_PRWORD_ROM+2
 __endasm;
-
-/*
-__asm
-    BIT   7,H
-    JP    Z,_Basic_PRWORD_ROM
-
-    ; HL := -HL
-    EX    DE,HL ;  4
-    XOR   A     ;  4
-    LD    L,A   ;  4
-    LD    H,A   ;  4
-    SBC   HL,DE ; 15 => 31t
-    
-;   LD    A,L   ;  4
-;   CPL         ;  4
-;   LD    L,A   ;  4
-;   LD    A,H   ;  4
-;   CPL         ;  4
-;   LD    H,A   ;  4
-;   INC   HL    ;  6 => 30t
-
-    PUSH  HL
-    LD    A,#0x2D
-    CALL  _Basic_PRCHAR_ROM+1
-    JP    _Basic_PRWORD_ROM+10
-__endasm;
-
-*/
 } //Basic_PRINT_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRLN (void) {
+  Basic_PRCHAR_ROM('\x0D');
+}
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __naked __z88dk_fastcall {
 __asm
             LD   IY,#0x5C3A
-            LD   A,#2
-            PUSH HL
-            CALL 0x1601
-            POP  HL
 PRSTR_fast$:LD   A,(HL)
             OR   A
             RET  Z
+//          PUSH HL
+//          CALL 0x09F4       ; PRINT_OUT
+//          POP  HL
             RST  16
             INC  HL
             JR   PRSTR_fast$
@@ -1733,8 +1714,6 @@ __endasm;
 void Basic_PRSTR_C_ROM_postpar (void /* post */) __naked {
 __asm
             LD   IY,#0x5C3A
-            LD   A,#2
-            CALL 0x1601
 PRSTR_post$:POP  HL
             LD   A,(HL)
             INC  HL
@@ -1762,43 +1741,16 @@ __endasm;
 } //Basic_PRSTR_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRWORD_FAST (unsigned int n) {
-  unsigned char b[6], *prt;
-  unsigned int j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    j -= 1;
-    b[j] = (unsigned char)(n%10 + 48);
-    n = n / 10;
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  Basic_PRSTR_C_FAST(prt);
-} //Basic_PRWORD_FAST
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRWORD_ROM (unsigned int n) __naked __z88dk_fastcall {
+void Basic_PRWORD_FAST (unsigned int n) __naked __z88dk_fastcall {
 __asm
-  LD   C,L
-  LD   B,H
-  CALL 0x2D2B // BC-TO-FP
-  LD   A,#2
-  CALL 0x1601
-  JP   0x2DE3 // PRINT-FP
-__endasm;
-
-/*
-__asm
-          LD    IY,#0x5C3A
 // Из журнала Deja Vu #04, Кемерово, 01.04.98
 //  (c) Колотов Сеpгей, г.Шадpинск, SerzhSoft
 // Доработано для печати только значащих цифр
+// Оптимизировано заменой SBC на ADD (с) blackmirror
 ;----------------------------------------;
 ;Печать десятичного числа в HL (0..65535)
 ;----------------------------------------;
           PUSH  HL            ;закинули печатаемое число на стек
-          LD    A,#2          ;открываем канал 2
-          CALL  #0x1601       ;(печать в области основного экрана)
           LD    HL,#DECTB_W$  ;адрес таблицы степеней десятки
           LD    BC,#0x505     ;макс. возможное количество цифр: 5
           ;установим также рег. C - кол-во незначащих нулей + 1
@@ -1809,9 +1761,67 @@ LP_PDW1$: XOR   A             ;обнулили счётчик и флаг C для SBC
           INC   HL            ;перешли к след. элементу таблицы
           EX    (SP),HL       ;адрес эл-та <-> печатаемое число
 LP_PDW2$: INC   A             ;увеличиваем счётчик
-          SBC   HL,DE         ;вычитаем текущую степень десятки
-          JR    NC,LP_PDW2$   ;повторяем пока HL>=0
-          ADD   HL,DE         ;HL=HL mod DE; A=HL div DE
+          ADD   HL,DE         ;вычитаем текущую степень десятки
+          JR    C,LP_PDW2$    ;повторяем пока HL>=0
+          SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
+          DEC   C             ;проверяем: может это незначащий нуль?
+          JR    Z,LP_PRNT$    ; если уже были другие цифры, печатаем
+          DEC   A             ;если это нуль, то он незначащий
+          JR    Z,LP_NOPR$    ; ничего не печатаем
+          INC   A             ;это не нуль, увеличим на 1 для печати
+LP_PRNT$: ADD   A,#"0"-1      ;перевод A в ASCII-код ("0".."9")
+
+          PUSH  BC            ;печать десятичной цифры
+          PUSH  HL
+          LD    L,A
+          CALL  _Basic_PRCHAR_FAST
+          POP   HL
+          POP   BC            ;-----------------------
+
+          LD    C,#1          ;уже была печать, дальше все значащие
+LP_NOPR$: EX    (SP),HL       ;HL=адрес эл-та, число -> на стек
+          DJNZ  LP_PDW1$      ;цикл по цифрам
+          POP   HL            ;убрали оставшийся ноль со стека
+          RET                 ;выход из процедуры
+;----------------------------------------;
+DECTB_W$: .DW   -10000,-1000,-100,-10,-1  ;Таблица степеней десятки;
+;----------------------------------------;
+__endasm;
+} //Basic_PRWORD_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRWORD_ROM (unsigned int n) __naked __z88dk_fastcall {
+__asm
+            LD   C,L
+            LD   B,H
+            CALL 0x2D2B       ; BC-TO-FP
+            JP   0x2DE3       ; PRINT-FP
+__endasm;
+
+/*
+__asm
+          LD    IY,#0x5C3A
+// Из журнала Deja Vu #04, Кемерово, 01.04.98
+//  (c) Колотов Сеpгей, г.Шадpинск, SerzhSoft
+// Доработано для печати только значащих цифр
+// Оптимизировано заменой SBC на ADD (с) blackmirror
+;----------------------------------------;
+;Печать десятичного числа в HL (0..65535)
+;----------------------------------------;
+          PUSH  HL            ;закинули печатаемое число на стек
+          LD    HL,#DECTB_W$  ;адрес таблицы степеней десятки
+          LD    BC,#0x505     ;макс. возможное количество цифр: 5
+          ;установим также рег. C - кол-во незначащих нулей + 1
+LP_PDW1$: XOR   A             ;обнулили счётчик и флаг C для SBC
+          LD    E,(HL)        ;взяли текущую степень
+          INC   HL            ; десятки из таблицы
+          LD    D,(HL)        ; и поместили в DE
+          INC   HL            ;перешли к след. элементу таблицы
+          EX    (SP),HL       ;адрес эл-та <-> печатаемое число
+LP_PDW2$: INC   A             ;увеличиваем счётчик
+          ADD   HL,DE         ;вычитаем текущую степень десятки
+          JR    C,LP_PDW2$    ;повторяем пока HL>=0
+          SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
           DEC   C             ;проверяем: может это незначащий нуль?
           JR    Z,LP_PRNT$    ; если уже были другие цифры, печатаем
           DEC   A             ;если это нуль, то он незначащий
@@ -1825,25 +1835,12 @@ LP_NOPR$: EX    (SP),HL       ;HL=адрес эл-та, число -> на стек
           POP   HL            ;убрали оставшийся ноль со стека
           RET                 ;выход из процедуры
 ;----------------------------------------;
-DECTB_W$: .DW   10000,1000,100,10,1  ;Таблица степеней десятки;
+DECTB_W$: .DW   -10000,-1000,-100,-10,-1  ;Таблица степеней десятки;
 ;----------------------------------------;
 __endasm;
 
 */
 } //Basic_PRWORD_ROM
-
-/*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_PRESSED (void) { // Check to IX-safety
-__asm
-    CALL  #0x28E /* Scan keys */
-    LD    L,#0   /* FALSE */
-    INC   DE
-    LD    A,E
-    OR    D
-    RET   Z
-    INC   L      /* TRUE */
-__endasm;
-} //Basic_PRESSED
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_RANDOMIZE (unsigned int seed) __naked __z88dk_fastcall {
