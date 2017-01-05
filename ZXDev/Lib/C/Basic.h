@@ -18,13 +18,26 @@
 //------------------------------------ Init ------------------------------------
 extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
-#  define Basic_Init() __asm DI __endasm
+#  ifndef ROM_OUTPUT
+#    define Basic_Init() __asm di __endasm
+#  else
+#    define Basic_Init() __asm di \
+     call 0x1642 __endasm
+#  endif
 #endif //MODE_DI
 #ifdef MODE_IM1
-#  define Basic_Init()
+#  ifndef ROM_OUTPUT
+#    define Basic_Init()
+#  else
+#    define Basic_Init() __asm call 0x1642 __endasm
+#  endif
 #endif //MODE_IM1
 #if defined (MODE_IM2) || defined (MODE_IM2_inline)
-#  define Basic_Init Basic_Init_IM2
+#  ifndef ROM_OUTPUT
+#    define Basic_Init Basic_Init_IM2
+#  else
+#    define Basic_Init() Basic_Init_IM2(); __asm call 0x1642 __endasm
+#  endif
 #endif //MODE_IM2
 
 //------------------------ ABS (x: SHORTINT): SHORTINT -------------------------
@@ -304,7 +317,7 @@ extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_calle
 
 //----------------------------- PRCHAR (ch: CHAR) ------------------------------
 extern void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall __preserves_regs(iyl,iyh);
-extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
+extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
 #ifdef ROM_OUTPUT
   #define Basic_PRCHAR Basic_PRCHAR_ROM
 #else
@@ -313,7 +326,7 @@ extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
 
 //----------------------------------- PRDATA -----------------------------------
 extern void Basic_PRDATA_FAST (void) __preserves_regs(iyl,iyh);
-extern void Basic_PRDATA_ROM (void);
+extern void Basic_PRDATA_ROM (void) __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
   #define Basic_PRDATA Basic_PRDATA_ROM
 #else
@@ -321,10 +334,10 @@ extern void Basic_PRDATA_ROM (void);
 #endif
 
 //---------------------------- PRESSED (): BOOLEAN -----------------------------
-extern unsigned char Basic_PRESSED (void);
+extern unsigned char Basic_PRESSED (void) __preserves_regs(iyl,iyh);
 
 //----------------------------- PRINT (n: INTEGER) -----------------------------
-extern void Basic_PRINT_FAST (int n);
+extern void Basic_PRINT_FAST (int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRINT Basic_PRINT_ROM
@@ -336,7 +349,7 @@ extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 extern void Basic_PRLN (void);
 
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
-extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
+extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
 extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
 #ifdef ROM_OUTPUT
@@ -357,7 +370,7 @@ extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
 #define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg+79))
 
 //---------------------------- PRWORD (n: LONGINT) -----------------------------
-extern void Basic_PRWORD_FAST (unsigned int n);
+extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
   #define Basic_PRWORD Basic_PRWORD_ROM
