@@ -7,7 +7,7 @@
 extern unsigned int _Laser2_SCRL_BUF;  // Scroll buffer start address
 extern unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 
-// Sprite engine (the coordinates can be outside the screen):
+// Sprite engine (in OUT_OF_SCREEN the coords can be outside the screen):
 
 void Laser2_ATOF_INSCR  (void);
 void Laser2_ATOF_OUTSCR (void);
