@@ -50,7 +50,7 @@ extern unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 #define Laser2_InitSpritesA  Laser2_SPRTa
 #define Laser2_SetScreen     Laser2_SCRN
 
-// Sprite engine (the coordinates can be outside the screen):
+// Sprite engine (in OUT_OF_SCREEN the coords can be outside the screen):
 
 #ifdef OUT_OF_SCREEN
     extern void Laser2_ATOF_OUTSCR (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
