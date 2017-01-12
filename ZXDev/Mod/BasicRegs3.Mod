@@ -20,11 +20,23 @@ BEGIN
   b.COLOR(b.Yellow); b.AT(4, 4); b.PRSTR("PRDATA_FAST");
   d.SaveRegsDef; b.PRDATA; b.DATACH2(90X, 0X); d.CheckRegs;
 
-  b.AT(5, 4); b.COLOR(b.Yellow); b.PRSTR("PRINT_FAST ");
+  b.COLOR(b.Yellow); b.AT(5, 4); b.PRSTR("PRINT_FAST "); b.COLOR(b.Cyan);
   d.SaveRegsDef; b.PRINT(-12345); d.CheckRegs;
 
-  b.AT(6, 4); b.COLOR(b.Yellow); b.PRSTR("PRWORD_FAST ");
+  b.COLOR(b.Yellow); b.AT(6, 12); b.PRSTR("PRLN_FAST");
+  d.SaveRegsDef; b.PRLN; d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.AT(7, 6);
+  d.SaveRegsDef; b.PRSTR("PRSTR_FAST"); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.AT(8, 4); b.PRSTR("PRWORD_FAST "); b.COLOR(b.Cyan);
   d.SaveRegsDef; b.PRWORD(12345); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.AT(9, 14); b.PRSTR("SGN");
+  d.SaveRegsDef; IF b.SGN(-1) = 0 THEN END; d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.AT(10, 12); b.PRSTR("SGNI");
+  d.SaveRegsDef; IF b.SGNI(-1) = 0 THEN END; d.CheckRegs;
 
   b.Quit
 END BasicRegs3.
