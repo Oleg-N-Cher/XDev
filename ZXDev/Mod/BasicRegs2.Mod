@@ -48,11 +48,23 @@ BEGIN
   b.COLOR(b.Yellow); b.PRSTR("PRESSED");
   d.SaveRegsDef; IF b.PRESSED() THEN END; d.CheckRegs;
 
-  b.COLOR(b.Yellow); b.PRSTR("PRINT_ROM ");
+  b.COLOR(b.Yellow); b.PRSTR("PRINT_ROM "); b.COLOR(b.Cyan);
   d.SaveRegsDef; b.PRINT(-12345); d.CheckRegs;
 
-  b.COLOR(b.Yellow); b.PRSTR("PRWORD_ROM ");
+  b.COLOR(b.Yellow); b.PRSTR("PRLN_ROM");
+  d.SaveRegsDef; b.PRLN; d.CheckRegs;
+
+  b.COLOR(b.Yellow);
+  d.SaveRegsDef; b.PRSTR("PRSTR_ROM"); d.CheckRegs;
+(*
+  b.COLOR(b.Yellow); b.PRSTR("PRUDG "); b.COLOR(b.Cyan);
+  d.SaveRegsDef; b.PRUDG("A"); d.CheckRegs;
+*)
+  b.COLOR(b.Yellow); b.PRSTR("PRWORD_ROM "); b.COLOR(b.Cyan);
   d.SaveRegsDef; b.PRWORD(12345); d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.PRSTR("RANDOMIZE");
+  d.SaveRegsDef; b.RANDOMIZE(0); d.CheckRegs;
 
   b.Quit
 END BasicRegs2.

@@ -51,7 +51,8 @@ void Basic_PRDATA_FAST (void);
 void Basic_PRDATA_ROM (void);
 void Basic_PRINT_FAST (int n) __z88dk_fastcall;
 void Basic_PRINT_ROM (int n) __z88dk_fastcall;
-void Basic_PRLN (void);
+void Basic_PRLN_FAST (void);
+void Basic_PRLN_ROM (void);
 void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_postpar (void /* post */);
@@ -1539,6 +1540,7 @@ void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall {
 __asm
 .globl _Basic_INV_MODE
 .globl _Basic_OVER_MODE
+.globl _Basic_INC_HPOS
             BIT  7,L
             JR   NZ,PO_GR$
             LD   H,#0
@@ -1555,8 +1557,8 @@ PO_GR$:     LD   B,L
             CALL 0xB3E /* Generate po_gr char to buffer */
             CALL 0xB3E
             POP  HL
-USER_FONT$: LD   DE,(#23684)
-            EX   DE,HL
+USER_FONT$: EX   DE,HL
+            LD   HL,(#23684)
             PUSH HL
             LD   B,#8
 p_Sy1$:     LD   A,(DE)
@@ -1569,18 +1571,18 @@ _Basic_OVER_MODE:
             INC  H
             DJNZ p_Sy1$
             POP  HL
-            PUSH HL
+            LD   E,L
             LD   A,H
             AND  #0x18
             RRCA
             RRCA
             RRCA
             ADD  A,#0x58
-            LD   H,A
+            LD   D,A
             LD   A,(ATTR_P$)
-            LD   (HL),A
-            POP  HL
+            LD   (DE),A
             INC  L
+_Basic_INC_HPOS:
             JR   NZ,p_Sy2$
             LD   A,H
             ADD  A,#8
@@ -1690,9 +1692,24 @@ __endasm;
 } //Basic_PRINT_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRLN (void) {
-  Basic_PRCHAR_ROM('\x0D');
-}
+void Basic_PRLN_FAST (void) __naked {
+__asm
+            LD   HL,(#23684)
+            LD   A,L
+            OR   #0x1F
+            INC  A
+            LD   L,A
+            JP   _Basic_INC_HPOS
+__endasm;
+} //Basic_PRLN_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRLN_ROM (void) __naked {
+__asm
+            LD    A,#0x0D
+            JP    _Basic_PRCHAR_ROM+1
+__endasm;
+} //Basic_PRLN_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __naked __z88dk_fastcall {

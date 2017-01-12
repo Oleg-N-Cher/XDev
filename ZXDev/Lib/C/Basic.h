@@ -346,12 +346,18 @@ extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
 #endif
 
 //------------------------------------ PRLN ------------------------------------
-extern void Basic_PRLN (void);
+extern void Basic_PRLN_FAST (void) __preserves_regs(b,c,d,e,iyl,iyh);
+extern void Basic_PRLN_ROM (void) __preserves_regs(b,c,d,e,h,l);
+#ifdef ROM_OUTPUT
+  #define Basic_PRLN Basic_PRLN_ROM
+#else
+  #define Basic_PRLN Basic_PRLN_FAST
+#endif
 
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
 extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall __preserves_regs(iyl,iyh);
-extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
-extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
+extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall __preserves_regs(b,c,d,e);
+extern void Basic_PRSTR_C_ROM_postpar (void /* post */) __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
 #  ifndef PRSTR_postpar
 #    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
@@ -367,7 +373,7 @@ extern void Basic_PRSTR_C_ROM_postpar (void /* post */);
 #endif
 
 //----------------------------- PRUDG (udg: CHAR) ------------------------------
-#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg+79))
+#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg)+79)
 
 //---------------------------- PRWORD (n: LONGINT) -----------------------------
 extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
