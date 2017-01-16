@@ -1645,7 +1645,7 @@ __asm
             OR    D
             LD    L,A         ; FALSE
             RET   Z
-            INC   L           ; TRUE
+            LD    L,#1        ; TRUE
 __endasm;
 } //Basic_PRESSED
 
