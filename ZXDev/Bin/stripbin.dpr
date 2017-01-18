@@ -16,14 +16,14 @@ BEGIN
   ff := 0;
   FOR i := binLen DOWNTO 1 DO BEGIN
     idx := i;
-    IF ORD(bin[i]) = 255 THEN
+    IF bin[i] IN [#$1A, #$FF] THEN
       INC(ff)
     ELSE
       ff := 0;
     IF ff = PODRYAD THEN BREAK
   END;
   FOR i := idx DOWNTO 1 DO BEGIN
-    IF ORD(bin[i]) <> 255 THEN BEGIN idx := i; BREAK END
+    IF NOT (bin[i] IN [#$1A, #$FF]) THEN BEGIN idx := i; BREAK END
   END;
   WriteLn('New size is ', idx);
   WriteLn('You win ', binLen - idx, ' bytes');
