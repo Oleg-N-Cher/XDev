@@ -305,7 +305,7 @@ BEGIN
    IF Cfg.Oberon THEN
 
      (* ~ 2 min 50 sec to play music: *)
-     DEC(time, 9); B.PAUSE(9);
+     B.PAUSE(9); DEC(time, 9);
      (* <Y>, <U>, <I>, <O>, <P>: *)
      IF BITS(B.PORTIN(0DFFEH))*BITS(1FH)
        # BITS(1FH) THEN RETURN 2X END;
@@ -324,50 +324,49 @@ BEGIN
 
    ELSE
 
+    (* B.PAUSE(9): *)
+    M.Code("LD   HL, #9                 ");
+    M.Code("CALL _Basic_PAUSE_DI        ");
     (* DEC(time, 9): *)
     M.Code("LD   HL, (_Durak_time)      ");
     M.Code("LD   DE, #0-9               ");
     M.Code("ADD  HL, DE                 ");
     M.Code("LD   (_Durak_time), HL      ");
-    (* B.PAUSE(9): *)
-    M.Code("LD   HL, #9                 ");
-    M.Code("PUSH HL                     ");
-    M.Code("CALL _Basic_PAUSE_DI_stdcall");
     (* <Y>, <U>, <I>, <O>, <P>: *)
     M.Code("LD   BC, #0xDFFE            ");
     M.Code("IN   A, (C)                 ");
     M.Code("CPL                         ");
     M.Code("AND  #0x1F                  ");
     M.Code("LD   L, #2                  ");
-    M.Code("RET  Z                      ");
+    M.Code("RET  NZ                     ");
     (* <Q>, <W>, <E>, <R>, <T>: *)
     M.Code("DEC  L                      ");
     M.Code("LD   BC, #0xFBFE            ");
     M.Code("IN   A, (C)                 ");
     M.Code("CPL                         ");
     M.Code("AND  #0x1F                  ");
-    M.Code("RET  Z                      ");
+    M.Code("RET  NZ                     ");
     (* <A>, <S>, <D>, <F>, <G>:  *)
     M.Code("LD   BC,#0xFDFE             ");
     M.Code("IN   A, (C)                 ");
     M.Code("CPL                         ");
     M.Code("AND  #0x1F                  ");
     M.Code("LD   L, #3                  ");
-    M.Code("RET  Z                      ");
+    M.Code("RET  NZ                     ");
     (* <H>, <J>, <K>, <L>, <Enter>: *)
     M.Code("INC  L                      ");
     M.Code("LD   BC, #0xBFFE            ");
     M.Code("IN   A, (C)                 ");
     M.Code("CPL                         ");
     M.Code("AND  #0x1F                  ");
-    M.Code("RET  Z                      ");
+    M.Code("RET  NZ                     ");
     (* <B>, <N>, <M>, <SS>, <Space>: *)
     M.Code("INC  L                      ");
     M.Code("LD   BC, #0x7FFE            ");
     M.Code("IN   A, (C)                 ");
     M.Code("CPL                         ");
     M.Code("AND  #0x1F                  ");
-    M.Code("RET  Z                      ");
+    M.Code("RET  NZ                     ");
    END;
 
    RETURN 0X
