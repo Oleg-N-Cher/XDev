@@ -308,8 +308,6 @@ PROCEDURE GetKey (): KeyCode;
 BEGIN
   IF Cfg.Oberon THEN
 
-    (* ~ 2 min 50 sec to play music: *)
-    B.PAUSE(9); DEC(time, 9);
     (* <Y>, <U>, <I>, <O>, <P>: *)
     IF BITS(B.PORTIN(0DFFEH))*BITS(1FH)
       # BITS(1FH) THEN RETURN 2X END;
@@ -328,14 +326,6 @@ BEGIN
 
   ELSE
 
-    (* B.PAUSE(9): *)
-    M.Code("LD   HL, #9                 ");
-    M.Code("CALL _Basic_PAUSE_DI        ");
-    (* DEC(time, 9): *)
-    M.Code("LD   HL, (_Durak_time)      ");
-    M.Code("LD   DE, #0-9               ");
-    M.Code("ADD  HL, DE                 ");
-    M.Code("LD   (_Durak_time), HL      ");
     (* <Y>, <U>, <I>, <O>, <P>: *)
     M.Code("LD   BC, #0xDFFE            ");
     M.Code("IN   A, (C)                 ");
