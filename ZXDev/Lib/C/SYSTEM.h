@@ -60,7 +60,7 @@ extern SYSTEM_PTR SYSTEM_REGMOD();
 #ifdef SYSTEM_IncRef
   extern void SYSTEM_INCREF();
 #else
-  #define SYSTEM_INCREF(proc) proc
+#  define SYSTEM_INCREF(proc) proc
 #endif
 extern void SYSTEM_REGCMD();
 extern void SYSTEM_REGTYP();
@@ -89,18 +89,18 @@ extern void SYSTEM_ENUMR();
 #  define __ENDMOD
 #endif
 #ifdef SYSTEM_RegisterMain
-  #define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
-  #define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
+#  define __INIT(argc, argv)	static void *m; SYSTEM_INIT(argc, (long)&argv);
+#  define __REGMAIN(name, enum)	m=SYSTEM_REGMOD(name,enum)
 #else
-  #define __INIT(argc, argv)
-  #define __REGMAIN(name, enum)
+#  define __INIT(argc, argv)
+#  define __REGMAIN(name, enum)
 #endif
 #define __FINI	SYSTEM_FINI(); return
 #define __IMPORT(name__init)	SYSTEM_INCREF(name__init())
 #ifdef SYSTEM_RegisterCommands
-  #define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
+#  define __REGCMD(name, cmd)	SYSTEM_REGCMD(m, name, cmd)
 #else
-  #define __REGCMD(name, cmd)
+#  define __REGCMD(name, cmd)
 #endif
 
 /* SYSTEM ops */
@@ -201,7 +201,7 @@ extern void SYSTEM_ENUMR();
 
 /* record type descriptors */
 #ifdef SYSTEM_RecTypeDesc
-  #define __TDESC(t__desc, m, n) \
+#  define __TDESC(t__desc, m, n) \
 	static struct t__desc {\
 		long tproc[m]; \
 		long tag, next, level, module; \
@@ -210,14 +210,14 @@ extern void SYSTEM_ENUMR();
 		char *rsrvd; \
 		long blksz, ptr[n+1]; \
 	} t__desc
-  #define __TDFLDS(name, size)	{__EOM}, 1, 0, 0, 0, name, {0}, 0, size
+#  define __TDFLDS(name, size)	{__EOM}, 1, 0, 0, 0, name, {0}, 0, size
 #else
-  #define __TDESC(t__desc, m, n) \
+#  define __TDESC(t__desc, m, n) \
 	static struct t__desc {\
 		char tproc[m]; \
 		char ptr[n+1]; \
 	} t__desc
-  #define __TDFLDS(name, size)	{0}
+#  define __TDFLDS(name, size)	{0}
 #endif
 
 #define __BASEOFF	(__MAXEXT+1)
@@ -227,7 +227,7 @@ extern void SYSTEM_ENUMR();
 #define __ENUMR(adr, typ, size, n, P)	SYSTEM_ENUMR(adr, typ, (long)(size), (long)(n), P)
 
 #ifdef SYSTEM_InitTypes
-  #define __INITYP(t, t0, level) \
+#  define __INITYP(t, t0, level) \
 	t##__typ= &t##__desc.blksz; \
 	memcpy(t##__desc.base, t0##__typ - __BASEOFF, level*sizeof(long)); \
 	t##__desc.base[level]=t##__typ; \
@@ -237,16 +237,16 @@ extern void SYSTEM_ENUMR();
 	SYSTEM_REGTYP(m, (long)&t##__desc.next); \
 	SYSTEM_INHERIT(t##__typ, t0##__typ)
 #else
-  #define __INITYP(t, t0, level)
+#  define __INITYP(t, t0, level)
 #endif
 
 /* Oberon-2 type bound procedures support */
 #ifdef SYSTEM_TypeBoundProcDynCalls
-  #define __INITBP(t, proc, num)	*(t##__typ-(__TPROC0OFF+num))=(long)proc
-  #define __SEND(typ, procname, num, funtyp, parlist)	((funtyp)(*(typ-(__TPROC0OFF+num))))parlist
+#  define __INITBP(t, proc, num)	*(t##__typ-(__TPROC0OFF+num))=(long)proc
+#  define __SEND(typ, procname, num, funtyp, parlist)	((funtyp)(*(typ-(__TPROC0OFF+num))))parlist
 #else
-  #define __INITBP(t, proc, num)
-  #define __SEND(typ, procname, num, funtyp, parlist) procname parlist
+#  define __INITBP(t, proc, num)
+#  define __SEND(typ, procname, num, funtyp, parlist) procname parlist
 #endif
 
 /* runtime system variables */
