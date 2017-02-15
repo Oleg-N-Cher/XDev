@@ -15,7 +15,7 @@ VAR
 	CodeAdr*, DataAdr*: ARRAY 9 OF CHAR;
 	Options*, Modules*, Include*, Libraries*: ARRAY 256 OF CHAR;
 	Target*, str: ARRAY 7 OF CHAR;
-	Clean*, Start*: BOOLEAN;
+	Clean*, Start*, Pause*: BOOLEAN;
 
 PROCEDURE GetSubsysNameByDir (IN subsysdir: ARRAY OF CHAR; OUT name: ARRAY OF CHAR);
 VAR
@@ -64,6 +64,9 @@ BEGIN
 				Cmd.MapStringTxt(dir, Config, "Clean", str);
 				IF str = "" THEN str := "TRUE" END;
 				Clean := str = "TRUE";
+				Cmd.MapStringTxt(dir, Config, "Pause", str);
+				IF str = "" THEN str := "FALSE" END;
+				Pause := str = "TRUE";
 				StdCmds.OpenToolDialog("XDev/Rsrc/ZXDev", "ZXDev Project Setup");
 			ELSE
 				Dialog.ShowMsg("You can't generate Config inside a XDev's subsystem");
@@ -122,6 +125,7 @@ BEGIN
 				Emit("Target=" + Target$);
 				IF Clean THEN Emit("Clean=TRUE") ELSE Emit("Clean=FALSE") END;
 				IF Start THEN Emit("Start=TRUE") ELSE Emit("Start=FALSE") END;
+				IF Pause THEN Emit("Pause=TRUE") ELSE Emit("Pause=FALSE") END;
 				file.Register(ConfigWoExt, ConfigExt, Files.dontAsk, res);
 				file.Close;
 
@@ -133,18 +137,20 @@ BEGIN
 				file := Files.dir.New(loc, Files.dontAsk);
 				ASSERT(file # NIL);
 				wr.ConnectTo(NIL); wr.ConnectTo(file);
-				Emit('@IF NOT "%XDev%"=="" GOTO XDev');
-				Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
-				Emit("@PAUSE");
-				Emit("@EXIT");
+				Emit("@ECHO OFF");
+				Emit('IF NOT "%XDev%"=="" GOTO XDev');
+				Emit("ECHO Please set system variable XDev=X:\Path\To\XDev");
+				Emit("PAUSE");
+				Emit("EXIT");
 				Emit("");
 				Emit(":XDev");
 				Emit("");
-				IF MainMod # "" THEN Emit("@SET MainMod=" + MainMod) END;
-				IF Options # "" THEN Emit("@SET Options=" + Options) END;
-				IF Include # "" THEN Emit("@SET Include=" + Include) END;
-				IF ~ Clean THEN Emit("@SET Clean=false") END;
-				IF ~ Start THEN Emit("@SET Start=false") END;
+				IF MainMod # "" THEN Emit("SET MainMod=" + MainMod) END;
+				IF Options # "" THEN Emit("SET Options=" + Options) END;
+				IF Include # "" THEN Emit("SET Include=" + Include) END;
+				IF ~ Clean THEN Emit("SET Clean=FALSE") END;
+				IF ~ Start THEN Emit("SET Start=FALSE") END;
+				IF Pause THEN Emit("SET Pause=TRUE") END;
 				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Compile.bat %1");
 				file.Register("Compile" ,"bat", Files.dontAsk, res);
@@ -154,23 +160,25 @@ BEGIN
 				file := Files.dir.New(loc, Files.dontAsk);
 				ASSERT(file # NIL);
 				wr.ConnectTo(NIL); wr.ConnectTo(file);
-				Emit('@IF NOT "%XDev%"=="" GOTO XDev');
-				Emit("@ECHO Please set system variable XDev=X:\Path\To\XDev");
-				Emit("@PAUSE");
-				Emit("@EXIT");
+				Emit("@ECHO OFF");
+				Emit('IF NOT "%XDev%"=="" GOTO XDev');
+				Emit("ECHO Please set system variable XDev=X:\Path\To\XDev");
+				Emit("PAUSE");
+				Emit("EXIT");
 				Emit("");
 				Emit(":XDev");
 				Emit("");
-				IF MainMod # "" THEN Emit("@SET MainMod=" + MainMod) END;
-				IF CodeAdr # "" THEN Emit("@SET CodeAdr=" + CodeAdr) END;
-				IF DataAdr # "" THEN Emit("@SET DataAdr=" + DataAdr) END;
-				IF Modules # "" THEN Emit("@SET Modules=" + Modules) END;
-				IF Options # "" THEN Emit("@SET Options=" + Options) END;
-				IF Include # "" THEN Emit("@SET Include=" + Include) END;
-				IF Libraries # "" THEN Emit("@SET Libraries=" + Libraries) END;
-				IF Target # "" THEN Emit("@SET Target=" + Target) END;
-				IF ~ Clean THEN Emit("@SET Clean=false") END;
-				IF ~ Start THEN Emit("@SET Start=false") END;
+				IF MainMod # "" THEN Emit("SET MainMod=" + MainMod) END;
+				IF CodeAdr # "" THEN Emit("SET CodeAdr=" + CodeAdr) END;
+				IF DataAdr # "" THEN Emit("SET DataAdr=" + DataAdr) END;
+				IF Modules # "" THEN Emit("SET Modules=" + Modules) END;
+				IF Options # "" THEN Emit("SET Options=" + Options) END;
+				IF Include # "" THEN Emit("SET Include=" + Include) END;
+				IF Libraries # "" THEN Emit("SET Libraries=" + Libraries) END;
+				IF Target # "" THEN Emit("SET Target=" + Target) END;
+				IF ~ Clean THEN Emit("SET Clean=FALSE") END;
+				IF ~ Start THEN Emit("SET Start=FALSE") END;
+				IF Pause THEN Emit("SET Pause=TRUE") END;
 				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Build.bat %1");
 				file.Register("Build" ,"bat", Files.dontAsk, res);

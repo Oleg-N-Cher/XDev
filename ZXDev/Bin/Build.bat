@@ -25,6 +25,7 @@ SET Libraries=%Libraries% -L %ZXDev%\Lib XDev.lib Graph.lib Basic.lib Laser.lib 
 IF "%Target%"=="" SET Target=TAP
 IF "%Clean%"=="" SET Clean=TRUE
 IF "%Start%"=="" SET Start=TRUE
+IF "%Pause%"=="" SET Pause=FALSE
 
 SET SDCC=%ZXDev%\Bin\sdcc.exe %Options% %Include% %Modules% %Libraries%
 
@@ -52,4 +53,5 @@ IF "%Modules%"=="" DEL %MainMod%.c
 
 :Done
 
+IF "%Pause%"=="TRUE" PAUSE
 IF "%Start%"=="TRUE" START ..\%MainMod%.tap
