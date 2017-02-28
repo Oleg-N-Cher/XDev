@@ -3,16 +3,10 @@
 
 #include "SYSTEM.h"
 
-extern unsigned char Best40_attrib;
-
-extern void Best40_ASRL_LF_A (void);
-#define Best40_ASRL_LF(attrib) Best40_attrib = attrib; Best40_ASRL_LF_A()
-extern void Best40_ASRL_RG_A (void);
-#define Best40_ASRL_RG(attrib) Best40_attrib = attrib; Best40_ASRL_RG_A()
-extern void Best40_ASRL_UP_A (void);
-#define Best40_ASRL_UP(attrib) Best40_attrib = attrib; Best40_ASRL_UP_A()
-extern void Best40_ASRL_DN_A (void);
-#define Best40_ASRL_DN(attrib) Best40_attrib = attrib; Best40_ASRL_DN_A()
+extern void Best40_ASRL_LF (unsigned char atr) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Best40_ASRL_RG (unsigned char atr) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Best40_ASRL_UP (unsigned char atr) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Best40_ASRL_DN (unsigned char atr) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Best40_SSRL_LF (void);
 extern void Best40_SSRL_RG (void);
 extern void Best40_SSRL_UP (void);

@@ -11,12 +11,10 @@
 
 #include "SYSTEM.h"
 
-extern unsigned char Best40_attrib;
-
-void Best40_ASRL_LF_A (void);
-void Best40_ASRL_RG_A (void);
-void Best40_ASRL_UP_A (void);
-void Best40_ASRL_DN_A (void);
+void Best40_ASRL_LF (unsigned char atr) __z88dk_fastcall;
+void Best40_ASRL_RG (unsigned char atr) __z88dk_fastcall;
+void Best40_ASRL_UP (unsigned char atr) __z88dk_fastcall;
+void Best40_ASRL_DN (unsigned char atr) __z88dk_fastcall;
 void Best40_SSRL_LF (void);
 void Best40_SSRL_RG (void);
 void Best40_SSRL_UP (void);
@@ -45,83 +43,80 @@ void Best40_SCREEN_APART (unsigned char steps);
   
 /*================================== Header ==================================*/
 
-unsigned char Best40_attrib; // Цвет атрибутов при атрибутных сдвигах
-
-/*--------------------------------- Cut here ---------------------------------*/
-
 // Сдвиг атрибутов влево (22<=23)
 
-void Best40_ASRL_LF_A (void) {
+void Best40_ASRL_LF (unsigned char atr) __z88dk_fastcall {
 __asm
           LD      DE,#0x5800   // DE=адрес первого байта атрибутов
-LP_ASLF$: LD      H,D          // скопировали DE в HL
+LP_ASLF$: LD      A,L          // цвет заполнения после сдвига
+          LD      H,D          // скопировали DE в HL
           LD      L,E          //  и увеличили HL на единицу:
           INC     HL           //  HL=адрес второго байта атрибутов
           LD      BC,#0x001F   // <длина линии атрибутов> - 1
           LDIR                 // сдвиг линии атрибутов влево
-          LD      A,(_Best40_attrib) // цвет заполнения после сдвига
           LD      (DE),A       // устанавливаем новый атрибут
+          LD      L,A
           INC     DE           // переход к следующей линии снизу
           LD      A,D          // если атрибуты уже кончились,
           CP      #0x5B        //  и мы набрели на буфер принтера,
           JR      C,LP_ASLF$   //  то STOP, иначе сдвигаем дальше
 __endasm;
-} //Best40_ASRL_LF_A
+} //Best40_ASRL_LF
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вправо (21<=23)
 
-void Best40_ASRL_RG_A (void) {
+void Best40_ASRL_RG (unsigned char atr) __z88dk_fastcall {
 __asm
+          LD      A,L          // цвет заполнения после сдвига
           LD      DE,#0x5AFF   // адрес последнего байта атрибутов
 LP_ASRG$: LD      H,D          // скопировали DE в HL -
           LD      L,E          //  последний байт линии атрибутов
           DEC     HL           // предпоследний байт линии атрибутов
           LD      BC,#0x001F   // <длина линии атрибутов> - 1
           LDDR                 // сдвиг линии атрибутов вправо
-          LD      A,(_Best40_attrib) // цвет заполнения после сдвига
           LD      (DE),A       // устанавливаем новый атрибут
           DEC     DE           // переход к следующей линии сверху
           BIT     3,D          // если мы всё ещё в атрибутах,
           JR      NZ,LP_ASRG$  //  то повторяем цикл для сл. линии
 __endasm;
-} //Best40_ASRL_RG_A
+} //Best40_ASRL_RG
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вверх (19<=21)
 
-void Best40_ASRL_UP_A (void) {
+void Best40_ASRL_UP (unsigned char atr) __z88dk_fastcall {
 __asm
+          LD      A,L          // цвет для заполнения нижней линии
           LD      HL,#0x5820   // адрес второй линии атрибутов
           LD      DE,#0x5800   // адрес первой линии атрибутов
           LD      BC,#0x02E0   // перемещать: 23 линии по 32 байта
           LDIR                 // сдвигаем 23 нижние линии вверх
-          LD      A,(_Best40_attrib) // цвет для заполнения нижней линии
 LP_ASUP$: LD      (DE),A       // устанавливаем новый атрибут
           INC     E            // если заполнили всю последнюю линию
           JR      NZ,LP_ASUP$  //  (E=0), то прерываем цикл
 __endasm;
-} //Best40_ASRL_UP_A
+} //Best40_ASRL_UP
 
 /*--------------------------------- Cut here ---------------------------------*/
 
 // Сдвиг атрибутов вниз (20<=21)
 
-void Best40_ASRL_DN_A (void) {
+void Best40_ASRL_DN (unsigned char atr) __z88dk_fastcall {
 __asm
+          LD      A,L          // цвет для заполнения верхней линии
           LD      HL,#0x5ADF   // адрес конца второй линии снизу
           LD      DE,#0x5AFF   // адрес конца самой нижней линии
           LD      BC,#0x02E0   // перемещать: 23 линии по 32 байта
           LDDR                 // сдвигаем 23 верхние линии вниз
-          LD      A,(_Best40_attrib) // цвет для заполнения верхней линии
 LP_ASDN$: LD      (DE),A       // устанавливаем новый атрибут
           DEC     E            // если дошли до самого первого байта
           JR      NZ,LP_ASDN$  //  области атрибутов (E=0), то STOP
           LD      (DE),A       //  и устанавливаем этот байт
 __endasm;
-} //Best40_ASRL_DN_A
+} //Best40_ASRL_DN
 
 /*--------------------------------- Cut here ---------------------------------*/
 
