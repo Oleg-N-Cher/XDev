@@ -3,11 +3,21 @@ MODULE Best40Test; (*$MAIN*)
 IMPORT
 	B40 := Best40, B := Basic;
 
+TYPE
+  TextDesc = ARRAY 32 OF CHAR;
+
+CONST
+  Text = TextDesc("Hello World of the Spectrum !!!");
+
 VAR
-	i: SHORTINT; udg: INTEGER;
+	i: SHORTINT; udg: INTEGER; text2ch: ARRAY 2 OF CHAR;
 
 BEGIN
 	B.Init; B.CLS;
+
+	text2ch[1] := 0X;
+	FOR i := 0 TO 31 DO text2ch[0] := Text[i]; B40.PRSTR_AT(i, i, text2ch) END;
+
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_LF(20H); B.PAUSE(5) END;
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_UP(31H); B.PAUSE(5) END;
 	FOR i := 6 TO 1 BY -1 DO B40.ASRL_RG(29H); B.PAUSE(5) END;

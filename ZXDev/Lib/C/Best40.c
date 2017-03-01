@@ -40,7 +40,8 @@ void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
   unsigned int adr, unsigned char mode);
 void Best40_SCREEN_APART (unsigned char steps);
-  
+void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee;
+
 /*================================== Header ==================================*/
 
 // Сдвиг атрибутов влево (22<=23)
@@ -1065,6 +1066,97 @@ LP_APR2$: LD      H,D         ;скопировали этот адрес
           DJNZ    LP_APR1$    ;крутим цикл положенное число раз
 __endasm;
 } //Best40_SCREEN_APART
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __naked __z88dk_callee {
+__asm
+; ПЕЧАТЬ ТЕКСТА С ТОЧНОСТЬЮ ДО ПИКСЕЛА ПО Y
+;(c) Steve Turner, Body #06
+; http://zxpress.ru/article.php?id=3206
+
+          POP     HL
+          POP     DE
+          EX      (SP),HL
+          LD      (INPUT$+1),HL
+          LD      A,D
+          AND     #0x38       ;Определяем ряд
+          ADD     A
+          ADD     A
+          ADD     E           ;Прибавили х
+          LD      E,A         ;Младший байт
+          LD      A,D
+          RRA
+          RRA
+          RRA
+          AND     #0x18       ;Определяем треть экрана
+          LD      B,A
+          LD      A,D
+          AND     #0x7        ;Строка в ряду
+          ADD     B
+          ADD     #0x40       ;Старший байт
+          LD      D,A
+INPUT$:   LD      HL,#0       ;Адрес текста
+          LD      A,(HL)
+          OR      A
+          RET     Z           ;Конец текста
+          LD      (OUTPUT$+1),DE
+          INC     HL
+          LD      (INPUT$+1),HL
+          CP      #0xFF
+          JR      NZ,CHAR$    ;Переход к новой строке под первой позицией печати
+OUTLIN$:  LD      DE,#0       ;Начальная строка
+          LD      A,E
+          ADD     #0x20
+          LD      E,A
+          RET     NC
+          LD      A,D         ;Другая треть экрана
+          ADD     #8
+          CP      #0x58
+          RET     NC
+          LD      D,A
+          LD      (OUTLIN$+1),DE
+          JR      INPUT$
+CHAR$:    LD      L,A          ;Поиск символа
+          LD      H,#0
+          ADD     HL,HL
+          ADD     HL,HL
+          ADD     HL,HL
+          LD      DE,(23606)   ;Адрес шрифта в ПЗУ минус 256 байт
+          ADD     HL,DE
+OUTPUT$:  LD      DE,#0        ;Адрес печати
+          LD      A,D
+          CP      #0x58
+          RET     NC
+          LD      B,#8
+EIGHT$:   LD      A,(HL)       ;Выдаёт 8 строк символа
+          LD      (DE),A
+          INC     HL
+          LD      A,D
+          AND     #7
+          INC     A
+          CP      #8
+          JR      NZ,NONEW$
+          LD      A,D
+          AND     #0xF8
+          LD      D,A
+          LD      A,E
+          ADD     #0x20
+          LD      E,A
+          JR      NC,NEXTSL$
+          LD      A,D
+          ADD     #8
+          LD      D,A
+NONEW$:   INC     D
+NEXTSL$:  DJNZ    EIGHT$
+          LD      DE,(OUTPUT$+1)
+NEXTLT$:  INC     E
+          JR      NZ,INPUT$
+          LD      A,D
+          ADD     #8
+          LD      D,A
+          JR      INPUT$
+__endasm;
+} //Best40_PRSTR_AT_E
 
 /* http://zxpress.ru/book_articles.php?id=671
 
