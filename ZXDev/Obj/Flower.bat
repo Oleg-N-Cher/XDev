@@ -15,7 +15,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q %Name%.tap
 %bin%\bin2data.exe -rem -org %CodeAddr% %Name%.bin ..\%Name%.tap %Name%
 
 START ..\%Name%.tap

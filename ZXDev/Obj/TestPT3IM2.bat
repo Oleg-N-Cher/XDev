@@ -12,7 +12,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q TestPT3IM2.tap
 %bin%\bin2data.exe -rem -org %CodeAddr% TestPT3IM2.bin ..\TestPT3IM2.tap TestPT3IM2
 
 START ..\TestPT3IM2.tap

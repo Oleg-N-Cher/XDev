@@ -19,7 +19,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q GraphSinus.tap
 %bin%\bin2data.exe -rem -org 40000 GraphSinus.bin ..\GraphSinus.tap GraphSinus
 
 @REM ======================================================================

@@ -13,7 +13,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q MiraTest.tap
 %bin%\bin2data.exe -rem -org %CodeAddr% MiraTest.bin ..\MiraTest.tap MiraTest
 
 @REM ======================================================================
