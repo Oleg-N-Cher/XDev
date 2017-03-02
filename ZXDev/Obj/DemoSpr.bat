@@ -13,7 +13,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q DemoSpr.tap
 %bin%\bin2data.exe -rem -org %CodeAddr% DemoSpr.bin ..\DemoSpr.tap DemoSpr
 
 @REM ======================================================================

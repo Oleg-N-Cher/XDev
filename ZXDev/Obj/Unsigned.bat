@@ -17,7 +17,6 @@
 
 @REM Link the target to TAP format
 @REM =============================
-@DEL /Q Unsigned.tap
 %bin%\bin2data.exe -rem -org 26000 Unsigned.bin ..\Unsigned.tap Unsigned
 
 @REM =====================================================================
