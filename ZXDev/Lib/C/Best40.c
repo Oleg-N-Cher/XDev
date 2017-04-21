@@ -23,11 +23,11 @@ void Best40_PSRL_LF (void);
 void Best40_PSRL_RG (void);
 void Best40_PSRL_UP (void);
 void Best40_PSRL_DN (void);
-void Best40_SCR_MRG (SYSTEM_ADDRESS scr_addr);
+void Best40_SCR_MRG (SYSTEM_ADR scr_addr);
 void Best40_SCR_INV (void);
-void Best40_SINV_UD (SYSTEM_ADDRESS char_addr);
-void Best40_SINV_LR (SYSTEM_ADDRESS char_addr);
-void Best40_SROTATE (SYSTEM_ADDRESS char_addr);
+void Best40_SINV_UD (SYSTEM_ADR char_addr);
+void Best40_SINV_LR (SYSTEM_ADR char_addr);
+void Best40_SROTATE (SYSTEM_ADR char_addr);
 void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or);
 void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to);
 void Best40_PAINT (unsigned char x, unsigned char y);
@@ -355,7 +355,7 @@ __endasm;
 
 // Слияние картинок (17<=21)
 
-void Best40_SCR_MRG (SYSTEM_ADDRESS scr_addr) __naked {
+void Best40_SCR_MRG (SYSTEM_ADR scr_addr) __naked {
 __asm
           POP     DE
           POP     HL           // взяли адрес картинки из ячейки
@@ -395,7 +395,7 @@ __endasm;
 
 // Инвертирование символа вертикально (20)
 
-void Best40_SINV_UD (SYSTEM_ADDRESS char_addr) __naked {
+void Best40_SINV_UD (SYSTEM_ADR char_addr) __naked {
 __asm
           POP     DE
           POP     HL           // взяли из ячейки адрес символа
@@ -421,7 +421,7 @@ __endasm;
 
 // Инвертирование символа горизонтально (17<=19)
 
-void Best40_SINV_LR (SYSTEM_ADDRESS char_addr) {
+void Best40_SINV_LR (SYSTEM_ADR char_addr) {
 __asm
           POP     DE
           POP     HL           // берём из ячейки адрес символа
@@ -443,7 +443,7 @@ __endasm;
 
 // Вращение символа по часовой стрелке (26<=42)
 
-void Best40_SROTATE (SYSTEM_ADDRESS char_addr) {
+void Best40_SROTATE (SYSTEM_ADR char_addr) {
 __asm
           POP     DE
           POP     HL           // адрес вращаемого символа из ячейки

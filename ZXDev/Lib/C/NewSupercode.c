@@ -1,11 +1,11 @@
 #include "SYSTEM.h"
 
-export void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr);
-export void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr);
-export void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr);
-export void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr);
-export void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr);
-export void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADDRESS ramtop);
+export void NewSupercode__2WIERSZE (SYSTEM_ADR adr);
+export void NewSupercode_EKRAN1 (SYSTEM_ADR adr);
+export void NewSupercode_EKRAN2 (SYSTEM_ADR adr);
+export void NewSupercode_EKRAN3 (SYSTEM_ADR adr);
+export void NewSupercode_EKRAN4 (SYSTEM_ADR adr);
+export void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop);
 export void NewSupercode_DZWIEK_1 (void);
 export void NewSupercode_DZWIEK_2 (void);
 export void NewSupercode_DZWIEK_3 (void);
@@ -15,7 +15,7 @@ export void NewSupercode_LITERY_ (SHORTCARD x, SHORTCARD y, SHORTCARD xs,
   SHORTCARD ys, SHORTCARD wdth, CHAR *str);
 /*================================== Header ==================================*/
 
-void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr) {
+void NewSupercode__2WIERSZE (SYSTEM_ADR adr) {
 __asm
            POP  DE
            POP  HL
@@ -47,7 +47,7 @@ __endasm;
 } //NewSupercode__2WIERSZE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr) {
+void NewSupercode_EKRAN1 (SYSTEM_ADR adr) {
 __asm
            POP  DE
            POP  HL
@@ -94,7 +94,7 @@ __endasm;
 } //NewSupercode_EKRAN1
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr) {
+void NewSupercode_EKRAN2 (SYSTEM_ADR adr) {
 __asm
            POP  DE
            POP  HL
@@ -143,7 +143,7 @@ __endasm;
 } //NewSupercode_EKRAN2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr) {
+void NewSupercode_EKRAN3 (SYSTEM_ADR adr) {
 __asm
            POP  DE
            POP  HL
@@ -192,7 +192,7 @@ __endasm;
 } //NewSupercode_EKRAN3
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr) {
+void NewSupercode_EKRAN4 (SYSTEM_ADR adr) {
 __asm
            POP  DE
            POP  HL
@@ -242,7 +242,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void NewSupercode_SIATKA (
-  SHORTCARD x, SHORTCARD y, SYSTEM_ADDRESS ramtop) __naked {
+  SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop) __naked {
 __asm
            POP  DE
            POP  BC ; 0x6464

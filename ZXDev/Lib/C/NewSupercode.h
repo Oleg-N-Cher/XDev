@@ -3,12 +3,12 @@
 
 #include "SYSTEM.h"
 
-import void NewSupercode__2WIERSZE (SYSTEM_ADDRESS adr);
-import void NewSupercode_EKRAN1 (SYSTEM_ADDRESS adr);
-import void NewSupercode_EKRAN2 (SYSTEM_ADDRESS adr);
-import void NewSupercode_EKRAN3 (SYSTEM_ADDRESS adr);
-import void NewSupercode_EKRAN4 (SYSTEM_ADDRESS adr);
-import void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADDRESS ramtop);
+import void NewSupercode__2WIERSZE (SYSTEM_ADR adr);
+import void NewSupercode_EKRAN1 (SYSTEM_ADR adr);
+import void NewSupercode_EKRAN2 (SYSTEM_ADR adr);
+import void NewSupercode_EKRAN3 (SYSTEM_ADR adr);
+import void NewSupercode_EKRAN4 (SYSTEM_ADR adr);
+import void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop);
 import void NewSupercode_DZWIEK_1 (void);
 import void NewSupercode_DZWIEK_2 (void);
 import void NewSupercode_DZWIEK_3 (void);
