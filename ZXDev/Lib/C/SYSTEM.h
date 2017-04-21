@@ -39,7 +39,7 @@ typedef float REAL;
 typedef float LONGREAL;
 typedef unsigned char SET;
 typedef void *SYSTEM_PTR;
-typedef unsigned int SYSTEM_ADDRESS;
+typedef unsigned int SYSTEM_ADR;
 typedef signed char BYTE;
 
 /* runtime system routines */

@@ -131,7 +131,7 @@ static typedef struct Sprite {
   BYTE sprHgt;
 };
 
-void Laser_Init (SYSTEM_ADDRESS sprAddr, SYSTEM_ADDRESS sprEnd)
+void Laser_Init (SYSTEM_ADR sprAddr, SYSTEM_ADR sprEnd)
 {
 __asm
   LD   L,4(IX)
@@ -145,10 +145,10 @@ __endasm;
   {
     struct Sprite *sprPtr; sprPtr = (struct Sprite*)sprAddr;
     while ((sprPtr->sprN) != 0) {
-      SYSTEM_ADDRESS sprSize;
-      sprSize = (SYSTEM_ADDRESS)(sprPtr->sprHgt) *
-                (SYSTEM_ADDRESS)(sprPtr->sprLen) * 9 + 3;
-      sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprSize);
+      SYSTEM_ADR sprSize;
+      sprSize = (SYSTEM_ADR)(sprPtr->sprHgt) *
+                (SYSTEM_ADR)(sprPtr->sprLen) * 9 + 3;
+      sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADR)sprSize);
       sprPtr += sprPtr->sprNext + 2;
     }
   }
@@ -174,12 +174,12 @@ SET_ADDR$:     // while ((sprPtr->sprN) != 0) {
   OR   A
   JR   Z,SPREXIT$
   LD   E,3(IX)
-  LD   D,#0    // SYSTEM_ADDRESS sprSize;
+  LD   D,#0    // SYSTEM_ADR sprSize;
   LD   L,D
   LD   H,D /* LH,DE = sprLen */
   LD   B,4(IX) /* B = sprHgt */
-  // sprSize = (SYSTEM_ADDRESS)(sprPtr->sprLen) *
-  //           (SYSTEM_ADDRESS)(sprPtr->sprHgt) * 9 + 3;
+  // sprSize = (SYSTEM_ADR)(sprPtr->sprLen) *
+  //           (SYSTEM_ADR)(sprPtr->sprHgt) * 9 + 3;
 SPRMULT$:
   ADD  HL,DE
   DJNZ SPRMULT$ /* HL = sprLen * sprHgt */
@@ -192,7 +192,7 @@ SPRMULT$:
   INC  HL
   INC  HL
   INC  HL
-  LD   1(IX),L // sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADDRESS)sprSize);
+  LD   1(IX),L // sprPtr->sprNext = (struct Sprite*)((SYSTEM_ADR)sprSize);
   LD   2(IX),H
   INC  HL
   INC  HL
