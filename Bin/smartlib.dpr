@@ -214,7 +214,7 @@ BEGIN
       DELETE(src, 1, pos);
       partNumberAsStr := Kol.Int2Str(partNumber);
       WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
-      Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + body);
+      Kol.StrSaveToFile(partName + partNumberAsStr + Kol.ExtractFileExt(srcName), header + body);
       INC(partNumber);
       pos := FindSegment(BodyDivisor1, BodyDivisor2, 1);
     END;
@@ -222,7 +222,7 @@ BEGIN
       (* Write rest of the source file *)
       partNumberAsStr := Kol.Int2Str(partNumber);
       WHILE LENGTH(partNumberAsStr) < 3 DO INSERT('0', partNumberAsStr, 1); (* Add '00x' *)
-      Kol.StrSaveToFile(partName + partNumberAsStr + '.c', header + src);
+      Kol.StrSaveToFile(partName + partNumberAsStr + Kol.ExtractFileExt(srcName), header + src);
     END;
 
   END;
