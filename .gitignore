@@ -20,9 +20,8 @@ Ofront/Sym64/
 Ofront/Work/
 Ofront/.gitignore
 Pdp11Dev/
-Rose/
-Samurai/
 Sdl/
+ToDo/
 WinDev/Obj/*.o
 ZXDev/Bin/MakeZX/
 ZXDev/Lib/Obj/*.sym
