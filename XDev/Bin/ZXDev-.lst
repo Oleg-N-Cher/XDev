@@ -1,6 +1,7 @@
 ZXDev\Bin\MakeZX\
 ZXDev\Bin\*.c
 ZXDev\Bin\*.dpr
+ZXDev\ToDo\
 
 Games\BegaMyshej\Mod\BegaMyshej.odc
 Games\Dice\.git\

@@ -13,7 +13,6 @@ Ofront\Docu\
 Ofront\Mod\*.odc
 Ofront\Rsrc\
 Ofront\Sym\*.osf
-Ofront\About.txt
 Ofront\License.txt
 Ofront\Readme.txt
 
