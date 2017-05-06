@@ -31,6 +31,7 @@ typedef float REAL;
 typedef double LONGREAL;
 typedef unsigned long SET;
 typedef void *SYSTEM_PTR;
+typedef unsigned long SYSTEM_ADR;
 typedef signed char BYTE;
 
 /* runtime system routines */
