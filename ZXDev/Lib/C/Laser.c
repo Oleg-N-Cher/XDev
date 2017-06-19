@@ -388,10 +388,10 @@ LB_040:
 LB_041$:
   PUSH HL
   CALL __Laser_LB_033
-  SLA  A
-  SLA  A
-  SLA  A
-  SLA  A
+  ADD  A
+  ADD  A
+  ADD  A
+  ADD  A
   POP  HL
 .globl LB_042
 LB_042:
@@ -3632,15 +3632,15 @@ LB_126$:
   POP  DE
   INC  HL
   LD   A,(#LB_116$+2)
-  SLA  A
+  ADD  A
   DJNZ LB_126$
   POP  BC
   RET
 LB_127$:
   LD   A,C
-  SLA  A
-  SLA  A
-  SLA  A
+  ADD  A
+  ADD  A
+  ADD  A
   LD   (#LB_116$),A
   DEC  HL
   LD   A,#0x01
