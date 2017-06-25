@@ -1770,18 +1770,16 @@ __asm
             LD    DE,#-10       ;
             CALL  LP_DIGIT$
             LD    DE,#-1        ;
-LP_DIGIT$:  XOR   A             ;обнулили счётчик
+LP_DIGIT$:  LD    A,#"0"-1      ;обнулили счётчик
 LP_PDW2$:   INC   A             ;увеличиваем счётчик
             ADD   HL,DE         ;вычитаем текущую степень десятки
             JR    C,LP_PDW2$    ;повторяем пока HL>=0
             SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
             DEC   C             ;проверяем: может это незначащий нуль?
             JR    Z,LP_PRNT$    ; если уже были другие цифры, печатаем
-            DEC   A             ;если это нуль, то он незначащий
+            CP    #"0"          ;если это нуль, то он незначащий
             RET   Z             ; ничего не печатаем
-            INC   A             ;это не нуль, увеличим на 1 для печати
-LP_PRNT$:   ADD   A,#"0"-1      ;перевод A в ASCII-код ("0".."9")
-            PUSH  HL
+LP_PRNT$:   PUSH  HL
             LD    L,A           ;печать десятичной цифры
             CALL  _Basic_PRCHAR_FAST+4 ; Skip checking UDG graphic
             POP   HL
