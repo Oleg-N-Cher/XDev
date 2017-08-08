@@ -37,57 +37,56 @@ TYPE
   
 (* функция #01 TR-DOS: *)
 (*          drive name ('a','b','c','d'), не чувствительна к регистру *)
-PROCEDURE DriveSel* (driveLetter: CHAR); BEGIN END DriveSel;
+PROCEDURE DriveSel* (driveLetter: CHAR); END DriveSel;
 
 (* функция #00 TR-DOS: *)
-PROCEDURE Init* ; BEGIN END Init;
+PROCEDURE Init* ; END Init;
 
 (* функция #18 TR-DOS: *)
-PROCEDURE DiskTune* ; BEGIN END DiskTune;
+PROCEDURE DiskTune* ; END DiskTune;
 
 (* функция #05 TR-DOS: *)
 (*           destptr,     track pos,    sector pos,    len in sectors *)
 PROCEDURE ReadSectors* (
   destPtr: UCHARPTR; trackPos, sectorPos, LenInSectors: UCHAR);
-    BEGIN END ReadSectors;
+END ReadSectors;
 
 (* функция #08 TR-DOS: *)
 (*             destptr,          file number *)
 PROCEDURE ReadFileDSP* (destPtr: UCHARPTR; fileNumber: UCHAR);
-  BEGIN END ReadFileDSP; 
+END ReadFileDSP; 
 
 (* функция #06 TR-DOS: *)
 (*           srctptr,     track pos,    sector pos,    len in sectors *)
 PROCEDURE WriteSectors* (
   srctPtr: UCHARPTR; trackPos, sectorPos, LenInSectors: UCHAR);
-    BEGIN END WriteSectors;
+END WriteSectors;
 
 (* функция #09 TR-DOS: *)
 (*              srctptr,       file number *)
 PROCEDURE WriteFileDSP* (srctPtr: UCHARPTR; fileNumber: UCHAR);
-  BEGIN END WriteFileDSP;
+END WriteFileDSP;
 
 (* функция #0A TR-DOS: *)
 (*              name ptr  name len *)
 PROCEDURE FindFile* (name: ARRAY [1] OF CHAR; nameLen: UCHAR): UCHAR;
-  BEGIN END FindFile;
+END FindFile;
 
 (* функция #0B TR-DOS: *)
 (*          name ptr  data ptr     file data len *)
 PROCEDURE WriteFile* (
   name: ARRAY [1] OF CHAR; dataPtr: UCHARPTR; dataLen: UINT);
-    BEGIN END WriteFile;
+END WriteFile;
 
 (* функция #12 TR-DOS: *)
 (*          FDSP ptr *)
-PROCEDURE EraseFile* (name: ARRAY [1] OF CHAR);
-  BEGIN END EraseFile;
+PROCEDURE EraseFile* (name: ARRAY [1] OF CHAR); END EraseFile;
 
 (* функция #0E TR-DOS, (23801) = 0: *)
 
 (*          name ptr  dest ptr    file data len *)
 PROCEDURE LoadFile* (
   name: ARRAY [1] OF CHAR; destPtr: UCHARPTR; fileDataLen: UINT);
-    BEGIN END LoadFile;
+END LoadFile;
 
 END TrDos.
