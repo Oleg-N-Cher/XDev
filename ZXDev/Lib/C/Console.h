@@ -9,9 +9,7 @@
 #define __ld_hl__(x) __asm ld hl,__id__(__hash__)x __endasm
 
 #ifdef Console_OUTPUT_ROM
-#  define Console__init() __asm ld a,__id__(__hash__)2 \
-     call 0x1601 \
-   __endasm
+#  define Console__init() __asm call 0x1642 __endasm
 #else
 #  define Console__init()
 #endif
@@ -144,9 +142,9 @@ extern BYTE Console_attrib;
 #    define Console_SetFont(fontAddr)	(*(unsigned*) (0x5C36) = ((unsigned)fontAddr - 256))
 #  endif
 
-extern void Console_Clear_ROM (SHORTCARD attr);
-extern void Console_Clear_FAST (SHORTCARD attr);
-extern void Console_Clear_COMPACT (SHORTCARD attr);
+extern void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall;
+extern void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
+extern void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_Clear Console_Clear_COMPACT
 #  endif

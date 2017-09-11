@@ -29,9 +29,9 @@ void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
 void Console_WriteStr_C_FAST (void/*CHAR *str*/);
 void Console_WriteStr_C_ROM (void/*CHAR *str*/);
 void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
-void Console_Clear_ROM (SHORTCARD attr);
-void Console_Clear_FAST (SHORTCARD attr);
-void Console_Clear_COMPACT (SHORTCARD attr);
+void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall;
+void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
+void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall;
 
 /* Set video attrib */
 #define SETV_A$   0x5C8D
@@ -515,76 +515,54 @@ void Console_WriteInt_FAST (int i)
 */
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_ROM (SHORTCARD attr) __naked {
+void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall __naked {
 __asm
   LD   IY,#0x5C3A
   LD   A,(_Console_attrib)
-  PUSH AF
-#ifdef __SDCC
-  LD   HL,#4
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
+  EX   AF,AF
+  LD   A,L
   CALL 0x229B
   LD   (_Console_attrib),A
   CALL 0xD6B // IX-safe
-  POP  AF
+  EX   AF,AF
   LD   (_Console_attrib),A
-  LD   A,#2
-  CALL #0x1601 // IX-safe
-  RET
+  JP   0x1642 ; CHAN_S
 __endasm;
 } //Console_Clear_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_FAST (SHORTCARD attr) __naked {
+void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
+  LD   A,(_Console_attrib)
+  EX   AF,AF
+  LD   A,L
+  CALL 0x229B
+  LD   (_Console_attrib),A
+  CALL 0xD6B // IX-safe
+  EX   AF,AF
+  LD   (_Console_attrib),A
   LD   A,#0x40-8
   LD   (#_SCR_ADR_F+1),A
   LD   HL,#0x5800-1
   LD   (_ATTR_ADR_F+1),HL
-  LD   A,(_Console_attrib)
-  PUSH AF
-#ifdef __SDCC
-  LD   HL,#4
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  CALL 0x229B
-  LD   (_Console_attrib),A
-  CALL 0xD6B // IX-safe
-  POP  AF
-  LD   (_Console_attrib),A
-  RET
 __endasm;
 } //Console_Clear_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_COMPACT (SHORTCARD attr) __naked {
+void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
-  LD   HL,#0x5800-1
-  LD   (_ATTR_ADR_C+1),HL
   LD   A,(_Console_attrib)
-  PUSH AF
-#ifdef __SDCC
-  LD   HL,#4
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
+  EX   AF,AF
+  LD   A,L
   CALL 0x229B
   LD   (_Console_attrib),A
   CALL 0xD6B // IX-safe
-  POP  AF
+  EX   AF,AF
   LD   (_Console_attrib),A
-  RET
+  LD   HL,#0x5800-1
+  LD   (_ATTR_ADR_C+1),HL
 __endasm;
 } //Console_Clear_COMPACT
 
