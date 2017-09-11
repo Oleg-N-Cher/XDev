@@ -16,25 +16,22 @@ void Console_SetColors (signed char attr);
 void Console_WriteBool_COMPACT (BOOLEAN b);
 void Console_WriteBool_FAST (BOOLEAN b);
 void Console_WriteBool_ROM (BOOLEAN b);
-void Console_WriteCh_COMPACT (CHAR ch);
-void Console_WriteCh_FAST (CHAR ch);
-void Console_WriteCh_ROM (CHAR ch);
-void Console_WriteInt_ROM (int i);
-void Console_WriteInt_COMPACT (int i);
-void Console_WriteInt_FAST (int i);
+void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall;
+void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall;
+void Console_WriteCh_ROM (unsigned char ch) __z88dk_fastcall;
+void Console_WriteInt_ROM (int n) __z88dk_fastcall;
+void Console_WriteInt_COMPACT (int n);
+void Console_WriteInt_FAST (int n);
 void Console_WriteLn_ROM (void);
 void Console_WriteLn_COMPACT (void);
 void Console_WriteLn_FAST (void);
 void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
 void Console_WriteStr_C_FAST (void/*CHAR *str*/);
 void Console_WriteStr_C_ROM (void/*CHAR *str*/);
+void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
 void Console_Clear_ROM (SHORTCARD attr);
 void Console_Clear_FAST (SHORTCARD attr);
 void Console_Clear_COMPACT (SHORTCARD attr);
-
-void Console_WriteCh_COMPACT_fastcall (void /* Register A */);
-void Console_WriteCh_FAST_fastcall (void /* Register A */);
-void Console_WriteCh_ROM_fastcall (void /* Register A */);
 
 /* Set video attrib */
 #define SETV_A$   0x5C8D
@@ -53,8 +50,6 @@ __asm
   ADD  IX,SP
 #endif
   LD   IY,#0x5C3A
-  LD   A,#2
-  CALL #0x1601 // IX-safe
   LD   A,#22
   RST  16
   LD   A,5(IX) // y
@@ -179,10 +174,11 @@ __endasm;
 /* (Font_address - 256) */
 #define CHAR_SET$ 0x5C36
 
-void Console_WriteCh_COMPACT_fastcall (void /* Register A */)
+void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
 .globl _ATTR_ADR_C
+  LD   A,L
   LD   (_CHAR_CODE_C$+1),A
   LD   HL,#_ATTR_ADR_C+1
   INC  (HL)
@@ -220,21 +216,8 @@ PRLOOP$:
   LD   A,(HL)          ;и так 8 раз
   LD   (DE),A
 __endasm;
-} //Console_WriteCh_COMPACT_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_COMPACT (CHAR ch) __naked {
-__asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  JP   _Console_WriteCh_COMPACT_fastcall
-__endasm;
 } //Console_WriteCh_COMPACT
+
 /*--------------------------------- Cut here ---------------------------------*/
 
 /* (Font_address - 256) */
@@ -246,11 +229,12 @@ __endasm;
   INC  HL     ;приращение fnt adr \
   INC  D      ;приращение scr adr
 
-void Console_WriteCh_FAST_fastcall (void /* Register A */)
+void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
 .globl _ATTR_ADR_F
 .globl _SCR_ADR_F
+  LD   A,L
   LD   (_CHAR_CODE_F$+1),A
   LD   HL,#_ATTR_ADR_F+1
   INC  (HL)
@@ -279,50 +263,14 @@ _CHAR_CODE_F$:         ;in: L - код символа
   LD   A,(HL)
   LD   (DE),A
 __endasm;
-} //Console_WriteCh_FAST_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_FAST (CHAR ch) __naked {
-__asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  JP   _Console_WriteCh_FAST_fastcall
-__endasm;
 } //Console_WriteCh_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_ROM_fastcall (void /* Register A */)
-{
+void Console_WriteCh_ROM (unsigned char ch) __z88dk_fastcall {
 __asm
+  LD   A,L
   LD   IY,#0x5C3A
-  PUSH AF
-  LD   A,#2
-  CALL #0x1601
-  POP  AF
   RST  16
-__endasm;
-} //Console_WriteCh_ROM_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteCh_ROM (CHAR ch) __naked {
-__asm
-  LD   IY,#0x5C3A
-  LD   A,#2
-  CALL #0x1601
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  RST  16
-  RET
 __endasm;
 } //Console_WriteCh_ROM
 
@@ -330,34 +278,34 @@ __endasm;
 void Console_WriteLn_ROM (void) __naked {
 __asm
   LD   A,#0x0D
-  JP   _Console_WriteCh_ROM_fastcall
+  JP   _Console_WriteCh_ROM+1
 __endasm;
 } //Console_WriteLn_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_COMPACT (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (CHAR*)"TRUE";
+    SYSTEM_str_par = (unsigned char*)"TRUE";
   else
-    SYSTEM_str_par = (CHAR*)"FALSE";
+    SYSTEM_str_par = (unsigned char*)"FALSE";
   Console_WriteStr_C_COMPACT();
 } //Console_WriteBool_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_FAST (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (CHAR*)"TRUE";
+    SYSTEM_str_par = (unsigned char*)"TRUE";
   else
-    SYSTEM_str_par = (CHAR*)"FALSE";
+    SYSTEM_str_par = (unsigned char*)"FALSE";
   Console_WriteStr_C_FAST();
 } //Console_WriteBool_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_ROM (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (CHAR*)"TRUE";
+    SYSTEM_str_par = (unsigned char*)"TRUE";
   else
-    SYSTEM_str_par = (CHAR*)"FALSE";
+    SYSTEM_str_par = (unsigned char*)"FALSE";
   Console_WriteStr_C_ROM();
 } //Console_WriteBool_ROM
 
@@ -430,7 +378,7 @@ WRSTR_C$:
   OR   A
   RET  Z
   PUSH HL
-  CALL _Console_WriteCh_COMPACT_fastcall
+  CALL _Console_WriteCh_COMPACT+1
   POP  HL
   INC  HL
   JR   WRSTR_C$
@@ -447,7 +395,7 @@ WRSTR_F$:
   OR   A
   RET  Z
   PUSH HL
-  CALL _Console_WriteCh_FAST_fastcall
+  CALL _Console_WriteCh_FAST+1
   POP  HL
   INC  HL
   JR   WRSTR_F$
@@ -459,8 +407,6 @@ void Console_WriteStr_C_ROM (void/*CHAR *str*/)
 {
 __asm
   LD   IY,#0x5C3A
-  LD   A,#2
-  CALL #0x1601
   LD   BC,(_SYSTEM_str_par)
 WRSTR_R$:
   LD   A,(BC)
@@ -473,53 +419,34 @@ __endasm;
 } //Console_WriteStr_C_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_ROM (int i)
-{
-  CHAR b[6], *prt;
-  INTEGER j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    if (i < 0) {
-      Console_WriteCh_ROM('-');
-      if (i == -32768) {
-        SYSTEM_str_par = (CHAR*)"32768"; Console_WriteStr_C_ROM();
-        return;
-      }
-      i = -i;
-    }
-    j -= 1;
-    b[j] = (CHAR)((int)__MOD(i, 10) + 48);
-    i = __DIV(i, 10);
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  SYSTEM_str_par = (CHAR*)prt; Console_WriteStr_C_ROM();
+void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall __naked {
+__asm
+    LD   C,L
+    LD   B,H
+    CALL 0x2D2B       ; BC-TO-FP
+    JP   0x2DE3       ; PRINT-FP
+__endasm;
+} //Console_WriteUInt_ROM
 
-/*
-// http://www.zxpress.ru/article.php?id=1692
-PDEC_W$:  ;Печать десятичного числа в HL3 (00000..65535)
-  PUSH    HL            ;закинули печатаемое число на стек
-  LD      HL,DECTB_W    ;адрес таблицы степеней десятки
-  LD      B,#05         ;макс. возможное количество цифр
-LP_PDW1$:
-  LD      E,(HL)        ;взяли текущую степень
-  INC     HL            ; десятки из таблицы
-  LD      D,(HL)        ; и поместили в DE
-  INC     HL            ;перешли к след. элементу таблицы
-  EX      (SP),HL       ;адрес эл-та <-> печатаемое число
-  XOR     A             ;обнулили счетчик и флаг C для SBC
-LP_PDW2$:
-  INC     A             ;увеличиваем счетчик
-  SBC     HL,DE         ;вычитаем текущую степень десятки
-  JR      NC,LP_PDW2    ;повторяем пока HL>=0
-  ADD     HL,DE         ;HL=HL mod DE; A=HL div DE
-  ADD     A,"0"-1       ;перевод A в ASCII-код ("0".."9")
-  RST     #10           ;печать десятичной цифры
-  EX      (SP),HL       ;HL=адрес эл-та, число -> на стек
-  DJNZ    LP_PDW1       ;цикл по цифрам
-  POP     HL            ;убрали оставшийся ноль со стека
-  ;RET                   ;выход из процедуры
-*/
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteInt_ROM (int n) __naked __z88dk_fastcall {
+__asm
+    BIT   7,H
+    JP    Z,_Console_WriteUInt_ROM
+
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+
+    PUSH  HL
+    LD    A,#0x2D
+    CALL  _Basic_PRCHAR_ROM+1
+    POP   BC
+    JP    _Console_WriteUInt_ROM+2
+__endasm;
 } //Console_WriteInt_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -605,6 +532,8 @@ __asm
   CALL 0xD6B // IX-safe
   POP  AF
   LD   (_Console_attrib),A
+  LD   A,#2
+  CALL #0x1601 // IX-safe
   RET
 __endasm;
 } //Console_Clear_ROM
@@ -664,7 +593,7 @@ void Console_BackPos_ROM (void)
 {
 __asm
   LD   A,#8
-  CALL _Console_WriteCh_ROM_fastcall
+  CALL _Console_WriteCh_ROM+1
 __endasm;
 }
 
