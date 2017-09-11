@@ -20,14 +20,16 @@ void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall;
 void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall;
 void Console_WriteCh_ROM (unsigned char ch) __z88dk_fastcall;
 void Console_WriteInt_ROM (int n) __z88dk_fastcall;
-void Console_WriteInt_COMPACT (int n);
-void Console_WriteInt_FAST (int n);
+void Console_WriteInt_COMPACT (int n) __z88dk_fastcall;
+void Console_WriteInt_FAST (int n) __z88dk_fastcall;
 void Console_WriteLn_ROM (void);
 void Console_WriteLn_COMPACT (void);
 void Console_WriteLn_FAST (void);
 void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
 void Console_WriteStr_C_FAST (void/*CHAR *str*/);
 void Console_WriteStr_C_ROM (void/*CHAR *str*/);
+void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
+void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall;
 void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
 void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
@@ -429,7 +431,7 @@ __endasm;
 } //Console_WriteUInt_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_ROM (int n) __naked __z88dk_fastcall {
+void Console_WriteInt_ROM (int n) __z88dk_fastcall __naked {
 __asm
     BIT   7,H
     JP    Z,_Console_WriteUInt_ROM
@@ -442,77 +444,114 @@ __asm
     SBC   HL,DE ; 15 => 31t
 
     PUSH  HL
-    LD    A,#0x2D
-    CALL  _Basic_PRCHAR_ROM+1
+    LD    A,#'-'
+    CALL  _Console_WriteCh_ROM+1
     POP   BC
     JP    _Console_WriteUInt_ROM+2
 __endasm;
 } //Console_WriteInt_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_COMPACT (int i)
-{
-  CHAR b[6], *prt;
-  INTEGER j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    if (i < 0) {
-      Console_WriteCh_COMPACT('-');
-      if (i == -32768) {
-        SYSTEM_str_par = (CHAR*)"32768"; Console_WriteStr_C_COMPACT();
-        return;
-      }
-      i = -i;
-    }
-    j -= 1;
-    b[j] = (CHAR)((int)__MOD(i, 10) + 48);
-    i = __DIV(i, 10);
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  SYSTEM_str_par = (CHAR*)prt; Console_WriteStr_C_COMPACT();
+void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall {
+__asm
+            LD    C,#0x5        ;кол-во незначащих нулей + 1
+            LD    DE,#-10000    ;таблица степеней десятки
+            CALL  LP_DIGIT_C$
+            LD    DE,#-1000     ;
+            CALL  LP_DIGIT_C$
+            LD    DE,#-100      ;
+            CALL  LP_DIGIT_C$
+            LD    E,#-10        ;
+            CALL  LP_DIGIT_C$
+            LD    E,D           ;
+LP_DIGIT_C$:LD    A,#"0"-1      ;обнулили счётчик
+LP_PDW2_C$: INC   A             ;увеличиваем счётчик
+            ADD   HL,DE         ;вычитаем текущую степень десятки
+            JR    C,LP_PDW2_C$  ;повторяем пока HL>=0
+            SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
+            DEC   C             ;проверяем: может это незначащий нуль?
+            JR    Z,LP_PRNT_C$  ; если уже были другие цифры, печатаем
+            CP    #"0"          ;если это нуль, то он незначащий
+            RET   Z             ; ничего не печатаем
+LP_PRNT_C$: PUSH  HL
+            PUSH  DE            ;печать десятичной цифры
+            CALL  _Console_WriteCh_COMPACT+1 ; Skip "LD A,L"
+            POP   DE
+            POP   HL
+            LD    C,#1          ;уже была печать, дальше все значащие
+__endasm;
+} //Console_WriteUInt_COMPACT
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteInt_COMPACT (int n) __z88dk_fastcall __naked {
+__asm
+    BIT   7,H
+    JP    Z,_Console_WriteUInt_COMPACT
+
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+
+    PUSH  HL
+    LD    A,#'-'
+    CALL  _Console_WriteCh_COMPACT+1
+    POP   HL
+    JP    _Console_WriteUInt_COMPACT
+__endasm;
 } //Console_WriteInt_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall {
+__asm
+            LD    C,#0x5        ;кол-во незначащих нулей + 1
+            LD    DE,#-10000    ;таблица степеней десятки
+            CALL  LP_DIGIT_F$
+            LD    DE,#-1000     ;
+            CALL  LP_DIGIT_F$
+            LD    DE,#-100      ;
+            CALL  LP_DIGIT_F$
+            LD    DE,#-10       ;
+            CALL  LP_DIGIT_F$
+            LD    DE,#-1        ;
+LP_DIGIT_F$:LD    A,#"0"-1      ;обнулили счётчик
+LP_PDW2_F$: INC   A             ;увеличиваем счётчик
+            ADD   HL,DE         ;вычитаем текущую степень десятки
+            JR    C,LP_PDW2_F$  ;повторяем пока HL>=0
+            SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
+            DEC   C             ;проверяем: может это незначащий нуль?
+            JR    Z,LP_PRNT_F$  ; если уже были другие цифры, печатаем
+            CP    #"0"          ;если это нуль, то он незначащий
+            RET   Z             ; ничего не печатаем
+LP_PRNT_F$: PUSH  HL            ;печать десятичной цифры
+            CALL  _Console_WriteCh_FAST+1 ; Skip "LD A,L"
+            POP   HL
+            LD    C,#1          ;уже была печать, дальше все значащие
+__endasm;
+} //Console_WriteUInt_FAST
 
-void Console_WriteInt_FAST (int i)
-{
-  CHAR b[6], *prt;
-  INTEGER j;
-  j = 5;
-  b[5] = 0x00;
-  do {
-    if (i < 0) {
-      Console_WriteCh_FAST('-');
-      if (i == -32768) {
-        SYSTEM_str_par = (CHAR*)"32768"; Console_WriteStr_C_FAST();
-        return;
-      }
-      i = -i;
-    }
-    j -= 1;
-    b[j] = (CHAR)((int)__MOD(i, 10) + 48);
-    i = __DIV(i, 10);
-  } while (!(j == 0));
-  for(prt = b; prt<b+4; prt++) {if(*prt!='0') break;}
-  SYSTEM_str_par = (CHAR*)prt; Console_WriteStr_C_FAST();
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_WriteInt_FAST (int n) __z88dk_fastcall __naked {
+__asm
+    BIT   7,H
+    JP    Z,_Console_WriteUInt_FAST
+
+    ; HL := -HL
+    EX    DE,HL ;  4
+    XOR   A     ;  4
+    LD    L,A   ;  4
+    LD    H,A   ;  4
+    SBC   HL,DE ; 15 => 31t
+
+    PUSH  HL
+    LD    A,#'-'
+    CALL  _Console_WriteCh_FAST+1
+    POP   HL
+    JP    _Console_WriteUInt_FAST
+__endasm;
 } //Console_WriteInt_FAST
-/*
-;=========координаты -> scr adr========
-;in: D - Y координата, E - X координата
-;out:DE - screen adress
-        LD A,D
-        AND 7
-        RRCA
-        RRCA
-        RRCA
-        OR E
-        LD E,A
-        LD A,D
-        AND 24
-        OR 64
-        LD D,A
-*/
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall __naked {
