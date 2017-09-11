@@ -71,7 +71,7 @@ extern void Console_WriteBool_ROM (BOOLEAN b);
 
 extern void Console_WriteInt_ROM (int n) __z88dk_fastcall;
 extern void Console_WriteInt_COMPACT (int n);
-extern void Console_WriteInt_FAST (int n);
+extern void Console_WriteInt_FAST (int n) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteInt Console_WriteInt_COMPACT
 #  endif
@@ -127,6 +127,8 @@ extern void Console_WriteStrLn_C_FAST (void/*CHAR *str*/);
                                                        RST 16 __endasm
 #  endif
 
+extern void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
+extern void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall;
 extern void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
 
 extern BYTE Console_attrib;
