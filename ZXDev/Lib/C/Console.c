@@ -3,34 +3,34 @@
 #include "Strings.h"
 #include "Timer.h"
 
-export void Console_At_ROM (SHORTINT x, SHORTINT y);
-export void Console_At_COMPACT (SHORTINT x, SHORTINT y);
-export void Console_At_FAST (SHORTINT x, SHORTINT y);
-export INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
-export INTEGER Console_ReadInt_ROM (void);
-export INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
-export INTEGER Console_ReadInt_COMPACT (void);
-export INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
-export INTEGER Console_ReadInt_FAST (void);
-export void Console_SetColors (SHORTINT attr);
-export void Console_WriteBool_COMPACT (BOOLEAN b);
-export void Console_WriteBool_FAST (BOOLEAN b);
-export void Console_WriteBool_ROM (BOOLEAN b);
-export void Console_WriteCh_COMPACT (CHAR ch);
-export void Console_WriteCh_FAST (CHAR ch);
-export void Console_WriteCh_ROM (CHAR ch);
-export void Console_WriteInt_ROM (INTEGER i);
-export void Console_WriteInt_COMPACT (INTEGER i);
-export void Console_WriteInt_FAST (INTEGER i);
-export void Console_WriteLn_ROM (void);
-export void Console_WriteLn_COMPACT (void);
-export void Console_WriteLn_FAST (void);
-export void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
-export void Console_WriteStr_C_FAST (void/*CHAR *str*/);
-export void Console_WriteStr_C_ROM (void/*CHAR *str*/);
-export void Console_Clear_ROM (SHORTCARD attr);
-export void Console_Clear_FAST (SHORTCARD attr);
-export void Console_Clear_COMPACT (SHORTCARD attr);
+void Console_At_ROM (signed char x, signed char y);
+void Console_At_COMPACT (signed char x, signed char y);
+void Console_At_FAST (signed char x, signed char y);
+INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
+INTEGER Console_ReadInt_ROM (void);
+INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
+INTEGER Console_ReadInt_COMPACT (void);
+INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
+INTEGER Console_ReadInt_FAST (void);
+void Console_SetColors (signed char attr);
+void Console_WriteBool_COMPACT (BOOLEAN b);
+void Console_WriteBool_FAST (BOOLEAN b);
+void Console_WriteBool_ROM (BOOLEAN b);
+void Console_WriteCh_COMPACT (CHAR ch);
+void Console_WriteCh_FAST (CHAR ch);
+void Console_WriteCh_ROM (CHAR ch);
+void Console_WriteInt_ROM (int i);
+void Console_WriteInt_COMPACT (int i);
+void Console_WriteInt_FAST (int i);
+void Console_WriteLn_ROM (void);
+void Console_WriteLn_COMPACT (void);
+void Console_WriteLn_FAST (void);
+void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
+void Console_WriteStr_C_FAST (void/*CHAR *str*/);
+void Console_WriteStr_C_ROM (void/*CHAR *str*/);
+void Console_Clear_ROM (SHORTCARD attr);
+void Console_Clear_FAST (SHORTCARD attr);
+void Console_Clear_COMPACT (SHORTCARD attr);
 
 void Console_WriteCh_COMPACT_fastcall (void /* Register A */);
 void Console_WriteCh_FAST_fastcall (void /* Register A */);
@@ -45,7 +45,7 @@ extern BYTE __at(SETV_A$) Console_attrib;
 BYTE __at(SETV_A$) Console_attrib;
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_ROM (SHORTINT x, SHORTINT y) __naked {
+void Console_At_ROM (signed char x, signed char y) __naked {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -70,7 +70,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 
-void Console_At_COMPACT (SHORTINT x, SHORTINT y) __naked {
+void Console_At_COMPACT (signed char x, signed char y) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -117,7 +117,7 @@ __endasm;
 } //Console_At_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_FAST (SHORTINT x, SHORTINT y) __naked {
+void Console_At_FAST (signed char x, signed char y) __naked {
 __asm
 #ifdef __SDCC
   LD   HL,#2
@@ -473,7 +473,7 @@ __endasm;
 } //Console_WriteStr_C_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_ROM (INTEGER i)
+void Console_WriteInt_ROM (int i)
 {
   CHAR b[6], *prt;
   INTEGER j;
@@ -523,7 +523,7 @@ LP_PDW2$:
 } //Console_WriteInt_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_COMPACT (INTEGER i)
+void Console_WriteInt_COMPACT (int i)
 {
   CHAR b[6], *prt;
   INTEGER j;
@@ -548,7 +548,7 @@ void Console_WriteInt_COMPACT (INTEGER i)
 
 /*--------------------------------- Cut here ---------------------------------*/
 
-void Console_WriteInt_FAST (INTEGER i)
+void Console_WriteInt_FAST (int i)
 {
   CHAR b[6], *prt;
   INTEGER j;
