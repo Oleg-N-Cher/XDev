@@ -1,4 +1,4 @@
-@SET Options=--no-std-crt0
+@SET Options=--no-std-crt0 --reserve-regs-iy
 @SET Target=REM
 @SET Clean=FALSE
 
