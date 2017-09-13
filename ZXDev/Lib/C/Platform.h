@@ -14,11 +14,11 @@ typedef
 import void Platform_DISPOSE (SYSTEM_PTR *mem);
 #define Platform_Unsigned(i) ((unsigned)(i))
 
-void _sdcc_heap_init (void);
+void __sdcc_heap_init (void);
 #ifndef SYSTEM_Use_HEAP
 #  define Platform__init()
 #else
-#  define Platform__init() _sdcc_heap_init()
+#  define Platform__init() __sdcc_heap_init()
 #endif
 
 #endif

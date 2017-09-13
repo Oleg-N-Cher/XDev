@@ -29,10 +29,10 @@
 ; Just stubs - not copyrightable
 
         ;; Stubs that hook the heap in
-        .globl  __sdcc_heap_init
+        .globl  ___sdcc_heap_init
 
         .area   _GSINIT
-        call    __sdcc_heap_init
+        call    ___sdcc_heap_init
 
         .area   _HEAP
 __sdcc_heap_start::
