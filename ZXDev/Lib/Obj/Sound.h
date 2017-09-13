@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/* Ofront+ 0.9 -s */
 
 #ifndef Sound__h
 #define Sound__h
