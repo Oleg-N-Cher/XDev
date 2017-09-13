@@ -170,9 +170,9 @@ extern void SYSTEM_ENUMR();
 #define __ASHR(x, n, t) ((t)(x)>>(n))
 #define __ASHF(x, n, t)	SYSTEM_ASH(x, n)
 #define __ASHFL(x, n, t)	SYSTEM_ASHL(x, n)
-#define __DUP(x, l)     x=(void*)memcpy(malloc(l*sizeof(*x)),x,l*sizeof(*x))
-#define __DUPARR(v, t)	v=(void*)memcpy(v##__copy,v,sizeof(t))
-#define __DEL(x)	free(x)
+#define __DUP(x, l)     // x=(void*)memcpy(malloc(l*sizeof(*x)),x,l*sizeof(*x))
+#define __DUPARR(v, t)	// v=(void*)memcpy(v##__copy,v,sizeof(t))
+#define __DEL(x)	// free(x)
 #define __IS(tag, typ, level)	(*(tag-(__BASEOFF-level))==(long)typ##__typ)
 #define __TYPEOF(p)	(*(((long**)(p))-1))
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
@@ -251,7 +251,6 @@ extern void SYSTEM_ENUMR();
 #endif
 
 /* runtime system variables */
-extern CHAR *SYSTEM_str_par;
 /*extern void (*SYSTEM_Halt)();
 extern LONGINT SYSTEM_halt;
 extern LONGINT SYSTEM_assert;
