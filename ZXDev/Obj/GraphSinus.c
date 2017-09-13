@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Graph.h"
 #include "Math.h"
@@ -24,7 +24,7 @@ static SHORTINT GraphSinus_Sign (INTEGER x)
 }
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Graph__init);
@@ -33,9 +33,9 @@ export main(int argc, char **argv)
 /* BEGIN */
 	GraphSinus_KD = 1;
 	GraphSinus_MD = 1;
-	Graph_InitGraph(&GraphSinus_KD, &GraphSinus_MD, (CHAR*)"", (LONGINT)1);
-	GraphSinus_ox = __ASHR(Graph_GetMaxX() + 1, 1);
-	GraphSinus_oy = __ASHR(Graph_GetMaxY() + 1, 1);
+	Graph_InitGraph(&GraphSinus_KD, &GraphSinus_MD, (CHAR*)"", 1);
+	GraphSinus_ox = __ASHR(Graph_GetMaxX() + 1, 1, INTEGER);
+	GraphSinus_oy = __ASHR(Graph_GetMaxY() + 1, 1, INTEGER);
 	Graph_SetColor(71);
 	Graph_Line(0, GraphSinus_oy, Graph_GetMaxX() + 1, GraphSinus_oy);
 	Graph_Line(GraphSinus_ox, 0, GraphSinus_ox, Graph_GetMaxY() + 1);
@@ -46,10 +46,10 @@ export main(int argc, char **argv)
 	GraphSinus__for__1 = GraphSinus_ox - 10;
 	GraphSinus_i = 1;
 	while (GraphSinus_i <= GraphSinus__for__1) {
-		GraphSinus_s = (int)__ENTIER(Math_Sin(GraphSinus_i / (REAL)(REAL)20) * (REAL)50);
+		GraphSinus_s = (INTEGER)__ENTIER(Math_Sin(GraphSinus_i / (REAL)(REAL)20) * (REAL)50);
 		if (GraphSinus_s != 0) {
-			Graph_Line(GraphSinus_i + GraphSinus_ox, GraphSinus_s + GraphSinus_oy, GraphSinus_ox, GraphSinus_oy + (int)GraphSinus_Sign(GraphSinus_s));
-			Graph_Line(GraphSinus_ox - GraphSinus_i, GraphSinus_oy - GraphSinus_s, GraphSinus_ox, GraphSinus_oy - (int)GraphSinus_Sign(GraphSinus_s));
+			Graph_Line(GraphSinus_i + GraphSinus_ox, GraphSinus_s + GraphSinus_oy, GraphSinus_ox, GraphSinus_oy + (INTEGER)GraphSinus_Sign(GraphSinus_s));
+			Graph_Line(GraphSinus_ox - GraphSinus_i, GraphSinus_oy - GraphSinus_s, GraphSinus_ox, GraphSinus_oy - (INTEGER)GraphSinus_Sign(GraphSinus_s));
 		}
 		GraphSinus_i += 1;
 	}

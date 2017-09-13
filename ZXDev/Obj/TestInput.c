@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Input.h"
@@ -12,7 +12,7 @@ static CHAR TestInput_key;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);

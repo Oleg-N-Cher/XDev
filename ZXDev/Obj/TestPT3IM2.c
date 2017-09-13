@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
@@ -17,22 +17,22 @@ static void TestPT3IM2_ProcIM2 (void);
 
 static void TestPT3IM2_ProcIM2 (void)
 {
-	Asm_Code((CHAR*)"EX   AF,AF", (LONGINT)11);
-	Asm_Code((CHAR*)"EXX       ", (LONGINT)11);
-	Asm_Code((CHAR*)"PUSH AF   ", (LONGINT)11);
-	Asm_Code((CHAR*)"PUSH BC   ", (LONGINT)11);
-	Asm_Code((CHAR*)"PUSH DE   ", (LONGINT)11);
-	Asm_Code((CHAR*)"PUSH HL   ", (LONGINT)11);
+	Asm_Code((CHAR*)"EX   AF,AF", 11);
+	Asm_Code((CHAR*)"EXX       ", 11);
+	Asm_Code((CHAR*)"PUSH AF   ", 11);
+	Asm_Code((CHAR*)"PUSH BC   ", 11);
+	Asm_Code((CHAR*)"PUSH DE   ", 11);
+	Asm_Code((CHAR*)"PUSH HL   ", 11);
 	PT3x0A_Play();
-	Asm_Code((CHAR*)"LD   IY,#0x5C3A", (LONGINT)16);
-	Asm_Code((CHAR*)"RST  0x38 ", (LONGINT)11);
-	Asm_Code((CHAR*)"POP  HL   ", (LONGINT)11);
-	Asm_Code((CHAR*)"POP  DE   ", (LONGINT)11);
-	Asm_Code((CHAR*)"POP  BC   ", (LONGINT)11);
-	Asm_Code((CHAR*)"POP  AF   ", (LONGINT)11);
-	Asm_Code((CHAR*)"EXX       ", (LONGINT)11);
-	Asm_Code((CHAR*)"EX   AF,AF", (LONGINT)11);
-	Asm_Code((CHAR*)"EI", (LONGINT)3);
+	Asm_Code((CHAR*)"LD   IY,#0x5C3A", 16);
+	Asm_Code((CHAR*)"RST  0x38 ", 11);
+	Asm_Code((CHAR*)"POP  HL   ", 11);
+	Asm_Code((CHAR*)"POP  DE   ", 11);
+	Asm_Code((CHAR*)"POP  BC   ", 11);
+	Asm_Code((CHAR*)"POP  AF   ", 11);
+	Asm_Code((CHAR*)"EXX       ", 11);
+	Asm_Code((CHAR*)"EX   AF,AF", 11);
+	Asm_Code((CHAR*)"EI", 3);
 }
 
 static void TestPT3IM2_Best40Test (void)
@@ -71,12 +71,12 @@ static void TestPT3IM2_Best40Test (void)
 	Best40_ACHANGE(247, 1);
 	i = 127;
 	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1), i, (CHAR*)"065088060", (LONGINT)10);
+		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i, (CHAR*)"065088060", 10);
 		i += -2;
 	}
 	i = 127;
 	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1), i + 10, (CHAR*)"065088060", (LONGINT)10);
+		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i + 10, (CHAR*)"065088060", 10);
 		i += -2;
 	}
 	i = 16;
@@ -89,7 +89,7 @@ static void TestPT3IM2_Best40Test (void)
 	}
 	i = 99;
 	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1), i + 26, (CHAR*)"06050808060", (LONGINT)12);
+		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i + 26, (CHAR*)"06050808060", 12);
 		i += -2;
 	}
 	Best40_ASRL_RG(39);
@@ -144,7 +144,7 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRLN();
 	i = 0;
 	while (i <= 56) {
-		Best40_SINV_LR(TestPT3IM2_udg + (int)i);
+		Best40_SINV_LR(TestPT3IM2_udg + (INTEGER)i);
 		i += 8;
 	}
 	Basic_PRUDG('A');
@@ -158,7 +158,7 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRLN();
 	i = 0;
 	while (i <= 56) {
-		Best40_SINV_UD(TestPT3IM2_udg + (int)i);
+		Best40_SINV_UD(TestPT3IM2_udg + (INTEGER)i);
 		i += 8;
 	}
 	Basic_PRUDG('A');
@@ -172,7 +172,7 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRLN();
 	i = 0;
 	while (i <= 56) {
-		Best40_SINV_LR(TestPT3IM2_udg + (int)i);
+		Best40_SINV_LR(TestPT3IM2_udg + (INTEGER)i);
 		i += 8;
 	}
 	Basic_PRUDG('A');
@@ -186,8 +186,8 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRLN();
 	i = 0;
 	while (i <= 56) {
-		Best40_SINV_UD(TestPT3IM2_udg + (int)i);
-		Best40_SROTATE(TestPT3IM2_udg + (int)i);
+		Best40_SINV_UD(TestPT3IM2_udg + (INTEGER)i);
+		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
 		i += 8;
 	}
 	Basic_PRUDG('A');
@@ -201,8 +201,8 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRLN();
 	i = 0;
 	while (i <= 56) {
-		Best40_SROTATE(TestPT3IM2_udg + (int)i);
-		Best40_SROTATE(TestPT3IM2_udg + (int)i);
+		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
+		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
 		i += 8;
 	}
 	Basic_PRUDG('A');
@@ -221,7 +221,7 @@ static void TestPT3IM2_Best40Test (void)
 }
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Asm__init);
@@ -232,9 +232,9 @@ export main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	if (__MASK(PT3x0A_TabAdr(), -256) != 0) {
-		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", (LONGINT)44);
+		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", 44);
 		Basic_PRINT(__MASK(PT3x0A_TabAdr(), -256));
-		Basic_PRSTR((CHAR*)" bytes", (LONGINT)7);
+		Basic_PRSTR((CHAR*)" bytes", 7);
 		Basic_PAUSE(0);
 	}
 	Basic_DEFDATA(TestPT3IM2_ace, 2137);

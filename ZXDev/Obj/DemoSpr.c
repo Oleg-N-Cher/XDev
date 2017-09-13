@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "GrSpr.h"
@@ -12,13 +12,13 @@ static INTEGER DemoSpr_spr0, DemoSpr_spr1, DemoSpr_spr2, DemoSpr_spr3;
 static SHORTINT DemoSpr_i;
 static struct DemoSpr__1 DemoSpr_coords[4];
 
-export LONGINT *DemoSpr__1__typ;
+export SYSTEM_ADRINT *DemoSpr__1__typ;
 
 
 
 /*============================================================================*/
 
-__TDESC(DemoSpr__1__desc, 1, 0) = {__TDFLDS("", 2), {-4}};
+__TDESC(DemoSpr__1__desc, 1, 0) = {__TDFLDS("", 2), {-2}};
 
 int main(int argc, char **argv)
 {

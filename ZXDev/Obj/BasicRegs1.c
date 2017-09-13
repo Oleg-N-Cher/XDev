@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Debug.h"

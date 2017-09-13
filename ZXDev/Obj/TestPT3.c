@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
@@ -13,7 +13,7 @@ static INTEGER TestPT3_ace;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Asm__init);
@@ -23,9 +23,9 @@ export main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	if (__MASK(PT3x0A_TabAdr(), -256) != 0) {
-		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", (LONGINT)44);
+		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", 44);
 		Basic_PRINT(__MASK(PT3x0A_TabAdr(), -256));
-		Basic_PRSTR((CHAR*)" bytes", (LONGINT)7);
+		Basic_PRSTR((CHAR*)" bytes", 7);
 		Basic_PAUSE(0);
 	}
 	Basic_DEFDATA(TestPT3_ace, 2137);
@@ -209,14 +209,14 @@ export main(int argc, char **argv)
 	Basic_DATA12(0, 1, 0, 141, 0, 0, 0, 1, 0, 1, 2, 12);
 	Basic_DATA1(0);
 	PT3x0A_Install(TestPT3_ace);
-	Asm_Code((CHAR*)"play_l$: LD   IY,#0x5C3A", (LONGINT)25);
-	Asm_Code((CHAR*)"         EI             ", (LONGINT)25);
-	Asm_Code((CHAR*)"         HALT           ", (LONGINT)25);
+	Asm_Code((CHAR*)"play_l$: LD   IY,#0x5C3A", 25);
+	Asm_Code((CHAR*)"         EI             ", 25);
+	Asm_Code((CHAR*)"         HALT           ", 25);
 	PT3x0A_Play();
-	Asm_Code((CHAR*)"         LD   A,#0x7F   ", (LONGINT)25);
-	Asm_Code((CHAR*)"         IN   A,(-2)    ", (LONGINT)25);
-	Asm_Code((CHAR*)"         RRA            ", (LONGINT)25);
-	Asm_Code((CHAR*)"         JR   C,play_l$ ", (LONGINT)25);
+	Asm_Code((CHAR*)"         LD   A,#0x7F   ", 25);
+	Asm_Code((CHAR*)"         IN   A,(-2)    ", 25);
+	Asm_Code((CHAR*)"         RRA            ", 25);
+	Asm_Code((CHAR*)"         JR   C,play_l$ ", 25);
 	PT3x0A_Stop();
 	Basic_Quit();
 	__FINI;
