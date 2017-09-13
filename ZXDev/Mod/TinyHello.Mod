@@ -2,4 +2,4 @@
 (* Copyright (C) 2012 Oleg N. Cher, VEDAsoft. *)
 
 (*$MAIN*) MODULE TinyHello; IMPORT Basic;
-BEGIN Basic.PRSTR("Hello World") END TinyHello.
+BEGIN Basic.Init; Basic.PRSTR("Hello World") END TinyHello.
