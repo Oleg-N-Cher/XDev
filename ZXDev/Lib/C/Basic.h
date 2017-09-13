@@ -357,17 +357,8 @@ extern void Basic_PRLN_ROM (void) __preserves_regs(b,c,d,e,h,l);
 //------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
 extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall __preserves_regs(b,c,d,e);
-extern void Basic_PRSTR_C_ROM_postpar (void /* post */) __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
-#  ifndef PRSTR_postpar
-#    define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
-#  else
-#    define Basic_PRSTR(str,len) __asm \
-       call _Basic_PRSTR_C_ROM_postpar \
-       .ascii __arg_killer__ str       \
-       .db 0                           \
-     __endasm
-#  endif
+#  define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
 #else
   #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
 #endif

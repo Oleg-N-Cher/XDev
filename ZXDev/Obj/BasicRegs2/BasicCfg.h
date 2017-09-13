@@ -17,7 +17,6 @@
 #define DRAW_fastcall
 #define PLOT_fastcall
 #define POINT_fastcall
-//#define PRSTR_postpar
 
 /* Use CLS for whole screen (with PAPER attributes in bottom lines): */
 #define CLS_FULLSCREEN
