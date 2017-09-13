@@ -4,7 +4,7 @@
 (*======================================================*)
 
 MODULE ConsoleDemo; (*$MAIN*)
-IMPORT C := Console, Basic;
+IMPORT C := Console;
 
 CONST
   Str = "@@";
@@ -282,6 +282,4 @@ BEGIN
   C.SetColors(C.LMagentaOnLWhite); C.WriteStr(Str);
   C.SetColors(C.YellowOnLWhite);   C.WriteStr(Str);
   C.SetColors(C.LWhiteOnLWhite);   C.WriteStr(Str);
-	Basic.PAUSE(0);
-	Basic.Quit;
 END ConsoleDemo.
