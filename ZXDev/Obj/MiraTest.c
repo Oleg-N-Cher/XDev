@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 0.9 -sm */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "GRAPH0.h"
@@ -14,7 +14,7 @@ static INTEGER MiraTest_i;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Basic__init);
@@ -26,13 +26,13 @@ export main(int argc, char **argv)
 	GRAPH0_GCLS();
 	MiraTest_i = 0;
 	while (MiraTest_i <= 512) {
-		Basic_INK(Basic_RND(0, 6));
+		Basic_INK((SHORTINT)Basic_RND(0, 6));
 		Basic_PLOT(Basic_RND(0, 255), Basic_RND(0, 175));
 		MiraTest_i += 1;
 	}
 	MiraTest_c = 1;
 	while (MiraTest_c <= 23) {
-		GRAPH0_SETATTRS(16 - __DIV(MiraTest_c, 3), MiraTest_c - 3, __ASHL(__DIV(MiraTest_c, 3), 1), 36);
+		GRAPH0_SETATTRS(16 - __DIV(MiraTest_c, 3), MiraTest_c - 3, __ASHL(__DIV(MiraTest_c, 3), 1, SHORTINT), 36);
 		MiraTest_c += 1;
 	}
 	MiraTest_c = 21;
