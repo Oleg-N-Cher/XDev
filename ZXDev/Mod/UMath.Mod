@@ -1,4 +1,4 @@
-MODULE UMath; IMPORT SYSTEM, B := Basic;
+MODULE UMath; IMPORT SYSTEM, B := Basic, Platform;
 
 VAR a, b: SHORTINT;
 
@@ -19,8 +19,8 @@ BEGIN (*$MAIN*)
   B.Init; B.CLS;
   (* Приводим т.к. значение >
                         SIZE(SHORTINT): *)
-  a := SYSTEM.VAL(SHORTINT, 255);
-  b := SYSTEM.VAL(SHORTINT, 255);
+  a := Platform.Unsigned(255);
+  b := Platform.Unsigned(255);
 
   (* Печатает: 65025 (255*255): *)
   B.PRWORD( UMultBytes(a, b) );
@@ -29,7 +29,7 @@ BEGIN (*$MAIN*)
   (* Печатает: 1 ( (-1)*(-1) ): *)
   B.PRWORD( a * b );
   B.PRLN;
-  a := SYSTEM.VAL(SHORTINT, 255); b := 5;
+  a := Platform.Unsigned(255); b := 5;
 
   (* Печатает: 51 (255 DIV 5): *)
   B.PRWORD( UDivBytes(a, b) );
