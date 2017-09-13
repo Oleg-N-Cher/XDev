@@ -12,7 +12,6 @@ INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
 INTEGER Console_ReadInt_COMPACT (void);
 INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
 INTEGER Console_ReadInt_FAST (void);
-void Console_SetColors (signed char attr);
 void Console_WriteBool_COMPACT (BOOLEAN b);
 void Console_WriteBool_FAST (BOOLEAN b);
 void Console_WriteBool_ROM (BOOLEAN b);
@@ -25,9 +24,9 @@ void Console_WriteInt_FAST (int n) __z88dk_fastcall;
 void Console_WriteLn_ROM (void);
 void Console_WriteLn_COMPACT (void);
 void Console_WriteLn_FAST (void);
-void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
-void Console_WriteStr_C_FAST (void/*CHAR *str*/);
-void Console_WriteStr_C_ROM (void/*CHAR *str*/);
+void Console_WriteStr_C_COMPACT (unsigned char *str) __z88dk_fastcall;
+void Console_WriteStr_C_FAST (unsigned char *str) __z88dk_fastcall;
+void Console_WriteStr_C_ROM (unsigned char *str) __z88dk_fastcall;
 void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
 void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall;
 void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
@@ -36,7 +35,7 @@ void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall;
 
 /* Set video attrib */
-#define SETV_A$   0x5C8D
+#define SETV_A$   0x5C8F
 extern BYTE __at(SETV_A$) Console_attrib;
 /*================================== Header ==================================*/
 
@@ -287,33 +286,29 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_COMPACT (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (unsigned char*)"TRUE";
+    Console_WriteStr_C_COMPACT("TRUE");
   else
-    SYSTEM_str_par = (unsigned char*)"FALSE";
-  Console_WriteStr_C_COMPACT();
+    Console_WriteStr_C_COMPACT("FALSE");
 } //Console_WriteBool_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_FAST (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (unsigned char*)"TRUE";
+    Console_WriteStr_C_FAST("TRUE");
   else
-    SYSTEM_str_par = (unsigned char*)"FALSE";
-  Console_WriteStr_C_FAST();
+    Console_WriteStr_C_FAST("FALSE");
 } //Console_WriteBool_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteBool_ROM (BOOLEAN b) {
   if(b)
-    SYSTEM_str_par = (unsigned char*)"TRUE";
+    Console_WriteStr_C_ROM("TRUE");
   else
-    SYSTEM_str_par = (unsigned char*)"FALSE";
-  Console_WriteStr_C_ROM();
+    Console_WriteStr_C_ROM("FALSE");
 } //Console_WriteBool_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteLn_COMPACT (void)
-{
+void Console_WriteLn_COMPACT (void) __naked {
 __asm
 .globl _INC_HBYTE_C
   LD   HL,#_ATTR_ADR_C+1
@@ -339,8 +334,7 @@ __endasm;
 } //Console_WriteLn_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteLn_FAST (void)
-{
+void Console_WriteLn_FAST (void) __naked {
 __asm
 .globl _INC_HBYTE_F
   LD   HL,#_ATTR_ADR_F+1
@@ -371,10 +365,8 @@ __endasm;
 } //Console_WriteLn_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteStr_C_COMPACT (void/*CHAR *str*/)
-{
+void Console_WriteStr_C_COMPACT (unsigned char *str) __z88dk_fastcall __naked {
 __asm
-  LD   HL,(_SYSTEM_str_par)
 WRSTR_C$:
   LD   A,(HL)
   OR   A
@@ -388,10 +380,8 @@ __endasm;
 } //Console_WriteStr_C_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteStr_C_FAST (void/*CHAR *str*/)
-{
+void Console_WriteStr_C_FAST (unsigned char *str) __z88dk_fastcall __naked {
 __asm
-  LD   HL,(_SYSTEM_str_par)
 WRSTR_F$:
   LD   A,(HL)
   OR   A
@@ -405,17 +395,15 @@ __endasm;
 } //Console_WriteStr_C_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteStr_C_ROM (void/*CHAR *str*/)
-{
+void Console_WriteStr_C_ROM (unsigned char *str) __z88dk_fastcall __naked {
 __asm
   LD   IY,#0x5C3A
-  LD   BC,(_SYSTEM_str_par)
 WRSTR_R$:
-  LD   A,(BC)
+  LD   A,(HL)
   OR   A
   RET  Z
   RST  16
-  INC  BC
+  INC  HL
   JR   WRSTR_R$
 __endasm;
 } //Console_WriteStr_C_ROM
@@ -554,18 +542,18 @@ __endasm;
 } //Console_WriteInt_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall __naked {
+void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   LD   A,(_Console_attrib)
   EX   AF,AF
   LD   A,L
   CALL 0x229B
-  LD   (_Console_attrib),A
+  LD   (0x5C8D),A
   CALL 0xD6B // IX-safe
+  CALL 0x1642 ; CHAN_S
   EX   AF,AF
   LD   (_Console_attrib),A
-  JP   0x1642 ; CHAN_S
 __endasm;
 } //Console_Clear_ROM
 
@@ -577,7 +565,7 @@ __asm
   EX   AF,AF
   LD   A,L
   CALL 0x229B
-  LD   (_Console_attrib),A
+  LD   (0x5C8D),A
   CALL 0xD6B // IX-safe
   EX   AF,AF
   LD   (_Console_attrib),A
@@ -596,7 +584,7 @@ __asm
   EX   AF,AF
   LD   A,L
   CALL 0x229B
-  LD   (_Console_attrib),A
+  LD   (0x5C8D),A
   CALL 0xD6B // IX-safe
   EX   AF,AF
   LD   (_Console_attrib),A
@@ -606,11 +594,10 @@ __endasm;
 } //Console_Clear_COMPACT
 
 /*----------------------------------------------------------------------------*/
-void Console_BackPos_ROM (void)
-{
+void Console_BackPos_ROM (void) __naked {
 __asm
   LD   A,#8
-  CALL _Console_WriteCh_ROM+1
+  JP   _Console_WriteCh_ROM+1
 __endasm;
 }
 
