@@ -55,7 +55,6 @@ void Basic_PRLN_FAST (void);
 void Basic_PRLN_ROM (void);
 void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
 void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
-void Basic_PRSTR_C_ROM_postpar (void /* post */);
 void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
 void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
@@ -1726,21 +1725,6 @@ PRSTR_fast$:LD   A,(HL)
             JR   PRSTR_fast$
 __endasm;
 } //Basic_PRSTR_C_ROM_fastcall
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Basic_PRSTR_C_ROM_postpar (void /* post */) __naked {
-__asm
-            LD   IY,#0x5C3A
-PRSTR_post$:POP  HL
-            LD   A,(HL)
-            INC  HL
-            PUSH HL
-            OR   A
-            RET  Z
-            RST  16
-            JR   PRSTR_post$
-__endasm;
-} //Basic_PRSTR_C_ROM_postpar
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRSTR_C_FAST (unsigned char *str) __naked __z88dk_fastcall {
