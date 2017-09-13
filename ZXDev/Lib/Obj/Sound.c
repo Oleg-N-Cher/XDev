@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/* Ofront+ 0.9 -s */
 #include "SYSTEM.h"
 #include "Asm.h"
 
@@ -15,93 +15,105 @@ export void Sound_RunMe50Hz (void);
 
 void Sound_Play (INTEGER fx)
 {
-	Asm_Code((CHAR*)"  DI", (LONGINT)5);
-	Asm_Code((CHAR*)"  POP DE", (LONGINT)9);
-	Asm_Code((CHAR*)"  POP HL", (LONGINT)9);
-	Asm_Code((CHAR*)"  PUSH HL", (LONGINT)10);
-	Asm_Code((CHAR*)"  PUSH DE", (LONGINT)10);
-	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", (LONGINT)20);
-	Asm_Code((CHAR*)"  LD A,#1", (LONGINT)10);
-	Asm_Code((CHAR*)"  LD (RunStat+1),A", (LONGINT)19);
-	Asm_Code((CHAR*)"  EI", (LONGINT)5);
+	Asm_Code((CHAR*)"  DI", 5);
+	Asm_Code((CHAR*)"  POP DE", 9);
+	Asm_Code((CHAR*)"  POP HL", 9);
+	Asm_Code((CHAR*)"  PUSH HL", 10);
+	Asm_Code((CHAR*)"  PUSH DE", 10);
+	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", 20);
+	Asm_Code((CHAR*)"  LD A,#1", 10);
+	Asm_Code((CHAR*)"  LD (RunStat+1),A", 19);
+	Asm_Code((CHAR*)"  EI", 5);
 }
 
 /*----------------------------------------------------------------------------*/
 void Sound_RunMe50Hz (void)
 {
-	Asm_Code((CHAR*)".globl PlayPos", (LONGINT)15);
-	Asm_Code((CHAR*)".globl RunStat", (LONGINT)15);
-	Asm_Code((CHAR*)"RunStat:  LD A,#0", (LONGINT)18);
-	Asm_Code((CHAR*)"  AND A", (LONGINT)8);
-	Asm_Code((CHAR*)"  RET Z", (LONGINT)8);
-	Asm_Code((CHAR*)"  DEC A", (LONGINT)8);
-	Asm_Code((CHAR*)"  LD (RunStat+1),A", (LONGINT)19);
-	Asm_Code((CHAR*)"  RET NZ", (LONGINT)9);
-	Asm_Code((CHAR*)"PlayPos:  LD HL,#0", (LONGINT)19);
-	Asm_Code((CHAR*)"  LD A,#8", (LONGINT)10);
-	Asm_Code((CHAR*)"  LD BC,#65533", (LONGINT)15);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  AND A", (LONGINT)8);
-	Asm_Code((CHAR*)"  JR NZ,R50LABEL1", (LONGINT)18);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  XOR A", (LONGINT)8);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  RET", (LONGINT)6);
-	Asm_Code((CHAR*)"R50LABEL1:  LD A,#1", (LONGINT)20);
-	Asm_Code((CHAR*)"  LD (RunStat+1),A", (LONGINT)19);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  AND #0xF0", (LONGINT)12);
-	Asm_Code((CHAR*)"  JR NZ,R50LABEL2", (LONGINT)18);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  ADD A,#2", (LONGINT)11);
-	Asm_Code((CHAR*)"  LD (RunStat+1),A", (LONGINT)19);
-	Asm_Code((CHAR*)"  INC HL", (LONGINT)9);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  AND #0xF0", (LONGINT)12);
-	Asm_Code((CHAR*)"R50LABEL2:  RRCA", (LONGINT)17);
-	Asm_Code((CHAR*)"  RRCA", (LONGINT)7);
-	Asm_Code((CHAR*)"  RRCA", (LONGINT)7);
-	Asm_Code((CHAR*)"  RRCA", (LONGINT)7);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD A,#1", (LONGINT)10);
-	Asm_Code((CHAR*)"  LD B,#0xFF", (LONGINT)13);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  INC HL", (LONGINT)9);
-	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", (LONGINT)20);
-	Asm_Code((CHAR*)"  AND #15", (LONGINT)10);
-	Asm_Code((CHAR*)"  RET Z", (LONGINT)8);
-	Asm_Code((CHAR*)"  DEC A", (LONGINT)8);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  XOR A", (LONGINT)8);
-	Asm_Code((CHAR*)"  LD B,#0xFF", (LONGINT)13);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD A,(HL)", (LONGINT)12);
-	Asm_Code((CHAR*)"  INC HL", (LONGINT)9);
-	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", (LONGINT)20);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
+	Asm_Code((CHAR*)".globl PlayPos", 15);
+	Asm_Code((CHAR*)".globl RunStat", 15);
+	Asm_Code((CHAR*)"RunStat:  LD A,#0", 18);
+	Asm_Code((CHAR*)"  AND A", 8);
+	Asm_Code((CHAR*)"  RET Z", 8);
+	Asm_Code((CHAR*)"  DEC A", 8);
+	Asm_Code((CHAR*)"  LD (RunStat+1),A", 19);
+	Asm_Code((CHAR*)"  RET NZ", 9);
+	Asm_Code((CHAR*)"PlayPos:  LD HL,#0", 19);
+	Asm_Code((CHAR*)"  LD A,#8", 10);
+	Asm_Code((CHAR*)"  LD BC,#65533", 15);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  AND A", 8);
+	Asm_Code((CHAR*)"  JR NZ,R50LABEL1", 18);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  XOR A", 8);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  RET", 6);
+	Asm_Code((CHAR*)"R50LABEL1:  LD A,#1", 20);
+	Asm_Code((CHAR*)"  LD (RunStat+1),A", 19);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  AND #0xF0", 12);
+	Asm_Code((CHAR*)"  JR NZ,R50LABEL2", 18);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  ADD A,#2", 11);
+	Asm_Code((CHAR*)"  LD (RunStat+1),A", 19);
+	Asm_Code((CHAR*)"  INC HL", 9);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  AND #0xF0", 12);
+	Asm_Code((CHAR*)"R50LABEL2:  RRCA", 17);
+	Asm_Code((CHAR*)"  RRCA", 7);
+	Asm_Code((CHAR*)"  RRCA", 7);
+	Asm_Code((CHAR*)"  RRCA", 7);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD A,#1", 10);
+	Asm_Code((CHAR*)"  LD B,#0xFF", 13);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  INC HL", 9);
+	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", 20);
+	Asm_Code((CHAR*)"  AND #15", 10);
+	Asm_Code((CHAR*)"  RET Z", 8);
+	Asm_Code((CHAR*)"  DEC A", 8);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  XOR A", 8);
+	Asm_Code((CHAR*)"  LD B,#0xFF", 13);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD A,(HL)", 12);
+	Asm_Code((CHAR*)"  INC HL", 9);
+	Asm_Code((CHAR*)"  LD (PlayPos+1),HL", 20);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
 }
 
 /*----------------------------------------------------------------------------*/
 void Sound_Quit (void)
 {
-	Asm_Code((CHAR*)"  DI", (LONGINT)5);
-	Asm_Code((CHAR*)"  LD BC,#0xFFFD", (LONGINT)16);
-	Asm_Code((CHAR*)"  LD A,#7", (LONGINT)10);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  LD A,#254", (LONGINT)12);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD B,#0xFF", (LONGINT)13);
-	Asm_Code((CHAR*)"  LD A,#8", (LONGINT)10);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  LD B,#0xBF", (LONGINT)13);
-	Asm_Code((CHAR*)"  XOR A", (LONGINT)8);
-	Asm_Code((CHAR*)"  OUT (C),A", (LONGINT)12);
-	Asm_Code((CHAR*)"  EI", (LONGINT)5);
+	Asm_Code((CHAR*)"  DI", 5);
+	Asm_Code((CHAR*)"  LD BC,#0xFFFD", 16);
+	Asm_Code((CHAR*)"  LD A,#7", 10);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  LD A,#254", 12);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD B,#0xFF", 13);
+	Asm_Code((CHAR*)"  LD A,#8", 10);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  LD B,#0xBF", 13);
+	Asm_Code((CHAR*)"  XOR A", 8);
+	Asm_Code((CHAR*)"  OUT (C),A", 12);
+	Asm_Code((CHAR*)"  EI", 5);
 }
 
+/*----------------------------------------------------------------------------*/
+
+export void *Sound__init(void)
+{
+	__DEFMOD;
+	__IMPORT(Asm__init);
+	__REGMOD("Sound", 0);
+	__REGCMD("Quit", Sound_Quit);
+	__REGCMD("RunMe50Hz", Sound_RunMe50Hz);
+/* BEGIN */
+	__ENDMOD;
+}
