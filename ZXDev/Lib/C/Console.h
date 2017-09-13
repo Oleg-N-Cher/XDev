@@ -70,7 +70,7 @@ extern void Console_WriteBool_ROM (BOOLEAN b);
 #  endif
 
 extern void Console_WriteInt_ROM (int n) __z88dk_fastcall;
-extern void Console_WriteInt_COMPACT (int n);
+extern void Console_WriteInt_COMPACT (int n) __z88dk_fastcall;
 extern void Console_WriteInt_FAST (int n) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteInt Console_WriteInt_COMPACT
@@ -95,36 +95,33 @@ extern void Console_WriteLn_FAST (void);
 #    define Console_WriteLn Console_WriteLn_ROM
 #  endif
 
-extern void Console_WriteStr_C_COMPACT (void/*CHAR *str*/);
-extern void Console_WriteStr_C_FAST (void/*CHAR *str*/);
-extern void Console_WriteStr_C_ROM (void/*CHAR *str*/);
+extern void Console_WriteStr_C_COMPACT (unsigned char *str) __z88dk_fastcall;
+extern void Console_WriteStr_C_FAST (unsigned char *str) __z88dk_fastcall;
+extern void Console_WriteStr_C_ROM (unsigned char *str) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
-#    define Console_WriteStr(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_COMPACT()
+#    define Console_WriteStr(str,len) Console_WriteStr_C_COMPACT(str)
 #  endif
 #  ifdef Console_OUTPUT_FAST
-#    define Console_WriteStr(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_FAST()
+#    define Console_WriteStr(str,len) Console_WriteStr_C_FAST(str)
 #  endif
 #  ifdef Console_OUTPUT_ROM
-#    define Console_WriteStr(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_ROM()
+#    define Console_WriteStr(str,len) Console_WriteStr_C_ROM(str)
 #  endif
 
-extern void Console_WriteStrLn_C_COMPACT (void/*CHAR *str*/);
-extern void Console_WriteStrLn_C_FAST (void/*CHAR *str*/);
+extern void Console_WriteStrLn_C_COMPACT (unsigned char *str) __z88dk_fastcall;
+extern void Console_WriteStrLn_C_FAST (unsigned char *str) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteStrLn(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_COMPACT(); Console_WriteLn_COMPACT()
+       Console_WriteStr_C_COMPACT(str); Console_WriteLn_COMPACT()
 #  endif
 #  ifdef Console_OUTPUT_FAST
 #    define Console_WriteStrLn(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_FAST(); Console_WriteLn_FAST()
+       Console_WriteStr_C_FAST(str); Console_WriteLn_FAST()
 #  endif
 #  ifdef Console_OUTPUT_ROM
 #    define Console_WriteStrLn(str,len) \
-       SYSTEM_str_par = str; Console_WriteStr_C_ROM(); __asm LD A,__id__(__hash__)0x0D \
-                                                       RST 16 __endasm
+       Console_WriteStr_C_ROM(str); __asm LD A,__id__(__hash__)0x0D \
+       RST 16 __endasm
 #  endif
 
 extern void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
