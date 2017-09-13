@@ -8,15 +8,9 @@ export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
 export LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
 export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 
-extern CHAR *SYSTEM_str_par;
-
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
-
 /*================================== Header ==================================*/
-/* runtime system variables */
-CHAR *SYSTEM_str_par;
 
-/*--------------------------------- Cut here ---------------------------------*/
 void SYSTEM_HALT_m1 (unsigned char n) __naked {
 __asm
   LD   IY,#0x5C3A
