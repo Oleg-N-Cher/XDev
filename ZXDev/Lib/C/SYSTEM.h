@@ -171,7 +171,7 @@ extern void SYSTEM_ENUMR();
 #define __ASHF(x, n, t)	SYSTEM_ASH(x, n)
 #define __ASHFL(x, n, t)	SYSTEM_ASHL(x, n)
 #define __DUP(x, l)     // x=(void*)memcpy(malloc(l*sizeof(*x)),x,l*sizeof(*x))
-#define __DUPARR(v, t)	// v=(void*)memcpy(v##__copy,v,sizeof(t))
+#define __DUPARR(v)     // v=(void*)memcpy(v##__copy,v,sizeof(v##__copy))
 #define __DEL(x)	// free(x)
 #define __IS(tag, typ, level)	(*(tag-(__BASEOFF-level))==(long)typ##__typ)
 #define __TYPEOF(p)	(*(((long**)(p))-1))
