@@ -23,8 +23,8 @@ extern void exit(int status);
 
 /* constants */
 #define __MAXEXT	16
-#define NIL	0L
-#define POINTER__typ	(long*)1L	/* not NIL and not a valid type */
+#define NIL	0
+#define POINTER__typ	(int*)1	/* not NIL and not a valid type */
 
 /* basic types */
 typedef unsigned char BOOLEAN;
@@ -278,6 +278,8 @@ long SYSTEM_DIV(unsigned long x, unsigned long y);
 long SYSTEM_MOD(unsigned long x, unsigned long y);
 long SYSTEM_ENTIER(float x);
 */
+
+#define main(argc, argv) main(void)
 
 #endif
 
