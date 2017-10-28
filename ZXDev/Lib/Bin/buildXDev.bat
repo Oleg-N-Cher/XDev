@@ -17,3 +17,4 @@
 @CALL ..\Bin\smart %Lib% Control
 @CALL ..\Bin\smart %Lib% Sound -noinit
 @CALL ..\Bin\solid %Lib% Debug
+@CALL ..\Bin\solid--reserve-regs-iy %Lib% Tasks
