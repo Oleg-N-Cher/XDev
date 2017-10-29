@@ -4,18 +4,18 @@ typedef
   struct Tasks_Context {
     int SP, next;
     // char stack [N];
-    // int IX, PC;
+    // int IX, PC, _RETURN;
   } Tasks_Context;
 
-signed char Tasks_count;
-int Tasks_runned, Tasks_current;
+unsigned char Tasks_count;
+int Tasks_myid, Tasks_current;
 
 /*----------------------------------------------------------------------------*/
 void _Tasks_RETURN (void) __naked {
   __asm
            LD   HL, #_Tasks_count
            DEC  (HL)
-           JR   Z, LOAD_RUN$
+           ;JR   Z, LOAD_RUN$
            
 // Load Run() context (IX, SP)
 LOAD_RUN$: LD   HL, (_Tasks_current) ; ADR(Context.sp)
@@ -32,8 +32,8 @@ void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void))
 
 // Context = RECORD
 //   SP, next: INTEGER;
-//   stack: ARRAY N OF BYTE END;
-//   IX, PC: INTEGER;
+//   stack: ARRAY N OF BYTE;
+//   IX, PC, _RETURN: INTEGER;
 // END;
 
   // Find the last task in list
@@ -84,12 +84,9 @@ unsigned char Tasks_Run (void) {
            LD   L, A
            LD   SP, HL               ; (Context.SP)
            POP  IX
-           RET                       ; CALL current task
-;EXIT_RUN$:
-
-// RETURN count
-;          LD  HL, (_Tasks_count)
+           ;RET                      ; CALL current task
   __endasm;
+  // RETURN count moved to Yield
 } //Tasks_Run
 
 /*----------------------------------------------------------------------------*/
@@ -115,14 +112,12 @@ __Run_SP:  LD   SP, #0
            LD   L, A
            LD   (_Tasks_current), HL ; (Context.next)
 
-// RETURN count
-           ; LD   HL,#_Tasks_count  ; 10
-           ; LD   L, (HL)           ;  7 => 17
-
-           ; LD   A, (_Tasks_count) ; 13
-           ; LD   L, A              ;  4 => 17
-
-           LD  HL, (_Tasks_count)   ; 16
+// Run() RETURN count
+           LD  HL, (_Tasks_count)
   __endasm;
 } //Tasks_Yield
 
+/*----------------------------------------------------------------------------*/
+void Tasks__init (void) {
+  Tasks_count = 0; Tasks_myid = 0;
+}

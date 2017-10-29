@@ -4,7 +4,7 @@ TYPE
   Context = RECORD
     SP, next: INTEGER;
     (* stack: ARRAY N OF BYTE; *)
-    (* IX, PC: INTEGER; *)
+    (* IX, PC, _RETURN: INTEGER; *)
   END;
 
   Tiny   * = RECORD (Context) stack: ARRAY  40 OF BYTE END;
@@ -14,6 +14,7 @@ TYPE
   Huge   * = RECORD (Context) stack: ARRAY 120 OF BYTE END;
 
 PROCEDURE Spawn* ((**VAR*) ctx: Context; proc: PROCEDURE); END Spawn;
+PROCEDURE MyId* (): INTEGER; END MyId;
 PROCEDURE Run* (): SHORTINT; END Run;
 PROCEDURE Yield* ; END Yield;
 
