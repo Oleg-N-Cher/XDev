@@ -1,4 +1,10 @@
-#include "SYSTEM.h"
+#define SAFE
+
+// ERRORS:
+//   22 "Statement lost" - Run() called in not "main" task
+//   23 "Invalid stream" - Yield called in "main" task
+//   25 "Parameter error"
+// http://www.worldofspectrum.org/ZXBasicManual/zxmanappb.html
 
 typedef
   struct Tasks_Context {
@@ -7,18 +13,21 @@ typedef
     // int IX, PC, _RETURN;
   } Tasks_Context;
 
-unsigned char Tasks_count;
-int Tasks_myid, Tasks_current;
+unsigned char Tasks_count; int Tasks_myid; // Both must go together
+int Tasks_current;
 
 /*----------------------------------------------------------------------------*/
 void _Tasks_RETURN (void) __naked {
   __asm
            LD   HL, #_Tasks_count
-           DEC  (HL)
-           ;JR   Z, LOAD_RUN$
-           
+           DEC  (HL)                 ; DEC(count)
+           INC  HL
+           LD   (HL), A              ;
+           INC  HL                   ; myid := 0
+           LD   (HL), A              ;
+
 // Load Run() context (IX, SP)
-LOAD_RUN$: LD   HL, (_Tasks_current) ; ADR(Context.sp)
+LOAD_RUN$: LD   HL, (_Tasks_current) ; ADR(Context.SP)
            JP   __Run_SP
 
 // Remove completed task, update Context.next
@@ -64,13 +73,14 @@ void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void))
 } //Tasks_Spawn_Ex
 
 /*----------------------------------------------------------------------------*/
-unsigned char Tasks_Run (void) {
+void Tasks_Run (void) __naked { // Run() MUST be started in "main" task
   __asm
-// Prevent the threat of re-entry
-           ;LD   HL, (_Tasks_current)
-           ;LD   L, A
-           ;OR   H
-           ;JR   Z, EXIT_RUN$ ; current = 0: "main" task
+
+#ifdef SAFE
+           LD   A, (_Tasks_myid+1)   ;
+           OR   A                    ;
+           JR   NZ, HALT_22$         ; IF myid # 0 THEN HALT(22)
+#endif
 
 // Save IX, SP
            PUSH IX
@@ -78,24 +88,45 @@ unsigned char Tasks_Run (void) {
            
 // Call one atom of the current task (until Yield or RETURN)
            LD   HL, (_Tasks_current) ; ADR(Context.SP)
-           LD   A, (HL)
-           INC  HL
-           LD   H, (HL)
-           LD   L, A
-           LD   SP, HL               ; (Context.SP)
+           LD   (_Tasks_myid), HL
+           LD   A, (HL) ; 7
+           INC  HL      ; 6
+           LD   H, (HL) ; 7
+           LD   L, A    ; 4
+           LD   SP, HL  ; 6 => 30    ; (Context.SP)
            POP  IX
-           ;RET                      ; CALL current task
+           RET                       ; CALL current task
+
+#ifdef SAFE
+HALT_22$:  RST  8
+           .DB  22                   ; "Statement lost"
+#endif
+
   __endasm;
-  // RETURN count moved to Yield
+  // "RETURN count" moved to Yield
 } //Tasks_Run
 
 /*----------------------------------------------------------------------------*/
-void Tasks_Yield (void) {
+void Tasks_Yield (void) __naked { // Yield MUST NOT be started in "main" task
   __asm
 .globl __Run_SP
+
+#ifdef SAFE
+           LD   HL, #_Tasks_myid+1   ;
+           XOR  A                    ;
+           CP   (HL)                 ; IF myid IN {0..255} THEN HALT(23)
+           JR   Z, HALT_23$          ;
+           LD   (HL), A              ; myid := 0
+           DEC  HL                   ;
+           LD   (HL), A              ;
+#else
+           LD   HL, #0               ;
+           LD   (_Tasks_myid), HL    ; myid := 0
+#endif
+
 // Save current context (IX, SP)
            PUSH IX
-           LD   HL, (_Tasks_current) ; ADR(Context.sp)
+           LD   HL, (_Tasks_current) ; ADR(Context.SP)
            LD   (Temp_SP$+2), HL
 Temp_SP$:  LD   (0), SP
 
@@ -113,11 +144,27 @@ __Run_SP:  LD   SP, #0
            LD   (_Tasks_current), HL ; (Context.next)
 
 // Run() RETURN count
-           LD  HL, (_Tasks_count)
+           LD   HL, (_Tasks_count)
+           RET
+
+#ifdef SAFE
+HALT_23$:  RST  8
+           .DB  23                   ; "Invalid stream"
+#endif
+
   __endasm;
 } //Tasks_Yield
 
 /*----------------------------------------------------------------------------*/
 void Tasks__init (void) {
-  Tasks_count = 0; Tasks_myid = 0;
-}
+  __asm
+           LD   HL, #_Tasks_count
+           XOR  A                    ;
+           LD   (HL), A              ; count = 0
+           INC  HL
+           LD   (HL), A              ;
+           INC  HL                   ; myid = 0
+           LD   (HL), A              ;
+  __endasm;
+
+} //Tasks__init
