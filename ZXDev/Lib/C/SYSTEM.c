@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-export void SYSTEM_HALT_m1 (unsigned char n);
+export void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
 export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
@@ -11,18 +11,15 @@ export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 /*================================== Header ==================================*/
 
-void SYSTEM_HALT_m1 (unsigned char n) __naked {
+void SYSTEM_HALT_m1 (unsigned char n) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   IM   1
   EI
-  POP  HL ; јдрес возврата больше не нужен (не возвращаемс€)
-  DEC  SP ; ¬ыравним стек чтобы достать аргумент в рег. A
-  POP  AF
-  LD   (HALTCODE$),A
+  LD   (HALTCODE$),HL
   RST  8
 HALTCODE$:
-  .DB  0xFF
+  .DB  0xFF ; ѕортит содержимое байта после этого, но он больше не нужен
 __endasm;
 } //SYSTEM_HALT_m1
 
