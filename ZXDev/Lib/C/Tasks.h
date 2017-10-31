@@ -51,6 +51,8 @@ typedef
 #define Tasks_Huge__typ 0
 
 
+#define Tasks_Id(ctx) (int)ctx
+
 extern int Tasks_myid;
 #define Tasks_MyId() Tasks_myid
 
@@ -61,7 +63,7 @@ extern void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(
 
 extern void Tasks_Yield (void);
 
-extern void Tasks__init (void);
+extern void Tasks__init (void) __preserves_regs(b,c,d,e,iyl,iyh);
 
 
 #endif
