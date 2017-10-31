@@ -71,7 +71,7 @@ extern void SYSTEM_REGFIN();
 extern void SYSTEM_INIT();
 //extern void SYSTEM_FINI();
 #define SYSTEM_FINI()
-extern void SYSTEM_HALT_m1 (unsigned char n);
+extern void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
 #define SYSTEM_HALT(n) SYSTEM_HALT_m1(n-1)
 extern void SYSTEM_INHERIT();
 extern void SYSTEM_ENUMP();
