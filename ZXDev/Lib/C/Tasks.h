@@ -51,14 +51,17 @@ typedef
 #define Tasks_Huge__typ 0
 
 
+extern unsigned char Tasks_count;
+#define Tasks_Count() Tasks_count
+
 #define Tasks_Id(ctx) (int)ctx
 
 extern int Tasks_myid;
 #define Tasks_MyId() Tasks_myid
 
-extern unsigned char Tasks_Run (void);
+extern void Tasks_Run (void);
 
-extern void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void));// __z88dk_callee;
+extern void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void)) __z88dk_callee;
 #define Tasks_Spawn(ctx, proc) Tasks_Spawn_Ex((void*)&ctx, sizeof(ctx), proc)
 
 extern void Tasks_Yield (void);
