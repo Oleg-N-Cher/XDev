@@ -2,9 +2,8 @@ MODULE Tasks; (** non-portable *)
 
 (**
   ERRORS:
-    22 "Statement lost" - Run() called in not "main" task
-    23 "Invalid stream" - Yield called in "main" task
-    25 "Parameter error"
+    22 "Statement lost" - Run called in not "main" task
+    25 "Parameter error" - the task is already spawned
 *)
 
 TYPE
@@ -14,17 +13,18 @@ TYPE
     IX, PC, _RETURN: INTEGER;
   END;
 
+  Low    * = RECORD (Context) stack: ARRAY  20 OF BYTE END;
   Tiny   * = RECORD (Context) stack: ARRAY  40 OF BYTE END;
   Small  * = RECORD (Context) stack: ARRAY  60 OF BYTE END;
   Medium * = RECORD (Context) stack: ARRAY  80 OF BYTE END;
   Large  * = RECORD (Context) stack: ARRAY 100 OF BYTE END;
   Huge   * = RECORD (Context) stack: ARRAY 120 OF BYTE END;
 
-PROCEDURE Count* (): SHORTINT;                              END Count;
+PROCEDURE Count* (): SHORTINT;                             END Count;
 PROCEDURE Spawn* ((**VAR*) ctx: Context; proc: PROCEDURE); END Spawn;
-PROCEDURE Id* (ctx: Context): INTEGER;                      END Id;
-PROCEDURE MyId* (): INTEGER;                                END MyId;
-PROCEDURE Run* ;                                            END Run;
-PROCEDURE Yield* ;                                          END Yield;
+PROCEDURE Id* (ctx: Context): INTEGER;                     END Id;
+PROCEDURE MyId* (): INTEGER;                               END MyId;
+PROCEDURE Run* ;                                           END Run;
+PROCEDURE Yield* ;                                         END Yield;
 
 END Tasks.

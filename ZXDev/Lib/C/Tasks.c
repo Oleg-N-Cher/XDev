@@ -1,9 +1,13 @@
-#define SAFE
+// Check the safety of adding a task (is this task not in the list?). HALT(25)
+#define SAFE_SPAWN
+// Check Run: is it called in "main" task? If not, HALT(22)
+#define SAFE_RUN
+// Is it possible to call Yield in "main" task? (to design universal procedures)
+#define SAFE_YIELD
 
 // ERRORS:
-//   22 "Statement lost" - Run() called in not "main" task
-//   23 "Invalid stream" - Yield called in "main" task
-//   25 "Parameter error"
+//   22 "Statement lost" - Run called in not "main" task
+//   25 "Parameter error" - the task is already spawned
 // http://www.worldofspectrum.org/ZXBasicManual/zxmanappb.html
 
 typedef
@@ -15,26 +19,6 @@ typedef
 
 int Tasks_myid; unsigned char Tasks_count; // Both must go together
 int Tasks_current;
-
-/*----------------------------------------------------------------------------*/
-void _Tasks_RETURN (void) __naked {
-  __asm
-           XOR  A                    ;
-           LD   HL, #_Tasks_myid     ;
-           LD   (HL), A              ;
-           INC  HL                   ; myid := 0
-           LD   (HL), A              ;
-           INC  HL                   ;
-           DEC  (HL)                 ; DEC(count)
-
-// Load Run() context (IX, SP)
-           LD   HL, (_Tasks_current) ; ADR(Context.SP)
-           JP   __Run_SP
-
-// Remove completed task, update Context.next
-// update Context.next
-  __endasm;
-} //_Tasks_RETURN
 
 /*----------------------------------------------------------------------------*/
 void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void))
@@ -104,7 +88,7 @@ TASK_EXIST$:
     //   for(;;) {
 FIND_TASK$:
 
-#ifdef SAFE
+#ifdef SAFE_SPAWN
     //     if( found == (int)ctx ) HALT(25);
            LD   A, L
            CP   E
@@ -122,12 +106,19 @@ NOT_EQUAL$:
            INC  HL
            LD   A, (HL)
            CP   C
-           JR   NZ, FIND_TASK$
+           JR   NZ, FIND_NEXT$+1
            INC  HL
            LD   A, (HL)
            DEC  HL
            CP   B
-           JR   NZ, FIND_TASK$
+           JR   Z, TASK_FOUND$
+FIND_NEXT$:
+           LD   A, (HL)
+           INC  HL
+           LD   H, (HL)
+           LD   L, A
+           JR   FIND_TASK$
+TASK_FOUND$:
     //     found = ((Tasks_Context*)found)->next;
     //   }
     //   ((Tasks_Context*)found)->next = (int)ctx;
@@ -175,16 +166,16 @@ CREATE_STK$:                         ; DE = ctx
 } //Tasks_Spawn_Ex
 
 /*----------------------------------------------------------------------------*/
-void Tasks_Run (void) __naked { // Run() MUST be started in "main" task
+void Tasks_Run (void) __naked { // Run MUST be started in "main" task
   __asm
 
-#ifdef SAFE
+#ifdef SAFE_RUN
            LD   A, (_Tasks_count)    ;
            OR   A                    ;
            RET  Z                    ; IF count = 0 THEN RETURN
            LD   A, (_Tasks_myid+1)   ;
            OR   A                    ;
-           JR   NZ, HALT_22$         ; IF myid IN {0..255} THEN HALT(22)
+           JR   NZ, HALT_22$         ; IF ~ (myid IN {0..255}) THEN HALT(22)
 #endif
 
 // Save IX, SP
@@ -202,13 +193,12 @@ void Tasks_Run (void) __naked { // Run() MUST be started in "main" task
            POP  IX
            RET                       ; CALL current task
 
-#ifdef SAFE
+#ifdef SAFE_RUN
 HALT_22$:  RST  8
            .DB  22                   ; "Statement lost"
 #endif
 
   __endasm;
-  // "RETURN count" moved to Yield
 } //Tasks_Run
 
 /*----------------------------------------------------------------------------*/
@@ -216,11 +206,11 @@ void Tasks_Yield (void) __naked { // Yield MUST NOT be started in "main" task
   __asm
 .globl __Run_SP
 
-#ifdef SAFE
+#ifdef SAFE_YIELD
            LD   HL, #_Tasks_myid+1   ;
            XOR  A                    ;
-           CP   (HL)                 ; IF myid IN {0..255} THEN HALT(23)
-           JR   Z, HALT_23$          ;
+           CP   (HL)                 ; IF myid IN {0..255} THEN RETURN
+           RET  Z                    ;
            LD   (HL), A              ; myid := 0
            DEC  HL                   ;
            LD   (HL), A              ;
@@ -235,7 +225,7 @@ void Tasks_Yield (void) __naked { // Yield MUST NOT be started in "main" task
            LD   (Temp_SP$+2), HL
 Temp_SP$:  LD   (0), SP
 
-// Load Run() context (IX, SP)
+// Load Run context (IX, SP)
 __Run_SP:  LD   SP, #0
            POP  IX
 
@@ -248,17 +238,76 @@ __Run_SP:  LD   SP, #0
            LD   L, A
            LD   (_Tasks_current), HL ; (Context.next)
 
-// Run() RETURN count
-           LD   HL, (_Tasks_count)
+// Run RETURN
            RET
-
-#ifdef SAFE
-HALT_23$:  RST  8
-           .DB  23                   ; "Invalid stream"
-#endif
-
   __endasm;
 } //Tasks_Yield
+
+/*----------------------------------------------------------------------------*/
+void _Tasks_RETURN (void) __naked {
+  __asm
+           XOR  A                    ;
+           LD   HL, #_Tasks_myid     ;
+           LD   (HL), A              ;
+           INC  HL                   ; myid := 0
+           LD   (HL), A              ;
+           INC  HL                   ;
+           DEC  (HL)                 ; DEC(count)
+           LD   HL, (_Tasks_current) ; ADR(Context.SP)
+           JR   Z, __Run_SP
+
+// Remove completed task from list, update Context.next
+/*
+    int found = Tasks_current;
+    for(;;) {
+      if (((Tasks_Context*)found)->next == Tasks_current) break;
+      found = ((Tasks_Context*)found)->next;
+    }
+    // Remove this task from the list
+    ((Tasks_Context*)found)->next = (int)Tasks_current->next;
+*/
+    //   int found = Tasks_current;
+                                     ; HL = found
+           LD   C, L                 ;
+           LD   B, H                 ; BC = current
+    //   for(;;) {
+FIND_LAST$:
+    //     if (((Tasks_Context*)found)->next == Tasks_current) break;
+           INC  HL
+           INC  HL
+           LD   A, (HL)
+           CP   C
+           JR   NZ, FIND_NXT$+1
+           INC  HL
+           LD   A, (HL)
+           DEC  HL
+           CP   B
+           JR   Z, LAST_FOUND$
+FIND_NXT$:
+           LD   A, (HL)
+           INC  HL
+           LD   H, (HL)
+           LD   L, A
+           JR   FIND_LAST$
+LAST_FOUND$:
+
+    //     found = ((Tasks_Context*)found)->next;
+    //   }
+    //   ((Tasks_Context*)found)->next = (int)Tasks_current->next;
+           INC  BC
+           INC  BC
+           LD   A, (BC)
+           LD   (HL), A
+           INC  BC
+           INC  HL
+           LD   A, (BC)
+           LD   (HL), A
+
+// Load Run context (IX, SP)
+           LD   HL, (_Tasks_current)
+           JR   __Run_SP
+  __endasm;
+} //_Tasks_RETURN
 
 /*----------------------------------------------------------------------------*/
 void Tasks__init (void) {

@@ -12,7 +12,15 @@ PROCEDURE Proc;
 VAR
   i: SHORTINT;
 BEGIN
-  i := 0; WHILE str[i] # 0X DO out.WriteCh(str[i]); INC(i); co.Yield END;
+  i := 0;
+  WHILE str[i] # 0X DO
+    IF co.MyId() = co.Id(task1) THEN out.SetColors(out.LRedOnBlack)   END;
+    IF co.MyId() = co.Id(task2) THEN out.SetColors(out.YellowOnBlack) END;
+    IF co.MyId() = co.Id(task3) THEN out.SetColors(out.GreenOnBlack)  END;
+    out.WriteCh(str[i]);
+    INC(i);
+    co.Yield;
+  END;
 END Proc;
 
 BEGIN

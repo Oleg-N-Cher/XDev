@@ -41,9 +41,17 @@ typedef
     char _prvt2 [40];
     INTEGER _prvt3, _prvt4, _prvt5;
   } Tasks_Tiny;
+  
+typedef
+  struct Tasks_Low {
+    INTEGER _prvt0, _prvt1;
+    char _prvt2 [20];
+    INTEGER _prvt3, _prvt4, _prvt5;
+  } Tasks_Low;
 
 
 #define Tasks_Context__typ 0
+#define Tasks_Low__typ 0
 #define Tasks_Tiny__typ 0
 #define Tasks_Small__typ 0
 #define Tasks_Medium__typ 0
