@@ -35,6 +35,7 @@ extern void Best40_PUTSPR (
 extern void Best40_SCREEN_APART (unsigned char steps);
 extern void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee __preserves_regs(c,iyl,iyh);
 #define Best40_PRSTR_AT(x,y,str,len) Best40_PRSTR_AT_E(x,y,str)
+extern void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee __preserves_regs(iyl,iyh);
 
 #define Best40__init()
 

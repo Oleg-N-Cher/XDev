@@ -1158,7 +1158,124 @@ NEXTLT$:  INC     E
 __endasm;
 } //Best40_PRSTR_AT_E
 
-/* http://zxpress.ru/book_articles.php?id=671
+/*--------------------------------- Cut here ---------------------------------*/
+void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee {
+__asm
+; https://github.com/impomatic/z80snippets/blob/master/filledcircle.asm
+
+; FAST FILLED CIRCLE - Sinclair Spectrum, displays filled circle
+; on entry, d = x-centre, e = y-centre, c = radius
+; on exit, a, bc, de, hl corrupt
+; Length 106 - John Metcalf, Sun 28 Feb 1999
+
+; Draws filled circles very quickly. An assortment of tricks have
+; been used to achieve this. This new version is over 10% faster
+; than the previous after further optimizing the inner loops.
+
+          POP   HL
+          POP   BC
+          LD    E,B
+          LD    D,C       ; E = X-centre, D = Y-centre
+          DEC   SP
+          POP   BC
+          LD    C,B       ; C = radius
+          PUSH  HL
+
+          LD    B,#0
+          LD    A,E       ; Subtract radius from y-centre
+          INC   C
+          SUB   C
+          LD    E,A
+
+          LD    H,B       ; HL = 0
+          LD    L,B
+
+NEXT$:    PUSH  BC
+          PUSH  HL
+
+          LD    BC,#65280 ; Triangular root :-)
+CALC$:    DEC   C
+          ADD   HL,BC
+          JR    C,CALC$
+
+          LD    A,E       ; Calc pos in screen memory
+          CP    #192
+          JR    NC,OFFSCR$
+          RRCA
+          SCF
+          RRA
+          RRCA
+          LD    L,A
+          XOR   E
+          AND   #88
+          XOR   E
+          AND   #95
+          LD    H,A
+
+          LD    A,D
+          ADD   A,C
+          RL    C
+          LD    B,A
+          XOR   L
+          AND   #7
+          XOR   B
+          RRCA
+          RRCA
+          RRCA
+          LD    L,A
+
+          XOR   A         ; Calc first part byte (if any)
+          SUB   B
+          AND   #7
+          JR    Z,NOHALF$
+          LD    B,A
+          XOR   A
+          DEC   C
+VAIN$:    INC   C
+          JR    Z,ROTB$
+          SCF
+          RLA
+          DJNZ  VAIN$
+          INC   C
+          OR    (HL)
+          LD    (HL),A
+          INC   HL
+NOHALF$:  XOR   A         ; Calc full bytes (if any)
+          SUB   C
+          RRCA
+          RRCA
+          RRCA
+          AND   #31
+          JR    Z,NOFULL$
+          LD    B,A
+          LD    A,#255
+DRAW$:    LD    (HL),A
+          INC   HL
+          DJNZ  DRAW$
+NOFULL$:  LD    A,C       ; Calc final part byte (if any)
+          AND   #7
+          JR    Z,OFFSCR$
+          LD    B,A
+          LD    A,#255
+ROTB$:    ADD   A,A
+          DJNZ  ROTB$
+DISPLAY$: OR    (HL)
+          LD    (HL),A
+
+OFFSCR$:  POP   HL
+          POP   BC
+          INC   E         ; Next line
+          DEC   C
+          JR    NZ,SKIP$
+          DEC   BC
+SKIP$:    ADC   HL,BC
+          JR    NZ,NEXT$
+__endasm;
+} //Best40_FILLED_CIRCLE
+
+
+/* https://github.com/impomatic/z80snippets/
+   http://zxpress.ru/book_articles.php?id=671
 
 *********************************************
 (c) Колотов Сергей, г.Шадринск
