@@ -1,0 +1,13 @@
+MODULE CirclFilled; IMPORT B := Basic, Best40;
+
+VAR r: INTEGER;
+
+BEGIN (*$MAIN*)
+  B.Init;
+  FOR r := 160 TO 1 BY -1 DO
+    B.CLS;
+    Best40.FILLED_CIRCLE(127, B.RND(0, 191), B.RND(1, 50));
+    B.PAUSE(B.WaitAKey);
+  END;
+  B.Quit;
+END CirclFilled.
