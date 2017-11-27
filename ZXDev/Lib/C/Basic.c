@@ -139,6 +139,18 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed int Basic_ABSI (signed int x) __z88dk_fastcall {
+__asm // by John Metcalf
+    BIT  7,H     ;  8
+    RET  Z       ; 11/5
+    XOR  A       ;  4
+    SUB  L       ;  4
+    LD   L,A     ;  4
+    SBC  A,A     ;  4
+    SUB  H       ;  4
+    LD   H,A     ;  4 => 37/19
+__endasm;
+
+/*
 __asm // Code by Titus
     LD   A,H     ;  4
     OR   A       ;  4
@@ -150,6 +162,7 @@ __asm // Code by Titus
     LD   L,A     ;  4
     INC  HL      ;  6 => 39/19
 __endasm;
+*/
 
 /*
 __asm
