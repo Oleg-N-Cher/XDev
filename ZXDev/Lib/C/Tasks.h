@@ -62,7 +62,10 @@ typedef
 extern unsigned char Tasks_count;
 #define Tasks_Count() Tasks_count
 
-#define Tasks_Id(ctx) (int)ctx
+
+#define __arg_KILLER__(a)
+
+#define Tasks_Id(ctx, typ) (int)(*__arg_KILLER__ ctx)
 
 extern int Tasks_myid;
 #define Tasks_MyId() Tasks_myid
@@ -70,7 +73,7 @@ extern int Tasks_myid;
 extern void Tasks_Run (void);
 
 extern void Tasks_Spawn_Ex (Tasks_Context *ctx, unsigned int size, void (*proc)(void)) __z88dk_callee;
-#define Tasks_Spawn(ctx, proc) Tasks_Spawn_Ex((void*)&ctx, sizeof(ctx), proc)
+#define Tasks_Spawn(ctx, typ, proc) Tasks_Spawn_Ex(ctx, sizeof(*__arg_KILLER__ ctx), proc)
 
 extern void Tasks_Yield (void);
 

@@ -21,9 +21,9 @@ BEGIN
   LOOP
     g.PUTSPR(x, y, 1, 8, SYSTEM.ADR(Ball), g.XORSPR);
     IF (x < 1) OR (x > 247) THEN sx := -sx END;
-    x := x + sx;
+    INC(x, sx);
     IF (y < 8) OR (y > 190) THEN sy := -sy END;
-    y := y + sy;
+    INC(y, sy);
     g.PUTSPR(x, y, 1, 8, SYSTEM.ADR(Ball), g.XORSPR);
     t.Yield;
   END;

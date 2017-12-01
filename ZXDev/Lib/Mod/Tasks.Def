@@ -20,11 +20,11 @@ TYPE
   Large  * = RECORD (Context) stack: ARRAY 100 OF BYTE END;
   Huge   * = RECORD (Context) stack: ARRAY 120 OF BYTE END;
 
-PROCEDURE Count* (): SHORTINT;                             END Count;
-PROCEDURE Spawn* ((**VAR*) ctx: Context; proc: PROCEDURE); END Spawn;
-PROCEDURE Id* (ctx: Context): INTEGER;                     END Id;
-PROCEDURE MyId* (): INTEGER;                               END MyId;
-PROCEDURE Run* ;                                           END Run;
-PROCEDURE Yield* ;                                         END Yield;
+PROCEDURE Count* (): SHORTINT;                        END Count;
+PROCEDURE Spawn* (VAR ctx: Context; proc: PROCEDURE); END Spawn;
+PROCEDURE Id* (IN ctx: Context): INTEGER;             END Id;
+PROCEDURE MyId* (): INTEGER;                          END MyId;
+PROCEDURE Run* ;                                      END Run;
+PROCEDURE Yield* ;                                    END Yield;
 
 END Tasks.
