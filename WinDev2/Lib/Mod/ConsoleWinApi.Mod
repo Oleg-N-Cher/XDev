@@ -1,0 +1,2 @@
+MODULE ConsoleWinApi;
+END ConsoleWinApi.

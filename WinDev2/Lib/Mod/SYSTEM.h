@@ -206,7 +206,7 @@ extern void       Heap_INCREF();
 
 #ifdef SYSTEM_Cfg_NoGC
 #  define __REGCMD(name, cmd)
-#  define __REGMOD(name, enum)	m=1
+#  define __REGMOD(name, enum)	m=POINTER__typ
 #  define __IMPORT(name__init)  name__init()
 #else
 #  define __REGCMD(name, cmd)   Heap_REGCMD(m, (CHAR*)name, cmd)

@@ -1,0 +1,1 @@
+#define OUTPUT_StdIO
