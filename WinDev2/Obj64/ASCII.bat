@@ -1,4 +1,4 @@
 @SET Pause=TRUE
 @SET Start=TRUE
 
-@..\Bin\Build.bat ASCII
+@..\Bin\Build64.bat ASCII

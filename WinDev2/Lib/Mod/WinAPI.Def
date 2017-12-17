@@ -15,7 +15,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	IMPORT SYSTEM, Types;
 
 	TYPE (* base types *)
-		PtrVoid* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
+		PtrVoid* = Types.ADRINT; (* 32 or 64 bit *)
 		SIZE_T* = Types.ADRINT; (* 32 or 64 bit *)
 		SHORTCHAR = CHAR;
 		WCHAR = SHORTINT;
@@ -6404,7 +6404,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 
 	TYPE
 		BOOL* = INTEGER;
-		HANDLE* = PtrVoid;
+		HANDLE* = Types.ADRINT;
 		LCID* = INTEGER;
 		LANGID* = SHORTINT;
 		USN* = LONGINT;

@@ -295,12 +295,31 @@
 #  define Console_YellowOnLWhite		((Console_LightWhite << 4) + Console_Yellow)
 #  define Console_LWhiteOnLWhite		((LightWhite << 4) + Console_LightWhite)
 
-
-extern void ConsoleStdIO_WriteCh (char ch);
-
+#ifdef OUTPUT_StdIO
+   extern void ConsoleStdIO_WriteCh (char ch);
+   extern void ConsoleStdIO_WriteStr (char *str, int str__len);
+   
+#  define Console_SetColors(colors)
 #  define Console_WriteCh ConsoleStdIO_WriteCh
+#  define Console_WriteStr ConsoleStdIO_WriteStr
 
-#define Console__init()
+#  define Console__init()
+#endif
+
+#ifdef OUTPUT_WinAPI
+   extern void ConsoleWinAPI_SetColors (short int colors);
+   extern void ConsoleWinAPI_WriteCh (char ch);
+   extern void ConsoleWinAPI_WriteInt (int n);
+   extern void ConsoleWinAPI_WriteStr (char *str, int str__len);
+   extern void *ConsoleWinAPI__init (void);
+   
+#  define Console_SetColors ConsoleWinAPI_SetColors
+#  define Console_WriteCh ConsoleWinAPI_WriteCh
+#  define Console_WriteInt ConsoleWinAPI_WriteInt
+#  define Console_WriteStr ConsoleWinAPI_WriteStr
+
+#  define Console__init ConsoleWinAPI__init
+#endif
 
 
 #endif //__Console_h

@@ -1,0 +1,1 @@
+#define Types__init()

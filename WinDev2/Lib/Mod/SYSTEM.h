@@ -206,7 +206,7 @@ extern void       Heap_INCREF();
 
 #ifdef SYSTEM_Cfg_NoGC
 #  define __REGCMD(name, cmd)
-#  define __REGMOD(name, enum)	m=POINTER__typ
+#  define __REGMOD(name, enum)  m=POINTER__typ
 #  define __IMPORT(name__init)  name__init()
 #else
 #  define __REGCMD(name, cmd)   Heap_REGCMD(m, (CHAR*)name, cmd)
@@ -240,8 +240,18 @@ extern void Heap_FINALL();
 extern void SYSTEM_HALT(INTEGER code);
 extern void SYSTEM_ASSERT_FAIL(INTEGER code);
 
-#define __HALT(code)         SYSTEM_HALT(code)
-#define __ASSERT(cond, code) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
+#ifdef SYSTEM_Cfg_NoGC
+#  ifdef SYSTEM_Cfg_KERNEL32
+     __attribute__((dllimport)) void __attribute__((__stdcall__)) ExitProcess (int);
+#    define __HALT ExitProcess
+#  else
+#    define __HALT exit
+#  endif
+#  define __ASSERT(cond, code) if (!(cond)) __HALT(x)
+#else
+#  define __HALT(code)       SYSTEM_HALT(code)
+#  define __ASSERT(cond, code) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
+#endif
 
 
 // Memory allocation
@@ -262,24 +272,34 @@ extern void SYSTEM_INHERIT(SYSTEM_ADRINT *t, SYSTEM_ADRINT *t0);
 extern void SYSTEM_ENUMP  (void *adr, SYSTEM_ADRINT n, void (*P)());
 extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SYSTEM_ADRINT n, void (*P)());
 
-#define __TDESC(t__desc, m, n)                                                \
-  static struct t__desc {                                                     \
-    SYSTEM_ADRINT  tproc[m];         /* Proc for each ptr field            */ \
-    SYSTEM_ADRINT  tag;                                                       \
-    SYSTEM_ADRINT  next;             /* Module table type list points here */ \
-    SYSTEM_ADRINT  level;                                                     \
-    SYSTEM_ADRINT  module;                                                    \
-    char           name[24];                                                  \
-    SYSTEM_ADRINT  basep[__MAXEXT];  /* List of bases this extends         */ \
-    SYSTEM_ADRINT  reserved;                                                  \
-    SYSTEM_ADRINT  blksz;            /* xxx_typ points here                */ \
-    SYSTEM_ADRINT  ptr[n+1];         /* Offsets of ptrs up to -ve sentinel */ \
-  } t__desc
-
 #define __BASEOFF   (__MAXEXT+1)                           // blksz as index to base.
 #define __TPROC0OFF (__BASEOFF+24/sizeof(SYSTEM_ADRINT)+5) // blksz as index to tproc IFF m=1.
 #define __EOM 1
-#define __TDFLDS(name, size)          {__EOM}, 1, 0, 0, 0, name, {0}, 0, size
+
+#ifdef SYSTEM_Cfg_NoGC
+#  define __TDESC(t__desc, m, n) \
+     static struct t__desc {\
+       int tproc[m]; \
+       int ptr[n+1]; \
+     } t__desc
+#  define __TDFLDS(name, size) {}
+#else
+#  define __TDESC(t__desc, m, n) \
+     static struct t__desc {                                                   \
+       SYSTEM_ADRINT  tproc[m];       /* Proc for each ptr field            */ \
+       SYSTEM_ADRINT  tag;                                                     \
+       SYSTEM_ADRINT  next;           /* Module table type list points here */ \
+       SYSTEM_ADRINT  level;                                                   \
+       SYSTEM_ADRINT  module;                                                  \
+       char           name[24];                                                \
+       SYSTEM_ADRINT  basep[__MAXEXT];/* List of bases this extends         */ \
+       SYSTEM_ADRINT  reserved;                                                \
+       SYSTEM_ADRINT  blksz;          /* xxx_typ points here                */ \
+       SYSTEM_ADRINT  ptr[n+1];       /* Offsets of ptrs up to -ve sentinel */ \
+     } t__desc
+#  define __TDFLDS(name, size)        {__EOM}, 1, 0, 0, 0, name, {0}, 0, size
+#endif
+
 #define __ENUMP(adr, n, P)            SYSTEM_ENUMP(adr, (SYSTEM_ADRINT)(n), P)
 #define __ENUMR(adr, typ, size, n, P) SYSTEM_ENUMR(adr, typ, (SYSTEM_ADRINT)(size), (SYSTEM_ADRINT)(n), P)
 
