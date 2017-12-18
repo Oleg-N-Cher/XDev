@@ -15,12 +15,13 @@ MODULE WinAPI (*KERNEL32.dll*);
 	IMPORT SYSTEM, Types;
 
 	TYPE (* base types *)
-		PtrVoid* = Types.ADRINT; (* 32 or 64 bit *)
-		SIZE_T* = Types.ADRINT; (* 32 or 64 bit *)
+		ADRINT* = Types.ADRINT; (* 32 or 64 bit *)
+		PtrVoid* = ADRINT; (* 32 or 64 bit *)
+		SIZE_T* = ADRINT; (* 32 or 64 bit *)
 		SHORTCHAR = CHAR;
 		WCHAR = SHORTINT;
-		PtrSTR* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
-		PtrWSTR* = POINTER [1] TO ARRAY [1] 1 OF CHAR; (* 32 or 64 bit *)
+		PtrSTR* = ADRINT; (* 32 or 64 bit *)
+		PtrWSTR* = ADRINT; (* 32 or 64 bit *)
 		DATE* = REAL;
 		CY* = LONGINT;
 		ACCESS_MASK* = SET;
@@ -6404,7 +6405,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 
 	TYPE
 		BOOL* = INTEGER;
-		HANDLE* = Types.ADRINT;
+		HANDLE* = ADRINT;
 		LCID* = INTEGER;
 		LANGID* = SHORTINT;
 		USN* = LONGINT;
@@ -6937,7 +6938,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 					Short*: INTEGER;
 					Long*: INTEGER;
 				END;
-				LongName*: ARRAY [1] 2 OF POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;*)
+				LongName*: ARRAY [1] 2 OF ADRINT;*)
 			END;
 			Value*: INTEGER;
 			SectionNumber*: SHORTINT;
@@ -7021,9 +7022,9 @@ MODULE WinAPI (*KERNEL32.dll*);
 			Base*: INTEGER;
 			NumberOfFunctions*: INTEGER;
 			NumberOfNames*: INTEGER;
-			AddressOfFunctions*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			AddressOfNames*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			AddressOfNameOrdinals*: POINTER TO (*?*) ARRAY [1] OF POINTER TO (*?*) ARRAY [1] OF SHORTINT;
+			AddressOfFunctions*: ADRINT;
+			AddressOfNames*: ADRINT;
+			AddressOfNameOrdinals*: ADRINT;
 		END;
 		PtrIMAGE_EXPORT_DIRECTORY* = POINTER [1] TO IMAGE_EXPORT_DIRECTORY;
 		IMAGE_IMPORT_BY_NAME* = RECORD [1](*noalign*)
@@ -7033,8 +7034,8 @@ MODULE WinAPI (*KERNEL32.dll*);
 		PtrIMAGE_IMPORT_BY_NAME* = POINTER [1] TO IMAGE_IMPORT_BY_NAME;
 		IMAGE_THUNK_DATA* = RECORD [1]
 			u1*: RECORD [1](*union*)
-				ForwarderString*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
-				(*Function*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+				ForwarderString*: ADRINT;
+				(*Function*: ADRINT;
 				Ordinal*: INTEGER;
 				AddressOfData*: PtrIMAGE_IMPORT_BY_NAME;*)
 			END;
@@ -7067,8 +7068,8 @@ MODULE WinAPI (*KERNEL32.dll*);
 		IMAGE_TLS_DIRECTORY* = RECORD [1](*noalign*)
 			StartAddressOfRawData*: INTEGER;
 			EndAddressOfRawData*: INTEGER;
-			AddressOfIndex*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			AddressOfCallBacks*: POINTER TO (*?*) ARRAY [1] OF IMAGE_TLS_CALLBACK;
+			AddressOfIndex*: ADRINT;
+			AddressOfCallBacks*: ADRINT;
 			SizeOfZeroFill*: INTEGER;
 			Characteristics*: INTEGER;
 		END;
@@ -7718,7 +7719,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			dwFlags*: SET;
 			wShowWindow*: SHORTINT;
 			cbReserved2*: SHORTINT;
-			lpReserved2*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
+			lpReserved2*: ADRINT;
 			hStdInput*: HANDLE;
 			hStdOutput*: HANDLE;
 			hStdError*: HANDLE;
@@ -7739,7 +7740,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			dwFlags*: SET;
 			wShowWindow*: SHORTINT;
 			cbReserved2*: SHORTINT;
-			lpReserved2*: POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
+			lpReserved2*: ADRINT;
 			hStdInput*: HANDLE;
 			hStdOutput*: HANDLE;
 			hStdError*: HANDLE;
@@ -8519,7 +8520,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			lpstr*: PtrSTR;
 			uiFlags*: SET;
 			rcl*: RECT;
-			pdx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			pdx*: ADRINT;
 		END;
 		PtrPOLYTEXTA* = POINTER [1] TO POLYTEXTA;
 		POLYTEXTW* = RECORD [1]
@@ -8529,7 +8530,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			lpstr*: PtrWSTR;
 			uiFlags*: SET;
 			rcl*: RECT;
-			pdx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			pdx*: ADRINT;
 		END;
 		PtrPOLYTEXTW* = POINTER [1] TO POLYTEXTW;
 		POLYTEXT* = POLYTEXTA;
@@ -8573,9 +8574,9 @@ MODULE WinAPI (*KERNEL32.dll*);
 		GCP_RESULTSA* = RECORD [1]
 			lStructSize*: INTEGER;
 			lpOutString*: PtrSTR;
-			lpOrder*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			lpDx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			lpCaretPos*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpOrder*: ADRINT;
+			lpDx*: ADRINT;
+			lpCaretPos*: ADRINT;
 			lpClass*: PtrSTR;
 			lpGlyphs*: PtrWSTR;
 			nGlyphs*: INTEGER;
@@ -8585,9 +8586,9 @@ MODULE WinAPI (*KERNEL32.dll*);
 		GCP_RESULTSW* = RECORD [1]
 			lStructSize*: INTEGER;
 			lpOutString*: PtrWSTR;
-			lpOrder*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			lpDx*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
-			lpCaretPos*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			lpOrder*: ADRINT;
+			lpDx*: ADRINT;
+			lpCaretPos*: ADRINT;
 			lpClass*: PtrSTR;
 			lpGlyphs*: PtrWSTR;
 			nGlyphs*: INTEGER;
@@ -10575,7 +10576,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			pfnDlgProc*: DLGPROC;
 			lParam*: LPARAM;
 			pfnCallback*: FNPSPCALLBACKA;
-			pcRefParent*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			pcRefParent*: ADRINT;
 		END;
 		PROPSHEETPAGEW* = RECORD [1]
 			dwSize*: INTEGER;
@@ -10593,7 +10594,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			pfnDlgProc*: DLGPROC;
 			lParam*: LPARAM;
 			pfnCallback*: FNPSPCALLBACKW;
-			pcRefParent*: POINTER TO (*?*) ARRAY [1] OF INTEGER;
+			pcRefParent*: ADRINT;
 		END;
 		PROPSHEETPAGE* = PROPSHEETPAGEA; (*m*)
 		PtrPROPSHEETPAGE* = PtrPROPSHEETPAGEA;
@@ -10617,7 +10618,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			END;
 			u2*: RECORD [1](*union*)
 				ppsp*: PtrPROPSHEETPAGEA;
-				(*phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;*)
+				(*phpage*: ADRINT;*)
 			END;
 			pfnCallback*: FNPROPSHEETCALLBACK;
 		END;
@@ -10639,7 +10640,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			END;
 			u2*: RECORD [1](*union*)
 				ppsp*: PtrPROPSHEETPAGEW;
-				(*phpage*: POINTER TO (*?*) ARRAY [1] OF Ptr_PSP;*)
+				(*phpage*: ADRINT;*)
 			END;
 			pfnCallback*: FNPROPSHEETCALLBACK;
 		END;
@@ -11057,7 +11058,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 			Reserved1*: INTEGER;
 			Reserved2*: INTEGER;
 			Count*: INTEGER;
-			pFields*: POINTER TO (*?*) ARRAY [1] OF SHORTINT;
+			pFields*: ADRINT;
 		END;
 		PtrPRINTER_NOTIFY_OPTIONS_TYPE* = POINTER [1] TO PRINTER_NOTIFY_OPTIONS_TYPE;
 		PRINTER_NOTIFY_OPTIONS* = RECORD [1]
@@ -11169,8 +11170,8 @@ MODULE WinAPI (*KERNEL32.dll*);
 		PtrQUERY_SERVICE_CONFIGW* = POINTER [1] TO QUERY_SERVICE_CONFIGW;
 		QUERY_SERVICE_CONFIG* = QUERY_SERVICE_CONFIGA;
 		PtrQUERY_SERVICE_CONFIG* = PtrQUERY_SERVICE_CONFIGA;
-		SERVICE_MAIN_FUNCTIONW* = PROCEDURE [1] (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrWSTR);
-		SERVICE_MAIN_FUNCTIONA* = PROCEDURE [1] (dwNumServicesArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrSTR);
+		SERVICE_MAIN_FUNCTIONW* = PROCEDURE [1] (dwNumServicesArgs: INTEGER; lpServiceArgVectors: ADRINT);
+		SERVICE_MAIN_FUNCTIONA* = PROCEDURE [1] (dwNumServicesArgs: INTEGER; lpServiceArgVectors: ADRINT);
 		SERVICE_TABLE_ENTRYA* = RECORD [1]
 			lpServiceName*: PtrSTR;
 			lpServiceProc*: SERVICE_MAIN_FUNCTIONA;
@@ -11222,9 +11223,9 @@ MODULE WinAPI (*KERNEL32.dll*);
 			abVariablePortion*: ARRAY [1] 1 OF SHORTCHAR;
 		END;
 		PtrMODEMSETTINGS* = POINTER [1] TO MODEMSETTINGS;
-		RetGetSidSubAuthority* = POINTER TO (*?*) ARRAY [1] OF INTEGER;
-		RetDdeAccessData* = POINTER TO (*?*) ARRAY [1] OF SHORTCHAR;
-		RetCommandLineToArgvW* = POINTER TO (*?*) ARRAY [1] OF PtrWSTR;
+		RetGetSidSubAuthority* = ADRINT;
+		RetDdeAccessData* = ADRINT;
+		RetCommandLineToArgvW* = ADRINT;
 
   PROCEDURE -Instance* (): HINSTANCE "__hInstance";
   PROCEDURE -PrevInstance* (): HINSTANCE "__hPrevInstance";
@@ -11243,7 +11244,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -InterlockedExchangeAdd* (VAR [nil] Addend: INTEGER; Value: INTEGER): INTEGER;
 	(*END InterlockedExchangeAdd;*)
 
-	PROCEDURE [1] -InterlockedCompareExchange* (Destination: POINTER TO (*?*) ARRAY [1] OF PtrVoid; Exchange: PtrVoid; Comperand: PtrVoid): PtrVoid;
+	PROCEDURE [1] -InterlockedCompareExchange* (Destination: ADRINT; Exchange: PtrVoid; Comperand: PtrVoid): PtrVoid;
 	(*END InterlockedCompareExchange;*)
 
 	PROCEDURE [1] -FreeResource* (hResData: HGLOBAL): BOOL;
@@ -12047,13 +12048,13 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -WriteFileEx* (hFile: HANDLE; lpBuffer: PtrVoid; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpOverlapped: OVERLAPPED; lpCompletionRoutine: OVERLAPPED_COMPLETION_ROUTINE): BOOL;
 	(*END WriteFileEx;*)
 
-	PROCEDURE [1] -BackupRead* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -BackupRead* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToRead: INTEGER; VAR [nil] lpNumberOfBytesRead: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: ADRINT): BOOL;
 	(*END BackupRead;*)
 
-	PROCEDURE [1] -BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR [nil] lpdwLowByteSeeked: INTEGER; VAR [nil] lpdwHighByteSeeked: INTEGER; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -BackupSeek* (hFile: HANDLE; dwLowBytesToSeek: INTEGER; dwHighBytesToSeek: INTEGER; VAR [nil] lpdwLowByteSeeked: INTEGER; VAR [nil] lpdwHighByteSeeked: INTEGER; lpContext: ADRINT): BOOL;
 	(*END BackupSeek;*)
 
-	PROCEDURE [1] -BackupWrite* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -BackupWrite* (hFile: HANDLE; VAR [nil] lpBuffer: SHORTCHAR; nNumberOfBytesToWrite: INTEGER; VAR [nil] lpNumberOfBytesWritten: INTEGER; bAbort: BOOL; bProcessSecurity: BOOL; lpContext: ADRINT): BOOL;
 	(*END BackupWrite;*)
 
 	PROCEDURE [1] -CreateMutexA* (VAR [nil] lpMutexAttributes: SECURITY_ATTRIBUTES; bInitialOwner: BOOL; lpName: PtrSTR): HANDLE;
@@ -12725,7 +12726,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -SearchPathW* (lpPath: PtrWSTR; lpFileName: PtrWSTR; lpExtension: PtrWSTR; nBufferLength: INTEGER; lpBuffer: PtrWSTR; VAR [nil] lpFilePart: PtrWSTR): INTEGER;
 	(*END SearchPathW;*)
 
-	PROCEDURE [1] -SearchPath* (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; lpFilePart: POINTER TO (*?*) ARRAY [1] OF PtrSTR): INTEGER "SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)";
+	PROCEDURE [1] -SearchPath* (lpPath: PtrSTR; lpFileName: PtrSTR; lpExtension: PtrSTR; nBufferLength: INTEGER; lpBuffer: PtrSTR; lpFilePart: ADRINT): INTEGER "SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)";
 	(*END SearchPath;*)
 
 	PROCEDURE [1] -CopyFileA* (lpExistingFileName: PtrSTR; lpNewFileName: PtrSTR; bFailIfExists: BOOL): BOOL;
@@ -12899,7 +12900,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -ReportEventA* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventA;*)
 
-	PROCEDURE [1] -ReportEventW* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; lpStrings: POINTER TO (*?*) ARRAY [1] OF PtrWSTR; lpRawData: PtrVoid): BOOL;
+	PROCEDURE [1] -ReportEventW* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; lpStrings: ADRINT; lpRawData: PtrVoid): BOOL;
 	(*END ReportEventW;*)
 
 	PROCEDURE [1] -ReportEvent* (hEventLog: HANDLE; wType: SHORTINT; wCategory: SHORTINT; dwEventID: INTEGER; lpUserSid: PSID; wNumStrings: SHORTINT; dwDataSize: INTEGER; VAR [nil] lpStrings: PtrSTR; lpRawData: PtrVoid): BOOL "ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)";
@@ -13055,7 +13056,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -DeleteAce* (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER): BOOL;
 	(*END DeleteAce;*)
 
-	PROCEDURE [1] -GetAce* (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -GetAce* (VAR [nil] pAcl: ACL; dwAceIndex: INTEGER; pAce: ADRINT): BOOL;
 	(*END GetAce;*)
 
 	PROCEDURE [1] -AddAccessAllowedAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; AccessMask: INTEGER; pSid: PSID): BOOL;
@@ -13067,7 +13068,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -AddAuditAccessAce* (VAR [nil] pAcl: ACL; dwAceRevision: INTEGER; dwAccessMask: INTEGER; pSid: PSID; bAuditSuccess: BOOL; bAuditFailure: BOOL): BOOL;
 	(*END AddAuditAccessAce;*)
 
-	PROCEDURE [1] -FindFirstFreeAce* (VAR [nil] pAcl: ACL; pAce: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -FindFirstFreeAce* (VAR [nil] pAcl: ACL; pAce: ADRINT): BOOL;
 	(*END FindFirstFreeAce;*)
 
 	PROCEDURE [1] -InitializeSecurityDescriptor* (pSecurityDescriptor: PSECURITY_DESCRIPTOR; dwRevision: INTEGER): BOOL;
@@ -16826,13 +16827,13 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -VerLanguageName* (wLang: INTEGER; szLang: PtrSTR; nSize: INTEGER): INTEGER "VerLanguageNameA(wLang, szLang, nSize)";
 	(*END VerLanguageName;*)
 
-	PROCEDURE [1] -VerQueryValueA* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
+	PROCEDURE [1] -VerQueryValueA* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: ADRINT; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueA;*)
 
-	PROCEDURE [1] -VerQueryValueW* (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL;
+	PROCEDURE [1] -VerQueryValueW* (pBlock: PtrVoid; lpSubBlock: PtrWSTR; lplpBuffer: ADRINT; VAR [nil] puLen: INTEGER): BOOL;
 	(*END VerQueryValueW;*)
 
-	PROCEDURE [1] -VerQueryValue* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: POINTER TO (*?*) ARRAY [1] OF PtrVoid; VAR [nil] puLen: INTEGER): BOOL "VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)";
+	PROCEDURE [1] -VerQueryValue* (pBlock: PtrVoid; lpSubBlock: PtrSTR; lplpBuffer: ADRINT; VAR [nil] puLen: INTEGER): BOOL "VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)";
 	(*END VerQueryValue;*)
 
 	PROCEDURE [1] -RegCloseKey* (hKey: HKEY): INTEGER;
@@ -17636,7 +17637,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -FindFirstPrinterChangeNotification* (hPrinter: HANDLE; fdwFlags: SET; fdwOptions: INTEGER; pPrinterNotifyOptions: PtrVoid): HANDLE;
 	(*END FindFirstPrinterChangeNotification;*)
 
-	PROCEDURE [1] -FindNextPrinterChangeNotification* (hChange: HANDLE; VAR [nil] pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: POINTER TO (*?*) ARRAY [1] OF PtrVoid): BOOL;
+	PROCEDURE [1] -FindNextPrinterChangeNotification* (hChange: HANDLE; VAR [nil] pdwChange: INTEGER; pvReserved: PtrVoid; ppPrinterNotifyInfo: ADRINT): BOOL;
 	(*END FindNextPrinterChangeNotification;*)
 
 	PROCEDURE [1] -FreePrinterNotifyInfo* (VAR [nil] pPrinterNotifyInfo: PRINTER_NOTIFY_INFO): BOOL;
@@ -17942,7 +17943,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 	PROCEDURE [1] -StartServiceA* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL;
 	(*END StartServiceA;*)
 
-	PROCEDURE [1] -StartServiceW* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; lpServiceArgVectors: POINTER TO (*?*) ARRAY [1] OF PtrWSTR): BOOL;
+	PROCEDURE [1] -StartServiceW* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; lpServiceArgVectors: ADRINT): BOOL;
 	(*END StartServiceW;*)
 
 	PROCEDURE [1] -StartService* (hService: SC_HANDLE; dwNumServiceArgs: INTEGER; VAR [nil] lpServiceArgVectors: PtrSTR): BOOL "StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)";

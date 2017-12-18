@@ -16,18 +16,6 @@ VAR
   defaultBrush: W.HBRUSH;
   defaultFont: W.HFONT;
  
-PROCEDURE Append* (VAR to: ARRAY OF CHAR; IN this: ARRAY OF CHAR);
-VAR
-  i, j, l: LONGINT;
-BEGIN
-  i := 0; WHILE to[i] # 0X DO INC(i) END;
-  l := LEN(to)-1; j := 0;
-  WHILE (i < l) & (this[j] # 0X) DO
-    to[i] := this[j]; INC(i); INC(j)
-  END;
-  to[i] := 0X
-END Append;
-
 PROCEDURE MoveMainWindow;
 CONST
   NumSteps = 50;
@@ -50,14 +38,14 @@ BEGIN
     INC(rect.top, 10);
     INC(rect.left, 10);
     res := W.SetWindowPos(
-      mainWnd, SYSTEM.VAL(W.HWND, HWND_TOPMOST), rect.left,
+      mainWnd, HWND_TOPMOST, rect.left,
       rect.top, width, height, W.SWP_SHOWWINDOW
     );
     INC(i);
   END;
   (* restore original window position *)
   res := W.SetWindowPos(
-    mainWnd, SYSTEM.VAL(W.HWND, HWND_TOPMOST),
+    mainWnd, HWND_TOPMOST,
     left, top, width, height, W.SWP_SHOWWINDOW
   );
 END MoveMainWindow;
@@ -75,18 +63,17 @@ BEGIN
   | W.WM_PAINT:
       dc := W.BeginPaint(wnd, ps);
       res := W.SetBkMode(dc, W.TRANSPARENT);
-      IF W.SelectObject(dc, defaultFont) # NIL THEN END;
+      IF W.SelectObject(dc, defaultFont) # 0 THEN END;
       res := W.GetClientRect(wnd, rect);
-      defMessage := "Click me";
-      Append(defMessage, 0DX); Append(defMessage, 0AX);
-      Append(defMessage, "Esc - exit");
+      defMessage := "Click me||Esc - exit";
+      defMessage[8] := 0DX; defMessage[9] := 0AX;
       res := W.DrawText(
-        dc, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(defMessage)),
+        dc, SYSTEM.ADR(defMessage),
         -1, rect, W.DT_WORDBREAK + W.DT_CENTER
       );
       res := W.EndPaint(wnd, ps);
   | W.WM_CHAR:
-      IF SYSTEM.VAL(INTEGER, wParam) = W.VK_ESCAPE THEN
+      IF wParam = W.VK_ESCAPE THEN
         W.PostQuitMessage(0);
       ELSE
         MoveMainWindow;
@@ -96,7 +83,7 @@ BEGIN
   ELSE
     RETURN W.DefWindowProc(wnd, msg, wParam, lParam)
   END;
-  RETURN NIL
+  RETURN 0
 END WndHandler;
 
 PROCEDURE OpenWindow;
@@ -107,12 +94,12 @@ BEGIN
   defaultFont := W.CreateFont(
     -20, 0, 0, W.FW_REGULAR, 0, 0, 0, 0, W.DEFAULT_CHARSET,
     W.OUT_DEFAULT_PRECIS, W.CLIP_DEFAULT_PRECIS, W.DEFAULT_QUALITY,
-    W.DEFAULT_PITCH, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(defFontName))
+    W.DEFAULT_PITCH, SYSTEM.ADR(defFontName)
   );
-  class.hCursor := W.LoadCursor(NIL, SYSTEM.VAL(W.HCURSOR, W.IDC_ARROW));
-  class.hIcon := W.LoadIcon(instance, SYSTEM.VAL(W.HICON, iconId));
-  class.lpszMenuName := NIL;
-  class.lpszClassName := SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("MoveWin"));
+  class.hCursor := W.LoadCursor(0, W.IDC_ARROW);
+  class.hIcon := W.LoadIcon(instance, iconId);
+  class.lpszMenuName := 0;
+  class.lpszClassName := SYSTEM.ADR("MoveWin");
   class.hbrBackground := defaultBrush;
   class.style := W.CS_VREDRAW + W.CS_HREDRAW;
   class.hInstance := instance;
@@ -121,9 +108,9 @@ BEGIN
   class.cbWndExtra := 0;
   res := W.RegisterClass(class);
   mainWnd := W.CreateWindowEx(
-    W.WS_EX_TOPMOST, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("MoveWin")),
-    SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("MoveWin")), W.WS_OVERLAPPEDWINDOW,
-    100, 100, 100, 100, NIL, NIL, instance, NIL
+    W.WS_EX_TOPMOST, SYSTEM.ADR("MoveWin"),
+    SYSTEM.ADR("MoveWin"), W.WS_OVERLAPPEDWINDOW,
+    100, 100, 210, 100, 0, 0, instance, 0
   );
   res := W.ShowWindow(mainWnd, W.SW_SHOWDEFAULT);
   res := W.UpdateWindow(mainWnd);
@@ -133,15 +120,15 @@ PROCEDURE MainLoop;
 VAR
   msg: W.MSG; res: INTEGER;
 BEGIN
-  WHILE W.GetMessage(msg, NIL, 0, 0) # 0 DO
+  WHILE W.GetMessage(msg, 0, 0, 0) # 0 DO
     res := W.TranslateMessage(msg);
     res := W.DispatchMessage(msg);
   END;
-  W.ExitProcess(SYSTEM.VAL(INTEGER, msg.wParam))
+  W.ExitProcess(SHORT(msg.wParam))
 END MainLoop;
  
 BEGIN (*$MAIN*)
-  instance := W.GetModuleHandle(NIL);
+  instance := W.GetModuleHandle(0);
   OpenWindow;
   MainLoop;
 END MoveWindow.

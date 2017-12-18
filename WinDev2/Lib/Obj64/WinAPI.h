@@ -53,10 +53,7 @@ struct WinAPI__9 {
 };
 
 struct WinAPI__7 {
-	struct {
-		INTEGER len[1];
-		CHAR data[1];
-	} *ForwarderString;
+	LONGINT ForwarderString;
 };
 
 typedef
@@ -134,22 +131,16 @@ struct WinAPI__1 {
 	SHORTINT UnicodeChar;
 };
 
-typedef
-	CHAR (*WinAPI_PtrSTR)[1];
-
 struct WinAPI__27 {
-	WinAPI_PtrSTR pszTemplate;
+	LONGINT pszTemplate;
 };
 
 struct WinAPI__28 {
 	LONGINT hIcon;
 };
 
-typedef
-	CHAR (*WinAPI_PtrWSTR)[1];
-
 struct WinAPI__32 {
-	WinAPI_PtrWSTR pszTemplate;
+	LONGINT pszTemplate;
 };
 
 struct WinAPI__33 {
@@ -161,7 +152,7 @@ struct WinAPI__25 {
 };
 
 struct WinAPI__26 {
-	WinAPI_PtrSTR pStartPage;
+	LONGINT pStartPage;
 };
 
 typedef
@@ -176,7 +167,7 @@ struct WinAPI__30 {
 };
 
 struct WinAPI__31 {
-	WinAPI_PtrWSTR pStartPage;
+	LONGINT pStartPage;
 };
 
 typedef
@@ -259,13 +250,13 @@ typedef
 
 typedef
 	struct WinAPI_ADDJOB_INFO_1A {
-		WinAPI_PtrSTR Path;
+		LONGINT Path;
 		INTEGER JobId;
 	} WinAPI_ADDJOB_INFO_1A;
 
 typedef
 	struct WinAPI_ADDJOB_INFO_1W {
-		WinAPI_PtrWSTR Path;
+		LONGINT Path;
 		INTEGER JobId;
 	} WinAPI_ADDJOB_INFO_1W;
 
@@ -587,7 +578,7 @@ typedef
 		LONGINT lpCreateParams, hInstance, hMenu, hwndParent;
 		INTEGER cy, cx, y, x;
 		SET style;
-		WinAPI_PtrSTR lpszName, lpszClass;
+		LONGINT lpszName, lpszClass;
 		SET dwExStyle;
 	} WinAPI_CREATESTRUCTA;
 
@@ -596,7 +587,7 @@ typedef
 		LONGINT lpCreateParams, hInstance, hMenu, hwndParent;
 		INTEGER cy, cx, y, x;
 		SET style;
-		WinAPI_PtrWSTR lpszName, lpszClass;
+		LONGINT lpszName, lpszClass;
 		SET dwExStyle;
 	} WinAPI_CREATESTRUCTW;
 
@@ -653,17 +644,17 @@ typedef
 typedef
 	struct WinAPI_CURRENCYFMTA {
 		INTEGER NumDigits, LeadingZero, Grouping;
-		WinAPI_PtrSTR lpDecimalSep, lpThousandSep;
+		LONGINT lpDecimalSep, lpThousandSep;
 		INTEGER NegativeOrder, PositiveOrder;
-		WinAPI_PtrSTR lpCurrencySymbol;
+		LONGINT lpCurrencySymbol;
 	} WinAPI_CURRENCYFMTA;
 
 typedef
 	struct WinAPI_CURRENCYFMTW {
 		INTEGER NumDigits, LeadingZero, Grouping;
-		WinAPI_PtrWSTR lpDecimalSep, lpThousandSep;
+		LONGINT lpDecimalSep, lpThousandSep;
 		INTEGER NegativeOrder, PositiveOrder;
-		WinAPI_PtrWSTR lpCurrencySymbol;
+		LONGINT lpCurrencySymbol;
 	} WinAPI_CURRENCYFMTW;
 
 typedef
@@ -688,12 +679,12 @@ typedef
 
 typedef
 	struct WinAPI_DATATYPES_INFO_1A {
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 	} WinAPI_DATATYPES_INFO_1A;
 
 typedef
 	struct WinAPI_DATATYPES_INFO_1W {
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 	} WinAPI_DATATYPES_INFO_1W;
 
 typedef
@@ -824,37 +815,37 @@ typedef
 typedef
 	struct WinAPI_DOCINFOA {
 		INTEGER cbSize;
-		WinAPI_PtrSTR lpszDocName, lpszOutput, lpszDatatype;
+		LONGINT lpszDocName, lpszOutput, lpszDatatype;
 		INTEGER fwType;
 	} WinAPI_DOCINFOA;
 
 typedef
 	struct WinAPI_DOCINFOW {
 		INTEGER cbSize;
-		WinAPI_PtrWSTR lpszDocName, lpszOutput, lpszDatatype;
+		LONGINT lpszDocName, lpszOutput, lpszDatatype;
 		INTEGER fwType;
 	} WinAPI_DOCINFOW;
 
 typedef
 	struct WinAPI_DOC_INFO_1A {
-		WinAPI_PtrSTR pDocName, pOutputFile, pDatatype;
+		LONGINT pDocName, pOutputFile, pDatatype;
 	} WinAPI_DOC_INFO_1A;
 
 typedef
 	struct WinAPI_DOC_INFO_1W {
-		WinAPI_PtrWSTR pDocName, pOutputFile, pDatatype;
+		LONGINT pDocName, pOutputFile, pDatatype;
 	} WinAPI_DOC_INFO_1W;
 
 typedef
 	struct WinAPI_DOC_INFO_2A {
-		WinAPI_PtrSTR pDocName, pOutputFile, pDatatype;
+		LONGINT pDocName, pOutputFile, pDatatype;
 		SET dwMode;
 		INTEGER JobId;
 	} WinAPI_DOC_INFO_2A;
 
 typedef
 	struct WinAPI_DOC_INFO_2W {
-		WinAPI_PtrWSTR pDocName, pOutputFile, pDatatype;
+		LONGINT pDocName, pOutputFile, pDatatype;
 		SET dwMode;
 		INTEGER JobId;
 	} WinAPI_DOC_INFO_2W;
@@ -869,7 +860,7 @@ typedef
 		INTEGER uSize;
 		WinAPI_POINT pt;
 		INTEGER fNC;
-		WinAPI_PtrSTR lpFileList;
+		LONGINT lpFileList;
 		SET grfKeyState;
 	} WinAPI_DRAGINFOA;
 
@@ -878,7 +869,7 @@ typedef
 		INTEGER uSize;
 		WinAPI_POINT pt;
 		INTEGER fNC;
-		WinAPI_PtrWSTR lpFileList;
+		LONGINT lpFileList;
 		SET grfKeyState;
 	} WinAPI_DRAGINFOW;
 
@@ -902,36 +893,36 @@ typedef
 
 typedef
 	struct WinAPI_DRIVER_INFO_1A {
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 	} WinAPI_DRIVER_INFO_1A;
 
 typedef
 	struct WinAPI_DRIVER_INFO_1W {
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 	} WinAPI_DRIVER_INFO_1W;
 
 typedef
 	struct WinAPI_DRIVER_INFO_2A {
 		INTEGER cVersion;
-		WinAPI_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
+		LONGINT pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
 	} WinAPI_DRIVER_INFO_2A;
 
 typedef
 	struct WinAPI_DRIVER_INFO_2W {
 		INTEGER cVersion;
-		WinAPI_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
+		LONGINT pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
 	} WinAPI_DRIVER_INFO_2W;
 
 typedef
 	struct WinAPI_DRIVER_INFO_3A {
 		INTEGER cVersion;
-		WinAPI_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
+		LONGINT pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
 	} WinAPI_DRIVER_INFO_3A;
 
 typedef
 	struct WinAPI_DRIVER_INFO_3W {
 		INTEGER cVersion;
-		WinAPI_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
+		LONGINT pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
 	} WinAPI_DRIVER_INFO_3W;
 
 typedef
@@ -1548,13 +1539,13 @@ typedef
 
 typedef
 	struct WinAPI_ENUM_SERVICE_STATUSA {
-		WinAPI_PtrSTR lpServiceName, lpDisplayName;
+		LONGINT lpServiceName, lpDisplayName;
 		WinAPI_SERVICE_STATUS ServiceStatus;
 	} WinAPI_ENUM_SERVICE_STATUSA;
 
 typedef
 	struct WinAPI_ENUM_SERVICE_STATUSW {
-		WinAPI_PtrWSTR lpServiceName, lpDisplayName;
+		LONGINT lpServiceName, lpDisplayName;
 		WinAPI_SERVICE_STATUS ServiceStatus;
 	} WinAPI_ENUM_SERVICE_STATUSW;
 
@@ -1638,10 +1629,10 @@ typedef
 	LONGINT (__CALL_1 *WinAPI_FNCALLBACK)(INTEGER, INTEGER, LONGINT, LONGINT, LONGINT, LONGINT, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__CALL_1 *WinAPI_FNDEVCAPS)(WinAPI_PtrSTR, WinAPI_PtrSTR, INTEGER, WinAPI_PtrSTR, WinAPI_DEVMODEA*, SYSTEM_ADRINT *);
+	INTEGER (__CALL_1 *WinAPI_FNDEVCAPS)(LONGINT, LONGINT, INTEGER, LONGINT, WinAPI_DEVMODEA*, SYSTEM_ADRINT *);
 
 typedef
-	INTEGER (__CALL_1 *WinAPI_FNDEVMODE)(LONGINT, LONGINT, WinAPI_DEVMODEA*, SYSTEM_ADRINT *, WinAPI_PtrSTR, WinAPI_PtrSTR, WinAPI_DEVMODEA*, SYSTEM_ADRINT *, WinAPI_PtrSTR, INTEGER);
+	INTEGER (__CALL_1 *WinAPI_FNDEVMODE)(LONGINT, LONGINT, WinAPI_DEVMODEA*, SYSTEM_ADRINT *, LONGINT, LONGINT, WinAPI_DEVMODEA*, SYSTEM_ADRINT *, LONGINT, INTEGER);
 
 typedef
 	INTEGER (__CALL_1 *WinAPI_FNPROPSHEETCALLBACK)(LONGINT, INTEGER, LONGINT);
@@ -1678,7 +1669,7 @@ typedef
 typedef
 	struct WinAPI_FORM_INFO_1A {
 		SET Flags;
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 		WinAPI_SIZE Size;
 		WinAPI_RECT ImageableArea;
 	} WinAPI_FORM_INFO_1A;
@@ -1686,7 +1677,7 @@ typedef
 typedef
 	struct WinAPI_FORM_INFO_1W {
 		SET Flags;
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 		WinAPI_SIZE Size;
 		WinAPI_RECT ImageableArea;
 	} WinAPI_FORM_INFO_1W;
@@ -1700,42 +1691,14 @@ typedef
 typedef
 	struct WinAPI_GCP_RESULTSA {
 		INTEGER lStructSize;
-		WinAPI_PtrSTR lpOutString;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpOrder;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpDx;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpCaretPos;
-		WinAPI_PtrSTR lpClass;
-		WinAPI_PtrWSTR lpGlyphs;
+		LONGINT lpOutString, lpOrder, lpDx, lpCaretPos, lpClass, lpGlyphs;
 		INTEGER nGlyphs, nMaxFit;
 	} WinAPI_GCP_RESULTSA;
 
 typedef
 	struct WinAPI_GCP_RESULTSW {
 		INTEGER lStructSize;
-		WinAPI_PtrWSTR lpOutString;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpOrder;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpDx;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *lpCaretPos;
-		WinAPI_PtrSTR lpClass;
-		WinAPI_PtrWSTR lpGlyphs;
+		LONGINT lpOutString, lpOrder, lpDx, lpCaretPos, lpClass, lpGlyphs;
 		INTEGER nGlyphs, nMaxFit;
 	} WinAPI_GCP_RESULTSW;
 
@@ -1806,14 +1769,14 @@ typedef
 	struct WinAPI_HIGHCONTRASTA {
 		INTEGER cbSize;
 		SET dwFlags;
-		WinAPI_PtrSTR lpszDefaultScheme;
+		LONGINT lpszDefaultScheme;
 	} WinAPI_HIGHCONTRASTA;
 
 typedef
 	struct WinAPI_HIGHCONTRASTW {
 		INTEGER cbSize;
 		SET dwFlags;
-		WinAPI_PtrWSTR lpszDefaultScheme;
+		LONGINT lpszDefaultScheme;
 	} WinAPI_HIGHCONTRASTW;
 
 typedef
@@ -1839,10 +1802,10 @@ typedef
 	} WinAPI_HW_PROFILE_INFOW;
 
 typedef
-	INTEGER (__CALL_1 *WinAPI_ICMENUMPROCA)(WinAPI_PtrSTR, LONGINT);
+	INTEGER (__CALL_1 *WinAPI_ICMENUMPROCA)(LONGINT, LONGINT);
 
 typedef
-	INTEGER (__CALL_1 *WinAPI_ICMENUMPROCW)(WinAPI_PtrWSTR, LONGINT);
+	INTEGER (__CALL_1 *WinAPI_ICMENUMPROCW)(LONGINT, LONGINT);
 
 typedef
 	struct WinAPI_ICONINFO {
@@ -1934,27 +1897,7 @@ typedef
 		INTEGER Characteristics, TimeDateStamp;
 		SHORTINT MajorVersion, MinorVersion;
 		INTEGER Name, Base, NumberOfFunctions, NumberOfNames;
-		struct {
-			INTEGER len[1];
-			struct {
-				INTEGER len[1];
-				INTEGER data[1];
-			} *data[1];
-		} *AddressOfFunctions;
-		struct {
-			INTEGER len[1];
-			struct {
-				INTEGER len[1];
-				INTEGER data[1];
-			} *data[1];
-		} *AddressOfNames;
-		struct {
-			INTEGER len[1];
-			struct {
-				INTEGER len[1];
-				SHORTINT data[1];
-			} *data[1];
-		} *AddressOfNameOrdinals;
+		LONGINT AddressOfFunctions, AddressOfNames, AddressOfNameOrdinals;
 	} WinAPI_IMAGE_EXPORT_DIRECTORY;
 
 typedef
@@ -2125,14 +2068,7 @@ typedef
 typedef
 	struct WinAPI_IMAGE_TLS_DIRECTORY {
 		INTEGER StartAddressOfRawData, EndAddressOfRawData;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *AddressOfIndex;
-		struct {
-			INTEGER len[1];
-			WinAPI_IMAGE_TLS_CALLBACK data[1];
-		} *AddressOfCallBacks;
+		LONGINT AddressOfIndex, AddressOfCallBacks;
 		INTEGER SizeOfZeroFill, Characteristics;
 	} WinAPI_IMAGE_TLS_DIRECTORY;
 
@@ -2162,7 +2098,7 @@ typedef
 typedef
 	struct WinAPI_JOB_INFO_1A {
 		INTEGER JobId;
-		WinAPI_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
+		LONGINT pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
 		SET Status;
 		INTEGER Priority, Position, TotalPages, PagesPrinted;
 		WinAPI_SYSTEMTIME Submitted;
@@ -2171,7 +2107,7 @@ typedef
 typedef
 	struct WinAPI_JOB_INFO_1W {
 		INTEGER JobId;
-		WinAPI_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
+		LONGINT pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
 		SET Status;
 		INTEGER Priority, Position, TotalPages, PagesPrinted;
 		WinAPI_SYSTEMTIME Submitted;
@@ -2183,10 +2119,9 @@ typedef
 typedef
 	struct WinAPI_JOB_INFO_2A {
 		INTEGER JobId;
-		WinAPI_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
+		LONGINT pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
 		WinAPI_PtrDEVMODEA pDevMode;
-		WinAPI_PtrSTR pStatus;
-		LONGINT pSecurityDescriptor;
+		LONGINT pStatus, pSecurityDescriptor;
 		SET Status;
 		INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
 		WinAPI_SYSTEMTIME Submitted;
@@ -2199,10 +2134,9 @@ typedef
 typedef
 	struct WinAPI_JOB_INFO_2W {
 		INTEGER JobId;
-		WinAPI_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
+		LONGINT pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
 		WinAPI_PtrDEVMODEW pDevMode;
-		WinAPI_PtrWSTR pStatus;
-		LONGINT pSecurityDescriptor;
+		LONGINT pStatus, pSecurityDescriptor;
 		SET Status;
 		INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
 		WinAPI_SYSTEMTIME Submitted;
@@ -2277,8 +2211,7 @@ typedef
 
 typedef
 	struct WinAPI_MDICREATESTRUCTA {
-		WinAPI_PtrSTR szClass, szTitle;
-		LONGINT hOwner;
+		LONGINT szClass, szTitle, hOwner;
 		INTEGER x, y, cx, cy;
 		SET style;
 		LONGINT lParam;
@@ -2286,8 +2219,7 @@ typedef
 
 typedef
 	struct WinAPI_MDICREATESTRUCTW {
-		WinAPI_PtrWSTR szClass, szTitle;
-		LONGINT hOwner;
+		LONGINT szClass, szTitle, hOwner;
 		INTEGER x, y, cx, cy;
 		SET style;
 		LONGINT lParam;
@@ -2322,7 +2254,7 @@ typedef
 		INTEGER wID;
 		LONGINT hSubMenu, hbmpChecked, hbmpUnchecked;
 		INTEGER dwItemData;
-		WinAPI_PtrSTR dwTypeData;
+		LONGINT dwTypeData;
 		INTEGER cch;
 	} WinAPI_MENUITEMINFOA;
 
@@ -2333,7 +2265,7 @@ typedef
 		INTEGER wID;
 		LONGINT hSubMenu, hbmpChecked, hbmpUnchecked;
 		INTEGER dwItemData;
-		WinAPI_PtrWSTR dwTypeData;
+		LONGINT dwTypeData;
 		INTEGER cch;
 	} WinAPI_MENUITEMINFOW;
 
@@ -2476,22 +2408,22 @@ typedef
 
 typedef
 	struct WinAPI_MONITOR_INFO_1A {
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 	} WinAPI_MONITOR_INFO_1A;
 
 typedef
 	struct WinAPI_MONITOR_INFO_1W {
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 	} WinAPI_MONITOR_INFO_1W;
 
 typedef
 	struct WinAPI_MONITOR_INFO_2A {
-		WinAPI_PtrSTR pName, pEnvironment, pDLLName;
+		LONGINT pName, pEnvironment, pDLLName;
 	} WinAPI_MONITOR_INFO_2A;
 
 typedef
 	struct WinAPI_MONITOR_INFO_2W {
-		WinAPI_PtrWSTR pName, pEnvironment, pDLLName;
+		LONGINT pName, pEnvironment, pDLLName;
 	} WinAPI_MONITOR_INFO_2W;
 
 typedef
@@ -2550,10 +2482,9 @@ typedef
 typedef
 	struct WinAPI_MSGBOXPARAMSA {
 		INTEGER cbSize;
-		LONGINT hwndOwner, hInstance;
-		WinAPI_PtrSTR lpszText, lpszCaption;
+		LONGINT hwndOwner, hInstance, lpszText, lpszCaption;
 		SET dwStyle;
-		WinAPI_PtrSTR lpszIcon;
+		LONGINT lpszIcon;
 		INTEGER dwContextHelpId;
 		WinAPI_MSGBOXCALLBACK lpfnMsgBoxCallback;
 		INTEGER dwLanguageId;
@@ -2562,10 +2493,9 @@ typedef
 typedef
 	struct WinAPI_MSGBOXPARAMSW {
 		INTEGER cbSize;
-		LONGINT hwndOwner, hInstance;
-		WinAPI_PtrWSTR lpszText, lpszCaption;
+		LONGINT hwndOwner, hInstance, lpszText, lpszCaption;
 		SET dwStyle;
-		WinAPI_PtrWSTR lpszIcon;
+		LONGINT lpszIcon;
 		INTEGER dwContextHelpId;
 		WinAPI_MSGBOXCALLBACK lpfnMsgBoxCallback;
 		INTEGER dwLanguageId;
@@ -2705,14 +2635,14 @@ typedef
 typedef
 	struct WinAPI_NUMBERFMTA {
 		INTEGER NumDigits, LeadingZero, Grouping;
-		WinAPI_PtrSTR lpDecimalSep, lpThousandSep;
+		LONGINT lpDecimalSep, lpThousandSep;
 		INTEGER NegativeOrder;
 	} WinAPI_NUMBERFMTA;
 
 typedef
 	struct WinAPI_NUMBERFMTW {
 		INTEGER NumDigits, LeadingZero, Grouping;
-		WinAPI_PtrWSTR lpDecimalSep, lpThousandSep;
+		LONGINT lpDecimalSep, lpThousandSep;
 		INTEGER NegativeOrder;
 	} WinAPI_NUMBERFMTW;
 
@@ -2761,7 +2691,7 @@ typedef
 		INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
 		WinAPI_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
 		INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
-		WinAPI_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
+		LONGINT otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
 	} WinAPI_OUTLINETEXTMETRICA;
 
 typedef
@@ -2782,12 +2712,12 @@ typedef
 		INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
 		WinAPI_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
 		INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
-		WinAPI_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
+		LONGINT otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
 	} WinAPI_OUTLINETEXTMETRICW;
 
 typedef
 	struct WinAPI_OUTPUT_DEBUG_STRING_INFO {
-		WinAPI_PtrSTR lpDebugStringData;
+		LONGINT lpDebugStringData;
 		SHORTINT fUnicode, nDebugStringLength;
 	} WinAPI_OUTPUT_DEBUG_STRING_INFO;
 
@@ -2823,59 +2753,53 @@ typedef
 typedef
 	struct WinAPI_POLYTEXTA {
 		INTEGER x, y, n;
-		WinAPI_PtrSTR lpstr;
+		LONGINT lpstr;
 		SET uiFlags;
 		WinAPI_RECT rcl;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *pdx;
+		LONGINT pdx;
 	} WinAPI_POLYTEXTA;
 
 typedef
 	struct WinAPI_POLYTEXTW {
 		INTEGER x, y, n;
-		WinAPI_PtrWSTR lpstr;
+		LONGINT lpstr;
 		SET uiFlags;
 		WinAPI_RECT rcl;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *pdx;
+		LONGINT pdx;
 	} WinAPI_POLYTEXTW;
 
 typedef
 	struct WinAPI_PORT_INFO_1A {
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 	} WinAPI_PORT_INFO_1A;
 
 typedef
 	struct WinAPI_PORT_INFO_1W {
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 	} WinAPI_PORT_INFO_1W;
 
 typedef
 	struct WinAPI_PORT_INFO_2A {
-		WinAPI_PtrSTR pPortName, pMonitorName, pDescription;
+		LONGINT pPortName, pMonitorName, pDescription;
 		INTEGER fPortType, Reserved;
 	} WinAPI_PORT_INFO_2A;
 
 typedef
 	struct WinAPI_PORT_INFO_2W {
-		WinAPI_PtrWSTR pPortName, pMonitorName, pDescription;
+		LONGINT pPortName, pMonitorName, pDescription;
 		INTEGER fPortType, Reserved;
 	} WinAPI_PORT_INFO_2W;
 
 typedef
 	struct WinAPI_PRINTER_DEFAULTSA {
-		WinAPI_PtrSTR pDatatype;
+		LONGINT pDatatype;
 		WinAPI_PtrDEVMODEA pDevMode;
 		SET DesiredAccess;
 	} WinAPI_PRINTER_DEFAULTSA;
 
 typedef
 	struct WinAPI_PRINTER_DEFAULTSW {
-		WinAPI_PtrWSTR pDatatype;
+		LONGINT pDatatype;
 		WinAPI_PtrDEVMODEW pDevMode;
 		SET DesiredAccess;
 	} WinAPI_PRINTER_DEFAULTSW;
@@ -2883,21 +2807,20 @@ typedef
 typedef
 	struct WinAPI_PRINTER_INFO_1A {
 		SET Flags;
-		WinAPI_PtrSTR pDescription, pName, pComment;
+		LONGINT pDescription, pName, pComment;
 	} WinAPI_PRINTER_INFO_1A;
 
 typedef
 	struct WinAPI_PRINTER_INFO_1W {
 		SET Flags;
-		WinAPI_PtrWSTR pDescription, pName, pComment;
+		LONGINT pDescription, pName, pComment;
 	} WinAPI_PRINTER_INFO_1W;
 
 typedef
 	struct WinAPI_PRINTER_INFO_2A {
-		WinAPI_PtrSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
+		LONGINT pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
 		WinAPI_PtrDEVMODEA pDevMode;
-		WinAPI_PtrSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
-		LONGINT pSecurityDescriptor;
+		LONGINT pSepFile, pPrintProcessor, pDatatype, pParameters, pSecurityDescriptor;
 		SET Attributes;
 		INTEGER Priority, DefaultPriority, StartTime, UntilTime;
 		SET Status;
@@ -2906,10 +2829,9 @@ typedef
 
 typedef
 	struct WinAPI_PRINTER_INFO_2W {
-		WinAPI_PtrWSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
+		LONGINT pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
 		WinAPI_PtrDEVMODEW pDevMode;
-		WinAPI_PtrWSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
-		LONGINT pSecurityDescriptor;
+		LONGINT pSepFile, pPrintProcessor, pDatatype, pParameters, pSecurityDescriptor;
 		SET Attributes;
 		INTEGER Priority, DefaultPriority, StartTime, UntilTime;
 		SET Status;
@@ -2923,26 +2845,26 @@ typedef
 
 typedef
 	struct WinAPI_PRINTER_INFO_4A {
-		WinAPI_PtrSTR pPrinterName, pServerName;
+		LONGINT pPrinterName, pServerName;
 		SET Attributes;
 	} WinAPI_PRINTER_INFO_4A;
 
 typedef
 	struct WinAPI_PRINTER_INFO_4W {
-		WinAPI_PtrWSTR pPrinterName, pServerName;
+		LONGINT pPrinterName, pServerName;
 		SET Attributes;
 	} WinAPI_PRINTER_INFO_4W;
 
 typedef
 	struct WinAPI_PRINTER_INFO_5A {
-		WinAPI_PtrSTR pPrinterName, pPortName;
+		LONGINT pPrinterName, pPortName;
 		SET Attributes;
 		INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
 	} WinAPI_PRINTER_INFO_5A;
 
 typedef
 	struct WinAPI_PRINTER_INFO_5W {
-		WinAPI_PtrWSTR pPrinterName, pPortName;
+		LONGINT pPrinterName, pPortName;
 		SET Attributes;
 		INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
 	} WinAPI_PRINTER_INFO_5W;
@@ -2982,20 +2904,17 @@ typedef
 	struct WinAPI_PRINTER_NOTIFY_OPTIONS_TYPE {
 		SHORTINT Type, Reserved0;
 		INTEGER Reserved1, Reserved2, Count;
-		struct {
-			INTEGER len[1];
-			SHORTINT data[1];
-		} *pFields;
+		LONGINT pFields;
 	} WinAPI_PRINTER_NOTIFY_OPTIONS_TYPE;
 
 typedef
 	struct WinAPI_PRINTPROCESSOR_INFO_1A {
-		WinAPI_PtrSTR pName;
+		LONGINT pName;
 	} WinAPI_PRINTPROCESSOR_INFO_1A;
 
 typedef
 	struct WinAPI_PRINTPROCESSOR_INFO_1W {
-		WinAPI_PtrWSTR pName;
+		LONGINT pName;
 	} WinAPI_PRINTPROCESSOR_INFO_1W;
 
 typedef
@@ -3028,7 +2947,7 @@ typedef
 		SET dwFlags;
 		LONGINT hwndParent, hInstance;
 		struct WinAPI__25 u;
-		WinAPI_PtrSTR pszCaption;
+		LONGINT pszCaption;
 		INTEGER nPages;
 		struct WinAPI__26 u1;
 		struct WinAPI__29 u2;
@@ -3041,7 +2960,7 @@ typedef
 		SET dwFlags;
 		LONGINT hwndParent, hInstance;
 		struct WinAPI__30 u;
-		WinAPI_PtrWSTR pszCaption;
+		LONGINT pszCaption;
 		INTEGER nPages;
 		struct WinAPI__31 u1;
 		struct WinAPI__34 u2;
@@ -3055,14 +2974,11 @@ typedef
 		LONGINT hInstance;
 		struct WinAPI__27 u;
 		struct WinAPI__28 u1;
-		WinAPI_PtrSTR pszTitle;
+		LONGINT pszTitle;
 		WinAPI_DLGPROC pfnDlgProc;
 		LONGINT lParam;
 		WinAPI_FNPSPCALLBACKA pfnCallback;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *pcRefParent;
+		LONGINT pcRefParent;
 	} WinAPI_PROPSHEETPAGEA;
 
 typedef
@@ -3072,24 +2988,21 @@ typedef
 		LONGINT hInstance;
 		struct WinAPI__32 u;
 		struct WinAPI__33 u1;
-		WinAPI_PtrWSTR pszTitle;
+		LONGINT pszTitle;
 		WinAPI_DLGPROC pfnDlgProc;
 		LONGINT lParam;
 		WinAPI_FNPSPCALLBACKW pfnCallback;
-		struct {
-			INTEGER len[1];
-			INTEGER data[1];
-		} *pcRefParent;
+		LONGINT pcRefParent;
 	} WinAPI_PROPSHEETPAGEW;
 
 typedef
 	struct WinAPI_PROVIDOR_INFO_1A {
-		WinAPI_PtrSTR pName, pEnvironment, pDLLName;
+		LONGINT pName, pEnvironment, pDLLName;
 	} WinAPI_PROVIDOR_INFO_1A;
 
 typedef
 	struct WinAPI_PROVIDOR_INFO_1W {
-		WinAPI_PtrWSTR pName, pEnvironment, pDLLName;
+		LONGINT pName, pEnvironment, pDLLName;
 	} WinAPI_PROVIDOR_INFO_1W;
 
 typedef
@@ -3100,7 +3013,7 @@ typedef
 
 typedef
 	struct WinAPI_PVALUEA {
-		WinAPI_PtrSTR pv_valuename;
+		LONGINT pv_valuename;
 		INTEGER pv_valuelen;
 		LONGINT pv_value_context;
 		INTEGER pv_type;
@@ -3108,7 +3021,7 @@ typedef
 
 typedef
 	struct WinAPI_PVALUEW {
-		WinAPI_PtrWSTR pv_valuename;
+		LONGINT pv_valuename;
 		INTEGER pv_valuelen;
 		LONGINT pv_value_context;
 		INTEGER pv_type;
@@ -4447,31 +4360,31 @@ typedef
 	struct WinAPI_QUERY_SERVICE_CONFIGA {
 		SET dwServiceType;
 		INTEGER dwStartType, dwErrorControl;
-		WinAPI_PtrSTR lpBinaryPathName, lpLoadOrderGroup;
+		LONGINT lpBinaryPathName, lpLoadOrderGroup;
 		INTEGER dwTagId;
-		WinAPI_PtrSTR lpDependencies, lpServiceStartName, lpDisplayName;
+		LONGINT lpDependencies, lpServiceStartName, lpDisplayName;
 	} WinAPI_QUERY_SERVICE_CONFIGA;
 
 typedef
 	struct WinAPI_QUERY_SERVICE_CONFIGW {
 		SET dwServiceType;
 		INTEGER dwStartType, dwErrorControl;
-		WinAPI_PtrWSTR lpBinaryPathName, lpLoadOrderGroup;
+		LONGINT lpBinaryPathName, lpLoadOrderGroup;
 		INTEGER dwTagId;
-		WinAPI_PtrWSTR lpDependencies, lpServiceStartName, lpDisplayName;
+		LONGINT lpDependencies, lpServiceStartName, lpDisplayName;
 	} WinAPI_QUERY_SERVICE_CONFIGW;
 
 typedef
 	struct WinAPI_QUERY_SERVICE_LOCK_STATUSA {
 		INTEGER fIsLocked;
-		WinAPI_PtrSTR lpLockOwner;
+		LONGINT lpLockOwner;
 		INTEGER dwLockDuration;
 	} WinAPI_QUERY_SERVICE_LOCK_STATUSA;
 
 typedef
 	struct WinAPI_QUERY_SERVICE_LOCK_STATUSW {
 		INTEGER fIsLocked;
-		WinAPI_PtrWSTR lpLockOwner;
+		LONGINT lpLockOwner;
 		INTEGER dwLockDuration;
 	} WinAPI_QUERY_SERVICE_LOCK_STATUSW;
 
@@ -4532,24 +4445,6 @@ typedef
 	INTEGER (__CALL_1 *WinAPI_ROPENUMPROCW)(void);
 
 typedef
-	struct {
-		INTEGER len[1];
-		WinAPI_PtrWSTR data[1];
-	} *WinAPI_RetCommandLineToArgvW;
-
-typedef
-	struct {
-		INTEGER len[1];
-		CHAR data[1];
-	} *WinAPI_RetDdeAccessData;
-
-typedef
-	struct {
-		INTEGER len[1];
-		INTEGER data[1];
-	} *WinAPI_RetGetSidSubAuthority;
-
-typedef
 	struct WinAPI_SCROLLINFO {
 		INTEGER cbSize;
 		SET fMask;
@@ -4578,7 +4473,7 @@ typedef
 	struct WinAPI_SERIALKEYSA {
 		INTEGER cbSize;
 		SET dwFlags;
-		WinAPI_PtrSTR lpszActivePort, lpszPort;
+		LONGINT lpszActivePort, lpszPort;
 		INTEGER iBaudRate, iPortState, iActive;
 	} WinAPI_SERIALKEYSA;
 
@@ -4586,31 +4481,25 @@ typedef
 	struct WinAPI_SERIALKEYSW {
 		INTEGER cbSize;
 		SET dwFlags;
-		WinAPI_PtrWSTR lpszActivePort, lpszPort;
+		LONGINT lpszActivePort, lpszPort;
 		INTEGER iBaudRate, iPortState, iActive;
 	} WinAPI_SERIALKEYSW;
 
 typedef
-	void (__CALL_1 *WinAPI_SERVICE_MAIN_FUNCTIONA)(INTEGER, struct {
-		INTEGER len[1];
-		WinAPI_PtrSTR data[1];
-	}*);
+	void (__CALL_1 *WinAPI_SERVICE_MAIN_FUNCTIONA)(INTEGER, LONGINT);
 
 typedef
-	void (__CALL_1 *WinAPI_SERVICE_MAIN_FUNCTIONW)(INTEGER, struct {
-		INTEGER len[1];
-		WinAPI_PtrWSTR data[1];
-	}*);
+	void (__CALL_1 *WinAPI_SERVICE_MAIN_FUNCTIONW)(INTEGER, LONGINT);
 
 typedef
 	struct WinAPI_SERVICE_TABLE_ENTRYA {
-		WinAPI_PtrSTR lpServiceName;
+		LONGINT lpServiceName;
 		WinAPI_SERVICE_MAIN_FUNCTIONA lpServiceProc;
 	} WinAPI_SERVICE_TABLE_ENTRYA;
 
 typedef
 	struct WinAPI_SERVICE_TABLE_ENTRYW {
-		WinAPI_PtrWSTR lpServiceName;
+		LONGINT lpServiceName;
 		WinAPI_SERVICE_MAIN_FUNCTIONW lpServiceProc;
 	} WinAPI_SERVICE_TABLE_ENTRYW;
 
@@ -4625,12 +4514,9 @@ typedef
 	struct WinAPI_SHELLEXECUTEINFOA {
 		INTEGER cbSize;
 		SET fMask;
-		LONGINT hwnd;
-		WinAPI_PtrSTR lpVerb, lpFile, lpParameters, lpDirectory;
+		LONGINT hwnd, lpVerb, lpFile, lpParameters, lpDirectory;
 		INTEGER nShow;
-		LONGINT hInstApp, lpIDList;
-		WinAPI_PtrSTR lpClass;
-		LONGINT hkeyClass;
+		LONGINT hInstApp, lpIDList, lpClass, hkeyClass;
 		INTEGER dwHotKey;
 		LONGINT hIcon, hProcess;
 	} WinAPI_SHELLEXECUTEINFOA;
@@ -4639,12 +4525,9 @@ typedef
 	struct WinAPI_SHELLEXECUTEINFOW {
 		INTEGER cbSize;
 		SET fMask;
-		LONGINT hwnd;
-		WinAPI_PtrWSTR lpVerb, lpFile, lpParameters, lpDirectory;
+		LONGINT hwnd, lpVerb, lpFile, lpParameters, lpDirectory;
 		INTEGER nShow;
-		LONGINT hInstApp, lpIDList;
-		WinAPI_PtrWSTR lpClass;
-		LONGINT hkeyClass;
+		LONGINT hInstApp, lpIDList, lpClass, hkeyClass;
 		INTEGER dwHotKey;
 		LONGINT hIcon, hProcess;
 	} WinAPI_SHELLEXECUTEINFOW;
@@ -4671,33 +4554,31 @@ typedef
 	struct WinAPI_SHFILEOPSTRUCTA {
 		LONGINT hwnd;
 		INTEGER wFunc;
-		WinAPI_PtrSTR pFrom, pTo;
+		LONGINT pFrom, pTo;
 		SHORTINT fFlags;
 		INTEGER fAnyOperationsAborted;
-		LONGINT hNameMappings;
-		WinAPI_PtrSTR lpszProgressTitle;
+		LONGINT hNameMappings, lpszProgressTitle;
 	} WinAPI_SHFILEOPSTRUCTA;
 
 typedef
 	struct WinAPI_SHFILEOPSTRUCTW {
 		LONGINT hwnd;
 		INTEGER wFunc;
-		WinAPI_PtrWSTR pFrom, pTo;
+		LONGINT pFrom, pTo;
 		SHORTINT fFlags;
 		INTEGER fAnyOperationsAborted;
-		LONGINT hNameMappings;
-		WinAPI_PtrWSTR lpszProgressTitle;
+		LONGINT hNameMappings, lpszProgressTitle;
 	} WinAPI_SHFILEOPSTRUCTW;
 
 typedef
 	struct WinAPI_SHNAMEMAPPINGA {
-		WinAPI_PtrSTR pszOldPath, pszNewPath;
+		LONGINT pszOldPath, pszNewPath;
 		INTEGER cchOldPath, cchNewPath;
 	} WinAPI_SHNAMEMAPPINGA;
 
 typedef
 	struct WinAPI_SHNAMEMAPPINGW {
-		WinAPI_PtrWSTR pszOldPath, pszNewPath;
+		LONGINT pszOldPath, pszNewPath;
 		INTEGER cchOldPath, cchNewPath;
 	} WinAPI_SHNAMEMAPPINGW;
 
@@ -4723,7 +4604,7 @@ typedef
 		INTEGER cbSize;
 		SET dwFlags;
 		INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
-		WinAPI_PtrSTR lpszWindowsEffectDLL;
+		LONGINT lpszWindowsEffectDLL;
 		INTEGER iWindowsEffectOrdinal;
 	} WinAPI_SOUNDSENTRYA;
 
@@ -4732,36 +4613,28 @@ typedef
 		INTEGER cbSize;
 		SET dwFlags;
 		INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
-		WinAPI_PtrWSTR lpszWindowsEffectDLL;
+		LONGINT lpszWindowsEffectDLL;
 		INTEGER iWindowsEffectOrdinal;
 	} WinAPI_SOUNDSENTRYW;
 
 typedef
 	struct WinAPI_STARTUPINFOA {
 		INTEGER cb;
-		WinAPI_PtrSTR lpReserved, lpDesktop, lpTitle;
+		LONGINT lpReserved, lpDesktop, lpTitle;
 		INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
 		SET dwFlags;
 		SHORTINT wShowWindow, cbReserved2;
-		struct {
-			INTEGER len[1];
-			CHAR data[1];
-		} *lpReserved2;
-		LONGINT hStdInput, hStdOutput, hStdError;
+		LONGINT lpReserved2, hStdInput, hStdOutput, hStdError;
 	} WinAPI_STARTUPINFOA;
 
 typedef
 	struct WinAPI_STARTUPINFOW {
 		INTEGER cb;
-		WinAPI_PtrWSTR lpReserved, lpDesktop, lpTitle;
+		LONGINT lpReserved, lpDesktop, lpTitle;
 		INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
 		SET dwFlags;
 		SHORTINT wShowWindow, cbReserved2;
-		struct {
-			INTEGER len[1];
-			CHAR data[1];
-		} *lpReserved2;
-		LONGINT hStdInput, hStdOutput, hStdError;
+		LONGINT lpReserved2, hStdInput, hStdOutput, hStdError;
 	} WinAPI_STARTUPINFOW;
 
 typedef
@@ -4980,13 +4853,13 @@ typedef
 
 typedef
 	struct WinAPI_VALENTA {
-		WinAPI_PtrSTR ve_valuename;
+		LONGINT ve_valuename;
 		INTEGER ve_valuelen, ve_valueptr, ve_type;
 	} WinAPI_VALENTA;
 
 typedef
 	struct WinAPI_VALENTW {
-		WinAPI_PtrWSTR ve_valuename;
+		LONGINT ve_valuename;
 		INTEGER ve_valuelen, ve_valueptr, ve_type;
 	} WinAPI_VALENTW;
 
@@ -5089,8 +4962,7 @@ typedef
 
 typedef
 	struct WinAPI_WIN_TRUST_SUBJECT_FILE {
-		LONGINT hFile;
-		WinAPI_PtrWSTR lpPath;
+		LONGINT hFile, lpPath;
 	} WinAPI_WIN_TRUST_SUBJECT_FILE;
 
 typedef
@@ -5101,8 +4973,7 @@ typedef
 		SET style;
 		WinAPI_WNDPROC lpfnWndProc;
 		INTEGER cbClsExtra, cbWndExtra;
-		LONGINT hInstance, hIcon, hCursor, hbrBackground;
-		WinAPI_PtrSTR lpszMenuName, lpszClassName;
+		LONGINT hInstance, hIcon, hCursor, hbrBackground, lpszMenuName, lpszClassName;
 	} WinAPI_WNDCLASSA;
 
 typedef
@@ -5111,9 +4982,7 @@ typedef
 		SET style;
 		WinAPI_WNDPROC lpfnWndProc;
 		INTEGER cbClsExtra, cbWndExtra;
-		LONGINT hInstance, hIcon, hCursor, hbrBackground;
-		WinAPI_PtrSTR lpszMenuName, lpszClassName;
-		LONGINT hIconSm;
+		LONGINT hInstance, hIcon, hCursor, hbrBackground, lpszMenuName, lpszClassName, hIconSm;
 	} WinAPI_WNDCLASSEXA;
 
 typedef
@@ -5122,9 +4991,7 @@ typedef
 		SET style;
 		WinAPI_WNDPROC lpfnWndProc;
 		INTEGER cbClsExtra, cbWndExtra;
-		LONGINT hInstance, hIcon, hCursor, hbrBackground;
-		WinAPI_PtrWSTR lpszMenuName, lpszClassName;
-		LONGINT hIconSm;
+		LONGINT hInstance, hIcon, hCursor, hbrBackground, lpszMenuName, lpszClassName, hIconSm;
 	} WinAPI_WNDCLASSEXW;
 
 typedef
@@ -5132,8 +4999,7 @@ typedef
 		SET style;
 		WinAPI_WNDPROC lpfnWndProc;
 		INTEGER cbClsExtra, cbWndExtra;
-		LONGINT hInstance, hIcon, hCursor, hbrBackground;
-		WinAPI_PtrWSTR lpszMenuName, lpszClassName;
+		LONGINT hInstance, hIcon, hCursor, hbrBackground, lpszMenuName, lpszClassName;
 	} WinAPI_WNDCLASSW;
 
 typedef
@@ -5674,16 +5540,16 @@ __EXTERN INTEGER __CALL_1 AbortPath(LONGINT p0);
 __EXTERN INTEGER __CALL_1 AbortPrinter(LONGINT hPrinter);
 #define WinAPI_AbortSystemShutdown(lpMachineName)	AbortSystemShutdownA(lpMachineName)
 #define WinAPI_AbortSystemShutdownA(lpMachineName)	AbortSystemShutdownA(lpMachineName)
-__EXTERN INTEGER __CALL_1 AbortSystemShutdownA(WinAPI_PtrSTR lpMachineName);
+__EXTERN INTEGER __CALL_1 AbortSystemShutdownA(LONGINT lpMachineName);
 #define WinAPI_AbortSystemShutdownW(lpMachineName)	AbortSystemShutdownW(lpMachineName)
-__EXTERN INTEGER __CALL_1 AbortSystemShutdownW(WinAPI_PtrWSTR lpMachineName);
+__EXTERN INTEGER __CALL_1 AbortSystemShutdownW(LONGINT lpMachineName);
 #define WinAPI_AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMapping, GenericMapping__typ, PrivilegeSet, PrivilegeSet__typ, PrivilegeSetLength, GrantedAccess, AccessStatus)	AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus)
 __EXTERN INTEGER __CALL_1 AccessCheck(LONGINT pSecurityDescriptor, LONGINT ClientToken, SET DesiredAccess, WinAPI_GENERIC_MAPPING *GenericMapping, WinAPI_PRIVILEGE_SET *PrivilegeSet, INTEGER *PrivilegeSetLength, INTEGER *GrantedAccess, INTEGER *AccessStatus);
 #define WinAPI_AccessCheckAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, GenericMapping__typ, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)	AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)
 #define WinAPI_AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, GenericMapping__typ, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)	AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)
-__EXTERN INTEGER __CALL_1 AccessCheckAndAuditAlarmA(WinAPI_PtrSTR SubsystemName, LONGINT HandleId, WinAPI_PtrSTR ObjectTypeName, WinAPI_PtrSTR ObjectName, LONGINT SecurityDescriptor, SET DesiredAccess, WinAPI_GENERIC_MAPPING *GenericMapping, INTEGER ObjectCreation, INTEGER *GrantedAccess, INTEGER *AccessStatus, INTEGER *pfGenerateOnClose);
+__EXTERN INTEGER __CALL_1 AccessCheckAndAuditAlarmA(LONGINT SubsystemName, LONGINT HandleId, LONGINT ObjectTypeName, LONGINT ObjectName, LONGINT SecurityDescriptor, SET DesiredAccess, WinAPI_GENERIC_MAPPING *GenericMapping, INTEGER ObjectCreation, INTEGER *GrantedAccess, INTEGER *AccessStatus, INTEGER *pfGenerateOnClose);
 #define WinAPI_AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, GenericMapping__typ, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)	AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose)
-__EXTERN INTEGER __CALL_1 AccessCheckAndAuditAlarmW(WinAPI_PtrWSTR SubsystemName, LONGINT HandleId, WinAPI_PtrWSTR ObjectTypeName, WinAPI_PtrWSTR ObjectName, LONGINT SecurityDescriptor, SET DesiredAccess, WinAPI_GENERIC_MAPPING *GenericMapping, INTEGER ObjectCreation, INTEGER *GrantedAccess, INTEGER *AccessStatus, INTEGER *pfGenerateOnClose);
+__EXTERN INTEGER __CALL_1 AccessCheckAndAuditAlarmW(LONGINT SubsystemName, LONGINT HandleId, LONGINT ObjectTypeName, LONGINT ObjectName, LONGINT SecurityDescriptor, SET DesiredAccess, WinAPI_GENERIC_MAPPING *GenericMapping, INTEGER ObjectCreation, INTEGER *GrantedAccess, INTEGER *AccessStatus, INTEGER *pfGenerateOnClose);
 #define WinAPI_ActivateKeyboardLayout(hkl, Flags)	ActivateKeyboardLayout(hkl, Flags)
 __EXTERN LONGINT __CALL_1 ActivateKeyboardLayout(LONGINT hkl, SET Flags);
 #define WinAPI_AddAccessAllowedAce(pAcl, pAcl__typ, dwAceRevision, AccessMask, pSid)	AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, pSid)
@@ -5694,16 +5560,16 @@ __EXTERN INTEGER __CALL_1 AddAccessDeniedAce(WinAPI_ACL *pAcl, INTEGER dwAceRevi
 __EXTERN INTEGER __CALL_1 AddAce(WinAPI_ACL *pAcl, INTEGER dwAceRevision, INTEGER dwStartingAceIndex, LONGINT pAceList, INTEGER nAceListLength);
 #define WinAPI_AddAtom(lpString)	AddAtomA(lpString)
 #define WinAPI_AddAtomA(lpString)	AddAtomA(lpString)
-__EXTERN SHORTINT __CALL_1 AddAtomA(WinAPI_PtrSTR lpString);
+__EXTERN SHORTINT __CALL_1 AddAtomA(LONGINT lpString);
 #define WinAPI_AddAtomW(lpString)	AddAtomW(lpString)
-__EXTERN SHORTINT __CALL_1 AddAtomW(WinAPI_PtrWSTR lpString);
+__EXTERN SHORTINT __CALL_1 AddAtomW(LONGINT lpString);
 #define WinAPI_AddAuditAccessAce(pAcl, pAcl__typ, dwAceRevision, dwAccessMask, pSid, bAuditSuccess, bAuditFailure)	AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, pSid, bAuditSuccess, bAuditFailure)
 __EXTERN INTEGER __CALL_1 AddAuditAccessAce(WinAPI_ACL *pAcl, INTEGER dwAceRevision, INTEGER dwAccessMask, LONGINT pSid, INTEGER bAuditSuccess, INTEGER bAuditFailure);
 #define WinAPI_AddFontResource(p0)	AddFontResourceA(p0)
 #define WinAPI_AddFontResourceA(p0)	AddFontResourceA(p0)
-__EXTERN INTEGER __CALL_1 AddFontResourceA(WinAPI_PtrSTR p0);
+__EXTERN INTEGER __CALL_1 AddFontResourceA(LONGINT p0);
 #define WinAPI_AddFontResourceW(p0)	AddFontResourceW(p0)
-__EXTERN INTEGER __CALL_1 AddFontResourceW(WinAPI_PtrWSTR p0);
+__EXTERN INTEGER __CALL_1 AddFontResourceW(LONGINT p0);
 #define WinAPI_AddForm(hPrinter, Level, pForm)	AddFormA(hPrinter, Level, pForm)
 #define WinAPI_AddFormA(hPrinter, Level, pForm)	AddFormA(hPrinter, Level, pForm)
 __EXTERN INTEGER __CALL_1 AddFormA(LONGINT hPrinter, INTEGER Level, CHAR *pForm);
@@ -5716,39 +5582,39 @@ __EXTERN INTEGER __CALL_1 AddJobA(LONGINT hPrinter, INTEGER Level, CHAR *pData, 
 __EXTERN INTEGER __CALL_1 AddJobW(LONGINT hPrinter, INTEGER Level, CHAR *pData, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_AddMonitor(pName, Level, pMonitors)	AddMonitorA(pName, Level, pMonitors)
 #define WinAPI_AddMonitorA(pName, Level, pMonitors)	AddMonitorA(pName, Level, pMonitors)
-__EXTERN INTEGER __CALL_1 AddMonitorA(WinAPI_PtrSTR pName, INTEGER Level, CHAR *pMonitors);
+__EXTERN INTEGER __CALL_1 AddMonitorA(LONGINT pName, INTEGER Level, CHAR *pMonitors);
 #define WinAPI_AddMonitorW(pName, Level, pMonitors)	AddMonitorW(pName, Level, pMonitors)
-__EXTERN INTEGER __CALL_1 AddMonitorW(WinAPI_PtrWSTR pName, INTEGER Level, CHAR *pMonitors);
+__EXTERN INTEGER __CALL_1 AddMonitorW(LONGINT pName, INTEGER Level, CHAR *pMonitors);
 #define WinAPI_AddPort(pName, hWnd, pMonitorName)	AddPortA(pName, hWnd, pMonitorName)
 #define WinAPI_AddPortA(pName, hWnd, pMonitorName)	AddPortA(pName, hWnd, pMonitorName)
-__EXTERN INTEGER __CALL_1 AddPortA(WinAPI_PtrSTR pName, LONGINT hWnd, WinAPI_PtrSTR pMonitorName);
+__EXTERN INTEGER __CALL_1 AddPortA(LONGINT pName, LONGINT hWnd, LONGINT pMonitorName);
 #define WinAPI_AddPortW(pName, hWnd, pMonitorName)	AddPortW(pName, hWnd, pMonitorName)
-__EXTERN INTEGER __CALL_1 AddPortW(WinAPI_PtrWSTR pName, LONGINT hWnd, WinAPI_PtrWSTR pMonitorName);
+__EXTERN INTEGER __CALL_1 AddPortW(LONGINT pName, LONGINT hWnd, LONGINT pMonitorName);
 #define WinAPI_AddPrintProcessor(pName, pEnvironment, pPathName, pPrintProcessorName)	AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName)
 #define WinAPI_AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName)	AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName)
-__EXTERN INTEGER __CALL_1 AddPrintProcessorA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, WinAPI_PtrSTR pPathName, WinAPI_PtrSTR pPrintProcessorName);
+__EXTERN INTEGER __CALL_1 AddPrintProcessorA(LONGINT pName, LONGINT pEnvironment, LONGINT pPathName, LONGINT pPrintProcessorName);
 #define WinAPI_AddPrintProcessorW(pName, pEnvironment, pPathName, pPrintProcessorName)	AddPrintProcessorW(pName, pEnvironment, pPathName, pPrintProcessorName)
-__EXTERN INTEGER __CALL_1 AddPrintProcessorW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, WinAPI_PtrWSTR pPathName, WinAPI_PtrWSTR pPrintProcessorName);
+__EXTERN INTEGER __CALL_1 AddPrintProcessorW(LONGINT pName, LONGINT pEnvironment, LONGINT pPathName, LONGINT pPrintProcessorName);
 #define WinAPI_AddPrintProvidor(pName, level, pProvidorInfo)	AddPrintProvidorA(pName, level, pProvidorInfo)
 #define WinAPI_AddPrintProvidorA(pName, level, pProvidorInfo)	AddPrintProvidorA(pName, level, pProvidorInfo)
-__EXTERN INTEGER __CALL_1 AddPrintProvidorA(WinAPI_PtrSTR pName, INTEGER level, CHAR *pProvidorInfo);
+__EXTERN INTEGER __CALL_1 AddPrintProvidorA(LONGINT pName, INTEGER level, CHAR *pProvidorInfo);
 #define WinAPI_AddPrintProvidorW(pName, level, pProvidorInfo)	AddPrintProvidorW(pName, level, pProvidorInfo)
-__EXTERN INTEGER __CALL_1 AddPrintProvidorW(WinAPI_PtrWSTR pName, INTEGER level, CHAR *pProvidorInfo);
+__EXTERN INTEGER __CALL_1 AddPrintProvidorW(LONGINT pName, INTEGER level, CHAR *pProvidorInfo);
 #define WinAPI_AddPrinter(pName, Level, pPrinter)	AddPrinterA(pName, Level, pPrinter)
 #define WinAPI_AddPrinterA(pName, Level, pPrinter)	AddPrinterA(pName, Level, pPrinter)
-__EXTERN LONGINT __CALL_1 AddPrinterA(WinAPI_PtrSTR pName, INTEGER Level, CHAR *pPrinter);
+__EXTERN LONGINT __CALL_1 AddPrinterA(LONGINT pName, INTEGER Level, CHAR *pPrinter);
 #define WinAPI_AddPrinterConnection(pName)	AddPrinterConnectionA(pName)
 #define WinAPI_AddPrinterConnectionA(pName)	AddPrinterConnectionA(pName)
-__EXTERN INTEGER __CALL_1 AddPrinterConnectionA(WinAPI_PtrSTR pName);
+__EXTERN INTEGER __CALL_1 AddPrinterConnectionA(LONGINT pName);
 #define WinAPI_AddPrinterConnectionW(pName)	AddPrinterConnectionW(pName)
-__EXTERN INTEGER __CALL_1 AddPrinterConnectionW(WinAPI_PtrWSTR pName);
+__EXTERN INTEGER __CALL_1 AddPrinterConnectionW(LONGINT pName);
 #define WinAPI_AddPrinterDriver(pName, Level, pDriverInfo)	AddPrinterDriverA(pName, Level, pDriverInfo)
 #define WinAPI_AddPrinterDriverA(pName, Level, pDriverInfo)	AddPrinterDriverA(pName, Level, pDriverInfo)
-__EXTERN INTEGER __CALL_1 AddPrinterDriverA(WinAPI_PtrSTR pName, INTEGER Level, CHAR *pDriverInfo);
+__EXTERN INTEGER __CALL_1 AddPrinterDriverA(LONGINT pName, INTEGER Level, CHAR *pDriverInfo);
 #define WinAPI_AddPrinterDriverW(pName, Level, pDriverInfo)	AddPrinterDriverW(pName, Level, pDriverInfo)
-__EXTERN INTEGER __CALL_1 AddPrinterDriverW(WinAPI_PtrWSTR pName, INTEGER Level, CHAR *pDriverInfo);
+__EXTERN INTEGER __CALL_1 AddPrinterDriverW(LONGINT pName, INTEGER Level, CHAR *pDriverInfo);
 #define WinAPI_AddPrinterW(pName, Level, pPrinter)	AddPrinterW(pName, Level, pPrinter)
-__EXTERN LONGINT __CALL_1 AddPrinterW(WinAPI_PtrWSTR pName, INTEGER Level, CHAR *pPrinter);
+__EXTERN LONGINT __CALL_1 AddPrinterW(LONGINT pName, INTEGER Level, CHAR *pPrinter);
 #define WinAPI_AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, NewState__typ, BufferLength, PreviousState, PreviousState__typ, ReturnLength)	AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, PreviousState, ReturnLength)
 __EXTERN INTEGER __CALL_1 AdjustTokenGroups(LONGINT TokenHandle, INTEGER ResetToDefault, WinAPI_TOKEN_GROUPS *NewState, INTEGER BufferLength, WinAPI_TOKEN_GROUPS *PreviousState, INTEGER *ReturnLength);
 #define WinAPI_AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, NewState__typ, BufferLength, PreviousState, PreviousState__typ, ReturnLength)	AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, BufferLength, PreviousState, ReturnLength)
@@ -5759,9 +5625,9 @@ __EXTERN INTEGER __CALL_1 AdjustWindowRect(WinAPI_RECT *lpRect, SET dwStyle, INT
 __EXTERN INTEGER __CALL_1 AdjustWindowRectEx(WinAPI_RECT *lpRect, SET dwStyle, INTEGER bMenu, SET dwExStyle);
 #define WinAPI_AdvancedDocumentProperties(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ)	AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput)
 #define WinAPI_AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ)	AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput)
-__EXTERN INTEGER __CALL_1 AdvancedDocumentPropertiesA(LONGINT hWnd, LONGINT hPrinter, WinAPI_PtrSTR pDeviceName, WinAPI_DEVMODEA *pDevModeOutput, WinAPI_DEVMODEA *pDevModeInput);
+__EXTERN INTEGER __CALL_1 AdvancedDocumentPropertiesA(LONGINT hWnd, LONGINT hPrinter, LONGINT pDeviceName, WinAPI_DEVMODEA *pDevModeOutput, WinAPI_DEVMODEA *pDevModeInput);
 #define WinAPI_AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ)	AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput)
-__EXTERN INTEGER __CALL_1 AdvancedDocumentPropertiesW(LONGINT hWnd, LONGINT hPrinter, WinAPI_PtrWSTR pDeviceName, WinAPI_DEVMODEW *pDevModeOutput, WinAPI_DEVMODEW *pDevModeInput);
+__EXTERN INTEGER __CALL_1 AdvancedDocumentPropertiesW(LONGINT hWnd, LONGINT hPrinter, LONGINT pDeviceName, WinAPI_DEVMODEW *pDevModeOutput, WinAPI_DEVMODEW *pDevModeInput);
 #define WinAPI_AllocConsole()	AllocConsole()
 __EXTERN INTEGER __CALL_1 AllocConsole(void);
 #define WinAPI_AllocateAndInitializeSid(pIdentifierAuthority, pIdentifierAuthority__typ, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid)	AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid)
@@ -5784,9 +5650,9 @@ __EXTERN INTEGER __CALL_1 AnimatePalette(LONGINT p0, INTEGER p1, INTEGER p2, Win
 __EXTERN INTEGER __CALL_1 AnyPopup(void);
 #define WinAPI_AppendMenu(hMenu, uFlags, uIDNewItem, lpNewItem)	AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem)
 #define WinAPI_AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem)	AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 AppendMenuA(LONGINT hMenu, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 AppendMenuA(LONGINT hMenu, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_AppendMenuW(hMenu, uFlags, uIDNewItem, lpNewItem)	AppendMenuW(hMenu, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 AppendMenuW(LONGINT hMenu, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrWSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 AppendMenuW(LONGINT hMenu, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_Arc(p0, p1, p2, p3, p4, p5, p6, p7, p8)	Arc(p0, p1, p2, p3, p4, p5, p6, p7, p8)
 __EXTERN INTEGER __CALL_1 Arc(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8);
 #define WinAPI_ArcTo(p0, p1, p2, p3, p4, p5, p6, p7, p8)	ArcTo(p0, p1, p2, p3, p4, p5, p6, p7, p8)
@@ -5803,24 +5669,15 @@ __EXTERN INTEGER __CALL_1 ArrangeIconicWindows(LONGINT hWnd);
 __EXTERN INTEGER __CALL_1 AttachThreadInput(INTEGER idAttach, INTEGER idAttachTo, INTEGER fAttach);
 #define WinAPI_BackupEventLog(hEventLog, lpBackupFileName)	BackupEventLogA(hEventLog, lpBackupFileName)
 #define WinAPI_BackupEventLogA(hEventLog, lpBackupFileName)	BackupEventLogA(hEventLog, lpBackupFileName)
-__EXTERN INTEGER __CALL_1 BackupEventLogA(LONGINT hEventLog, WinAPI_PtrSTR lpBackupFileName);
+__EXTERN INTEGER __CALL_1 BackupEventLogA(LONGINT hEventLog, LONGINT lpBackupFileName);
 #define WinAPI_BackupEventLogW(hEventLog, lpBackupFileName)	BackupEventLogW(hEventLog, lpBackupFileName)
-__EXTERN INTEGER __CALL_1 BackupEventLogW(LONGINT hEventLog, WinAPI_PtrWSTR lpBackupFileName);
+__EXTERN INTEGER __CALL_1 BackupEventLogW(LONGINT hEventLog, LONGINT lpBackupFileName);
 #define WinAPI_BackupRead(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bAbort, bProcessSecurity, lpContext)	BackupRead(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bAbort, bProcessSecurity, lpContext)
-__EXTERN INTEGER __CALL_1 BackupRead(LONGINT hFile, CHAR *lpBuffer, INTEGER nNumberOfBytesToRead, INTEGER *lpNumberOfBytesRead, INTEGER bAbort, INTEGER bProcessSecurity, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *lpContext);
+__EXTERN INTEGER __CALL_1 BackupRead(LONGINT hFile, CHAR *lpBuffer, INTEGER nNumberOfBytesToRead, INTEGER *lpNumberOfBytesRead, INTEGER bAbort, INTEGER bProcessSecurity, LONGINT lpContext);
 #define WinAPI_BackupSeek(hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked, lpdwHighByteSeeked, lpContext)	BackupSeek(hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked, lpdwHighByteSeeked, lpContext)
-__EXTERN INTEGER __CALL_1 BackupSeek(LONGINT hFile, INTEGER dwLowBytesToSeek, INTEGER dwHighBytesToSeek, INTEGER *lpdwLowByteSeeked, INTEGER *lpdwHighByteSeeked, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *lpContext);
+__EXTERN INTEGER __CALL_1 BackupSeek(LONGINT hFile, INTEGER dwLowBytesToSeek, INTEGER dwHighBytesToSeek, INTEGER *lpdwLowByteSeeked, INTEGER *lpdwHighByteSeeked, LONGINT lpContext);
 #define WinAPI_BackupWrite(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, bAbort, bProcessSecurity, lpContext)	BackupWrite(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, bAbort, bProcessSecurity, lpContext)
-__EXTERN INTEGER __CALL_1 BackupWrite(LONGINT hFile, CHAR *lpBuffer, INTEGER nNumberOfBytesToWrite, INTEGER *lpNumberOfBytesWritten, INTEGER bAbort, INTEGER bProcessSecurity, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *lpContext);
+__EXTERN INTEGER __CALL_1 BackupWrite(LONGINT hFile, CHAR *lpBuffer, INTEGER nNumberOfBytesToWrite, INTEGER *lpNumberOfBytesWritten, INTEGER bAbort, INTEGER bProcessSecurity, LONGINT lpContext);
 #define WinAPI_Beep(dwFreq, dwDuration)	Beep(dwFreq, dwDuration)
 __EXTERN INTEGER __CALL_1 Beep(INTEGER dwFreq, INTEGER dwDuration);
 #define WinAPI_BeginDeferWindowPos(nNumWindows)	BeginDeferWindowPos(nNumWindows)
@@ -5831,9 +5688,9 @@ __EXTERN LONGINT __CALL_1 BeginPaint(LONGINT hWnd, WinAPI_PAINTSTRUCT *lpPaint);
 __EXTERN INTEGER __CALL_1 BeginPath(LONGINT p0);
 #define WinAPI_BeginUpdateResource(pFileName, bDeleteExistingResources)	BeginUpdateResourceA(pFileName, bDeleteExistingResources)
 #define WinAPI_BeginUpdateResourceA(pFileName, bDeleteExistingResources)	BeginUpdateResourceA(pFileName, bDeleteExistingResources)
-__EXTERN LONGINT __CALL_1 BeginUpdateResourceA(WinAPI_PtrSTR pFileName, INTEGER bDeleteExistingResources);
+__EXTERN LONGINT __CALL_1 BeginUpdateResourceA(LONGINT pFileName, INTEGER bDeleteExistingResources);
 #define WinAPI_BeginUpdateResourceW(pFileName, bDeleteExistingResources)	BeginUpdateResourceW(pFileName, bDeleteExistingResources)
-__EXTERN LONGINT __CALL_1 BeginUpdateResourceW(WinAPI_PtrWSTR pFileName, INTEGER bDeleteExistingResources);
+__EXTERN LONGINT __CALL_1 BeginUpdateResourceW(LONGINT pFileName, INTEGER bDeleteExistingResources);
 #define WinAPI_BitBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8)	BitBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8)
 __EXTERN INTEGER __CALL_1 BitBlt(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, LONGINT p5, INTEGER p6, INTEGER p7, INTEGER p8);
 #define WinAPI_BringWindowToTop(hWnd)	BringWindowToTop(hWnd)
@@ -5845,14 +5702,14 @@ __EXTERN INTEGER __CALL_1 BroadcastSystemMessageA(SET p0, SET *p1, INTEGER p2, L
 __EXTERN INTEGER __CALL_1 BroadcastSystemMessageW(SET p0, SET *p1, INTEGER p2, LONGINT p3, LONGINT p4);
 #define WinAPI_BuildCommDCB(lpDef, lpDCB, lpDCB__typ)	BuildCommDCBA(lpDef, lpDCB)
 #define WinAPI_BuildCommDCBA(lpDef, lpDCB, lpDCB__typ)	BuildCommDCBA(lpDef, lpDCB)
-__EXTERN INTEGER __CALL_1 BuildCommDCBA(WinAPI_PtrSTR lpDef, WinAPI_DCB *lpDCB);
+__EXTERN INTEGER __CALL_1 BuildCommDCBA(LONGINT lpDef, WinAPI_DCB *lpDCB);
 #define WinAPI_BuildCommDCBAndTimeouts(lpDef, lpDCB, lpDCB__typ, lpCommTimeouts, lpCommTimeouts__typ)	BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts)
 #define WinAPI_BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpDCB__typ, lpCommTimeouts, lpCommTimeouts__typ)	BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts)
-__EXTERN INTEGER __CALL_1 BuildCommDCBAndTimeoutsA(WinAPI_PtrSTR lpDef, WinAPI_DCB *lpDCB, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
+__EXTERN INTEGER __CALL_1 BuildCommDCBAndTimeoutsA(LONGINT lpDef, WinAPI_DCB *lpDCB, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
 #define WinAPI_BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpDCB__typ, lpCommTimeouts, lpCommTimeouts__typ)	BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts)
-__EXTERN INTEGER __CALL_1 BuildCommDCBAndTimeoutsW(WinAPI_PtrWSTR lpDef, WinAPI_DCB *lpDCB, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
+__EXTERN INTEGER __CALL_1 BuildCommDCBAndTimeoutsW(LONGINT lpDef, WinAPI_DCB *lpDCB, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
 #define WinAPI_BuildCommDCBW(lpDef, lpDCB, lpDCB__typ)	BuildCommDCBW(lpDef, lpDCB)
-__EXTERN INTEGER __CALL_1 BuildCommDCBW(WinAPI_PtrWSTR lpDef, WinAPI_DCB *lpDCB);
+__EXTERN INTEGER __CALL_1 BuildCommDCBW(LONGINT lpDef, WinAPI_DCB *lpDCB);
 #define WinAPI_CallMsgFilter(lpMsg, lpMsg__typ, nCode)	CallMsgFilterA(lpMsg, nCode)
 #define WinAPI_CallMsgFilterA(lpMsg, lpMsg__typ, nCode)	CallMsgFilterA(lpMsg, nCode)
 __EXTERN INTEGER __CALL_1 CallMsgFilterA(WinAPI_MSG *lpMsg, INTEGER nCode);
@@ -5860,9 +5717,9 @@ __EXTERN INTEGER __CALL_1 CallMsgFilterA(WinAPI_MSG *lpMsg, INTEGER nCode);
 __EXTERN INTEGER __CALL_1 CallMsgFilterW(WinAPI_MSG *lpMsg, INTEGER nCode);
 #define WinAPI_CallNamedPipe(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)	CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)
 #define WinAPI_CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)	CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)
-__EXTERN INTEGER __CALL_1 CallNamedPipeA(WinAPI_PtrSTR lpNamedPipeName, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesRead, INTEGER nTimeOut);
+__EXTERN INTEGER __CALL_1 CallNamedPipeA(LONGINT lpNamedPipeName, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesRead, INTEGER nTimeOut);
 #define WinAPI_CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)	CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut)
-__EXTERN INTEGER __CALL_1 CallNamedPipeW(WinAPI_PtrWSTR lpNamedPipeName, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesRead, INTEGER nTimeOut);
+__EXTERN INTEGER __CALL_1 CallNamedPipeW(LONGINT lpNamedPipeName, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesRead, INTEGER nTimeOut);
 #define WinAPI_CallNextHookEx(hhk, nCode, wParam, lParam)	CallNextHookEx(hhk, nCode, wParam, lParam)
 __EXTERN LONGINT __CALL_1 CallNextHookEx(LONGINT hhk, INTEGER nCode, LONGINT wParam, LONGINT lParam);
 #define WinAPI_CallWindowProc(lpPrevWndFunc, hWnd, Msg, wParam, lParam)	CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam)
@@ -5885,58 +5742,58 @@ __EXTERN INTEGER __CALL_1 ChangeDisplaySettingsA(WinAPI_DEVMODEA *lpDevMode, SET
 __EXTERN INTEGER __CALL_1 ChangeDisplaySettingsW(WinAPI_DEVMODEW *lpDevMode, SET dwFlags);
 #define WinAPI_ChangeMenu(hMenu, cmd, lpszNewItem, cmdInsert, flags)	ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags)
 #define WinAPI_ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags)	ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags)
-__EXTERN INTEGER __CALL_1 ChangeMenuA(LONGINT hMenu, INTEGER cmd, WinAPI_PtrSTR lpszNewItem, INTEGER cmdInsert, SET flags);
+__EXTERN INTEGER __CALL_1 ChangeMenuA(LONGINT hMenu, INTEGER cmd, LONGINT lpszNewItem, INTEGER cmdInsert, SET flags);
 #define WinAPI_ChangeMenuW(hMenu, cmd, lpszNewItem, cmdInsert, flags)	ChangeMenuW(hMenu, cmd, lpszNewItem, cmdInsert, flags)
-__EXTERN INTEGER __CALL_1 ChangeMenuW(LONGINT hMenu, INTEGER cmd, WinAPI_PtrWSTR lpszNewItem, INTEGER cmdInsert, SET flags);
+__EXTERN INTEGER __CALL_1 ChangeMenuW(LONGINT hMenu, INTEGER cmd, LONGINT lpszNewItem, INTEGER cmdInsert, SET flags);
 #define WinAPI_ChangeServiceConfig(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)	ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)
 #define WinAPI_ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)	ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)
-__EXTERN INTEGER __CALL_1 ChangeServiceConfigA(LONGINT hService, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, WinAPI_PtrSTR lpBinaryPathName, WinAPI_PtrSTR lpLoadOrderGroup, INTEGER *lpdwTagId, WinAPI_PtrSTR lpDependencies, WinAPI_PtrSTR lpServiceStartName, WinAPI_PtrSTR lpPassword, WinAPI_PtrSTR lpDisplayName);
+__EXTERN INTEGER __CALL_1 ChangeServiceConfigA(LONGINT hService, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, LONGINT lpBinaryPathName, LONGINT lpLoadOrderGroup, INTEGER *lpdwTagId, LONGINT lpDependencies, LONGINT lpServiceStartName, LONGINT lpPassword, LONGINT lpDisplayName);
 #define WinAPI_ChangeServiceConfigW(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)	ChangeServiceConfigW(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName)
-__EXTERN INTEGER __CALL_1 ChangeServiceConfigW(LONGINT hService, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, WinAPI_PtrWSTR lpBinaryPathName, WinAPI_PtrWSTR lpLoadOrderGroup, INTEGER *lpdwTagId, WinAPI_PtrWSTR lpDependencies, WinAPI_PtrWSTR lpServiceStartName, WinAPI_PtrWSTR lpPassword, WinAPI_PtrWSTR lpDisplayName);
+__EXTERN INTEGER __CALL_1 ChangeServiceConfigW(LONGINT hService, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, LONGINT lpBinaryPathName, LONGINT lpLoadOrderGroup, INTEGER *lpdwTagId, LONGINT lpDependencies, LONGINT lpServiceStartName, LONGINT lpPassword, LONGINT lpDisplayName);
 #define WinAPI_CharLower(lpsz)	CharLowerA(lpsz)
 #define WinAPI_CharLowerA(lpsz)	CharLowerA(lpsz)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharLowerA(WinAPI_PtrSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharLowerA(LONGINT lpsz);
 #define WinAPI_CharLowerBuff(lpsz, cchLength)	CharLowerBuffA(lpsz, cchLength)
 #define WinAPI_CharLowerBuffA(lpsz, cchLength)	CharLowerBuffA(lpsz, cchLength)
-__EXTERN INTEGER __CALL_1 CharLowerBuffA(WinAPI_PtrSTR lpsz, INTEGER cchLength);
+__EXTERN INTEGER __CALL_1 CharLowerBuffA(LONGINT lpsz, INTEGER cchLength);
 #define WinAPI_CharLowerBuffW(lpsz, cchLength)	CharLowerBuffW(lpsz, cchLength)
-__EXTERN INTEGER __CALL_1 CharLowerBuffW(WinAPI_PtrWSTR lpsz, INTEGER cchLength);
+__EXTERN INTEGER __CALL_1 CharLowerBuffW(LONGINT lpsz, INTEGER cchLength);
 #define WinAPI_CharLowerW(lpsz)	CharLowerW(lpsz)
-__EXTERN WinAPI_PtrWSTR __CALL_1 CharLowerW(WinAPI_PtrWSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharLowerW(LONGINT lpsz);
 #define WinAPI_CharNext(lpsz)	CharNextA(lpsz)
 #define WinAPI_CharNextA(lpsz)	CharNextA(lpsz)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharNextA(WinAPI_PtrSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharNextA(LONGINT lpsz);
 #define WinAPI_CharNextExA(CodePage, lpCurrentChar, dwFlags)	CharNextExA(CodePage, lpCurrentChar, dwFlags)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharNextExA(SHORTINT CodePage, WinAPI_PtrSTR lpCurrentChar, SET dwFlags);
+__EXTERN LONGINT __CALL_1 CharNextExA(SHORTINT CodePage, LONGINT lpCurrentChar, SET dwFlags);
 #define WinAPI_CharNextW(lpsz)	CharNextW(lpsz)
-__EXTERN WinAPI_PtrWSTR __CALL_1 CharNextW(WinAPI_PtrWSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharNextW(LONGINT lpsz);
 #define WinAPI_CharPrev(lpszStart, lpszCurrent)	CharPrevA(lpszStart, lpszCurrent)
 #define WinAPI_CharPrevA(lpszStart, lpszCurrent)	CharPrevA(lpszStart, lpszCurrent)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharPrevA(WinAPI_PtrSTR lpszStart, WinAPI_PtrSTR lpszCurrent);
+__EXTERN LONGINT __CALL_1 CharPrevA(LONGINT lpszStart, LONGINT lpszCurrent);
 #define WinAPI_CharPrevExA(CodePage, lpStart, lpCurrentChar, dwFlags)	CharPrevExA(CodePage, lpStart, lpCurrentChar, dwFlags)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharPrevExA(SHORTINT CodePage, WinAPI_PtrSTR lpStart, WinAPI_PtrSTR lpCurrentChar, SET dwFlags);
+__EXTERN LONGINT __CALL_1 CharPrevExA(SHORTINT CodePage, LONGINT lpStart, LONGINT lpCurrentChar, SET dwFlags);
 #define WinAPI_CharPrevW(lpszStart, lpszCurrent)	CharPrevW(lpszStart, lpszCurrent)
-__EXTERN WinAPI_PtrWSTR __CALL_1 CharPrevW(WinAPI_PtrWSTR lpszStart, WinAPI_PtrWSTR lpszCurrent);
+__EXTERN LONGINT __CALL_1 CharPrevW(LONGINT lpszStart, LONGINT lpszCurrent);
 #define WinAPI_CharToOem(lpszSrc, lpszDst)	CharToOemA(lpszSrc, lpszDst)
 #define WinAPI_CharToOemA(lpszSrc, lpszDst)	CharToOemA(lpszSrc, lpszDst)
-__EXTERN INTEGER __CALL_1 CharToOemA(WinAPI_PtrSTR lpszSrc, WinAPI_PtrSTR lpszDst);
+__EXTERN INTEGER __CALL_1 CharToOemA(LONGINT lpszSrc, LONGINT lpszDst);
 #define WinAPI_CharToOemBuff(lpszSrc, lpszDst, cchDstLength)	CharToOemBuffA(lpszSrc, lpszDst, cchDstLength)
 #define WinAPI_CharToOemBuffA(lpszSrc, lpszDst, cchDstLength)	CharToOemBuffA(lpszSrc, lpszDst, cchDstLength)
-__EXTERN INTEGER __CALL_1 CharToOemBuffA(WinAPI_PtrSTR lpszSrc, WinAPI_PtrSTR lpszDst, INTEGER cchDstLength);
+__EXTERN INTEGER __CALL_1 CharToOemBuffA(LONGINT lpszSrc, LONGINT lpszDst, INTEGER cchDstLength);
 #define WinAPI_CharToOemBuffW(lpszSrc, lpszDst, cchDstLength)	CharToOemBuffW(lpszSrc, lpszDst, cchDstLength)
-__EXTERN INTEGER __CALL_1 CharToOemBuffW(WinAPI_PtrWSTR lpszSrc, WinAPI_PtrSTR lpszDst, INTEGER cchDstLength);
+__EXTERN INTEGER __CALL_1 CharToOemBuffW(LONGINT lpszSrc, LONGINT lpszDst, INTEGER cchDstLength);
 #define WinAPI_CharToOemW(lpszSrc, lpszDst)	CharToOemW(lpszSrc, lpszDst)
-__EXTERN INTEGER __CALL_1 CharToOemW(WinAPI_PtrWSTR lpszSrc, WinAPI_PtrSTR lpszDst);
+__EXTERN INTEGER __CALL_1 CharToOemW(LONGINT lpszSrc, LONGINT lpszDst);
 #define WinAPI_CharUpper(lpsz)	CharUpperA(lpsz)
 #define WinAPI_CharUpperA(lpsz)	CharUpperA(lpsz)
-__EXTERN WinAPI_PtrSTR __CALL_1 CharUpperA(WinAPI_PtrSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharUpperA(LONGINT lpsz);
 #define WinAPI_CharUpperBuff(lpsz, cchLength)	CharUpperBuffA(lpsz, cchLength)
 #define WinAPI_CharUpperBuffA(lpsz, cchLength)	CharUpperBuffA(lpsz, cchLength)
-__EXTERN INTEGER __CALL_1 CharUpperBuffA(WinAPI_PtrSTR lpsz, INTEGER cchLength);
+__EXTERN INTEGER __CALL_1 CharUpperBuffA(LONGINT lpsz, INTEGER cchLength);
 #define WinAPI_CharUpperBuffW(lpsz, cchLength)	CharUpperBuffW(lpsz, cchLength)
-__EXTERN INTEGER __CALL_1 CharUpperBuffW(WinAPI_PtrWSTR lpsz, INTEGER cchLength);
+__EXTERN INTEGER __CALL_1 CharUpperBuffW(LONGINT lpsz, INTEGER cchLength);
 #define WinAPI_CharUpperW(lpsz)	CharUpperW(lpsz)
-__EXTERN WinAPI_PtrWSTR __CALL_1 CharUpperW(WinAPI_PtrWSTR lpsz);
+__EXTERN LONGINT __CALL_1 CharUpperW(LONGINT lpsz);
 #define WinAPI_CheckColorsInGamut(p0, p1, p2, p3)	CheckColorsInGamut(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 CheckColorsInGamut(LONGINT p0, LONGINT p1, LONGINT p2, INTEGER p3);
 #define WinAPI_CheckDlgButton(hDlg, nIDButton, uCheck)	CheckDlgButton(hDlg, nIDButton, uCheck)
@@ -5961,9 +5818,9 @@ __EXTERN INTEGER __CALL_1 ClearCommBreak(LONGINT hFile);
 __EXTERN INTEGER __CALL_1 ClearCommError(LONGINT hFile, SET *lpErrors, WinAPI_COMSTAT *lpStat);
 #define WinAPI_ClearEventLog(hEventLog, lpBackupFileName)	ClearEventLogA(hEventLog, lpBackupFileName)
 #define WinAPI_ClearEventLogA(hEventLog, lpBackupFileName)	ClearEventLogA(hEventLog, lpBackupFileName)
-__EXTERN INTEGER __CALL_1 ClearEventLogA(LONGINT hEventLog, WinAPI_PtrSTR lpBackupFileName);
+__EXTERN INTEGER __CALL_1 ClearEventLogA(LONGINT hEventLog, LONGINT lpBackupFileName);
 #define WinAPI_ClearEventLogW(hEventLog, lpBackupFileName)	ClearEventLogW(hEventLog, lpBackupFileName)
-__EXTERN INTEGER __CALL_1 ClearEventLogW(LONGINT hEventLog, WinAPI_PtrWSTR lpBackupFileName);
+__EXTERN INTEGER __CALL_1 ClearEventLogW(LONGINT hEventLog, LONGINT lpBackupFileName);
 #define WinAPI_ClientToScreen(hWnd, lpPoint, lpPoint__typ)	ClientToScreen(hWnd, lpPoint)
 __EXTERN INTEGER __CALL_1 ClientToScreen(LONGINT hWnd, WinAPI_POINT *lpPoint);
 #define WinAPI_ClipCursor(lpRect, lpRect__typ)	ClipCursor(lpRect)
@@ -6000,23 +5857,23 @@ __EXTERN INTEGER __CALL_1 CombineRgn(LONGINT p0, LONGINT p1, LONGINT p2, INTEGER
 __EXTERN INTEGER __CALL_1 CombineTransform(WinAPI_XFORM *p0, WinAPI_XFORM *p1, WinAPI_XFORM *p2);
 #define WinAPI_CommConfigDialog(lpszName, hWnd, lpCC, lpCC__typ)	CommConfigDialogA(lpszName, hWnd, lpCC)
 #define WinAPI_CommConfigDialogA(lpszName, hWnd, lpCC, lpCC__typ)	CommConfigDialogA(lpszName, hWnd, lpCC)
-__EXTERN INTEGER __CALL_1 CommConfigDialogA(WinAPI_PtrSTR lpszName, LONGINT hWnd, WinAPI_COMMCONFIG *lpCC);
+__EXTERN INTEGER __CALL_1 CommConfigDialogA(LONGINT lpszName, LONGINT hWnd, WinAPI_COMMCONFIG *lpCC);
 #define WinAPI_CommConfigDialogW(lpszName, hWnd, lpCC, lpCC__typ)	CommConfigDialogW(lpszName, hWnd, lpCC)
-__EXTERN INTEGER __CALL_1 CommConfigDialogW(WinAPI_PtrWSTR lpszName, LONGINT hWnd, WinAPI_COMMCONFIG *lpCC);
+__EXTERN INTEGER __CALL_1 CommConfigDialogW(LONGINT lpszName, LONGINT hWnd, WinAPI_COMMCONFIG *lpCC);
 #define WinAPI_CommandLineToArgvW(lpCmdLine, pNumArgs)	CommandLineToArgvW(lpCmdLine, pNumArgs)
-__EXTERN WinAPI_RetCommandLineToArgvW __CALL_1 CommandLineToArgvW(WinAPI_PtrWSTR lpCmdLine, INTEGER *pNumArgs);
+__EXTERN LONGINT __CALL_1 CommandLineToArgvW(LONGINT lpCmdLine, INTEGER *pNumArgs);
 #define WinAPI_CompareFileTime(lpFileTime1, lpFileTime1__typ, lpFileTime2, lpFileTime2__typ)	CompareFileTime(lpFileTime1, lpFileTime2)
 __EXTERN INTEGER __CALL_1 CompareFileTime(WinAPI_FILETIME *lpFileTime1, WinAPI_FILETIME *lpFileTime2);
 #define WinAPI_CompareString(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)	CompareStringA(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)
 #define WinAPI_CompareStringA(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)	CompareStringA(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)
-__EXTERN INTEGER __CALL_1 CompareStringA(INTEGER Locale, SET dwCmpFlags, WinAPI_PtrSTR lpString1, INTEGER cchCount1, WinAPI_PtrSTR lpString2, INTEGER cchCount2);
+__EXTERN INTEGER __CALL_1 CompareStringA(INTEGER Locale, SET dwCmpFlags, LONGINT lpString1, INTEGER cchCount1, LONGINT lpString2, INTEGER cchCount2);
 #define WinAPI_CompareStringW(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)	CompareStringW(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCount2)
-__EXTERN INTEGER __CALL_1 CompareStringW(INTEGER Locale, SET dwCmpFlags, WinAPI_PtrWSTR lpString1, INTEGER cchCount1, WinAPI_PtrWSTR lpString2, INTEGER cchCount2);
+__EXTERN INTEGER __CALL_1 CompareStringW(INTEGER Locale, SET dwCmpFlags, LONGINT lpString1, INTEGER cchCount1, LONGINT lpString2, INTEGER cchCount2);
 #define WinAPI_ConfigurePort(pName, hWnd, pPortName)	ConfigurePortA(pName, hWnd, pPortName)
 #define WinAPI_ConfigurePortA(pName, hWnd, pPortName)	ConfigurePortA(pName, hWnd, pPortName)
-__EXTERN INTEGER __CALL_1 ConfigurePortA(WinAPI_PtrSTR pName, LONGINT hWnd, WinAPI_PtrSTR pPortName);
+__EXTERN INTEGER __CALL_1 ConfigurePortA(LONGINT pName, LONGINT hWnd, LONGINT pPortName);
 #define WinAPI_ConfigurePortW(pName, hWnd, pPortName)	ConfigurePortW(pName, hWnd, pPortName)
-__EXTERN INTEGER __CALL_1 ConfigurePortW(WinAPI_PtrWSTR pName, LONGINT hWnd, WinAPI_PtrWSTR pPortName);
+__EXTERN INTEGER __CALL_1 ConfigurePortW(LONGINT pName, LONGINT hWnd, LONGINT pPortName);
 #define WinAPI_ConnectNamedPipe(hNamedPipe, lpOverlapped, lpOverlapped__typ)	ConnectNamedPipe(hNamedPipe, lpOverlapped)
 __EXTERN INTEGER __CALL_1 ConnectNamedPipe(LONGINT hNamedPipe, WinAPI_OVERLAPPED *lpOverlapped);
 #define WinAPI_ConnectToPrinterDlg(hwnd, Flags)	ConnectToPrinterDlg(hwnd, Flags)
@@ -6036,19 +5893,19 @@ __EXTERN INTEGER __CALL_1 CopyAcceleratorTableA(LONGINT hAccelSrc, WinAPI_ACCEL 
 __EXTERN INTEGER __CALL_1 CopyAcceleratorTableW(LONGINT hAccelSrc, WinAPI_ACCEL *lpAccelDst, INTEGER cAccelEntries);
 #define WinAPI_CopyEnhMetaFile(p0, p1)	CopyEnhMetaFileA(p0, p1)
 #define WinAPI_CopyEnhMetaFileA(p0, p1)	CopyEnhMetaFileA(p0, p1)
-__EXTERN LONGINT __CALL_1 CopyEnhMetaFileA(LONGINT p0, WinAPI_PtrSTR p1);
+__EXTERN LONGINT __CALL_1 CopyEnhMetaFileA(LONGINT p0, LONGINT p1);
 #define WinAPI_CopyEnhMetaFileW(p0, p1)	CopyEnhMetaFileW(p0, p1)
-__EXTERN LONGINT __CALL_1 CopyEnhMetaFileW(LONGINT p0, WinAPI_PtrWSTR p1);
+__EXTERN LONGINT __CALL_1 CopyEnhMetaFileW(LONGINT p0, LONGINT p1);
 #define WinAPI_CopyFile(lpExistingFileName, lpNewFileName, bFailIfExists)	CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists)
 #define WinAPI_CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists)	CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists)
-__EXTERN INTEGER __CALL_1 CopyFileA(WinAPI_PtrSTR lpExistingFileName, WinAPI_PtrSTR lpNewFileName, INTEGER bFailIfExists);
+__EXTERN INTEGER __CALL_1 CopyFileA(LONGINT lpExistingFileName, LONGINT lpNewFileName, INTEGER bFailIfExists);
 #define WinAPI_CopyFileEx(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)	CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)
 #define WinAPI_CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)	CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)
-__EXTERN INTEGER __CALL_1 CopyFileExA(WinAPI_PtrSTR lpExistingFileName, WinAPI_PtrSTR lpNewFileName, WinAPI_PROGRESS_ROUTINE lpProgressRoutine, LONGINT lpData, INTEGER *pbCancel, INTEGER dwCopyFlags);
+__EXTERN INTEGER __CALL_1 CopyFileExA(LONGINT lpExistingFileName, LONGINT lpNewFileName, WinAPI_PROGRESS_ROUTINE lpProgressRoutine, LONGINT lpData, INTEGER *pbCancel, INTEGER dwCopyFlags);
 #define WinAPI_CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)	CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags)
-__EXTERN INTEGER __CALL_1 CopyFileExW(WinAPI_PtrWSTR lpExistingFileName, WinAPI_PtrWSTR lpNewFileName, WinAPI_PROGRESS_ROUTINE lpProgressRoutine, LONGINT lpData, INTEGER *pbCancel, INTEGER dwCopyFlags);
+__EXTERN INTEGER __CALL_1 CopyFileExW(LONGINT lpExistingFileName, LONGINT lpNewFileName, WinAPI_PROGRESS_ROUTINE lpProgressRoutine, LONGINT lpData, INTEGER *pbCancel, INTEGER dwCopyFlags);
 #define WinAPI_CopyFileW(lpExistingFileName, lpNewFileName, bFailIfExists)	CopyFileW(lpExistingFileName, lpNewFileName, bFailIfExists)
-__EXTERN INTEGER __CALL_1 CopyFileW(WinAPI_PtrWSTR lpExistingFileName, WinAPI_PtrWSTR lpNewFileName, INTEGER bFailIfExists);
+__EXTERN INTEGER __CALL_1 CopyFileW(LONGINT lpExistingFileName, LONGINT lpNewFileName, INTEGER bFailIfExists);
 #define WinAPI_CopyIcon(hIcon)	CopyIcon(hIcon)
 __EXTERN LONGINT __CALL_1 CopyIcon(LONGINT hIcon);
 #define WinAPI_CopyImage(p0, p1, p2, p3, p4)	CopyImage(p0, p1, p2, p3, p4)
@@ -6057,9 +5914,9 @@ __EXTERN LONGINT __CALL_1 CopyImage(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER 
 __EXTERN INTEGER __CALL_1 CopyLZFile(INTEGER p0, INTEGER p1);
 #define WinAPI_CopyMetaFile(p0, p1)	CopyMetaFileA(p0, p1)
 #define WinAPI_CopyMetaFileA(p0, p1)	CopyMetaFileA(p0, p1)
-__EXTERN LONGINT __CALL_1 CopyMetaFileA(LONGINT p0, WinAPI_PtrSTR p1);
+__EXTERN LONGINT __CALL_1 CopyMetaFileA(LONGINT p0, LONGINT p1);
 #define WinAPI_CopyMetaFileW(p0, p1)	CopyMetaFileW(p0, p1)
-__EXTERN LONGINT __CALL_1 CopyMetaFileW(LONGINT p0, WinAPI_PtrWSTR p1);
+__EXTERN LONGINT __CALL_1 CopyMetaFileW(LONGINT p0, LONGINT p1);
 #define WinAPI_CopyRect(lprcDst, lprcDst__typ, lprcSrc, lprcSrc__typ)	CopyRect(lprcDst, lprcSrc)
 __EXTERN INTEGER __CALL_1 CopyRect(WinAPI_RECT *lprcDst, WinAPI_RECT *lprcSrc);
 #define WinAPI_CopySid(nDestinationSidLength, pDestinationSid, pSourceSid)	CopySid(nDestinationSidLength, pDestinationSid, pSourceSid)
@@ -6094,9 +5951,9 @@ __EXTERN LONGINT __CALL_1 CreateConsoleScreenBuffer(SET dwDesiredAccess, SET dwS
 __EXTERN LONGINT __CALL_1 CreateCursor(LONGINT hInst, INTEGER xHotSpot, INTEGER yHotSpot, INTEGER nWidth, INTEGER nHeight, LONGINT pvANDPlane, LONGINT pvXORPlane);
 #define WinAPI_CreateDC(p0, p1, p2, p3, p3__typ)	CreateDCA(p0, p1, p2, p3)
 #define WinAPI_CreateDCA(p0, p1, p2, p3, p3__typ)	CreateDCA(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateDCA(WinAPI_PtrSTR p0, WinAPI_PtrSTR p1, WinAPI_PtrSTR p2, WinAPI_DEVMODEA *p3);
+__EXTERN LONGINT __CALL_1 CreateDCA(LONGINT p0, LONGINT p1, LONGINT p2, WinAPI_DEVMODEA *p3);
 #define WinAPI_CreateDCW(p0, p1, p2, p3, p3__typ)	CreateDCW(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateDCW(WinAPI_PtrWSTR p0, WinAPI_PtrWSTR p1, WinAPI_PtrWSTR p2, WinAPI_DEVMODEW *p3);
+__EXTERN LONGINT __CALL_1 CreateDCW(LONGINT p0, LONGINT p1, LONGINT p2, WinAPI_DEVMODEW *p3);
 #define WinAPI_CreateDIBPatternBrush(p0, p1)	CreateDIBPatternBrush(p0, p1)
 __EXTERN LONGINT __CALL_1 CreateDIBPatternBrush(LONGINT p0, INTEGER p1);
 #define WinAPI_CreateDIBPatternBrushPt(p0, p1)	CreateDIBPatternBrushPt(p0, p1)
@@ -6107,9 +5964,9 @@ __EXTERN LONGINT __CALL_1 CreateDIBSection(LONGINT p0, WinAPI_BITMAPINFO *p1, IN
 __EXTERN LONGINT __CALL_1 CreateDIBitmap(LONGINT p0, WinAPI_BITMAPINFOHEADER *p1, INTEGER p2, LONGINT p3, WinAPI_BITMAPINFO *p4, INTEGER p5);
 #define WinAPI_CreateDesktop(lpszDesktop, lpszDevice, pDevmode, pDevmode__typ, dwFlags, dwDesiredAccess, lpsa, lpsa__typ)	CreateDesktopA(lpszDesktop, lpszDevice, pDevmode, dwFlags, dwDesiredAccess, lpsa)
 #define WinAPI_CreateDesktopA(lpszDesktop, lpszDevice, pDevmode, pDevmode__typ, dwFlags, dwDesiredAccess, lpsa, lpsa__typ)	CreateDesktopA(lpszDesktop, lpszDevice, pDevmode, dwFlags, dwDesiredAccess, lpsa)
-__EXTERN LONGINT __CALL_1 CreateDesktopA(WinAPI_PtrSTR lpszDesktop, WinAPI_PtrSTR lpszDevice, WinAPI_DEVMODEA *pDevmode, SET dwFlags, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
+__EXTERN LONGINT __CALL_1 CreateDesktopA(LONGINT lpszDesktop, LONGINT lpszDevice, WinAPI_DEVMODEA *pDevmode, SET dwFlags, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
 #define WinAPI_CreateDesktopW(lpszDesktop, lpszDevice, pDevmode, pDevmode__typ, dwFlags, dwDesiredAccess, lpsa, lpsa__typ)	CreateDesktopW(lpszDesktop, lpszDevice, pDevmode, dwFlags, dwDesiredAccess, lpsa)
-__EXTERN LONGINT __CALL_1 CreateDesktopW(WinAPI_PtrWSTR lpszDesktop, WinAPI_PtrWSTR lpszDevice, WinAPI_DEVMODEW *pDevmode, SET dwFlags, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
+__EXTERN LONGINT __CALL_1 CreateDesktopW(LONGINT lpszDesktop, LONGINT lpszDevice, WinAPI_DEVMODEW *pDevmode, SET dwFlags, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
 #define WinAPI_CreateDialogIndirectParam(hInstance, lpTemplate, lpTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)
 #define WinAPI_CreateDialogIndirectParamA(hInstance, lpTemplate, lpTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam)
 __EXTERN LONGINT __CALL_1 CreateDialogIndirectParamA(LONGINT hInstance, WinAPI_DLGTEMPLATE *lpTemplate, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
@@ -6117,19 +5974,19 @@ __EXTERN LONGINT __CALL_1 CreateDialogIndirectParamA(LONGINT hInstance, WinAPI_D
 __EXTERN LONGINT __CALL_1 CreateDialogIndirectParamW(LONGINT hInstance, WinAPI_DLGTEMPLATE *lpTemplate, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_CreateDialogParam(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
 #define WinAPI_CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN LONGINT __CALL_1 CreateDialogParamA(LONGINT hInstance, WinAPI_PtrSTR lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN LONGINT __CALL_1 CreateDialogParamA(LONGINT hInstance, LONGINT lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN LONGINT __CALL_1 CreateDialogParamW(LONGINT hInstance, WinAPI_PtrWSTR lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN LONGINT __CALL_1 CreateDialogParamW(LONGINT hInstance, LONGINT lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_CreateDirectory(lpPathName, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryA(lpPathName, lpSecurityAttributes)
 #define WinAPI_CreateDirectoryA(lpPathName, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryA(lpPathName, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 CreateDirectoryA(WinAPI_PtrSTR lpPathName, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 CreateDirectoryA(LONGINT lpPathName, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateDirectoryEx(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes)
 #define WinAPI_CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 CreateDirectoryExA(WinAPI_PtrSTR lpTemplateDirectory, WinAPI_PtrSTR lpNewDirectory, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 CreateDirectoryExA(LONGINT lpTemplateDirectory, LONGINT lpNewDirectory, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateDirectoryExW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryExW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 CreateDirectoryExW(WinAPI_PtrWSTR lpTemplateDirectory, WinAPI_PtrWSTR lpNewDirectory, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 CreateDirectoryExW(LONGINT lpTemplateDirectory, LONGINT lpNewDirectory, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateDirectoryW(lpPathName, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateDirectoryW(lpPathName, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 CreateDirectoryW(WinAPI_PtrWSTR lpPathName, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 CreateDirectoryW(LONGINT lpPathName, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateDiscardableBitmap(p0, p1, p2)	CreateDiscardableBitmap(p0, p1, p2)
 __EXTERN LONGINT __CALL_1 CreateDiscardableBitmap(LONGINT p0, INTEGER p1, INTEGER p2);
 #define WinAPI_CreateEllipticRgn(p0, p1, p2, p3)	CreateEllipticRgn(p0, p1, p2, p3)
@@ -6138,45 +5995,45 @@ __EXTERN LONGINT __CALL_1 CreateEllipticRgn(INTEGER p0, INTEGER p1, INTEGER p2, 
 __EXTERN LONGINT __CALL_1 CreateEllipticRgnIndirect(WinAPI_RECT *p0);
 #define WinAPI_CreateEnhMetaFile(p0, p1, p2, p2__typ, p3)	CreateEnhMetaFileA(p0, p1, p2, p3)
 #define WinAPI_CreateEnhMetaFileA(p0, p1, p2, p2__typ, p3)	CreateEnhMetaFileA(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateEnhMetaFileA(LONGINT p0, WinAPI_PtrSTR p1, WinAPI_RECT *p2, WinAPI_PtrSTR p3);
+__EXTERN LONGINT __CALL_1 CreateEnhMetaFileA(LONGINT p0, LONGINT p1, WinAPI_RECT *p2, LONGINT p3);
 #define WinAPI_CreateEnhMetaFileW(p0, p1, p2, p2__typ, p3)	CreateEnhMetaFileW(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateEnhMetaFileW(LONGINT p0, WinAPI_PtrWSTR p1, WinAPI_RECT *p2, WinAPI_PtrWSTR p3);
+__EXTERN LONGINT __CALL_1 CreateEnhMetaFileW(LONGINT p0, LONGINT p1, WinAPI_RECT *p2, LONGINT p3);
 #define WinAPI_CreateEvent(lpEventAttributes, lpEventAttributes__typ, bManualReset, bInitialState, lpName)	CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName)
 #define WinAPI_CreateEventA(lpEventAttributes, lpEventAttributes__typ, bManualReset, bInitialState, lpName)	CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName)
-__EXTERN LONGINT __CALL_1 CreateEventA(WinAPI_SECURITY_ATTRIBUTES *lpEventAttributes, INTEGER bManualReset, INTEGER bInitialState, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateEventA(WinAPI_SECURITY_ATTRIBUTES *lpEventAttributes, INTEGER bManualReset, INTEGER bInitialState, LONGINT lpName);
 #define WinAPI_CreateEventW(lpEventAttributes, lpEventAttributes__typ, bManualReset, bInitialState, lpName)	CreateEventW(lpEventAttributes, bManualReset, bInitialState, lpName)
-__EXTERN LONGINT __CALL_1 CreateEventW(WinAPI_SECURITY_ATTRIBUTES *lpEventAttributes, INTEGER bManualReset, INTEGER bInitialState, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateEventW(WinAPI_SECURITY_ATTRIBUTES *lpEventAttributes, INTEGER bManualReset, INTEGER bInitialState, LONGINT lpName);
 #define WinAPI_CreateFiber(dwStackSize, lpStartAddress, lpParameter)	CreateFiber(dwStackSize, lpStartAddress, lpParameter)
 __EXTERN LONGINT __CALL_1 CreateFiber(INTEGER dwStackSize, WinAPI_FIBER_START_ROUTINE lpStartAddress, LONGINT lpParameter);
 #define WinAPI_CreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, lpSecurityAttributes__typ, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)	CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)
 #define WinAPI_CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, lpSecurityAttributes__typ, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)	CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)
-__EXTERN LONGINT __CALL_1 CreateFileA(WinAPI_PtrSTR lpFileName, SET dwDesiredAccess, SET dwShareMode, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, INTEGER dwCreationDisposition, SET dwFlagsAndAttributes, LONGINT hTemplateFile);
+__EXTERN LONGINT __CALL_1 CreateFileA(LONGINT lpFileName, SET dwDesiredAccess, SET dwShareMode, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, INTEGER dwCreationDisposition, SET dwFlagsAndAttributes, LONGINT hTemplateFile);
 #define WinAPI_CreateFileMapping(hFile, lpFileMappingAttributes, lpFileMappingAttributes__typ, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)	CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)
 #define WinAPI_CreateFileMappingA(hFile, lpFileMappingAttributes, lpFileMappingAttributes__typ, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)	CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)
-__EXTERN LONGINT __CALL_1 CreateFileMappingA(LONGINT hFile, WinAPI_SECURITY_ATTRIBUTES *lpFileMappingAttributes, SET flProtect, INTEGER dwMaximumSizeHigh, INTEGER dwMaximumSizeLow, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateFileMappingA(LONGINT hFile, WinAPI_SECURITY_ATTRIBUTES *lpFileMappingAttributes, SET flProtect, INTEGER dwMaximumSizeHigh, INTEGER dwMaximumSizeLow, LONGINT lpName);
 #define WinAPI_CreateFileMappingW(hFile, lpFileMappingAttributes, lpFileMappingAttributes__typ, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)	CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName)
-__EXTERN LONGINT __CALL_1 CreateFileMappingW(LONGINT hFile, WinAPI_SECURITY_ATTRIBUTES *lpFileMappingAttributes, SET flProtect, INTEGER dwMaximumSizeHigh, INTEGER dwMaximumSizeLow, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateFileMappingW(LONGINT hFile, WinAPI_SECURITY_ATTRIBUTES *lpFileMappingAttributes, SET flProtect, INTEGER dwMaximumSizeHigh, INTEGER dwMaximumSizeLow, LONGINT lpName);
 #define WinAPI_CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, lpSecurityAttributes__typ, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)	CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile)
-__EXTERN LONGINT __CALL_1 CreateFileW(WinAPI_PtrWSTR lpFileName, SET dwDesiredAccess, SET dwShareMode, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, INTEGER dwCreationDisposition, SET dwFlagsAndAttributes, LONGINT hTemplateFile);
+__EXTERN LONGINT __CALL_1 CreateFileW(LONGINT lpFileName, SET dwDesiredAccess, SET dwShareMode, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, INTEGER dwCreationDisposition, SET dwFlagsAndAttributes, LONGINT hTemplateFile);
 #define WinAPI_CreateFont(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	CreateFontA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
 #define WinAPI_CreateFontA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	CreateFontA(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
-__EXTERN LONGINT __CALL_1 CreateFontA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10, INTEGER p11, INTEGER p12, WinAPI_PtrSTR p13);
+__EXTERN LONGINT __CALL_1 CreateFontA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10, INTEGER p11, INTEGER p12, LONGINT p13);
 #define WinAPI_CreateFontIndirect(p0, p0__typ)	CreateFontIndirectA(p0)
 #define WinAPI_CreateFontIndirectA(p0, p0__typ)	CreateFontIndirectA(p0)
 __EXTERN LONGINT __CALL_1 CreateFontIndirectA(WinAPI_LOGFONTA *p0);
 #define WinAPI_CreateFontIndirectW(p0, p0__typ)	CreateFontIndirectW(p0)
 __EXTERN LONGINT __CALL_1 CreateFontIndirectW(WinAPI_LOGFONTW *p0);
 #define WinAPI_CreateFontW(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	CreateFontW(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
-__EXTERN LONGINT __CALL_1 CreateFontW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10, INTEGER p11, INTEGER p12, WinAPI_PtrWSTR p13);
+__EXTERN LONGINT __CALL_1 CreateFontW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10, INTEGER p11, INTEGER p12, LONGINT p13);
 #define WinAPI_CreateHalftonePalette(p0)	CreateHalftonePalette(p0)
 __EXTERN LONGINT __CALL_1 CreateHalftonePalette(LONGINT p0);
 #define WinAPI_CreateHatchBrush(p0, p1)	CreateHatchBrush(p0, p1)
 __EXTERN LONGINT __CALL_1 CreateHatchBrush(INTEGER p0, INTEGER p1);
 #define WinAPI_CreateIC(p0, p1, p2, p3, p3__typ)	CreateICA(p0, p1, p2, p3)
 #define WinAPI_CreateICA(p0, p1, p2, p3, p3__typ)	CreateICA(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateICA(WinAPI_PtrSTR p0, WinAPI_PtrSTR p1, WinAPI_PtrSTR p2, WinAPI_DEVMODEA *p3);
+__EXTERN LONGINT __CALL_1 CreateICA(LONGINT p0, LONGINT p1, LONGINT p2, WinAPI_DEVMODEA *p3);
 #define WinAPI_CreateICW(p0, p1, p2, p3, p3__typ)	CreateICW(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 CreateICW(WinAPI_PtrWSTR p0, WinAPI_PtrWSTR p1, WinAPI_PtrWSTR p2, WinAPI_DEVMODEW *p3);
+__EXTERN LONGINT __CALL_1 CreateICW(LONGINT p0, LONGINT p1, LONGINT p2, WinAPI_DEVMODEW *p3);
 #define WinAPI_CreateIcon(hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits)	CreateIcon(hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits)
 __EXTERN LONGINT __CALL_1 CreateIcon(LONGINT hInstance, INTEGER nWidth, INTEGER nHeight, CHAR cPlanes, CHAR cBitsPixel, CHAR *lpbANDbits, CHAR *lpbXORbits);
 #define WinAPI_CreateIconFromResource(presbits, dwResSize, fIcon, dwVer)	CreateIconFromResource(presbits, dwResSize, fIcon, dwVer)
@@ -6189,31 +6046,31 @@ __EXTERN LONGINT __CALL_1 CreateIconIndirect(WinAPI_ICONINFO *piconinfo);
 __EXTERN LONGINT __CALL_1 CreateIoCompletionPort(LONGINT FileHandle, LONGINT ExistingCompletionPort, INTEGER CompletionKey, INTEGER NumberOfConcurrentThreads);
 #define WinAPI_CreateMDIWindow(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
 #define WinAPI_CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
-__EXTERN LONGINT __CALL_1 CreateMDIWindowA(WinAPI_PtrSTR lpClassName, WinAPI_PtrSTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hInstance, LONGINT lParam);
+__EXTERN LONGINT __CALL_1 CreateMDIWindowA(LONGINT lpClassName, LONGINT lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hInstance, LONGINT lParam);
 #define WinAPI_CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)	CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam)
-__EXTERN LONGINT __CALL_1 CreateMDIWindowW(WinAPI_PtrWSTR lpClassName, WinAPI_PtrWSTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hInstance, LONGINT lParam);
+__EXTERN LONGINT __CALL_1 CreateMDIWindowW(LONGINT lpClassName, LONGINT lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hInstance, LONGINT lParam);
 #define WinAPI_CreateMailslot(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)
 #define WinAPI_CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)
-__EXTERN LONGINT __CALL_1 CreateMailslotA(WinAPI_PtrSTR lpName, INTEGER nMaxMessageSize, INTEGER lReadTimeout, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN LONGINT __CALL_1 CreateMailslotA(LONGINT lpName, INTEGER nMaxMessageSize, INTEGER lReadTimeout, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes)
-__EXTERN LONGINT __CALL_1 CreateMailslotW(WinAPI_PtrWSTR lpName, INTEGER nMaxMessageSize, INTEGER lReadTimeout, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN LONGINT __CALL_1 CreateMailslotW(LONGINT lpName, INTEGER nMaxMessageSize, INTEGER lReadTimeout, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateMenu()	CreateMenu()
 __EXTERN LONGINT __CALL_1 CreateMenu(void);
 #define WinAPI_CreateMetaFile(p0)	CreateMetaFileA(p0)
 #define WinAPI_CreateMetaFileA(p0)	CreateMetaFileA(p0)
-__EXTERN LONGINT __CALL_1 CreateMetaFileA(WinAPI_PtrSTR p0);
+__EXTERN LONGINT __CALL_1 CreateMetaFileA(LONGINT p0);
 #define WinAPI_CreateMetaFileW(p0)	CreateMetaFileW(p0)
-__EXTERN LONGINT __CALL_1 CreateMetaFileW(WinAPI_PtrWSTR p0);
+__EXTERN LONGINT __CALL_1 CreateMetaFileW(LONGINT p0);
 #define WinAPI_CreateMutex(lpMutexAttributes, lpMutexAttributes__typ, bInitialOwner, lpName)	CreateMutexA(lpMutexAttributes, bInitialOwner, lpName)
 #define WinAPI_CreateMutexA(lpMutexAttributes, lpMutexAttributes__typ, bInitialOwner, lpName)	CreateMutexA(lpMutexAttributes, bInitialOwner, lpName)
-__EXTERN LONGINT __CALL_1 CreateMutexA(WinAPI_SECURITY_ATTRIBUTES *lpMutexAttributes, INTEGER bInitialOwner, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateMutexA(WinAPI_SECURITY_ATTRIBUTES *lpMutexAttributes, INTEGER bInitialOwner, LONGINT lpName);
 #define WinAPI_CreateMutexW(lpMutexAttributes, lpMutexAttributes__typ, bInitialOwner, lpName)	CreateMutexW(lpMutexAttributes, bInitialOwner, lpName)
-__EXTERN LONGINT __CALL_1 CreateMutexW(WinAPI_SECURITY_ATTRIBUTES *lpMutexAttributes, INTEGER bInitialOwner, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateMutexW(WinAPI_SECURITY_ATTRIBUTES *lpMutexAttributes, INTEGER bInitialOwner, LONGINT lpName);
 #define WinAPI_CreateNamedPipe(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes)
 #define WinAPI_CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes)
-__EXTERN LONGINT __CALL_1 CreateNamedPipeA(WinAPI_PtrSTR lpName, INTEGER dwOpenMode, INTEGER dwPipeMode, INTEGER nMaxInstances, INTEGER nOutBufferSize, INTEGER nInBufferSize, INTEGER nDefaultTimeOut, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN LONGINT __CALL_1 CreateNamedPipeA(LONGINT lpName, INTEGER dwOpenMode, INTEGER dwPipeMode, INTEGER nMaxInstances, INTEGER nOutBufferSize, INTEGER nInBufferSize, INTEGER nDefaultTimeOut, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes, lpSecurityAttributes__typ)	CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes)
-__EXTERN LONGINT __CALL_1 CreateNamedPipeW(WinAPI_PtrWSTR lpName, INTEGER dwOpenMode, INTEGER dwPipeMode, INTEGER nMaxInstances, INTEGER nOutBufferSize, INTEGER nInBufferSize, INTEGER nDefaultTimeOut, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN LONGINT __CALL_1 CreateNamedPipeW(LONGINT lpName, INTEGER dwOpenMode, INTEGER dwPipeMode, INTEGER nMaxInstances, INTEGER nOutBufferSize, INTEGER nInBufferSize, INTEGER nDefaultTimeOut, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_CreatePalette(p0, p0__typ)	CreatePalette(p0)
 __EXTERN LONGINT __CALL_1 CreatePalette(WinAPI_LOGPALETTE *p0);
 #define WinAPI_CreatePatternBrush(p0)	CreatePatternBrush(p0)
@@ -6234,14 +6091,14 @@ __EXTERN LONGINT __CALL_1 CreatePopupMenu(void);
 __EXTERN INTEGER __CALL_1 CreatePrivateObjectSecurity(LONGINT ParentDescriptor, LONGINT CreatorDescriptor, LONGINT *NewDescriptor, INTEGER IsDirectoryObject, LONGINT Token, WinAPI_GENERIC_MAPPING *GenericMapping);
 #define WinAPI_CreateProcess(lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
 #define WinAPI_CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
-__EXTERN INTEGER __CALL_1 CreateProcessA(WinAPI_PtrSTR lpApplicationName, WinAPI_PtrSTR lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinAPI_PtrSTR lpCurrentDirectory, WinAPI_STARTUPINFOA *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
+__EXTERN INTEGER __CALL_1 CreateProcessA(LONGINT lpApplicationName, LONGINT lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, LONGINT lpCurrentDirectory, WinAPI_STARTUPINFOA *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
 #define WinAPI_CreateProcessAsUser(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
 #define WinAPI_CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
-__EXTERN INTEGER __CALL_1 CreateProcessAsUserA(LONGINT hToken, WinAPI_PtrSTR lpApplicationName, WinAPI_PtrSTR lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinAPI_PtrSTR lpCurrentDirectory, WinAPI_STARTUPINFOA *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
+__EXTERN INTEGER __CALL_1 CreateProcessAsUserA(LONGINT hToken, LONGINT lpApplicationName, LONGINT lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, LONGINT lpCurrentDirectory, WinAPI_STARTUPINFOA *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
 #define WinAPI_CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
-__EXTERN INTEGER __CALL_1 CreateProcessAsUserW(LONGINT hToken, WinAPI_PtrWSTR lpApplicationName, WinAPI_PtrWSTR lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinAPI_PtrWSTR lpCurrentDirectory, WinAPI_STARTUPINFOW *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
+__EXTERN INTEGER __CALL_1 CreateProcessAsUserW(LONGINT hToken, LONGINT lpApplicationName, LONGINT lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, LONGINT lpCurrentDirectory, WinAPI_STARTUPINFOW *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
 #define WinAPI_CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpProcessAttributes__typ, lpThreadAttributes, lpThreadAttributes__typ, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpStartupInfo__typ, lpProcessInformation, lpProcessInformation__typ)	CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation)
-__EXTERN INTEGER __CALL_1 CreateProcessW(WinAPI_PtrWSTR lpApplicationName, WinAPI_PtrWSTR lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinAPI_PtrWSTR lpCurrentDirectory, WinAPI_STARTUPINFOW *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
+__EXTERN INTEGER __CALL_1 CreateProcessW(LONGINT lpApplicationName, LONGINT lpCommandLine, WinAPI_SECURITY_ATTRIBUTES *lpProcessAttributes, WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, LONGINT lpCurrentDirectory, WinAPI_STARTUPINFOW *lpStartupInfo, WinAPI_PROCESS_INFORMATION *lpProcessInformation);
 #define WinAPI_CreatePropertySheetPage(p0, p0__typ)	CreatePropertySheetPageA(p0)
 #define WinAPI_CreatePropertySheetPageA(p0, p0__typ)	CreatePropertySheetPageA(p0)
 __EXTERN WinAPI_Ptr_PSP __CALL_1 CreatePropertySheetPageA(WinAPI_PROPSHEETPAGEA *p0);
@@ -6257,19 +6114,19 @@ __EXTERN LONGINT __CALL_1 CreateRemoteThread(LONGINT hProcess, WinAPI_SECURITY_A
 __EXTERN LONGINT __CALL_1 CreateRoundRectRgn(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
 #define WinAPI_CreateScalableFontResource(p0, p1, p2, p3)	CreateScalableFontResourceA(p0, p1, p2, p3)
 #define WinAPI_CreateScalableFontResourceA(p0, p1, p2, p3)	CreateScalableFontResourceA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 CreateScalableFontResourceA(INTEGER p0, WinAPI_PtrSTR p1, WinAPI_PtrSTR p2, WinAPI_PtrSTR p3);
+__EXTERN INTEGER __CALL_1 CreateScalableFontResourceA(INTEGER p0, LONGINT p1, LONGINT p2, LONGINT p3);
 #define WinAPI_CreateScalableFontResourceW(p0, p1, p2, p3)	CreateScalableFontResourceW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 CreateScalableFontResourceW(INTEGER p0, WinAPI_PtrWSTR p1, WinAPI_PtrWSTR p2, WinAPI_PtrWSTR p3);
+__EXTERN INTEGER __CALL_1 CreateScalableFontResourceW(INTEGER p0, LONGINT p1, LONGINT p2, LONGINT p3);
 #define WinAPI_CreateSemaphore(lpSemaphoreAttributes, lpSemaphoreAttributes__typ, lInitialCount, lMaximumCount, lpName)	CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName)
 #define WinAPI_CreateSemaphoreA(lpSemaphoreAttributes, lpSemaphoreAttributes__typ, lInitialCount, lMaximumCount, lpName)	CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName)
-__EXTERN LONGINT __CALL_1 CreateSemaphoreA(WinAPI_SECURITY_ATTRIBUTES *lpSemaphoreAttributes, INTEGER lInitialCount, INTEGER lMaximumCount, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateSemaphoreA(WinAPI_SECURITY_ATTRIBUTES *lpSemaphoreAttributes, INTEGER lInitialCount, INTEGER lMaximumCount, LONGINT lpName);
 #define WinAPI_CreateSemaphoreW(lpSemaphoreAttributes, lpSemaphoreAttributes__typ, lInitialCount, lMaximumCount, lpName)	CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName)
-__EXTERN LONGINT __CALL_1 CreateSemaphoreW(WinAPI_SECURITY_ATTRIBUTES *lpSemaphoreAttributes, INTEGER lInitialCount, INTEGER lMaximumCount, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 CreateSemaphoreW(WinAPI_SECURITY_ATTRIBUTES *lpSemaphoreAttributes, INTEGER lInitialCount, INTEGER lMaximumCount, LONGINT lpName);
 #define WinAPI_CreateService(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)	CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)
 #define WinAPI_CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)	CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)
-__EXTERN LONGINT __CALL_1 CreateServiceA(LONGINT hSCManager, WinAPI_PtrSTR lpServiceName, WinAPI_PtrSTR lpDisplayName, SET dwDesiredAccess, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, WinAPI_PtrSTR lpBinaryPathName, WinAPI_PtrSTR lpLoadOrderGroup, INTEGER *lpdwTagId, WinAPI_PtrSTR lpDependencies, WinAPI_PtrSTR lpServiceStartName, WinAPI_PtrSTR lpPassword);
+__EXTERN LONGINT __CALL_1 CreateServiceA(LONGINT hSCManager, LONGINT lpServiceName, LONGINT lpDisplayName, SET dwDesiredAccess, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, LONGINT lpBinaryPathName, LONGINT lpLoadOrderGroup, INTEGER *lpdwTagId, LONGINT lpDependencies, LONGINT lpServiceStartName, LONGINT lpPassword);
 #define WinAPI_CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)	CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword)
-__EXTERN LONGINT __CALL_1 CreateServiceW(LONGINT hSCManager, WinAPI_PtrWSTR lpServiceName, WinAPI_PtrWSTR lpDisplayName, SET dwDesiredAccess, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, WinAPI_PtrWSTR lpBinaryPathName, WinAPI_PtrWSTR lpLoadOrderGroup, INTEGER *lpdwTagId, WinAPI_PtrWSTR lpDependencies, WinAPI_PtrWSTR lpServiceStartName, WinAPI_PtrWSTR lpPassword);
+__EXTERN LONGINT __CALL_1 CreateServiceW(LONGINT hSCManager, LONGINT lpServiceName, LONGINT lpDisplayName, SET dwDesiredAccess, SET dwServiceType, INTEGER dwStartType, INTEGER dwErrorControl, LONGINT lpBinaryPathName, LONGINT lpLoadOrderGroup, INTEGER *lpdwTagId, LONGINT lpDependencies, LONGINT lpServiceStartName, LONGINT lpPassword);
 #define WinAPI_CreateSolidBrush(p0)	CreateSolidBrush(p0)
 __EXTERN LONGINT __CALL_1 CreateSolidBrush(INTEGER p0);
 #define WinAPI_CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize)	CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize)
@@ -6278,25 +6135,25 @@ __EXTERN INTEGER __CALL_1 CreateTapePartition(LONGINT hDevice, INTEGER dwPartiti
 __EXTERN LONGINT __CALL_1 CreateThread(WinAPI_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER dwStackSize, WinAPI_THREAD_START_ROUTINE lpStartAddress, LONGINT lpParameter, SET dwCreationFlags, INTEGER *lpThreadId);
 #define WinAPI_CreateWaitableTimer(lpTimerAttributes, lpTimerAttributes__typ, bManualReset, lpTimerName)	CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName)
 #define WinAPI_CreateWaitableTimerA(lpTimerAttributes, lpTimerAttributes__typ, bManualReset, lpTimerName)	CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName)
-__EXTERN LONGINT __CALL_1 CreateWaitableTimerA(WinAPI_SECURITY_ATTRIBUTES *lpTimerAttributes, INTEGER bManualReset, WinAPI_PtrSTR lpTimerName);
+__EXTERN LONGINT __CALL_1 CreateWaitableTimerA(WinAPI_SECURITY_ATTRIBUTES *lpTimerAttributes, INTEGER bManualReset, LONGINT lpTimerName);
 #define WinAPI_CreateWaitableTimerW(lpTimerAttributes, lpTimerAttributes__typ, bManualReset, lpTimerName)	CreateWaitableTimerW(lpTimerAttributes, bManualReset, lpTimerName)
-__EXTERN LONGINT __CALL_1 CreateWaitableTimerW(WinAPI_SECURITY_ATTRIBUTES *lpTimerAttributes, INTEGER bManualReset, WinAPI_PtrWSTR lpTimerName);
+__EXTERN LONGINT __CALL_1 CreateWaitableTimerW(WinAPI_SECURITY_ATTRIBUTES *lpTimerAttributes, INTEGER bManualReset, LONGINT lpTimerName);
 #define WinAPI_CreateWindowEx(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)	CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)
 #define WinAPI_CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)	CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)
-__EXTERN LONGINT __CALL_1 CreateWindowExA(SET dwExStyle, WinAPI_PtrSTR lpClassName, WinAPI_PtrSTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hMenu, LONGINT hInstance, LONGINT lpParam);
+__EXTERN LONGINT __CALL_1 CreateWindowExA(SET dwExStyle, LONGINT lpClassName, LONGINT lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hMenu, LONGINT hInstance, LONGINT lpParam);
 #define WinAPI_CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)	CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)
-__EXTERN LONGINT __CALL_1 CreateWindowExW(SET dwExStyle, WinAPI_PtrWSTR lpClassName, WinAPI_PtrWSTR lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hMenu, LONGINT hInstance, LONGINT lpParam);
+__EXTERN LONGINT __CALL_1 CreateWindowExW(SET dwExStyle, LONGINT lpClassName, LONGINT lpWindowName, SET dwStyle, INTEGER X, INTEGER Y, INTEGER nWidth, INTEGER nHeight, LONGINT hWndParent, LONGINT hMenu, LONGINT hInstance, LONGINT lpParam);
 #define WinAPI_CreateWindowStation(lpwinsta, dwReserved, dwDesiredAccess, lpsa, lpsa__typ)	CreateWindowStationA(lpwinsta, dwReserved, dwDesiredAccess, lpsa)
 #define WinAPI_CreateWindowStationA(lpwinsta, dwReserved, dwDesiredAccess, lpsa, lpsa__typ)	CreateWindowStationA(lpwinsta, dwReserved, dwDesiredAccess, lpsa)
-__EXTERN LONGINT __CALL_1 CreateWindowStationA(WinAPI_PtrSTR lpwinsta, INTEGER dwReserved, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
+__EXTERN LONGINT __CALL_1 CreateWindowStationA(LONGINT lpwinsta, INTEGER dwReserved, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
 #define WinAPI_CreateWindowStationW(lpwinsta, dwReserved, dwDesiredAccess, lpsa, lpsa__typ)	CreateWindowStationW(lpwinsta, dwReserved, dwDesiredAccess, lpsa)
-__EXTERN LONGINT __CALL_1 CreateWindowStationW(WinAPI_PtrWSTR lpwinsta, INTEGER dwReserved, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
+__EXTERN LONGINT __CALL_1 CreateWindowStationW(LONGINT lpwinsta, INTEGER dwReserved, SET dwDesiredAccess, WinAPI_SECURITY_ATTRIBUTES *lpsa);
 #define WinAPI_DPtoLP(p0, p1, p1__typ, p2)	DPtoLP(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 DPtoLP(LONGINT p0, WinAPI_POINT *p1, INTEGER p2);
 #define WinAPI_DdeAbandonTransaction(idInst, hConv, idTransaction)	DdeAbandonTransaction(idInst, hConv, idTransaction)
 __EXTERN INTEGER __CALL_1 DdeAbandonTransaction(INTEGER idInst, LONGINT hConv, INTEGER idTransaction);
 #define WinAPI_DdeAccessData(hData, pcbDataSize)	DdeAccessData(hData, pcbDataSize)
-__EXTERN WinAPI_RetDdeAccessData __CALL_1 DdeAccessData(LONGINT hData, INTEGER *pcbDataSize);
+__EXTERN LONGINT __CALL_1 DdeAccessData(LONGINT hData, INTEGER *pcbDataSize);
 #define WinAPI_DdeAddData(hData, pSrc, cb, cbOff)	DdeAddData(hData, pSrc, cb, cbOff)
 __EXTERN LONGINT __CALL_1 DdeAddData(LONGINT hData, CHAR *pSrc, INTEGER cb, INTEGER cbOff);
 #define WinAPI_DdeClientTransaction(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult)	DdeClientTransaction(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult)
@@ -6311,9 +6168,9 @@ __EXTERN LONGINT __CALL_1 DdeConnectList(INTEGER idInst, LONGINT hszService, LON
 __EXTERN LONGINT __CALL_1 DdeCreateDataHandle(INTEGER idInst, CHAR *pSrc, INTEGER cb, INTEGER cbOff, LONGINT hszItem, INTEGER wFmt, INTEGER afCmd);
 #define WinAPI_DdeCreateStringHandle(idInst, psz, iCodePage)	DdeCreateStringHandleA(idInst, psz, iCodePage)
 #define WinAPI_DdeCreateStringHandleA(idInst, psz, iCodePage)	DdeCreateStringHandleA(idInst, psz, iCodePage)
-__EXTERN LONGINT __CALL_1 DdeCreateStringHandleA(INTEGER idInst, WinAPI_PtrSTR psz, INTEGER iCodePage);
+__EXTERN LONGINT __CALL_1 DdeCreateStringHandleA(INTEGER idInst, LONGINT psz, INTEGER iCodePage);
 #define WinAPI_DdeCreateStringHandleW(idInst, psz, iCodePage)	DdeCreateStringHandleW(idInst, psz, iCodePage)
-__EXTERN LONGINT __CALL_1 DdeCreateStringHandleW(INTEGER idInst, WinAPI_PtrWSTR psz, INTEGER iCodePage);
+__EXTERN LONGINT __CALL_1 DdeCreateStringHandleW(INTEGER idInst, LONGINT psz, INTEGER iCodePage);
 #define WinAPI_DdeDisconnect(hConv)	DdeDisconnect(hConv)
 __EXTERN INTEGER __CALL_1 DdeDisconnect(LONGINT hConv);
 #define WinAPI_DdeDisconnectList(hConvList)	DdeDisconnectList(hConvList)
@@ -6347,9 +6204,9 @@ __EXTERN INTEGER __CALL_1 DdeQueryConvInfo(LONGINT hConv, INTEGER idTransaction,
 __EXTERN LONGINT __CALL_1 DdeQueryNextServer(LONGINT hConvList, LONGINT hConvPrev);
 #define WinAPI_DdeQueryString(idInst, hsz, psz, cchMax, iCodePage)	DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage)
 #define WinAPI_DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage)	DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage)
-__EXTERN INTEGER __CALL_1 DdeQueryStringA(INTEGER idInst, LONGINT hsz, WinAPI_PtrSTR psz, INTEGER cchMax, INTEGER iCodePage);
+__EXTERN INTEGER __CALL_1 DdeQueryStringA(INTEGER idInst, LONGINT hsz, LONGINT psz, INTEGER cchMax, INTEGER iCodePage);
 #define WinAPI_DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage)	DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage)
-__EXTERN INTEGER __CALL_1 DdeQueryStringW(INTEGER idInst, LONGINT hsz, WinAPI_PtrWSTR psz, INTEGER cchMax, INTEGER iCodePage);
+__EXTERN INTEGER __CALL_1 DdeQueryStringW(INTEGER idInst, LONGINT hsz, LONGINT psz, INTEGER cchMax, INTEGER iCodePage);
 #define WinAPI_DdeReconnect(hConv)	DdeReconnect(hConv)
 __EXTERN LONGINT __CALL_1 DdeReconnect(LONGINT hConv);
 #define WinAPI_DdeSetQualityOfService(hwndClient, pqosNew, pqosNew__typ, pqosPrev, pqosPrev__typ)	DdeSetQualityOfService(hwndClient, pqosNew, pqosPrev)
@@ -6388,9 +6245,9 @@ __EXTERN LONGINT __CALL_1 DefWindowProcW(LONGINT hWnd, INTEGER Msg, LONGINT wPar
 __EXTERN LONGINT __CALL_1 DeferWindowPos(LONGINT hWinPosInfo, LONGINT hWnd, LONGINT hWndInsertAfter, INTEGER x, INTEGER y, INTEGER cx, INTEGER cy, SET uFlags);
 #define WinAPI_DefineDosDevice(dwFlags, lpDeviceName, lpTargetPath)	DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath)
 #define WinAPI_DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath)	DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath)
-__EXTERN INTEGER __CALL_1 DefineDosDeviceA(SET dwFlags, WinAPI_PtrSTR lpDeviceName, WinAPI_PtrSTR lpTargetPath);
+__EXTERN INTEGER __CALL_1 DefineDosDeviceA(SET dwFlags, LONGINT lpDeviceName, LONGINT lpTargetPath);
 #define WinAPI_DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath)	DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath)
-__EXTERN INTEGER __CALL_1 DefineDosDeviceW(SET dwFlags, WinAPI_PtrWSTR lpDeviceName, WinAPI_PtrWSTR lpTargetPath);
+__EXTERN INTEGER __CALL_1 DefineDosDeviceW(SET dwFlags, LONGINT lpDeviceName, LONGINT lpTargetPath);
 #define WinAPI_DeleteAce(pAcl, pAcl__typ, dwAceIndex)	DeleteAce(pAcl, dwAceIndex)
 __EXTERN INTEGER __CALL_1 DeleteAce(WinAPI_ACL *pAcl, INTEGER dwAceIndex);
 #define WinAPI_DeleteAtom(nAtom)	DeleteAtom(nAtom)
@@ -6407,52 +6264,52 @@ __EXTERN INTEGER __CALL_1 DeleteEnhMetaFile(LONGINT p0);
 __EXTERN void __CALL_1 DeleteFiber(LONGINT lpFiber);
 #define WinAPI_DeleteFile(lpFileName)	DeleteFileA(lpFileName)
 #define WinAPI_DeleteFileA(lpFileName)	DeleteFileA(lpFileName)
-__EXTERN INTEGER __CALL_1 DeleteFileA(WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 DeleteFileA(LONGINT lpFileName);
 #define WinAPI_DeleteFileW(lpFileName)	DeleteFileW(lpFileName)
-__EXTERN INTEGER __CALL_1 DeleteFileW(WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 DeleteFileW(LONGINT lpFileName);
 #define WinAPI_DeleteForm(hPrinter, pFormName)	DeleteFormA(hPrinter, pFormName)
 #define WinAPI_DeleteFormA(hPrinter, pFormName)	DeleteFormA(hPrinter, pFormName)
-__EXTERN INTEGER __CALL_1 DeleteFormA(LONGINT hPrinter, WinAPI_PtrSTR pFormName);
+__EXTERN INTEGER __CALL_1 DeleteFormA(LONGINT hPrinter, LONGINT pFormName);
 #define WinAPI_DeleteFormW(hPrinter, pFormName)	DeleteFormW(hPrinter, pFormName)
-__EXTERN INTEGER __CALL_1 DeleteFormW(LONGINT hPrinter, WinAPI_PtrWSTR pFormName);
+__EXTERN INTEGER __CALL_1 DeleteFormW(LONGINT hPrinter, LONGINT pFormName);
 #define WinAPI_DeleteMenu(hMenu, uPosition, uFlags)	DeleteMenu(hMenu, uPosition, uFlags)
 __EXTERN INTEGER __CALL_1 DeleteMenu(LONGINT hMenu, INTEGER uPosition, SET uFlags);
 #define WinAPI_DeleteMetaFile(p0)	DeleteMetaFile(p0)
 __EXTERN INTEGER __CALL_1 DeleteMetaFile(LONGINT p0);
 #define WinAPI_DeleteMonitor(pName, pEnvironment, pMonitorName)	DeleteMonitorA(pName, pEnvironment, pMonitorName)
 #define WinAPI_DeleteMonitorA(pName, pEnvironment, pMonitorName)	DeleteMonitorA(pName, pEnvironment, pMonitorName)
-__EXTERN INTEGER __CALL_1 DeleteMonitorA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, WinAPI_PtrSTR pMonitorName);
+__EXTERN INTEGER __CALL_1 DeleteMonitorA(LONGINT pName, LONGINT pEnvironment, LONGINT pMonitorName);
 #define WinAPI_DeleteMonitorW(pName, pEnvironment, pMonitorName)	DeleteMonitorW(pName, pEnvironment, pMonitorName)
-__EXTERN INTEGER __CALL_1 DeleteMonitorW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, WinAPI_PtrWSTR pMonitorName);
+__EXTERN INTEGER __CALL_1 DeleteMonitorW(LONGINT pName, LONGINT pEnvironment, LONGINT pMonitorName);
 #define WinAPI_DeleteObject(p0)	DeleteObject(p0)
 __EXTERN INTEGER __CALL_1 DeleteObject(LONGINT p0);
 #define WinAPI_DeletePort(pName, hWnd, pPortName)	DeletePortA(pName, hWnd, pPortName)
 #define WinAPI_DeletePortA(pName, hWnd, pPortName)	DeletePortA(pName, hWnd, pPortName)
-__EXTERN INTEGER __CALL_1 DeletePortA(WinAPI_PtrSTR pName, LONGINT hWnd, WinAPI_PtrSTR pPortName);
+__EXTERN INTEGER __CALL_1 DeletePortA(LONGINT pName, LONGINT hWnd, LONGINT pPortName);
 #define WinAPI_DeletePortW(pName, hWnd, pPortName)	DeletePortW(pName, hWnd, pPortName)
-__EXTERN INTEGER __CALL_1 DeletePortW(WinAPI_PtrWSTR pName, LONGINT hWnd, WinAPI_PtrWSTR pPortName);
+__EXTERN INTEGER __CALL_1 DeletePortW(LONGINT pName, LONGINT hWnd, LONGINT pPortName);
 #define WinAPI_DeletePrintProcessor(pName, pEnvironment, pPrintProcessorName)	DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName)
 #define WinAPI_DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName)	DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName)
-__EXTERN INTEGER __CALL_1 DeletePrintProcessorA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, WinAPI_PtrSTR pPrintProcessorName);
+__EXTERN INTEGER __CALL_1 DeletePrintProcessorA(LONGINT pName, LONGINT pEnvironment, LONGINT pPrintProcessorName);
 #define WinAPI_DeletePrintProcessorW(pName, pEnvironment, pPrintProcessorName)	DeletePrintProcessorW(pName, pEnvironment, pPrintProcessorName)
-__EXTERN INTEGER __CALL_1 DeletePrintProcessorW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, WinAPI_PtrWSTR pPrintProcessorName);
+__EXTERN INTEGER __CALL_1 DeletePrintProcessorW(LONGINT pName, LONGINT pEnvironment, LONGINT pPrintProcessorName);
 #define WinAPI_DeletePrintProvidor(pName, pEnvironment, pPrintProvidorName)	DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName)
 #define WinAPI_DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName)	DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName)
-__EXTERN INTEGER __CALL_1 DeletePrintProvidorA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, WinAPI_PtrSTR pPrintProvidorName);
+__EXTERN INTEGER __CALL_1 DeletePrintProvidorA(LONGINT pName, LONGINT pEnvironment, LONGINT pPrintProvidorName);
 #define WinAPI_DeletePrintProvidorW(pName, pEnvironment, pPrintProvidorName)	DeletePrintProvidorW(pName, pEnvironment, pPrintProvidorName)
-__EXTERN INTEGER __CALL_1 DeletePrintProvidorW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, WinAPI_PtrWSTR pPrintProvidorName);
+__EXTERN INTEGER __CALL_1 DeletePrintProvidorW(LONGINT pName, LONGINT pEnvironment, LONGINT pPrintProvidorName);
 #define WinAPI_DeletePrinter(hPrinter)	DeletePrinter(hPrinter)
 __EXTERN INTEGER __CALL_1 DeletePrinter(LONGINT hPrinter);
 #define WinAPI_DeletePrinterConnection(pName)	DeletePrinterConnectionA(pName)
 #define WinAPI_DeletePrinterConnectionA(pName)	DeletePrinterConnectionA(pName)
-__EXTERN INTEGER __CALL_1 DeletePrinterConnectionA(WinAPI_PtrSTR pName);
+__EXTERN INTEGER __CALL_1 DeletePrinterConnectionA(LONGINT pName);
 #define WinAPI_DeletePrinterConnectionW(pName)	DeletePrinterConnectionW(pName)
-__EXTERN INTEGER __CALL_1 DeletePrinterConnectionW(WinAPI_PtrWSTR pName);
+__EXTERN INTEGER __CALL_1 DeletePrinterConnectionW(LONGINT pName);
 #define WinAPI_DeletePrinterDriver(pName, pEnvironment, pDriverName)	DeletePrinterDriverA(pName, pEnvironment, pDriverName)
 #define WinAPI_DeletePrinterDriverA(pName, pEnvironment, pDriverName)	DeletePrinterDriverA(pName, pEnvironment, pDriverName)
-__EXTERN INTEGER __CALL_1 DeletePrinterDriverA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, WinAPI_PtrSTR pDriverName);
+__EXTERN INTEGER __CALL_1 DeletePrinterDriverA(LONGINT pName, LONGINT pEnvironment, LONGINT pDriverName);
 #define WinAPI_DeletePrinterDriverW(pName, pEnvironment, pDriverName)	DeletePrinterDriverW(pName, pEnvironment, pDriverName)
-__EXTERN INTEGER __CALL_1 DeletePrinterDriverW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, WinAPI_PtrWSTR pDriverName);
+__EXTERN INTEGER __CALL_1 DeletePrinterDriverW(LONGINT pName, LONGINT pEnvironment, LONGINT pDriverName);
 #define WinAPI_DeleteService(hService)	DeleteService(hService)
 __EXTERN INTEGER __CALL_1 DeleteService(LONGINT hService);
 #define WinAPI_DeregisterEventSource(hEventLog)	DeregisterEventSource(hEventLog)
@@ -6477,9 +6334,9 @@ __EXTERN INTEGER __CALL_1 DestroyPropertySheetPage(WinAPI_Ptr_PSP p0);
 __EXTERN INTEGER __CALL_1 DestroyWindow(LONGINT hWnd);
 #define WinAPI_DeviceCapabilities(p0, p1, p2, p3, p4, p4__typ)	DeviceCapabilitiesA(p0, p1, p2, p3, p4)
 #define WinAPI_DeviceCapabilitiesA(p0, p1, p2, p3, p4, p4__typ)	DeviceCapabilitiesA(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL_1 DeviceCapabilitiesA(WinAPI_PtrSTR p0, WinAPI_PtrSTR p1, SHORTINT p2, WinAPI_PtrSTR p3, WinAPI_DEVMODEA *p4);
+__EXTERN INTEGER __CALL_1 DeviceCapabilitiesA(LONGINT p0, LONGINT p1, SHORTINT p2, LONGINT p3, WinAPI_DEVMODEA *p4);
 #define WinAPI_DeviceCapabilitiesW(p0, p1, p2, p3, p4, p4__typ)	DeviceCapabilitiesW(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL_1 DeviceCapabilitiesW(WinAPI_PtrWSTR p0, WinAPI_PtrWSTR p1, SHORTINT p2, WinAPI_PtrWSTR p3, WinAPI_DEVMODEW *p4);
+__EXTERN INTEGER __CALL_1 DeviceCapabilitiesW(LONGINT p0, LONGINT p1, SHORTINT p2, LONGINT p3, WinAPI_DEVMODEW *p4);
 #define WinAPI_DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped, lpOverlapped__typ)	DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped)
 __EXTERN INTEGER __CALL_1 DeviceIoControl(LONGINT hDevice, INTEGER dwIoControlCode, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesReturned, WinAPI_OVERLAPPED *lpOverlapped);
 #define WinAPI_DialogBoxIndirectParam(hInstance, hDialogTemplate, hDialogTemplate__typ, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam)
@@ -6489,9 +6346,9 @@ __EXTERN INTEGER __CALL_1 DialogBoxIndirectParamA(LONGINT hInstance, WinAPI_DLGT
 __EXTERN INTEGER __CALL_1 DialogBoxIndirectParamW(LONGINT hInstance, WinAPI_DLGTEMPLATE *hDialogTemplate, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_DialogBoxParam(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
 #define WinAPI_DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL_1 DialogBoxParamA(LONGINT hInstance, WinAPI_PtrSTR lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __CALL_1 DialogBoxParamA(LONGINT hInstance, LONGINT lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)	DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam)
-__EXTERN INTEGER __CALL_1 DialogBoxParamW(LONGINT hInstance, WinAPI_PtrWSTR lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __CALL_1 DialogBoxParamW(LONGINT hInstance, LONGINT lpTemplateName, LONGINT hWndParent, WinAPI_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 #define WinAPI_DisableThreadLibraryCalls(hLibModule)	DisableThreadLibraryCalls(hLibModule)
 __EXTERN INTEGER __CALL_1 DisableThreadLibraryCalls(LONGINT hLibModule);
 #define WinAPI_DisconnectNamedPipe(hNamedPipe)	DisconnectNamedPipe(hNamedPipe)
@@ -6503,34 +6360,34 @@ __EXTERN INTEGER __CALL_1 DispatchMessageA(WinAPI_MSG *lpMsg);
 __EXTERN INTEGER __CALL_1 DispatchMessageW(WinAPI_MSG *lpMsg);
 #define WinAPI_DlgDirList(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)	DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)
 #define WinAPI_DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)	DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)
-__EXTERN INTEGER __CALL_1 DlgDirListA(LONGINT hDlg, WinAPI_PtrSTR lpPathSpec, INTEGER nIDListBox, INTEGER nIDStaticPath, SET uFileType);
+__EXTERN INTEGER __CALL_1 DlgDirListA(LONGINT hDlg, LONGINT lpPathSpec, INTEGER nIDListBox, INTEGER nIDStaticPath, SET uFileType);
 #define WinAPI_DlgDirListComboBox(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)	DlgDirListComboBoxA(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)
 #define WinAPI_DlgDirListComboBoxA(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)	DlgDirListComboBoxA(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)
-__EXTERN INTEGER __CALL_1 DlgDirListComboBoxA(LONGINT hDlg, WinAPI_PtrSTR lpPathSpec, INTEGER nIDComboBox, INTEGER nIDStaticPath, INTEGER uFiletype);
+__EXTERN INTEGER __CALL_1 DlgDirListComboBoxA(LONGINT hDlg, LONGINT lpPathSpec, INTEGER nIDComboBox, INTEGER nIDStaticPath, INTEGER uFiletype);
 #define WinAPI_DlgDirListComboBoxW(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)	DlgDirListComboBoxW(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype)
-__EXTERN INTEGER __CALL_1 DlgDirListComboBoxW(LONGINT hDlg, WinAPI_PtrWSTR lpPathSpec, INTEGER nIDComboBox, INTEGER nIDStaticPath, INTEGER uFiletype);
+__EXTERN INTEGER __CALL_1 DlgDirListComboBoxW(LONGINT hDlg, LONGINT lpPathSpec, INTEGER nIDComboBox, INTEGER nIDStaticPath, INTEGER uFiletype);
 #define WinAPI_DlgDirListW(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)	DlgDirListW(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType)
-__EXTERN INTEGER __CALL_1 DlgDirListW(LONGINT hDlg, WinAPI_PtrWSTR lpPathSpec, INTEGER nIDListBox, INTEGER nIDStaticPath, SET uFileType);
+__EXTERN INTEGER __CALL_1 DlgDirListW(LONGINT hDlg, LONGINT lpPathSpec, INTEGER nIDListBox, INTEGER nIDStaticPath, SET uFileType);
 #define WinAPI_DlgDirSelectComboBoxEx(hDlg, lpString, nCount, nIDComboBox)	DlgDirSelectComboBoxExA(hDlg, lpString, nCount, nIDComboBox)
 #define WinAPI_DlgDirSelectComboBoxExA(hDlg, lpString, nCount, nIDComboBox)	DlgDirSelectComboBoxExA(hDlg, lpString, nCount, nIDComboBox)
-__EXTERN INTEGER __CALL_1 DlgDirSelectComboBoxExA(LONGINT hDlg, WinAPI_PtrSTR lpString, INTEGER nCount, INTEGER nIDComboBox);
+__EXTERN INTEGER __CALL_1 DlgDirSelectComboBoxExA(LONGINT hDlg, LONGINT lpString, INTEGER nCount, INTEGER nIDComboBox);
 #define WinAPI_DlgDirSelectComboBoxExW(hDlg, lpString, nCount, nIDComboBox)	DlgDirSelectComboBoxExW(hDlg, lpString, nCount, nIDComboBox)
-__EXTERN INTEGER __CALL_1 DlgDirSelectComboBoxExW(LONGINT hDlg, WinAPI_PtrWSTR lpString, INTEGER nCount, INTEGER nIDComboBox);
+__EXTERN INTEGER __CALL_1 DlgDirSelectComboBoxExW(LONGINT hDlg, LONGINT lpString, INTEGER nCount, INTEGER nIDComboBox);
 #define WinAPI_DlgDirSelectEx(hDlg, lpString, nCount, nIDListBox)	DlgDirSelectExA(hDlg, lpString, nCount, nIDListBox)
 #define WinAPI_DlgDirSelectExA(hDlg, lpString, nCount, nIDListBox)	DlgDirSelectExA(hDlg, lpString, nCount, nIDListBox)
-__EXTERN INTEGER __CALL_1 DlgDirSelectExA(LONGINT hDlg, WinAPI_PtrSTR lpString, INTEGER nCount, INTEGER nIDListBox);
+__EXTERN INTEGER __CALL_1 DlgDirSelectExA(LONGINT hDlg, LONGINT lpString, INTEGER nCount, INTEGER nIDListBox);
 #define WinAPI_DlgDirSelectExW(hDlg, lpString, nCount, nIDListBox)	DlgDirSelectExW(hDlg, lpString, nCount, nIDListBox)
-__EXTERN INTEGER __CALL_1 DlgDirSelectExW(LONGINT hDlg, WinAPI_PtrWSTR lpString, INTEGER nCount, INTEGER nIDListBox);
+__EXTERN INTEGER __CALL_1 DlgDirSelectExW(LONGINT hDlg, LONGINT lpString, INTEGER nCount, INTEGER nIDListBox);
 #define WinAPI_DoEnvironmentSubst(szString, cbString)	DoEnvironmentSubstA(szString, cbString)
 #define WinAPI_DoEnvironmentSubstA(szString, cbString)	DoEnvironmentSubstA(szString, cbString)
-__EXTERN INTEGER __CALL_1 DoEnvironmentSubstA(WinAPI_PtrSTR szString, INTEGER cbString);
+__EXTERN INTEGER __CALL_1 DoEnvironmentSubstA(LONGINT szString, INTEGER cbString);
 #define WinAPI_DoEnvironmentSubstW(szString, cbString)	DoEnvironmentSubstW(szString, cbString)
-__EXTERN INTEGER __CALL_1 DoEnvironmentSubstW(WinAPI_PtrWSTR szString, INTEGER cbString);
+__EXTERN INTEGER __CALL_1 DoEnvironmentSubstW(LONGINT szString, INTEGER cbString);
 #define WinAPI_DocumentProperties(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ, fMode)	DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode)
 #define WinAPI_DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ, fMode)	DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode)
-__EXTERN INTEGER __CALL_1 DocumentPropertiesA(LONGINT hWnd, LONGINT hPrinter, WinAPI_PtrSTR pDeviceName, WinAPI_DEVMODEA *pDevModeOutput, WinAPI_DEVMODEA *pDevModeInput, SET fMode);
+__EXTERN INTEGER __CALL_1 DocumentPropertiesA(LONGINT hWnd, LONGINT hPrinter, LONGINT pDeviceName, WinAPI_DEVMODEA *pDevModeOutput, WinAPI_DEVMODEA *pDevModeInput, SET fMode);
 #define WinAPI_DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeOutput__typ, pDevModeInput, pDevModeInput__typ, fMode)	DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode)
-__EXTERN INTEGER __CALL_1 DocumentPropertiesW(LONGINT hWnd, LONGINT hPrinter, WinAPI_PtrWSTR pDeviceName, WinAPI_DEVMODEW *pDevModeOutput, WinAPI_DEVMODEW *pDevModeInput, SET fMode);
+__EXTERN INTEGER __CALL_1 DocumentPropertiesW(LONGINT hWnd, LONGINT hPrinter, LONGINT pDeviceName, WinAPI_DEVMODEW *pDevModeOutput, WinAPI_DEVMODEW *pDevModeInput, SET fMode);
 #define WinAPI_DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime, lpFileTime__typ)	DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime)
 __EXTERN INTEGER __CALL_1 DosDateTimeToFileTime(SHORTINT wFatDate, SHORTINT wFatTime, WinAPI_FILETIME *lpFileTime);
 #define WinAPI_DragAcceptFiles(p0, p1)	DragAcceptFiles(p0, p1)
@@ -6543,9 +6400,9 @@ __EXTERN void __CALL_1 DragFinish(LONGINT p0);
 __EXTERN INTEGER __CALL_1 DragObject(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, LONGINT p4);
 #define WinAPI_DragQueryFile(p0, p1, p2, p3)	DragQueryFileA(p0, p1, p2, p3)
 #define WinAPI_DragQueryFileA(p0, p1, p2, p3)	DragQueryFileA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 DragQueryFileA(LONGINT p0, INTEGER p1, WinAPI_PtrSTR p2, INTEGER p3);
+__EXTERN INTEGER __CALL_1 DragQueryFileA(LONGINT p0, INTEGER p1, LONGINT p2, INTEGER p3);
 #define WinAPI_DragQueryFileW(p0, p1, p2, p3)	DragQueryFileW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 DragQueryFileW(LONGINT p0, INTEGER p1, WinAPI_PtrWSTR p2, INTEGER p3);
+__EXTERN INTEGER __CALL_1 DragQueryFileW(LONGINT p0, INTEGER p1, LONGINT p2, INTEGER p3);
 #define WinAPI_DragQueryPoint(p0, p1, p1__typ)	DragQueryPoint(p0, p1)
 __EXTERN INTEGER __CALL_1 DragQueryPoint(LONGINT p0, WinAPI_POINT *p1);
 #define WinAPI_DrawAnimatedRects(hwnd, idAni, lprcFrom, lprcFrom__typ, lprcTo, lprcTo__typ)	DrawAnimatedRects(hwnd, idAni, lprcFrom, lprcTo)
@@ -6555,7 +6412,7 @@ __EXTERN INTEGER __CALL_1 DrawCaption(LONGINT p0, LONGINT p1, WinAPI_RECT *p2, I
 #define WinAPI_DrawEdge(hdc, qrc, qrc__typ, edge, grfFlags)	DrawEdge(hdc, qrc, edge, grfFlags)
 __EXTERN INTEGER __CALL_1 DrawEdge(LONGINT hdc, WinAPI_RECT *qrc, SET edge, SET grfFlags);
 #define WinAPI_DrawEscape(p0, p1, p2, p3)	DrawEscape(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 DrawEscape(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_PtrSTR p3);
+__EXTERN INTEGER __CALL_1 DrawEscape(LONGINT p0, INTEGER p1, INTEGER p2, LONGINT p3);
 #define WinAPI_DrawFocusRect(hDC, lprc, lprc__typ)	DrawFocusRect(hDC, lprc)
 __EXTERN INTEGER __CALL_1 DrawFocusRect(LONGINT hDC, WinAPI_RECT *lprc);
 #define WinAPI_DrawFrameControl(p0, p1, p1__typ, p2, p3)	DrawFrameControl(p0, p1, p2, p3)
@@ -6573,14 +6430,14 @@ __EXTERN INTEGER __CALL_1 DrawStateA(LONGINT p0, LONGINT p1, WinAPI_DRAWSTATEPRO
 __EXTERN INTEGER __CALL_1 DrawStateW(LONGINT p0, LONGINT p1, WinAPI_DRAWSTATEPROC p2, LONGINT p3, LONGINT p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, SET p9);
 #define WinAPI_DrawText(hDC, lpString, nCount, lpRect, lpRect__typ, uFormat)	DrawTextA(hDC, lpString, nCount, lpRect, uFormat)
 #define WinAPI_DrawTextA(hDC, lpString, nCount, lpRect, lpRect__typ, uFormat)	DrawTextA(hDC, lpString, nCount, lpRect, uFormat)
-__EXTERN INTEGER __CALL_1 DrawTextA(LONGINT hDC, WinAPI_PtrSTR lpString, INTEGER nCount, WinAPI_RECT *lpRect, SET uFormat);
+__EXTERN INTEGER __CALL_1 DrawTextA(LONGINT hDC, LONGINT lpString, INTEGER nCount, WinAPI_RECT *lpRect, SET uFormat);
 #define WinAPI_DrawTextEx(p0, p1, p2, p3, p3__typ, p4, p5, p5__typ)	DrawTextExA(p0, p1, p2, p3, p4, p5)
 #define WinAPI_DrawTextExA(p0, p1, p2, p3, p3__typ, p4, p5, p5__typ)	DrawTextExA(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL_1 DrawTextExA(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, WinAPI_RECT *p3, INTEGER p4, WinAPI_DRAWTEXTPARAMS *p5);
+__EXTERN INTEGER __CALL_1 DrawTextExA(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_RECT *p3, INTEGER p4, WinAPI_DRAWTEXTPARAMS *p5);
 #define WinAPI_DrawTextExW(p0, p1, p2, p3, p3__typ, p4, p5, p5__typ)	DrawTextExW(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL_1 DrawTextExW(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, WinAPI_RECT *p3, INTEGER p4, WinAPI_DRAWTEXTPARAMS *p5);
+__EXTERN INTEGER __CALL_1 DrawTextExW(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_RECT *p3, INTEGER p4, WinAPI_DRAWTEXTPARAMS *p5);
 #define WinAPI_DrawTextW(hDC, lpString, nCount, lpRect, lpRect__typ, uFormat)	DrawTextW(hDC, lpString, nCount, lpRect, uFormat)
-__EXTERN INTEGER __CALL_1 DrawTextW(LONGINT hDC, WinAPI_PtrWSTR lpString, INTEGER nCount, WinAPI_RECT *lpRect, SET uFormat);
+__EXTERN INTEGER __CALL_1 DrawTextW(LONGINT hDC, LONGINT lpString, INTEGER nCount, WinAPI_RECT *lpRect, SET uFormat);
 #define WinAPI_DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions)	DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions)
 __EXTERN INTEGER __CALL_1 DuplicateHandle(LONGINT hSourceProcessHandle, LONGINT hSourceHandle, LONGINT hTargetProcessHandle, LONGINT *lpTargetHandle, SET dwDesiredAccess, INTEGER bInheritHandle, SET dwOptions);
 #define WinAPI_DuplicateIcon(hInst, hIcon)	DuplicateIcon(hInst, hIcon)
@@ -6648,26 +6505,26 @@ __EXTERN INTEGER __CALL_1 EnumDesktopsA(LONGINT hwinsta, WinAPI_DESKTOPENUMPROCA
 __EXTERN INTEGER __CALL_1 EnumDesktopsW(LONGINT hwinsta, WinAPI_DESKTOPENUMPROCW lpEnumFunc, LONGINT lParam);
 #define WinAPI_EnumDisplaySettings(lpszDeviceName, iModeNum, lpDevMode, lpDevMode__typ)	EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)
 #define WinAPI_EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode, lpDevMode__typ)	EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode)
-__EXTERN INTEGER __CALL_1 EnumDisplaySettingsA(WinAPI_PtrSTR lpszDeviceName, INTEGER iModeNum, WinAPI_DEVMODEA *lpDevMode);
+__EXTERN INTEGER __CALL_1 EnumDisplaySettingsA(LONGINT lpszDeviceName, INTEGER iModeNum, WinAPI_DEVMODEA *lpDevMode);
 #define WinAPI_EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode, lpDevMode__typ)	EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode)
-__EXTERN INTEGER __CALL_1 EnumDisplaySettingsW(WinAPI_PtrWSTR lpszDeviceName, INTEGER iModeNum, WinAPI_DEVMODEW *lpDevMode);
+__EXTERN INTEGER __CALL_1 EnumDisplaySettingsW(LONGINT lpszDeviceName, INTEGER iModeNum, WinAPI_DEVMODEW *lpDevMode);
 #define WinAPI_EnumEnhMetaFile(p0, p1, p2, p3, p4, p4__typ)	EnumEnhMetaFile(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 EnumEnhMetaFile(LONGINT p0, LONGINT p1, WinAPI_ENHMFENUMPROC p2, LONGINT p3, WinAPI_RECT *p4);
 #define WinAPI_EnumFontFamilies(p0, p1, p2, p3)	EnumFontFamiliesA(p0, p1, p2, p3)
 #define WinAPI_EnumFontFamiliesA(p0, p1, p2, p3)	EnumFontFamiliesA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 EnumFontFamiliesA(LONGINT p0, WinAPI_PtrSTR p1, WinAPI_NEWFONTENUMPROCA p2, LONGINT p3);
+__EXTERN INTEGER __CALL_1 EnumFontFamiliesA(LONGINT p0, LONGINT p1, WinAPI_NEWFONTENUMPROCA p2, LONGINT p3);
 #define WinAPI_EnumFontFamiliesEx(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExA(p0, p1, p2, p3, p4)
 #define WinAPI_EnumFontFamiliesExA(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExA(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 EnumFontFamiliesExA(LONGINT p0, WinAPI_LOGFONTA *p1, WinAPI_FONTENUMPROCEXA p2, LONGINT p3, INTEGER p4);
 #define WinAPI_EnumFontFamiliesExW(p0, p1, p1__typ, p2, p3, p4)	EnumFontFamiliesExW(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 EnumFontFamiliesExW(LONGINT p0, WinAPI_LOGFONTW *p1, WinAPI_FONTENUMPROCEXW p2, LONGINT p3, INTEGER p4);
 #define WinAPI_EnumFontFamiliesW(p0, p1, p2, p3)	EnumFontFamiliesW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 EnumFontFamiliesW(LONGINT p0, WinAPI_PtrWSTR p1, WinAPI_NEWFONTENUMPROCW p2, LONGINT p3);
+__EXTERN INTEGER __CALL_1 EnumFontFamiliesW(LONGINT p0, LONGINT p1, WinAPI_NEWFONTENUMPROCW p2, LONGINT p3);
 #define WinAPI_EnumFonts(p0, p1, p2, p3)	EnumFontsA(p0, p1, p2, p3)
 #define WinAPI_EnumFontsA(p0, p1, p2, p3)	EnumFontsA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 EnumFontsA(LONGINT p0, WinAPI_PtrSTR p1, WinAPI_FONTENUMPROCA p2, LONGINT p3);
+__EXTERN INTEGER __CALL_1 EnumFontsA(LONGINT p0, LONGINT p1, WinAPI_FONTENUMPROCA p2, LONGINT p3);
 #define WinAPI_EnumFontsW(p0, p1, p2, p3)	EnumFontsW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 EnumFontsW(LONGINT p0, WinAPI_PtrWSTR p1, WinAPI_FONTENUMPROCW p2, LONGINT p3);
+__EXTERN INTEGER __CALL_1 EnumFontsW(LONGINT p0, LONGINT p1, WinAPI_FONTENUMPROCW p2, LONGINT p3);
 #define WinAPI_EnumForms(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)	EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)	EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned)
 __EXTERN INTEGER __CALL_1 EnumFormsA(LONGINT hPrinter, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
@@ -6687,36 +6544,36 @@ __EXTERN INTEGER __CALL_1 EnumJobsW(LONGINT hPrinter, INTEGER FirstJob, INTEGER 
 __EXTERN INTEGER __CALL_1 EnumMetaFile(LONGINT p0, LONGINT p1, WinAPI_MFENUMPROC p2, LONGINT p3);
 #define WinAPI_EnumMonitors(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)	EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)	EnumMonitorsA(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumMonitorsA(WinAPI_PtrSTR pName, INTEGER Level, CHAR *pMonitors, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumMonitorsA(LONGINT pName, INTEGER Level, CHAR *pMonitors, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumMonitorsW(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)	EnumMonitorsW(pName, Level, pMonitors, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumMonitorsW(WinAPI_PtrWSTR pName, INTEGER Level, CHAR *pMonitors, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumMonitorsW(LONGINT pName, INTEGER Level, CHAR *pMonitors, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumObjects(p0, p1, p2, p3)	EnumObjects(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 EnumObjects(LONGINT p0, INTEGER p1, WinAPI_GOBJENUMPROC p2, LONGINT p3);
 #define WinAPI_EnumPorts(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)	EnumPortsA(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumPortsA(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)	EnumPortsA(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPortsA(WinAPI_PtrSTR pName, INTEGER Level, CHAR *pPorts, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPortsA(LONGINT pName, INTEGER Level, CHAR *pPorts, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPortsW(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)	EnumPortsW(pName, Level, pPorts, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPortsW(WinAPI_PtrWSTR pName, INTEGER Level, CHAR *pPorts, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPortsW(LONGINT pName, INTEGER Level, CHAR *pPorts, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrintProcessorDatatypes(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintProcessorDatatypesA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pPrintProcessorName, INTEGER Level, CHAR *pDatatypes, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintProcessorDatatypesA(LONGINT pName, LONGINT pPrintProcessorName, INTEGER Level, CHAR *pDatatypes, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrintProcessorDatatypesW(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorDatatypesW(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintProcessorDatatypesW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pPrintProcessorName, INTEGER Level, CHAR *pDatatypes, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintProcessorDatatypesW(LONGINT pName, LONGINT pPrintProcessorName, INTEGER Level, CHAR *pDatatypes, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrintProcessors(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintProcessorsA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintProcessorsA(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrintProcessorsW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrintProcessorsW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintProcessorsW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintProcessorsW(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrinterDrivers(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrinterDriversA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrinterDriversA(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrinterDriversW(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)	EnumPrinterDriversW(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrinterDriversW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrinterDriversW(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrinters(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)	EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)
 #define WinAPI_EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)	EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintersA(SET Flags, WinAPI_PtrSTR Name, INTEGER Level, CHAR *pPrinterEnum, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintersA(SET Flags, LONGINT Name, INTEGER Level, CHAR *pPrinterEnum, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumPrintersW(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)	EnumPrintersW(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned)
-__EXTERN INTEGER __CALL_1 EnumPrintersW(SET Flags, WinAPI_PtrWSTR Name, INTEGER Level, CHAR *pPrinterEnum, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
+__EXTERN INTEGER __CALL_1 EnumPrintersW(SET Flags, LONGINT Name, INTEGER Level, CHAR *pPrinterEnum, INTEGER cbBuf, INTEGER *pcbNeeded, INTEGER *pcReturned);
 #define WinAPI_EnumProps(hWnd, lpEnumFunc)	EnumPropsA(hWnd, lpEnumFunc)
 #define WinAPI_EnumPropsA(hWnd, lpEnumFunc)	EnumPropsA(hWnd, lpEnumFunc)
 __EXTERN INTEGER __CALL_1 EnumPropsA(LONGINT hWnd, WinAPI_ROPENUMPROCA lpEnumFunc);
@@ -6729,14 +6586,14 @@ __EXTERN INTEGER __CALL_1 EnumPropsExW(LONGINT hWnd, WinAPI_ROPENUMPROCEXW lpEnu
 __EXTERN INTEGER __CALL_1 EnumPropsW(LONGINT hWnd, WinAPI_ROPENUMPROCW lpEnumFunc);
 #define WinAPI_EnumResourceLanguages(hModule, lpType, lpName, lpEnumFunc, lParam)	EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam)
 #define WinAPI_EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam)	EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL_1 EnumResourceLanguagesA(LONGINT hModule, WinAPI_PtrSTR lpType, WinAPI_PtrSTR lpName, WinAPI_ENUMRESLANGPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL_1 EnumResourceLanguagesA(LONGINT hModule, LONGINT lpType, LONGINT lpName, WinAPI_ENUMRESLANGPROC lpEnumFunc, INTEGER lParam);
 #define WinAPI_EnumResourceLanguagesW(hModule, lpType, lpName, lpEnumFunc, lParam)	EnumResourceLanguagesW(hModule, lpType, lpName, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL_1 EnumResourceLanguagesW(LONGINT hModule, WinAPI_PtrWSTR lpType, WinAPI_PtrWSTR lpName, WinAPI_ENUMRESLANGPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL_1 EnumResourceLanguagesW(LONGINT hModule, LONGINT lpType, LONGINT lpName, WinAPI_ENUMRESLANGPROC lpEnumFunc, INTEGER lParam);
 #define WinAPI_EnumResourceNames(hModule, lpType, lpEnumFunc, lParam)	EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam)
 #define WinAPI_EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam)	EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL_1 EnumResourceNamesA(LONGINT hModule, WinAPI_PtrSTR lpType, WinAPI_ENUMRESNAMEPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL_1 EnumResourceNamesA(LONGINT hModule, LONGINT lpType, WinAPI_ENUMRESNAMEPROC lpEnumFunc, INTEGER lParam);
 #define WinAPI_EnumResourceNamesW(hModule, lpType, lpEnumFunc, lParam)	EnumResourceNamesW(hModule, lpType, lpEnumFunc, lParam)
-__EXTERN INTEGER __CALL_1 EnumResourceNamesW(LONGINT hModule, WinAPI_PtrWSTR lpType, WinAPI_ENUMRESNAMEPROC lpEnumFunc, INTEGER lParam);
+__EXTERN INTEGER __CALL_1 EnumResourceNamesW(LONGINT hModule, LONGINT lpType, WinAPI_ENUMRESNAMEPROC lpEnumFunc, INTEGER lParam);
 #define WinAPI_EnumResourceTypes(hModule, lpEnumFunc, lParam)	EnumResourceTypesA(hModule, lpEnumFunc, lParam)
 #define WinAPI_EnumResourceTypesA(hModule, lpEnumFunc, lParam)	EnumResourceTypesA(hModule, lpEnumFunc, lParam)
 __EXTERN INTEGER __CALL_1 EnumResourceTypesA(LONGINT hModule, WinAPI_ENUMRESTYPEPROC lpEnumFunc, INTEGER lParam);
@@ -6782,7 +6639,7 @@ __EXTERN INTEGER __CALL_1 EqualSid(LONGINT pSid1, LONGINT pSid2);
 #define WinAPI_EraseTape(hDevice, dwEraseType, bImmediate)	EraseTape(hDevice, dwEraseType, bImmediate)
 __EXTERN INTEGER __CALL_1 EraseTape(LONGINT hDevice, INTEGER dwEraseType, INTEGER bImmediate);
 #define WinAPI_Escape(p0, p1, p2, p3, p4)	Escape(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL_1 Escape(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_PtrSTR p3, LONGINT p4);
+__EXTERN INTEGER __CALL_1 Escape(LONGINT p0, INTEGER p1, INTEGER p2, LONGINT p3, LONGINT p4);
 #define WinAPI_EscapeCommFunction(hFile, dwFunc)	EscapeCommFunction(hFile, dwFunc)
 __EXTERN INTEGER __CALL_1 EscapeCommFunction(LONGINT hFile, INTEGER dwFunc);
 #define WinAPI_ExcludeClipRect(p0, p1, p2, p3, p4)	ExcludeClipRect(p0, p1, p2, p3, p4)
@@ -6797,44 +6654,44 @@ __EXTERN void __CALL_1 ExitThread(INTEGER dwExitCode);
 __EXTERN INTEGER __CALL_1 ExitWindowsEx(SET uFlags, INTEGER dwReserved);
 #define WinAPI_ExpandEnvironmentStrings(lpSrc, lpDst, nSize)	ExpandEnvironmentStringsA(lpSrc, lpDst, nSize)
 #define WinAPI_ExpandEnvironmentStringsA(lpSrc, lpDst, nSize)	ExpandEnvironmentStringsA(lpSrc, lpDst, nSize)
-__EXTERN INTEGER __CALL_1 ExpandEnvironmentStringsA(WinAPI_PtrSTR lpSrc, WinAPI_PtrSTR lpDst, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 ExpandEnvironmentStringsA(LONGINT lpSrc, LONGINT lpDst, INTEGER nSize);
 #define WinAPI_ExpandEnvironmentStringsW(lpSrc, lpDst, nSize)	ExpandEnvironmentStringsW(lpSrc, lpDst, nSize)
-__EXTERN INTEGER __CALL_1 ExpandEnvironmentStringsW(WinAPI_PtrWSTR lpSrc, WinAPI_PtrWSTR lpDst, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 ExpandEnvironmentStringsW(LONGINT lpSrc, LONGINT lpDst, INTEGER nSize);
 #define WinAPI_ExtCreatePen(p0, p1, p2, p2__typ, p3, p4)	ExtCreatePen(p0, p1, p2, p3, p4)
 __EXTERN LONGINT __CALL_1 ExtCreatePen(INTEGER p0, INTEGER p1, WinAPI_LOGBRUSH *p2, INTEGER p3, INTEGER *p4);
 #define WinAPI_ExtCreateRegion(p0, p0__typ, p1, p2, p2__typ)	ExtCreateRegion(p0, p1, p2)
 __EXTERN LONGINT __CALL_1 ExtCreateRegion(WinAPI_XFORM *p0, INTEGER p1, WinAPI_RGNDATA *p2);
 #define WinAPI_ExtEscape(p0, p1, p2, p3, p4, p5)	ExtEscape(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL_1 ExtEscape(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_PtrSTR p3, INTEGER p4, WinAPI_PtrSTR p5);
+__EXTERN INTEGER __CALL_1 ExtEscape(LONGINT p0, INTEGER p1, INTEGER p2, LONGINT p3, INTEGER p4, LONGINT p5);
 #define WinAPI_ExtFloodFill(p0, p1, p2, p3, p4)	ExtFloodFill(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 ExtFloodFill(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4);
 #define WinAPI_ExtSelectClipRgn(p0, p1, p2)	ExtSelectClipRgn(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 ExtSelectClipRgn(LONGINT p0, LONGINT p1, INTEGER p2);
 #define WinAPI_ExtTextOut(p0, p1, p2, p3, p4, p4__typ, p5, p6, p7)	ExtTextOutA(p0, p1, p2, p3, p4, p5, p6, p7)
 #define WinAPI_ExtTextOutA(p0, p1, p2, p3, p4, p4__typ, p5, p6, p7)	ExtTextOutA(p0, p1, p2, p3, p4, p5, p6, p7)
-__EXTERN INTEGER __CALL_1 ExtTextOutA(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, WinAPI_RECT *p4, WinAPI_PtrSTR p5, INTEGER p6, INTEGER *p7);
+__EXTERN INTEGER __CALL_1 ExtTextOutA(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, WinAPI_RECT *p4, LONGINT p5, INTEGER p6, INTEGER *p7);
 #define WinAPI_ExtTextOutW(p0, p1, p2, p3, p4, p4__typ, p5, p6, p7)	ExtTextOutW(p0, p1, p2, p3, p4, p5, p6, p7)
-__EXTERN INTEGER __CALL_1 ExtTextOutW(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, WinAPI_RECT *p4, WinAPI_PtrWSTR p5, INTEGER p6, INTEGER *p7);
+__EXTERN INTEGER __CALL_1 ExtTextOutW(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, WinAPI_RECT *p4, LONGINT p5, INTEGER p6, INTEGER *p7);
 #define WinAPI_ExtractAssociatedIcon(hInst, lpIconPath, lpiIcon)	ExtractAssociatedIconA(hInst, lpIconPath, lpiIcon)
 #define WinAPI_ExtractAssociatedIconA(hInst, lpIconPath, lpiIcon)	ExtractAssociatedIconA(hInst, lpIconPath, lpiIcon)
-__EXTERN LONGINT __CALL_1 ExtractAssociatedIconA(LONGINT hInst, WinAPI_PtrSTR lpIconPath, SHORTINT *lpiIcon);
+__EXTERN LONGINT __CALL_1 ExtractAssociatedIconA(LONGINT hInst, LONGINT lpIconPath, SHORTINT *lpiIcon);
 #define WinAPI_ExtractAssociatedIconW(hInst, lpIconPath, lpiIcon)	ExtractAssociatedIconW(hInst, lpIconPath, lpiIcon)
-__EXTERN LONGINT __CALL_1 ExtractAssociatedIconW(LONGINT hInst, WinAPI_PtrWSTR lpIconPath, SHORTINT *lpiIcon);
+__EXTERN LONGINT __CALL_1 ExtractAssociatedIconW(LONGINT hInst, LONGINT lpIconPath, SHORTINT *lpiIcon);
 #define WinAPI_ExtractIcon(hInst, lpszExeFileName, nIconIndex)	ExtractIconA(hInst, lpszExeFileName, nIconIndex)
 #define WinAPI_ExtractIconA(hInst, lpszExeFileName, nIconIndex)	ExtractIconA(hInst, lpszExeFileName, nIconIndex)
-__EXTERN LONGINT __CALL_1 ExtractIconA(LONGINT hInst, WinAPI_PtrSTR lpszExeFileName, INTEGER nIconIndex);
+__EXTERN LONGINT __CALL_1 ExtractIconA(LONGINT hInst, LONGINT lpszExeFileName, INTEGER nIconIndex);
 #define WinAPI_ExtractIconEx(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)	ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)
 #define WinAPI_ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)	ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)
-__EXTERN INTEGER __CALL_1 ExtractIconExA(WinAPI_PtrSTR lpszFile, INTEGER nIconIndex, LONGINT *phiconLarge, LONGINT *phiconSmall, INTEGER nIcons);
+__EXTERN INTEGER __CALL_1 ExtractIconExA(LONGINT lpszFile, INTEGER nIconIndex, LONGINT *phiconLarge, LONGINT *phiconSmall, INTEGER nIcons);
 #define WinAPI_ExtractIconExW(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)	ExtractIconExW(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons)
-__EXTERN INTEGER __CALL_1 ExtractIconExW(WinAPI_PtrWSTR lpszFile, INTEGER nIconIndex, LONGINT *phiconLarge, LONGINT *phiconSmall, INTEGER nIcons);
+__EXTERN INTEGER __CALL_1 ExtractIconExW(LONGINT lpszFile, INTEGER nIconIndex, LONGINT *phiconLarge, LONGINT *phiconSmall, INTEGER nIcons);
 #define WinAPI_ExtractIconW(hInst, lpszExeFileName, nIconIndex)	ExtractIconW(hInst, lpszExeFileName, nIconIndex)
-__EXTERN LONGINT __CALL_1 ExtractIconW(LONGINT hInst, WinAPI_PtrWSTR lpszExeFileName, INTEGER nIconIndex);
+__EXTERN LONGINT __CALL_1 ExtractIconW(LONGINT hInst, LONGINT lpszExeFileName, INTEGER nIconIndex);
 #define WinAPI_FatalAppExit(uAction, lpMessageText)	FatalAppExitA(uAction, lpMessageText)
 #define WinAPI_FatalAppExitA(uAction, lpMessageText)	FatalAppExitA(uAction, lpMessageText)
-__EXTERN void __CALL_1 FatalAppExitA(INTEGER uAction, WinAPI_PtrSTR lpMessageText);
+__EXTERN void __CALL_1 FatalAppExitA(INTEGER uAction, LONGINT lpMessageText);
 #define WinAPI_FatalAppExitW(uAction, lpMessageText)	FatalAppExitW(uAction, lpMessageText)
-__EXTERN void __CALL_1 FatalAppExitW(INTEGER uAction, WinAPI_PtrWSTR lpMessageText);
+__EXTERN void __CALL_1 FatalAppExitW(INTEGER uAction, LONGINT lpMessageText);
 #define WinAPI_FatalExit(ExitCode)	FatalExit(ExitCode)
 __EXTERN void __CALL_1 FatalExit(INTEGER ExitCode);
 #define WinAPI_FileTimeToDosDateTime(lpFileTime, lpFileTime__typ, lpFatDate, lpFatTime)	FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime)
@@ -6858,9 +6715,9 @@ __EXTERN INTEGER __CALL_1 FillRect(LONGINT hDC, WinAPI_RECT *lprc, LONGINT hbr);
 __EXTERN INTEGER __CALL_1 FillRgn(LONGINT p0, LONGINT p1, LONGINT p2);
 #define WinAPI_FindAtom(lpString)	FindAtomA(lpString)
 #define WinAPI_FindAtomA(lpString)	FindAtomA(lpString)
-__EXTERN SHORTINT __CALL_1 FindAtomA(WinAPI_PtrSTR lpString);
+__EXTERN SHORTINT __CALL_1 FindAtomA(LONGINT lpString);
 #define WinAPI_FindAtomW(lpString)	FindAtomW(lpString)
-__EXTERN SHORTINT __CALL_1 FindAtomW(WinAPI_PtrWSTR lpString);
+__EXTERN SHORTINT __CALL_1 FindAtomW(LONGINT lpString);
 #define WinAPI_FindClose(hFindFile)	FindClose(hFindFile)
 __EXTERN INTEGER __CALL_1 FindClose(LONGINT hFindFile);
 #define WinAPI_FindCloseChangeNotification(hChangeHandle)	FindCloseChangeNotification(hChangeHandle)
@@ -6869,29 +6726,26 @@ __EXTERN INTEGER __CALL_1 FindCloseChangeNotification(LONGINT hChangeHandle);
 __EXTERN INTEGER __CALL_1 FindClosePrinterChangeNotification(LONGINT hChange);
 #define WinAPI_FindExecutable(lpFile, lpDirectory, lpResult)	FindExecutableA(lpFile, lpDirectory, lpResult)
 #define WinAPI_FindExecutableA(lpFile, lpDirectory, lpResult)	FindExecutableA(lpFile, lpDirectory, lpResult)
-__EXTERN LONGINT __CALL_1 FindExecutableA(WinAPI_PtrSTR lpFile, WinAPI_PtrSTR lpDirectory, WinAPI_PtrSTR lpResult);
+__EXTERN LONGINT __CALL_1 FindExecutableA(LONGINT lpFile, LONGINT lpDirectory, LONGINT lpResult);
 #define WinAPI_FindExecutableW(lpFile, lpDirectory, lpResult)	FindExecutableW(lpFile, lpDirectory, lpResult)
-__EXTERN LONGINT __CALL_1 FindExecutableW(WinAPI_PtrWSTR lpFile, WinAPI_PtrWSTR lpDirectory, WinAPI_PtrWSTR lpResult);
+__EXTERN LONGINT __CALL_1 FindExecutableW(LONGINT lpFile, LONGINT lpDirectory, LONGINT lpResult);
 #define WinAPI_FindFirstChangeNotification(lpPathName, bWatchSubtree, dwNotifyFilter)	FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter)
 #define WinAPI_FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter)	FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter)
-__EXTERN LONGINT __CALL_1 FindFirstChangeNotificationA(WinAPI_PtrSTR lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
+__EXTERN LONGINT __CALL_1 FindFirstChangeNotificationA(LONGINT lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
 #define WinAPI_FindFirstChangeNotificationW(lpPathName, bWatchSubtree, dwNotifyFilter)	FindFirstChangeNotificationW(lpPathName, bWatchSubtree, dwNotifyFilter)
-__EXTERN LONGINT __CALL_1 FindFirstChangeNotificationW(WinAPI_PtrWSTR lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
+__EXTERN LONGINT __CALL_1 FindFirstChangeNotificationW(LONGINT lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
 #define WinAPI_FindFirstFile(lpFileName, lpFindFileData, lpFindFileData__typ)	FindFirstFileA(lpFileName, lpFindFileData)
 #define WinAPI_FindFirstFileA(lpFileName, lpFindFileData, lpFindFileData__typ)	FindFirstFileA(lpFileName, lpFindFileData)
-__EXTERN LONGINT __CALL_1 FindFirstFileA(WinAPI_PtrSTR lpFileName, WinAPI_WIN32_FIND_DATAA *lpFindFileData);
+__EXTERN LONGINT __CALL_1 FindFirstFileA(LONGINT lpFileName, WinAPI_WIN32_FIND_DATAA *lpFindFileData);
 #define WinAPI_FindFirstFileEx(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)	FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)
 #define WinAPI_FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)	FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)
-__EXTERN LONGINT __CALL_1 FindFirstFileExA(WinAPI_PtrSTR lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
+__EXTERN LONGINT __CALL_1 FindFirstFileExA(LONGINT lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
 #define WinAPI_FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)	FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags)
-__EXTERN LONGINT __CALL_1 FindFirstFileExW(WinAPI_PtrWSTR lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
+__EXTERN LONGINT __CALL_1 FindFirstFileExW(LONGINT lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
 #define WinAPI_FindFirstFileW(lpFileName, lpFindFileData, lpFindFileData__typ)	FindFirstFileW(lpFileName, lpFindFileData)
-__EXTERN LONGINT __CALL_1 FindFirstFileW(WinAPI_PtrWSTR lpFileName, WinAPI_WIN32_FIND_DATAW *lpFindFileData);
+__EXTERN LONGINT __CALL_1 FindFirstFileW(LONGINT lpFileName, WinAPI_WIN32_FIND_DATAW *lpFindFileData);
 #define WinAPI_FindFirstFreeAce(pAcl, pAcl__typ, pAce)	FindFirstFreeAce(pAcl, pAce)
-__EXTERN INTEGER __CALL_1 FindFirstFreeAce(WinAPI_ACL *pAcl, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *pAce);
+__EXTERN INTEGER __CALL_1 FindFirstFreeAce(WinAPI_ACL *pAcl, LONGINT pAce);
 #define WinAPI_FindFirstPrinterChangeNotification(hPrinter, fdwFlags, fdwOptions, pPrinterNotifyOptions)	FindFirstPrinterChangeNotification(hPrinter, fdwFlags, fdwOptions, pPrinterNotifyOptions)
 __EXTERN LONGINT __CALL_1 FindFirstPrinterChangeNotification(LONGINT hPrinter, SET fdwFlags, INTEGER fdwOptions, LONGINT pPrinterNotifyOptions);
 #define WinAPI_FindNextChangeNotification(hChangeHandle)	FindNextChangeNotification(hChangeHandle)
@@ -6902,30 +6756,27 @@ __EXTERN INTEGER __CALL_1 FindNextFileA(LONGINT hFindFile, WinAPI_WIN32_FIND_DAT
 #define WinAPI_FindNextFileW(hFindFile, lpFindFileData, lpFindFileData__typ)	FindNextFileW(hFindFile, lpFindFileData)
 __EXTERN INTEGER __CALL_1 FindNextFileW(LONGINT hFindFile, WinAPI_WIN32_FIND_DATAW *lpFindFileData);
 #define WinAPI_FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo)	FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo)
-__EXTERN INTEGER __CALL_1 FindNextPrinterChangeNotification(LONGINT hChange, INTEGER *pdwChange, LONGINT pvReserved, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *ppPrinterNotifyInfo);
+__EXTERN INTEGER __CALL_1 FindNextPrinterChangeNotification(LONGINT hChange, INTEGER *pdwChange, LONGINT pvReserved, LONGINT ppPrinterNotifyInfo);
 #define WinAPI_FindResource(hModule, lpName, lpType)	FindResourceA(hModule, lpName, lpType)
 #define WinAPI_FindResourceA(hModule, lpName, lpType)	FindResourceA(hModule, lpName, lpType)
-__EXTERN LONGINT __CALL_1 FindResourceA(LONGINT hModule, WinAPI_PtrSTR lpName, WinAPI_PtrSTR lpType);
+__EXTERN LONGINT __CALL_1 FindResourceA(LONGINT hModule, LONGINT lpName, LONGINT lpType);
 #define WinAPI_FindResourceEx(hModule, lpType, lpName, wLanguage)	FindResourceExA(hModule, lpType, lpName, wLanguage)
 #define WinAPI_FindResourceExA(hModule, lpType, lpName, wLanguage)	FindResourceExA(hModule, lpType, lpName, wLanguage)
-__EXTERN LONGINT __CALL_1 FindResourceExA(LONGINT hModule, WinAPI_PtrSTR lpType, WinAPI_PtrSTR lpName, SHORTINT wLanguage);
+__EXTERN LONGINT __CALL_1 FindResourceExA(LONGINT hModule, LONGINT lpType, LONGINT lpName, SHORTINT wLanguage);
 #define WinAPI_FindResourceExW(hModule, lpType, lpName, wLanguage)	FindResourceExW(hModule, lpType, lpName, wLanguage)
-__EXTERN LONGINT __CALL_1 FindResourceExW(LONGINT hModule, WinAPI_PtrWSTR lpType, WinAPI_PtrWSTR lpName, SHORTINT wLanguage);
+__EXTERN LONGINT __CALL_1 FindResourceExW(LONGINT hModule, LONGINT lpType, LONGINT lpName, SHORTINT wLanguage);
 #define WinAPI_FindResourceW(hModule, lpName, lpType)	FindResourceW(hModule, lpName, lpType)
-__EXTERN LONGINT __CALL_1 FindResourceW(LONGINT hModule, WinAPI_PtrWSTR lpName, WinAPI_PtrWSTR lpType);
+__EXTERN LONGINT __CALL_1 FindResourceW(LONGINT hModule, LONGINT lpName, LONGINT lpType);
 #define WinAPI_FindWindow(lpClassName, lpWindowName)	FindWindowA(lpClassName, lpWindowName)
 #define WinAPI_FindWindowA(lpClassName, lpWindowName)	FindWindowA(lpClassName, lpWindowName)
-__EXTERN LONGINT __CALL_1 FindWindowA(WinAPI_PtrSTR lpClassName, WinAPI_PtrSTR lpWindowName);
+__EXTERN LONGINT __CALL_1 FindWindowA(LONGINT lpClassName, LONGINT lpWindowName);
 #define WinAPI_FindWindowEx(p0, p1, p2, p3)	FindWindowExA(p0, p1, p2, p3)
 #define WinAPI_FindWindowExA(p0, p1, p2, p3)	FindWindowExA(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 FindWindowExA(LONGINT p0, LONGINT p1, WinAPI_PtrSTR p2, WinAPI_PtrSTR p3);
+__EXTERN LONGINT __CALL_1 FindWindowExA(LONGINT p0, LONGINT p1, LONGINT p2, LONGINT p3);
 #define WinAPI_FindWindowExW(p0, p1, p2, p3)	FindWindowExW(p0, p1, p2, p3)
-__EXTERN LONGINT __CALL_1 FindWindowExW(LONGINT p0, LONGINT p1, WinAPI_PtrWSTR p2, WinAPI_PtrWSTR p3);
+__EXTERN LONGINT __CALL_1 FindWindowExW(LONGINT p0, LONGINT p1, LONGINT p2, LONGINT p3);
 #define WinAPI_FindWindowW(lpClassName, lpWindowName)	FindWindowW(lpClassName, lpWindowName)
-__EXTERN LONGINT __CALL_1 FindWindowW(WinAPI_PtrWSTR lpClassName, WinAPI_PtrWSTR lpWindowName);
+__EXTERN LONGINT __CALL_1 FindWindowW(LONGINT lpClassName, LONGINT lpWindowName);
 #define WinAPI_FixBrushOrgEx(p0, p1, p2, p3, p3__typ)	FixBrushOrgEx(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 FixBrushOrgEx(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_POINT *p3);
 #define WinAPI_FlashWindow(hWnd, bInvert)	FlashWindow(hWnd, bInvert)
@@ -6944,14 +6795,14 @@ __EXTERN INTEGER __CALL_1 FlushInstructionCache(LONGINT hProcess, LONGINT lpBase
 __EXTERN INTEGER __CALL_1 FlushViewOfFile(LONGINT lpBaseAddress, INTEGER dwNumberOfBytesToFlush);
 #define WinAPI_FoldString(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
 #define WinAPI_FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
-__EXTERN INTEGER __CALL_1 FoldStringA(SET dwMapFlags, WinAPI_PtrSTR lpSrcStr, INTEGER cchSrc, WinAPI_PtrSTR lpDestStr, INTEGER cchDest);
+__EXTERN INTEGER __CALL_1 FoldStringA(SET dwMapFlags, LONGINT lpSrcStr, INTEGER cchSrc, LONGINT lpDestStr, INTEGER cchDest);
 #define WinAPI_FoldStringW(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	FoldStringW(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
-__EXTERN INTEGER __CALL_1 FoldStringW(SET dwMapFlags, WinAPI_PtrWSTR lpSrcStr, INTEGER cchSrc, WinAPI_PtrWSTR lpDestStr, INTEGER cchDest);
+__EXTERN INTEGER __CALL_1 FoldStringW(SET dwMapFlags, LONGINT lpSrcStr, INTEGER cchSrc, LONGINT lpDestStr, INTEGER cchDest);
 #define WinAPI_FormatMessage(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)	FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)
 #define WinAPI_FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)	FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)
-__EXTERN INTEGER __CALL_1 FormatMessageA(SET dwFlags, LONGINT lpSource, INTEGER dwMessageId, INTEGER dwLanguageId, WinAPI_PtrSTR lpBuffer, INTEGER nSize, WinAPI_PtrSTR *Arguments);
+__EXTERN INTEGER __CALL_1 FormatMessageA(SET dwFlags, LONGINT lpSource, INTEGER dwMessageId, INTEGER dwLanguageId, LONGINT lpBuffer, INTEGER nSize, LONGINT *Arguments);
 #define WinAPI_FormatMessageW(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)	FormatMessageW(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments)
-__EXTERN INTEGER __CALL_1 FormatMessageW(SET dwFlags, LONGINT lpSource, INTEGER dwMessageId, INTEGER dwLanguageId, WinAPI_PtrWSTR lpBuffer, INTEGER nSize, WinAPI_PtrSTR *Arguments);
+__EXTERN INTEGER __CALL_1 FormatMessageW(SET dwFlags, LONGINT lpSource, INTEGER dwMessageId, INTEGER dwLanguageId, LONGINT lpBuffer, INTEGER nSize, LONGINT *Arguments);
 #define WinAPI_FrameRect(hDC, lprc, lprc__typ, hbr)	FrameRect(hDC, lprc, hbr)
 __EXTERN INTEGER __CALL_1 FrameRect(LONGINT hDC, WinAPI_RECT *lprc, LONGINT hbr);
 #define WinAPI_FrameRgn(p0, p1, p2, p3, p4)	FrameRgn(p0, p1, p2, p3, p4)
@@ -6962,9 +6813,9 @@ __EXTERN INTEGER __CALL_1 FreeConsole(void);
 __EXTERN INTEGER __CALL_1 FreeDDElParam(INTEGER msg, INTEGER lParam);
 #define WinAPI_FreeEnvironmentStrings(p0)	FreeEnvironmentStringsA(p0)
 #define WinAPI_FreeEnvironmentStringsA(p0)	FreeEnvironmentStringsA(p0)
-__EXTERN INTEGER __CALL_1 FreeEnvironmentStringsA(WinAPI_PtrSTR p0);
+__EXTERN INTEGER __CALL_1 FreeEnvironmentStringsA(LONGINT p0);
 #define WinAPI_FreeEnvironmentStringsW(p0)	FreeEnvironmentStringsW(p0)
-__EXTERN INTEGER __CALL_1 FreeEnvironmentStringsW(WinAPI_PtrWSTR p0);
+__EXTERN INTEGER __CALL_1 FreeEnvironmentStringsW(LONGINT p0);
 #define WinAPI_FreeLibrary(hLibModule)	FreeLibrary(hLibModule)
 __EXTERN INTEGER __CALL_1 FreeLibrary(LONGINT hLibModule);
 #define WinAPI_FreeLibraryAndExitThread(hLibModule, dwExitCode)	FreeLibraryAndExitThread(hLibModule, dwExitCode)
@@ -6988,10 +6839,7 @@ __EXTERN INTEGER __CALL_1 GenerateConsoleCtrlEvent(INTEGER dwCtrlEvent, INTEGER 
 #define WinAPI_GetACP()	GetACP()
 __EXTERN INTEGER __CALL_1 GetACP(void);
 #define WinAPI_GetAce(pAcl, pAcl__typ, dwAceIndex, pAce)	GetAce(pAcl, dwAceIndex, pAce)
-__EXTERN INTEGER __CALL_1 GetAce(WinAPI_ACL *pAcl, INTEGER dwAceIndex, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *pAce);
+__EXTERN INTEGER __CALL_1 GetAce(WinAPI_ACL *pAcl, INTEGER dwAceIndex, LONGINT pAce);
 #define WinAPI_GetAclInformation(pAcl, pAcl__typ, pAclInformation, nAclInformationLength, dwAclInformationClass)	GetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass)
 __EXTERN INTEGER __CALL_1 GetAclInformation(WinAPI_ACL *pAcl, LONGINT pAclInformation, INTEGER nAclInformationLength, INTEGER dwAclInformationClass);
 #define WinAPI_GetActiveWindow()	GetActiveWindow()
@@ -7004,14 +6852,14 @@ __EXTERN INTEGER __CALL_1 GetAspectRatioFilterEx(LONGINT p0, WinAPI_SIZE *p1);
 __EXTERN SHORTINT __CALL_1 GetAsyncKeyState(INTEGER vKey);
 #define WinAPI_GetAtomName(nAtom, lpBuffer, nSize)	GetAtomNameA(nAtom, lpBuffer, nSize)
 #define WinAPI_GetAtomNameA(nAtom, lpBuffer, nSize)	GetAtomNameA(nAtom, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetAtomNameA(SHORTINT nAtom, WinAPI_PtrSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetAtomNameA(SHORTINT nAtom, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GetAtomNameW(nAtom, lpBuffer, nSize)	GetAtomNameW(nAtom, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetAtomNameW(SHORTINT nAtom, WinAPI_PtrWSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetAtomNameW(SHORTINT nAtom, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GetBinaryType(lpApplicationName, lpBinaryType)	GetBinaryTypeA(lpApplicationName, lpBinaryType)
 #define WinAPI_GetBinaryTypeA(lpApplicationName, lpBinaryType)	GetBinaryTypeA(lpApplicationName, lpBinaryType)
-__EXTERN INTEGER __CALL_1 GetBinaryTypeA(WinAPI_PtrSTR lpApplicationName, INTEGER *lpBinaryType);
+__EXTERN INTEGER __CALL_1 GetBinaryTypeA(LONGINT lpApplicationName, INTEGER *lpBinaryType);
 #define WinAPI_GetBinaryTypeW(lpApplicationName, lpBinaryType)	GetBinaryTypeW(lpApplicationName, lpBinaryType)
-__EXTERN INTEGER __CALL_1 GetBinaryTypeW(WinAPI_PtrWSTR lpApplicationName, INTEGER *lpBinaryType);
+__EXTERN INTEGER __CALL_1 GetBinaryTypeW(LONGINT lpApplicationName, INTEGER *lpBinaryType);
 #define WinAPI_GetBitmapBits(p0, p1, p2)	GetBitmapBits(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetBitmapBits(LONGINT p0, INTEGER p1, LONGINT p2);
 #define WinAPI_GetBitmapDimensionEx(p0, p1, p1__typ)	GetBitmapDimensionEx(p0, p1)
@@ -7059,19 +6907,19 @@ __EXTERN INTEGER __CALL_1 GetCharWidthFloatW(LONGINT p0, INTEGER p1, INTEGER p2,
 __EXTERN INTEGER __CALL_1 GetCharWidthW(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER *p3);
 #define WinAPI_GetCharacterPlacement(p0, p1, p2, p3, p4, p4__typ, p5)	GetCharacterPlacementA(p0, p1, p2, p3, p4, p5)
 #define WinAPI_GetCharacterPlacementA(p0, p1, p2, p3, p4, p4__typ, p5)	GetCharacterPlacementA(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL_1 GetCharacterPlacementA(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, INTEGER p3, WinAPI_GCP_RESULTSA *p4, INTEGER p5);
+__EXTERN INTEGER __CALL_1 GetCharacterPlacementA(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, WinAPI_GCP_RESULTSA *p4, INTEGER p5);
 #define WinAPI_GetCharacterPlacementW(p0, p1, p2, p3, p4, p4__typ, p5)	GetCharacterPlacementW(p0, p1, p2, p3, p4, p5)
-__EXTERN INTEGER __CALL_1 GetCharacterPlacementW(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, INTEGER p3, WinAPI_GCP_RESULTSW *p4, INTEGER p5);
+__EXTERN INTEGER __CALL_1 GetCharacterPlacementW(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, WinAPI_GCP_RESULTSW *p4, INTEGER p5);
 #define WinAPI_GetClassInfo(hInstance, lpClassName, lpWndClass, lpWndClass__typ)	GetClassInfoA(hInstance, lpClassName, lpWndClass)
 #define WinAPI_GetClassInfoA(hInstance, lpClassName, lpWndClass, lpWndClass__typ)	GetClassInfoA(hInstance, lpClassName, lpWndClass)
-__EXTERN INTEGER __CALL_1 GetClassInfoA(LONGINT hInstance, WinAPI_PtrSTR lpClassName, WinAPI_WNDCLASSA *lpWndClass);
+__EXTERN INTEGER __CALL_1 GetClassInfoA(LONGINT hInstance, LONGINT lpClassName, WinAPI_WNDCLASSA *lpWndClass);
 #define WinAPI_GetClassInfoEx(p0, p1, p2, p2__typ)	GetClassInfoExA(p0, p1, p2)
 #define WinAPI_GetClassInfoExA(p0, p1, p2, p2__typ)	GetClassInfoExA(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetClassInfoExA(LONGINT p0, WinAPI_PtrSTR p1, WinAPI_WNDCLASSEXA *p2);
+__EXTERN INTEGER __CALL_1 GetClassInfoExA(LONGINT p0, LONGINT p1, WinAPI_WNDCLASSEXA *p2);
 #define WinAPI_GetClassInfoExW(p0, p1, p2, p2__typ)	GetClassInfoExW(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetClassInfoExW(LONGINT p0, WinAPI_PtrWSTR p1, WinAPI_WNDCLASSEXW *p2);
+__EXTERN INTEGER __CALL_1 GetClassInfoExW(LONGINT p0, LONGINT p1, WinAPI_WNDCLASSEXW *p2);
 #define WinAPI_GetClassInfoW(hInstance, lpClassName, lpWndClass, lpWndClass__typ)	GetClassInfoW(hInstance, lpClassName, lpWndClass)
-__EXTERN INTEGER __CALL_1 GetClassInfoW(LONGINT hInstance, WinAPI_PtrWSTR lpClassName, WinAPI_WNDCLASSW *lpWndClass);
+__EXTERN INTEGER __CALL_1 GetClassInfoW(LONGINT hInstance, LONGINT lpClassName, WinAPI_WNDCLASSW *lpWndClass);
 #define WinAPI_GetClassLong(hWnd, nIndex)	GetClassLongA(hWnd, nIndex)
 #define WinAPI_GetClassLongA(hWnd, nIndex)	GetClassLongA(hWnd, nIndex)
 __EXTERN INTEGER __CALL_1 GetClassLongA(LONGINT hWnd, INTEGER nIndex);
@@ -7079,9 +6927,9 @@ __EXTERN INTEGER __CALL_1 GetClassLongA(LONGINT hWnd, INTEGER nIndex);
 __EXTERN INTEGER __CALL_1 GetClassLongW(LONGINT hWnd, INTEGER nIndex);
 #define WinAPI_GetClassName(hWnd, lpClassName, nMaxCount)	GetClassNameA(hWnd, lpClassName, nMaxCount)
 #define WinAPI_GetClassNameA(hWnd, lpClassName, nMaxCount)	GetClassNameA(hWnd, lpClassName, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetClassNameA(LONGINT hWnd, WinAPI_PtrSTR lpClassName, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetClassNameA(LONGINT hWnd, LONGINT lpClassName, INTEGER nMaxCount);
 #define WinAPI_GetClassNameW(hWnd, lpClassName, nMaxCount)	GetClassNameW(hWnd, lpClassName, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetClassNameW(LONGINT hWnd, WinAPI_PtrWSTR lpClassName, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetClassNameW(LONGINT hWnd, LONGINT lpClassName, INTEGER nMaxCount);
 #define WinAPI_GetClassWord(hWnd, nIndex)	GetClassWord(hWnd, nIndex)
 __EXTERN SHORTINT __CALL_1 GetClassWord(LONGINT hWnd, INTEGER nIndex);
 #define WinAPI_GetClientRect(hWnd, lpRect, lpRect__typ)	GetClientRect(hWnd, lpRect)
@@ -7096,9 +6944,9 @@ __EXTERN INTEGER __CALL_1 GetClipRgn(LONGINT p0, LONGINT p1);
 __EXTERN LONGINT __CALL_1 GetClipboardData(INTEGER uFormat);
 #define WinAPI_GetClipboardFormatName(format, lpszFormatName, cchMaxCount)	GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount)
 #define WinAPI_GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount)	GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount)
-__EXTERN INTEGER __CALL_1 GetClipboardFormatNameA(INTEGER format, WinAPI_PtrSTR lpszFormatName, INTEGER cchMaxCount);
+__EXTERN INTEGER __CALL_1 GetClipboardFormatNameA(INTEGER format, LONGINT lpszFormatName, INTEGER cchMaxCount);
 #define WinAPI_GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount)	GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount)
-__EXTERN INTEGER __CALL_1 GetClipboardFormatNameW(INTEGER format, WinAPI_PtrWSTR lpszFormatName, INTEGER cchMaxCount);
+__EXTERN INTEGER __CALL_1 GetClipboardFormatNameW(INTEGER format, LONGINT lpszFormatName, INTEGER cchMaxCount);
 #define WinAPI_GetClipboardOwner()	GetClipboardOwner()
 __EXTERN LONGINT __CALL_1 GetClipboardOwner(void);
 #define WinAPI_GetClipboardViewer()	GetClipboardViewer()
@@ -7121,19 +6969,19 @@ __EXTERN INTEGER __CALL_1 GetCommState(LONGINT hFile, WinAPI_DCB *lpDCB);
 __EXTERN INTEGER __CALL_1 GetCommTimeouts(LONGINT hFile, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
 #define WinAPI_GetCommandLine()	GetCommandLineA()
 #define WinAPI_GetCommandLineA()	GetCommandLineA()
-__EXTERN WinAPI_PtrSTR __CALL_1 GetCommandLineA(void);
+__EXTERN LONGINT __CALL_1 GetCommandLineA(void);
 #define WinAPI_GetCommandLineW()	GetCommandLineW()
-__EXTERN WinAPI_PtrWSTR __CALL_1 GetCommandLineW(void);
+__EXTERN LONGINT __CALL_1 GetCommandLineW(void);
 #define WinAPI_GetCompressedFileSize(lpFileName, lpFileSizeHigh)	GetCompressedFileSizeA(lpFileName, lpFileSizeHigh)
 #define WinAPI_GetCompressedFileSizeA(lpFileName, lpFileSizeHigh)	GetCompressedFileSizeA(lpFileName, lpFileSizeHigh)
-__EXTERN INTEGER __CALL_1 GetCompressedFileSizeA(WinAPI_PtrSTR lpFileName, INTEGER *lpFileSizeHigh);
+__EXTERN INTEGER __CALL_1 GetCompressedFileSizeA(LONGINT lpFileName, INTEGER *lpFileSizeHigh);
 #define WinAPI_GetCompressedFileSizeW(lpFileName, lpFileSizeHigh)	GetCompressedFileSizeW(lpFileName, lpFileSizeHigh)
-__EXTERN INTEGER __CALL_1 GetCompressedFileSizeW(WinAPI_PtrWSTR lpFileName, INTEGER *lpFileSizeHigh);
+__EXTERN INTEGER __CALL_1 GetCompressedFileSizeW(LONGINT lpFileName, INTEGER *lpFileSizeHigh);
 #define WinAPI_GetComputerName(lpBuffer, nSize)	GetComputerNameA(lpBuffer, nSize)
 #define WinAPI_GetComputerNameA(lpBuffer, nSize)	GetComputerNameA(lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetComputerNameA(WinAPI_PtrSTR lpBuffer, INTEGER *nSize);
+__EXTERN INTEGER __CALL_1 GetComputerNameA(LONGINT lpBuffer, INTEGER *nSize);
 #define WinAPI_GetComputerNameW(lpBuffer, nSize)	GetComputerNameW(lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetComputerNameW(WinAPI_PtrWSTR lpBuffer, INTEGER *nSize);
+__EXTERN INTEGER __CALL_1 GetComputerNameW(LONGINT lpBuffer, INTEGER *nSize);
 #define WinAPI_GetConsoleCP()	GetConsoleCP()
 __EXTERN INTEGER __CALL_1 GetConsoleCP(void);
 #define WinAPI_GetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo, lpConsoleCursorInfo__typ)	GetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo)
@@ -7146,19 +6994,19 @@ __EXTERN INTEGER __CALL_1 GetConsoleOutputCP(void);
 __EXTERN INTEGER __CALL_1 GetConsoleScreenBufferInfo(LONGINT hConsoleOutput, WinAPI_CONSOLE_SCREEN_BUFFER_INFO *lpConsoleScreenBufferInfo);
 #define WinAPI_GetConsoleTitle(lpConsoleTitle, nSize)	GetConsoleTitleA(lpConsoleTitle, nSize)
 #define WinAPI_GetConsoleTitleA(lpConsoleTitle, nSize)	GetConsoleTitleA(lpConsoleTitle, nSize)
-__EXTERN INTEGER __CALL_1 GetConsoleTitleA(WinAPI_PtrSTR lpConsoleTitle, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetConsoleTitleA(LONGINT lpConsoleTitle, INTEGER nSize);
 #define WinAPI_GetConsoleTitleW(lpConsoleTitle, nSize)	GetConsoleTitleW(lpConsoleTitle, nSize)
-__EXTERN INTEGER __CALL_1 GetConsoleTitleW(WinAPI_PtrWSTR lpConsoleTitle, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetConsoleTitleW(LONGINT lpConsoleTitle, INTEGER nSize);
 #define WinAPI_GetCurrencyFormat(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpCurrencyStr, cchCurrency)	GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency)
 #define WinAPI_GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpCurrencyStr, cchCurrency)	GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency)
-__EXTERN INTEGER __CALL_1 GetCurrencyFormatA(INTEGER Locale, SET dwFlags, WinAPI_PtrSTR lpValue, WinAPI_CURRENCYFMTA *lpFormat, WinAPI_PtrSTR lpCurrencyStr, INTEGER cchCurrency);
+__EXTERN INTEGER __CALL_1 GetCurrencyFormatA(INTEGER Locale, SET dwFlags, LONGINT lpValue, WinAPI_CURRENCYFMTA *lpFormat, LONGINT lpCurrencyStr, INTEGER cchCurrency);
 #define WinAPI_GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpCurrencyStr, cchCurrency)	GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cchCurrency)
-__EXTERN INTEGER __CALL_1 GetCurrencyFormatW(INTEGER Locale, SET dwFlags, WinAPI_PtrWSTR lpValue, WinAPI_CURRENCYFMTW *lpFormat, WinAPI_PtrWSTR lpCurrencyStr, INTEGER cchCurrency);
+__EXTERN INTEGER __CALL_1 GetCurrencyFormatW(INTEGER Locale, SET dwFlags, LONGINT lpValue, WinAPI_CURRENCYFMTW *lpFormat, LONGINT lpCurrencyStr, INTEGER cchCurrency);
 #define WinAPI_GetCurrentDirectory(nBufferLength, lpBuffer)	GetCurrentDirectoryA(nBufferLength, lpBuffer)
 #define WinAPI_GetCurrentDirectoryA(nBufferLength, lpBuffer)	GetCurrentDirectoryA(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetCurrentDirectoryA(INTEGER nBufferLength, WinAPI_PtrSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetCurrentDirectoryA(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetCurrentDirectoryW(nBufferLength, lpBuffer)	GetCurrentDirectoryW(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetCurrentDirectoryW(INTEGER nBufferLength, WinAPI_PtrWSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetCurrentDirectoryW(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetCurrentHwProfile(lpHwProfileInfo, lpHwProfileInfo__typ)	GetCurrentHwProfileA(lpHwProfileInfo)
 #define WinAPI_GetCurrentHwProfileA(lpHwProfileInfo, lpHwProfileInfo__typ)	GetCurrentHwProfileA(lpHwProfileInfo)
 __EXTERN INTEGER __CALL_1 GetCurrentHwProfileA(WinAPI_HW_PROFILE_INFOA *lpHwProfileInfo);
@@ -7192,14 +7040,14 @@ __EXTERN INTEGER __CALL_1 GetDIBColorTable(LONGINT p0, INTEGER p1, INTEGER p2, W
 __EXTERN INTEGER __CALL_1 GetDIBits(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, LONGINT p4, WinAPI_BITMAPINFO *p5, INTEGER p6);
 #define WinAPI_GetDateFormat(Locale, dwFlags, lpDate, lpDate__typ, lpFormat, lpDateStr, cchDate)	GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate)
 #define WinAPI_GetDateFormatA(Locale, dwFlags, lpDate, lpDate__typ, lpFormat, lpDateStr, cchDate)	GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate)
-__EXTERN INTEGER __CALL_1 GetDateFormatA(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpDate, WinAPI_PtrSTR lpFormat, WinAPI_PtrSTR lpDateStr, INTEGER cchDate);
+__EXTERN INTEGER __CALL_1 GetDateFormatA(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpDate, LONGINT lpFormat, LONGINT lpDateStr, INTEGER cchDate);
 #define WinAPI_GetDateFormatW(Locale, dwFlags, lpDate, lpDate__typ, lpFormat, lpDateStr, cchDate)	GetDateFormatW(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate)
-__EXTERN INTEGER __CALL_1 GetDateFormatW(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpDate, WinAPI_PtrWSTR lpFormat, WinAPI_PtrWSTR lpDateStr, INTEGER cchDate);
+__EXTERN INTEGER __CALL_1 GetDateFormatW(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpDate, LONGINT lpFormat, LONGINT lpDateStr, INTEGER cchDate);
 #define WinAPI_GetDefaultCommConfig(lpszName, lpCC, lpCC__typ, lpdwSize)	GetDefaultCommConfigA(lpszName, lpCC, lpdwSize)
 #define WinAPI_GetDefaultCommConfigA(lpszName, lpCC, lpCC__typ, lpdwSize)	GetDefaultCommConfigA(lpszName, lpCC, lpdwSize)
-__EXTERN INTEGER __CALL_1 GetDefaultCommConfigA(WinAPI_PtrSTR lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER *lpdwSize);
+__EXTERN INTEGER __CALL_1 GetDefaultCommConfigA(LONGINT lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER *lpdwSize);
 #define WinAPI_GetDefaultCommConfigW(lpszName, lpCC, lpCC__typ, lpdwSize)	GetDefaultCommConfigW(lpszName, lpCC, lpdwSize)
-__EXTERN INTEGER __CALL_1 GetDefaultCommConfigW(WinAPI_PtrWSTR lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER *lpdwSize);
+__EXTERN INTEGER __CALL_1 GetDefaultCommConfigW(LONGINT lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER *lpdwSize);
 #define WinAPI_GetDesktopWindow()	GetDesktopWindow()
 __EXTERN LONGINT __CALL_1 GetDesktopWindow(void);
 #define WinAPI_GetDeviceCaps(p0, p1)	GetDeviceCaps(p0, p1)
@@ -7210,9 +7058,9 @@ __EXTERN INTEGER __CALL_1 GetDeviceGammaRamp(LONGINT p0, LONGINT p1);
 __EXTERN INTEGER __CALL_1 GetDialogBaseUnits(void);
 #define WinAPI_GetDiskFreeSpace(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)	GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)
 #define WinAPI_GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)	GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)
-__EXTERN INTEGER __CALL_1 GetDiskFreeSpaceA(WinAPI_PtrSTR lpRootPathName, INTEGER *lpSectorsPerCluster, INTEGER *lpBytesPerSector, INTEGER *lpNumberOfFreeClusters, INTEGER *lpTotalNumberOfClusters);
+__EXTERN INTEGER __CALL_1 GetDiskFreeSpaceA(LONGINT lpRootPathName, INTEGER *lpSectorsPerCluster, INTEGER *lpBytesPerSector, INTEGER *lpNumberOfFreeClusters, INTEGER *lpTotalNumberOfClusters);
 #define WinAPI_GetDiskFreeSpaceW(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)	GetDiskFreeSpaceW(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters)
-__EXTERN INTEGER __CALL_1 GetDiskFreeSpaceW(WinAPI_PtrWSTR lpRootPathName, INTEGER *lpSectorsPerCluster, INTEGER *lpBytesPerSector, INTEGER *lpNumberOfFreeClusters, INTEGER *lpTotalNumberOfClusters);
+__EXTERN INTEGER __CALL_1 GetDiskFreeSpaceW(LONGINT lpRootPathName, INTEGER *lpSectorsPerCluster, INTEGER *lpBytesPerSector, INTEGER *lpNumberOfFreeClusters, INTEGER *lpTotalNumberOfClusters);
 #define WinAPI_GetDlgCtrlID(hWnd)	GetDlgCtrlID(hWnd)
 __EXTERN INTEGER __CALL_1 GetDlgCtrlID(LONGINT hWnd);
 #define WinAPI_GetDlgItem(hDlg, nIDDlgItem)	GetDlgItem(hDlg, nIDDlgItem)
@@ -7221,26 +7069,26 @@ __EXTERN LONGINT __CALL_1 GetDlgItem(LONGINT hDlg, INTEGER nIDDlgItem);
 __EXTERN INTEGER __CALL_1 GetDlgItemInt(LONGINT hDlg, INTEGER nIDDlgItem, INTEGER *lpTranslated, INTEGER bSigned);
 #define WinAPI_GetDlgItemText(hDlg, nIDDlgItem, lpString, nMaxCount)	GetDlgItemTextA(hDlg, nIDDlgItem, lpString, nMaxCount)
 #define WinAPI_GetDlgItemTextA(hDlg, nIDDlgItem, lpString, nMaxCount)	GetDlgItemTextA(hDlg, nIDDlgItem, lpString, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetDlgItemTextA(LONGINT hDlg, INTEGER nIDDlgItem, WinAPI_PtrSTR lpString, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetDlgItemTextA(LONGINT hDlg, INTEGER nIDDlgItem, LONGINT lpString, INTEGER nMaxCount);
 #define WinAPI_GetDlgItemTextW(hDlg, nIDDlgItem, lpString, nMaxCount)	GetDlgItemTextW(hDlg, nIDDlgItem, lpString, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetDlgItemTextW(LONGINT hDlg, INTEGER nIDDlgItem, WinAPI_PtrWSTR lpString, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetDlgItemTextW(LONGINT hDlg, INTEGER nIDDlgItem, LONGINT lpString, INTEGER nMaxCount);
 #define WinAPI_GetDoubleClickTime()	GetDoubleClickTime()
 __EXTERN INTEGER __CALL_1 GetDoubleClickTime(void);
 #define WinAPI_GetDriveType(lpRootPathName)	GetDriveTypeA(lpRootPathName)
 #define WinAPI_GetDriveTypeA(lpRootPathName)	GetDriveTypeA(lpRootPathName)
-__EXTERN INTEGER __CALL_1 GetDriveTypeA(WinAPI_PtrSTR lpRootPathName);
+__EXTERN INTEGER __CALL_1 GetDriveTypeA(LONGINT lpRootPathName);
 #define WinAPI_GetDriveTypeW(lpRootPathName)	GetDriveTypeW(lpRootPathName)
-__EXTERN INTEGER __CALL_1 GetDriveTypeW(WinAPI_PtrWSTR lpRootPathName);
+__EXTERN INTEGER __CALL_1 GetDriveTypeW(LONGINT lpRootPathName);
 #define WinAPI_GetEnhMetaFile(p0)	GetEnhMetaFileA(p0)
 #define WinAPI_GetEnhMetaFileA(p0)	GetEnhMetaFileA(p0)
-__EXTERN LONGINT __CALL_1 GetEnhMetaFileA(WinAPI_PtrSTR p0);
+__EXTERN LONGINT __CALL_1 GetEnhMetaFileA(LONGINT p0);
 #define WinAPI_GetEnhMetaFileBits(p0, p1, p2)	GetEnhMetaFileBits(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetEnhMetaFileBits(LONGINT p0, INTEGER p1, CHAR *p2);
 #define WinAPI_GetEnhMetaFileDescription(p0, p1, p2)	GetEnhMetaFileDescriptionA(p0, p1, p2)
 #define WinAPI_GetEnhMetaFileDescriptionA(p0, p1, p2)	GetEnhMetaFileDescriptionA(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetEnhMetaFileDescriptionA(LONGINT p0, INTEGER p1, WinAPI_PtrSTR p2);
+__EXTERN INTEGER __CALL_1 GetEnhMetaFileDescriptionA(LONGINT p0, INTEGER p1, LONGINT p2);
 #define WinAPI_GetEnhMetaFileDescriptionW(p0, p1, p2)	GetEnhMetaFileDescriptionW(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetEnhMetaFileDescriptionW(LONGINT p0, INTEGER p1, WinAPI_PtrWSTR p2);
+__EXTERN INTEGER __CALL_1 GetEnhMetaFileDescriptionW(LONGINT p0, INTEGER p1, LONGINT p2);
 #define WinAPI_GetEnhMetaFileHeader(p0, p1, p2, p2__typ)	GetEnhMetaFileHeader(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetEnhMetaFileHeader(LONGINT p0, INTEGER p1, WinAPI_ENHMETAHEADER *p2);
 #define WinAPI_GetEnhMetaFilePaletteEntries(p0, p1, p2, p2__typ)	GetEnhMetaFilePaletteEntries(p0, p1, p2)
@@ -7248,38 +7096,38 @@ __EXTERN INTEGER __CALL_1 GetEnhMetaFilePaletteEntries(LONGINT p0, INTEGER p1, W
 #define WinAPI_GetEnhMetaFilePixelFormat(p0, p1, p2, p2__typ)	GetEnhMetaFilePixelFormat(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetEnhMetaFilePixelFormat(LONGINT p0, INTEGER p1, WinAPI_PIXELFORMATDESCRIPTOR *p2);
 #define WinAPI_GetEnhMetaFileW(p0)	GetEnhMetaFileW(p0)
-__EXTERN LONGINT __CALL_1 GetEnhMetaFileW(WinAPI_PtrWSTR p0);
+__EXTERN LONGINT __CALL_1 GetEnhMetaFileW(LONGINT p0);
 #define WinAPI_GetEnvironmentStrings()	GetEnvironmentStrings()
-__EXTERN WinAPI_PtrSTR __CALL_1 GetEnvironmentStrings(void);
+__EXTERN LONGINT __CALL_1 GetEnvironmentStrings(void);
 #define WinAPI_GetEnvironmentStringsA()	GetEnvironmentStrings()
 #define WinAPI_GetEnvironmentStringsW()	GetEnvironmentStringsW()
-__EXTERN WinAPI_PtrWSTR __CALL_1 GetEnvironmentStringsW(void);
+__EXTERN LONGINT __CALL_1 GetEnvironmentStringsW(void);
 #define WinAPI_GetEnvironmentVariable(lpName, lpBuffer, nSize)	GetEnvironmentVariableA(lpName, lpBuffer, nSize)
 #define WinAPI_GetEnvironmentVariableA(lpName, lpBuffer, nSize)	GetEnvironmentVariableA(lpName, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetEnvironmentVariableA(WinAPI_PtrSTR lpName, WinAPI_PtrSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetEnvironmentVariableA(LONGINT lpName, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GetEnvironmentVariableW(lpName, lpBuffer, nSize)	GetEnvironmentVariableW(lpName, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetEnvironmentVariableW(WinAPI_PtrWSTR lpName, WinAPI_PtrWSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetEnvironmentVariableW(LONGINT lpName, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GetExitCodeProcess(hProcess, lpExitCode)	GetExitCodeProcess(hProcess, lpExitCode)
 __EXTERN INTEGER __CALL_1 GetExitCodeProcess(LONGINT hProcess, INTEGER *lpExitCode);
 #define WinAPI_GetExitCodeThread(hThread, lpExitCode)	GetExitCodeThread(hThread, lpExitCode)
 __EXTERN INTEGER __CALL_1 GetExitCodeThread(LONGINT hThread, INTEGER *lpExitCode);
 #define WinAPI_GetExpandedName(p0, p1)	GetExpandedNameA(p0, p1)
 #define WinAPI_GetExpandedNameA(p0, p1)	GetExpandedNameA(p0, p1)
-__EXTERN INTEGER __CALL_1 GetExpandedNameA(WinAPI_PtrSTR p0, WinAPI_PtrSTR p1);
+__EXTERN INTEGER __CALL_1 GetExpandedNameA(LONGINT p0, LONGINT p1);
 #define WinAPI_GetExpandedNameW(p0, p1)	GetExpandedNameW(p0, p1)
-__EXTERN INTEGER __CALL_1 GetExpandedNameW(WinAPI_PtrWSTR p0, WinAPI_PtrWSTR p1);
+__EXTERN INTEGER __CALL_1 GetExpandedNameW(LONGINT p0, LONGINT p1);
 #define WinAPI_GetFileAttributes(lpFileName)	GetFileAttributesA(lpFileName)
 #define WinAPI_GetFileAttributesA(lpFileName)	GetFileAttributesA(lpFileName)
-__EXTERN INTEGER __CALL_1 GetFileAttributesA(WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetFileAttributesA(LONGINT lpFileName);
 #define WinAPI_GetFileAttributesW(lpFileName)	GetFileAttributesW(lpFileName)
-__EXTERN INTEGER __CALL_1 GetFileAttributesW(WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetFileAttributesW(LONGINT lpFileName);
 #define WinAPI_GetFileInformationByHandle(hFile, lpFileInformation, lpFileInformation__typ)	GetFileInformationByHandle(hFile, lpFileInformation)
 __EXTERN INTEGER __CALL_1 GetFileInformationByHandle(LONGINT hFile, WinAPI_BY_HANDLE_FILE_INFORMATION *lpFileInformation);
 #define WinAPI_GetFileSecurity(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)	GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)
 #define WinAPI_GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)	GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)
-__EXTERN INTEGER __CALL_1 GetFileSecurityA(WinAPI_PtrSTR lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
+__EXTERN INTEGER __CALL_1 GetFileSecurityA(LONGINT lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
 #define WinAPI_GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)	GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded)
-__EXTERN INTEGER __CALL_1 GetFileSecurityW(WinAPI_PtrWSTR lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
+__EXTERN INTEGER __CALL_1 GetFileSecurityW(LONGINT lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
 #define WinAPI_GetFileSize(hFile, lpFileSizeHigh)	GetFileSize(hFile, lpFileSizeHigh)
 __EXTERN INTEGER __CALL_1 GetFileSize(LONGINT hFile, INTEGER *lpFileSizeHigh);
 #define WinAPI_GetFileSizeEx(hFile, lpFileSizeHigh)	GetFileSizeEx(hFile, lpFileSizeHigh)
@@ -7290,14 +7138,14 @@ __EXTERN INTEGER __CALL_1 GetFileTime(LONGINT hFile, WinAPI_FILETIME *lpCreation
 __EXTERN INTEGER __CALL_1 GetFileType(LONGINT hFile);
 #define WinAPI_GetFileVersionInfo(lptstrFilename, dwHandle, dwLen, lpData)	GetFileVersionInfoA(lptstrFilename, dwHandle, dwLen, lpData)
 #define WinAPI_GetFileVersionInfoA(lptstrFilename, dwHandle, dwLen, lpData)	GetFileVersionInfoA(lptstrFilename, dwHandle, dwLen, lpData)
-__EXTERN INTEGER __CALL_1 GetFileVersionInfoA(WinAPI_PtrSTR lptstrFilename, INTEGER dwHandle, INTEGER dwLen, LONGINT lpData);
+__EXTERN INTEGER __CALL_1 GetFileVersionInfoA(LONGINT lptstrFilename, INTEGER dwHandle, INTEGER dwLen, LONGINT lpData);
 #define WinAPI_GetFileVersionInfoSize(lptstrFilename, lpdwHandle)	GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle)
 #define WinAPI_GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle)	GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle)
-__EXTERN INTEGER __CALL_1 GetFileVersionInfoSizeA(WinAPI_PtrSTR lptstrFilename, INTEGER *lpdwHandle);
+__EXTERN INTEGER __CALL_1 GetFileVersionInfoSizeA(LONGINT lptstrFilename, INTEGER *lpdwHandle);
 #define WinAPI_GetFileVersionInfoSizeW(lptstrFilename, lpdwHandle)	GetFileVersionInfoSizeW(lptstrFilename, lpdwHandle)
-__EXTERN INTEGER __CALL_1 GetFileVersionInfoSizeW(WinAPI_PtrWSTR lptstrFilename, INTEGER *lpdwHandle);
+__EXTERN INTEGER __CALL_1 GetFileVersionInfoSizeW(LONGINT lptstrFilename, INTEGER *lpdwHandle);
 #define WinAPI_GetFileVersionInfoW(lptstrFilename, dwHandle, dwLen, lpData)	GetFileVersionInfoW(lptstrFilename, dwHandle, dwLen, lpData)
-__EXTERN INTEGER __CALL_1 GetFileVersionInfoW(WinAPI_PtrWSTR lptstrFilename, INTEGER dwHandle, INTEGER dwLen, LONGINT lpData);
+__EXTERN INTEGER __CALL_1 GetFileVersionInfoW(LONGINT lptstrFilename, INTEGER dwHandle, INTEGER dwLen, LONGINT lpData);
 #define WinAPI_GetFocus()	GetFocus()
 __EXTERN LONGINT __CALL_1 GetFocus(void);
 #define WinAPI_GetFontData(p0, p1, p2, p3, p4)	GetFontData(p0, p1, p2, p3, p4)
@@ -7308,14 +7156,14 @@ __EXTERN SET __CALL_1 GetFontLanguageInfo(LONGINT p0);
 __EXTERN LONGINT __CALL_1 GetForegroundWindow(void);
 #define WinAPI_GetForm(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)	GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)
 #define WinAPI_GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)	GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetFormA(LONGINT hPrinter, WinAPI_PtrSTR pFormName, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetFormA(LONGINT hPrinter, LONGINT pFormName, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)	GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetFormW(LONGINT hPrinter, WinAPI_PtrWSTR pFormName, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetFormW(LONGINT hPrinter, LONGINT pFormName, INTEGER Level, CHAR *pForm, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetFullPathName(lpFileName, nBufferLength, lpBuffer, lpFilePart)	GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart)
 #define WinAPI_GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart)	GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart)
-__EXTERN INTEGER __CALL_1 GetFullPathNameA(WinAPI_PtrSTR lpFileName, INTEGER nBufferLength, WinAPI_PtrSTR lpBuffer, WinAPI_PtrSTR *lpFilePart);
+__EXTERN INTEGER __CALL_1 GetFullPathNameA(LONGINT lpFileName, INTEGER nBufferLength, LONGINT lpBuffer, LONGINT *lpFilePart);
 #define WinAPI_GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart)	GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart)
-__EXTERN INTEGER __CALL_1 GetFullPathNameW(WinAPI_PtrWSTR lpFileName, INTEGER nBufferLength, WinAPI_PtrWSTR lpBuffer, WinAPI_PtrWSTR *lpFilePart);
+__EXTERN INTEGER __CALL_1 GetFullPathNameW(LONGINT lpFileName, INTEGER nBufferLength, LONGINT lpBuffer, LONGINT *lpFilePart);
 #define WinAPI_GetGlyphOutline(p0, p1, p2, p3, p3__typ, p4, p5, p6, p6__typ)	GetGlyphOutlineA(p0, p1, p2, p3, p4, p5, p6)
 #define WinAPI_GetGlyphOutlineA(p0, p1, p2, p3, p3__typ, p4, p5, p6, p6__typ)	GetGlyphOutlineA(p0, p1, p2, p3, p4, p5, p6)
 __EXTERN INTEGER __CALL_1 GetGlyphOutlineA(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_GLYPHMETRICS *p3, INTEGER p4, LONGINT p5, WinAPI_MAT2 *p6);
@@ -7327,9 +7175,9 @@ __EXTERN INTEGER __CALL_1 GetGraphicsMode(LONGINT p0);
 __EXTERN INTEGER __CALL_1 GetHandleInformation(LONGINT hObject, SET *lpdwFlags);
 #define WinAPI_GetICMProfile(p0, p1, p2)	GetICMProfileA(p0, p1, p2)
 #define WinAPI_GetICMProfileA(p0, p1, p2)	GetICMProfileA(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetICMProfileA(LONGINT p0, INTEGER *p1, WinAPI_PtrSTR p2);
+__EXTERN INTEGER __CALL_1 GetICMProfileA(LONGINT p0, INTEGER *p1, LONGINT p2);
 #define WinAPI_GetICMProfileW(p0, p1, p2)	GetICMProfileW(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetICMProfileW(LONGINT p0, INTEGER *p1, WinAPI_PtrWSTR p2);
+__EXTERN INTEGER __CALL_1 GetICMProfileW(LONGINT p0, INTEGER *p1, LONGINT p2);
 #define WinAPI_GetIconInfo(hIcon, piconinfo, piconinfo__typ)	GetIconInfo(hIcon, piconinfo)
 __EXTERN INTEGER __CALL_1 GetIconInfo(LONGINT hIcon, WinAPI_ICONINFO *piconinfo);
 #define WinAPI_GetInputState()	GetInputState()
@@ -7350,9 +7198,9 @@ __EXTERN INTEGER __CALL_1 GetKerningPairsA(LONGINT p0, INTEGER p1, WinAPI_KERNIN
 __EXTERN INTEGER __CALL_1 GetKerningPairsW(LONGINT p0, INTEGER p1, WinAPI_KERNINGPAIR *p2);
 #define WinAPI_GetKeyNameText(lParam, lpString, nSize)	GetKeyNameTextA(lParam, lpString, nSize)
 #define WinAPI_GetKeyNameTextA(lParam, lpString, nSize)	GetKeyNameTextA(lParam, lpString, nSize)
-__EXTERN INTEGER __CALL_1 GetKeyNameTextA(INTEGER lParam, WinAPI_PtrSTR lpString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetKeyNameTextA(INTEGER lParam, LONGINT lpString, INTEGER nSize);
 #define WinAPI_GetKeyNameTextW(lParam, lpString, nSize)	GetKeyNameTextW(lParam, lpString, nSize)
-__EXTERN INTEGER __CALL_1 GetKeyNameTextW(INTEGER lParam, WinAPI_PtrWSTR lpString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetKeyNameTextW(INTEGER lParam, LONGINT lpString, INTEGER nSize);
 #define WinAPI_GetKeyState(nVirtKey)	GetKeyState(nVirtKey)
 __EXTERN SHORTINT __CALL_1 GetKeyState(INTEGER nVirtKey);
 #define WinAPI_GetKeyboardLayout(dwLayout)	GetKeyboardLayout(dwLayout)
@@ -7361,9 +7209,9 @@ __EXTERN LONGINT __CALL_1 GetKeyboardLayout(INTEGER dwLayout);
 __EXTERN INTEGER __CALL_1 GetKeyboardLayoutList(INTEGER nBuff, LONGINT *lpList);
 #define WinAPI_GetKeyboardLayoutName(pwszKLID)	GetKeyboardLayoutNameA(pwszKLID)
 #define WinAPI_GetKeyboardLayoutNameA(pwszKLID)	GetKeyboardLayoutNameA(pwszKLID)
-__EXTERN INTEGER __CALL_1 GetKeyboardLayoutNameA(WinAPI_PtrSTR pwszKLID);
+__EXTERN INTEGER __CALL_1 GetKeyboardLayoutNameA(LONGINT pwszKLID);
 #define WinAPI_GetKeyboardLayoutNameW(pwszKLID)	GetKeyboardLayoutNameW(pwszKLID)
-__EXTERN INTEGER __CALL_1 GetKeyboardLayoutNameW(WinAPI_PtrWSTR pwszKLID);
+__EXTERN INTEGER __CALL_1 GetKeyboardLayoutNameW(LONGINT pwszKLID);
 #define WinAPI_GetKeyboardState(lpKeyState)	GetKeyboardState(lpKeyState)
 __EXTERN INTEGER __CALL_1 GetKeyboardState(CHAR *lpKeyState);
 #define WinAPI_GetKeyboardType(nTypeFlag)	GetKeyboardType(nTypeFlag)
@@ -7380,9 +7228,9 @@ __EXTERN INTEGER __CALL_1 GetLengthSid(LONGINT pSid);
 __EXTERN void __CALL_1 GetLocalTime(WinAPI_SYSTEMTIME *lpSystemTime);
 #define WinAPI_GetLocaleInfo(Locale, LCType, lpLCData, cchData)	GetLocaleInfoA(Locale, LCType, lpLCData, cchData)
 #define WinAPI_GetLocaleInfoA(Locale, LCType, lpLCData, cchData)	GetLocaleInfoA(Locale, LCType, lpLCData, cchData)
-__EXTERN INTEGER __CALL_1 GetLocaleInfoA(INTEGER Locale, INTEGER LCType, WinAPI_PtrSTR lpLCData, INTEGER cchData);
+__EXTERN INTEGER __CALL_1 GetLocaleInfoA(INTEGER Locale, INTEGER LCType, LONGINT lpLCData, INTEGER cchData);
 #define WinAPI_GetLocaleInfoW(Locale, LCType, lpLCData, cchData)	GetLocaleInfoW(Locale, LCType, lpLCData, cchData)
-__EXTERN INTEGER __CALL_1 GetLocaleInfoW(INTEGER Locale, INTEGER LCType, WinAPI_PtrWSTR lpLCData, INTEGER cchData);
+__EXTERN INTEGER __CALL_1 GetLocaleInfoW(INTEGER Locale, INTEGER LCType, LONGINT lpLCData, INTEGER cchData);
 #define WinAPI_GetLogColorSpace(p0, p1, p1__typ, p2)	GetLogColorSpaceA(p0, p1, p2)
 #define WinAPI_GetLogColorSpaceA(p0, p1, p1__typ, p2)	GetLogColorSpaceA(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetLogColorSpaceA(LONGINT p0, WinAPI_LOGCOLORSPACEA *p1, INTEGER p2);
@@ -7390,9 +7238,9 @@ __EXTERN INTEGER __CALL_1 GetLogColorSpaceA(LONGINT p0, WinAPI_LOGCOLORSPACEA *p
 __EXTERN INTEGER __CALL_1 GetLogColorSpaceW(LONGINT p0, WinAPI_LOGCOLORSPACEW *p1, INTEGER p2);
 #define WinAPI_GetLogicalDriveStrings(nBufferLength, lpBuffer)	GetLogicalDriveStringsA(nBufferLength, lpBuffer)
 #define WinAPI_GetLogicalDriveStringsA(nBufferLength, lpBuffer)	GetLogicalDriveStringsA(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetLogicalDriveStringsA(INTEGER nBufferLength, WinAPI_PtrSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetLogicalDriveStringsA(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetLogicalDriveStringsW(nBufferLength, lpBuffer)	GetLogicalDriveStringsW(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetLogicalDriveStringsW(INTEGER nBufferLength, WinAPI_PtrWSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetLogicalDriveStringsW(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetLogicalDrives()	GetLogicalDrives()
 __EXTERN INTEGER __CALL_1 GetLogicalDrives(void);
 #define WinAPI_GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout)	GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout)
@@ -7422,9 +7270,9 @@ __EXTERN INTEGER __CALL_1 GetMenuItemRect(LONGINT hWnd, LONGINT hMenu, INTEGER u
 __EXTERN INTEGER __CALL_1 GetMenuState(LONGINT hMenu, INTEGER uId, SET uFlags);
 #define WinAPI_GetMenuString(hMenu, uIDItem, lpString, nMaxCount, uFlag)	GetMenuStringA(hMenu, uIDItem, lpString, nMaxCount, uFlag)
 #define WinAPI_GetMenuStringA(hMenu, uIDItem, lpString, nMaxCount, uFlag)	GetMenuStringA(hMenu, uIDItem, lpString, nMaxCount, uFlag)
-__EXTERN INTEGER __CALL_1 GetMenuStringA(LONGINT hMenu, INTEGER uIDItem, WinAPI_PtrSTR lpString, INTEGER nMaxCount, SET uFlag);
+__EXTERN INTEGER __CALL_1 GetMenuStringA(LONGINT hMenu, INTEGER uIDItem, LONGINT lpString, INTEGER nMaxCount, SET uFlag);
 #define WinAPI_GetMenuStringW(hMenu, uIDItem, lpString, nMaxCount, uFlag)	GetMenuStringW(hMenu, uIDItem, lpString, nMaxCount, uFlag)
-__EXTERN INTEGER __CALL_1 GetMenuStringW(LONGINT hMenu, INTEGER uIDItem, WinAPI_PtrWSTR lpString, INTEGER nMaxCount, SET uFlag);
+__EXTERN INTEGER __CALL_1 GetMenuStringW(LONGINT hMenu, INTEGER uIDItem, LONGINT lpString, INTEGER nMaxCount, SET uFlag);
 #define WinAPI_GetMessage(lpMsg, lpMsg__typ, hWnd, wMsgFilterMin, wMsgFilterMax)	GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)
 #define WinAPI_GetMessageA(lpMsg, lpMsg__typ, hWnd, wMsgFilterMin, wMsgFilterMax)	GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)
 __EXTERN INTEGER __CALL_1 GetMessageA(WinAPI_MSG *lpMsg, LONGINT hWnd, INTEGER wMsgFilterMin, INTEGER wMsgFilterMax);
@@ -7438,30 +7286,30 @@ __EXTERN INTEGER __CALL_1 GetMessageTime(void);
 __EXTERN INTEGER __CALL_1 GetMessageW(WinAPI_MSG *lpMsg, LONGINT hWnd, INTEGER wMsgFilterMin, INTEGER wMsgFilterMax);
 #define WinAPI_GetMetaFile(p0)	GetMetaFileA(p0)
 #define WinAPI_GetMetaFileA(p0)	GetMetaFileA(p0)
-__EXTERN LONGINT __CALL_1 GetMetaFileA(WinAPI_PtrSTR p0);
+__EXTERN LONGINT __CALL_1 GetMetaFileA(LONGINT p0);
 #define WinAPI_GetMetaFileBitsEx(p0, p1, p2, p2__len)	GetMetaFileBitsEx(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 GetMetaFileBitsEx(LONGINT p0, INTEGER p1, BYTE *p2);
 #define WinAPI_GetMetaFileW(p0)	GetMetaFileW(p0)
-__EXTERN LONGINT __CALL_1 GetMetaFileW(WinAPI_PtrWSTR p0);
+__EXTERN LONGINT __CALL_1 GetMetaFileW(LONGINT p0);
 #define WinAPI_GetMetaRgn(p0, p1)	GetMetaRgn(p0, p1)
 __EXTERN INTEGER __CALL_1 GetMetaRgn(LONGINT p0, LONGINT p1);
 #define WinAPI_GetMiterLimit(p0, p1)	GetMiterLimit(p0, p1)
 __EXTERN INTEGER __CALL_1 GetMiterLimit(LONGINT p0, REAL *p1);
 #define WinAPI_GetModuleFileName(hModule, lpFilename, nSize)	GetModuleFileNameA(hModule, lpFilename, nSize)
 #define WinAPI_GetModuleFileNameA(hModule, lpFilename, nSize)	GetModuleFileNameA(hModule, lpFilename, nSize)
-__EXTERN INTEGER __CALL_1 GetModuleFileNameA(LONGINT hModule, WinAPI_PtrSTR lpFilename, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetModuleFileNameA(LONGINT hModule, LONGINT lpFilename, INTEGER nSize);
 #define WinAPI_GetModuleFileNameW(hModule, lpFilename, nSize)	GetModuleFileNameW(hModule, lpFilename, nSize)
-__EXTERN INTEGER __CALL_1 GetModuleFileNameW(LONGINT hModule, WinAPI_PtrWSTR lpFilename, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetModuleFileNameW(LONGINT hModule, LONGINT lpFilename, INTEGER nSize);
 #define WinAPI_GetModuleHandle(lpModuleName)	GetModuleHandleA(lpModuleName)
 #define WinAPI_GetModuleHandleA(lpModuleName)	GetModuleHandleA(lpModuleName)
-__EXTERN LONGINT __CALL_1 GetModuleHandleA(WinAPI_PtrSTR lpModuleName);
+__EXTERN LONGINT __CALL_1 GetModuleHandleA(LONGINT lpModuleName);
 #define WinAPI_GetModuleHandleW(lpModuleName)	GetModuleHandleW(lpModuleName)
-__EXTERN LONGINT __CALL_1 GetModuleHandleW(WinAPI_PtrWSTR lpModuleName);
+__EXTERN LONGINT __CALL_1 GetModuleHandleW(LONGINT lpModuleName);
 #define WinAPI_GetNamedPipeHandleState(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)	GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)
 #define WinAPI_GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)	GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)
-__EXTERN INTEGER __CALL_1 GetNamedPipeHandleStateA(LONGINT hNamedPipe, INTEGER *lpState, INTEGER *lpCurInstances, INTEGER *lpMaxCollectionCount, INTEGER *lpCollectDataTimeout, WinAPI_PtrSTR lpUserName, INTEGER nMaxUserNameSize);
+__EXTERN INTEGER __CALL_1 GetNamedPipeHandleStateA(LONGINT hNamedPipe, INTEGER *lpState, INTEGER *lpCurInstances, INTEGER *lpMaxCollectionCount, INTEGER *lpCollectDataTimeout, LONGINT lpUserName, INTEGER nMaxUserNameSize);
 #define WinAPI_GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)	GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize)
-__EXTERN INTEGER __CALL_1 GetNamedPipeHandleStateW(LONGINT hNamedPipe, INTEGER *lpState, INTEGER *lpCurInstances, INTEGER *lpMaxCollectionCount, INTEGER *lpCollectDataTimeout, WinAPI_PtrWSTR lpUserName, INTEGER nMaxUserNameSize);
+__EXTERN INTEGER __CALL_1 GetNamedPipeHandleStateW(LONGINT hNamedPipe, INTEGER *lpState, INTEGER *lpCurInstances, INTEGER *lpMaxCollectionCount, INTEGER *lpCollectDataTimeout, LONGINT lpUserName, INTEGER nMaxUserNameSize);
 #define WinAPI_GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances)	GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances)
 __EXTERN INTEGER __CALL_1 GetNamedPipeInfo(LONGINT hNamedPipe, INTEGER *lpFlags, INTEGER *lpOutBufferSize, INTEGER *lpInBufferSize, INTEGER *lpMaxInstances);
 #define WinAPI_GetNearestColor(p0, p1)	GetNearestColor(p0, p1)
@@ -7474,9 +7322,9 @@ __EXTERN LONGINT __CALL_1 GetNextDlgGroupItem(LONGINT hDlg, LONGINT hCtl, INTEGE
 __EXTERN LONGINT __CALL_1 GetNextDlgTabItem(LONGINT hDlg, LONGINT hCtl, INTEGER bPrevious);
 #define WinAPI_GetNumberFormat(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpNumberStr, cchNumber)	GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber)
 #define WinAPI_GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpNumberStr, cchNumber)	GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber)
-__EXTERN INTEGER __CALL_1 GetNumberFormatA(INTEGER Locale, SET dwFlags, WinAPI_PtrSTR lpValue, WinAPI_NUMBERFMTA *lpFormat, WinAPI_PtrSTR lpNumberStr, INTEGER cchNumber);
+__EXTERN INTEGER __CALL_1 GetNumberFormatA(INTEGER Locale, SET dwFlags, LONGINT lpValue, WinAPI_NUMBERFMTA *lpFormat, LONGINT lpNumberStr, INTEGER cchNumber);
 #define WinAPI_GetNumberFormatW(Locale, dwFlags, lpValue, lpFormat, lpFormat__typ, lpNumberStr, cchNumber)	GetNumberFormatW(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumber)
-__EXTERN INTEGER __CALL_1 GetNumberFormatW(INTEGER Locale, SET dwFlags, WinAPI_PtrWSTR lpValue, WinAPI_NUMBERFMTW *lpFormat, WinAPI_PtrWSTR lpNumberStr, INTEGER cchNumber);
+__EXTERN INTEGER __CALL_1 GetNumberFormatW(INTEGER Locale, SET dwFlags, LONGINT lpValue, WinAPI_NUMBERFMTW *lpFormat, LONGINT lpNumberStr, INTEGER cchNumber);
 #define WinAPI_GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents)	GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents)
 __EXTERN INTEGER __CALL_1 GetNumberOfConsoleInputEvents(LONGINT hConsoleInput, INTEGER *lpNumberOfEvents);
 #define WinAPI_GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons)	GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons)
@@ -7517,27 +7365,27 @@ __EXTERN INTEGER __CALL_1 GetPixelFormat(LONGINT p0);
 __EXTERN INTEGER __CALL_1 GetPolyFillMode(LONGINT p0);
 #define WinAPI_GetPrintProcessorDirectory(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)	GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)
 #define WinAPI_GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)	GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrintProcessorDirectoryA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrintProcessorDirectoryA(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrintProcessorDirectoryW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)	GetPrintProcessorDirectoryW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrintProcessorDirectoryW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrintProcessorDirectoryW(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pPrintProcessorInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinter(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)	GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)
 #define WinAPI_GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)	GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)
 __EXTERN INTEGER __CALL_1 GetPrinterA(LONGINT hPrinter, INTEGER Level, CHAR *pPrinter, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterData(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)	GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)
 #define WinAPI_GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)	GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDataA(LONGINT hPrinter, WinAPI_PtrSTR pValueName, INTEGER *pType, CHAR *pData, INTEGER nSize, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDataA(LONGINT hPrinter, LONGINT pValueName, INTEGER *pType, CHAR *pData, INTEGER nSize, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)	GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDataW(LONGINT hPrinter, WinAPI_PtrWSTR pValueName, INTEGER *pType, CHAR *pData, INTEGER nSize, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDataW(LONGINT hPrinter, LONGINT pValueName, INTEGER *pType, CHAR *pData, INTEGER nSize, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterDriver(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)	GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)
 #define WinAPI_GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)	GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDriverA(LONGINT hPrinter, WinAPI_PtrSTR pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDriverA(LONGINT hPrinter, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterDriverDirectory(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)	GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)
 #define WinAPI_GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)	GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDriverDirectoryA(WinAPI_PtrSTR pName, WinAPI_PtrSTR pEnvironment, INTEGER Level, CHAR *pDriverDirectory, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDriverDirectoryA(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverDirectory, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterDriverDirectoryW(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)	GetPrinterDriverDirectoryW(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDriverDirectoryW(WinAPI_PtrWSTR pName, WinAPI_PtrWSTR pEnvironment, INTEGER Level, CHAR *pDriverDirectory, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDriverDirectoryW(LONGINT pName, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverDirectory, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)	GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded)
-__EXTERN INTEGER __CALL_1 GetPrinterDriverW(LONGINT hPrinter, WinAPI_PtrWSTR pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
+__EXTERN INTEGER __CALL_1 GetPrinterDriverW(LONGINT hPrinter, LONGINT pEnvironment, INTEGER Level, CHAR *pDriverInfo, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPrinterW(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)	GetPrinterW(hPrinter, Level, pPrinter, cbBuf, pcbNeeded)
 __EXTERN INTEGER __CALL_1 GetPrinterW(LONGINT hPrinter, INTEGER Level, CHAR *pPrinter, INTEGER cbBuf, INTEGER *pcbNeeded);
 #define WinAPI_GetPriorityClass(hProcess)	GetPriorityClass(hProcess)
@@ -7548,31 +7396,31 @@ __EXTERN INTEGER __CALL_1 GetPriorityClipboardFormat(INTEGER *paFormatPriorityLi
 __EXTERN INTEGER __CALL_1 GetPrivateObjectSecurity(LONGINT ObjectDescriptor, SET SecurityInformation, LONGINT ResultantDescriptor, INTEGER DescriptorLength, INTEGER *ReturnLength);
 #define WinAPI_GetPrivateProfileInt(lpAppName, lpKeyName, nDefault, lpFileName)	GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName)
 #define WinAPI_GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName)	GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileIntA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, INTEGER nDefault, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileIntA(LONGINT lpAppName, LONGINT lpKeyName, INTEGER nDefault, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName)	GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileIntW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, INTEGER nDefault, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileIntW(LONGINT lpAppName, LONGINT lpKeyName, INTEGER nDefault, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileSection(lpAppName, lpReturnedString, nSize, lpFileName)	GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName)
 #define WinAPI_GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName)	GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpReturnedString, INTEGER nSize, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionA(LONGINT lpAppName, LONGINT lpReturnedString, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileSectionNames(lpszReturnBuffer, nSize, lpFileName)	GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName)
 #define WinAPI_GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName)	GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionNamesA(WinAPI_PtrSTR lpszReturnBuffer, INTEGER nSize, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionNamesA(LONGINT lpszReturnBuffer, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName)	GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionNamesW(WinAPI_PtrWSTR lpszReturnBuffer, INTEGER nSize, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionNamesW(LONGINT lpszReturnBuffer, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName)	GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpReturnedString, INTEGER nSize, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileSectionW(LONGINT lpAppName, LONGINT lpReturnedString, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileString(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)	GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)
 #define WinAPI_GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)	GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileStringA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, WinAPI_PtrSTR lpDefault, WinAPI_PtrSTR lpReturnedString, INTEGER nSize, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileStringA(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpDefault, LONGINT lpReturnedString, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)	GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileStringW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, WinAPI_PtrWSTR lpDefault, WinAPI_PtrWSTR lpReturnedString, INTEGER nSize, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileStringW(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpDefault, LONGINT lpReturnedString, INTEGER nSize, LONGINT lpFileName);
 #define WinAPI_GetPrivateProfileStruct(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
 #define WinAPI_GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileStructA(WinAPI_PtrSTR lpszSection, WinAPI_PtrSTR lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, WinAPI_PtrSTR szFile);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileStructA(LONGINT lpszSection, LONGINT lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, LONGINT szFile);
 #define WinAPI_GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
-__EXTERN INTEGER __CALL_1 GetPrivateProfileStructW(WinAPI_PtrWSTR lpszSection, WinAPI_PtrWSTR lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, WinAPI_PtrWSTR szFile);
+__EXTERN INTEGER __CALL_1 GetPrivateProfileStructW(LONGINT lpszSection, LONGINT lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, LONGINT szFile);
 #define WinAPI_GetProcAddress(hModule, lpProcName)	GetProcAddress(hModule, lpProcName)
-__EXTERN WinAPI_FARPROC __CALL_1 GetProcAddress(LONGINT hModule, WinAPI_PtrSTR lpProcName);
+__EXTERN WinAPI_FARPROC __CALL_1 GetProcAddress(LONGINT hModule, LONGINT lpProcName);
 #define WinAPI_GetProcessAffinityMask(hProcess, lpProcessAffinityMask, lpSystemAffinityMask)	GetProcessAffinityMask(hProcess, lpProcessAffinityMask, lpSystemAffinityMask)
 __EXTERN INTEGER __CALL_1 GetProcessAffinityMask(LONGINT hProcess, INTEGER *lpProcessAffinityMask, INTEGER *lpSystemAffinityMask);
 #define WinAPI_GetProcessHeap()	GetProcessHeap()
@@ -7591,24 +7439,24 @@ __EXTERN LONGINT __CALL_1 GetProcessWindowStation(void);
 __EXTERN INTEGER __CALL_1 GetProcessWorkingSetSize(LONGINT hProcess, INTEGER *lpMinimumWorkingSetSize, INTEGER *lpMaximumWorkingSetSize);
 #define WinAPI_GetProfileInt(lpAppName, lpKeyName, nDefault)	GetProfileIntA(lpAppName, lpKeyName, nDefault)
 #define WinAPI_GetProfileIntA(lpAppName, lpKeyName, nDefault)	GetProfileIntA(lpAppName, lpKeyName, nDefault)
-__EXTERN INTEGER __CALL_1 GetProfileIntA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, INTEGER nDefault);
+__EXTERN INTEGER __CALL_1 GetProfileIntA(LONGINT lpAppName, LONGINT lpKeyName, INTEGER nDefault);
 #define WinAPI_GetProfileIntW(lpAppName, lpKeyName, nDefault)	GetProfileIntW(lpAppName, lpKeyName, nDefault)
-__EXTERN INTEGER __CALL_1 GetProfileIntW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, INTEGER nDefault);
+__EXTERN INTEGER __CALL_1 GetProfileIntW(LONGINT lpAppName, LONGINT lpKeyName, INTEGER nDefault);
 #define WinAPI_GetProfileSection(lpAppName, lpReturnedString, nSize)	GetProfileSectionA(lpAppName, lpReturnedString, nSize)
 #define WinAPI_GetProfileSectionA(lpAppName, lpReturnedString, nSize)	GetProfileSectionA(lpAppName, lpReturnedString, nSize)
-__EXTERN INTEGER __CALL_1 GetProfileSectionA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpReturnedString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetProfileSectionA(LONGINT lpAppName, LONGINT lpReturnedString, INTEGER nSize);
 #define WinAPI_GetProfileSectionW(lpAppName, lpReturnedString, nSize)	GetProfileSectionW(lpAppName, lpReturnedString, nSize)
-__EXTERN INTEGER __CALL_1 GetProfileSectionW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpReturnedString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetProfileSectionW(LONGINT lpAppName, LONGINT lpReturnedString, INTEGER nSize);
 #define WinAPI_GetProfileString(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)	GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)
 #define WinAPI_GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)	GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)
-__EXTERN INTEGER __CALL_1 GetProfileStringA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, WinAPI_PtrSTR lpDefault, WinAPI_PtrSTR lpReturnedString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetProfileStringA(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpDefault, LONGINT lpReturnedString, INTEGER nSize);
 #define WinAPI_GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)	GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize)
-__EXTERN INTEGER __CALL_1 GetProfileStringW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, WinAPI_PtrWSTR lpDefault, WinAPI_PtrWSTR lpReturnedString, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GetProfileStringW(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpDefault, LONGINT lpReturnedString, INTEGER nSize);
 #define WinAPI_GetProp(hWnd, lpString)	GetPropA(hWnd, lpString)
 #define WinAPI_GetPropA(hWnd, lpString)	GetPropA(hWnd, lpString)
-__EXTERN LONGINT __CALL_1 GetPropA(LONGINT hWnd, WinAPI_PtrSTR lpString);
+__EXTERN LONGINT __CALL_1 GetPropA(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_GetPropW(hWnd, lpString)	GetPropW(hWnd, lpString)
-__EXTERN LONGINT __CALL_1 GetPropW(LONGINT hWnd, WinAPI_PtrWSTR lpString);
+__EXTERN LONGINT __CALL_1 GetPropW(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_GetQueueStatus(flags)	GetQueueStatus(flags)
 __EXTERN INTEGER __CALL_1 GetQueueStatus(SET flags);
 #define WinAPI_GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpCompletionKey, lpOverlapped, dwMilliseconds)	GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpCompletionKey, lpOverlapped, dwMilliseconds)
@@ -7641,27 +7489,27 @@ __EXTERN INTEGER __CALL_1 GetSecurityDescriptorOwner(LONGINT pSecurityDescriptor
 __EXTERN INTEGER __CALL_1 GetSecurityDescriptorSacl(LONGINT pSecurityDescriptor, INTEGER *lpbSaclPresent, WinAPI_PtrACL *pSacl, INTEGER *lpbSaclDefaulted);
 #define WinAPI_GetServiceDisplayName(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)	GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)
 #define WinAPI_GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)	GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)
-__EXTERN INTEGER __CALL_1 GetServiceDisplayNameA(LONGINT hSCManager, WinAPI_PtrSTR lpServiceName, WinAPI_PtrSTR lpDisplayName, INTEGER *lpcchBuffer);
+__EXTERN INTEGER __CALL_1 GetServiceDisplayNameA(LONGINT hSCManager, LONGINT lpServiceName, LONGINT lpDisplayName, INTEGER *lpcchBuffer);
 #define WinAPI_GetServiceDisplayNameW(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)	GetServiceDisplayNameW(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer)
-__EXTERN INTEGER __CALL_1 GetServiceDisplayNameW(LONGINT hSCManager, WinAPI_PtrWSTR lpServiceName, WinAPI_PtrWSTR lpDisplayName, INTEGER *lpcchBuffer);
+__EXTERN INTEGER __CALL_1 GetServiceDisplayNameW(LONGINT hSCManager, LONGINT lpServiceName, LONGINT lpDisplayName, INTEGER *lpcchBuffer);
 #define WinAPI_GetServiceKeyName(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)	GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)
 #define WinAPI_GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)	GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)
-__EXTERN INTEGER __CALL_1 GetServiceKeyNameA(LONGINT hSCManager, WinAPI_PtrSTR lpDisplayName, WinAPI_PtrSTR lpServiceName, INTEGER *lpcchBuffer);
+__EXTERN INTEGER __CALL_1 GetServiceKeyNameA(LONGINT hSCManager, LONGINT lpDisplayName, LONGINT lpServiceName, INTEGER *lpcchBuffer);
 #define WinAPI_GetServiceKeyNameW(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)	GetServiceKeyNameW(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer)
-__EXTERN INTEGER __CALL_1 GetServiceKeyNameW(LONGINT hSCManager, WinAPI_PtrWSTR lpDisplayName, WinAPI_PtrWSTR lpServiceName, INTEGER *lpcchBuffer);
+__EXTERN INTEGER __CALL_1 GetServiceKeyNameW(LONGINT hSCManager, LONGINT lpDisplayName, LONGINT lpServiceName, INTEGER *lpcchBuffer);
 #define WinAPI_GetShortPathName(lpszLongPath, lpszShortPath, cchBuffer)	GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer)
 #define WinAPI_GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer)	GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer)
-__EXTERN INTEGER __CALL_1 GetShortPathNameA(WinAPI_PtrSTR lpszLongPath, WinAPI_PtrSTR lpszShortPath, INTEGER cchBuffer);
+__EXTERN INTEGER __CALL_1 GetShortPathNameA(LONGINT lpszLongPath, LONGINT lpszShortPath, INTEGER cchBuffer);
 #define WinAPI_GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer)	GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer)
-__EXTERN INTEGER __CALL_1 GetShortPathNameW(WinAPI_PtrWSTR lpszLongPath, WinAPI_PtrWSTR lpszShortPath, INTEGER cchBuffer);
+__EXTERN INTEGER __CALL_1 GetShortPathNameW(LONGINT lpszLongPath, LONGINT lpszShortPath, INTEGER cchBuffer);
 #define WinAPI_GetSidIdentifierAuthority(pSid)	GetSidIdentifierAuthority(pSid)
 __EXTERN WinAPI_PtrSID_IDENTIFIER_AUTHORITY __CALL_1 GetSidIdentifierAuthority(LONGINT pSid);
 #define WinAPI_GetSidLengthRequired(nSubAuthorityCount)	GetSidLengthRequired(nSubAuthorityCount)
 __EXTERN INTEGER __CALL_1 GetSidLengthRequired(CHAR nSubAuthorityCount);
 #define WinAPI_GetSidSubAuthority(pSid, nSubAuthority)	GetSidSubAuthority(pSid, nSubAuthority)
-__EXTERN WinAPI_RetGetSidSubAuthority __CALL_1 GetSidSubAuthority(LONGINT pSid, INTEGER nSubAuthority);
+__EXTERN LONGINT __CALL_1 GetSidSubAuthority(LONGINT pSid, INTEGER nSubAuthority);
 #define WinAPI_GetSidSubAuthorityCount(pSid)	GetSidSubAuthorityCount(pSid)
-__EXTERN WinAPI_PtrSTR __CALL_1 GetSidSubAuthorityCount(LONGINT pSid);
+__EXTERN LONGINT __CALL_1 GetSidSubAuthorityCount(LONGINT pSid);
 #define WinAPI_GetStartupInfo(lpStartupInfo, lpStartupInfo__typ)	GetStartupInfoA(lpStartupInfo)
 #define WinAPI_GetStartupInfoA(lpStartupInfo, lpStartupInfo__typ)	GetStartupInfoA(lpStartupInfo)
 __EXTERN void __CALL_1 GetStartupInfoA(WinAPI_STARTUPINFOA *lpStartupInfo);
@@ -7674,14 +7522,14 @@ __EXTERN LONGINT __CALL_1 GetStockObject(INTEGER p0);
 #define WinAPI_GetStretchBltMode(p0)	GetStretchBltMode(p0)
 __EXTERN INTEGER __CALL_1 GetStretchBltMode(LONGINT p0);
 #define WinAPI_GetStringTypeA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)	GetStringTypeA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)
-__EXTERN INTEGER __CALL_1 GetStringTypeA(INTEGER Locale, SET dwInfoType, WinAPI_PtrSTR lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
+__EXTERN INTEGER __CALL_1 GetStringTypeA(INTEGER Locale, SET dwInfoType, LONGINT lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
 #define WinAPI_GetStringTypeEx(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)	GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)
 #define WinAPI_GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)	GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)
-__EXTERN INTEGER __CALL_1 GetStringTypeExA(INTEGER Locale, SET dwInfoType, WinAPI_PtrSTR lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
+__EXTERN INTEGER __CALL_1 GetStringTypeExA(INTEGER Locale, SET dwInfoType, LONGINT lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
 #define WinAPI_GetStringTypeExW(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)	GetStringTypeExW(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType)
-__EXTERN INTEGER __CALL_1 GetStringTypeExW(INTEGER Locale, SET dwInfoType, WinAPI_PtrWSTR lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
+__EXTERN INTEGER __CALL_1 GetStringTypeExW(INTEGER Locale, SET dwInfoType, LONGINT lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
 #define WinAPI_GetStringTypeW(dwInfoType, lpSrcStr, cchSrc, lpCharType)	GetStringTypeW(dwInfoType, lpSrcStr, cchSrc, lpCharType)
-__EXTERN INTEGER __CALL_1 GetStringTypeW(SET dwInfoType, WinAPI_PtrWSTR lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
+__EXTERN INTEGER __CALL_1 GetStringTypeW(SET dwInfoType, LONGINT lpSrcStr, INTEGER cchSrc, SHORTINT *lpCharType);
 #define WinAPI_GetSubMenu(hMenu, nPos)	GetSubMenu(hMenu, nPos)
 __EXTERN LONGINT __CALL_1 GetSubMenu(LONGINT hMenu, INTEGER nPos);
 #define WinAPI_GetSysColor(nIndex)	GetSysColor(nIndex)
@@ -7694,9 +7542,9 @@ __EXTERN INTEGER __CALL_1 GetSystemDefaultLCID(void);
 __EXTERN SHORTINT __CALL_1 GetSystemDefaultLangID(void);
 #define WinAPI_GetSystemDirectory(lpBuffer, uSize)	GetSystemDirectoryA(lpBuffer, uSize)
 #define WinAPI_GetSystemDirectoryA(lpBuffer, uSize)	GetSystemDirectoryA(lpBuffer, uSize)
-__EXTERN INTEGER __CALL_1 GetSystemDirectoryA(WinAPI_PtrSTR lpBuffer, INTEGER uSize);
+__EXTERN INTEGER __CALL_1 GetSystemDirectoryA(LONGINT lpBuffer, INTEGER uSize);
 #define WinAPI_GetSystemDirectoryW(lpBuffer, uSize)	GetSystemDirectoryW(lpBuffer, uSize)
-__EXTERN INTEGER __CALL_1 GetSystemDirectoryW(WinAPI_PtrWSTR lpBuffer, INTEGER uSize);
+__EXTERN INTEGER __CALL_1 GetSystemDirectoryW(LONGINT lpBuffer, INTEGER uSize);
 #define WinAPI_GetSystemInfo(lpSystemInfo, lpSystemInfo__typ)	GetSystemInfo(lpSystemInfo)
 __EXTERN void __CALL_1 GetSystemInfo(WinAPI_SYSTEM_INFO *lpSystemInfo);
 #define WinAPI_GetSystemMenu(hWnd, bRevert)	GetSystemMenu(hWnd, bRevert)
@@ -7717,9 +7565,9 @@ __EXTERN INTEGER __CALL_1 GetSystemTimeAdjustment(INTEGER *lpTimeAdjustment, INT
 __EXTERN void __CALL_1 GetSystemTimeAsFileTime(WinAPI_FILETIME *lpSystemTimeAsFileTime);
 #define WinAPI_GetTabbedTextExtent(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)	GetTabbedTextExtentA(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)
 #define WinAPI_GetTabbedTextExtentA(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)	GetTabbedTextExtentA(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)
-__EXTERN INTEGER __CALL_1 GetTabbedTextExtentA(LONGINT hDC, WinAPI_PtrSTR lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions);
+__EXTERN INTEGER __CALL_1 GetTabbedTextExtentA(LONGINT hDC, LONGINT lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions);
 #define WinAPI_GetTabbedTextExtentW(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)	GetTabbedTextExtentW(hDC, lpString, nCount, nTabPositions, lpnTabStopPositions)
-__EXTERN INTEGER __CALL_1 GetTabbedTextExtentW(LONGINT hDC, WinAPI_PtrWSTR lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions);
+__EXTERN INTEGER __CALL_1 GetTabbedTextExtentW(LONGINT hDC, LONGINT lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions);
 #define WinAPI_GetTapeParameters(hDevice, dwOperation, lpdwSize, lpTapeInformation)	GetTapeParameters(hDevice, dwOperation, lpdwSize, lpTapeInformation)
 __EXTERN INTEGER __CALL_1 GetTapeParameters(LONGINT hDevice, INTEGER dwOperation, INTEGER *lpdwSize, LONGINT lpTapeInformation);
 #define WinAPI_GetTapePosition(hDevice, dwPositionType, lpdwPartition, lpdwOffsetLow, lpdwOffsetHigh)	GetTapePosition(hDevice, dwPositionType, lpdwPartition, lpdwOffsetLow, lpdwOffsetHigh)
@@ -7728,14 +7576,14 @@ __EXTERN INTEGER __CALL_1 GetTapePosition(LONGINT hDevice, INTEGER dwPositionTyp
 __EXTERN INTEGER __CALL_1 GetTapeStatus(LONGINT hDevice);
 #define WinAPI_GetTempFileName(lpPathName, lpPrefixString, uUnique, lpTempFileName)	GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName)
 #define WinAPI_GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName)	GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName)
-__EXTERN INTEGER __CALL_1 GetTempFileNameA(WinAPI_PtrSTR lpPathName, WinAPI_PtrSTR lpPrefixString, INTEGER uUnique, WinAPI_PtrSTR lpTempFileName);
+__EXTERN INTEGER __CALL_1 GetTempFileNameA(LONGINT lpPathName, LONGINT lpPrefixString, INTEGER uUnique, LONGINT lpTempFileName);
 #define WinAPI_GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName)	GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName)
-__EXTERN INTEGER __CALL_1 GetTempFileNameW(WinAPI_PtrWSTR lpPathName, WinAPI_PtrWSTR lpPrefixString, INTEGER uUnique, WinAPI_PtrWSTR lpTempFileName);
+__EXTERN INTEGER __CALL_1 GetTempFileNameW(LONGINT lpPathName, LONGINT lpPrefixString, INTEGER uUnique, LONGINT lpTempFileName);
 #define WinAPI_GetTempPath(nBufferLength, lpBuffer)	GetTempPathA(nBufferLength, lpBuffer)
 #define WinAPI_GetTempPathA(nBufferLength, lpBuffer)	GetTempPathA(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetTempPathA(INTEGER nBufferLength, WinAPI_PtrSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetTempPathA(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetTempPathW(nBufferLength, lpBuffer)	GetTempPathW(nBufferLength, lpBuffer)
-__EXTERN INTEGER __CALL_1 GetTempPathW(INTEGER nBufferLength, WinAPI_PtrWSTR lpBuffer);
+__EXTERN INTEGER __CALL_1 GetTempPathW(INTEGER nBufferLength, LONGINT lpBuffer);
 #define WinAPI_GetTextAlign(p0)	GetTextAlign(p0)
 __EXTERN SET __CALL_1 GetTextAlign(LONGINT p0);
 #define WinAPI_GetTextCharacterExtra(p0)	GetTextCharacterExtra(p0)
@@ -7748,24 +7596,24 @@ __EXTERN INTEGER __CALL_1 GetTextCharsetInfo(LONGINT hdc, WinAPI_FONTSIGNATURE *
 __EXTERN INTEGER __CALL_1 GetTextColor(LONGINT p0);
 #define WinAPI_GetTextExtentExPoint(p0, p1, p2, p3, p4, p5, p6, p6__typ)	GetTextExtentExPointA(p0, p1, p2, p3, p4, p5, p6)
 #define WinAPI_GetTextExtentExPointA(p0, p1, p2, p3, p4, p5, p6, p6__typ)	GetTextExtentExPointA(p0, p1, p2, p3, p4, p5, p6)
-__EXTERN INTEGER __CALL_1 GetTextExtentExPointA(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, INTEGER p3, INTEGER *p4, INTEGER *p5, WinAPI_SIZE *p6);
+__EXTERN INTEGER __CALL_1 GetTextExtentExPointA(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, INTEGER *p4, INTEGER *p5, WinAPI_SIZE *p6);
 #define WinAPI_GetTextExtentExPointW(p0, p1, p2, p3, p4, p5, p6, p6__typ)	GetTextExtentExPointW(p0, p1, p2, p3, p4, p5, p6)
-__EXTERN INTEGER __CALL_1 GetTextExtentExPointW(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, INTEGER p3, INTEGER *p4, INTEGER *p5, WinAPI_SIZE *p6);
+__EXTERN INTEGER __CALL_1 GetTextExtentExPointW(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, INTEGER *p4, INTEGER *p5, WinAPI_SIZE *p6);
 #define WinAPI_GetTextExtentPoint(p0, p1, p2, p3, p3__typ)	GetTextExtentPointA(p0, p1, p2, p3)
 #define WinAPI_GetTextExtentPoint32(p0, p1, p2, p3, p3__typ)	GetTextExtentPoint32A(p0, p1, p2, p3)
 #define WinAPI_GetTextExtentPoint32A(p0, p1, p2, p3, p3__typ)	GetTextExtentPoint32A(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 GetTextExtentPoint32A(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, WinAPI_SIZE *p3);
+__EXTERN INTEGER __CALL_1 GetTextExtentPoint32A(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_SIZE *p3);
 #define WinAPI_GetTextExtentPoint32W(p0, p1, p2, p3, p3__typ)	GetTextExtentPoint32W(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 GetTextExtentPoint32W(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, WinAPI_SIZE *p3);
+__EXTERN INTEGER __CALL_1 GetTextExtentPoint32W(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_SIZE *p3);
 #define WinAPI_GetTextExtentPointA(p0, p1, p2, p3, p3__typ)	GetTextExtentPointA(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 GetTextExtentPointA(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, WinAPI_SIZE *p3);
+__EXTERN INTEGER __CALL_1 GetTextExtentPointA(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_SIZE *p3);
 #define WinAPI_GetTextExtentPointW(p0, p1, p2, p3, p3__typ)	GetTextExtentPointW(p0, p1, p2, p3)
-__EXTERN INTEGER __CALL_1 GetTextExtentPointW(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, WinAPI_SIZE *p3);
+__EXTERN INTEGER __CALL_1 GetTextExtentPointW(LONGINT p0, LONGINT p1, INTEGER p2, WinAPI_SIZE *p3);
 #define WinAPI_GetTextFace(p0, p1, p2)	GetTextFaceA(p0, p1, p2)
 #define WinAPI_GetTextFaceA(p0, p1, p2)	GetTextFaceA(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetTextFaceA(LONGINT p0, INTEGER p1, WinAPI_PtrSTR p2);
+__EXTERN INTEGER __CALL_1 GetTextFaceA(LONGINT p0, INTEGER p1, LONGINT p2);
 #define WinAPI_GetTextFaceW(p0, p1, p2)	GetTextFaceW(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 GetTextFaceW(LONGINT p0, INTEGER p1, WinAPI_PtrWSTR p2);
+__EXTERN INTEGER __CALL_1 GetTextFaceW(LONGINT p0, INTEGER p1, LONGINT p2);
 #define WinAPI_GetTextMetrics(p0, p1, p1__typ)	GetTextMetricsA(p0, p1)
 #define WinAPI_GetTextMetricsA(p0, p1, p1__typ)	GetTextMetricsA(p0, p1)
 __EXTERN INTEGER __CALL_1 GetTextMetricsA(LONGINT p0, WinAPI_TEXTMETRICA *p1);
@@ -7789,9 +7637,9 @@ __EXTERN INTEGER __CALL_1 GetThreadTimes(LONGINT hThread, WinAPI_FILETIME *lpCre
 __EXTERN INTEGER __CALL_1 GetTickCount(void);
 #define WinAPI_GetTimeFormat(Locale, dwFlags, lpTime, lpTime__typ, lpFormat, lpTimeStr, cchTime)	GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime)
 #define WinAPI_GetTimeFormatA(Locale, dwFlags, lpTime, lpTime__typ, lpFormat, lpTimeStr, cchTime)	GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime)
-__EXTERN INTEGER __CALL_1 GetTimeFormatA(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpTime, WinAPI_PtrSTR lpFormat, WinAPI_PtrSTR lpTimeStr, INTEGER cchTime);
+__EXTERN INTEGER __CALL_1 GetTimeFormatA(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpTime, LONGINT lpFormat, LONGINT lpTimeStr, INTEGER cchTime);
 #define WinAPI_GetTimeFormatW(Locale, dwFlags, lpTime, lpTime__typ, lpFormat, lpTimeStr, cchTime)	GetTimeFormatW(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime)
-__EXTERN INTEGER __CALL_1 GetTimeFormatW(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpTime, WinAPI_PtrWSTR lpFormat, WinAPI_PtrWSTR lpTimeStr, INTEGER cchTime);
+__EXTERN INTEGER __CALL_1 GetTimeFormatW(INTEGER Locale, SET dwFlags, WinAPI_SYSTEMTIME *lpTime, LONGINT lpFormat, LONGINT lpTimeStr, INTEGER cchTime);
 #define WinAPI_GetTimeZoneInformation(lpTimeZoneInformation, lpTimeZoneInformation__typ)	GetTimeZoneInformation(lpTimeZoneInformation)
 __EXTERN INTEGER __CALL_1 GetTimeZoneInformation(WinAPI_TIME_ZONE_INFORMATION *lpTimeZoneInformation);
 #define WinAPI_GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength, ReturnLength)	GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength, ReturnLength)
@@ -7808,9 +7656,9 @@ __EXTERN INTEGER __CALL_1 GetUserDefaultLCID(void);
 __EXTERN SHORTINT __CALL_1 GetUserDefaultLangID(void);
 #define WinAPI_GetUserName(lpBuffer, nSize)	GetUserNameA(lpBuffer, nSize)
 #define WinAPI_GetUserNameA(lpBuffer, nSize)	GetUserNameA(lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetUserNameA(WinAPI_PtrSTR lpBuffer, INTEGER *nSize);
+__EXTERN INTEGER __CALL_1 GetUserNameA(LONGINT lpBuffer, INTEGER *nSize);
 #define WinAPI_GetUserNameW(lpBuffer, nSize)	GetUserNameW(lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GetUserNameW(WinAPI_PtrWSTR lpBuffer, INTEGER *nSize);
+__EXTERN INTEGER __CALL_1 GetUserNameW(LONGINT lpBuffer, INTEGER *nSize);
 #define WinAPI_GetUserObjectInformation(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)	GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)
 #define WinAPI_GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)	GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)
 __EXTERN INTEGER __CALL_1 GetUserObjectInformationA(LONGINT hObj, INTEGER nIndex, LONGINT pvInfo, INTEGER nLength, INTEGER *lpnLengthNeeded);
@@ -7831,9 +7679,9 @@ __EXTERN INTEGER __CALL_1 GetViewportExtEx(LONGINT p0, WinAPI_SIZE *p1);
 __EXTERN INTEGER __CALL_1 GetViewportOrgEx(LONGINT p0, WinAPI_POINT *p1);
 #define WinAPI_GetVolumeInformation(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)	GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)
 #define WinAPI_GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)	GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)
-__EXTERN INTEGER __CALL_1 GetVolumeInformationA(WinAPI_PtrSTR lpRootPathName, WinAPI_PtrSTR lpVolumeNameBuffer, INTEGER nVolumeNameSize, INTEGER *lpVolumeSerialNumber, INTEGER *lpMaximumComponentLength, SET *lpFileSystemFlags, WinAPI_PtrSTR lpFileSystemNameBuffer, INTEGER nFileSystemNameSize);
+__EXTERN INTEGER __CALL_1 GetVolumeInformationA(LONGINT lpRootPathName, LONGINT lpVolumeNameBuffer, INTEGER nVolumeNameSize, INTEGER *lpVolumeSerialNumber, INTEGER *lpMaximumComponentLength, SET *lpFileSystemFlags, LONGINT lpFileSystemNameBuffer, INTEGER nFileSystemNameSize);
 #define WinAPI_GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)	GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize)
-__EXTERN INTEGER __CALL_1 GetVolumeInformationW(WinAPI_PtrWSTR lpRootPathName, WinAPI_PtrWSTR lpVolumeNameBuffer, INTEGER nVolumeNameSize, INTEGER *lpVolumeSerialNumber, INTEGER *lpMaximumComponentLength, SET *lpFileSystemFlags, WinAPI_PtrWSTR lpFileSystemNameBuffer, INTEGER nFileSystemNameSize);
+__EXTERN INTEGER __CALL_1 GetVolumeInformationW(LONGINT lpRootPathName, LONGINT lpVolumeNameBuffer, INTEGER nVolumeNameSize, INTEGER *lpVolumeSerialNumber, INTEGER *lpMaximumComponentLength, SET *lpFileSystemFlags, LONGINT lpFileSystemNameBuffer, INTEGER nFileSystemNameSize);
 #define WinAPI_GetWinMetaFileBits(p0, p1, p2, p3, p4)	GetWinMetaFileBits(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 GetWinMetaFileBits(LONGINT p0, INTEGER p1, CHAR *p2, INTEGER p3, LONGINT p4);
 #define WinAPI_GetWindow(hWnd, uCmd)	GetWindow(hWnd, uCmd)
@@ -7859,30 +7707,30 @@ __EXTERN INTEGER __CALL_1 GetWindowRect(LONGINT hWnd, WinAPI_RECT *lpRect);
 __EXTERN INTEGER __CALL_1 GetWindowRgn(LONGINT hWnd, LONGINT hRgn);
 #define WinAPI_GetWindowText(hWnd, lpString, nMaxCount)	GetWindowTextA(hWnd, lpString, nMaxCount)
 #define WinAPI_GetWindowTextA(hWnd, lpString, nMaxCount)	GetWindowTextA(hWnd, lpString, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetWindowTextA(LONGINT hWnd, WinAPI_PtrSTR lpString, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetWindowTextA(LONGINT hWnd, LONGINT lpString, INTEGER nMaxCount);
 #define WinAPI_GetWindowTextLength(hWnd)	GetWindowTextLengthA(hWnd)
 #define WinAPI_GetWindowTextLengthA(hWnd)	GetWindowTextLengthA(hWnd)
 __EXTERN INTEGER __CALL_1 GetWindowTextLengthA(LONGINT hWnd);
 #define WinAPI_GetWindowTextLengthW(hWnd)	GetWindowTextLengthW(hWnd)
 __EXTERN INTEGER __CALL_1 GetWindowTextLengthW(LONGINT hWnd);
 #define WinAPI_GetWindowTextW(hWnd, lpString, nMaxCount)	GetWindowTextW(hWnd, lpString, nMaxCount)
-__EXTERN INTEGER __CALL_1 GetWindowTextW(LONGINT hWnd, WinAPI_PtrWSTR lpString, INTEGER nMaxCount);
+__EXTERN INTEGER __CALL_1 GetWindowTextW(LONGINT hWnd, LONGINT lpString, INTEGER nMaxCount);
 #define WinAPI_GetWindowThreadProcessId(hWnd, lpdwProcessId)	GetWindowThreadProcessId(hWnd, lpdwProcessId)
 __EXTERN INTEGER __CALL_1 GetWindowThreadProcessId(LONGINT hWnd, INTEGER *lpdwProcessId);
 #define WinAPI_GetWindowWord(hWnd, nIndex)	GetWindowWord(hWnd, nIndex)
 __EXTERN SHORTINT __CALL_1 GetWindowWord(LONGINT hWnd, INTEGER nIndex);
 #define WinAPI_GetWindowsDirectory(lpBuffer, uSize)	GetWindowsDirectoryA(lpBuffer, uSize)
 #define WinAPI_GetWindowsDirectoryA(lpBuffer, uSize)	GetWindowsDirectoryA(lpBuffer, uSize)
-__EXTERN INTEGER __CALL_1 GetWindowsDirectoryA(WinAPI_PtrSTR lpBuffer, INTEGER uSize);
+__EXTERN INTEGER __CALL_1 GetWindowsDirectoryA(LONGINT lpBuffer, INTEGER uSize);
 #define WinAPI_GetWindowsDirectoryW(lpBuffer, uSize)	GetWindowsDirectoryW(lpBuffer, uSize)
-__EXTERN INTEGER __CALL_1 GetWindowsDirectoryW(WinAPI_PtrWSTR lpBuffer, INTEGER uSize);
+__EXTERN INTEGER __CALL_1 GetWindowsDirectoryW(LONGINT lpBuffer, INTEGER uSize);
 #define WinAPI_GetWorldTransform(p0, p1, p1__typ)	GetWorldTransform(p0, p1)
 __EXTERN INTEGER __CALL_1 GetWorldTransform(LONGINT p0, WinAPI_XFORM *p1);
 #define WinAPI_GlobalAddAtom(lpString)	GlobalAddAtomA(lpString)
 #define WinAPI_GlobalAddAtomA(lpString)	GlobalAddAtomA(lpString)
-__EXTERN SHORTINT __CALL_1 GlobalAddAtomA(WinAPI_PtrSTR lpString);
+__EXTERN SHORTINT __CALL_1 GlobalAddAtomA(LONGINT lpString);
 #define WinAPI_GlobalAddAtomW(lpString)	GlobalAddAtomW(lpString)
-__EXTERN SHORTINT __CALL_1 GlobalAddAtomW(WinAPI_PtrWSTR lpString);
+__EXTERN SHORTINT __CALL_1 GlobalAddAtomW(LONGINT lpString);
 #define WinAPI_GlobalAlloc(uFlags, dwBytes)	GlobalAlloc(uFlags, dwBytes)
 __EXTERN LONGINT __CALL_1 GlobalAlloc(SET uFlags, LONGINT dwBytes);
 #define WinAPI_GlobalCompact(dwMinFree)	GlobalCompact(dwMinFree)
@@ -7891,9 +7739,9 @@ __EXTERN LONGINT __CALL_1 GlobalCompact(INTEGER dwMinFree);
 __EXTERN SHORTINT __CALL_1 GlobalDeleteAtom(SHORTINT nAtom);
 #define WinAPI_GlobalFindAtom(lpString)	GlobalFindAtomA(lpString)
 #define WinAPI_GlobalFindAtomA(lpString)	GlobalFindAtomA(lpString)
-__EXTERN SHORTINT __CALL_1 GlobalFindAtomA(WinAPI_PtrSTR lpString);
+__EXTERN SHORTINT __CALL_1 GlobalFindAtomA(LONGINT lpString);
 #define WinAPI_GlobalFindAtomW(lpString)	GlobalFindAtomW(lpString)
-__EXTERN SHORTINT __CALL_1 GlobalFindAtomW(WinAPI_PtrWSTR lpString);
+__EXTERN SHORTINT __CALL_1 GlobalFindAtomW(LONGINT lpString);
 #define WinAPI_GlobalFix(hMem)	GlobalFix(hMem)
 __EXTERN void __CALL_1 GlobalFix(LONGINT hMem);
 #define WinAPI_GlobalFlags(hMem)	GlobalFlags(hMem)
@@ -7902,9 +7750,9 @@ __EXTERN INTEGER __CALL_1 GlobalFlags(LONGINT hMem);
 __EXTERN LONGINT __CALL_1 GlobalFree(LONGINT hMem);
 #define WinAPI_GlobalGetAtomName(nAtom, lpBuffer, nSize)	GlobalGetAtomNameA(nAtom, lpBuffer, nSize)
 #define WinAPI_GlobalGetAtomNameA(nAtom, lpBuffer, nSize)	GlobalGetAtomNameA(nAtom, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GlobalGetAtomNameA(SHORTINT nAtom, WinAPI_PtrSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GlobalGetAtomNameA(SHORTINT nAtom, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GlobalGetAtomNameW(nAtom, lpBuffer, nSize)	GlobalGetAtomNameW(nAtom, lpBuffer, nSize)
-__EXTERN INTEGER __CALL_1 GlobalGetAtomNameW(SHORTINT nAtom, WinAPI_PtrWSTR lpBuffer, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 GlobalGetAtomNameW(SHORTINT nAtom, LONGINT lpBuffer, INTEGER nSize);
 #define WinAPI_GlobalHandle(pMem)	GlobalHandle(pMem)
 __EXTERN LONGINT __CALL_1 GlobalHandle(LONGINT pMem);
 #define WinAPI_GlobalLock(hMem)	GlobalLock(hMem)
@@ -7978,25 +7826,22 @@ __EXTERN INTEGER __CALL_1 InitializeSecurityDescriptor(LONGINT pSecurityDescript
 __EXTERN INTEGER __CALL_1 InitializeSid(LONGINT Sid, WinAPI_SID_IDENTIFIER_AUTHORITY *pIdentifierAuthority, CHAR nSubAuthorityCount);
 #define WinAPI_InitiateSystemShutdown(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)	InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)
 #define WinAPI_InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)	InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)
-__EXTERN INTEGER __CALL_1 InitiateSystemShutdownA(WinAPI_PtrSTR lpMachineName, WinAPI_PtrSTR lpMessage, INTEGER dwTimeout, INTEGER bForceAppsClosed, INTEGER bRebootAfterShutdown);
+__EXTERN INTEGER __CALL_1 InitiateSystemShutdownA(LONGINT lpMachineName, LONGINT lpMessage, INTEGER dwTimeout, INTEGER bForceAppsClosed, INTEGER bRebootAfterShutdown);
 #define WinAPI_InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)	InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown)
-__EXTERN INTEGER __CALL_1 InitiateSystemShutdownW(WinAPI_PtrWSTR lpMachineName, WinAPI_PtrWSTR lpMessage, INTEGER dwTimeout, INTEGER bForceAppsClosed, INTEGER bRebootAfterShutdown);
+__EXTERN INTEGER __CALL_1 InitiateSystemShutdownW(LONGINT lpMachineName, LONGINT lpMessage, INTEGER dwTimeout, INTEGER bForceAppsClosed, INTEGER bRebootAfterShutdown);
 #define WinAPI_InsertMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)	InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)
 #define WinAPI_InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)	InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 InsertMenuA(LONGINT hMenu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 InsertMenuA(LONGINT hMenu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_InsertMenuItem(p0, p1, p2, p3, p3__typ)	InsertMenuItemA(p0, p1, p2, p3)
 #define WinAPI_InsertMenuItemA(p0, p1, p2, p3, p3__typ)	InsertMenuItemA(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 InsertMenuItemA(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_MENUITEMINFOA *p3);
 #define WinAPI_InsertMenuItemW(p0, p1, p2, p3, p3__typ)	InsertMenuItemW(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 InsertMenuItemW(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_MENUITEMINFOW *p3);
 #define WinAPI_InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)	InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 InsertMenuW(LONGINT hMenu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrWSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 InsertMenuW(LONGINT hMenu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_Instance()	__hInstance
 #define WinAPI_InterlockedCompareExchange(Destination, Exchange, Comperand)	InterlockedCompareExchange(Destination, Exchange, Comperand)
-__EXTERN LONGINT __CALL_1 InterlockedCompareExchange(struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *Destination, LONGINT Exchange, LONGINT Comperand);
+__EXTERN LONGINT __CALL_1 InterlockedCompareExchange(LONGINT Destination, LONGINT Exchange, LONGINT Comperand);
 #define WinAPI_InterlockedDecrement(lpAddend)	InterlockedDecrement(lpAddend)
 __EXTERN INTEGER __CALL_1 InterlockedDecrement(INTEGER *lpAddend);
 #define WinAPI_InterlockedExchange(Target, Value)	InterlockedExchange(Target, Value)
@@ -8027,9 +7872,9 @@ __EXTERN INTEGER __CALL_1 IsBadHugeWritePtr(LONGINT lp, INTEGER ucb);
 __EXTERN INTEGER __CALL_1 IsBadReadPtr(LONGINT lp, INTEGER ucb);
 #define WinAPI_IsBadStringPtr(lpsz, ucchMax)	IsBadStringPtrA(lpsz, ucchMax)
 #define WinAPI_IsBadStringPtrA(lpsz, ucchMax)	IsBadStringPtrA(lpsz, ucchMax)
-__EXTERN INTEGER __CALL_1 IsBadStringPtrA(WinAPI_PtrSTR lpsz, INTEGER ucchMax);
+__EXTERN INTEGER __CALL_1 IsBadStringPtrA(LONGINT lpsz, INTEGER ucchMax);
 #define WinAPI_IsBadStringPtrW(lpsz, ucchMax)	IsBadStringPtrW(lpsz, ucchMax)
-__EXTERN INTEGER __CALL_1 IsBadStringPtrW(WinAPI_PtrWSTR lpsz, INTEGER ucchMax);
+__EXTERN INTEGER __CALL_1 IsBadStringPtrW(LONGINT lpsz, INTEGER ucchMax);
 #define WinAPI_IsBadWritePtr(lp, ucb)	IsBadWritePtr(lp, ucb)
 __EXTERN INTEGER __CALL_1 IsBadWritePtr(LONGINT lp, INTEGER ucb);
 #define WinAPI_IsCharAlpha(ch)	IsCharAlphaA(ch)
@@ -8099,9 +7944,9 @@ __EXTERN INTEGER __CALL_1 IsZoomed(LONGINT hWnd);
 __EXTERN INTEGER __CALL_1 KillTimer(LONGINT hWnd, INTEGER uIDEvent);
 #define WinAPI_LCMapString(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
 #define WinAPI_LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
-__EXTERN INTEGER __CALL_1 LCMapStringA(INTEGER Locale, SET dwMapFlags, WinAPI_PtrSTR lpSrcStr, INTEGER cchSrc, WinAPI_PtrSTR lpDestStr, INTEGER cchDest);
+__EXTERN INTEGER __CALL_1 LCMapStringA(INTEGER Locale, SET dwMapFlags, LONGINT lpSrcStr, INTEGER cchSrc, LONGINT lpDestStr, INTEGER cchDest);
 #define WinAPI_LCMapStringW(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)	LCMapStringW(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest)
-__EXTERN INTEGER __CALL_1 LCMapStringW(INTEGER Locale, SET dwMapFlags, WinAPI_PtrWSTR lpSrcStr, INTEGER cchSrc, WinAPI_PtrWSTR lpDestStr, INTEGER cchDest);
+__EXTERN INTEGER __CALL_1 LCMapStringW(INTEGER Locale, SET dwMapFlags, LONGINT lpSrcStr, INTEGER cchSrc, LONGINT lpDestStr, INTEGER cchDest);
 #define WinAPI_LPtoDP(p0, p1, p1__typ, p2)	LPtoDP(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 LPtoDP(LONGINT p0, WinAPI_POINT *p1, INTEGER p2);
 #define WinAPI_LZClose(p0)	LZClose(p0)
@@ -8114,11 +7959,11 @@ __EXTERN void __CALL_1 LZDone(void);
 __EXTERN INTEGER __CALL_1 LZInit(INTEGER p0);
 #define WinAPI_LZOpenFile(p0, p1, p1__typ, p2)	LZOpenFileA(p0, p1, p2)
 #define WinAPI_LZOpenFileA(p0, p1, p1__typ, p2)	LZOpenFileA(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 LZOpenFileA(WinAPI_PtrSTR p0, WinAPI_OFSTRUCT *p1, SHORTINT p2);
+__EXTERN INTEGER __CALL_1 LZOpenFileA(LONGINT p0, WinAPI_OFSTRUCT *p1, SHORTINT p2);
 #define WinAPI_LZOpenFileW(p0, p1, p1__typ, p2)	LZOpenFileW(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 LZOpenFileW(WinAPI_PtrWSTR p0, WinAPI_OFSTRUCT *p1, SHORTINT p2);
+__EXTERN INTEGER __CALL_1 LZOpenFileW(LONGINT p0, WinAPI_OFSTRUCT *p1, SHORTINT p2);
 #define WinAPI_LZRead(p0, p1, p2)	LZRead(p0, p1, p2)
-__EXTERN INTEGER __CALL_1 LZRead(INTEGER p0, WinAPI_PtrSTR p1, INTEGER p2);
+__EXTERN INTEGER __CALL_1 LZRead(INTEGER p0, LONGINT p1, INTEGER p2);
 #define WinAPI_LZSeek(p0, p1, p2)	LZSeek(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 LZSeek(INTEGER p0, INTEGER p1, INTEGER p2);
 #define WinAPI_LZStart()	LZStart()
@@ -8131,68 +7976,68 @@ __EXTERN INTEGER __CALL_1 LineDDA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3
 __EXTERN INTEGER __CALL_1 LineTo(LONGINT p0, INTEGER p1, INTEGER p2);
 #define WinAPI_LoadAccelerators(hInstance, lpTableName)	LoadAcceleratorsA(hInstance, lpTableName)
 #define WinAPI_LoadAcceleratorsA(hInstance, lpTableName)	LoadAcceleratorsA(hInstance, lpTableName)
-__EXTERN LONGINT __CALL_1 LoadAcceleratorsA(LONGINT hInstance, WinAPI_PtrSTR lpTableName);
+__EXTERN LONGINT __CALL_1 LoadAcceleratorsA(LONGINT hInstance, LONGINT lpTableName);
 #define WinAPI_LoadAcceleratorsW(hInstance, lpTableName)	LoadAcceleratorsW(hInstance, lpTableName)
-__EXTERN LONGINT __CALL_1 LoadAcceleratorsW(LONGINT hInstance, WinAPI_PtrWSTR lpTableName);
+__EXTERN LONGINT __CALL_1 LoadAcceleratorsW(LONGINT hInstance, LONGINT lpTableName);
 #define WinAPI_LoadBitmap(hInstance, lpBitmapName)	LoadBitmapA(hInstance, lpBitmapName)
 #define WinAPI_LoadBitmapA(hInstance, lpBitmapName)	LoadBitmapA(hInstance, lpBitmapName)
-__EXTERN LONGINT __CALL_1 LoadBitmapA(LONGINT hInstance, WinAPI_PtrSTR lpBitmapName);
+__EXTERN LONGINT __CALL_1 LoadBitmapA(LONGINT hInstance, LONGINT lpBitmapName);
 #define WinAPI_LoadBitmapW(hInstance, lpBitmapName)	LoadBitmapW(hInstance, lpBitmapName)
-__EXTERN LONGINT __CALL_1 LoadBitmapW(LONGINT hInstance, WinAPI_PtrWSTR lpBitmapName);
+__EXTERN LONGINT __CALL_1 LoadBitmapW(LONGINT hInstance, LONGINT lpBitmapName);
 #define WinAPI_LoadCursor(hInstance, lpCursorName)	LoadCursorA(hInstance, lpCursorName)
 #define WinAPI_LoadCursorA(hInstance, lpCursorName)	LoadCursorA(hInstance, lpCursorName)
-__EXTERN LONGINT __CALL_1 LoadCursorA(LONGINT hInstance, WinAPI_PtrSTR lpCursorName);
+__EXTERN LONGINT __CALL_1 LoadCursorA(LONGINT hInstance, LONGINT lpCursorName);
 #define WinAPI_LoadCursorFromFile(lpFileName)	LoadCursorFromFileA(lpFileName)
 #define WinAPI_LoadCursorFromFileA(lpFileName)	LoadCursorFromFileA(lpFileName)
-__EXTERN LONGINT __CALL_1 LoadCursorFromFileA(WinAPI_PtrSTR lpFileName);
+__EXTERN LONGINT __CALL_1 LoadCursorFromFileA(LONGINT lpFileName);
 #define WinAPI_LoadCursorFromFileW(lpFileName)	LoadCursorFromFileW(lpFileName)
-__EXTERN LONGINT __CALL_1 LoadCursorFromFileW(WinAPI_PtrWSTR lpFileName);
+__EXTERN LONGINT __CALL_1 LoadCursorFromFileW(LONGINT lpFileName);
 #define WinAPI_LoadCursorW(hInstance, lpCursorName)	LoadCursorW(hInstance, lpCursorName)
-__EXTERN LONGINT __CALL_1 LoadCursorW(LONGINT hInstance, WinAPI_PtrWSTR lpCursorName);
+__EXTERN LONGINT __CALL_1 LoadCursorW(LONGINT hInstance, LONGINT lpCursorName);
 #define WinAPI_LoadIcon(hInstance, lpIconName)	LoadIconA(hInstance, lpIconName)
 #define WinAPI_LoadIconA(hInstance, lpIconName)	LoadIconA(hInstance, lpIconName)
-__EXTERN LONGINT __CALL_1 LoadIconA(LONGINT hInstance, WinAPI_PtrSTR lpIconName);
+__EXTERN LONGINT __CALL_1 LoadIconA(LONGINT hInstance, LONGINT lpIconName);
 #define WinAPI_LoadIconW(hInstance, lpIconName)	LoadIconW(hInstance, lpIconName)
-__EXTERN LONGINT __CALL_1 LoadIconW(LONGINT hInstance, WinAPI_PtrWSTR lpIconName);
+__EXTERN LONGINT __CALL_1 LoadIconW(LONGINT hInstance, LONGINT lpIconName);
 #define WinAPI_LoadImage(p0, p1, p2, p3, p4, p5)	LoadImageA(p0, p1, p2, p3, p4, p5)
 #define WinAPI_LoadImageA(p0, p1, p2, p3, p4, p5)	LoadImageA(p0, p1, p2, p3, p4, p5)
-__EXTERN LONGINT __CALL_1 LoadImageA(LONGINT p0, WinAPI_PtrSTR p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
+__EXTERN LONGINT __CALL_1 LoadImageA(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
 #define WinAPI_LoadImageW(p0, p1, p2, p3, p4, p5)	LoadImageW(p0, p1, p2, p3, p4, p5)
-__EXTERN LONGINT __CALL_1 LoadImageW(LONGINT p0, WinAPI_PtrWSTR p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
+__EXTERN LONGINT __CALL_1 LoadImageW(LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
 #define WinAPI_LoadKeyboardLayout(pwszKLID, Flags)	LoadKeyboardLayoutA(pwszKLID, Flags)
 #define WinAPI_LoadKeyboardLayoutA(pwszKLID, Flags)	LoadKeyboardLayoutA(pwszKLID, Flags)
-__EXTERN LONGINT __CALL_1 LoadKeyboardLayoutA(WinAPI_PtrSTR pwszKLID, SET Flags);
+__EXTERN LONGINT __CALL_1 LoadKeyboardLayoutA(LONGINT pwszKLID, SET Flags);
 #define WinAPI_LoadKeyboardLayoutW(pwszKLID, Flags)	LoadKeyboardLayoutW(pwszKLID, Flags)
-__EXTERN LONGINT __CALL_1 LoadKeyboardLayoutW(WinAPI_PtrWSTR pwszKLID, SET Flags);
+__EXTERN LONGINT __CALL_1 LoadKeyboardLayoutW(LONGINT pwszKLID, SET Flags);
 #define WinAPI_LoadLibrary(lpLibFileName)	LoadLibraryA(lpLibFileName)
 #define WinAPI_LoadLibraryA(lpLibFileName)	LoadLibraryA(lpLibFileName)
-__EXTERN LONGINT __CALL_1 LoadLibraryA(WinAPI_PtrSTR lpLibFileName);
+__EXTERN LONGINT __CALL_1 LoadLibraryA(LONGINT lpLibFileName);
 #define WinAPI_LoadLibraryEx(lpLibFileName, hFile, dwFlags)	LoadLibraryExA(lpLibFileName, hFile, dwFlags)
 #define WinAPI_LoadLibraryExA(lpLibFileName, hFile, dwFlags)	LoadLibraryExA(lpLibFileName, hFile, dwFlags)
-__EXTERN LONGINT __CALL_1 LoadLibraryExA(WinAPI_PtrSTR lpLibFileName, LONGINT hFile, SET dwFlags);
+__EXTERN LONGINT __CALL_1 LoadLibraryExA(LONGINT lpLibFileName, LONGINT hFile, SET dwFlags);
 #define WinAPI_LoadLibraryExW(lpLibFileName, hFile, dwFlags)	LoadLibraryExW(lpLibFileName, hFile, dwFlags)
-__EXTERN LONGINT __CALL_1 LoadLibraryExW(WinAPI_PtrWSTR lpLibFileName, LONGINT hFile, SET dwFlags);
+__EXTERN LONGINT __CALL_1 LoadLibraryExW(LONGINT lpLibFileName, LONGINT hFile, SET dwFlags);
 #define WinAPI_LoadLibraryW(lpLibFileName)	LoadLibraryW(lpLibFileName)
-__EXTERN LONGINT __CALL_1 LoadLibraryW(WinAPI_PtrWSTR lpLibFileName);
+__EXTERN LONGINT __CALL_1 LoadLibraryW(LONGINT lpLibFileName);
 #define WinAPI_LoadMenu(hInstance, lpMenuName)	LoadMenuA(hInstance, lpMenuName)
 #define WinAPI_LoadMenuA(hInstance, lpMenuName)	LoadMenuA(hInstance, lpMenuName)
-__EXTERN LONGINT __CALL_1 LoadMenuA(LONGINT hInstance, WinAPI_PtrSTR lpMenuName);
+__EXTERN LONGINT __CALL_1 LoadMenuA(LONGINT hInstance, LONGINT lpMenuName);
 #define WinAPI_LoadMenuIndirect(lpMenuTemplate)	LoadMenuIndirectA(lpMenuTemplate)
 #define WinAPI_LoadMenuIndirectA(lpMenuTemplate)	LoadMenuIndirectA(lpMenuTemplate)
 __EXTERN LONGINT __CALL_1 LoadMenuIndirectA(WinAPI_PtrMENUTEMPLATEA lpMenuTemplate);
 #define WinAPI_LoadMenuIndirectW(lpMenuTemplate)	LoadMenuIndirectW(lpMenuTemplate)
 __EXTERN LONGINT __CALL_1 LoadMenuIndirectW(WinAPI_PtrMENUTEMPLATEW lpMenuTemplate);
 #define WinAPI_LoadMenuW(hInstance, lpMenuName)	LoadMenuW(hInstance, lpMenuName)
-__EXTERN LONGINT __CALL_1 LoadMenuW(LONGINT hInstance, WinAPI_PtrWSTR lpMenuName);
+__EXTERN LONGINT __CALL_1 LoadMenuW(LONGINT hInstance, LONGINT lpMenuName);
 #define WinAPI_LoadModule(lpModuleName, lpParameterBlock)	LoadModule(lpModuleName, lpParameterBlock)
-__EXTERN INTEGER __CALL_1 LoadModule(WinAPI_PtrSTR lpModuleName, LONGINT lpParameterBlock);
+__EXTERN INTEGER __CALL_1 LoadModule(LONGINT lpModuleName, LONGINT lpParameterBlock);
 #define WinAPI_LoadResource(hModule, hResInfo)	LoadResource(hModule, hResInfo)
 __EXTERN LONGINT __CALL_1 LoadResource(LONGINT hModule, LONGINT hResInfo);
 #define WinAPI_LoadString(hInstance, uID, lpBuffer, nBufferMax)	LoadStringA(hInstance, uID, lpBuffer, nBufferMax)
 #define WinAPI_LoadStringA(hInstance, uID, lpBuffer, nBufferMax)	LoadStringA(hInstance, uID, lpBuffer, nBufferMax)
-__EXTERN INTEGER __CALL_1 LoadStringA(LONGINT hInstance, INTEGER uID, WinAPI_PtrSTR lpBuffer, INTEGER nBufferMax);
+__EXTERN INTEGER __CALL_1 LoadStringA(LONGINT hInstance, INTEGER uID, LONGINT lpBuffer, INTEGER nBufferMax);
 #define WinAPI_LoadStringW(hInstance, uID, lpBuffer, nBufferMax)	LoadStringW(hInstance, uID, lpBuffer, nBufferMax)
-__EXTERN INTEGER __CALL_1 LoadStringW(LONGINT hInstance, INTEGER uID, WinAPI_PtrWSTR lpBuffer, INTEGER nBufferMax);
+__EXTERN INTEGER __CALL_1 LoadStringW(LONGINT hInstance, INTEGER uID, LONGINT lpBuffer, INTEGER nBufferMax);
 #define WinAPI_LocalAlloc(uFlags, uBytes)	LocalAlloc(uFlags, uBytes)
 __EXTERN LONGINT __CALL_1 LocalAlloc(SET uFlags, LONGINT uBytes);
 #define WinAPI_LocalCompact(uMinFree)	LocalCompact(uMinFree)
@@ -8227,38 +8072,38 @@ __EXTERN LONGINT __CALL_1 LockServiceDatabase(LONGINT hSCManager);
 __EXTERN INTEGER __CALL_1 LockWindowUpdate(LONGINT hWndLock);
 #define WinAPI_LogonUser(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)	LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)
 #define WinAPI_LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)	LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)
-__EXTERN INTEGER __CALL_1 LogonUserA(WinAPI_PtrSTR lpszUsername, WinAPI_PtrSTR lpszDomain, WinAPI_PtrSTR lpszPassword, INTEGER dwLogonType, INTEGER dwLogonProvider, LONGINT *phToken);
+__EXTERN INTEGER __CALL_1 LogonUserA(LONGINT lpszUsername, LONGINT lpszDomain, LONGINT lpszPassword, INTEGER dwLogonType, INTEGER dwLogonProvider, LONGINT *phToken);
 #define WinAPI_LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)	LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken)
-__EXTERN INTEGER __CALL_1 LogonUserW(WinAPI_PtrWSTR lpszUsername, WinAPI_PtrWSTR lpszDomain, WinAPI_PtrWSTR lpszPassword, INTEGER dwLogonType, INTEGER dwLogonProvider, LONGINT *phToken);
+__EXTERN INTEGER __CALL_1 LogonUserW(LONGINT lpszUsername, LONGINT lpszDomain, LONGINT lpszPassword, INTEGER dwLogonType, INTEGER dwLogonProvider, LONGINT *phToken);
 #define WinAPI_LookupAccountName(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)
 #define WinAPI_LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)
-__EXTERN INTEGER __CALL_1 LookupAccountNameA(WinAPI_PtrSTR lpSystemName, WinAPI_PtrSTR lpAccountName, LONGINT Sid, INTEGER *cbSid, WinAPI_PtrSTR ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
+__EXTERN INTEGER __CALL_1 LookupAccountNameA(LONGINT lpSystemName, LONGINT lpAccountName, LONGINT Sid, INTEGER *cbSid, LONGINT ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
 #define WinAPI_LookupAccountNameW(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountNameW(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cbReferencedDomainName, peUse)
-__EXTERN INTEGER __CALL_1 LookupAccountNameW(WinAPI_PtrWSTR lpSystemName, WinAPI_PtrWSTR lpAccountName, LONGINT Sid, INTEGER *cbSid, WinAPI_PtrWSTR ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
+__EXTERN INTEGER __CALL_1 LookupAccountNameW(LONGINT lpSystemName, LONGINT lpAccountName, LONGINT Sid, INTEGER *cbSid, LONGINT ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
 #define WinAPI_LookupAccountSid(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountSidA(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)
 #define WinAPI_LookupAccountSidA(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountSidA(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)
-__EXTERN INTEGER __CALL_1 LookupAccountSidA(WinAPI_PtrSTR lpSystemName, LONGINT Sid, WinAPI_PtrSTR Name, INTEGER *cbName, WinAPI_PtrSTR ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
+__EXTERN INTEGER __CALL_1 LookupAccountSidA(LONGINT lpSystemName, LONGINT Sid, LONGINT Name, INTEGER *cbName, LONGINT ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
 #define WinAPI_LookupAccountSidW(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)	LookupAccountSidW(lpSystemName, Sid, Name, cbName, ReferencedDomainName, cbReferencedDomainName, peUse)
-__EXTERN INTEGER __CALL_1 LookupAccountSidW(WinAPI_PtrWSTR lpSystemName, LONGINT Sid, WinAPI_PtrWSTR Name, INTEGER *cbName, WinAPI_PtrWSTR ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
+__EXTERN INTEGER __CALL_1 LookupAccountSidW(LONGINT lpSystemName, LONGINT Sid, LONGINT Name, INTEGER *cbName, LONGINT ReferencedDomainName, INTEGER *cbReferencedDomainName, INTEGER *peUse);
 #define WinAPI_LookupIconIdFromDirectory(presbits, fIcon)	LookupIconIdFromDirectory(presbits, fIcon)
 __EXTERN INTEGER __CALL_1 LookupIconIdFromDirectory(CHAR *presbits, INTEGER fIcon);
 #define WinAPI_LookupIconIdFromDirectoryEx(presbits, fIcon, cxDesired, cyDesired, Flags)	LookupIconIdFromDirectoryEx(presbits, fIcon, cxDesired, cyDesired, Flags)
 __EXTERN INTEGER __CALL_1 LookupIconIdFromDirectoryEx(CHAR *presbits, INTEGER fIcon, INTEGER cxDesired, INTEGER cyDesired, SET Flags);
 #define WinAPI_LookupPrivilegeDisplayName(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)	LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)
 #define WinAPI_LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)	LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeDisplayNameA(WinAPI_PtrSTR lpSystemName, WinAPI_PtrSTR lpName, WinAPI_PtrSTR lpDisplayName, INTEGER *cbDisplayName, INTEGER *lpLanguageId);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeDisplayNameA(LONGINT lpSystemName, LONGINT lpName, LONGINT lpDisplayName, INTEGER *cbDisplayName, INTEGER *lpLanguageId);
 #define WinAPI_LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)	LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cbDisplayName, lpLanguageId)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeDisplayNameW(WinAPI_PtrWSTR lpSystemName, WinAPI_PtrWSTR lpName, WinAPI_PtrWSTR lpDisplayName, INTEGER *cbDisplayName, INTEGER *lpLanguageId);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeDisplayNameW(LONGINT lpSystemName, LONGINT lpName, LONGINT lpDisplayName, INTEGER *cbDisplayName, INTEGER *lpLanguageId);
 #define WinAPI_LookupPrivilegeName(lpSystemName, lpLuid, lpName, cbName)	LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cbName)
 #define WinAPI_LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cbName)	LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cbName)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeNameA(WinAPI_PtrSTR lpSystemName, LONGINT *lpLuid, WinAPI_PtrSTR lpName, INTEGER *cbName);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeNameA(LONGINT lpSystemName, LONGINT *lpLuid, LONGINT lpName, INTEGER *cbName);
 #define WinAPI_LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cbName)	LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cbName)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeNameW(WinAPI_PtrWSTR lpSystemName, LONGINT *lpLuid, WinAPI_PtrWSTR lpName, INTEGER *cbName);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeNameW(LONGINT lpSystemName, LONGINT *lpLuid, LONGINT lpName, INTEGER *cbName);
 #define WinAPI_LookupPrivilegeValue(lpSystemName, lpName, lpLuid)	LookupPrivilegeValueA(lpSystemName, lpName, lpLuid)
 #define WinAPI_LookupPrivilegeValueA(lpSystemName, lpName, lpLuid)	LookupPrivilegeValueA(lpSystemName, lpName, lpLuid)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeValueA(WinAPI_PtrSTR lpSystemName, WinAPI_PtrSTR lpName, LONGINT *lpLuid);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeValueA(LONGINT lpSystemName, LONGINT lpName, LONGINT *lpLuid);
 #define WinAPI_LookupPrivilegeValueW(lpSystemName, lpName, lpLuid)	LookupPrivilegeValueW(lpSystemName, lpName, lpLuid)
-__EXTERN INTEGER __CALL_1 LookupPrivilegeValueW(WinAPI_PtrWSTR lpSystemName, WinAPI_PtrWSTR lpName, LONGINT *lpLuid);
+__EXTERN INTEGER __CALL_1 LookupPrivilegeValueW(LONGINT lpSystemName, LONGINT lpName, LONGINT *lpLuid);
 #define WinAPI_MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSize, pDacl, pDacl__typ, lpdwDaclSize, pSacl, pSacl__typ, lpdwSaclSize, pOwner, lpdwOwnerSize, pPrimaryGroup, lpdwPrimaryGroupSize)	MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSize, pDacl, lpdwDaclSize, pSacl, lpdwSaclSize, pOwner, lpdwOwnerSize, pPrimaryGroup, lpdwPrimaryGroupSize)
 __EXTERN INTEGER __CALL_1 MakeAbsoluteSD(LONGINT pSelfRelativeSecurityDescriptor, LONGINT pAbsoluteSecurityDescriptor, INTEGER *lpdwAbsoluteSecurityDescriptorSize, WinAPI_ACL *pDacl, INTEGER *lpdwDaclSize, WinAPI_ACL *pSacl, INTEGER *lpdwSaclSize, LONGINT pOwner, INTEGER *lpdwOwnerSize, LONGINT pPrimaryGroup, INTEGER *lpdwPrimaryGroupSize);
 #define WinAPI_MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptor, lpdwBufferLength)	MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptor, lpdwBufferLength)
@@ -8291,36 +8136,36 @@ __EXTERN INTEGER __CALL_1 MenuItemFromPoint(LONGINT hWnd, LONGINT hMenu, WinAPI_
 __EXTERN INTEGER __CALL_1 MessageBeep(SET uType);
 #define WinAPI_MessageBox(hWnd, lpText, lpCaption, uType)	MessageBoxA(hWnd, lpText, lpCaption, uType)
 #define WinAPI_MessageBoxA(hWnd, lpText, lpCaption, uType)	MessageBoxA(hWnd, lpText, lpCaption, uType)
-__EXTERN INTEGER __CALL_1 MessageBoxA(LONGINT hWnd, WinAPI_PtrSTR lpText, WinAPI_PtrSTR lpCaption, SET uType);
+__EXTERN INTEGER __CALL_1 MessageBoxA(LONGINT hWnd, LONGINT lpText, LONGINT lpCaption, SET uType);
 #define WinAPI_MessageBoxEx(hWnd, lpText, lpCaption, uType, wLanguageId)	MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId)
 #define WinAPI_MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId)	MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId)
-__EXTERN INTEGER __CALL_1 MessageBoxExA(LONGINT hWnd, WinAPI_PtrSTR lpText, WinAPI_PtrSTR lpCaption, SET uType, SHORTINT wLanguageId);
+__EXTERN INTEGER __CALL_1 MessageBoxExA(LONGINT hWnd, LONGINT lpText, LONGINT lpCaption, SET uType, SHORTINT wLanguageId);
 #define WinAPI_MessageBoxExW(hWnd, lpText, lpCaption, uType, wLanguageId)	MessageBoxExW(hWnd, lpText, lpCaption, uType, wLanguageId)
-__EXTERN INTEGER __CALL_1 MessageBoxExW(LONGINT hWnd, WinAPI_PtrWSTR lpText, WinAPI_PtrWSTR lpCaption, SET uType, SHORTINT wLanguageId);
+__EXTERN INTEGER __CALL_1 MessageBoxExW(LONGINT hWnd, LONGINT lpText, LONGINT lpCaption, SET uType, SHORTINT wLanguageId);
 #define WinAPI_MessageBoxIndirect(p0, p0__typ)	MessageBoxIndirectA(p0)
 #define WinAPI_MessageBoxIndirectA(p0, p0__typ)	MessageBoxIndirectA(p0)
 __EXTERN INTEGER __CALL_1 MessageBoxIndirectA(WinAPI_MSGBOXPARAMSA *p0);
 #define WinAPI_MessageBoxIndirectW(p0, p0__typ)	MessageBoxIndirectW(p0)
 __EXTERN INTEGER __CALL_1 MessageBoxIndirectW(WinAPI_MSGBOXPARAMSW *p0);
 #define WinAPI_MessageBoxW(hWnd, lpText, lpCaption, uType)	MessageBoxW(hWnd, lpText, lpCaption, uType)
-__EXTERN INTEGER __CALL_1 MessageBoxW(LONGINT hWnd, WinAPI_PtrWSTR lpText, WinAPI_PtrWSTR lpCaption, SET uType);
+__EXTERN INTEGER __CALL_1 MessageBoxW(LONGINT hWnd, LONGINT lpText, LONGINT lpCaption, SET uType);
 #define WinAPI_ModifyMenu(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)	ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)
 #define WinAPI_ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)	ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 ModifyMenuA(LONGINT hMnu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 ModifyMenuA(LONGINT hMnu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_ModifyMenuW(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)	ModifyMenuW(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem)
-__EXTERN INTEGER __CALL_1 ModifyMenuW(LONGINT hMnu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, WinAPI_PtrWSTR lpNewItem);
+__EXTERN INTEGER __CALL_1 ModifyMenuW(LONGINT hMnu, INTEGER uPosition, SET uFlags, INTEGER uIDNewItem, LONGINT lpNewItem);
 #define WinAPI_ModifyWorldTransform(p0, p1, p1__typ, p2)	ModifyWorldTransform(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 ModifyWorldTransform(LONGINT p0, WinAPI_XFORM *p1, INTEGER p2);
 #define WinAPI_MoveFile(lpExistingFileName, lpNewFileName)	MoveFileA(lpExistingFileName, lpNewFileName)
 #define WinAPI_MoveFileA(lpExistingFileName, lpNewFileName)	MoveFileA(lpExistingFileName, lpNewFileName)
-__EXTERN INTEGER __CALL_1 MoveFileA(WinAPI_PtrSTR lpExistingFileName, WinAPI_PtrSTR lpNewFileName);
+__EXTERN INTEGER __CALL_1 MoveFileA(LONGINT lpExistingFileName, LONGINT lpNewFileName);
 #define WinAPI_MoveFileEx(lpExistingFileName, lpNewFileName, dwFlags)	MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags)
 #define WinAPI_MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags)	MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags)
-__EXTERN INTEGER __CALL_1 MoveFileExA(WinAPI_PtrSTR lpExistingFileName, WinAPI_PtrSTR lpNewFileName, SET dwFlags);
+__EXTERN INTEGER __CALL_1 MoveFileExA(LONGINT lpExistingFileName, LONGINT lpNewFileName, SET dwFlags);
 #define WinAPI_MoveFileExW(lpExistingFileName, lpNewFileName, dwFlags)	MoveFileExW(lpExistingFileName, lpNewFileName, dwFlags)
-__EXTERN INTEGER __CALL_1 MoveFileExW(WinAPI_PtrWSTR lpExistingFileName, WinAPI_PtrWSTR lpNewFileName, SET dwFlags);
+__EXTERN INTEGER __CALL_1 MoveFileExW(LONGINT lpExistingFileName, LONGINT lpNewFileName, SET dwFlags);
 #define WinAPI_MoveFileW(lpExistingFileName, lpNewFileName)	MoveFileW(lpExistingFileName, lpNewFileName)
-__EXTERN INTEGER __CALL_1 MoveFileW(WinAPI_PtrWSTR lpExistingFileName, WinAPI_PtrWSTR lpNewFileName);
+__EXTERN INTEGER __CALL_1 MoveFileW(LONGINT lpExistingFileName, LONGINT lpNewFileName);
 #define WinAPI_MoveToEx(p0, p1, p2, p3, p3__typ)	MoveToEx(p0, p1, p2, p3)
 __EXTERN INTEGER __CALL_1 MoveToEx(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_POINT *p3);
 #define WinAPI_MoveWindow(hWnd, X, Y, nWidth, nHeight, bRepaint)	MoveWindow(hWnd, X, Y, nWidth, nHeight, bRepaint)
@@ -8332,40 +8177,40 @@ __EXTERN INTEGER __CALL_1 MsgWaitForMultipleObjectsEx(INTEGER nCount, LONGINT *p
 #define WinAPI_MulDiv(nNumber, nNumerator, nDenominator)	MulDiv(nNumber, nNumerator, nDenominator)
 __EXTERN INTEGER __CALL_1 MulDiv(INTEGER nNumber, INTEGER nNumerator, INTEGER nDenominator);
 #define WinAPI_MultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cchMultiByte, lpWideCharStr, cchWideChar)	MultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cchMultiByte, lpWideCharStr, cchWideChar)
-__EXTERN INTEGER __CALL_1 MultiByteToWideChar(INTEGER CodePage, SET dwFlags, WinAPI_PtrSTR lpMultiByteStr, INTEGER cchMultiByte, WinAPI_PtrWSTR lpWideCharStr, INTEGER cchWideChar);
+__EXTERN INTEGER __CALL_1 MultiByteToWideChar(INTEGER CodePage, SET dwFlags, LONGINT lpMultiByteStr, INTEGER cchMultiByte, LONGINT lpWideCharStr, INTEGER cchWideChar);
 #define WinAPI_NotifyBootConfigStatus(BootAcceptable)	NotifyBootConfigStatus(BootAcceptable)
 __EXTERN INTEGER __CALL_1 NotifyBootConfigStatus(INTEGER BootAcceptable);
 #define WinAPI_NotifyChangeEventLog(hEventLog, hEvent)	NotifyChangeEventLog(hEventLog, hEvent)
 __EXTERN INTEGER __CALL_1 NotifyChangeEventLog(LONGINT hEventLog, LONGINT hEvent);
 #define WinAPI_ObjectCloseAuditAlarm(SubsystemName, HandleId, GenerateOnClose)	ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose)
 #define WinAPI_ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose)	ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose)
-__EXTERN INTEGER __CALL_1 ObjectCloseAuditAlarmA(WinAPI_PtrSTR SubsystemName, LONGINT HandleId, INTEGER GenerateOnClose);
+__EXTERN INTEGER __CALL_1 ObjectCloseAuditAlarmA(LONGINT SubsystemName, LONGINT HandleId, INTEGER GenerateOnClose);
 #define WinAPI_ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose)	ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose)
-__EXTERN INTEGER __CALL_1 ObjectCloseAuditAlarmW(WinAPI_PtrWSTR SubsystemName, LONGINT HandleId, INTEGER GenerateOnClose);
+__EXTERN INTEGER __CALL_1 ObjectCloseAuditAlarmW(LONGINT SubsystemName, LONGINT HandleId, INTEGER GenerateOnClose);
 #define WinAPI_ObjectOpenAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, Privileges__typ, ObjectCreation, AccessGranted, GenerateOnClose)	ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose)
 #define WinAPI_ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, Privileges__typ, ObjectCreation, AccessGranted, GenerateOnClose)	ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose)
-__EXTERN INTEGER __CALL_1 ObjectOpenAuditAlarmA(WinAPI_PtrSTR SubsystemName, LONGINT HandleId, WinAPI_PtrSTR ObjectTypeName, WinAPI_PtrSTR ObjectName, LONGINT pSecurityDescriptor, LONGINT ClientToken, SET DesiredAccess, INTEGER GrantedAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER ObjectCreation, INTEGER AccessGranted, INTEGER *GenerateOnClose);
+__EXTERN INTEGER __CALL_1 ObjectOpenAuditAlarmA(LONGINT SubsystemName, LONGINT HandleId, LONGINT ObjectTypeName, LONGINT ObjectName, LONGINT pSecurityDescriptor, LONGINT ClientToken, SET DesiredAccess, INTEGER GrantedAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER ObjectCreation, INTEGER AccessGranted, INTEGER *GenerateOnClose);
 #define WinAPI_ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, Privileges__typ, ObjectCreation, AccessGranted, GenerateOnClose)	ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose)
-__EXTERN INTEGER __CALL_1 ObjectOpenAuditAlarmW(WinAPI_PtrWSTR SubsystemName, LONGINT HandleId, WinAPI_PtrWSTR ObjectTypeName, WinAPI_PtrWSTR ObjectName, LONGINT pSecurityDescriptor, LONGINT ClientToken, SET DesiredAccess, INTEGER GrantedAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER ObjectCreation, INTEGER AccessGranted, INTEGER *GenerateOnClose);
+__EXTERN INTEGER __CALL_1 ObjectOpenAuditAlarmW(LONGINT SubsystemName, LONGINT HandleId, LONGINT ObjectTypeName, LONGINT ObjectName, LONGINT pSecurityDescriptor, LONGINT ClientToken, SET DesiredAccess, INTEGER GrantedAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER ObjectCreation, INTEGER AccessGranted, INTEGER *GenerateOnClose);
 #define WinAPI_ObjectPrivilegeAuditAlarm(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, Privileges__typ, AccessGranted)	ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted)
 #define WinAPI_ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, Privileges__typ, AccessGranted)	ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted)
-__EXTERN INTEGER __CALL_1 ObjectPrivilegeAuditAlarmA(WinAPI_PtrSTR SubsystemName, LONGINT HandleId, LONGINT ClientToken, SET DesiredAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
+__EXTERN INTEGER __CALL_1 ObjectPrivilegeAuditAlarmA(LONGINT SubsystemName, LONGINT HandleId, LONGINT ClientToken, SET DesiredAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 #define WinAPI_ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, Privileges__typ, AccessGranted)	ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted)
-__EXTERN INTEGER __CALL_1 ObjectPrivilegeAuditAlarmW(WinAPI_PtrWSTR SubsystemName, LONGINT HandleId, LONGINT ClientToken, SET DesiredAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
+__EXTERN INTEGER __CALL_1 ObjectPrivilegeAuditAlarmW(LONGINT SubsystemName, LONGINT HandleId, LONGINT ClientToken, SET DesiredAccess, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 #define WinAPI_OemKeyScan(wOemChar)	OemKeyScan(wOemChar)
 __EXTERN INTEGER __CALL_1 OemKeyScan(SHORTINT wOemChar);
 #define WinAPI_OemToAnsi(lpszSrc, lpszDst)	OemToCharA(lpszSrc, lpszDst)
 #define WinAPI_OemToAnsiBuff(lpszSrc, lpszDst, cchDstLength)	OemToCharBuffA(lpszSrc, lpszDst, cchDstLength)
 #define WinAPI_OemToChar(lpszSrc, lpszDst)	OemToCharA(lpszSrc, lpszDst)
 #define WinAPI_OemToCharA(lpszSrc, lpszDst)	OemToCharA(lpszSrc, lpszDst)
-__EXTERN INTEGER __CALL_1 OemToCharA(WinAPI_PtrSTR lpszSrc, WinAPI_PtrSTR lpszDst);
+__EXTERN INTEGER __CALL_1 OemToCharA(LONGINT lpszSrc, LONGINT lpszDst);
 #define WinAPI_OemToCharBuff(lpszSrc, lpszDst, cchDstLength)	OemToCharBuffA(lpszSrc, lpszDst, cchDstLength)
 #define WinAPI_OemToCharBuffA(lpszSrc, lpszDst, cchDstLength)	OemToCharBuffA(lpszSrc, lpszDst, cchDstLength)
-__EXTERN INTEGER __CALL_1 OemToCharBuffA(WinAPI_PtrSTR lpszSrc, WinAPI_PtrSTR lpszDst, INTEGER cchDstLength);
+__EXTERN INTEGER __CALL_1 OemToCharBuffA(LONGINT lpszSrc, LONGINT lpszDst, INTEGER cchDstLength);
 #define WinAPI_OemToCharBuffW(lpszSrc, lpszDst, cchDstLength)	OemToCharBuffW(lpszSrc, lpszDst, cchDstLength)
-__EXTERN INTEGER __CALL_1 OemToCharBuffW(WinAPI_PtrSTR lpszSrc, WinAPI_PtrWSTR lpszDst, INTEGER cchDstLength);
+__EXTERN INTEGER __CALL_1 OemToCharBuffW(LONGINT lpszSrc, LONGINT lpszDst, INTEGER cchDstLength);
 #define WinAPI_OemToCharW(lpszSrc, lpszDst)	OemToCharW(lpszSrc, lpszDst)
-__EXTERN INTEGER __CALL_1 OemToCharW(WinAPI_PtrSTR lpszSrc, WinAPI_PtrWSTR lpszDst);
+__EXTERN INTEGER __CALL_1 OemToCharW(LONGINT lpszSrc, LONGINT lpszDst);
 #define WinAPI_OffsetClipRgn(p0, p1, p2)	OffsetClipRgn(p0, p1, p2)
 __EXTERN INTEGER __CALL_1 OffsetClipRgn(LONGINT p0, INTEGER p1, INTEGER p2);
 #define WinAPI_OffsetRect(lprc, lprc__typ, dx, dy)	OffsetRect(lprc, dx, dy)
@@ -8378,83 +8223,83 @@ __EXTERN INTEGER __CALL_1 OffsetViewportOrgEx(LONGINT p0, INTEGER p1, INTEGER p2
 __EXTERN INTEGER __CALL_1 OffsetWindowOrgEx(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_POINT *p3);
 #define WinAPI_OpenBackupEventLog(lpUNCServerName, lpFileName)	OpenBackupEventLogA(lpUNCServerName, lpFileName)
 #define WinAPI_OpenBackupEventLogA(lpUNCServerName, lpFileName)	OpenBackupEventLogA(lpUNCServerName, lpFileName)
-__EXTERN LONGINT __CALL_1 OpenBackupEventLogA(WinAPI_PtrSTR lpUNCServerName, WinAPI_PtrSTR lpFileName);
+__EXTERN LONGINT __CALL_1 OpenBackupEventLogA(LONGINT lpUNCServerName, LONGINT lpFileName);
 #define WinAPI_OpenBackupEventLogW(lpUNCServerName, lpFileName)	OpenBackupEventLogW(lpUNCServerName, lpFileName)
-__EXTERN LONGINT __CALL_1 OpenBackupEventLogW(WinAPI_PtrWSTR lpUNCServerName, WinAPI_PtrWSTR lpFileName);
+__EXTERN LONGINT __CALL_1 OpenBackupEventLogW(LONGINT lpUNCServerName, LONGINT lpFileName);
 #define WinAPI_OpenClipboard(hWndNewOwner)	OpenClipboard(hWndNewOwner)
 __EXTERN INTEGER __CALL_1 OpenClipboard(LONGINT hWndNewOwner);
 #define WinAPI_OpenDesktop(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)	OpenDesktopA(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)
 #define WinAPI_OpenDesktopA(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)	OpenDesktopA(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenDesktopA(WinAPI_PtrSTR lpszDesktop, SET dwFlags, INTEGER fInherit, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenDesktopA(LONGINT lpszDesktop, SET dwFlags, INTEGER fInherit, SET dwDesiredAccess);
 #define WinAPI_OpenDesktopW(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)	OpenDesktopW(lpszDesktop, dwFlags, fInherit, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenDesktopW(WinAPI_PtrWSTR lpszDesktop, SET dwFlags, INTEGER fInherit, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenDesktopW(LONGINT lpszDesktop, SET dwFlags, INTEGER fInherit, SET dwDesiredAccess);
 #define WinAPI_OpenEvent(dwDesiredAccess, bInheritHandle, lpName)	OpenEventA(dwDesiredAccess, bInheritHandle, lpName)
 #define WinAPI_OpenEventA(dwDesiredAccess, bInheritHandle, lpName)	OpenEventA(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenEventA(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenEventA(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenEventLog(lpUNCServerName, lpSourceName)	OpenEventLogA(lpUNCServerName, lpSourceName)
 #define WinAPI_OpenEventLogA(lpUNCServerName, lpSourceName)	OpenEventLogA(lpUNCServerName, lpSourceName)
-__EXTERN LONGINT __CALL_1 OpenEventLogA(WinAPI_PtrSTR lpUNCServerName, WinAPI_PtrSTR lpSourceName);
+__EXTERN LONGINT __CALL_1 OpenEventLogA(LONGINT lpUNCServerName, LONGINT lpSourceName);
 #define WinAPI_OpenEventLogW(lpUNCServerName, lpSourceName)	OpenEventLogW(lpUNCServerName, lpSourceName)
-__EXTERN LONGINT __CALL_1 OpenEventLogW(WinAPI_PtrWSTR lpUNCServerName, WinAPI_PtrWSTR lpSourceName);
+__EXTERN LONGINT __CALL_1 OpenEventLogW(LONGINT lpUNCServerName, LONGINT lpSourceName);
 #define WinAPI_OpenEventW(dwDesiredAccess, bInheritHandle, lpName)	OpenEventW(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenEventW(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenEventW(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenFile(lpFileName, lpReOpenBuff, lpReOpenBuff__typ, uStyle)	OpenFile(lpFileName, lpReOpenBuff, uStyle)
-__EXTERN INTEGER __CALL_1 OpenFile(WinAPI_PtrSTR lpFileName, WinAPI_OFSTRUCT *lpReOpenBuff, SET uStyle);
+__EXTERN INTEGER __CALL_1 OpenFile(LONGINT lpFileName, WinAPI_OFSTRUCT *lpReOpenBuff, SET uStyle);
 #define WinAPI_OpenFileMapping(dwDesiredAccess, bInheritHandle, lpName)	OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName)
 #define WinAPI_OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName)	OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenFileMappingA(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenFileMappingA(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenFileMappingW(dwDesiredAccess, bInheritHandle, lpName)	OpenFileMappingW(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenFileMappingW(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenFileMappingW(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenIcon(hWnd)	OpenIcon(hWnd)
 __EXTERN INTEGER __CALL_1 OpenIcon(LONGINT hWnd);
 #define WinAPI_OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess)	OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess)
 __EXTERN LONGINT __CALL_1 OpenInputDesktop(SET dwFlags, INTEGER fInherit, SET dwDesiredAccess);
 #define WinAPI_OpenMutex(dwDesiredAccess, bInheritHandle, lpName)	OpenMutexA(dwDesiredAccess, bInheritHandle, lpName)
 #define WinAPI_OpenMutexA(dwDesiredAccess, bInheritHandle, lpName)	OpenMutexA(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenMutexA(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenMutexA(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenMutexW(dwDesiredAccess, bInheritHandle, lpName)	OpenMutexW(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenMutexW(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenMutexW(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenPrinter(pPrinterName, phPrinter, pDefault, pDefault__typ)	OpenPrinterA(pPrinterName, phPrinter, pDefault)
 #define WinAPI_OpenPrinterA(pPrinterName, phPrinter, pDefault, pDefault__typ)	OpenPrinterA(pPrinterName, phPrinter, pDefault)
-__EXTERN INTEGER __CALL_1 OpenPrinterA(WinAPI_PtrSTR pPrinterName, LONGINT *phPrinter, WinAPI_PRINTER_DEFAULTSA *pDefault);
+__EXTERN INTEGER __CALL_1 OpenPrinterA(LONGINT pPrinterName, LONGINT *phPrinter, WinAPI_PRINTER_DEFAULTSA *pDefault);
 #define WinAPI_OpenPrinterW(pPrinterName, phPrinter, pDefault, pDefault__typ)	OpenPrinterW(pPrinterName, phPrinter, pDefault)
-__EXTERN INTEGER __CALL_1 OpenPrinterW(WinAPI_PtrWSTR pPrinterName, LONGINT *phPrinter, WinAPI_PRINTER_DEFAULTSW *pDefault);
+__EXTERN INTEGER __CALL_1 OpenPrinterW(LONGINT pPrinterName, LONGINT *phPrinter, WinAPI_PRINTER_DEFAULTSW *pDefault);
 #define WinAPI_OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId)	OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId)
 __EXTERN LONGINT __CALL_1 OpenProcess(SET dwDesiredAccess, INTEGER bInheritHandle, INTEGER dwProcessId);
 #define WinAPI_OpenProcessToken(ProcessHandle, DesiredAccess, TokenHandle)	OpenProcessToken(ProcessHandle, DesiredAccess, TokenHandle)
 __EXTERN INTEGER __CALL_1 OpenProcessToken(LONGINT ProcessHandle, SET DesiredAccess, LONGINT *TokenHandle);
 #define WinAPI_OpenSCManager(lpMachineName, lpDatabaseName, dwDesiredAccess)	OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess)
 #define WinAPI_OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess)	OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenSCManagerA(WinAPI_PtrSTR lpMachineName, WinAPI_PtrSTR lpDatabaseName, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenSCManagerA(LONGINT lpMachineName, LONGINT lpDatabaseName, SET dwDesiredAccess);
 #define WinAPI_OpenSCManagerW(lpMachineName, lpDatabaseName, dwDesiredAccess)	OpenSCManagerW(lpMachineName, lpDatabaseName, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenSCManagerW(WinAPI_PtrWSTR lpMachineName, WinAPI_PtrWSTR lpDatabaseName, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenSCManagerW(LONGINT lpMachineName, LONGINT lpDatabaseName, SET dwDesiredAccess);
 #define WinAPI_OpenSemaphore(dwDesiredAccess, bInheritHandle, lpName)	OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName)
 #define WinAPI_OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName)	OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenSemaphoreA(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenSemaphoreA(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenSemaphoreW(dwDesiredAccess, bInheritHandle, lpName)	OpenSemaphoreW(dwDesiredAccess, bInheritHandle, lpName)
-__EXTERN LONGINT __CALL_1 OpenSemaphoreW(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrWSTR lpName);
+__EXTERN LONGINT __CALL_1 OpenSemaphoreW(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpName);
 #define WinAPI_OpenService(hSCManager, lpServiceName, dwDesiredAccess)	OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess)
 #define WinAPI_OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess)	OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenServiceA(LONGINT hSCManager, WinAPI_PtrSTR lpServiceName, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenServiceA(LONGINT hSCManager, LONGINT lpServiceName, SET dwDesiredAccess);
 #define WinAPI_OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess)	OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenServiceW(LONGINT hSCManager, WinAPI_PtrWSTR lpServiceName, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenServiceW(LONGINT hSCManager, LONGINT lpServiceName, SET dwDesiredAccess);
 #define WinAPI_OpenThreadToken(ThreadHandle, DesiredAccess, OpenAsSelf, TokenHandle)	OpenThreadToken(ThreadHandle, DesiredAccess, OpenAsSelf, TokenHandle)
 __EXTERN INTEGER __CALL_1 OpenThreadToken(LONGINT ThreadHandle, SET DesiredAccess, INTEGER OpenAsSelf, LONGINT *TokenHandle);
 #define WinAPI_OpenWaitableTimer(dwDesiredAccess, bInheritHandle, lpTimerName)	OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName)
 #define WinAPI_OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName)	OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName)
-__EXTERN LONGINT __CALL_1 OpenWaitableTimerA(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrSTR lpTimerName);
+__EXTERN LONGINT __CALL_1 OpenWaitableTimerA(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpTimerName);
 #define WinAPI_OpenWaitableTimerW(dwDesiredAccess, bInheritHandle, lpTimerName)	OpenWaitableTimerW(dwDesiredAccess, bInheritHandle, lpTimerName)
-__EXTERN LONGINT __CALL_1 OpenWaitableTimerW(SET dwDesiredAccess, INTEGER bInheritHandle, WinAPI_PtrWSTR lpTimerName);
+__EXTERN LONGINT __CALL_1 OpenWaitableTimerW(SET dwDesiredAccess, INTEGER bInheritHandle, LONGINT lpTimerName);
 #define WinAPI_OpenWindowStation(lpszWinSta, fInherit, dwDesiredAccess)	OpenWindowStationA(lpszWinSta, fInherit, dwDesiredAccess)
 #define WinAPI_OpenWindowStationA(lpszWinSta, fInherit, dwDesiredAccess)	OpenWindowStationA(lpszWinSta, fInherit, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenWindowStationA(WinAPI_PtrSTR lpszWinSta, INTEGER fInherit, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenWindowStationA(LONGINT lpszWinSta, INTEGER fInherit, SET dwDesiredAccess);
 #define WinAPI_OpenWindowStationW(lpszWinSta, fInherit, dwDesiredAccess)	OpenWindowStationW(lpszWinSta, fInherit, dwDesiredAccess)
-__EXTERN LONGINT __CALL_1 OpenWindowStationW(WinAPI_PtrWSTR lpszWinSta, INTEGER fInherit, SET dwDesiredAccess);
+__EXTERN LONGINT __CALL_1 OpenWindowStationW(LONGINT lpszWinSta, INTEGER fInherit, SET dwDesiredAccess);
 #define WinAPI_OutputDebugString(lpOutputString)	OutputDebugStringA(lpOutputString)
 #define WinAPI_OutputDebugStringA(lpOutputString)	OutputDebugStringA(lpOutputString)
-__EXTERN void __CALL_1 OutputDebugStringA(WinAPI_PtrSTR lpOutputString);
+__EXTERN void __CALL_1 OutputDebugStringA(LONGINT lpOutputString);
 #define WinAPI_OutputDebugStringW(lpOutputString)	OutputDebugStringW(lpOutputString)
-__EXTERN void __CALL_1 OutputDebugStringW(WinAPI_PtrWSTR lpOutputString);
+__EXTERN void __CALL_1 OutputDebugStringW(LONGINT lpOutputString);
 #define WinAPI_PackDDElParam(msg, uiLo, uiHi)	PackDDElParam(msg, uiLo, uiHi)
 __EXTERN INTEGER __CALL_1 PackDDElParam(INTEGER msg, INTEGER uiLo, INTEGER uiHi);
 #define WinAPI_PaintDesktop(hdc)	PaintDesktop(hdc)
@@ -8529,18 +8374,18 @@ __EXTERN INTEGER __CALL_1 PrepareTape(LONGINT hDevice, INTEGER dwOperation, INTE
 #define WinAPI_PrevInstance()	__hPrevInstance
 #define WinAPI_PrinterMessageBox(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)
 #define WinAPI_PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType)
-__EXTERN INTEGER __CALL_1 PrinterMessageBoxA(LONGINT hPrinter, INTEGER Error, LONGINT hWnd, WinAPI_PtrSTR pText, WinAPI_PtrSTR pCaption, INTEGER dwType);
+__EXTERN INTEGER __CALL_1 PrinterMessageBoxA(LONGINT hPrinter, INTEGER Error, LONGINT hWnd, LONGINT pText, LONGINT pCaption, INTEGER dwType);
 #define WinAPI_PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType)	PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType)
-__EXTERN INTEGER __CALL_1 PrinterMessageBoxW(LONGINT hPrinter, INTEGER Error, LONGINT hWnd, WinAPI_PtrWSTR pText, WinAPI_PtrWSTR pCaption, INTEGER dwType);
+__EXTERN INTEGER __CALL_1 PrinterMessageBoxW(LONGINT hPrinter, INTEGER Error, LONGINT hWnd, LONGINT pText, LONGINT pCaption, INTEGER dwType);
 #define WinAPI_PrinterProperties(hWnd, hPrinter)	PrinterProperties(hWnd, hPrinter)
 __EXTERN INTEGER __CALL_1 PrinterProperties(LONGINT hWnd, LONGINT hPrinter);
 #define WinAPI_PrivilegeCheck(ClientToken, RequiredPrivileges, RequiredPrivileges__typ, pfResult)	PrivilegeCheck(ClientToken, RequiredPrivileges, pfResult)
 __EXTERN INTEGER __CALL_1 PrivilegeCheck(LONGINT ClientToken, WinAPI_PRIVILEGE_SET *RequiredPrivileges, INTEGER *pfResult);
 #define WinAPI_PrivilegedServiceAuditAlarm(SubsystemName, ServiceName, ClientToken, Privileges, Privileges__typ, AccessGranted)	PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted)
 #define WinAPI_PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, Privileges__typ, AccessGranted)	PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted)
-__EXTERN INTEGER __CALL_1 PrivilegedServiceAuditAlarmA(WinAPI_PtrSTR SubsystemName, WinAPI_PtrSTR ServiceName, LONGINT ClientToken, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
+__EXTERN INTEGER __CALL_1 PrivilegedServiceAuditAlarmA(LONGINT SubsystemName, LONGINT ServiceName, LONGINT ClientToken, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 #define WinAPI_PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Privileges, Privileges__typ, AccessGranted)	PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted)
-__EXTERN INTEGER __CALL_1 PrivilegedServiceAuditAlarmW(WinAPI_PtrWSTR SubsystemName, WinAPI_PtrWSTR ServiceName, LONGINT ClientToken, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
+__EXTERN INTEGER __CALL_1 PrivilegedServiceAuditAlarmW(LONGINT SubsystemName, LONGINT ServiceName, LONGINT ClientToken, WinAPI_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 #define WinAPI_PropertySheet(p0, p0__typ)	PropertySheetA(p0)
 #define WinAPI_PropertySheetA(p0, p0__typ)	PropertySheetA(p0)
 __EXTERN INTEGER __CALL_1 PropertySheetA(WinAPI_PROPSHEETHEADERA *p0);
@@ -8558,9 +8403,9 @@ __EXTERN INTEGER __CALL_1 PulseEvent(LONGINT hEvent);
 __EXTERN INTEGER __CALL_1 PurgeComm(LONGINT hFile, SET dwFlags);
 #define WinAPI_QueryDosDevice(lpDeviceName, lpTargetPath, ucchMax)	QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax)
 #define WinAPI_QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax)	QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax)
-__EXTERN INTEGER __CALL_1 QueryDosDeviceA(WinAPI_PtrSTR lpDeviceName, WinAPI_PtrSTR lpTargetPath, INTEGER ucchMax);
+__EXTERN INTEGER __CALL_1 QueryDosDeviceA(LONGINT lpDeviceName, LONGINT lpTargetPath, INTEGER ucchMax);
 #define WinAPI_QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax)	QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax)
-__EXTERN INTEGER __CALL_1 QueryDosDeviceW(WinAPI_PtrWSTR lpDeviceName, WinAPI_PtrWSTR lpTargetPath, INTEGER ucchMax);
+__EXTERN INTEGER __CALL_1 QueryDosDeviceW(LONGINT lpDeviceName, LONGINT lpTargetPath, INTEGER ucchMax);
 #define WinAPI_QueryPerformanceCounter(lpPerformanceCount)	QueryPerformanceCounter(lpPerformanceCount)
 __EXTERN INTEGER __CALL_1 QueryPerformanceCounter(LONGINT *lpPerformanceCount);
 #define WinAPI_QueryPerformanceFrequency(lpFrequency)	QueryPerformanceFrequency(lpFrequency)
@@ -8598,9 +8443,9 @@ __EXTERN INTEGER __CALL_1 ReadConsoleOutputA(LONGINT hConsoleOutput, WinAPI_CHAR
 __EXTERN INTEGER __CALL_1 ReadConsoleOutputAttribute(LONGINT hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfAttrsRead);
 #define WinAPI_ReadConsoleOutputCharacter(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
 #define WinAPI_ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
-__EXTERN INTEGER __CALL_1 ReadConsoleOutputCharacterA(LONGINT hConsoleOutput, WinAPI_PtrSTR lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
+__EXTERN INTEGER __CALL_1 ReadConsoleOutputCharacterA(LONGINT hConsoleOutput, LONGINT lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
 #define WinAPI_ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
-__EXTERN INTEGER __CALL_1 ReadConsoleOutputCharacterW(LONGINT hConsoleOutput, WinAPI_PtrWSTR lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
+__EXTERN INTEGER __CALL_1 ReadConsoleOutputCharacterW(LONGINT hConsoleOutput, LONGINT lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
 #define WinAPI_ReadConsoleOutputW(hConsoleOutput, lpBuffer, lpBuffer__typ, dwBufferSize, dwBufferCoord, lpReadRegion, lpReadRegion__typ)	ReadConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)
 __EXTERN INTEGER __CALL_1 ReadConsoleOutputW(LONGINT hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpReadRegion);
 #define WinAPI_ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)	ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)
@@ -8634,117 +8479,117 @@ __EXTERN INTEGER __CALL_1 RedrawWindow(LONGINT hWnd, WinAPI_RECT *lprcUpdate, LO
 __EXTERN INTEGER __CALL_1 RegCloseKey(LONGINT hKey);
 #define WinAPI_RegConnectRegistry(lpMachineName, hKey, phkResult)	RegConnectRegistryA(lpMachineName, hKey, phkResult)
 #define WinAPI_RegConnectRegistryA(lpMachineName, hKey, phkResult)	RegConnectRegistryA(lpMachineName, hKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegConnectRegistryA(WinAPI_PtrSTR lpMachineName, LONGINT hKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegConnectRegistryA(LONGINT lpMachineName, LONGINT hKey, LONGINT *phkResult);
 #define WinAPI_RegConnectRegistryW(lpMachineName, hKey, phkResult)	RegConnectRegistryW(lpMachineName, hKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegConnectRegistryW(WinAPI_PtrWSTR lpMachineName, LONGINT hKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegConnectRegistryW(LONGINT lpMachineName, LONGINT hKey, LONGINT *phkResult);
 #define WinAPI_RegCreateKey(hKey, lpSubKey, phkResult)	RegCreateKeyA(hKey, lpSubKey, phkResult)
 #define WinAPI_RegCreateKeyA(hKey, lpSubKey, phkResult)	RegCreateKeyA(hKey, lpSubKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegCreateKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegCreateKeyA(LONGINT hKey, LONGINT lpSubKey, LONGINT *phkResult);
 #define WinAPI_RegCreateKeyEx(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, lpSecurityAttributes__typ, phkResult, lpdwDisposition)	RegCreateKeyExA(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition)
 #define WinAPI_RegCreateKeyExA(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, lpSecurityAttributes__typ, phkResult, lpdwDisposition)	RegCreateKeyExA(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition)
-__EXTERN INTEGER __CALL_1 RegCreateKeyExA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, INTEGER Reserved, WinAPI_PtrSTR lpClass, SET dwOptions, SET samDesired, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, LONGINT *phkResult, INTEGER *lpdwDisposition);
+__EXTERN INTEGER __CALL_1 RegCreateKeyExA(LONGINT hKey, LONGINT lpSubKey, INTEGER Reserved, LONGINT lpClass, SET dwOptions, SET samDesired, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, LONGINT *phkResult, INTEGER *lpdwDisposition);
 #define WinAPI_RegCreateKeyExW(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, lpSecurityAttributes__typ, phkResult, lpdwDisposition)	RegCreateKeyExW(hKey, lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition)
-__EXTERN INTEGER __CALL_1 RegCreateKeyExW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, INTEGER Reserved, WinAPI_PtrWSTR lpClass, SET dwOptions, SET samDesired, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, LONGINT *phkResult, INTEGER *lpdwDisposition);
+__EXTERN INTEGER __CALL_1 RegCreateKeyExW(LONGINT hKey, LONGINT lpSubKey, INTEGER Reserved, LONGINT lpClass, SET dwOptions, SET samDesired, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes, LONGINT *phkResult, INTEGER *lpdwDisposition);
 #define WinAPI_RegCreateKeyW(hKey, lpSubKey, phkResult)	RegCreateKeyW(hKey, lpSubKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegCreateKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegCreateKeyW(LONGINT hKey, LONGINT lpSubKey, LONGINT *phkResult);
 #define WinAPI_RegDeleteKey(hKey, lpSubKey)	RegDeleteKeyA(hKey, lpSubKey)
 #define WinAPI_RegDeleteKeyA(hKey, lpSubKey)	RegDeleteKeyA(hKey, lpSubKey)
-__EXTERN INTEGER __CALL_1 RegDeleteKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey);
+__EXTERN INTEGER __CALL_1 RegDeleteKeyA(LONGINT hKey, LONGINT lpSubKey);
 #define WinAPI_RegDeleteKeyW(hKey, lpSubKey)	RegDeleteKeyW(hKey, lpSubKey)
-__EXTERN INTEGER __CALL_1 RegDeleteKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey);
+__EXTERN INTEGER __CALL_1 RegDeleteKeyW(LONGINT hKey, LONGINT lpSubKey);
 #define WinAPI_RegDeleteValue(hKey, lpValueName)	RegDeleteValueA(hKey, lpValueName)
 #define WinAPI_RegDeleteValueA(hKey, lpValueName)	RegDeleteValueA(hKey, lpValueName)
-__EXTERN INTEGER __CALL_1 RegDeleteValueA(LONGINT hKey, WinAPI_PtrSTR lpValueName);
+__EXTERN INTEGER __CALL_1 RegDeleteValueA(LONGINT hKey, LONGINT lpValueName);
 #define WinAPI_RegDeleteValueW(hKey, lpValueName)	RegDeleteValueW(hKey, lpValueName)
-__EXTERN INTEGER __CALL_1 RegDeleteValueW(LONGINT hKey, WinAPI_PtrWSTR lpValueName);
+__EXTERN INTEGER __CALL_1 RegDeleteValueW(LONGINT hKey, LONGINT lpValueName);
 #define WinAPI_RegEnumKey(hKey, dwIndex, lpName, cbName)	RegEnumKeyA(hKey, dwIndex, lpName, cbName)
 #define WinAPI_RegEnumKeyA(hKey, dwIndex, lpName, cbName)	RegEnumKeyA(hKey, dwIndex, lpName, cbName)
-__EXTERN INTEGER __CALL_1 RegEnumKeyA(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrSTR lpName, INTEGER cbName);
+__EXTERN INTEGER __CALL_1 RegEnumKeyA(LONGINT hKey, INTEGER dwIndex, LONGINT lpName, INTEGER cbName);
 #define WinAPI_RegEnumKeyEx(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime, lpftLastWriteTime__typ)	RegEnumKeyExA(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime)
 #define WinAPI_RegEnumKeyExA(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime, lpftLastWriteTime__typ)	RegEnumKeyExA(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime)
-__EXTERN INTEGER __CALL_1 RegEnumKeyExA(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrSTR lpName, INTEGER *lpcbName, INTEGER *lpReserved, WinAPI_PtrSTR lpClass, INTEGER *lpcbClass, WinAPI_FILETIME *lpftLastWriteTime);
+__EXTERN INTEGER __CALL_1 RegEnumKeyExA(LONGINT hKey, INTEGER dwIndex, LONGINT lpName, INTEGER *lpcbName, INTEGER *lpReserved, LONGINT lpClass, INTEGER *lpcbClass, WinAPI_FILETIME *lpftLastWriteTime);
 #define WinAPI_RegEnumKeyExW(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime, lpftLastWriteTime__typ)	RegEnumKeyExW(hKey, dwIndex, lpName, lpcbName, lpReserved, lpClass, lpcbClass, lpftLastWriteTime)
-__EXTERN INTEGER __CALL_1 RegEnumKeyExW(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrWSTR lpName, INTEGER *lpcbName, INTEGER *lpReserved, WinAPI_PtrWSTR lpClass, INTEGER *lpcbClass, WinAPI_FILETIME *lpftLastWriteTime);
+__EXTERN INTEGER __CALL_1 RegEnumKeyExW(LONGINT hKey, INTEGER dwIndex, LONGINT lpName, INTEGER *lpcbName, INTEGER *lpReserved, LONGINT lpClass, INTEGER *lpcbClass, WinAPI_FILETIME *lpftLastWriteTime);
 #define WinAPI_RegEnumKeyW(hKey, dwIndex, lpName, cbName)	RegEnumKeyW(hKey, dwIndex, lpName, cbName)
-__EXTERN INTEGER __CALL_1 RegEnumKeyW(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrWSTR lpName, INTEGER cbName);
+__EXTERN INTEGER __CALL_1 RegEnumKeyW(LONGINT hKey, INTEGER dwIndex, LONGINT lpName, INTEGER cbName);
 #define WinAPI_RegEnumValue(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)	RegEnumValueA(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)
 #define WinAPI_RegEnumValueA(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)	RegEnumValueA(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)
-__EXTERN INTEGER __CALL_1 RegEnumValueA(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrSTR lpValueName, INTEGER *lpcbValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
+__EXTERN INTEGER __CALL_1 RegEnumValueA(LONGINT hKey, INTEGER dwIndex, LONGINT lpValueName, INTEGER *lpcbValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
 #define WinAPI_RegEnumValueW(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)	RegEnumValueW(hKey, dwIndex, lpValueName, lpcbValueName, lpReserved, lpType, lpData, lpcbData)
-__EXTERN INTEGER __CALL_1 RegEnumValueW(LONGINT hKey, INTEGER dwIndex, WinAPI_PtrWSTR lpValueName, INTEGER *lpcbValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
+__EXTERN INTEGER __CALL_1 RegEnumValueW(LONGINT hKey, INTEGER dwIndex, LONGINT lpValueName, INTEGER *lpcbValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
 #define WinAPI_RegFlushKey(hKey)	RegFlushKey(hKey)
 __EXTERN INTEGER __CALL_1 RegFlushKey(LONGINT hKey);
 #define WinAPI_RegGetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor)	RegGetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor)
 __EXTERN INTEGER __CALL_1 RegGetKeySecurity(LONGINT hKey, SET SecurityInformation, LONGINT pSecurityDescriptor, INTEGER *lpcbSecurityDescriptor);
 #define WinAPI_RegLoadKey(hKey, lpSubKey, lpFile)	RegLoadKeyA(hKey, lpSubKey, lpFile)
 #define WinAPI_RegLoadKeyA(hKey, lpSubKey, lpFile)	RegLoadKeyA(hKey, lpSubKey, lpFile)
-__EXTERN INTEGER __CALL_1 RegLoadKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, WinAPI_PtrSTR lpFile);
+__EXTERN INTEGER __CALL_1 RegLoadKeyA(LONGINT hKey, LONGINT lpSubKey, LONGINT lpFile);
 #define WinAPI_RegLoadKeyW(hKey, lpSubKey, lpFile)	RegLoadKeyW(hKey, lpSubKey, lpFile)
-__EXTERN INTEGER __CALL_1 RegLoadKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, WinAPI_PtrWSTR lpFile);
+__EXTERN INTEGER __CALL_1 RegLoadKeyW(LONGINT hKey, LONGINT lpSubKey, LONGINT lpFile);
 #define WinAPI_RegNotifyChangeKeyValue(hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronus)	RegNotifyChangeKeyValue(hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronus)
 __EXTERN INTEGER __CALL_1 RegNotifyChangeKeyValue(LONGINT hKey, INTEGER bWatchSubtree, SET dwNotifyFilter, LONGINT hEvent, INTEGER fAsynchronus);
 #define WinAPI_RegOpenKey(hKey, lpSubKey, phkResult)	RegOpenKeyA(hKey, lpSubKey, phkResult)
 #define WinAPI_RegOpenKeyA(hKey, lpSubKey, phkResult)	RegOpenKeyA(hKey, lpSubKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegOpenKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegOpenKeyA(LONGINT hKey, LONGINT lpSubKey, LONGINT *phkResult);
 #define WinAPI_RegOpenKeyEx(hKey, lpSubKey, ulOptions, samDesired, phkResult)	RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult)
 #define WinAPI_RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult)	RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult)
-__EXTERN INTEGER __CALL_1 RegOpenKeyExA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, INTEGER ulOptions, SET samDesired, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegOpenKeyExA(LONGINT hKey, LONGINT lpSubKey, INTEGER ulOptions, SET samDesired, LONGINT *phkResult);
 #define WinAPI_RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult)	RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult)
-__EXTERN INTEGER __CALL_1 RegOpenKeyExW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, INTEGER ulOptions, SET samDesired, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegOpenKeyExW(LONGINT hKey, LONGINT lpSubKey, INTEGER ulOptions, SET samDesired, LONGINT *phkResult);
 #define WinAPI_RegOpenKeyW(hKey, lpSubKey, phkResult)	RegOpenKeyW(hKey, lpSubKey, phkResult)
-__EXTERN INTEGER __CALL_1 RegOpenKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, LONGINT *phkResult);
+__EXTERN INTEGER __CALL_1 RegOpenKeyW(LONGINT hKey, LONGINT lpSubKey, LONGINT *phkResult);
 #define WinAPI_RegQueryInfoKey(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime, lpftLastWriteTime__typ)	RegQueryInfoKeyA(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime)
 #define WinAPI_RegQueryInfoKeyA(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime, lpftLastWriteTime__typ)	RegQueryInfoKeyA(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime)
-__EXTERN INTEGER __CALL_1 RegQueryInfoKeyA(LONGINT hKey, WinAPI_PtrSTR lpClass, INTEGER *lpcbClass, INTEGER *lpReserved, INTEGER *lpcSubKeys, INTEGER *lpcbMaxSubKeyLen, INTEGER *lpcbMaxClassLen, INTEGER *lpcValues, INTEGER *lpcbMaxValueNameLen, INTEGER *lpcbMaxValueLen, INTEGER *lpcbSecurityDescriptor, WinAPI_FILETIME *lpftLastWriteTime);
+__EXTERN INTEGER __CALL_1 RegQueryInfoKeyA(LONGINT hKey, LONGINT lpClass, INTEGER *lpcbClass, INTEGER *lpReserved, INTEGER *lpcSubKeys, INTEGER *lpcbMaxSubKeyLen, INTEGER *lpcbMaxClassLen, INTEGER *lpcValues, INTEGER *lpcbMaxValueNameLen, INTEGER *lpcbMaxValueLen, INTEGER *lpcbSecurityDescriptor, WinAPI_FILETIME *lpftLastWriteTime);
 #define WinAPI_RegQueryInfoKeyW(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime, lpftLastWriteTime__typ)	RegQueryInfoKeyW(hKey, lpClass, lpcbClass, lpReserved, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime)
-__EXTERN INTEGER __CALL_1 RegQueryInfoKeyW(LONGINT hKey, WinAPI_PtrWSTR lpClass, INTEGER *lpcbClass, INTEGER *lpReserved, INTEGER *lpcSubKeys, INTEGER *lpcbMaxSubKeyLen, INTEGER *lpcbMaxClassLen, INTEGER *lpcValues, INTEGER *lpcbMaxValueNameLen, INTEGER *lpcbMaxValueLen, INTEGER *lpcbSecurityDescriptor, WinAPI_FILETIME *lpftLastWriteTime);
+__EXTERN INTEGER __CALL_1 RegQueryInfoKeyW(LONGINT hKey, LONGINT lpClass, INTEGER *lpcbClass, INTEGER *lpReserved, INTEGER *lpcSubKeys, INTEGER *lpcbMaxSubKeyLen, INTEGER *lpcbMaxClassLen, INTEGER *lpcValues, INTEGER *lpcbMaxValueNameLen, INTEGER *lpcbMaxValueLen, INTEGER *lpcbSecurityDescriptor, WinAPI_FILETIME *lpftLastWriteTime);
 #define WinAPI_RegQueryMultipleValues(hKey, val_list, val_list__typ, num_vals, lpValueBuf, ldwTotsize)	RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize)
 #define WinAPI_RegQueryMultipleValuesA(hKey, val_list, val_list__typ, num_vals, lpValueBuf, ldwTotsize)	RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize)
-__EXTERN INTEGER __CALL_1 RegQueryMultipleValuesA(LONGINT hKey, WinAPI_VALENTA *val_list, INTEGER num_vals, WinAPI_PtrSTR lpValueBuf, INTEGER *ldwTotsize);
+__EXTERN INTEGER __CALL_1 RegQueryMultipleValuesA(LONGINT hKey, WinAPI_VALENTA *val_list, INTEGER num_vals, LONGINT lpValueBuf, INTEGER *ldwTotsize);
 #define WinAPI_RegQueryMultipleValuesW(hKey, val_list, val_list__typ, num_vals, lpValueBuf, ldwTotsize)	RegQueryMultipleValuesW(hKey, val_list, num_vals, lpValueBuf, ldwTotsize)
-__EXTERN INTEGER __CALL_1 RegQueryMultipleValuesW(LONGINT hKey, WinAPI_VALENTW *val_list, INTEGER num_vals, WinAPI_PtrWSTR lpValueBuf, INTEGER *ldwTotsize);
+__EXTERN INTEGER __CALL_1 RegQueryMultipleValuesW(LONGINT hKey, WinAPI_VALENTW *val_list, INTEGER num_vals, LONGINT lpValueBuf, INTEGER *ldwTotsize);
 #define WinAPI_RegQueryValue(hKey, lpSubKey, lpValue, lpcbValue)	RegQueryValueA(hKey, lpSubKey, lpValue, lpcbValue)
 #define WinAPI_RegQueryValueA(hKey, lpSubKey, lpValue, lpcbValue)	RegQueryValueA(hKey, lpSubKey, lpValue, lpcbValue)
-__EXTERN INTEGER __CALL_1 RegQueryValueA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, WinAPI_PtrSTR lpValue, INTEGER *lpcbValue);
+__EXTERN INTEGER __CALL_1 RegQueryValueA(LONGINT hKey, LONGINT lpSubKey, LONGINT lpValue, INTEGER *lpcbValue);
 #define WinAPI_RegQueryValueEx(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)	RegQueryValueExA(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)
 #define WinAPI_RegQueryValueExA(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)	RegQueryValueExA(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)
-__EXTERN INTEGER __CALL_1 RegQueryValueExA(LONGINT hKey, WinAPI_PtrSTR lpValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
+__EXTERN INTEGER __CALL_1 RegQueryValueExA(LONGINT hKey, LONGINT lpValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
 #define WinAPI_RegQueryValueExW(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)	RegQueryValueExW(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData)
-__EXTERN INTEGER __CALL_1 RegQueryValueExW(LONGINT hKey, WinAPI_PtrWSTR lpValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
+__EXTERN INTEGER __CALL_1 RegQueryValueExW(LONGINT hKey, LONGINT lpValueName, INTEGER *lpReserved, INTEGER *lpType, LONGINT lpData, INTEGER *lpcbData);
 #define WinAPI_RegQueryValueW(hKey, lpSubKey, lpValue, lpcbValue)	RegQueryValueW(hKey, lpSubKey, lpValue, lpcbValue)
-__EXTERN INTEGER __CALL_1 RegQueryValueW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, WinAPI_PtrWSTR lpValue, INTEGER *lpcbValue);
+__EXTERN INTEGER __CALL_1 RegQueryValueW(LONGINT hKey, LONGINT lpSubKey, LONGINT lpValue, INTEGER *lpcbValue);
 #define WinAPI_RegReplaceKey(hKey, lpSubKey, lpNewFile, lpOldFile)	RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile)
 #define WinAPI_RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile)	RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile)
-__EXTERN INTEGER __CALL_1 RegReplaceKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, WinAPI_PtrSTR lpNewFile, WinAPI_PtrSTR lpOldFile);
+__EXTERN INTEGER __CALL_1 RegReplaceKeyA(LONGINT hKey, LONGINT lpSubKey, LONGINT lpNewFile, LONGINT lpOldFile);
 #define WinAPI_RegReplaceKeyW(hKey, lpSubKey, lpNewFile, lpOldFile)	RegReplaceKeyW(hKey, lpSubKey, lpNewFile, lpOldFile)
-__EXTERN INTEGER __CALL_1 RegReplaceKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, WinAPI_PtrWSTR lpNewFile, WinAPI_PtrWSTR lpOldFile);
+__EXTERN INTEGER __CALL_1 RegReplaceKeyW(LONGINT hKey, LONGINT lpSubKey, LONGINT lpNewFile, LONGINT lpOldFile);
 #define WinAPI_RegRestoreKey(hKey, lpFile, dwFlags)	RegRestoreKeyA(hKey, lpFile, dwFlags)
 #define WinAPI_RegRestoreKeyA(hKey, lpFile, dwFlags)	RegRestoreKeyA(hKey, lpFile, dwFlags)
-__EXTERN INTEGER __CALL_1 RegRestoreKeyA(LONGINT hKey, WinAPI_PtrSTR lpFile, SET dwFlags);
+__EXTERN INTEGER __CALL_1 RegRestoreKeyA(LONGINT hKey, LONGINT lpFile, SET dwFlags);
 #define WinAPI_RegRestoreKeyW(hKey, lpFile, dwFlags)	RegRestoreKeyW(hKey, lpFile, dwFlags)
-__EXTERN INTEGER __CALL_1 RegRestoreKeyW(LONGINT hKey, WinAPI_PtrWSTR lpFile, SET dwFlags);
+__EXTERN INTEGER __CALL_1 RegRestoreKeyW(LONGINT hKey, LONGINT lpFile, SET dwFlags);
 #define WinAPI_RegSaveKey(hKey, lpFile, lpSecurityAttributes, lpSecurityAttributes__typ)	RegSaveKeyA(hKey, lpFile, lpSecurityAttributes)
 #define WinAPI_RegSaveKeyA(hKey, lpFile, lpSecurityAttributes, lpSecurityAttributes__typ)	RegSaveKeyA(hKey, lpFile, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 RegSaveKeyA(LONGINT hKey, WinAPI_PtrSTR lpFile, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 RegSaveKeyA(LONGINT hKey, LONGINT lpFile, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_RegSaveKeyW(hKey, lpFile, lpSecurityAttributes, lpSecurityAttributes__typ)	RegSaveKeyW(hKey, lpFile, lpSecurityAttributes)
-__EXTERN INTEGER __CALL_1 RegSaveKeyW(LONGINT hKey, WinAPI_PtrWSTR lpFile, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
+__EXTERN INTEGER __CALL_1 RegSaveKeyW(LONGINT hKey, LONGINT lpFile, WinAPI_SECURITY_ATTRIBUTES *lpSecurityAttributes);
 #define WinAPI_RegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor)	RegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor)
 __EXTERN INTEGER __CALL_1 RegSetKeySecurity(LONGINT hKey, SET SecurityInformation, LONGINT pSecurityDescriptor);
 #define WinAPI_RegSetValue(hKey, lpSubKey, dwType, lpData, cbData)	RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData)
 #define WinAPI_RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData)	RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData)
-__EXTERN INTEGER __CALL_1 RegSetValueA(LONGINT hKey, WinAPI_PtrSTR lpSubKey, INTEGER dwType, WinAPI_PtrSTR lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 RegSetValueA(LONGINT hKey, LONGINT lpSubKey, INTEGER dwType, LONGINT lpData, INTEGER cbData);
 #define WinAPI_RegSetValueEx(hKey, lpValueName, Reserved, dwType, lpData, cbData)	RegSetValueExA(hKey, lpValueName, Reserved, dwType, lpData, cbData)
 #define WinAPI_RegSetValueExA(hKey, lpValueName, Reserved, dwType, lpData, cbData)	RegSetValueExA(hKey, lpValueName, Reserved, dwType, lpData, cbData)
-__EXTERN INTEGER __CALL_1 RegSetValueExA(LONGINT hKey, WinAPI_PtrSTR lpValueName, INTEGER Reserved, INTEGER dwType, LONGINT lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 RegSetValueExA(LONGINT hKey, LONGINT lpValueName, INTEGER Reserved, INTEGER dwType, LONGINT lpData, INTEGER cbData);
 #define WinAPI_RegSetValueExW(hKey, lpValueName, Reserved, dwType, lpData, cbData)	RegSetValueExW(hKey, lpValueName, Reserved, dwType, lpData, cbData)
-__EXTERN INTEGER __CALL_1 RegSetValueExW(LONGINT hKey, WinAPI_PtrWSTR lpValueName, INTEGER Reserved, INTEGER dwType, LONGINT lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 RegSetValueExW(LONGINT hKey, LONGINT lpValueName, INTEGER Reserved, INTEGER dwType, LONGINT lpData, INTEGER cbData);
 #define WinAPI_RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData)	RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData)
-__EXTERN INTEGER __CALL_1 RegSetValueW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey, INTEGER dwType, WinAPI_PtrWSTR lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 RegSetValueW(LONGINT hKey, LONGINT lpSubKey, INTEGER dwType, LONGINT lpData, INTEGER cbData);
 #define WinAPI_RegUnLoadKey(hKey, lpSubKey)	RegUnLoadKeyA(hKey, lpSubKey)
 #define WinAPI_RegUnLoadKeyA(hKey, lpSubKey)	RegUnLoadKeyA(hKey, lpSubKey)
-__EXTERN INTEGER __CALL_1 RegUnLoadKeyA(LONGINT hKey, WinAPI_PtrSTR lpSubKey);
+__EXTERN INTEGER __CALL_1 RegUnLoadKeyA(LONGINT hKey, LONGINT lpSubKey);
 #define WinAPI_RegUnLoadKeyW(hKey, lpSubKey)	RegUnLoadKeyW(hKey, lpSubKey)
-__EXTERN INTEGER __CALL_1 RegUnLoadKeyW(LONGINT hKey, WinAPI_PtrWSTR lpSubKey);
+__EXTERN INTEGER __CALL_1 RegUnLoadKeyW(LONGINT hKey, LONGINT lpSubKey);
 #define WinAPI_RegisterClass(lpWndClass, lpWndClass__typ)	RegisterClassA(lpWndClass)
 #define WinAPI_RegisterClassA(lpWndClass, lpWndClass__typ)	RegisterClassA(lpWndClass)
 __EXTERN SHORTINT __CALL_1 RegisterClassA(WinAPI_WNDCLASSA *lpWndClass);
@@ -8757,26 +8602,26 @@ __EXTERN SHORTINT __CALL_1 RegisterClassExW(WinAPI_WNDCLASSEXW *p0);
 __EXTERN SHORTINT __CALL_1 RegisterClassW(WinAPI_WNDCLASSW *lpWndClass);
 #define WinAPI_RegisterClipboardFormat(lpszFormat)	RegisterClipboardFormatA(lpszFormat)
 #define WinAPI_RegisterClipboardFormatA(lpszFormat)	RegisterClipboardFormatA(lpszFormat)
-__EXTERN INTEGER __CALL_1 RegisterClipboardFormatA(WinAPI_PtrSTR lpszFormat);
+__EXTERN INTEGER __CALL_1 RegisterClipboardFormatA(LONGINT lpszFormat);
 #define WinAPI_RegisterClipboardFormatW(lpszFormat)	RegisterClipboardFormatW(lpszFormat)
-__EXTERN INTEGER __CALL_1 RegisterClipboardFormatW(WinAPI_PtrWSTR lpszFormat);
+__EXTERN INTEGER __CALL_1 RegisterClipboardFormatW(LONGINT lpszFormat);
 #define WinAPI_RegisterEventSource(lpUNCServerName, lpSourceName)	RegisterEventSourceA(lpUNCServerName, lpSourceName)
 #define WinAPI_RegisterEventSourceA(lpUNCServerName, lpSourceName)	RegisterEventSourceA(lpUNCServerName, lpSourceName)
-__EXTERN LONGINT __CALL_1 RegisterEventSourceA(WinAPI_PtrSTR lpUNCServerName, WinAPI_PtrSTR lpSourceName);
+__EXTERN LONGINT __CALL_1 RegisterEventSourceA(LONGINT lpUNCServerName, LONGINT lpSourceName);
 #define WinAPI_RegisterEventSourceW(lpUNCServerName, lpSourceName)	RegisterEventSourceW(lpUNCServerName, lpSourceName)
-__EXTERN LONGINT __CALL_1 RegisterEventSourceW(WinAPI_PtrWSTR lpUNCServerName, WinAPI_PtrWSTR lpSourceName);
+__EXTERN LONGINT __CALL_1 RegisterEventSourceW(LONGINT lpUNCServerName, LONGINT lpSourceName);
 #define WinAPI_RegisterHotKey(hWnd, id, fsModifiers, vk)	RegisterHotKey(hWnd, id, fsModifiers, vk)
 __EXTERN INTEGER __CALL_1 RegisterHotKey(LONGINT hWnd, INTEGER id, INTEGER fsModifiers, INTEGER vk);
 #define WinAPI_RegisterServiceCtrlHandler(lpServiceName, lpHandlerProc)	RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc)
 #define WinAPI_RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc)	RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc)
-__EXTERN INTEGER __CALL_1 RegisterServiceCtrlHandlerA(WinAPI_PtrSTR lpServiceName, WinAPI_HANDLER_FUNCTION lpHandlerProc);
+__EXTERN INTEGER __CALL_1 RegisterServiceCtrlHandlerA(LONGINT lpServiceName, WinAPI_HANDLER_FUNCTION lpHandlerProc);
 #define WinAPI_RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc)	RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc)
-__EXTERN INTEGER __CALL_1 RegisterServiceCtrlHandlerW(WinAPI_PtrWSTR lpServiceName, WinAPI_HANDLER_FUNCTION lpHandlerProc);
+__EXTERN INTEGER __CALL_1 RegisterServiceCtrlHandlerW(LONGINT lpServiceName, WinAPI_HANDLER_FUNCTION lpHandlerProc);
 #define WinAPI_RegisterWindowMessage(lpString)	RegisterWindowMessageA(lpString)
 #define WinAPI_RegisterWindowMessageA(lpString)	RegisterWindowMessageA(lpString)
-__EXTERN INTEGER __CALL_1 RegisterWindowMessageA(WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 RegisterWindowMessageA(LONGINT lpString);
 #define WinAPI_RegisterWindowMessageW(lpString)	RegisterWindowMessageW(lpString)
-__EXTERN INTEGER __CALL_1 RegisterWindowMessageW(WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 RegisterWindowMessageW(LONGINT lpString);
 #define WinAPI_ReleaseCapture()	ReleaseCapture()
 __EXTERN INTEGER __CALL_1 ReleaseCapture(void);
 #define WinAPI_ReleaseDC(hWnd, hDC)	ReleaseDC(hWnd, hDC)
@@ -8787,31 +8632,28 @@ __EXTERN INTEGER __CALL_1 ReleaseMutex(LONGINT hMutex);
 __EXTERN INTEGER __CALL_1 ReleaseSemaphore(LONGINT hSemaphore, INTEGER lReleaseCount, INTEGER *lpPreviousCount);
 #define WinAPI_RemoveDirectory(lpPathName)	RemoveDirectoryA(lpPathName)
 #define WinAPI_RemoveDirectoryA(lpPathName)	RemoveDirectoryA(lpPathName)
-__EXTERN INTEGER __CALL_1 RemoveDirectoryA(WinAPI_PtrSTR lpPathName);
+__EXTERN INTEGER __CALL_1 RemoveDirectoryA(LONGINT lpPathName);
 #define WinAPI_RemoveDirectoryW(lpPathName)	RemoveDirectoryW(lpPathName)
-__EXTERN INTEGER __CALL_1 RemoveDirectoryW(WinAPI_PtrWSTR lpPathName);
+__EXTERN INTEGER __CALL_1 RemoveDirectoryW(LONGINT lpPathName);
 #define WinAPI_RemoveFontResource(p0)	RemoveFontResourceA(p0)
 #define WinAPI_RemoveFontResourceA(p0)	RemoveFontResourceA(p0)
-__EXTERN INTEGER __CALL_1 RemoveFontResourceA(WinAPI_PtrSTR p0);
+__EXTERN INTEGER __CALL_1 RemoveFontResourceA(LONGINT p0);
 #define WinAPI_RemoveFontResourceW(p0)	RemoveFontResourceW(p0)
-__EXTERN INTEGER __CALL_1 RemoveFontResourceW(WinAPI_PtrWSTR p0);
+__EXTERN INTEGER __CALL_1 RemoveFontResourceW(LONGINT p0);
 #define WinAPI_RemoveMenu(hMenu, uPosition, uFlags)	RemoveMenu(hMenu, uPosition, uFlags)
 __EXTERN INTEGER __CALL_1 RemoveMenu(LONGINT hMenu, INTEGER uPosition, SET uFlags);
 #define WinAPI_RemoveProp(hWnd, lpString)	RemovePropA(hWnd, lpString)
 #define WinAPI_RemovePropA(hWnd, lpString)	RemovePropA(hWnd, lpString)
-__EXTERN LONGINT __CALL_1 RemovePropA(LONGINT hWnd, WinAPI_PtrSTR lpString);
+__EXTERN LONGINT __CALL_1 RemovePropA(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_RemovePropW(hWnd, lpString)	RemovePropW(hWnd, lpString)
-__EXTERN LONGINT __CALL_1 RemovePropW(LONGINT hWnd, WinAPI_PtrWSTR lpString);
+__EXTERN LONGINT __CALL_1 RemovePropW(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_ReplyMessage(lResult)	ReplyMessage(lResult)
 __EXTERN INTEGER __CALL_1 ReplyMessage(LONGINT lResult);
 #define WinAPI_ReportEvent(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)	ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)
 #define WinAPI_ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)	ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)
-__EXTERN INTEGER __CALL_1 ReportEventA(LONGINT hEventLog, SHORTINT wType, SHORTINT wCategory, INTEGER dwEventID, LONGINT lpUserSid, SHORTINT wNumStrings, INTEGER dwDataSize, WinAPI_PtrSTR *lpStrings, LONGINT lpRawData);
+__EXTERN INTEGER __CALL_1 ReportEventA(LONGINT hEventLog, SHORTINT wType, SHORTINT wCategory, INTEGER dwEventID, LONGINT lpUserSid, SHORTINT wNumStrings, INTEGER dwDataSize, LONGINT *lpStrings, LONGINT lpRawData);
 #define WinAPI_ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)	ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData)
-__EXTERN INTEGER __CALL_1 ReportEventW(LONGINT hEventLog, SHORTINT wType, SHORTINT wCategory, INTEGER dwEventID, LONGINT lpUserSid, SHORTINT wNumStrings, INTEGER dwDataSize, struct {
-	INTEGER len[1];
-	WinAPI_PtrWSTR data[1];
-} *lpStrings, LONGINT lpRawData);
+__EXTERN INTEGER __CALL_1 ReportEventW(LONGINT hEventLog, SHORTINT wType, SHORTINT wCategory, INTEGER dwEventID, LONGINT lpUserSid, SHORTINT wNumStrings, INTEGER dwDataSize, LONGINT lpStrings, LONGINT lpRawData);
 #define WinAPI_ResetDC(p0, p1, p1__typ)	ResetDCA(p0, p1)
 #define WinAPI_ResetDCA(p0, p1, p1__typ)	ResetDCA(p0, p1)
 __EXTERN LONGINT __CALL_1 ResetDCA(LONGINT p0, WinAPI_DEVMODEA *p1);
@@ -8849,14 +8691,14 @@ __EXTERN INTEGER __CALL_1 SHFileOperationW(WinAPI_SHFILEOPSTRUCTW *lpFileOp);
 __EXTERN void __CALL_1 SHFreeNameMappings(LONGINT hNameMappings);
 #define WinAPI_SHGetFileInfo(pszPath, dwFileAttributes, psfi, psfi__typ, cbFileInfo, uFlags)	SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags)
 #define WinAPI_SHGetFileInfoA(pszPath, dwFileAttributes, psfi, psfi__typ, cbFileInfo, uFlags)	SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags)
-__EXTERN INTEGER __CALL_1 SHGetFileInfoA(WinAPI_PtrSTR pszPath, SET dwFileAttributes, WinAPI_SHFILEINFOA *psfi, INTEGER cbFileInfo, SET uFlags);
+__EXTERN INTEGER __CALL_1 SHGetFileInfoA(LONGINT pszPath, SET dwFileAttributes, WinAPI_SHFILEINFOA *psfi, INTEGER cbFileInfo, SET uFlags);
 #define WinAPI_SHGetFileInfoW(pszPath, dwFileAttributes, psfi, psfi__typ, cbFileInfo, uFlags)	SHGetFileInfoW(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags)
-__EXTERN INTEGER __CALL_1 SHGetFileInfoW(WinAPI_PtrWSTR pszPath, SET dwFileAttributes, WinAPI_SHFILEINFOW *psfi, INTEGER cbFileInfo, SET uFlags);
+__EXTERN INTEGER __CALL_1 SHGetFileInfoW(LONGINT pszPath, SET dwFileAttributes, WinAPI_SHFILEINFOW *psfi, INTEGER cbFileInfo, SET uFlags);
 #define WinAPI_SHGetNewLinkInfo(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)	SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)
 #define WinAPI_SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)	SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)
-__EXTERN INTEGER __CALL_1 SHGetNewLinkInfoA(WinAPI_PtrSTR pszLinkTo, WinAPI_PtrSTR pszDir, WinAPI_PtrSTR pszName, INTEGER *pfMustCopy, SET uFlags);
+__EXTERN INTEGER __CALL_1 SHGetNewLinkInfoA(LONGINT pszLinkTo, LONGINT pszDir, LONGINT pszName, INTEGER *pfMustCopy, SET uFlags);
 #define WinAPI_SHGetNewLinkInfoW(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)	SHGetNewLinkInfoW(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags)
-__EXTERN INTEGER __CALL_1 SHGetNewLinkInfoW(WinAPI_PtrWSTR pszLinkTo, WinAPI_PtrWSTR pszDir, WinAPI_PtrWSTR pszName, INTEGER *pfMustCopy, SET uFlags);
+__EXTERN INTEGER __CALL_1 SHGetNewLinkInfoW(LONGINT pszLinkTo, LONGINT pszDir, LONGINT pszName, INTEGER *pfMustCopy, SET uFlags);
 #define WinAPI_SaveDC(p0)	SaveDC(p0)
 __EXTERN INTEGER __CALL_1 SaveDC(LONGINT p0);
 #define WinAPI_ScaleViewportExtEx(p0, p1, p2, p3, p4, p5, p5__typ)	ScaleViewportExtEx(p0, p1, p2, p3, p4, p5)
@@ -8880,9 +8722,9 @@ __EXTERN INTEGER __CALL_1 ScrollWindow(LONGINT hWnd, INTEGER XAmount, INTEGER YA
 __EXTERN INTEGER __CALL_1 ScrollWindowEx(LONGINT hWnd, INTEGER dx, INTEGER dy, WinAPI_RECT *prcScroll, WinAPI_RECT *prcClip, LONGINT hrgnUpdate, WinAPI_RECT *prcUpdate, SET flags);
 #define WinAPI_SearchPath(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)	SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)
 #define WinAPI_SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)	SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)
-__EXTERN INTEGER __CALL_1 SearchPathA(WinAPI_PtrSTR lpPath, WinAPI_PtrSTR lpFileName, WinAPI_PtrSTR lpExtension, INTEGER nBufferLength, WinAPI_PtrSTR lpBuffer, WinAPI_PtrSTR *lpFilePart);
+__EXTERN INTEGER __CALL_1 SearchPathA(LONGINT lpPath, LONGINT lpFileName, LONGINT lpExtension, INTEGER nBufferLength, LONGINT lpBuffer, LONGINT *lpFilePart);
 #define WinAPI_SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)	SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart)
-__EXTERN INTEGER __CALL_1 SearchPathW(WinAPI_PtrWSTR lpPath, WinAPI_PtrWSTR lpFileName, WinAPI_PtrWSTR lpExtension, INTEGER nBufferLength, WinAPI_PtrWSTR lpBuffer, WinAPI_PtrWSTR *lpFilePart);
+__EXTERN INTEGER __CALL_1 SearchPathW(LONGINT lpPath, LONGINT lpFileName, LONGINT lpExtension, INTEGER nBufferLength, LONGINT lpBuffer, LONGINT *lpFilePart);
 #define WinAPI_SelectClipPath(p0, p1)	SelectClipPath(p0, p1)
 __EXTERN INTEGER __CALL_1 SelectClipPath(LONGINT p0, INTEGER p1);
 #define WinAPI_SelectClipRgn(p0, p1)	SelectClipRgn(p0, p1)
@@ -8969,9 +8811,9 @@ __EXTERN INTEGER __CALL_1 SetCommState(LONGINT hFile, WinAPI_DCB *lpDCB);
 __EXTERN INTEGER __CALL_1 SetCommTimeouts(LONGINT hFile, WinAPI_COMMTIMEOUTS *lpCommTimeouts);
 #define WinAPI_SetComputerName(lpComputerName)	SetComputerNameA(lpComputerName)
 #define WinAPI_SetComputerNameA(lpComputerName)	SetComputerNameA(lpComputerName)
-__EXTERN INTEGER __CALL_1 SetComputerNameA(WinAPI_PtrSTR lpComputerName);
+__EXTERN INTEGER __CALL_1 SetComputerNameA(LONGINT lpComputerName);
 #define WinAPI_SetComputerNameW(lpComputerName)	SetComputerNameW(lpComputerName)
-__EXTERN INTEGER __CALL_1 SetComputerNameW(WinAPI_PtrWSTR lpComputerName);
+__EXTERN INTEGER __CALL_1 SetComputerNameW(LONGINT lpComputerName);
 #define WinAPI_SetConsoleActiveScreenBuffer(hConsoleOutput)	SetConsoleActiveScreenBuffer(hConsoleOutput)
 __EXTERN INTEGER __CALL_1 SetConsoleActiveScreenBuffer(LONGINT hConsoleOutput);
 #define WinAPI_SetConsoleCP(wCodePageID)	SetConsoleCP(wCodePageID)
@@ -8992,16 +8834,16 @@ __EXTERN INTEGER __CALL_1 SetConsoleScreenBufferSize(LONGINT hConsoleOutput, Win
 __EXTERN INTEGER __CALL_1 SetConsoleTextAttribute(LONGINT hConsoleOutput, SHORTINT wAttributes);
 #define WinAPI_SetConsoleTitle(lpConsoleTitle)	SetConsoleTitleA(lpConsoleTitle)
 #define WinAPI_SetConsoleTitleA(lpConsoleTitle)	SetConsoleTitleA(lpConsoleTitle)
-__EXTERN INTEGER __CALL_1 SetConsoleTitleA(WinAPI_PtrSTR lpConsoleTitle);
+__EXTERN INTEGER __CALL_1 SetConsoleTitleA(LONGINT lpConsoleTitle);
 #define WinAPI_SetConsoleTitleW(lpConsoleTitle)	SetConsoleTitleW(lpConsoleTitle)
-__EXTERN INTEGER __CALL_1 SetConsoleTitleW(WinAPI_PtrWSTR lpConsoleTitle);
+__EXTERN INTEGER __CALL_1 SetConsoleTitleW(LONGINT lpConsoleTitle);
 #define WinAPI_SetConsoleWindowInfo(hConsoleOutput, bAbsolute, lpConsoleWindow, lpConsoleWindow__typ)	SetConsoleWindowInfo(hConsoleOutput, bAbsolute, lpConsoleWindow)
 __EXTERN INTEGER __CALL_1 SetConsoleWindowInfo(LONGINT hConsoleOutput, INTEGER bAbsolute, WinAPI_SMALL_RECT *lpConsoleWindow);
 #define WinAPI_SetCurrentDirectory(lpPathName)	SetCurrentDirectoryA(lpPathName)
 #define WinAPI_SetCurrentDirectoryA(lpPathName)	SetCurrentDirectoryA(lpPathName)
-__EXTERN INTEGER __CALL_1 SetCurrentDirectoryA(WinAPI_PtrSTR lpPathName);
+__EXTERN INTEGER __CALL_1 SetCurrentDirectoryA(LONGINT lpPathName);
 #define WinAPI_SetCurrentDirectoryW(lpPathName)	SetCurrentDirectoryW(lpPathName)
-__EXTERN INTEGER __CALL_1 SetCurrentDirectoryW(WinAPI_PtrWSTR lpPathName);
+__EXTERN INTEGER __CALL_1 SetCurrentDirectoryW(LONGINT lpPathName);
 #define WinAPI_SetCursor(hCursor)	SetCursor(hCursor)
 __EXTERN LONGINT __CALL_1 SetCursor(LONGINT hCursor);
 #define WinAPI_SetCursorPos(X, Y)	SetCursorPos(X, Y)
@@ -9016,18 +8858,18 @@ __EXTERN INTEGER __CALL_1 SetDIBitsToDevice(LONGINT p0, INTEGER p1, INTEGER p2, 
 __EXTERN void __CALL_1 SetDebugErrorLevel(INTEGER dwLevel);
 #define WinAPI_SetDefaultCommConfig(lpszName, lpCC, lpCC__typ, dwSize)	SetDefaultCommConfigA(lpszName, lpCC, dwSize)
 #define WinAPI_SetDefaultCommConfigA(lpszName, lpCC, lpCC__typ, dwSize)	SetDefaultCommConfigA(lpszName, lpCC, dwSize)
-__EXTERN INTEGER __CALL_1 SetDefaultCommConfigA(WinAPI_PtrSTR lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER dwSize);
+__EXTERN INTEGER __CALL_1 SetDefaultCommConfigA(LONGINT lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER dwSize);
 #define WinAPI_SetDefaultCommConfigW(lpszName, lpCC, lpCC__typ, dwSize)	SetDefaultCommConfigW(lpszName, lpCC, dwSize)
-__EXTERN INTEGER __CALL_1 SetDefaultCommConfigW(WinAPI_PtrWSTR lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER dwSize);
+__EXTERN INTEGER __CALL_1 SetDefaultCommConfigW(LONGINT lpszName, WinAPI_COMMCONFIG *lpCC, INTEGER dwSize);
 #define WinAPI_SetDeviceGammaRamp(p0, p1)	SetDeviceGammaRamp(p0, p1)
 __EXTERN INTEGER __CALL_1 SetDeviceGammaRamp(LONGINT p0, LONGINT p1);
 #define WinAPI_SetDlgItemInt(hDlg, nIDDlgItem, uValue, bSigned)	SetDlgItemInt(hDlg, nIDDlgItem, uValue, bSigned)
 __EXTERN INTEGER __CALL_1 SetDlgItemInt(LONGINT hDlg, INTEGER nIDDlgItem, INTEGER uValue, INTEGER bSigned);
 #define WinAPI_SetDlgItemText(hDlg, nIDDlgItem, lpString)	SetDlgItemTextA(hDlg, nIDDlgItem, lpString)
 #define WinAPI_SetDlgItemTextA(hDlg, nIDDlgItem, lpString)	SetDlgItemTextA(hDlg, nIDDlgItem, lpString)
-__EXTERN INTEGER __CALL_1 SetDlgItemTextA(LONGINT hDlg, INTEGER nIDDlgItem, WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 SetDlgItemTextA(LONGINT hDlg, INTEGER nIDDlgItem, LONGINT lpString);
 #define WinAPI_SetDlgItemTextW(hDlg, nIDDlgItem, lpString)	SetDlgItemTextW(hDlg, nIDDlgItem, lpString)
-__EXTERN INTEGER __CALL_1 SetDlgItemTextW(LONGINT hDlg, INTEGER nIDDlgItem, WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 SetDlgItemTextW(LONGINT hDlg, INTEGER nIDDlgItem, LONGINT lpString);
 #define WinAPI_SetDoubleClickTime(p0)	SetDoubleClickTime(p0)
 __EXTERN INTEGER __CALL_1 SetDoubleClickTime(INTEGER p0);
 #define WinAPI_SetEndOfFile(hFile)	SetEndOfFile(hFile)
@@ -9036,9 +8878,9 @@ __EXTERN INTEGER __CALL_1 SetEndOfFile(LONGINT hFile);
 __EXTERN LONGINT __CALL_1 SetEnhMetaFileBits(INTEGER p0, CHAR *p1);
 #define WinAPI_SetEnvironmentVariable(lpName, lpValue)	SetEnvironmentVariableA(lpName, lpValue)
 #define WinAPI_SetEnvironmentVariableA(lpName, lpValue)	SetEnvironmentVariableA(lpName, lpValue)
-__EXTERN INTEGER __CALL_1 SetEnvironmentVariableA(WinAPI_PtrSTR lpName, WinAPI_PtrSTR lpValue);
+__EXTERN INTEGER __CALL_1 SetEnvironmentVariableA(LONGINT lpName, LONGINT lpValue);
 #define WinAPI_SetEnvironmentVariableW(lpName, lpValue)	SetEnvironmentVariableW(lpName, lpValue)
-__EXTERN INTEGER __CALL_1 SetEnvironmentVariableW(WinAPI_PtrWSTR lpName, WinAPI_PtrWSTR lpValue);
+__EXTERN INTEGER __CALL_1 SetEnvironmentVariableW(LONGINT lpName, LONGINT lpValue);
 #define WinAPI_SetErrorMode(uMode)	SetErrorMode(uMode)
 __EXTERN INTEGER __CALL_1 SetErrorMode(SET uMode);
 #define WinAPI_SetEvent(hEvent)	SetEvent(hEvent)
@@ -9049,16 +8891,16 @@ __EXTERN void __CALL_1 SetFileApisToANSI(void);
 __EXTERN void __CALL_1 SetFileApisToOEM(void);
 #define WinAPI_SetFileAttributes(lpFileName, dwFileAttributes)	SetFileAttributesA(lpFileName, dwFileAttributes)
 #define WinAPI_SetFileAttributesA(lpFileName, dwFileAttributes)	SetFileAttributesA(lpFileName, dwFileAttributes)
-__EXTERN INTEGER __CALL_1 SetFileAttributesA(WinAPI_PtrSTR lpFileName, SET dwFileAttributes);
+__EXTERN INTEGER __CALL_1 SetFileAttributesA(LONGINT lpFileName, SET dwFileAttributes);
 #define WinAPI_SetFileAttributesW(lpFileName, dwFileAttributes)	SetFileAttributesW(lpFileName, dwFileAttributes)
-__EXTERN INTEGER __CALL_1 SetFileAttributesW(WinAPI_PtrWSTR lpFileName, SET dwFileAttributes);
+__EXTERN INTEGER __CALL_1 SetFileAttributesW(LONGINT lpFileName, SET dwFileAttributes);
 #define WinAPI_SetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod)	SetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod)
 __EXTERN INTEGER __CALL_1 SetFilePointer(LONGINT hFile, INTEGER lDistanceToMove, INTEGER *lpDistanceToMoveHigh, INTEGER dwMoveMethod);
 #define WinAPI_SetFileSecurity(lpFileName, SecurityInformation, pSecurityDescriptor)	SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor)
 #define WinAPI_SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor)	SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor)
-__EXTERN INTEGER __CALL_1 SetFileSecurityA(WinAPI_PtrSTR lpFileName, SET SecurityInformation, LONGINT pSecurityDescriptor);
+__EXTERN INTEGER __CALL_1 SetFileSecurityA(LONGINT lpFileName, SET SecurityInformation, LONGINT pSecurityDescriptor);
 #define WinAPI_SetFileSecurityW(lpFileName, SecurityInformation, pSecurityDescriptor)	SetFileSecurityW(lpFileName, SecurityInformation, pSecurityDescriptor)
-__EXTERN INTEGER __CALL_1 SetFileSecurityW(WinAPI_PtrWSTR lpFileName, SET SecurityInformation, LONGINT pSecurityDescriptor);
+__EXTERN INTEGER __CALL_1 SetFileSecurityW(LONGINT lpFileName, SET SecurityInformation, LONGINT pSecurityDescriptor);
 #define WinAPI_SetFileTime(hFile, lpCreationTime, lpCreationTime__typ, lpLastAccessTime, lpLastAccessTime__typ, lpLastWriteTime, lpLastWriteTime__typ)	SetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime)
 __EXTERN INTEGER __CALL_1 SetFileTime(LONGINT hFile, WinAPI_FILETIME *lpCreationTime, WinAPI_FILETIME *lpLastAccessTime, WinAPI_FILETIME *lpLastWriteTime);
 #define WinAPI_SetFocus(hWnd)	SetFocus(hWnd)
@@ -9067,9 +8909,9 @@ __EXTERN LONGINT __CALL_1 SetFocus(LONGINT hWnd);
 __EXTERN INTEGER __CALL_1 SetForegroundWindow(LONGINT hWnd);
 #define WinAPI_SetForm(hPrinter, pFormName, Level, pForm)	SetFormA(hPrinter, pFormName, Level, pForm)
 #define WinAPI_SetFormA(hPrinter, pFormName, Level, pForm)	SetFormA(hPrinter, pFormName, Level, pForm)
-__EXTERN INTEGER __CALL_1 SetFormA(LONGINT hPrinter, WinAPI_PtrSTR pFormName, INTEGER Level, CHAR *pForm);
+__EXTERN INTEGER __CALL_1 SetFormA(LONGINT hPrinter, LONGINT pFormName, INTEGER Level, CHAR *pForm);
 #define WinAPI_SetFormW(hPrinter, pFormName, Level, pForm)	SetFormW(hPrinter, pFormName, Level, pForm)
-__EXTERN INTEGER __CALL_1 SetFormW(LONGINT hPrinter, WinAPI_PtrWSTR pFormName, INTEGER Level, CHAR *pForm);
+__EXTERN INTEGER __CALL_1 SetFormW(LONGINT hPrinter, LONGINT pFormName, INTEGER Level, CHAR *pForm);
 #define WinAPI_SetGraphicsMode(hdc, iMode)	SetGraphicsMode(hdc, iMode)
 __EXTERN INTEGER __CALL_1 SetGraphicsMode(LONGINT hdc, INTEGER iMode);
 #define WinAPI_SetHandleCount(uNumber)	SetHandleCount(uNumber)
@@ -9080,9 +8922,9 @@ __EXTERN INTEGER __CALL_1 SetHandleInformation(LONGINT hObject, INTEGER dwMask, 
 __EXTERN INTEGER __CALL_1 SetICMMode(LONGINT p0, INTEGER p1);
 #define WinAPI_SetICMProfile(p0, p1)	SetICMProfileA(p0, p1)
 #define WinAPI_SetICMProfileA(p0, p1)	SetICMProfileA(p0, p1)
-__EXTERN INTEGER __CALL_1 SetICMProfileA(LONGINT p0, WinAPI_PtrSTR p1);
+__EXTERN INTEGER __CALL_1 SetICMProfileA(LONGINT p0, LONGINT p1);
 #define WinAPI_SetICMProfileW(p0, p1)	SetICMProfileW(p0, p1)
-__EXTERN INTEGER __CALL_1 SetICMProfileW(LONGINT p0, WinAPI_PtrWSTR p1);
+__EXTERN INTEGER __CALL_1 SetICMProfileW(LONGINT p0, LONGINT p1);
 #define WinAPI_SetJob(hPrinter, JobId, Level, pJob, Command)	SetJobA(hPrinter, JobId, Level, pJob, Command)
 #define WinAPI_SetJobA(hPrinter, JobId, Level, pJob, Command)	SetJobA(hPrinter, JobId, Level, pJob, Command)
 __EXTERN INTEGER __CALL_1 SetJobA(LONGINT hPrinter, INTEGER JobId, INTEGER Level, CHAR *pJob, INTEGER Command);
@@ -9100,9 +8942,9 @@ __EXTERN void __CALL_1 SetLastErrorEx(INTEGER dwErrCode, INTEGER dwType);
 __EXTERN INTEGER __CALL_1 SetLocalTime(WinAPI_SYSTEMTIME *lpSystemTime);
 #define WinAPI_SetLocaleInfo(Locale, LCType, lpLCData)	SetLocaleInfoA(Locale, LCType, lpLCData)
 #define WinAPI_SetLocaleInfoA(Locale, LCType, lpLCData)	SetLocaleInfoA(Locale, LCType, lpLCData)
-__EXTERN INTEGER __CALL_1 SetLocaleInfoA(INTEGER Locale, INTEGER LCType, WinAPI_PtrSTR lpLCData);
+__EXTERN INTEGER __CALL_1 SetLocaleInfoA(INTEGER Locale, INTEGER LCType, LONGINT lpLCData);
 #define WinAPI_SetLocaleInfoW(Locale, LCType, lpLCData)	SetLocaleInfoW(Locale, LCType, lpLCData)
-__EXTERN INTEGER __CALL_1 SetLocaleInfoW(INTEGER Locale, INTEGER LCType, WinAPI_PtrWSTR lpLCData);
+__EXTERN INTEGER __CALL_1 SetLocaleInfoW(INTEGER Locale, INTEGER LCType, LONGINT lpLCData);
 #define WinAPI_SetMailslotInfo(hMailslot, lReadTimeout)	SetMailslotInfo(hMailslot, lReadTimeout)
 __EXTERN INTEGER __CALL_1 SetMailslotInfo(LONGINT hMailslot, INTEGER lReadTimeout);
 #define WinAPI_SetMapMode(p0, p1)	SetMapMode(p0, p1)
@@ -9151,9 +8993,9 @@ __EXTERN INTEGER __CALL_1 SetPolyFillMode(LONGINT p0, INTEGER p1);
 __EXTERN INTEGER __CALL_1 SetPrinterA(LONGINT hPrinter, INTEGER Level, CHAR *pPrinter, INTEGER Command);
 #define WinAPI_SetPrinterData(hPrinter, pValueName, Type, pData, cbData)	SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData)
 #define WinAPI_SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData)	SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData)
-__EXTERN INTEGER __CALL_1 SetPrinterDataA(LONGINT hPrinter, WinAPI_PtrSTR pValueName, INTEGER Type, CHAR *pData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 SetPrinterDataA(LONGINT hPrinter, LONGINT pValueName, INTEGER Type, CHAR *pData, INTEGER cbData);
 #define WinAPI_SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData)	SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData)
-__EXTERN INTEGER __CALL_1 SetPrinterDataW(LONGINT hPrinter, WinAPI_PtrWSTR pValueName, INTEGER Type, CHAR *pData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 SetPrinterDataW(LONGINT hPrinter, LONGINT pValueName, INTEGER Type, CHAR *pData, INTEGER cbData);
 #define WinAPI_SetPrinterW(hPrinter, Level, pPrinter, Command)	SetPrinterW(hPrinter, Level, pPrinter, Command)
 __EXTERN INTEGER __CALL_1 SetPrinterW(LONGINT hPrinter, INTEGER Level, CHAR *pPrinter, INTEGER Command);
 #define WinAPI_SetPriorityClass(hProcess, dwPriorityClass)	SetPriorityClass(hProcess, dwPriorityClass)
@@ -9170,9 +9012,9 @@ __EXTERN INTEGER __CALL_1 SetProcessWindowStation(LONGINT hWinSta);
 __EXTERN INTEGER __CALL_1 SetProcessWorkingSetSize(LONGINT hProcess, INTEGER dwMinimumWorkingSetSize, INTEGER dwMaximumWorkingSetSize);
 #define WinAPI_SetProp(hWnd, lpString, hData)	SetPropA(hWnd, lpString, hData)
 #define WinAPI_SetPropA(hWnd, lpString, hData)	SetPropA(hWnd, lpString, hData)
-__EXTERN INTEGER __CALL_1 SetPropA(LONGINT hWnd, WinAPI_PtrSTR lpString, LONGINT hData);
+__EXTERN INTEGER __CALL_1 SetPropA(LONGINT hWnd, LONGINT lpString, LONGINT hData);
 #define WinAPI_SetPropW(hWnd, lpString, hData)	SetPropW(hWnd, lpString, hData)
-__EXTERN INTEGER __CALL_1 SetPropW(LONGINT hWnd, WinAPI_PtrWSTR lpString, LONGINT hData);
+__EXTERN INTEGER __CALL_1 SetPropW(LONGINT hWnd, LONGINT lpString, LONGINT hData);
 #define WinAPI_SetROP2(p0, p1)	SetROP2(p0, p1)
 __EXTERN INTEGER __CALL_1 SetROP2(LONGINT p0, INTEGER p1);
 #define WinAPI_SetRect(lprc, lprc__typ, xLeft, yTop, xRight, yBottom)	SetRect(lprc, xLeft, yTop, xRight, yBottom)
@@ -9264,9 +9106,9 @@ __EXTERN INTEGER __CALL_1 SetViewportExtEx(LONGINT p0, INTEGER p1, INTEGER p2, W
 __EXTERN INTEGER __CALL_1 SetViewportOrgEx(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_POINT *p3);
 #define WinAPI_SetVolumeLabel(lpRootPathName, lpVolumeName)	SetVolumeLabelA(lpRootPathName, lpVolumeName)
 #define WinAPI_SetVolumeLabelA(lpRootPathName, lpVolumeName)	SetVolumeLabelA(lpRootPathName, lpVolumeName)
-__EXTERN INTEGER __CALL_1 SetVolumeLabelA(WinAPI_PtrSTR lpRootPathName, WinAPI_PtrSTR lpVolumeName);
+__EXTERN INTEGER __CALL_1 SetVolumeLabelA(LONGINT lpRootPathName, LONGINT lpVolumeName);
 #define WinAPI_SetVolumeLabelW(lpRootPathName, lpVolumeName)	SetVolumeLabelW(lpRootPathName, lpVolumeName)
-__EXTERN INTEGER __CALL_1 SetVolumeLabelW(WinAPI_PtrWSTR lpRootPathName, WinAPI_PtrWSTR lpVolumeName);
+__EXTERN INTEGER __CALL_1 SetVolumeLabelW(LONGINT lpRootPathName, LONGINT lpVolumeName);
 #define WinAPI_SetWaitableTimer(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, fResume)	SetWaitableTimer(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, fResume)
 __EXTERN INTEGER __CALL_1 SetWaitableTimer(LONGINT hTimer, LONGINT *lpDueTime, INTEGER lPeriod, WinAPI_TIMERAPCROUTINE pfnCompletionRoutine, LONGINT lpArgToCompletionRoutine, INTEGER fResume);
 #define WinAPI_SetWinMetaFileBits(p0, p1, p2, p3, p3__typ)	SetWinMetaFileBits(p0, p1, p2, p3)
@@ -9290,9 +9132,9 @@ __EXTERN INTEGER __CALL_1 SetWindowPos(LONGINT hWnd, LONGINT hWndInsertAfter, IN
 __EXTERN INTEGER __CALL_1 SetWindowRgn(LONGINT hWnd, LONGINT hRgn, INTEGER bRedraw);
 #define WinAPI_SetWindowText(hWnd, lpString)	SetWindowTextA(hWnd, lpString)
 #define WinAPI_SetWindowTextA(hWnd, lpString)	SetWindowTextA(hWnd, lpString)
-__EXTERN INTEGER __CALL_1 SetWindowTextA(LONGINT hWnd, WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 SetWindowTextA(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_SetWindowTextW(hWnd, lpString)	SetWindowTextW(hWnd, lpString)
-__EXTERN INTEGER __CALL_1 SetWindowTextW(LONGINT hWnd, WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 SetWindowTextW(LONGINT hWnd, LONGINT lpString);
 #define WinAPI_SetWindowWord(hWnd, nIndex, wNewWord)	SetWindowWord(hWnd, nIndex, wNewWord)
 __EXTERN SHORTINT __CALL_1 SetWindowWord(LONGINT hWnd, INTEGER nIndex, SHORTINT wNewWord);
 #define WinAPI_SetWindowsHook(nFilterType, pfnFilterProc)	SetWindowsHookA(nFilterType, pfnFilterProc)
@@ -9311,19 +9153,19 @@ __EXTERN INTEGER __CALL_1 SetWorldTransform(LONGINT p0, WinAPI_XFORM *p1);
 __EXTERN INTEGER __CALL_1 SetupComm(LONGINT hFile, INTEGER dwInQueue, INTEGER dwOutQueue);
 #define WinAPI_ShellAbout(hWnd, szApp, szOtherStuff, hIcon)	ShellAboutA(hWnd, szApp, szOtherStuff, hIcon)
 #define WinAPI_ShellAboutA(hWnd, szApp, szOtherStuff, hIcon)	ShellAboutA(hWnd, szApp, szOtherStuff, hIcon)
-__EXTERN INTEGER __CALL_1 ShellAboutA(LONGINT hWnd, WinAPI_PtrSTR szApp, WinAPI_PtrSTR szOtherStuff, LONGINT hIcon);
+__EXTERN INTEGER __CALL_1 ShellAboutA(LONGINT hWnd, LONGINT szApp, LONGINT szOtherStuff, LONGINT hIcon);
 #define WinAPI_ShellAboutW(hWnd, szApp, szOtherStuff, hIcon)	ShellAboutW(hWnd, szApp, szOtherStuff, hIcon)
-__EXTERN INTEGER __CALL_1 ShellAboutW(LONGINT hWnd, WinAPI_PtrWSTR szApp, WinAPI_PtrWSTR szOtherStuff, LONGINT hIcon);
+__EXTERN INTEGER __CALL_1 ShellAboutW(LONGINT hWnd, LONGINT szApp, LONGINT szOtherStuff, LONGINT hIcon);
 #define WinAPI_ShellExecute(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)	ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)
 #define WinAPI_ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)	ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)
-__EXTERN LONGINT __CALL_1 ShellExecuteA(LONGINT hwnd, WinAPI_PtrSTR lpOperation, WinAPI_PtrSTR lpFile, WinAPI_PtrSTR lpParameters, WinAPI_PtrSTR lpDirectory, INTEGER nShowCmd);
+__EXTERN LONGINT __CALL_1 ShellExecuteA(LONGINT hwnd, LONGINT lpOperation, LONGINT lpFile, LONGINT lpParameters, LONGINT lpDirectory, INTEGER nShowCmd);
 #define WinAPI_ShellExecuteEx(lpExecInfo, lpExecInfo__typ)	ShellExecuteExA(lpExecInfo)
 #define WinAPI_ShellExecuteExA(lpExecInfo, lpExecInfo__typ)	ShellExecuteExA(lpExecInfo)
 __EXTERN INTEGER __CALL_1 ShellExecuteExA(WinAPI_SHELLEXECUTEINFOA *lpExecInfo);
 #define WinAPI_ShellExecuteExW(lpExecInfo, lpExecInfo__typ)	ShellExecuteExW(lpExecInfo)
 __EXTERN INTEGER __CALL_1 ShellExecuteExW(WinAPI_SHELLEXECUTEINFOW *lpExecInfo);
 #define WinAPI_ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)	ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)
-__EXTERN LONGINT __CALL_1 ShellExecuteW(LONGINT hwnd, WinAPI_PtrWSTR lpOperation, WinAPI_PtrWSTR lpFile, WinAPI_PtrWSTR lpParameters, WinAPI_PtrWSTR lpDirectory, INTEGER nShowCmd);
+__EXTERN LONGINT __CALL_1 ShellExecuteW(LONGINT hwnd, LONGINT lpOperation, LONGINT lpFile, LONGINT lpParameters, LONGINT lpDirectory, INTEGER nShowCmd);
 #define WinAPI_Shell_NotifyIcon(dwMessage, lpData, lpData__typ)	Shell_NotifyIconA(dwMessage, lpData)
 #define WinAPI_Shell_NotifyIconA(dwMessage, lpData, lpData__typ)	Shell_NotifyIconA(dwMessage, lpData)
 __EXTERN INTEGER __CALL_1 Shell_NotifyIconA(INTEGER dwMessage, WinAPI_NOTIFYICONDATAA *lpData);
@@ -9365,17 +9207,14 @@ __EXTERN INTEGER __CALL_1 StartPage(LONGINT p0);
 __EXTERN INTEGER __CALL_1 StartPagePrinter(LONGINT hPrinter);
 #define WinAPI_StartService(hService, dwNumServiceArgs, lpServiceArgVectors)	StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)
 #define WinAPI_StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)	StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors)
-__EXTERN INTEGER __CALL_1 StartServiceA(LONGINT hService, INTEGER dwNumServiceArgs, WinAPI_PtrSTR *lpServiceArgVectors);
+__EXTERN INTEGER __CALL_1 StartServiceA(LONGINT hService, INTEGER dwNumServiceArgs, LONGINT *lpServiceArgVectors);
 #define WinAPI_StartServiceCtrlDispatcher(lpServiceStartTable, lpServiceStartTable__typ)	StartServiceCtrlDispatcherA(lpServiceStartTable)
 #define WinAPI_StartServiceCtrlDispatcherA(lpServiceStartTable, lpServiceStartTable__typ)	StartServiceCtrlDispatcherA(lpServiceStartTable)
 __EXTERN INTEGER __CALL_1 StartServiceCtrlDispatcherA(WinAPI_SERVICE_TABLE_ENTRYA *lpServiceStartTable);
 #define WinAPI_StartServiceCtrlDispatcherW(lpServiceStartTable, lpServiceStartTable__typ)	StartServiceCtrlDispatcherW(lpServiceStartTable)
 __EXTERN INTEGER __CALL_1 StartServiceCtrlDispatcherW(WinAPI_SERVICE_TABLE_ENTRYW *lpServiceStartTable);
 #define WinAPI_StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors)	StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors)
-__EXTERN INTEGER __CALL_1 StartServiceW(LONGINT hService, INTEGER dwNumServiceArgs, struct {
-	INTEGER len[1];
-	WinAPI_PtrWSTR data[1];
-} *lpServiceArgVectors);
+__EXTERN INTEGER __CALL_1 StartServiceW(LONGINT hService, INTEGER dwNumServiceArgs, LONGINT lpServiceArgVectors);
 #define WinAPI_StretchBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)	StretchBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
 __EXTERN INTEGER __CALL_1 StretchBlt(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, LONGINT p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10);
 #define WinAPI_StretchDIBits(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p10__typ, p11, p12)	StretchDIBits(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
@@ -9407,18 +9246,18 @@ __EXTERN INTEGER __CALL_1 SystemTimeToFileTime(WinAPI_SYSTEMTIME *lpSystemTime, 
 __EXTERN INTEGER __CALL_1 SystemTimeToTzSpecificLocalTime(WinAPI_TIME_ZONE_INFORMATION *lpTimeZoneInformation, WinAPI_SYSTEMTIME *lpUniversalTime, WinAPI_SYSTEMTIME *lpLocalTime);
 #define WinAPI_TabbedTextOut(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)	TabbedTextOutA(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)
 #define WinAPI_TabbedTextOutA(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)	TabbedTextOutA(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)
-__EXTERN INTEGER __CALL_1 TabbedTextOutA(LONGINT hDC, INTEGER X, INTEGER Y, WinAPI_PtrSTR lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions, INTEGER nTabOrigin);
+__EXTERN INTEGER __CALL_1 TabbedTextOutA(LONGINT hDC, INTEGER X, INTEGER Y, LONGINT lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions, INTEGER nTabOrigin);
 #define WinAPI_TabbedTextOutW(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)	TabbedTextOutW(hDC, X, Y, lpString, nCount, nTabPositions, lpnTabStopPositions, nTabOrigin)
-__EXTERN INTEGER __CALL_1 TabbedTextOutW(LONGINT hDC, INTEGER X, INTEGER Y, WinAPI_PtrWSTR lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions, INTEGER nTabOrigin);
+__EXTERN INTEGER __CALL_1 TabbedTextOutW(LONGINT hDC, INTEGER X, INTEGER Y, LONGINT lpString, INTEGER nCount, INTEGER nTabPositions, INTEGER *lpnTabStopPositions, INTEGER nTabOrigin);
 #define WinAPI_TerminateProcess(hProcess, uExitCode)	TerminateProcess(hProcess, uExitCode)
 __EXTERN INTEGER __CALL_1 TerminateProcess(LONGINT hProcess, INTEGER uExitCode);
 #define WinAPI_TerminateThread(hThread, dwExitCode)	TerminateThread(hThread, dwExitCode)
 __EXTERN INTEGER __CALL_1 TerminateThread(LONGINT hThread, INTEGER dwExitCode);
 #define WinAPI_TextOut(p0, p1, p2, p3, p4)	TextOutA(p0, p1, p2, p3, p4)
 #define WinAPI_TextOutA(p0, p1, p2, p3, p4)	TextOutA(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL_1 TextOutA(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_PtrSTR p3, INTEGER p4);
+__EXTERN INTEGER __CALL_1 TextOutA(LONGINT p0, INTEGER p1, INTEGER p2, LONGINT p3, INTEGER p4);
 #define WinAPI_TextOutW(p0, p1, p2, p3, p4)	TextOutW(p0, p1, p2, p3, p4)
-__EXTERN INTEGER __CALL_1 TextOutW(LONGINT p0, INTEGER p1, INTEGER p2, WinAPI_PtrWSTR p3, INTEGER p4);
+__EXTERN INTEGER __CALL_1 TextOutW(LONGINT p0, INTEGER p1, INTEGER p2, LONGINT p3, INTEGER p4);
 #define WinAPI_TileWindows(hwndParent, wHow, lpRect, lpRect__typ, cKids, lpKids)	TileWindows(hwndParent, wHow, lpRect, cKids, lpKids)
 __EXTERN SHORTINT __CALL_1 TileWindows(LONGINT hwndParent, INTEGER wHow, WinAPI_RECT *lpRect, INTEGER cKids, LONGINT *lpKids);
 #define WinAPI_TlsAlloc()	TlsAlloc()
@@ -9434,9 +9273,9 @@ __EXTERN INTEGER __CALL_1 ToAscii(INTEGER uVirtKey, INTEGER uScanCode, CHAR *lpK
 #define WinAPI_ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl)	ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl)
 __EXTERN INTEGER __CALL_1 ToAsciiEx(INTEGER uVirtKey, INTEGER uScanCode, CHAR *lpKeyState, SHORTINT *lpChar, SET uFlags, LONGINT dwhkl);
 #define WinAPI_ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags)	ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags)
-__EXTERN INTEGER __CALL_1 ToUnicode(INTEGER wVirtKey, INTEGER wScanCode, CHAR *lpKeyState, WinAPI_PtrWSTR pwszBuff, INTEGER cchBuff, INTEGER wFlags);
+__EXTERN INTEGER __CALL_1 ToUnicode(INTEGER wVirtKey, INTEGER wScanCode, CHAR *lpKeyState, LONGINT pwszBuff, INTEGER cchBuff, INTEGER wFlags);
 #define WinAPI_ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl)	ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl)
-__EXTERN INTEGER __CALL_1 ToUnicodeEx(INTEGER wVirtKey, INTEGER wScanCode, CHAR *lpKeyState, WinAPI_PtrWSTR pwszBuff, INTEGER cchBuff, INTEGER wFlags, LONGINT dwhkl);
+__EXTERN INTEGER __CALL_1 ToUnicodeEx(INTEGER wVirtKey, INTEGER wScanCode, CHAR *lpKeyState, LONGINT pwszBuff, INTEGER cchBuff, INTEGER wFlags, LONGINT dwhkl);
 #define WinAPI_TrackPopupMenu(hMenu, uFlags, x, y, nReserved, hWnd, prcRect, prcRect__typ)	TrackPopupMenu(hMenu, uFlags, x, y, nReserved, hWnd, prcRect)
 __EXTERN INTEGER __CALL_1 TrackPopupMenu(LONGINT hMenu, SET uFlags, INTEGER x, INTEGER y, INTEGER nReserved, LONGINT hWnd, WinAPI_RECT *prcRect);
 #define WinAPI_TrackPopupMenuEx(p0, p1, p2, p3, p4, p5, p5__typ)	TrackPopupMenuEx(p0, p1, p2, p3, p4, p5)
@@ -9482,18 +9321,18 @@ __EXTERN INTEGER __CALL_1 UnpackDDElParam(INTEGER msg, INTEGER lParam, INTEGER *
 __EXTERN INTEGER __CALL_1 UnrealizeObject(LONGINT p0);
 #define WinAPI_UnregisterClass(lpClassName, hInstance)	UnregisterClassA(lpClassName, hInstance)
 #define WinAPI_UnregisterClassA(lpClassName, hInstance)	UnregisterClassA(lpClassName, hInstance)
-__EXTERN INTEGER __CALL_1 UnregisterClassA(WinAPI_PtrSTR lpClassName, LONGINT hInstance);
+__EXTERN INTEGER __CALL_1 UnregisterClassA(LONGINT lpClassName, LONGINT hInstance);
 #define WinAPI_UnregisterClassW(lpClassName, hInstance)	UnregisterClassW(lpClassName, hInstance)
-__EXTERN INTEGER __CALL_1 UnregisterClassW(WinAPI_PtrWSTR lpClassName, LONGINT hInstance);
+__EXTERN INTEGER __CALL_1 UnregisterClassW(LONGINT lpClassName, LONGINT hInstance);
 #define WinAPI_UnregisterHotKey(hWnd, id)	UnregisterHotKey(hWnd, id)
 __EXTERN INTEGER __CALL_1 UnregisterHotKey(LONGINT hWnd, INTEGER id);
 #define WinAPI_UpdateColors(p0)	UpdateColors(p0)
 __EXTERN INTEGER __CALL_1 UpdateColors(LONGINT p0);
 #define WinAPI_UpdateResource(hUpdate, lpType, lpName, wLanguage, lpData, cbData)	UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cbData)
 #define WinAPI_UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cbData)	UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cbData)
-__EXTERN INTEGER __CALL_1 UpdateResourceA(LONGINT hUpdate, WinAPI_PtrSTR lpType, WinAPI_PtrSTR lpName, SHORTINT wLanguage, LONGINT lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 UpdateResourceA(LONGINT hUpdate, LONGINT lpType, LONGINT lpName, SHORTINT wLanguage, LONGINT lpData, INTEGER cbData);
 #define WinAPI_UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cbData)	UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cbData)
-__EXTERN INTEGER __CALL_1 UpdateResourceW(LONGINT hUpdate, WinAPI_PtrWSTR lpType, WinAPI_PtrWSTR lpName, SHORTINT wLanguage, LONGINT lpData, INTEGER cbData);
+__EXTERN INTEGER __CALL_1 UpdateResourceW(LONGINT hUpdate, LONGINT lpType, LONGINT lpName, SHORTINT wLanguage, LONGINT lpData, INTEGER cbData);
 #define WinAPI_UpdateWindow(hWnd)	UpdateWindow(hWnd)
 __EXTERN INTEGER __CALL_1 UpdateWindow(LONGINT hWnd);
 #define WinAPI_ValidateRect(hWnd, lpRect, lpRect__typ)	ValidateRect(hWnd, lpRect)
@@ -9502,30 +9341,24 @@ __EXTERN INTEGER __CALL_1 ValidateRect(LONGINT hWnd, WinAPI_RECT *lpRect);
 __EXTERN INTEGER __CALL_1 ValidateRgn(LONGINT hWnd, LONGINT hRgn);
 #define WinAPI_VerFindFile(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)	VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)
 #define WinAPI_VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)	VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)
-__EXTERN SET __CALL_1 VerFindFileA(SET uFlags, WinAPI_PtrSTR szFileName, WinAPI_PtrSTR szWinDir, WinAPI_PtrSTR szAppDir, WinAPI_PtrSTR szCurDir, INTEGER *lpuCurDirLen, WinAPI_PtrSTR szDestDir, INTEGER *lpuDestDirLen);
+__EXTERN SET __CALL_1 VerFindFileA(SET uFlags, LONGINT szFileName, LONGINT szWinDir, LONGINT szAppDir, LONGINT szCurDir, INTEGER *lpuCurDirLen, LONGINT szDestDir, INTEGER *lpuDestDirLen);
 #define WinAPI_VerFindFileW(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)	VerFindFileW(uFlags, szFileName, szWinDir, szAppDir, szCurDir, lpuCurDirLen, szDestDir, lpuDestDirLen)
-__EXTERN SET __CALL_1 VerFindFileW(SET uFlags, WinAPI_PtrWSTR szFileName, WinAPI_PtrWSTR szWinDir, WinAPI_PtrWSTR szAppDir, WinAPI_PtrWSTR szCurDir, INTEGER *lpuCurDirLen, WinAPI_PtrWSTR szDestDir, INTEGER *lpuDestDirLen);
+__EXTERN SET __CALL_1 VerFindFileW(SET uFlags, LONGINT szFileName, LONGINT szWinDir, LONGINT szAppDir, LONGINT szCurDir, INTEGER *lpuCurDirLen, LONGINT szDestDir, INTEGER *lpuDestDirLen);
 #define WinAPI_VerInstallFile(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)	VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)
 #define WinAPI_VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)	VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)
-__EXTERN SET __CALL_1 VerInstallFileA(SET uFlags, WinAPI_PtrSTR szSrcFileName, WinAPI_PtrSTR szDestFileName, WinAPI_PtrSTR szSrcDir, WinAPI_PtrSTR szDestDir, WinAPI_PtrSTR szCurDir, WinAPI_PtrSTR szTmpFile, INTEGER *lpuTmpFileLen);
+__EXTERN SET __CALL_1 VerInstallFileA(SET uFlags, LONGINT szSrcFileName, LONGINT szDestFileName, LONGINT szSrcDir, LONGINT szDestDir, LONGINT szCurDir, LONGINT szTmpFile, INTEGER *lpuTmpFileLen);
 #define WinAPI_VerInstallFileW(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)	VerInstallFileW(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, lpuTmpFileLen)
-__EXTERN SET __CALL_1 VerInstallFileW(SET uFlags, WinAPI_PtrWSTR szSrcFileName, WinAPI_PtrWSTR szDestFileName, WinAPI_PtrWSTR szSrcDir, WinAPI_PtrWSTR szDestDir, WinAPI_PtrWSTR szCurDir, WinAPI_PtrWSTR szTmpFile, INTEGER *lpuTmpFileLen);
+__EXTERN SET __CALL_1 VerInstallFileW(SET uFlags, LONGINT szSrcFileName, LONGINT szDestFileName, LONGINT szSrcDir, LONGINT szDestDir, LONGINT szCurDir, LONGINT szTmpFile, INTEGER *lpuTmpFileLen);
 #define WinAPI_VerLanguageName(wLang, szLang, nSize)	VerLanguageNameA(wLang, szLang, nSize)
 #define WinAPI_VerLanguageNameA(wLang, szLang, nSize)	VerLanguageNameA(wLang, szLang, nSize)
-__EXTERN INTEGER __CALL_1 VerLanguageNameA(INTEGER wLang, WinAPI_PtrSTR szLang, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 VerLanguageNameA(INTEGER wLang, LONGINT szLang, INTEGER nSize);
 #define WinAPI_VerLanguageNameW(wLang, szLang, nSize)	VerLanguageNameW(wLang, szLang, nSize)
-__EXTERN INTEGER __CALL_1 VerLanguageNameW(INTEGER wLang, WinAPI_PtrWSTR szLang, INTEGER nSize);
+__EXTERN INTEGER __CALL_1 VerLanguageNameW(INTEGER wLang, LONGINT szLang, INTEGER nSize);
 #define WinAPI_VerQueryValue(pBlock, lpSubBlock, lplpBuffer, puLen)	VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)
 #define WinAPI_VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)	VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen)
-__EXTERN INTEGER __CALL_1 VerQueryValueA(LONGINT pBlock, WinAPI_PtrSTR lpSubBlock, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *lplpBuffer, INTEGER *puLen);
+__EXTERN INTEGER __CALL_1 VerQueryValueA(LONGINT pBlock, LONGINT lpSubBlock, LONGINT lplpBuffer, INTEGER *puLen);
 #define WinAPI_VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen)	VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen)
-__EXTERN INTEGER __CALL_1 VerQueryValueW(LONGINT pBlock, WinAPI_PtrWSTR lpSubBlock, struct {
-	INTEGER len[1];
-	LONGINT data[1];
-} *lplpBuffer, INTEGER *puLen);
+__EXTERN INTEGER __CALL_1 VerQueryValueW(LONGINT pBlock, LONGINT lpSubBlock, LONGINT lplpBuffer, INTEGER *puLen);
 #define WinAPI_VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect)	VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect)
 __EXTERN LONGINT __CALL_1 VirtualAlloc(LONGINT lpAddress, LONGINT dwSize, SET flAllocationType, SET flProtect);
 #define WinAPI_VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect)	VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect)
@@ -9574,20 +9407,20 @@ __EXTERN INTEGER __CALL_1 WaitForSingleObjectEx(LONGINT hHandle, INTEGER dwMilli
 __EXTERN INTEGER __CALL_1 WaitMessage(void);
 #define WinAPI_WaitNamedPipe(lpNamedPipeName, nTimeOut)	WaitNamedPipeA(lpNamedPipeName, nTimeOut)
 #define WinAPI_WaitNamedPipeA(lpNamedPipeName, nTimeOut)	WaitNamedPipeA(lpNamedPipeName, nTimeOut)
-__EXTERN INTEGER __CALL_1 WaitNamedPipeA(WinAPI_PtrSTR lpNamedPipeName, INTEGER nTimeOut);
+__EXTERN INTEGER __CALL_1 WaitNamedPipeA(LONGINT lpNamedPipeName, INTEGER nTimeOut);
 #define WinAPI_WaitNamedPipeW(lpNamedPipeName, nTimeOut)	WaitNamedPipeW(lpNamedPipeName, nTimeOut)
-__EXTERN INTEGER __CALL_1 WaitNamedPipeW(WinAPI_PtrWSTR lpNamedPipeName, INTEGER nTimeOut);
+__EXTERN INTEGER __CALL_1 WaitNamedPipeW(LONGINT lpNamedPipeName, INTEGER nTimeOut);
 #define WinAPI_WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMultiByteStr, cchMultiByte, lpDefaultChar, lpUsedDefaultChar)	WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMultiByteStr, cchMultiByte, lpDefaultChar, lpUsedDefaultChar)
-__EXTERN INTEGER __CALL_1 WideCharToMultiByte(INTEGER CodePage, SET dwFlags, WinAPI_PtrWSTR lpWideCharStr, INTEGER cchWideChar, WinAPI_PtrSTR lpMultiByteStr, INTEGER cchMultiByte, WinAPI_PtrSTR lpDefaultChar, INTEGER *lpUsedDefaultChar);
+__EXTERN INTEGER __CALL_1 WideCharToMultiByte(INTEGER CodePage, SET dwFlags, LONGINT lpWideCharStr, INTEGER cchWideChar, LONGINT lpMultiByteStr, INTEGER cchMultiByte, LONGINT lpDefaultChar, INTEGER *lpUsedDefaultChar);
 #define WinAPI_WidenPath(p0)	WidenPath(p0)
 __EXTERN INTEGER __CALL_1 WidenPath(LONGINT p0);
 #define WinAPI_WinExec(lpCmdLine, uCmdShow)	WinExec(lpCmdLine, uCmdShow)
-__EXTERN INTEGER __CALL_1 WinExec(WinAPI_PtrSTR lpCmdLine, INTEGER uCmdShow);
+__EXTERN INTEGER __CALL_1 WinExec(LONGINT lpCmdLine, INTEGER uCmdShow);
 #define WinAPI_WinHelp(hWndMain, lpszHelp, uCommand, dwData)	WinHelpA(hWndMain, lpszHelp, uCommand, dwData)
 #define WinAPI_WinHelpA(hWndMain, lpszHelp, uCommand, dwData)	WinHelpA(hWndMain, lpszHelp, uCommand, dwData)
-__EXTERN INTEGER __CALL_1 WinHelpA(LONGINT hWndMain, WinAPI_PtrSTR lpszHelp, INTEGER uCommand, INTEGER dwData);
+__EXTERN INTEGER __CALL_1 WinHelpA(LONGINT hWndMain, LONGINT lpszHelp, INTEGER uCommand, INTEGER dwData);
 #define WinAPI_WinHelpW(hWndMain, lpszHelp, uCommand, dwData)	WinHelpW(hWndMain, lpszHelp, uCommand, dwData)
-__EXTERN INTEGER __CALL_1 WinHelpW(LONGINT hWndMain, WinAPI_PtrWSTR lpszHelp, INTEGER uCommand, INTEGER dwData);
+__EXTERN INTEGER __CALL_1 WinHelpW(LONGINT hWndMain, LONGINT lpszHelp, INTEGER uCommand, INTEGER dwData);
 #define WinAPI_WindowFromDC(hDC)	WindowFromDC(hDC)
 __EXTERN LONGINT __CALL_1 WindowFromDC(LONGINT hDC);
 #define WinAPI_WindowFromPoint(Point)	WindowFromPoint(Point)
@@ -9607,9 +9440,9 @@ __EXTERN INTEGER __CALL_1 WriteConsoleOutputA(LONGINT hConsoleOutput, WinAPI_CHA
 __EXTERN INTEGER __CALL_1 WriteConsoleOutputAttribute(LONGINT hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
 #define WinAPI_WriteConsoleOutputCharacter(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
 #define WinAPI_WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __CALL_1 WriteConsoleOutputCharacterA(LONGINT hConsoleOutput, WinAPI_PtrSTR lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __CALL_1 WriteConsoleOutputCharacterA(LONGINT hConsoleOutput, LONGINT lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __CALL_1 WriteConsoleOutputCharacterW(LONGINT hConsoleOutput, WinAPI_PtrWSTR lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __CALL_1 WriteConsoleOutputCharacterW(LONGINT hConsoleOutput, LONGINT lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_WriteConsoleOutputW(hConsoleOutput, lpBuffer, lpBuffer__typ, dwBufferSize, dwBufferCoord, lpWriteRegion, lpWriteRegion__typ)	WriteConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)
 __EXTERN INTEGER __CALL_1 WriteConsoleOutputW(LONGINT hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpWriteRegion);
 #define WinAPI_WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)	WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)
@@ -9622,31 +9455,31 @@ __EXTERN INTEGER __CALL_1 WriteFileEx(LONGINT hFile, LONGINT lpBuffer, INTEGER n
 __EXTERN INTEGER __CALL_1 WritePrinter(LONGINT hPrinter, LONGINT pBuf, INTEGER cbBuf, INTEGER *pcWritten);
 #define WinAPI_WritePrivateProfileSection(lpAppName, lpString, lpFileName)	WritePrivateProfileSectionA(lpAppName, lpString, lpFileName)
 #define WinAPI_WritePrivateProfileSectionA(lpAppName, lpString, lpFileName)	WritePrivateProfileSectionA(lpAppName, lpString, lpFileName)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileSectionA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpString, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileSectionA(LONGINT lpAppName, LONGINT lpString, LONGINT lpFileName);
 #define WinAPI_WritePrivateProfileSectionW(lpAppName, lpString, lpFileName)	WritePrivateProfileSectionW(lpAppName, lpString, lpFileName)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileSectionW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpString, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileSectionW(LONGINT lpAppName, LONGINT lpString, LONGINT lpFileName);
 #define WinAPI_WritePrivateProfileString(lpAppName, lpKeyName, lpString, lpFileName)	WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName)
 #define WinAPI_WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName)	WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileStringA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, WinAPI_PtrSTR lpString, WinAPI_PtrSTR lpFileName);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileStringA(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpString, LONGINT lpFileName);
 #define WinAPI_WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName)	WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileStringW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, WinAPI_PtrWSTR lpString, WinAPI_PtrWSTR lpFileName);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileStringW(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpString, LONGINT lpFileName);
 #define WinAPI_WritePrivateProfileStruct(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
 #define WinAPI_WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileStructA(WinAPI_PtrSTR lpszSection, WinAPI_PtrSTR lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, WinAPI_PtrSTR szFile);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileStructA(LONGINT lpszSection, LONGINT lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, LONGINT szFile);
 #define WinAPI_WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)	WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile)
-__EXTERN INTEGER __CALL_1 WritePrivateProfileStructW(WinAPI_PtrWSTR lpszSection, WinAPI_PtrWSTR lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, WinAPI_PtrWSTR szFile);
+__EXTERN INTEGER __CALL_1 WritePrivateProfileStructW(LONGINT lpszSection, LONGINT lpszKey, LONGINT lpStruct, INTEGER uSizeStruct, LONGINT szFile);
 #define WinAPI_WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesWritten)	WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesWritten)
 __EXTERN INTEGER __CALL_1 WriteProcessMemory(LONGINT hProcess, LONGINT lpBaseAddress, LONGINT lpBuffer, INTEGER nSize, INTEGER *lpNumberOfBytesWritten);
 #define WinAPI_WriteProfileSection(lpAppName, lpString)	WriteProfileSectionA(lpAppName, lpString)
 #define WinAPI_WriteProfileSectionA(lpAppName, lpString)	WriteProfileSectionA(lpAppName, lpString)
-__EXTERN INTEGER __CALL_1 WriteProfileSectionA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 WriteProfileSectionA(LONGINT lpAppName, LONGINT lpString);
 #define WinAPI_WriteProfileSectionW(lpAppName, lpString)	WriteProfileSectionW(lpAppName, lpString)
-__EXTERN INTEGER __CALL_1 WriteProfileSectionW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 WriteProfileSectionW(LONGINT lpAppName, LONGINT lpString);
 #define WinAPI_WriteProfileString(lpAppName, lpKeyName, lpString)	WriteProfileStringA(lpAppName, lpKeyName, lpString)
 #define WinAPI_WriteProfileStringA(lpAppName, lpKeyName, lpString)	WriteProfileStringA(lpAppName, lpKeyName, lpString)
-__EXTERN INTEGER __CALL_1 WriteProfileStringA(WinAPI_PtrSTR lpAppName, WinAPI_PtrSTR lpKeyName, WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 WriteProfileStringA(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpString);
 #define WinAPI_WriteProfileStringW(lpAppName, lpKeyName, lpString)	WriteProfileStringW(lpAppName, lpKeyName, lpString)
-__EXTERN INTEGER __CALL_1 WriteProfileStringW(WinAPI_PtrWSTR lpAppName, WinAPI_PtrWSTR lpKeyName, WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 WriteProfileStringW(LONGINT lpAppName, LONGINT lpKeyName, LONGINT lpString);
 #define WinAPI_WriteTapemark(hDevice, dwTapemarkType, dwTapemarkCount, bImmediate)	WriteTapemark(hDevice, dwTapemarkType, dwTapemarkCount, bImmediate)
 __EXTERN INTEGER __CALL_1 WriteTapemark(LONGINT hDevice, INTEGER dwTapemarkType, INTEGER dwTapemarkCount, INTEGER bImmediate);
 #define WinApi_ABC__typ NIL
@@ -10154,52 +9987,52 @@ __EXTERN INTEGER __CALL_1 WriteTapemark(LONGINT hDevice, INTEGER dwTapemarkType,
 #define WinAPI__hread(hFile, lpBuffer, lBytes)	_hread(hFile, lpBuffer, lBytes)
 __EXTERN INTEGER __CALL_1 _hread(INTEGER hFile, LONGINT lpBuffer, INTEGER lBytes);
 #define WinAPI__hwrite(hFile, lpBuffer, lBytes)	_hwrite(hFile, lpBuffer, lBytes)
-__EXTERN INTEGER __CALL_1 _hwrite(INTEGER hFile, WinAPI_PtrSTR lpBuffer, INTEGER lBytes);
+__EXTERN INTEGER __CALL_1 _hwrite(INTEGER hFile, LONGINT lpBuffer, INTEGER lBytes);
 #define WinAPI__init()	/*-noinit*/
 #define WinAPI__lclose(hFile)	_lclose(hFile)
 __EXTERN INTEGER __CALL_1 _lclose(INTEGER hFile);
 #define WinAPI__lcreat(lpPathName, iAttribute)	_lcreat(lpPathName, iAttribute)
-__EXTERN INTEGER __CALL_1 _lcreat(WinAPI_PtrSTR lpPathName, INTEGER iAttribute);
+__EXTERN INTEGER __CALL_1 _lcreat(LONGINT lpPathName, INTEGER iAttribute);
 #define WinAPI__llseek(hFile, lOffset, iOrigin)	_llseek(hFile, lOffset, iOrigin)
 __EXTERN INTEGER __CALL_1 _llseek(INTEGER hFile, INTEGER lOffset, INTEGER iOrigin);
 #define WinAPI__lopen(lpPathName, iReadWrite)	_lopen(lpPathName, iReadWrite)
-__EXTERN INTEGER __CALL_1 _lopen(WinAPI_PtrSTR lpPathName, INTEGER iReadWrite);
+__EXTERN INTEGER __CALL_1 _lopen(LONGINT lpPathName, INTEGER iReadWrite);
 #define WinAPI__lread(hFile, lpBuffer, uBytes)	_lread(hFile, lpBuffer, uBytes)
 __EXTERN INTEGER __CALL_1 _lread(INTEGER hFile, LONGINT lpBuffer, INTEGER uBytes);
 #define WinAPI__lwrite(hFile, lpBuffer, uBytes)	_lwrite(hFile, lpBuffer, uBytes)
-__EXTERN INTEGER __CALL_1 _lwrite(INTEGER hFile, WinAPI_PtrSTR lpBuffer, INTEGER uBytes);
+__EXTERN INTEGER __CALL_1 _lwrite(INTEGER hFile, LONGINT lpBuffer, INTEGER uBytes);
 #define WinAPI_keybd_event(bVk, bScan, dwFlags, dwExtraInfo)	keybd_event(bVk, bScan, dwFlags, dwExtraInfo)
 __EXTERN void __CALL_1 keybd_event(CHAR bVk, CHAR bScan, SET dwFlags, INTEGER dwExtraInfo);
 #define WinAPI_lstrcat(lpString1, lpString2)	lstrcatA(lpString1, lpString2)
 #define WinAPI_lstrcatA(lpString1, lpString2)	lstrcatA(lpString1, lpString2)
-__EXTERN WinAPI_PtrSTR __CALL_1 lstrcatA(WinAPI_PtrSTR lpString1, WinAPI_PtrSTR lpString2);
+__EXTERN LONGINT __CALL_1 lstrcatA(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcatW(lpString1, lpString2)	lstrcatW(lpString1, lpString2)
-__EXTERN WinAPI_PtrWSTR __CALL_1 lstrcatW(WinAPI_PtrWSTR lpString1, WinAPI_PtrWSTR lpString2);
+__EXTERN LONGINT __CALL_1 lstrcatW(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcmp(lpString1, lpString2)	lstrcmpA(lpString1, lpString2)
 #define WinAPI_lstrcmpA(lpString1, lpString2)	lstrcmpA(lpString1, lpString2)
-__EXTERN INTEGER __CALL_1 lstrcmpA(WinAPI_PtrSTR lpString1, WinAPI_PtrSTR lpString2);
+__EXTERN INTEGER __CALL_1 lstrcmpA(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcmpW(lpString1, lpString2)	lstrcmpW(lpString1, lpString2)
-__EXTERN INTEGER __CALL_1 lstrcmpW(WinAPI_PtrWSTR lpString1, WinAPI_PtrWSTR lpString2);
+__EXTERN INTEGER __CALL_1 lstrcmpW(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcmpi(lpString1, lpString2)	lstrcmpiA(lpString1, lpString2)
 #define WinAPI_lstrcmpiA(lpString1, lpString2)	lstrcmpiA(lpString1, lpString2)
-__EXTERN INTEGER __CALL_1 lstrcmpiA(WinAPI_PtrSTR lpString1, WinAPI_PtrSTR lpString2);
+__EXTERN INTEGER __CALL_1 lstrcmpiA(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcmpiW(lpString1, lpString2)	lstrcmpiW(lpString1, lpString2)
-__EXTERN INTEGER __CALL_1 lstrcmpiW(WinAPI_PtrWSTR lpString1, WinAPI_PtrWSTR lpString2);
+__EXTERN INTEGER __CALL_1 lstrcmpiW(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcpy(lpString1, lpString2)	lstrcpyA(lpString1, lpString2)
 #define WinAPI_lstrcpyA(lpString1, lpString2)	lstrcpyA(lpString1, lpString2)
-__EXTERN WinAPI_PtrSTR __CALL_1 lstrcpyA(WinAPI_PtrSTR lpString1, WinAPI_PtrSTR lpString2);
+__EXTERN LONGINT __CALL_1 lstrcpyA(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcpyW(lpString1, lpString2)	lstrcpyW(lpString1, lpString2)
-__EXTERN WinAPI_PtrWSTR __CALL_1 lstrcpyW(WinAPI_PtrWSTR lpString1, WinAPI_PtrWSTR lpString2);
+__EXTERN LONGINT __CALL_1 lstrcpyW(LONGINT lpString1, LONGINT lpString2);
 #define WinAPI_lstrcpyn(lpString1, lpString2, iMaxLength)	lstrcpynA(lpString1, lpString2, iMaxLength)
 #define WinAPI_lstrcpynA(lpString1, lpString2, iMaxLength)	lstrcpynA(lpString1, lpString2, iMaxLength)
-__EXTERN WinAPI_PtrSTR __CALL_1 lstrcpynA(WinAPI_PtrSTR lpString1, WinAPI_PtrSTR lpString2, INTEGER iMaxLength);
+__EXTERN LONGINT __CALL_1 lstrcpynA(LONGINT lpString1, LONGINT lpString2, INTEGER iMaxLength);
 #define WinAPI_lstrcpynW(lpString1, lpString2, iMaxLength)	lstrcpynW(lpString1, lpString2, iMaxLength)
-__EXTERN WinAPI_PtrWSTR __CALL_1 lstrcpynW(WinAPI_PtrWSTR lpString1, WinAPI_PtrWSTR lpString2, INTEGER iMaxLength);
+__EXTERN LONGINT __CALL_1 lstrcpynW(LONGINT lpString1, LONGINT lpString2, INTEGER iMaxLength);
 #define WinAPI_lstrlen(lpString)	lstrlenA(lpString)
 #define WinAPI_lstrlenA(lpString)	lstrlenA(lpString)
-__EXTERN INTEGER __CALL_1 lstrlenA(WinAPI_PtrSTR lpString);
+__EXTERN INTEGER __CALL_1 lstrlenA(LONGINT lpString);
 #define WinAPI_lstrlenW(lpString)	lstrlenW(lpString)
-__EXTERN INTEGER __CALL_1 lstrlenW(WinAPI_PtrWSTR lpString);
+__EXTERN INTEGER __CALL_1 lstrlenW(LONGINT lpString);
 #define WinAPI_mouse_event(dwFlags, dx, dy, cButtons, dwExtraInfo)	mouse_event(dwFlags, dx, dy, cButtons, dwExtraInfo)
 __EXTERN void __CALL_1 mouse_event(SET dwFlags, INTEGER dx, INTEGER dy, INTEGER cButtons, INTEGER dwExtraInfo);
 #define WinAPI_wglCopyContext(p0, p1, p2)	wglCopyContext(p0, p1, p2)
@@ -10219,7 +10052,7 @@ __EXTERN LONGINT __CALL_1 wglGetCurrentDC(void);
 #define WinAPI_wglGetLayerPaletteEntries(p0, p1, p2, p3, p4)	wglGetLayerPaletteEntries(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __CALL_1 wglGetLayerPaletteEntries(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER *p4);
 #define WinAPI_wglGetProcAddress(p0)	wglGetProcAddress(p0)
-__EXTERN WinAPI_ROC __CALL_1 wglGetProcAddress(WinAPI_PtrSTR p0);
+__EXTERN WinAPI_ROC __CALL_1 wglGetProcAddress(LONGINT p0);
 #define WinAPI_wglMakeCurrent(p0, p1)	wglMakeCurrent(p0, p1)
 __EXTERN INTEGER __CALL_1 wglMakeCurrent(LONGINT p0, LONGINT p1);
 #define WinAPI_wglRealizeLayerPalette(p0, p1, p2)	wglRealizeLayerPalette(p0, p1, p2)
@@ -10242,8 +10075,8 @@ __EXTERN INTEGER __CALL_1 wglUseFontOutlinesA(LONGINT p0, INTEGER p1, INTEGER p2
 __EXTERN INTEGER __CALL_1 wglUseFontOutlinesW(LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, REAL p4, REAL p5, INTEGER p6, WinAPI_GLYPHMETRICSFLOAT *p7);
 #define WinAPI_wvsprintf(p0, p1, arglist)	wvsprintfA(p0, p1, arglist)
 #define WinAPI_wvsprintfA(p0, p1, arglist)	wvsprintfA(p0, p1, arglist)
-__EXTERN INTEGER __CALL_1 wvsprintfA(WinAPI_PtrSTR p0, WinAPI_PtrSTR p1, WinAPI_PtrSTR arglist);
+__EXTERN INTEGER __CALL_1 wvsprintfA(LONGINT p0, LONGINT p1, LONGINT arglist);
 #define WinAPI_wvsprintfW(p0, p1, arglist)	wvsprintfW(p0, p1, arglist)
-__EXTERN INTEGER __CALL_1 wvsprintfW(WinAPI_PtrWSTR p0, WinAPI_PtrWSTR p1, WinAPI_PtrSTR arglist);
+__EXTERN INTEGER __CALL_1 wvsprintfW(LONGINT p0, LONGINT p1, LONGINT arglist);
 
 #endif
