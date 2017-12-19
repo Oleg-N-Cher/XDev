@@ -174,6 +174,7 @@ extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 #define __SETOF(x)      ((SET)1<<(x))
 #define __SETRNG(l, h)  ((~(SET)0<<(l))&~(SET)0>>(8*sizeof(SET)-1-(h)))
 #define __MASK(x, m)    ((x)&~(m))
+#define __CONSTARR      const
 
 
 
@@ -247,7 +248,7 @@ extern void SYSTEM_ASSERT_FAIL(INTEGER code);
 #  else
 #    define __HALT exit
 #  endif
-#  define __ASSERT(cond, code) if (!(cond)) __HALT(x)
+#  define __ASSERT(cond, code) if (!(cond)) __HALT(code)
 #else
 #  define __HALT(code)       SYSTEM_HALT(code)
 #  define __ASSERT(cond, code) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
@@ -303,15 +304,19 @@ extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SY
 #define __ENUMP(adr, n, P)            SYSTEM_ENUMP(adr, (SYSTEM_ADRINT)(n), P)
 #define __ENUMR(adr, typ, size, n, P) SYSTEM_ENUMR(adr, typ, (SYSTEM_ADRINT)(size), (SYSTEM_ADRINT)(n), P)
 
-#define __INITYP(t, t0, level) \
-  t##__typ               = (SYSTEM_ADRINT*)&t##__desc.blksz;                     \
-  memcpy(t##__desc.basep, t0##__typ - __BASEOFF, level*sizeof(SYSTEM_ADRINT));   \
-  t##__desc.basep[level] = (SYSTEM_ADRINT)t##__typ;                              \
-  t##__desc.module       = (SYSTEM_ADRINT)m;                                     \
-  if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15);                             \
-  t##__desc.blksz        = (t##__desc.blksz+5*sizeof(SYSTEM_ADRINT)-1)/(4*sizeof(SYSTEM_ADRINT))*(4*sizeof(SYSTEM_ADRINT)); \
-  Heap_REGTYP(m, (SYSTEM_ADRINT)&t##__desc.next);                                \
-  SYSTEM_INHERIT(t##__typ, t0##__typ)
+#ifdef SYSTEM_Cfg_NoGC
+#  define __INITYP(t, t0, level)
+#else
+#  define __INITYP(t, t0, level) \
+     t##__typ               = (SYSTEM_ADRINT*)&t##__desc.blksz;                     \
+     memcpy(t##__desc.basep, t0##__typ - __BASEOFF, level*sizeof(SYSTEM_ADRINT));   \
+     t##__desc.basep[level] = (SYSTEM_ADRINT)t##__typ;                              \
+     t##__desc.module       = (SYSTEM_ADRINT)m;                                     \
+     if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15);                             \
+     t##__desc.blksz        = (t##__desc.blksz+5*sizeof(SYSTEM_ADRINT)-1)/(4*sizeof(SYSTEM_ADRINT))*(4*sizeof(SYSTEM_ADRINT)); \
+     Heap_REGTYP(m, (SYSTEM_ADRINT)&t##__desc.next);                                \
+     SYSTEM_INHERIT(t##__typ, t0##__typ)
+#endif
 
 #define __IS(tag, typ, level) (*(tag-(__BASEOFF-level))==(SYSTEM_ADRINT)typ##__typ)
 #define __TYPEOF(p)           (*(((SYSTEM_ADRINT**)(p))-1))
@@ -327,7 +332,7 @@ extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SY
 #    define __stdcall __attribute__((__stdcall__))
 #  endif
 #  define main(argc, argv) __stdcall WinMain( \
-     void* __hInstance, void* __hPrevInstance, char* __lpCmdLine, int __nCmdShow)
+     SYSTEM_ADRINT __hInstance, SYSTEM_ADRINT __hPrevInstance, char* __lpCmdLine, int __nCmdShow)
 #  define argc SYSTEM_argc
 #  define argv SYSTEM_argv
 #endif

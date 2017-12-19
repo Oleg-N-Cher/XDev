@@ -16,7 +16,8 @@ SET Include=%SaveInclude%
 
 :Build
 
-SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1.c -Wl,-e_WinMain@16 -D_WINGUI
+SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1.c -Wl,-e__WinMain -D_WINGUI
+IF "%App%"=="GUI" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1w.c -Wl,-e__WinMain -D_WINGUI
 SET Options=%StripExe% %Options% -m32 -s -Os -fno-exceptions -fno-asynchronous-unwind-tables -Wl,--gc-sections -Wl,--file-alignment,512
 IF "%App%"=="GUI" SET Options=%Options% -mwindows
 SET Include=%Include% -I%WinDev%\Lib\Mod -I%WinDev%\Lib\Obj
@@ -24,6 +25,12 @@ SET Libraries=%WinDev%\Lib\XDev.a -lgdi32
 IF "%Clean%"=="" SET Clean=TRUE
 IF "%Start%"=="" SET Start=TRUE
 IF "%Pause%"=="" SET Pause=FALSE
+IF "%Rsrc%"=="" GOTO NoRsrc
+
+windres ..\Rsrc\%Rsrc%.res -Ocoff -Fpe-i386 -o%Rsrc%.o
+SET Options=%Options% %Rsrc%.o
+
+:NoRsrc
 
 SET GCC=gcc.exe %Options% %Include% %Modules%
 

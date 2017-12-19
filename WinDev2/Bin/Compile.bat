@@ -6,7 +6,7 @@ SET PATH=%WinDev%\Bin\GCC\bin;%PATH%
 IF "%MainMod%"=="" SET MainMod=%1
 IF "%Pause%"=="" SET Pause=FALSE
 
-SET Options=%Options% -m32 -fno-exceptions -fno-asynchronous-unwind-tables -Wl,--file-alignment,512
+SET Options=%Options% -m32 -fno-exceptions -fno-asynchronous-unwind-tables -Wl,--file-alignment,512 -D_WINGUI
 SET Include=%Include% -I%WinDev%\Lib\Mod -I%WinDev%\Lib\Obj
 IF "%Clean%"=="" SET Clean=TRUE
 

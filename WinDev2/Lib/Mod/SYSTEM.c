@@ -18,12 +18,12 @@
 #include <signal.h>
 #include <stdlib.h>
 
-
+/*
 INTEGER SYSTEM_ArgCount;
 void   *SYSTEM_ArgVector;
 void  (*SYSTEM_AssertFailHandler)(INTEGER code);
 void  (*SYSTEM_HaltHandler)(INTEGER code);
-void   *SYSTEM_MainStackFrame; /* adr of main proc stack frame, used for stack collection */
+void   *SYSTEM_MainStackFrame; // adr of main proc stack frame, used for stack collection
 
 
 // Procedure verions of SYSTEM.H versions used when a multiply accessed
@@ -47,7 +47,7 @@ LONGINT SYSTEM_DIV(LONGINT x, LONGINT y)
     if (y >= 0) {return -((y-x-1)/y);}
     else        {return (-x)/(-y);}
 }
-
+*/
 LONGINT SYSTEM_MOD(LONGINT x, LONGINT y)
 {
   if (x == 0) return 0;
@@ -58,7 +58,7 @@ LONGINT SYSTEM_MOD(LONGINT x, LONGINT y)
     if (y >= 0) {return (y-1) - ((-x-1) % y);}
     else        {return -((-x) % (-y));}
 }
-
+/*
 INTEGER SYSTEM_ENTIER(LONGREAL x)
 {
   INTEGER i;
@@ -162,37 +162,37 @@ SYSTEM_PTR SYSTEM_NEWARR(SYSTEM_ADRINT *typ, SYSTEM_ARRLEN elemsz, int elemalgn,
     size = dataoff + nofelems * elemsz;
     Heap_Lock();
     if (typ == NIL) {
-        /* element typ does not contain pointers */
+        // element typ does not contain pointers
         x = Heap_NEWBLK(size);
     }
     else if (typ == (SYSTEM_ADRINT*)POINTER__typ) {
-        /* element type is a pointer */
+        // element type is a pointer
         x = Heap_NEWBLK(size + nofelems * sizeof(SYSTEM_ADRINT));
         p = (SYSTEM_ARRLEN*)(SYSTEM_ADRINT)x[-1];
-        p[-nofelems] = *p;  /* build new type desc in situ: 1. copy block size; 2. setup ptr tab; 3. set sentinel; 4. patch tag */
-        p -= nofelems - 1; n = 1;   /* n =1 for skipping the size field */
+        p[-nofelems] = *p;  // build new type desc in situ: 1. copy block size; 2. setup ptr tab; 3. set sentinel; 4. patch tag
+        p -= nofelems - 1; n = 1;   // n =1 for skipping the size field
         while (n <= nofelems) {*p = n*sizeof(SYSTEM_ADRINT); p++; n++;}
-        *p = - (nofelems + 1) * sizeof(SYSTEM_ADRINT);    /* sentinel */
+        *p = - (nofelems + 1) * sizeof(SYSTEM_ADRINT);    // sentinel
         x[-1] -= nofelems * sizeof(SYSTEM_ADRINT);
     }
     else {
-        /* element type is a record that contains pointers */
+        // element type is a record that contains pointers
         ptab = typ + 1; nofptrs = 0;
-        while (ptab[nofptrs] >= 0) {nofptrs++;} /* number of pointers per element */
-        nptr = nofelems * nofptrs;  /* total number of pointers */
+        while (ptab[nofptrs] >= 0) {nofptrs++;} // number of pointers per element
+        nptr = nofelems * nofptrs;  // total number of pointers
         x = Heap_NEWBLK(size + nptr * sizeof(SYSTEM_ADRINT));
         p = (SYSTEM_ARRLEN*)(SYSTEM_ADRINT)x[- 1];
-        p[-nptr] = *p;  /* build new type desc in situ; 1. copy block size; 2. setup ptr tab; 3. set sentinel; 4. patch tag */
+        p[-nptr] = *p;  // build new type desc in situ; 1. copy block size; 2. setup ptr tab; 3. set sentinel; 4. patch tag
         p -= nptr - 1; n = 0; off = dataoff;
         while (n < nofelems) {i = 0;
             while (i < nofptrs) {*p = off + ptab[i]; p++; i++;}
             off += elemsz; n++;
         }
-        *p = - (nptr + 1) * sizeof(SYSTEM_ADRINT);    /* sentinel */
+        *p = - (nptr + 1) * sizeof(SYSTEM_ADRINT);    // sentinel
         x[-1] -= nptr * sizeof(SYSTEM_ADRINT);
     }
     if (nofdyn != 0) {
-        /* setup len vector for index checks */
+        // setup len vector for index checks
         va_start(ap, nofdyn);
         p = (SYSTEM_ARRLEN*)x;
         while (nofdyn > 0) {*p = va_arg(ap, SYSTEM_ARRLEN); p++, nofdyn--;}
@@ -293,3 +293,4 @@ typedef void (*SystemSignalHandler)(INTEGER); // = Platform_SignalHandler
     }
 
 #endif
+*/

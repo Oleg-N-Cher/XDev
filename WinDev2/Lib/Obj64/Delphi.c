@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkae */
+/* Ofront+ 1.0 -sC -48 */
 #include "SYSTEM.h"
 
 
@@ -7,7 +7,6 @@
 export INTEGER Delphi_HiWord (INTEGER i);
 export INTEGER Delphi_LoWord (INTEGER i);
 
-#define Delphi__init()	/*-noinit*/
 
 /*============================================================================*/
 

@@ -12,6 +12,4 @@ BEGIN
   RETURN ORD( BITS(i) * BITS(0FFFFH) )
 END LoWord;
 
-PROCEDURE- _init* "/*-noinit*/"; 
-
 END Delphi.

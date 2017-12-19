@@ -72,7 +72,7 @@
 
 MODULE Clock; (*$MAIN*)
 
-IMPORT SYSTEM, W := WinApi, D := Delphi, Ignore;
+IMPORT SYSTEM, W := WinAPI, D := Delphi, Ignore;
 
 CONST
 
@@ -202,12 +202,7 @@ VAR
     sysHeight   : INTEGER;  (* height of caption bar and top and bottom frames *)
     width   : INTEGER;      (* width of entire clock window                    *)
     height  : INTEGER;      (* height of entire clock window                   *)
-
-TYPE
-    pszTooManyPtr = POINTER TO ARRAY 512 OF CHAR;
-
-VAR
-    pszTooMany  : pszTooManyPtr;
+    pszTooMany  : W.ADRINT;
 
 PROCEDURE GetTime (VAR t : TIME);
 VAR
@@ -315,12 +310,12 @@ BEGIN
     (* Get display size in (pixels X raster lines) *)
     (* and in (millimeters X millimeters)          *)
 
-    dc      := W.GetDC(NIL);
+    dc      := W.GetDC(0);
     VRes    := W.GetDeviceCaps(dc, W.VERTRES);
     HRes    := W.GetDeviceCaps(dc, W.HORZRES);
     vSize   := W.GetDeviceCaps(dc, W.VERTSIZE);
     hSize   := W.GetDeviceCaps(dc, W.HORZSIZE);
-    Ignore.Int( W.ReleaseDC(NIL, dc) );
+    Ignore.Int( W.ReleaseDC(0, dc) );
 
     (* Compute (raster lines / decimeter) and (pixels / decimeter) *)
 
@@ -501,7 +496,7 @@ BEGIN
 
     (* select pen for hand *)
 
-    Ignore.Ptr( W.SelectObject(DC, Pen) );
+    Ignore.Int( W.SelectObject(DC, Pen) );
 
     (* Draw thin hand *)
 
@@ -538,7 +533,7 @@ BEGIN
 
     (* select pen for hand *)
 
-    Ignore.Ptr( W.SelectObject(DC, Pen) );
+    Ignore.Int( W.SelectObject(DC, Pen) );
 
     (* compute coordinates for the side of the hand *)
 
@@ -721,9 +716,9 @@ BEGIN
     CASE message OF
     | W.WM_INITDIALOG:
     | W.WM_COMMAND   : Ignore.Int( W.EndDialog(hDlg, 1) );
-    ELSE RETURN SYSTEM.VAL(W.PtrVoid, 0)
+    ELSE RETURN 0
     END;
-    RETURN SYSTEM.VAL(W.PtrVoid, 1)
+    RETURN 1
 END AboutProc;
 
 (***************************************************************************
@@ -743,9 +738,9 @@ VAR
 BEGIN
     CASE message OF
     | W.WM_SYSCOMMAND:
-                    IF wParam = SYSTEM.VAL(W.WPARAM, IDM_ABOUT) THEN
+                    IF wParam = IDM_ABOUT THEN
                         (* Draw and handle messages for the "About..." Dialog *)
-                        Ignore.Int( W.DialogBoxParam(Instance, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR("#1")), wnd, AboutProc, NIL) );
+                        Ignore.Int( W.DialogBoxParam(Instance, SYSTEM.ADR("#1"), wnd, AboutProc, 0) );
                     ELSE
                         (* Perform the default window processing *)
                         RETURN W.DefWindowProc(wnd, message, wParam, lParam);
@@ -762,7 +757,7 @@ BEGIN
     | W.WM_PAINT:
                     (* Paint clock displaying current time *)
                     Ignore.Int( W.InvalidateRect(wnd, NIL, SYSTEM.VAL(INTEGER, TRUE)) );
-                    Ignore.Ptr( W.BeginPaint(wnd, ps) );
+                    Ignore.Int( W.BeginPaint(wnd, ps) );
                     ClockPaint(ps.hdc, PAINTALL);
                     Ignore.Int( W.EndPaint(wnd, ps) );
     | W.WM_TIMECHANGE, W.WM_TIMER:
@@ -775,12 +770,12 @@ BEGIN
     | W.WM_ERASEBKGND:
                     (* Paint over the entire client area *)
                     Ignore.Int( W.GetClientRect(wnd, rc) );
-                    Ignore.Int( W.FillRect(SYSTEM.VAL(W.HDC, wParam), rc, hbrBackgnd) );
+                    Ignore.Int( W.FillRect(wParam, rc, hbrBackgnd) );
     ELSE
                     (* Perform the default window processing *)
                     RETURN W.DefWindowProc(wnd, message, wParam, lParam)
     END;
-    RETURN NIL
+    RETURN 0
 END ClockWndProc;
 
 (***************************************************************************
@@ -796,19 +791,19 @@ PROCEDURE ClockInit() : BOOLEAN;
 VAR
     clockClass  : W.WNDCLASS;
 BEGIN
-    clockClass.lpszClassName := SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer));
-    clockClass.hbrBackground := NIL;
+    clockClass.lpszClassName := SYSTEM.ADR(szBuffer);
+    clockClass.hbrBackground := 0;
     clockClass.style         := W.CS_VREDRAW + W.CS_HREDRAW + W.CS_BYTEALIGNCLIENT;
     clockClass.hInstance     := Instance;
     clockClass.lpfnWndProc   := ClockWndProc;
-    clockClass.hCursor       := W.LoadCursor(Instance, SYSTEM.VAL(W.HCURSOR, W.IDC_ARROW));
-    clockClass.hIcon         := W.LoadIcon(Instance, SYSTEM.VAL(W.HICON, 100));
+    clockClass.hCursor       := W.LoadCursor(Instance, W.IDC_ARROW);
+    clockClass.hIcon         := W.LoadIcon(Instance, 100);
 
     (* added in conversion from C *)
 
     clockClass.cbClsExtra   := 0;
     clockClass.cbWndExtra   := 0;
-    clockClass.lpszMenuName := NIL;
+    clockClass.lpszMenuName := 0;
 
     IF W.RegisterClass(clockClass) = 0 THEN
         (* Error registering class -- return *)
@@ -827,9 +822,9 @@ BEGIN
     bIconic := FALSE;  (* TRUE if clock is currently iconic; FALSE otherwise *)
     Instance := W.Instance();
 
-    Ignore.Int( W.LoadString(W.Instance(), IDS_APPNAME, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), BUFLEN) );
+    Ignore.Int( W.LoadString(W.Instance(), IDS_APPNAME, SYSTEM.ADR(szBuffer), BUFLEN) );
 
-    IF W.PrevInstance() = NIL THEN
+    IF W.PrevInstance() = 0 THEN
     (* First instance -- register window class *)
         IF ~ ClockInit() THEN
             HALT(1);
@@ -849,17 +844,17 @@ BEGIN
     height := VertEquiv(width) + sysHeight;
 
     Wnd := W.CreateWindowEx( {},
-             SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)),  (* class name              *)
-             SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)),  (* The window name         *)
+             SYSTEM.ADR(szBuffer),  (* class name              *)
+             SYSTEM.ADR(szBuffer),  (* The window name         *)
              W.WS_OVERLAPPEDWINDOW, (* window style      *)
              W.CW_USEDEFAULT, (* use default positioning *)
              0,               (* y not used              *)
              width,           (* window width            *)
              height,          (* window height           *)
-             NIL,             (* NULL parent handle      *)
-             NIL,             (* NULL menu/child handle  *)
+             0,             (* NULL parent handle      *)
+             0,             (* NULL menu/child handle  *)
              W.Instance(),    (* program instance        *)
-             NIL              (* NULL data structure ref.*)
+             0              (* NULL data structure ref.*)
                );
 
     GetTime(nTime);
@@ -867,16 +862,16 @@ BEGIN
     WHILE ((nTime.second = oTime.second) &
        (nTime.minute = oTime.minute) &
        (nTime.hour   = oTime.hour) ) DO
-        GetTime(oTime);
+       GetTime(oTime);
     END;
 
     IF W.SetTimer(Wnd, TimerID, OPEN_TLEN, SYSTEM.VAL(W.TIMERPROC, 0)) = 0 THEN
         (* 16 public timers already in use -- post error and exit *)
 
-        pszTooMany := SYSTEM.VAL(pszTooManyPtr, W.GlobalLock(W.GlobalAlloc(W.GPTR, 40)));
+        pszTooMany := W.GlobalLock(W.GlobalAlloc(W.GPTR, 40));
         Ignore.Int( W.LoadString(W.Instance(), IDS_TOOMANY, pszTooMany, 40) );
 
-        Ignore.Int( W.MessageBox(NIL, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(pszTooMany)), SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), W.MB_OK + W.MB_ICONHAND + W.MB_SYSTEMMODAL) );
+        Ignore.Int( W.MessageBox(0, pszTooMany, SYSTEM.ADR(szBuffer), W.MB_OK + W.MB_ICONHAND + W.MB_SYSTEMMODAL) );
 
         DeleteTools;
         HALT(1);
@@ -884,15 +879,15 @@ BEGIN
 
     (* Add the "About..." menu item to the bottom of the system menu *)
 
-    Ignore.Int( W.LoadString(W.Instance(), IDS_ABOUTMENU, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), BUFLEN) );
+    Ignore.Int( W.LoadString(W.Instance(), IDS_ABOUTMENU, SYSTEM.ADR(szBuffer), BUFLEN) );
     Menu := W.GetSystemMenu(Wnd, 0);
-    Ignore.Int( W.ChangeMenu(Menu, 0, SYSTEM.VAL(W.PtrSTR, SYSTEM.ADR(szBuffer)), IDM_ABOUT, W.MF_APPEND + W.MF_STRING) );
+    Ignore.Int( W.ChangeMenu(Menu, 0, SYSTEM.ADR(szBuffer), IDM_ABOUT, W.MF_APPEND + W.MF_STRING) );
 
     Ignore.Int( W.ShowWindow(Wnd, W.CmdShow()) );
 
     (* Process messages until program termination *)
 
-    WHILE W.GetMessage(mess, NIL, 0, 0) # 0 DO
+    WHILE W.GetMessage(mess, 0, 0, 0) # 0 DO
         Ignore.Int( W.TranslateMessage(mess) );
         Ignore.Int( W.DispatchMessage(mess) );
     END;
