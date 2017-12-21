@@ -1,8 +1,7 @@
 @ECHO OFF
 IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev2
-SET PATH=%WinDev%\Bin\GCC\bin;%PATH%
-
+SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%
 IF "%MainMod%"=="" SET MainMod=%1
 IF "%MainMod%"=="%1" GOTO Build
 
@@ -17,8 +16,10 @@ SET Include=%SaveInclude%
 :Build
 
 SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1.c -Wl,-e__WinMain -D_WINGUI
-IF "%App%"=="GUI" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1w.c -Wl,-e__WinMain -D_WINGUI
-SET Options=%StripExe% %Options% -m32 -s -Os -fno-exceptions -fno-asynchronous-unwind-tables -Wl,--gc-sections -Wl,--file-alignment,512
+IF "%App%"=="GUI" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1.c -Wl,-e__WinMain -D_WINGUI
+IF "%App%"=="GUIcmd" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1w.c -Wl,-e__WinMain -D_WINGUI
+IF "%App%"=="GUIcmd" SET App=GUI
+SET Options=%StripExe% %Options% -m32 -s -Os -g0 -fvisibility=hidden -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -Wl,--gc-sections -Wl,--file-alignment,512
 IF "%App%"=="GUI" SET Options=%Options% -mwindows
 SET Include=%Include% -I%WinDev%\Lib\Mod -I%WinDev%\Lib\Obj
 SET Libraries=%WinDev%\Lib\XDev.a -lgdi32

@@ -243,8 +243,8 @@ extern void SYSTEM_ASSERT_FAIL(INTEGER code);
 
 #ifdef SYSTEM_Cfg_NoGC
 #  ifdef SYSTEM_Cfg_KERNEL32
-     __attribute__((dllimport)) void __attribute__((__stdcall__)) ExitProcess (int);
-#    define __HALT ExitProcess
+     void SYSTEM_ExitOS (int code);
+#    define __HALT(code) SYSTEM_ExitOS(code)
 #  else
 #    define __HALT exit
 #  endif

@@ -1,7 +1,7 @@
 @ECHO OFF
 IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev2
-SET PATH=%WinDev%\Bin\GCC\bin;%PATH%
+SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%
 
 IF "%MainMod%"=="" SET MainMod=%1
 IF "%Pause%"=="" SET Pause=FALSE

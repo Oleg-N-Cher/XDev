@@ -1,9 +1,9 @@
 @ECHO OFF
 IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev2
-SET PATH=%WinDev%\Bin\GCC\bin;%PATH%
+SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%
 
-SET Options= -m32 -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections
+SET Options=-Os -fno-exceptions -fno-asynchronous-unwind-tables
 SET Include=-I.. -I..\Mod
 SET GCC=gcc.exe %Options% %Include%
 

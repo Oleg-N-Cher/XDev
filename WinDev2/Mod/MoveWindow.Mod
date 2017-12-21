@@ -110,7 +110,7 @@ BEGIN
   mainWnd := W.CreateWindowEx(
     W.WS_EX_TOPMOST, SYSTEM.ADR("MoveWin"),
     SYSTEM.ADR("MoveWin"), W.WS_OVERLAPPEDWINDOW,
-    100, 100, 210, 100, 0, 0, instance, 0
+    W.CW_USEDEFAULT, 0, 210, 100, 0, 0, instance, 0
   );
   res := W.ShowWindow(mainWnd, W.SW_SHOWDEFAULT);
   res := W.UpdateWindow(mainWnd);
@@ -124,7 +124,6 @@ BEGIN
     res := W.TranslateMessage(msg);
     res := W.DispatchMessage(msg);
   END;
-  W.ExitProcess(SHORT(msg.wParam))
 END MainLoop;
  
 BEGIN (*$MAIN*)

@@ -1,4 +1,4 @@
-@SET App=GUI
+@SET App=GUIcmd
 @SET Rsrc=Clock
 @SET Pause=FALSE
 @SET Start=TRUE

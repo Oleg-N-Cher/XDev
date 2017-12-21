@@ -1,6 +1,4 @@
-(* Cross-platform "HelloWorld" Demo for ZX Spectrum 48K *)
-(* Copyright (C) 2013 Oleg N. Cher, VEDAsoft Oberon Club *)
-(* http://zx.oberon2.ru *)
+(* Cross-platform "HelloWorld" Demo for MS Windows x86 & x64 *)
 
 MODULE XDevHello; (*$MAIN*)
 IMPORT C := Console;

@@ -1,5 +1,6 @@
 @ECHO OFF
 IF "%XDev%"=="" SET XDev=..
+SET RootBin=%XDev%\Bin
 SET WinDev=%XDev%\WinDev2
 SET PATH=%WinDev%\Bin\MinGW64\bin;%PATH%
 
@@ -10,16 +11,19 @@ SET GCC=gcc.exe %Options% %Include%
 IF EXIST ..\Mod\%2.c GOTO CLib
 
 :OLib
-%GCC% -c %2.c
-GOTO Done
+%RootBin%\smartlib %2.c %3 %4 %5
+GOTO Compile
 
 :CLib
 IF EXIST %2.h DEL %2.h
 IF EXIST %2.c DEL %2.c
-%GCC% -c ..\Mod\%2.c
+%RootBin%\smartlib ..\Mod\%2.c %3 %4 %5
 
-:Done
-IF errorlevel 1 PAUSE
-
-ar.exe -rc %1 %2.o
-DEL %2.o
+:Compile
+@FOR %%i IN (%2_???.c) DO (
+  %GCC% -c %%i
+  @IF errorlevel 1 PAUSE
+)
+@FOR %%i IN (%2_???.o) DO ar.exe -rc %1 %%i
+@DEL *.o
+@DEL *_0??.c

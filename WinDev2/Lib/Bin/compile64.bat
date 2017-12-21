@@ -1,7 +1,7 @@
 @ECHO OFF
 IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev2
-SET PATH=%WinDev%\Bin\GCC\bin;%PATH%
+SET PATH=%WinDev%\Bin\MinGW64\bin;%PATH%
 
 SET Options= -m64 -Os -fno-exceptions -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections
 SET Include=-I.. -I..\Mod

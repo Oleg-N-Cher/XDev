@@ -2,7 +2,7 @@
 SET Lib=..\XDev.a
 IF EXIST %Lib% DEL %Lib%
 
-CALL ..\Bin\cc.bat %Lib% SYSTEM
+CALL ..\Bin\smart.bat %Lib% SYSTEM
 CALL ..\Bin\cc.bat %Lib% Strings
 CALL ..\Bin\cc.bat %Lib% ConsoleStdIO
 CALL ..\Bin\cc.bat %Lib% ConsoleWinAPI
