@@ -25,6 +25,8 @@ Ofront/.gitignore
 Pdp11Dev/
 Sdl/
 ToDo/
+WinDev/Bin/MinGW/
+WinDev/Bin/MinGW64/
 WinDev/Obj/*.o
 ZXDev/Bin/MakeZX/
 ZXDev/Lib/Obj/*.sym
