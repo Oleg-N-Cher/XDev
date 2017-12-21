@@ -9,5 +9,4 @@ LONGREAL 4 4
 PTR      2 2
 PROC     2 2
 RECORD   2 2
-ARRLEN   1
 ENDIAN   0 0
