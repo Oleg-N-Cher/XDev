@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 1.0 -smC -48 */
 #include "SYSTEM.h"
 #include "Console.h"
 
@@ -11,7 +11,7 @@ static INTEGER ASCII_n;
 /*============================================================================*/
 
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Console__init);

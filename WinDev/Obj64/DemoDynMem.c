@@ -1,4 +1,4 @@
-/*  Ofront 1.2 -xtspkaem */
+/* Ofront+ 1.0 -smC -48 */
 #include "SYSTEM.h"
 #include "Console.h"
 #include "Platform.h"
@@ -19,7 +19,7 @@ static DemoDynMem_PersonPtr DemoDynMem_john, DemoDynMem_mike, DemoDynMem_lisa, D
 static DemoDynMem_PersonPtr (*DemoDynMem_list)[5];
 static INTEGER DemoDynMem_n;
 
-export LONGINT *DemoDynMem_Person__typ;
+export SYSTEM_ADRINT *DemoDynMem_Person__typ;
 
 
 
@@ -38,7 +38,7 @@ static void EnumPtrs(void (*P)(void*))
 
 __TDESC(DemoDynMem_Person__desc, 1, 1) = {__TDFLDS("Person", 40), {32, -16}};
 
-export main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Console__init);
@@ -72,7 +72,7 @@ export main(int argc, char **argv)
 	DemoDynMem_iren->age = 43;
 	DemoDynMem_iren->next = DemoDynMem_mike;
 	DemoDynMem_person = DemoDynMem_john;
-	Console_WriteStrLn((CHAR*)"Female:", (LONGINT)8);
+	Console_WriteStrLn((CHAR*)"Female:", 8);
 	while (DemoDynMem_person != NIL) {
 		if (DemoDynMem_person->sex == 'F') {
 			Console_WriteStrLn(DemoDynMem_person->name, 20);

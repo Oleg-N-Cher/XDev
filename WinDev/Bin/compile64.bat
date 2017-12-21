@@ -1,14 +1,16 @@
-@SET Bin=..\Bin
-@SET Lib=..\Lib
-@SET tcc=%Bin%\tcc64\tcc
+@ECHO OFF
+IF "%XDev%"=="" SET XDev=..
 
-@IF EXIST %1 GOTO config
+SET PATH=%XDev%\WinDev\Bin\MinGW64\bin;%PATH%
+SET gcc=gcc.exe -fno-exceptions -fno-asynchronous-unwind-tables -Wl,--file-alignment,512 -I%XDev%\WinDev\Lib\C -I%XDev%\WinDev\Lib\Obj64 -I%XDev%\WinDev\Lib
 
-%tcc% -c %1.c -I "." -I %Lib%\C -I %Lib%\Obj64 -I %Lib%
+IF EXIST %1 GOTO config
+
+%gcc% -c %1.c -I.
 GOTO exit
 
 :config
-%tcc% -c %1.c -I %1 -I %Lib%\C -I %Lib%\Obj64 -I %Lib%
+%gcc% -c %1.c -I%1
 
 :exit
-@IF errorlevel 1 PAUSE
+IF errorlevel 1 PAUSE
