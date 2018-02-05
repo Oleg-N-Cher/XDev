@@ -191,3 +191,67 @@ http://www.z88dk.org/wiki/doku.php?id=temp:front
 
 Some benchmarks:
 http://www.z88dk.org/wiki/doku.php?i...ont#benchmarks
+
+
+================================================================
+Hi Oleg,
+
+Try the newlib instead.  You have much tighter control over everything.
+
+zcc +zx -vn -startup=31 -clib=sdcc_iy -SO3 --max-allocs-per-node200000 hello.c -o hello -pragma-include:zpragma.inc
+
+The startup value chooses a specific crt to use and for the zx target is mainly used to select pre-set drivers on stdin, stdout, stderr.  You can see a little talk about this here:
+
+https://github.com/z88dk/z88dk/blob/master/doc/ZXSpectrumZSDCCnewlib_02_HelloWorld.md
+
+You can always instantiate your own drivers on stdin, stdout (and more whose names you invent) so it's possible to have many windows on screen with various dimensions, for example.  But the startup numbers are an easy way to get a default.  startup=31 uses a crt with nothing on stdin,stdout,stderr so that printf and scanf will not work.
+
+-v instead of -vn will show you what zcc is doing.
+
+-clib=sdcc_iy chooses sdcc as compiler and the newlib's iy version of the library.  This gives ix to sdcc and reserves iy for the library.  The "--reserve-regs-iy" flag is also used in the compile.  We find this leads to the best code generation.
+
+-SO3 uses aggressive peephole rules.  (-SO2 is the default).  --max-allocs-per-node200000 is the same as sdcc.  You can also add --opt-code-size
+
+"hello.c" is the source file but there can be any number of source files listed, .c, .asm, etc.  If there are a lot you can create a file that lists them one per line and then name that file on the compile line with something like "@project.lst".
+
+"-o hello" selects the root of the output name.
+
+"-pragma-include:zpragma.inc" tells zcc to read the file "zpragma.inc" to find project pragmas.  Pragmas are how you communicate to the crt about what options you do or do not want.
+
+Some other options you may want to add:
+
+--fsigned-char
+-m  : generate map file
+--list  : generate .lis file for each source file showing the translated asm
+--c-code-in-asm  : put c code in .lis or .asm files as comments
+
+For the "zpragma.inc" file, here is a set of pragmas you may want to use to reduce the crt size.
+Most generic pragmas are described here:
+
+https://www.z88dk.org/wiki/doku.php?id=libnew:target_embedded#crt_configuration
+but targets can have their own too.  For the zx the extra pragmas control the org of memory banks and the behaviour of the default terminal drivers.
+The default settings of the pragmas for zx ram compiles (as opposed to if2 cartridges or esxdos dot commands) is here:
+
+https://github.com/z88dk/z88dk/blob/master/libsrc/_DEVELOPMENT/target/zx/crt_config.inc#L22
+
+"zpragma.inc"
+
+#pragma output CLIB_MALLOC_HEAP_SIZE = 0   // do not create a heap so that malloc() will not work
+#pragma output CLIB_STDIO_HEAP_SIZE = 0   // cannot open files
+
+Other ones that might be useful are to change "CRT_ON_EXIT" so that on program exit, the program does a reset by jumping to zero.  It is set up to return to basic which makes the crt bigger because it has to take care of some housekeeping to do that.  "REGISTER_SP" sets the initial stack pointer.  It's set just below the UDGs to be compatible with basic but it's better to put it at -1 (leave at the position set by CLEAR in the basic loader) or 0 (move SP to the top of memory - remember SP decrements before writing a value) if you do not return to basic.  If you start using printf and scanf, you can control which % converters you want to include in the compile.  See
+
+https://www.z88dk.org/wiki/doku.php?id=libnew:target_embedded#printf_and_scanf_configuration
+
+===
+
+For output, z88dk always creates binaries.  You will see a "hello_CODE.bin" file in the output.  That is the binary that is orged at 32768 by default.  If you start defining sections or you start to build for the 128k spectrum there may be more binaries generated.
+
+The output binaries plus the map file are communicated to another tool in z88dk called "appmake" to build the final output.  By adding "-create-app" to the compile line, zcc will automatically invoke "appmake +zx" with a default setting to build a tap out of the main output binary.  You can change that to sna by adding "-subtype=sna" and there are other specialized output forms too.  If you want to make an intel hex file, there is "appmake +hex" that can help with that but for the zx you don't really want that.  You don't have to add "-create-app" to the compile line and you can stick to the raw binary output instead.  Or you can use appmake separately to process the output binaries as you see fit.
+
+================================================================
+Another question: can I use ZSDCC without ZCC? And then how can I build binary (or hex) output?
+----------------------------------------------------------------
+When you replace "-vn" with "-v" in the compile line you can see what zcc is doing. You can always invoke the tools separately but zcc makes it all simple and it always knows what to do. For zsdcc in particular, you have to call zpragma to process pragmas which may be inlined in c code, then the preprocessor, then zsdcc with the correct optimization rules to use, then copt to translate asz80 syntax to standard zilog for z80asm, then copt again to perform platform-specific optimizations and sdcc bugfixes, then z80asm to make an object file, then z80asm to link all the source files in the compile, then optionally appmake to build the output. It's much easier to just have zcc do everything.
+
+You can always ask zcc to stop earlier in the process. For example "-a" will stop after .c files have been translated to asm (output is .c.asm) and "-c" will stop at an object file .o. You can also get zcc to build libraries with "-x" if you want to make a runtime library.
