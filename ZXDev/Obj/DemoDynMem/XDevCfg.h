@@ -48,6 +48,7 @@
 /* Runtime checks */
 #define SYSTEM_NoCheck_X
 #define SYSTEM_NoCheck_CASE
+#define SYSTEM_NoCheck_RETURN
 
 /* Garbage collector */
 #define SYSTEM_NoGC

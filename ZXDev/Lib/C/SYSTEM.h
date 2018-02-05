@@ -185,7 +185,11 @@ extern void SYSTEM_ENUMR();
 #  define __X(i, ub)	(i)
 #  define __XF(i, ub)	(i)
 #endif
-#define __RETCHK	__retchk: __HALT(-3)
+#ifndef SYSTEM_NoCheck_RETURN
+#  define __RETCHK	__retchk: __HALT(-3)
+#else
+#  define __RETCHK
+#endif
 #ifndef SYSTEM_NoCheck_CASE
 #  define __CASECHK	__HALT(-4)
 #else
