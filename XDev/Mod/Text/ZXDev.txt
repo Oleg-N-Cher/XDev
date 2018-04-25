@@ -5,10 +5,10 @@ MODULE XDevZXDev;
 
 IMPORT
 	Dialog, Controllers, Cmd := XDevCmd, Files, HostFiles, StdCmds,
-	Stores, Strings, TextModels, TextViews, Windows;
+	Strings, TextModels, TextViews, Windows;
 
 CONST
-	Config = "Config.pzx"; ConfigWoExt = "Config"; ConfigExt = "pzx";
+	Config = "Config.pzx"; ConfigExt = "pzx";
 
 VAR
 	MainMod*: ARRAY 40 OF CHAR;
@@ -83,14 +83,14 @@ END LoadProjectSettings;
 PROCEDURE SaveProjectSettings*;
 VAR
 	t: TextModels.Model; w: Windows.Window; dir: Files.Name; loc: Files.Locator;
-	file: Files.File; wr: Stores.Writer; pos, res: INTEGER;
+	file: Files.File; wr: Files.Writer; pos, res: INTEGER;
 
 	PROCEDURE Emit(IN str: ARRAY OF CHAR);
 	VAR
 		n: INTEGER;
 	BEGIN
-		FOR n := 0 TO LEN(str$)-1 DO wr.WriteSChar(SHORT(str[n])) END;
-		wr.WriteSChar(0DX); wr.WriteSChar(0AX);
+		FOR n := 0 TO LEN(str$)-1 DO wr.WriteByte(SHORT(SHORT(ORD(str[n])))) END;
+		wr.WriteByte(0DH); wr.WriteByte(0AH);
 	END Emit;
 
 BEGIN
@@ -113,8 +113,10 @@ BEGIN
 				(* Generate "Subsys/?/Config.pzx: *)
 
 				file := Files.dir.New(loc, Files.dontAsk);
-				ASSERT(file # NIL);
-				wr.ConnectTo(NIL); wr.ConnectTo(file);
+				IF file = NIL THEN
+					Dialog.ShowMsg("Couldn't save " + Config); Cmd.Close; RETURN
+				END;
+				wr := file.NewWriter(NIL);
 				Emit("MainMod=" + MainMod$);
 				Emit("CodeAdr=" + CodeAdr$);
 				Emit("DataAdr=" + DataAdr$);
@@ -126,7 +128,7 @@ BEGIN
 				IF Clean THEN Emit("Clean=TRUE") ELSE Emit("Clean=FALSE") END;
 				IF Start THEN Emit("Start=TRUE") ELSE Emit("Start=FALSE") END;
 				IF Pause THEN Emit("Pause=TRUE") ELSE Emit("Pause=FALSE") END;
-				file.Register(ConfigWoExt, ConfigExt, Files.dontAsk, res);
+				file.Register(Config, ConfigExt, Files.dontAsk, res);
 				file.Close;
 
 				(* Generate .bat scripts for building: *)
@@ -135,8 +137,10 @@ BEGIN
 
 				(* Compile.bat *)
 				file := Files.dir.New(loc, Files.dontAsk);
-				ASSERT(file # NIL);
-				wr.ConnectTo(NIL); wr.ConnectTo(file);
+				IF file = NIL THEN
+					Dialog.ShowMsg("Couldn't save Compile.bat"); Cmd.Close; RETURN
+				END;
+				wr := file.NewWriter(NIL);
 				Emit("@ECHO OFF");
 				Emit('IF NOT "%XDev%"=="" GOTO XDev');
 				Emit("ECHO Please set system variable XDev=X:\Path\To\XDev");
@@ -153,13 +157,15 @@ BEGIN
 				IF Pause THEN Emit("SET Pause=TRUE") END;
 				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Compile.bat %1");
-				file.Register("Compile" ,"bat", Files.dontAsk, res);
+				file.Register("Compile.bat" ,"bat", Files.dontAsk, res);
 				file.Close;
 
 				(* Build.bat *)
 				file := Files.dir.New(loc, Files.dontAsk);
-				ASSERT(file # NIL);
-				wr.ConnectTo(NIL); wr.ConnectTo(file);
+				IF file = NIL THEN
+					Dialog.ShowMsg("Couldn't save Build.bat"); Cmd.Close; RETURN
+				END;
+				wr := file.NewWriter(NIL);
 				Emit("@ECHO OFF");
 				Emit('IF NOT "%XDev%"=="" GOTO XDev');
 				Emit("ECHO Please set system variable XDev=X:\Path\To\XDev");
@@ -181,7 +187,7 @@ BEGIN
 				IF Pause THEN Emit("SET Pause=TRUE") END;
 				Emit("");
 				Emit("%XDev%\ZXDev\Bin\Build.bat %1");
-				file.Register("Build" ,"bat", Files.dontAsk, res);
+				file.Register("Build.bat" ,"bat", Files.dontAsk, res);
 				file.Close;
 
 				(* Generate "Subsys/Obj/Ofront.par: *)
@@ -189,8 +195,10 @@ BEGIN
 				loc := Files.dir.This(dir + "Obj");
 				IF ~ Cmd.Exists(loc, "Ofront.par") THEN
 					file := Files.dir.New(loc, Files.dontAsk);
-					ASSERT(file # NIL);
-					wr.ConnectTo(NIL); wr.ConnectTo(file);
+					IF file = NIL THEN
+						Dialog.ShowMsg("Couldn't save Ofront.par"); Cmd.Close; RETURN
+					END;
+					wr := file.NewWriter(NIL);
 					Emit("CHAR     1 1");
 					Emit("BOOLEAN  1 1");
 					Emit("SHORTINT 1 1");
@@ -202,7 +210,6 @@ BEGIN
 					Emit("PTR      2 2");
 					Emit("PROC     2 2");
 					Emit("RECORD   2 2");
-					Emit("ARRLEN   1");
 					Emit("ENDIAN   0 0");
 					file.Register("Ofront", "par", Files.dontAsk, res);
 					file.Close;
