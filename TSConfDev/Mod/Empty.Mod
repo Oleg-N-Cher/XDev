@@ -1,0 +1,1 @@
+MODULE Empty; (*$MAIN*) END Empty.
