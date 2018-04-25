@@ -148,11 +148,11 @@ extern void SYSTEM_ENUMR();
 #endif
 
 #define __HALT(x)	SYSTEM_HALT(x)
-#define __HALT_NEW(code, mod, pos)	SYSTEM_HALT(code)
+#define __HALT_NEW(x, mod, pos)	SYSTEM_HALT(x)
 #ifndef SYSTEM_NoASSERT
-#  define __ASSERT(cond, code, mod, pos)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
+#  define __ASSERT(cond, x, mod, pos)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
 #else
-#  define __ASSERT(cond, code, mod, pos)
+#  define __ASSERT(cond, x, mod, pos)
 #endif
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ABS(x)	(((x)<0)?-(x):(x))
