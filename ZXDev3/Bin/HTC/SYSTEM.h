@@ -145,10 +145,11 @@ extern void SYSTEM_ENUMR();
 #endif
 
 #define __HALT(x)	SYSTEM_HALT(x)
+#define __HALT_NEW(x, mod, pos)	SYSTEM_HALT(x)
 #ifndef SYSTEM_NoASSERT
-#  define __ASSERT(cond, x)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
+#  define __ASSERT(cond, x, mod, pos)	if (!(cond)) {SYSTEM_assert = x; SYSTEM_HALT(-1);}
 #else
-#  define __ASSERT(cond, x)
+#  define __ASSERT(cond, x, mod, pos)
 #endif
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ABS(x)	(((x)<0)?-(x):(x))
@@ -176,11 +177,11 @@ extern void SYSTEM_ENUMR();
 
 /* runtime checks */
 #ifndef SYSTEM_NoCheck_X
-#  define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
-#  define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
+#  define __X(i, ub, mod, pos)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
+#  define __XF(i, ub, mod, pos)	 SYSTEM_XCHK((long)(i), (long)(ub))
 #else
-#  define __X(i, ub)	(i)
-#  define __XF(i, ub)	(i)
+#  define __X(i, ub, mod, pos)	(i)
+#  define __XF(i, ub, mod, pos)	(i)
 #endif
 #define __RETCHK	__retchk: __HALT(-3)
 #ifndef SYSTEM_NoCheck_CASE
