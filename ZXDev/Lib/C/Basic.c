@@ -241,7 +241,7 @@ __endasm;
 } //Basic_AT_ROM_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee {
+void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __naked __z88dk_callee {
 __asm
   POP  HL
   EX   (SP),HL
@@ -252,6 +252,7 @@ __asm
   ADD  E       // + x
   LD   L,A
   LD   (#23684),HL
+  RET
 __endasm;
 } //Basic_AT_FAST
 
@@ -269,7 +270,7 @@ __endasm;
 } //Basic_AT_FAST_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee {
+unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __naked __z88dk_callee {
 __asm
   POP  HL
   POP  BC
@@ -277,6 +278,7 @@ __asm
   CALL 0x2583
   CALL 0x2DD5
   LD   L,A
+  RET
 __endasm;
 } //Basic_ATTR_callee
 
@@ -292,7 +294,7 @@ __endasm;
 } //Basic_ATTR_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee {
+void Basic_BEEP_DI (unsigned int ms, signed char freq) __naked __z88dk_callee {
 /* Uses Spectrum ROM calculator */
 __asm
   POP  HL
@@ -321,11 +323,12 @@ DoBeepDi$:
   CALL 0x3F8
   POP  IX
   DI
+  RET
 __endasm;
 } //Basic_BEEP_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee {
+void Basic_BEEP_EI (unsigned int ms, signed char freq) __naked __z88dk_callee {
 /* Uses Spectrum ROM calculator */
 __asm
   POP  HL
@@ -353,6 +356,7 @@ DoBeepEi$:
   PUSH IX
   CALL 0x3F8
   POP  IX
+  RET
 __endasm;
 } //Basic_BEEP_EI
 
@@ -378,7 +382,7 @@ __endasm;
 } //Basic_BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee {
+void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __naked __z88dk_callee {
   __asm // Fixed for OVER 1 & small radius by Reobne
         LD   IY, #0x5C3A
         POP  BC
@@ -468,11 +472,12 @@ DOTCI$: PUSH HL
         POP  BC
         POP  DE
         POP  HL
+        RET
 __endasm;
 } //Basic_CIRCLE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee {
+void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __naked __z88dk_callee {
 __asm
   POP  HL
   DEC  SP
@@ -492,11 +497,12 @@ __asm
   CALL 0x232D
   LD   A,(ATTR_P$)
   LD   (ATTR_T$),A
+  RET
 __endasm;
 } //Basic_CIRCLEROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee {
+void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __naked __z88dk_callee {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -669,11 +675,12 @@ WRAP01$: // fixed for OVER 1 by Destr
     LD   (WRAP01$+1), BC
     SBC  HL, BC
     JP   NZ, 0x22E5
+    RET
   __endasm;
 } //Basic_CIRCLEW_DI
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee {
+void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __naked __z88dk_callee {
   __asm
     LD   IY, #0x5C3A
     POP  DE
@@ -848,6 +855,7 @@ WRAP11$: // fixed for OVER 1 by Destr
     LD   (WRAP11$+1), BC
     SBC  HL, BC
     JP   NZ, 0x22E5
+    RET
   __endasm;
 } //Basic_CIRCLEW_EI
 
@@ -1049,7 +1057,7 @@ __endasm;
 } //Basic_OVER_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee {
+void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __naked __z88dk_callee {
   __asm
            POP  BC
            POP  DE           ; E = x; D = y
@@ -1424,6 +1432,7 @@ LOC_7FEB$: LD   C, B
            RET  NC
            INC  HL
            INC  IX
+           RET
   __endasm;
 } //Basic_PAINT
 
@@ -1504,7 +1513,7 @@ __endasm;
 } //Basic_PLOT_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee {
+unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __naked __z88dk_callee {
 __asm
   POP  HL
   POP  BC
@@ -1512,6 +1521,7 @@ __asm
   CALL 0x22CE
   CALL 0x2DD5
   LD   L,A
+  RET
 __endasm;
 } //Basic_POINT_callee
 

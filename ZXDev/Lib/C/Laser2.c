@@ -701,7 +701,7 @@ __endasm;
 } //_Laser2_PUT_SPRITE_INSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -731,6 +731,7 @@ CLSV_PUT_ZERO$:   LD    (DE), A
                   LD    H, A            ; HL := HL + 0x0800
 CONTIN_1_3_CLSV$: POP   BC
                   DJNZ  CLSV_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_CLSV
 
@@ -763,7 +764,7 @@ __endasm;
 } //Laser2_INVM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -794,11 +795,12 @@ INVV_INV_BYTE$:   LD    A, (DE)
                   LD    H, A            ; HL := HL + 0x0800
 INVV_CONTIN_1_3$: POP   BC
                   DJNZ  INVV_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_INVV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -822,11 +824,12 @@ SETV_SetAtrLine$: LD    (HL), A
                   POP   BC
                   ADD   HL, DE          ; Jump to next attribute line
                   DJNZ  SETV_SetAtrRect$
+                  RET
   __endasm;
 } //Laser2_SETV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -857,11 +860,12 @@ AWLV_LEN_DIS$:    ADD   #0
                   LD    H, A
                   POP   BC
                   DJNZ  AWLV_ROLL_ATRLN$
+                  RET
   __endasm;
 } //Laser2_AWLV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -896,6 +900,7 @@ AWRV_LEN_DIS$:    ADD   #0
                   LD    H, A
                   POP   BC
                   DJNZ  AWRV_ROLL_ATRLN$
+                  RET
   __endasm;
 } //Laser2_AWRV
 
@@ -976,7 +981,7 @@ SX8V_CONT_1_3$:   DJNZ  SX8V_CHAR$
 } //_Laser2_SX8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1011,6 +1016,7 @@ SL8V_SCRADR$:     LD    HL, #0
                   LD    H, A
 SL8V_CONT_1_3$:   POP   BC
                   DJNZ  SL8V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_SL8V
 
@@ -1067,7 +1073,7 @@ void Laser2_SR4V (unsigned char col, unsigned char row, unsigned char len, unsig
 } //Laser2_SR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1105,11 +1111,12 @@ SR8V_SCRADR$:     LD    HL, #0
                   LD    H, A
 SR8V_CONT_1_3$:   POP   BC
                   DJNZ  SR8V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_SR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1144,11 +1151,12 @@ WL1V_ROLL_LINE$:  RL    (HL)
                   LD    H, A
 WL1V_CONT_1_3$:   POP   BC
                   DJNZ  WL1V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1186,11 +1194,12 @@ WL4V_ROLL_LINE$:  RLD
                   LD    H, A
 WL4V_CONT_1_3$:   POP   BC
                   DJNZ  WL4V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WL4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1225,11 +1234,12 @@ WL8V_SCRADR$:     LD    HL, #0
                   LD    H, A
 WL8V_CONT_1_3$:   POP   BC
                   DJNZ  WL8V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1260,11 +1270,12 @@ WR1V_ROLL_LINE$:  RR    (HL)
                   LD    H, A
 WR1V_CONT_1_3$:   POP   BC
                   DJNZ  WR1V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WR4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WR4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1298,11 +1309,12 @@ WR4V_ROLL_LINE$:  RRD
                   LD    H, A
 WR4V_CONT_1_3$:   POP   BC
                   DJNZ  WR4V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1340,11 +1352,12 @@ WR8V_SCRADR$:     LD    HL, #0
                   LD    H, A
 WR8V_CONT_1_3$:   POP   BC
                   DJNZ  WR8V_HLINE$     ; End of loop on charlines (the same third)
+                  RET
   __endasm;
 } //Laser2_WR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1411,11 +1424,12 @@ MIRV_SCR_ADR$:    LD    HL, #0
                   LD    H, A
 MIRV_CONT_1_3$:   POP   BC
                   DJNZ  MIRV_RECT$
+                  RET
   __endasm;
 } //Laser2_MIRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1454,12 +1468,13 @@ MARV_MIRR_LINE$:  LD    A, (DE)
                   LD    H, A
                   POP   BC
                   DJNZ  MARV_MIRR_RECT$
+                  RET
   __endasm;
 } //Laser2_MARV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_SUPV (unsigned char col, unsigned char row,
-  unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee
+  unsigned char len, unsigned char hgt, unsigned char npx) __naked __z88dk_callee
 {
   __asm
                   POP   HL
@@ -1547,12 +1562,13 @@ DOWN_DE$:         LD    A, E            ; ---------------------------------;
                   LD    A, D            ;  на входе:  DE - адрес линии
                   SUB   #8              ;  на выходе: DE - адрес линии ниже
                   LD    D, A            ; ---------------------------------;
+                  RET
   __endasm;
 } //Laser2_SUPV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_SDNV (unsigned char col, unsigned char row,
-  unsigned char len, unsigned char hgt, unsigned char npx) __z88dk_callee
+  unsigned char len, unsigned char hgt, unsigned char npx) __naked __z88dk_callee
 {
   __asm
                   POP   HL
@@ -1643,11 +1659,12 @@ UP_DE$:           LD    A, E            ; ---------------------------------;
                   LD    A, D            ;  на входе:  DE - адрес линии
                   ADD   #8              ;  на выходе: DE - адрес линии выше
                   LD    D, A            ; ---------------------------------;
+                  RET
   __endasm;
 } //Laser2_SDNV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee
+void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
                   POP   DE
@@ -1687,5 +1704,6 @@ WU1V_LINE8$:      LD    E, L
 WU1V_CONT_1_3$:   DJNZ  WU1V_HLINE$ ; End of loop on charlines (the same third)
                   LD    HL, (__Laser2_SCRL_BUF)
                   LDIR
+                  RET
   __endasm;
 } //Laser2_WU1V
