@@ -31,6 +31,30 @@ void ConsoleWinAPI_WriteCh (CHAR ch)
 /*----------------------------------------------------------------------------*/
 void ConsoleWinAPI_WriteInt (INTEGER n)
 {
+	CHAR s[11];
+	INTEGER i1, k;
+	if (n == __LSHL(1, 31, INTEGER)) {
+		__MOVE("8463847412", s, 11);
+		k = 10;
+	} else {
+		i1 = __ABS(n);
+		s[0] = (CHAR)((INTEGER)__MOD(i1, 10) + 48);
+		i1 = __DIV(i1, 10);
+		k = 1;
+		while (i1 > 0) {
+			s[__X(k, 11, "ConsoleWinAPI", -709)] = (CHAR)((INTEGER)__MOD(i1, 10) + 48);
+			i1 = __DIV(i1, 10);
+			k += 1;
+		}
+	}
+	if (n < 0) {
+		s[__X(k, 11, "ConsoleWinAPI", -773)] = '-';
+		k += 1;
+	}
+	while (k > 0) {
+		k -= 1;
+		ConsoleWinAPI_WriteCh(s[__X(k, 11, "ConsoleWinAPI", -826)]);
+	}
 }
 
 /*----------------------------------------------------------------------------*/

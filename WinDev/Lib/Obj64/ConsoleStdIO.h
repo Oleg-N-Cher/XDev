@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sC -48 */
+/* Ofront+ 1.0 -sC -88 */
 
 #ifndef ConsoleStdIO__h
 #define ConsoleStdIO__h

@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sC -48 */
+/* Ofront+ 1.0 -sC -88 */
 
 #ifndef ConsoleWinAPI__h
 #define ConsoleWinAPI__h
