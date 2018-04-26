@@ -844,18 +844,18 @@ BEGIN
     height := VertEquiv(width) + sysHeight;
 
     Wnd := W.CreateWindowEx( {},
-             SYSTEM.ADR(szBuffer),  (* class name              *)
-             SYSTEM.ADR(szBuffer),  (* The window name         *)
-             W.WS_OVERLAPPEDWINDOW, (* window style      *)
-             W.CW_USEDEFAULT, (* use default positioning *)
-             0,               (* y not used              *)
-             width,           (* window width            *)
-             height,          (* window height           *)
+             SYSTEM.ADR(szBuffer),  (* class name      *)
+             SYSTEM.ADR(szBuffer),  (* The window name *)
+             W.WS_OVERLAPPEDWINDOW, (* window style    *)
+             SYSTEM.VAL(INTEGER, W.CW_USEDEFAULT), (* use default positioning *)
+             0,             (* y not used              *)
+             width,         (* window width            *)
+             height,        (* window height           *)
              0,             (* NULL parent handle      *)
              0,             (* NULL menu/child handle  *)
-             W.Instance(),    (* program instance        *)
+             W.Instance(),  (* program instance        *)
              0              (* NULL data structure ref.*)
-               );
+           );
 
     GetTime(nTime);
     GetTime(oTime);
