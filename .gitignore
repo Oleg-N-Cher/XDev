@@ -27,7 +27,10 @@ Sdl/
 ToDo/
 WinDev/Bin/MinGW/
 WinDev/Bin/MinGW64/
+WinDev/Lib/Obj/*.o
+WinDev/Lib/Obj64/*.o
 WinDev/Obj/*.o
+WinDev/Obj64/*.o
 ZXDev/Bin/MakeZX/
 ZXDev/Lib/Obj/*.sym
 ZXDev/Obj/*.sym
