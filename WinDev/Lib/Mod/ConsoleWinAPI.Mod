@@ -6,21 +6,17 @@ VAR
 
 PROCEDURE SetColors* (colors: SHORTINT);
 BEGIN
-  Ignore.Int(
-    w.SetConsoleTextAttribute(hConOutput, colors)
-  );
+  Ignore.Int( w.SetConsoleTextAttribute(hConOutput, colors) );
 END SetColors;
 
 PROCEDURE WriteCh* (ch: CHAR);
 VAR
   maxLen: INTEGER;
 BEGIN
-  Ignore.Int(
-    w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, maxLen, NIL)
-  );
+  Ignore.Int( w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, maxLen, NIL) );
 END WriteCh;
 
-PROCEDURE WriteInt* (n: INTEGER);(*
+PROCEDURE WriteInt* (n: INTEGER);
 VAR
   s: ARRAY 11 OF CHAR; i1, k: INTEGER;
 BEGIN
@@ -32,7 +28,7 @@ BEGIN
     WHILE i1 > 0 DO s[k] := CHR(i1 MOD 10 + ORD("0")); i1 := i1 DIV 10; INC(k) END
   END;
   IF n < 0 THEN s[k] := "-"; INC(k) END;
-  WHILE k > 0 DO  DEC(k); WriteCh(s[k]) END;*)
+  WHILE k > 0 DO DEC(k); WriteCh(s[k]) END;
 END WriteInt;
 
 PROCEDURE WriteStr* (IN str: ARRAY OF CHAR);
