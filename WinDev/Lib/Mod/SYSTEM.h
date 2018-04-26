@@ -180,8 +180,13 @@ extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 
 // Runtime checks
 
-#define __X(i, ub)   (((U_LONGINT)(i)<(U_LONGINT)(ub))?i:(__HALT(-2),0))
-#define __XF(i, ub)  SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub))
+#ifndef SYSTEM_Cfg_NoCheck_X
+#  define __X(i, ub, mod, pos)   (((U_LONGINT)(i)<(U_LONGINT)(ub))?i:(__HALT(-2),0))
+#  define __XF(i, ub, mod, pos)  SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub))
+#else
+#  define __X(i, ub, mod, pos)	(i)
+#  define __XF(i, ub, mod, pos)	(i)
+#endif
 #define __R(i, ub)   (((U_LONGINT)(i)<(U_LONGINT)(ub))?i:(__HALT(-8),0))
 #define __RF(i, ub)  SYSTEM_RCHK((LONGINT)(i),(LONGINT)(ub))
 #define __RETCHK     __retchk: __HALT(-3); return 0;
@@ -244,14 +249,16 @@ extern void SYSTEM_ASSERT_FAIL(INTEGER code);
 #ifdef SYSTEM_Cfg_NoGC
 #  ifdef SYSTEM_Cfg_KERNEL32
      void SYSTEM_ExitOS (int code);
-#    define __HALT(code) SYSTEM_ExitOS(code)
+#    define __HALT(code)               SYSTEM_ExitOS(code)
+#    define __HALT_NEW(code, mod, pos) SYSTEM_ExitOS(code)
 #  else
 #    define __HALT exit
+#    define __HALT_NEW(code, mod, pos) exit(code)
 #  endif
-#  define __ASSERT(cond, code) if (!(cond)) __HALT(code)
+#  define __ASSERT(cond, code, mod, pos) if (!(cond)) __HALT(code)
 #else
 #  define __HALT(code)       SYSTEM_HALT(code)
-#  define __ASSERT(cond, code) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
+#  define __ASSERT(cond, code, mod, pos) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
 #endif
 
 
