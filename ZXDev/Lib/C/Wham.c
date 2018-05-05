@@ -1,13 +1,13 @@
-void Wham_InitPlayNote (unsigned int chan1, unsigned int chan2);
+void Wham_InitPlayNote (unsigned int chan1, unsigned int chan2) __z88dk_callee;
 void Wham_PlayNote (void);
-void Wham_PlayKeyPress (unsigned int chan1, unsigned int chan2);
-void Wham_PlayTuneEnd (unsigned int chan1, unsigned int chan2);
-void Wham_SetTempo (unsigned char tempo);
+void Wham_PlayKeyPress (unsigned int chan1, unsigned int chan2) __z88dk_callee;
+void Wham_PlayTuneEnd (unsigned int chan1, unsigned int chan2) __z88dk_callee;
+void Wham_SetTempo (unsigned char tempo) __z88dk_fastcall;
 /*================================== Header ==================================*/
 
-void Wham_InitPlayNote (unsigned int chan1, unsigned int chan2) {
+void Wham_InitPlayNote (unsigned int chan1, unsigned int chan2) __naked __z88dk_callee {
   __asm
-    LD   A, #0x16
+    LD   A, #0x16+2
     LD   (JR_TUNE_END+1), A
     LD   A, (0x5C48)
     RRA
@@ -23,30 +23,32 @@ void Wham_InitPlayNote (unsigned int chan1, unsigned int chan2) {
     LD   (WORD_BC67), HL
     INC  HL
     LD   (WORD_BC69), HL
-    PUSH HL
-    PUSH HL
     PUSH DE
+    RET
   __endasm;
 } //Wham_InitPlayNote
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Wham_PlayKeyPress (unsigned int chan1, unsigned int chan2) {
+void Wham_PlayKeyPress (unsigned int chan1, unsigned int chan2) __naked __z88dk_callee {
   __asm
     POP  BC
     CALL _Wham_InitPlayNote
     PUSH BC
     DI
 LOC_BC55$:
+    PUSH IX
     CALL SUB_BC8F
+    POP  IX
     CALL 0x28E
     INC  E
     JR   Z, LOC_BC55$
     EI
+    RET
   __endasm;
 } //Wham_PlayKeyPress
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Wham_PlayTuneEnd (unsigned int chan1, unsigned int chan2) __naked {
+void Wham_PlayTuneEnd (unsigned int chan1, unsigned int chan2) __naked __z88dk_callee {
   __asm
     POP  BC
     LD   A, #4  ; FINISHED$
@@ -59,20 +61,18 @@ void Wham_PlayTuneEnd (unsigned int chan1, unsigned int chan2) __naked {
 void Wham_PlayNote (void) {
   __asm
     DI
+    PUSH IX
     CALL SUB_BC8F
+    POP  IX
     EI
   __endasm;
 } //Wham_PlayNote
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Wham_SetTempo (unsigned char tempo) __naked {
+void Wham_SetTempo (unsigned char tempo) __z88dk_fastcall {
   __asm
-    POP  HL
-    POP  DE
-    LD   A,E
+    LD   A,L
     LD   (BYTE_BC6B),A
-    PUSH DE
-    JP   (HL)
   __endasm;
 } //Wham_SetTempo
 
@@ -95,7 +95,7 @@ WORD_BC67:   .DW 0    ; Start address of channel 2
 WORD_BC69:   .DW 0    ; + 1
 BYTE_BC6B:   .DB 0xEE ; Tempo
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 SUB_BC6C$:
     LD   E, (HL)
     INC  HL
@@ -114,10 +114,11 @@ JR_TUNE_END:
 FINISHED$:
     POP  HL
     POP  HL
+    POP  IX
     EI
     RET
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 SUB_BC79$:
     LD   A, (HL)
     ADD  A, #0xC
@@ -140,7 +141,7 @@ LOC_BC87$:
     DEC  HL
     JR   LOC_BC70$
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 .globl SUB_BC8F
 
 SUB_BC8F:
@@ -222,7 +223,7 @@ LOC_BCFE$:
     LD   C, A
 ; END OF FUNCTION SUB_BC8F
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 SUB_BD03$:
     PUSH BC
     PUSH AF
@@ -328,7 +329,7 @@ LOC_BD6B$:
     RET
 ; END OF FUNCTION CHUNK  FOR SUB_BC8F
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 
 
 SUB_BD75$:
@@ -351,7 +352,7 @@ LOC_BD88$:
 ; END OF FUNCTION SUB_BD75
 
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 SUB_BD8A$:
     PUSH AF
     PUSH HL
@@ -424,7 +425,7 @@ LOC_BDD4$:
     RET
 ; END OF FUNCTION CHUNK  FOR SUB_BC8F
 
-; =============== S U B  R O U T  I N E =======================================
+; =============== S U B R O U T I N E =======================================
 SUB_BDE6$:
     LD   A, L
     SRL  L
