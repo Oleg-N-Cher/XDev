@@ -1,17 +1,15 @@
-void ZX7_Standard (unsigned int src, unsigned int dst);
-void ZX7_Turbo (unsigned int src, unsigned int dst);
-void ZX7_Mega (unsigned int src, unsigned int dst);
-void ZX7_SmartRCS (unsigned int src, unsigned int dst);
-void ZX7_AgileRCS (unsigned int src, unsigned int dst);
+void ZX7_Standard (unsigned int src, unsigned int dst) __z88dk_callee;
+void ZX7_Turbo (unsigned int src, unsigned int dst) __z88dk_callee;
+void ZX7_Mega (unsigned int src, unsigned int dst) __z88dk_callee;
+void ZX7_SmartRCS (unsigned int src, unsigned int dst) __z88dk_callee;
+void ZX7_AgileRCS (unsigned int src, unsigned int dst) __z88dk_callee;
 /*================================== Header ==================================*/
 
-void ZX7_Standard (unsigned int src, unsigned int dst) __naked {
+void ZX7_Standard (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         pop  bc         ; RET address
         pop  hl         ; HL=src
         pop  de         ; DE=dst
-        push de
-        push hl
         push bc         ; restore RET address
 
 ; -----------------------------------------------------------------------------
@@ -87,13 +85,11 @@ dzx7s_next_bit:
 } //ZX7_Standard
 
 /*--------------------------------- Cut here ---------------------------------*/
-void ZX7_Turbo (unsigned int src, unsigned int dst) __naked {
+void ZX7_Turbo (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         pop  bc         ; RET address
         pop  hl         ; HL=src
         pop  de         ; DE=dst
-        push de
-        push hl
         push bc         ; restore RET address
 
 ; -----------------------------------------------------------------------------
@@ -180,13 +176,11 @@ dzx7t_load_bits:
 } //ZX7_Turbo
 
 /*--------------------------------- Cut here ---------------------------------*/
-void ZX7_Mega (unsigned int src, unsigned int dst) __naked {
+void ZX7_Mega (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         pop  bc         ; RET address
         pop  hl         ; HL=src
         pop  de         ; DE=dst
-        push de
-        push hl
         push bc         ; restore RET address
 
 ; -----------------------------------------------------------------------------
@@ -411,13 +405,11 @@ dzx7m_load_bits7:
 } //ZX7_Mega
 
 /*--------------------------------- Cut here ---------------------------------*/
-void ZX7_SmartRCS (unsigned int src, unsigned int dst) __naked {
+void ZX7_SmartRCS (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         pop  bc         ; RET address
         pop  hl         ; HL=src
         pop  de         ; DE=dst
-        push de
-        push hl
         push bc         ; restore RET address
 
 ; -----------------------------------------------------------------------------
@@ -530,13 +522,11 @@ dzx7r_skip:
 } //ZX7_SmartRCS
 
 /*--------------------------------- Cut here ---------------------------------*/
-void ZX7_AgileRCS (unsigned int src, unsigned int dst) __naked {
+void ZX7_AgileRCS (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         pop  bc         ; RET address
         pop  hl         ; HL=src
         pop  de         ; DE=dst
-        push de
-        push hl
         push bc         ; restore RET address
 
 ; -----------------------------------------------------------------------------
