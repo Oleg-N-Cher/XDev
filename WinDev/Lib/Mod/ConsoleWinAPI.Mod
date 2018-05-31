@@ -16,6 +16,11 @@ BEGIN
   Ignore.Int( w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, maxLen, NIL) );
 END WriteCh;
 
+PROCEDURE WriteLn* ;
+BEGIN
+  WriteCh(0DX); WriteCh(0AX);
+END WriteLn;
+
 PROCEDURE WriteInt* (n: INTEGER);
 VAR
   s: ARRAY 11 OF CHAR; i1, k: INTEGER;

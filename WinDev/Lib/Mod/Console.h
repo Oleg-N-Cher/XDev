@@ -297,10 +297,12 @@
 
 #ifdef OUTPUT_StdIO
    extern void ConsoleStdIO_WriteCh (char ch);
+   extern void ConsoleStdIO_WriteLn (void);
    extern void ConsoleStdIO_WriteStr (char *str, int str__len);
    
 #  define Console_SetColors(colors)
 #  define Console_WriteCh ConsoleStdIO_WriteCh
+#  define Console_WriteLn ConsoleStdIO_WriteLn
 #  define Console_WriteStr ConsoleStdIO_WriteStr
 
 #  define Console__init()
@@ -310,12 +312,14 @@
    extern void ConsoleWinAPI_SetColors (short int colors);
    extern void ConsoleWinAPI_WriteCh (char ch);
    extern void ConsoleWinAPI_WriteInt (int n);
+   extern void ConsoleWinAPI_WriteLn (void);
    extern void ConsoleWinAPI_WriteStr (char *str, int str__len);
    extern void *ConsoleWinAPI__init (void);
    
 #  define Console_SetColors ConsoleWinAPI_SetColors
 #  define Console_WriteCh ConsoleWinAPI_WriteCh
 #  define Console_WriteInt ConsoleWinAPI_WriteInt
+#  define Console_WriteLn ConsoleWinAPI_WriteLn
 #  define Console_WriteStr ConsoleWinAPI_WriteStr
 
 #  define Console__init ConsoleWinAPI__init

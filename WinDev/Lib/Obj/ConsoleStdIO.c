@@ -6,6 +6,7 @@
 
 export void ConsoleStdIO_WriteCh (CHAR ch);
 export void ConsoleStdIO_WriteInt (INTEGER n);
+export void ConsoleStdIO_WriteLn (void);
 export void ConsoleStdIO_WriteStr (CHAR *str, INTEGER str__len);
 
 #include <stdio.h>
@@ -28,6 +29,12 @@ void ConsoleStdIO_WriteCh (CHAR ch)
 }
 
 /*----------------------------------------------------------------------------*/
+void ConsoleStdIO_WriteLn (void)
+{
+	ConsoleStdIO_printfs((CHAR*)"\\n", 3);
+}
+
+/*----------------------------------------------------------------------------*/
 void ConsoleStdIO_WriteStr (CHAR *str, INTEGER str__len)
 {
 	ConsoleStdIO_printfs(str, str__len);
@@ -39,6 +46,7 @@ export void *ConsoleStdIO__init(void)
 {
 	__DEFMOD;
 	__REGMOD("ConsoleStdIO", 0);
+	__REGCMD("WriteLn", ConsoleStdIO_WriteLn);
 /* BEGIN */
 	__ENDMOD;
 }

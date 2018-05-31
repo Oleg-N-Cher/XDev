@@ -17,6 +17,11 @@ BEGIN
   printfc(ch);
 END WriteCh;
 
+PROCEDURE WriteLn* ;
+BEGIN
+  printfs("\n");
+END WriteLn;
+
 PROCEDURE WriteStr* (IN str: ARRAY OF CHAR);
 BEGIN
   printfs(str);
