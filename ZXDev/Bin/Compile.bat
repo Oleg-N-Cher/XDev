@@ -32,7 +32,7 @@ IF errorlevel 1 PAUSE
 
 IF NOT "%Clean%"=="TRUE" GOTO Done
 DEL *.asm *.lst %1.sym
-IF "%1"=="%MainMod%" DEL %1.h %1.rel %1.osm
+IF "%1"=="%MainMod%" DEL %1.rel %1.osm
 IF NOT "%1"=="%MainMod%" DEL %1.c
 
 :Done
