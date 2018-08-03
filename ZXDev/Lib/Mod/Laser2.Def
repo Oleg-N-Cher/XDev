@@ -7,10 +7,10 @@ MODULE Laser2; (** non-portable *)
 (***************************)
 
 TYPE
-  ADR     = LONGINT;
+  ADR     = INTEGER;
   BUFFER  = ARRAY OF CHAR;
   SPRITES = ARRAY OF CHAR;
-  UBYTE   = INTEGER;
+  UBYTE   = SHORTINT;
 
 (** New procedures: *)
 
@@ -37,38 +37,38 @@ PROCEDURE SetScreen    * (adr: ADR) (** Set screen adr *)   ; END SetScreen;
 PROCEDURE ATOF *                                            ; END ATOF;
 PROCEDURE ATON *                                            ; END ATON;
 PROCEDURE INVM * (spn: UBYTE)                               ; END INVM;
-PROCEDURE PTBL * (col, row: SHORTINT; spn: UBYTE)           ; END PTBL;
-PROCEDURE PTND * (col, row: SHORTINT; spn: UBYTE)           ; END PTND;
-PROCEDURE PTNV * (col, row: SHORTINT; spn: UBYTE)           ; END PTNV;
-PROCEDURE PTOR * (col, row: SHORTINT; spn: UBYTE)           ; END PTOR;
-PROCEDURE PTXR * (col, row: SHORTINT; spn: UBYTE)           ; END PTXR;
+PROCEDURE PTBL * (col, row: BYTE; spn: UBYTE)           ; END PTBL;
+PROCEDURE PTND * (col, row: BYTE; spn: UBYTE)           ; END PTND;
+PROCEDURE PTNV * (col, row: BYTE; spn: UBYTE)           ; END PTNV;
+PROCEDURE PTOR * (col, row: BYTE; spn: UBYTE)           ; END PTOR;
+PROCEDURE PTXR * (col, row: BYTE; spn: UBYTE)           ; END PTXR;
 
 (** Screen windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE CLSV * (col, row, len, hgt: SHORTINT)             ; END CLSV;
-PROCEDURE INVV * (col, row, len, hgt: SHORTINT)             ; END INVV;
-PROCEDURE MIRV * (col, row, len, hgt: SHORTINT)             ; END MIRV;
-PROCEDURE SDNV * (col, row, len, hgt: SHORTINT; npx: UBYTE) ; END SDNV;
-PROCEDURE SUPV * (col, row, len, hgt: SHORTINT; npx: UBYTE) ; END SUPV;
-PROCEDURE SL1V * (col, row, len, hgt: SHORTINT)             ; END SL1V;
-PROCEDURE SL4V * (col, row, len, hgt: SHORTINT)             ; END SL4V;
-PROCEDURE SL8V * (col, row, len, hgt: SHORTINT)             ; END SL8V;
-PROCEDURE SR1V * (col, row, len, hgt: SHORTINT)             ; END SR1V;
-PROCEDURE SR4V * (col, row, len, hgt: SHORTINT)             ; END SR4V;
-PROCEDURE SR8V * (col, row, len, hgt: SHORTINT)             ; END SR8V;
-PROCEDURE WL1V * (col, row, len, hgt: SHORTINT)             ; END WL1V;
-PROCEDURE WL4V * (col, row, len, hgt: SHORTINT)             ; END WL4V;
-PROCEDURE WL8V * (col, row, len, hgt: SHORTINT)             ; END WL8V;
-PROCEDURE WR1V * (col, row, len, hgt: SHORTINT)             ; END WR1V;
-PROCEDURE WR4V * (col, row, len, hgt: SHORTINT)             ; END WR4V;
-PROCEDURE WR8V * (col, row, len, hgt: SHORTINT)             ; END WR8V;
-PROCEDURE WU1V * (col, row, len, hgt: SHORTINT)             ; END WU1V;
+PROCEDURE CLSV * (col, row, len, hgt: BYTE)             ; END CLSV;
+PROCEDURE INVV * (col, row, len, hgt: BYTE)             ; END INVV;
+PROCEDURE MIRV * (col, row, len, hgt: BYTE)             ; END MIRV;
+PROCEDURE SDNV * (col, row, len, hgt: BYTE; npx: UBYTE) ; END SDNV;
+PROCEDURE SUPV * (col, row, len, hgt: BYTE; npx: UBYTE) ; END SUPV;
+PROCEDURE SL1V * (col, row, len, hgt: BYTE)             ; END SL1V;
+PROCEDURE SL4V * (col, row, len, hgt: BYTE)             ; END SL4V;
+PROCEDURE SL8V * (col, row, len, hgt: BYTE)             ; END SL8V;
+PROCEDURE SR1V * (col, row, len, hgt: BYTE)             ; END SR1V;
+PROCEDURE SR4V * (col, row, len, hgt: BYTE)             ; END SR4V;
+PROCEDURE SR8V * (col, row, len, hgt: BYTE)             ; END SR8V;
+PROCEDURE WL1V * (col, row, len, hgt: BYTE)             ; END WL1V;
+PROCEDURE WL4V * (col, row, len, hgt: BYTE)             ; END WL4V;
+PROCEDURE WL8V * (col, row, len, hgt: BYTE)             ; END WL8V;
+PROCEDURE WR1V * (col, row, len, hgt: BYTE)             ; END WR1V;
+PROCEDURE WR4V * (col, row, len, hgt: BYTE)             ; END WR4V;
+PROCEDURE WR8V * (col, row, len, hgt: BYTE)             ; END WR8V;
+PROCEDURE WU1V * (col, row, len, hgt: BYTE)             ; END WU1V;
 
 (** Attribute windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE AWLV * (col, row, len, hgt: SHORTINT)             ; END AWLV;
-PROCEDURE AWRV * (col, row, len, hgt: SHORTINT)             ; END AWRV;
-PROCEDURE MARV * (col, row, len, hgt: SHORTINT)             ; END MARV;
-PROCEDURE SETV * (col, row, len, hgt: SHORTINT)             ; END SETV;
+PROCEDURE AWLV * (col, row, len, hgt: BYTE)             ; END AWLV;
+PROCEDURE AWRV * (col, row, len, hgt: BYTE)             ; END AWRV;
+PROCEDURE MARV * (col, row, len, hgt: BYTE)             ; END MARV;
+PROCEDURE SETV * (col, row, len, hgt: BYTE)             ; END SETV;
 
 END Laser2.

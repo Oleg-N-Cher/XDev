@@ -1,15 +1,15 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "GrSpr.h"
 
 struct DemoSpr__1 {
-	SHORTINT x, y;
+	BYTE x, y;
 };
 
 
-static INTEGER DemoSpr_spr0, DemoSpr_spr1, DemoSpr_spr2, DemoSpr_spr3;
-static SHORTINT DemoSpr_i;
+static SHORTINT DemoSpr_spr0, DemoSpr_spr1, DemoSpr_spr2, DemoSpr_spr3;
+static BYTE DemoSpr_i;
 static struct DemoSpr__1 DemoSpr_coords[4];
 
 export SYSTEM_ADRINT *DemoSpr__1__typ;
@@ -675,10 +675,10 @@ int main(int argc, char **argv)
 	Basic_BORDER(0);
 	DemoSpr_i = 0;
 	for (;;) {
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4)].y, DemoSpr_spr0);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4)].y, DemoSpr_spr1);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4)].y, DemoSpr_spr2);
-		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4)].y, DemoSpr_spr3);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4, "DemoSpr", -49716)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i, -4), 4, "DemoSpr", -49716)].y, DemoSpr_spr0);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4, "DemoSpr", -49788)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 1, -4), 4, "DemoSpr", -49788)].y, DemoSpr_spr1);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4, "DemoSpr", -49860)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 2, -4), 4, "DemoSpr", -49860)].y, DemoSpr_spr2);
+		GrSpr_DrawSprite(DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4, "DemoSpr", -49932)].x, DemoSpr_coords[__X(__MASK(DemoSpr_i + 3, -4), 4, "DemoSpr", -49932)].y, DemoSpr_spr3);
 		DemoSpr_i += 1;
 		Basic_PAUSE(50);
 	}

@@ -4,9 +4,9 @@
 export void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
 export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 export long SYSTEM_ENTIER (float x);
-export INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-export LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
-export SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
+export SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+export INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
+export SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
 
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 /*================================== Header ==================================*/
@@ -45,14 +45,14 @@ export long SYSTEM_ENTIER (float x)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n)
+SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n)
 {
 	if (n >= 0) return x << n;
 	return x >> (-n);
 } //SYSTEM_ASH
 
 /*--------------------------------- Cut here ---------------------------------*/
-LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n)
+INTEGER SYSTEM_ASHL (INTEGER x, BYTE n)
 {
 	if (n >= 0) return x << n;
 	return x >> (-n);
@@ -65,7 +65,7 @@ float SYSTEM_ABSD (float i)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size)
+SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size)
 {
   SYSTEM_PTR mem = SYSTEM_malloc(size);
 //  __ASSERT(mem != NIL, 0xFF);
@@ -75,13 +75,13 @@ SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size)
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 #define _DYNARRAY struct {
-  LONGINT len[1]; // Length of allocated memory: LEN()
+  INTEGER len[1]; // Length of allocated memory: LEN()
   CHAR data[1];   // Array data
 } */
-SYSTEM_PTR SYSTEM_NEWARR (CARDINAL size)
+SYSTEM_PTR SYSTEM_NEWARR (__U_SHORTINT size)
 {
-  SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(LONGINT) + size);
-  *((LONGINT*)arrPtr) = size;
+  SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(INTEGER) + size);
+  *((INTEGER*)arrPtr) = size;
   return arrPtr;
 }
 

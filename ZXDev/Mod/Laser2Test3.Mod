@@ -7,7 +7,7 @@ MODULE Laser2Test3;
 IMPORT gr := Laser2, b := Basic;
 
 VAR
-  m, n, col, row, len, hgt: SHORTINT;
+  m, n, col, row, len, hgt: BYTE;
 
 BEGIN (*$MAIN*)
   b.Init;

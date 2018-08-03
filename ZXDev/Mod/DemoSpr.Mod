@@ -2,7 +2,7 @@ MODULE DemoSpr; (*$MAIN*)
 IMPORT B := Basic, Spr := GrSpr;
 
 VAR
-  spr0, spr1, spr2, spr3: Spr.Sprite; i: SHORTINT;
+  spr0, spr1, spr2, spr3: Spr.Sprite; i: BYTE;
   coords: ARRAY 4 OF RECORD x, y: Spr.Coords END;
 
 BEGIN

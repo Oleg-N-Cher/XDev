@@ -1,11 +1,11 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Laser.h"
 
 
-static INTEGER LaserDemo_chudik;
-static SHORTINT LaserDemo_n, LaserDemo_s;
+static SHORTINT LaserDemo_chudik;
+static BYTE LaserDemo_n, LaserDemo_s, LaserDemo__for__2, LaserDemo__for__1;
 
 
 
@@ -124,15 +124,17 @@ int main(int argc, char **argv)
 	Basic_PAPER(0);
 	Basic_CLS();
 	LaserDemo_s = -2;
-	while (LaserDemo_s <= 30) {
+	LaserDemo__for__2 = 17;
+	do {
 		LaserDemo_n = 7;
-		while (LaserDemo_n <= 10) {
+		LaserDemo__for__1 = 4;
+		do {
 			Laser_PTBL(LaserDemo_s, 5, LaserDemo_n);
 			Basic_PAUSE(5);
 			LaserDemo_n += 1;
-		}
+		} while (--LaserDemo__for__1);
 		LaserDemo_s += 2;
-	}
+	} while (--LaserDemo__for__2);
 	Basic_Quit();
 	__FINI;
 }

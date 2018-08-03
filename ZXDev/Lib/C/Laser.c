@@ -5,7 +5,6 @@
 /* Thanx to Raydac & Michailov (HVG) */
 /*-----------------------------------*/
 
-#include "SYSTEM.h"
 #include "Laser.h"
 
 /* Set video attrib */
@@ -18,80 +17,80 @@ extern unsigned int SCRL_B; /* Scroll buffer address */
 extern unsigned long LB_069;
 extern unsigned int LB_075;
 
-export void Laser_CalcSpritesOffset (void);
+void Laser_CalcSpritesOffset (void);
 
 /* Functions for screen windows processing */
-export void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-export void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-export void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-export void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+void Laser_INVV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_MIRV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_MARV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SETV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_CLSV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WL1V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WR1V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WL4V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WR4V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WL8V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WR8V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SL1V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SR1V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SL4V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SR4V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SL8V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_SR8V (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_WCRV (signed char col, signed char row, signed char len, signed char hgt, signed char npx);
+void Laser_SCRV (signed char col, signed char row, signed char len, signed char hgt, signed char npx);
+void Laser_AWLV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_ASLV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_AWRV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_ASRV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_ATUV (signed char col, signed char row, signed char len, signed char hgt);
+void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt);
 
 /* Functions for sprites manipulations */
-export void Laser_CLSM (SHORTCARD spN);
-export void Laser_INVM (SHORTCARD spN);
-export void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_WL1M (SHORTCARD spN);
-export void Laser_WR1M (SHORTCARD spN);
-export void Laser_WL4M (SHORTCARD spN);
-export void Laser_WR4M (SHORTCARD spN);
-export void Laser_WL8M (SHORTCARD spN);
-export void Laser_WR8M (SHORTCARD spN);
-export void Laser_SL1M (SHORTCARD spN);
-export void Laser_SR1M (SHORTCARD spN);
-export void Laser_SL4M (SHORTCARD spN);
-export void Laser_SR4M (SHORTCARD spN);
-export void Laser_SL8M (SHORTCARD spN);
-export void Laser_SR8M (SHORTCARD spN);
-export void Laser_WCRM (SHORTCARD spN, SHORTINT npx);
-export void Laser_SCRM (SHORTCARD spN, SHORTINT npx);
-export void Laser_ATOF (void);
-export void Laser_ATON (void);
-export void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-export void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-export void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-export void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+void Laser_CLSM (unsigned char spN);
+void Laser_INVM (unsigned char spN);
+void Laser_PTBL (signed char col, signed char row, unsigned char spN);
+void Laser_PTOR (signed char col, signed char row, unsigned char spN);
+void Laser_PTXR (signed char col, signed char row, unsigned char spN);
+void Laser_PTND (signed char col, signed char row, unsigned char spN);
+void Laser_WL1M (unsigned char spN);
+void Laser_WR1M (unsigned char spN);
+void Laser_WL4M (unsigned char spN);
+void Laser_WR4M (unsigned char spN);
+void Laser_WL8M (unsigned char spN);
+void Laser_WR8M (unsigned char spN);
+void Laser_SL1M (unsigned char spN);
+void Laser_SR1M (unsigned char spN);
+void Laser_SL4M (unsigned char spN);
+void Laser_SR4M (unsigned char spN);
+void Laser_SL8M (unsigned char spN);
+void Laser_SR8M (unsigned char spN);
+void Laser_WCRM (unsigned char spN, signed char npx);
+void Laser_SCRM (unsigned char spN, signed char npx);
+void Laser_ATOF (void);
+void Laser_ATON (void);
+void Laser_GTBL (signed char col, signed char row, unsigned char spN);
+void Laser_GTOR (signed char col, signed char row, unsigned char spN);
+void Laser_GTXR (signed char col, signed char row, unsigned char spN);
+void Laser_GTND (signed char col, signed char row, unsigned char spN);
+void Laser_PMBL (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_PMOR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_PMXR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_PMND (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_PMAT (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_GMBL (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_GMOR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_GMXR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_GMND (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_GMAT (signed char col, signed char row, unsigned char spD, unsigned char spS);
+void Laser_PWBL (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+void Laser_PWOR (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+void Laser_PWXR (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+void Laser_PWND (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
 /*================================== Header ==================================*/
 
 unsigned long LB_069;
@@ -209,7 +208,7 @@ __endasm;
 /*-----------------------------------------*/
 /* Functions for screen windows processing */
 /*-----------------------------------------*/
-void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_INVV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Inverts the window
 __asm
   POP  DE
@@ -224,7 +223,7 @@ __endasm;
 } //Laser_INVV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_MIRV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Mirroring the window
 __asm
   POP  DE
@@ -239,7 +238,7 @@ __endasm;
 } //Laser_MIRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_MARV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Mirroring the window attributes
 __asm
   POP  DE
@@ -253,7 +252,7 @@ __endasm;
 } //Laser_MARV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
+void Laser_SETV (signed char col, signed char row, signed char len, signed char hgt) {
 // Sets the attributes of the window
 __asm
   POP  DE
@@ -283,7 +282,7 @@ __endasm;
 } //Laser_SETV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_CLSV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Clears the attributes of the window
 __asm
   POP  DE
@@ -298,7 +297,7 @@ __endasm;
 } //Laser_CLSV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WL1V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 1 pixel circularly
 __asm
   POP  DE
@@ -313,7 +312,7 @@ __endasm;
 } //Laser_WL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WR1V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 1 pixel circularly
 __asm
   POP  DE
@@ -328,7 +327,7 @@ __endasm;
 } //Laser_WR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WL4V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 4 pixels circularly
 __asm
   POP  DE
@@ -360,7 +359,7 @@ __endasm;
 } //_Laser_LB_WL4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WR4V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 4 pixels circularly
 __asm
   POP  DE
@@ -402,7 +401,7 @@ __endasm;
 } //_Laser_LB_WR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WL8V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 8 pixels circularly
 __asm
   POP  DE
@@ -417,7 +416,7 @@ __endasm;
 } //Laser_WL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_WR8V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 8 pixels circularly
 __asm
   POP  DE
@@ -432,7 +431,7 @@ __endasm;
 } //Laser_WR8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SL1V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 1 pixel
 __asm
   POP  DE
@@ -454,7 +453,7 @@ __endasm;
 } //_Laser_LB_SL1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SR1V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 1 pixel
 __asm
   POP  DE
@@ -476,7 +475,7 @@ __endasm;
 } //_Laser_LB_SR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SL4V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 4 pixels
 __asm
   POP  DE
@@ -506,7 +505,7 @@ __endasm;
 } //_Laser_LB_SL4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SR4V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 4 pixels
 __asm
   POP  DE
@@ -536,7 +535,7 @@ __endasm;
 } //_Laser_LB_SR4V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SL8V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window left by 8 pixels
 __asm
   POP  DE
@@ -551,7 +550,7 @@ __endasm;
 } //Laser_SL8V
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_SR8V (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window right by 8 pixels
 __asm
   POP  DE
@@ -567,7 +566,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_WCRV (
-  SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) __naked
+  signed char col, signed char row, signed char len, signed char hgt, signed char npx) __naked
 { // Scrolls the window by npx pixels vertically (+Up, -Down) and circularly
 __asm
   LD   HL,#2
@@ -588,7 +587,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_SCRV (
-  SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx) __naked
+  signed char col, signed char row, signed char len, signed char hgt, signed char npx) __naked
 { // Scrolls the window by npx pixels vertically (+Up, -Down)
 __asm
   LD   HL,#2
@@ -608,7 +607,7 @@ __endasm;
 } //Laser_SCRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_AWLV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window attributes left circularly
 __asm
   POP  DE
@@ -622,7 +621,7 @@ __endasm;
 } //Laser_AWLV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
+void Laser_ASLV (signed char col, signed char row, signed char len, signed char hgt) {
 // Scrolls the window attributes left
 __asm
   POP  DE
@@ -640,7 +639,7 @@ __endasm;
 } //Laser_ASLV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) __naked
+void Laser_AWRV (signed char col, signed char row, signed char len, signed char hgt) __naked
 { // Scrolls the window attributes right circularly
 __asm
   POP  DE
@@ -655,7 +654,7 @@ __endasm;
 } //Laser_AWRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
+void Laser_ASRV (signed char col, signed char row, signed char len, signed char hgt) {
 // Scrolls the window attributes right
 __asm
   POP  DE
@@ -673,7 +672,7 @@ __endasm;
 } //Laser_ASRV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
+void Laser_ATUV (signed char col, signed char row, signed char len, signed char hgt) {
 // Scrolls the window attributes up circularly
 __asm
   POP  DE
@@ -690,7 +689,7 @@ __endasm;
 } //Laser_ATUV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt) {
+void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt) {
 // Scrolls the window attributes down circularly
 __asm
   POP  DE
@@ -720,7 +719,7 @@ __endasm;
 /*-------------------------------------*/
 /* Functions for sprites manipulations */
 /*-------------------------------------*/
-void Laser_CLSM (SHORTCARD spN) __naked {
+void Laser_CLSM (unsigned char spN) __naked {
 // Clears the sprite
 __asm
   LD   HL,#2
@@ -731,7 +730,7 @@ __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_INVM (SHORTCARD spN) __naked {
+void Laser_INVM (unsigned char spN) __naked {
 /* Inverts the sprite */
 __asm
   LD   HL,#2
@@ -743,7 +742,7 @@ __endasm;
 } //Laser_INVM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN) {
+void Laser_PTBL (signed char col, signed char row, unsigned char spN) {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -761,7 +760,7 @@ __endasm;
 } //Laser_PTBL
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN) __naked {
+void Laser_PTOR (signed char col, signed char row, unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -777,7 +776,7 @@ __endasm;
 } //Laser_PTOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN) __naked {
+void Laser_PTXR (signed char col, signed char row, unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -800,7 +799,7 @@ __endasm;
 } //_Laser_LB_PTXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN) __naked {
+void Laser_PTND (signed char col, signed char row, unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -824,7 +823,7 @@ __endasm;
 } //_Laser_LB_PWND
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL1M (SHORTCARD spN) __naked {
+void Laser_WL1M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -835,7 +834,7 @@ __endasm;
 } //Laser_WL1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR1M (SHORTCARD spN) __naked {
+void Laser_WR1M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -846,7 +845,7 @@ __endasm;
 } //Laser_WR1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL4M (SHORTCARD spN) __naked {
+void Laser_WL4M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -859,7 +858,7 @@ __endasm;
 } //Laser_WL4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR4M (SHORTCARD spN) __naked {
+void Laser_WR4M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -872,7 +871,7 @@ __endasm;
 } //Laser_WR4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WL8M (SHORTCARD spN) __naked {
+void Laser_WL8M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -883,7 +882,7 @@ __endasm;
 } //Laser_WL8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WR8M (SHORTCARD spN) __naked {
+void Laser_WR8M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -894,7 +893,7 @@ __endasm;
 } //Laser_WR8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL1M (SHORTCARD spN) __naked {
+void Laser_SL1M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -931,7 +930,7 @@ __endasm;
 } //LB_SL1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR1M (SHORTCARD spN) __naked {
+void Laser_SR1M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -957,7 +956,7 @@ __endasm;
 } //LB_SR1M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL4M (SHORTCARD spN) __naked {
+void Laser_SL4M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -970,7 +969,7 @@ __endasm;
 } //Laser_SL4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR4M (SHORTCARD spN) __naked {
+void Laser_SR4M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -983,7 +982,7 @@ __endasm;
 } //Laser_SR4M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SL8M (SHORTCARD spN) __naked {
+void Laser_SL8M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -994,7 +993,7 @@ __endasm;
 } //Laser_SL8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SR8M (SHORTCARD spN) __naked {
+void Laser_SR8M (unsigned char spN) __naked {
 __asm
   LD   HL,#2
   ADD  HL,SP
@@ -1005,7 +1004,7 @@ __endasm;
 } //Laser_SR8M
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_WCRM (SHORTCARD spN, SHORTINT npx) {
+void Laser_WCRM (unsigned char spN, signed char npx) {
 /* Scrolls the sprite by npx pixels vertically (+Up, -Down) and circularly */
 __asm
 #ifdef __SDCC
@@ -1035,7 +1034,7 @@ __endasm;
 } //_Laser_LB_158
   
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_SCRM (SHORTCARD spN, SHORTINT npx) {
+void Laser_SCRM (unsigned char spN, signed char npx) {
 /* Scrolls the sprite by npx pixels vertically (+Up, -Down) */
 __asm
 #ifdef __SDCC
@@ -1101,7 +1100,7 @@ __endasm;
 } //Laser_ATON
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN) {
+void Laser_GTBL (signed char col, signed char row, unsigned char spN) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1121,7 +1120,7 @@ __endasm;
 } //Laser_GTBL
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN) {
+void Laser_GTOR (signed char col, signed char row, unsigned char spN) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1149,7 +1148,7 @@ __endasm;
 } //_Laser_GWOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN) {
+void Laser_GTXR (signed char col, signed char row, unsigned char spN) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1177,7 +1176,7 @@ __endasm;
 } //_Laser_GWXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN) {
+void Laser_GTND (signed char col, signed char row, unsigned char spN) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1205,7 +1204,7 @@ __endasm;
 } //_Laser_GWND
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_PMBL (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1225,7 +1224,7 @@ __endasm;
 } //Laser_PMBL
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_PMOR (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1245,7 +1244,7 @@ __endasm;
 } //Laser_PMOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_PMXR (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1265,7 +1264,7 @@ __endasm;
 } //Laser_PMXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_PMND (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1285,7 +1284,7 @@ __endasm;
 } //Laser_PMND
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_PMAT (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1306,7 +1305,7 @@ __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_GMBL (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1348,7 +1347,7 @@ __endasm;
 } //_Laser_GWAT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_GMOR (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1368,7 +1367,7 @@ __endasm;
 } //Laser_GMOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_GMXR (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1388,7 +1387,7 @@ __endasm;
 } //Laser_GMXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_GMND (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1408,7 +1407,7 @@ __endasm;
 } //Laser_GMND
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS) {
+void Laser_GMAT (signed char col, signed char row, unsigned char spD, unsigned char spS) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1429,8 +1428,8 @@ __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt) {
+void Laser_PWBL (signed char col, signed char row, unsigned char spN,
+                 signed char spCol, signed char spRow, signed char len, signed char hgt) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1460,8 +1459,8 @@ __endasm;
 } //_Laser_LB_PWBL
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt) {
+void Laser_PWOR (signed char col, signed char row, unsigned char spN,
+                 signed char spCol, signed char spRow, signed char len, signed char hgt) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1491,8 +1490,8 @@ __endasm;
 } //_Laser_LB_PWOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt) {
+void Laser_PWXR (signed char col, signed char row, unsigned char spN,
+                 signed char spCol, signed char spRow, signed char len, signed char hgt) {
 __asm
 #ifdef __SDCC
   PUSH IX
@@ -1522,8 +1521,8 @@ __endasm;
 } //_Laser_LB_PWXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                 SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt) {
+void Laser_PWND (signed char col, signed char row, unsigned char spN,
+                 signed char spCol, signed char spRow, signed char len, signed char hgt) {
 __asm
 #ifdef __SDCC
   PUSH IX

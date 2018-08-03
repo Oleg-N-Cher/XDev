@@ -8,7 +8,6 @@
 #ifndef Laser__h
 #define Laser__h
 
-#include "SYSTEM.h"
 #include "Basic.h"
 
 extern unsigned int SFSTRT; /* Sprite file start address */
@@ -43,79 +42,79 @@ extern unsigned int SCRL_B; /* Scroll buffer address */
   ld (__id__(__hash__)_SCRL_B),hl \
   __endasm;
 
-import void Laser_CalcSpritesOffset (void);
+extern void Laser_CalcSpritesOffset (void);
 /* Functions for screen windows processing */
-import void Laser_INVV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_MIRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_MARV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SETV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_CLSV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SL1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SR1V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SL4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SR4V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SL8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_SR8V (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_WCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-import void Laser_SCRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt, SHORTINT npx);
-import void Laser_AWLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_ASLV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_AWRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_ASRV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_ATUV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
-import void Laser_ATDV (SHORTINT col, SHORTINT row, SHORTINT len, SHORTINT hgt);
+extern void Laser_INVV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_MIRV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_MARV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SETV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_CLSV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WL1V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WR1V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WL4V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WR4V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WL8V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WR8V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SL1V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SR1V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SL4V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SR4V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SL8V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_SR8V (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_WCRV (signed char col, signed char row, signed char len, signed char hgt, signed char npx);
+extern void Laser_SCRV (signed char col, signed char row, signed char len, signed char hgt, signed char npx);
+extern void Laser_AWLV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_ASLV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_AWRV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_ASRV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_ATUV (signed char col, signed char row, signed char len, signed char hgt);
+extern void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt);
 
 /* Functions for sprites manipulations */
-import void Laser_CLSM (SHORTCARD spN);
-import void Laser_INVM (SHORTCARD spN);
-import void Laser_PTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_PTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_PTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_PTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_WL1M (SHORTCARD spN);
-import void Laser_WR1M (SHORTCARD spN);
-import void Laser_WL4M (SHORTCARD spN);
-import void Laser_WR4M (SHORTCARD spN);
-import void Laser_WL8M (SHORTCARD spN);
-import void Laser_WR8M (SHORTCARD spN);
-import void Laser_SL1M (SHORTCARD spN);
-import void Laser_SR1M (SHORTCARD spN);
-import void Laser_SL4M (SHORTCARD spN);
-import void Laser_SR4M (SHORTCARD spN);
-import void Laser_SL8M (SHORTCARD spN);
-import void Laser_SR8M (SHORTCARD spN);
-import void Laser_WCRM (SHORTCARD spN, SHORTINT npx);
-import void Laser_SCRM (SHORTCARD spN, SHORTINT npx);
-import void Laser_ATOF (void);
-import void Laser_ATON (void);
-import void Laser_GTBL (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_GTOR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_GTXR (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_GTND (SHORTINT col, SHORTINT row, SHORTCARD spN);
-import void Laser_PMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_PMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_PMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_PMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_PMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_GMBL (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_GMOR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_GMXR (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_GMND (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_GMAT (SHORTINT col, SHORTINT row, SHORTCARD spD, SHORTCARD spS);
-import void Laser_PWBL (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void Laser_PWOR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void Laser_PWXR (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
-import void Laser_PWND (SHORTINT col, SHORTINT row, SHORTCARD spN,
-                        SHORTINT spCol, SHORTINT spRow, SHORTINT len, SHORTINT hgt);
+extern void Laser_CLSM (unsigned char spN);
+extern void Laser_INVM (unsigned char spN);
+extern void Laser_PTBL (signed char col, signed char row, unsigned char spN);
+extern void Laser_PTOR (signed char col, signed char row, unsigned char spN);
+extern void Laser_PTXR (signed char col, signed char row, unsigned char spN);
+extern void Laser_PTND (signed char col, signed char row, unsigned char spN);
+extern void Laser_WL1M (unsigned char spN);
+extern void Laser_WR1M (unsigned char spN);
+extern void Laser_WL4M (unsigned char spN);
+extern void Laser_WR4M (unsigned char spN);
+extern void Laser_WL8M (unsigned char spN);
+extern void Laser_WR8M (unsigned char spN);
+extern void Laser_SL1M (unsigned char spN);
+extern void Laser_SR1M (unsigned char spN);
+extern void Laser_SL4M (unsigned char spN);
+extern void Laser_SR4M (unsigned char spN);
+extern void Laser_SL8M (unsigned char spN);
+extern void Laser_SR8M (unsigned char spN);
+extern void Laser_WCRM (unsigned char spN, signed char npx);
+extern void Laser_SCRM (unsigned char spN, signed char npx);
+extern void Laser_ATOF (void);
+extern void Laser_ATON (void);
+extern void Laser_GTBL (signed char col, signed char row, unsigned char spN);
+extern void Laser_GTOR (signed char col, signed char row, unsigned char spN);
+extern void Laser_GTXR (signed char col, signed char row, unsigned char spN);
+extern void Laser_GTND (signed char col, signed char row, unsigned char spN);
+extern void Laser_PMBL (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_PMOR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_PMXR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_PMND (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_PMAT (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_GMBL (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_GMOR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_GMXR (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_GMND (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_GMAT (signed char col, signed char row, unsigned char spD, unsigned char spS);
+extern void Laser_PWBL (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+extern void Laser_PWOR (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+extern void Laser_PWXR (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
+extern void Laser_PWND (signed char col, signed char row, unsigned char spN,
+                        signed char spCol, signed char spRow, signed char len, signed char hgt);
 #define Laser__init()
 
 /* Functions for screen windows processing */

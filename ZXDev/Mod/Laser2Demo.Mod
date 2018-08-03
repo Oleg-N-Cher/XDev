@@ -128,7 +128,7 @@ CONST
   );
 
 VAR
-  x, phase: SHORTINT;
+  x, phase: BYTE;
 
 BEGIN
   b.Init;
