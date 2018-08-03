@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
@@ -29,14 +29,14 @@ int main(int argc, char **argv)
 	Basic_IM2PROC(IM2_ProcIM2);
 	Basic_POKE(23560, 0);
 	Basic_AT(0, 0);
-	Basic_PRSTR((CHAR*)"Press SPACE to exit", 20);
+	Basic_PRSTR((void*)&"Press SPACE to exit", 20);
 	do {
 		Basic_AT(4, 4);
 		Basic_PRINT(Basic_PEEK(23560));
-		Basic_PRSTR((CHAR*)"   ", 4);
+		Basic_PRSTR((void*)&"   ", 4);
 		Basic_AT(8, 8);
 		Basic_PRINT(Basic_PEEK(23672));
-		Basic_PRSTR((CHAR*)"   ", 4);
+		Basic_PRSTR((void*)&"   ", 4);
 	} while (!(Basic_PEEK(23560) == 32));
 	Basic_Quit();
 	__FINI;

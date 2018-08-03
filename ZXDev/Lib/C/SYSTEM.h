@@ -28,35 +28,38 @@ extern void exit(int status);
 
 /* basic types */
 typedef unsigned char BOOLEAN;
+typedef signed char   BYTE;
 typedef unsigned char CHAR;
-typedef signed char SHORTINT;
-typedef unsigned char SHORTCARD;
-typedef signed int INTEGER;
-typedef unsigned int CARDINAL;
-typedef signed long LONGINT;
-typedef unsigned long LONGCARD;
-typedef float REAL;
-typedef float LONGREAL;
-typedef unsigned char SET;
-typedef void *SYSTEM_PTR;
-typedef unsigned int SYSTEM_ADR;
-typedef int SYSTEM_ADRINT;
-typedef signed char BYTE;
+typedef int           SHORTINT;
+typedef long          INTEGER;   // 32 bit
+typedef long long     LONGINT;   // 64 bit
+typedef unsigned char SET;       // 8 bit
+typedef float         SHORTREAL;
+typedef float         REAL;
+typedef void*         SYSTEM_PTR;
+typedef int           SYSTEM_ADRINT;
+
+typedef unsigned char      __U_BYTE;
+typedef unsigned char      __U_CHAR;
+typedef unsigned int       __U_SHORTINT;
+typedef unsigned long      __U_INTEGER;
+typedef unsigned char      __U_SET;
+typedef unsigned long long __U_LONGINT;
 
 /* runtime system routines */
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
 extern long SYSTEM_ENTIER (REAL x);
-extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
+extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
 extern float SYSTEM_ABSD (REAL i);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern SYSTEM_PTR SYSTEM_NEWREC();
-extern SYSTEM_PTR SYSTEM_NEWBLK (CARDINAL size);
-extern SYSTEM_PTR SYSTEM_NEWARR (CARDINAL size);
+extern SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
+extern SYSTEM_PTR SYSTEM_NEWARR (__U_SHORTINT size);
 extern SYSTEM_PTR SYSTEM_REGMOD();
 #ifdef SYSTEM_IncRef
   extern void SYSTEM_INCREF();
@@ -256,13 +259,13 @@ extern void SYSTEM_ENUMR();
 
 /* runtime system variables */
 /*extern void (*SYSTEM_Halt)();
-extern LONGINT SYSTEM_halt;
-extern LONGINT SYSTEM_assert;
+extern INTEGER SYSTEM_halt;
+extern INTEGER SYSTEM_assert;
 extern SYSTEM_PTR SYSTEM_modules;
-extern LONGINT SYSTEM_heapsize;
-extern LONGINT SYSTEM_allocated;
-extern LONGINT SYSTEM_lock;
-extern SHORTINT SYSTEM_gclock;
+extern INTEGER SYSTEM_heapsize;
+extern INTEGER SYSTEM_allocated;
+extern INTEGER SYSTEM_lock;
+extern BYTE SYSTEM_gclock;
 extern BOOLEAN SYSTEM_interrupted;*/
 
 /* ANSI prototypes; not used so far
@@ -271,8 +274,8 @@ void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
 long SYSTEM_XCHK(long i, long ub);
 long SYSTEM_RCHK(long i, long ub);
-INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
+SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 long SYSTEM_ABS(long i);
 float SYSTEM_ABSD(float i);
 void SYSTEM_INHERIT(long *t, long *t0);

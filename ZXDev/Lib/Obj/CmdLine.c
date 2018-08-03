@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -tspkae */
+/* Ofront+ 1.0 -s3 -21 */
 #include "SYSTEM.h"
 
 typedef
@@ -7,23 +7,14 @@ typedef
 
 
 
-export void CmdLine_GetParam (INTEGER n, CHAR *param, SHORTINT param__len);
+export void CmdLine_GetParam (SHORTINT n, CHAR *param, SHORTINT param__len);
 
 #define CmdLine__init()	/*-noinit*/
 
 /*============================================================================*/
 
-void CmdLine_GetParam (INTEGER n, CHAR *param, SHORTINT param__len)
+void CmdLine_GetParam (SHORTINT n, CHAR *param, SHORTINT param__len)
 {
 	param[0] = 0x00;
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *CmdLine__init(void)
-{
-	__DEFMOD;
-	__REGMOD("CmdLine", 0);
-/* BEGIN */
-	__ENDMOD;
-}

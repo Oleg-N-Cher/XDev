@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -xtspkae */
+/* Ofront+ 1.0 -s3 -21 */
 
 #ifndef CalcZX__h
 #define CalcZX__h
@@ -8,9 +8,9 @@
 
 
 
-import INTEGER CalcZX_PopWordAsInt (void);
-import void CalcZX__PushBYTE (SHORTINT b);
-import void CalcZX__PushWORD (INTEGER w);
+import SHORTINT CalcZX_PopWordAsInt (void);
+import void CalcZX__PushBYTE (BYTE b);
+import void CalcZX__PushWORD (SHORTINT w);
 import void *CalcZX__init(void);
 
 #define CalcZX_Begin()	__asm rst 0x28 __endasm

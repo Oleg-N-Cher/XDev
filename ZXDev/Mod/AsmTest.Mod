@@ -1,7 +1,7 @@
 MODULE AsmTest;
 IMPORT Asm;
 
-PROCEDURE Border (color: SHORTINT);
+PROCEDURE Border (color: BYTE);
 BEGIN
   Asm.Code("POP  DE    ");
   Asm.Code("POP  HL    ");

@@ -9,8 +9,6 @@
 ;----------------------------------------------------------------;
 */
 
-#include "SYSTEM.h"
-
 void Best40_ASRL_LF (unsigned char atr) __z88dk_fastcall;
 void Best40_ASRL_RG (unsigned char atr) __z88dk_fastcall;
 void Best40_ASRL_UP (unsigned char atr) __z88dk_fastcall;
@@ -23,16 +21,16 @@ void Best40_PSRL_LF (void);
 void Best40_PSRL_RG (void);
 void Best40_PSRL_UP (void);
 void Best40_PSRL_DN (void);
-void Best40_SCR_MRG (SYSTEM_ADR scr_addr);
+void Best40_SCR_MRG (unsigned int scr_addr);
 void Best40_SCR_INV (void);
-void Best40_SINV_UD (SYSTEM_ADR char_addr);
-void Best40_SINV_LR (SYSTEM_ADR char_addr);
-void Best40_SROTATE (SYSTEM_ADR char_addr);
+void Best40_SINV_UD (unsigned int char_addr);
+void Best40_SINV_LR (unsigned int char_addr);
+void Best40_SROTATE (unsigned int char_addr);
 void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or);
 void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to);
 void Best40_PAINT (unsigned char x, unsigned char y);
-BOOLEAN Best40_POINT (unsigned char x, unsigned char y);
-void Best40_PFIGURE (unsigned char x, unsigned char y, CHAR *pattern);
+unsigned char Best40_POINT (unsigned char x, unsigned char y);
+void Best40_PFIGURE (unsigned char x, unsigned char y, unsigned char *pattern);
 void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
   unsigned char x2_old, unsigned char y2_old, unsigned char xscale,
   unsigned char yscale, unsigned char x_new, unsigned char y_new);
@@ -355,7 +353,7 @@ __endasm;
 
 // Слияние картинок (17<=21)
 
-void Best40_SCR_MRG (SYSTEM_ADR scr_addr) __naked {
+void Best40_SCR_MRG (unsigned int scr_addr) __naked {
 __asm
           POP     DE
           POP     HL           // взяли адрес картинки из ячейки
@@ -395,7 +393,7 @@ __endasm;
 
 // Инвертирование символа вертикально (20)
 
-void Best40_SINV_UD (SYSTEM_ADR char_addr) __naked {
+void Best40_SINV_UD (unsigned int char_addr) __naked {
 __asm
           POP     DE
           POP     HL           // взяли из ячейки адрес символа
@@ -421,7 +419,7 @@ __endasm;
 
 // Инвертирование символа горизонтально (17<=19)
 
-void Best40_SINV_LR (SYSTEM_ADR char_addr) {
+void Best40_SINV_LR (unsigned int char_addr) {
 __asm
           POP     DE
           POP     HL           // берём из ячейки адрес символа
@@ -443,7 +441,7 @@ __endasm;
 
 // Вращение символа по часовой стрелке (26<=42)
 
-void Best40_SROTATE (SYSTEM_ADR char_addr) {
+void Best40_SROTATE (unsigned int char_addr) {
 __asm
           POP     DE
           POP     HL           // адрес вращаемого символа из ячейки
@@ -588,7 +586,7 @@ __endasm;
 
 // Проверка состояния точки и вычисление адреса в экране (35<=70)
 
-BOOLEAN Best40_POINT (unsigned char x, unsigned char y) {
+unsigned char Best40_POINT (unsigned char x, unsigned char y) {
 __asm
           POP     HL
           POP     DE           // E = координата X
@@ -642,7 +640,7 @@ __endasm;
 // Построение шаблонов (98<=196)
 //  98+35=133 - вместе с процедурой POINT
 
-void Best40_PFIGURE_E (unsigned char x, unsigned char y, CHAR *pattern) __naked {
+void Best40_PFIGURE_E (unsigned char x, unsigned char y, unsigned char *pattern) __naked {
 __asm
           POP     BC
           POP     DE           // координаты E=X, D=Y начальной точки

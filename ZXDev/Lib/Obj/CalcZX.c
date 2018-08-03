@@ -1,13 +1,13 @@
-/* Ofront+ 0.9 -xtspkae */
+/* Ofront+ 1.0 -s3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 
 
 
 
-export INTEGER CalcZX_PopWordAsInt (void);
-export void CalcZX__PushBYTE (SHORTINT b);
-export void CalcZX__PushWORD (INTEGER w);
+export SHORTINT CalcZX_PopWordAsInt (void);
+export void CalcZX__PushBYTE (BYTE b);
+export void CalcZX__PushWORD (SHORTINT w);
 
 #undef __RETCHK
 #define __RETCHK
@@ -49,7 +49,7 @@ export void CalcZX__PushWORD (INTEGER w);
 
 /*============================================================================*/
 
-void CalcZX__PushBYTE (SHORTINT b)
+void CalcZX__PushBYTE (BYTE b)
 {
 	Asm_Code((CHAR*)"POP  HL    ", 12);
 	Asm_Code((CHAR*)"POP  BC    ", 12);
@@ -60,7 +60,7 @@ void CalcZX__PushBYTE (SHORTINT b)
 }
 
 /*----------------------------------------------------------------------------*/
-void CalcZX__PushWORD (INTEGER w)
+void CalcZX__PushWORD (SHORTINT w)
 {
 	Asm_Code((CHAR*)"POP  HL    ", 12);
 	Asm_Code((CHAR*)"POP  BC    ", 12);
@@ -70,12 +70,12 @@ void CalcZX__PushWORD (INTEGER w)
 }
 
 /*----------------------------------------------------------------------------*/
-INTEGER CalcZX_PopWordAsInt (void)
+SHORTINT CalcZX_PopWordAsInt (void)
 {
 	Asm_Code((CHAR*)"CALL 0x2DA2", 12);
 	Asm_Code((CHAR*)"LD   L, C  ", 12);
 	Asm_Code((CHAR*)"LD   H, B  ", 12);
-	__RETCHK;
+	__RETCHK("CalcZX", -4063);
 }
 
 /*----------------------------------------------------------------------------*/
