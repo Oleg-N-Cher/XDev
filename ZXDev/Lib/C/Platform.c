@@ -1,28 +1,12 @@
-#include <sdcc-lib.h>
-#include "SYSTEM.h"
 #include "Platform.h"
 
-export SET Platform_BITS (INTEGER i);
-export void Platform_DISPOSE (SYSTEM_PTR *mem);
-export INTEGER Platform_ORD (SET s);
-
+void Platform_DISPOSE (void **mem);
 /*================================== Header ==================================*/
-SET Platform_BITS (INTEGER i)
-{
-  return __VAL(SET, i);
-}
 
-/*--------------------------------- Cut here ---------------------------------*/
-INTEGER Platform_ORD (SET s)
-{
-  return __VAL(INTEGER, s);
-}
+extern void free (void *ptr);
 
-/*--------------------------------- Cut here ---------------------------------*/
-#define Platform_free(memblock)	free(memblock)
-
-void Platform_DISPOSE (SYSTEM_PTR *mem)
+void Platform_DISPOSE (void **mem)
 {
-  Platform_free(*mem);
-  *mem = NIL;
+  free(*mem);
+  *mem = 0;
 }

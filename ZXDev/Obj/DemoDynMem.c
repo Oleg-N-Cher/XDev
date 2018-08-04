@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Console.h"
 #include "Platform.h"
@@ -9,7 +9,7 @@ typedef
 typedef
 	struct DemoDynMem_Person {
 		CHAR name[20];
-		INTEGER age;
+		SHORTINT age;
 		CHAR sex;
 		DemoDynMem_PersonPtr next;
 	} DemoDynMem_Person;
@@ -17,7 +17,7 @@ typedef
 
 static DemoDynMem_PersonPtr DemoDynMem_john, DemoDynMem_mike, DemoDynMem_lisa, DemoDynMem_bob, DemoDynMem_iren, DemoDynMem_person;
 static DemoDynMem_PersonPtr (*DemoDynMem_list)[5];
-static INTEGER DemoDynMem_n;
+static SHORTINT DemoDynMem_n;
 
 export SYSTEM_ADRINT *DemoDynMem_Person__typ;
 
@@ -36,7 +36,7 @@ static void EnumPtrs(void (*P)(void*))
 	P(DemoDynMem_list);
 }
 
-__TDESC(DemoDynMem_Person__desc, 1, 1) = {__TDFLDS("Person", 26), {24, -4}};
+__TDESC(DemoDynMem_Person__desc, 1, 1) = {__TDFLDS("Person", 25), {23, -4}};
 
 int main(int argc, char **argv)
 {
@@ -72,33 +72,33 @@ int main(int argc, char **argv)
 	DemoDynMem_iren->age = 43;
 	DemoDynMem_iren->next = DemoDynMem_mike;
 	DemoDynMem_person = DemoDynMem_john;
-	Console_WriteStrLn((CHAR*)"Female:", 8);
+	Console_WriteStrLn((void*)&"Female:", 8);
 	while (DemoDynMem_person != NIL) {
 		if (DemoDynMem_person->sex == 'F') {
-			Console_WriteStrLn(DemoDynMem_person->name, 20);
+			Console_WriteStrLn((void*)DemoDynMem_person->name, 20);
 		}
 		DemoDynMem_person = DemoDynMem_person->next;
 	}
 	Console_WriteLn();
-	DemoDynMem_list = __NEWARR(POINTER__typ, 2, 2, 1, 0, 5);
+	DemoDynMem_list = __NEWARR(POINTER__typ, 2, 1, 1, 0, (SYSTEM_ARRLEN)5);
 	(*DemoDynMem_list)[0] = DemoDynMem_john;
 	(*DemoDynMem_list)[1] = DemoDynMem_mike;
 	(*DemoDynMem_list)[2] = DemoDynMem_lisa;
 	(*DemoDynMem_list)[3] = DemoDynMem_bob;
 	(*DemoDynMem_list)[4] = DemoDynMem_iren;
-	DemoDynMem_n = 4;
-	while (DemoDynMem_n >= 0) {
-		Console_WriteStrLn((*DemoDynMem_list)[__X(DemoDynMem_n, 5)]->name, 20);
-		Console_WriteCh((*DemoDynMem_list)[__X(DemoDynMem_n, 5)]->sex);
+	DemoDynMem_n = 5;
+	do {
+		DemoDynMem_n += -1;
+		Console_WriteStrLn((void*)(*DemoDynMem_list)[__X(DemoDynMem_n, 5, "DemoDynMem", -1178)]->name, 20);
+		Console_WriteCh((*DemoDynMem_list)[__X(DemoDynMem_n, 5, "DemoDynMem", -1207)]->sex);
 		Console_WriteLn();
-		Console_WriteInt((*DemoDynMem_list)[__X(DemoDynMem_n, 5)]->age);
+		Console_WriteInt((*DemoDynMem_list)[__X(DemoDynMem_n, 5, "DemoDynMem", -1249)]->age);
 		if (DemoDynMem_n != 0) {
 			Console_WriteLn();
 			Console_WriteLn();
 		}
-		Platform_DISPOSE((void*)&(*DemoDynMem_list)[__X(DemoDynMem_n, 5)]);
-		DemoDynMem_n += -1;
-	}
+		Platform_DISPOSE((void*)&(*DemoDynMem_list)[__X(DemoDynMem_n, 5, "DemoDynMem", -1322)]);
+	} while (DemoDynMem_n);
 	Platform_DISPOSE((void*)&DemoDynMem_list);
 	__FINI;
 }

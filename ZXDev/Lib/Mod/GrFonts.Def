@@ -2,7 +2,7 @@ MODULE GrFonts;
 IMPORT SYSTEM, Basic;
 
 TYPE
-  Font* = INTEGER;
+  Font* = SHORTINT;
 
 CONST
   ZxSpecRom8x8* = Basic.RomFont;

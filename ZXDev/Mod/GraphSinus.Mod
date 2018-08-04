@@ -8,12 +8,12 @@ IMPORT G := Graph, Math;
 CONST
 	k1 = 20; k2 = 50;
 VAR
-	KD, MD: INTEGER;
-	i, s : INTEGER;
+	KD, MD: SHORTINT;
+	i, s : SHORTINT;
 	(*c : Char;*)
-	ox, oy: INTEGER;
+	ox, oy: SHORTINT;
 
-PROCEDURE Sign (x: INTEGER): SHORTINT;
+PROCEDURE Sign (x: SHORTINT): BYTE;
 BEGIN
 	IF x > 0 THEN RETURN 1 END;
 	IF x < 0 THEN RETURN -1 END;
@@ -34,7 +34,7 @@ BEGIN (*$MAIN*)
 	G.Line(ox - 3, 5, ox - 1, 1);
 	G.Line(ox + 3, 5, ox + 1, 1);
 	FOR i := 1 TO ox - 10 DO
-		s := SHORT(ENTIER(Math.Sin(i / k1) * k2));
+		s := SHORT(SHORT(ENTIER(Math.Sin(i / k1) * k2)));
 		IF s # 0 THEN
 			G.Line(i + ox, s + oy, ox, oy + Sign(s));
 			G.Line(ox - i, oy - s, ox, oy - Sign(s));

@@ -1,9 +1,9 @@
 #include "SYSTEM.h"
 
-export SET Control_Get (void);
+unsigned char Control_Get (void);
 /*============================================================================*/
 
-SET Control_Get (void) __naked {
+unsigned char Control_Get (void) __naked {
 __asm
 /* Из журнала Deja Vu #09, Кемерово, 1999
  (C) Rezonance group

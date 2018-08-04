@@ -2,7 +2,7 @@ MODULE TestInpBuf; (*$MAIN*)
 IMPORT B := Basic, Input, Timer;
 
 VAR
-  key: Input.Key; av: SHORTINT;
+  key: Input.Key; av: BYTE;
 
 BEGIN
   B.Init; B.CLS; B.IM2PROC(Input.RunMe50Hz);

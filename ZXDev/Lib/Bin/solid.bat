@@ -1,7 +1,7 @@
 @REM args:
 @REM   LibName ModName
 
-@SET sdcc=..\..\Bin\sdcc -mz80 --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I ".." -I ..\C\include -I ..\C
+@SET sdcc=..\..\Bin\sdcc -mz80 --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I ".." -I ..\C
 @IF EXIST ..\C\%2.c GOTO c_lib
 
 :o_lib

@@ -29,7 +29,7 @@ CONST
   );
 
 VAR
-  pressed: SET; x, y: SHORTINT;
+  pressed: SET; x, y: BYTE;
 
 BEGIN (*$MAIN*)
 	B.Init; L.InitSpritesA(Turtle);

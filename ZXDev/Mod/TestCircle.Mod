@@ -1,6 +1,6 @@
 MODULE TestCircle; IMPORT B := Basic;
 VAR
-  r: SHORTINT;
+  r: BYTE;
 BEGIN (*$MAIN*)
   B.Init; B.CLS;
   FOR r := 1 TO 87 BY 3 DO

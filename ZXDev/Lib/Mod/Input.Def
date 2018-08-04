@@ -155,7 +155,7 @@ END CheckAddKey;
 
 *)
 (** Returns the number of keystrokes in the keyboard input buffer. *)
-PROCEDURE Available* (): SHORTINT;
+PROCEDURE Available* (): BYTE;
 BEGIN RETURN 0 END Available;
 
 (** Read a key from the keyboard buffer. Blocks if no key is available. *)

@@ -6,7 +6,7 @@ TYPE
   PersonPtr = POINTER TO Person;
   Person = RECORD
     name: ARRAY 20 OF CHAR;
-    age: INTEGER;
+    age: SHORTINT;
     sex: CHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
@@ -14,7 +14,7 @@ TYPE
 VAR
   john, mike, lisa, bob, iren, person: PersonPtr;
   list: POINTER TO ARRAY 5 OF PersonPtr;
-  n: INTEGER;
+  n: SHORTINT;
 
 BEGIN
   NEW(john); NEW(mike); NEW(lisa); NEW(bob); NEW(iren);

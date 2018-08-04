@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Input.h"

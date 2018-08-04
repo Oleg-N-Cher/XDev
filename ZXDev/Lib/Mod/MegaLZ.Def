@@ -1,7 +1,7 @@
 MODULE MegaLZ;
 
 TYPE
-  UINTEGER = LONGINT;
+  UINTEGER = INTEGER;
 
 PROCEDURE Depack* (source, dest: UINTEGER); END Depack;
 

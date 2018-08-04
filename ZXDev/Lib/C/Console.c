@@ -6,12 +6,12 @@
 void Console_At_ROM (signed char x, signed char y);
 void Console_At_COMPACT (signed char x, signed char y);
 void Console_At_FAST (signed char x, signed char y);
-INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
-INTEGER Console_ReadInt_ROM (void);
-INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
-INTEGER Console_ReadInt_COMPACT (void);
-INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
-INTEGER Console_ReadInt_FAST (void);
+SHORTINT Console_ReadIntRange_ROM (SHORTINT min, SHORTINT max);
+SHORTINT Console_ReadInt_ROM (void);
+SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max);
+SHORTINT Console_ReadInt_COMPACT (void);
+SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max);
+SHORTINT Console_ReadInt_FAST (void);
 void Console_WriteBool_COMPACT (BOOLEAN b);
 void Console_WriteBool_FAST (BOOLEAN b);
 void Console_WriteBool_ROM (BOOLEAN b);
@@ -601,10 +601,10 @@ __asm
 __endasm;
 }
 
-SHORTINT i, digits;
+BYTE i, digits;
 CHAR ch;
 CHAR data[8];
-INTEGER result;
+SHORTINT result;
 
 void Console_ReadInt_Accept_ROM (void)
 {
@@ -613,7 +613,7 @@ void Console_ReadInt_Accept_ROM (void)
 	}
 }
 
-INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max)
+SHORTINT Console_ReadIntRange_ROM (SHORTINT min, SHORTINT max)
 {
 	digits = 0;
 	for (;;) {
@@ -686,7 +686,7 @@ INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max)
 }
 
 /*----------------------------------------------------------------------------*/
-INTEGER Console_ReadInt_ROM (void)
+SHORTINT Console_ReadInt_ROM (void)
 {
 	return Console_ReadIntRange_ROM(-32768, 32767);
 }
@@ -700,10 +700,10 @@ __asm
 __endasm;
 }
 
-SHORTINT i, digits;
+BYTE i, digits;
 CHAR ch;
 CHAR data[8];
-INTEGER result;
+SHORTINT result;
 
 void Console_ReadInt_Accept_COMPACT (void)
 {
@@ -712,7 +712,7 @@ void Console_ReadInt_Accept_COMPACT (void)
 	}
 }
 
-INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max)
+SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max)
 {
 	digits = 0;
 	for (;;) {
@@ -785,7 +785,7 @@ INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max)
 }
 
 /*----------------------------------------------------------------------------*/
-INTEGER Console_ReadInt_COMPACT (void)
+SHORTINT Console_ReadInt_COMPACT (void)
 {
 	return Console_ReadIntRange_COMPACT(-32768, 32767);
 }
@@ -799,10 +799,10 @@ __asm
 __endasm;
 }
 
-SHORTINT i, digits;
+BYTE i, digits;
 CHAR ch;
 CHAR data[8];
-INTEGER result;
+SHORTINT result;
 
 void Console_ReadInt_Accept_FAST (void)
 {
@@ -811,7 +811,7 @@ void Console_ReadInt_Accept_FAST (void)
 	}
 }
 
-INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max)
+SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max)
 {
 	digits = 0;
 	for (;;) {
@@ -884,7 +884,7 @@ INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max)
 }
 
 /*----------------------------------------------------------------------------*/
-INTEGER Console_ReadInt_FAST (void)
+SHORTINT Console_ReadInt_FAST (void)
 {
 	return Console_ReadIntRange_FAST(-32768, 32767);
 }

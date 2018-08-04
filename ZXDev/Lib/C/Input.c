@@ -1,17 +1,15 @@
-#include "SYSTEM.h"
-
 #define KeyBufSize 8
 extern char Input_keyBuf [KeyBufSize];
 
-export SHORTINT Input_Available_NoRepeat (void);
-export SHORTINT Input_Available_RepeatBuf (void);
-export CHAR Input_Read_NoRepeat (void);
-export CHAR Input_Read_Repeat (void);
-export CHAR Input_Read_RepeatBuf (void);
-export void Input_RunMe50Hz (void);
+signed char Input_Available_NoRepeat (void);
+signed char Input_Available_RepeatBuf (void);
+unsigned char Input_Read_NoRepeat (void);
+unsigned char Input_Read_Repeat (void);
+unsigned char Input_Read_RepeatBuf (void);
+void Input_RunMe50Hz (void);
 
 /*================================== Header ==================================*/
-SHORTINT Input_Available_NoRepeat (void) {
+signed char Input_Available_NoRepeat (void) {
 __asm
   LD   IY,#0x5C3A
   CALL 0x28E
@@ -23,14 +21,14 @@ __endasm;
 } //Input_Available_NoRepeat
 
 /*--------------------------------- Cut here ---------------------------------*/
-export SHORTINT Input_Available_RepeatBuf (void) {
+signed char Input_Available_RepeatBuf (void) {
 __asm
   LD   HL,(_Input_keysAvailable+1)
 __endasm;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-CHAR Input_Read_NoRepeat (void) {
+unsigned char Input_Read_NoRepeat (void) {
 __asm // http://zxpress.ru/book_articles.php?id=1395
   LD   IY,#0x5C3A
   RES  5,1(IY)
@@ -43,7 +41,7 @@ __endasm;
 } //Input_Read_NoRepeat
 
 /*--------------------------------- Cut here ---------------------------------*/
-CHAR Input_Read_Repeat (void) {
+unsigned char Input_Read_Repeat (void) {
 __asm
   LD   IY,#0x5C3A
   RES  5,1(IY)
@@ -62,7 +60,7 @@ char Input_keyBuf [KeyBufSize];
    Эта стратегия кажется более удачной, чем игнорирование всех клавиш,
    нажатых после переполнения буфера (как в контроллере клавиатуры IBM PC). */
 
-CHAR Input_Read_RepeatBuf (void) {
+unsigned char Input_Read_RepeatBuf (void) {
 __asm
 LOOPrptbuf$:
   LD   HL,#_Input_keysAvailable+1

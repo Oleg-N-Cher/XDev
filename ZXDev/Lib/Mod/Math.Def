@@ -47,7 +47,7 @@ END Ln;
 
 PROCEDURE Randomize* ; END Randomize;
 
-PROCEDURE RndRange* (min, max: INTEGER): INTEGER;
+PROCEDURE RndRange* (min, max: SHORTINT): SHORTINT;
 BEGIN RETURN 0
 END RndRange;
 

@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
@@ -6,7 +6,7 @@
 #include "PT3x0A.h"
 
 
-static INTEGER TestPT3IM2_ace, TestPT3IM2_udg;
+static SHORTINT TestPT3IM2_ace, TestPT3IM2_udg;
 
 
 static void TestPT3IM2_Best40Test (void);
@@ -37,89 +37,83 @@ static void TestPT3IM2_ProcIM2 (void)
 
 static void TestPT3IM2_Best40Test (void)
 {
-	SHORTINT i;
+	BYTE i, _for__10, _for__9, _for__8, _for__7, _for__6, _for__5, _for__4, _for__3, _for__2;
 	i = 16;
-	while (i >= 1) {
+	do {
 		Best40_ASRL_LF(32);
 		Basic_PAUSE(5);
-		i += -1;
-	}
+	} while (--i);
 	i = 16;
-	while (i >= 1) {
+	do {
 		Best40_ASRL_UP(49);
 		Basic_PAUSE(5);
-		i += -1;
-	}
+	} while (--i);
 	i = 6;
-	while (i >= 1) {
+	do {
 		Best40_ASRL_RG(41);
 		Basic_PAUSE(5);
-		i += -1;
-	}
+	} while (--i);
 	i = 5;
-	while (i >= 1) {
+	do {
 		Best40_ASRL_DN(23);
 		Basic_PAUSE(5);
-		i += -1;
-	}
+	} while (--i);
 	i = 49;
-	while (i <= 113) {
+	_for__10 = 65;
+	do {
 		Best40_AREPLC(i, i + 1);
 		Basic_PAUSE(5);
 		i += 1;
-	}
+	} while (--_for__10);
 	Best40_ACHANGE(247, 1);
 	i = 127;
-	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i, (CHAR*)"065088060", 10);
+	_for__9 = 64;
+	do {
+		Best40_PFIGURE(__ASHL(i, 1, BYTE), i, (void*)&"065088060", 10);
 		i += -2;
-	}
+	} while (--_for__9);
 	i = 127;
-	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i + 10, (CHAR*)"065088060", 10);
+	_for__8 = 64;
+	do {
+		Best40_PFIGURE(__ASHL(i, 1, BYTE), i + 10, (void*)&"065088060", 10);
 		i += -2;
-	}
+	} while (--_for__8);
 	i = 16;
-	while (i >= 1) {
+	do {
 		Best40_SSRL_LF();
 		Best40_SSRL_UP();
 		Best40_SSRL_RG();
 		Best40_SSRL_DN();
-		i += -1;
-	}
+	} while (--i);
 	i = 99;
-	while (i >= 1) {
-		Best40_PFIGURE(__ASHL(i, 1, SHORTINT), i + 26, (CHAR*)"06050808060", 12);
+	_for__7 = 50;
+	do {
+		Best40_PFIGURE(__ASHL(i, 1, BYTE), i + 26, (void*)&"06050808060", 12);
 		i += -2;
-	}
+	} while (--_for__7);
 	Best40_ASRL_RG(39);
 	Best40_ASRL_DN(41);
 	i = 10;
-	while (i >= 1) {
+	do {
 		Best40_SCR_INV();
-		i += -1;
-	}
+	} while (--i);
 	Best40_PAINT(0, 0);
 	i = 64;
-	while (i >= 1) {
+	do {
 		Best40_PSRL_LF();
-		i += -1;
-	}
+	} while (--i);
 	i = 32;
-	while (i >= 1) {
+	do {
 		Best40_PSRL_RG();
-		i += -1;
-	}
+	} while (--i);
 	i = 16;
-	while (i >= 1) {
+	do {
 		Best40_PSRL_DN();
-		i += -1;
-	}
+	} while (--i);
 	i = 16;
-	while (i >= 1) {
+	do {
 		Best40_PSRL_UP();
-		i += -1;
-	}
+	} while (--i);
 	Best40_SCR_INV();
 	Best40_SCR_INV();
 	Best40_SCR_MRG(0);
@@ -143,10 +137,11 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRUDG('H');
 	Basic_PRLN();
 	i = 0;
-	while (i <= 56) {
-		Best40_SINV_LR(TestPT3IM2_udg + (INTEGER)i);
+	_for__6 = 8;
+	do {
+		Best40_SINV_LR(TestPT3IM2_udg + (SHORTINT)i);
 		i += 8;
-	}
+	} while (--_for__6);
 	Basic_PRUDG('A');
 	Basic_PRUDG('B');
 	Basic_PRUDG('C');
@@ -157,10 +152,11 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRUDG('H');
 	Basic_PRLN();
 	i = 0;
-	while (i <= 56) {
-		Best40_SINV_UD(TestPT3IM2_udg + (INTEGER)i);
+	_for__5 = 8;
+	do {
+		Best40_SINV_UD(TestPT3IM2_udg + (SHORTINT)i);
 		i += 8;
-	}
+	} while (--_for__5);
 	Basic_PRUDG('A');
 	Basic_PRUDG('B');
 	Basic_PRUDG('C');
@@ -171,10 +167,11 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRUDG('H');
 	Basic_PRLN();
 	i = 0;
-	while (i <= 56) {
-		Best40_SINV_LR(TestPT3IM2_udg + (INTEGER)i);
+	_for__4 = 8;
+	do {
+		Best40_SINV_LR(TestPT3IM2_udg + (SHORTINT)i);
 		i += 8;
-	}
+	} while (--_for__4);
 	Basic_PRUDG('A');
 	Basic_PRUDG('B');
 	Basic_PRUDG('C');
@@ -185,11 +182,12 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRUDG('H');
 	Basic_PRLN();
 	i = 0;
-	while (i <= 56) {
-		Best40_SINV_UD(TestPT3IM2_udg + (INTEGER)i);
-		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
+	_for__3 = 8;
+	do {
+		Best40_SINV_UD(TestPT3IM2_udg + (SHORTINT)i);
+		Best40_SROTATE(TestPT3IM2_udg + (SHORTINT)i);
 		i += 8;
-	}
+	} while (--_for__3);
 	Basic_PRUDG('A');
 	Basic_PRUDG('B');
 	Basic_PRUDG('C');
@@ -200,11 +198,12 @@ static void TestPT3IM2_Best40Test (void)
 	Basic_PRUDG('H');
 	Basic_PRLN();
 	i = 0;
-	while (i <= 56) {
-		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
-		Best40_SROTATE(TestPT3IM2_udg + (INTEGER)i);
+	_for__2 = 8;
+	do {
+		Best40_SROTATE(TestPT3IM2_udg + (SHORTINT)i);
+		Best40_SROTATE(TestPT3IM2_udg + (SHORTINT)i);
 		i += 8;
-	}
+	} while (--_for__2);
 	Basic_PRUDG('A');
 	Basic_PRUDG('B');
 	Basic_PRUDG('C');
@@ -232,9 +231,9 @@ int main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	if (__MASK(PT3x0A_TabAdr(), -256) != 0) {
-		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", 44);
+		Basic_PRSTR((void*)&"Start address of module must be aligned to ", 44);
 		Basic_PRINT(__MASK(PT3x0A_TabAdr(), -256));
-		Basic_PRSTR((CHAR*)" bytes", 7);
+		Basic_PRSTR((void*)&" bytes", 7);
 		Basic_PAUSE(0);
 	}
 	Basic_DEFDATA(TestPT3IM2_ace, 2137);

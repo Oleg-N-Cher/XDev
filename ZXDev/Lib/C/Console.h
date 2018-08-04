@@ -26,12 +26,12 @@ extern void Console_At_FAST (signed char x, signed char y);
 #  ifdef Console_OUTPUT_FAST
 #    define Console_At Console_At_FAST
 #  endif
-extern INTEGER Console_ReadIntRange_ROM (INTEGER min, INTEGER max);
-extern INTEGER Console_ReadInt_ROM (void);
-extern INTEGER Console_ReadIntRange_COMPACT (INTEGER min, INTEGER max);
-extern INTEGER Console_ReadInt_COMPACT (void);
-extern INTEGER Console_ReadIntRange_FAST (INTEGER min, INTEGER max);
-extern INTEGER Console_ReadInt_FAST (void);
+extern SHORTINT Console_ReadIntRange_ROM (SHORTINT min, SHORTINT max);
+extern SHORTINT Console_ReadInt_ROM (void);
+extern SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max);
+extern SHORTINT Console_ReadInt_COMPACT (void);
+extern SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max);
+extern SHORTINT Console_ReadInt_FAST (void);
 #  ifdef Console_OUTPUT_ROM
 #    define Console_ReadIntRange Console_ReadIntRange_ROM
 #    define Console_ReadInt Console_ReadInt_ROM

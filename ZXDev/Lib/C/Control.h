@@ -1,11 +1,9 @@
 #ifndef Control__h
 #define Control__h
 
-#include "SYSTEM.h"
 
-
-import SET Control_Get (void);
-import void Control__init(void);
+extern unsigned char Control_Get (void);
+extern void Control__init(void);
 
 
 #endif

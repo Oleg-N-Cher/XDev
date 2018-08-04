@@ -6,7 +6,7 @@ MODULE HelloWorld;
 IMPORT B := Basic;
 
 VAR
-	x: INTEGER;
+	x: SHORTINT;
 BEGIN (*$MAIN*)
 	B.Init;
 	B.BORDER(B.Green); B.PAPER(B.Black); B.CLS;

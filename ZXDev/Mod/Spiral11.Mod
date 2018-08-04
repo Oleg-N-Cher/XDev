@@ -12,11 +12,11 @@ CONST
   V  = 20; (* Number of turns. Can be changed from 1 to .. *)
 
 VAR
-  i, x, y: INTEGER; yr1, yr2: REAL; Sina, Cosa: ARRAY 361 OF REAL;
+  i, x, y: SHORTINT; yr1, yr2: REAL; Sina, Cosa: ARRAY 361 OF REAL;
 
 PROCEDURE PrepareTables;
 VAR
-  i, q: SHORTINT;
+  i, q: BYTE;
 BEGIN
   (* Подготовка массива синусов и косинусов *)
   Sina[0] := Math.Sin(0); Cosa[0] := Math.Cos(0);
@@ -46,12 +46,12 @@ BEGIN (*$MAIN*)
     (* Когда i дойдёт до V*36, первый косинус должен V раз дойти до 360. *)
     (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
     G.PutPixel(
-      cx + SHORT(ENTIER(R*Cosa[i*10 MOD 360] * Sina[i*5 DIV V])),
+      cx + SHORT(SHORT(ENTIER(R*Cosa[i*10 MOD 360] * Sina[i*5 DIV V]))),
       (* Когда i дойдёт до V*36, первый синус должен v раз дойти до 360. *)
       (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
       (* Когда i дойдёт до V*36, третий косинус должен дойти до 180. *)
-      cy + SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
-         - yr2*Cosa[i*5 DIV V]))
+      cy + SHORT(SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
+         - yr2*Cosa[i*5 DIV V])))
     );
   DEC(i);
   UNTIL i < 0;

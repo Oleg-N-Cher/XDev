@@ -1,16 +1,13 @@
-/*  Ofront 1.2 -xtspkae */
-#include "SYSTEM.h"
-
-export void Timer_Delay_HALT_DI_stdcall (INTEGER msec);
-export void Timer_Delay_HALT_DI_fastcall (void /*DE*/);
-export void Timer_Delay_HALT_EI_stdcall (INTEGER msec);
-export void Timer_Delay_HALT_EI_fastcall (void /*DE*/);
-export void Timer_Delay_Ex_stdcall (INTEGER msec);
-export void Timer_Delay_Ex_fastcall (void /*DE*/);
+void Timer_Delay_HALT_DI_stdcall (int msec);
+void Timer_Delay_HALT_DI_fastcall (void /*DE*/);
+void Timer_Delay_HALT_EI_stdcall (int msec);
+void Timer_Delay_HALT_EI_fastcall (void /*DE*/);
+void Timer_Delay_Ex_stdcall (int msec);
+void Timer_Delay_Ex_fastcall (void /*DE*/);
 
 /*================================== Header ==================================*/
 
-void Timer_Delay_Ex_stdcall (INTEGER msec)
+void Timer_Delay_Ex_stdcall (int msec)
 {
   __asm
 #ifdef __SDCC
@@ -52,7 +49,7 @@ LoopF$:
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Timer_Delay_HALT_DI_stdcall (INTEGER msec)
+void Timer_Delay_HALT_DI_stdcall (int msec)
 {
   __asm
   LD   IY,#0x5C3A
@@ -94,7 +91,7 @@ DelayLoopHaltDiF$:
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Timer_Delay_HALT_EI_stdcall (INTEGER msec)
+void Timer_Delay_HALT_EI_stdcall (int msec)
 {
   __asm
   LD   IY,#0x5C3A

@@ -1,7 +1,7 @@
 MODULE Debug;
 IMPORT SYSTEM, Asm, Basic;
 
-VAR a: SHORTINT; bc, de, hl, ix, iy: INTEGER;
+VAR a: BYTE; bc, de, hl, ix, iy: SHORTINT;
 
 PROCEDURE SaveIX* ;
 BEGIN

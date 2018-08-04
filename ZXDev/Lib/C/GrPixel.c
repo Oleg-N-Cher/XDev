@@ -1,11 +1,9 @@
-#include "SYSTEM.h"
-
 void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y);
 void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y);
 
 /*================================== Header ==================================*/
 
-void GrPixel_Line (SHORTCARD x1, SHORTCARD y1, SHORTCARD x2, SHORTCARD y2)
+void GrPixel_Line (unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2)
 {
 __asm
 #ifdef __SDCC

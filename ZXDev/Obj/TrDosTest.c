@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Console.h"
 #include "TrDos.h"
@@ -19,21 +19,21 @@ int main(int argc, char **argv)
 	__IMPORT(TrDos__init);
 	__REGMAIN("TrDosTest", 0);
 /* BEGIN */
-	TrDosTest_code = TrDos_FindFile((CHAR*)"file1", 6, 0x05);
-	Console_WriteStr((CHAR*)"Found code: ", 13);
-	Console_WriteInt((INTEGER)TrDosTest_code);
+	TrDosTest_code = TrDos_FindFile((void*)&"file1", 6, 0x05);
+	Console_WriteStr((void*)&"Found code: ", 13);
+	Console_WriteInt((SHORTINT)TrDosTest_code);
 	Console_WriteLn();
-	TrDosTest_code = TrDos_FindFile((CHAR*)"boot", 5, 0x04);
-	Console_WriteStr((CHAR*)"Found code: ", 13);
-	Console_WriteInt((INTEGER)TrDosTest_code);
+	TrDosTest_code = TrDos_FindFile((void*)&"boot", 5, 0x04);
+	Console_WriteStr((void*)&"Found code: ", 13);
+	Console_WriteInt((SHORTINT)TrDosTest_code);
 	Console_WriteLn();
-	TrDosTest_code = TrDos_FindFile((CHAR*)"Das2", 5, 0x04);
-	Console_WriteStr((CHAR*)"Found code: ", 13);
-	Console_WriteInt((INTEGER)TrDosTest_code);
+	TrDosTest_code = TrDos_FindFile((void*)&"Das2", 5, 0x04);
+	Console_WriteStr((void*)&"Found code: ", 13);
+	Console_WriteInt((SHORTINT)TrDosTest_code);
 	Console_WriteLn();
-	TrDosTest_code = TrDos_FindFile((CHAR*)"Dash", 5, 0x04);
-	Console_WriteStr((CHAR*)"Found code: ", 13);
-	Console_WriteInt((INTEGER)TrDosTest_code);
+	TrDosTest_code = TrDos_FindFile((void*)&"Dash", 5, 0x04);
+	Console_WriteStr((void*)&"Found code: ", 13);
+	Console_WriteInt((SHORTINT)TrDosTest_code);
 	Console_WriteLn();
 	__FINI;
 }

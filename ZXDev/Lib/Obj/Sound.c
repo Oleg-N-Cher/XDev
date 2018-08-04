@@ -1,11 +1,11 @@
-/* Ofront+ 0.9 -s */
+/* Ofront+ 1.0 -s3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 
 
 
 
-export void Sound_Play (INTEGER fx);
+export void Sound_Play (SHORTINT fx);
 export void Sound_Quit (void);
 export void Sound_RunMe50Hz (void);
 
@@ -13,7 +13,7 @@ export void Sound_RunMe50Hz (void);
 
 /*============================================================================*/
 
-void Sound_Play (INTEGER fx)
+void Sound_Play (SHORTINT fx)
 {
 	Asm_Code((CHAR*)"  DI", 5);
 	Asm_Code((CHAR*)"  POP DE", 9);

@@ -1,20 +1,16 @@
 #ifndef Platform__h
 #define Platform__h
 
-#include "SYSTEM.h"
+#define Platform_ToBYTE(s)	((BYTE)(s))
+#define Platform_ToINT(l)	((INTEGER)(l))
+#define Platform_ToSHORT(i)	((SHORTINT)(i))
+#define Platform_UBYTE(b)	((SHORTINT)(unsigned char)(b))
+#define Platform_UINT(i)	((LONGINT)(unsigned int)(i))
+#define Platform_USHORT(s)	((INTEGER)(unsigned short)(s))
 
+extern void Platform_DISPOSE (void **mem);
 
-typedef
-	BYTE Platform_ADDRESS[65536];
-
-typedef
-	CHAR *Platform_STRING;
-
-
-import void Platform_DISPOSE (SYSTEM_PTR *mem);
-#define Platform_Unsigned(i) ((unsigned)(i))
-
-void __sdcc_heap_init (void);
+extern void __sdcc_heap_init (void);
 #ifndef SYSTEM_Use_HEAP
 #  define Platform__init()
 #else

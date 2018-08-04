@@ -1,21 +1,19 @@
 #ifndef NewSupercode__h
 #define NewSupercode__h
 
-#include "SYSTEM.h"
-
-import void NewSupercode__2WIERSZE (SYSTEM_ADR adr);
-import void NewSupercode_EKRAN1 (SYSTEM_ADR adr);
-import void NewSupercode_EKRAN2 (SYSTEM_ADR adr);
-import void NewSupercode_EKRAN3 (SYSTEM_ADR adr);
-import void NewSupercode_EKRAN4 (SYSTEM_ADR adr);
-import void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop);
-import void NewSupercode_DZWIEK_1 (void);
-import void NewSupercode_DZWIEK_2 (void);
-import void NewSupercode_DZWIEK_3 (void);
-import void NewSupercode_EKRAN_1 (SHORTCARD x);
-import void NewSupercode_EKRAN_2 (SHORTCARD x);
-import void NewSupercode_LITERY_ (SHORTCARD x, SHORTCARD y, SHORTCARD xs,
-  SHORTCARD ys, SHORTCARD wdth, CHAR *str);
+extern void NewSupercode__2WIERSZE (unsigned int adr);
+extern void NewSupercode_EKRAN1 (unsigned int adr);
+extern void NewSupercode_EKRAN2 (unsigned int adr);
+extern void NewSupercode_EKRAN3 (unsigned int adr);
+extern void NewSupercode_EKRAN4 (unsigned int adr);
+extern void NewSupercode_SIATKA (unsigned char x, unsigned char y, unsigned int ramtop);
+extern void NewSupercode_DZWIEK_1 (void);
+extern void NewSupercode_DZWIEK_2 (void);
+extern void NewSupercode_DZWIEK_3 (void);
+extern void NewSupercode_EKRAN_1 (unsigned char x);
+extern void NewSupercode_EKRAN_2 (unsigned char x);
+extern void NewSupercode_LITERY_ (unsigned char x, unsigned char y, unsigned char xs,
+  unsigned char ys, unsigned char wdth, unsigned char *str);
 #define NewSupercode_LITERY(x, y, xs, ys, wdth, str, str__len) NewSupercode_LITERY_ (x, y, xs, ys, wdth, str)
 #define NewSupercode__init()
 

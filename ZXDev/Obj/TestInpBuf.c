@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Basic.h"
 #include "Input.h"
@@ -6,7 +6,7 @@
 
 
 static CHAR TestInpBuf_key;
-static SHORTINT TestInpBuf_av;
+static BYTE TestInpBuf_av;
 
 
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	Basic_Init();
 	Basic_CLS();
 	Basic_IM2PROC(Input_RunMe50Hz);
-	Basic_PRSTR((CHAR*)"PRESS KEYS SO MANY AS POSSIBLE!", 32);
+	Basic_PRSTR((void*)&"PRESS KEYS SO MANY AS POSSIBLE!", 32);
 	Basic_PRLN();
 	Timer_Delay(500);
 	Basic_AT(0, 0);
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 		TestInpBuf_av = Input_Available();
 		Basic_AT(0, 0);
 		Basic_PRINT(TestInpBuf_av);
-		Basic_PRSTR((CHAR*)"    ", 5);
+		Basic_PRSTR((void*)&"    ", 5);
 	} while (!(TestInpBuf_av == 8));
 	Basic_AT(10, 10);
 	while (Input_Available() > 0) {

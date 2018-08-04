@@ -1,14 +1,14 @@
 MODULE Wham;
 
 TYPE
-  Channel* = INTEGER;
-  ADDRESS = LONGINT;
+  Channel* = SHORTINT;
+  ADDRESS = INTEGER;
 
 PROCEDURE InitPlayNote* (channel1, channel2: ADDRESS); END InitPlayNote;
 PROCEDURE PlayNote* ; END PlayNote;
 PROCEDURE PlayKeyPress* (channel1, channel2: ADDRESS); END PlayKeyPress;
 PROCEDURE PlayTuneEnd* (channel1, channel2: ADDRESS); END PlayTuneEnd;
-PROCEDURE SetTempo* (tempo: INTEGER); (* REPLAY SPEED (230 TO 255) *)
+PROCEDURE SetTempo* (tempo: SHORTINT); (* REPLAY SPEED (230 TO 255) *)
 END SetTempo;
 
 END Wham.

@@ -1,6 +1,6 @@
 MODULE BigCircles; IMPORT B := Basic;
 
-VAR r: INTEGER;
+VAR r: SHORTINT;
 
 BEGIN (*$MAIN*)
   B.Init;

@@ -38,6 +38,9 @@ typedef float         SHORTREAL;
 typedef float         REAL;
 typedef void*         SYSTEM_PTR;
 typedef int           SYSTEM_ADRINT;
+typedef int           SYSTEM_ARRLEN; // see also OPM.IndexSize and MaxIndex
+
+// Unsigned variants are for use by shift and rotate macros
 
 typedef unsigned char      __U_BYTE;
 typedef unsigned char      __U_CHAR;

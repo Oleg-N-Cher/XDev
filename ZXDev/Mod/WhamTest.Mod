@@ -2,7 +2,7 @@ MODULE WhamTest;
 IMPORT Wham, B := Basic, Input;
 
 VAR
-  chan1, chan2: Wham.Channel; atr: INTEGER;
+  chan1, chan2: Wham.Channel; atr: SHORTINT;
 
 BEGIN (*$MAIN*)
   B.Init; B.CLS; B.PRSTR("1, 2 or 3 to play; 0 to next");

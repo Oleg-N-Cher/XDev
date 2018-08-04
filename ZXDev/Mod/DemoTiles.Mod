@@ -2,7 +2,7 @@ MODULE DemoTiles;
 IMPORT G := GrApp, T := GrTiles, B := Basic;
 
 VAR
-  i: SHORTINT; square: T.Tile;
+  i: BYTE; square: T.Tile;
 BEGIN (*$MAIN*)
   B.PAPER(B.Black); B.CLS; B.BORDER(B.Red);
   B.DEFDATA(square, 8 + 1);

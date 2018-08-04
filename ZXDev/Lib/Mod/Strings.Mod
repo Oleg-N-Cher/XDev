@@ -1,9 +1,9 @@
 MODULE Strings;
 
-PROCEDURE StrToInt* (IN str: ARRAY OF CHAR; VAR result: INTEGER): BOOLEAN;
-(* MIN(INTEGER) not supported! *)
+PROCEDURE StrToInt* (str: ARRAY OF CHAR; VAR result: SHORTINT): BOOLEAN;
+(* MIN(SHORTINT) not supported! *)
 VAR
-  pos, sign: SHORTINT; ch: CHAR; prev: INTEGER;
+  pos, sign: BYTE; ch: CHAR; prev: SHORTINT;
 BEGIN
   result := 0; pos := 0; sign := 1;
   WHILE pos < LEN(str) DO

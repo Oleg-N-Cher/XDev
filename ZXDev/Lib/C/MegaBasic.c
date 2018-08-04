@@ -6,11 +6,9 @@
 /*    VEDAsoft, 2013    */
 /* -------------------- */
 
-#include "SYSTEM.h"
-
-export void MegaBasic_INVERT (void);
-export void MegaBasic_PLAY (BOOLEAN soundType,
-  SHORTCARD stepLen, SHORTCARD startFreq, CARDINAL stepNum, SHORTCARD incFreq);
+void MegaBasic_INVERT (void);
+void MegaBasic_PLAY (unsigned char soundType,
+  unsigned char stepLen, unsigned char startFreq, unsigned int stepNum, unsigned char incFreq);
 
 /*================================== Header ==================================*/
 
@@ -40,8 +38,8 @@ __endasm;
 приращение частоты после каждого шага. Переменные D и F при
 необходимости могут быть повторены нужное количество раз. */
 
-void MegaBasic_PLAY (BOOLEAN soundType,
-  SHORTCARD stepLen, SHORTCARD startFreq, CARDINAL stepNum, SHORTCARD incFreq)
+void MegaBasic_PLAY (unsigned char soundType,
+  unsigned char stepLen, unsigned char startFreq, unsigned int stepNum, unsigned char incFreq)
 {
   // n = [#C2FA]; l = [#C2FB]; s = [#C2FC]
 __asm

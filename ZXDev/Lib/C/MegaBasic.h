@@ -1,12 +1,10 @@
 #ifndef MegaBasic__h
 #define MegaBasic__h
 
-#include "SYSTEM.h"
 
-
-import void MegaBasic_INVERT (void);
-import void MegaBasic_PLAY (BOOLEAN soundType,
-  SHORTCARD stepLen, SHORTCARD startFreq, CARDINAL stepNum, SHORTCARD incFreq);
+extern void MegaBasic_INVERT (void);
+extern void MegaBasic_PLAY (unsigned char soundType,
+  unsigned char stepLen, unsigned char startFreq, unsigned int stepNum, unsigned char incFreq);
 
 #define MegaBasic__init()
 

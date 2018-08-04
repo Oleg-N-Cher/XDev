@@ -1,4 +1,4 @@
-/* Ofront+ 0.9 -s */
+/* Ofront+ 1.0 -s3 -21 */
 
 #ifndef Sound__h
 #define Sound__h
@@ -8,7 +8,7 @@
 
 
 
-import void Sound_Play (INTEGER fx);
+import void Sound_Play (SHORTINT fx);
 import void Sound_Quit (void);
 import void Sound_RunMe50Hz (void);
 import void *Sound__init(void);

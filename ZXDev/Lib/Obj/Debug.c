@@ -1,11 +1,11 @@
-/* Ofront+ 0.9 -xtspkae */
+/* Ofront+ 1.0 -s3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
 
 
-static SHORTINT Debug_a;
-static INTEGER Debug_bc, Debug_de, Debug_hl, Debug_ix, Debug_iy;
+static BYTE Debug_a;
+static SHORTINT Debug_bc, Debug_de, Debug_hl, Debug_ix, Debug_iy;
 
 
 export void Debug_CheckIX (void);
@@ -32,7 +32,7 @@ void Debug_CheckIX (void)
 	Asm_Code((CHAR*)"SBC  HL, DE", 12);
 	Asm_Code((CHAR*)"RET  Z", 7);
 	Basic_COLOR(2);
-	Basic_PRSTR((CHAR*)"IX broken", 10);
+	Basic_PRSTR((void*)&"IX broken", 10);
 	Basic_PAUSE(0);
 }
 
@@ -82,7 +82,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_a)", 19);
 	Asm_Code((CHAR*)"CP   B", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoA$", 14);
-	Basic_PRSTR((CHAR*)" A", 3);
+	Basic_PRSTR((void*)&" A", 3);
 	Asm_Code((CHAR*)"NoA$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -99,7 +99,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_bc+1)", 22);
 	Asm_Code((CHAR*)"CP   B", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoB$", 14);
-	Basic_PRSTR((CHAR*)" B", 3);
+	Basic_PRSTR((void*)&" B", 3);
 	Asm_Code((CHAR*)"NoB$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -116,7 +116,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_bc)", 20);
 	Asm_Code((CHAR*)"CP   C", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoC$", 14);
-	Basic_PRSTR((CHAR*)" C", 3);
+	Basic_PRSTR((void*)&" C", 3);
 	Asm_Code((CHAR*)"NoC$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -133,7 +133,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_de+1)", 22);
 	Asm_Code((CHAR*)"CP   D", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoD$", 14);
-	Basic_PRSTR((CHAR*)" D", 3);
+	Basic_PRSTR((void*)&" D", 3);
 	Asm_Code((CHAR*)"NoD$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -150,7 +150,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_de)", 20);
 	Asm_Code((CHAR*)"CP   E", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoE$", 14);
-	Basic_PRSTR((CHAR*)" E", 3);
+	Basic_PRSTR((void*)&" E", 3);
 	Asm_Code((CHAR*)"NoE$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -167,7 +167,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_hl+1)", 22);
 	Asm_Code((CHAR*)"CP   H", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoH$", 14);
-	Basic_PRSTR((CHAR*)" H", 3);
+	Basic_PRSTR((void*)&" H", 3);
 	Asm_Code((CHAR*)"NoH$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -184,7 +184,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"LD   A, (_Debug_hl)", 20);
 	Asm_Code((CHAR*)"CP   L", 7);
 	Asm_Code((CHAR*)"JR   NZ, NoL$", 14);
-	Basic_PRSTR((CHAR*)" L", 3);
+	Basic_PRSTR((void*)&" L", 3);
 	Asm_Code((CHAR*)"NoL$: ", 7);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -204,7 +204,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"AND  A", 7);
 	Asm_Code((CHAR*)"SBC  HL, DE", 12);
 	Asm_Code((CHAR*)"JR   NZ, NoIY$", 15);
-	Basic_PRSTR((CHAR*)" IY", 4);
+	Basic_PRSTR((void*)&" IY", 4);
 	Asm_Code((CHAR*)"NoIY$: ", 8);
 	Asm_Code((CHAR*)"POP  IY", 8);
 	Asm_Code((CHAR*)"POP  IX", 8);
@@ -219,7 +219,7 @@ void Debug_CheckRegs (void)
 	Asm_Code((CHAR*)"SBC  HL, DE", 12);
 	Asm_Code((CHAR*)"JR   Z, YesIX$", 15);
 	Basic_COLOR(2);
-	Basic_PRSTR((CHAR*)" IX", 4);
+	Basic_PRSTR((void*)&" IX", 4);
 	Asm_Code((CHAR*)"YesIX$: ", 9);
 	Basic_PRLN();
 }

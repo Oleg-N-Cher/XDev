@@ -12,7 +12,7 @@ VAR
 
 PROCEDURE MoveBall;
 VAR
-  x, y: INTEGER; sx, sy: SHORTINT;
+  x, y: SHORTINT; sx, sy: BYTE;
 BEGIN
   x := b.RND(20, 240); y := b.RND(20, 160);
   sx := SHORT( b.RND(0, 1) ); IF sx = 0 THEN sx := -1 END;

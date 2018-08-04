@@ -1,11 +1,11 @@
-/* Ofront+ 0.9 -sm */
+/* Ofront+ 1.0 -m3 -21 */
 #include "SYSTEM.h"
 #include "Asm.h"
 #include "Basic.h"
 #include "PT3x0A.h"
 
 
-static INTEGER TestPT3_ace;
+static SHORTINT TestPT3_ace;
 
 
 
@@ -23,9 +23,9 @@ int main(int argc, char **argv)
 /* BEGIN */
 	Basic_Init();
 	if (__MASK(PT3x0A_TabAdr(), -256) != 0) {
-		Basic_PRSTR((CHAR*)"Start address of module must be aligned to ", 44);
+		Basic_PRSTR((void*)&"Start address of module must be aligned to ", 44);
 		Basic_PRINT(__MASK(PT3x0A_TabAdr(), -256));
-		Basic_PRSTR((CHAR*)" bytes", 7);
+		Basic_PRSTR((void*)&" bytes", 7);
 		Basic_PAUSE(0);
 	}
 	Basic_DEFDATA(TestPT3_ace, 2137);

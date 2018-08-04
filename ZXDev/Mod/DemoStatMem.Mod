@@ -6,7 +6,7 @@ TYPE
   PersonPtr = POINTER [1] TO Person;
   Person = RECORD
     name: ARRAY 20 OF CHAR;
-    age: INTEGER;
+    age: SHORTINT;
     sex: CHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
@@ -14,7 +14,7 @@ TYPE
 VAR
   john, mike, lisa, bob, iren: Person; person: PersonPtr;
   list: ARRAY 5 OF PersonPtr;
-  n: INTEGER;
+  n: SHORTINT;
 
 BEGIN
   john.name := "John Smith"   ; john.sex := "M"; john.age := 32;
@@ -49,8 +49,8 @@ BEGIN
 
   (* Using manual POKE'ing to John.name: *)
   IO.WriteStr("Before POKE'ing: "); IO.WriteStrLn(john.name);
-  Basic.POKE(SYSTEM.VAL(INTEGER, SYSTEM.ADR(john.name[0])), ORD("H"));
-  Basic.POKE(SYSTEM.VAL(INTEGER, SYSTEM.ADR(john.name[1])), ORD("a"));
+  Basic.POKE(SYSTEM.VAL(SHORTINT, SYSTEM.ADR(john.name[0])), ORD("H"));
+  Basic.POKE(SYSTEM.VAL(SHORTINT, SYSTEM.ADR(john.name[1])), ORD("a"));
   (* Or the same by SYSTEM.PUT: *)
   SYSTEM.PUT(SYSTEM.ADR(john.name[2]), "n");
   SYSTEM.PUT(SYSTEM.ADR(john.name[3]), "s");

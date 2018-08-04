@@ -6,8 +6,7 @@ MODULE GrPixel; (** non-portable *)
 (*-----------------------------------*)
 
 TYPE
-	BYTE = INTEGER;
-	Coords* = BYTE;
+	Coords* = SHORTINT;
 
 PROCEDURE PutPixel* (x, y: Coords);       END PutPixel;
 PROCEDURE Line* (x1, y1, x2, y2: Coords); END Line;

@@ -1,26 +1,26 @@
 MODULE UMath; IMPORT SYSTEM, B := Basic, Platform;
 
-VAR a, b: SHORTINT;
+VAR a, b: BYTE;
 
-PROCEDURE -UMultBytes (a, b: SHORTINT):
-  SHORTINT
+PROCEDURE -UMultBytes (a, b: BYTE):
+  BYTE
   "( ((CHAR)a) * ((CHAR)b) )";
-PROCEDURE -UMultWords (a, b: INTEGER):
-  INTEGER
-  "(((unsigned int)a)*((unsigned int)b))";
-PROCEDURE -UDivBytes (a, b: SHORTINT):
+PROCEDURE -UMultWords (a, b: SHORTINT):
   SHORTINT
+  "(((unsigned int)a)*((unsigned int)b))";
+PROCEDURE -UDivBytes (a, b: BYTE):
+  BYTE
   "( ((CHAR)a) / ((CHAR)b) )";
-PROCEDURE -UDivWords (a, b: INTEGER):
-  INTEGER
+PROCEDURE -UDivWords (a, b: SHORTINT):
+  SHORTINT
   "(((unsigned int)a)/((unsigned int)b))";
 
 BEGIN (*$MAIN*)
   B.Init; B.CLS;
   (* Приводим т.к. значение >
-                        SIZE(SHORTINT): *)
-  a := Platform.Unsigned(255);
-  b := Platform.Unsigned(255);
+                        SIZE(BYTE): *)
+  a := Platform.ToBYTE(255);
+  b := Platform.ToBYTE(255);
 
   (* Печатает: 65025 (255*255): *)
   B.PRWORD( UMultBytes(a, b) );
@@ -29,7 +29,7 @@ BEGIN (*$MAIN*)
   (* Печатает: 1 ( (-1)*(-1) ): *)
   B.PRWORD( a * b );
   B.PRLN;
-  a := Platform.Unsigned(255); b := 5;
+  a := Platform.ToBYTE(255); b := 5;
 
   (* Печатает: 51 (255 DIV 5): *)
   B.PRWORD( UDivBytes(a, b) );

@@ -2,7 +2,7 @@ MODULE MiraTest; (*$MAIN*)
 IMPORT IO := Console, B := Basic, GRAPH0;
 
 VAR
-  c: IO.Coords; i: INTEGER;
+  c: IO.Coords; i: SHORTINT;
 BEGIN
   GRAPH0.CLS2; GRAPH0.GCLS;
   FOR i := 0 TO 512 DO

@@ -1,15 +1,11 @@
-/*  Ofront 1.2 -xtspkae */
-#include "SYSTEM.h"
-
-
-export REAL Math_ArcTan (REAL x);
-export REAL Math_Cos (REAL x);
-export REAL Math_Exp (REAL x);
-export REAL Math_Ln (REAL x);
-export REAL Math_Sin (REAL x);
-export REAL Math_Sqrt (REAL x);
-export CARDINAL Math_RndRange (CARDINAL min, CARDINAL max);
-export void Math_Randomize (void);
+float Math_ArcTan (float x);
+float Math_Cos (float x);
+float Math_Exp (float x);
+float Math_Ln (float x);
+float Math_Sin (float x);
+float Math_Sqrt (float x);
+unsigned int Math_RndRange (unsigned int min, unsigned int max);
+void Math_Randomize (void);
 
 //#include <math.h>
 extern float atanf (const float x);
@@ -27,37 +23,37 @@ extern float sqrtf (const float x);
 #define Math_sqrt(x)	(sqrtf(x))
 
 /*================================== Header ==================================*/
-REAL Math_Sin (REAL x)
+float Math_Sin (float x)
 {
 	return Math_sin(x);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Math_Cos (REAL x)
+float Math_Cos (float x)
 {
 	return Math_cos(x);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Math_ArcTan (REAL x)
+float Math_ArcTan (float x)
 {
 	return Math_arctan(x);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Math_Exp (REAL x)
+float Math_Exp (float x)
 {
 	return Math_exp(x);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Math_Sqrt (REAL x)
+float Math_Sqrt (float x)
 {
 	return Math_sqrt(x);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Math_Ln (REAL x)
+float Math_Ln (float x)
 {
 	return Math_ln(x);
 }
@@ -65,7 +61,7 @@ REAL Math_Ln (REAL x)
 /* SEED_RND address */
 #define SF_RND$ 0x5C76
 
-static CARDINAL __Math_RandBB (void) /* Ripped from Beta Basic */
+static unsigned int __Math_RandBB (void) /* Ripped from Beta Basic */
 {
 __asm
   LD   D,#0
@@ -87,7 +83,7 @@ R1$:
 __endasm;
 } //__Math_RandBB
 
-CARDINAL Math_RndRange (CARDINAL min, CARDINAL max)
+unsigned int Math_RndRange (unsigned int min, unsigned int max)
 {
   return __Math_RandBB()%(max-min+1) + min;
 } //Math_RndRange

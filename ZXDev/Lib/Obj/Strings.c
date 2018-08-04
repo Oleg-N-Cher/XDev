@@ -1,24 +1,24 @@
-/* Ofront+ 1.0 -tspkae */
+/* Ofront+ 1.0 -s3 -21 */
 #include "SYSTEM.h"
 
 
 
 
-export BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result);
+export BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result);
 
 
 /*============================================================================*/
 
-BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result)
+BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result)
 {
-	SHORTINT pos, sign;
+	BYTE pos, sign;
 	CHAR ch;
-	INTEGER prev;
+	SHORTINT prev;
 	*result = 0;
 	pos = 0;
 	sign = 1;
-	while (pos < str__len) {
-		ch = str[pos];
+	while ((SHORTINT)pos < str__len) {
+		ch = str[__X(pos, str__len, "Strings", -260)];
 		switch (ch) {
 			case '-': 
 				if (pos == 0) {
@@ -30,13 +30,13 @@ BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result)
 			case '0': case '1': case '2': case '3': case '4': 
 			case '5': case '6': case '7': case '8': case '9': 
 				prev = *result;
-				*result = (*result * 10 + (INTEGER)ch) - 48;
+				*result = (*result * 10 + (SHORTINT)ch) - 48;
 				if (*result < prev) {
 					return 0;
 				}
 				break;
 			case 0x00: 
-				*result = *result * (INTEGER)sign;
+				*result = *result * (SHORTINT)sign;
 				return pos > 0;
 				break;
 			default: 
@@ -45,7 +45,7 @@ BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, INTEGER *result)
 		}
 		pos += 1;
 	}
-	*result = *result * (INTEGER)sign;
+	*result = *result * (SHORTINT)sign;
 	return pos > 0;
 }
 

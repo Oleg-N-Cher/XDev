@@ -1,21 +1,21 @@
 #include "SYSTEM.h"
 
-export void NewSupercode__2WIERSZE (SYSTEM_ADR adr);
-export void NewSupercode_EKRAN1 (SYSTEM_ADR adr);
-export void NewSupercode_EKRAN2 (SYSTEM_ADR adr);
-export void NewSupercode_EKRAN3 (SYSTEM_ADR adr);
-export void NewSupercode_EKRAN4 (SYSTEM_ADR adr);
-export void NewSupercode_SIATKA (SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop);
-export void NewSupercode_DZWIEK_1 (void);
-export void NewSupercode_DZWIEK_2 (void);
-export void NewSupercode_DZWIEK_3 (void);
-export void NewSupercode_EKRAN_1 (SHORTCARD x);
-export void NewSupercode_EKRAN_2 (SHORTCARD x);
-export void NewSupercode_LITERY_ (SHORTCARD x, SHORTCARD y, SHORTCARD xs,
-  SHORTCARD ys, SHORTCARD wdth, CHAR *str);
+void NewSupercode__2WIERSZE (unsigned int adr);
+void NewSupercode_EKRAN1 (unsigned int adr);
+void NewSupercode_EKRAN2 (unsigned int adr);
+void NewSupercode_EKRAN3 (unsigned int adr);
+void NewSupercode_EKRAN4 (unsigned int adr);
+void NewSupercode_SIATKA (unsigned char x, unsigned char y, unsigned int ramtop);
+void NewSupercode_DZWIEK_1 (void);
+void NewSupercode_DZWIEK_2 (void);
+void NewSupercode_DZWIEK_3 (void);
+void NewSupercode_EKRAN_1 (unsigned char x);
+void NewSupercode_EKRAN_2 (unsigned char x);
+void NewSupercode_LITERY_ (unsigned char x, unsigned char y, unsigned char xs,
+  unsigned char ys, unsigned char wdth, unsigned char *str);
 /*================================== Header ==================================*/
 
-void NewSupercode__2WIERSZE (SYSTEM_ADR adr) {
+void NewSupercode__2WIERSZE (unsigned int adr) {
 __asm
            POP  DE
            POP  HL
@@ -47,7 +47,7 @@ __endasm;
 } //NewSupercode__2WIERSZE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN1 (SYSTEM_ADR adr) {
+void NewSupercode_EKRAN1 (unsigned int adr) {
 __asm
            POP  DE
            POP  HL
@@ -94,7 +94,7 @@ __endasm;
 } //NewSupercode_EKRAN1
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN2 (SYSTEM_ADR adr) {
+void NewSupercode_EKRAN2 (unsigned int adr) {
 __asm
            POP  DE
            POP  HL
@@ -143,7 +143,7 @@ __endasm;
 } //NewSupercode_EKRAN2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN3 (SYSTEM_ADR adr) {
+void NewSupercode_EKRAN3 (unsigned int adr) {
 __asm
            POP  DE
            POP  HL
@@ -192,7 +192,7 @@ __endasm;
 } //NewSupercode_EKRAN3
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN4 (SYSTEM_ADR adr) {
+void NewSupercode_EKRAN4 (unsigned int adr) {
 __asm
            POP  DE
            POP  HL
@@ -242,7 +242,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void NewSupercode_SIATKA (
-  SHORTCARD x, SHORTCARD y, SYSTEM_ADR ramtop) __naked {
+  unsigned char x, unsigned char y, unsigned int ramtop) __naked {
 __asm
            POP  DE
            POP  BC ; 0x6464
@@ -345,7 +345,7 @@ __endasm;
 } //NewSupercode_SIATKA
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN_1 (SHORTCARD x) {
+void NewSupercode_EKRAN_1 (unsigned char x) {
 __asm
            LD   HL, #2
            ADD  HL, SP
@@ -358,7 +358,7 @@ __endasm;
 } //NewSupercode_EKRAN_1
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_EKRAN_2 (SHORTCARD x) {
+void NewSupercode_EKRAN_2 (unsigned char x) {
 __asm
            LD   HL, #2
            ADD  HL, SP
@@ -371,8 +371,8 @@ __endasm;
 } //NewSupercode_EKRAN_2
 
 /*--------------------------------- Cut here ---------------------------------*/
-void NewSupercode_LITERY_ (SHORTCARD x, SHORTCARD y, SHORTCARD xs,
-    SHORTCARD ys, SHORTCARD wdth, CHAR *str) __naked {
+void NewSupercode_LITERY_ (unsigned char x, unsigned char y, unsigned char xs,
+    unsigned char ys, unsigned char wdth, CHAR *str) __naked {
 __asm
            PUSH IX
            LD   IX, #4

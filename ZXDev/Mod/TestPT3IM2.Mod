@@ -2,7 +2,7 @@ MODULE TestPT3IM2;
 IMPORT Asm, B := Basic, PT3x0A, B40 := Best40;
 
 VAR
-  ace: PT3x0A.Melody; udg: INTEGER;
+  ace: PT3x0A.Melody; udg: SHORTINT;
 
   PROCEDURE ProcIM2;
   BEGIN
@@ -26,7 +26,7 @@ VAR
 
 PROCEDURE Best40Test;
 VAR
-	i: SHORTINT;
+	i: BYTE;
 BEGIN
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_LF(20H); B.PAUSE(5) END;
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_UP(31H); B.PAUSE(5) END;

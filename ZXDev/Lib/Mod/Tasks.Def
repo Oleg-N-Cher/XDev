@@ -8,9 +8,9 @@ MODULE Tasks; (** non-portable *)
 
 TYPE
   Context = RECORD
-    SP, next: INTEGER;
+    SP, next: SHORTINT;
     (* stack: ARRAY N OF BYTE; *)
-    IX, PC, _RETURN: INTEGER;
+    IX, PC, _RETURN: SHORTINT;
   END;
 
   Low    * = RECORD (Context) stack: ARRAY  20 OF BYTE END;
@@ -20,10 +20,10 @@ TYPE
   Large  * = RECORD (Context) stack: ARRAY 100 OF BYTE END;
   Huge   * = RECORD (Context) stack: ARRAY 120 OF BYTE END;
 
-PROCEDURE Count* (): SHORTINT;                        END Count;
+PROCEDURE Count* (): BYTE;                            END Count;
 PROCEDURE Spawn* (VAR ctx: Context; proc: PROCEDURE); END Spawn;
-PROCEDURE Id* (IN ctx: Context): INTEGER;             END Id;
-PROCEDURE MyId* (): INTEGER;                          END MyId;
+PROCEDURE Id* (ctx: Context): SHORTINT;               END Id;
+PROCEDURE MyId* (): SHORTINT;                         END MyId;
 PROCEDURE Run* ;                                      END Run;
 PROCEDURE Yield* ;                                    END Yield;
 
