@@ -1,22 +1,18 @@
-/*  Ofront 1.2 -xtspkae */
-
 #ifndef Graph__h
 #define Graph__h
 
-#include "SYSTEM.h"
 
-
-import void Graph_ClearDevice (void);
-import void Graph_CloseGraph (void);
+extern void Graph_ClearDevice (void);
+extern void Graph_CloseGraph (void);
 #define Graph_GetMaxX() 255
 #define Graph_GetMaxY() 191
-import void Graph_InitGraph (SHORTINT *GraphDriver, SHORTINT *GraphMode, CHAR *PathToDriver, SHORTINT PathToDriver__len);
-import void Graph_PutPixel_ROM (SHORTINT x, SHORTINT y);
+#define Graph_InitGraph(GraphDriver, GraphMode, PathToDriver, PathToDriver__len) Graph__init()
+extern void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;
 #define Graph_PutPixel Graph_PutPixel_ROM
-import void Graph_Line (SHORTINT x1, SHORTINT y1, SHORTINT x2, SHORTINT y2);
-import void Graph_SetBkColor (BYTE color);
-import void Graph_SetColor (BYTE color);
-import void Graph__init (void);
+extern void Graph_Line (int x1, int y1, int x2, int y2);
+extern void Graph_SetBkColor (signed char color);
+extern void Graph_SetColor (signed char color);
+extern void Graph__init (void);
 
 
 #endif

@@ -1,25 +1,19 @@
-#include "SYSTEM.h"
 #include "Graph.h"
 
-/*interface*/
+// void Graph_PutPixel (int x, int y);
+void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;
+void Graph_Line (int x1, int y1, int x2, int y2);
+void Graph_SetBkColor (signed char color);
+void Graph_SetColor (signed char color);
+void Graph__init (void);
 
-export void Graph_ClearDevice (void);
-export void Graph_CloseGraph (void);
-export void Graph_InitGraph (INTEGER *GraphDriver, INTEGER *GraphMode, CHAR *PathToDriver, LONGINT PathToDriver__len);
-//export void Graph_PutPixel (INTEGER x, INTEGER y);
-export void Graph_PutPixel_ROM (INTEGER x, INTEGER y);
-export void Graph_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2);
-export void Graph_SetBkColor (SHORTINT color);
-export void Graph_SetColor (SHORTINT color);
-export void Graph__init (void);
+void BORDER (signed char color) __z88dk_fastcall;
+void BRIGHT (signed char mode) __z88dk_fastcall;
+void INVERSE (signed char mode) __z88dk_fastcall;
+void INK (signed char color) __z88dk_fastcall;
+void PAPER (signed char color) __z88dk_fastcall;
 
-void BORDER (SHORTINT color);
-void BRIGHT (SHORTINT mode);
-void INVERSE (SHORTINT mode);
-void INK (SHORTINT color);
-void PAPER (SHORTINT color);
-
-extern SHORTINT color, bkcolor;
+extern signed char color, bkcolor;
 
 /*implementation*/
 
@@ -29,48 +23,26 @@ extern SHORTINT color, bkcolor;
 #define SETV_A$ 0x5C8D
 
 /*================================== Header ==================================*/
-SHORTINT color;
-/*--------------------------------- Cut here ---------------------------------*/
-SHORTINT bkcolor;
-/*--------------------------------- Cut here ---------------------------------*/
-export void Graph_InitGraph (INTEGER *GraphDriver, INTEGER *GraphMode, CHAR *PathToDriver, LONGINT PathToDriver__len)
-{
-  Graph__init();
-}
+signed char color;
 
 /*--------------------------------- Cut here ---------------------------------*/
-export void Graph_PutPixel_ROM (INTEGER x, INTEGER y)
+signed char bkcolor;
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Graph_PutPixel_ROM (int x, int y) __naked __z88dk_callee
 {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)  ; 7t
-  INC  HL      ; 6t
-  LD   A,(HL)
-  OR   A
-  RET  NZ
-  INC  HL
-  LD   B,(HL)
-  INC  HL
-  LD   A,(HL)
-  OR   A
-  RET  NZ
-#else
-  POP  AF
-  LD   A,5(IX)
-  OR   A
-  RET  NZ
-  LD   A,7(IX)
-  OR   A
-  RET  NZ
-  LD   C,4(IX) ; 19t
-  LD   B,6(IX)
-#endif
-  LD   IY,#0x5C3A
+  POP  HL
+  POP  BC
+  EX   (SP),HL
   LD   A,B
+  OR   H
+  RET  NZ
+  LD   B,L
+  LD   A,L
   CP   #0xC0
   RET  NC
+  LD   IY,#0x5C3A
   CALL #0x22B1
   JP   0x22EC
 __endasm;
@@ -92,7 +64,7 @@ __endasm;
   INC  HL     ;приращение fnt adr \
   INC  D      ;приращение scr adr
 
-export void Graph_InitPixel (void)
+void Graph_InitPixel (void)
 { /*
 __asm
               ; (AlCo)
@@ -126,15 +98,15 @@ __endasm; */
 } //PutPixel
 
 /*--------------------------------- Cut here ---------------------------------*/
-static INTEGER Graph_GetSign (INTEGER x)
+static int Graph_GetSign (int x)
 {
 	if (x >= 0) return 1;
 	return -1;
 }
 
-export void Graph_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2)
+void Graph_Line (int x1, int y1, int x2, int y2)
 {
-	INTEGER dx, dy, sdx, sdy, x, y, px, py;
+	int dx, dy, sdx, sdy, x, y, px, py;
 	dx = x2 - x1;
 	dy = y2 - y1;
 	sdx = Graph_GetSign(dx);
@@ -171,7 +143,7 @@ export void Graph_Line (INTEGER x1, INTEGER y1, INTEGER x2, INTEGER y2)
 } //Graph_Line
 
 /*--------------------------------- Cut here ---------------------------------*/
-export void Graph_CloseGraph (void)
+void Graph_CloseGraph (void)
 {
 __asm
   LD   IY,#0x5C3A
@@ -182,107 +154,71 @@ __endasm;
 } //Graph_CloseGraph
 
 /*--------------------------------- Cut here ---------------------------------*/
-void INVERSE (SHORTINT mode)
+void INVERSE (signed char mode) __z88dk_fastcall
 {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#20
   RST  16 // IX-safe
-  LD   A,4(IX)
+  LD   A,L
   RST  16
   LD   A,(#ATTR_T$)
   LD   (#SETV_A$),A
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //INVERSE
 
 /*--------------------------------- Cut here ---------------------------------*/
-void INK (SHORTINT color)
+void INK (signed char color) __z88dk_fastcall
 {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)
-#else
-  LD   C,4(IX)
-#endif
   LD   A,(#ATTR_T$)
   AND  #0xF8
-  OR   C
+  OR   L
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
 } //INK
 
 /*--------------------------------- Cut here ---------------------------------*/
-void PAPER (SHORTINT color)
+void PAPER (signed char color) __z88dk_fastcall
 {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL)
-#else
-  LD   C,4(IX)
-#endif
   LD   A,(#ATTR_T$)
   AND  #0xC7
-  SLA  C
-  SLA  C
-  SLA  C
-  OR   C
+  SLA  L
+  SLA  L
+  SLA  L
+  OR   L
   LD   (#SETV_A$),A
   LD   (#ATTR_T$),A
 __endasm;
 } //PAPER
 
 /*--------------------------------- Cut here ---------------------------------*/
-void BORDER (SHORTINT color)
+void BORDER (signed char color) __naked __z88dk_fastcall 
 {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-#else
-  LD   A,4(IX)
-#endif
-  CALL 0x229B // IX-safe
+  LD   A,L
+  JP   0x229B // IX-safe
 __endasm;
 } //BORDER
 
 /*--------------------------------- Cut here ---------------------------------*/
-void BRIGHT (SHORTINT mode)
+void BRIGHT (signed char mode) __z88dk_fastcall
 {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#19
   RST  16
-  LD   A,4(IX)
+  LD   A,L
   RST  16
   LD   A,(#ATTR_T$)
   LD   (#SETV_A$),A
-#ifdef __SDCC
-  POP  IX
-#endif
 __endasm;
 } //BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-export void Graph_SetBkColor (SHORTINT c)
+void Graph_SetBkColor (signed char c)
 {
   if(c == color)
     INVERSE(1);
@@ -291,7 +227,7 @@ export void Graph_SetBkColor (SHORTINT c)
   bkcolor = c;
 } //Graph_SetBkColor
 /*--------------------------------- Cut here ---------------------------------*/
-export void Graph_SetColor (SHORTINT c)
+void Graph_SetColor (signed char c)
 {
   if(c == bkcolor)
     INVERSE(1);

@@ -1,33 +1,27 @@
-void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y);
-void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y);
+#include "XDevCfg.h"
+
+void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y) __z88dk_callee;
+void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y) __z88dk_callee;
 
 /*================================== Header ==================================*/
 
-void GrPixel_Line (unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2)
+void GrPixel_Line (unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2) __naked __z88dk_callee
 {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   HL,#4
-  ADD  HL,SP
-  LD   B,(HL)  ; 7t
-  INC  HL      ; 6t
-  LD   C,(HL)
-  INC  HL
-  LD   D,(HL)
-  INC  HL
-  LD   E,(HL)
-#else
-  LD   B,4(IX) ; 19t
-  LD   C,5(IX)
-  LD   D,6(IX)
-  LD   E,7(IX)
-#endif
+          LD      IY,#0x5C3A
+          POP     HL
+          POP     BC
+          LD      E,B ; inverted order
+          LD      D,C ;
+          EX      (SP),HL
+          LD      C,H ;
+          LD      B,L ; inverted order
+
 ;Draw subroutine
 ;На входе: BC - координаты нача-
-;            ла линии (B=Y, C=X)
+;            ла линии (B=X, C=Y)
 ;          DE - координаты конца
-;            линии (D=Y, E=X)
+;            линии (D=X, E=Y)
   LD   (#0x5C7D),DE
 DRAW$:    EXX
           LD      BC,#0x1C14
@@ -89,7 +83,6 @@ PLOT$:
 ; новки точки; координаты в DE:
 ; D-Y, E-X. Рекомендую процедуру
 ; А.Астафьева.
-  LD   IY,#0x5C3A
   LD   B,E
   LD   C,D
   LD   A,B
@@ -122,16 +115,15 @@ __endasm;
 } //GrPixel_Line
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y) __naked
+void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y) __naked __z88dk_callee
 {
 __asm
+          LD   IY, #0x5C3A
           POP  HL
           POP  BC
-          PUSH BC
           PUSH HL
-          LD   IY, #0x5C3A
 PLOT_ROM$:
-          LD   (0x5C7D), BC
+          LD   (0x5C7D), HL
           LD   A, B
           CP   #0xC0
           JP   NC, 0x24F9 ; REPORT_B_3
@@ -141,16 +133,15 @@ __endasm;
 } //GrPixel_PutPixel_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y)
+void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y) __z88dk_callee
 {
 __asm
 ;--------------------------------------------------
 ; Вывод точки на экран DE(y,x)
 ;--------------------------------------------------
           POP  HL
-          POP  DE
-          PUSH DE
-          PUSH HL
+          POP  DE ; 10t
+          PUSH HL ; 11t
 PLOTTBL$: LD   H, #GrPixel_PLOTTBL ; старший байт
           LD   L, D
           LD   B, (HL)

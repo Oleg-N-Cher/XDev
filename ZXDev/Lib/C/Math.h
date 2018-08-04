@@ -9,7 +9,7 @@ extern float Math_Ln (float x);
 extern float Math_Sin (float x);
 extern float Math_Sqrt (float x);
 extern void Math_Randomize (void);
-extern SHORTINT Math_RndRange (SHORTINT min, SHORTINT max);
+extern unsigned int Math_RndRange (unsigned int min, unsigned int max);
 #define Math__init()
 
 

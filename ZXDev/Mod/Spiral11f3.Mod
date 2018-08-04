@@ -7,7 +7,7 @@ MODULE Spiral11f3;
 IMPORT G := Graph, B := Basic, GP := GrPixel;
 
 TYPE
-  TSinAr = ARRAY 46 OF INTEGER;
+  TSinAr = ARRAY 46 OF SHORTINT;
 
 CONST
   cx = 128; cy = 88; (* Coords of screen center *)
@@ -19,14 +19,14 @@ CONST
   SinStart = TSinAr(0, 9, 18, 27, 36, 44, 53, 62, 71, 79, 88, 96, 104, 112, 120, 128, 136, 143, 150, 158, 165, 171, 178, 184, 190, 196, 202, 207, 212, 217, 222, 226, 230, 234, 237, 241, 243, 246, 248, 250, 252, 254, 255, 255, 256, 256);
   
 VAR
-  KD, MD: INTEGER;
-  (*ox, oy: INTEGER;*)
-  i, q, r1, r2: INTEGER;
-  Sina, Cosa: ARRAY 361 OF INTEGER;
+  KD, MD: SHORTINT;
+  (*ox, oy: SHORTINT;*)
+  i, q, r1, r2: SHORTINT;
+  Sina, Cosa: ARRAY 361 OF SHORTINT;
 
 PROCEDURE PrepareTables;
 VAR
-  i, x, y: INTEGER;
+  i, x, y: SHORTINT;
 BEGIN
   (* Подготовка массива синусов и косинусов*)
 

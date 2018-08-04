@@ -75,13 +75,13 @@ SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size)
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 #define _DYNARRAY struct {
-  INTEGER len[1]; // Length of allocated memory: LEN()
+  SHORTINT len[1]; // Length of allocated memory: LEN()
   CHAR data[1];   // Array data
 } */
 SYSTEM_PTR SYSTEM_NEWARR (__U_SHORTINT size)
 {
   SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(INTEGER) + size);
-  *((INTEGER*)arrPtr) = size;
+  *((SHORTINT*)arrPtr) = size;
   return arrPtr;
 }
 

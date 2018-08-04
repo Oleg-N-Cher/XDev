@@ -41,5 +41,5 @@ BEGIN (*$MAIN*)
 		END;
 	END;
 	(*c := ReadKey;*)
-	G.CloseGraph
+	G.CloseGraph;
 END GraphSinus.
