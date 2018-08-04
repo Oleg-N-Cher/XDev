@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sC -88 */
+/* Ofront+ 1.0 -s3 -88 */
 
 #ifndef Delphi__h
 #define Delphi__h

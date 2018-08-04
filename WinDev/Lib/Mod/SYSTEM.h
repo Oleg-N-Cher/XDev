@@ -63,50 +63,50 @@ void *alloca(SYSTEM_ADR size);
 
 // Oberon types
 
-typedef char          BOOLEAN;
-typedef signed char   BYTE;
-typedef unsigned char CHAR;
-typedef short int     SHORTINT;
-typedef int           INTEGER;   // INTEGER is 32 bit.
-typedef unsigned int  SET;       // SET is 32 bit.
-typedef float         REAL;
-typedef double        LONGREAL;
-typedef void*         SYSTEM_PTR;
+typedef unsigned char  BOOLEAN;
+typedef signed char    BYTE;
+typedef unsigned char  CHAR;
+typedef short          SHORTINT;
+typedef int            INTEGER;   // INTEGER is 32 bit.
+typedef unsigned int   SET;       // SET is 32 bit.
+typedef float          SHORTREAL;
+typedef double         REAL;
+typedef void*          SYSTEM_PTR;
 
 // Unsigned variants are for use by shift and rotate macros.
 
-typedef unsigned char      U_BYTE;
-typedef unsigned char      U_CHAR;
-typedef unsigned short int U_SHORTINT;
-typedef unsigned int       U_INTEGER;
-typedef unsigned int       U_SET;
+typedef unsigned char  __U_BYTE;
+typedef unsigned char  __U_CHAR;
+typedef unsigned short __U_SHORTINT;
+typedef unsigned int   __U_INTEGER;
+typedef unsigned int   __U_SET;
 
 // LONGINT is 64 bit.
 
 #if !defined(_WIN64) && ((__SIZEOF_POINTER__ == 8) || defined (_LP64) || defined(__LP64__))
   // LP64
   typedef long               LONGINT;
-  typedef unsigned long      U_LONGINT;
+  typedef unsigned long      __U_LONGINT;
 #else
   // ILP32 or LLP64
   typedef long long          LONGINT;
-  typedef unsigned long long U_LONGINT;
+  typedef unsigned long long __U_LONGINT;
 #endif
 
 
 // Run time system routines in SYSTEM.c
 
 extern int     SYSTEM_STRCMP (CHAR *x, CHAR *y);
-extern LONGINT SYSTEM_XCHK   (LONGINT i, LONGINT ub);
-extern LONGINT SYSTEM_RCHK   (LONGINT i, LONGINT ub);
+extern LONGINT SYSTEM_XCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
+extern LONGINT SYSTEM_RCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
 extern INTEGER SYSTEM_ASH    (INTEGER x, INTEGER n);
 extern LONGINT SYSTEM_ASHL   (LONGINT x, INTEGER n);
 extern LONGINT SYSTEM_ABS    (LONGINT i);
 extern double  SYSTEM_ABSD   (double i);
 extern LONGINT SYSTEM_DIV    (LONGINT x, LONGINT y);
 extern LONGINT SYSTEM_MOD    (LONGINT x, LONGINT y);
-extern INTEGER SYSTEM_ENTIER (LONGREAL x);
-extern LONGINT SYSTEM_ENTIERL(LONGREAL x);
+extern INTEGER SYSTEM_ENTIER (REAL x);
+extern LONGINT SYSTEM_ENTIERL(REAL x);
 
 
 // Signal handling in SYSTEM.c
@@ -138,8 +138,8 @@ extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 #define __GET(a, x, t)  x= *(t*)(a)
 #define __PUT(a, x, t)  *(t*)(a)=(t)x
 
-#define __LSHL(x, n, t) ((t)((U_##t)(x)<<(n)))
-#define __LSHR(x, n, t) ((t)((U_##t)(x)>>(n)))
+#define __LSHL(x, n, t) ((t)((__U_##t)(x)<<(n)))
+#define __LSHR(x, n, t) ((t)((__U_##t)(x)>>(n)))
 #define __LSH(x, n, t)  ((n)>=0? __LSHL(x, n, t): __LSHR(x, -(n), t))
 
 #define __ASH(x, n, t)  ((n)>=0?__ASHL(x,n,t):__ASHR(x,-(n),t))
@@ -148,16 +148,16 @@ extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 #define __ASHF(x, n, t)  SYSTEM_ASH(x, n)
 #define __ASHFL(x, n, t) SYSTEM_ASHL(x, n)
 
-#define __ROTL(x, n, t) ((t)((U_##t)(x)<<(n)|(U_##t)(x)>>(8*sizeof(t)-(n))))
-#define __ROTR(x, n, t) ((t)((U_##t)(x)>>(n)|(U_##t)(x)<<(8*sizeof(t)-(n))))
+#define __ROTL(x, n, t) ((t)((__U_##t)(x)<<(n)|(__U_##t)(x)>>(8*sizeof(t)-(n))))
+#define __ROTR(x, n, t) ((t)((__U_##t)(x)>>(n)|(__U_##t)(x)<<(8*sizeof(t)-(n))))
 #define __ROT(x, n, t)  ((n)>=0? __ROTL(x, n, t): __ROTR(x, -(n), t))
 
-#define __BIT(x, n)     (*(U_LONGINT*)(x)>>(n)&1)
+#define __BIT(x, n)     (*(__U_LONGINT*)(x)>>(n)&1)
 #define __MOVE(s, d, n) memcpy((char*)(d),(char*)(s),n)
-#define __SHORT(x, y)   ((int)((U_LONGINT)(x)+(y)<(y)+(y)?(x):(__HALT(-8),0)))
-#define __SHORTF(x, y)  ((int)(__RF((x)+(y),(y)+(y))-(y)))
-#define __CHR(x)        ((CHAR)__R(x, 256))
-#define __CHRF(x)       ((CHAR)__RF(x, 256))
+#define __SHORT(x, y, mod, pos)   ((int)((__U_LONGINT)(x)+(y)<(y)+(y)?(x):(__HALT_NEW(-8,mod,pos),0)))
+#define __SHORTF(x, y, mod, pos)  ((int)(__RF((x)+(y), (y)+(y), mod, pos)-(y)))
+#define __CHR(x, mod, pos)        ((CHAR)__R(x, 256, mod, pos))
+#define __CHRF(x, mod, pos)       ((CHAR)__RF(x, 256, mod, pos))
 #define __DIV(x, y)     ((x)>=0?(x)/(y):-(((y)-1-(x))/(y)))
 #define __DIVF(x, y)    SYSTEM_DIV(x, y)
 #define __MOD(x, y)     ((x)>=0?(x)%(y):__MODF(x,y))
@@ -181,17 +181,17 @@ extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 // Runtime checks
 
 #ifndef SYSTEM_Cfg_NoCheck_X
-#  define __X(i, ub, mod, pos)   (((U_LONGINT)(i)<(U_LONGINT)(ub))?i:(__HALT(-2),0))
-#  define __XF(i, ub, mod, pos)  SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub))
+#  define __X(i, ub, mod, pos)  (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT_NEW(-2,mod,pos), 0))
+#  define __XF(i, ub, mod, pos) SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub), mod, pos)
 #else
 #  define __X(i, ub, mod, pos)	(i)
 #  define __XF(i, ub, mod, pos)	(i)
 #endif
-#define __R(i, ub)   (((U_LONGINT)(i)<(U_LONGINT)(ub))?i:(__HALT(-8),0))
-#define __RF(i, ub)  SYSTEM_RCHK((LONGINT)(i),(LONGINT)(ub))
-#define __RETCHK     __retchk: __HALT(-3); return 0;
-#define __CASECHK    __HALT(-4)
-#define __WITHCHK    __HALT(-7)
+#define __R(i, ub, mod, pos)    (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT_NEW(-8,mod,pos),0))
+#define __RF(i, ub, mod, pos)   SYSTEM_RCHK((LONGINT)(i), (LONGINT)(ub), mod, pos)
+#define __RETCHK(mod, pos)      __retchk: __HALT_NEW(-3, mod, pos); return 0;
+#define __CASECHK(mod, pos)    __HALT_NEW(-4, mod, pos)
+#define __WITHCHK(mod, pos)    __HALT_NEW(-7, mod, pos)
 
 #define __GUARDP(p, typ, level)    ((typ*)(__ISP(p,typ,level)?p:(__HALT(-5),p)))
 #define __GUARDR(r, typ, level)    (*((typ*)(__IS(r##__typ,typ,level)?r:(__HALT(-5),r))))

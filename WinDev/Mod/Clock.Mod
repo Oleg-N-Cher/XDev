@@ -704,7 +704,7 @@ END ClockTimer;
  *                                                                         *
  ***************************************************************************)
 
-PROCEDURE [1] AboutProc(hDlg : W.HWND;
+PROCEDURE [stdcall] AboutProc(hDlg : W.HWND;
            message : INTEGER;
            wParam : W.WPARAM;
            lParam : W.LPARAM) : W.PtrVoid;
@@ -728,7 +728,7 @@ END AboutProc;
  *  PURPOSE  : Window function for the application.                        *
  *                                                                         *
  ***************************************************************************)
-PROCEDURE [1] ClockWndProc(wnd : W.HWND;
+PROCEDURE [stdcall] ClockWndProc(wnd : W.HWND;
               message : INTEGER;
               wParam : W.WPARAM;
               lParam : W.LPARAM) : W.LRESULT;

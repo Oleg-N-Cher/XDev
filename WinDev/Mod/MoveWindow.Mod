@@ -50,7 +50,7 @@ BEGIN
   );
 END MoveMainWindow;
  
-PROCEDURE [1] WndHandler (
+PROCEDURE [stdcall] WndHandler (
   wnd: W.HWND; msg: INTEGER; wParam, lParam: W.HANDLE): W.HANDLE;
 VAR
   res: INTEGER; ps: W.PAINTSTRUCT; dc: W.HDC; rect: W.RECT;

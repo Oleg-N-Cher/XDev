@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sC -88 */
+/* Ofront+ 1.0 -s3 -88 */
 #include "SYSTEM.h"
 #include "Ignore.h"
 #include "Strings.h"

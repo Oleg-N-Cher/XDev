@@ -36,7 +36,7 @@ BEGIN
   WHILE k > 0 DO DEC(k); WriteCh(s[k]) END;
 END WriteInt;
 
-PROCEDURE WriteStr* (IN str: ARRAY OF CHAR);
+PROCEDURE WriteStr* (str: ARRAY OF CHAR);
 VAR
   maxLen: INTEGER;
 BEGIN

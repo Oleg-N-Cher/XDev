@@ -22,7 +22,7 @@ BEGIN
   printfs("\n");
 END WriteLn;
 
-PROCEDURE WriteStr* (IN str: ARRAY OF CHAR);
+PROCEDURE WriteStr* (str: ARRAY OF CHAR);
 BEGIN
   printfs(str);
 END WriteStr;

@@ -25,6 +25,24 @@ LONGINT SYSTEM_MOD(LONGINT x, LONGINT y)
 }
 
 /*----------------------------------------------------------------------------*/
+INTEGER SYSTEM_ENTIER(REAL x)
+{
+  INTEGER i;
+  i = (INTEGER)x;
+  if (i > x) i--;
+  return i;
+}
+
+/*----------------------------------------------------------------------------*/
+LONGINT SYSTEM_ENTIERL(REAL x)
+{
+  LONGINT i;
+  i = (LONGINT)x;
+  if (i > x) i--;
+  return i;
+}
+
+/*----------------------------------------------------------------------------*/
 #ifndef _WIN32
 #  include <stdlib.h>
    void SYSTEM_ExitOS (int code) { exit(code); }

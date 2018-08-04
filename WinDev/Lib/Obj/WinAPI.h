@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sC -48 */
+/* Ofront+ 1.0 -s3 -48 */
 
 #ifndef WinAPI__h
 #define WinAPI__h
@@ -191,7 +191,7 @@ typedef
 
 typedef
 	struct WinAPI_ABCFLOAT {
-		REAL abcfA, abcfB, abcfC;
+		SHORTREAL abcfA, abcfB, abcfC;
 	} WinAPI_ABCFLOAT;
 
 typedef
@@ -910,7 +910,7 @@ typedef
 		WinAPI_EMR emr;
 		WinAPI_POINT ptlCenter;
 		INTEGER nRadius;
-		REAL eStartAngle, eSweepAngle;
+		SHORTREAL eStartAngle, eSweepAngle;
 	} WinAPI_EMRANGLEARC;
 
 typedef
@@ -922,7 +922,7 @@ typedef
 
 typedef
 	struct WinAPI_XFORM {
-		REAL eM11, eM12, eM21, eM22, eDx, eDy;
+		SHORTREAL eM11, eM12, eM21, eM22, eDx, eDy;
 	} WinAPI_XFORM;
 
 typedef
@@ -1105,7 +1105,7 @@ typedef
 		WinAPI_EMR emr;
 		WinAPI_RECT rclBounds;
 		INTEGER iGraphicsMode;
-		REAL exScale, eyScale;
+		SHORTREAL exScale, eyScale;
 		WinAPI_EMRTEXT emrtext;
 	} WinAPI_EMREXTTEXTOUTA;
 
@@ -1286,7 +1286,7 @@ typedef
 		WinAPI_EMR emr;
 		WinAPI_RECT rclBounds;
 		INTEGER iGraphicsMode;
-		REAL exScale, eyScale;
+		SHORTREAL exScale, eyScale;
 		INTEGER cStrings;
 		WinAPI_EMRTEXT aemrtext[1];
 	} WinAPI_EMRPOLYTEXTOUTA;
@@ -1368,7 +1368,7 @@ typedef
 typedef
 	struct WinAPI_EMRSETMITERLIMIT {
 		WinAPI_EMR emr;
-		REAL eMiterLimit;
+		SHORTREAL eMiterLimit;
 	} WinAPI_EMRSETMITERLIMIT;
 
 typedef
@@ -1664,14 +1664,14 @@ typedef
 
 typedef
 	struct WinAPI_POINTFLOAT {
-		REAL x, y;
+		SHORTREAL x, y;
 	} WinAPI_POINTFLOAT;
 
 typedef
 	struct WinAPI_GLYPHMETRICSFLOAT {
-		REAL gmfBlackBoxX, gmfBlackBoxY;
+		SHORTREAL gmfBlackBoxX, gmfBlackBoxY;
 		WinAPI_POINTFLOAT gmfptGlyphOrigin;
-		REAL gmfCellIncX, gmfCellIncY;
+		SHORTREAL gmfCellIncX, gmfCellIncY;
 	} WinAPI_GLYPHMETRICSFLOAT;
 
 typedef
@@ -4940,7 +4940,7 @@ __EXTERN INTEGER __STDCALL AllocateAndInitializeSid(WinAPI_SID_IDENTIFIER_AUTHOR
 #define WinAPI_AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid)	AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid)
 __EXTERN INTEGER __STDCALL AllocateLocallyUniqueId(LONGINT *Luid);
 #define WinAPI_AllocateLocallyUniqueId(Luid)	AllocateLocallyUniqueId(Luid)
-__EXTERN INTEGER __STDCALL AngleArc(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, REAL p4, REAL p5);
+__EXTERN INTEGER __STDCALL AngleArc(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, SHORTREAL p4, SHORTREAL p5);
 #define WinAPI_AngleArc(p0, p1, p2, p3, p4, p5)	AngleArc(p0, p1, p2, p3, p4, p5)
 __EXTERN INTEGER __STDCALL AnimatePalette(INTEGER p0, INTEGER p1, INTEGER p2, WinAPI_PALETTEENTRY *p3);
 #define WinAPI_AnimatePalette(p0, p1, p2, p3)	AnimatePalette(p0, p1, p2, p3)
@@ -5110,9 +5110,9 @@ __EXTERN INTEGER __STDCALL CheckMenuRadioItem(INTEGER p0, INTEGER p1, INTEGER p2
 #define WinAPI_CheckMenuRadioItem(p0, p1, p2, p3, p4)	CheckMenuRadioItem(p0, p1, p2, p3, p4)
 __EXTERN INTEGER __STDCALL CheckRadioButton(INTEGER hDlg, INTEGER nIDFirstButton, INTEGER nIDLastButton, INTEGER nIDCheckButton);
 #define WinAPI_CheckRadioButton(hDlg, nIDFirstButton, nIDLastButton, nIDCheckButton)	CheckRadioButton(hDlg, nIDFirstButton, nIDLastButton, nIDCheckButton)
-__EXTERN INTEGER __STDCALL ChildWindowFromPoint(INTEGER hWndParent, WinAPI_POINT Point);
+__EXTERN INTEGER __STDCALL ChildWindowFromPoint(INTEGER hWndParent, WinAPI_POINT *Point);
 #define WinAPI_ChildWindowFromPoint(hWndParent, Point)	ChildWindowFromPoint(hWndParent, Point)
-__EXTERN INTEGER __STDCALL ChildWindowFromPointEx(INTEGER p0, WinAPI_POINT p1, SET p2);
+__EXTERN INTEGER __STDCALL ChildWindowFromPointEx(INTEGER p0, WinAPI_POINT *p1, SET p2);
 #define WinAPI_ChildWindowFromPointEx(p0, p1, p2)	ChildWindowFromPointEx(p0, p1, p2)
 __EXTERN INTEGER __STDCALL ChoosePixelFormat(INTEGER p0, WinAPI_PIXELFORMATDESCRIPTOR *p1);
 #define WinAPI_ChoosePixelFormat(p0, p1)	ChoosePixelFormat(p0, p1)
@@ -5698,7 +5698,7 @@ __EXTERN INTEGER __STDCALL DosDateTimeToFileTime(SHORTINT wFatDate, SHORTINT wFa
 #define WinAPI_DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime)	DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime)
 __EXTERN void __STDCALL DragAcceptFiles(INTEGER p0, INTEGER p1);
 #define WinAPI_DragAcceptFiles(p0, p1)	DragAcceptFiles(p0, p1)
-__EXTERN INTEGER __STDCALL DragDetect(INTEGER p0, WinAPI_POINT p1);
+__EXTERN INTEGER __STDCALL DragDetect(INTEGER p0, WinAPI_POINT *p1);
 #define WinAPI_DragDetect(p0, p1)	DragDetect(p0, p1)
 __EXTERN void __STDCALL DragFinish(INTEGER p0);
 #define WinAPI_DragFinish(p0)	DragFinish(p0)
@@ -6006,12 +6006,12 @@ __EXTERN INTEGER __STDCALL FileTimeToLocalFileTime(WinAPI_FILETIME *lpFileTime, 
 #define WinAPI_FileTimeToLocalFileTime(lpFileTime, lpLocalFileTime)	FileTimeToLocalFileTime(lpFileTime, lpLocalFileTime)
 __EXTERN INTEGER __STDCALL FileTimeToSystemTime(WinAPI_FILETIME *lpFileTime, WinAPI_SYSTEMTIME *lpSystemTime);
 #define WinAPI_FileTimeToSystemTime(lpFileTime, lpSystemTime)	FileTimeToSystemTime(lpFileTime, lpSystemTime)
-__EXTERN INTEGER __STDCALL FillConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT wAttribute, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
+__EXTERN INTEGER __STDCALL FillConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT wAttribute, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
 #define WinAPI_FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten)	FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten)
 #define WinAPI_FillConsoleOutputCharacter(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __STDCALL FillConsoleOutputCharacterA(INTEGER hConsoleOutput, CHAR cCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __STDCALL FillConsoleOutputCharacterA(INTEGER hConsoleOutput, CHAR cCharacter, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __STDCALL FillConsoleOutputCharacterW(INTEGER hConsoleOutput, SHORTINT cCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __STDCALL FillConsoleOutputCharacterW(INTEGER hConsoleOutput, SHORTINT cCharacter, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
 __EXTERN INTEGER __STDCALL FillPath(INTEGER p0);
 #define WinAPI_FillPath(p0)	FillPath(p0)
@@ -6205,9 +6205,9 @@ __EXTERN INTEGER __STDCALL GetCharWidth32W(INTEGER p0, INTEGER p1, INTEGER p2, I
 __EXTERN INTEGER __STDCALL GetCharWidthA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER *p3);
 #define WinAPI_GetCharWidthA(p0, p1, p2, p3)	GetCharWidthA(p0, p1, p2, p3)
 #define WinAPI_GetCharWidthFloat(p0, p1, p2, p3)	GetCharWidthFloatA(p0, p1, p2, p3)
-__EXTERN INTEGER __STDCALL GetCharWidthFloatA(INTEGER p0, INTEGER p1, INTEGER p2, REAL *p3);
+__EXTERN INTEGER __STDCALL GetCharWidthFloatA(INTEGER p0, INTEGER p1, INTEGER p2, SHORTREAL *p3);
 #define WinAPI_GetCharWidthFloatA(p0, p1, p2, p3)	GetCharWidthFloatA(p0, p1, p2, p3)
-__EXTERN INTEGER __STDCALL GetCharWidthFloatW(INTEGER p0, INTEGER p1, INTEGER p2, REAL *p3);
+__EXTERN INTEGER __STDCALL GetCharWidthFloatW(INTEGER p0, INTEGER p1, INTEGER p2, SHORTREAL *p3);
 #define WinAPI_GetCharWidthFloatW(p0, p1, p2, p3)	GetCharWidthFloatW(p0, p1, p2, p3)
 __EXTERN INTEGER __STDCALL GetCharWidthW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER *p3);
 #define WinAPI_GetCharWidthW(p0, p1, p2, p3)	GetCharWidthW(p0, p1, p2, p3)
@@ -6599,7 +6599,7 @@ __EXTERN INTEGER __STDCALL GetMetaFileW(INTEGER p0);
 #define WinAPI_GetMetaFileW(p0)	GetMetaFileW(p0)
 __EXTERN INTEGER __STDCALL GetMetaRgn(INTEGER p0, INTEGER p1);
 #define WinAPI_GetMetaRgn(p0, p1)	GetMetaRgn(p0, p1)
-__EXTERN INTEGER __STDCALL GetMiterLimit(INTEGER p0, REAL *p1);
+__EXTERN INTEGER __STDCALL GetMiterLimit(INTEGER p0, SHORTREAL *p1);
 #define WinAPI_GetMiterLimit(p0, p1)	GetMiterLimit(p0, p1)
 #define WinAPI_GetModuleFileName(hModule, lpFilename, nSize)	GetModuleFileNameA(hModule, lpFilename, nSize)
 __EXTERN INTEGER __STDCALL GetModuleFileNameA(INTEGER hModule, INTEGER lpFilename, INTEGER nSize);
@@ -7436,7 +7436,7 @@ __EXTERN INTEGER __STDCALL MapWindowPoints(INTEGER hWndFrom, INTEGER hWndTo, Win
 #define WinAPI_MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints)	MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints)
 __EXTERN INTEGER __STDCALL MaskBlt(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, INTEGER p9, INTEGER p10, INTEGER p11);
 #define WinAPI_MaskBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)	MaskBlt(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-__EXTERN INTEGER __STDCALL MenuItemFromPoint(INTEGER hWnd, INTEGER hMenu, WinAPI_POINT ptScreen);
+__EXTERN INTEGER __STDCALL MenuItemFromPoint(INTEGER hWnd, INTEGER hMenu, WinAPI_POINT *ptScreen);
 #define WinAPI_MenuItemFromPoint(hWnd, hMenu, ptScreen)	MenuItemFromPoint(hWnd, hMenu, ptScreen)
 __EXTERN INTEGER __STDCALL MessageBeep(SET uType);
 #define WinAPI_MessageBeep(uType)	MessageBeep(uType)
@@ -7697,7 +7697,7 @@ __EXTERN INTEGER __STDCALL PropertySheetA(WinAPI_PROPSHEETHEADERA *p0);
 #define WinAPI_PropertySheetA(p0)	PropertySheetA(p0)
 __EXTERN INTEGER __STDCALL PropertySheetW(WinAPI_PROPSHEETHEADERW *p0);
 #define WinAPI_PropertySheetW(p0)	PropertySheetW(p0)
-__EXTERN INTEGER __STDCALL PtInRect(WinAPI_RECT *lprc, WinAPI_POINT pt);
+__EXTERN INTEGER __STDCALL PtInRect(WinAPI_RECT *lprc, WinAPI_POINT *pt);
 #define WinAPI_PtInRect(lprc, pt)	PtInRect(lprc, pt)
 __EXTERN INTEGER __STDCALL PtInRegion(INTEGER p0, INTEGER p1, INTEGER p2);
 #define WinAPI_PtInRegion(p0, p1, p2)	PtInRegion(p0, p1, p2)
@@ -7743,16 +7743,16 @@ __EXTERN INTEGER __STDCALL ReadConsoleInputA(INTEGER hConsoleInput, WinAPI_INPUT
 __EXTERN INTEGER __STDCALL ReadConsoleInputW(INTEGER hConsoleInput, WinAPI_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
 #define WinAPI_ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)	ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
 #define WinAPI_ReadConsoleOutput(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)	ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)
-__EXTERN INTEGER __STDCALL ReadConsoleOutputA(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpReadRegion);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputA(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD *dwBufferSize, WinAPI_COORD *dwBufferCoord, WinAPI_SMALL_RECT *lpReadRegion);
 #define WinAPI_ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)	ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)
-__EXTERN INTEGER __STDCALL ReadConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfAttrsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD *dwReadCoord, INTEGER *lpNumberOfAttrsRead);
 #define WinAPI_ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead)	ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead)
 #define WinAPI_ReadConsoleOutputCharacter(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
-__EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterA(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterA(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD *dwReadCoord, INTEGER *lpNumberOfCharsRead);
 #define WinAPI_ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
-__EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterW(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterW(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD *dwReadCoord, INTEGER *lpNumberOfCharsRead);
 #define WinAPI_ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)	ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead)
-__EXTERN INTEGER __STDCALL ReadConsoleOutputW(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpReadRegion);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputW(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD *dwBufferSize, WinAPI_COORD *dwBufferCoord, WinAPI_SMALL_RECT *lpReadRegion);
 #define WinAPI_ReadConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)	ReadConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion)
 __EXTERN INTEGER __STDCALL ReadConsoleW(INTEGER hConsoleInput, INTEGER lpBuffer, INTEGER nNumberOfCharsToRead, INTEGER *lpNumberOfCharsRead, INTEGER lpReserved);
 #define WinAPI_ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)	ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, lpReserved)
@@ -8016,9 +8016,9 @@ __EXTERN INTEGER __STDCALL ScheduleJob(INTEGER hPrinter, INTEGER JobId);
 __EXTERN INTEGER __STDCALL ScreenToClient(INTEGER hWnd, WinAPI_POINT *lpPoint);
 #define WinAPI_ScreenToClient(hWnd, lpPoint)	ScreenToClient(hWnd, lpPoint)
 #define WinAPI_ScrollConsoleScreenBuffer(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)	ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)
-__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferA(INTEGER hConsoleOutput, WinAPI_SMALL_RECT *lpScrollRectangle, WinAPI_SMALL_RECT *lpClipRectangle, WinAPI_COORD dwDestinationOrigin, WinAPI_CHAR_INFO *lpFill);
+__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferA(INTEGER hConsoleOutput, WinAPI_SMALL_RECT *lpScrollRectangle, WinAPI_SMALL_RECT *lpClipRectangle, WinAPI_COORD *dwDestinationOrigin, WinAPI_CHAR_INFO *lpFill);
 #define WinAPI_ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)	ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)
-__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferW(INTEGER hConsoleOutput, WinAPI_SMALL_RECT *lpScrollRectangle, WinAPI_SMALL_RECT *lpClipRectangle, WinAPI_COORD dwDestinationOrigin, WinAPI_CHAR_INFO *lpFill);
+__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferW(INTEGER hConsoleOutput, WinAPI_SMALL_RECT *lpScrollRectangle, WinAPI_SMALL_RECT *lpClipRectangle, WinAPI_COORD *dwDestinationOrigin, WinAPI_CHAR_INFO *lpFill);
 #define WinAPI_ScrollConsoleScreenBufferW(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)	ScrollConsoleScreenBufferW(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill)
 __EXTERN INTEGER __STDCALL ScrollDC(INTEGER hDC, INTEGER dx, INTEGER dy, WinAPI_RECT *lprcScroll, WinAPI_RECT *lprcClip, INTEGER hrgnUpdate, WinAPI_RECT *lprcUpdate);
 #define WinAPI_ScrollDC(hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate)	ScrollDC(hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate)
@@ -8128,13 +8128,13 @@ __EXTERN INTEGER __STDCALL SetConsoleCtrlHandler(WinAPI_HANDLER_ROUTINE HandlerR
 #define WinAPI_SetConsoleCtrlHandler(HandlerRoutine, Add)	SetConsoleCtrlHandler(HandlerRoutine, Add)
 __EXTERN INTEGER __STDCALL SetConsoleCursorInfo(INTEGER hConsoleOutput, WinAPI_CONSOLE_CURSOR_INFO *lpConsoleCursorInfo);
 #define WinAPI_SetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo)	SetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo)
-__EXTERN INTEGER __STDCALL SetConsoleCursorPosition(INTEGER hConsoleOutput, WinAPI_COORD dwCursorPosition);
+__EXTERN INTEGER __STDCALL SetConsoleCursorPosition(INTEGER hConsoleOutput, WinAPI_COORD *dwCursorPosition);
 #define WinAPI_SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition)	SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition)
 __EXTERN INTEGER __STDCALL SetConsoleMode(INTEGER hConsoleHandle, SET dwMode);
 #define WinAPI_SetConsoleMode(hConsoleHandle, dwMode)	SetConsoleMode(hConsoleHandle, dwMode)
 __EXTERN INTEGER __STDCALL SetConsoleOutputCP(INTEGER wCodePageID);
 #define WinAPI_SetConsoleOutputCP(wCodePageID)	SetConsoleOutputCP(wCodePageID)
-__EXTERN INTEGER __STDCALL SetConsoleScreenBufferSize(INTEGER hConsoleOutput, WinAPI_COORD dwSize);
+__EXTERN INTEGER __STDCALL SetConsoleScreenBufferSize(INTEGER hConsoleOutput, WinAPI_COORD *dwSize);
 #define WinAPI_SetConsoleScreenBufferSize(hConsoleOutput, dwSize)	SetConsoleScreenBufferSize(hConsoleOutput, dwSize)
 __EXTERN INTEGER __STDCALL SetConsoleTextAttribute(INTEGER hConsoleOutput, SHORTINT wAttributes);
 #define WinAPI_SetConsoleTextAttribute(hConsoleOutput, wAttributes)	SetConsoleTextAttribute(hConsoleOutput, wAttributes)
@@ -8278,7 +8278,7 @@ __EXTERN INTEGER __STDCALL SetMetaFileBitsEx(INTEGER p0, BYTE *p1);
 #define WinAPI_SetMetaFileBitsEx(p0, p1)	SetMetaFileBitsEx(p0, p1)
 __EXTERN INTEGER __STDCALL SetMetaRgn(INTEGER p0);
 #define WinAPI_SetMetaRgn(p0)	SetMetaRgn(p0)
-__EXTERN INTEGER __STDCALL SetMiterLimit(INTEGER p0, REAL p1, REAL *p2);
+__EXTERN INTEGER __STDCALL SetMiterLimit(INTEGER p0, SHORTREAL p1, SHORTREAL *p2);
 #define WinAPI_SetMiterLimit(p0, p1, p2)	SetMiterLimit(p0, p1, p2)
 __EXTERN INTEGER __STDCALL SetNamedPipeHandleState(INTEGER hNamedPipe, INTEGER *lpMode, INTEGER *lpMaxCollectionCount, INTEGER *lpCollectDataTimeout);
 #define WinAPI_SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout)	SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout)
@@ -8729,7 +8729,7 @@ __EXTERN INTEGER __STDCALL WinHelpW(INTEGER hWndMain, INTEGER lpszHelp, INTEGER 
 #define WinAPI_WinHelpW(hWndMain, lpszHelp, uCommand, dwData)	WinHelpW(hWndMain, lpszHelp, uCommand, dwData)
 __EXTERN INTEGER __STDCALL WindowFromDC(INTEGER hDC);
 #define WinAPI_WindowFromDC(hDC)	WindowFromDC(hDC)
-__EXTERN INTEGER __STDCALL WindowFromPoint(WinAPI_POINT Point);
+__EXTERN INTEGER __STDCALL WindowFromPoint(WinAPI_POINT *Point);
 #define WinAPI_WindowFromPoint(Point)	WindowFromPoint(Point)
 #define WinAPI_WriteConsole(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)	WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)
 __EXTERN INTEGER __STDCALL WriteConsoleA(INTEGER hConsoleOutput, INTEGER lpBuffer, INTEGER nNumberOfCharsToWrite, INTEGER *lpNumberOfCharsWritten, INTEGER lpReserved);
@@ -8740,16 +8740,16 @@ __EXTERN INTEGER __STDCALL WriteConsoleInputA(INTEGER hConsoleInput, WinAPI_INPU
 __EXTERN INTEGER __STDCALL WriteConsoleInputW(INTEGER hConsoleInput, WinAPI_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsWritten);
 #define WinAPI_WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten)	WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten)
 #define WinAPI_WriteConsoleOutput(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)	WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)
-__EXTERN INTEGER __STDCALL WriteConsoleOutputA(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpWriteRegion);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputA(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD *dwBufferSize, WinAPI_COORD *dwBufferCoord, WinAPI_SMALL_RECT *lpWriteRegion);
 #define WinAPI_WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)	WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)
-__EXTERN INTEGER __STDCALL WriteConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputAttribute(INTEGER hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
 #define WinAPI_WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten)	WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten)
 #define WinAPI_WriteConsoleOutputCharacter(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterA(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterA(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterW(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterW(INTEGER hConsoleOutput, INTEGER lpCharacter, INTEGER nLength, WinAPI_COORD *dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 #define WinAPI_WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)	WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten)
-__EXTERN INTEGER __STDCALL WriteConsoleOutputW(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD dwBufferSize, WinAPI_COORD dwBufferCoord, WinAPI_SMALL_RECT *lpWriteRegion);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputW(INTEGER hConsoleOutput, WinAPI_CHAR_INFO *lpBuffer, WinAPI_COORD *dwBufferSize, WinAPI_COORD *dwBufferCoord, WinAPI_SMALL_RECT *lpWriteRegion);
 #define WinAPI_WriteConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)	WriteConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion)
 __EXTERN INTEGER __STDCALL WriteConsoleW(INTEGER hConsoleOutput, INTEGER lpBuffer, INTEGER nNumberOfCharsToWrite, INTEGER *lpNumberOfCharsWritten, INTEGER lpReserved);
 #define WinAPI_WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)	WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved)
@@ -9375,9 +9375,9 @@ __EXTERN INTEGER __STDCALL wglUseFontBitmapsA(INTEGER p0, INTEGER p1, INTEGER p2
 __EXTERN INTEGER __STDCALL wglUseFontBitmapsW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3);
 #define WinAPI_wglUseFontBitmapsW(p0, p1, p2, p3)	wglUseFontBitmapsW(p0, p1, p2, p3)
 #define WinAPI_wglUseFontOutlines(p0, p1, p2, p3, p4, p5, p6, p7)	wglUseFontOutlinesA(p0, p1, p2, p3, p4, p5, p6, p7)
-__EXTERN INTEGER __STDCALL wglUseFontOutlinesA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, REAL p4, REAL p5, INTEGER p6, WinAPI_GLYPHMETRICSFLOAT *p7);
+__EXTERN INTEGER __STDCALL wglUseFontOutlinesA(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, SHORTREAL p4, SHORTREAL p5, INTEGER p6, WinAPI_GLYPHMETRICSFLOAT *p7);
 #define WinAPI_wglUseFontOutlinesA(p0, p1, p2, p3, p4, p5, p6, p7)	wglUseFontOutlinesA(p0, p1, p2, p3, p4, p5, p6, p7)
-__EXTERN INTEGER __STDCALL wglUseFontOutlinesW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, REAL p4, REAL p5, INTEGER p6, WinAPI_GLYPHMETRICSFLOAT *p7);
+__EXTERN INTEGER __STDCALL wglUseFontOutlinesW(INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3, SHORTREAL p4, SHORTREAL p5, INTEGER p6, WinAPI_GLYPHMETRICSFLOAT *p7);
 #define WinAPI_wglUseFontOutlinesW(p0, p1, p2, p3, p4, p5, p6, p7)	wglUseFontOutlinesW(p0, p1, p2, p3, p4, p5, p6, p7)
 #define WinAPI_wvsprintf(p0, p1, arglist)	wvsprintfA(p0, p1, arglist)
 __EXTERN INTEGER __STDCALL wvsprintfA(INTEGER p0, INTEGER p1, INTEGER arglist);

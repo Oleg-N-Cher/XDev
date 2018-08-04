@@ -121,7 +121,7 @@ PROCEDURE WriteHex* (n: INTEGER);            END WriteHex;
 PROCEDURE WriteLn*;                          END WriteLn;
 PROCEDURE WriteLInt*;                        END WriteLInt;
 PROCEDURE WriteLHex* (n: LONGINT);           END WriteLHex;
-PROCEDURE WriteReal* (r: REAL);              END WriteReal;
+PROCEDURE WriteReal* (r: SHORTREAL);              END WriteReal;
 PROCEDURE WriteStr* (str: ARRAY OF CHAR);   END WriteStr;
 PROCEDURE WriteStrLn* (str: ARRAY OF CHAR); END WriteStrLn;
 
