@@ -405,4 +405,5 @@ END ShowDef;
 
 BEGIN
 	rootDir := Files.dir.This("")(HostFiles.Locator).path$;
+	IF XDevMisc.SetCurrentDir(rootDir) THEN END
 END XDevCmd.

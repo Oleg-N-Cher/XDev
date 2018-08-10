@@ -33,4 +33,16 @@ BEGIN
 		& (BITS(dwAttrib) * WinApi.FILE_ATTRIBUTE_DIRECTORY # {})
 END DirectoryExists;
 
+(* GetCurrentDir returns the current directory the program is using. *)
+
+PROCEDURE GetCurrentDir* (VAR curdir: ARRAY OF CHAR): BOOLEAN;
+BEGIN
+  RETURN WinApi.GetCurrentDirectoryW(LEN(curdir), curdir) > 0
+END GetCurrentDir;
+
+PROCEDURE SetCurrentDir* (IN curdir: ARRAY OF CHAR): BOOLEAN;
+BEGIN
+  RETURN WinApi.SetCurrentDirectoryW(curdir) # 0
+END SetCurrentDir;
+
 END XDevMisc.
