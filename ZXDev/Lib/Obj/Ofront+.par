@@ -1,4 +1,1 @@
--s3 -21
-Asm.Def -C
-Laser.Def -C
-Laser2.Def -C
+-s3 -21 Asm.Def -C Basic.Def -C Laser.Def -C Laser2.Def -C
