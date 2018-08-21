@@ -9,6 +9,7 @@ MODULE Laser; (** non-portable *)
 TYPE
   UBYTE = SHORTINT;
   ADR   = INTEGER;
+  CHAR  = SHORTCHAR;
 
 PROCEDURE InitSprites   * (adr, size: ADR);          END InitSprites;
 PROCEDURE InitSpritesEx * (adr, size: ADR);          END InitSpritesEx;

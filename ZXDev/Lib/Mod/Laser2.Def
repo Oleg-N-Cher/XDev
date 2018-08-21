@@ -8,8 +8,8 @@ MODULE Laser2; (** non-portable *)
 
 TYPE
   ADR     = INTEGER;
-  BUFFER  = ARRAY OF CHAR;
-  SPRITES = ARRAY OF CHAR;
+  BUFFER  = ARRAY OF SHORTCHAR;
+  SPRITES = ARRAY OF SHORTCHAR;
   UBYTE   = SHORTINT;
 
 (** New procedures: *)
@@ -34,9 +34,9 @@ PROCEDURE SetScreen    * (adr: ADR) (** Set screen adr *)   ; END SetScreen;
 
 (** Sprite engine (in OUT_OF_SCREEN the coords can be outside the screen): *)
 
-PROCEDURE ATOF *                                            ; END ATOF;
-PROCEDURE ATON *                                            ; END ATON;
-PROCEDURE INVM * (spn: UBYTE)                               ; END INVM;
+PROCEDURE ATOF *                                        ; END ATOF;
+PROCEDURE ATON *                                        ; END ATON;
+PROCEDURE INVM * (spn: UBYTE)                           ; END INVM;
 PROCEDURE PTBL * (col, row: BYTE; spn: UBYTE)           ; END PTBL;
 PROCEDURE PTND * (col, row: BYTE; spn: UBYTE)           ; END PTND;
 PROCEDURE PTNV * (col, row: BYTE; spn: UBYTE)           ; END PTNV;
