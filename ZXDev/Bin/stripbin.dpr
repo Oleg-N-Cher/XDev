@@ -12,7 +12,7 @@ VAR
 BEGIN
   bin := StrLoadFromFile(ParamStr(1));
   binLen := LENGTH(bin);
-  lastByte := bin[binLen]; IF NOT (lastByte IN [#$1A, #$FF]) THEN lastByte := #$FF;
+  lastByte := bin[binLen]; IF NOT (lastByte IN [#0, #$1A, #$FF]) THEN lastByte := #$FF;
   idx := binLen;
   ff := 0;
   FOR i := binLen DOWNTO 1 DO BEGIN
