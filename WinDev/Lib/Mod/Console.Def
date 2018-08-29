@@ -1,7 +1,7 @@
 MODULE Console;
 
 TYPE
-  Color* = CHAR; Colors* = SHORTINT; Coords* = INTEGER;
+  Color* = SHORTCHAR; Colors* = SHORTINT; Coords* = INTEGER;
 
 VAR
   Black-, Blue-, Green-, Cyan-, Red-, Magenta-, Olive-, White-,
@@ -115,14 +115,14 @@ PROCEDURE At* (x, y: Coords);                END At;
 PROCEDURE Clear* (color: Color);             END Clear;
 PROCEDURE SetColors* (colors: Colors);       END SetColors;
 PROCEDURE WriteBool* (b: BOOLEAN);           END WriteBool;
-PROCEDURE WriteCh* (ch: CHAR);               END WriteCh;
-PROCEDURE WriteInt* (n: LONGINT);            END WriteInt;
+PROCEDURE WriteCh* (ch: SHORTCHAR);          END WriteCh;
+PROCEDURE WriteInt* (n: INTEGER);            END WriteInt;
 PROCEDURE WriteHex* (n: INTEGER);            END WriteHex;
 PROCEDURE WriteLn*;                          END WriteLn;
 PROCEDURE WriteLInt*;                        END WriteLInt;
 PROCEDURE WriteLHex* (n: LONGINT);           END WriteLHex;
-PROCEDURE WriteReal* (r: SHORTREAL);              END WriteReal;
-PROCEDURE WriteStr* (str: ARRAY OF CHAR);   END WriteStr;
-PROCEDURE WriteStrLn* (str: ARRAY OF CHAR); END WriteStrLn;
+PROCEDURE WriteReal* (r: REAL);              END WriteReal;
+PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);   END WriteStr;
+PROCEDURE WriteStrLn* (str: ARRAY OF SHORTCHAR); END WriteStrLn;
 
 END Console.

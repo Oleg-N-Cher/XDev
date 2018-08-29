@@ -2,27 +2,28 @@ MODULE ConsoleStdIO;
 IMPORT SYSTEM;
 
 PROCEDURE -AAAincludestdio "#include <stdio.h>";
-PROCEDURE -printfc (ch: CHAR) 'printf("%c", ch)';
+PROCEDURE -printfc (ch: SHORTCHAR) 'printf("%c", ch)';
 PROCEDURE -printfi (n: INTEGER) 'printf("%d", n);';
 PROCEDURE -printfli (l: LONGINT) 'printf("%lld", l)';
-PROCEDURE -printfs (str: ARRAY OF CHAR) 'printf("%s", str)';
+PROCEDURE -printfs (str: ARRAY OF SHORTCHAR) 'printf("%s", str)';
+PROCEDURE -printfln 'printf("\n")';
 
 PROCEDURE WriteInt* (n: INTEGER);
 BEGIN
   printfi(n);
 END WriteInt;
 
-PROCEDURE WriteCh* (ch: CHAR);
+PROCEDURE WriteCh* (ch: SHORTCHAR);
 BEGIN
   printfc(ch);
 END WriteCh;
 
 PROCEDURE WriteLn* ;
 BEGIN
-  printfs("\n");
+  printfln;
 END WriteLn;
 
-PROCEDURE WriteStr* (str: ARRAY OF CHAR);
+PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);
 BEGIN
   printfs(str);
 END WriteStr;

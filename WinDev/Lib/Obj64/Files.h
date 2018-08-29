@@ -1,0 +1,61 @@
+/* Ofront+ 1.0 -sxt3 -88 */
+
+#ifndef Files__h
+#define Files__h
+
+#include "SYSTEM.h"
+
+typedef
+	struct Files_File {
+		LONGINT _prvt0;
+		char _prvt1[4];
+		BOOLEAN end, error;
+	} Files_File;
+
+import void Files_File_Close (Files_File *file, SYSTEM_ADRINT *file__typ);
+typedef
+	CHAR *Files_STRING;
+
+import void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
+import void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
+#define __Files_File_Close(file, file__typ) __SEND(file__typ, Files_File_Close, 0, void(*)(Files_File*, SYSTEM_ADRINT *), (file, file__typ))
+#define __Files_File_OpenToRead(file, file__typ, fname, fname__len) __SEND(file__typ, Files_File_OpenToRead, 1, void(*)(Files_File*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (file, file__typ, fname, fname__len))
+#define __Files_File_OpenToWrite(file, file__typ, fname, fname__len) __SEND(file__typ, Files_File_OpenToWrite, 2, void(*)(Files_File*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (file, file__typ, fname, fname__len))
+
+typedef
+	struct Files_FileToRead { /* Files_File */
+		LONGINT _prvt0;
+		char _prvt1[4];
+		BOOLEAN end, error;
+	} Files_FileToRead;
+
+import BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfile__typ);
+import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfile__typ, CHAR *str, INTEGER str__len);
+#define __Files_FileToRead_ReadByte(fromfile, fromfile__typ) __SEND(fromfile__typ, Files_FileToRead_ReadByte, 3, BYTE(*)(Files_FileToRead*, SYSTEM_ADRINT *), (fromfile, fromfile__typ))
+#define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (fromfile, fromfile__typ, str, str__len))
+
+typedef
+	struct Files_FileToWrite { /* Files_File */
+		LONGINT _prvt0;
+		char _prvt1[4];
+		BOOLEAN end, error;
+	} Files_FileToWrite;
+
+import void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, SYSTEM_ADRINT *tofile__typ, BYTE byte);
+import void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, SYSTEM_ADRINT *tofile__typ, CHAR *str, INTEGER str__len);
+#define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, SYSTEM_ADRINT *, BYTE), (tofile, tofile__typ, byte))
+#define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (tofile, tofile__typ, str, str__len))
+
+
+
+import SYSTEM_ADRINT *Files_File__typ;
+import SYSTEM_ADRINT *Files_FileToRead__typ;
+import SYSTEM_ADRINT *Files_FileToWrite__typ;
+
+import BOOLEAN Files_DeleteFile (CHAR *fname, INTEGER fname__len);
+import BOOLEAN Files_ExistsFile (CHAR *fname, INTEGER fname__len);
+import BOOLEAN Files_RenameFile (CHAR *oldname, INTEGER oldname__len, CHAR *newname, INTEGER newname__len);
+import void *Files__init(void);
+
+
+#endif

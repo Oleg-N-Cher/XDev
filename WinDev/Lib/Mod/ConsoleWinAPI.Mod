@@ -9,7 +9,7 @@ BEGIN
   Ignore.Int( w.SetConsoleTextAttribute(hConOutput, colors) );
 END SetColors;
 
-PROCEDURE WriteCh* (ch: CHAR);
+PROCEDURE WriteCh* (ch: SHORTCHAR);
 VAR
   maxLen: INTEGER;
 BEGIN
@@ -23,7 +23,7 @@ END WriteLn;
 
 PROCEDURE WriteInt* (n: INTEGER);
 VAR
-  s: ARRAY 11 OF CHAR; i1, k: INTEGER;
+  s: ARRAY 11 OF SHORTCHAR; i1, k: INTEGER;
 BEGIN
   IF n = SYSTEM.LSH(SYSTEM.VAL(INTEGER, 1), SIZE(INTEGER)*8 - 1) THEN
     s := "8463847412"; k := 10;
@@ -36,7 +36,7 @@ BEGIN
   WHILE k > 0 DO DEC(k); WriteCh(s[k]) END;
 END WriteInt;
 
-PROCEDURE WriteStr* (str: ARRAY OF CHAR);
+PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);
 VAR
   maxLen: INTEGER;
 BEGIN

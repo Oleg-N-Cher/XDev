@@ -298,10 +298,12 @@
 #ifdef OUTPUT_StdIO
    extern void ConsoleStdIO_WriteCh (char ch);
    extern void ConsoleStdIO_WriteLn (void);
+   extern void ConsoleStdIO_WriteInt (int n);
    extern void ConsoleStdIO_WriteStr (char *str, int str__len);
    
 #  define Console_SetColors(colors)
 #  define Console_WriteCh ConsoleStdIO_WriteCh
+#  define Console_WriteInt ConsoleStdIO_WriteInt
 #  define Console_WriteLn ConsoleStdIO_WriteLn
 #  define Console_WriteStr ConsoleStdIO_WriteStr
 

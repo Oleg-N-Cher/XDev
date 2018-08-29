@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -s3 -88 */
+/* Ofront+ 1.0 -sxt3 -88 */
 #include "SYSTEM.h"
 
 
@@ -13,6 +13,7 @@ export void ConsoleStdIO_WriteStr (CHAR *str, INTEGER str__len);
 #define ConsoleStdIO_printfc(ch)	printf("%c", ch)
 #define ConsoleStdIO_printfi(n)	printf("%d", n);
 #define ConsoleStdIO_printfli(l)	printf("%lld", l)
+#define ConsoleStdIO_printfln()	printf("\n")
 #define ConsoleStdIO_printfs(str, str__len)	printf("%s", str)
 
 /*============================================================================*/
@@ -31,7 +32,7 @@ void ConsoleStdIO_WriteCh (CHAR ch)
 /*----------------------------------------------------------------------------*/
 void ConsoleStdIO_WriteLn (void)
 {
-	ConsoleStdIO_printfs((void*)&"\\n", 3);
+	ConsoleStdIO_printfln();
 }
 
 /*----------------------------------------------------------------------------*/

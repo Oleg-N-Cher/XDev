@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -s3 -88 */
+/* Ofront+ 1.0 -sxt3 -88 */
 #include "SYSTEM.h"
 #include "Ignore.h"
 #include "Strings.h"
@@ -50,18 +50,18 @@ void ConsoleWinAPI_WriteInt (INTEGER n)
 		i1 = __DIV(i1, 10);
 		k = 1;
 		while (i1 > 0) {
-			s[__X(k, 11, "ConsoleWinAPI", -768)] = (CHAR)((INTEGER)__MOD(i1, 10) + 48);
+			s[k] = (CHAR)((INTEGER)__MOD(i1, 10) + 48);
 			i1 = __DIV(i1, 10);
 			k += 1;
 		}
 	}
 	if (n < 0) {
-		s[__X(k, 11, "ConsoleWinAPI", -832)] = '-';
+		s[k] = '-';
 		k += 1;
 	}
 	while (k > 0) {
 		k -= 1;
-		ConsoleWinAPI_WriteCh(s[__X(k, 11, "ConsoleWinAPI", -884)]);
+		ConsoleWinAPI_WriteCh(s[k]);
 	}
 }
 

@@ -2,7 +2,7 @@ MODULE Ignore;
 IMPORT SYSTEM;
 
 PROCEDURE Bool* (b: BOOLEAN); END Bool;
-PROCEDURE Char* (ch: CHAR); END Char;
+PROCEDURE Char* (ch: SHORTCHAR); END Char;
 PROCEDURE Int* (i: LONGINT); END Int;
 PROCEDURE Real* (r: REAL); END Real;
 PROCEDURE Ptr* (ptr: SYSTEM.PTR); END Ptr;

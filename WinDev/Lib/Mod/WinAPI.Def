@@ -18,7 +18,7 @@ MODULE WinAPI (*KERNEL32.dll*);
 		ADRINT* = Types.ADRINT; (* 32 or 64 bit *)
 		PtrVoid* = ADRINT; (* 32 or 64 bit *)
 		SIZE_T* = ADRINT; (* 32 or 64 bit *)
-		SHORTCHAR = CHAR;
+		CHAR = SHORTCHAR;
 		WCHAR = SHORTINT;
 		PtrSTR* = ADRINT; (* 32 or 64 bit *)
 		PtrWSTR* = ADRINT; (* 32 or 64 bit *)

@@ -116,9 +116,42 @@ extern void SystemSetQuitHandler          (SYSTEM_ADRINT h);
 extern void SystemSetBadInstructionHandler(SYSTEM_ADRINT h);
 
 
-// String comparison
+// Assertions and Halts
+
+extern void SYSTEM_HALT(INTEGER code);
+extern void SYSTEM_ASSERT_FAIL(INTEGER code);
+
+extern void exit (int);
+
+#ifdef SYSTEM_Cfg_NoGC
+#  ifdef SYSTEM_Cfg_KERNEL32
+     void SYSTEM_ExitOS (int code);
+#    define __HALT(code)               SYSTEM_ExitOS(code)
+#    define __HALT_NEW(code, mod, pos) SYSTEM_ExitOS(code)
+#  else
+#    define __HALT exit
+#    define __HALT_NEW(code, mod, pos) exit(code)
+#  endif
+#  define __ASSERT(cond, code, mod, pos) if (!(cond)) __HALT(code)
+#else
+#  define __HALT(code)       SYSTEM_HALT(code)
+#  define __ASSERT(cond, code, mod, pos) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
+#endif
+
+
+// String comparison and calculate length
 
 #define __STRCMP(a, b)  SYSTEM_STRCMP((CHAR*)(a), (CHAR*)(b))
+static inline void __STRAPND (CHAR x[], CHAR y[], INTEGER n) { /* sy := sy + sx */
+  int i = 0, j = 0; while (y[j] != 0) j++;
+  do { if (n-- == 0) __HALT(-8); y[j++] = x[i]; } while (x[i++] != 0);
+}
+static inline void __STRCOPY (CHAR x[], CHAR y[], INTEGER n) { /* sy := sx */
+  int i = 0; do { if (n-- == 0) __HALT(-8); y[i] = x[i]; } while (x[i++] != 0);
+}
+static inline INTEGER __STRLEN (CHAR s[]) { // LEN(sx$)
+  int i = 0; while (s[i] != 0) i++; return i;
+}
 
 
 // Inline string, record and array copy
@@ -241,27 +274,6 @@ extern void Heap_FINALL();
 #endif
 
 
-// Assertions and Halts
-
-extern void SYSTEM_HALT(INTEGER code);
-extern void SYSTEM_ASSERT_FAIL(INTEGER code);
-
-#ifdef SYSTEM_Cfg_NoGC
-#  ifdef SYSTEM_Cfg_KERNEL32
-     void SYSTEM_ExitOS (int code);
-#    define __HALT(code)               SYSTEM_ExitOS(code)
-#    define __HALT_NEW(code, mod, pos) SYSTEM_ExitOS(code)
-#  else
-#    define __HALT exit
-#    define __HALT_NEW(code, mod, pos) exit(code)
-#  endif
-#  define __ASSERT(cond, code, mod, pos) if (!(cond)) __HALT(code)
-#else
-#  define __HALT(code)       SYSTEM_HALT(code)
-#  define __ASSERT(cond, code, mod, pos) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
-#endif
-
-
 // Memory allocation
 
 extern SYSTEM_PTR Heap_NEWBLK (SYSTEM_ADRINT size);
@@ -330,9 +342,13 @@ extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SY
 #define __ISP(p, typ, level)  __IS(__TYPEOF(p),typ,level)
 
 // Oberon-2 type bound procedures support
-#define __INITBP(t, proc, num)            *(t##__typ-(__TPROC0OFF+num))=(SYSTEM_ADRINT)proc
-#define __SEND(typ, procname, num, funtyp, parlist) ((funtyp)((SYSTEM_ADRINT)*(typ-(__TPROC0OFF+num))))parlist
-
+#ifdef SYSTEM_Cfg_NoGC
+#  define __INITBP(t, proc, num)
+#  define __SEND(typ, procname, num, funtyp, parlist) procname parlist
+#else
+#  define __INITBP(t, proc, num)  *(t##__typ-(__TPROC0OFF+num))=(SYSTEM_ADRINT)proc
+#  define __SEND(typ, procname, num, funtyp, parlist)  ((funtyp)((SYSTEM_ADRINT)*(typ-(__TPROC0OFF+num))))parlist
+#endif
 
 #if defined _SDLGUI || defined _WINGUI || defined DJGPP
 #  if !defined WIN64 && !defined _WIN64
