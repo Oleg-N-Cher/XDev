@@ -2,7 +2,7 @@ MODULE MoveWindow;
 (* Simple moving window application by Alexander Iljin, June 08, 2006. *)
 (* http://oberoncore.ru/wiki/blackbox/make_exe *)
  
-IMPORT SYSTEM, W := WinApi;
+IMPORT SYSTEM, W := WinAPI;
 
 CONST
   defFontName = "Verdana";
@@ -10,7 +10,7 @@ CONST
   HWND_TOPMOST = -1; (* this constant is not present in WinApi module *)
 
 VAR
-  defMessage: ARRAY 1024 OF CHAR;
+  defMessage: ARRAY 1024 OF SHORTCHAR;
   instance: W.HINSTANCE;
   mainWnd: W.HWND;
   defaultBrush: W.HBRUSH;

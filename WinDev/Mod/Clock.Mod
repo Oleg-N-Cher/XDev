@@ -178,7 +178,7 @@ VAR
     CirTab      : arrPOINT;       (* the circle table *)
 
     (* buffer for stringtable data *)
-    szBuffer    : ARRAY BUFLEN+1 OF CHAR;
+    szBuffer    : ARRAY BUFLEN+1 OF SHORTCHAR;
 
     ClockRect   : W.RECT;       (* rectangle that EXACTLY bounds the clock face       *)
 
