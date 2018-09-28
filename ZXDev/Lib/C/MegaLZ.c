@@ -1,4 +1,4 @@
-void MegaLZ_Depack (unsigned int src, unsigned int dst);
+void MegaLZ_Depack (unsigned int src, unsigned int dst) __z88dk_callee;
 /*================================== Header ==================================*/
 
 /* http://www.boriel.com/wiki/en/index.php/ZX_BASIC:MegaLZ.bas
@@ -7,13 +7,11 @@ This routine takes a block of data compressed with the MegaLZ
 compression algorithm at SOURCE location and decompresses it
 to DESTINATIOn location. */
 
-void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
+void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked __z88dk_callee {
   __asm
         POP  BC         ; RET address
         POP  HL         ; HL=src
         POP  DE         ; DE=dst
-        PUSH DE
-        PUSH HL
         PUSH BC         ; restore RET address
 /*
     Z80 depacker FOR megalz V4 packed files   (C) fyrex^mhm
@@ -53,19 +51,19 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
     4. Always check whether depacking occurs OK AND neither corrupts depacked data
         nor hangs computer.
 */
-    ;DEC40
+    ;MLZ_DEPACK:
 
             LD      A,#0x80
             EX      AF,AF
     MS$:    LDI
-    M0$:     LD      BC,#0x2FF
-    M1$:     EX      AF,AF
-    M1X$:    ADD     A,A
+    M0$:    LD      BC,#0x2FF
+    M1$:    EX      AF,AF
+    M1X$:   ADD     A,A
             JR      NZ,M2$
             LD      A,(HL)
             INC     HL
             RLA
-    M2$:     RL      C
+    M2$:    RL      C
             JR      NC,M1X$
             EX      AF,AF
             DJNZ    X2$
@@ -78,7 +76,7 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
             LD      BC,#0x33F
             JR      M1$
 
-    X2$:     DJNZ    X3$
+    X2$:    DJNZ    X3$
             SRL     C
             JR      C,MS$
             INC     B
@@ -93,15 +91,15 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
             JR      NZ,M4$
             EX      AF,AF
             INC     B
-    N5$:     RR      C
-            JP     C, END_DEC40$
+    N5$:    RR      C
+            RET     C
             RL      B
             ADD     A,A
             JR      NZ,N6$
             LD      A,(HL)
             INC     HL
             RLA
-    N6$:     JR      NC,N5$
+    N6$:    JR      NC,N5$
             EX      AF,AF
             ADD     A,B
             LD      B,#6
@@ -110,7 +108,7 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
             DJNZ    X4$
             LD      A,#1
             JR      M3$
-    X4$:     DJNZ    X5$
+    X4$:    DJNZ    X5$
             INC     C
             JR      NZ,M4$
             LD      BC,#0x51F
@@ -118,9 +116,9 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
     X5$:
             DJNZ    X6$
             LD      B,C
-    M4$:     LD      C,(HL)
+    M4$:    LD      C,(HL)
             INC     HL
-    M3$:     DEC     B
+    M3$:    DEC     B
             PUSH    HL
             LD      L,C
             LD      H,B
@@ -130,7 +128,5 @@ void MegaLZ_Depack (unsigned int src, unsigned int dst) __naked {
             LDIR
             POP     HL
             JR      M0$
-
-    END_DEC40$:
   __endasm;
 } //MegaLZ_Depack
