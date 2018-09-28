@@ -10,8 +10,8 @@
 
 /*---------------------------------- Input -----------------------------------*/
 
-#define Input_KeyNoRepeat
-//#define Input_KeyRepeat
+//#define Input_KeyNoRepeat
+#define Input_KeyRepeat
 //#define Input_KeyRepeatBuf
 
 //#define Input_KeyRepeatCount 15
