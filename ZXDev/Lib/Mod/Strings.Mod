@@ -1,5 +1,15 @@
 MODULE Strings;
 
+TYPE
+  CHAR = SHORTCHAR;
+
+PROCEDURE Length* (s: ARRAY OF CHAR): SHORTINT;
+  VAR i: SHORTINT;
+BEGIN
+  i := 0; WHILE (i < LEN(s)) & (s[i] # 0X) DO INC(i) END;
+  RETURN i
+END Length;
+
 PROCEDURE StrToInt* (str: ARRAY OF CHAR; VAR result: SHORTINT): BOOLEAN;
 (* MIN(SHORTINT) not supported! *)
 VAR

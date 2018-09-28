@@ -4,11 +4,23 @@
 
 
 
+export SHORTINT Strings_Length (CHAR *s, SHORTINT s__len);
 export BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result);
 
 
 /*============================================================================*/
 
+SHORTINT Strings_Length (CHAR *s, SHORTINT s__len)
+{
+	SHORTINT i;
+	i = 0;
+	while (i < s__len && s[__X(i, s__len, "Strings", -158)] != 0x00) {
+		i += 1;
+	}
+	return i;
+}
+
+/*----------------------------------------------------------------------------*/
 BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result)
 {
 	BYTE pos, sign;
@@ -18,7 +30,7 @@ BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result)
 	pos = 0;
 	sign = 1;
 	while ((SHORTINT)pos < str__len) {
-		ch = str[__X(pos, str__len, "Strings", -260)];
+		ch = str[__X(pos, str__len, "Strings", -441)];
 		switch (ch) {
 			case '-': 
 				if (pos == 0) {

@@ -8,6 +8,7 @@
 
 
 
+import SHORTINT Strings_Length (CHAR *s, SHORTINT s__len);
 import BOOLEAN Strings_StrToInt (CHAR *str, SHORTINT str__len, SHORTINT *result);
 import void *Strings__init(void);
 
