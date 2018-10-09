@@ -190,28 +190,17 @@ BEGIN
 				file.Register("Build.bat" ,"bat", Files.dontAsk, res);
 				file.Close;
 
-				(* Generate "Subsys/Obj/Ofront.par: *)
+				(* Generate "Subsys/Obj/Ofront+.par: *)
 
 				loc := Files.dir.This(dir + "Obj");
-				IF ~ Cmd.Exists(loc, "Ofront.par") THEN
+				IF ~ Cmd.Exists(loc, "Ofront+.par") THEN
 					file := Files.dir.New(loc, Files.dontAsk);
 					IF file = NIL THEN
-						Dialog.ShowMsg("Couldn't save Ofront.par"); Cmd.Close; RETURN
+						Dialog.ShowMsg("Couldn't save Ofront+.par"); Cmd.Close; RETURN
 					END;
 					wr := file.NewWriter(NIL);
-					Emit("CHAR     1 1");
-					Emit("BOOLEAN  1 1");
-					Emit("SHORTINT 1 1");
-					Emit("INTEGER  2 2");
-					Emit("LONGINT  4 4");
-					Emit("SET      1 1");
-					Emit("REAL     4 4");
-					Emit("LONGREAL 4 4");
-					Emit("PTR      2 2");
-					Emit("PROC     2 2");
-					Emit("RECORD   2 2");
-					Emit("ENDIAN   0 0");
-					file.Register("Ofront", "par", Files.dontAsk, res);
+					Emit("-sC -21");
+					file.Register("Ofront+", "par", Files.dontAsk, res);
 					file.Close;
 				END;
 				Dialog.ShowMsg(Config + " saved");
