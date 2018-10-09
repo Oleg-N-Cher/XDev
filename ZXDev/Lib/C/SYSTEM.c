@@ -1,12 +1,13 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-export void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
-export int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-export long SYSTEM_ENTIER (float x);
-export SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
-export INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
-export SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
+void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
+int SYSTEM_STRCMP (CHAR *x, CHAR *y);
+void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n);
+long SYSTEM_ENTIER (float x);
+SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
+SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
 
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 /*================================== Header ==================================*/
@@ -24,7 +25,7 @@ __endasm;
 } //SYSTEM_HALT_m1
 
 /*--------------------------------- Cut here ---------------------------------*/
-export int SYSTEM_STRCMP (CHAR *x, CHAR *y)
+int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 {long i = 0; CHAR ch1, ch2;
 	do {ch1 = x[i]; ch2 = y[i]; i++;
 		if (!ch1) return -(int)ch2;
@@ -33,7 +34,12 @@ export int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-export long SYSTEM_ENTIER (float x)
+void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n) { /* sy := sx */
+  int i = 0; do { if (n-- == 0) __HALT(-8); y[i] = x[i]; } while (x[i++] != 0);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+long SYSTEM_ENTIER (float x)
 {
 	if (x >= 0)
 		return (long)x;

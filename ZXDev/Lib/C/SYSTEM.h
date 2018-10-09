@@ -60,6 +60,7 @@ extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
 extern float SYSTEM_ABSD (REAL i);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
+extern void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n);
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
 extern SYSTEM_PTR SYSTEM_NEWARR (__U_SHORTINT size);
@@ -109,6 +110,7 @@ extern void SYSTEM_ENUMR();
 #else
 #  define __REGCMD(name, cmd)
 #endif
+#define __EXTERN extern
 
 /* SYSTEM ops */
 #define __SYSNEW(p, len)	p=SYSTEM_NEWBLK((long)(len))
@@ -171,6 +173,7 @@ extern void SYSTEM_ENUMR();
 #define __MASK(x, m)	((x)&~(m))
 #define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
 #define __STRCMP SYSTEM_STRCMP
+#define __STRCOPY SYSTEM_STRCOPY
 #define __ASH(x, n, t)	((n)>=0?__ASHL(x,n,t):__ASHR(x,-(n),t))
 #define __ASHL(x, n, t)	((t)(x)<<(n))
 #define __ASHR(x, n, t) ((t)(x)>>(n))
