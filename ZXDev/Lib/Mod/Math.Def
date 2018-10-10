@@ -1,54 +1,17 @@
-MODULE Math;	(* jt, 10.1.95 *)
-
-IMPORT SYSTEM;
+MODULE Math;
 
 CONST
-	Pi* = 3.1415926535;
-	E* = 2.7182818285;
-	
-PROCEDURE -includemath()		(* define the proper return types! *)
-	'#include <math.h>';
+  Pi* = 3.1415926535; E* = 2.7182818285;
+  
+PROCEDURE Sin* (x: REAL): REAL; END Sin;
+PROCEDURE Cos* (x: REAL): REAL; END Cos;
+PROCEDURE ArcTan* (x: REAL): REAL; END ArcTan;
+PROCEDURE Exp* (x: REAL): REAL; END Exp;
+PROCEDURE Sqrt* (x: REAL): REAL; END Sqrt;
+PROCEDURE Ln* (x: REAL): REAL; END Ln;
 
-PROCEDURE -sin (x: REAL): REAL	"(sin(x))";
-
-PROCEDURE -cos (x: REAL): REAL	"(cos(x))";
-
-PROCEDURE -arctan (x: REAL): REAL	"(atan(x))";
-
-PROCEDURE -exp (x: REAL): REAL	"(exp(x))";
-
-PROCEDURE -sqrt (x: REAL): REAL	"(sqrt(x))";
-
-PROCEDURE -ln (x: REAL): REAL	"(log(x))";
-
-PROCEDURE Sin* (x: REAL): REAL;
-BEGIN RETURN sin(x)
-END Sin;
-
-PROCEDURE Cos* (x: REAL): REAL;
-BEGIN RETURN cos(x)
-END Cos;
-
-PROCEDURE ArcTan* (x: REAL): REAL;
-BEGIN RETURN arctan(x)
-END ArcTan;
-
-PROCEDURE Exp* (x: REAL): REAL;
-BEGIN RETURN exp(x)
-END Exp;
-
-PROCEDURE Sqrt* (x: REAL): REAL;
-BEGIN RETURN sqrt(x)
-END Sqrt;
-
-PROCEDURE Ln* (x: REAL): REAL;
-BEGIN RETURN ln(x)
-END Ln;
-
-PROCEDURE Randomize* ; END Randomize;
-
+PROCEDURE Randomize*; END Randomize;
 PROCEDURE RndRange* (min, max: SHORTINT): SHORTINT;
-BEGIN RETURN 0
-END RndRange;
+  BEGIN RETURN 0 END RndRange;
 
 END Math.
