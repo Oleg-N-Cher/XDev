@@ -1,5 +1,5 @@
 MODULE TestStrings; (*$MAIN*)
-IMPORT IO := Console, Str := Strings;
+IMPORT IO := Console, Str := Strings, P := Platform;
 
 VAR
   str: ARRAY 3 OF SHORTCHAR;
@@ -29,6 +29,7 @@ BEGIN str2 := "GARBAGE!";
   Check(555, Str.UIntToStr(555, numbuf));
   Check(9999, Str.UIntToStr(9999, numbuf));
   Check(32767, Str.UIntToStr(32767, numbuf));
+  Check(P.ToSHORT(65535), Str.UIntToStr(P.ToSHORT(65535), numbuf));
 
   Check(0, Str.IntToStr(0, numbuf));
   Check(10, Str.IntToStr(10, numbuf));
