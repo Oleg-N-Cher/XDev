@@ -127,6 +127,15 @@ extern void Console_WriteStrLn_C_FAST (unsigned char *str) __z88dk_fastcall;
 extern void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
 extern void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall;
 extern void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
+#  ifdef Console_OUTPUT_COMPACT
+#    define Console_WriteUInt Console_WriteUInt_COMPACT
+#  endif
+#  ifdef Console_OUTPUT_FAST
+#    define Console_WriteUInt Console_WriteUInt_FAST
+#  endif
+#  ifdef Console_OUTPUT_ROM
+#    define Console_WriteUInt Console_WriteUInt_ROM
+#  endif
 
 extern BYTE Console_attrib;
 #define Console_SetColors(attr) Console_attrib = attr

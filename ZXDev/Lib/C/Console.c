@@ -452,20 +452,18 @@ __asm
             LD    E,#-10        ;
             CALL  LP_DIGIT_C$
             LD    E,D           ;
-LP_DIGIT_C$:LD    A,#"0"-1      ;обнулили счётчик
+LP_DIGIT_C$:LD    A,#'0'-1      ;обнулили счётчик
 LP_PDW2_C$: INC   A             ;увеличиваем счётчик
             ADD   HL,DE         ;вычитаем текущую степень десятки
             JR    C,LP_PDW2_C$  ;повторяем пока HL>=0
             SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
             DEC   C             ;проверяем: может это незначащий нуль?
             JR    Z,LP_PRNT_C$  ; если уже были другие цифры, печатаем
-            CP    #"0"          ;если это нуль, то он незначащий
+            CP    #'0'          ;если это нуль, то он незначащий
             RET   Z             ; ничего не печатаем
-LP_PRNT_C$: PUSH  HL
-            PUSH  DE            ;печать десятичной цифры
+LP_PRNT_C$: EXX                 ;печать десятичной цифры
             CALL  _Console_WriteCh_COMPACT+1 ; Skip "LD A,L"
-            POP   DE
-            POP   HL
+            EXX
             LD    C,#1          ;уже была печать, дальше все значащие
 __endasm;
 } //Console_WriteUInt_COMPACT
@@ -494,28 +492,30 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall {
 __asm
-            LD    C,#0x5        ;кол-во незначащих нулей + 1
             LD    DE,#-10000    ;таблица степеней десятки
+            LD    C,E           ;встречающиеся нули пока незначащие
             CALL  LP_DIGIT_F$
             LD    DE,#-1000     ;
             CALL  LP_DIGIT_F$
             LD    DE,#-100      ;
             CALL  LP_DIGIT_F$
-            LD    DE,#-10       ;
+            LD    E,#-10        ;
             CALL  LP_DIGIT_F$
-            LD    DE,#-1        ;
-LP_DIGIT_F$:LD    A,#"0"-1      ;обнулили счётчик
+            LD    A,L
+            ADD   #'0'
+            JP    _Console_WriteCh_FAST+1 ; Skip "LD A,L"
+LP_DIGIT_F$:LD    A,#'0'-1      ;обнулили счётчик
 LP_PDW2_F$: INC   A             ;увеличиваем счётчик
             ADD   HL,DE         ;вычитаем текущую степень десятки
             JR    C,LP_PDW2_F$  ;повторяем пока HL>=0
             SBC   HL,DE         ;HL=HL mod DE; A=HL div DE
             DEC   C             ;проверяем: может это незначащий нуль?
             JR    Z,LP_PRNT_F$  ; если уже были другие цифры, печатаем
-            CP    #"0"          ;если это нуль, то он незначащий
+            CP    #'0'          ;если это нуль, то он незначащий
             RET   Z             ; ничего не печатаем
-LP_PRNT_F$: PUSH  HL            ;печать десятичной цифры
+LP_PRNT_F$: EXX                 ;печать десятичной цифры
             CALL  _Console_WriteCh_FAST+1 ; Skip "LD A,L"
-            POP   HL
+            EXX
             LD    C,#1          ;уже была печать, дальше все значащие
 __endasm;
 } //Console_WriteUInt_FAST
