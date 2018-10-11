@@ -4,7 +4,6 @@ float Math_Exp (float x);
 float Math_Ln (float x);
 float Math_Sin (float x);
 float Math_Sqrt (float x);
-void Math_UIntToBCD (unsigned int n) __z88dk_fastcall;
 unsigned int Math_RndRange (unsigned int min, unsigned int max);
 void Math_Randomize (void);
 
@@ -58,31 +57,6 @@ float Math_Ln (float x)
 {
 	return Math_ln(x);
 }
-
-/*--------------------------------- Cut here ---------------------------------*/
-void Math_UIntToBCD (unsigned int n) __z88dk_fastcall { // bin(HL) -> bcd(E,H,L)
-// Функция переводит 16-разрядное беззнаковое
-// двоичное число в двоично-десятичный формат
-// E,H,L = bin2bcd(hl)   ~1330 takts.
-    __asm
-        LD   BC, #0x1000
-        LD   E, C
-        LD   D, C
-I2BCD$: ADD  HL, HL
-        LD   A, E
-        ADC  A, A
-        DAA
-        LD   E, A
-        LD   A, D
-        ADC  A, A
-        DAA
-        LD   D, A
-        RL   C
-        DJNZ I2BCD$     ; ~83   ~1328
-        EX   DE, HL
-        LD   E, C
-__endasm;
-} //Math_UIntToBCD
 
 /*--------------------------------- Cut here ---------------------------------*/
 /* SEED_RND address */
