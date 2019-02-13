@@ -568,13 +568,13 @@ void Console_WriteInt_ROM (long n)
     i1 = __DIV(i1, 10);
     k = 1;
     while (i1 > 0) {
-      s[__X(k, 10, "Console", -17419)] = (CHAR)(__MOD(i1, 10) + 48);
+      s[k] = (CHAR)(__MOD(i1, 10) + 48);
       i1 = __DIV(i1, 10);
       k += 1;
     }
     while (k != 0) {
       k -= 1;
-      Console_WriteCh_ROM(s[__X(k, 10, "Console", -17519)]);
+      Console_WriteCh_ROM(s[k]);
     }
   }
 }
@@ -596,13 +596,13 @@ void Console_WriteInt_COMPACT (long n)
     i1 = __DIV(i1, 10);
     k = 1;
     while (i1 > 0) {
-      s[__X(k, 10, "Console", -17419)] = (CHAR)(__MOD(i1, 10) + 48);
+      s[k] = (CHAR)(__MOD(i1, 10) + 48);
       i1 = __DIV(i1, 10);
       k += 1;
     }
     while (k != 0) {
       k -= 1;
-      Console_WriteCh_COMPACT(s[__X(k, 10, "Console", -17519)]);
+      Console_WriteCh_COMPACT(s[k]);
     }
   }
 }
@@ -624,13 +624,13 @@ void Console_WriteInt_FAST (long n)
     i1 = __DIV(i1, 10);
     k = 1;
     while (i1 > 0) {
-      s[__X(k, 10, "Console", -17419)] = (CHAR)(__MOD(i1, 10) + 48);
+      s[k] = (CHAR)(__MOD(i1, 10) + 48);
       i1 = __DIV(i1, 10);
       k += 1;
     }
     while (k != 0) {
       k -= 1;
-      Console_WriteCh_FAST(s[__X(k, 10, "Console", -17519)]);
+      Console_WriteCh_FAST(s[k]);
     }
   }
 }
@@ -1028,16 +1028,16 @@ void Console_WriteReal_ROM (REAL x)
       m = __DIV(m, 10);
     }
     do {
-      d[__X(i, 16, "Console", -17851)] = (CHAR)(__MOD(m, 10) + 48);
+      d[i] = (CHAR)(__MOD(m, 10) + 48);
       m = __DIV(m, 10);
       i += 1;
     } while (!(m == 0));
     i -= 1;
-    Console_WriteCh_ROM(d[__X(i, 16, "Console", -17911)]);
+    Console_WriteCh_ROM(d[i]);
     Console_WriteCh_ROM('.');
     while (i > 0) {
       i -= 1;
-      Console_WriteCh_ROM(d[__X(i, 16, "Console", -17965)]);
+      Console_WriteCh_ROM(d[i]);
     }
     Console_WriteCh_ROM('E');
     e += 6;
@@ -1081,16 +1081,16 @@ void Console_WriteReal_COMPACT (REAL x)
       m = __DIV(m, 10);
     }
     do {
-      d[__X(i, 16, "Console", -17851)] = (CHAR)(__MOD(m, 10) + 48);
+      d[i] = (CHAR)(__MOD(m, 10) + 48);
       m = __DIV(m, 10);
       i += 1;
     } while (!(m == 0));
     i -= 1;
-    Console_WriteCh_COMPACT(d[__X(i, 16, "Console", -17911)]);
+    Console_WriteCh_COMPACT(d[i]);
     Console_WriteCh_COMPACT('.');
     while (i > 0) {
       i -= 1;
-      Console_WriteCh_COMPACT(d[__X(i, 16, "Console", -17965)]);
+      Console_WriteCh_COMPACT(d[i]);
     }
     Console_WriteCh_COMPACT('E');
     e += 6;
@@ -1134,16 +1134,16 @@ void Console_WriteReal_FAST (REAL x)
       m = __DIV(m, 10);
     }
     do {
-      d[__X(i, 16, "Console", -17851)] = (CHAR)(__MOD(m, 10) + 48);
+      d[i] = (CHAR)(__MOD(m, 10) + 48);
       m = __DIV(m, 10);
       i += 1;
     } while (!(m == 0));
     i -= 1;
-    Console_WriteCh_FAST(d[__X(i, 16, "Console", -17911)]);
+    Console_WriteCh_FAST(d[i]);
     Console_WriteCh_FAST('.');
     while (i > 0) {
       i -= 1;
-      Console_WriteCh_FAST(d[__X(i, 16, "Console", -17965)]);
+      Console_WriteCh_FAST(d[i]);
     }
     Console_WriteCh_FAST('E');
     e += 6;
