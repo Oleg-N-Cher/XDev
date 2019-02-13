@@ -52,13 +52,13 @@ typedef unsigned long long __U_LONGINT;
 /* runtime system routines */
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
-extern long SYSTEM_ENTIER (REAL x);
+extern long SYSTEM_ENTIER (float x);
 extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
 extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 extern long SYSTEM_ABS();
 extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
-extern float SYSTEM_ABSD (REAL i);
+extern float SYSTEM_ABSD (float i);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n);
 extern SYSTEM_PTR SYSTEM_NEWREC();

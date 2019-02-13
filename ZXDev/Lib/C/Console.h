@@ -95,9 +95,9 @@ extern void Console_WriteLn_FAST (void);
 #    define Console_WriteLn Console_WriteLn_ROM
 #  endif
 
-extern void Console_WriteReal_ROM (REAL x);
-extern void Console_WriteReal_COMPACT (REAL x);
-extern void Console_WriteReal_FAST (REAL x);
+extern void Console_WriteReal_ROM (float x);
+extern void Console_WriteReal_COMPACT (float x);
+extern void Console_WriteReal_FAST (float x);
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteReal Console_WriteReal_COMPACT
 #  endif
@@ -107,9 +107,9 @@ extern void Console_WriteReal_FAST (REAL x);
 #  ifdef Console_OUTPUT_ROM
 #    define Console_WriteReal Console_WriteReal_ROM
 #  endif
-void Console_WriteRealFix_ROM (REAL x, BYTE n);
-void Console_WriteRealFix_COMPACT (REAL x, BYTE n);
-void Console_WriteRealFix_FAST (REAL x, BYTE n);
+void Console_WriteRealFix_ROM (float x, BYTE n);
+void Console_WriteRealFix_COMPACT (float x, BYTE n);
+void Console_WriteRealFix_FAST (float x, BYTE n);
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteRealFix Console_WriteRealFix_COMPACT
 #  endif

@@ -24,12 +24,12 @@ void Console_WriteInt_FAST (long n);
 void Console_WriteLn_ROM (void);
 void Console_WriteLn_COMPACT (void);
 void Console_WriteLn_FAST (void);
-void Console_WriteReal_ROM (REAL x);
-void Console_WriteReal_COMPACT (REAL x);
-void Console_WriteReal_FAST (REAL x);
-void Console_WriteRealFix_ROM (REAL x, BYTE n);
-void Console_WriteRealFix_COMPACT (REAL x, BYTE n);
-void Console_WriteRealFix_FAST (REAL x, BYTE n);
+void Console_WriteReal_ROM (float x);
+void Console_WriteReal_COMPACT (float x);
+void Console_WriteReal_FAST (float x);
+void Console_WriteRealFix_ROM (float x, BYTE n);
+void Console_WriteRealFix_COMPACT (float x, BYTE n);
+void Console_WriteRealFix_FAST (float x, BYTE n);
 void Console_WriteShort_ROM (int n) __z88dk_fastcall;
 void Console_WriteShort_COMPACT (int n) __z88dk_fastcall;
 void Console_WriteShort_FAST (int n) __z88dk_fastcall;
@@ -42,7 +42,7 @@ void Console_WriteUShort_ROM (unsigned int n) __z88dk_fastcall;
 void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall;
-REAL Console_Ten (unsigned char n);
+float Console_Ten (unsigned char n);
 
 /* Set video attrib */
 #define SETV_A$   0x5C8F
@@ -984,11 +984,11 @@ SHORTINT Console_ReadInt_FAST (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-REAL Console_Ten (unsigned char n)
+float Console_Ten (unsigned char n)
 {
-	REAL t, p;
-	t = (REAL)1;
-	p = (REAL)10;
+	float t, p;
+	t = (float)1;
+	p = (float)10;
 	while (n != 0) {
 		if (__ODD(n)) {
 			t = p * t;
@@ -1000,7 +1000,7 @@ REAL Console_Ten (unsigned char n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteReal_ROM (REAL x)
+void Console_WriteReal_ROM (float x)
 {
   BYTE i, e;
   INTEGER m;
@@ -1011,13 +1011,13 @@ void Console_WriteReal_ROM (REAL x)
   } else if (e == -1) {
     Console_WriteStr_C_ROM((void*)&"NaN");
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       Console_WriteCh_ROM('-');
       x = -x;
     }
-    e = (BYTE)(__ASHR((SHORTINT)(e - 127) * 77, 8, SHORTINT) - 6);
+    e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (REAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1039,21 +1039,19 @@ void Console_WriteReal_ROM (REAL x)
       i -= 1;
       Console_WriteCh_ROM(d[i]);
     }
-    Console_WriteCh_ROM('E');
     e += 6;
-    if (e < 0) {
-      Console_WriteCh_ROM('-');
-      e = -e;
-    } else {
-      Console_WriteCh_ROM('+');
+    if (e != 0) {
+      Console_WriteCh_ROM('E');
+      if (e > 0) {
+        Console_WriteCh_ROM('+');
+      }
+      Console_WriteShort_ROM(e);
     }
-    Console_WriteCh_ROM((CHAR)(__DIV(e, 10) + 48));
-    Console_WriteCh_ROM((CHAR)(__MOD(e, 10) + 48));
   }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteReal_COMPACT (REAL x)
+void Console_WriteReal_COMPACT (float x)
 {
   BYTE i, e;
   INTEGER m;
@@ -1064,13 +1062,13 @@ void Console_WriteReal_COMPACT (REAL x)
   } else if (e == -1) {
     Console_WriteStr_C_COMPACT((void*)&"NaN");
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       Console_WriteCh_COMPACT('-');
       x = -x;
     }
-    e = (BYTE)(__ASHR((SHORTINT)(e - 127) * 77, 8, SHORTINT) - 6);
+    e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (REAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1094,19 +1092,18 @@ void Console_WriteReal_COMPACT (REAL x)
     }
     Console_WriteCh_COMPACT('E');
     e += 6;
-    if (e < 0) {
-      Console_WriteCh_COMPACT('-');
-      e = -e;
-    } else {
-      Console_WriteCh_COMPACT('+');
+    if (e != 0) {
+      Console_WriteCh_COMPACT('E');
+      if (e > 0) {
+        Console_WriteCh_COMPACT('+');
+      }
+      Console_WriteShort_COMPACT(e);
     }
-    Console_WriteCh_COMPACT((CHAR)(__DIV(e, 10) + 48));
-    Console_WriteCh_COMPACT((CHAR)(__MOD(e, 10) + 48));
   }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteReal_FAST (REAL x)
+void Console_WriteReal_FAST (float x)
 {
   BYTE i, e;
   INTEGER m;
@@ -1117,13 +1114,13 @@ void Console_WriteReal_FAST (REAL x)
   } else if (e == -1) {
     Console_WriteStr_C_FAST((void*)&"NaN");
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       Console_WriteCh_FAST('-');
       x = -x;
     }
-    e = (BYTE)(__ASHR((SHORTINT)(e - 127) * 77, 8, SHORTINT) - 6);
+    e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (REAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1147,25 +1144,24 @@ void Console_WriteReal_FAST (REAL x)
     }
     Console_WriteCh_FAST('E');
     e += 6;
-    if (e < 0) {
-      Console_WriteCh_FAST('-');
-      e = -e;
-    } else {
-      Console_WriteCh_FAST('+');
+    if (e != 0) {
+      Console_WriteCh_FAST('E');
+      if (e > 0) {
+        Console_WriteCh_FAST('+');
+      }
+      Console_WriteShort_FAST(e);
     }
-    Console_WriteCh_FAST((CHAR)(__DIV(e, 10) + 48));
-    Console_WriteCh_FAST((CHAR)(__MOD(e, 10) + 48));
   }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteRealFix_ROM (REAL x, BYTE n)
+void Console_WriteRealFix_ROM (float x, BYTE n)
 {
   INTEGER m;
-  if (x == (REAL)0) {
+  if (x == (float)0) {
     Console_WriteCh_ROM('0');
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       x = -x;
       Console_WriteCh_ROM('-');
     }
@@ -1185,13 +1181,13 @@ void Console_WriteRealFix_ROM (REAL x, BYTE n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteRealFix_COMPACT (REAL x, BYTE n)
+void Console_WriteRealFix_COMPACT (float x, BYTE n)
 {
   INTEGER m;
-  if (x == (REAL)0) {
+  if (x == (float)0) {
     Console_WriteCh_COMPACT('0');
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       x = -x;
       Console_WriteCh_COMPACT('-');
     }
@@ -1211,13 +1207,13 @@ void Console_WriteRealFix_COMPACT (REAL x, BYTE n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteRealFix_FAST (REAL x, BYTE n)
+void Console_WriteRealFix_FAST (float x, BYTE n)
 {
   INTEGER m;
-  if (x == (REAL)0) {
+  if (x == (float)0) {
     Console_WriteCh_FAST('0');
   } else {
-    if (x < (REAL)0) {
+    if (x < (float)0) {
       x = -x;
       Console_WriteCh_FAST('-');
     }
