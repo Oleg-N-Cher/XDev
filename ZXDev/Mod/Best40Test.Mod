@@ -4,13 +4,13 @@ IMPORT
 	B40 := Best40, B := Basic;
 
 TYPE
-  TextDesc = ARRAY 32 OF CHAR;
+  TextDesc = ARRAY 32 OF SHORTCHAR;
 
 CONST
   Text = TextDesc("Hello World of the Spectrum !!!");
 
 VAR
-	i: BYTE; udg: SHORTINT; text2ch: ARRAY 2 OF CHAR;
+	i: BYTE; udg: SHORTINT; text2ch: ARRAY 2 OF SHORTCHAR;
 
 BEGIN
 	B.Init; B.CLS;

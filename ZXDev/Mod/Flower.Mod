@@ -22,8 +22,8 @@ BEGIN
     r := ABS(
       b1 * Math.Sin(q * 0.5) + b3 * Math.Sin(q * 1.5) + b5 * Math.Sin(q * 2.5));
     cosRd := Math.Cos(rd); sinRd := Math.Sin(rd);
-    G.Line(x, y, x + SHORT(SHORT(ENTIER(r*cosRd))), y + SHORT(SHORT(ENTIER(r*sinRd))));
-    G.PutPixel(x + SHORT(SHORT(ENTIER((r+4.0)*cosRd))), y + SHORT(SHORT(ENTIER((r+4.0)*sinRd))));
+    G.Line(x, y, x + SHORT(ENTIER(r*cosRd)), y + SHORT(ENTIER(r*sinRd)));
+    G.PutPixel(x + SHORT(ENTIER((r+4.0)*cosRd)), y + SHORT(ENTIER((r+4.0)*sinRd)));
     dg := dg - 0.5;
   UNTIL dg = 0.0;
   q := radius / 10.0;
@@ -31,7 +31,7 @@ BEGIN
     n := 345; G.SetColor(G.Green);
     REPEAT
       G.PutPixel(
-        x + SHORT(SHORT(ENTIER(q*Math.Cos(n*p)))), y + SHORT(SHORT(ENTIER(q*Math.Sin(n*p)))));
+        x + SHORT(ENTIER(q*Math.Cos(n*p))), y + SHORT(ENTIER(q*Math.Sin(n*p))));
       n := n - 15;
     UNTIL n < 0;
     q := q - radius / 50.0
