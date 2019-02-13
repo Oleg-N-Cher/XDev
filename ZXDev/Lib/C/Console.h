@@ -69,9 +69,9 @@ extern void Console_WriteBool_ROM (BOOLEAN b);
 #    define Console_WriteBool(b) Console_WriteBool_ROM(b)
 #  endif
 
-extern void Console_WriteInt_ROM (int n) __z88dk_fastcall;
-extern void Console_WriteInt_COMPACT (int n) __z88dk_fastcall;
-extern void Console_WriteInt_FAST (int n) __z88dk_fastcall;
+extern void Console_WriteInt_ROM (long n);
+extern void Console_WriteInt_COMPACT (long n);
+extern void Console_WriteInt_FAST (long n);
 #  ifdef Console_OUTPUT_COMPACT
 #    define Console_WriteInt Console_WriteInt_COMPACT
 #  endif
@@ -93,6 +93,44 @@ extern void Console_WriteLn_FAST (void);
 #  endif
 #  ifdef Console_OUTPUT_ROM
 #    define Console_WriteLn Console_WriteLn_ROM
+#  endif
+
+extern void Console_WriteReal_ROM (REAL x);
+extern void Console_WriteReal_COMPACT (REAL x);
+extern void Console_WriteReal_FAST (REAL x);
+#  ifdef Console_OUTPUT_COMPACT
+#    define Console_WriteReal Console_WriteReal_COMPACT
+#  endif
+#  ifdef Console_OUTPUT_FAST
+#    define Console_WriteReal Console_WriteReal_FAST
+#  endif
+#  ifdef Console_OUTPUT_ROM
+#    define Console_WriteReal Console_WriteReal_ROM
+#  endif
+void Console_WriteRealFix_ROM (REAL x, BYTE n);
+void Console_WriteRealFix_COMPACT (REAL x, BYTE n);
+void Console_WriteRealFix_FAST (REAL x, BYTE n);
+#  ifdef Console_OUTPUT_COMPACT
+#    define Console_WriteRealFix Console_WriteRealFix_COMPACT
+#  endif
+#  ifdef Console_OUTPUT_FAST
+#    define Console_WriteRealFix Console_WriteRealFix_FAST
+#  endif
+#  ifdef Console_OUTPUT_ROM
+#    define Console_WriteRealFix Console_WriteRealFix_ROM
+#  endif
+
+extern void Console_WriteShort_ROM (int n) __z88dk_fastcall;
+extern void Console_WriteShort_COMPACT (int n) __z88dk_fastcall;
+extern void Console_WriteShort_FAST (int n) __z88dk_fastcall;
+#  ifdef Console_OUTPUT_COMPACT
+#    define Console_WriteShort Console_WriteShort_COMPACT
+#  endif
+#  ifdef Console_OUTPUT_FAST
+#    define Console_WriteShort Console_WriteShort_FAST
+#  endif
+#  ifdef Console_OUTPUT_ROM
+#    define Console_WriteShort Console_WriteShort_ROM
 #  endif
 
 extern void Console_WriteStr_C_COMPACT (unsigned char *str) __z88dk_fastcall;
@@ -124,17 +162,17 @@ extern void Console_WriteStrLn_C_FAST (unsigned char *str) __z88dk_fastcall;
        RST 16 __endasm
 #  endif
 
-extern void Console_WriteUInt_COMPACT (unsigned int n) __z88dk_fastcall;
-extern void Console_WriteUInt_FAST (unsigned int n) __z88dk_fastcall;
-extern void Console_WriteUInt_ROM (unsigned int n) __z88dk_fastcall;
+extern void Console_WriteUShort_COMPACT (unsigned int n) __z88dk_fastcall;
+extern void Console_WriteUShort_FAST (unsigned int n) __z88dk_fastcall;
+extern void Console_WriteUShort_ROM (unsigned int n) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_COMPACT
-#    define Console_WriteUInt Console_WriteUInt_COMPACT
+#    define Console_WriteUShort Console_WriteUShort_COMPACT
 #  endif
 #  ifdef Console_OUTPUT_FAST
-#    define Console_WriteUInt Console_WriteUInt_FAST
+#    define Console_WriteUShort Console_WriteUShort_FAST
 #  endif
 #  ifdef Console_OUTPUT_ROM
-#    define Console_WriteUInt Console_WriteUInt_ROM
+#    define Console_WriteUShort Console_WriteUShort_ROM
 #  endif
 
 extern BYTE Console_attrib;
