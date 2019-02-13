@@ -158,7 +158,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 			ConsoleWinAPI_WriteCh('-');
 			x = -x;
 		}
-		e = __ASHR(ConsoleWinAPI_Exponent(x) * 77, 8, INTEGER) - 6;
+		e = __ASHR(ConsoleWinAPI_Exponent(x) * 77, 8, INTEGER) - 12;
 		if (e >= 0) {
 			x = x / (REAL)ConsoleWinAPI_Ten(e);
 		} else {
@@ -166,7 +166,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 		}
 		m = __ENTIERL(x + 0.5);
 		i = 0;
-		if (m >= 100000000000LL) {
+		if (m >= 10000000000000LL) {
 			e += 1;
 			m = __DIV(m, 10);
 		}
@@ -182,7 +182,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 			i -= 1;
 			ConsoleWinAPI_WriteCh(d[i]);
 		}
-		e += 6;
+		e += 12;
 		if (e != 0) {
 			ConsoleWinAPI_WriteCh('E');
 			if (e > 0) {

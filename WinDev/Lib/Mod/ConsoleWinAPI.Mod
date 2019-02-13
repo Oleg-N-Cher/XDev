@@ -100,14 +100,14 @@ BEGIN
   ELSE
     (* 2 < n < 9 digits to be written*)
     IF x < 0.0 THEN WriteCh("-"); x := -x END;
-    e := Exponent(x) * 77 DIV 256 - 6;  (*decimal exponent*)
+    e := Exponent(x) * 77 DIV 256 - 12;  (*decimal exponent*)
     IF e >= 0 THEN x := x / Ten(e) ELSE x := Ten(-e) * x END;
     m := ENTIER(x + 0.5); i := 0;
-    IF m >= 100000000000 THEN INC(e); m := m DIV 10 END;
+    IF m >= 10000000000000 THEN INC(e); m := m DIV 10 END;
     REPEAT d[i] := CHR(m MOD 10 + 30H); m := m DIV 10; INC(i) UNTIL m = 0;
     DEC(i); WriteCh(d[i]); WriteCh(".");
     WHILE i > 0 DO DEC(i); WriteCh(d[i]) END;
-    INC(e, 6);
+    INC(e, 12);
     IF e # 0 THEN WriteCh("E");
       IF e > 0 THEN WriteCh("+") END;
       WriteInt(e);
