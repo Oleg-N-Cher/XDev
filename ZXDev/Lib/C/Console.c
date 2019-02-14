@@ -702,87 +702,87 @@ SHORTINT result;
 
 void Console_ReadInt_Accept_ROM (void)
 {
-	if (digits < 6) {
-		Console_WriteCh_ROM(ch); data[digits] = ch; digits += 1;
-	}
+  if (digits < 6) {
+    Console_WriteCh_ROM(ch); data[digits] = ch; digits += 1;
+  }
 }
 
 SHORTINT Console_ReadIntRange_ROM (SHORTINT min, SHORTINT max)
 {
-	digits = 0;
-	for (;;) {
-		for (;;) {
-			Console_WriteCh_ROM('_');
-			Console_BackPos_ROM();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					Console_WriteCh_ROM(' ');
-					Console_BackPos_ROM();
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-			Console_WriteCh_ROM(' ');
-			Console_BackPos_ROM();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-		}
-		exit__0:;
-		ch = Input_Read();
-		switch (ch) {
-			case '-':
-				if (digits == 0 && min < 0) {
-					Console_ReadInt_Accept_ROM();
-				}
-				break;
-			case '0': case '1': case '2': case '3': case '4':
-			case '5': case '6': case '7': case '8': case '9':
-				Console_ReadInt_Accept_ROM();
-				break;
-			case 0x0c:
-				if (digits > 0) {
-					digits -= 1;
-					Console_BackPos_ROM();
-					Console_WriteCh_ROM(' ');
-					Console_BackPos_ROM();
-				}
-				break;
-			case 0x0d:
-				if (digits > 0) {
-					if (digits < 8) {
-						data[digits] = 0x00;
-					}
-					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
-						return result;
-					}
-				}
-				break;
-			default:
-				break;
-		}
-		i = 25;
-		for (;;) {
-			if (Input_Available() == 0 || i == 0) {
-				break;
-			}
-			Timer_Delay(10);
-			i -= 1;
-		}
-	}
+  digits = 0;
+  for (;;) {
+    for (;;) {
+      Console_WriteCh_ROM('_');
+      Console_BackPos_ROM();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          Console_WriteCh_ROM(' ');
+          Console_BackPos_ROM();
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+      Console_WriteCh_ROM(' ');
+      Console_BackPos_ROM();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+    }
+    exit__0:;
+    ch = Input_Read();
+    switch (ch) {
+      case '-':
+        if (digits == 0 && min < 0) {
+          Console_ReadInt_Accept_ROM();
+        }
+        break;
+      case '0': case '1': case '2': case '3': case '4':
+      case '5': case '6': case '7': case '8': case '9':
+        Console_ReadInt_Accept_ROM();
+        break;
+      case 0x0c:
+        if (digits > 0) {
+          digits -= 1;
+          Console_BackPos_ROM();
+          Console_WriteCh_ROM(' ');
+          Console_BackPos_ROM();
+        }
+        break;
+      case 0x0d:
+        if (digits > 0) {
+          if (digits < 8) {
+            data[digits] = 0x00;
+          }
+          if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+            return result;
+          }
+        }
+        break;
+      default:
+        break;
+    }
+    i = 25;
+    for (;;) {
+      if (Input_Available() == 0 || i == 0) {
+        break;
+      }
+      Timer_Delay(10);
+      i -= 1;
+    }
+  }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT Console_ReadInt_ROM (void)
 {
-	return Console_ReadIntRange_ROM(-32768, 32767);
+  return Console_ReadIntRange_ROM(-32768, 32767);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -801,87 +801,87 @@ SHORTINT result;
 
 void Console_ReadInt_Accept_COMPACT (void)
 {
-	if (digits < 6) {
-		Console_WriteCh_COMPACT(ch); data[digits] = ch; digits += 1;
-	}
+  if (digits < 6) {
+    Console_WriteCh_COMPACT(ch); data[digits] = ch; digits += 1;
+  }
 }
 
 SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max)
 {
-	digits = 0;
-	for (;;) {
-		for (;;) {
-			Console_WriteCh_COMPACT('_');
-			Console_BackPos_COMPACT();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					Console_WriteCh_COMPACT(' ');
-					Console_BackPos_COMPACT();
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-			Console_WriteCh_COMPACT(' ');
-			Console_BackPos_COMPACT();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-		}
-		exit__0:;
-		ch = Input_Read();
-		switch (ch) {
-			case '-':
-				if (digits == 0 && min < 0) {
-					Console_ReadInt_Accept_COMPACT();
-				}
-				break;
-			case '0': case '1': case '2': case '3': case '4':
-			case '5': case '6': case '7': case '8': case '9':
-				Console_ReadInt_Accept_COMPACT();
-				break;
-			case 0x0c:
-				if (digits > 0) {
-					digits -= 1;
-					Console_BackPos_COMPACT();
-					Console_WriteCh_COMPACT(' ');
-					Console_BackPos_COMPACT();
-				}
-				break;
-			case 0x0d:
-				if (digits > 0) {
-					if (digits < 8) {
-						data[digits] = 0x00;
-					}
-					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
-						return result;
-					}
-				}
-				break;
-			default:
-				break;
-		}
-		i = 25;
-		for (;;) {
-			if (Input_Available() == 0 || i == 0) {
-				break;
-			}
-			Timer_Delay(10);
-			i -= 1;
-		}
-	}
+  digits = 0;
+  for (;;) {
+    for (;;) {
+      Console_WriteCh_COMPACT('_');
+      Console_BackPos_COMPACT();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          Console_WriteCh_COMPACT(' ');
+          Console_BackPos_COMPACT();
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+      Console_WriteCh_COMPACT(' ');
+      Console_BackPos_COMPACT();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+    }
+    exit__0:;
+    ch = Input_Read();
+    switch (ch) {
+      case '-':
+        if (digits == 0 && min < 0) {
+          Console_ReadInt_Accept_COMPACT();
+        }
+        break;
+      case '0': case '1': case '2': case '3': case '4':
+      case '5': case '6': case '7': case '8': case '9':
+        Console_ReadInt_Accept_COMPACT();
+        break;
+      case 0x0c:
+        if (digits > 0) {
+          digits -= 1;
+          Console_BackPos_COMPACT();
+          Console_WriteCh_COMPACT(' ');
+          Console_BackPos_COMPACT();
+        }
+        break;
+      case 0x0d:
+        if (digits > 0) {
+          if (digits < 8) {
+            data[digits] = 0x00;
+          }
+          if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+            return result;
+          }
+        }
+        break;
+      default:
+        break;
+    }
+    i = 25;
+    for (;;) {
+      if (Input_Available() == 0 || i == 0) {
+        break;
+      }
+      Timer_Delay(10);
+      i -= 1;
+    }
+  }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT Console_ReadInt_COMPACT (void)
 {
-	return Console_ReadIntRange_COMPACT(-32768, 32767);
+  return Console_ReadIntRange_COMPACT(-32768, 32767);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -900,111 +900,111 @@ SHORTINT result;
 
 void Console_ReadInt_Accept_FAST (void)
 {
-	if (digits < 6) {
-		Console_WriteCh_FAST(ch); data[digits] = ch; digits += 1;
-	}
+  if (digits < 6) {
+    Console_WriteCh_FAST(ch); data[digits] = ch; digits += 1;
+  }
 }
 
 SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max)
 {
-	digits = 0;
-	for (;;) {
-		for (;;) {
-			Console_WriteCh_FAST('_');
-			Console_BackPos_FAST();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					Console_WriteCh_FAST(' ');
-					Console_BackPos_FAST();
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-			Console_WriteCh_FAST(' ');
-			Console_BackPos_FAST();
-			i = 25;
-			while (i >= 1) {
-				if (Input_Available() != 0) {
-					goto exit__0;
-				}
-				Timer_Delay(10);
-				i += -1;
-			}
-		}
-		exit__0:;
-		ch = Input_Read();
-		switch (ch) {
-			case '-':
-				if (digits == 0 && min < 0) {
-					Console_ReadInt_Accept_FAST();
-				}
-				break;
-			case '0': case '1': case '2': case '3': case '4':
-			case '5': case '6': case '7': case '8': case '9':
-				Console_ReadInt_Accept_FAST();
-				break;
-			case 0x0c:
-				if (digits > 0) {
-					digits -= 1;
-					Console_BackPos_FAST();
-					Console_WriteCh_FAST(' ');
-					Console_BackPos_FAST();
-				}
-				break;
-			case 0x0d:
-				if (digits > 0) {
-					if (digits < 8) {
-						data[digits] = 0x00;
-					}
-					if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
-						return result;
-					}
-				}
-				break;
-			default:
-				break;
-		}
-		i = 25;
-		for (;;) {
-			if (Input_Available() == 0 || i == 0) {
-				break;
-			}
-			Timer_Delay(10);
-			i -= 1;
-		}
-	}
+  digits = 0;
+  for (;;) {
+    for (;;) {
+      Console_WriteCh_FAST('_');
+      Console_BackPos_FAST();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          Console_WriteCh_FAST(' ');
+          Console_BackPos_FAST();
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+      Console_WriteCh_FAST(' ');
+      Console_BackPos_FAST();
+      i = 25;
+      while (i >= 1) {
+        if (Input_Available() != 0) {
+          goto exit__0;
+        }
+        Timer_Delay(10);
+        i += -1;
+      }
+    }
+    exit__0:;
+    ch = Input_Read();
+    switch (ch) {
+      case '-':
+        if (digits == 0 && min < 0) {
+          Console_ReadInt_Accept_FAST();
+        }
+        break;
+      case '0': case '1': case '2': case '3': case '4':
+      case '5': case '6': case '7': case '8': case '9':
+        Console_ReadInt_Accept_FAST();
+        break;
+      case 0x0c:
+        if (digits > 0) {
+          digits -= 1;
+          Console_BackPos_FAST();
+          Console_WriteCh_FAST(' ');
+          Console_BackPos_FAST();
+        }
+        break;
+      case 0x0d:
+        if (digits > 0) {
+          if (digits < 8) {
+            data[digits] = 0x00;
+          }
+          if ((Strings_StrToInt((void*)data, 8, &result) && result >= min) && result <= max) {
+            return result;
+          }
+        }
+        break;
+      default:
+        break;
+    }
+    i = 25;
+    for (;;) {
+      if (Input_Available() == 0 || i == 0) {
+        break;
+      }
+      Timer_Delay(10);
+      i -= 1;
+    }
+  }
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT Console_ReadInt_FAST (void)
 {
-	return Console_ReadIntRange_FAST(-32768, 32767);
+  return Console_ReadIntRange_FAST(-32768, 32767);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 float Console_Ten (unsigned char n)
 {
-	float t, p;
-	t = (float)1;
-	p = (float)10;
-	while (n != 0) {
-		if (__ODD(n)) {
-			t = p * t;
-		}
-		p = p * p;
-		n = __ASHR(n, 1, BYTE);
-	}
-	return t;
+  float t, p;
+  t = (float)1;
+  p = (float)10;
+  while (n != 0) {
+    if (__ODD(n)) {
+      t = p * t;
+    }
+    p = p * p;
+    n = __ASHR(n, 1, BYTE);
+  }
+  return t;
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteReal_ROM (float x)
 {
-  BYTE i, e;
+  BYTE e; unsigned char i;
   INTEGER m;
-  CHAR d[16];
+  CHAR d[7];
   e = (BYTE)__ASHR(__VAL(INTEGER, x), 23, INTEGER);
   if (e == 0) {
     Console_WriteCh_ROM('0');
@@ -1017,7 +1017,9 @@ void Console_WriteReal_ROM (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (float)Console_Ten(e);
+      x = x / (SHORTREAL)Console_Ten(e);
+    } else if (e < -38) {
+      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1053,9 +1055,9 @@ void Console_WriteReal_ROM (float x)
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteReal_COMPACT (float x)
 {
-  BYTE i, e;
+  BYTE e; unsigned char i;
   INTEGER m;
-  CHAR d[16];
+  CHAR d[7];
   e = (BYTE)__ASHR(__VAL(INTEGER, x), 23, INTEGER);
   if (e == 0) {
     Console_WriteCh_COMPACT('0');
@@ -1068,7 +1070,9 @@ void Console_WriteReal_COMPACT (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (float)Console_Ten(e);
+      x = x / (SHORTREAL)Console_Ten(e);
+    } else if (e < -38) {
+      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1105,9 +1109,9 @@ void Console_WriteReal_COMPACT (float x)
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteReal_FAST (float x)
 {
-  BYTE i, e;
+  BYTE e; unsigned char i;
   INTEGER m;
-  CHAR d[16];
+  CHAR d[7];
   e = (BYTE)__ASHR(__VAL(INTEGER, x), 23, INTEGER);
   if (e == 0) {
     Console_WriteCh_FAST('0');
@@ -1120,7 +1124,9 @@ void Console_WriteReal_FAST (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (float)Console_Ten(e);
+      x = x / (SHORTREAL)Console_Ten(e);
+    } else if (e < -38) {
+      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1161,6 +1167,9 @@ void Console_WriteRealFix_ROM (float x, BYTE n)
   if (x == (float)0) {
     Console_WriteCh_ROM('0');
   } else {
+    if ((CHAR)(n - 1) > 0x06) {
+      n = 7;
+    }
     if (x < (float)0) {
       x = -x;
       Console_WriteCh_ROM('-');
@@ -1168,9 +1177,6 @@ void Console_WriteRealFix_ROM (float x, BYTE n)
     m = (INTEGER)__ENTIER(x);
     Console_WriteInt_ROM(m);
     Console_WriteCh_ROM('.');
-    if (n < 1 || n > 7) {
-      n = 7;
-    }
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
@@ -1187,6 +1193,9 @@ void Console_WriteRealFix_COMPACT (float x, BYTE n)
   if (x == (float)0) {
     Console_WriteCh_COMPACT('0');
   } else {
+    if ((CHAR)(n - 1) > 0x06) {
+      n = 7;
+    }
     if (x < (float)0) {
       x = -x;
       Console_WriteCh_COMPACT('-');
@@ -1194,9 +1203,6 @@ void Console_WriteRealFix_COMPACT (float x, BYTE n)
     m = (INTEGER)__ENTIER(x);
     Console_WriteInt_COMPACT(m);
     Console_WriteCh_COMPACT('.');
-    if (n < 1 || n > 7) {
-      n = 7;
-    }
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
@@ -1213,6 +1219,9 @@ void Console_WriteRealFix_FAST (float x, BYTE n)
   if (x == (float)0) {
     Console_WriteCh_FAST('0');
   } else {
+    if ((CHAR)(n - 1) > 0x06) {
+      n = 7;
+    }
     if (x < (float)0) {
       x = -x;
       Console_WriteCh_FAST('-');
@@ -1220,9 +1229,6 @@ void Console_WriteRealFix_FAST (float x, BYTE n)
     m = (INTEGER)__ENTIER(x);
     Console_WriteInt_FAST(m);
     Console_WriteCh_FAST('.');
-    if (n < 1 || n > 7) {
-      n = 7;
-    }
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
