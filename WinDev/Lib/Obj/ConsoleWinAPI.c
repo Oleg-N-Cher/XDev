@@ -147,7 +147,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 {
 	LONGINT m;
 	INTEGER e, i;
-	CHAR d[20];
+	CHAR d[16];
 	e = __MASK((INTEGER)__ASHR(__VAL(LONGINT, x), 52, LONGINT), -2048);
 	if (e == 0) {
 		ConsoleWinAPI_WriteCh('0');
@@ -161,6 +161,8 @@ void ConsoleWinAPI_WriteReal (REAL x)
 		e = __ASHR(ConsoleWinAPI_Exponent(x) * 77, 8, INTEGER) - 12;
 		if (e >= 0) {
 			x = x / (REAL)ConsoleWinAPI_Ten(e);
+		} else if (e < -308) {
+			x = (x * ConsoleWinAPI_Ten(-e - 12)) * ConsoleWinAPI_Ten(12);
 		} else {
 			x = ConsoleWinAPI_Ten(-e) * x;
 		}
@@ -200,6 +202,9 @@ void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n)
 	if (x == (REAL)0) {
 		ConsoleWinAPI_WriteCh('0');
 	} else {
+		if (n < 1 || n > 16) {
+			n = 16;
+		}
 		if (x < (REAL)0) {
 			x = -x;
 			ConsoleWinAPI_WriteCh('-');
@@ -207,9 +212,6 @@ void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n)
 		m = __ENTIERL(x);
 		ConsoleWinAPI_WriteLong(m);
 		ConsoleWinAPI_WriteCh('.');
-		if (n < 1 || n > 16) {
-			n = 16;
-		}
 		x = ConsoleWinAPI_Ten(n) * (x - m);
 		m = __ENTIERL(x + 0.5);
 		while (m != 0 && __MOD(m, 10) == 0) {

@@ -92,16 +92,19 @@ BEGIN
 END Exponent;
 
 PROCEDURE WriteReal* (x: REAL);
-  VAR m: LONGINT; e, i: INTEGER; d: ARRAY 20 OF SHORTCHAR;
+  VAR m: LONGINT; e, i: INTEGER; d: ARRAY 16 OF SHORTCHAR;
 BEGIN
   e := SHORT(ASH(SYSTEM.VAL(LONGINT, x), -52)) MOD 800H;  (*binary exponent*)
   IF e = 0 THEN WriteCh("0")
   ELSIF IsNaN(x) THEN WriteStr("NaN")
   ELSE
-    (* 2 < n < 9 digits to be written*)
+    (* 2 < n < 9 digits to be written *)
     IF x < 0.0 THEN WriteCh("-"); x := -x END;
-    e := Exponent(x) * 77 DIV 256 - 12;  (*decimal exponent*)
-    IF e >= 0 THEN x := x / Ten(e) ELSE x := Ten(-e) * x END;
+    e := Exponent(x) * 77 DIV 256 - 12;  (* decimal exponent *)
+    IF e >= 0 THEN x := x / Ten(e);
+    ELSIF e < -308 THEN x := x * Ten(-e-12) * Ten(12);
+    ELSE x := Ten(-e) * x;
+    END;
     m := ENTIER(x + 0.5); i := 0;
     IF m >= 10000000000000 THEN INC(e); m := m DIV 10 END;
     REPEAT d[i] := CHR(m MOD 10 + 30H); m := m DIV 10; INC(i) UNTIL m = 0;
@@ -120,10 +123,10 @@ PROCEDURE WriteRealFix* (x: REAL; n: INTEGER);
 BEGIN
   IF x = 0.0 THEN WriteCh("0")
   ELSE
+    IF (n < 1) OR (n > 16) THEN n := 16 END;
     IF x < 0.0 THEN x := -x; WriteCh("-") END;
     m := ENTIER(x);
     WriteLong(m); WriteCh(".");
-    IF (n < 1) OR (n > 16) THEN n := 16 END;
     x := Ten(n) * (x - m);
     m := ENTIER(x + 0.5);
     WHILE (m # 0) & (m MOD 10 = 0) DO m := m DIV 10 END;

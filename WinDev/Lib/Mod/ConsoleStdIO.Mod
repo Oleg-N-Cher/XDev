@@ -54,10 +54,10 @@ PROCEDURE WriteRealFix* (x: REAL; n: INTEGER);
 BEGIN
   IF x = 0.0 THEN WriteCh("0")
   ELSE
+    IF (n < 1) OR (n > 16) THEN n := 16 END;
     IF x < 0.0 THEN x := -x; WriteCh("-") END;
     m := ENTIER(x);
     WriteLong(m); WriteCh(".");
-    IF (n < 1) OR (n > 16) THEN n := 16 END;
     x := Ten(n) * (x - m);
     m := ENTIER(x + 0.5);
     WHILE (m # 0) & (m MOD 10 = 0) DO m := m DIV 10 END;
