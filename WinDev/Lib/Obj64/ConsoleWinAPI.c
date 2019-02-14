@@ -162,7 +162,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 		if (e >= 0) {
 			x = x / (REAL)ConsoleWinAPI_Ten(e);
 		} else if (e < -308) {
-			x = (x * ConsoleWinAPI_Ten(-e - 12)) * ConsoleWinAPI_Ten(12);
+			x = (x * ConsoleWinAPI_Ten(-e - 12)) * (REAL)1000000000000LL;
 		} else {
 			x = ConsoleWinAPI_Ten(-e) * x;
 		}

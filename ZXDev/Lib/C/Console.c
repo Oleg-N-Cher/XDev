@@ -1017,9 +1017,9 @@ void Console_WriteReal_ROM (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (SHORTREAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else if (e < -38) {
-      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
+      x = (x * Console_Ten(-e - 6)) * (float)1000000;
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1070,9 +1070,9 @@ void Console_WriteReal_COMPACT (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (SHORTREAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else if (e < -38) {
-      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
+      x = (x * Console_Ten(-e - 6)) * (float)1000000;
     } else {
       x = Console_Ten(-e) * x;
     }
@@ -1124,9 +1124,9 @@ void Console_WriteReal_FAST (float x)
     }
     e = (BYTE)(__ASHR((SHORTINT)((unsigned char)e - 127) * 77, 8, SHORTINT) - 6);
     if (e >= 0) {
-      x = x / (SHORTREAL)Console_Ten(e);
+      x = x / (float)Console_Ten(e);
     } else if (e < -38) {
-      x = (x * Console_Ten(-e - 6)) * Console_Ten(6);
+      x = (x * Console_Ten(-e - 6)) * (float)1000000;
     } else {
       x = Console_Ten(-e) * x;
     }

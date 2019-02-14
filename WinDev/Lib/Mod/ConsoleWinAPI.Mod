@@ -102,7 +102,7 @@ BEGIN
     IF x < 0.0 THEN WriteCh("-"); x := -x END;
     e := Exponent(x) * 77 DIV 256 - 12;  (* decimal exponent *)
     IF e >= 0 THEN x := x / Ten(e);
-    ELSIF e < -308 THEN x := x * Ten(-e-12) * Ten(12);
+    ELSIF e < -308 THEN x := x * Ten(-e-12) * 1.0D+12;
     ELSE x := Ten(-e) * x;
     END;
     m := ENTIER(x + 0.5); i := 0;
