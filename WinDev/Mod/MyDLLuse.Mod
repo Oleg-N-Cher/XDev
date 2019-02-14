@@ -1,0 +1,6 @@
+MODULE MyDLLuse; (*$MAIN*)
+IMPORT MyDLL, Console;
+
+BEGIN
+	Console.WriteStr("4 + 3 = "); Console.WriteInt(MyDLL.Plus(4, 3))
+END MyDLLuse.

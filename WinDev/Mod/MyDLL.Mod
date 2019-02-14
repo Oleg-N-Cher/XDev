@@ -1,0 +1,10 @@
+MODULE MyDLL; IMPORT Console;
+
+PROCEDURE Plus* (a, b: INTEGER): INTEGER;
+BEGIN
+	RETURN a + b
+END Plus;
+
+BEGIN
+	Console.WriteStr("MyDLL initialized"); Console.WriteLn
+END MyDLL.
