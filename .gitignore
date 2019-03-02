@@ -12,6 +12,7 @@ Ofront/Bin/
 Ofront/Bin64/
 !Ofront/Code/*.ocf
 Ofront/Docu/
+Ofront/Examples/
 Ofront/Lib/
 Ofront/Linux_arm/
 Ofront/Linux_x64/
@@ -20,8 +21,6 @@ Ofront/Mod/
 Ofront/Obj/
 Ofront/Obj64/
 Ofront/Rsrc/Text/
-Ofront/Samples/
-Ofront/Samples64/
 Ofront/Sym/*.sym
 Ofront/Sym64/
 Ofront/Work/
@@ -42,6 +41,8 @@ WinDev/Obj64/*.a
 WinDev/Obj64/*.c
 WinDev/Obj64/*.h
 WinDev/Obj64/*.o
+WinDev/x64/*.exe
+WinDev/*.exe
 ZXDev/Bin/MakeZX/
 ZXDev/Lib/Obj/*.sym
 ZXDev/Lib/Obj/zcc_opt.def
