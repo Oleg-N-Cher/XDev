@@ -1,27 +1,59 @@
 #include "SYSTEM.h"
 
 /*============================================================================*/
-LONGINT SYSTEM_DIV(LONGINT x, LONGINT y)
+INTEGER SYSTEM_DIV(INTEGER x, INTEGER y)
 {
-  if (x == 0) return 0;
-  if (x >= 0)
-    if (y >= 0) {return x/y;}
-    else        {return -((x-y-1)/(-y));}
-  else
-    if (y >= 0) {return -((y-x-1)/y);}
-    else        {return (-x)/(-y);}
+  if (y > 0) {
+    if (x < 0) return -1 - (-1 - x) / y;
+    else       return x / y;
+  }
+  if (y < 0) {
+    if (x > 0) return -1 + (x - 1) / y;
+    else       return x / y;
+  }
+  __HALT(-12);
 }
 
 /*----------------------------------------------------------------------------*/
-LONGINT SYSTEM_MOD(LONGINT x, LONGINT y)
+LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
 {
-  if (x == 0) return 0;
-  if (x >= 0)
-    if (y >= 0) {return x % y;}
-    else        {return (y+1) + ((x-1) % (-y));}
-  else
-    if (y >= 0) {return (y-1) - ((-x-1) % y);}
-    else        {return -((-x) % (-y));}
+  if (y > 0) {
+    if (x < 0) return -1 - (-1 - x) / y;
+    else       return x / y;
+  }
+  if (y < 0) {
+    if (x > 0) return -1 + (x - 1) / y;
+    else       return x / y;
+  }
+  __HALT(-12);
+}
+
+/*----------------------------------------------------------------------------*/
+INTEGER SYSTEM_MOD(INTEGER x, INTEGER y)
+{
+  if (y > 0) {
+    if (x < 0) return y - 1 + (x + 1) % y;
+    else       return x % y;
+  }
+  if (y < 0) {
+    if (x > 0) return y + 1 + (x - 1) % y;
+    else       return x % y;
+  }
+  __HALT(-12);
+}
+
+/*----------------------------------------------------------------------------*/
+LONGINT SYSTEM_MODL(LONGINT x, LONGINT y)
+{
+  if (y > 0) {
+    if (x < 0) return y - 1 + (x + 1) % y;
+    else       return x % y;
+  }
+  if (y < 0) {
+    if (x > 0) return y + 1 + (x - 1) % y;
+    else       return x % y;
+  }
+  __HALT(-12);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -50,4 +82,3 @@ LONGINT SYSTEM_ENTIERL(REAL x)
 #  include "_windows.h"
    void SYSTEM_ExitOS (int code) { ExitProcess((UINT)(code)); }
 #endif
-

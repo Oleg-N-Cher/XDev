@@ -3,7 +3,7 @@ IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev
 SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%
 
-SET Options=-m32 -Os -g0 -fvisibility=hidden -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -ffunction-sections
+SET Options=-m32 -Os -g0 -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -ffunction-sections
 SET Include=-I.. -I..\Mod
 SET GCC=gcc.exe %Options% %Include%
 

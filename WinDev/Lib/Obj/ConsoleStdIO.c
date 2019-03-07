@@ -80,6 +80,9 @@ void ConsoleStdIO_WriteRealFix (REAL x, INTEGER n)
 	if (x == (REAL)0) {
 		ConsoleStdIO_WriteCh('0');
 	} else {
+		if (n < 1 || n > 16) {
+			n = 16;
+		}
 		if (x < (REAL)0) {
 			x = -x;
 			ConsoleStdIO_WriteCh('-');
@@ -87,9 +90,6 @@ void ConsoleStdIO_WriteRealFix (REAL x, INTEGER n)
 		m = __ENTIERL(x);
 		ConsoleStdIO_WriteLong(m);
 		ConsoleStdIO_WriteCh('.');
-		if (n < 1 || n > 16) {
-			n = 16;
-		}
 		x = ConsoleStdIO_Ten(n) * (x - m);
 		m = __ENTIERL(x + 0.5);
 		while (m != 0 && __MOD(m, 10) == 0) {
