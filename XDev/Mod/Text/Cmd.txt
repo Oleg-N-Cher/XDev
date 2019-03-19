@@ -224,7 +224,7 @@ BEGIN
 	RETURN XDevMisc.DirectoryExists(subSys + "\" + dirName)
 END ExistsDir;
 
-PROCEDURE HaveMainAttribute (t: TextModels.Model): BOOLEAN;
+PROCEDURE HaveAtrMAIN (t: TextModels.Model): BOOLEAN;
 VAR
 	ch: CHAR; reader: TextModels.Reader;
 
@@ -240,21 +240,47 @@ VAR
 		RETURN i = n
 	END Match;
 
+BEGIN
+	ASSERT(t # NIL, 20);
+	reader := t.NewReader(reader); reader.SetPos(0);
+	WHILE ~reader.eot DO
+		reader.ReadChar(ch);
+		IF Match("(*$MAIN*)") THEN RETURN TRUE END;
+	END;
+	RETURN FALSE
+END HaveAtrMAIN;
+
+PROCEDURE HaveAtrGPCP (t: TextModels.Model): BOOLEAN;
+VAR
+	ch: CHAR; reader: TextModels.Reader;
+
+	PROCEDURE Match (IN s: ARRAY OF CHAR): BOOLEAN;
+	VAR
+		i, n: INTEGER;
 	BEGIN
-		ASSERT(t # NIL, 20);
-		reader := t.NewReader(reader); reader.SetPos(0);
-		WHILE ~reader.eot DO
-			reader.ReadChar(ch);
-			IF Match("(*") & Match("$MAIN") THEN RETURN TRUE END;
+		i := 0; n := LEN(s$);
+		WHILE ~reader.eot & (ch = " ") DO reader.ReadChar(ch) END;
+		WHILE ~reader.eot & (i < n) & (ch = s[i]) DO
+			reader.ReadChar(ch); INC(i);
 		END;
-		RETURN FALSE
-	END HaveMainAttribute;
+		RETURN i = n
+	END Match;
+
+BEGIN
+	ASSERT(t # NIL, 20);
+	reader := t.NewReader(reader); reader.SetPos(0);
+	WHILE ~reader.eot DO
+		reader.ReadChar(ch);
+		IF Match("(*$GPCP*)") THEN RETURN TRUE END;
+	END;
+	RETURN FALSE
+END HaveAtrGPCP;
 
 PROCEDURE OfrontCompile* ; (** Call "Bin/compile.bat" script. *)
 VAR
 	t: TextModels.Model; w: Windows.Window;
 	loc: Files.Locator; name, dir: Files.Name;
-	spacePos: INTEGER;
+	spacePos: INTEGER; GPCP: BOOLEAN;
 BEGIN
 	Open;
 	(* Try to find exact file name of current opened document: *)
@@ -263,11 +289,13 @@ BEGIN
 		w := Windows.dir.Focus(Controllers.targetPath);
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
-			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
-			OfrontOPM.options.mainprog := HaveMainAttribute(t);
-			Dialog.UpdateBool(OfrontOPM.options.mainprog);
-			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			GPCP := HaveAtrGPCP(t);
+			IF ~GPCP THEN (* Launch the translation by Ofront: *)
+				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
+				OfrontOPM.options.mainprog := HaveAtrMAIN(t);
+				Dialog.UpdateBool(OfrontOPM.options.mainprog);
+				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			END;
 
 			GetNameWoExt(w.name, name);
 			Strings.Find(name, " ", 0, spacePos);
@@ -288,6 +316,7 @@ BEGIN
 				StdLog.Ln;
 			END;
 
+		IF ~GPCP THEN
 			(* Additional compiling thread: *)
 			loc := Files.dir.This(dir + BinDir);
 			IF Exists(loc, "compile64.bat") THEN (* Start "Bin/compile64.bat Mod". *)
@@ -296,6 +325,7 @@ BEGIN
 				loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 				i21sysCalls.StartAt(loc, "..\Bin\compile64.bat " + name$);
 			END;
+		END
 
 		ELSE (* Module's file name not found. *)
 			StdLog.String("First, specify a file name of the module, please.");
@@ -311,7 +341,7 @@ PROCEDURE OfrontBuild* ; (** Call a BAT file that is appropriate to a source. *)
 VAR
 	t: TextModels.Model; w: Windows.Window; 
 	loc: Files.Locator; name, dir: Files.Name;
-	spacePos: INTEGER;
+	spacePos: INTEGER; GPCP: BOOLEAN;
 BEGIN
 	Open;
 	(* Try to find exact file name of current opened document: *)
@@ -320,11 +350,13 @@ BEGIN
 		w := Windows.dir.Focus(Controllers.targetPath);
 		IF (w # NIL) & (w.loc # NIL) & (w.name # "") THEN (* File name found. *)
 			GetSubsysDirByLocator(w.loc, dir);
-			(* Launch the translation by Ofront: *)
-			OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
-			OfrontOPM.options.mainprog := HaveMainAttribute(t);
-			Dialog.UpdateBool(OfrontOPM.options.mainprog);
-			IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			GPCP := HaveAtrGPCP(t);
+			IF ~GPCP THEN (* Launch the translation by Ofront: *)
+				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
+				OfrontOPM.options.mainprog := HaveAtrMAIN(t);
+				Dialog.UpdateBool(OfrontOPM.options.mainprog);
+				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			END;
 
 			(* Main building thread: *)
 			loc := Files.dir.This(dir + ObjDir);
@@ -352,7 +384,7 @@ BEGIN
 				END;
 			END;
 
-			(* Additional building thread: *)
+		IF ~GPCP THEN (* Additional building thread: *)
 			loc := Files.dir.This(dir + ObjDir + "64"); (* Start in /Obj64 *)
 			GetNameWoExt(w.name, name); name := name$ + ".bat";
 			IF Exists(loc, name) THEN
@@ -375,6 +407,7 @@ BEGIN
 					i21sysCalls.StartAt(loc, "..\Bin\build64.bat " + name$);
 				END;
 			END;
+		END;
 
 		ELSE (* Module's file name not found. *)
 			StdLog.String("First, specify a file name of the module, please.");
