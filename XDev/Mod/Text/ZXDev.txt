@@ -13,7 +13,7 @@ CONST
 VAR
 	MainMod*: ARRAY 40 OF CHAR;
 	CodeAdr*, DataAdr*: ARRAY 9 OF CHAR;
-	Options*, Modules*, Include*, Libraries*: ARRAY 256 OF CHAR;
+	Options*, Modules*, Include*, Libraries*, OfrontPar*: ARRAY 256 OF CHAR;
 	Target*, str: ARRAY 7 OF CHAR;
 	Clean*, Start*, Pause*: BOOLEAN;
 
@@ -49,15 +49,13 @@ BEGIN
 				Cmd.MapStringTxt(dir, Config, "Target", Target);
 				IF Target = "" THEN Target := "TAP" END;
 				Cmd.MapStringTxt(dir, Config, "MainMod", MainMod);
-				IF MainMod = "" THEN MainMod := "" END;
 				Cmd.MapStringTxt(dir, Config, "Modules", Modules);
-				IF Modules = "" THEN Modules := "" END;
 				Cmd.MapStringTxt(dir, Config, "Include", Include);
 				IF Include = "" THEN Include := "-I ..\Lib\C -I ..\Lib\Obj" END;
 				Cmd.MapStringTxt(dir, Config, "Libraries", Libraries);
-				IF Libraries = "" THEN Libraries := "" END;
 				Cmd.MapStringTxt(dir, Config, "Options", Options);
-				IF Options = "" THEN Options := "" END;
+				Cmd.MapStringTxt(dir, Config, "OfrontPar", OfrontPar);
+				IF OfrontPar = "" THEN OfrontPar := "-s3 -21" END;
 				Cmd.MapStringTxt(dir, Config, "Start", str);
 				IF str = "" THEN str := "TRUE" END;
 				Start := str = "TRUE";
@@ -125,6 +123,7 @@ BEGIN
 				Emit("Include=" + Include$);
 				Emit("Libraries=" + Libraries$);
 				Emit("Target=" + Target$);
+				Emit("OfrontPar=" + OfrontPar$);
 				IF Clean THEN Emit("Clean=TRUE") ELSE Emit("Clean=FALSE") END;
 				IF Start THEN Emit("Start=TRUE") ELSE Emit("Start=FALSE") END;
 				IF Pause THEN Emit("Pause=TRUE") ELSE Emit("Pause=FALSE") END;
@@ -193,16 +192,14 @@ BEGIN
 				(* Generate "Subsys/Obj/Ofront+.par: *)
 
 				loc := Files.dir.This(dir + "Obj");
-				IF ~ Cmd.Exists(loc, "Ofront+.par") THEN
-					file := Files.dir.New(loc, Files.dontAsk);
-					IF file = NIL THEN
-						Dialog.ShowMsg("Couldn't save Ofront+.par"); Cmd.Close; RETURN
-					END;
-					wr := file.NewWriter(NIL);
-					Emit("-sC -21");
-					file.Register("Ofront+", "par", Files.dontAsk, res);
-					file.Close;
+				file := Files.dir.New(loc, Files.dontAsk);
+				IF file = NIL THEN
+					Dialog.ShowMsg("Couldn't save Ofront+.par"); Cmd.Close; RETURN
 				END;
+				wr := file.NewWriter(NIL);
+				Emit(OfrontPar$);
+				file.Register("Ofront+", "par", Files.dontAsk, res);
+				file.Close;
 				Dialog.ShowMsg(Config + " saved");
 			ELSE
 				Dialog.ShowMsg("You can't generate Config inside a XDev's subsystem");
