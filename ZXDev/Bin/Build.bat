@@ -27,16 +27,16 @@ IF "%Clean%"=="" SET Clean=TRUE
 IF "%Start%"=="" SET Start=TRUE
 IF "%Pause%"=="" SET Pause=FALSE
 
-SET SDCC=%ZXDev%\Bin\sdcc.exe %Options% %Include% %Modules% %Libraries%
+SET SDCC=%ZXDev%\Bin\sdcc.exe %Options% %Modules% %Libraries%
 
 IF EXIST %MainMod% GOTO Config
 
-%SDCC% %MainMod%.c -I %ZXDev%\Lib
+%SDCC% %MainMod%.c -I %ZXDev%\Lib %Include%
 GOTO Link
 
 :Config
 
-%SDCC% %MainMod%.c -I %MainMod% -I %ZXDev%\Lib
+%SDCC% %MainMod%.c -I %MainMod% -I %ZXDev%\Lib %Include%
 
 :Link
 
