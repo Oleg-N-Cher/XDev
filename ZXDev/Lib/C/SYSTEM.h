@@ -90,7 +90,7 @@ extern void SYSTEM_ENUMR();
 #  define __REGMOD(name, enum)	if(m==0)m=SYSTEM_REGMOD((CHAR*)name,enum); else return m
 #  define __ENDMOD	return m
 #else
-#  define __DEFMOD	__asm __Module_Entry_Point__$: LD HL,#__Module_Entry_Point__$ \
+#  define __DEFMOD	__asm LD HL,#. \
      LD (HL),#0xC9 \
      __endasm; // static char m; if(m!=0)return
 #  define __REGMOD(name, enum)
