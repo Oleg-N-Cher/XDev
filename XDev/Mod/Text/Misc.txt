@@ -35,7 +35,7 @@ END DirectoryExists;
 
 (* GetCurrentDir returns the current directory the program is using. *)
 
-PROCEDURE GetCurrentDir* (VAR curdir: ARRAY OF CHAR): BOOLEAN;
+PROCEDURE GetCurrentDir* (OUT curdir: ARRAY OF CHAR): BOOLEAN;
 BEGIN
   RETURN WinApi.GetCurrentDirectoryW(LEN(curdir), curdir) > 0
 END GetCurrentDir;
