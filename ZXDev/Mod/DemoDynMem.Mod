@@ -1,22 +1,23 @@
 MODULE DemoDynMem; (*$MAIN*)
 IMPORT
-  IO := Console, Platform;
+  SYSTEM, IO := Console, Platform, B := Basic;
 
 TYPE
-  PersonPtr = POINTER TO Person;
-  Person = RECORD
-    name: ARRAY 20 OF CHAR;
-    age: SHORTINT;
-    sex: CHAR; (*"M" OR "F"*)
+  PersonPtr = POINTER [untagged] TO Person;
+  Person = RECORD [untagged]
+    name: ARRAY 20 OF SHORTCHAR;
+    age: BYTE;
+    sex: SHORTCHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
 
 VAR
   john, mike, lisa, bob, iren, person: PersonPtr;
   list: POINTER TO ARRAY 5 OF PersonPtr;
-  n: SHORTINT;
+  n: BYTE;
 
 BEGIN
+  B.Init;
   NEW(john); NEW(mike); NEW(lisa); NEW(bob); NEW(iren);
   john.name := "John Smith"   ; john.sex := "M"; john.age := 32;
   john.next := bob;
@@ -46,4 +47,5 @@ BEGIN
     Platform.DISPOSE(list[n]);
   END;
   Platform.DISPOSE(list);
+  B.PAUSE(0); B.Quit
 END DemoDynMem.

@@ -9,7 +9,8 @@
 @REM Convert Intel hex format to binary
 @REM ==================================
 %bin%\hex2bin DemoSpr.ihx
-%bin%\stripbin DemoSpr.bin
+:: USE stripbin for only tagged records !!!
+::%bin%\stripbin DemoSpr.bin
 
 @REM Link the target to TAP format
 @REM =============================

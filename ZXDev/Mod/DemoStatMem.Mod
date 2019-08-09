@@ -3,18 +3,18 @@ IMPORT
   SYSTEM, IO := Console, Basic;
 
 TYPE
-  PersonPtr = POINTER [1] TO Person;
-  Person = RECORD
-    name: ARRAY 20 OF CHAR;
-    age: SHORTINT;
-    sex: CHAR; (*"M" OR "F"*)
+  PersonPtr = POINTER [untagged] TO Person;
+  Person = RECORD [untagged]
+    name: ARRAY 20 OF SHORTCHAR;
+    age: BYTE;
+    sex: SHORTCHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
 
 VAR
   john, mike, lisa, bob, iren: Person; person: PersonPtr;
   list: ARRAY 5 OF PersonPtr;
-  n: SHORTINT;
+  n: BYTE;
 
 BEGIN
   john.name := "John Smith"   ; john.sex := "M"; john.age := 32;

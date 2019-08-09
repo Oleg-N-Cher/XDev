@@ -18,9 +18,9 @@ void Console_WriteBool_ROM (BOOLEAN b);
 void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall;
 void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall;
 void Console_WriteCh_ROM (unsigned char ch) __z88dk_fastcall;
-void Console_WriteInt_ROM (long n);
-void Console_WriteInt_COMPACT (long n);
-void Console_WriteInt_FAST (long n);
+void Console_WriteLong_ROM (long n);
+void Console_WriteLong_COMPACT (long n);
+void Console_WriteLong_FAST (long n);
 void Console_WriteLn_ROM (void);
 void Console_WriteLn_COMPACT (void);
 void Console_WriteLn_FAST (void);
@@ -30,9 +30,9 @@ void Console_WriteReal_FAST (float x);
 void Console_WriteRealFix_ROM (float x, BYTE n);
 void Console_WriteRealFix_COMPACT (float x, BYTE n);
 void Console_WriteRealFix_FAST (float x, BYTE n);
-void Console_WriteShort_ROM (int n) __z88dk_fastcall;
-void Console_WriteShort_COMPACT (int n) __z88dk_fastcall;
-void Console_WriteShort_FAST (int n) __z88dk_fastcall;
+void Console_WriteInt_ROM (int n) __z88dk_fastcall;
+void Console_WriteInt_COMPACT (int n) __z88dk_fastcall;
+void Console_WriteInt_FAST (int n) __z88dk_fastcall;
 void Console_WriteStr_C_COMPACT (unsigned char *str) __z88dk_fastcall;
 void Console_WriteStr_C_FAST (unsigned char *str) __z88dk_fastcall;
 void Console_WriteStr_C_ROM (unsigned char *str) __z88dk_fastcall;
@@ -429,7 +429,7 @@ __endasm;
 } //Console_WriteUShort_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteShort_ROM (int n) __z88dk_fastcall __naked {
+void Console_WriteInt_ROM (int n) __z88dk_fastcall __naked {
 __asm
     BIT   7,H
     JP    Z,_Console_WriteUShort_ROM
@@ -447,7 +447,7 @@ __asm
     POP   BC
     JP    _Console_WriteUShort_ROM+2
 __endasm;
-} //Console_WriteShort_ROM
+} //Console_WriteInt_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteUShort_COMPACT (unsigned int n) __z88dk_fastcall {
@@ -479,7 +479,7 @@ __endasm;
 } //Console_WriteUShort_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteShort_COMPACT (int n) __z88dk_fastcall __naked {
+void Console_WriteInt_COMPACT (int n) __z88dk_fastcall __naked {
 __asm
     BIT   7,H
     JP    Z,_Console_WriteUShort_COMPACT
@@ -497,7 +497,7 @@ __asm
     POP   HL
     JP    _Console_WriteUShort_COMPACT
 __endasm;
-} //Console_WriteShort_COMPACT
+} //Console_WriteInt_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteUShort_FAST (unsigned int n) __z88dk_fastcall {
@@ -531,7 +531,7 @@ __endasm;
 } //Console_WriteUShort_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteShort_FAST (int n) __z88dk_fastcall __naked {
+void Console_WriteInt_FAST (int n) __z88dk_fastcall __naked {
 __asm
     BIT   7,H
     JP    Z,_Console_WriteUShort_FAST
@@ -549,10 +549,10 @@ __asm
     POP   HL
     JP    _Console_WriteUShort_FAST
 __endasm;
-} //Console_WriteShort_FAST
+} //Console_WriteInt_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_ROM (long n)
+void Console_WriteLong_ROM (long n)
 {
   CHAR s[10];
   INTEGER i1;
@@ -580,7 +580,7 @@ void Console_WriteInt_ROM (long n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_COMPACT (long n)
+void Console_WriteLong_COMPACT (long n)
 {
   CHAR s[10];
   INTEGER i1;
@@ -608,7 +608,7 @@ void Console_WriteInt_COMPACT (long n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_WriteInt_FAST (long n)
+void Console_WriteLong_FAST (long n)
 {
   CHAR s[10];
   INTEGER i1;
@@ -1047,7 +1047,7 @@ void Console_WriteReal_ROM (float x)
       if (e > 0) {
         Console_WriteCh_ROM('+');
       }
-      Console_WriteShort_ROM(e);
+      Console_WriteInt_ROM(e);
     }
   }
 }
@@ -1101,7 +1101,7 @@ void Console_WriteReal_COMPACT (float x)
       if (e > 0) {
         Console_WriteCh_COMPACT('+');
       }
-      Console_WriteShort_COMPACT(e);
+      Console_WriteInt_COMPACT(e);
     }
   }
 }
@@ -1155,7 +1155,7 @@ void Console_WriteReal_FAST (float x)
       if (e > 0) {
         Console_WriteCh_FAST('+');
       }
-      Console_WriteShort_FAST(e);
+      Console_WriteInt_FAST(e);
     }
   }
 }
@@ -1175,14 +1175,14 @@ void Console_WriteRealFix_ROM (float x, BYTE n)
       Console_WriteCh_ROM('-');
     }
     m = (INTEGER)__ENTIER(x);
-    Console_WriteInt_ROM(m);
+    Console_WriteLong_ROM(m);
     Console_WriteCh_ROM('.');
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
       m = __DIV(m, 10);
     }
-    Console_WriteInt_ROM(m);
+    Console_WriteLong_ROM(m);
   }
 }
 
@@ -1201,14 +1201,14 @@ void Console_WriteRealFix_COMPACT (float x, BYTE n)
       Console_WriteCh_COMPACT('-');
     }
     m = (INTEGER)__ENTIER(x);
-    Console_WriteInt_COMPACT(m);
+    Console_WriteLong_COMPACT(m);
     Console_WriteCh_COMPACT('.');
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
       m = __DIV(m, 10);
     }
-    Console_WriteInt_COMPACT(m);
+    Console_WriteLong_COMPACT(m);
   }
 }
 
@@ -1227,14 +1227,14 @@ void Console_WriteRealFix_FAST (float x, BYTE n)
       Console_WriteCh_FAST('-');
     }
     m = (INTEGER)__ENTIER(x);
-    Console_WriteInt_FAST(m);
+    Console_WriteLong_FAST(m);
     Console_WriteCh_FAST('.');
     x = Console_Ten(n) * (x - m);
     m = (INTEGER)__ENTIER(x + 0.5);
     while (m != 0 && __MOD(m, 10) == 0) {
       m = __DIV(m, 10);
     }
-    Console_WriteInt_FAST(m);
+    Console_WriteLong_FAST(m);
   }
 }
 

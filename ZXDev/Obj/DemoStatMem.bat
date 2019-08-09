@@ -10,7 +10,8 @@
 @REM Convert Intel hex format to binary
 @REM ==================================
 %Bin%\hex2bin %Mod%.ihx
-%Bin%\stripbin %Mod%.bin
+:: USE stripbin for only tagged records !!!
+::%Bin%\stripbin %Mod%.bin
 %Bin%\bin2data.exe -rem -org %CodeAddr% %Mod%.bin ..\%Mod%.tap %Mod%
 
 @START ..\%Mod%.tap

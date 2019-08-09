@@ -8,7 +8,7 @@ CONST
 
 TYPE
   CoordsSet = ARRAY 8 OF BYTE;
-  SpriteSet = ARRAY SpriteSizeBytes + 1 OF CHAR;
+  SpriteSet = ARRAY SpriteSizeBytes + 1 OF SHORTCHAR;
 
 CONST
 

@@ -8,10 +8,7 @@ IMPORT G := Graph, Math;
 CONST
 	k1 = 20; k2 = 50;
 VAR
-	KD, MD: SHORTINT;
-	i, s : SHORTINT;
-	(*c : Char;*)
-	ox, oy: SHORTINT;
+	KD, MD, i, s, ox, oy: SHORTINT;
 
 PROCEDURE Sign (x: SHORTINT): BYTE;
 BEGIN

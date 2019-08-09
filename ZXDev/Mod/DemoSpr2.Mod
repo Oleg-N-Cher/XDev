@@ -1,5 +1,5 @@
 MODULE DemoSpr2; (*$MAIN*)
-IMPORT B := Basic, Laser2, Laser;
+IMPORT SYSTEM, B := Basic, Laser2, Laser;
 
 CONST
   SpriteSizeBytes = 5(*hdr*) + 9*16*12(*data*) ;
@@ -8,7 +8,7 @@ CONST
 
 TYPE
   CoordsSet = ARRAY 8 OF BYTE;
-  SpriteSet = ARRAY SpriteSizeBytes * 4 + 1 OF CHAR;
+  SpriteSet = ARRAY SpriteSizeBytes * 4 + 1 OF SHORTCHAR;
 
 CONST
   Coords = CoordsSet (0, 0, 16, 0, 0, 12, 16, 12);
@@ -612,7 +612,7 @@ CONST
 
 VAR
   i: BYTE;
-  coords: ARRAY 4 OF RECORD x, y: BYTE END;
+  coords: ARRAY 4 OF RECORD [untagged] x, y: BYTE END;
 
 BEGIN
   Laser2.SPRTa(Sprites);

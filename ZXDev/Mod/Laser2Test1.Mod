@@ -6,7 +6,7 @@ MODULE Laser2Test1;
 IMPORT L := Laser2, B := Basic;
 
 TYPE
-  Sprite1X1 = ARRAY 14 OF CHAR;
+  Sprite1X1 = ARRAY 14 OF SHORTCHAR;
 
 CONST
   BluePearl = Sprite1X1

@@ -12,7 +12,8 @@ CONST
   V  = 20; (* Number of turns. Can be changed from 1 to .. *)
 
 VAR
-  i, x, y: SHORTINT; yr1, yr2: REAL; Sina, Cosa: ARRAY 361 OF REAL;
+  i, x, y: SHORTINT; yr1, yr2: SHORTREAL;
+	Sina, Cosa: ARRAY 361 OF SHORTREAL;
 
 PROCEDURE PrepareTables;
 VAR
@@ -22,7 +23,7 @@ BEGIN
   Sina[0] := Math.Sin(0); Cosa[0] := Math.Cos(0);
   G.PutPixel(37, 0); G.PutPixel(37, 1); G.PutPixel(37, 2); G.PutPixel(0, 0);
   FOR i := 1 TO 36 DO
-    yr1 := i * 3.1416 / 18;
+    yr1 := i * Math.Pi / 18;
     Sina[i*10] := Math.Sin(yr1); Cosa[i*10] := Math.Cos(yr1);
     yr1 := (Sina[i*10] - Sina[(i-1) * 10]) / 10;
     yr2 := (Cosa[i*10] - Cosa[(i-1) * 10]) / 10;
@@ -46,12 +47,12 @@ BEGIN (*$MAIN*)
     (* Когда i дойдёт до V*36, первый косинус должен V раз дойти до 360. *)
     (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
     G.PutPixel(
-      cx + SHORT(SHORT(ENTIER(R*Cosa[i*10 MOD 360] * Sina[i*5 DIV V]))),
+      cx + SHORT(ENTIER(R*Cosa[i*10 MOD 360] * Sina[i*5 DIV V])),
       (* Когда i дойдёт до V*36, первый синус должен v раз дойти до 360. *)
       (* Когда i дойдёт до V*36, второй синус должен дойти до 180. *)
       (* Когда i дойдёт до V*36, третий косинус должен дойти до 180. *)
-      cy + SHORT(SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
-         - yr2*Cosa[i*5 DIV V])))
+      cy + SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
+         - yr2*Cosa[i*5 DIV V]))
     );
   DEC(i);
   UNTIL i < 0;

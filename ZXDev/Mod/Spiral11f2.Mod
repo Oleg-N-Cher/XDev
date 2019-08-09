@@ -13,22 +13,22 @@ CONST
   V = 20; (* Number of turns. Can be changed from 1 to .. *)
 
 VAR
-  KD, MD: SHORTINT; i, r1, r2: SHORTINT; Sina, Cosa: ARRAY 361 OF SHORTINT;
+  KD, MD, i, r1, r2: SHORTINT; Sina, Cosa: ARRAY 361 OF SHORTINT;
 
 PROCEDURE PrepareTables;
 VAR
-  i: SHORTINT; q: BYTE; yr1, yr2: REAL;
+  i: SHORTINT; q: BYTE; yr1, yr2: SHORTREAL;
 BEGIN
   (* Подготовка массива синусов и косинусов *)
-  Sina[0] := SHORT(SHORT(ENTIER(Math.Sin(0) * 256)));
-  Cosa[0] := SHORT(SHORT(ENTIER(Math.Cos(0) * 256)));
+  Sina[0] := SHORT(ENTIER(Math.Sin(0) * 256));
+  Cosa[0] := SHORT(ENTIER(Math.Cos(0) * 256));
   G.PutPixel(37,0); G.PutPixel(37,1); G.PutPixel(37,2); G.PutPixel(0,0);
   FOR i := 1 TO 36 DO
-    yr1 := i*3.1416 / 18;
-    Sina[i*10] := SHORT(SHORT(ENTIER(Math.Sin(yr1)*256)));
+    yr1 := i*Math.Pi / 18;
+    Sina[i*10] := SHORT(ENTIER(Math.Sin(yr1)*256));
     yr1 := (Sina[i*10] - Sina[(i-1)*10]) / 10;
     FOR q := 1 TO 9 DO
-      Sina[(i-1)*10 + q] := SHORT(SHORT(ENTIER(Sina[(i-1)*10] + yr1*q)));
+      Sina[(i-1)*10 + q] := SHORT(ENTIER(Sina[(i-1)*10] + yr1*q));
     END;
     G.PutPixel(i, 0);
   END;

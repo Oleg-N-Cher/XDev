@@ -11,7 +11,7 @@ CONST
   SizeBytes = 5(*hdr*) + 8*9(*data*) ;
 
 TYPE
-  Sprite = ARRAY SizeBytes * 1 (*frames*) + 1 OF CHAR;
+  Sprite = ARRAY SizeBytes * 1 (*frames*) + 1 OF SHORTCHAR;
 
 CONST
   Turtle = Sprite (
