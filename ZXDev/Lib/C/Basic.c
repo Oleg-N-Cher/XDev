@@ -1603,6 +1603,7 @@ _Basic_OVER_MODE:
             LD   A,(ATTR_P$)
             LD   (DE),A
             INC  L
+.globl _Basic_INC_HPOS
 _Basic_INC_HPOS:
             JR   NZ,p_Sy2$
             LD   A,H
@@ -1715,7 +1716,6 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRLN_FAST (void) __naked {
 __asm
-.globl _Basic_INC_HPOS
             LD   HL,(#23684)
             LD   A,L
             OR   #0x1F

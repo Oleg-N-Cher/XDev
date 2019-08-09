@@ -22,10 +22,10 @@ MODULE TrDos; IMPORT SYSTEM;
 (* описываем дескриптор файла TR-DOS: *)
 
 TYPE
-  UCHAR* = CHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
+  UCHAR* = SHORTCHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
   UINT*  = SHORTINT;
   FDSP*  = RECORD [1]
-    trFName*    : ARRAY 9 OF CHAR; (* имя и тип файла *)
+    trFName*    : ARRAY 9 OF UCHAR; (* имя и тип файла *)
     trFStart*   : UCHARPTR; (* см. описание TR-DOS *)
     trFByteLen* : UINT;
     trFSectLen* : UCHAR;
@@ -37,7 +37,7 @@ TYPE
   
 (* функция #01 TR-DOS: *)
 (*          drive name ('a','b','c','d'), не чувствительна к регистру *)
-PROCEDURE DriveSel* (driveLetter: CHAR); END DriveSel;
+PROCEDURE DriveSel* (driveLetter: UCHAR); END DriveSel;
 
 (* функция #00 TR-DOS: *)
 PROCEDURE Init* ; END Init;
@@ -69,24 +69,24 @@ END WriteFileDSP;
 
 (* функция #0A TR-DOS: *)
 (*              name ptr  name len *)
-PROCEDURE FindFile* (name: ARRAY OF CHAR; nameLen: UCHAR): UCHAR;
+PROCEDURE FindFile* (name: ARRAY OF UCHAR; nameLen: UCHAR): UCHAR;
 END FindFile;
 
 (* функция #0B TR-DOS: *)
 (*          name ptr  data ptr     file data len *)
 PROCEDURE WriteFile* (
-  name: ARRAY OF CHAR; dataPtr: UCHARPTR; dataLen: UINT);
+  name: ARRAY OF UCHAR; dataPtr: UCHARPTR; dataLen: UINT);
 END WriteFile;
 
 (* функция #12 TR-DOS: *)
 (*          FDSP ptr *)
-PROCEDURE EraseFile* (name: ARRAY OF CHAR); END EraseFile;
+PROCEDURE EraseFile* (name: ARRAY OF UCHAR); END EraseFile;
 
 (* функция #0E TR-DOS, (23801) = 0: *)
 
 (*          name ptr  dest ptr    file data len *)
 PROCEDURE LoadFile* (
-  name: ARRAY OF CHAR; destPtr: UCHARPTR; fileDataLen: UINT);
+  name: ARRAY OF UCHAR; destPtr: UCHARPTR; fileDataLen: UINT);
 END LoadFile;
 
 END TrDos.

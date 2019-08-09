@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -s3 -21 */
+/* Ofront+ 1.0 -sx3 -21 */
 
 #ifndef Sound__h
 #define Sound__h

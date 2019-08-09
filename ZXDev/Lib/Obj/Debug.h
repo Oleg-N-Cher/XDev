@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -s3 -21 */
+/* Ofront+ 1.0 -sx3 -21 */
 
 #ifndef Debug__h
 #define Debug__h

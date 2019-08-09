@@ -188,12 +188,12 @@ __endasm;
 void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
-.globl _ATTR_ADR_C
   LD   A,L
   LD   (_CHAR_CODE_C$+1),A
   LD   HL,#_ATTR_ADR_C+1
   INC  (HL)
   CALL Z, _INC_HBYTE_C
+.globl _ATTR_ADR_C
 _ATTR_ADR_C:
   LD   DE,#0x5800-1    ;DE = экранный адрес
   LD   A,(SETV_A$)     ;Установим цвет символа
@@ -243,17 +243,17 @@ __endasm;
 void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall
 { // http://www.zxpress.ru/article.php?id=9493
 __asm
-.globl _ATTR_ADR_F
-.globl _SCR_ADR_F
   LD   A,L
   LD   (_CHAR_CODE_F$+1),A
   LD   HL,#_ATTR_ADR_F+1
   INC  (HL)
   CALL Z, _INC_HBYTE_F
+.globl _ATTR_ADR_F
 _ATTR_ADR_F:
   LD   DE,#0x5800-1    ;DE = экранный адрес
   LD   A,(SETV_A$)     ;Установим цвет символа
   LD   (DE),A
+.globl _SCR_ADR_F
 _SCR_ADR_F:            ;Перевод адреса атрибутов
   LD   D,#0x40-8       ; в экранный адрес
 ; =====печать символа 8х8 (compact) =====
@@ -320,7 +320,6 @@ void Console_WriteBool_ROM (BOOLEAN b) {
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteLn_COMPACT (void) __naked {
 __asm
-.globl _INC_HBYTE_C
   LD   HL,#_ATTR_ADR_C+1
   LD   A,(HL)
   OR   #0x1F
@@ -330,6 +329,7 @@ __asm
   ADD  A,#0x20
   LD   (HL),A
   RET  NC
+.globl _INC_HBYTE_C
 _INC_HBYTE_C:
   INC  HL              ;приращение старшего
   INC  (HL)            ;адреса атрибутов (и скроллинг)
@@ -346,7 +346,6 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Console_WriteLn_FAST (void) __naked {
 __asm
-.globl _INC_HBYTE_F
   LD   HL,#_ATTR_ADR_F+1
   LD   A,(HL)
   OR   #0x1F
@@ -356,6 +355,7 @@ __asm
   ADD  A,#0x20
   LD   (HL),A
   RET  NC
+.globl _INC_HBYTE_F
 _INC_HBYTE_F:
   LD   A,(#_SCR_ADR_F+1)
   ADD  A,#8
