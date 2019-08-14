@@ -21,6 +21,6 @@ BEGIN (*$MAIN*)
     IF Freq[i] # 0 THEN B.BEEP(Temp[i] * 10, Freq[i])
     ELSE B.PAUSE(Temp[i] DIV 2)
     END
-  END
+  END;
   B.Quit
 END TestBeep.

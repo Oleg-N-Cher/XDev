@@ -39,6 +39,7 @@ void Best40_PUTSPR (
   unsigned int adr, unsigned char mode);
 void Best40_SCREEN_APART (unsigned char steps);
 void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee;
+void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee;
 
 /*================================== Header ==================================*/
 
@@ -1157,7 +1158,7 @@ __endasm;
 } //Best40_PRSTR_AT_E
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee {
+void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __naked __z88dk_callee {
 __asm
 ; https://github.com/impomatic/z80snippets/blob/master/filledcircle.asm
 
@@ -1268,6 +1269,7 @@ OFFSCR$:  POP   HL
           DEC   BC
 SKIP$:    ADC   HL,BC
           JR    NZ,NEXT$
+          RET
 __endasm;
 } //Best40_FILLED_CIRCLE
 

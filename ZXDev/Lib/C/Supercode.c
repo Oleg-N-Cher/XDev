@@ -10,7 +10,7 @@ void Supercode_Attribute_Scr_Right (unsigned char x, unsigned char y,
 
 void Supercode_Attribute_Scr_Left (unsigned char x, unsigned char y,
   unsigned char width, unsigned char height, unsigned char wrap,
-  unsigned char atr) __z88dk_callee
+  unsigned char atr) __naked __z88dk_callee
 {
   __asm
            POP   HL
@@ -55,13 +55,14 @@ LOC_FED8$: LD    A, (DE)
            POP   DE
            POP   BC
            DJNZ LOC_FED0$
+           RET
   __endasm;
 } //Supercode_Attribute_Scr_Left
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Supercode_Attribute_Scr_Right (unsigned char x, unsigned char y,
   unsigned char width, unsigned char height, unsigned char wrap,
-  unsigned char atr) __z88dk_callee
+  unsigned char atr) __naked __z88dk_callee
 {
   __asm
            POP   HL
@@ -113,6 +114,7 @@ LOC_FEA2$: LD    A, (DE)
            POP   DE
            POP   BC
            DJNZ  LOC_FE9A$
+           RET
   __endasm;
 } //Supercode_Attribute_Scr_Right
 

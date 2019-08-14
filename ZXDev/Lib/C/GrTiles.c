@@ -3,7 +3,7 @@ void GrTiles_DrawMonoTile8x8 (
   unsigned char x, unsigned char y, unsigned int tile, unsigned char colors) __z88dk_callee;
 /*================================== Header ==================================*/
 
-void GrTiles_DrawTile8x8 (unsigned char x, unsigned char y, unsigned int tile) __z88dk_callee {
+void GrTiles_DrawTile8x8 (unsigned char x, unsigned char y, unsigned int tile) __naked __z88dk_callee {
 __asm
   POP  HL
   POP  DE      ; D = y; E = x
@@ -41,12 +41,13 @@ DRLOOP$:
   INC  HL
   LD   A,(HL)
   LD   (DE),A
+  RET
 __endasm;
 } //GrTiles_DrawTile8x8
 
 /*--------------------------------- Cut here ---------------------------------*/
 void GrTiles_DrawMonoTile8x8 (
-    unsigned char x, unsigned char y, unsigned int tile, unsigned char colors) __z88dk_callee {
+    unsigned char x, unsigned char y, unsigned int tile, unsigned char colors) __naked __z88dk_callee {
 __asm
   POP  BC
   POP  DE      ; D = y; E = x
@@ -90,6 +91,7 @@ DRLOOPM$:
   LD   D,A     ; 4 = 34t
   LD   A,C     ; tile attrib
   LD   (DE),A
+  RET
 __endasm;
 } //GrTiles_DrawMonoTile8x8
 

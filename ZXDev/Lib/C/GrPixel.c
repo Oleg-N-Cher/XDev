@@ -2,6 +2,7 @@
 
 void GrPixel_PutPixel_ROM (unsigned char x, unsigned char y) __z88dk_callee;
 void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y) __z88dk_callee;
+void GrPixel_Line (unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2) __z88dk_callee;
 
 /*================================== Header ==================================*/
 
@@ -133,7 +134,7 @@ __endasm;
 } //GrPixel_PutPixel_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y) __z88dk_callee
+void GrPixel_PutPixel_TBL (unsigned char x, unsigned char y) __naked __z88dk_callee
 {
 __asm
 ;--------------------------------------------------
@@ -155,6 +156,7 @@ PLOTTBL$: LD   H, #GrPixel_PLOTTBL ; старший байт
           LD   A, (BC)
           OR   (HL)
           LD   (BC),A
+          RET
 __endasm;
 } //GrPixel_PutPixel_TBL
 

@@ -4,7 +4,7 @@ unsigned char Strings_UIntToStr (unsigned int n, unsigned char *str, unsigned in
 unsigned char Strings_StrToInt (unsigned char *str, unsigned int len, unsigned int *result);
 /*============================================================================*/
 
-unsigned int Strings_LengthEx (unsigned int len, unsigned char *str) __z88dk_callee {
+unsigned int Strings_LengthEx (unsigned int len, unsigned char *str) __naked __z88dk_callee {
     __asm
         POP  HL
         POP  BC             ; len
@@ -17,11 +17,12 @@ unsigned int Strings_LengthEx (unsigned int len, unsigned char *str) __z88dk_cal
         RET  NZ
         SBC  HL, BC
         DEC  HL
+        RET
     __endasm;
 } //Strings_LengthEx
 
 /*----------------------------------------------------------------------------*/
-unsigned char Strings_IntToStr (int n, unsigned char *str, unsigned int len) __z88dk_callee
+unsigned char Strings_IntToStr (int n, unsigned char *str, unsigned int len) __naked __z88dk_callee
 {
     __asm
         POP  DE
@@ -53,11 +54,12 @@ unsigned char Strings_IntToStr (int n, unsigned char *str, unsigned int len) __z
         JP   NZ, _Strings_UIntToStr+7
 
         LD   L, #0          ; RETURN FALSE
+        RET
 __endasm;
 } //Strings_IntToStr
 
 /*----------------------------------------------------------------------------*/
-unsigned char Strings_UIntToStr (unsigned int n, unsigned char *str, unsigned int len) __z88dk_callee
+unsigned char Strings_UIntToStr (unsigned int n, unsigned char *str, unsigned int len) __naked __z88dk_callee
 {
     __asm
         POP  DE
@@ -109,6 +111,7 @@ NEXTCH$:EXX
         LD   L, #0          ; RETURN FALSE
         POP  AF
 RETRN$:
+        RET
     __endasm;
 } //Strings_UIntToStr
 
