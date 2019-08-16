@@ -364,7 +364,7 @@ extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall __p
 #endif
 
 //----------------------------- PRUDG (udg: CHAR) ------------------------------
-#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg)+79)
+#define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg+79))
 
 //---------------------------- PRWORD (n: LONGINT) -----------------------------
 extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
