@@ -20,7 +20,7 @@ END Sign;
 BEGIN (*$MAIN*)
 	KD := G.ZX;
 	MD := G.ZXMono;
-	G.InitGraph(KD, MD, "");
+	G.InitGraph(@KD, @MD, "");
 	ox := (G.GetMaxX() + 1) DIV 2;
 	oy := (G.GetMaxY() + 1) DIV 2;
 	G.SetColor(G.White);

@@ -41,7 +41,7 @@ END Flower;
 BEGIN (*$MAIN*)
   KD := G.ZX;
   MD := G.ZXColor;
-  G.InitGraph(KD, MD, "");
+  G.InitGraph(@KD, @MD, "");
   G.SetBkColor(G.Green); G.SetColor(G.Red); G.ClearDevice;
   x0 := (G.GetMaxX() + 1) DIV 2;
   y0 := (G.GetMaxY() + 1) DIV 2;

@@ -32,9 +32,9 @@ END MoveBall;
 BEGIN
   b.Init;
   b.COLOR(b.Yellow); b.BORDER(b.Black); b.CLS;
-  t.Spawn(task1, MoveBall); t.Spawn(task2, MoveBall);
-  t.Spawn(task3, MoveBall); t.Spawn(task4, MoveBall);
-  t.Spawn(task5, MoveBall); t.Spawn(task6, MoveBall);
-  t.Spawn(task7, MoveBall); t.Spawn(task8, MoveBall);
+  t.Spawn(@task1, MoveBall); t.Spawn(@task2, MoveBall);
+  t.Spawn(@task3, MoveBall); t.Spawn(@task4, MoveBall);
+  t.Spawn(@task5, MoveBall); t.Spawn(@task6, MoveBall);
+  t.Spawn(@task7, MoveBall); t.Spawn(@task8, MoveBall);
   LOOP t.Run END
 END MoveBalls.

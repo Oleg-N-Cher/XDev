@@ -24,8 +24,8 @@ BEGIN
 END Proc;
 
 BEGIN
-  co.Spawn(task1, Proc);
-  co.Spawn(task2, Proc);
-  co.Spawn(task3, Proc);
+  co.Spawn(@task1, Proc);
+  co.Spawn(@task2, Proc);
+  co.Spawn(@task3, Proc);
   REPEAT co.Run UNTIL co.Count() = 0;
 END TestTasks.

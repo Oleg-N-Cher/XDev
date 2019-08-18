@@ -44,8 +44,8 @@ BEGIN
     IO.WriteStrLn(list[n].name);
     IO.WriteCh(list[n].sex); IO.WriteLn;
     IO.WriteInt(list[n].age); IF n # 0 THEN IO.WriteLn; IO.WriteLn END;
-    Platform.DISPOSE(list[n]);
+    Platform.DISPOSE(@list[n]);
   END;
-  Platform.DISPOSE(list);
+  Platform.DISPOSE(@list);
   B.PAUSE(0); B.Quit
 END DemoDynMem.

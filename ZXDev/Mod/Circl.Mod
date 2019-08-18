@@ -113,7 +113,7 @@ END EORFill;
 BEGIN (*$MAIN*)
   KD := G.ZX;
   MD := G.ZXMono;
-  G.InitGraph(KD, MD, "");
+  G.InitGraph(@KD, @MD, "");
   G.SetBkColor(G.Green); G.SetColor(G.Black); G.ClearDevice;
   Basic.OVER(1);
 	FOR i:=0 TO 20 DO

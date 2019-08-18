@@ -40,7 +40,7 @@ END PrepareTables;
 BEGIN (*$MAIN*)
   KD := G.ZX;
   MD := G.ZXMono;
-  G.InitGraph(KD, MD, "");
+  G.InitGraph(@KD, @MD, "");
 
   PrepareTables;
 
