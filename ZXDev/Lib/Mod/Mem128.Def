@@ -1,9 +1,14 @@
-MODULE Mem128; (** non-portable *)
+MODULE Mem128; IMPORT SYSTEM; (** non-portable *)
 (*----------------------------------------*)
 (* ZX Spectrum 128k memory access library *)
 (*       VEDAsoft Oberon Club, 2019       *)
 (*----------------------------------------*)
 
+PROCEDURE IsTRDOS* (): BOOLEAN; END IsTRDOS;
+PROCEDURE LoadDisk* (
+	filename: ARRAY [untagged] OF SHORTCHAR; adr: INTEGER): BOOLEAN;
+		END LoadDisk;
+PROCEDURE LoadTape* (adr: INTEGER): BOOLEAN; END LoadTape;
 PROCEDURE Page* (n: BYTE); END Page;
 
 END Mem128.
