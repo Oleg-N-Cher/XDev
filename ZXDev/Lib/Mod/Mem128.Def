@@ -1,14 +1,25 @@
 MODULE Mem128; IMPORT SYSTEM; (** non-portable *)
 (*----------------------------------------*)
 (* ZX Spectrum 128k memory access library *)
+(* Loading files from tape & TR-DOS disk  *)
 (*       VEDAsoft Oberon Club, 2019       *)
 (*----------------------------------------*)
 
+CONST (* LoadTape error codes *)
+  OK               * = 0;
+  ErrTapeLoading   * = 1;
+  ErrLoadingHeader * = 2;
+  ErrNameNotMatch  * = 3;
+  ErrBreakPressed  * = 4;
+
+VAR
+  filesize-: SHORTINT; (* File size after LoadTape/LoadDisk successful *)
+
 PROCEDURE IsTRDOS* (): BOOLEAN; END IsTRDOS;
-PROCEDURE LoadDisk* (
-	filename: ARRAY [untagged] OF SHORTCHAR; adr: INTEGER): BOOLEAN;
-		END LoadDisk;
-PROCEDURE LoadTape* (adr: INTEGER): BOOLEAN; END LoadTape;
+PROCEDURE LoadDisk* (filename: ARRAY [untagged] OF SHORTCHAR;
+  adr: INTEGER): BOOLEAN; END LoadDisk;
+PROCEDURE LoadTape* (filename: ARRAY [untagged] OF SHORTCHAR;
+  adr: INTEGER): BYTE; END LoadTape;
 PROCEDURE Page* (n: BYTE); END Page;
 
 END Mem128.
