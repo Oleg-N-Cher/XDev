@@ -18,14 +18,12 @@ unsigned int Mem128_filesize;
 unsigned char Mem128_IsTRDOS (void) {
   __asm 
        LD      HL,(#23635)
-       LD      A,L
-       LD      L,#1
-       CP      #203       ; 23755
-       RET     NZ
-       LD      A,H
-       CP      #92
-       RET     NZ
-       DEC     L
+       LD      DE,#23755
+       XOR     A
+       SBC     HL,DE
+       LD      L,A
+       RET     Z
+       INC     L
   __endasm;
 } //Mem128_IsTRDOS
 
