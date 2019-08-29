@@ -1,0 +1,7 @@
+;my disk
+
+EXTENDED "ZXDev"
+HOBETA "..\Bin\boot.$b","boot","B"
+BINARY "TestSave.bin","Dash","C",26000
+HOBETA "TestMem128.$c","Castle","C",50000
+;end of disk

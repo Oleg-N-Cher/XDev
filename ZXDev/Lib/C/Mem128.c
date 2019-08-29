@@ -7,12 +7,16 @@
 extern unsigned int Mem128_filesize;
 
 unsigned char Mem128_IsTRDOS (void);
-unsigned char Mem128_LoadDisk (unsigned char *filename, unsigned int adr) __z88dk_callee;
-unsigned char Mem128_LoadTape (unsigned char *filename, unsigned int adr) __z88dk_callee;
+unsigned char Mem128_LoadDisk (unsigned char *name_ext, unsigned int adr) __z88dk_callee;
+unsigned char Mem128_LoadTape (unsigned char *name, unsigned int adr) __z88dk_callee;
 void Mem128_Page (unsigned char n) __z88dk_fastcall;
+void Mem128_SaveDisk (unsigned char *name_ext, unsigned int adr, unsigned int size) __z88dk_callee;
+void Mem128_SaveTape (unsigned char *name, unsigned int adr, unsigned int size) __z88dk_callee;
 
 /*================================== Header ==================================*/
 unsigned int Mem128_filesize;
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Mem128_tapeHeader [17];
 
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Mem128_IsTRDOS (void) {
@@ -28,7 +32,7 @@ unsigned char Mem128_IsTRDOS (void) {
 } //Mem128_IsTRDOS
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Mem128_LoadDisk (unsigned char *filename, unsigned int adr) __naked __z88dk_callee {
+unsigned char Mem128_LoadDisk (unsigned char *name_ext, unsigned int adr) __naked __z88dk_callee {
   __asm // http://zxpress.ru/article.php?id=11342
         // http://zxpress.ru/book_articles.php?id=1352
        POP     HL
@@ -63,12 +67,12 @@ CONTINUE$:
 } //Mem128_LoadDisk
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char tapeHeader [17];
+extern unsigned char Mem128_tapeHeader [17];
 
-unsigned char Mem128_LoadTape (unsigned char *filename, unsigned int adr) __naked __z88dk_callee {
+unsigned char Mem128_LoadTape (unsigned char *name, unsigned int adr) __naked __z88dk_callee {
   __asm // http://zxpress.ru/book_articles.php?id=1876
        PUSH    IX
-       LD      IX, #_tapeHeader
+       LD      IX, #_Mem128_tapeHeader
        LD      DE, #17
        XOR     A          // Ожидается заголовок
        SCF                // Загрузка кодового блока
@@ -92,7 +96,7 @@ unsigned char Mem128_LoadTape (unsigned char *filename, unsigned int adr) __nake
        PUSH    IX
        PUSH    BC
        POP     IX         // Адрес загрузки файла
-       LD      HL,#_tapeHeader+1
+       LD      HL,#_Mem128_tapeHeader+1
        LD      B,#10
 MATCHNAME$:
        LD      A,(DE)
@@ -103,7 +107,7 @@ MATCHNAME$:
        INC     DE
        INC     HL
        DJNZ    MATCHNAME$
-MATCH$:LD      DE,(#_tapeHeader+11)
+MATCH$:LD      DE,(#_Mem128_tapeHeader+11)
        LD      (#_Mem128_filesize),DE
        LD      A,#255     // Ожидается тело файла
        SCF                // Загрузка кодового блока
@@ -154,3 +158,73 @@ void Mem128_Page (unsigned char n) __z88dk_fastcall {
        EI                 ; Разрешить прерывания.
   __endasm;
 } //Mem128_Page
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Mem128_SaveDisk (unsigned char *name_ext, unsigned int adr, unsigned int size)
+__naked __z88dk_callee { // http://zxpress.ru/article.php?id=11342
+  __asm
+       POP     HL
+       EX      (SP),HL    ; Адрес имени файла
+       LD      C,#0x13
+       CALL    0x3D13
+       POP     HL
+       POP     DE         ; Адрес записываемых данных
+       EX      (SP),HL    ; Длина файла
+       EX      DE,HL
+       LD      C,#0x0B    ; Запись на диск файла
+       JP      0x3D13
+  __endasm;
+} // Mem128_SaveDisk
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Mem128_SaveTape (unsigned char *name, unsigned int adr, unsigned int size)
+__naked __z88dk_callee { // http://zxpress.ru/book_articles.php?id=850
+/* A header always consists of 17 bytes:
+
+        Byte    Length  Description
+        ---------------------------
+        0       1       Type (0,1,2 or 3)
+        1       10      Filename (padded with blanks)
+        11      2       Length of code block
+        13      2       Start address of the code block
+        15      2       32768
+*/
+  __asm
+       POP     HL
+       EX      (SP),HL    ; Filename
+       LD      DE,#_Mem128_tapeHeader
+       LD      A,#3       ; SAVE "" CODE
+       LD      (DE),A
+       INC     DE
+       LD      B,#10
+NAMELOOP$:
+       LD      A,(HL)
+       OR      A
+       JR      NZ,NAMECHAR$
+       LD      A,#' '
+       DEC     HL
+NAMECHAR$:
+       LD      (DE),A
+       INC     HL
+       INC     DE
+       DJNZ    NAMELOOP$
+       POP     HL
+       POP     BC         ; Start address of the code block
+       EX      (SP),HL    ; Length of code block
+       LD      (#_Mem128_tapeHeader+11),HL
+       LD      (#_Mem128_tapeHeader+13),BC
+       LD      HL,#32768
+       LD      (#_Mem128_tapeHeader+15),HL
+       PUSH    IX
+       LD      IX,#_Mem128_tapeHeader
+       LD      DE,#17
+       XOR     A
+       CALL    1222
+       LD      IX,(#_Mem128_tapeHeader+13)
+       LD      DE,(#_Mem128_tapeHeader+11)
+       LD      A,#255
+       CALL    1222
+       POP     IX
+       RET
+  __endasm;
+} // Mem128_SaveTape

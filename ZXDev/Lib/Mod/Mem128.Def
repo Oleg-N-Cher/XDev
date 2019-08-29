@@ -16,10 +16,14 @@ VAR
   filesize-: SHORTINT; (* File size after LoadTape/LoadDisk successful *)
 
 PROCEDURE IsTRDOS* (): BOOLEAN; END IsTRDOS;
-PROCEDURE LoadDisk* (filename: ARRAY [untagged] OF SHORTCHAR;
+PROCEDURE LoadDisk* (name_ext: ARRAY [untagged] OF SHORTCHAR;
   adr: INTEGER): BOOLEAN; END LoadDisk;
-PROCEDURE LoadTape* (filename: ARRAY [untagged] OF SHORTCHAR;
+PROCEDURE LoadTape* (name: ARRAY [untagged] OF SHORTCHAR;
   adr: INTEGER): BYTE; END LoadTape;
 PROCEDURE Page* (n: BYTE); END Page;
+PROCEDURE SaveDisk* (name_ext: ARRAY [untagged] OF SHORTCHAR;
+  adr, size: INTEGER); END SaveDisk;
+PROCEDURE SaveTape* (name: ARRAY [untagged] OF SHORTCHAR;
+  adr, size: INTEGER); END SaveTape;
 
 END Mem128.
