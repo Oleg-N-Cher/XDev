@@ -27,6 +27,7 @@ void Basic_CLS_ZX (void);
 void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
 void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
 void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
+void Basic_DRAWARC (signed char x, signed char y, int arc) __z88dk_callee;
 void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
 void Basic_INK (unsigned char color) __z88dk_fastcall;
 unsigned char Basic_INKEY (void);
@@ -924,6 +925,67 @@ PositiveYc$:
   JP   0x24BA
 __endasm;
 } //Basic_DRAW_callee
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_DRAWARC (signed char x, signed char y, int arc) __naked __z88dk_callee {
+__asm
+       LD    IY,#0x5C3A
+       POP   HL
+       POP   BC     ; C = x; B = y
+       EX    (SP),HL
+       LD    A,(#0x5C7D)
+       ADD   C
+       PUSH  HL
+       PUSH  BC
+       JR    C,NegativeX$
+       LD    A,C
+       CALL  0x2D28 ; Put positive x into stack
+       JR    DoneX$
+NegativeX$:
+       XOR   A
+       SUB   C
+       CALL  0x2D28 ; Put negative x into stack
+       RST   40
+       .DB   27,56  ; Do it negative
+DoneX$:
+       LD    A,(#0x5C7E)
+       POP   BC
+       ADD   B
+       JR    C,NegativeY$
+       LD    A,B
+       CALL  0x2D28 ; Put positive y into stack
+       JR    DoneY$
+NegativeY$:
+       XOR   A
+       SUB   B
+       CALL  0x2D28 ; Put negative x into stack
+       RST   40
+       .DB   27,56  ; Do it negative
+DoneY$:
+       POP   BC
+       BIT   7,B
+       JR    NZ,DrawNegArc$
+       CALL  0x2D2F ; Put arc into stack
+       JR    DrawArc$
+DrawNegArc$:
+       XOR   A
+       LD    L,A
+       LD    H,A
+       SBC   HL,BC
+       CALL  0x2D2F ; Put negative arc into stack
+       RST   40
+       .DB   27,56  ; Do it negative
+DrawArc$:
+       RST   40
+       .DB   0xA3,4 ; x * PI / 2
+       .DB   56
+       LD    A,#90
+       CALL  0x2D28 ; Put 90 into stack
+       RST   40
+       .DB   5,56   ; x * PI / 180
+       JP    0x2394
+__endasm;
+} //Basic_DRAWARC
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_DRAW_fastcall (unsigned int xy) __naked __z88dk_fastcall {

@@ -227,6 +227,7 @@ extern void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
 #else
 #  define Basic_DRAW(x,y) Basic_DRAW_fastcall((unsigned int)((y)<<8) + (unsigned char)((x)&0xFF))
 #endif
+extern void Basic_DRAWARC (signed char x, signed char y, int arc) __z88dk_callee;
 
 //----------------------------- FLASH (mode: Mode) -----------------------------
 extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
