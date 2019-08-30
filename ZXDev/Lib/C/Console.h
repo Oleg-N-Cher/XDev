@@ -44,6 +44,18 @@ extern SHORTINT Console_ReadInt_FAST (void);
 #    define Console_ReadIntRange Console_ReadIntRange_FAST
 #    define Console_ReadInt Console_ReadInt_FAST
 #  endif
+extern void Console_ReadStr_COMPACT (CHAR *str, SHORTINT str__len, BYTE maxlen);
+extern void Console_ReadStr_FAST (CHAR *str, SHORTINT str__len, BYTE maxlen);
+extern void Console_ReadStr_ROM (CHAR *str, SHORTINT str__len, BYTE maxlen);
+#  ifdef Console_OUTPUT_ROM
+#    define Console_ReadStr Console_ReadStr_ROM
+#  endif
+#  ifdef Console_OUTPUT_COMPACT
+#    define Console_ReadStr Console_ReadStr_COMPACT
+#  endif
+#  ifdef Console_OUTPUT_FAST
+#    define Console_ReadStr Console_ReadStr_FAST
+#  endif
 extern void Console_WriteCh_COMPACT (unsigned char ch) __z88dk_fastcall;
 extern void Console_WriteCh_FAST (unsigned char ch) __z88dk_fastcall;
 extern void Console_WriteCh_ROM (unsigned char ch) __z88dk_fastcall;

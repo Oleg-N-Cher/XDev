@@ -12,6 +12,9 @@ SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max);
 SHORTINT Console_ReadInt_COMPACT (void);
 SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max);
 SHORTINT Console_ReadInt_FAST (void);
+void Console_ReadStr_COMPACT (CHAR *str, SHORTINT str__len, BYTE maxlen);
+void Console_ReadStr_FAST (CHAR *str, SHORTINT str__len, BYTE maxlen);
+void Console_ReadStr_ROM (CHAR *str, SHORTINT str__len, BYTE maxlen);
 void Console_WriteBool_COMPACT (BOOLEAN b);
 void Console_WriteBool_FAST (BOOLEAN b);
 void Console_WriteBool_ROM (BOOLEAN b);
@@ -43,6 +46,10 @@ void Console_Clear_ROM (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_FAST (unsigned char attr) __z88dk_fastcall;
 void Console_Clear_COMPACT (unsigned char attr) __z88dk_fastcall;
 float Console_Ten (unsigned char n);
+
+void Console_BackPos_ROM (void);
+void Console_BackPos_FAST (void);
+void Console_BackPos_COMPACT (void);
 
 /* Set video attrib */
 #define SETV_A$   0x5C8F
@@ -695,6 +702,7 @@ __asm
 __endasm;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 BYTE i, digits;
 CHAR ch;
 CHAR data[8];
@@ -794,6 +802,7 @@ __asm
 __endasm;
 }
 
+/*--------------------------------- Cut here ---------------------------------*/
 BYTE i, digits;
 CHAR ch;
 CHAR data[8];
@@ -892,6 +901,7 @@ __asm
   DEC  (HL)
 __endasm;
 }
+/*--------------------------------- Cut here ---------------------------------*/
 
 BYTE i, digits;
 CHAR ch;
@@ -981,6 +991,180 @@ SHORTINT Console_ReadIntRange_FAST (SHORTINT min, SHORTINT max)
 SHORTINT Console_ReadInt_FAST (void)
 {
   return Console_ReadIntRange_FAST(-32768, 32767);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_ReadStr_COMPACT (CHAR *str, SHORTINT str__len, BYTE maxlen)
+{
+	BYTE i, chars;
+	CHAR ch;
+	chars = 0;
+	if ((SHORTINT)maxlen >= str__len) {
+		maxlen = (BYTE)str__len - 1;
+	}
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_COMPACT('_');
+			Console_BackPos_COMPACT();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					Console_WriteCh_COMPACT(' ');
+					Console_BackPos_COMPACT();
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+			Console_WriteCh_COMPACT(' ');
+			Console_BackPos_COMPACT();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+		}
+		exit__1:;
+		ch = Input_Read();
+		if ((((ch >= ' ' && ch <= 0x7f)) && chars <= maxlen)) {
+			Console_WriteCh_COMPACT(ch);
+			str[chars] = ch;
+			chars += 1;
+		} else if ((ch == 0x0c && chars > 0)) {
+			chars -= 1;
+			Console_BackPos_COMPACT();
+			Console_WriteCh_COMPACT(' ');
+			Console_BackPos_COMPACT();
+		} else if (ch == 0x0d) {
+			str[chars] = 0x00;
+			return;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_ReadStr_FAST (CHAR *str, SHORTINT str__len, BYTE maxlen)
+{
+	BYTE i, chars;
+	CHAR ch;
+	chars = 0;
+	if ((SHORTINT)maxlen >= str__len) {
+		maxlen = (BYTE)str__len - 1;
+	}
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_FAST('_');
+			Console_BackPos_FAST();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					Console_WriteCh_FAST(' ');
+					Console_BackPos_FAST();
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+			Console_WriteCh_FAST(' ');
+			Console_BackPos_FAST();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+		}
+		exit__1:;
+		ch = Input_Read();
+		if ((((ch >= ' ' && ch <= 0x7f)) && chars <= maxlen)) {
+			Console_WriteCh_FAST(ch);
+			str[chars] = ch;
+			chars += 1;
+		} else if ((ch == 0x0c && chars > 0)) {
+			chars -= 1;
+			Console_BackPos_FAST();
+			Console_WriteCh_FAST(' ');
+			Console_BackPos_FAST();
+		} else if (ch == 0x0d) {
+			str[chars] = 0x00;
+			return;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Console_ReadStr_ROM (CHAR *str, SHORTINT str__len, BYTE maxlen)
+{
+	BYTE i, chars;
+	CHAR ch;
+	chars = 0;
+	if ((SHORTINT)maxlen >= str__len) {
+		maxlen = (BYTE)str__len - 1;
+	}
+	for (;;) {
+		for (;;) {
+			Console_WriteCh_ROM('_');
+			Console_BackPos_ROM();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					Console_WriteCh_ROM(' ');
+					Console_BackPos_ROM();
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+			Console_WriteCh_ROM(' ');
+			Console_BackPos_ROM();
+			i = 25;
+			do {
+				if (Input_Available() != 0) {
+					goto exit__1;
+				}
+				Timer_Delay(10);
+			} while (--i);
+		}
+		exit__1:;
+		ch = Input_Read();
+		if ((((ch >= ' ' && ch <= 0x7f)) && chars <= maxlen)) {
+			Console_WriteCh_ROM(ch);
+			str[chars] = ch;
+			chars += 1;
+		} else if ((ch == 0x0c && chars > 0)) {
+			chars -= 1;
+			Console_BackPos_ROM();
+			Console_WriteCh_ROM(' ');
+			Console_BackPos_ROM();
+		} else if (ch == 0x0d) {
+			str[chars] = 0x00;
+			return;
+		}
+		i = 25;
+		for (;;) {
+			if (Input_Available() == 0 || i == 0) {
+				break;
+			}
+			Timer_Delay(10);
+			i -= 1;
+		}
+	}
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

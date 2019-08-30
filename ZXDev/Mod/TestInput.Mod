@@ -1,11 +1,11 @@
 MODULE TestInput; (*$MAIN*)
-IMPORT Basic, Input;
+IMPORT io := Console;
 
 VAR
-  key: Input.Key;
+  name: ARRAY 32 OF SHORTCHAR;
 BEGIN
-  Basic.Init;
-  REPEAT key := Input.Read(); Basic.PRCHAR(key);
-  UNTIL key = "0";
-  Basic.Quit;
+  io.SetColors(io.LCyanOnBlue); io.Clear(io.Black);
+  io.WriteStr("Enter your name:"); io.WriteLn; io.WriteLn;
+  io.ReadStr(@name, 31); io.WriteLn; io.WriteLn;
+  io.WriteStr("Hello, "); io.WriteStr(name);
 END TestInput. 
