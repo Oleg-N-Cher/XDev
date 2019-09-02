@@ -2,6 +2,6 @@
 
 EXTENDED "ZXDev"
 HOBETA "..\Bin\boot.$b","boot","B"
-BINARY "TestSave.bin","Dash","C",26000
+BINARY "TestFiles.bin","Dash","C",26000
 HOBETA "TestFiles.$c","Castle","C",50000
 ;end of disk

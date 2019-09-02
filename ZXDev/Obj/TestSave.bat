@@ -6,7 +6,7 @@ SET DataAdr=30000
 SET Bin=..\Bin
 SET Lib=..\Lib
 
-%Bin%\sdcc %Name%.c -mz80 --reserve-regs-iy --code-loc %CodeAdr% --data-loc %DataAdr% --opt-code-size --disable-warning 59 --disable-warning 85 --disable-warning 126 -I %Lib% -I %Lib%\C -I %Lib%\Obj -L %Lib% Basic.lib XDev.lib Mem128.lib
+%Bin%\sdcc %Name%.c -mz80 --reserve-regs-iy --code-loc %CodeAdr% --data-loc %DataAdr% --opt-code-size --disable-warning 59 --disable-warning 85 --disable-warning 126 -I %Lib% -I %Lib%\C -I %Lib%\Obj -L %Lib% Basic.lib XDev.lib
 IF errorlevel 1 PAUSE
 
 :: Convert Intel hex format to binary
@@ -18,7 +18,7 @@ IF errorlevel 1 PAUSE
 
 %Bin%\bin2data.exe -rem -org %CodeAdr% %Name%.bin ..\%Name%.tap %Name%
 IF errorlevel 1 PAUSE
-COPY /b ..\TestSave.tap + TestMem128data.tap ..\%Name%.tap
+COPY /b ..\TestSave.tap + TestFiles_data.tap ..\%Name%.tap
 
 :: Link the target to TR-DOS format
 :: ================================

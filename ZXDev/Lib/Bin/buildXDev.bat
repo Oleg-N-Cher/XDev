@@ -14,6 +14,7 @@
 @CALL ..\Bin\smart %Lib% Input
 @CALL ..\Bin\smart--reserve-regs-iy %Lib% Console
 @CALL ..\Bin\smart--reserve-regs-iy %Lib% Math
+@CALL ..\Bin\smart %Lib% Files
 @CALL ..\Bin\smart %Lib% Control
 @CALL ..\Bin\smart %Lib% Sound -noinit
 @CALL ..\Bin\solid %Lib% Debug

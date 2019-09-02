@@ -1,0 +1,27 @@
+MODULE Files; IMPORT SYSTEM; (** non-portable *)
+(*---------------------------------------*)
+(* Load/Save files on tape & TR-DOS disk *)
+(*      VEDAsoft Oberon Club, 2019       *)
+(*---------------------------------------*)
+
+CONST (* LoadTape error codes *)
+  OK               * = 0;
+  ErrTapeLoading   * = 1;
+  ErrLoadingHeader * = 2;
+  ErrNameNotMatch  * = 3;
+  ErrBreakPressed  * = 4;
+
+VAR
+  filesize-: SHORTINT; (* File size after LoadTape/LoadDisk successful *)
+
+PROCEDURE IsTRDOS* (): BOOLEAN; END IsTRDOS;
+PROCEDURE LoadDisk* (name_ext: ARRAY [untagged] OF SHORTCHAR;
+  adr: INTEGER): BOOLEAN; END LoadDisk;
+PROCEDURE LoadTape* (name: ARRAY [untagged] OF SHORTCHAR;
+  adr: INTEGER): BYTE; END LoadTape;
+PROCEDURE SaveDisk* (name_ext: ARRAY [untagged] OF SHORTCHAR;
+  adr, size: INTEGER); END SaveDisk;
+PROCEDURE SaveTape* (name: ARRAY [untagged] OF SHORTCHAR;
+  adr, size: INTEGER); END SaveTape;
+
+END Files.

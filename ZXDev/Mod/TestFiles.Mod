@@ -1,4 +1,4 @@
-MODULE TestSave;
+MODULE TestFiles;
 IMPORT b := Basic, f := Files;
 
 BEGIN (*$MAIN*)
@@ -19,10 +19,5 @@ BEGIN (*$MAIN*)
     END
   END;
   b.PAUSE(0);
-  IF f.IsTRDOS() THEN
-    f.SaveDisk("Castle2 C", 4000H, 6912)
-  ELSE
-    f.SaveTape("Castle2", 4000H, 6912)
-  END;
   b.Quit
-END TestSave.
+END TestFiles.
