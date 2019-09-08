@@ -208,7 +208,7 @@ PROCEDURE GetTime (VAR t : TIME);
 VAR
     dt  : W.SYSTEMTIME;
 BEGIN
-    W.GetLocalTime(dt);
+    W.GetLocalTime(@dt);
     t.hour := dt.wHour;
     t.minute := dt.wMinute;
     t.second := dt.wSecond;
@@ -335,7 +335,7 @@ BEGIN
         END;
     END;
 
-    GetTime(oTime);
+    GetTime(@oTime);
 END ClockCreate;
 
 (***************************************************************************
@@ -383,7 +383,7 @@ PROCEDURE ClockSize(w : W.HWND;
 BEGIN
 
   (* Set ClockRect to bound the largest possible circle in the window *)
-  Ignore.Int( W.SetRect(ClockRect, 0, 0, newWidth, newHeight) );
+  Ignore.Int( W.SetRect(@ClockRect, 0, 0, newWidth, newHeight) );
   CircleClock(newWidth, newHeight);
 
   IF sizeType = W.SIZE_MINIMIZED THEN
@@ -434,13 +434,13 @@ BEGIN
 
     (* Compute the clock center and radius *)
 
-    Ignore.Int( W.InflateRect(ClockRect, -dotCenter.y, -dotCenter.x) );
+    Ignore.Int( W.InflateRect(@ClockRect, -dotCenter.y, -dotCenter.x) );
 
     ClockRadius := ((ClockRect.right - ClockRect.left) DIV 2);
     ClockCenter.x := ClockRect.left + ClockRadius;
     ClockCenter.y := ClockRect.top + ((ClockRect.bottom - ClockRect.top) DIV 2);
 
-    Ignore.Int( W.InflateRect(ClockRect, dotCenter.y, dotCenter.x) );
+    Ignore.Int( W.InflateRect(@ClockRect, dotCenter.y, dotCenter.x) );
 
     (* Draw the large hour-marking dots and small minute-marking dots *)
 
@@ -455,7 +455,7 @@ BEGIN
 
                 rc.right := rc.left + 1;
                 rc.bottom := rc.top + 1;
-                Ignore.Int( W.FillRect(DC, rc, hbrForegnd) );
+                Ignore.Int( W.FillRect(DC, @rc, hbrForegnd) );
             END;
 
         ELSE
@@ -464,8 +464,8 @@ BEGIN
             rc.right := rc.left + dotWidth;
             rc.bottom := rc.top + dotHeight;
 
-            Ignore.Int( W.OffsetRect(rc, -dotCenter.x, -dotCenter.y) );
-            Ignore.Int( W.FillRect(DC, rc, hbrForegnd) );
+            Ignore.Int( W.OffsetRect(@rc, -dotCenter.x, -dotCenter.y) );
+            Ignore.Int( W.FillRect(DC, @rc, hbrForegnd) );
         END;
     END;
 END DrawFace;
@@ -503,7 +503,7 @@ BEGIN
     xr := (CirTab[2*pos](*x*) * radius) DIV CIRTABSCALE;
     yr := (CirTab[2*pos+1](*y*) * radius) DIV CIRTABSCALE;
 
-    Ignore.Int( W.MoveToEx(DC, ClockCenter.x, ClockCenter.y, NIL) );
+    Ignore.Int( W.MoveToEx(DC, ClockCenter.x, ClockCenter.y, @NIL) );
     Ignore.Int( W.LineTo(DC, ClockCenter.x + xr, ClockCenter.y + yr) );
 END DrawHand;
 
@@ -575,22 +575,22 @@ BEGIN
 
     (* Draw tip of hand *)
   Ignore.Int(
-    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL));
+    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, @NIL));
   Ignore.Int(
     W.LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y));
   Ignore.Int(
-    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL));
+    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, @NIL));
   Ignore.Int(
     W.LineTo(DC, ClockCenter.x +  ptTip.x, ClockCenter.y +  ptTip.y));
 
     (* Draw tail of hand *)
 
   Ignore.Int(
-    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, NIL));
+    W.MoveToEx(DC, ClockCenter.x + ptSide.x, ClockCenter.y + ptSide.y, @NIL));
   Ignore.Int(
     W.LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y));
   Ignore.Int(
-    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, NIL));
+    W.MoveToEx(DC, ClockCenter.x - ptSide.x, ClockCenter.y - ptSide.y, @NIL));
   Ignore.Int(
     W.LineTo(DC, ClockCenter.x + ptTail.x, ClockCenter.y + ptTail.y));
 END DrawFatHand;
@@ -611,7 +611,7 @@ BEGIN
     IF paintType = PAINTALL THEN
         (* Paint entire clock -- face and hands *)
 
-        Ignore.Int( W.FillRect(dc, ClockRect, hbrBackgnd) );
+        Ignore.Int( W.FillRect(dc, @ClockRect, hbrBackgnd) );
         DrawFace(dc);
         DrawFatHand(dc, HourHandPos(oTime), hpenForegnd, HHAND);
         DrawFatHand(dc, oTime.minute, hpenForegnd, MHAND);
@@ -621,7 +621,7 @@ BEGIN
             DrawHand(dc, oTime.second, hpenBackgnd, SECONDTIP, W.R2_NOT);
         END;
     ELSIF paintType = HANDPAINT THEN
-        GetTime(nTime);
+        GetTime(@nTime);
 
         IF ((bIconic = FALSE) & (nTime.second # oTime.second)) THEN
             (* Second has changed -- erase old second hand *)
@@ -680,7 +680,7 @@ VAR
     nTime   : TIME;
     dc      : W.HDC;
 BEGIN
-    GetTime(nTime);
+    GetTime(@nTime);
 
     (* It's possible to change any part of the system at any time through *)
     (* the Control Panel. Check for any change in second, minute, or hour *)
@@ -756,10 +756,10 @@ BEGIN
                     W.PostQuitMessage(0);
     | W.WM_PAINT:
                     (* Paint clock displaying current time *)
-                    Ignore.Int( W.InvalidateRect(wnd, NIL, SYSTEM.VAL(INTEGER, TRUE)) );
-                    Ignore.Int( W.BeginPaint(wnd, ps) );
+                    Ignore.Int( W.InvalidateRect(wnd, @NIL, SYSTEM.VAL(INTEGER, TRUE)) );
+                    Ignore.Int( W.BeginPaint(wnd, @ps) );
                     ClockPaint(ps.hdc, PAINTALL);
-                    Ignore.Int( W.EndPaint(wnd, ps) );
+                    Ignore.Int( W.EndPaint(wnd, @ps) );
     | W.WM_TIMECHANGE, W.WM_TIMER:
                     (* Update clock to display new time *)
                     ClockTimer(wnd);
@@ -769,8 +769,8 @@ BEGIN
                     CreateTools;
     | W.WM_ERASEBKGND:
                     (* Paint over the entire client area *)
-                    Ignore.Int( W.GetClientRect(wnd, rc) );
-                    Ignore.Int( W.FillRect(wParam, rc, hbrBackgnd) );
+                    Ignore.Int( W.GetClientRect(wnd, @rc) );
+                    Ignore.Int( W.FillRect(wParam, @rc, hbrBackgnd) );
     ELSE
                     (* Perform the default window processing *)
                     RETURN W.DefWindowProc(wnd, message, wParam, lParam)
@@ -805,7 +805,7 @@ BEGIN
     clockClass.cbWndExtra   := 0;
     clockClass.lpszMenuName := 0;
 
-    IF W.RegisterClass(clockClass) = 0 THEN
+    IF W.RegisterClass(@clockClass) = 0 THEN
         (* Error registering class -- return *)
         RETURN FALSE;
     END;
@@ -857,12 +857,12 @@ BEGIN
              0              (* NULL data structure ref.*)
            );
 
-    GetTime(nTime);
-    GetTime(oTime);
+    GetTime(@nTime);
+    GetTime(@oTime);
     WHILE ((nTime.second = oTime.second) &
        (nTime.minute = oTime.minute) &
        (nTime.hour   = oTime.hour) ) DO
-       GetTime(oTime);
+       GetTime(@oTime);
     END;
 
     IF W.SetTimer(Wnd, TimerID, OPEN_TLEN, SYSTEM.VAL(W.TIMERPROC, 0)) = 0 THEN
@@ -887,9 +887,9 @@ BEGIN
 
     (* Process messages until program termination *)
 
-    WHILE W.GetMessage(mess, 0, 0, 0) # 0 DO
-        Ignore.Int( W.TranslateMessage(mess) );
-        Ignore.Int( W.DispatchMessage(mess) );
+    WHILE W.GetMessage(@mess, 0, 0, 0) # 0 DO
+        Ignore.Int( W.TranslateMessage(@mess) );
+        Ignore.Int( W.DispatchMessage(@mess) );
     END;
 
 END Clock.
