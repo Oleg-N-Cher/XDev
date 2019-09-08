@@ -298,6 +298,7 @@ void _Laser2_XYtoScr (void) {
                   LD    L, A
                   LD    A, B
                   AND   #24
+.globl _Laser2_SCR_1
 _Laser2_SCR_1:    ADD   #0x40
                   LD    H, A            ; 14 байт, 53 такта
   __endasm;
@@ -324,6 +325,7 @@ void _Laser2_XYtoScrAtr (void) {
                   LD    L, A
                   ;
                   LD    A, H     ; 4t
+.globl _Laser2_SCRATR
 _Laser2_SCRATR:   ADD   #0x58    ; 7t
                   LD    H, A     ; 4t
   __endasm;
@@ -352,6 +354,7 @@ void _Laser2_Pixel_Add (void) {
                   RRA            ;  4t
                   RRA            ;  4t
                   OR    H        ;  4t
+.globl _Laser2_SCR_2
 _Laser2_SCR_2:    ADD   #0x40    ;  7t
                   LD    H, A     ;  4t
   __endasm;
