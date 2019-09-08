@@ -24,7 +24,7 @@ VAR
   left, top, width, height: INTEGER; (* original window parameters *)
 BEGIN
   (* remember original window position *)
-  res := W.GetWindowRect(mainWnd, rect);
+  res := W.GetWindowRect(mainWnd, @rect);
   IF res = 0 THEN RETURN END;
  
   left := rect.left;
@@ -61,17 +61,17 @@ BEGIN
       res := W.DeleteObject(defaultFont);
       W.PostQuitMessage(0);
   | W.WM_PAINT:
-      dc := W.BeginPaint(wnd, ps);
+      dc := W.BeginPaint(wnd, @ps);
       res := W.SetBkMode(dc, W.TRANSPARENT);
       IF W.SelectObject(dc, defaultFont) # 0 THEN END;
-      res := W.GetClientRect(wnd, rect);
+      res := W.GetClientRect(wnd, @rect);
       defMessage := "Click me||Esc - exit";
       defMessage[8] := 0DX; defMessage[9] := 0AX;
       res := W.DrawText(
         dc, SYSTEM.ADR(defMessage),
-        -1, rect, W.DT_WORDBREAK + W.DT_CENTER
+        -1, @rect, W.DT_WORDBREAK + W.DT_CENTER
       );
-      res := W.EndPaint(wnd, ps);
+      res := W.EndPaint(wnd, @ps);
   | W.WM_CHAR:
       IF wParam = W.VK_ESCAPE THEN
         W.PostQuitMessage(0);
@@ -106,7 +106,7 @@ BEGIN
   class.lpfnWndProc := WndHandler;
   class.cbClsExtra := 0;
   class.cbWndExtra := 0;
-  res := W.RegisterClass(class);
+  res := W.RegisterClass(@class);
   mainWnd := W.CreateWindowEx(
     W.WS_EX_TOPMOST, SYSTEM.ADR("MoveWin"),
     SYSTEM.ADR("MoveWin"), W.WS_OVERLAPPEDWINDOW,
@@ -120,9 +120,9 @@ PROCEDURE MainLoop;
 VAR
   msg: W.MSG; res: INTEGER;
 BEGIN
-  WHILE W.GetMessage(msg, 0, 0, 0) # 0 DO
-    res := W.TranslateMessage(msg);
-    res := W.DispatchMessage(msg);
+  WHILE W.GetMessage(@msg, 0, 0, 0) # 0 DO
+    res := W.TranslateMessage(@msg);
+    res := W.DispatchMessage(@msg);
   END;
 END MainLoop;
  

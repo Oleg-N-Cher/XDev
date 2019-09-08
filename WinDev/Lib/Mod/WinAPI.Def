@@ -12,10 +12,10 @@ MODULE WinAPI (*KERNEL32.dll*);
 
 **)
 
-	IMPORT SYSTEM, Types;
+	IMPORT SYSTEM;
 
 	TYPE (* base types *)
-		ADRINT* = Types.ADRINT; (* 32 or 64 bit *)
+		ADRINT* = SYSTEM.ADRINT; (* 32 or 64 bit *)
 		PtrVoid* = ADRINT; (* 32 or 64 bit *)
 		SIZE_T* = ADRINT; (* 32 or 64 bit *)
 		CHAR = SHORTCHAR;

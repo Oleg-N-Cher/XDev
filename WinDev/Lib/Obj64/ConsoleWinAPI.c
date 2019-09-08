@@ -152,7 +152,7 @@ void ConsoleWinAPI_WriteReal (REAL x)
 	if (e == 0) {
 		ConsoleWinAPI_WriteCh('0');
 	} else if (ConsoleWinAPI_IsNaN(x)) {
-		ConsoleWinAPI_WriteStr((void*)&"NaN", 4);
+		ConsoleWinAPI_WriteStr((CHAR*)"NaN", 4);
 	} else {
 		if (x < (REAL)0) {
 			ConsoleWinAPI_WriteCh('-');

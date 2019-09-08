@@ -13,7 +13,7 @@ PROCEDURE WriteCh* (ch: SHORTCHAR);
 VAR
   maxLen: INTEGER;
 BEGIN
-  Ignore.Int( w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, maxLen, NIL) );
+  Ignore.Int( w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, @maxLen, @NIL) );
 END WriteCh;
 
 PROCEDURE WriteLn* ;
@@ -58,7 +58,7 @@ VAR
   maxLen: INTEGER;
 BEGIN
   Ignore.Int(
-    w.WriteFile(hConOutput, SYSTEM.ADR(str), Strings.Length(str), maxLen, NIL)
+    w.WriteFile(hConOutput, SYSTEM.ADR(str), Strings.Length(str), @maxLen, @NIL)
   );
 END WriteStr;
 

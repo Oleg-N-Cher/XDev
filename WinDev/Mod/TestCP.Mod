@@ -1,24 +1,21 @@
-MODULE TestCP; (*$MAIN*)
-IMPORT io := Console;
+MODULE TestCP;
+IMPORT io := Console, S := SYSTEM;
 
 CONST
-  a* = ENTIER(3.141);
-  b* = ENTIER(-3.141);
-  c* = ENTIER(3.941);
-  d* = ENTIER(-3.941);
-  e* = ENTIER(1.5);
-  f* = ENTIER(-1.5);
-s*= BITS(5);
-VAR i: LONGINT; r: REAL;
+	dd* = ASH(500, 0);
+  dd1* = ASH(MIN(INTEGER), -31);
+  dd2* = ASH(1, 30);
+  dd1l* = ASH(MIN(LONGINT), -63);
+  (*dd2l* = ASH(LONG(LONG(LONG(1))), 62);*)
+
+VAR b: BYTE; s: SHORTINT; i,n: INTEGER; l: LONGINT; r: REAL;
+
+PROCEDURE Ret(): INTEGER;
+BEGIN
+  IF 0 = 0 THEN RETURN 1+1 END
+END Ret;
 
 BEGIN
-  i := ENTIER(r);
-  i := ENTIER(3.141);
-  i := ENTIER(-3.141);
-  i := ENTIER(3.941);
-  i := ENTIER(-3.941);
-  i := ENTIER(1.5);
-  i := ENTIER(-1.5);
 (*
   io.WriteRealFix(-3.141592653589793238,  1);io.WriteLn;
   io.WriteRealFix(-31.41592653589793238,  2);io.WriteLn;
@@ -57,6 +54,7 @@ BEGIN
   io.WriteReal(-3141592653589793238.0); io.WriteLn;
   io.WriteReal(3.0D-307 / 10); io.WriteLn;
 *)
+(*
   io.WriteReal(3.14159265358979D-307 / 10); io.WriteLn;
   io.WriteReal(31.4159265358979D-308); io.WriteLn;
   io.WriteReal(314.159265358979D-308); io.WriteLn;
@@ -72,4 +70,8 @@ BEGIN
   io.WriteReal(3141592653589.79D-308); io.WriteLn;
   io.WriteReal(31415926535897.9D-308); io.WriteLn;
   io.WriteReal(314159265358979.0D-308); io.WriteLn;
+*)
+	i:=ASH(b, n); i:=ASH(s, n); i:=ASH(i, n); l:=ASH(l, n);
+	i:=S.LSH(b, n); i:=S.LSH(s, n); i:=S.LSH(i, n); l:=S.LSH(l, n);
+	i:=S.ROT(b, n); i:=S.ROT(s, n); i:=S.ROT(i, n); l:=S.ROT(l, n);
 END TestCP.
