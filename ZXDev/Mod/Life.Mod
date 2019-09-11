@@ -26,9 +26,9 @@ BEGIN
 				ELSIF ((B.PEEK(23560) = 65) OR (B.PEEK(23560) = 97)) & (y < 21) THEN
 					B.AT(y, x - 1); B.FLASH(1); B.PRCHAR(" ");
 					B.AT(y - 1, x - 1); B.FLASH(0); B.PRCHAR(" "); INC(y);
-				ELSIF ((B.PEEK(23560) = 77) OR (B.PEEK(23560) = 109)) THEN
+				ELSIF (B.PEEK(23560) = 77) OR (B.PEEK(23560) = 109) THEN
 					T[x, y] := 1 - T[x, y]; B.AT(y - 1, x - 1); B.PRCHAR("X");
-				ELSIF ((B.PEEK(23560)=82)OR(B.PEEK(23560)=114)) THEN (*рандомайзер*)
+				ELSIF (B.PEEK(23560)=82) OR (B.PEEK(23560)=114) THEN (*рандомайзер*)
 					FOR x := 1 TO 32 DO
 						FOR y := 1 TO 21 DO
 							T[x, y] := SHORT(B.RND(0,1)); B.AT(y-1,x-1);
@@ -55,9 +55,9 @@ BEGIN
 
 		T := T1;
 
+		B.AT(0, 0);
 		FOR y := 1 TO 21 DO
-			B.AT(y - 1, 0);
-			FOR x := 32 TO 1 BY -1 DO
+			FOR x := 1 TO 32 DO
 				IF T[x, y] # 0 THEN B.PRCHAR("X") ELSE B.PRCHAR(" ") END;
 			END;
 		END;
