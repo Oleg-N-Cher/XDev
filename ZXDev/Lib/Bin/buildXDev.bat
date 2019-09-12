@@ -8,7 +8,7 @@
 @CALL ..\Bin\smart %Lib% Strings -noinit
 @CALL ..\Bin\smart %Lib% CmdLine -noinit
 @CALL ..\Bin\smart %Lib% GrPixel
-@CALL ..\Bin\solid %Lib% GrTiles
+@CALL ..\Bin\smart %Lib% GrTiles
 @CALL ..\Bin\smart %Lib% GrFonts
 @CALL ..\Bin\smart %Lib% Timer
 @CALL ..\Bin\smart %Lib% Input

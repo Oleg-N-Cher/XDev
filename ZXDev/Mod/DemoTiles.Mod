@@ -1,13 +1,16 @@
-MODULE DemoTiles;
+(*$MAIN*) MODULE DemoTiles;
 IMPORT G := GrApp, T := GrTiles, B := Basic;
 
-VAR
-  i: BYTE; square: T.Tile;
-BEGIN (*$MAIN*)
+CONST
+  square = T.Tile8x8(
+    (*Pixels:*) 0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
+    (*Attrib:*) CHR(G.BlueOnOlive)
+  );
+
+VAR i: BYTE;
+
+BEGIN
   B.PAPER(B.Black); B.CLS; B.BORDER(B.Red);
-  B.DEFDATA(square, 8 + 1);
-  (*Pixels:*) B.DATA8(0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH);
-  (*Attrib:*) B.DATA1(G.BlueOnOlive);
   FOR i := 0 TO 23 DO T.DrawTile(i, i, square) END;
   FOR i := 24 TO 31 DO T.DrawTile(i, 23, square) END;
   FOR i :=  8 TO 23 DO T.DrawMonoTile(i, 1, square, G.WhiteOnBlack) END;
