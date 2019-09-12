@@ -1,7 +1,7 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-void SYSTEM_HALT_m1 (unsigned char n) __z88dk_fastcall;
+void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
 int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n);
 long SYSTEM_ENTIER (float x);
@@ -12,7 +12,7 @@ SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 /*================================== Header ==================================*/
 
-void SYSTEM_HALT_m1 (unsigned char n) __naked __z88dk_fastcall {
+void SYSTEM_HALT_m1 (BYTE n) __naked __z88dk_fastcall {
 __asm
   LD   IY,#0x5C3A
   IM   1
@@ -26,7 +26,7 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 int SYSTEM_STRCMP (CHAR *x, CHAR *y)
-{long i = 0; CHAR ch1, ch2;
+{int i = 0; CHAR ch1, ch2;
 	do {ch1 = x[i]; ch2 = y[i]; i++;
 		if (!ch1) return -(int)ch2;
 	} while (ch1==ch2);
