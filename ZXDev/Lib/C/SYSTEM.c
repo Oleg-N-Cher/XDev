@@ -1,13 +1,14 @@
 #include "SYSTEM.h"
 
 /* runtime system routines */
-void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
-int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n);
-long SYSTEM_ENTIER (float x);
-SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
-INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
-SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
+extern void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
+extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
+extern void SYSTEM_STRAPND (CHAR x[], CHAR y[]) __z88dk_callee;
+extern void SYSTEM_STRCOPY (CHAR x[], CHAR y[]) __z88dk_callee;
+extern long SYSTEM_ENTIER (float x);
+extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
+extern SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size);
 
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 /*================================== Header ==================================*/
@@ -34,9 +35,42 @@ int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRCOPY (CHAR x[], CHAR y[], SHORTINT n) { /* sy := sx */
-  int i = 0; do { if (n-- == 0) __HALT(-8); y[i] = x[i]; } while (x[i++] != 0);
-}
+void SYSTEM_STRAPND (CHAR x[], CHAR y[]) __naked __z88dk_callee { // sy := sy + sx
+__asm      ; j = 0; while (y[j] != 0) j++;
+           POP  HL
+           POP  BC           ; x[]
+           EX   (SP), HL     ; y[]
+FIND_0X$:  LD   A, (HL)
+           INC  HL           ; j++
+           OR   A
+           JR   NZ, FIND_0X$
+           DEC  HL
+APND_STR$: ; i = 0; do { y[j++] = x[i]; } while (x[i++] != 0);
+           LD   A, (BC)
+           LD   (HL), A
+           INC  BC           ; i++
+           INC  HL           ; j++
+           OR   A
+           JR   NZ, APND_STR$
+           RET
+__endasm;
+} //SYSTEM_STRAPND
+
+/*--------------------------------- Cut here ---------------------------------*/
+void SYSTEM_STRCOPY (CHAR x[], CHAR y[]) __naked __z88dk_callee { /* sy := sx */
+__asm      ; i = 0; do { y[i] = x[i]; } while (x[i++] != 0);
+           POP  HL
+           POP  BC           ; x[]
+           EX   (SP), HL     ; y[]
+COPY_STR$: LD   A, (BC)
+           LD   (HL), A
+           INC  BC
+           INC  HL
+           OR   A
+           JR   NZ, COPY_STR$
+           RET
+__endasm;
+} //SYSTEM_STRCOPY
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_ENTIER (float x)
