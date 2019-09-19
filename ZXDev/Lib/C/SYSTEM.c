@@ -3,8 +3,9 @@
 /* runtime system routines */
 extern void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-extern void SYSTEM_STRAPND (CHAR x[], CHAR y[]) __z88dk_callee;
-extern void SYSTEM_STRCOPY (CHAR x[], CHAR y[]) __z88dk_callee;
+extern void SYSTEM_STRAPND (CHAR *from, CHAR *to) __z88dk_callee;
+extern void SYSTEM_STRCOPY (CHAR *from, CHAR *to) __z88dk_callee;
+extern SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall;
 extern long SYSTEM_ENTIER (float x);
 extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
 extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
@@ -26,6 +27,26 @@ __endasm;
 } //SYSTEM_HALT_m1
 
 /*--------------------------------- Cut here ---------------------------------*/
+void SYSTEM_STRAPND (CHAR *from, CHAR *to) __naked __z88dk_callee {
+    __asm  ; n = 0; while (to[n] != '\0') n++;
+           POP  HL
+           POP  DE           ; from[]
+           EX   (SP), HL     ; to[]
+           XOR  A
+           LD   C, A
+           LD   B, A
+           CPIR
+           DEC  HL
+           ; i = 0; do { to[n++] = from[i]; } while (from[i++] != '\0');
+           EX   DE, HL
+APND_STR$: CP   (HL)
+           LDI
+           JR   NZ, APND_STR$
+           RET
+    __endasm;
+} //SYSTEM_STRAPND
+
+/*--------------------------------- Cut here ---------------------------------*/
 int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 {int i = 0; CHAR ch1, ch2;
 	do {ch1 = x[i]; ch2 = y[i]; i++;
@@ -35,42 +56,31 @@ int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRAPND (CHAR x[], CHAR y[]) __naked __z88dk_callee { // sy := sy + sx
-__asm      ; j = 0; while (y[j] != 0) j++;
+void SYSTEM_STRCOPY (CHAR *from, CHAR *to) __naked __z88dk_callee {
+__asm      ; n = 0; do { to[n] = from[n]; } while (from[n++] != '\0');
            POP  HL
-           POP  BC           ; x[]
-           EX   (SP), HL     ; y[]
-FIND_0X$:  LD   A, (HL)
-           INC  HL           ; j++
-           OR   A
-           JR   NZ, FIND_0X$
-           DEC  HL
-APND_STR$: ; i = 0; do { y[j++] = x[i]; } while (x[i++] != 0);
-           LD   A, (BC)
-           LD   (HL), A
-           INC  BC           ; i++
-           INC  HL           ; j++
-           OR   A
-           JR   NZ, APND_STR$
-           RET
-__endasm;
-} //SYSTEM_STRAPND
-
-/*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRCOPY (CHAR x[], CHAR y[]) __naked __z88dk_callee { /* sy := sx */
-__asm      ; i = 0; do { y[i] = x[i]; } while (x[i++] != 0);
-           POP  HL
-           POP  BC           ; x[]
-           EX   (SP), HL     ; y[]
-COPY_STR$: LD   A, (BC)
-           LD   (HL), A
-           INC  BC
-           INC  HL
-           OR   A
+           POP  DE           ; from[]
+           EX   (SP), HL     ; to[]
+           EX   DE, HL
+           XOR  A
+COPY_STR$: CP   (HL)
+           LDI
            JR   NZ, COPY_STR$
            RET
 __endasm;
 } //SYSTEM_STRCOPY
+
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall {
+    __asm  ; n = 0; while (str[n] != '\0') n++; return n;
+           XOR  A
+           LD   B, A
+           LD   C, A
+           CPIR
+           LD   HL, #0xFFFF
+           SBC  HL, BC
+    __endasm;
+} //SYSTEM_STRLEN
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_ENTIER (float x)

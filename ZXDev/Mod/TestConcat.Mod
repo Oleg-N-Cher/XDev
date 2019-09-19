@@ -9,5 +9,6 @@ VAR str: ARRAY 13 OF SHORTCHAR;
 BEGIN
 	str := "Hello, ";
 	str := str + "World";
-	Console.WriteStr(str)
+	Console.WriteStr(str); Console.WriteLn;
+	Console.WriteInt(LEN(str$)); Console.WriteLn;
 END TestConcat.
