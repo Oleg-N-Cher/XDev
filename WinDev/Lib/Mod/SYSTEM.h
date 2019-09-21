@@ -141,18 +141,18 @@ extern void exit (int);
 #endif
 
 
-// String comparison and calculate length
+// Strings copy, append, compare and calculate length
 
+static inline void __STRAPND (CHAR *from, CHAR *to, INTEGER len, CHAR *mod, INTEGER pos) { // to := to + from
+  do { len--; if (len < 0) __HALT_NEW(-8, mod, pos); } while (*to++); to--;
+  do { if (len-- < 0) __HALT_NEW(-8, mod, pos); } while (*to++ = *from++);
+}
 #define __STRCMP(a, b)  SYSTEM_STRCMP((CHAR*)(a), (CHAR*)(b))
-static inline void __STRAPND (CHAR x[], CHAR y[], INTEGER n, CHAR *mod, INTEGER pos) { // sy := sy + sx
-  int i = 0, j = 0; while (y[j] != 0) { n--; if (n < 0) __HALT_NEW(-8, mod, pos); j++; }
-  do { n--; if (n < 0) __HALT_NEW(-8, mod, pos); y[j++] = x[i]; } while (x[i++] != 0);
+static inline void __STRCOPY (CHAR *from, CHAR *to, INTEGER len, CHAR *mod, INTEGER pos) { // to := from
+  do { len--; if (len < 0) __HALT_NEW(-8, mod, pos); *to++ = *from; } while (*from++);
 }
-static inline void __STRCOPY (CHAR x[], CHAR y[], INTEGER n, CHAR *mod, INTEGER pos) { // sy := sx
-  int i = 0; do { n--; if (n < 0) __HALT_NEW(-8, mod, pos); y[i] = x[i]; } while (x[i++] != 0);
-}
-static inline INTEGER __STRLEN (CHAR s[]) { // LEN(sx$)
-  int i = 0; while (s[i] != 0) i++; return i;
+static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
+  INTEGER n = 0; while (str[n]) n++; return n;
 }
 
 
