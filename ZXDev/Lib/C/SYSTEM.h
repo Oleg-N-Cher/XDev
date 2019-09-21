@@ -60,7 +60,7 @@ extern long SYSTEM_XCHK();
 extern long SYSTEM_RCHK();
 extern float SYSTEM_ABSD (float i);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-extern void SYSTEM_STRCOPY (CHAR *from, CHAR *to) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void SYSTEM_STRCOPY (CHAR *to, CHAR *from) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void SYSTEM_STRAPND (CHAR *from, CHAR *to) __z88dk_callee __preserves_regs(iyl,iyh);
 extern SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall __preserves_regs(d,e,iyl,iyh);
 extern SYSTEM_PTR SYSTEM_NEWREC();
@@ -178,9 +178,9 @@ extern void SYSTEM_ENUMR();
 #define __SETRNG(l, h)	((~(SET)0<<(l))&~(SET)0>>(8*sizeof(SET)-1-(h)))
 #define __MASK(x, m)	((x)&~(m))
 #define __COPY(s, d, n)	{char*_a=(void*)s,*_b=(void*)d;long _i=0,_t=n-1;while(_i<_t&&((_b[_i]=_a[_i])!=0)){_i++;};_b[_i]=0;}
-#define __STRAPND(x, y, n, mod, pos) SYSTEM_STRAPND(x, y)
+#define __STRAPND(from, to, len, mod, pos)	SYSTEM_STRAPND(from, to)
 #define __STRCMP SYSTEM_STRCMP
-#define __STRCOPY(x, y, n, mod, pos) SYSTEM_STRCOPY(x, y)
+#define __STRCOPY(from, to, len, mod, pos)	SYSTEM_STRCOPY(to, from)
 #define __STRLEN SYSTEM_STRLEN
 #define __ASH(x, n, t)	((n)>=0?__ASHL(x,n,t):__ASHR(x,-(n),t))
 #define __ASHL(x, n, t)	((t)(x)<<(n))

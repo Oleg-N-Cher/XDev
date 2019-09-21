@@ -4,7 +4,7 @@
 extern void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern void SYSTEM_STRAPND (CHAR *from, CHAR *to) __z88dk_callee;
-extern void SYSTEM_STRCOPY (CHAR *from, CHAR *to) __z88dk_callee;
+extern void SYSTEM_STRCOPY (CHAR *to, CHAR *from) __z88dk_callee;
 extern SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall;
 extern long SYSTEM_ENTIER (float x);
 extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
@@ -22,7 +22,7 @@ __asm
   LD   (HALTCODE$),HL
   RST  8
 HALTCODE$:
-  .DB  0xFF ; Портит содержимое байта после этого, но он больше не нужен
+  .DB  0xFF ; Ruins the byte after that, but it is no longer needed
 __endasm;
 } //SYSTEM_HALT_m1
 
@@ -56,12 +56,11 @@ int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRCOPY (CHAR *from, CHAR *to) __naked __z88dk_callee {
+void SYSTEM_STRCOPY (CHAR *to, CHAR *from) __naked __z88dk_callee {
 __asm      ; n = 0; do { to[n] = from[n]; } while (from[n++] != '\0');
            POP  HL
-           POP  DE           ; from[]
-           EX   (SP), HL     ; to[]
-           EX   DE, HL
+           POP  DE           ; to[]
+           EX   (SP), HL     ; from[]
            XOR  A
 COPY_STR$: CP   (HL)
            LDI
@@ -134,4 +133,3 @@ SYSTEM_PTR SYSTEM_NEWARR (__U_SHORTINT size)
   *((SHORTINT*)arrPtr) = size;
   return arrPtr;
 }
-
