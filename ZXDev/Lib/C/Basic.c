@@ -4,69 +4,70 @@
 /*  zx.oberon2.ru/forum  */
 /*************************/
 
-void Basic_Init_IM2 (void);
+extern void Basic_Init_IM2 (void);
 
-signed char Basic_ABS (signed char x) __z88dk_fastcall;
-signed int Basic_ABSI (signed int x) __z88dk_fastcall;
-void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee;
-void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall;
-void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
-void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
-unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
-unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
-void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
-void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
-void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall;
-void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
-void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
-void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
-void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
-void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
-void Basic_CLS_FULLSCREEN (void);
-void Basic_CLS_ZX (void);
-void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
-void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
-void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
-void Basic_DRAWARC (signed char x, signed char y, int arc) __z88dk_callee;
-void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
-void Basic_INK (unsigned char color) __z88dk_fastcall;
-unsigned char Basic_INKEY (void);
-void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
-void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
-unsigned char Basic_PRESSED (void);
-void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
-void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
-void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
-void Basic_PAPER (unsigned char color) __z88dk_fastcall;
-void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
-void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
-void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
-void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
-unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee;
-unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
-unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
-void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
-void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall;
-void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
-void Basic_PRDATA_FAST (void);
-void Basic_PRDATA_ROM (void);
-void Basic_PRINT_FAST (int n) __z88dk_fastcall;
-void Basic_PRINT_ROM (int n) __z88dk_fastcall;
-void Basic_PRLN_FAST (void);
-void Basic_PRLN_ROM (void);
-void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
-void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
-void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
-void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
-void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
-unsigned char Basic_RND (unsigned char min, unsigned char max);
-unsigned int Basic_RNDW (unsigned int min, unsigned int max);
-signed char Basic_SGN (signed char x) __z88dk_fastcall;
-signed char Basic_SGNI (signed int x) __z88dk_fastcall;
+extern signed char Basic_ABS (signed char x) __z88dk_fastcall;
+extern signed int Basic_ABSI (signed int x) __z88dk_fastcall;
+extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall;
+extern void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
+extern unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
+extern void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
+extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
+extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall;
+extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall;
+extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
+extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
+extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+extern void Basic_CLS_FULLSCREEN (void);
+extern void Basic_CLS_ZX (void);
+extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall;
+extern void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
+extern void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
+extern void Basic_DRAWARC (signed char x, signed char y, int arc) __z88dk_callee;
+extern void Basic_FLASH (unsigned char mode) __z88dk_fastcall;
+extern void Basic_INK (unsigned char color) __z88dk_fastcall;
+extern unsigned char Basic_INKEY (void);
+extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall;
+extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall;
+extern unsigned char Basic_PRESSED (void);
+extern void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall;
+extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall;
+extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee;
+extern void Basic_PAPER (unsigned char color) __z88dk_fastcall;
+extern void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall;
+extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall;
+extern void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
+extern unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
+extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall;
+extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee;
+extern void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall;
+extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall;
+extern void Basic_PRDATA_FAST (void);
+extern void Basic_PRDATA_ROM (void);
+extern void Basic_PRINT_FAST (int n) __z88dk_fastcall;
+extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
+extern void Basic_PRLN_FAST (void);
+extern void Basic_PRLN_ROM (void);
+extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall;
+extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall;
+extern void Basic_PRUDG_FAST (unsigned char udg) __z88dk_fastcall;
+extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
+extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
+extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
+extern unsigned char Basic_RND (unsigned char min, unsigned char max);
+extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
+extern signed char Basic_SGN (signed char x) __z88dk_fastcall;
+extern signed char Basic_SGNI (signed int x) __z88dk_fastcall;
 
-void Basic_Quit_DI (void);
-void Basic_Quit_IM1 (void);
-void Basic_Quit_IM2 (void);
+extern void Basic_Quit_DI (void);
+extern void Basic_Quit_IM1 (void);
+extern void Basic_Quit_IM2 (void);
 
 extern unsigned int _Basic_RandBB (void);
 
@@ -1630,7 +1631,7 @@ __asm
             ADD  HL,HL
             LD   DE,(#CHAR_SET$)
             ADD  HL,DE
-            JR   USER_FONT$
+            JR   _Basic_USER_FONT
 PO_GR_BUF$: .DB  #0,#0,#0,#0,#0,#0,#0,#0
 PO_GR$:     LD   B,L
             LD   HL,#PO_GR_BUF$
@@ -1638,7 +1639,9 @@ PO_GR$:     LD   B,L
             CALL 0xB3E /* Generate po_gr char to buffer */
             CALL 0xB3E
             POP  HL
-USER_FONT$: EX   DE,HL
+.globl _Basic_USER_FONT
+_Basic_USER_FONT:
+            EX   DE,HL
             LD   HL,(#23684)
             PUSH HL
             LD   B,#8
@@ -1825,6 +1828,19 @@ __asm
             JR   _Basic_PRSTR_C_FAST
 __endasm;
 } //Basic_PRSTR_C_FAST
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Basic_PRUDG_FAST (unsigned char udg) __naked __z88dk_fastcall {
+__asm
+            LD   H,#0
+            ADD  HL,HL
+            ADD  HL,HL
+            ADD  HL,HL
+            LD   DE,(#0x5C7B)
+            ADD  HL,DE
+            JP   _Basic_USER_FONT
+__endasm;
+} //Basic_PRUDG_FAST
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall {
