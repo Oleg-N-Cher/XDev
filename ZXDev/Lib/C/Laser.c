@@ -47,7 +47,7 @@ void Laser_ATUV (signed char col, signed char row, signed char len, signed char 
 void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt);
 
 /* Functions for sprites manipulations */
-void Laser_CLSM (unsigned char spN);
+void Laser_CLSM (unsigned char spN) __z88dk_fastcall;
 void Laser_INVM (unsigned char spN);
 void Laser_PTBL (signed char col, signed char row, unsigned char spN);
 void Laser_PTOR (signed char col, signed char row, unsigned char spN);
@@ -91,6 +91,7 @@ void Laser_PWXR (signed char col, signed char row, unsigned char spN,
                         signed char spCol, signed char spRow, signed char len, signed char hgt);
 void Laser_PWND (signed char col, signed char row, unsigned char spN,
                         signed char spCol, signed char spRow, signed char len, signed char hgt);
+void Laser_SPNM (unsigned char sp1, unsigned char sp2) __z88dk_callee;
 /*================================== Header ==================================*/
 
 unsigned long LB_069;
@@ -714,20 +715,6 @@ __asm
   LD   (#LB_011+1),A
 __endasm;
 } //Laser_ATDV
-
-/*--------------------------------- Cut here ---------------------------------*/
-/*-------------------------------------*/
-/* Functions for sprites manipulations */
-/*-------------------------------------*/
-void Laser_CLSM (unsigned char spN) __naked {
-// Clears the sprite
-__asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
-  JP   __Laser_LB_CLSM
-__endasm;
-}
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_INVM (unsigned char spN) __naked {
@@ -2317,25 +2304,22 @@ __endasm;
 } //_Laser_LB_114
 
 /*--------------------------------- Cut here ---------------------------------*/
-void _Laser_LB_CLSM (void) {
+void Laser_CLSM (unsigned char spN) __z88dk_fastcall {
+// Clears the sprite
 __asm
+  LD   A,L
   CALL __Laser_LB_146
   RET  C
   PUSH DE
-  //CALL LB_145$
-  // inline
-//LB_145$:
   PUSH DE
   LD   E,H
-  LD   H,#0x00
-  LD   D,#0x00
+  LD   H,#0
+  LD   D,#0
   CALL __Laser_LB_107
   ADD  HL,HL
   ADD  HL,HL
   ADD  HL,HL
   POP  DE
-  //RET
-  // end
   XOR  A
   EX   (SP),HL
   POP  BC
@@ -2347,9 +2331,8 @@ LB_144:
   INC  DE
   LD   (HL),A
   LDIR
-//RET
 __endasm;
-} //_Laser_LB_CLSM
+} //Laser_CLSM
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_146 (void) {
@@ -3523,16 +3506,18 @@ ATDM$:
   LD   A,#0x5A
   LD   (#LB_011+1),A
   RET
+__endasm;
+} //__Asm_Laser_2__
 
-LB_116$:
-  NOP
-  NOP
-  NOP
-SPNM$:
-  NOP
-  LD   A,B
-  PUSH BC
-  PUSH BC
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser_SPNM (unsigned char sp1, unsigned char sp2) __naked __z88dk_callee
+{ // Rotate sprite SP2 90 degrees clockwise into sprite SP1
+__asm
+  POP  HL
+  EX   (SP),HL
+  LD   A,H
+  PUSH HL
+  PUSH HL
   CALL __Laser_LB_146
   LD   (#LB_118$),HL
   POP  BC
@@ -3542,24 +3527,14 @@ SPNM$:
   CALL __Laser_LB_146
   LD   A,(#LB_118$)
   CP   H
-  JR   NZ,#LB_117$
+  JR   NZ,LB_117$
   LD   A,(#LB_118$+1)
   CP   L
-  JR   NZ,#LB_117$
+  JR   NZ,LB_117$
   POP  HL
   POP  BC
   CALL LB_123$
   POP  BC
-  JR   LB_118$+2
-LB_117$:
-  POP  HL
-  POP  HL
-  POP  HL
-  RET
-
-LB_118$:
-  NOP
-  NOP
   LD   A,B
   PUSH BC
   CALL __Laser_LB_189
@@ -3572,7 +3547,7 @@ LB_118$:
   LD   BC,(#LB_118$)
   PUSH BC
   LD   C,B
-  LD   B,#0x00
+  LD   B,#0
   CALL LB_122$
   POP  BC
 LB_119$:
@@ -3581,6 +3556,11 @@ LB_119$:
   POP  DE
   DEC  DE
   DJNZ LB_119$
+  RET
+LB_117$:
+  POP  HL
+  POP  HL
+  POP  HL
   RET
 LB_120$:
   PUSH BC
@@ -3600,7 +3580,7 @@ LB_121$:
 LB_122$:
   EX   DE,HL
   LD   A,B
-  LD   B,#0x00
+  LD   B,#0
   ADD  HL,BC
   DEC  HL
   LD   B,A
@@ -3609,7 +3589,7 @@ LB_122$:
 LB_123$:
   PUSH BC
   LD   C,B
-  LD   B,#0x00
+  LD   B,#0
   CALL LB_122$
   POP  BC
   LD   (#LB_118$),BC
@@ -3646,12 +3626,12 @@ LB_127$:
 LB_128$:
   RRCA
   LD   (#LB_116$+1),A
-  JR   NC,#LB_129$
+  JR   NC,LB_129$
   INC  HL
 LB_129$:
   AND  (HL)
   EX   DE,HL
-  JR   Z,#LB_130$
+  JR   Z,LB_130$
   LD   A,(#LB_116$+2)
   OR   (HL)
   LD   (HL),A
@@ -3659,7 +3639,7 @@ LB_130$:
   PUSH BC
   LD   BC,(#LB_118$)
   LD   C,B
-  LD   B,#0x00
+  LD   B,#0
   ADD  HL,BC
   EX   DE,HL
   POP  BC
@@ -3669,6 +3649,19 @@ LB_130$:
   LD   (#LB_116$),A
   LD   A,(#LB_116$+1)
   JR   LB_128$
+LB_116$:
+  NOP
+  NOP
+  NOP
+LB_118$:
+  NOP
+  NOP
+__endasm;
+} //Laser_SPNM
+
+/*--------------------------------- Cut here ---------------------------------*/
+void __Asm_Laser_4__ (void) __naked {
+__asm
 DSPM$:
   PUSH BC
   LD   A,B
@@ -3699,7 +3692,7 @@ DSPM$:
   EX   (SP),HL
   POP  BC
   PUSH HL
-  LD   H,#0x00
+  LD   H,#0
   LD   L,B
   ADD  HL,HL
   ADD  HL,HL
@@ -3826,7 +3819,7 @@ SETM$:
   INC  BC
   JP   LB_144
 __endasm;
-} //__Asm_Laser_2__
+} //__Asm_Laser_4__
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser_LB_153 (void) __naked {

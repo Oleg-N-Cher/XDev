@@ -89,5 +89,6 @@ PROCEDURE PWXR* (col, row, spN, spCol, spRow, len, hgt: UBYTE);
   END PWXR;
 PROCEDURE PWND* (col, row, spN, spCol, spRow, len, hgt: UBYTE);
   END PWND;
+PROCEDURE SPNM* (sp1, sp2: UBYTE); END SPNM;
 
 END Laser.

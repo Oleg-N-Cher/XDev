@@ -71,7 +71,7 @@ extern void Laser_ATUV (signed char col, signed char row, signed char len, signe
 extern void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt);
 
 /* Functions for sprites manipulations */
-extern void Laser_CLSM (unsigned char spN);
+extern void Laser_CLSM (unsigned char spN) __z88dk_fastcall;
 extern void Laser_INVM (unsigned char spN);
 extern void Laser_PTBL (signed char col, signed char row, unsigned char spN);
 extern void Laser_PTOR (signed char col, signed char row, unsigned char spN);
@@ -115,6 +115,7 @@ extern void Laser_PWXR (signed char col, signed char row, unsigned char spN,
                         signed char spCol, signed char spRow, signed char len, signed char hgt);
 extern void Laser_PWND (signed char col, signed char row, unsigned char spN,
                         signed char spCol, signed char spRow, signed char len, signed char hgt);
+extern void Laser_SPNM (unsigned char sp1, unsigned char sp2) __z88dk_callee;
 #define Laser__init()
 
 /* Functions for screen windows processing */
