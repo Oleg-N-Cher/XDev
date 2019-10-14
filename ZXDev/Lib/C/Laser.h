@@ -71,12 +71,12 @@ extern void Laser_ATUV (signed char col, signed char row, signed char len, signe
 extern void Laser_ATDV (signed char col, signed char row, signed char len, signed char hgt);
 
 /* Functions for sprites manipulations */
-extern void Laser_CLSM (unsigned char spN) __z88dk_fastcall;
-extern void Laser_INVM (unsigned char spN);
-extern void Laser_PTBL (signed char col, signed char row, unsigned char spN);
-extern void Laser_PTOR (signed char col, signed char row, unsigned char spN);
-extern void Laser_PTXR (signed char col, signed char row, unsigned char spN);
-extern void Laser_PTND (signed char col, signed char row, unsigned char spN);
+extern void Laser_CLSM (unsigned char spN) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Laser_INVM (unsigned char spN) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Laser_PTBL (signed char col, signed char row, unsigned char spN) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser_PTOR (signed char col, signed char row, unsigned char spN) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser_PTXR (signed char col, signed char row, unsigned char spN) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser_PTND (signed char col, signed char row, unsigned char spN) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser_WL1M (unsigned char spN);
 extern void Laser_WR1M (unsigned char spN);
 extern void Laser_WL4M (unsigned char spN);
@@ -91,8 +91,8 @@ extern void Laser_SL8M (unsigned char spN);
 extern void Laser_SR8M (unsigned char spN);
 extern void Laser_WCRM (unsigned char spN, signed char npx);
 extern void Laser_SCRM (unsigned char spN, signed char npx);
-extern void Laser_ATOF (void);
-extern void Laser_ATON (void);
+extern void Laser_ATOF (void) __preserves_regs(a,b,c,d,e,iyl,iyh);
+extern void Laser_ATON (void) __preserves_regs(b,c,d,e,h,l,iyl,iyh);
 extern void Laser_GTBL (signed char col, signed char row, unsigned char spN);
 extern void Laser_GTOR (signed char col, signed char row, unsigned char spN);
 extern void Laser_GTXR (signed char col, signed char row, unsigned char spN);
@@ -186,6 +186,6 @@ extern void Laser_SPNM (unsigned char sp1, unsigned char sp2) __z88dk_callee;
 #define PWOR Laser_PWOR
 #define PWXR Laser_PWXR
 #define PWND Laser_PWND
+#define SPNM Laser_SPNM
 
 #endif
-

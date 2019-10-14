@@ -48,11 +48,11 @@ void Laser_ATDV (signed char col, signed char row, signed char len, signed char 
 
 /* Functions for sprites manipulations */
 void Laser_CLSM (unsigned char spN) __z88dk_fastcall;
-void Laser_INVM (unsigned char spN);
-void Laser_PTBL (signed char col, signed char row, unsigned char spN);
-void Laser_PTOR (signed char col, signed char row, unsigned char spN);
-void Laser_PTXR (signed char col, signed char row, unsigned char spN);
-void Laser_PTND (signed char col, signed char row, unsigned char spN);
+void Laser_INVM (unsigned char spN) __z88dk_fastcall;
+void Laser_PTBL (signed char col, signed char row, unsigned char spN) __z88dk_callee;
+void Laser_PTOR (signed char col, signed char row, unsigned char spN) __z88dk_callee;
+void Laser_PTXR (signed char col, signed char row, unsigned char spN) __z88dk_callee;
+void Laser_PTND (signed char col, signed char row, unsigned char spN) __z88dk_callee;
 void Laser_WL1M (unsigned char spN);
 void Laser_WR1M (unsigned char spN);
 void Laser_WL4M (unsigned char spN);
@@ -717,45 +717,40 @@ __endasm;
 } //Laser_ATDV
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_INVM (unsigned char spN) __naked {
-/* Inverts the sprite */
+void Laser_INVM (unsigned char spN) __naked __z88dk_fastcall {
+// Inverts the sprite
 __asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   A,(HL)
+  LD   A,L
   LD   DE,#__Laser_LB_053
   JP   LB_156
 __endasm;
 } //Laser_INVM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTBL (signed char col, signed char row, unsigned char spN) {
+void Laser_PTBL (signed char col, signed char row, unsigned char spN) __naked __z88dk_callee {
 __asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL) // x
-  INC  HL
-  LD   B,(HL) // y
-  INC  HL
-  LD   A,(HL) // Sprite number
+  POP  HL
+  POP  BC     // C = x; B = y
+  DEC  SP
+  POP  AF     // D = spN
+  PUSH HL
   LD   HL,#__Laser_LB_149
   LD   DE,#__Laser_LB_PWBL
   PUSH IX     // __Laser_LB_196 breaks IX
   CALL __Laser_LB_196
   POP  IX
+  RET
 __endasm;
 } //Laser_PTBL
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTOR (signed char col, signed char row, unsigned char spN) __naked {
+void Laser_PTOR (signed char col, signed char row, unsigned char spN) __naked __z88dk_callee {
 __asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL) /* x */
-  INC  HL
-  LD   B,(HL) /* y */
-  INC  HL
-  LD   A,(HL) /* Sprite number */
+  POP  HL
+  POP  BC     // C = x; B = y
+  DEC  SP
+  POP  AF     // A = spN
+  PUSH HL
   LD   HL,#__Laser_LB_151
   LD   DE,#__Laser_LB_PWOR
   JP   __Laser_LB_196
@@ -763,38 +758,29 @@ __endasm;
 } //Laser_PTOR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTXR (signed char col, signed char row, unsigned char spN) __naked {
+void Laser_PTXR (signed char col, signed char row, unsigned char spN) __naked __z88dk_callee {
 __asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL) /* x */
-  INC  HL
-  LD   B,(HL) /* y */
-  INC  HL
-  LD   A,(HL) /* Sprite number */
-  JP   __Laser_LB_PTXR
-__endasm;
-} //Laser_PTXR
-
-/*--------------------------------- Cut here ---------------------------------*/
-void _Laser_LB_PTXR (void) __naked {
-__asm
+  POP  HL
+  POP  BC     // C = x; B = y
+  DEC  SP
+  POP  AF     // A = spN
+  PUSH HL
+.globl LB_PTXR
+LB_PTXR:
   LD   HL,#__Laser_LB_091
   LD   DE,#__Laser_LB_PWXR
   JP   __Laser_LB_196
 __endasm;
-} //_Laser_LB_PTXR
+} //Laser_PTXR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_PTND (signed char col, signed char row, unsigned char spN) __naked {
+void Laser_PTND (signed char col, signed char row, unsigned char spN) __naked __z88dk_callee {
 __asm
-  LD   HL,#2
-  ADD  HL,SP
-  LD   C,(HL) /* x */
-  INC  HL
-  LD   B,(HL) /* y */
-  INC  HL
-  LD   A,(HL) /* Sprite number */
+  POP  HL
+  POP  BC     // C = x; B = y
+  DEC  SP
+  POP  AF     // A = spN
+  PUSH HL
   LD   HL,#__Laser_LB_153
   LD   DE,#__Laser_LB_PWND
   JP   __Laser_LB_196
@@ -1065,24 +1051,18 @@ __endasm;
 } //_Laser_LB_SCRM
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Laser_ATOF (void) {
+void Laser_ATOF (void) { // Must save A
 __asm
-  PUSH HL
-  LD   HL,#__Laser_LB_100+3
-  LD   (HL),#0xC9
-  POP  HL
-  //RET
+  LD   HL,#__Laser_LB_100+3  ; 10t
+  LD   (HL),#0xC9            ; 10t
 __endasm;
 } //Laser_ATOF
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser_ATON (void) {
 __asm
-  PUSH HL
-  LD   HL,#__Laser_LB_100+3
-  LD   (HL),#0xD0
-  POP  HL
-  //RET
+  LD   A,#0xD0               ;  7t
+  LD   (#__Laser_LB_100+3),A ; 13t
 __endasm;
 } //Laser_ATON
 
@@ -3429,7 +3409,7 @@ MOVE$:
   PUSH DE
   PUSH HL
   PUSH BC
-  CALL __Laser_LB_PTXR
+  CALL LB_PTXR
   POP  BC
   POP  HL
   LD   A,C
@@ -3447,7 +3427,7 @@ MOVE$:
   INC  HL
   LD   (HL),C
   PUSH DE
-  CALL __Laser_LB_PTXR
+  CALL LB_PTXR
   POP  DE
   LD   HL,(#LB_112$)
   LD   BC,#0x000A
