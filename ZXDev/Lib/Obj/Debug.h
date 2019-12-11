@@ -13,7 +13,7 @@ import void Debug_CheckRegs (void);
 import void Debug_SaveIX (void);
 import void Debug_SaveRegs (void);
 import void Debug_SaveRegsDef (void);
-import void *Debug__init(void);
+import void *Debug__init (void);
 
 
 #endif

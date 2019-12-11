@@ -28,7 +28,7 @@ CONST
 
 TYPE
 	Integer = SHORTINT;
-	String = ARRAY OF SHORTCHAR;
+	String = ARRAY OF CHAR;
 	Word = INTEGER;
 
 PROCEDURE ClearDevice*; END ClearDevice;

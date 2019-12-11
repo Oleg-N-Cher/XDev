@@ -11,7 +11,7 @@
 import SHORTINT CalcZX_PopWordAsInt (void);
 import void CalcZX__PushBYTE (BYTE b);
 import void CalcZX__PushWORD (SHORTINT w);
-import void *CalcZX__init(void);
+import void *CalcZX__init (void);
 
 #define CalcZX_Begin()	__asm rst 0x28 __endasm
 #define CalcZX_End()	__asm .db 0x38 __endasm;

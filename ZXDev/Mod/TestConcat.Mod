@@ -4,7 +4,7 @@ CONST Str* = "String 1 "+ 0DX + 0AX + 0X + "String 2 " + '"' + "'" + 0FFX;
 Str2* = "  '  ";
 Str3* = '  "  ';
 
-VAR str: ARRAY 13 OF SHORTCHAR;
+VAR str: ARRAY 13 OF CHAR;
 
 BEGIN
 	str := "Hello, ";

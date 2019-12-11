@@ -23,7 +23,7 @@ CONST
   FrameSizeBytes = 5(*hdr*) + 8*20(*data*) ;
 
 TYPE
-  Sprites = ARRAY FrameSizeBytes * 4 (*frames*) + 1 OF SHORTCHAR;
+  Sprites = ARRAY FrameSizeBytes * 4 (*frames*) + 1 OF CHAR;
 
 CONST
   Chudik = Sprites (

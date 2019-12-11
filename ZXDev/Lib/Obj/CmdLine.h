@@ -12,7 +12,7 @@ typedef
 
 
 import void CmdLine_GetParam (BYTE n, CHAR *param, SHORTINT param__len);
-import void *CmdLine__init(void);
+import void *CmdLine__init (void);
 
 #define CmdLine__init()	/*-noinit*/
 

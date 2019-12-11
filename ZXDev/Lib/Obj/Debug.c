@@ -226,7 +226,7 @@ void Debug_CheckRegs (void)
 
 /*----------------------------------------------------------------------------*/
 
-export void *Debug__init(void)
+export void *Debug__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Asm__init);

@@ -22,7 +22,7 @@ MODULE TrDos; IMPORT SYSTEM;
 (* описываем дескриптор файла TR-DOS: *)
 
 TYPE
-  UCHAR* = SHORTCHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
+  UCHAR* = CHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
   UINT*  = SHORTINT;
   FDSP*  = RECORD [1]
     trFName*    : ARRAY 9 OF UCHAR; (* имя и тип файла *)

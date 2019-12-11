@@ -6,7 +6,7 @@ MODULE Laser2Test2;
 IMPORT gr := Laser2, B := Basic;
 
 TYPE
-  Sprite2X2 = ARRAY 5 + 4*8 + 4 OF SHORTCHAR;
+  Sprite2X2 = ARRAY 5 + 4*8 + 4 OF CHAR;
 
 CONST
   CopperFeet = Sprite2X2 (

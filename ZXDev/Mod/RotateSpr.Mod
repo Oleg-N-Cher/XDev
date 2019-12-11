@@ -6,7 +6,7 @@
 IMPORT L := Laser, B := Basic;
 
 TYPE
-  Sprite = ARRAY 83 OF SHORTCHAR;
+  Sprite = ARRAY 83 OF CHAR;
 
 CONST
   SprSizeBytes = ( 5(*hdr*) + 8*4(*data*) + 4(*attrs*) );

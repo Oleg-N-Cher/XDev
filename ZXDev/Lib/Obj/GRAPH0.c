@@ -146,7 +146,7 @@ void GRAPH0_SCRNAD (void)
 
 /*----------------------------------------------------------------------------*/
 
-export void *GRAPH0__init(void)
+export void *GRAPH0__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Asm__init);

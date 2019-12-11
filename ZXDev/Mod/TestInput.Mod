@@ -2,7 +2,7 @@ MODULE TestInput; (*$MAIN*)
 IMPORT io := Console;
 
 VAR
-  name: ARRAY 32 OF SHORTCHAR;
+  name: ARRAY 32 OF CHAR;
 BEGIN
   io.SetColors(io.LCyanOnBlue); io.Clear(io.Black);
   io.WriteStr("Enter your name:"); io.WriteLn; io.WriteLn;

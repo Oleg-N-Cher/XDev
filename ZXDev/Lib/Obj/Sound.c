@@ -107,7 +107,7 @@ void Sound_Quit (void)
 
 /*----------------------------------------------------------------------------*/
 
-export void *Sound__init(void)
+export void *Sound__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Asm__init);

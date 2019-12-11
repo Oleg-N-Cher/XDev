@@ -5,9 +5,9 @@ IMPORT
 TYPE
   PersonPtr = POINTER [untagged] TO Person;
   Person = RECORD [untagged]
-    name: ARRAY 20 OF SHORTCHAR;
+    name: ARRAY 20 OF CHAR;
     age: BYTE;
-    sex: SHORTCHAR; (*"M" OR "F"*)
+    sex: CHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
 

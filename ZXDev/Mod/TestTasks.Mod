@@ -2,7 +2,7 @@ MODULE TestTasks; (*$MAIN*)
 IMPORT co := Tasks, out := Console;
 
 TYPE
-  Message = ARRAY 23 OF SHORTCHAR;
+  Message = ARRAY 23 OF CHAR;
 CONST
   str = Message("Hello multitask World!");
 VAR

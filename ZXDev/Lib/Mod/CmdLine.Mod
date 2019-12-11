@@ -5,7 +5,7 @@ CONST
   ParamCount* = 0;
 
 TYPE
-  Char* = SHORTCHAR;
+  Char* = CHAR;
   String* = ARRAY 1 OF Char;
 
 PROCEDURE GetParam* (n: BYTE; VAR param: ARRAY OF Char);

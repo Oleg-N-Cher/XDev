@@ -88,7 +88,7 @@ CONST
   LAST_K = 5C08H;
 
 TYPE
-  Key* = SHORTCHAR;
+  Key* = CHAR;
 (*
 VAR
   n, in, out: INTEGER;

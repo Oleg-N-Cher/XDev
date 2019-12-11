@@ -80,7 +80,7 @@ SHORTINT CalcZX_PopWordAsInt (void)
 
 /*----------------------------------------------------------------------------*/
 
-export void *CalcZX__init(void)
+export void *CalcZX__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Asm__init);
