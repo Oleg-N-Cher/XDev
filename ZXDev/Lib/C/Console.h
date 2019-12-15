@@ -14,9 +14,9 @@
 #  define Console__init()
 #endif
 
-extern void Console_At_ROM (signed char x, signed char y);
-extern void Console_At_COMPACT (signed char x, signed char y);
-extern void Console_At_FAST (signed char x, signed char y);
+extern void Console_At_ROM (signed char x, signed char y) __z88dk_callee;
+extern void Console_At_COMPACT (signed char x, signed char y) __z88dk_callee;
+extern void Console_At_FAST (signed char x, signed char y) __z88dk_callee;
 #  ifdef Console_OUTPUT_ROM
 #    define Console_At Console_At_ROM
 #  endif

@@ -3,9 +3,9 @@
 #include "Strings.h"
 #include "Timer.h"
 
-void Console_At_ROM (signed char x, signed char y);
-void Console_At_COMPACT (signed char x, signed char y);
-void Console_At_FAST (signed char x, signed char y);
+void Console_At_ROM (signed char x, signed char y) __z88dk_callee;
+void Console_At_COMPACT (signed char x, signed char y) __z88dk_callee;
+void Console_At_FAST (signed char x, signed char y) __z88dk_callee;
 SHORTINT Console_ReadIntRange_ROM (SHORTINT min, SHORTINT max);
 SHORTINT Console_ReadInt_ROM (void);
 SHORTINT Console_ReadIntRange_COMPACT (SHORTINT min, SHORTINT max);
@@ -60,41 +60,28 @@ extern BYTE __at(SETV_A$) Console_attrib;
 BYTE __at(SETV_A$) Console_attrib;
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_ROM (signed char x, signed char y) __naked {
+void Console_At_ROM (signed char x, signed char y) __z88dk_callee __naked {
 __asm
-#ifdef __SDCC
-  PUSH IX
-  LD   IX,#0
-  ADD  IX,SP
-#endif
   LD   IY,#0x5C3A
   LD   A,#22
   RST  16
-  LD   A,5(IX) // y
+  POP  HL
+  EX   (SP),HL
+  LD   A,H // y
   RST  16
-  LD   A,4(IX) // x
+  LD   A,L // x
   RST  16
-#ifdef __SDCC
-  POP  IX
-#endif
   RET
 __endasm;
 } //Console_At_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 
-void Console_At_COMPACT (signed char x, signed char y) __naked {
+void Console_At_COMPACT (signed char x, signed char y) __naked __z88dk_callee {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   E,(HL)
-  INC  HL
-  LD   D,(HL)
-#else
-  LD   E,4(IX)
-  LD   D,5(IX)
-#endif
+  POP  HL
+  POP  DE
+  PUSH HL
 ;Процедура расчёта адреса атрибутов из координат
 ; (c) Д.Анисимов, г.Киров, 1996.
 ; http://zxpress.ru/book_articles.php?id=633
@@ -130,18 +117,11 @@ __endasm;
 } //Console_At_COMPACT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Console_At_FAST (signed char x, signed char y) __naked {
+void Console_At_FAST (signed char x, signed char y) __naked __z88dk_callee {
 __asm
-#ifdef __SDCC
-  LD   HL,#2
-  ADD  HL,SP
-  LD   E,(HL)
-  INC  HL
-  LD   D,(HL)
-#else
-  LD   E,4(IX)
-  LD   D,5(IX)
-#endif
+  POP  HL
+  POP  DE
+  PUSH HL
 ;Процедура расчёта адреса атрибутов из координат
 ; (c) Д.Анисимов, г.Киров, 1996.
 ; http://zxpress.ru/book_articles.php?id=633
