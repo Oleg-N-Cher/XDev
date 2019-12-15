@@ -5,12 +5,8 @@ extern void Out6x8_Str (unsigned char *str) __z88dk_fastcall;
 extern void Out6x8_GenFont (unsigned int dest) __z88dk_fastcall;
 
 extern unsigned int Out6x8_font;
-extern unsigned char Out6x8_x;
 /*================================== Header ==================================*/
-
 unsigned int Out6x8_font; // 6x8 font address
-/*--------------------------------- Cut here ---------------------------------*/
-unsigned char Out6x8_x;
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Out6x8_At (signed char x, signed char y) __naked __z88dk_callee {
@@ -19,7 +15,7 @@ __asm
         EX   (SP), HL
         LD   A, #43
         SUB  L
-        LD   (_Out6x8_x), A
+        LD   (_POS_X), A
         LD   A, L
         ADD  L
         ADD  L
@@ -57,11 +53,11 @@ __endasm;
 } //Out6x8_At
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Out6x8_Ch (unsigned char ch) __z88dk_fastcall {
+void Out6x8_Ch (unsigned char ch) __naked __z88dk_fastcall {
 __asm
         LD   A, L
         LD   (CH_CODE$+1), A
-        LD   HL, #_Out6x8_x
+        LD   HL, #_POS_X
         DEC  (HL)
         CALL Z, _Out6x8_Ln
 .globl _SCR_ADR
@@ -112,6 +108,9 @@ PR1$:   ADD  HL, HL
         RET  Z
         LD   HL, #_SCR_ADR+1
         INC  (HL)
+        RET
+.globl _POS_X
+_POS_X: .DB  43
 __endasm;
 } //Out6x8_Ch
 
@@ -119,7 +118,7 @@ __endasm;
 void Out6x8_Ln (void) __naked {
 __asm
         LD   A, #42
-        LD   (_Out6x8_x), A
+        LD   (_POS_X), A
         LD   A, #7
         LD   (_CHPOS+1), A
         LD   HL, #_SCR_ADR+1
