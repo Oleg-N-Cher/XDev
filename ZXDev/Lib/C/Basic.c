@@ -1064,6 +1064,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall {
 __asm
+.globl _Basic_INV_MODE
   LD   IY,#0x5C3A
   LD   A,L
   OR   A
@@ -1093,6 +1094,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall {
 __asm // !!! NEED to be checked to IX-safety
+.globl _Basic_OVER_MODE
   LD   IY,#0x5C3A
   LD   A,L
   OR   A
@@ -1781,6 +1783,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRLN_FAST (void) __naked {
 __asm
+.globl _Basic_INC_HPOS
             LD   HL,(#23684)
             LD   A,L
             OR   #0x1F
@@ -1832,6 +1835,7 @@ __endasm;
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_PRUDG_FAST (unsigned char udg) __naked __z88dk_fastcall {
 __asm
+.globl _Basic_USER_FONT
             LD   H,#0
             ADD  HL,HL
             ADD  HL,HL

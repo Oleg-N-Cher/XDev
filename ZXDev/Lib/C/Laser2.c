@@ -85,6 +85,7 @@ unsigned int _Laser2_SPRT_ADR;  // Sprite file start address
 void Laser2_ATOF_INSCR (void)
 {
   __asm
+.globl _Laser2_ATOF_IN
                   LD    A, #0xC9    ; "RET"
                   LD    (_Laser2_ATOF_IN), A
   __endasm;
@@ -94,6 +95,7 @@ void Laser2_ATOF_INSCR (void)
 void Laser2_ATOF_OUTSCR (void)
 {
   __asm
+.globl _Laser2_ATOF_OUT
                   LD    A, #0xC9    ; "RET"
                   LD    (_Laser2_ATOF_OUT), A
   __endasm;
@@ -103,6 +105,7 @@ void Laser2_ATOF_OUTSCR (void)
 void Laser2_ATON_INSCR (void)
 {
   __asm
+.globl _Laser2_ATOF_IN
                   LD    A, #0xED    ; "LD DE,(ADDR) ED5BXXXX"
                   LD    (_Laser2_ATOF_IN), A
   __endasm;
@@ -112,6 +115,7 @@ void Laser2_ATON_INSCR (void)
 void Laser2_ATON_OUTSCR (void)
 {
   __asm
+.globl _Laser2_ATOF_OUT
                   LD    A, #0x11    ; "LD DE, NN 11XXXX"
                   LD    (_Laser2_ATOF_OUT), A
   __endasm;
@@ -121,6 +125,10 @@ void Laser2_ATON_OUTSCR (void)
 void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall
 {
   __asm
+.globl _Laser2_SCR_1
+.globl _Laser2_SCR_2
+.globl _Laser2_SCRATR_IN
+.globl _Laser2_SCRATR
                   LD    A, L
                   LD    (_Laser2_SCR_1+1), A
                   LD    (_Laser2_SCR_2+1), A
@@ -134,6 +142,10 @@ void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall
 void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall
 {
   __asm
+.globl _Laser2_SCR_1
+.globl _Laser2_SCR_2
+.globl _Laser2_SCRATR
+.globl _Laser2_SCRATR_OUT
                   LD    A, L
                   LD    (_Laser2_SCR_1+1), A
                   LD    (_Laser2_SCR_2+1), A
@@ -147,6 +159,7 @@ void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall
 void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_INSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -161,6 +174,7 @@ void Laser2_PTBL_INSCR (signed char col, signed char row, unsigned char spn) __n
 void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -175,6 +189,7 @@ void Laser2_PTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_INSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -189,6 +204,7 @@ void Laser2_PTND_INSCR (signed char col, signed char row, unsigned char spn) __n
 void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -203,6 +219,7 @@ void Laser2_PTND_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_PTNV_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_INSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -217,6 +234,7 @@ void Laser2_PTNV_INSCR (signed char col, signed char row, unsigned char spn) __n
 void Laser2_PTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -231,6 +249,7 @@ void Laser2_PTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_INSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -245,6 +264,7 @@ void Laser2_PTOR_INSCR (signed char col, signed char row, unsigned char spn) __n
 void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -259,6 +279,7 @@ void Laser2_PTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __
 void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_INSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -273,6 +294,7 @@ void Laser2_PTXR_INSCR (signed char col, signed char row, unsigned char spn) __n
 void Laser2_PTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
                   POP   HL
                   POP   BC           ; C = col; B = row
                   DEC   SP
@@ -419,6 +441,10 @@ void _Laser2_HL_x8 (void)
 void _Laser2_PUT_SPRITE_OUTSCR (void) {
 //  HL: mode; C: col; B: row; D: spn
 __asm
+.globl __Laser2_FindSprite
+.globl __Laser2_DE_x8
+.globl __Laser2_HL_x8
+.globl __Laser2_XYtoScr
                   LD    (SPRT_MODE_OUT$), HL ; Set draw mode
 
                   PUSH  BC
@@ -623,6 +649,8 @@ __endasm;
 void _Laser2_PUT_SPRITE_INSCR (void) {
 //  HL: mode; C: col; B: row; D: spn
 __asm
+.globl __Laser2_FindSprite
+.globl __Laser2_XYtoScr
                   LD    (SPRT_MODE_IN$), HL ; Set draw mode
 
                   CALL  __Laser2_XYtoScr
@@ -697,6 +725,7 @@ __endasm;
 void Laser2_CLSV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -732,6 +761,7 @@ CONTIN_1_3_CLSV$: POP   BC
 void Laser2_INVM (unsigned char spn) __z88dk_fastcall
 {
   __asm
+.globl __Laser2_FindSprite
                   LD    D, L      ; D = spn
 
                   CALL  __Laser2_FindSprite
@@ -760,6 +790,7 @@ __endasm;
 void Laser2_INVV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -796,6 +827,7 @@ INVV_CONTIN_1_3$: POP   BC
 void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScrAtr
                   POP   DE
                   POP   HL              ; L = col; H = row
                   POP   BC              ; C = len; B = hgt
@@ -825,6 +857,7 @@ SETV_SetAtrLine$: LD    (HL), A
 void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScrAtr
                   POP   DE
                   POP   HL              ; L = col; H = row
                   POP   BC              ; C = len; B = hgt
@@ -861,6 +894,7 @@ AWLV_LEN_DIS$:    ADD   #0
 void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScrAtr
                   POP   DE
                   POP   HL              ; L = col; H = row
                   POP   BC              ; C = len; B = hgt
@@ -901,6 +935,7 @@ AWRV_LEN_DIS$:    ADD   #0
 void _Laser2_SLXV (void)
 {
   __asm
+.globl __Laser2_XYtoScr
                   LD    (SLXV_ROLL_LINE$), HL
                   POP   DE
                   POP   BC              ; C = col; B = row
@@ -939,6 +974,7 @@ SLXV_CONT_1_3$:   POP   BC
 void Laser2_SL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SLXV
                   LD    HL, #0x16CB     ; "RL (HL)"
                   JP    __Laser2_SLXV
   __endasm;
@@ -948,6 +984,7 @@ void Laser2_SL1V (unsigned char col, unsigned char row, unsigned char len, unsig
 void Laser2_SL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SLXV
                   LD    HL, #0x6FED     ; "RLD"
                   JP    __Laser2_SLXV
   __endasm;
@@ -977,6 +1014,8 @@ SX8V_CONT_1_3$:   DJNZ  SX8V_CHAR$
 void Laser2_SL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SX8V
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1017,6 +1056,7 @@ SL8V_CONT_1_3$:   POP   BC
 void _Laser2_SRXV (void)
 {
   __asm
+.globl __Laser2_XYtoScr
                   LD    (SRXV_ROLL_LINE$), HL
                   POP   DE
                   POP   BC              ; C = col; B = row
@@ -1051,6 +1091,7 @@ SRXV_CONT_1_3$:   POP   BC
 void Laser2_SR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SRXV
                   LD    HL, #0x1ECB     ; "RL (HL)"
                   JP    __Laser2_SRXV
   __endasm;
@@ -1060,6 +1101,7 @@ void Laser2_SR1V (unsigned char col, unsigned char row, unsigned char len, unsig
 void Laser2_SR4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SRXV
                   LD    HL, #0x67ED     ; "RRD"
                   JP    __Laser2_SRXV
   __endasm;
@@ -1069,6 +1111,8 @@ void Laser2_SR4V (unsigned char col, unsigned char row, unsigned char len, unsig
 void Laser2_SR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_SX8V
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1112,6 +1156,7 @@ SR8V_CONT_1_3$:   POP   BC
 void Laser2_WL1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1152,6 +1197,7 @@ WL1V_CONT_1_3$:   POP   BC
 void Laser2_WL4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1195,6 +1241,7 @@ WL4V_CONT_1_3$:   POP   BC
 void Laser2_WL8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1235,6 +1282,7 @@ WL8V_CONT_1_3$:   POP   BC
 void Laser2_WR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1271,6 +1319,7 @@ WR1V_CONT_1_3$:   POP   BC
 void Laser2_WR4V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1310,6 +1359,7 @@ WR4V_CONT_1_3$:   POP   BC
 void Laser2_WR8V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1353,6 +1403,7 @@ WR8V_CONT_1_3$:   POP   BC
 void Laser2_MIRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
@@ -1425,6 +1476,7 @@ MIRV_CONT_1_3$:   POP   BC
 void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScrAtr
                   POP   DE
                   POP   HL              ; L = col; H = row
                   POP   BC              ; C = len; B = hgt
@@ -1470,6 +1522,8 @@ void Laser2_SUPV (unsigned char col, unsigned char row,
   unsigned char len, unsigned char hgt, unsigned char npx) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_Pixel_Add
+.globl __Laser2_XYtoScr
                   POP   HL
                   POP   BC              ; C = col; B = row
                   POP   DE              ; E = len; D = hgt
@@ -1564,6 +1618,8 @@ void Laser2_SDNV (unsigned char col, unsigned char row,
   unsigned char len, unsigned char hgt, unsigned char npx) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_Pixel_Add
+.globl __Laser2_XYtoScr
                   POP   HL
                   POP   BC              ; C = col; B = row
                   POP   DE              ; E = len; D = hgt
@@ -1660,6 +1716,7 @@ UP_DE$:           LD    A, E            ; ---------------------------------;
 void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_XYtoScr
                   POP   DE
                   POP   BC              ; C = col; B = row
                   CALL  __Laser2_XYtoScr
