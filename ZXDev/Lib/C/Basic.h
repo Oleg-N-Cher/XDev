@@ -376,9 +376,9 @@ extern void Basic_PRUDG_FAST (unsigned char udg) __z88dk_fastcall __preserves_re
 extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 #ifdef ROM_OUTPUT
-  #define Basic_PRWORD Basic_PRWORD_ROM
+#  define Basic_PRWORD Basic_PRWORD_ROM
 #else
-  #define Basic_PRWORD Basic_PRWORD_FAST
+#  define Basic_PRWORD Basic_PRWORD_FAST
 #endif
 
 //------------------------- RANDOMIZE (seed: CARDINAL) -------------------------
@@ -388,10 +388,22 @@ extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall __preserves_reg
 #define Basic_READ(adr) (*(unsigned char*) (adr++))
 
 //------------------------ RND (min, max: UBYTE): UBYTE ------------------------
-extern unsigned char Basic_RND (unsigned char min, unsigned char max);
+extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
+extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
+#ifdef RAND_BB
+#  define Basic_RND Basic_RND_BB
+#else
+#  define Basic_RND Basic_RND_ROM
+#endif
 
 //------------------------- RNDW (min, max: CARDINAL) --------------------------
-extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
+extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
+extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
+#ifdef RAND_BB
+#  define Basic_RNDW Basic_RNDW_BB
+#else
+#  define Basic_RNDW Basic_RNDW_ROM
+#endif
 
 //------------------------ SGN (x: SHORTINT): SHORTINT -------------------------
 extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);

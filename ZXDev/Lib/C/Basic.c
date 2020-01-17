@@ -60,8 +60,10 @@ extern void Basic_PRUDG_FAST (unsigned char udg) __z88dk_fastcall;
 extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
 extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
-extern unsigned char Basic_RND (unsigned char min, unsigned char max);
-extern unsigned int Basic_RNDW (unsigned int min, unsigned int max);
+extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
+extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
+extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
+extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
 extern signed char Basic_SGN (signed char x) __z88dk_fastcall;
 extern signed char Basic_SGNI (signed int x) __z88dk_fastcall;
 
@@ -70,6 +72,7 @@ extern void Basic_Quit_IM1 (void);
 extern void Basic_Quit_IM2 (void);
 
 extern unsigned int _Basic_RandBB (void);
+extern unsigned int _Basic_S_RND (void);
 
 /* Set video attrib */
 #define ATTR_P$ 0x5C8D
@@ -1939,14 +1942,49 @@ __endasm;
 } //Basic_RANDOMIZE
 
 /*--------------------------------- Cut here ---------------------------------*/
-/* SEED_RND address */
-#define SF_RND$ 0x5C76
+unsigned int _Basic_S_RND (void) { // ROM Basic RND
+__asm
+    LD   BC, (0x5C76) ; SEED
+    CALL 0x2D2B ; STACK-BC
+    RST  0x28   ; FP-CALC
+    .DB  0xA1   ; stk-one
+    .DB  0x0F   ; addition ; SEED+1
+    .DB  0x34   ; stk-data
+    .DB  0x37   ; exponent+87 ; 75
+    .DB  0x16   ; (+00,+00,+00)
+    .DB  0x04   ; multiply ; (SEED+1)*75
+    .DB  0x34   ; stk-data
+    .DB  0x80   ; 65537
+    .DB  0x41   ; exponent +91
+    .DB  0,0,0x80 ; (+00)
+    .DB  0x32   ; n-mod-m ; (SEED+1)*75 / 65537
+    .DB  0x02   ; delete
+    .DB  0xA1   ; stk-one
+    .DB  0x03   ; subtract ; reminder-1
+    .DB  0x38   ; end-calc
+    CALL 0x2DA2 ; FP-TO-BC
+    LD   L, C
+    LD   H, B
+    LD   (0x5C76), HL ; => SEED
+__endasm;
+} //_Basic_S_RND
 
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned char Basic_RND_ROM (unsigned char min, unsigned char max) {
+  return _Basic_S_RND()%(max-min+1) + min;
+} //Basic_RND_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
+unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max) {
+  return _Basic_S_RND()%(max-min+1) + min;
+} //Basic_RNDW_ROM
+
+/*--------------------------------- Cut here ---------------------------------*/
 unsigned int _Basic_RandBB (void) /* Ripped from Beta Basic */
 {
 __asm
   LD   D,#0
-  LD   BC,(#SF_RND$)
+  LD   BC,(0x5C76) ; SEED
   LD   H,C
   LD   L,#0xFD
   LD   A,B
@@ -1960,19 +1998,19 @@ __asm
   JR   NC,R1$
   INC  HL
 R1$:
-  LD  (#SF_RND$),HL
+  LD  (0x5C76),HL ; => SEED
 __endasm;
 } //__Basic_RandBB
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_RND (unsigned char min, unsigned char max) {
+unsigned char Basic_RND_BB (unsigned char min, unsigned char max) {
   return _Basic_RandBB()%(max-min+1) + min;
-} //Basic_RND
+} //Basic_RND_BB
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned int Basic_RNDW (unsigned int min, unsigned int max) {
+unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max) {
   return _Basic_RandBB()%(max-min+1) + min;
-} //Basic_RNDW
+} //Basic_RNDW_BB
 
 /*--------------------------------- Cut here ---------------------------------*/
 signed char Basic_SGN (signed char x) __z88dk_fastcall {
