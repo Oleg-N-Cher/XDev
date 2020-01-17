@@ -25,7 +25,7 @@ extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
      call 0x1642 __endasm
 #  endif
 #endif //MODE_DI
-#ifdef MODE_IM1
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  ifndef ROM_OUTPUT
 #    define Basic_Init()
 #  else
