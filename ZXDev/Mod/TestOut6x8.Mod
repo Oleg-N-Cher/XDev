@@ -1,13 +1,13 @@
-MODULE TestOut6x8; (*$MAIN*)
-IMPORT SYSTEM, C := Out6x8, B := Basic;
+MODULE TestOut6x8; (*$MAIN*)(*$866*)
+IMPORT SYSTEM, C := Out6x8, GrFonts, B := Basic;
 
 VAR
-  n: BYTE; font: ARRAY 96 (*chars*) * 8 (* bytes *) OF BYTE;
+  n: BYTE;
 BEGIN
   B.Init; B.CLS;
-  C.GenFont(SYSTEM.ADR(font));
-  C.font := SYSTEM.ADR(font) - 100H;
-  C.At(0, 19); FOR n := 32-1 TO 127-1 DO C.Ch(CHR(n+1)) END;
-  FOR n := 0 TO 17 DO C.At(n, n); C.Str("Hello, Yprit !!!") END;
+  C.font := SYSTEM.ADR(GrFonts.HalfSpaceRus6x8);
+  C.At(0, 23); n := 1; REPEAT C.Ch(CHR(n)); INC(n) UNTIL n = -3;
+  FOR n := 0 TO 16 DO C.At(n, n); C.Str("Привет, Савелий !!!") END;
+  B.PAUSE(0);
   B.Quit
 END TestOut6x8.

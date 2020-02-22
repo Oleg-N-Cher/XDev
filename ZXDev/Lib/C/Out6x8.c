@@ -46,7 +46,7 @@ __asm
 _Out6x8_SCRADR:
         ADD  #0x40
         LD   H, A       ; 14 байт, 53 такта
-        DEC  HL
+        DEC  L
         LD   (_SCR_ADR+1), HL
         RET
 __endasm;
@@ -62,8 +62,8 @@ __asm
         CALL Z, _Out6x8_Ln
 .globl _SCR_ADR
 _SCR_ADR:
-        LD   DE, #0x4000-1  ; DE = экранный адрес
-        INC  DE
+        LD   DE, #0x40FF  ; DE = экранный адрес
+        INC  E
 // Alone Coder
 // Быстрая печать буквы 6x8 (экран в DE):
 .globl _CHPOS
@@ -124,24 +124,18 @@ __asm
         LD   HL, #_SCR_ADR+1
         LD   A, (HL)
         OR   #0x1F
-        CP   (HL)
-        LD   (HL),A
-        RET  NZ
+        LD   (HL), A
         INC  A
-        LD   (HL),A
-        RET  NC
-.globl _INC_HBYTE
-_INC_HBYTE:
-        LD   A, (#_SCR_ADR+2)
-        ADD  A, #8
-        LD   (#_SCR_ADR+2), A
-        INC  HL              ; Приращение старшего адреса
-        INC  (HL)            ;   экрана (и скроллинг)
+        RET  NZ
+        INC  HL
         LD   A, (HL)
-        CP   #0x5B
-        RET  C
-        LD   A, #0x50
-        LD   (#_SCR_ADR+2), A
+        ADD  #8
+        LD   (HL), A
+        CP   #0x58
+        RET  NZ
+        LD   (HL), #0x50
+        DEC  HL
+        LD   (HL), #0xDF
         LD   B, #23
         JP   0xE00           ; Вызов CL_SCROLL
 __endasm;
