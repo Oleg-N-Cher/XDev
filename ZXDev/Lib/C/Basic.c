@@ -84,6 +84,7 @@ extern unsigned int _Basic_S_RND (void);
 
 void Basic_Init_IM2 (void) __naked {
   __asm
+  RES  4,1(IY)
 ; ************************************************
 ; * Set IM2 mode (need for correct work with IY) *
 ; ************************************************

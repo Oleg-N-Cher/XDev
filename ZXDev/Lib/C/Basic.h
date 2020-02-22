@@ -19,17 +19,20 @@
 extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
 #if defined (MODE_DI) || defined (MODE_DI_inline)
 #  ifndef ROM_OUTPUT
-#    define Basic_Init() __asm di __endasm
+#    define Basic_Init() __asm di \
+     res 4,1(iy) __endasm
 #  else
 #    define Basic_Init() __asm di \
+     res 4,1(iy) \
      call 0x1642 __endasm
 #  endif
 #endif //MODE_DI
 #if defined (MODE_IM1) || defined (MODE_IM1_inline)
 #  ifndef ROM_OUTPUT
-#    define Basic_Init()
+#    define Basic_Init() __asm res 4,1(iy) __endasm
 #  else
-#    define Basic_Init() __asm call 0x1642 __endasm
+#    define Basic_Init() __asm res 4,1(iy) \
+     call 0x1642 __endasm
 #  endif
 #endif //MODE_IM1
 #if defined (MODE_IM2) || defined (MODE_IM2_inline)
