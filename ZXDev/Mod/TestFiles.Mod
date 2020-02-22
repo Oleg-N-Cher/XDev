@@ -1,9 +1,9 @@
 MODULE TestFiles;
-IMPORT b := Basic, f := Files;
+IMPORT b := Basic, f := Files, TRDOS;
 
 BEGIN (*$MAIN*)
   b.Init;
-  IF f.IsTRDOS() THEN
+  IF TRDOS.IsDisk() THEN
     IF f.LoadDisk("Castle  C", 4000H) THEN
       b.PRSTR("DISK O.K. Size = "); b.PRINT(f.filesize)
     ELSE

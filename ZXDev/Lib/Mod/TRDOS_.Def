@@ -1,4 +1,4 @@
-MODULE TrDos; IMPORT SYSTEM;
+MODULE TRDOS; IMPORT SYSTEM;
 
 (* * * * * * * * * * * * * * * * * * * * * * * *)
 (* Обертка к функциям TR-DOS для SDCC          *)
@@ -34,7 +34,8 @@ TYPE
   END;
 
 (* Прототипы функций: *)
-  
+PROCEDURE IsDisk* (): BOOLEAN; END IsDisk;
+
 (* функция #01 TR-DOS: *)
 (*          drive name ('a','b','c','d'), не чувствительна к регистру *)
 PROCEDURE DriveSel* (driveLetter: UCHAR); END DriveSel;
@@ -89,4 +90,4 @@ PROCEDURE LoadFile* (
   name: ARRAY OF UCHAR; destPtr: UCHARPTR; fileDataLen: UINT);
 END LoadFile;
 
-END TrDos.
+END TRDOS.

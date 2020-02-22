@@ -26,7 +26,9 @@ struct trdosFDSP {
 	unsigned char  trFTrack;};
 
 // Прототипы функций:	
-	
+
+unsigned char trdosIsDisk(void) __preserves_regs(b,c,iyl,iyh);
+
 // функция #01 TR-DOS:
 // 				 drive name ('a','b','c','d'), не чувствительна к регистру
 void trdosDriveSel(char); 

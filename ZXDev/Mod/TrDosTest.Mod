@@ -1,25 +1,25 @@
-MODULE TrDosTest; IMPORT TrDos, Console;
+MODULE TrDosTest; IMPORT TRDOS, Console;
 
 VAR
-  code: TrDos.UCHAR;
+  code: TRDOS.UCHAR;
 
 BEGIN (*$MAIN*)
-  code := TrDos.FindFile("file1", 5X);
+  code := TRDOS.FindFile("file1", 5X);
   Console.WriteStr("Found code: ");
   Console.WriteInt(ORD(code));
   Console.WriteLn;
 
-  code := TrDos.FindFile("boot", 4X);
+  code := TRDOS.FindFile("boot", 4X);
   Console.WriteStr("Found code: ");
   Console.WriteInt(ORD(code));
   Console.WriteLn;
 
-  code := TrDos.FindFile("Das2", 4X);
+  code := TRDOS.FindFile("Das2", 4X);
   Console.WriteStr("Found code: ");
   Console.WriteInt(ORD(code));
   Console.WriteLn;
 
-  code := TrDos.FindFile("Dash", 4X);
+  code := TRDOS.FindFile("Dash", 4X);
   Console.WriteStr("Found code: ");
   Console.WriteInt(ORD(code));
   Console.WriteLn;

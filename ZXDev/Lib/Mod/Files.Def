@@ -14,14 +14,13 @@ CONST (* LoadTape error codes *)
 VAR
   filesize-: SHORTINT; (* File size after LoadTape/LoadDisk successful *)
 
-PROCEDURE IsTRDOS* (): BOOLEAN; END IsTRDOS;
-PROCEDURE LoadDisk* (name_ext: ARRAY [untagged] OF CHAR;
+PROCEDURE LoadDisk* (name_ext: ARRAY [notag] OF CHAR;
   adr: INTEGER): BOOLEAN; END LoadDisk;
-PROCEDURE LoadTape* (name: ARRAY [untagged] OF CHAR;
+PROCEDURE LoadTape* (name: ARRAY [notag] OF CHAR;
   adr: INTEGER): BYTE; END LoadTape;
-PROCEDURE SaveDisk* (name_ext: ARRAY [untagged] OF CHAR;
+PROCEDURE SaveDisk* (name_ext: ARRAY [notag] OF CHAR;
   adr, size: INTEGER); END SaveDisk;
-PROCEDURE SaveTape* (name: ARRAY [untagged] OF CHAR;
+PROCEDURE SaveTape* (name: ARRAY [notag] OF CHAR;
   adr, size: INTEGER); END SaveTape;
 
 END Files.

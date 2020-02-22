@@ -5,7 +5,6 @@
 
 extern unsigned int Files_filesize;
 
-extern unsigned char Files_IsTRDOS (void);
 extern unsigned char Files_LoadDisk (unsigned char *name_ext, unsigned int adr) __z88dk_callee;
 extern unsigned char Files_LoadTape (unsigned char *name, unsigned int adr) __z88dk_callee;
 extern void Files_SaveDisk (unsigned char *name_ext, unsigned int adr, unsigned int size) __z88dk_callee;
@@ -15,19 +14,6 @@ extern void Files_SaveTape (unsigned char *name, unsigned int adr, unsigned int 
 unsigned int Files_filesize;
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Files_tapeHeader [17];
-
-/*--------------------------------- Cut here ---------------------------------*/
-unsigned char Files_IsTRDOS (void) {
-  __asm 
-       LD      HL,(#23635)
-       LD      DE,#23755
-       XOR     A
-       SBC     HL,DE
-       LD      L,A
-       RET     Z
-       INC     L
-  __endasm;
-} //Files_IsTRDOS
 
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Files_LoadDisk (unsigned char *name_ext, unsigned int adr) __naked __z88dk_callee {

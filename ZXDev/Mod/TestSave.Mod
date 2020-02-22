@@ -1,9 +1,9 @@
 MODULE TestSave;
-IMPORT b := Basic, f := Files;
+IMPORT b := Basic, f := Files, TRDOS;
 
 BEGIN (*$MAIN*)
   b.Init;
-  IF f.IsTRDOS() THEN
+  IF TRDOS.IsDisk() THEN
     IF f.LoadDisk("Castle  C", 4000H) THEN
       b.PRSTR("DISK O.K. Size = "); b.PRINT(f.filesize)
     ELSE
@@ -19,7 +19,7 @@ BEGIN (*$MAIN*)
     END
   END;
   b.PAUSE(0);
-  IF f.IsTRDOS() THEN
+  IF TRDOS.IsDisk() THEN
     f.SaveDisk("Castle2 C", 4000H, 6912)
   ELSE
     f.SaveTape("Castle2", 4000H, 6912)
