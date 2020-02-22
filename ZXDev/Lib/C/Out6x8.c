@@ -83,7 +83,16 @@ CH_CODE$:
         LD   BC, (_Out6x8_font)
         ADD  HL, BC
         LD   B, #8
-PRGO$:  PUSH HL
+        DEC  A
+        JR   NZ, PRTWO$
+PRONE$: LD   A, (DE)
+        OR   (HL)
+        LD   (DE), A
+        INC  D
+        INC  HL
+        DJNZ PRONE$
+        JR   NEXT$
+PRTWO$: PUSH HL
         LD   L, (HL)
 PRN$:   LD   H, #1
 PR1$:   ADD  HL, HL
@@ -99,8 +108,8 @@ PR1$:   ADD  HL, HL
         INC  D
         POP  HL
         INC  HL
-        DJNZ PRGO$
-        EX   AF, AF
+        DJNZ PRTWO$
+NEXT$:  EX   AF, AF
         SUB  #6
         AND  #7
         LD   (_CHPOS+1), A
