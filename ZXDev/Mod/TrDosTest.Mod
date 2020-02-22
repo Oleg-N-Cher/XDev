@@ -4,6 +4,7 @@ VAR
   code: TRDOS.UCHAR;
 
 BEGIN (*$MAIN*)
+  TRDOS.Init;
   code := TRDOS.FindFile("file1", 5X);
   Console.WriteStr("Found code: ");
   Console.WriteInt(ORD(code));

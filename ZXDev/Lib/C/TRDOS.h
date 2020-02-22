@@ -20,6 +20,6 @@
 #define TRDOS_WriteFileDSP trdosWriteFileDSP
 #define TRDOS_WriteSectors trdosWriteSectors
 
-#define TRDOS__init trdosInit
+#define TRDOS__init()
 
 #endif
