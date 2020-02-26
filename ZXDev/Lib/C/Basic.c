@@ -1972,12 +1972,12 @@ __endasm;
 
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned char Basic_RND_ROM (unsigned char min, unsigned char max) {
-  return _Basic_S_RND()%(max-min+1) + min;
+  return _Basic_S_RND() / (65535/(max-min+1)) + min;
 } //Basic_RND_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
 unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max) {
-  return _Basic_S_RND()%(max-min+1) + min;
+  return _Basic_S_RND() / (65535/(max-min+1)) + min;
 } //Basic_RNDW_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
