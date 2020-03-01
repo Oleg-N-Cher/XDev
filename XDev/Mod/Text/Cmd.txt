@@ -161,6 +161,29 @@ BEGIN
 	Kernel.Cleanup;
 END Close;
 
+PROCEDURE ExportText (
+  md: TextModels.Model; loc: Files.Locator; IN name: Files.Name): BOOLEAN;
+VAR
+	ch: CHAR; res: INTEGER; rd: TextModels.Reader;
+	file: Files.File; wr: Files.Writer;
+BEGIN
+	file := Files.dir.New(loc, Files.dontAsk);
+	IF file = NIL THEN RETURN FALSE END;
+	wr := file.NewWriter(NIL); wr.SetPos(0);
+	rd := md.NewReader(NIL);
+	rd.ReadChar(ch);
+	WHILE ~rd.eot DO
+		IF ch = 0DX THEN wr.WriteByte(0DH); wr.WriteByte(0AH);
+		ELSIF ch # 2X THEN
+			wr.WriteByte(SHORT(SHORT(ORD(ch))));
+		END;
+		rd.ReadChar(ch);
+	END;
+	file.Register(name, "", Files.dontAsk, res);
+	file.Close;
+	RETURN TRUE
+END ExportText;
+
 PROCEDURE GetNameWoExt (name: ARRAY OF CHAR; OUT woext: ARRAY OF CHAR);
 CONST
 	ExtDelimiter = ".";
@@ -276,6 +299,32 @@ BEGIN
 	RETURN FALSE
 END HaveAtrGPCP;
 
+PROCEDURE HaveAtr866 (t: TextModels.Model): BOOLEAN;
+VAR
+	ch: CHAR; reader: TextModels.Reader;
+
+	PROCEDURE Match (IN s: ARRAY OF CHAR): BOOLEAN;
+	VAR
+		i, n: INTEGER;
+	BEGIN
+		i := 0; n := LEN(s$);
+		WHILE ~reader.eot & (ch = " ") DO reader.ReadChar(ch) END;
+		WHILE ~reader.eot & (i < n) & (ch = s[i]) DO
+			reader.ReadChar(ch); INC(i);
+		END;
+		RETURN i = n
+	END Match;
+
+BEGIN
+	ASSERT(t # NIL, 20);
+	reader := t.NewReader(reader); reader.SetPos(0);
+	WHILE ~reader.eot DO
+		reader.ReadChar(ch);
+		IF Match("(*$866*)") THEN RETURN TRUE END;
+	END;
+	RETURN FALSE
+END HaveAtr866;
+
 PROCEDURE OfrontCompile* ; (** Call "Bin/compile.bat" script. *)
 VAR
 	t: TextModels.Model; w: Windows.Window;
@@ -294,7 +343,13 @@ BEGIN
 				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
 				OfrontOPM.options.mainprog := HaveAtrMAIN(t);
 				Dialog.UpdateBool(OfrontOPM.options.mainprog);
+				OfrontOPM.options.cp866 := HaveAtr866(t);
+				Dialog.UpdateBool(OfrontOPM.options.cp866);
 				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			ELSE (*GPCP*)
+				IF ~ExportText(t, Files.dir.This(dir + ObjDir), w.name) THEN
+					Dialog.ShowMsg("Couldn't save " + ObjDir + w.name$); Close; RETURN
+				END;
 			END;
 
 			GetNameWoExt(w.name, name);
@@ -355,7 +410,13 @@ BEGIN
 				OfrontOPM.SetWorkDir(dir, dir, TRUE, ExistsDir(dir, "Sym"), "");
 				OfrontOPM.options.mainprog := HaveAtrMAIN(t);
 				Dialog.UpdateBool(OfrontOPM.options.mainprog);
+				OfrontOPM.options.cp866 := HaveAtr866(t);
+				Dialog.UpdateBool(OfrontOPM.options.cp866);
 				IF ~Ofront.TranslateDone() THEN Close; RETURN END;
+			ELSE (*GPCP*)
+				IF ~ExportText(t, Files.dir.This(dir + ObjDir), w.name) THEN
+					Dialog.ShowMsg("Couldn't save " + ObjDir + w.name$); Close; RETURN
+				END;
 			END;
 
 			(* Main building thread: *)
