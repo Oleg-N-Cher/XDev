@@ -36,6 +36,11 @@ PROCEDURE SetScreen    * (adr: ADR) (** Set screen adr *)   ; END SetScreen;
 
 PROCEDURE ATOF *                                        ; END ATOF;
 PROCEDURE ATON *                                        ; END ATON;
+PROCEDURE GTBL * (col, row: BYTE; spn: UBYTE)           ; END GTBL;
+PROCEDURE GTND * (col, row: BYTE; spn: UBYTE)           ; END GTND;
+PROCEDURE GTNV * (col, row: BYTE; spn: UBYTE)           ; END GTNV;
+PROCEDURE GTOR * (col, row: BYTE; spn: UBYTE)           ; END GTOR;
+PROCEDURE GTXR * (col, row: BYTE; spn: UBYTE)           ; END GTXR;
 PROCEDURE INVM * (spn: UBYTE)                           ; END INVM;
 PROCEDURE PTBL * (col, row: BYTE; spn: UBYTE)           ; END PTBL;
 PROCEDURE PTND * (col, row: BYTE; spn: UBYTE)           ; END PTND;

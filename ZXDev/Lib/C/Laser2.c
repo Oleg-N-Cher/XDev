@@ -13,6 +13,16 @@ void Laser2_ATOF_INSCR  (void);
 void Laser2_ATOF_OUTSCR (void);
 void Laser2_ATON_INSCR  (void);
 void Laser2_ATON_OUTSCR (void);
+void Laser2_GTBL_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTND_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTND_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTNV_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTOR_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTXR_INSCR  (signed char col, signed char row, unsigned char spn) __z88dk_callee;
+void Laser2_GTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __z88dk_callee;
 void Laser2_INVM        (unsigned char spn)      __z88dk_fastcall;
 void Laser2_SCRN_INSCR  (unsigned char hbyteadr) __z88dk_fastcall;
 void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall;
@@ -137,6 +147,212 @@ void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall
                   LD    (_Laser2_SCRATR+1), A
   __endasm;
 } //Laser2_SCRN_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTBL_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_PUT_SPRITE_INSCR
+.globl ATRLINE_LDIR_IN
+.globl SPRT_MODE_IN
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0x001A  ; "LD A, (DE)" "NOP"
+__Laser2_GTBL_IN:
+                  LD    A, #0x77     ; "LD (HL), A"
+                  LD    (SPRT_MODE_IN+2), A
+                  PUSH  HL
+                  LD    HL, #ATRLINE_LDIR_IN
+                  LD    (HL), #0xCD  ; "CALL"
+                  INC   HL
+                  LD    (HL), #<DRAW_ATR_IN
+                  INC   HL
+                  LD    (HL), #>DRAW_ATR_IN
+                  POP   HL
+                  CALL  __Laser2_PUT_SPRITE_INSCR
+                  LD    A, #0x12     ; "LD (DE), A"
+                  LD    (SPRT_MODE_IN+2), A
+                  LD    HL, #ATRLINE_LDIR_IN
+                  LD    (HL), #0xED  ; "LDIR"
+                  INC   HL
+                  LD    (HL), #0xB0
+                  INC   HL
+                  LD    (HL), #0x7B  ; "LD A, E"
+                  RET
+                  ; ----------
+DRAW_ATR_IN:      EX    DE, HL
+                  LDIR
+                  EX    DE, HL
+                  LD    A, E
+                  RET
+  __endasm;
+} //Laser2_GTBL_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_PUT_SPRITE_OUTSCR
+.globl ATRLINE_LDIR_OUT
+.globl SPRT_MODE_OUT
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0x001A  ; "LD A, (DE)" "NOP"
+__Laser2_GTBL_OUT:
+                  LD    A, #0x77     ; "LD (HL), A"
+                  LD    (SPRT_MODE_OUT+2), A
+                  PUSH  HL
+                  LD    HL, #ATRLINE_LDIR_OUT
+                  LD    (HL), #0xCD  ; "CALL"
+                  INC   HL
+                  LD    (HL), #<DRAW_ATR_OUT
+                  INC   HL
+                  LD    (HL), #>DRAW_ATR_OUT
+                  POP   HL
+                  CALL  __Laser2_PUT_SPRITE_OUTSCR
+                  LD    A, #0x12     ; "LD (DE), A"
+                  LD    (SPRT_MODE_OUT+2), A
+                  LD    HL, #ATRLINE_LDIR_OUT
+                  LD    (HL), #0x67  ; "LD H, A"
+                  INC   HL
+                  LD    (HL), #0xED  ; "LDIR"
+                  INC   HL
+                  LD    (HL), #0xB0
+                  RET
+                  ; ----------
+DRAW_ATR_OUT:     LD    H, A
+                  EX    DE, HL
+                  LDIR
+                  EX    DE, HL
+                  RET
+  __endasm;
+} //Laser2_GTBL_OUTSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTND_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_IN
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xA61A  ; "LD A, (DE)" "AND (HL)"
+                  JP    __Laser2_GTBL_IN
+  __endasm;
+} //Laser2_GTND_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTND_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_OUT
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xA61A  ; "LD A, (DE)" "AND (HL)"
+                  JP    __Laser2_GTBL_OUT
+  __endasm;
+} //Laser2_GTND_OUTSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTNV_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_IN
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0x2F1A  ; "LD A, (DE)" "CPL"
+                  JP    __Laser2_GTBL_IN
+  __endasm;
+} //Laser2_GTNV_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTNV_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_OUT
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0x2F1A  ; "LD A, (DE)" "CPL"
+                  JP    __Laser2_GTBL_OUT
+  __endasm;
+} //Laser2_GTNV_OUTSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTOR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_IN
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xB61A  ; "LD A, (DE)" "OR (HL)"
+                  JP    __Laser2_GTBL_IN
+  __endasm;
+} //Laser2_GTOR_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTOR_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_OUT
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xB61A  ; "LD A, (DE)" "OR (HL)"
+                  JP    __Laser2_GTBL_OUT
+  __endasm;
+} //Laser2_GTOR_OUTSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTXR_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_IN
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xAE1A  ; "LD A, (DE)" "XOR (HL)"
+                  JP    __Laser2_GTBL_IN
+  __endasm;
+} //Laser2_GTXR_INSCR
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_GTXR_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_GTBL_OUT
+                  POP   HL
+                  POP   BC           ; C = col; B = row
+                  DEC   SP
+                  POP   DE           ; D = spn
+                  PUSH  HL
+                  LD    HL, #0xAE1A  ; "LD A, (DE)" "XOR (HL)"
+                  JP    __Laser2_GTBL_OUT
+  __endasm;
+} //Laser2_GTXR_OUTSCR
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_SCRN_OUTSCR (unsigned char hbyteadr) __z88dk_fastcall
@@ -445,7 +661,7 @@ __asm
 .globl __Laser2_DE_x8
 .globl __Laser2_HL_x8
 .globl __Laser2_XYtoScr
-                  LD    (SPRT_MODE_OUT$), HL ; Set draw mode
+                  LD    (SPRT_MODE_OUT), HL ; Set draw mode
 
                   PUSH  BC
                   CALL  __Laser2_FindSprite
@@ -558,7 +774,7 @@ LEFT_SKIP_x8$:    LD    DE, #0
                   PUSH  BC
                   LD    B, #8           ; Draw 8 bytes (one charline)
 SPRT_CHAR_OUT$:
-SPRT_MODE_OUT$:   LD    A, (HL)         ; "LD A, (HL) " | "LD A, (DE)"
+SPRT_MODE_OUT:    LD    A, (HL)         ; "LD A, (HL) " | "LD A, (DE)"
                   NOP                   ; "NOP" | "CPL" | "AND (HL)" | "OR (HL)" | "XOR (HL)"
                   LD    (DE), A
                   INC   HL
@@ -623,10 +839,8 @@ DRAW_ATRLINE_OUT$:PUSH  BC                ; Begin of loop on charlines
                   LD    L, A
                   LD    A, H
                   ADC   #0
-                  LD    H, A
-
+ATRLINE_LDIR_OUT: LD    H, A
                   LDIR
-
                   LD    A, (RIGHT_SKIP$+1)
                   ADD   L
                   LD    L, A
@@ -709,7 +923,7 @@ _Laser2_SCRATR_IN:ADD   #0x58
                   LD    (SPRT_HGT_DIS_IN$+1), A
 DRAW_ATRLINE_IN$: PUSH  BC                ; Begin of loop on charlines
                   LD    B, #0
-                  LDIR
+ATRLINE_LDIR_IN:  LDIR
                   LD    A, E
 SPRT_HGT_DIS_IN$: ADD   #0
                   LD    E, A
