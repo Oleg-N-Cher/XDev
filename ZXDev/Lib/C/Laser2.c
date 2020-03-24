@@ -660,6 +660,7 @@ __asm
 .globl __Laser2_FindSprite
 .globl __Laser2_DE_x8
 .globl __Laser2_HL_x8
+.globl SPRT_MODE_OUT
 .globl __Laser2_XYtoScr
                   LD    (SPRT_MODE_OUT), HL ; Set draw mode
 
@@ -839,6 +840,7 @@ DRAW_ATRLINE_OUT$:PUSH  BC                ; Begin of loop on charlines
                   LD    L, A
                   LD    A, H
                   ADC   #0
+.globl ATRLINE_LDIR_OUT
 ATRLINE_LDIR_OUT: LD    H, A
                   LDIR
                   LD    A, (RIGHT_SKIP$+1)
