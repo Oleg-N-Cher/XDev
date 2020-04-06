@@ -152,6 +152,7 @@ void Laser2_SCRN_INSCR (unsigned char hbyteadr) __z88dk_fastcall
 void Laser2_GTBL_INSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_GTBL_IN
 .globl __Laser2_PUT_SPRITE_INSCR
 .globl ATRLINE_LDIR_IN
 .globl SPRT_MODE_IN
@@ -195,6 +196,7 @@ DRAW_ATR_IN:      EX    DE, HL
 void Laser2_GTBL_OUTSCR (signed char col, signed char row, unsigned char spn) __naked __z88dk_callee
 {
   __asm
+.globl __Laser2_GTBL_OUT
 .globl __Laser2_PUT_SPRITE_OUTSCR
 .globl ATRLINE_LDIR_OUT
 .globl SPRT_MODE_OUT
