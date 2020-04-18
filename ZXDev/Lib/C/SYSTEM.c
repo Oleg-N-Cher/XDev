@@ -27,6 +27,9 @@ __endasm;
 } //SYSTEM_HALT_m1
 
 /*--------------------------------- Cut here ---------------------------------*/
+int SYSTEM_XCHK (int i, int ub) { return __X(i, ub, "", 0); }
+
+/*--------------------------------- Cut here ---------------------------------*/
 void SYSTEM_STRAPND (CHAR *from, CHAR *to) __naked __z88dk_callee {
     __asm  ; n = 0; while (to[n] != '\0') n++;
            POP  HL
