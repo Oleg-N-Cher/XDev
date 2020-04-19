@@ -1,5 +1,7 @@
 -stx3 -48
-TestCP.Mod -C
+Test.Mod -C TestCopyRecs.Mod -C Ex.Mod -C TestCopyRecs2.Mod -tC
+TestReals.Mod -C
+TestCP.Mod -C TestCP.txt -C
 Test1.Mod -1
 Test2.Mod -2
 Test7.Mod -7

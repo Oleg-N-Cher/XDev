@@ -21,7 +21,7 @@ IF "%App%"=="GUIcmd" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1w.c -Wl,-e_
 IF "%App%"=="GUIcmd" SET App=GUI
 IF "%App%"=="DLL" SET App=DLL
 IF "%App%"=="DLL" SET StripExe=-nostartfiles -o..\%MainMod%.dll -Wl,--out-implib,%MainMod%.a
-SET Options=%StripExe% %Options% -m32 -s -Os -g0 -fvisibility=hidden -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -Wl,--gc-sections -Wl,--file-alignment,512
+SET Options=%StripExe% %Options% -m32 -s -Os -g0 -fvisibility=hidden -fno-ident -fno-stack-protector -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -falign-functions=1 -mpreferred-stack-boundary=2 -falign-jumps=1 -falign-loops=1 -fno-exceptions -Wl,--gc-sections
 IF "%App%"=="GUI" SET Options=%Options% -mwindows
 IF "%App%"=="DLL" SET Options=%Options% -fPIC -shared
 

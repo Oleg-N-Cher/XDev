@@ -22,7 +22,7 @@ IF "%App%"=="GUIcmd" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1w.c -Wl,-e_
 IF "%App%"=="GUIcmd" SET App=GUI
 IF "%App%"=="DLL" SET App=DLL
 IF "%App%"=="DLL" SET StripExe=-nostartfiles %WinDev%\Lib\Mod\crt1dll.c -Wl,-eDllMainCRTStartup@12 -o..\x64\%MainMod%.dll -Wl,--out-implib,%MainMod%.a
-SET Options=%StripExe% %Options% -m64 -s -Os -g0 -fvisibility=hidden -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -Wl,--gc-sections -Wl,--file-alignment,512
+SET Options=%StripExe% %Options% -m64 -s -Os -g0 -fvisibility=hidden -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -Wl,--gc-sections
 IF "%App%"=="GUI" SET Options=%Options% -mwindows
 IF "%App%"=="DLL" SET Options=%Options% -fPIC -shared
 SET Include=%Include% -I%WinDev%\Lib\Mod -I%WinDev%\Lib\Obj64

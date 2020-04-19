@@ -16,7 +16,7 @@ import void ConsoleWinAPI_WriteLong (LONGINT n);
 import void ConsoleWinAPI_WriteReal (REAL x);
 import void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n);
 import void ConsoleWinAPI_WriteStr (CHAR *str, INTEGER str__len);
-import void *ConsoleWinAPI__init(void);
+import void *ConsoleWinAPI__init (void);
 
 
 #endif

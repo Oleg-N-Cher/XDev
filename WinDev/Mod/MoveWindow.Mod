@@ -10,7 +10,7 @@ CONST
   HWND_TOPMOST = -1; (* this constant is not present in WinApi module *)
 
 VAR
-  defMessage: ARRAY 1024 OF SHORTCHAR;
+  defMessage: ARRAY 1024 OF CHAR;
   instance: W.HINSTANCE;
   mainWnd: W.HWND;
   defaultBrush: W.HBRUSH;

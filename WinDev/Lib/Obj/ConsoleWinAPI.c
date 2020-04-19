@@ -223,7 +223,7 @@ void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n)
 
 /*----------------------------------------------------------------------------*/
 
-export void *ConsoleWinAPI__init(void)
+export void *ConsoleWinAPI__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Ignore__init);
