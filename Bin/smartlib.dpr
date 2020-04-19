@@ -197,8 +197,7 @@ BEGIN
     END;
   END ELSE BEGIN (* CUT mode: *)
 
-    IF partName = '' THEN partName := Kol.ExtractFileNameWOext(SrcName);
-    INSERT('_', partName, MAXINT);
+    IF partName = '' THEN partName := Kol.ExtractFileNameWOext(SrcName) + '_';
     (* Detecting the header ... *)
     pos := FindSegment(HeadDivisor1, HeadDivisor2, 1);
     header := '';
