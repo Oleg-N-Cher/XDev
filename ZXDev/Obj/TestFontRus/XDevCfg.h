@@ -46,7 +46,6 @@
 #define SYSTEM_NoASSERT
 
 /* Runtime checks */
-#define SYSTEM_NoCheck_X
 #define SYSTEM_NoCheck_CASE
 #define SYSTEM_NoCheck_RETURN
 

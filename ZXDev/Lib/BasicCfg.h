@@ -22,4 +22,5 @@
 //#define CLS_FULLSCREEN
 
 /* Use ROM calculator or BetaBasic way for generating a RND value: */
-#define RAND_BB
+
+//#define RAND_BB

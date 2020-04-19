@@ -38,5 +38,11 @@ BEGIN
   b.COLOR(b.Yellow); b.AT(10, 12); b.PRSTR("SGNI");
   d.SaveRegsDef; IF b.SGNI(-1) = 0 THEN END; d.CheckRegs;
 
+  b.COLOR(b.Yellow); b.AT(11, 1); b.PRSTR("RND");
+  d.SaveRegsDef; IF b.RND(1, 2) = 0 THEN END; d.CheckRegs;
+
+  b.COLOR(b.Yellow); b.AT(12, 1); b.PRSTR("RNDW");
+  d.SaveRegsDef; IF b.RNDW(1, 2) = 0 THEN END; d.CheckRegs;
+
   b.Quit
 END BasicRegs3.

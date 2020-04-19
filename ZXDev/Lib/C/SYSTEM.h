@@ -202,7 +202,7 @@ extern void SYSTEM_ENUMR();
 
 /* runtime checks */
 #define __X(i, ub, mod, pos)	(((unsigned)(i)<(unsigned)(ub))?i:(__HALT(3),0))
-#define __XF(i, ub, mod, pos)	 SYSTEM_XCHK((i), (ub))
+#define __XF(i, ub, mod, pos)	SYSTEM_XCHK((i), (ub))
 #ifndef SYSTEM_NoCheck_RETURN
 #  define __RETCHK	__retchk: __HALT(-3)
 #else

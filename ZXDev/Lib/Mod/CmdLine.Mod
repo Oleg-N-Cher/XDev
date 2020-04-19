@@ -1,5 +1,4 @@
-MODULE CmdLine;
-IMPORT SYSTEM;
+MODULE CmdLine [noinit];
 
 CONST
   ParamCount* = 0;
@@ -12,7 +11,5 @@ PROCEDURE GetParam* (n: BYTE; VAR param: ARRAY OF Char);
 BEGIN
   param[0] := 0X;
 END GetParam;
-
-PROCEDURE -_init* "/*-noinit*/";
 
 END CmdLine.
