@@ -1,0 +1,17 @@
+MODULE Cursor; IMPORT SYSTEM; (** non-portable *)
+
+VAR Std-: ARRAY 39 OF CHAR; (** Standard cursor shape *)
+
+(** #0: INIT CURSOR (set cursor shape). *)
+PROCEDURE Init* (shape: ARRAY [notag] OF CHAR);          END Init;
+
+(** #1: DRAW CURSOR (also saves background). *)
+PROCEDURE Draw* (x (*{0..255}*), y (*{0..191}*): INT16); END Draw;
+
+(** #2: HIDE CURSOR (restore background). *)
+PROCEDURE Hide*;                                         END Hide;
+
+(** #3: GET CONTROL BYTE for current keys. *)
+PROCEDURE GetControl*(): SET;                            END GetControl;
+
+END Cursor.
