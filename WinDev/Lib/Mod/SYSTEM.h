@@ -128,15 +128,15 @@ extern void exit (int);
 #ifdef SYSTEM_Cfg_NoGC
 #  ifdef SYSTEM_Cfg_KERNEL32
      void SYSTEM_ExitOS (int code);
-#    define __HALT(code)               SYSTEM_ExitOS(code)
-#    define __HALT_NEW(code, mod, pos) SYSTEM_ExitOS(code)
+#    define __HALT_OLD(code)       SYSTEM_ExitOS(code)
+#    define __HALT(code, mod, pos) SYSTEM_ExitOS(code)
 #  else
-#    define __HALT exit
-#    define __HALT_NEW(code, mod, pos) exit(code)
+#    define __HALT_OLD exit
+#    define __HALT(code, mod, pos) exit(code)
 #  endif
-#  define __ASSERT(cond, code, mod, pos) if (!(cond)) __HALT(code)
+#  define __ASSERT(cond, code, mod, pos) if (!(cond)) __HALT(code, mod, pos)
 #else
-#  define __HALT(code)       SYSTEM_HALT(code)
+#  define __HALT(code, mod, pos)   SYSTEM_HALT(code)
 #  define __ASSERT(cond, code, mod, pos) if (!(cond)) SYSTEM_ASSERT_FAIL(code)
 #endif
 
@@ -144,12 +144,12 @@ extern void exit (int);
 // Strings copy, append, compare and calculate length
 
 static inline void __STRAPND (CHAR *from, CHAR *to, INTEGER len, CHAR *mod, INTEGER pos) { // to := to + from
-  do { len--; if (len < 0) __HALT_NEW(-8, mod, pos); } while (*to++); to--;
-  do { if (len-- < 0) __HALT_NEW(-8, mod, pos); } while (*to++ = *from++);
+  do { len--; if (len < 0) __HALT(-8, mod, pos); } while (*to++); to--;
+  do { if (len-- < 0) __HALT(-8, mod, pos); } while (*to++ = *from++);
 }
 #define __STRCMP(a, b)  SYSTEM_STRCMP((CHAR*)(a), (CHAR*)(b))
 static inline void __STRCOPY (CHAR *from, CHAR *to, INTEGER len, CHAR *mod, INTEGER pos) { // to := from
-  do { len--; if (len < 0) __HALT_NEW(-8, mod, pos); *to++ = *from; } while (*from++);
+  do { len--; if (len < 0) __HALT(-8, mod, pos); *to++ = *from; } while (*from++);
 }
 static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
   INTEGER n = 0; while (str[n]) n++; return n;
@@ -169,6 +169,10 @@ static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
 
 #define __VAL(t, x)     (*(t*)&(x))
 #define __VALP(t, x)    ((t)(SYSTEM_ADRINT)(x))
+static inline SHORTREAL __VALSR(INTEGER x)   { return *(SHORTREAL*)&x; }
+static inline REAL      __VALR (LONGINT x)   { return *(REAL*)     &x; }
+static inline INTEGER   __VALI (SHORTREAL x) { return *(INTEGER*)  &x; }
+static inline LONGINT   __VALL (REAL x)      { return *(LONGINT*)  &x; }
 
 #define __GET(a, x, t)  x= *(t*)(a)
 #define __PUT(a, x, t)  *(t*)(a)=(t)x
@@ -189,7 +193,7 @@ static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
 
 #define __BIT(x, n)     (*(__U_LONGINT*)(x)>>(n)&1)
 #define __MOVE(s, d, n) memcpy((char*)(d),(char*)(s),n)
-#define __SHORT(x, y, mod, pos)   ((int)((__U_LONGINT)(x)+(y)<(y)+(y)?(x):(__HALT_NEW(-8,mod,pos),0)))
+#define __SHORT(x, y, mod, pos)   ((int)((__U_LONGINT)(x)+(y)<(y)+(y)?(x):(__HALT(-8,mod,pos),0)))
 #define __SHORTF(x, y, mod, pos)  ((int)(__RF((x)+(y), (y)+(y), mod, pos)-(y)))
 #define __CHR(x, mod, pos)        ((CHAR)__R(x, 256, mod, pos))
 #define __CHRF(x, mod, pos)       ((CHAR)__RF(x, 256, mod, pos))
@@ -216,23 +220,23 @@ static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
 // Runtime checks
 
 #ifndef SYSTEM_Cfg_NoCheck_X
-#  define __X(i, ub, mod, pos)  (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT_NEW(-2,mod,pos), 0))
+#  define __X(i, ub, mod, pos)  (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT(-2,mod,pos), 0))
 #  define __XF(i, ub, mod, pos) SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub), mod, pos)
 #else
 #  define __X(i, ub, mod, pos)	(i)
 #  define __XF(i, ub, mod, pos)	(i)
 #endif
-#define __R(i, ub, mod, pos)    (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT_NEW(-8,mod,pos),0))
+#define __R(i, ub, mod, pos)    (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT(-8,mod,pos),0))
 #define __RF(i, ub, mod, pos)   SYSTEM_RCHK((LONGINT)(i), (LONGINT)(ub), mod, pos)
-#define __RETCHK(mod, pos)      __retchk: __HALT_NEW(-3, mod, pos); return 0;
-#define __CASECHK(mod, pos)    __HALT_NEW(-4, mod, pos)
-#define __WITHCHK(mod, pos)    __HALT_NEW(-7, mod, pos)
+#define __RETCHK(mod, pos)      __retchk: __HALT(-3, mod, pos); return 0;
+#define __CASECHK(mod, pos)    __HALT(-4, mod, pos)
+#define __WITHCHK(mod, pos)    __HALT(-7, mod, pos)
 
-#define __GUARDP(p, typ, level)    ((typ*)(__ISP(p,typ,level)?p:(__HALT(-5),p)))
-#define __GUARDR(r, typ, level)    (*((typ*)(__IS(r##__typ,typ,level)?r:(__HALT(-5),r))))
-#define __GUARDA(p, typ, level)    ((struct typ*)(__IS(__TYPEOF(p),typ,level)?p:(__HALT(-5),p)))
-#define __GUARDEQR(p, dyntyp, typ) if(dyntyp!=typ##__typ) __HALT(-6);*(p)
-#define __GUARDEQP(p, typ)         if(__TYPEOF(p)!=typ##__typ)__HALT(-6);*((typ*)p)
+#define __GUARDP(p, typ, level)    ((typ*)(__ISP(p,typ,level)?p:(__HALT_OLD(-5),p)))
+#define __GUARDR(r, typ, level)    (*((typ*)(__IS(r##__typ,typ,level)?r:(__HALT_OLD(-5),r))))
+#define __GUARDA(p, typ, level)    ((struct typ*)(__IS(__TYPEOF(p),typ,level)?p:(__HALT_OLD(-5),p)))
+#define __GUARDEQR(p, dyntyp, typ) if(dyntyp!=typ##__typ) __HALT_OLD(-6);*(p)
+#define __GUARDEQP(p, typ)         if(__TYPEOF(p)!=typ##__typ)__HALT_OLD(-6);*((typ*)p)
 
 
 
@@ -349,7 +353,7 @@ extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SY
      memcpy(t##__desc.basep, t0##__typ - __BASEOFF, level*sizeof(SYSTEM_ADRINT));   \
      t##__desc.basep[level] = (SYSTEM_ADRINT)t##__typ;                              \
      t##__desc.module       = (SYSTEM_ADRINT)m;                                     \
-     if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15);                             \
+     if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15, "SYSTEM.h", 352);            \
      t##__desc.blksz        = (t##__desc.blksz+5*sizeof(SYSTEM_ADRINT)-1)/(4*sizeof(SYSTEM_ADRINT))*(4*sizeof(SYSTEM_ADRINT)); \
      Heap_REGTYP(m, (SYSTEM_ADRINT)&t##__desc.next);                                \
      SYSTEM_INHERIT(t##__typ, t0##__typ)

@@ -11,7 +11,7 @@ INTEGER SYSTEM_DIV(INTEGER x, INTEGER y)
     if (x > 0) return -1 + (x - 1) / y;
     else       return x / y;
   }
-  __HALT(-12);
+  __HALT(-12, "SYSTEM.c", 14);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@ LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
     if (x > 0) return -1 + (x - 1) / y;
     else       return x / y;
   }
-  __HALT(-12);
+  __HALT(-12, "SYSTEM.c", 28);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -39,7 +39,7 @@ INTEGER SYSTEM_MOD(INTEGER x, INTEGER y)
     if (x > 0) return y + 1 + (x - 1) % y;
     else       return x % y;
   }
-  __HALT(-12);
+  __HALT(-12, "SYSTEM.c", 42);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -53,7 +53,7 @@ LONGINT SYSTEM_MODL(LONGINT x, LONGINT y)
     if (x > 0) return y + 1 + (x - 1) % y;
     else       return x % y;
   }
-  __HALT(-12);
+  __HALT(-12, "SYSTEM.c", 56);
 }
 
 /*----------------------------------------------------------------------------*/

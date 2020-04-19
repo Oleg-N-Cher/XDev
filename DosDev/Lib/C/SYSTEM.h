@@ -41,7 +41,7 @@ extern long SYSTEM_ENTIER();
 extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
 extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
 extern long SYSTEM_ABS();
-extern long SYSTEM_XCHK();
+int SYSTEM_XCHK (int i, int ub);
 extern long SYSTEM_RCHK();
 extern double SYSTEM_ABSD();
 extern int SYSTEM_STRCMP();
@@ -151,13 +151,8 @@ extern void SYSTEM_ENUMR();
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
 
 /* runtime checks */
-#ifndef SYSTEM_NoCheck_X
-#  define __X(i, ub)	(((unsigned)(long)(i)<(unsigned long)(ub))?i:(__HALT(-2),0))
-#  define __XF(i, ub)	 SYSTEM_XCHK((long)(i), (long)(ub))
-#else
-#  define __X(i, ub)	(i)
-#  define __XF(i, ub)	(i)
-#endif
+#define __X(i, ub, mod, pos)	(((unsigned)(i)<(unsigned)(ub))?i:(__HALT(3),0))
+#define __XF(i, ub, mod, pos)	SYSTEM_XCHK((i), (ub))
 #define __RETCHK	__retchk: __HALT(-3)
 #define __CASECHK	__HALT(-4)
 #define __GUARDP(p, typ, level)	((typ*)(__ISP(p,typ,level)?p:(__HALT(-5),p)))
@@ -235,7 +230,7 @@ extern BOOLEAN SYSTEM_interrupted;
 int SYSTEM_STRCMP(CHAR *x, CHAR *y);
 void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
-long SYSTEM_XCHK(long i, long ub);
+int SYSTEM_XCHK (int i, int ub);
 long SYSTEM_RCHK(long i, long ub);
 INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
 LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
