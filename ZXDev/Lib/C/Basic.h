@@ -420,6 +420,10 @@ extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b
 //------------------------------------ USR0 ------------------------------------
 #define Basic_USR0() __asm RST 0 __endasm
 
+//------------------------------------ USR -------------------------------------
+extern unsigned int Basic_USR (unsigned int adr) __z88dk_fastcall;
+#define Basic_RANDUSR Basic_USR
+
 //------------------------------------ Quit ------------------------------------
 extern void Basic_Quit_DI  (void) __preserves_regs(a);
 extern void Basic_Quit_IM1 (void) __preserves_regs(a);

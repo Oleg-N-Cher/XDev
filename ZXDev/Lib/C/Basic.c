@@ -66,6 +66,7 @@ extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
 extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
 extern signed char Basic_SGN (signed char x) __z88dk_fastcall;
 extern signed char Basic_SGNI (signed int x) __z88dk_fastcall;
+extern unsigned int Basic_USR (unsigned int adr) __z88dk_fastcall;
 
 extern void Basic_Quit_DI (void);
 extern void Basic_Quit_IM1 (void);
@@ -2036,6 +2037,14 @@ __asm // Code by char & SaNchez
     LD   L,A
 __endasm;
 } //Basic_SGNI
+
+/*--------------------------------- Cut here ---------------------------------*/
+extern unsigned int Basic_USR (unsigned int adr) __naked __z88dk_fastcall {
+    __asm
+        LD   (USRADR$+1), HL
+USRADR$:JP   0
+    __endasm;
+} //Basic_USR
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_Quit_DI (void) {
