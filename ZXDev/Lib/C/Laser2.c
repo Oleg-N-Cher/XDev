@@ -869,7 +869,9 @@ void _Laser2_PUT_SPRITE_INSCR (void) {
 __asm
 .globl __Laser2_FindSprite
 .globl __Laser2_XYtoScr
-                  LD    (SPRT_MODE_IN$), HL ; Set draw mode
+.globl ATRLINE_LDIR_IN
+.globl SPRT_MODE_IN
+                  LD    (SPRT_MODE_IN), HL ; Set draw mode
 
                   CALL  __Laser2_XYtoScr
                   LD    (SCR_ADR_IN$+1), HL
@@ -887,7 +889,7 @@ SPRT_HLINE_IN$:   LD    A, E            ; Begin of loop on charlines
                   PUSH  BC
                   LD    B, #8           ; Draw 8 bytes (one charline)
 SPRT_CHAR_IN$:
-SPRT_MODE_IN$:    LD    A, (HL)         ; "LD A, (HL) " | "LD A, (DE)"
+SPRT_MODE_IN:     LD    A, (HL)         ; "LD A, (HL) " | "LD A, (DE)"
                   NOP                   ; "NOP" | "CPL" | "AND (HL)" | "OR (HL)" | "XOR (HL)"
                   LD    (DE), A
                   INC   HL
