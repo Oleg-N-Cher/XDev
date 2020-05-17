@@ -1,4 +1,4 @@
-MODULE CmdLine [noinit];
+MODULE [noinit] CmdLine;
 
 CONST
   ParamCount* = 0;

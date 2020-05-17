@@ -12,3 +12,9 @@ export void CmdLine_GetParam (BYTE n, CHAR *param, SHORTINT param__len);
 
 /*============================================================================*/
 
+void CmdLine_GetParam (BYTE n, CHAR *param, SHORTINT param__len)
+{
+	param[0] = 0x00;
+}
+
+/*----------------------------------------------------------------------------*/

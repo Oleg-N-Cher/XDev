@@ -121,7 +121,7 @@ IM2PROC$:
 }
 void Basic__IM2ADR (void) {
   __asm
-  CALL IM2RET$
+  CALL 0x38
   POP  IY
   POP  IX
   POP  HL
@@ -129,7 +129,6 @@ void Basic__IM2ADR (void) {
   POP  BC
   POP  AF
   EI
-IM2RET$:
   __endasm;
 } //Basic_Init_IM2
 

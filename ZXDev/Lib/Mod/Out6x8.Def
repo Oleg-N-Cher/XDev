@@ -1,4 +1,4 @@
-MODULE Out6x8 [foreign]; IMPORT SYSTEM;
+MODULE [foreign] Out6x8; IMPORT SYSTEM;
 
 VAR
   font: INTEGER;

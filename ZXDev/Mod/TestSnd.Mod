@@ -5,7 +5,7 @@
 *)
 
 MODULE TestSnd;
-IMPORT Sound, B := Basic, Input, Asm;
+IMPORT B := Basic, Sound, Input, Asm;
 
 VAR
   fx1, fx2, fx3, fx4, fx5, fx6, fx7: Sound.Fx;
