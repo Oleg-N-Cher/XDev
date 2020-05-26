@@ -393,19 +393,19 @@ extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall __preserves_reg
 //------------------------ RND (min, max: UBYTE): UBYTE ------------------------
 extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
 extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
-#ifdef RAND_BB
-#  define Basic_RND Basic_RND_BB
-#else
+#ifdef RAND_ROM
 #  define Basic_RND Basic_RND_ROM
+#else
+#  define Basic_RND Basic_RND_BB
 #endif
 
 //------------------------- RNDW (min, max: CARDINAL) --------------------------
 extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
 extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
-#ifdef RAND_BB
-#  define Basic_RNDW Basic_RNDW_BB
-#else
+#ifdef RAND_ROM
 #  define Basic_RNDW Basic_RNDW_ROM
+#else
+#  define Basic_RNDW Basic_RNDW_BB
 #endif
 
 //------------------------ SGN (x: SHORTINT): SHORTINT -------------------------

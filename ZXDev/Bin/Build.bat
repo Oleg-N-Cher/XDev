@@ -21,7 +21,7 @@ IF "%CodeAdr%"=="" SET CodeAdr=45056
 IF "%DataAdr%"=="" SET DataAdr=63488
 SET Options=%Options% -mz80 --no-xinit-opt --opt-code-size --code-loc %CodeAdr% --data-loc %DataAdr% --disable-warning 59 --disable-warning 85 --disable-warning 126
 SET Include=%Include% -I%ZXDev%\Lib\C -I%ZXDev%\Lib\Obj
-SET Libraries=%Libraries% -L%ZXDev%\Lib XDev.lib Graph.lib Basic.lib Laser.lib MegaBasic.lib Best40.lib trdos.lib libspr.lib Supercode.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib Wham.lib ZX7.lib CalcZX.lib Laser2.lib Mem128.lib Out6x8.lib
+SET Libraries=%Libraries% -L%ZXDev%\Lib XDev.lib Graph.lib Basic.lib Laser.lib MegaBasic.lib Best40.lib trdos.lib libspr.lib Supercode.lib NewSupercode.lib MiraMod2.lib PT3x0A.lib Wham.lib ZX7.lib CalcZX.lib Laser2.lib Mem128.lib Out6x8.lib Cursor.lib
 IF "%Target%"=="" SET Target=TAP
 IF "%Clean%"=="" SET Clean=TRUE
 IF "%Start%"=="" SET Start=TRUE

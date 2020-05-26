@@ -21,3 +21,4 @@
 /* Use CLS for whole screen (with PAPER attributes in bottom lines): */
 //#define CLS_FULLSCREEN
 
+//#define RAND_ROM
