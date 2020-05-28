@@ -15,6 +15,7 @@ extern void NewSupercode_EKRAN_2 (unsigned char x);
 extern void NewSupercode_LITERY_ (unsigned char x, unsigned char y, unsigned char xs,
   unsigned char ys, unsigned char wdth, unsigned char *str);
 #define NewSupercode_LITERY(x, y, xs, ys, wdth, str, str__len) NewSupercode_LITERY_ (x, y, xs, ys, wdth, str)
+extern void NewSupercode_LDIR (unsigned int to, unsigned int from, unsigned int len) __z88dk_callee __preserves_regs(a,iyl,iyh);
 #define NewSupercode__init()
 
 #endif

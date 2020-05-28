@@ -13,6 +13,7 @@ void NewSupercode_EKRAN_1 (unsigned char x);
 void NewSupercode_EKRAN_2 (unsigned char x);
 void NewSupercode_LITERY_ (unsigned char x, unsigned char y, unsigned char xs,
   unsigned char ys, unsigned char wdth, unsigned char *str);
+void NewSupercode_LDIR (unsigned int to, unsigned int from, unsigned int len) __z88dk_callee;
 /*================================== Header ==================================*/
 
 void NewSupercode__2WIERSZE (unsigned int adr) {
@@ -600,3 +601,16 @@ LOC_E7F3$: LD   B, E
 __endasm;
 } //NewSupercode_DZWIEK_3
 
+/*--------------------------------- Cut here ---------------------------------*/
+
+void NewSupercode_LDIR (unsigned int to, unsigned int from, unsigned int len) __naked __z88dk_callee {
+__asm
+           POP  HL               ; return address
+           LD   (RET_ADR$+1), HL
+           POP  DE               ; to
+           POP  HL               ; from
+           POP  BC               ; len
+           LDIR
+RET_ADR$:  JP   0
+__endasm;
+} //NewSupercode_LDIR
