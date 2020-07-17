@@ -51,7 +51,7 @@ BEGIN
 END MoveMainWindow;
  
 PROCEDURE [stdcall] WndHandler (
-  wnd: W.HWND; msg: INTEGER; wParam, lParam: W.HANDLE): W.HANDLE;
+  wnd: W.HWND; msg: INTEGER; wParam: W.WPARAM; lParam: W.LPARAM): W.LRESULT;
 VAR
   res: INTEGER; ps: W.PAINTSTRUCT; dc: W.HDC; rect: W.RECT;
 BEGIN

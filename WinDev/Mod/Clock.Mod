@@ -202,7 +202,7 @@ VAR
     sysHeight   : INTEGER;  (* height of caption bar and top and bottom frames *)
     width   : INTEGER;      (* width of entire clock window                    *)
     height  : INTEGER;      (* height of entire clock window                   *)
-    pszTooMany  : W.ADRINT;
+    pszTooMany  : ADRINT;
 
 PROCEDURE GetTime (VAR t : TIME);
 VAR
