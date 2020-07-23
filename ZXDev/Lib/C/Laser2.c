@@ -62,6 +62,8 @@ void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len, unsig
 
 void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_ATUV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_ATDV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 
@@ -1150,6 +1152,71 @@ AWRV_LEN_DIS$:    ADD   #0
                   RET
   __endasm;
 } //Laser2_AWRV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_ATUV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_XYtoScrAtr
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   B
+                  RET   Z               ; IF hgt = 1 THEN RETURN
+                  CALL  __Laser2_XYtoScrAtr
+ATUV_ROLL_ATRLN$: PUSH  BC              ; Begin of loop on charlines
+                  PUSH  HL
+                  LD    C, (HL)
+ATUV_ATRCOLUMN$:  EX    DE, HL          ; Src => Dest
+                  LD    HL, #32
+                  ADD   HL, DE
+                  LD    A, (HL)         ; [Src] => [Dest]
+                  LD    (DE), A
+                  DJNZ  ATUV_ATRCOLUMN$
+                  LD    (HL), C
+                  POP   HL
+                  INC   L
+                  POP   BC
+                  DEC   C
+                  JR    NZ, ATUV_ROLL_ATRLN$
+                  RET
+  __endasm;
+} //Laser2_ATUV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_ATDV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_XYtoScrAtr
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  DEC   B
+                  RET   Z               ; IF hgt = 1 THEN RETURN
+                  LD    A, H
+                  ADD   B
+                  LD    H, A
+                  CALL  __Laser2_XYtoScrAtr
+ATDV_ROLL_ATRLN$: PUSH  BC              ; Begin of loop on charlines
+                  PUSH  HL
+                  LD    C, (HL)
+ATDV_ATRCOLUMN$:  EX    DE, HL          ; Src => Dest
+                  LD    HL, #-32
+                  ADD   HL, DE
+                  LD    A, (HL)         ; [Src] => [Dest]
+                  LD    (DE), A
+                  DJNZ  ATDV_ATRCOLUMN$
+                  LD    (HL), C
+                  POP   HL
+                  INC   L
+                  POP   BC
+                  DEC   C
+                  JR    NZ, ATDV_ROLL_ATRLN$
+                  RET
+  __endasm;
+} //Laser2_ATDV
 
 /*--------------------------------- Cut here ---------------------------------*/
 void _Laser2_SLXV (void)

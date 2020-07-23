@@ -1,4 +1,5 @@
-MODULE Laser2; (** non-portable *)
+MODULE [foreign] Laser2; (** non-portable *)
+IMPORT SYSTEM;
 
 (***************************)
 (* LASER 2  Graphic Engine *)
@@ -14,66 +15,68 @@ TYPE
 
 (** New procedures: *)
 
-PROCEDURE SCRL  * (adr: ADR) (** Set WU1V's scroll buffer *); END SCRL;
-PROCEDURE SCRLv * (adr: ADR) (** in variable *)             ; END SCRLv;
-PROCEDURE SCRLa * (buf: BUFFER) (** in array *)             ; END SCRLa;
-PROCEDURE SPRT  * (adr: ADR) (** Set address of sprites *)  ; END SPRT;
-PROCEDURE SPRTv * (adr: ADR) (** in variable *)             ; END SPRTv;
-PROCEDURE SPRTa * (sprites: SPRITES) (** in array *)        ; END SPRTa;
-PROCEDURE SCRN  * (adr: ADR) (** Set address of screen *)   ; END SCRN;
+PROCEDURE- SCRL  * (adr: ADR); (** Set WU1V's scroll buffer *)
+PROCEDURE- SCRLv * (adr: ADR); (** in variable *)
+PROCEDURE- SCRLa * (buf: BUFFER); (** in array *)
+PROCEDURE- SPRT  * (adr: ADR); (** Set address of sprites *)
+PROCEDURE- SPRTv * (adr: ADR); (** in variable *)
+PROCEDURE- SPRTa * (sprites: SPRITES); (** in array *)
+PROCEDURE- SCRN  * (adr: ADR); (** Set address of screen *)
 
 (** Synonyms for the new procedures: *)
 
-PROCEDURE InitScroll   * (adr: ADR) (** WU1V's scroll buf *); END InitScroll;
-PROCEDURE InitScrollV  * (adr: ADR) (** in variable *)      ; END InitScrollV;
-PROCEDURE InitScrollA  * (buf: BUFFER) (** in array *)      ; END InitScrollA;
-PROCEDURE InitSprites  * (adr: ADR) (** Set sprites adr *)  ; END InitSprites;
-PROCEDURE InitSpritesV * (adr: ADR) (** in variable *)      ; END InitSpritesV;
-PROCEDURE InitSpritesA * (sprites: SPRITES) (** in array *) ; END InitSpritesA;
-PROCEDURE SetScreen    * (adr: ADR) (** Set screen adr *)   ; END SetScreen;
+PROCEDURE- InitScroll   * (adr: ADR); (** WU1V's scroll buf *)
+PROCEDURE- InitScrollV  * (adr: ADR); (** in variable *)
+PROCEDURE- InitScrollA  * (buf: BUFFER); (** in array *)
+PROCEDURE- InitSprites  * (adr: ADR); (** Set sprites adr *)
+PROCEDURE- InitSpritesV * (adr: ADR); (** in variable *)
+PROCEDURE- InitSpritesA * (sprites: SPRITES); (** in array *)
+PROCEDURE- SetScreen    * (adr: ADR); (** Set screen adr *)
 
 (** Sprite engine (in OUT_OF_SCREEN the coords can be outside the screen): *)
 
-PROCEDURE ATOF *                                        ; END ATOF;
-PROCEDURE ATON *                                        ; END ATON;
-PROCEDURE GTBL * (col, row: BYTE; spn: UBYTE)           ; END GTBL;
-PROCEDURE GTND * (col, row: BYTE; spn: UBYTE)           ; END GTND;
-PROCEDURE GTNV * (col, row: BYTE; spn: UBYTE)           ; END GTNV;
-PROCEDURE GTOR * (col, row: BYTE; spn: UBYTE)           ; END GTOR;
-PROCEDURE GTXR * (col, row: BYTE; spn: UBYTE)           ; END GTXR;
-PROCEDURE INVM * (spn: UBYTE)                           ; END INVM;
-PROCEDURE PTBL * (col, row: BYTE; spn: UBYTE)           ; END PTBL;
-PROCEDURE PTND * (col, row: BYTE; spn: UBYTE)           ; END PTND;
-PROCEDURE PTNV * (col, row: BYTE; spn: UBYTE)           ; END PTNV;
-PROCEDURE PTOR * (col, row: BYTE; spn: UBYTE)           ; END PTOR;
-PROCEDURE PTXR * (col, row: BYTE; spn: UBYTE)           ; END PTXR;
+PROCEDURE- ATOF * ;
+PROCEDURE- ATON * ;
+PROCEDURE- GTBL * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- GTND * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- GTNV * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- GTOR * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- GTXR * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- INVM * (spn: UBYTE);
+PROCEDURE- PTBL * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- PTND * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- PTNV * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- PTOR * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- PTXR * (col, row: BYTE; spn: UBYTE);
 
 (** Screen windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE CLSV * (col, row, len, hgt: BYTE)             ; END CLSV;
-PROCEDURE INVV * (col, row, len, hgt: BYTE)             ; END INVV;
-PROCEDURE MIRV * (col, row, len, hgt: BYTE)             ; END MIRV;
-PROCEDURE SDNV * (col, row, len, hgt: BYTE; npx: UBYTE) ; END SDNV;
-PROCEDURE SUPV * (col, row, len, hgt: BYTE; npx: UBYTE) ; END SUPV;
-PROCEDURE SL1V * (col, row, len, hgt: BYTE)             ; END SL1V;
-PROCEDURE SL4V * (col, row, len, hgt: BYTE)             ; END SL4V;
-PROCEDURE SL8V * (col, row, len, hgt: BYTE)             ; END SL8V;
-PROCEDURE SR1V * (col, row, len, hgt: BYTE)             ; END SR1V;
-PROCEDURE SR4V * (col, row, len, hgt: BYTE)             ; END SR4V;
-PROCEDURE SR8V * (col, row, len, hgt: BYTE)             ; END SR8V;
-PROCEDURE WL1V * (col, row, len, hgt: BYTE)             ; END WL1V;
-PROCEDURE WL4V * (col, row, len, hgt: BYTE)             ; END WL4V;
-PROCEDURE WL8V * (col, row, len, hgt: BYTE)             ; END WL8V;
-PROCEDURE WR1V * (col, row, len, hgt: BYTE)             ; END WR1V;
-PROCEDURE WR4V * (col, row, len, hgt: BYTE)             ; END WR4V;
-PROCEDURE WR8V * (col, row, len, hgt: BYTE)             ; END WR8V;
-PROCEDURE WU1V * (col, row, len, hgt: BYTE)             ; END WU1V;
+PROCEDURE- CLSV * (col, row, len, hgt: BYTE);
+PROCEDURE- INVV * (col, row, len, hgt: BYTE);
+PROCEDURE- MIRV * (col, row, len, hgt: BYTE);
+PROCEDURE- SDNV * (col, row, len, hgt: BYTE; npx: UBYTE);
+PROCEDURE- SUPV * (col, row, len, hgt: BYTE; npx: UBYTE);
+PROCEDURE- SL1V * (col, row, len, hgt: BYTE);
+PROCEDURE- SL4V * (col, row, len, hgt: BYTE);
+PROCEDURE- SL8V * (col, row, len, hgt: BYTE);
+PROCEDURE- SR1V * (col, row, len, hgt: BYTE);
+PROCEDURE- SR4V * (col, row, len, hgt: BYTE);
+PROCEDURE- SR8V * (col, row, len, hgt: BYTE);
+PROCEDURE- WL1V * (col, row, len, hgt: BYTE);
+PROCEDURE- WL4V * (col, row, len, hgt: BYTE);
+PROCEDURE- WL8V * (col, row, len, hgt: BYTE);
+PROCEDURE- WR1V * (col, row, len, hgt: BYTE);
+PROCEDURE- WR4V * (col, row, len, hgt: BYTE);
+PROCEDURE- WR8V * (col, row, len, hgt: BYTE);
+PROCEDURE- WU1V * (col, row, len, hgt: BYTE);
 
 (** Attribute windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE AWLV * (col, row, len, hgt: BYTE)             ; END AWLV;
-PROCEDURE AWRV * (col, row, len, hgt: BYTE)             ; END AWRV;
-PROCEDURE MARV * (col, row, len, hgt: BYTE)             ; END MARV;
-PROCEDURE SETV * (col, row, len, hgt: BYTE)             ; END SETV;
+PROCEDURE- AWLV * (col, row, len, hgt: BYTE);
+PROCEDURE- AWRV * (col, row, len, hgt: BYTE);
+PROCEDURE- ATUV * (col, row, len, hgt: BYTE);
+PROCEDURE- ATDV * (col, row, len, hgt: BYTE);
+PROCEDURE- MARV * (col, row, len, hgt: BYTE);
+PROCEDURE- SETV * (col, row, len, hgt: BYTE);
 
 END Laser2.

@@ -134,6 +134,8 @@ extern void Laser2_WU1V (unsigned char col, unsigned char row, unsigned char len
 
 extern void Laser2_AWLV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_AWRV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_ATUV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
+extern void Laser2_ATDV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 extern void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee __preserves_regs(iyl,iyh);
 
