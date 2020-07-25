@@ -14,7 +14,7 @@
 /**
  * 	StcFlags
  */
-extern unsigned char Stc_flags;
+extern unsigned char StcPlayer_flags;
 
 /**
  *	Init player

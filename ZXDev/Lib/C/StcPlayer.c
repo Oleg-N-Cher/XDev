@@ -10,22 +10,22 @@
 ;	  StcPlay every 20ms
 ;
 ; Control flags:
-;	bit 0 Stc_flags == 1 is unlooped mode
-;	bit 0 Stc_flags == 0 is looped mode
+;	bit 0 flags == 1 is unlooped mode
+;	bit 0 flags == 0 is looped mode
 ;
 ; Status flags:
-;	bit 7 Stc_flags == 1, if music loop is terminated, 
+;	bit 7 flags == 1, if music loop is terminated, 
 ;	else this bit is 0
 ; --------------------------------------
 
 ; Init entry
-;   StcInit(music_adr)
+;   Init (music_adr)
 
 ; Play entry. Must be called every 20ms
-;   StcPlay
+;   Play
 
 ; Control and status flags
-    Stc_flags: SET
+    flags: SET
 */
 
 void StcPlayer_Init (unsigned int mod) __naked __z88dk_fastcall {
@@ -187,8 +187,8 @@ l7cbc:  ld      a,(l7c64)
         ; End of music
         xor     a
         ld      c,a
-        ; Set end_of_music Stc_flags
-        ld	hl,#_Stc_flags
+        ; Set end_of_music flags
+        ld	hl,#_StcPlayer_flags
         set	7,(hl)
         ;
 l7cc9:  inc     a
@@ -229,8 +229,8 @@ __asm
 	pop	ix
 	ret
 stc_play:
-	; check unlooped Stc_flags
-	ld	hl,#_Stc_flags
+	; check unlooped flags
+	ld	hl,#_StcPlayer_flags
 	bit	0,(hl)
 	jr	z,stc_play_looped
 	; check end of music
@@ -479,11 +479,11 @@ l7f08= .-1
 l7f1f:  and     a
         sbc     hl,de
         ret
-; control and status Stc_flags byte
+; control and status flags byte
 ; bit 0 - (control) must be set, if unlooped
 ; bit 7 - (status) set, if music end of loop
-.globl _Stc_flags
-_Stc_flags:	.db 0x00
+.globl _StcPlayer_flags
+_StcPlayer_flags:	.db 0x00
 
 tonetable:
 	.dw 0x0ef8, 0x0e10, 0x0d60, 0x0c80, 0x0bd8, 0x0b28, 0x0a88, 0x09f0
