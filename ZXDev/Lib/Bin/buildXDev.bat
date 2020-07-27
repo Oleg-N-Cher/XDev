@@ -7,6 +7,7 @@
 @CALL ..\Bin\smart %Lib% Platform
 @CALL ..\Bin\smart %Lib% Strings
 @CALL ..\Bin\smart %Lib% CmdLine
+@CALL ..\Bin\smart %Lib% GrScr
 @CALL ..\Bin\smart %Lib% GrPixel
 @CALL ..\Bin\smart %Lib% GrTiles
 @CALL ..\Bin\smart %Lib% GrFonts
