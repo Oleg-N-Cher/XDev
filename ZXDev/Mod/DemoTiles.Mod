@@ -7,6 +7,16 @@ CONST
     (*Attrib:*) CHR(G.BlueOnOlive)
   );
 
+CONST
+  square2 = T.Tile16x16(
+    (*Pixels:*) 0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
+                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
+                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
+                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
+    (*Attrib:*) CHR(G.BlueOnOlive), CHR(G.BlackOnCyan),
+                CHR(G.BlackOnCyan + 40H), CHR(G.RedOnYellow)
+  );
+
 VAR i: BYTE;
 
 BEGIN
@@ -17,6 +27,9 @@ BEGIN
   FOR i := 10 TO 21 DO T.DrawMonoTile(i, 3, square, G.CyanOnBlue) END;
   FOR i := 12 TO 19 DO T.DrawMonoTile(i, 5, square, G.BlackOnWhite) END;
   FOR i := 14 TO 17 DO T.DrawMonoTile(i, 7, square, G.GreenOnMagenta) END;
+
+  T.DrawTile16x16(2, 18, square2);
+
   B.PAUSE(B.WaitAKey);
   B.Quit;
 END DemoTiles.
