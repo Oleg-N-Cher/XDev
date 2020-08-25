@@ -1,15 +1,14 @@
-(* Crossplatform control interface *)
-
-MODULE Control;
+п»ї(** Crossplatform control interface *)
+MODULE [foreign] Control; IMPORT SYSTEM;
 
 CONST
-  (* Направление в формате кемпстон джойстика (для скорости) *)
+  (* РќР°РїСЂР°РІР»РµРЅРёРµ РІ С„РѕСЂРјР°С‚Рµ РєРµРјРїСЃС‚РѕРЅ РґР¶РѕР№СЃС‚РёРєР° (РґР»СЏ СЃРєРѕСЂРѕСЃС‚Рё) *)
   Right* = 0;
   Left*  = 1;
   Down*  = 2;
   Up*    = 3;
   Fire*  = 4;
 
-PROCEDURE Get* (): SET; END Get;
+PROCEDURE- Get* (): SET;
 
 END Control.
