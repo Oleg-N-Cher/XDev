@@ -1,4 +1,4 @@
-#include "SYSTEM.h"
+#include "SYSTEM.Oh"
 
 /* runtime system routines */
 extern void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;

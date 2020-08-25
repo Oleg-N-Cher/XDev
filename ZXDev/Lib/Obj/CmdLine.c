@@ -1,5 +1,5 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.h"
+#include "SYSTEM.Oh"
 
 typedef
 	CHAR CmdLine_String[1];

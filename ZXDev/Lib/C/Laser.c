@@ -5,7 +5,7 @@
 /* Thanx to Raydac & Michailov (HVG) */
 /*-----------------------------------*/
 
-#include "Laser.h"
+#include "Laser.Oh"
 
 /* Set video attrib */
 #define SETV_A$ 0x5C8D

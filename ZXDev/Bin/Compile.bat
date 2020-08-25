@@ -15,14 +15,14 @@ SET SDCC=%ZXDev%\Bin\sdcc.exe %Options%
 
 IF EXIST %1 GOTO Config
 
-IF EXIST ..\C\%1.c DEL %1.h %1.c
+IF EXIST ..\C\%1.c DEL %1.Oh %1.c
 IF EXIST ..\C\%1.c %SDCC% -c ..\C\%1.c -I. -I..\Lib -I%ZXDev%\Lib %Include%
 IF NOT EXIST ..\C\%1.c %SDCC% -c %1.c -I. -I..\Lib -I%ZXDev%\Lib %Include%
 GOTO Exit
 
 :Config
 
-IF EXIST ..\C\%1.c DEL %1.h %1.c
+IF EXIST ..\C\%1.c DEL %1.Oh %1.c
 IF EXIST ..\C\%1.c %SDCC% -c ..\C\%1.c -I%1 %Include%
 IF NOT EXIST ..\C\%1.c %SDCC% -c %1.c -I%1 %Include%
 

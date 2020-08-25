@@ -11,8 +11,8 @@
 
 :c_lib
 
-@IF EXIST %2.h DEL %2.h
-@IF EXIST %2.c DEL %2.c
+@IF EXIST ..\C\%2.h DEL %2.h
+@IF EXIST ..\C\%2.c DEL %2.c
 %sdcc% -c ..\C\%2.c
 
 :done

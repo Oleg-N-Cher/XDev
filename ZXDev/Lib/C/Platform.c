@@ -1,5 +1,3 @@
-#include "Platform.h"
-
 void Platform_DISPOSE (void **mem);
 /*================================== Header ==================================*/
 

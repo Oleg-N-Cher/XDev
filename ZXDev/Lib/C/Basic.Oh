@@ -1,0 +1,545 @@
+/*************************/
+/* ZX-BASIC 48k features */
+/* Coded by Oleg N. Cher */
+/*  zx.oberon2.ru/forum  */
+/*************************/
+
+#ifndef Basic__Oh
+#define Basic__Oh
+
+#include "BasicCfg.h"
+
+#define __hash__ #
+#define __id__(x) x
+#define __ld_a__(x) if(x==0) {__asm xor a __endasm;}else{__asm ld a,__id__(__hash__)x __endasm;}
+#define __ld_c__(x) __asm ld c,__id__(__hash__)x __endasm
+#define __ld_bc__(x) __asm ld bc,__id__(__hash__)x __endasm
+
+//------------------------------------ Init ------------------------------------
+extern void Basic_Init_IM2 (void) __preserves_regs(iyl,iyh);
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  ifndef ROM_OUTPUT
+#    define Basic_Init() __asm di \
+     res 4,1(iy) __endasm
+#  else
+#    define Basic_Init() __asm di \
+     res 4,1(iy) \
+     call 0x1642 __endasm
+#  endif
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline)
+#  ifndef ROM_OUTPUT
+#    define Basic_Init() __asm res 4,1(iy) __endasm
+#  else
+#    define Basic_Init() __asm res 4,1(iy) \
+     call 0x1642 __endasm
+#  endif
+#endif //MODE_IM1
+#if defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  ifndef ROM_OUTPUT
+#    define Basic_Init Basic_Init_IM2
+#  else
+#    define Basic_Init() Basic_Init_IM2(); __asm call 0x1642 __endasm
+#  endif
+#endif //MODE_IM2
+
+//------------------------ ABS (x: SHORTINT): SHORTINT -------------------------
+extern signed char Basic_ABS (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------- ABSI (x: INTEGER): INTEGER -------------------------
+extern signed int Basic_ABSI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
+
+//--------------------------- AT (y, x: TextCoords) ----------------------------
+extern void Basic_AT_FAST_callee (unsigned char y, unsigned char x) __z88dk_callee __preserves_regs(b,c,iyl,iyh);
+extern void Basic_AT_FAST_fastcall (unsigned int yx) __z88dk_fastcall __preserves_regs(b,c,iyl,iyh);
+extern void Basic_AT_ROM_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern void Basic_AT_ROM_fastcall (unsigned int yx) __z88dk_fastcall;
+#ifdef ROM_OUTPUT
+#  ifndef AT_fastcall
+#    define Basic_AT Basic_AT_ROM_callee
+#  else
+#    define Basic_AT(y,x) Basic_AT_ROM_fastcall(((x)<<8) + (y))
+#  endif
+#else
+#  ifndef AT_fastcall
+#    define Basic_AT Basic_AT_FAST_callee
+#  else
+#    define Basic_AT(y,x) Basic_AT_FAST_fastcall(((x)<<8) + (y))
+#  endif
+#endif
+
+//----------------------- ATTR (y, x: TextCoords): UBYTE -----------------------
+extern unsigned char Basic_ATTR_callee (unsigned char y, unsigned char x) __z88dk_callee;
+extern unsigned char Basic_ATTR_fastcall (unsigned int yx) __z88dk_fastcall;
+#ifndef ATTR_fastcall
+#  define Basic_ATTR Basic_ATTR_callee
+#else
+#  define Basic_ATTR(y,x) Basic_ATTR_fastcall(((x)<<8) + (y))
+#endif
+
+//-------------------- BEEP (ms: CARDINAL; freq: SHORTINT) ---------------------
+extern void Basic_BEEP_DI (unsigned int ms, signed char freq) __z88dk_callee;
+extern void Basic_BEEP_EI (unsigned int ms, signed char freq) __z88dk_callee;
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  define Basic_BEEP Basic_BEEP_DI
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  define Basic_BEEP Basic_BEEP_EI
+#endif //MODE_IM1 & MODE_IM2
+
+//--------------------------- BORDER (color: Color) ----------------------------
+extern void Basic_BORDER_fastcall (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+#ifndef BORDER_inline
+  #define Basic_BORDER Basic_BORDER_fastcall
+#else //BORDER_inline
+  #define Basic_BORDER(color) __ld_a__(color); __asm \
+    call 0x229B \
+    __endasm;
+#endif
+
+//---------------------------- BRIGHT (mode: Mode) -----------------------------
+extern void Basic_BRIGHT (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
+
+//----------------------- CIRCLE (cx, cy, radius: UBYTE) -----------------------
+extern void Basic_CIRCLE (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee __preserves_regs(d);
+
+//--------------------- CIRCLEROM (cx, cy, radius: UBYTE) ----------------------
+extern void Basic_CIRCLEROM (unsigned char cx, unsigned char cy, unsigned char radius) __z88dk_callee;
+
+//------------------ CIRCLEW (cx, cy: UBYTE; radius: INTEGER) ------------------
+extern void Basic_CIRCLEW_DI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+extern void Basic_CIRCLEW_EI (unsigned char cx, unsigned char cy, int radius) __z88dk_callee;
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  define Basic_CIRCLEW Basic_CIRCLEW_DI
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  define Basic_CIRCLEW Basic_CIRCLEW_EI
+#endif //MODE_IM1 & MODE_IM2
+
+//------------------------------------ CLS -------------------------------------
+extern void Basic_CLS_FULLSCREEN (void);
+extern void Basic_CLS_ZX (void);
+#ifdef CLS_FULLSCREEN
+  #define Basic_CLS Basic_CLS_FULLSCREEN
+#else
+  #define Basic_CLS Basic_CLS_ZX
+#endif
+
+//---------------------------- COLOR (attr: UBYTE) -----------------------------
+extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------- DATA (...); DATACH (...); DATAW (...) --------------------
+#define Basic_DATA(b) __asm .db b __endasm
+#define Basic_DATA1(b) __asm .db b __endasm
+#define Basic_DATA2(b1,b2) __asm .db b1,b2 __endasm
+#define Basic_DATA3(b1,b2,b3) __asm .db b1,b2,b3 __endasm
+#define Basic_DATA4(b1,b2,b3,b4) __asm .db b1,b2,b3,b4 __endasm
+#define Basic_DATA5(b1,b2,b3,b4,b5) __asm .db b1,b2,b3,b4,b5 __endasm
+#define Basic_DATA6(b1,b2,b3,b4,b5,b6) __asm .db b1,b2,b3,b4,b5,b6 __endasm
+#define Basic_DATA7(b1,b2,b3,b4,b5,b6,b7) __asm .db b1,b2,b3,b4,b5,b6,b7 __endasm
+#define Basic_DATA8(b1,b2,b3,b4,b5,b6,b7,b8) __asm .db b1,b2,b3,b4,b5,b6,b7,b8 __endasm
+#define Basic_DATA9(b1,b2,b3,b4,b5,b6,b7,b8,b9) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9 __endasm
+#define Basic_DATA10(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10 __endasm
+#define Basic_DATA11(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11 __endasm
+#define Basic_DATA12(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12 __endasm
+#define Basic_DATA13(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13 __endasm
+#define Basic_DATA14(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14 __endasm
+#define Basic_DATA15(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15 __endasm
+#define Basic_DATA16(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16 __endasm
+#define Basic_DATACH(b) __asm .db b __endasm
+#define Basic_DATACH1(b) __asm .db b __endasm
+#define Basic_DATACH2(b1,b2) __asm .db b1,b2 __endasm
+#define Basic_DATACH3(b1,b2,b3) __asm .db b1,b2,b3 __endasm
+#define Basic_DATACH4(b1,b2,b3,b4) __asm .db b1,b2,b3,b4 __endasm
+#define Basic_DATACH5(b1,b2,b3,b4,b5) __asm .db b1,b2,b3,b4,b5 __endasm
+#define Basic_DATACH6(b1,b2,b3,b4,b5,b6) __asm .db b1,b2,b3,b4,b5,b6 __endasm
+#define Basic_DATACH7(b1,b2,b3,b4,b5,b6,b7) __asm .db b1,b2,b3,b4,b5,b6,b7 __endasm
+#define Basic_DATACH8(b1,b2,b3,b4,b5,b6,b7,b8) __asm .db b1,b2,b3,b4,b5,b6,b7,b8 __endasm
+#define Basic_DATACH9(b1,b2,b3,b4,b5,b6,b7,b8,b9) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9 __endasm
+#define Basic_DATACH10(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10 __endasm
+#define Basic_DATACH11(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11 __endasm
+#define Basic_DATACH12(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12 __endasm
+#define Basic_DATACH13(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13 __endasm
+#define Basic_DATACH14(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14 __endasm
+#define Basic_DATACH15(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15 __endasm
+#define Basic_DATACH16(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16) __asm .db b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16 __endasm
+#define Basic_DATAW(w) __asm .dw w __endasm
+#define Basic_DATAW1(w) __asm .dw w __endasm
+#define Basic_DATAW2(w1,w2) __asm .dw w1,w2 __endasm
+#define Basic_DATAW3(w1,w2,w3) __asm .dw w1,w2,w3 __endasm
+#define Basic_DATAW4(w1,w2,w3,w4) __asm .dw w1,w2,w3,w4 __endasm
+#define Basic_DATAW5(w1,w2,w3,w4,w5) __asm .dw w1,w2,w3,w4,w5 __endasm
+#define Basic_DATAW6(w1,w2,w3,w4,w5,w6) __asm .dw w1,w2,w3,w4,w5,w6 __endasm
+#define Basic_DATAW7(w1,w2,w3,w4,w5,w6,w7) __asm .dw w1,w2,w3,w4,w5,w6,w7 __endasm
+#define Basic_DATAW8(w1,w2,w3,w4,w5,w6,w7,w8) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8 __endasm
+#define Basic_DATAW9(w1,w2,w3,w4,w5,w6,w7,w8,w9) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9 __endasm
+#define Basic_DATAW10(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10 __endasm
+#define Basic_DATAW11(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11 __endasm
+#define Basic_DATAW12(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12 __endasm
+#define Basic_DATAW13(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13 __endasm
+#define Basic_DATAW14(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14 __endasm
+#define Basic_DATAW15(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 __endasm
+#define Basic_DATAW16(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16) __asm .dw w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16 __endasm
+
+//------------------------ DATASTR (str: ARRAY OF CHAR) ------------------------
+#define __arg_killer__(a)
+#define Basic_DATASTR(str, str__len)	__asm .ascii __arg_killer__ str __endasm
+
+//----------------------- DATASTRZ (str: ARRAY OF CHAR) ------------------------
+#define Basic_DATASTRZ(str, str__len)	__asm .ascii __arg_killer__ str \
+  .db 0 \
+  __endasm
+
+//------------------------ DEFDATA (var, size: INTEGER) ------------------------
+#define Basic_DEFDATA(var, size) if (size <= 127) { __asm ld hl,__id__(__hash__).+8 \
+    ld   (_##var),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm ld hl,__id__(__hash__).+9 \
+    ld   (_##var),hl \
+    jp   3+.+size \
+  __endasm; \
+  }
+
+//---------------------- DEFDATAREL (var, size: INTEGER) -----------------------
+#define Basic_DEFDATAREL(var, size) if (size <= 127) { __asm xor a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)9 \
+    add  hl,de \
+    ld   (_##var),hl \
+    jr   2+.+size \
+    __endasm; \
+  } else { __asm xor a \
+    inc  a \
+    call 0x1FC6 \
+    ld   de,__id__(__hash__)12 \
+    add  hl,de \
+    ld   (_##var),hl \
+    ld   de,__id__(__hash__)size \
+    add  hl,de \
+    jp   (hl) \
+  __endasm; \
+  }
+
+//---------------------------- DRAW (x, y: INTEGER) ----------------------------
+extern void Basic_DRAW_callee (signed char x, signed char y) __z88dk_callee;
+extern void Basic_DRAW_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef DRAW_fastcall
+#  define Basic_DRAW(x,y) Basic_DRAW_callee((signed char)(x), (signed char)(y))
+#else
+#  define Basic_DRAW(x,y) Basic_DRAW_fastcall((unsigned int)((y)<<8) + (unsigned char)((x)&0xFF))
+#endif
+extern void Basic_DRAWARC (signed char x, signed char y, int arc) __z88dk_callee;
+
+//----------------------------- FLASH (mode: Mode) -----------------------------
+extern void Basic_FLASH (unsigned char mode)  __z88dk_fastcall __preserves_regs(b,c,d,e);
+
+//---------------------------- FONT (adr: ADDRESS) -----------------------------
+#define Basic_FONT(fontAdr) (*(unsigned*) (0x5C36) = (fontAdr - 256))
+
+//------------------------- IM2PROC (proc: PROCEDURE) --------------------------
+extern void Basic__IM2ADR (void);
+#define Basic_IM2PROC(adr) __asm DI __endasm; \
+  Basic_POKEW((unsigned int)Basic__IM2ADR+1, (unsigned int)adr); __asm EI __endasm
+
+//----------------------------- INK (color: Color) -----------------------------
+extern void Basic_INK (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------------- INKEY (): CHAR -------------------------------
+extern unsigned char Basic_INKEY (void);
+
+//---------------------------- INVERSE (mode: Mode) ----------------------------
+extern void Basic_INVERSE_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
+extern void Basic_INVERSE_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
+#ifdef ROM_OUTPUT
+#  define Basic_INVERSE Basic_INVERSE_ROM
+#else
+#  define Basic_INVERSE Basic_INVERSE_FAST
+#endif
+
+//----------------------------- OVER (mode: Mode) ------------------------------
+extern void Basic_OVER_FAST (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
+extern void Basic_OVER_ROM (unsigned char mode) __z88dk_fastcall __preserves_regs(b,c,d,e);
+#ifdef ROM_OUTPUT
+#  define Basic_OVER Basic_OVER_ROM
+#else
+#  define Basic_OVER Basic_OVER_FAST
+#endif
+
+//---------------------- PAINT (x, y: UBYTE; ink: Color) -----------------------
+extern void Basic_PAINT (unsigned char x, unsigned char y, unsigned char ink) __z88dk_callee __preserves_regs(iyl,iyh);
+
+//---------------------------- PAPER (color: Color) ----------------------------
+extern void Basic_PAPER (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//-------------------------- PAUSE (ticks: CARDINAL) ---------------------------
+extern void Basic_PAUSE_DI (unsigned int ticks) __z88dk_fastcall __preserves_regs(d,e);
+extern void Basic_PAUSE_EI (unsigned int ticks) __z88dk_fastcall __preserves_regs(d,e);
+#if defined (MODE_DI) || defined (MODE_DI_inline)
+#  define Basic_PAUSE Basic_PAUSE_DI
+#endif //MODE_DI
+#if defined (MODE_IM1) || defined (MODE_IM1_inline) || defined (MODE_IM2) || defined (MODE_IM2_inline)
+#  define Basic_PAUSE Basic_PAUSE_EI
+#endif //MODE_IM1 & MODE_IM2
+
+//------------------------- PEEK (adr: ADDRESS): UBYTE -------------------------
+#define Basic_PEEK(adr)      (*(unsigned char*) (adr))
+
+//----------------------- PEEKW (adr: ADDRESS): CARDINAL -----------------------
+#define Basic_PEEKW(adr)     (*(unsigned int*) (adr))
+
+//----------------------------- PLOT (x, y: UBYTE) -----------------------------
+extern void Basic_PLOT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef PLOT_fastcall
+#  define Basic_PLOT Basic_PLOT_callee
+#else
+#  define Basic_PLOT(x,y) Basic_PLOT_fastcall(((y)<<8) + (x))
+#endif
+
+//----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
+extern unsigned char Basic_POINT_callee (unsigned char x, unsigned char y) __z88dk_callee;
+extern unsigned char Basic_POINT_fastcall (unsigned int xy) __z88dk_fastcall;
+#ifndef POINT_fastcall
+#  define Basic_POINT Basic_POINT_callee
+#else
+#  define Basic_POINT(x,y) Basic_POINT_fastcall(((y)<<8) + (x))
+#endif
+
+//--------------------- POKE (adr: ADDRESS; value: UBYTE) ----------------------
+#define Basic_POKE(adr,val)  (*(unsigned char*) (adr) = (val))
+
+//------------------- POKEW (adr: ADDRESS; value: CARDINAL) --------------------
+#define Basic_POKEW(adr,val) (*(unsigned int*) (adr) = (val))
+
+//----------------------- PORTIN (port: ADDRESS): UBYTE ------------------------
+extern unsigned char Basic_PORTIN (unsigned int port) __z88dk_fastcall __preserves_regs(a,d,e,iyl,iyh);
+
+//------------------- PORTOUT (port: ADDRESS; value: UBYTE) --------------------
+extern void Basic_PORTOUT (unsigned int port, unsigned char value) __z88dk_callee __preserves_regs(d,e,iyl,iyh);
+
+//----------------------------- PRCHAR (ch: CHAR) ------------------------------
+extern void Basic_PRCHAR_FAST (unsigned char ch) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Basic_PRCHAR_ROM (unsigned char ch) __z88dk_fastcall __preserves_regs(b,c,d,e,h);
+#ifdef ROM_OUTPUT
+  #define Basic_PRCHAR Basic_PRCHAR_ROM
+#else
+  #define Basic_PRCHAR Basic_PRCHAR_FAST
+#endif
+
+//----------------------------------- PRDATA -----------------------------------
+extern void Basic_PRDATA_FAST (void) __preserves_regs(iyl,iyh);
+extern void Basic_PRDATA_ROM (void) __preserves_regs(b,c,d,e);
+#ifdef ROM_OUTPUT
+  #define Basic_PRDATA Basic_PRDATA_ROM
+#else
+  #define Basic_PRDATA Basic_PRDATA_FAST
+#endif
+
+//---------------------------- PRESSED (): BOOLEAN -----------------------------
+extern unsigned char Basic_PRESSED (void) __preserves_regs(iyl,iyh);
+
+//----------------------------- PRINT (n: INTEGER) -----------------------------
+extern void Basic_PRINT_FAST (int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Basic_PRINT_ROM (int n) __z88dk_fastcall;
+#ifdef ROM_OUTPUT
+  #define Basic_PRINT Basic_PRINT_ROM
+#else
+  #define Basic_PRINT Basic_PRINT_FAST
+#endif
+
+//------------------------------------ PRLN ------------------------------------
+extern void Basic_PRLN_FAST (void) __preserves_regs(b,c,d,e,iyl,iyh);
+extern void Basic_PRLN_ROM (void) __preserves_regs(b,c,d,e,h,l);
+#ifdef ROM_OUTPUT
+  #define Basic_PRLN Basic_PRLN_ROM
+#else
+  #define Basic_PRLN Basic_PRLN_FAST
+#endif
+
+//------------------------- PRSTR (str: ARRAY OF CHAR) -------------------------
+extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall __preserves_regs(b,c,d,e);
+#ifdef ROM_OUTPUT
+#  define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
+#else
+  #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
+#endif
+
+//----------------------------- PRUDG (udg: CHAR) ------------------------------
+extern void Basic_PRUDG_FAST (unsigned char udg) __z88dk_fastcall __preserves_regs(iyl,iyh);
+#ifdef ROM_OUTPUT
+#  define Basic_PRUDG(udg) Basic_PRCHAR_ROM((unsigned char)(udg+79))
+#else
+#  define Basic_PRUDG(udg) Basic_PRUDG_FAST(udg-65)
+#endif
+
+//---------------------------- PRWORD (n: LONGINT) -----------------------------
+extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall __preserves_regs(iyl,iyh);
+extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
+#ifdef ROM_OUTPUT
+#  define Basic_PRWORD Basic_PRWORD_ROM
+#else
+#  define Basic_PRWORD Basic_PRWORD_FAST
+#endif
+
+//------------------------- RANDOMIZE (seed: CARDINAL) -------------------------
+extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall __preserves_regs(d,e,iyl,iyh);
+
+//------------------------- READ (adr: ADDRESS): UBYTE -------------------------
+#define Basic_READ(adr) (*(unsigned char*) (adr++))
+
+//------------------------ RND (min, max: UBYTE): UBYTE ------------------------
+extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
+extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
+#ifdef RAND_ROM
+#  define Basic_RND Basic_RND_ROM
+#else
+#  define Basic_RND Basic_RND_BB
+#endif
+
+//------------------------- RNDW (min, max: CARDINAL) --------------------------
+extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
+extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
+#ifdef RAND_ROM
+#  define Basic_RNDW Basic_RNDW_ROM
+#else
+#  define Basic_RNDW Basic_RNDW_BB
+#endif
+
+//------------------------ SGN (x: SHORTINT): SHORTINT -------------------------
+extern signed char Basic_SGN (signed char x) __z88dk_fastcall __preserves_regs(b,c,d,e,h,iyl,iyh);
+
+//------------------------ SGNI (x: INTEGER): SHORTINT -------------------------
+extern signed char Basic_SGNI (signed int x) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
+
+//------------------------------------ Init ------------------------------------
+#define Basic_UDG(udgAdr) (*(unsigned int*) (0x5C7B) = udgAdr)
+
+//------------------------------------ USR0 ------------------------------------
+#define Basic_USR0() __asm RST 0 __endasm
+
+//------------------------------------ USR -------------------------------------
+extern unsigned int Basic_USR (unsigned int adr) __z88dk_fastcall;
+#define Basic_RANDUSR Basic_USR
+
+//------------------------------------ Quit ------------------------------------
+extern void Basic_Quit_DI  (void) __preserves_regs(a);
+extern void Basic_Quit_IM1 (void) __preserves_regs(a);
+extern void Basic_Quit_IM2 (void);
+
+#ifdef MODE_DI
+#  define Basic_Quit Basic_Quit_DI
+#endif //MODE_DI
+#ifdef MODE_DI_inline
+#  define Basic_Quit() __asm         \
+     LD   IY, __id__(__hash__)0x5C3A \
+     LD   HL, __id__(__hash__)0x2758 \
+     EXX                             \
+     EI                              \
+  __endasm
+#endif //MODE_DI_inline
+
+#ifdef MODE_IM1
+#  define Basic_Quit Basic_Quit_IM1
+#endif //MODE_IM1
+#ifdef MODE_IM1_inline
+#  define Basic_Quit() __asm         \
+     LD   HL, __id__(__hash__)0x2758 \
+     EXX                             \
+  __endasm
+#endif //MODE_IM1_inline
+
+#ifdef MODE_IM2
+#  define Basic_Quit Basic_Quit_IM2
+#endif //MODE_IM2
+#ifdef MODE_IM2_inline
+#  define Basic_Quit() __asm        \
+     LD   IY,__id__(__hash__)0x5C3A \
+     LD   HL,__id__(__hash__)0x2758 \
+     EXX                            \
+     LD   A,__id__(__hash__)0x3F    \
+     DI                             \
+     LD   I,A                       \
+     IM   1                         \
+     EI                             \
+   __endasm
+#endif //MODE_IM2_inline
+
+#define Basic__init()
+
+
+#ifdef __Use_C_only__
+
+#  define Black 0
+#  define Blue 1
+#  define Red 2
+#  define Magenta 3
+#  define Green 4
+#  define Cyan 5
+#  define Brown 6
+#  define LightGray 7
+#  define LightBlue 1
+#  define LightRed 2
+#  define LightMagenta 3
+#  define LightGreen 4
+#  define LightCyan 5
+#  define Yellow 6
+#  define White 7
+
+#  define On 1
+#  define Off 0
+
+#  define Init Basic_Init
+
+#  define ABS Basic_ABS
+#  define ABSI Basic_ABSI
+#  define AT Basic_AT
+#  define ATTR Basic_ATTR
+#  define BEEP Basic_BEEP
+#  define BORDER Basic_BORDER
+#  define BRIGHT Basic_BRIGHT
+#  define CIRCLE Basic_CIRCLE
+#  define CIRCLEROM Basic_CIRCLEROM
+#  define CIRCLEW Basic_CIRCLEW
+#  define CLS Basic_CLS
+#  define COLOR Basic_COLOR
+#  define DRAW Basic_DRAW
+#  define FLASH Basic_FLASH
+#  define FONT Basic_FONT
+#  define IM2PROC Basic_IM2PROC
+#  define INK Basic_INK
+#  define INKEY Basic_INKEY
+#  define INVERSE Basic_INVERSE
+#  define OVER Basic_OVER
+#  define PAINT Basic_PAINT
+#  define PAPER Basic_PAPER
+#  define PAUSE Basic_PAUSE
+#  define PEEK(adr)      (*(unsigned char*) (adr))
+#  define PEEKW(adr)     (*(unsigned*) (adr))
+#  define PLOT Basic_PLOT
+#  define POINT Basic_POINT
+#  define POKE(adr,val)  (*(unsigned char*) (adr) = (val))
+#  define POKEW(adr,val) (*(unsigned*) (adr) = (val))
+#  define PORTIN Basic_PORTIN
+#  define PORTOUT Basic_PORTOUT
+#  define PRCHAR Basic_PRCHAR
+#  define PRDATA Basic_PRDATA
+#  define PRESSED Basic_PRESSED
+#  define PRINT Basic_PRINT
+#  define PRLN Basic_PRLN
+#  define PRSTR(str) Basic_PRSTR(str,0)
+#  define PRUDG Basic_PRUDG
+#  define PRWORD Basic_PRWORD
+#  define RANDOMIZE Basic_RANDOMIZE
+#  define RND Basic_RND
+#  define RNDW Basic_RNDW
+#  define SGN Basic_SGN
+#  define SGNI Basic_SGNI
+#  define UDG Basic_UDG
+#  define USR0 Basic_USR0
+
+#endif //__Use_C_only__
+
+#endif

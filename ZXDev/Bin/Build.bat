@@ -45,10 +45,10 @@ IF errorlevel 1 PAUSE
 %ZXDev%\Bin\hex2bin.exe %MainMod%.ihx
 IF "%StripBin%"=="TRUE" %ZXDev%\Bin\stripbin.exe %MainMod%.bin
 IF "%Target%"=="REM" %ZXDev%\Bin\bin2data.exe -rem -org %CodeAdr% %MainMod%.bin ..\%MainMod%.tap %MainMod%
-IF "%Target%"=="TAP" %ZXDev%\Bin\bin2tap.exe -c 24999 -a %CodeAdr% -r %CodeAdr% -b -o ..\%MainMod%.tap %MainMod%.bin
+IF "%Target%"=="TAP" %ZXDev%\Bin\bin2tap.exe -c 24499 -a %CodeAdr% -r %CodeAdr% -b -o ..\%MainMod%.tap %MainMod%.bin
 
 IF NOT "%Clean%"=="TRUE" GOTO Done
-DEL *.asm *.bin *.ihx *.lk *.lst *.map *.noi %MainMod%.h %MainMod%.sym %MainMod%.rel
+DEL *.asm *.bin *.ihx *.lk *.lst *.map *.noi %MainMod%.Oh %MainMod%.sym %MainMod%.rel
 IF "%Modules%"=="" DEL %MainMod%.c
 
 :Done

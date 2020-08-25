@@ -1,7 +1,7 @@
-#include "SYSTEM.h"
-#include "Input.h"
-#include "Strings.h"
-#include "Timer.h"
+#include "SYSTEM.Oh"
+#include "Input.Oh"
+#include "Strings.Oh"
+#include "Timer.Oh"
 
 void Console_At_ROM (signed char x, signed char y) __z88dk_callee;
 void Console_At_COMPACT (signed char x, signed char y) __z88dk_callee;
