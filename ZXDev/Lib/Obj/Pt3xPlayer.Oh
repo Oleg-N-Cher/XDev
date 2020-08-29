@@ -1,0 +1,21 @@
+/* Ofront+ 1.0 -sx3 -21 */
+
+#ifndef Pt3xPlayer__Oh
+#define Pt3xPlayer__Oh
+
+#include "SYSTEM.Oh"
+
+typedef
+	CHAR *Pt3xPlayer_Module;
+
+
+import SET Pt3xPlayer_mode;
+
+
+#define Pt3xPlayer__init()
+
+import void Pt3xPlayer_Init (Pt3xPlayer_Module module);
+import void Pt3xPlayer_Mute (void);
+import void Pt3xPlayer_Play (void);
+
+#endif

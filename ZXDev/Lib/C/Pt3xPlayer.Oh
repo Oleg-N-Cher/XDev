@@ -1,0 +1,15 @@
+#ifndef Pt3xPlayer__Oh
+#define Pt3xPlayer__Oh
+
+
+extern unsigned char Pt3xPlayer_mode;
+
+
+extern void Pt3xPlayer_Init (void *module);
+extern void Pt3xPlayer_Mute (void);
+extern void Pt3xPlayer_Play (void);
+
+#define Pt3xPlayer__init()
+
+
+#endif

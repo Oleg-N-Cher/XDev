@@ -1,0 +1,27 @@
+MODULE [foreign] Pt3xPlayer;
+IMPORT SYSTEM;
+
+TYPE Module* = POINTER TO ARRAY [notag] OF CHAR;
+
+CONST
+  PT3_UNLOOP* = 0; (** Disable loop if this bit set *)
+  PT3_PT2*    = 1; (** This bit must be set for PT2 or res for PT3 *)
+  PT3_ABC*    = 0; (** Output channels *)
+  PT3_ACB*    = 3;
+  PT3_CAB*    = 7;
+  PT3_LOOP_FLAG* = 7; (** Is set each time, when loop point is passed *)
+
+VAR mode*: SET; (*
+  set bit0, .if you want to play without looping (optional);
+  set bit1 for pt2 and reset for pt3 before calling init;
+  bits2-3: %00-abc, %01 acb, %10 bac (optional);
+  bits4-6 are not used
+  bit7 is set each time, when loop point is passed (optional)
+*)
+
+PROCEDURE- Init* (module: Module); (** Init player *)
+PROCEDURE- Mute*; (** Mute *)
+PROCEDURE- Play*; (** Play one quark (20 millisec) *)
+  (* Must be called every 20ms for playing *)
+
+END Pt3xPlayer.
