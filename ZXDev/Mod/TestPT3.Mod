@@ -1,5 +1,5 @@
 MODULE TestPT3; (*$MAIN*)
-IMPORT Asm, B := Basic, Pt3xPlayer;
+IMPORT Asm, B := Basic, Pt3Player;
 
 TYPE Module = ARRAY 2137 OF CHAR;
 
@@ -186,19 +186,19 @@ CONST Ace = Module ( (* http://zxpress.ru/article.php?id=9508 *)
 
 BEGIN
   B.Init;
-  Pt3xPlayer.Init(Ace);
+  Pt3Player.Init(Ace);
 
   Asm.Code("play_l$: LD   IY,#0x5C3A");
   Asm.Code("         EI             ");
   Asm.Code("         HALT           ");
 
-  Pt3xPlayer.Play;
+  Pt3Player.Play;
 
   Asm.Code("         LD   A,#0x7F   ");
   Asm.Code("         IN   A,(-2)    ");
   Asm.Code("         RRA            ");
   Asm.Code("         JR   C,play_l$ ");
 
-  Pt3xPlayer.Mute;
+  Pt3Player.Mute;
   B.Quit;
 END TestPT3.

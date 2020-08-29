@@ -1,4 +1,4 @@
-void Pt3xPlayer_Init (void *module) __naked {
+void Pt3xPlayer_Init (void *module) __naked __z88dk_fastcall {
 __asm
 	push ix
 	call init

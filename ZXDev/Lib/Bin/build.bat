@@ -11,8 +11,8 @@
 
 :c_lib
 
-@IF EXIST ..\C\%2.h DEL %2.h
-@IF EXIST ..\C\%2.c DEL %2.c
+@IF EXIST ..\C\%1.Oh DEL %1.Oh
+@IF EXIST ..\C\%1.c DEL %1.c
 %smartlib% ..\C\%1.c
 
 :compile
