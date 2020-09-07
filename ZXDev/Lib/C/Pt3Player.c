@@ -92,7 +92,7 @@ CrPsPtr:	.DW 0
 
 ;Identifier
         .if id
-	.DB "=VTII PT3 Player r.",Release,"="
+	.ASCII "=VTII PT3 Player r.",Release,"="
         .endif
 
         .if loopchecker
@@ -331,7 +331,7 @@ INITV2:  PUSH HL
 	SBC HL,HL
 
 INITV1:  LD A,L
-M2:      .DB #0x7D
+M2:      .DB 0x7D
 	LD A,H
 	ADC A,#0
 	LD (IX),A

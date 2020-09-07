@@ -1,5 +1,4 @@
-MODULE [foreign] Pt3xPlayer;
-IMPORT SYSTEM;
+MODULE [foreign] Pt3xPlayer; IMPORT SYSTEM;
 
 TYPE Module* = POINTER TO ARRAY [notag] OF CHAR;
 
