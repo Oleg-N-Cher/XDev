@@ -1,4 +1,4 @@
-#include "LaserSprite2B.Oh"
+#include "LaserSprite2B.oh"
 
 /* Prefix _const_ is IMPORTANT to not to duplicate the data */
 const unsigned char _LaserSprite2B_Sprites [6271 + 1] = {

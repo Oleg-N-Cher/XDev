@@ -1,4 +1,4 @@
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 void NewSupercode__2WIERSZE (unsigned int adr);
 void NewSupercode_EKRAN1 (unsigned int adr);

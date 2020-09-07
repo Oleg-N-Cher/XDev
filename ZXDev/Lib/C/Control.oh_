@@ -1,0 +1,9 @@
+#ifndef Control__oh
+#define Control__oh
+
+
+extern unsigned char Control_Get (void);
+extern void Control__init(void);
+
+
+#endif

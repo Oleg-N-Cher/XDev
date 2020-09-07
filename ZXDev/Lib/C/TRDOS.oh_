@@ -1,0 +1,25 @@
+#ifndef TRDOS__oh
+#define TRDOS__oh
+
+#include "trdos/trdos.h"
+
+#define TRDOS_FDSP FDSP
+
+#define TRDOS_IsDisk trdosIsDisk
+
+#define TRDOS_Init trdosInit
+#define TRDOS_DiskTune trdosDiskTune
+#define TRDOS_DriveSel trdosDriveSel
+#define TRDOS_FindFile(name, name__len, nameLen) trdosFindFile(name, nameLen)
+#define TRDOS_LoadFile(name, name__len, destPtr, fileDataLen) trdosLoadFile(name, destPtr, fileDataLen)
+#define TRDOS_ReadFileDSP trdosReadFileDSP
+#define TRDOS_ReadSectors trdosReadSectors
+
+#define TRDOS_WriteFile(name, name__len, dataPtr, dataLen) trdosWriteFile(name, dataPtr, dataLen)
+#define TRDOS_EraseFile(name, name__len) trdosEraseFile(name)
+#define TRDOS_WriteFileDSP trdosWriteFileDSP
+#define TRDOS_WriteSectors trdosWriteSectors
+
+#define TRDOS__init()
+
+#endif

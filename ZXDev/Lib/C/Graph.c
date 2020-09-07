@@ -1,4 +1,4 @@
-#include "Graph.Oh"
+#include "Graph.oh"
 
 // void Graph_PutPixel (int x, int y);
 void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;

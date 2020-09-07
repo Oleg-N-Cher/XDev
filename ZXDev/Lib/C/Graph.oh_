@@ -1,0 +1,18 @@
+#ifndef Graph__oh
+#define Graph__oh
+
+
+extern void Graph_ClearDevice (void);
+extern void Graph_CloseGraph (void);
+#define Graph_GetMaxX() 255
+#define Graph_GetMaxY() 191
+#define Graph_InitGraph(GraphDriver, GraphMode, PathToDriver, PathToDriver__len) Graph__init()
+extern void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;
+#define Graph_PutPixel Graph_PutPixel_ROM
+extern void Graph_Line (int x1, int y1, int x2, int y2);
+extern void Graph_SetBkColor (signed char color);
+extern void Graph_SetColor (signed char color);
+extern void Graph__init (void);
+
+
+#endif

@@ -1,0 +1,12 @@
+#ifndef GrApp__oh
+#define GrApp__oh
+
+#include "Basic.oh"
+#include "Console.oh"
+
+#define GrApp_Update()
+#define GrApp_Close()	Console_SetFont(15616); Basic_Quit()
+#define GrApp__init() Basic_Init()
+
+
+#endif
