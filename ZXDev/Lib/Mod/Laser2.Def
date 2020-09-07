@@ -76,6 +76,8 @@ PROCEDURE- AWLV * (col, row, len, hgt: BYTE);
 PROCEDURE- AWRV * (col, row, len, hgt: BYTE);
 PROCEDURE- ATUV * (col, row, len, hgt: BYTE);
 PROCEDURE- ATDV * (col, row, len, hgt: BYTE);
+PROCEDURE- ASUV * (col, row, len, hgt: BYTE);
+PROCEDURE- ASDV * (col, row, len, hgt: BYTE);
 PROCEDURE- MARV * (col, row, len, hgt: BYTE);
 PROCEDURE- SETV * (col, row, len, hgt: BYTE);
 
