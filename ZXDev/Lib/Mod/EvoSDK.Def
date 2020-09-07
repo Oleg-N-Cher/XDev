@@ -1,0 +1,5 @@
+MODULE [foreign] EvoSDK;
+
+PROCEDURE border (color: BYTE); (** установка цвета бордюра, 0..15 *)
+
+END EvoSDK.

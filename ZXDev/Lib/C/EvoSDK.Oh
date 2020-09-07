@@ -1,0 +1,10 @@
+#ifndef EvoSDK_Oh
+#define EvoSDK_Oh
+
+
+extern void border (unsigned char color) __z88dk_fastcall __preserves_regs(b,c,d,e,iyl,iyh);
+
+#define EvoSDK__init()
+
+
+#endif
