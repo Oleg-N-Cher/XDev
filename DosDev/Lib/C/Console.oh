@@ -1,34 +1,34 @@
-#ifndef Console__h
-#define Console__h
+#ifndef Console__oh
+#define Console__oh
 
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 #include "Cons_Cfg.h"
 
 /* StdIO */
-import void Console_At_StdIO (INTEGER x, INTEGER y);
-import void Console_SetColors_StdIO (SYSTEM_BYTE colors);
+import void Console_At_StdIO (SHORTINT x, SHORTINT y);
+import void Console_SetColors_StdIO (BYTE colors);
 import void Console_WriteCh_StdIO (CHAR ch);
-import void Console_WriteInt_StdIO (LONGINT n);
+import void Console_WriteInt_StdIO (INTEGER n);
 import void Console_WriteLn_StdIO (void);
 import void Console_WriteStr_StdIO (CHAR *str);
 import void Console_WriteStrLn_StdIO (CHAR *str);
 
 /* ConIO */
-import void Console_At_ConIO (INTEGER x, INTEGER y);
-import void Console_SetColors_ConIO (SYSTEM_BYTE colors);
+import void Console_At_ConIO (SHORTINT x, SHORTINT y);
+import void Console_SetColors_ConIO (BYTE colors);
 import void Console_WriteCh_ConIO (CHAR ch);
-import void Console_WriteInt_ConIO (LONGINT n);
+import void Console_WriteInt_ConIO (INTEGER n);
 import void Console_WriteLn_ConIO (void);
 import void Console_WriteStr_ConIO (CHAR *str);
 import void Console_WriteStrLn_ConIO (CHAR *str);
 
 /* DIRECT */
-import void Console_At_DIRECT (INTEGER x, INTEGER y);
-import void Console_Clear_DIRECT (SYSTEM_BYTE colors);
+import void Console_At_DIRECT (SHORTINT x, SHORTINT y);
+import void Console_Clear_DIRECT (BYTE colors);
 import void Console_WriteLn_DIRECT (void);
 import void Console_WriteStr_DIRECT (CHAR *str);
 import void Console_WriteStrLn_DIRECT (CHAR *str);
-import void Console_SetColors_DIRECT (SYSTEM_BYTE colors);
+import void Console_SetColors_DIRECT (BYTE colors);
 
 #define Console__init()
 

@@ -1,0 +1,17 @@
+#ifndef CmdLine__oh
+#define CmdLine__oh
+
+#include "SYSTEM.oh"
+
+typedef
+	CHAR CmdLine_String[128];
+
+
+import SHORTINT CmdLine_paramCount;
+
+
+import void CmdLine_GetParam (SHORTINT n, CHAR *param, SHORTINT param__len);
+#define CmdLine__init() { CmdLine_paramCount = SYSTEM_argc - 1; }
+
+
+#endif

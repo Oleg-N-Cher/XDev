@@ -8,7 +8,7 @@ CONST
   Modulo = 2147483647; (* =2^31-1 *)
 
 VAR
-  z: LONGINT;
+  z: INTEGER;
 
 PROCEDURE -includemath()	"#include <math.h>"; (* define the proper return types! *)
 PROCEDURE -includestdlib()	"#include <stdlib.h>";
@@ -45,14 +45,14 @@ BEGIN RETURN ln(x)
 END Ln;
 
 PROCEDURE -randomize()	"randomize()";
-PROCEDURE -rand (): INTEGER	"rand()";
+PROCEDURE -rand (): SHORTINT	"rand()";
 
 (* 
 For details on this random algorithm take a look at
   Park S.K. and Miller K.W. (1988). Random number generators, good ones are
   hard to find. Communications of the ACM, 31, 1192-1201.
 *)
-PROCEDURE PutSeed (seed: LONGINT);
+PROCEDURE PutSeed (seed: INTEGER);
 (* Set 'seed' as the new seed value. Any values for 'seed' are allowed, but
    values beyond the intervall [1..2^31-2] will be mapped into this range *)
 BEGIN
@@ -70,7 +70,7 @@ CONST
   Q = 127773; (* m DIV a *)
   R = 2836; (* m MOD a *)
 VAR
-  lo, hi, test: LONGINT;
+  lo, hi, test: INTEGER;
 BEGIN
   hi := z DIV Q;
   lo := z MOD Q;
@@ -83,7 +83,7 @@ BEGIN
 END NextRnd;
 
 (* Returns a random number within the range rangeMin to rangeMax inclusively. *)
-PROCEDURE RndRange* (rangeMin, rangeMax: INTEGER): INTEGER;
+PROCEDURE RndRange* (rangeMin, rangeMax: SHORTINT): SHORTINT;
 BEGIN
   ASSERT(rangeMin <= rangeMax);
   NextRnd; RETURN SHORT((z + rand()) MOD (rangeMax - rangeMin + 1)) + rangeMin

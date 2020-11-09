@@ -1,6 +1,5 @@
-/*  Ofront 1.2 -xtspkae */
-#include "SYSTEM.h"
-#include "CmdLine.h"
+#include "SYSTEM.oh"
+#include "CmdLine.oh"
 
 typedef
 	CHAR (*CmdLine_ArgPtr)[128];
@@ -11,21 +10,21 @@ typedef
 /*typedef
 	CHAR CmdLine_String[128];*/
 
-export void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len);
+export void CmdLine_GetParam (SHORTINT n, CHAR *param, SHORTINT param__len);
 
 /*================================== Header ==================================*/
-export INTEGER CmdLine_paramCount;
+export SHORTINT CmdLine_paramCount;
 
 /*--------------------------------- Cut here ---------------------------------*/
 #define CmdLine_argc()	SYSTEM_argc
 #define CmdLine_argv()	(long)SYSTEM_argv
 
-void CmdLine_GetParam (INTEGER n, CHAR *param, LONGINT param__len)
+void CmdLine_GetParam (SHORTINT n, CHAR *param, SHORTINT param__len)
 {
 	CmdLine_ArgVec av = NIL;
 	if (n <= CmdLine_paramCount) {
 		av = (CmdLine_ArgVec)CmdLine_argv();
-		__COPY(*(*av)[__X(n, 128)], param, param__len);
+		__COPY(*(*av)[n], param, param__len);
 	} else {
 		__COPY("", param, param__len);
 	}

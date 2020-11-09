@@ -6,7 +6,7 @@ TYPE
   PersonPtr = POINTER TO Person;
   Person = RECORD
     name: ARRAY 20 OF CHAR;
-    age: INTEGER;
+    age: SHORTINT;
     sex: CHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
@@ -14,7 +14,7 @@ TYPE
 VAR
   john, mike, lisa, bob, iren, person: PersonPtr;
   list: POINTER TO ARRAY 5 OF PersonPtr;
-  n: INTEGER;
+  n: SHORTINT;
 
 BEGIN
   NEW(john); NEW(mike); NEW(lisa); NEW(bob); NEW(iren);
@@ -43,7 +43,7 @@ BEGIN
     IO.WriteStrLn(list[n].name);
     IO.WriteCh(list[n].sex); IO.WriteLn;
     IO.WriteInt(list[n].age); IO.WriteLn; IO.WriteLn;
-    Platform.DISPOSE(list[n]);
+    Platform.DISPOSE(@list[n]);
   END;
-  Platform.DISPOSE(list);
+  Platform.DISPOSE(@list);
 END DynMem.

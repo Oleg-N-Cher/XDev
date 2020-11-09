@@ -1,11 +1,30 @@
-@CD ..
-@SET path=..\BIN\TC201\BIN
-@SET RootBin=..\..\Bin
-%RootBin%\smartlib %1.c %2
-@FOR %%i IN (%2???.c) DO (
-  tcc -1 -O -d -f87 -Z -I..\BIN\TC201\INCLUDE -IOBJ -L..\BIN\TC201\LIB -c %%i
-  @IF errorlevel 1 PAUSE
+@ECHO OFF
+SET SmartLib=..\..\..\Bin\smartlib.exe
+IF EXIST ..\C\%1.c GOTO c_lib
+
+:o_lib
+
+%SmartLib% %1.c %2
+GOTO compile
+
+:c_lib
+
+IF EXIST ..\Obj\%1.oh DEL %1.oh
+IF EXIST ..\Obj\%1.c DEL %1.c
+%SmartLib% ..\C\%1.c %2
+
+:compile
+
+FOR %%i IN (%2???.c) DO (
+  SET Mod=%%i
+  CD ..\..
+  vDosPlus.exe /set frame=on;window=50;autoexec=Lib\Bin\bu.bat
+  CD Lib\Obj
 )
-@FOR %%i IN (%2???.OBJ) DO TLIB /C dosdev +%%i
-@CALL Bin\clear
-@CD OBJ
+FOR %%i IN (%2???.OBJ) DO (
+  SET Mod=%%i
+  CD ..\..
+  vDosPlus.exe /set frame=on;window=50;autoexec=Lib\Bin\lib.bat
+  CD Lib\Obj
+)
+..\Bin\clear.bat

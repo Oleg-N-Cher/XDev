@@ -1,0 +1,12 @@
+#ifndef Strings__oh
+#define Strings__oh
+
+#include "SYSTEM.oh"
+
+
+import void Strings_IntToStr (INTEGER n, CHAR *str, SHORTINT str__len);
+import SHORTINT Strings_Length (CHAR *str, SHORTINT str__len);
+#define Strings__init()
+
+
+#endif

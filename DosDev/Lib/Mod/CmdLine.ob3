@@ -9,12 +9,12 @@ TYPE
   ArgVec = POINTER [1] TO ARRAY [1] 128 OF ArgPtr;
 
 VAR
-  paramCount-: INTEGER; (* argc - 1 *)
+  paramCount-: SHORTINT; (* argc - 1 *)
 
-PROCEDURE -argc(): INTEGER "SYSTEM_argc";
-PROCEDURE -argv(): LONGINT "(long)SYSTEM_argv";
+PROCEDURE -argc(): SHORTINT "SYSTEM_argc";
+PROCEDURE -argv(): INTEGER "(long)SYSTEM_argv";
 
-PROCEDURE GetParam* (n: INTEGER; VAR param: ARRAY OF Char);
+PROCEDURE GetParam* (n: SHORTINT; VAR param: ARRAY OF Char);
 (**
   Under Windows all wide characters are replaced by "?".
   Under Linux all non-ASCII characters provided in UTF-8.
@@ -23,9 +23,9 @@ VAR
   av: ArgVec;
 BEGIN
   IF n <= paramCount THEN
-    av := SYSTEM.VAL(ArgVec, argv()); COPY(av[n]^, param);
+    av := SYSTEM.VAL(ArgVec, argv()); SYSTEM.COPY(av[n]^, param);
   ELSE
-    COPY("", param);
+    SYSTEM.COPY("", param);
   END;
 END GetParam;
 

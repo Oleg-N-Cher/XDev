@@ -1,6 +1,6 @@
 Bin/graphviz/
 Bin/proguard/
-DosDev/Obj/*.OBJ
+DosDev/Obj/*.obj
 DosDev2/
 DroNDK/
 DroSDK/

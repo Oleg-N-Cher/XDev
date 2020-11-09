@@ -295,28 +295,28 @@ CONST
 
 PROCEDURE -includestdio()	"#include <stdio.h>";
 
-PROCEDURE -writeInt (n: LONGINT)	'printf("%ld", n)';
-PROCEDURE -writeLInt (n: LONGINT)	'printf("%lld", n)';
-PROCEDURE -writeStr (str: ARRAY [1] OF CHAR)	'printf("%s", str)';
-PROCEDURE -writeStrLn (str: ARRAY [1] OF CHAR)	'printf("%s\n", str)';
+PROCEDURE -writeInt (n: INTEGER)	'printf("%ld", n)';
+PROCEDURE -writeLInt (n: INTEGER)	'printf("%lld", n)';
+PROCEDURE -writeStr (str: ARRAY OF CHAR)	'printf("%s", str)';
+PROCEDURE -writeStrLn (str: ARRAY OF CHAR)	'printf("%s\n", str)';
 PROCEDURE -writeCh (ch: CHAR)	'printf("%c", ch)';
 PROCEDURE -writeLn	'printf("\n")'; (** Write from next line (CR). *)
 
-PROCEDURE At* (x, y: INTEGER);
+PROCEDURE At* (x, y: SHORTINT);
 BEGIN
 END At;
 
-PROCEDURE WriteInt* (n: LONGINT); (** Write signed long integer number into console. *)
+PROCEDURE WriteInt* (n: INTEGER); (** Write signed long integer number into console. *)
 BEGIN
-  IF SIZE(LONGINT) = 4 THEN writeInt(n) END;
-  IF SIZE(LONGINT) = 8 THEN writeLInt(n) END;
+  IF SIZE(INTEGER) = 4 THEN writeInt(n) END;
+  IF SIZE(INTEGER) = 8 THEN writeLInt(n) END;
 END WriteInt;
 
-PROCEDURE WriteStr* (str: ARRAY [1] OF CHAR); (* Write ANSI string into console. *)
+PROCEDURE WriteStr* (str: ARRAY OF CHAR); (* Write ANSI string into console. *)
   (** UNSAFE! Make sure that value of array 'str' is null-terminated. *)
 BEGIN writeStr(str) END WriteStr;
 
-PROCEDURE WriteStrLn* (str: ARRAY [1] OF CHAR); (* Write ANSI string into console. *)
+PROCEDURE WriteStrLn* (str: ARRAY OF CHAR); (* Write ANSI string into console. *)
   (** UNSAFE! Make sure that value of array 'str' is null-terminated. *)
 BEGIN writeStrLn(str) END WriteStrLn;
 
@@ -326,7 +326,7 @@ BEGIN writeCh(ch) END WriteCh;
 PROCEDURE WriteLn* ; (** Write from next line (CR). *)
 BEGIN writeLn END WriteLn;
 
-PROCEDURE SetColors* (n: INTEGER);
+PROCEDURE SetColors* (n: SHORTINT);
 BEGIN
 END SetColors;
 

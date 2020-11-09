@@ -1,16 +1,18 @@
-/*  Ofront 1.2 -xtspkaem */
-#include "SYSTEM.h"
-#include "Console.h"
-#include "Math.h"
+/* Ofront+ 1.0 -mx3 -21 */
+#include "SYSTEM.oh"
+#include "Console.oh"
+#include "Math.oh"
 
 
-static INTEGER Kubik_one, Kubik_two, Kubik_three, Kubik_four, Kubik_five, Kubik_six, Kubik_n, Kubik_number, Kubik__for__1;
+static SHORTINT Kubik_one, Kubik_two, Kubik_three, Kubik_four, Kubik_five, Kubik_six, Kubik_n, Kubik_number, Kubik__for__1;
 
 
 
 
+/*============================================================================*/
 
-export main(int argc, char **argv)
+
+int main(int argc, char **argv)
 {
 	__INIT(argc, argv);
 	__IMPORT(Console__init);
@@ -26,7 +28,6 @@ export main(int argc, char **argv)
 	Kubik_six = 0;
 	Kubik_n = 1;
 	Kubik__for__1 = 1000;
-	Kubik__for__1 = (Kubik__for__1 - Kubik_n) + 1;
 	do {
 		Kubik_number = Math_RndRange(1, 6);
 		if (Kubik_number == 1) {
@@ -48,58 +49,57 @@ export main(int argc, char **argv)
 			Kubik_six = Kubik_six + 1;
 		}
 		Kubik_n += 1;
-		Kubik__for__1 -= 1;
-	} while (!(Kubik__for__1 == 0));
+	} while (--Kubik__for__1);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(4);
 	Console_WriteInt(1);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(14);
 	Console_WriteInt(2);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(2);
 	Console_WriteInt(3);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(5);
 	Console_WriteInt(4);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(1);
 	Console_WriteInt(5);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"| ", (LONGINT)3);
+	Console_WriteStr((CHAR*)"| ", 3);
 	Console_SetColors(7);
 	Console_WriteInt(6);
 	Console_SetColors(3);
-	Console_WriteStr((CHAR*)" |            |", (LONGINT)16);
+	Console_WriteStr((CHAR*)" |            |", 16);
 	Console_WriteLn();
-	Console_WriteStr((CHAR*)"+---+------------+", (LONGINT)19);
+	Console_WriteStr((CHAR*)"+---+------------+", 19);
 	Console_At(10, 1);
 	Console_SetColors(4);
 	Console_WriteInt(Kubik_one);

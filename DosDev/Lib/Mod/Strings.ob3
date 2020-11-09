@@ -1,0 +1,31 @@
+MODULE Strings;	(** portable layer for LibC - strings *)
+
+IMPORT SYSTEM;
+
+TYPE
+  PtrSTR = POINTER TO ARRAY [notag] OF CHAR;
+
+PROCEDURE -includestdio()	"#include <stdio.h>";
+(*PROCEDURE -includestring()	"#include <string.h>";*)
+
+(*PROCEDURE -sprintf (str: PtrSTR; n: SHORTINT)	'sprintf(str, "%ld", n)';*)
+PROCEDURE -sprintfL (str: PtrSTR; n: INTEGER)	'sprintf(str, "%lld", n)';
+(*PROCEDURE -Length* (str: PtrSTR): INTEGER	"strlen(str)";*)
+
+PROCEDURE IntToStr* (n: INTEGER; VAR str: ARRAY OF CHAR);
+  (** UNSAFE! Make sure that size of array 'str' is enough. *)
+BEGIN
+  (*IF SIZE(INTEGER) = 4 THEN sprintf(str, n) END;*)
+  IF SIZE(INTEGER) = 8 THEN sprintfL(str, n) END;
+END IntToStr;
+
+PROCEDURE Length* (str: ARRAY OF CHAR): INTEGER;
+VAR
+  len: INTEGER;
+BEGIN
+  len := 0;
+  WHILE (len < LEN(str)) & (str[len] # 0X) DO INC(len) END;
+  RETURN len
+END Length;
+
+END Strings.

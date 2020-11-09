@@ -1,5 +1,5 @@
-#include "SYSTEM.h"
-#include "Math.h"
+#include "SYSTEM.oh"
+#include "Math.oh"
 
 export REAL Math_ArcTan (REAL x);
 export REAL Math_Cos (REAL x);
@@ -7,10 +7,10 @@ export REAL Math_Exp (REAL x);
 export REAL Math_Ln (REAL x);
 export REAL Math_Sin (REAL x);
 export REAL Math_Sqrt (REAL x);
-export INTEGER Math_RndRange (INTEGER rangeMin, INTEGER rangeMax);
+export SHORTINT Math_RndRange (SHORTINT rangeMin, SHORTINT rangeMax);
 
 void Math_NextRnd (void);
-void Math_PutSeed (LONGINT seed);
+void Math_PutSeed (INTEGER seed);
 
 #include <math.h>
 #include <stdlib.h>
@@ -18,7 +18,7 @@ void Math_PutSeed (LONGINT seed);
 #define Math_rand()	rand()
 #define Math_randomize()	randomize()
 
-extern LONGINT Math_z;
+extern INTEGER Math_z;
 /*================================== Header ==================================*/
 #define Math_sin(x)	(sin(x))
 
@@ -68,10 +68,10 @@ REAL Math_Ln (REAL x)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-LONGINT Math_z;
+INTEGER Math_z;
 /*--------------------------------- Cut here ---------------------------------*/
 
-void Math_PutSeed (LONGINT seed)
+void Math_PutSeed (INTEGER seed)
 {
 	seed = (int)__MOD(seed, 2147483647);
 	if (seed == 0) {
@@ -84,7 +84,7 @@ void Math_PutSeed (LONGINT seed)
 /*--------------------------------- Cut here ---------------------------------*/
 void Math_NextRnd (void)
 {
-	LONGINT lo, hi, test;
+	INTEGER lo, hi, test;
 	hi = __DIV(Math_z, 127773);
 	lo = (int)__MOD(Math_z, 127773);
 	test = 16807 * lo - 2836 * hi;
@@ -96,7 +96,7 @@ void Math_NextRnd (void)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-INTEGER Math_RndRange (INTEGER rangeMin, INTEGER rangeMax)
+SHORTINT Math_RndRange (SHORTINT rangeMin, SHORTINT rangeMax)
 {
 	__ASSERT(rangeMin <= rangeMax, 0);
 	Math_NextRnd();

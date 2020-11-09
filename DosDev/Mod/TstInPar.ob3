@@ -1,8 +1,8 @@
 MODULE TstInPar;
 IMPORT Console, P := Platform;
 TYPE
-  Struct = RECORD a, b: INTEGER END;
-  Struct1 = RECORD[1] a, b: INTEGER END;
+  Struct = RECORD a, b: SHORTINT END;
+  Struct1 = RECORD[1] a, b: SHORTINT END;
   StructPtr = POINTER TO Struct;
   Struct1Ptr = POINTER TO Struct1;
 
@@ -13,7 +13,7 @@ VAR
 	struct1: Struct1; struct1Ptr: Struct1Ptr;
 
 (*
-PROCEDURE A(IN a: INTEGER); BEGIN END A;
+PROCEDURE A(IN a: SHORTINT); BEGIN END A;
 *)
 
 PROCEDURE Write* (str: ARRAY OF CHAR);

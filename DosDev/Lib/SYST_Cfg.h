@@ -1,5 +1,3 @@
-/*  Ofront 1.2 SYSTEM config */
-
 #ifndef __SYSTEM_Cfg__h
 #define __SYSTEM_Cfg__h
 
@@ -22,6 +20,6 @@
 /* #define SYSTEM_Cfg_TypeBoundProcDynCalls */
 
 /* Garbage collector */
-#define SYSTEM_Cfg_NoGC
+#define SYSTEM_NoGC
 
 #endif

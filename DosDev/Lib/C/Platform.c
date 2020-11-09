@@ -1,21 +1,20 @@
-/*  Ofront 1.2 -xtspkae */
-#include "SYSTEM.h"
-#include "Platform.h"
+#include "SYSTEM.oh"
+#include "Platform.oh"
 
-export SET Platform_BITS (INTEGER i);
+export SET Platform_BITS (SHORTINT i);
 export void Platform_DISPOSE (SYSTEM_PTR *mem);
-export INTEGER Platform_ORD (SET s);
+export SHORTINT Platform_ORD (SET s);
 
 /*================================== Header ==================================*/
-SET Platform_BITS (INTEGER i)
+SET Platform_BITS (SHORTINT i)
 {
   return __VAL(SET, i);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-INTEGER Platform_ORD (SET s)
+SHORTINT Platform_ORD (SET s)
 {
-  return __VAL(INTEGER, s);
+  return __VAL(SHORTINT, s);
 }
 
 /*--------------------------------- Cut here ---------------------------------*/

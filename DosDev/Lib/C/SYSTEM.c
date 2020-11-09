@@ -12,7 +12,7 @@
 *
 */
 
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 #ifndef __STDC__
 #  include "stdarg.h"
 #else
@@ -24,33 +24,33 @@ extern void exit (int status);
 /* runtime system routines */
 extern void SYSTEM_INIT (int argc, long argvadr);
 extern void SYSTEM_HALT (int n);
-extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
+extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 extern long SYSTEM_MOD (unsigned long x, unsigned long y);
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-export SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size);
+export SYSTEM_PTR SYSTEM_NEWBLK (SHORTINT size);
 
 #define SYSTEM_malloc(size)	(SYSTEM_PTR)malloc(size)
 
 /*================================== Header ==================================*/
 
 /* runtime system variables */
-LONGINT SYSTEM_argc;
-LONGINT SYSTEM_argv;
+SHORTINT SYSTEM_argc;
+SYSTEM_ADRINT SYSTEM_argv;
 
 /*--------------------------------- Cut here ---------------------------------*/
-INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n)
+SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n)
 {
 	if (n >= 0) return x << n;
 	return x >> (-n);
-} //SYSTEM_ASH
+}
 
 /*--------------------------------- Cut here ---------------------------------*/
-LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n)
+INTEGER SYSTEM_ASHL (INTEGER x, BYTE n)
 {
 	if (n >= 0) return x << n;
 	return x >> (-n);
-} //SYSTEM_ASHL
+}
 
 /*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_MOD (unsigned long x, unsigned long y)
@@ -77,7 +77,7 @@ void SYSTEM_HALT (int n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size)
+SYSTEM_PTR SYSTEM_NEWBLK (SHORTINT size)
 {
   SYSTEM_PTR mem = SYSTEM_malloc(size);
   __ASSERT(mem != NIL, 0xFF);
@@ -87,13 +87,13 @@ SYSTEM_PTR SYSTEM_NEWBLK (LONGINT size)
 /*--------------------------------- Cut here ---------------------------------*/
 /*
 #define _DYNARRAY struct {
-  LONGINT len[1]; // Length of allocated memory: LEN()
+  INTEGER len[1]; // Length of allocated memory: LEN()
   CHAR data[1];   // Array data
 } */
-SYSTEM_PTR SYSTEM_NEWARR (LONGINT size)
+SYSTEM_PTR SYSTEM_NEWARR (SHORTINT size)
 {
-  SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(LONGINT) + size);
-  *((LONGINT*)arrPtr) = size;
+  SYSTEM_PTR arrPtr = SYSTEM_NEWBLK(sizeof(SHORTINT) + size);
+  *((SHORTINT*)arrPtr) = size;
   return arrPtr;
 }
 

@@ -1,5 +1,5 @@
-#ifndef SYSTEM__h
-#define SYSTEM__h
+#ifndef SYSTEM__oh
+#define SYSTEM__oh
 
 /*
 
@@ -24,22 +24,33 @@ uses double # as concatenation operator
 /* basic types */
 typedef char BOOLEAN;
 typedef unsigned char CHAR;
-typedef short int SHORTINT;
-typedef int INTEGER;
-typedef long LONGINT;
+typedef signed char BYTE;
+typedef int SHORTINT;
+typedef int SYSTEM_ARRLEN;
+typedef long INTEGER;
+/*typedef long LONGINT;*/
+typedef long SYSTEM_ADRINT;
 typedef float REAL;
 typedef double LONGREAL;
-typedef unsigned long SET;
+typedef unsigned int SET;
 typedef void *SYSTEM_PTR;
 typedef unsigned long SYSTEM_ADR;
-typedef signed char BYTE;
+
+/* Unsigned variants are for use by shift and rotate macros */
+
+typedef unsigned char __U_CHAR;
+typedef unsigned char __U_BYTE;
+typedef unsigned int  __U_SHORTINT;
+typedef unsigned long __U_INTEGER;
+/*typedef unsigned long __U_LONGINT;*/
+typedef unsigned int  __U_SET;
 
 /* runtime system routines */
 extern long SYSTEM_DIV();
 extern long SYSTEM_MOD();
 extern long SYSTEM_ENTIER();
-extern INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-extern LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
+extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 extern long SYSTEM_ABS();
 int SYSTEM_XCHK (int i, int ub);
 extern long SYSTEM_RCHK();
@@ -47,7 +58,7 @@ extern double SYSTEM_ABSD();
 extern int SYSTEM_STRCMP();
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
-extern SYSTEM_PTR SYSTEM_NEWARR (LONGINT size);
+extern SYSTEM_PTR SYSTEM_NEWARR (SHORTINT size);
 extern SYSTEM_PTR SYSTEM_REGMOD();
 #ifdef SYSTEM_IncRef
   extern void SYSTEM_INCREF();
@@ -118,7 +129,7 @@ extern void SYSTEM_ENUMR();
 #ifdef SYSTEM_NoGC
 #  define __NEW(p, t)	p=SYSTEM_NEWBLK(sizeof(struct t))
 #  define __NEWARR(typ, elemsz, elemalgn, nofdim, nofdyn, va_alist) \
-	SYSTEM_NEWARR(elemalgn*va_alist);
+	SYSTEM_NEWARR(elemalgn*va_alist)
 #else
 #  define __NEW(p, t)	p=SYSTEM_NEWREC((long)t##__typ)
 #  define __NEWARR	SYSTEM_NEWARR
@@ -179,10 +190,10 @@ extern void SYSTEM_ENUMR();
 #else
   #define __TDESC(t__desc, m, n) \
 	static struct t__desc {\
-		long tproc[m]; \
-		long ptr[n+1]; \
+		char tproc[m]; \
+		char ptr[n+1]; \
 	} t__desc
-  #define __TDFLDS(name, size)	0
+  #define __TDFLDS(name, size)	{0, 0}
 #endif
 
 #define __BASEOFF	(__MAXEXT+1)
@@ -215,15 +226,15 @@ extern void SYSTEM_ENUMR();
 #endif
 
 /* runtime system variables */
-extern LONGINT SYSTEM_argc;
-extern LONGINT SYSTEM_argv;
+extern SHORTINT SYSTEM_argc;
+extern SYSTEM_ADRINT SYSTEM_argv;
 extern void (*SYSTEM_Halt)();
-extern LONGINT SYSTEM_halt;
+extern INTEGER SYSTEM_halt;
 extern SYSTEM_PTR SYSTEM_modules;
-extern LONGINT SYSTEM_heapsize;
-extern LONGINT SYSTEM_allocated;
-extern LONGINT SYSTEM_lock;
-extern SHORTINT SYSTEM_gclock;
+extern INTEGER SYSTEM_heapsize;
+extern INTEGER SYSTEM_allocated;
+extern INTEGER SYSTEM_lock;
+extern BYTE SYSTEM_gclock;
 extern BOOLEAN SYSTEM_interrupted;
 
 /* ANSI prototypes; not used so far
@@ -232,8 +243,8 @@ void SYSTEM_INIT(int argc, long argvadr);
 void SYSTEM_FINI(void);
 int SYSTEM_XCHK (int i, int ub);
 long SYSTEM_RCHK(long i, long ub);
-INTEGER SYSTEM_ASH (INTEGER x, SHORTINT n);
-LONGINT SYSTEM_ASHL (LONGINT x, SHORTINT n);
+SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
+INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
 long SYSTEM_ABS(long i);
 double SYSTEM_ABSD(double i);
 void SYSTEM_INHERIT(long *t, long *t0);

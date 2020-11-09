@@ -1,3 +1,2 @@
-@DEL *.OBJ
-@DEL *_0??.c
-@DEL *.sbm
+@DEL *.OBJ >NUL
+@DEL *_0??.c >NUL
