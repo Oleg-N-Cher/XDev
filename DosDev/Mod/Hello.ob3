@@ -1,0 +1,11 @@
+MODULE Hello;
+IMPORT Console, SYSTEM;
+
+PROCEDURE- sz(): INTEGER "sizeof(SYSTEM_ADRINT)";
+
+PROCEDURE- asm "asm a: jmp a";
+
+BEGIN (*$MAIN*)
+
+  Console.WriteInt(sz())
+END Hello.

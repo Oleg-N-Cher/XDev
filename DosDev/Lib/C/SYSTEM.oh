@@ -19,7 +19,7 @@ uses double # as concatenation operator
 /* constants */
 #define __MAXEXT	16
 #define NIL	0L
-#define POINTER__typ	(long*)1L	/* not NIL and not a valid type */
+#define POINTER__typ	(void*)1L	/* not NIL and not a valid type */
 
 /* basic types */
 typedef char BOOLEAN;
@@ -29,12 +29,18 @@ typedef int SHORTINT;
 typedef int SYSTEM_ARRLEN;
 typedef long INTEGER;
 /*typedef long LONGINT;*/
-typedef long SYSTEM_ADRINT;
-typedef float REAL;
-typedef double LONGREAL;
+typedef float SHORTREAL;
+typedef double REAL;
 typedef unsigned int SET;
 typedef void *SYSTEM_PTR;
-typedef unsigned long SYSTEM_ADR;
+
+#ifdef __SMALL__
+  typedef int SYSTEM_ADRINT;
+  typedef unsigned int SYSTEM_ADR;
+#else
+  typedef long SYSTEM_ADRINT;
+  typedef unsigned long SYSTEM_ADR;
+#endif
 
 /* Unsigned variants are for use by shift and rotate macros */
 
@@ -51,10 +57,12 @@ extern long SYSTEM_MOD();
 extern long SYSTEM_ENTIER();
 extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
 extern INTEGER SYSTEM_ASHL (INTEGER x, BYTE n);
-extern long SYSTEM_ABS();
+extern SHORTINT  SYSTEM_ABSS (SHORTINT x);
+extern INTEGER   SYSTEM_ABS  (INTEGER x);
+extern SHORTREAL SYSTEM_ABSF (SHORTREAL x);
+extern REAL      SYSTEM_ABSD (REAL x);
 int SYSTEM_XCHK (int i, int ub);
 extern long SYSTEM_RCHK();
-extern double SYSTEM_ABSD();
 extern int SYSTEM_STRCMP();
 extern SYSTEM_PTR SYSTEM_NEWREC();
 extern SYSTEM_PTR SYSTEM_NEWBLK();
@@ -139,8 +147,10 @@ extern void SYSTEM_ENUMR();
 #define __ASSERT(cond, x)	if (!(cond)) SYSTEM_HALT(x)
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ABS(x)	(((x)<0)?-(x):(x))
-#define __ABSF(x)	SYSTEM_ABS((long)(x))
-#define __ABSFD(x)	SYSTEM_ABSD((double)(x))
+#define __ABSFS(x)	SYSTEM_ABSS(x)
+#define __ABSF(x)	SYSTEM_ABS (x)
+#define __ABSFF(x)	SYSTEM_ABSF(x)
+#define __ABSFD(x)	SYSTEM_ABSF(x)
 #define __CAP(ch)	((CHAR)((ch)&0x5f))
 #define __ODD(x)	((x)&1)
 #define __IN(x, s)	(((s)>>(x))&1)

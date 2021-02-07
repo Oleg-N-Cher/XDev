@@ -1,0 +1,13 @@
+#ifndef GrApp__oh
+#define GrApp__oh
+
+
+extern void GrApp_Close (void);
+extern void GrApp_PutSpr (unsigned int x, unsigned int y, void *spr);
+extern void GrApp_SetBkColor (unsigned int color);
+extern void GrApp_SetPalette (unsigned char pal);
+
+extern void *GrApp__init (void);
+
+
+#endif

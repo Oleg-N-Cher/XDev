@@ -53,6 +53,15 @@ INTEGER SYSTEM_ASHL (INTEGER x, BYTE n)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+SHORTINT  SYSTEM_ABSS (SHORTINT x)  { return __ABS(x); }
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER   SYSTEM_ABS  (INTEGER x)   { return __ABS(x); }
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTREAL SYSTEM_ABSF (SHORTREAL x) { return __ABS(x); }
+/*--------------------------------- Cut here ---------------------------------*/
+REAL      SYSTEM_ABSD (REAL x)      { return __ABS(x); }
+
+/*--------------------------------- Cut here ---------------------------------*/
 long SYSTEM_MOD (unsigned long x, unsigned long y)
 { unsigned long m;
   if ((long) x >= 0) return (x % y);
