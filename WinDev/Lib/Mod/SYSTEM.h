@@ -101,14 +101,14 @@ extern LONGINT SYSTEM_XCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
 extern LONGINT SYSTEM_RCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
 extern INTEGER SYSTEM_ASH    (INTEGER x, INTEGER n);
 extern LONGINT SYSTEM_ASHL   (LONGINT x, INTEGER n);
-extern LONGINT SYSTEM_ABS    (LONGINT i);
-extern double  SYSTEM_ABSD   (double i);
 extern INTEGER SYSTEM_DIV    (INTEGER x, INTEGER y);
 extern LONGINT SYSTEM_DIVL   (LONGINT x, LONGINT y);
 extern INTEGER SYSTEM_MOD    (INTEGER x, INTEGER y);
 extern LONGINT SYSTEM_MODL   (LONGINT x, LONGINT y);
 extern INTEGER SYSTEM_ENTIER (REAL x);
 extern LONGINT SYSTEM_ENTIERL(REAL x);
+extern void    SYSTEM_PACK   (SHORTREAL *x, INTEGER n);
+extern void    SYSTEM_UNPK   (SHORTREAL *x, INTEGER *n);
 
 
 // Signal handling in SYSTEM.c
@@ -163,6 +163,7 @@ static inline INTEGER __STRLEN (CHAR *str) { // LEN(str$)
 #define __DUP(x, l)     x=(void*)memcpy(alloca(l*sizeof(*x)),x,l*sizeof(*x))
 #define __DUPARR(v)     v=(void*)memcpy(v##__copy,v,sizeof(v##__copy))
 #define __DEL(x)        /* DUP with alloca frees storage automatically */
+#define __CONSTARR      const
 
 
 /* SYSTEM ops */
@@ -204,8 +205,11 @@ static inline LONGINT   __VALL (REAL x)      { return *(LONGINT*)  &x; }
 #define __ENTIER(x)     SYSTEM_ENTIER(x)
 #define __ENTIERL(x)    SYSTEM_ENTIERL(x)
 #define __ABS(x)        (((x)<0)?-(x):(x))
-#define __ABSF(x)       SYSTEM_ABS(x)
-#define __ABSFD(x)      SYSTEM_ABSD(x)
+static inline SHORTINT  __ABSFS (SHORTINT x)  { return __ABS(x); }
+static inline INTEGER   __ABSF  (INTEGER x)   { return __ABS(x); }
+static inline LONGINT   __ABSFL (LONGINT x)   { return __ABS(x); }
+static inline SHORTREAL __ABSFF (SHORTREAL x) { return __ABS(x); }
+static inline REAL      __ABSFD (REAL x)      { return __ABS(x); }
 #define __CAP(ch)       ((CHAR)((ch)&0x5f))
 #define __ODD(x)        ((x)&1)
 #define __IN(x, s)      (((s)>>(x))&1)
@@ -213,8 +217,19 @@ static inline LONGINT   __VALL (REAL x)      { return *(LONGINT*)  &x; }
 #define __SETOF(x)      ((SET)1<<(x))
 #define __SETRNG(l, h)  ((~(SET)0<<(l))&~(SET)0>>(8*sizeof(SET)-1-(h)))
 #define __MASK(x, m)    ((x)&~(m))
-#define __CONSTARR      const
+#define __PACK(x, n)    SYSTEM_PACK(x, n)
+#define __UNPK(x, n)    SYSTEM_UNPK(x, n)
 
+#define __MIN(x, y)     ((x)<(y)?(x):(y))
+static inline INTEGER __MINF (INTEGER x, INTEGER y)        { return x<y?x:y; }
+static inline LONGINT __MINFL (LONGINT x, LONGINT y)       { return x<y?x:y; }
+static inline SHORTREAL __MINFF (SHORTREAL x, SHORTREAL y) { return x<y?x:y; }
+static inline REAL __MINFD (REAL x, REAL y)                { return x<y?x:y; }
+#define __MAX(x, y)     ((x)>(y)?(x):(y))
+static inline INTEGER __MAXF (INTEGER x, INTEGER y)        { return x>y?x:y; }
+static inline LONGINT __MAXFL (LONGINT x, LONGINT y)       { return x>y?x:y; }
+static inline SHORTREAL __MAXFF (SHORTREAL x, SHORTREAL y) { return x>y?x:y; }
+static inline REAL __MAXFD (REAL x, REAL y)                { return x>y?x:y; }
 
 
 // Runtime checks
