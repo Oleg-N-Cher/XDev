@@ -29,7 +29,7 @@ CONST
 	On           * = 1;
 	Off          * = 0;
 
-	WaitAKey* = 0; NoKeys* = 0X;
+	WaitAKey* = 0; NoKey* = 0X;
 	
 	RomFont* = 3D00H;
 

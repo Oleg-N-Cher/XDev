@@ -1,12 +1,12 @@
 /* Ofront+ 1.0 -sx3 -21 */
 
-#ifndef CmdLine__Oh
-#define CmdLine__Oh
+#ifndef CmdLine__oh
+#define CmdLine__oh
 
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 typedef
-	CHAR CmdLine_String[1];
+	CHAR CmdLine_String [1];
 
 
 

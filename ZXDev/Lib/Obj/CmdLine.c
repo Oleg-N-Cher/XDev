@@ -1,8 +1,8 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 typedef
-	CHAR CmdLine_String[1];
+	CHAR CmdLine_String [1];
 
 
 
