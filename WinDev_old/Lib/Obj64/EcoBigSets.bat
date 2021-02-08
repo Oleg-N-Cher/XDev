@@ -1,1 +1,0 @@
-@..\Bin\buildEco64.bat

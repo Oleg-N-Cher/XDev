@@ -1,1 +1,0 @@
-@..\Bin\buildOak64.bat

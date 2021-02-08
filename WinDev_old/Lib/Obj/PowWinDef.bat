@@ -1,1 +1,0 @@
-@..\Bin\buildPow.bat
