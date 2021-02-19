@@ -12,7 +12,7 @@
 
 :c_lib
 
-@IF EXIST ..\C\%1.Oh DEL %1.Oh
+@IF EXIST ..\C\%1.oh DEL %1.oh
 @IF EXIST ..\C\%1.c DEL %1.c
 %sdcc% -c ..\C\%1.c
 

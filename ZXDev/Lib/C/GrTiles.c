@@ -4,6 +4,7 @@ void GrTiles_DrawTile8x8 (unsigned char x, unsigned char y, unsigned char *tile)
 void GrTiles_GetMonoTile8x8 (unsigned char x, unsigned char y, unsigned char *tile) __z88dk_callee;
 void GrTiles_GetTile8x8 (unsigned char x, unsigned char y, unsigned char *tile) __z88dk_callee;
 void GrTiles_DrawTile16x16 (unsigned char x, unsigned char y, unsigned char *tile) __z88dk_callee;
+void GrTiles_DrawNoAtrTile16x16 (unsigned char x, unsigned char y, unsigned char *tile) __z88dk_callee;
 /*================================== Header ==================================*/
 
 void GrTiles_DrawMonoTile8x8 (
@@ -153,4 +154,42 @@ DrTile16_Lo$: LD   A, (HL)    ; [tile]
               INC  HL         ; tile++
               RET
   __endasm;
-} //GrTiles_DrawTile8x8
+} //GrTiles_DrawTile16x16
+
+/*--------------------------------- Cut here ---------------------------------*/
+void GrTiles_DrawNoAtrTile16x16 (unsigned char x, unsigned char y, unsigned char *tile) __naked __z88dk_callee {
+  __asm
+              POP  HL
+              POP  DE         ; D = y; E = x
+              EX   (SP), HL   ; tile address
+              CALL _GrScr_XYtoScr
+              CALL DrTil16_rNA$
+              INC  D          ; Down(screen)
+              LD   A, E
+              ADD  #0x20-1    ; Next charline
+              LD   E, A       ; If carry then jump to next third of screen
+              JR   C, DrTil16_rNA$
+              LD   A, D
+              SUB  #8         ; HL := HL - 0x0800
+              LD   D, A
+DrTil16_rNA$: LD   B, #7
+DrTile16_NA$: LD   A, (HL)    ; [tile]
+              LD   (DE), A    ;   => [screen]
+              INC  E
+              INC  HL         ; tile++
+              LD   A, (HL)    ; [tile]
+              LD   (DE), A    ;   => [screen]
+              DEC  E
+              INC  D          ; Down(screen)
+              INC  HL         ; tile++
+              DJNZ DrTile16_NA$
+              LD   A, (HL)
+              LD   (DE), A
+              INC  E
+              INC  HL         ; tile++
+              LD   A, (HL)    ; [tile]
+              LD   (DE), A    ;   => [screen]
+              INC  HL         ; tile++
+              RET
+  __endasm;
+} //GrTiles_DrawNoAtrTile16x16

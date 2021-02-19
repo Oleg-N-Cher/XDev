@@ -11,7 +11,7 @@ SET CC=zcc.exe +zx -vn -x -clib=sdcc_iy %Opt% -Cs"--disable-warning 85" -Cs"--di
 SET smartlib=..\..\..\Bin\smartlib.exe
 
 CD ..\Obj
-IF EXIST Laser2.Oh DEL Laser2.Oh
+IF EXIST Laser2.oh DEL Laser2.oh
 IF EXIST Laser2.c DEL Laser2.c
 
 %smartlib% ..\C\Laser2.c

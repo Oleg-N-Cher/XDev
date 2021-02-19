@@ -120,6 +120,90 @@ LONGINT   SYSTEM_ABSL (LONGINT x)  { return __ABS(x); }
 SHORTREAL SYSTEM_ABSF (REAL x)     { return __ABS(x); }
 
 /*--------------------------------- Cut here ---------------------------------*/
+SHORTINT SYSTEM_DIVS (SHORTINT x, SHORTINT y)
+{
+  if (y > 0) {
+    if (x < 0) return -1 - (-1 - x) / y;
+    else       return x / y;
+  }
+  if (y < 0) {
+    if (x > 0) return -1 + (x - 1) / y;
+    else       return x / y;
+  }
+  __HALT(6, "SYSTEM.c", 133);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_DIV (INTEGER x, INTEGER y)
+{
+  if (y > 0) {
+    if (x < 0) return -1 - (-1 - x) / y;
+    else       return x / y;
+  }
+  if (y < 0) {
+    if (x > 0) return -1 + (x - 1) / y;
+    else       return x / y;
+  }
+  __HALT(6, "SYSTEM.c", 148);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_DIVL (LONGINT x, LONGINT y)
+{
+  if (y > 0) {
+    if (x < 0) return -1 - (-1 - x) / y;
+    else       return x / y;
+  }
+  if (y < 0) {
+    if (x > 0) return -1 + (x - 1) / y;
+    else       return x / y;
+  }
+  __HALT(6, "SYSTEM.c", 161);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTINT SYSTEM_MODS (SHORTINT x, SHORTINT y)
+{
+  if (y > 0) {
+    if (x < 0) return y - 1 + (x + 1) % y;
+    else       return x % y;
+  }
+  if (y < 0) {
+    if (x > 0) return y + 1 + (x - 1) % y;
+    else       return x % y;
+  }
+  __HALT(6, "SYSTEM.c", 175);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_MOD (INTEGER x, INTEGER y)
+{
+  if (y > 0) {
+    if (x < 0) return y - 1 + (x + 1) % y;
+    else       return x % y;
+  }
+  if (y < 0) {
+    if (x > 0) return y + 1 + (x - 1) % y;
+    else       return x % y;
+  }
+  __HALT(6, "SYSTEM.c", 189);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_MODL (LONGINT x, LONGINT y)
+{
+  if (y > 0) {
+    if (x < 0) return y - 1 + (x + 1) % y;
+    else       return x % y;
+  }
+  if (y < 0) {
+    if (x > 0) return y + 1 + (x - 1) % y;
+    else       return x % y;
+  }
+  __HALT(6, "SYSTEM.c", 203);
+}
+
+/*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size)
 {
   SYSTEM_PTR mem = SYSTEM_malloc(size);

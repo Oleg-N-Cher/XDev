@@ -5,28 +5,34 @@ TYPE
   Coords* = BYTE;
   MonoTile8x8* = ARRAY 8 OF CHAR;
   Tile8x8* = ARRAY 9 OF CHAR;
+  MonoTile16x16* = ARRAY 32 OF CHAR;
   Tile16x16* = ARRAY 4*9 OF CHAR;
   MonoTile* = MonoTile8x8;
   Tile* = Tile8x8;
+  AnyTile* = POINTER TO ARRAY [notag] OF CHAR;
 
 PROCEDURE- DrawTile8x8* (x, y: BYTE; tile: Tile8x8);
 PROCEDURE- DrawTile16x16* (x, y: BYTE; tile: Tile16x16);
 
 (** Draw a two-color tile with user-defined colors: *)
 PROCEDURE- DrawMonoTile8x8* (
-  x, y: BYTE; tile: ARRAY [notag] OF CHAR; colors: Colors);
+  x, y: BYTE; tile: AnyTile; colors: Colors);
+PROCEDURE- DrawMonoTile16x16* (
+  x, y: BYTE; tile: AnyTile; colors: Colors);
 
 PROCEDURE- DrawTranspMonoTile8x8* (
-  x, y: Coords; tile: ARRAY [notag] OF CHAR; colors: Colors);
+  x, y: Coords; tile: AnyTile; colors: Colors);
 
 (** Draw a tile with default size: *)
 PROCEDURE- DrawTile* (x, y: BYTE; tile: Tile);
 
 PROCEDURE- DrawMonoTile* (
-  x, y: BYTE; tile: ARRAY [notag] OF CHAR; colors: Colors);
+  x, y: BYTE; tile: AnyTile; colors: Colors);
 
 PROCEDURE- DrawTranspMonoTile* (
-  x, y: BYTE; tile: ARRAY [notag] OF CHAR; colors: Colors);
+  x, y: BYTE; tile: AnyTile; colors: Colors);
+
+PROCEDURE- DrawNoAtrTile16x16* (x, y: BYTE; tile: AnyTile);
 
 PROCEDURE- GetTile8x8* (x, y: BYTE; VAR tile: Tile8x8);
 
