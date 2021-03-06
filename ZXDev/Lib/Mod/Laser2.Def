@@ -80,5 +80,7 @@ PROCEDURE- ASUV * (col, row, len, hgt: BYTE);
 PROCEDURE- ASDV * (col, row, len, hgt: BYTE);
 PROCEDURE- MARV * (col, row, len, hgt: BYTE);
 PROCEDURE- SETV * (col, row, len, hgt: BYTE);
+PROCEDURE- BR0V * (col, row, len, hgt: BYTE);
+PROCEDURE- BR1V * (col, row, len, hgt: BYTE);
 
 END Laser2.

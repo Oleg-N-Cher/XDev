@@ -68,6 +68,8 @@ void Laser2_ASUV (unsigned char col, unsigned char row, unsigned char len, unsig
 void Laser2_ASDV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_MARV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 void Laser2_SETV (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_BR0V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
+void Laser2_BR1V (unsigned char col, unsigned char row, unsigned char len, unsigned char hgt) __z88dk_callee;
 
 /* Спрайты хранятся в памяти в следующем формате:
 
@@ -1870,6 +1872,45 @@ MARV_MIRR_LINE$:  LD    A, (DE)
                   RET
   __endasm;
 } //Laser2_MARV
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_BR0V (unsigned char col, unsigned char row,
+  unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+.globl __Laser2_XYtoScrAtr
+                  LD    A, #0xB6        ; RES 6, (HL)
+                  LD    (BR0V_Br0AtrLine$+1), A
+                  POP   DE
+                  POP   HL              ; L = col; H = row
+                  POP   BC              ; C = len; B = hgt
+                  PUSH  DE
+                  CALL  __Laser2_XYtoScrAtr
+                  LD    A, #32
+                  SUB   A, C
+                  LD    E, A
+                  LD    D, #0           ; DE := 32 - len
+BR0V_Br0AtrRect$: PUSH  BC
+BR0V_Br0AtrLine$: SET   6, (HL)
+                  INC   HL
+                  DEC   C
+                  JR    NZ, BR0V_Br0AtrLine$
+                  POP   BC
+                  ADD   HL, DE          ; Jump to next attribute line
+                  DJNZ  BR0V_Br0AtrRect$
+                  RET
+  __endasm;
+} //Laser2_BR0V
+
+/*--------------------------------- Cut here ---------------------------------*/
+void Laser2_BR1V (unsigned char col, unsigned char row,
+  unsigned char len, unsigned char hgt) __naked __z88dk_callee
+{
+  __asm
+                  LD    A, #0xF6        ; SET 6, (HL)
+                  JP    _Laser2_BR0V+2
+  __endasm;
+} //Laser2_BR1V
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Laser2_SUPV (unsigned char col, unsigned char row,
