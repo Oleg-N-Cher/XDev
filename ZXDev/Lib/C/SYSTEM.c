@@ -204,6 +204,24 @@ LONGINT SYSTEM_MODL (LONGINT x, LONGINT y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
+SHORTINT SYSTEM_MINS (SHORTINT x, SHORTINT y) { return __MIN(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_MIN (INTEGER x, INTEGER y)     { return __MIN(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_MINL (LONGINT x, LONGINT y)    { return __MIN(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTREAL SYSTEM_MINF (REAL x, REAL y)        { return __MIN(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+
+SHORTINT SYSTEM_MAXS (SHORTINT x, SHORTINT y) { return __MAX(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+INTEGER SYSTEM_MAX (INTEGER x, INTEGER y)     { return __MAX(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+LONGINT SYSTEM_MAXL (LONGINT x, LONGINT y)    { return __MAX(x, y); }
+/*--------------------------------- Cut here ---------------------------------*/
+SHORTREAL SYSTEM_MAXF (REAL x, REAL y)        { return __MAX(x, y); }
+
+/*--------------------------------- Cut here ---------------------------------*/
 SYSTEM_PTR SYSTEM_NEWBLK (__U_SHORTINT size)
 {
   SYSTEM_PTR mem = SYSTEM_malloc(size);

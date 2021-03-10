@@ -63,6 +63,14 @@ extern SHORTINT SYSTEM_ABSS (SHORTINT x);
 extern INTEGER SYSTEM_ABS (INTEGER x);
 extern LONGINT SYSTEM_ABSL (LONGINT x);
 extern SHORTREAL SYSTEM_ABSF (REAL x);
+extern SHORTINT SYSTEM_MINS (SHORTINT x, SHORTINT y);
+extern INTEGER SYSTEM_MIN (INTEGER x, INTEGER y);
+extern LONGINT SYSTEM_MINL (LONGINT x, LONGINT y);
+extern SHORTREAL SYSTEM_MINF (REAL x, REAL y);
+extern SHORTINT SYSTEM_MAXS (SHORTINT x, SHORTINT y);
+extern INTEGER SYSTEM_MAX (INTEGER x, INTEGER y);
+extern LONGINT SYSTEM_MAXL (LONGINT x, LONGINT y);
+extern SHORTREAL SYSTEM_MAXF (REAL x, REAL y);
 extern int SYSTEM_XCHK (int i, int ub);
 extern long SYSTEM_RCHK();
 extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
@@ -198,6 +206,18 @@ extern void SYSTEM_ENUMR();
 #define __IS(tag, typ, level)	(*(tag-(__BASEOFF-level))==(long)typ##__typ)
 #define __TYPEOF(p)	(*(((long**)(p))-1))
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
+#define __MIN(x, y)	    ((x)<(y)?(x):(y))
+#define __MINFS(x, y)	  SYSTEM_MINS(x, y)
+#define __MINF(x, y)	  SYSTEM_MIN(x, y)
+#define __MINFL(x, y)	  SYSTEM_MINL(x, y)
+#define __MINFF 	      SYSTEM_MINF(x, y)
+#define __MINFD 	      SYSTEM_MINF(x, y)
+#define __MAX(x, y)	    ((x)>(y)?(x):(y))
+#define __MAXFS(x, y)	  SYSTEM_MAXS(x, y)
+#define __MAXF(x, y)	  SYSTEM_MAX(x, y)
+#define __MAXFL(x, y)	  SYSTEM_MAXL(x, y)
+#define __MAXFF 	      SYSTEM_MAXF(x, y)
+#define __MAXFD 	      SYSTEM_MAXF(x, y)
 
 /* runtime checks */
 #define __X(i, ub, mod, pos)	(((unsigned)(i)<(unsigned)(ub))?i:(__HALT(3,mod,pos),0))
