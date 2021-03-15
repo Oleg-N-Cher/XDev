@@ -1,0 +1,62 @@
+KEMPSTON MOUSE - DRIVER (SHORT VERSION 1)
+
+Driver code is optimised for short length. Before first run mouse driver(or after long time delay) must be called KOREKCE routine for mouse calibration.
+
+
+call KOREKCE --> k-mouse calibration + set new axis values (for master k-mouse or any other kempston mouse interfaces)
+                 INPUT : L=new X-axis(0-255) / H=new Y-axis(0-191)
+                 OUTPUT: none
+
+call MOUSE   --> call mouse driver (for master k-mouse or any other kempston mouse interfaces)
+                 INPUT : none
+                 OUTPUT: A=buttons status (*) + modify mouse positions (*)
+
+
+
+(*) - MOUSE DRIVER OUTPUT:
+
+master k-mouse or any other kempston mouse interface:
+-----------------------------------------------------
+register L or (coord+0) = 1B new x-axis window position(absolute)
+register H or (coord+1) = 1B new y-axis window position(absolute)
+
+register A or (contrb)  = 1B new mouse buttons (D0=right button,D1=left button,D2=middle button) - 0=inactive/1=active button
+
+register E or (oldco+0) = 1B previous(old) x-axis window position(absolute)
+register D or (oldco+1) = 1B previous(old) y-axis window position(absolute)
+
+register BC is modified, after return from driver will contain value #FADF.
+
+
+
+
+examples for your program:
+--------------------------
+
+before first call mouse driver (or after start game) you must set new default X-axis and Y-axis values:
+LD L,new_X-axis
+LD H,new_Y-axis
+CALL KOREKCE
+...
+...
+
+
+after long time delay (pause / start game / exit from menu) must be used this routine:
+LD HL,(COORD)
+CALL KOREKCE
+...
+...
+
+
+mouse driver can be called each interrupt:
+PUSH BC
+PUSH DE
+CALL MOUSE
+POP DE
+POP BC
+JP NZ,FIRE ;press any mouse button to fire
+...
+...
+
+
+from X and Y positions your program must calculate videoram adress for print cursor

@@ -1,0 +1,13 @@
+#ifndef KMouse__oh
+#define KMouse__oh
+
+
+extern unsigned char KMouse_X, KMouse_Y;
+
+extern void KMouse_SetXY (unsigned char x, unsigned char y) __z88dk_callee __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char KMouse_Read (void) __preserves_regs(iyl,iyh);
+extern unsigned char KMouse_Detect (void) __preserves_regs(h,iyl,iyh);
+#define KMouse__init()
+
+
+#endif
