@@ -1,7 +1,7 @@
 MODULE Triangle; (*$MAIN*)
 IMPORT b := Basic;
 VAR
-  i: BYTE;
+  i: INT8;
 BEGIN
   b.Init;
   b.PLOT(100, 80); b.DRAWARC(30, 50, 172);

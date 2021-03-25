@@ -29,7 +29,7 @@ CONST
   );
 
 VAR
-  pressed: SET; x, y: BYTE;
+  pressed: SET; x, y: INT8;
 
 BEGIN (*$MAIN*)
 	B.Init; L.InitSpritesAr(Turtle);

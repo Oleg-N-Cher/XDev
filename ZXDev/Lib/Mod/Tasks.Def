@@ -1,4 +1,4 @@
-MODULE Tasks; (** non-portable *)
+MODULE [foreign] Tasks; IMPORT SYSTEM; (** non-portable *)
 
 (**
   ERRORS:
@@ -7,24 +7,24 @@ MODULE Tasks; (** non-portable *)
 *)
 
 TYPE
-  Context = RECORD
-    SP, next: SHORTINT;
-    (* stack: ARRAY N OF BYTE; *)
-    IX, PC, _RETURN: SHORTINT;
+  Context = RECORD [notag]
+    SP, next: INT16;
+    (* stack: ARRAY N OF INT8; *)
+    IX, PC, _RETURN: INT16;
   END;
 
-  Low    * = RECORD (Context) stack: ARRAY  20 OF BYTE END;
-  Tiny   * = RECORD (Context) stack: ARRAY  40 OF BYTE END;
-  Small  * = RECORD (Context) stack: ARRAY  60 OF BYTE END;
-  Medium * = RECORD (Context) stack: ARRAY  80 OF BYTE END;
-  Large  * = RECORD (Context) stack: ARRAY 100 OF BYTE END;
-  Huge   * = RECORD (Context) stack: ARRAY 120 OF BYTE END;
+  Low    * = RECORD (Context) stack: ARRAY  20 OF INT8 END;
+  Tiny   * = RECORD (Context) stack: ARRAY  40 OF INT8 END;
+  Small  * = RECORD (Context) stack: ARRAY  60 OF INT8 END;
+  Medium * = RECORD (Context) stack: ARRAY  80 OF INT8 END;
+  Large  * = RECORD (Context) stack: ARRAY 100 OF INT8 END;
+  Huge   * = RECORD (Context) stack: ARRAY 120 OF INT8 END;
 
-PROCEDURE Count* (): BYTE;                            END Count;
-PROCEDURE Spawn* (VAR ctx: Context; proc: PROCEDURE); END Spawn;
-PROCEDURE Id* (ctx: Context): SHORTINT;               END Id;
-PROCEDURE MyId* (): SHORTINT;                         END MyId;
-PROCEDURE Run* ;                                      END Run;
-PROCEDURE Yield* ;                                    END Yield;
+PROCEDURE- Count* (): INT8;
+PROCEDURE- Spawn* (VAR ctx: Context; proc: PROCEDURE);
+PROCEDURE- Id* (ctx: Context): INT16;
+PROCEDURE- MyId* (): INT16;
+PROCEDURE- Run* ;
+PROCEDURE- Yield* ;
 
 END Tasks.

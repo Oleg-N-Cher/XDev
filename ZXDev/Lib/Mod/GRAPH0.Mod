@@ -69,7 +69,7 @@ BEGIN
   Asm.Code("EXX                         ");
 END GCLS;
 
-PROCEDURE SETATTRS* (X, Y: SHORTINT; L, C: BYTE); (** sets L character
+PROCEDURE SETATTRS* (X, Y: INT16; L, C: INT8); (** sets L character
   squares to have attribute C starting at character position (X, Y). *)
 BEGIN
   Asm.Code("POP  BC                     ");

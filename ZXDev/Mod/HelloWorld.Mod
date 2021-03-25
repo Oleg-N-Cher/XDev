@@ -6,7 +6,7 @@ MODULE HelloWorld;
 IMPORT B := Basic;
 
 VAR
-	x: SHORTINT;
+	x: INT16;
 BEGIN (*$MAIN*)
 	B.Init;
 	B.BORDER(B.Green); B.PAPER(B.Black); B.CLS;

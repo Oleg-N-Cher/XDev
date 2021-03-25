@@ -1,9 +1,9 @@
 /* Ofront+ 1.0 -sx3 -21 */
 
-#ifndef Sound__Oh
-#define Sound__Oh
+#ifndef Sound__oh
+#define Sound__oh
 
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 
 

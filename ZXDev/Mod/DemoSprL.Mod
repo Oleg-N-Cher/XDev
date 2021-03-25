@@ -7,7 +7,7 @@ CONST
   SpriteDisH = CHR( (SpriteSizeBytes-2) DIV 256 );
 
 TYPE
-  CoordsSet = ARRAY 8 OF BYTE;
+  CoordsSet = ARRAY 8 OF INT8;
   SpriteSet = ARRAY SpriteSizeBytes + 1 OF CHAR;
 
 CONST
@@ -166,7 +166,7 @@ CONST
   );
 
 VAR
-  x, y, oldx, oldy: BYTE; pressed: SET;
+  x, y, oldx, oldy: INT8; pressed: SET;
 
 BEGIN
   B.Init; B.BORDER(B.Green);

@@ -5,7 +5,7 @@ CONST
 	HowManyTimes = 1000;
 VAR
 	(* Завести 6 переменных (по количеству граней кубика). *)
-	one, two, three, four, five, six, n, number: SHORTINT;
+	one, two, three, four, five, six, n, number: INTEGER;
 BEGIN
 	Basic.RANDOMIZE(0);
 	(* Обнулить наши счётчики граней кубика. *)

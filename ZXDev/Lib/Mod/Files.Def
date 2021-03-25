@@ -12,15 +12,15 @@ CONST (* LoadTape error codes *)
   ErrBreakPressed  * = 4;
 
 VAR
-  filesize-: SHORTINT; (* File size after LoadTape/LoadDisk successful *)
+  filesize-: INT16; (* File size after LoadTape/LoadDisk successful *)
 
-PROCEDURE LoadDisk* (name_ext: ARRAY [notag] OF CHAR;
-  adr: INTEGER): BOOLEAN; END LoadDisk;
-PROCEDURE LoadTape* (name: ARRAY [notag] OF CHAR;
-  adr: INTEGER): BYTE; END LoadTape;
-PROCEDURE SaveDisk* (name_ext: ARRAY [notag] OF CHAR;
-  adr, size: INTEGER); END SaveDisk;
-PROCEDURE SaveTape* (name: ARRAY [notag] OF CHAR;
-  adr, size: INTEGER); END SaveTape;
+PROCEDURE LoadDisk* (name_ext: POINTER TO ARRAY [notag] OF CHAR;
+  adr: INT32): BOOLEAN; END LoadDisk;
+PROCEDURE LoadTape* (name: POINTER TO ARRAY [notag] OF CHAR;
+  adr: INT32): INT8; END LoadTape;
+PROCEDURE SaveDisk* (name_ext: POINTER TO ARRAY [notag] OF CHAR;
+  adr, size: INT32); END SaveDisk;
+PROCEDURE SaveTape* (name: POINTER TO ARRAY [notag] OF CHAR;
+  adr, size: INT32); END SaveTape;
 
 END Files.

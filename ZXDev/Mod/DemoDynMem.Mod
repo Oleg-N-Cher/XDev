@@ -6,7 +6,7 @@ TYPE
   PersonPtr = POINTER [untagged] TO Person;
   Person = RECORD [untagged]
     name: ARRAY 20 OF CHAR;
-    age: BYTE;
+    age: INT8;
     sex: CHAR; (*"M" OR "F"*)
     next: PersonPtr;
   END;
@@ -14,7 +14,7 @@ TYPE
 VAR
   john, mike, lisa, bob, iren, person: PersonPtr;
   list: POINTER TO ARRAY 5 OF PersonPtr;
-  n: BYTE;
+  n: INT8;
 
 BEGIN
   B.Init;

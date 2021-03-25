@@ -11,7 +11,6 @@ TYPE
   ADR     = INTEGER;
   BUFFER  = ARRAY OF SHORTCHAR;
   SPRITES = ARRAY OF SHORTCHAR;
-  UBYTE   = SHORTINT;
 
 (** New procedures: *)
 
@@ -51,36 +50,36 @@ PROCEDURE- PTXR * (col, row: BYTE; spn: UBYTE);
 
 (** Screen windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE- CLSV * (col, row, len, hgt: BYTE);
-PROCEDURE- INVV * (col, row, len, hgt: BYTE);
-PROCEDURE- MIRV * (col, row, len, hgt: BYTE);
-PROCEDURE- SDNV * (col, row, len, hgt: BYTE; npx: UBYTE);
-PROCEDURE- SUPV * (col, row, len, hgt: BYTE; npx: UBYTE);
-PROCEDURE- SL1V * (col, row, len, hgt: BYTE);
-PROCEDURE- SL4V * (col, row, len, hgt: BYTE);
-PROCEDURE- SL8V * (col, row, len, hgt: BYTE);
-PROCEDURE- SR1V * (col, row, len, hgt: BYTE);
-PROCEDURE- SR4V * (col, row, len, hgt: BYTE);
-PROCEDURE- SR8V * (col, row, len, hgt: BYTE);
-PROCEDURE- WL1V * (col, row, len, hgt: BYTE);
-PROCEDURE- WL4V * (col, row, len, hgt: BYTE);
-PROCEDURE- WL8V * (col, row, len, hgt: BYTE);
-PROCEDURE- WR1V * (col, row, len, hgt: BYTE);
-PROCEDURE- WR4V * (col, row, len, hgt: BYTE);
-PROCEDURE- WR8V * (col, row, len, hgt: BYTE);
-PROCEDURE- WU1V * (col, row, len, hgt: BYTE);
+PROCEDURE- CLSV * (col, row, len, hgt: UBYTE);
+PROCEDURE- INVV * (col, row, len, hgt: UBYTE);
+PROCEDURE- MIRV * (col, row, len, hgt: UBYTE);
+PROCEDURE- SDNV * (col, row, len, hgt, npx: UBYTE);
+PROCEDURE- SUPV * (col, row, len, hgt, npx: UBYTE);
+PROCEDURE- SL1V * (col, row, len, hgt: UBYTE);
+PROCEDURE- SL4V * (col, row, len, hgt: UBYTE);
+PROCEDURE- SL8V * (col, row, len, hgt: UBYTE);
+PROCEDURE- SR1V * (col, row, len, hgt: UBYTE);
+PROCEDURE- SR4V * (col, row, len, hgt: UBYTE);
+PROCEDURE- SR8V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WL1V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WL4V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WL8V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WR1V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WR4V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WR8V * (col, row, len, hgt: UBYTE);
+PROCEDURE- WU1V * (col, row, len, hgt: UBYTE);
 
 (** Attribute windows processing (coordinates CANNOT be outside the screen): *)
 
-PROCEDURE- AWLV * (col, row, len, hgt: BYTE);
-PROCEDURE- AWRV * (col, row, len, hgt: BYTE);
-PROCEDURE- ATUV * (col, row, len, hgt: BYTE);
-PROCEDURE- ATDV * (col, row, len, hgt: BYTE);
-PROCEDURE- ASUV * (col, row, len, hgt: BYTE);
-PROCEDURE- ASDV * (col, row, len, hgt: BYTE);
-PROCEDURE- MARV * (col, row, len, hgt: BYTE);
-PROCEDURE- SETV * (col, row, len, hgt: BYTE);
-PROCEDURE- BR0V * (col, row, len, hgt: BYTE);
-PROCEDURE- BR1V * (col, row, len, hgt: BYTE);
+PROCEDURE- AWLV * (col, row, len, hgt: UBYTE);
+PROCEDURE- AWRV * (col, row, len, hgt: UBYTE);
+PROCEDURE- ATUV * (col, row, len, hgt: UBYTE);
+PROCEDURE- ATDV * (col, row, len, hgt: UBYTE);
+PROCEDURE- ASUV * (col, row, len, hgt: UBYTE);
+PROCEDURE- ASDV * (col, row, len, hgt: UBYTE);
+PROCEDURE- MARV * (col, row, len, hgt: UBYTE);
+PROCEDURE- SETV * (col, row, len, hgt: UBYTE);
+PROCEDURE- BR0V * (col, row, len, hgt: UBYTE);
+PROCEDURE- BR1V * (col, row, len, hgt: UBYTE);
 
 END Laser2.

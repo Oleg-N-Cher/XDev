@@ -10,7 +10,7 @@ CONST
   Text = TextDesc("Hello World of the Spectrum !!!");
 
 VAR
-	i: BYTE; udg: SHORTINT; text2ch: ARRAY 2 OF CHAR;
+	i: INT8; udg: ADRINT; text2ch: ARRAY 2 OF CHAR;
 
 BEGIN
 	B.Init; B.CLS;

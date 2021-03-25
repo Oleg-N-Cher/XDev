@@ -8,13 +8,13 @@ MODULE Platform; (** non-portable *)
 
 IMPORT SYSTEM;
 
-PROCEDURE -UBYTE*(b: BYTE): SHORTINT "((SHORTINT)(unsigned char)(b))";
-PROCEDURE -USHORT*(s: SHORTINT): INTEGER "((INTEGER)(unsigned short)(s))";
-PROCEDURE -UINT*(i: INTEGER): LONGINT "((LONGINT)(unsigned int)(i))";
+PROCEDURE -UBYTE*(b: INT8): INT16 "((SHORTINT)(unsigned char)(b))";
+PROCEDURE -USHORT*(s: INT16): INT32 "((INTEGER)(unsigned short)(s))";
+PROCEDURE -UINT*(i: INT32): INT64 "((LONGINT)(unsigned int)(i))";
 
-PROCEDURE -ToBYTE*(s: SHORTINT): BYTE "((BYTE)(s))";
-PROCEDURE -ToSHORT*(i: INTEGER): SHORTINT "((SHORTINT)(i))";
-PROCEDURE -ToINT*(l: LONGINT): INTEGER "((INTEGER)(l))";
+PROCEDURE -ToBYTE*(s: INT16): INT8 "((BYTE)(s))";
+PROCEDURE -ToSHORT*(i: INT32): INT16 "((SHORTINT)(i))";
+PROCEDURE -ToINT*(l: INT64): INT32 "((INTEGER)(l))";
 
 PROCEDURE -free (memblock: SYSTEM.PTR)	"free(memblock)";
 

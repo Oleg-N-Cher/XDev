@@ -27,7 +27,7 @@ CONST
   );
 
 VAR
-  spn: BYTE;
+  spn: INT8;
 
 BEGIN
   B.Init; L.InitSpritesAr(Baraban);

@@ -1,9 +1,9 @@
 /* Ofront+ 1.0 -sx3 -21 */
 
-#ifndef CalcZX__Oh
-#define CalcZX__Oh
+#ifndef CalcZX__oh
+#define CalcZX__oh
 
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 
 

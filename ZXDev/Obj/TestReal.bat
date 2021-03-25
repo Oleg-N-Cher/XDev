@@ -1,6 +1,6 @@
 @SET Name=TestReal
 @SET CodeAddr=40000
-@SET DataAddr=43200
+@SET DataAddr=44000
 @SET bin=..\Bin
 @SET lib=..\Lib
 

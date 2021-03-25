@@ -1,6 +1,6 @@
 MODULE CirclFilled; IMPORT B := Basic, Best40;
 
-VAR r: SHORTINT;
+VAR r: INT16;
 
 BEGIN (*$MAIN*)
   B.Init;

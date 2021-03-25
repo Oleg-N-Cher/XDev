@@ -18,14 +18,14 @@ MODULE PT3x0A;
 IMPORT SYSTEM;
 
 TYPE
-  Melody* = SHORTINT;
-  ADDRESS = INTEGER;
+  Melody* = INT16;
+  ADDRESS = INT32;
 
 PROCEDURE Install* (module: ADDRESS); END Install;
 PROCEDURE Play* ; END Play;
 PROCEDURE Stop* ; END Stop;
 
-PROCEDURE -TabAdr* (): SHORTINT "((int)&PT3x0A_TabAdr)";
+PROCEDURE -TabAdr* (): INT16 "((int)&PT3x0A_TabAdr)";
 
 END PT3x0A.
 

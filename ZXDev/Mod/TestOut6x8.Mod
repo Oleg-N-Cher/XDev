@@ -2,7 +2,7 @@ MODULE TestOut6x8; (*$MAIN*)(*$866*)
 IMPORT SYSTEM, C := Out6x8, GrFonts, B := Basic;
 
 VAR
-  n: BYTE;
+  n: INT8;
 BEGIN
   B.Init; B.CLS;
   C.font := SYSTEM.ADR(GrFonts.HalfSpaceRus6x8);

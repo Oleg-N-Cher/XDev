@@ -23,7 +23,7 @@ CONST
   ChudikSizeBytes = ( 5(*hdr*) + 8*20(*data*) + 20(*attrs*) );
 
 VAR
-  chudik: SHORTINT; n, s: BYTE;
+  chudik: ADRINT; n, s: INT8;
 
 BEGIN (*$MAIN*)
   B.Init;

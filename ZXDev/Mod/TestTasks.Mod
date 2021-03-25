@@ -10,7 +10,7 @@ VAR
 
 PROCEDURE Proc;
 VAR
-  i: BYTE;
+  i: INT8;
 BEGIN
   i := 0;
   WHILE str[i] # 0X DO

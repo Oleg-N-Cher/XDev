@@ -11,7 +11,7 @@
 MODULE ZX7;
 
 TYPE
-  UINTEGER = INTEGER;
+  UINTEGER = INT32;
 
 (*-----------------------------------------------------------------------------
 ' Decompress (from source to destination address) data that was previously

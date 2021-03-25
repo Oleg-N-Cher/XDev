@@ -1,14 +1,16 @@
 MODULE AsmTest;
 IMPORT Asm;
 
-PROCEDURE Border (color: BYTE);
+PROCEDURE Border (color: INT8);
 BEGIN
+  Asm.Code("POP  BC    ");
   Asm.Code("POP  DE    ");
   Asm.Code("POP  HL    ");
   Asm.Code("PUSH HL    ");
   Asm.Code("PUSH DE    ");
+  Asm.Code("PUSH BC    ");
   Asm.Code("LD   A,L   ");
-  Asm.Code("JP   0x229B");
+  Asm.Code("CALL 0x229B");
 END Border;
 
 BEGIN (*$MAIN*)

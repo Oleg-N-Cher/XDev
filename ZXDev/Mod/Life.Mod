@@ -1,8 +1,8 @@
 (*$MAIN*) MODULE Life; (* Coded by Yprit, 2019 *)
 IMPORT B := Basic;
 VAR
-	x, y, SPACE: BYTE; S: SHORTINT;
-	T, T1: ARRAY 33, 23 OF BYTE;
+	x, y, SPACE: INT8; S: INT16;
+	T, T1: ARRAY 33, 23 OF INT8;
 BEGIN
 	B.Init;
 	B.BORDER(5); B.PAPER(6); B.INK(0); B.OVER(1); B.CLS;

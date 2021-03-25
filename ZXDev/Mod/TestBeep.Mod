@@ -1,7 +1,7 @@
 MODULE TestBeep; (* https://zxpress.ru/article.php?id=5440 *)
 IMPORT B := Basic;
 
-TYPE Melody = ARRAY 29 OF BYTE;
+TYPE Melody = ARRAY 29 OF INT8;
 
 CONST
   Freq = Melody(
@@ -14,7 +14,7 @@ CONST
   );
 
 VAR
-  i: BYTE;
+  i: INT8;
 BEGIN (*$MAIN*)
   B.Init;
   FOR i := 0 TO LEN(Freq) - 1 DO

@@ -27,9 +27,9 @@ CONST
 	White*        = Bright + LightGray;
 
 TYPE
-	Integer = SHORTINT;
+	Integer = INT16;
 	String = ARRAY OF CHAR;
-	Word = INTEGER;
+	Word = INT32;
 
 PROCEDURE ClearDevice*; END ClearDevice;
 PROCEDURE CloseGraph* ; END CloseGraph;

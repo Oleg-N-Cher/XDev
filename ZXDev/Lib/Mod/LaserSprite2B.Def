@@ -3,6 +3,6 @@ MODULE LaserSprite2B; (** non-portable *)
 CONST
   SprSize* = 6271;
 VAR
-  SprStart- : SHORTINT;
+  SprStart- : ADRINT;
 
 END LaserSprite2B.

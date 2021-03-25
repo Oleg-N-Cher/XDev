@@ -1,9 +1,9 @@
 /* Ofront+ 1.0 -sx3 -21 */
 
-#ifndef GRAPH0__h
-#define GRAPH0__h
+#ifndef GRAPH0__oh
+#define GRAPH0__oh
 
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 

@@ -1,9 +1,9 @@
 /* Ofront+ 1.0 -sx3 -21 */
 
-#ifndef Debug__Oh
-#define Debug__Oh
+#ifndef Debug__oh
+#define Debug__oh
 
-#include "SYSTEM.Oh"
+#include "SYSTEM.oh"
 
 
 

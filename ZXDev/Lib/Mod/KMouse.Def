@@ -6,7 +6,7 @@ MODULE [foreign] KMouse; IMPORT SYSTEM;
 
 CONST Right* = 0; Left* = 1; Down* = 2; Up* = 3; Fire* = 4;
 
-VAR X-, Y-: SYSTEM.UINT8;
+VAR X-, Y-: SYSTEM.BYTE;
 
 PROCEDURE- Read* (): SET;
 PROCEDURE- SetXY* (x, y: INT16);

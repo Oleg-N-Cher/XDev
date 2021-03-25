@@ -18,8 +18,8 @@ BEGIN
   io.WriteReal(3141592653589.79); io.WriteCh(6X);
   io.WriteReal(31415926535897.9); io.WriteLn;
   io.WriteReal(314159265358979.0); io.WriteLn; io.WriteLn;
-  io.WriteReal(MIN(SHORTREAL)); io.WriteCh(6X);
-  io.WriteReal(MAX(SHORTREAL)); io.WriteLn; io.WriteLn;
+  io.WriteReal(MIN(REAL32)); io.WriteCh(6X);
+  io.WriteReal(MAX(REAL32)); io.WriteLn; io.WriteLn;
   io.WriteReal(3.14159265358979E-37 / 10); io.WriteCh(6X);
   io.WriteReal(3.14159265358979E-37); io.WriteLn;
   io.WriteReal(314.159265358979E-38); io.WriteCh(6X);

@@ -1,18 +1,18 @@
 MODULE UMath; IMPORT SYSTEM, B := Basic, Platform;
 
-VAR a, b: BYTE;
+VAR a, b: INT8;
 
-PROCEDURE -UMultBytes (a, b: BYTE):
-  BYTE
+PROCEDURE -UMultBytes (a, b: INT8):
+  INT8
   "( ((CHAR)a) * ((CHAR)b) )";
-PROCEDURE -UMultWords (a, b: SHORTINT):
-  SHORTINT
+PROCEDURE -UMultWords (a, b: INT16):
+  INT16
   "(((unsigned int)a)*((unsigned int)b))";
-PROCEDURE -UDivBytes (a, b: BYTE):
-  BYTE
+PROCEDURE -UDivBytes (a, b: INT8):
+  INT8
   "( ((CHAR)a) / ((CHAR)b) )";
-PROCEDURE -UDivWords (a, b: SHORTINT):
-  SHORTINT
+PROCEDURE -UDivWords (a, b: INT16):
+  INT16
   "(((unsigned int)a)/((unsigned int)b))";
 
 BEGIN (*$MAIN*)
@@ -35,7 +35,7 @@ BEGIN (*$MAIN*)
   B.PRWORD( UDivBytes(a, b) );
   B.PRLN;
 
-  (* Печатает: 0 (-1 DIV 5): *)
-  B.PRWORD( a DIV b );
+  (* Печатает: 0 (-1 DIV0 5): *)
+  B.PRWORD( a DIV0 b );
   B.Quit
 END UMath.

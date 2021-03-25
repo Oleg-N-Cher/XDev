@@ -1,7 +1,7 @@
 MODULE ASCII; (** portable *)
 IMPORT Console;
 VAR
-  n: BYTE;
+  n: INT8;
 BEGIN (*$MAIN*)
-  FOR n := 32-1 TO 127-1 DO Console.WriteCh(CHR(n+1)) END;
+  FOR n := 32 TO 127 DO Console.WriteCh(CHR(n)) END;
 END ASCII.

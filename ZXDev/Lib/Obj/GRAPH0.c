@@ -1,6 +1,6 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.h"
-#include "Asm.h"
+#include "SYSTEM.oh"
+#include "Asm.oh"
 
 
 

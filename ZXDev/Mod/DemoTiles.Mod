@@ -17,7 +17,7 @@ CONST
                 CHR(G.BlackOnCyan + 40H), CHR(G.RedOnYellow)
   );
 
-VAR i: BYTE;
+VAR i: INT8;
 
 BEGIN
   B.PAPER(B.Black); B.CLS; B.BORDER(B.Red);

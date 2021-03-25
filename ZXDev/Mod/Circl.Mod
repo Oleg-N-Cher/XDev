@@ -20,15 +20,15 @@ MODULE Circl;
 IMPORT G := Graph, Basic, Asm;
 
 VAR
-  KD, MD, x0, y0, R, i: SHORTINT;
+  KD, MD, x0, y0, R, i: INT16;
 
-PROCEDURE Circ (x, y, Radius: SHORTINT);
+PROCEDURE Circ (x, y, Radius: INT16);
 VAR
-  X,Y,A: SHORTINT;
+  X,Y,A: INT16;
 
 	PROCEDURE Plot4;
 	VAR
-	  ty: SHORTINT;
+	  ty: INT16;
 	BEGIN
 	  ty:=(y+Y);
 		IF ty<0 THEN ty:=0 ELSIF ty>G.GetMaxY() THEN ty:=G.GetMaxY() END;

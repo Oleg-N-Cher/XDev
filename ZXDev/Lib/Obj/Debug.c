@@ -1,7 +1,7 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.Oh"
-#include "Asm.Oh"
-#include "Basic.Oh"
+#include "SYSTEM.oh"
+#include "Asm.oh"
+#include "Basic.oh"
 
 
 static BYTE Debug_a;

@@ -1,4 +1,4 @@
-MODULE MegaBasic; (** non-portable *)
+MODULE MegaBasic; IMPORT SYSTEM; (** non-portable *)
 (* -------------------- *)
 (* MEGA BASIC for ZXDev *)
 (*   by Oleg N. Cher    *)
@@ -10,15 +10,15 @@ CONST
 	Noise* = TRUE;
 
 TYPE
-	UBYTE = SHORTINT;
-	WORD = INTEGER;
+	UINT8 = SYSTEM.BYTE;
+	WORD = INT32;
 	SoundType = BOOLEAN;
 
 PROCEDURE INVERT* ; END INVERT;
 
 (* Procedures for sound: *)
 PROCEDURE PLAY* (
-	sound: SoundType; stepLen, startFreq: UBYTE; stepNum: WORD; incFreq: UBYTE);
+	sound: SoundType; stepLen, startFreq: UINT8; stepNum: WORD; incFreq: UINT8);
 END PLAY;
 
 END MegaBasic.

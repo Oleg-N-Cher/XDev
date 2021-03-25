@@ -7,7 +7,7 @@ CONST
   SpriteDisH = CHR( (SpriteSizeBytes-2) DIV 256 );
 
 TYPE
-  CoordsSet = ARRAY 8 OF BYTE;
+  CoordsSet = ARRAY 8 OF INT8;
   SpriteSet = ARRAY SpriteSizeBytes * 4 + 1 OF CHAR;
 
 CONST
@@ -611,8 +611,8 @@ CONST
   );
 
 VAR
-  i: BYTE;
-  coords: ARRAY 4 OF RECORD [untagged] x, y: BYTE END;
+  i: INT8;
+  coords: ARRAY 4 OF RECORD [untagged] x, y: INT8 END;
 
 BEGIN
   Laser2.SPRTa(Sprites);

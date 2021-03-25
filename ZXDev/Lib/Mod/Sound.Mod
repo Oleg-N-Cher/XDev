@@ -8,7 +8,7 @@ MODULE Sound;
 IMPORT SYSTEM, Asm;
 
 TYPE
-  Fx* = SHORTINT;
+  Fx* = ADRINT;
 
 PROCEDURE Play* (fx: Fx);
 BEGIN

@@ -13,11 +13,11 @@ CONST
   V = 20; (* Number of turns. Can be changed from 1 to .. *)
 
 VAR
-  KD, MD, i, r1, r2: SHORTINT; Sina, Cosa: ARRAY 361 OF SHORTINT;
+  KD, MD, i, r1, r2: INT16; Sina, Cosa: ARRAY 361 OF INT16;
 
 PROCEDURE PrepareTables;
 VAR
-  i: SHORTINT; q: BYTE; yr1, yr2: SHORTREAL;
+  i: INT16; q: INT8; yr1, yr2: REAL32;
 BEGIN
   (* Подготовка массива синусов и косинусов *)
   Sina[0] := SHORT(ENTIER(Math.Sin(0) * 256));

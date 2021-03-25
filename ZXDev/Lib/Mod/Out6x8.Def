@@ -1,12 +1,12 @@
 MODULE [foreign] Out6x8; IMPORT SYSTEM;
 
 VAR
-  font: INTEGER;
+  font: ADRINT;
 
-PROCEDURE- At (x, y: SHORTINT);
+PROCEDURE- At (x, y: INT8);
 PROCEDURE- Ch (ch: CHAR);
 PROCEDURE- Ln;
-PROCEDURE- Str (str: ARRAY [notag] OF CHAR);
-PROCEDURE- GenFont (dest: INTEGER);
+PROCEDURE- Str (str: POINTER TO ARRAY [notag] OF CHAR);
+PROCEDURE- GenFont (dest: ADRINT);
 
 END Out6x8.

@@ -1,6 +1,6 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.Oh"
-#include "Asm.Oh"
+#include "SYSTEM.oh"
+#include "Asm.oh"
 
 
 
@@ -105,3 +105,15 @@ void Sound_Quit (void)
 	Asm_Code((CHAR*)"  EI", 5);
 }
 
+/*----------------------------------------------------------------------------*/
+
+export void *Sound__init (void)
+{
+	__DEFMOD;
+	__IMPORT(Asm__init);
+	__REGMOD("Sound", 0);
+	__REGCMD("Quit", Sound_Quit);
+	__REGCMD("RunMe50Hz", Sound_RunMe50Hz);
+/* BEGIN */
+	__ENDMOD;
+}

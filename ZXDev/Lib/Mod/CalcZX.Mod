@@ -102,7 +102,7 @@ PROCEDURE -pi_div_2* "__asm .db 0xA3 __endasm"; (** PI/2 *)
 
 PROCEDURE -Begin* "__asm rst 0x28 __endasm"; (** Запуск калькулятора *)
 
-PROCEDURE _PushBYTE* (b: BYTE);
+PROCEDURE _PushBYTE* (b: INT8);
 BEGIN
   Asm.Code("POP  HL    ");
   Asm.Code("POP  BC    ");
@@ -112,9 +112,9 @@ BEGIN
   Asm.Code("JP   0x2D28");
 END _PushBYTE;
 
-PROCEDURE -PushByte* (b: SHORTINT) "CalcZX__PushBYTE((unsigned char)(b))";
+PROCEDURE -PushByte* (b: SYSTEM.BYTE) "CalcZX__PushBYTE((unsigned char)(b))";
 
-PROCEDURE _PushWORD* (w: SHORTINT);
+PROCEDURE _PushWORD* (w: INT16);
 BEGIN
   Asm.Code("POP  HL    ");
   Asm.Code("POP  BC    ");
@@ -123,11 +123,11 @@ BEGIN
   Asm.Code("JP   0x2D2B");
 END _PushWORD;
 
-PROCEDURE -PushWord* (w: INTEGER) "CalcZX__PushWORD((unsigned int)(w))";
+PROCEDURE -PushWord* (w: INT32) "CalcZX__PushWORD((unsigned int)(w))";
 
-PROCEDURE -PopByteAsSInt* (): BYTE "__asm jp 0x2DA2 __endasm";
+PROCEDURE -PopByteAsSInt* (): INT8 "__asm jp 0x2DA2 __endasm";
 
-PROCEDURE PopWordAsInt* (): SHORTINT;
+PROCEDURE PopWordAsInt* (): INT16;
 BEGIN
   Asm.Code("CALL 0x2DA2");
   Asm.Code("LD   L, C  ");

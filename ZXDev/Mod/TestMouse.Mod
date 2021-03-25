@@ -1,34 +1,50 @@
 MODULE TestMouse; (*$MAIN*)
-IMPORT B := Basic, Cursor, Key := Control, Asm;
+IMPORT B := Basic, Cursor, SYSTEM, Asm, KMouse;
 
-VAR x, y: BYTE; pressed: SET;
+CONST Sensivity = 2;
 
-PROCEDURE ProcIM2;
+VAR mouseX, mouseY, prevX, prevY: INT16; x, y: INT16; pressed: SET;
+
+PROCEDURE ResetMouse;
 BEGIN
-  Asm.Code("PUSH AF        ");
-  Asm.Code("PUSH BC        ");
-  Asm.Code("PUSH DE        ");
-  Asm.Code("PUSH HL        ");
-  Cursor.Hide;
-  Cursor.Draw(x, y);
-  Asm.Code("LD   IY,#0x5C3A");
-  Asm.Code("RST  0x38      ");
-  Asm.Code("POP  HL        ");
-  Asm.Code("POP  DE        ");
-  Asm.Code("POP  BC        ");
-  Asm.Code("POP  AF        ");
-END ProcIM2;
+  
+END ResetMouse;
+
+PROCEDURE ReadMouse (): SET;
+  VAR n: INT8; keys: SET;
+BEGIN
+  n := 10; KMouse.SetXY(128, 96);
+  REPEAT
+    B.PAUSE(1);
+    keys := KMouse.Read(); B.AT(0,0); B.PRINT(ORD(keys)); B.PRSTR("   ");
+    IF (keys # {}) & (keys*{2} = {}) THEN RETURN {KMouse.Fire} END;
+  DEC(n) UNTIL n = 0;
+  IF KMouse.Y = 191 THEN RETURN {KMouse.Down} END;
+  IF KMouse.Y = 0 THEN RETURN {KMouse.Up} END;
+  IF KMouse.X < 96 THEN RETURN {KMouse.Left} END;
+  IF KMouse.X > 128 THEN RETURN {KMouse.Right} END;
+
+  RETURN {}
+END ReadMouse;
 
 BEGIN
-  B.Init; Cursor.Init(Cursor.Std);
-  x := 100; y := 100; Cursor.Draw(x, y); B.IM2PROC(ProcIM2);
+  B.Init; Cursor.Init(Cursor.Std); B.CLS;
+  x := 128; y := 96; Cursor.Draw(x, y);
   LOOP
-    pressed := Key.Get();
-    IF Key.Left IN pressed THEN DEC(x) END;
-    IF Key.Right IN pressed THEN INC(x) END;
-    IF Key.Up IN pressed THEN DEC(y) END;
-    IF Key.Down IN pressed THEN INC(y) END;
-    IF Key.Fire IN pressed THEN EXIT END;
+    B.PAUSE(5); Cursor.Hide; Cursor.Draw(x, y);
+    pressed := ReadMouse();
+    IF Cursor.Left IN pressed THEN DEC(x) END;
+    IF Cursor.Right IN pressed THEN INC(x) END;
+    IF Cursor.Up IN pressed THEN DEC(y) END;
+    IF Cursor.Down IN pressed THEN INC(y) END;
+    IF Cursor.Fire IN pressed THEN EXIT END;
+(*
+    pressed := KMouse.Mouse();
+    x := KMouse.coordX;*)
+    B.AT(20, 0); B.PRINT(KMouse.X); B.PRSTR("   ");
+
+    (*KMouse.prevX := KMouse.curX;
+    KMouse.prevY := KMouse.curY;*)
   END;
   B.Quit
 END TestMouse.

@@ -6,14 +6,14 @@ MODULE Unsigned; (*$MAIN*)
 IMPORT SYSTEM, P := Platform, B := Basic;
 
 VAR
-	byte: (* UNSIGNED*) BYTE; (* 0..255 *)
+	byte: SYSTEM.BYTE; (* 0..255 *)
 
 BEGIN
 	B.Init;
 	B.PAPER(B.Black); B.INK(B.Cyan); B.BORDER(B.Black); B.CLS;
-	byte := P.ToBYTE(150);
+	byte := 150;
 	REPEAT (* Print numbers 150 to 61 *)
-		B.PRWORD(P.UBYTE(byte)); B.PRCHAR(" "); DEC(byte);
+		B.PRWORD(byte); B.PRCHAR(" "); DEC(byte);
 	UNTIL byte = 60;
 	B.INK(B.Green);
 	B.PRWORD(P.UBYTE(-1)); B.PRCHAR(" "); (* Print Unsigned(-1) as byte *)

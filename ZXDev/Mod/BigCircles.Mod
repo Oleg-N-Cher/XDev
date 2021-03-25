@@ -1,6 +1,6 @@
-MODULE BigCircles; IMPORT B := Basic;
+MODULE BigCircles; IMPORT B := Basic, SYSTEM;
 
-VAR r: SHORTINT;
+VAR r: INT16;
 
 BEGIN (*$MAIN*)
   B.Init;

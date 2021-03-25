@@ -7,7 +7,6 @@ MODULE Laser; (** non-portable *)
 (*-----------------------------------*)
 
 TYPE
-  UBYTE = SHORTINT;
   ADR   = INTEGER;
   CHAR  = SHORTCHAR;
 
@@ -47,10 +46,10 @@ PROCEDURE ATDV* (col, row, len, hgt: UBYTE); END ATDV;
 (* Procedures for sprites manipulations *)
 PROCEDURE CLSM* (spN: UBYTE); END CLSM;
 PROCEDURE INVM* (spN: UBYTE); END INVM;
-PROCEDURE PTBL* (col, row, spN: UBYTE); END PTBL;
-PROCEDURE PTOR* (col, row, spN: UBYTE); END PTOR;
-PROCEDURE PTXR* (col, row, spN: UBYTE); END PTXR;
-PROCEDURE PTND* (col, row, spN: UBYTE); END PTND;
+PROCEDURE PTBL* (col, row: BYTE; spN: UBYTE); END PTBL;
+PROCEDURE PTOR* (col, row: BYTE; spN: UBYTE); END PTOR;
+PROCEDURE PTXR* (col, row: BYTE; spN: UBYTE); END PTXR;
+PROCEDURE PTND* (col, row: BYTE; spN: UBYTE); END PTND;
 PROCEDURE WL1M* (spN: UBYTE); END WL1M;
 PROCEDURE WR1M* (spN: UBYTE); END WR1M;
 PROCEDURE WL4M* (spN: UBYTE); END WL4M;
@@ -67,10 +66,10 @@ PROCEDURE WCRM* (spN, npx: UBYTE); END WCRM;
 PROCEDURE SCRM* (spN, npx: UBYTE); END SCRM;
 PROCEDURE ATOF* ; END ATOF;
 PROCEDURE ATON* ; END ATON;
-PROCEDURE GTBL* (col, row, spN: UBYTE); END GTBL;
-PROCEDURE GTOR* (col, row, spN: UBYTE); END GTOR;
-PROCEDURE GTXR* (col, row, spN: UBYTE); END GTXR;
-PROCEDURE GTND* (col, row, spN: UBYTE); END GTND;
+PROCEDURE GTBL* (col, row: BYTE; spN: UBYTE); END GTBL;
+PROCEDURE GTOR* (col, row: BYTE; spN: UBYTE); END GTOR;
+PROCEDURE GTXR* (col, row: BYTE; spN: UBYTE); END GTXR;
+PROCEDURE GTND* (col, row: BYTE; spN: UBYTE); END GTND;
 PROCEDURE PMBL* (col, row, spD, spS: UBYTE); END PMBL;
 PROCEDURE PMOR* (col, row, spD, spS: UBYTE); END PMOR;
 PROCEDURE PMXR* (col, row, spD, spS: UBYTE); END PMXR;

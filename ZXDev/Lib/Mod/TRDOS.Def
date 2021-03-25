@@ -23,7 +23,7 @@ MODULE TRDOS; IMPORT SYSTEM;
 
 TYPE
   UCHAR* = CHAR; UCHARPTR* = POINTER [1] TO ARRAY [1] OF UCHAR;
-  UINT*  = SHORTINT;
+  UINT*  = INT16;
   FDSP*  = RECORD [1]
     trFName*    : ARRAY 9 OF UCHAR; (* имя и тип файла *)
     trFStart*   : UCHARPTR; (* см. описание TR-DOS *)

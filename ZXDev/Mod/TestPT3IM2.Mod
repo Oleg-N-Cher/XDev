@@ -185,7 +185,7 @@ CONST Ace = Module ( (* http://zxpress.ru/article.php?id=9508 *)
   000X);
 
 VAR
-  udg: SHORTINT;
+  udg: ADRINT;
 
   PROCEDURE ProcIM2;
   BEGIN
@@ -209,7 +209,7 @@ VAR
 
 PROCEDURE Best40Test;
 VAR
-	i: BYTE;
+	i: INT8;
 BEGIN
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_LF(20H); B.PAUSE(5) END;
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_UP(31H); B.PAUSE(5) END;

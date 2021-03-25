@@ -1,6 +1,6 @@
 /* Ofront+ 1.0 -sx3 -21 */
-#include "SYSTEM.Oh"
-#include "Asm.Oh"
+#include "SYSTEM.oh"
+#include "Asm.oh"
 
 
 
@@ -75,7 +75,7 @@ SHORTINT CalcZX_PopWordAsInt (void)
 	Asm_Code((CHAR*)"CALL 0x2DA2", 12);
 	Asm_Code((CHAR*)"LD   L, C  ", 12);
 	Asm_Code((CHAR*)"LD   H, B  ", 12);
-	__RETCHK((CHAR*)"CalcZX", -4063);
+	__RETCHK((CHAR*)"CalcZX", -4058);
 }
 
 /*----------------------------------------------------------------------------*/

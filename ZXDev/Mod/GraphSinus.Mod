@@ -8,9 +8,9 @@ IMPORT G := Graph, Math;
 CONST
 	k1 = 20; k2 = 50;
 VAR
-	KD, MD, i, s, ox, oy: SHORTINT;
+	KD, MD, i, s, ox, oy: INT16;
 
-PROCEDURE Sign (x: SHORTINT): BYTE;
+PROCEDURE Sign (x: INT16): INT8;
 BEGIN
 	IF x > 0 THEN RETURN 1 END;
 	IF x < 0 THEN RETURN -1 END;
