@@ -183,10 +183,10 @@ extern void Basic_COLOR (unsigned char atr) __z88dk_fastcall __preserves_regs(b,
 
 //------------------------ DATASTR (str: ARRAY OF CHAR) ------------------------
 #define __arg_killer__(a)
-#define Basic_DATASTR(str, str__len)	__asm .ascii __arg_killer__ str __endasm
+#define Basic_DATASTR(str)	__asm .ascii __arg_killer__ str __endasm
 
 //----------------------- DATASTRZ (str: ARRAY OF CHAR) ------------------------
-#define Basic_DATASTRZ(str, str__len)	__asm .ascii __arg_killer__ str \
+#define Basic_DATASTRZ(str)	__asm .ascii __arg_killer__ str \
   .db 0 \
   __endasm
 
@@ -362,9 +362,9 @@ extern void Basic_PRLN_ROM (void) __preserves_regs(b,c,d,e,h,l);
 extern void Basic_PRSTR_C_FAST (unsigned char *str) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Basic_PRSTR_C_ROM_fastcall (unsigned char *str) __z88dk_fastcall __preserves_regs(b,c,d,e);
 #ifdef ROM_OUTPUT
-#  define Basic_PRSTR(str,len) Basic_PRSTR_C_ROM_fastcall(str)
+#  define Basic_PRSTR(str) Basic_PRSTR_C_ROM_fastcall(str)
 #else
-  #define Basic_PRSTR(str,len) Basic_PRSTR_C_FAST(str)
+  #define Basic_PRSTR(str) Basic_PRSTR_C_FAST(str)
 #endif
 
 //----------------------------- PRUDG (udg: CHAR) ------------------------------
