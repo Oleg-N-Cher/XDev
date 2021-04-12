@@ -36,17 +36,17 @@ PROCEDURE- SetScreen    * (adr: ADR); (** Set screen adr *)
 
 PROCEDURE- ATOF * ;
 PROCEDURE- ATON * ;
-PROCEDURE- GTBL * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- GTND * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- GTNV * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- GTOR * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- GTXR * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- GTBL * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- GTND * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- GTNV * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- GTOR * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- GTXR * (col, row: SHORTINT; spn: UBYTE);
 PROCEDURE- INVM * (spn: UBYTE);
-PROCEDURE- PTBL * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- PTND * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- PTNV * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- PTOR * (col, row: BYTE; spn: UBYTE);
-PROCEDURE- PTXR * (col, row: BYTE; spn: UBYTE);
+PROCEDURE- PTBL * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- PTND * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- PTNV * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- PTOR * (col, row: SHORTINT; spn: UBYTE);
+PROCEDURE- PTXR * (col, row: SHORTINT; spn: UBYTE);
 
 (** Screen windows processing (coordinates CANNOT be outside the screen): *)
 
