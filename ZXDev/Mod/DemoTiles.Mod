@@ -3,18 +3,18 @@ IMPORT G := GrApp, T := GrTiles, B := Basic;
 
 CONST
   square = T.Tile8x8(
-    (*Pixels:*) 0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
-    (*Attrib:*) CHR(G.BlueOnOlive)
+    (*Pixels:*) 0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH,
+    (*Attrib:*) G.BlueOnOlive
   );
 
 CONST
   square2 = T.Tile16x16(
-    (*Pixels:*) 0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
-                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
-                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
-                0FFX, 81X, 81X, 81X, 81X, 81X, 81X, 0FFX,
-    (*Attrib:*) CHR(G.BlueOnOlive), CHR(G.BlackOnCyan),
-                CHR(G.BlackOnCyan + 40H), CHR(G.RedOnYellow)
+    (*Pixels:*) 0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH,
+                0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH,
+                0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH,
+                0FFH, 81H, 81H, 81H, 81H, 81H, 81H, 0FFH,
+    (*Attrib:*) G.BlueOnOlive, G.BlackOnCyan,
+                G.BlackOnCyan + 40H, G.RedOnYellow
   );
 
 VAR i: INT8;
