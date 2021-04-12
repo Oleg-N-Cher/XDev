@@ -8,6 +8,9 @@ MODULE Platform; (** non-portable *)
 
 IMPORT SYSTEM;
 
+PROCEDURE- LT* (x, y: INT16): BOOLEAN "((unsigned)x <  (unsigned)y)";
+PROCEDURE- LE* (x, y: INT16): BOOLEAN "((unsigned)x <= (unsigned)y)";
+
 PROCEDURE -UBYTE*(b: INT8): INT16 "((SHORTINT)(unsigned char)(b))";
 PROCEDURE -USHORT*(s: INT16): INT32 "((INTEGER)(unsigned short)(s))";
 PROCEDURE -UINT*(i: INT32): INT64 "((LONGINT)(unsigned int)(i))";
