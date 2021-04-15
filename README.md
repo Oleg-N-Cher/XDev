@@ -10,7 +10,7 @@ You can develop for different platforms, such as retro and new.
 Download: https://github.com/Oleg-N-Cher/XDev/zipball/master
 Version control: https://github.com/Oleg-N-Cher/XDev
 
-<img src="http://zx.oberon2.ru/img/XDev.png">
+<img src="https://zx.oberon.org/img/XDev.png">
 
 
 XDev/ZXDev
@@ -18,7 +18,7 @@ XDev/ZXDev
 ZXDev is a XDev subsystem for target platform Sinclair ZX Spectrum 48K.
 
 Documentation: ZXDev/Docu
-Forum: http://zx.oberon2.ru/forum/viewforum.php?f=10
+Forum: https://zx.oberon.org/forum/viewforum.php?f=10
 
 
 XDev/WinDev
@@ -73,4 +73,4 @@ DJGPP is Copyright by DJ Delorie.
 --
 Oleg N. Cher,
 VEDAsoft Oberon Club
-http://zx.oberon2.ru
+http://zx.oberon.org
