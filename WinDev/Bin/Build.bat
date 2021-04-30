@@ -68,4 +68,3 @@ EXIT
 
 IF "%Pause%"=="TRUE" PAUSE
 IF "%Start%"=="TRUE" START ..\%MainMod%.exe
-pause

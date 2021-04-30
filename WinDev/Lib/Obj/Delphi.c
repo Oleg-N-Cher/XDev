@@ -1,5 +1,5 @@
 /* Ofront+ 1.0 -sxt3 -48 */
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 
@@ -23,7 +23,7 @@ INTEGER Delphi_LoWord (INTEGER i)
 
 /*----------------------------------------------------------------------------*/
 
-export void *Delphi__init(void)
+export void *Delphi__init (void)
 {
 	__DEFMOD;
 	__REGMOD("Delphi", 0);

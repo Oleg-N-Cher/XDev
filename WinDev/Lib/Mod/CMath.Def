@@ -1,0 +1,8 @@
+MODULE [foreign] CMath; IMPORT SYSTEM;
+
+PROCEDURE- AincludeMathH "#include <math.h>";
+
+PROCEDURE- sin (x: REAL): REAL "sinf(x)";
+PROCEDURE- cos (x: REAL): REAL "cosf(x)";
+
+END CMath.

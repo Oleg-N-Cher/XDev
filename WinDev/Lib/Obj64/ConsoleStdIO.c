@@ -1,16 +1,16 @@
 /* Ofront+ 1.0 -sxt3 -88 */
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 
 
-static REAL ConsoleStdIO_Ten (INTEGER n);
+static SHORTREAL ConsoleStdIO_Ten (INTEGER n);
 export void ConsoleStdIO_WriteCh (CHAR ch);
 export void ConsoleStdIO_WriteInt (INTEGER n);
 export void ConsoleStdIO_WriteLn (void);
 export void ConsoleStdIO_WriteLong (LONGINT n);
-export void ConsoleStdIO_WriteReal (REAL x);
-export void ConsoleStdIO_WriteRealFix (REAL x, INTEGER n);
+export void ConsoleStdIO_WriteReal (SHORTREAL x);
+export void ConsoleStdIO_WriteRealFix (SHORTREAL x, INTEGER n);
 export void ConsoleStdIO_WriteStr (CHAR *str, INTEGER str__len);
 
 #include <stdio.h>
@@ -53,11 +53,11 @@ void ConsoleStdIO_WriteStr (CHAR *str, INTEGER str__len)
 }
 
 /*----------------------------------------------------------------------------*/
-static REAL ConsoleStdIO_Ten (INTEGER n)
+static SHORTREAL ConsoleStdIO_Ten (INTEGER n)
 {
-	REAL t, p;
-	t = (REAL)1;
-	p = (REAL)10;
+	SHORTREAL t, p;
+	t = (SHORTREAL)1;
+	p = (SHORTREAL)10;
 	while (n > 0) {
 		if (__ODD(n)) {
 			t = p * t;
@@ -68,29 +68,29 @@ static REAL ConsoleStdIO_Ten (INTEGER n)
 	return t;
 }
 
-void ConsoleStdIO_WriteReal (REAL x)
+void ConsoleStdIO_WriteReal (SHORTREAL x)
 {
 	ConsoleStdIO_printfr(x);
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleStdIO_WriteRealFix (REAL x, INTEGER n)
+void ConsoleStdIO_WriteRealFix (SHORTREAL x, INTEGER n)
 {
 	LONGINT m;
-	if (x == (REAL)0) {
+	if (x == (SHORTREAL)0) {
 		ConsoleStdIO_WriteCh('0');
 	} else {
 		if (n < 1 || n > 16) {
 			n = 16;
 		}
-		if (x < (REAL)0) {
+		if (x < (SHORTREAL)0) {
 			x = -x;
 			ConsoleStdIO_WriteCh('-');
 		}
 		m = __ENTIERL(x);
 		ConsoleStdIO_WriteLong(m);
 		ConsoleStdIO_WriteCh('.');
-		x = ConsoleStdIO_Ten(n) * (x - m);
+		x = ConsoleStdIO_Ten(n) * (x - (SHORTREAL)m);
 		m = __ENTIERL(x + 0.5);
 		while (m != 0 && __MOD(m, 10) == 0) {
 			m = __DIV(m, 10);
@@ -101,7 +101,7 @@ void ConsoleStdIO_WriteRealFix (REAL x, INTEGER n)
 
 /*----------------------------------------------------------------------------*/
 
-export void *ConsoleStdIO__init(void)
+export void *ConsoleStdIO__init (void)
 {
 	__DEFMOD;
 	__REGMOD("ConsoleStdIO", 0);

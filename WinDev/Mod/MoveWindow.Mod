@@ -2,7 +2,7 @@ MODULE MoveWindow;
 (* Simple moving window application by Alexander Iljin, June 08, 2006. *)
 (* http://oberoncore.ru/wiki/blackbox/make_exe *)
  
-IMPORT SYSTEM, W := WinAPI;
+IMPORT SYSTEM, W := WinApi;
 
 CONST
   defFontName = "Verdana";
@@ -68,7 +68,7 @@ BEGIN
       defMessage := "Click me||Esc - exit";
       defMessage[8] := 0DX; defMessage[9] := 0AX;
       res := W.DrawText(
-        dc, SYSTEM.ADR(defMessage),
+        dc, defMessage,
         -1, @rect, W.DT_WORDBREAK + W.DT_CENTER
       );
       res := W.EndPaint(wnd, @ps);
@@ -94,12 +94,12 @@ BEGIN
   defaultFont := W.CreateFont(
     -20, 0, 0, W.FW_REGULAR, 0, 0, 0, 0, W.DEFAULT_CHARSET,
     W.OUT_DEFAULT_PRECIS, W.CLIP_DEFAULT_PRECIS, W.DEFAULT_QUALITY,
-    W.DEFAULT_PITCH, SYSTEM.ADR(defFontName)
+    W.DEFAULT_PITCH, defFontName
   );
-  class.hCursor := W.LoadCursor(0, W.IDC_ARROW);
-  class.hIcon := W.LoadIcon(instance, iconId);
-  class.lpszMenuName := 0;
-  class.lpszClassName := SYSTEM.ADR("MoveWin");
+  class.hCursor := W.LoadCursor(0, SYSTEM.VAL(W.PtrSTR, W.IDC_ARROW));
+  class.hIcon := W.LoadIcon(instance, SYSTEM.VAL(W.PtrSTR, iconId));
+  class.lpszMenuName := NIL;
+  class.lpszClassName := "MoveWin";
   class.hbrBackground := defaultBrush;
   class.style := W.CS_VREDRAW + W.CS_HREDRAW;
   class.hInstance := instance;
@@ -108,9 +108,9 @@ BEGIN
   class.cbWndExtra := 0;
   res := W.RegisterClass(@class);
   mainWnd := W.CreateWindowEx(
-    W.WS_EX_TOPMOST, SYSTEM.ADR("MoveWin"),
-    SYSTEM.ADR("MoveWin"), W.WS_OVERLAPPEDWINDOW,
-    SYSTEM.VAL(INTEGER, W.CW_USEDEFAULT), 0, 210, 100, 0, 0, instance, 0
+    W.WS_EX_TOPMOST, "MoveWin",
+    "MoveWin", W.WS_OVERLAPPEDWINDOW,
+    W.CW_USEDEFAULT, 0, 210, 100, 0, 0, instance, 0
   );
   res := W.ShowWindow(mainWnd, W.SW_SHOWDEFAULT);
   res := W.UpdateWindow(mainWnd);
@@ -127,7 +127,7 @@ BEGIN
 END MainLoop;
  
 BEGIN (*$MAIN*)
-  instance := W.GetModuleHandle(0);
+  instance := W.GetModuleHandle(NIL);
   OpenWindow;
   MainLoop;
 END MoveWindow.

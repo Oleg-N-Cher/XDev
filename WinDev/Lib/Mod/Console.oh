@@ -1,8 +1,8 @@
-#ifndef Console__h
-#define Console__h
+#ifndef Console__oh
+#define Console__oh
 
 #include "ConsoleCfg.h"
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 #  define Console_Black		0
@@ -319,27 +319,27 @@
 #endif
 
 #ifdef OUTPUT_WinAPI
-   extern void ConsoleWinAPI_SetColors (short int colors);
-   extern void ConsoleWinAPI_WriteCh (char ch);
-   extern void ConsoleWinAPI_WriteInt (int n);
-   extern void ConsoleWinAPI_WriteLn (void);
-   extern void ConsoleWinAPI_WriteLong (LONGINT n);
-   extern void ConsoleWinAPI_WriteReal (double x);
-   extern void ConsoleWinAPI_WriteRealFix (double x, int n);
-   extern void ConsoleWinAPI_WriteStr (char *str, int str__len);
-   extern void *ConsoleWinAPI__init (void);
+   extern void ConsoleWinApi_SetColors (short int colors);
+   extern void ConsoleWinApi_WriteCh (char ch);
+   extern void ConsoleWinApi_WriteInt (int n);
+   extern void ConsoleWinApi_WriteLn (void);
+   extern void ConsoleWinApi_WriteLong (LONGINT n);
+   extern void ConsoleWinApi_WriteReal (double x);
+   extern void ConsoleWinApi_WriteRealFix (double x, int n);
+   extern void ConsoleWinApi_WriteStr (char *str, int str__len);
+   extern void *ConsoleWinApi__init (void);
    
-#  define Console_SetColors ConsoleWinAPI_SetColors
-#  define Console_WriteCh ConsoleWinAPI_WriteCh
-#  define Console_WriteInt ConsoleWinAPI_WriteInt
-#  define Console_WriteLn ConsoleWinAPI_WriteLn
-#  define Console_WriteLong ConsoleWinAPI_WriteLong
-#  define Console_WriteReal ConsoleWinAPI_WriteReal
-#  define Console_WriteRealFix ConsoleWinAPI_WriteRealFix
-#  define Console_WriteShort ConsoleWinAPI_WriteInt
-#  define Console_WriteStr ConsoleWinAPI_WriteStr
+#  define Console_SetColors ConsoleWinApi_SetColors
+#  define Console_WriteCh ConsoleWinApi_WriteCh
+#  define Console_WriteInt ConsoleWinApi_WriteInt
+#  define Console_WriteLn ConsoleWinApi_WriteLn
+#  define Console_WriteLong ConsoleWinApi_WriteLong
+#  define Console_WriteReal ConsoleWinApi_WriteReal
+#  define Console_WriteRealFix ConsoleWinApi_WriteRealFix
+#  define Console_WriteShort ConsoleWinApi_WriteInt
+#  define Console_WriteStr ConsoleWinApi_WriteStr
 
-#  define Console__init ConsoleWinAPI__init
+#  define Console__init ConsoleWinApi__init
 #endif
 
 

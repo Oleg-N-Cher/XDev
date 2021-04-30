@@ -2,6 +2,8 @@ MODULE TestCP;
 IMPORT io := Console, S := SYSTEM;
 
 CONST
+	max* = MAX(500, 0);
+	min* = MIN(500, 0);
 	dd* = ASH(500, 0);
   dd1* = ASH(MIN(INTEGER), -31);
   dd2* = ASH(1, 30);
@@ -74,4 +76,7 @@ BEGIN
 	i:=ASH(b, n); i:=ASH(s, n); i:=ASH(i, n); l:=ASH(l, n);
 	i:=S.LSH(b, n); i:=S.LSH(s, n); i:=S.LSH(i, n); l:=S.LSH(l, n);
 	i:=S.ROT(b, n); i:=S.ROT(s, n); i:=S.ROT(i, n); l:=S.ROT(l, n);
+	i := MIN(b, s);
+	n := MAX(b, s);
+	IF s = 1 THEN END;
 END TestCP.

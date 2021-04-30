@@ -1,51 +1,51 @@
 /* Ofront+ 1.0 -sxt3 -48 */
-#include "SYSTEM.h"
-#include "Ignore.h"
-#include "Strings.h"
-#include "WinAPI.h"
+#include "SYSTEM.oh"
+#include "WinApi.oh"
+#include "Strings.oh"
+#include "Ignore.oh"
 
 
-static INTEGER ConsoleWinAPI_hConOutput;
+static INTEGER ConsoleWinApi_hConOutput;
 
 
-static INTEGER ConsoleWinAPI_Exponent (REAL x);
-static BOOLEAN ConsoleWinAPI_IsNaN (REAL x);
-export void ConsoleWinAPI_SetColors (SHORTINT colors);
-static REAL ConsoleWinAPI_Ten (INTEGER n);
-export void ConsoleWinAPI_WriteCh (CHAR ch);
-export void ConsoleWinAPI_WriteInt (INTEGER n);
-export void ConsoleWinAPI_WriteLn (void);
-export void ConsoleWinAPI_WriteLong (LONGINT n);
-export void ConsoleWinAPI_WriteReal (REAL x);
-export void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n);
-export void ConsoleWinAPI_WriteStr (CHAR *str, INTEGER str__len);
+static INTEGER ConsoleWinApi_Exponent (REAL x);
+static BOOLEAN ConsoleWinApi_IsNaN (REAL x);
+export void ConsoleWinApi_SetColors (SHORTINT colors);
+static REAL ConsoleWinApi_Ten (INTEGER n);
+export void ConsoleWinApi_WriteCh (CHAR ch);
+export void ConsoleWinApi_WriteInt (INTEGER n);
+export void ConsoleWinApi_WriteLn (void);
+export void ConsoleWinApi_WriteLong (LONGINT n);
+export void ConsoleWinApi_WriteReal (REAL x);
+export void ConsoleWinApi_WriteRealFix (REAL x, INTEGER n);
+export void ConsoleWinApi_WriteStr (CHAR *str, INTEGER str__len);
 
 
 /*============================================================================*/
 
-void ConsoleWinAPI_SetColors (SHORTINT colors)
+void ConsoleWinApi_SetColors (SHORTINT colors)
 {
-	Ignore_Int(WinAPI_SetConsoleTextAttribute(ConsoleWinAPI_hConOutput, colors));
+	Ignore_Int(SetConsoleTextAttribute(ConsoleWinApi_hConOutput, colors));
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteCh (CHAR ch)
+void ConsoleWinApi_WriteCh (CHAR ch)
 {
 	INTEGER maxLen;
-	Ignore_Int(WinAPI_WriteFile(ConsoleWinAPI_hConOutput, (SYSTEM_ADRINT)&ch, 1, &maxLen, NIL));
+	Ignore_Int(WriteFile(ConsoleWinApi_hConOutput, (SYSTEM_ADRINT)&ch, 1, &maxLen, NIL));
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteLn (void)
+void ConsoleWinApi_WriteLn (void)
 {
-	ConsoleWinAPI_WriteCh(0x0d);
-	ConsoleWinAPI_WriteCh(0x0a);
+	ConsoleWinApi_WriteCh(0x0d);
+	ConsoleWinApi_WriteCh(0x0a);
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteInt (INTEGER n)
+void ConsoleWinApi_WriteInt (INTEGER n)
 {
-	CHAR s[11];
+	CHAR s [11];
 	INTEGER i1, k;
 	if (n == (-2147483647-1)) {
 		__MOVE("8463847412", s, 11);
@@ -67,14 +67,14 @@ void ConsoleWinAPI_WriteInt (INTEGER n)
 	}
 	while (k > 0) {
 		k -= 1;
-		ConsoleWinAPI_WriteCh(s[k]);
+		ConsoleWinApi_WriteCh(s[k]);
 	}
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteLong (LONGINT n)
+void ConsoleWinApi_WriteLong (LONGINT n)
 {
-	CHAR s[20];
+	CHAR s [20];
 	LONGINT i1;
 	INTEGER k;
 	if (n == (-9223372036854775807LL-1)) {
@@ -97,19 +97,19 @@ void ConsoleWinAPI_WriteLong (LONGINT n)
 	}
 	while (k > 0) {
 		k -= 1;
-		ConsoleWinAPI_WriteCh(s[k]);
+		ConsoleWinApi_WriteCh(s[k]);
 	}
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteStr (CHAR *str, INTEGER str__len)
+void ConsoleWinApi_WriteStr (CHAR *str, INTEGER str__len)
 {
 	INTEGER maxLen;
-	Ignore_Int(WinAPI_WriteFile(ConsoleWinAPI_hConOutput, (SYSTEM_ADRINT)str, Strings_Length((void*)str, str__len), &maxLen, NIL));
+	Ignore_Int(WriteFile(ConsoleWinApi_hConOutput, (SYSTEM_ADRINT)str, Strings_Length((void*)str, str__len), &maxLen, NIL));
 }
 
 /*----------------------------------------------------------------------------*/
-static REAL ConsoleWinAPI_Ten (INTEGER n)
+static REAL ConsoleWinApi_Ten (INTEGER n)
 {
 	REAL t, p;
 	t = (REAL)1;
@@ -124,12 +124,12 @@ static REAL ConsoleWinAPI_Ten (INTEGER n)
 	return t;
 }
 
-static BOOLEAN ConsoleWinAPI_IsNaN (REAL x)
+static BOOLEAN ConsoleWinApi_IsNaN (REAL x)
 {
 	return (0x7ff80000 & ~(SET)((INTEGER)__ASHR(__VAL(LONGINT, x), 32, LONGINT))) == 0x0;
 }
 
-static INTEGER ConsoleWinAPI_Exponent (REAL x)
+static INTEGER ConsoleWinApi_Exponent (REAL x)
 {
 	INTEGER exp, offset;
 	x = __ABS(x);
@@ -143,28 +143,28 @@ static INTEGER ConsoleWinAPI_Exponent (REAL x)
 	return exp - offset;
 }
 
-void ConsoleWinAPI_WriteReal (REAL x)
+void ConsoleWinApi_WriteReal (REAL x)
 {
 	LONGINT m;
 	INTEGER e, i;
-	CHAR d[16];
+	CHAR d [16];
 	e = __MASK((INTEGER)__ASHR(__VAL(LONGINT, x), 52, LONGINT), -2048);
 	if (e == 0) {
-		ConsoleWinAPI_WriteCh('0');
-	} else if (ConsoleWinAPI_IsNaN(x)) {
-		ConsoleWinAPI_WriteStr((CHAR*)"NaN", 4);
+		ConsoleWinApi_WriteCh('0');
+	} else if (ConsoleWinApi_IsNaN(x)) {
+		ConsoleWinApi_WriteStr((CHAR*)"NaN", 4);
 	} else {
 		if (x < (REAL)0) {
-			ConsoleWinAPI_WriteCh('-');
+			ConsoleWinApi_WriteCh('-');
 			x = -x;
 		}
-		e = __ASHR(ConsoleWinAPI_Exponent(x) * 77, 8, INTEGER) - 12;
+		e = __ASHR(ConsoleWinApi_Exponent(x) * 77, 8, INTEGER) - 12;
 		if (e >= 0) {
-			x = x / (REAL)ConsoleWinAPI_Ten(e);
+			x = x / (REAL)ConsoleWinApi_Ten(e);
 		} else if (e < -308) {
-			x = (x * ConsoleWinAPI_Ten(-e - 12)) * (REAL)1000000000000LL;
+			x = (x * ConsoleWinApi_Ten(-e - 12)) * (REAL)1000000000000LL;
 		} else {
-			x = ConsoleWinAPI_Ten(-e) * x;
+			x = ConsoleWinApi_Ten(-e) * x;
 		}
 		m = __ENTIERL(x + 0.5);
 		i = 0;
@@ -178,60 +178,60 @@ void ConsoleWinAPI_WriteReal (REAL x)
 			i += 1;
 		} while (!(m == 0));
 		i -= 1;
-		ConsoleWinAPI_WriteCh(d[i]);
-		ConsoleWinAPI_WriteCh('.');
+		ConsoleWinApi_WriteCh(d[i]);
+		ConsoleWinApi_WriteCh('.');
 		while (i > 0) {
 			i -= 1;
-			ConsoleWinAPI_WriteCh(d[i]);
+			ConsoleWinApi_WriteCh(d[i]);
 		}
 		e += 12;
 		if (e != 0) {
-			ConsoleWinAPI_WriteCh('E');
+			ConsoleWinApi_WriteCh('E');
 			if (e > 0) {
-				ConsoleWinAPI_WriteCh('+');
+				ConsoleWinApi_WriteCh('+');
 			}
-			ConsoleWinAPI_WriteInt(e);
+			ConsoleWinApi_WriteInt(e);
 		}
 	}
 }
 
 /*----------------------------------------------------------------------------*/
-void ConsoleWinAPI_WriteRealFix (REAL x, INTEGER n)
+void ConsoleWinApi_WriteRealFix (REAL x, INTEGER n)
 {
 	LONGINT m;
 	if (x == (REAL)0) {
-		ConsoleWinAPI_WriteCh('0');
+		ConsoleWinApi_WriteCh('0');
 	} else {
 		if (n < 1 || n > 16) {
 			n = 16;
 		}
 		if (x < (REAL)0) {
 			x = -x;
-			ConsoleWinAPI_WriteCh('-');
+			ConsoleWinApi_WriteCh('-');
 		}
 		m = __ENTIERL(x);
-		ConsoleWinAPI_WriteLong(m);
-		ConsoleWinAPI_WriteCh('.');
-		x = ConsoleWinAPI_Ten(n) * (x - m);
+		ConsoleWinApi_WriteLong(m);
+		ConsoleWinApi_WriteCh('.');
+		x = ConsoleWinApi_Ten(n) * (x - (REAL)m);
 		m = __ENTIERL(x + 0.5);
 		while (m != 0 && __MOD(m, 10) == 0) {
 			m = __DIV(m, 10);
 		}
-		ConsoleWinAPI_WriteLong(m);
+		ConsoleWinApi_WriteLong(m);
 	}
 }
 
 /*----------------------------------------------------------------------------*/
 
-export void *ConsoleWinAPI__init (void)
+export void *ConsoleWinApi__init (void)
 {
 	__DEFMOD;
 	__IMPORT(Ignore__init);
 	__IMPORT(Strings__init);
-	__IMPORT(WinAPI__init);
-	__REGMOD("ConsoleWinAPI", 0);
-	__REGCMD("WriteLn", ConsoleWinAPI_WriteLn);
+	__IMPORT(WinApi__init);
+	__REGMOD("ConsoleWinApi", 0);
+	__REGCMD("WriteLn", ConsoleWinApi_WriteLn);
 /* BEGIN */
-	ConsoleWinAPI_hConOutput = WinAPI_GetStdHandle(-11);
+	ConsoleWinApi_hConOutput = GetStdHandle(-11);
 	__ENDMOD;
 }

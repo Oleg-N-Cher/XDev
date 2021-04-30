@@ -1,12 +1,12 @@
-MODULE Ignore;
+MODULE [foreign] Ignore;
 IMPORT SYSTEM;
 
-PROCEDURE Bool* (b: BOOLEAN); END Bool;
-PROCEDURE Char* (ch: SHORTCHAR); END Char;
-PROCEDURE Int* (i: LONGINT); END Int;
-PROCEDURE Real* (r: REAL); END Real;
-PROCEDURE Ptr* (ptr: SYSTEM.PTR); END Ptr;
-PROCEDURE Set* (s: SET); END Set;
+PROCEDURE- Bool* (b: BOOLEAN);
+PROCEDURE- Char* (ch: CHAR);
+PROCEDURE- Int* (i: INT64);
+PROCEDURE- Real* (r: REAL64);
+PROCEDURE- Ptr* (ptr: SYSTEM.PTR);
+PROCEDURE- Set* (s: SET);
 (* ... *)
  
 END Ignore.

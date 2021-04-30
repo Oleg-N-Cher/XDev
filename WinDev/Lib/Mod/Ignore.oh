@@ -1,7 +1,5 @@
-/*  Ofront 1.2 -xtspkae */
-
-#ifndef Ignore__h
-#define Ignore__h
+#ifndef Ignore__oh
+#define Ignore__oh
 
 
 #define Ignore_Bool(x) x

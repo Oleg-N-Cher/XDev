@@ -4,6 +4,7 @@ IF EXIST %Lib% DEL %Lib%
 
 CALL ..\Bin\cc64.bat %Lib% SYSTEM
 CALL ..\Bin\cc64.bat %Lib% Strings
+CALL ..\Bin\cc64.bat %Lib% CmdLine
 CALL ..\Bin\cc64.bat %Lib% ConsoleStdIO
 CALL ..\Bin\cc64.bat %Lib% ConsoleWinAPI
 CALL ..\Bin\cc64.bat %Lib% Files

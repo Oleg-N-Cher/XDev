@@ -1,5 +1,5 @@
 /* Ofront+ 1.0 -sxt3 -48 */
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 
@@ -21,7 +21,7 @@ INTEGER Strings_Length (CHAR *str, INTEGER str__len)
 
 /*----------------------------------------------------------------------------*/
 
-export void *Strings__init(void)
+export void *Strings__init (void)
 {
 	__DEFMOD;
 	__REGMOD("Strings", 0);

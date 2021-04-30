@@ -1,17 +1,20 @@
-MODULE ConsoleWinAPI;
-IMPORT SYSTEM, w := WinAPI, Strings, Ignore;
+MODULE ConsoleWinApi;
+IMPORT SYSTEM, w := WinApi, Strings, Ignore;
+
+TYPE
+  REAL64 = SYSTEM.REAL64;
 
 VAR
   hConOutput: w.HANDLE;
 
-PROCEDURE SetColors* (colors: SHORTINT);
+PROCEDURE SetColors* (colors: INT16);
 BEGIN
   Ignore.Int( w.SetConsoleTextAttribute(hConOutput, colors) );
 END SetColors;
 
-PROCEDURE WriteCh* (ch: SHORTCHAR);
+PROCEDURE WriteCh* (ch: CHAR);
 VAR
-  maxLen: INTEGER;
+  maxLen: INT32;
 BEGIN
   Ignore.Int( w.WriteFile(hConOutput, SYSTEM.ADR(ch), 1, @maxLen, @NIL) );
 END WriteCh;
@@ -21,11 +24,11 @@ BEGIN
   WriteCh(0DX); WriteCh(0AX);
 END WriteLn;
 
-PROCEDURE WriteInt* (n: INTEGER);
+PROCEDURE WriteInt* (n: INT32);
 VAR
-  s: ARRAY 11 OF SHORTCHAR; i1, k: INTEGER;
+  s: ARRAY 11 OF CHAR; i1, k: INT32;
 BEGIN
-  IF n = MIN(INTEGER) THEN s := "8463847412"; k := 10;
+  IF n = MIN(INT32) THEN s := "8463847412"; k := 10;
   ELSE
     i1 := ABS(n);
     s[0] := CHR(i1 MOD 10 + ORD("0")); i1 := i1 DIV 10; k := 1;
@@ -37,11 +40,11 @@ BEGIN
   WHILE k > 0 DO DEC(k); WriteCh(s[k]) END;
 END WriteInt;
 
-PROCEDURE WriteLong* (n: LONGINT);
+PROCEDURE WriteLong* (n: INT64);
 VAR
-  s: ARRAY 20 OF SHORTCHAR; i1: LONGINT; k: INTEGER;
+  s: ARRAY 20 OF CHAR; i1: INT64; k: INT32;
 BEGIN
-  IF n = MIN(LONGINT) THEN s := "8085774586302733229"; k := 19;
+  IF n = MIN(INT64) THEN s := "8085774586302733229"; k := 19;
   ELSE
     i1 := ABS(n);
     s[0] := CHR(i1 MOD 10 + ORD("0")); i1 := i1 DIV 10; k := 1;
@@ -53,17 +56,17 @@ BEGIN
   WHILE k > 0 DO DEC(k); WriteCh(s[k]) END;
 END WriteLong;
 
-PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);
+PROCEDURE WriteStr* (str: ARRAY OF CHAR);
 VAR
-  maxLen: INTEGER;
+  maxLen: INT32;
 BEGIN
   Ignore.Int(
     w.WriteFile(hConOutput, SYSTEM.ADR(str), Strings.Length(str), @maxLen, @NIL)
   );
 END WriteStr;
 
-PROCEDURE Ten (n: INTEGER): REAL;
-  VAR t, p: REAL;
+PROCEDURE Ten (n: INT32): REAL64;
+  VAR t, p: REAL64;
 BEGIN t := 1.0; p := 10.0;   (*compute 10^n *)
   WHILE n > 0 DO
     IF ODD(n) THEN t := p * t END;
@@ -72,29 +75,29 @@ BEGIN t := 1.0; p := 10.0;   (*compute 10^n *)
   RETURN t
 END Ten;
 
-PROCEDURE IsNaN (x: REAL): BOOLEAN;  (* by Robert D. Campbell *)
+PROCEDURE IsNaN (x: REAL64): BOOLEAN;  (* by Robert D. Campbell *)
   CONST nanS = {19..30};  (* Detects non-signalling NaNs *)
 BEGIN
-  RETURN nanS - BITS(SHORT(ASH(SYSTEM.VAL(LONGINT, x), -32))) = {}
+  RETURN nanS - BITS(SHORT(ASH(SYSTEM.VAL(INT64, x), -32))) = {}
 END IsNaN;
 
-PROCEDURE Exponent (x: REAL): INTEGER;
+PROCEDURE Exponent (x: REAL64): INT32;
   CONST ExpoMax = 1023;
-  VAR exp, offset: INTEGER;
+  VAR exp, offset: INT32;
 BEGIN
   x := ABS(x);
-  exp := SHORT(ASH(SYSTEM.VAL(LONGINT, x), -52));
+  exp := SHORT(ASH(SYSTEM.VAL(INT64, x), -52));
   offset := ExpoMax;
   WHILE exp = 0 DO
-    x := x + x; exp := SHORT(ASH(SYSTEM.VAL(LONGINT, x), -52)); INC(offset)
+    x := x + x; exp := SHORT(ASH(SYSTEM.VAL(INT64, x), -52)); INC(offset)
   END;
   RETURN exp - offset
 END Exponent;
 
-PROCEDURE WriteReal* (x: REAL);
-  VAR m: LONGINT; e, i: INTEGER; d: ARRAY 16 OF SHORTCHAR;
+PROCEDURE WriteReal* (x: REAL64);
+  VAR m: INT64; e, i: INT32; d: ARRAY 16 OF CHAR;
 BEGIN
-  e := SHORT(ASH(SYSTEM.VAL(LONGINT, x), -52)) MOD 800H;  (*binary exponent*)
+  e := SHORT(ASH(SYSTEM.VAL(INT64, x), -52)) MOD 800H;  (*binary exponent*)
   IF e = 0 THEN WriteCh("0")
   ELSIF IsNaN(x) THEN WriteStr("NaN")
   ELSE
@@ -118,8 +121,8 @@ BEGIN
   END;
 END WriteReal;
 
-PROCEDURE WriteRealFix* (x: REAL; n: INTEGER);
-  VAR m: LONGINT;
+PROCEDURE WriteRealFix* (x: REAL64; n: INT32);
+  VAR m: INT64;
 BEGIN
   IF x = 0.0 THEN WriteCh("0")
   ELSE
@@ -136,4 +139,4 @@ END WriteRealFix;
 
 BEGIN
   hConOutput := w.GetStdHandle(-11);
-END ConsoleWinAPI.
+END ConsoleWinApi.

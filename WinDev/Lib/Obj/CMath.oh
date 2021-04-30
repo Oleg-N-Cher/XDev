@@ -1,0 +1,17 @@
+/* Ofront+ 1.0 -sxt3 -48 */
+
+#ifndef CMath__oh
+#define CMath__oh
+
+#include "SYSTEM.oh"
+
+
+
+
+#define CMath__init()
+
+#include <math.h>
+#define CMath_cos(x)	cosf(x)
+#define CMath_sin(x)	sinf(x)
+
+#endif

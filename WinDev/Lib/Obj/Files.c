@@ -1,5 +1,5 @@
 /* Ofront+ 1.0 -sxt3 -48 */
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 typedef
 	struct Files_File {
@@ -8,9 +8,6 @@ typedef
 	} Files_File;
 
 export void Files_File_Close (Files_File *file, SYSTEM_ADRINT *file__typ);
-typedef
-	CHAR *Files_STRING;
-
 export void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
 export void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
 #define __Files_File_Close(file, file__typ) __SEND(file__typ, Files_File_Close, 0, void(*)(Files_File*, SYSTEM_ADRINT *), (file, file__typ))
@@ -38,9 +35,6 @@ export void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, SYSTEM_ADRIN
 export void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, SYSTEM_ADRINT *tofile__typ, CHAR *str, INTEGER str__len);
 #define __Files_FileToWrite_WriteByte(tofile, tofile__typ, byte) __SEND(tofile__typ, Files_FileToWrite_WriteByte, 3, void(*)(Files_FileToWrite*, SYSTEM_ADRINT *, BYTE), (tofile, tofile__typ, byte))
 #define __Files_FileToWrite_WriteStr(tofile, tofile__typ, str, str__len) __SEND(tofile__typ, Files_FileToWrite_WriteStr, 4, void(*)(Files_FileToWrite*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (tofile, tofile__typ, str, str__len))
-
-typedef
-	CHAR *Files_PtrSTR;
 
 
 
@@ -133,7 +127,7 @@ void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfi
 {
 	INTEGER n;
 	CHAR ch;
-	__ASSERT(str__len > 1, 1, "Files", -5700);
+	__ASSERT(str__len > 1, 1, (CHAR*)"Files", -5643);
 	n = 0;
 	for (;;) {
 		if ((n >= str__len - 1 || (*fromfile).end) || (*fromfile).error) {
@@ -141,7 +135,7 @@ void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfi
 		}
 		ch = (CHAR)__Files_FileToRead_ReadByte(&*fromfile, fromfile__typ);
 		if (ch == 0x0d) {
-			if (__VAL(CHAR, (*fromfile).prevbyte) == 0x0a) {
+			if ((CHAR)(*fromfile).prevbyte == 0x0a) {
 				ch = (CHAR)__Files_FileToRead_ReadByte(&*fromfile, fromfile__typ);
 			}
 			break;
@@ -210,7 +204,7 @@ __TDESC(Files_File__desc, 4, 0) = {__TDFLDS("File", 12), {-4}};
 __TDESC(Files_FileToRead__desc, 6, 0) = {__TDFLDS("FileToRead", 12), {-4}};
 __TDESC(Files_FileToWrite__desc, 6, 0) = {__TDFLDS("FileToWrite", 12), {-4}};
 
-export void *Files__init(void)
+export void *Files__init (void)
 {
 	__DEFMOD;
 	__REGMOD("Files", 0);

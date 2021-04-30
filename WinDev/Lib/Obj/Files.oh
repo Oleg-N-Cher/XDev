@@ -1,21 +1,18 @@
-/* Ofront+ 1.0 -sxt3 -88 */
+/* Ofront+ 1.0 -sxt3 -48 */
 
-#ifndef Files__h
-#define Files__h
+#ifndef Files__oh
+#define Files__oh
 
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 typedef
 	struct Files_File {
-		LONGINT _prvt0;
+		INTEGER _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_File;
 
 import void Files_File_Close (Files_File *file, SYSTEM_ADRINT *file__typ);
-typedef
-	CHAR *Files_STRING;
-
 import void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
 import void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
 #define __Files_File_Close(file, file__typ) __SEND(file__typ, Files_File_Close, 0, void(*)(Files_File*, SYSTEM_ADRINT *), (file, file__typ))
@@ -24,7 +21,7 @@ import void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, 
 
 typedef
 	struct Files_FileToRead { /* Files_File */
-		LONGINT _prvt0;
+		INTEGER _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_FileToRead;
@@ -36,7 +33,7 @@ import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT 
 
 typedef
 	struct Files_FileToWrite { /* Files_File */
-		LONGINT _prvt0;
+		INTEGER _prvt0;
 		char _prvt1[4];
 		BOOLEAN end, error;
 	} Files_FileToWrite;
@@ -55,7 +52,7 @@ import SYSTEM_ADRINT *Files_FileToWrite__typ;
 import BOOLEAN Files_DeleteFile (CHAR *fname, INTEGER fname__len);
 import BOOLEAN Files_ExistsFile (CHAR *fname, INTEGER fname__len);
 import BOOLEAN Files_RenameFile (CHAR *oldname, INTEGER oldname__len, CHAR *newname, INTEGER newname__len);
-import void *Files__init(void);
+import void *Files__init (void);
 
 
 #endif

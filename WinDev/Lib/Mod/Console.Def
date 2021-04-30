@@ -1,7 +1,7 @@
 MODULE Console;
 
 TYPE
-  Color* = SHORTCHAR; Colors* = SHORTINT; Coords* = INTEGER;
+  Color* = CHAR; Colors* = INT16; Coords* = INT32;
 
 VAR
   Black-, Blue-, Green-, Cyan-, Red-, Magenta-, Olive-, White-,
@@ -115,16 +115,16 @@ PROCEDURE At* (x, y: Coords);                    END At;
 PROCEDURE Clear* (color: Color);                 END Clear;
 PROCEDURE SetColors* (colors: Colors);           END SetColors;
 PROCEDURE WriteBool* (b: BOOLEAN);               END WriteBool;
-PROCEDURE WriteCh* (ch: SHORTCHAR);              END WriteCh;
-PROCEDURE WriteInt* (n: INTEGER);                END WriteInt;
-PROCEDURE WriteHex* (n: INTEGER);                END WriteHex;
+PROCEDURE WriteCh* (ch: CHAR);              END WriteCh;
+PROCEDURE WriteInt* (n: INT32);                END WriteInt;
+PROCEDURE WriteHex* (n: INT32);                END WriteHex;
 PROCEDURE WriteLn*;                              END WriteLn;
-PROCEDURE WriteLong* (n: LONGINT);               END WriteLong;
-PROCEDURE WriteLHex* (n: LONGINT);               END WriteLHex;
-PROCEDURE WriteReal* (x: REAL);                  END WriteReal;
-PROCEDURE WriteRealFix* (x: REAL; n: INTEGER);   END WriteRealFix;
-PROCEDURE WriteShort* (n: SHORTINT);             END WriteShort;
-PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);   END WriteStr;
-PROCEDURE WriteStrLn* (str: ARRAY OF SHORTCHAR); END WriteStrLn;
+PROCEDURE WriteLong* (n: INT64);               END WriteLong;
+PROCEDURE WriteLHex* (n: INT64);               END WriteLHex;
+PROCEDURE WriteReal* (x: REAL32);                  END WriteReal;
+PROCEDURE WriteRealFix* (x: REAL32; n: INT32);   END WriteRealFix;
+PROCEDURE WriteShort* (n: INT16);             END WriteShort;
+PROCEDURE WriteStr* (str: ARRAY OF CHAR);   END WriteStr;
+PROCEDURE WriteStrLn* (str: ARRAY OF CHAR); END WriteStrLn;
 
 END Console.

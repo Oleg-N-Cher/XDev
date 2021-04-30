@@ -21,14 +21,14 @@ IMPORT SYSTEM;
   Failed* = 3;*)
 
 TYPE
-  PtrFILE = SYSTEM.ADRINT; (* Internal system type - FILE handle. *)
-  PtrSTR = ARRAY OF SHORTCHAR;
-  STRING = ARRAY OF SHORTCHAR;
+  PtrFILE = ADRINT; (* Internal system type - FILE handle. *)
+  PtrSTR = ARRAY OF CHAR;
+  STRING = ARRAY OF CHAR;
 
   File* = RECORD (** Binary file *)
     handle: PtrFILE;
-    (*state- : INTEGER; (* successful, outofmemory, toomanyfilesopen, failed, connectionfailure. *) *)
-    prevbyte: INTEGER; (* Used as byte cache for correct work of feof(). *)
+    (*state- : INT32; (* successful, outofmemory, toomanyfilesopen, failed, connectionfailure. *) *)
+    prevbyte: INT32; (* Used as byte cache for correct work of feof(). *)
     end-: BOOLEAN; (** Is end of file? *)
     error-: BOOLEAN; (** Is no file errors? *)
   END;
@@ -42,11 +42,11 @@ PROCEDURE -includeunistd()	"#include <unistd.h>";
 
 PROCEDURE -fopen (filename, mode: PtrSTR): PtrFILE
   "(SYSTEM_ADRINT)fopen((char*)filename, (char*)mode)";
-PROCEDURE -fgetc (file: PtrFILE): INTEGER
+PROCEDURE -fgetc (file: PtrFILE): INT32
   "fgetc((FILE*)file)";
-PROCEDURE -fgets (str: PtrSTR; n: INTEGER; file: PtrFILE): INTEGER
+PROCEDURE -fgets (str: PtrSTR; n: INT32; file: PtrFILE): INT32
   "fgets((CHAR*)str, n, (FILE*)file)";
-PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER
+PROCEDURE -fputc (c: INT32; file: PtrFILE): INT32
   "fputc(c, (FILE*)file)";
 (*
    Checks whether the end-of-File indicator associated with stream is set, returning a value different from zero if it is.
@@ -55,14 +55,14 @@ PROCEDURE -fputc (c: INTEGER; file: PtrFILE): INTEGER
 
 http://www.cplusplus.com/reference/clibrary/cstdio/feof/
 *)
-PROCEDURE -feof (file: PtrFILE): INTEGER "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
-PROCEDURE -ferror (file: PtrFILE): INTEGER "ferror((FILE*)file)";
-PROCEDURE -EOF(): INTEGER "EOF";
+PROCEDURE -feof (file: PtrFILE): INT32 "feof((FILE*)file)"; (* IF # 0 THEN EOF. *)
+PROCEDURE -ferror (file: PtrFILE): INT32 "ferror((FILE*)file)";
+PROCEDURE -EOF(): INT32 "EOF";
 PROCEDURE -NULL(): PtrFILE "((SYSTEM_ADRINT)NULL)";
 
-PROCEDURE -fclose (file: PtrFILE): INTEGER "fclose((FILE*)file)";
-PROCEDURE -unlink (filename: PtrSTR): INTEGER "unlink(filename)"; (* IF = 0 THEN OK. *)
-PROCEDURE -rename (oldname, newname: PtrSTR): INTEGER "rename(oldname, newname)";
+PROCEDURE -fclose (file: PtrFILE): INT32 "fclose((FILE*)file)";
+PROCEDURE -unlink (filename: PtrSTR): INT32 "unlink(filename)"; (* IF = 0 THEN OK. *)
+PROCEDURE -rename (oldname, newname: PtrSTR): INT32 "rename(oldname, newname)";
 
 PROCEDURE ^ (VAR file: File) Close* ;
 
@@ -125,9 +125,9 @@ BEGIN
   END;
 END Close;
 
-PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): BYTE;
+PROCEDURE (VAR fromfile: FileToRead) ReadByte* (): INT8;
 VAR
-  result: INTEGER;
+  result: INT32;
 BEGIN
   IF fromfile.end OR fromfile.error THEN
     RETURN SHORT(SHORT(EOF())) (* To safe work after error. *)
@@ -142,17 +142,17 @@ BEGIN
   RETURN SHORT(SHORT(result))
 END ReadByte;
 
-PROCEDURE (VAR fromfile: FileToRead) ReadStr* (VAR str: ARRAY OF SHORTCHAR);
+PROCEDURE (VAR fromfile: FileToRead) ReadStr* (VAR str: ARRAY OF CHAR);
 VAR
-  n: INTEGER; ch: SHORTCHAR;
+  n: INT32; ch: CHAR;
 BEGIN
   ASSERT(LEN(str) > 1, 1); n := 0;
   LOOP
     IF (n >= LEN(str) - 1) OR fromfile.end OR fromfile.error THEN EXIT END;
-    ch := SYSTEM.VAL(SHORTCHAR, fromfile.ReadByte());
+    ch := SYSTEM.VAL(CHAR, fromfile.ReadByte());
     IF ch = 0DX THEN
-      IF SYSTEM.VAL(SHORTCHAR, fromfile.prevbyte) = 0AX THEN
-        ch := SYSTEM.VAL(SHORTCHAR, fromfile.ReadByte());
+      IF SYSTEM.VAL(CHAR, fromfile.prevbyte) = 0AX THEN
+        ch := SYSTEM.VAL(CHAR, fromfile.ReadByte());
       END;
       EXIT
     END;
@@ -162,12 +162,12 @@ BEGIN
   str[n] := 0X;
 END ReadStr;
 
-PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: BYTE);
+PROCEDURE (VAR tofile: FileToWrite) WriteByte* (byte: INT8);
 VAR
-  exitcode: INTEGER;
+  exitcode: INT32;
 BEGIN
   IF tofile.error THEN RETURN END; (* To safe work after error. *)
-  exitcode := fputc(ORD(SYSTEM.VAL(SHORTCHAR, byte)), tofile.handle);
+  exitcode := fputc(ORD(SYSTEM.VAL(CHAR, byte)), tofile.handle);
   IF exitcode = EOF() THEN
     IF feof(tofile.handle) # 0 THEN
       tofile.end := TRUE;
@@ -179,7 +179,7 @@ END WriteByte;
 
 PROCEDURE (VAR tofile: FileToWrite) WriteStr* (str: STRING);
 VAR
-  n: LONGINT;
+  n: INT64;
 BEGIN
   n := 0;
   WHILE (n < LEN(str)) & (str[n] # 0X) DO
@@ -209,7 +209,7 @@ BEGIN
   f.OpenToRead(fname); f.Close; RETURN ~f.error
 END ExistsFile;
 
-PROCEDURE RenameFile* (oldname, newname: ARRAY OF SHORTCHAR): BOOLEAN;
+PROCEDURE RenameFile* (oldname, newname: ARRAY OF CHAR): BOOLEAN;
   (** UNSAFE! Make sure that value of array 'fname' is null-terminated. *)
 BEGIN
   RETURN rename(oldname, newname) = 0

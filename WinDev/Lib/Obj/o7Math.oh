@@ -1,0 +1,19 @@
+/* Ofront+ 1.0 -sxt7 -48 */
+
+#ifndef o7Math__oh
+#define o7Math__oh
+
+#include "SYSTEM.oh"
+
+
+
+
+import SHORTREAL o7Math_Cos (SHORTREAL x);
+import SHORTREAL o7Math_Exp (SHORTREAL x);
+import SHORTREAL o7Math_Ln (SHORTREAL x);
+import SHORTREAL o7Math_Sin (SHORTREAL x);
+import SHORTREAL o7Math_Sqrt (SHORTREAL x);
+#define o7Math__init()
+
+
+#endif

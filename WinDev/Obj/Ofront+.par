@@ -6,3 +6,9 @@ Test1.Mod -1
 Test2.Mod -2
 Test7.Mod -7
 MyDLL.Mod -d
+TestCopy.Mod -2
+TestCopyCP.Mod -C
+TestCopy3.Mod -3
+TestInf.odc -C
+Code.Mod -C
+B.Mod -7

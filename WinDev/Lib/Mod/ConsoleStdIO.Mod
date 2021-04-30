@@ -2,14 +2,14 @@ MODULE ConsoleStdIO;
 IMPORT SYSTEM;
 
 PROCEDURE -AAAincludestdio "#include <stdio.h>";
-PROCEDURE -printfc (ch: SHORTCHAR) 'printf("%c", ch)';
+PROCEDURE -printfc (ch: CHAR) 'printf("%c", ch)';
 PROCEDURE -printfi (n: INTEGER) 'printf("%d", n);';
-PROCEDURE -printfli (l: LONGINT) 'printf("%lld", l)';
-PROCEDURE -printfr (r: REAL) 'printf("%.7g", r)';
-PROCEDURE -printfs (str: ARRAY OF SHORTCHAR) 'printf("%s", str)';
+PROCEDURE -printfli (l: INT64) 'printf("%lld", l)';
+PROCEDURE -printfr (r: SYSTEM.REAL64) 'printf("%.7g", r)';
+PROCEDURE -printfs (str: ARRAY OF CHAR) 'printf("%s", str)';
 PROCEDURE -printfln 'printf("\n")';
 
-PROCEDURE WriteCh* (ch: SHORTCHAR);
+PROCEDURE WriteCh* (ch: CHAR);
 BEGIN
   printfc(ch);
 END WriteCh;
@@ -19,7 +19,7 @@ BEGIN
   printfi(n);
 END WriteInt;
 
-PROCEDURE WriteLong* (n: LONGINT);
+PROCEDURE WriteLong* (n: INT64);
 BEGIN
   printfli(n);
 END WriteLong;
@@ -29,7 +29,7 @@ BEGIN
   printfln;
 END WriteLn;
 
-PROCEDURE WriteStr* (str: ARRAY OF SHORTCHAR);
+PROCEDURE WriteStr* (str: ARRAY OF CHAR);
 BEGIN
   printfs(str);
 END WriteStr;
@@ -50,7 +50,7 @@ BEGIN
 END WriteReal;
 
 PROCEDURE WriteRealFix* (x: REAL; n: INTEGER);
-  VAR m: LONGINT;
+  VAR m: INT64;
 BEGIN
   IF x = 0.0 THEN WriteCh("0")
   ELSE

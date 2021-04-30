@@ -1,0 +1,22 @@
+/* Ofront+ 1.0 -sxt3 -88 */
+
+#ifndef ConsoleWinApi__oh
+#define ConsoleWinApi__oh
+
+#include "SYSTEM.oh"
+
+
+
+
+import void ConsoleWinApi_SetColors (SHORTINT colors);
+import void ConsoleWinApi_WriteCh (CHAR ch);
+import void ConsoleWinApi_WriteInt (INTEGER n);
+import void ConsoleWinApi_WriteLn (void);
+import void ConsoleWinApi_WriteLong (LONGINT n);
+import void ConsoleWinApi_WriteReal (REAL x);
+import void ConsoleWinApi_WriteRealFix (REAL x, INTEGER n);
+import void ConsoleWinApi_WriteStr (CHAR *str, INTEGER str__len);
+import void *ConsoleWinApi__init (void);
+
+
+#endif

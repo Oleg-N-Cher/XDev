@@ -1,15 +1,15 @@
 /* Ofront+ 1.0 -sxt3 -88 */
 
-#ifndef Strings__h
-#define Strings__h
+#ifndef Strings__oh
+#define Strings__oh
 
-#include "SYSTEM.h"
+#include "SYSTEM.oh"
 
 
 
 
 import INTEGER Strings_Length (CHAR *str, INTEGER str__len);
-import void *Strings__init(void);
+import void *Strings__init (void);
 
 
 #endif

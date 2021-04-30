@@ -1,0 +1,27 @@
+/* Ofront+ 1.0 -sxt3 -48 */
+
+#ifndef CmdLine__oh
+#define CmdLine__oh
+
+#include "SYSTEM.oh"
+
+typedef
+	CHAR (*CmdLine_ArgPtr) [1024];
+
+typedef
+	CmdLine_ArgPtr (*CmdLine_ArgVec) [1024];
+
+typedef
+	CHAR CmdLine_String [1024];
+
+
+import INTEGER CmdLine_ParamCount;
+
+
+import void CmdLine_GetParam (INTEGER n, CHAR *val, INTEGER val__len);
+import void CmdLine_GetParamInt (INTEGER n, INTEGER *val);
+__EXTERN INTEGER __getmainargs (INTEGER *argc, CmdLine_ArgVec *argv, INTEGER *env, INTEGER wildcard, INTEGER *startupinfo);
+import void *CmdLine__init (void);
+
+
+#endif

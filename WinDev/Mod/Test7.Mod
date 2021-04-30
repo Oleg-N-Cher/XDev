@@ -10,12 +10,12 @@ CONST
   d* = FLOOR(-3.941);
   e* = FLOOR(1.5);
   f* = FLOOR(-1.5);
-  dd* = ASR(MIN(INTEGER), 31);
+(*  dd* = ASR(MIN(INTEGER), 31); *)
   rr* = LSL(1, 31);
 a1* = ROR(-2147483647, 1);
 a2* = ROR(00000001H, 1);
 a3* = ROR(00000000H, 1);
-a4* = ROR(MIN(INTEGER), 1);
+(* a4* = ROR(MIN(INTEGER), 1); *)
   p00* = ROR(SYSTEM.VAL(SYSTEM.INT64, 1), 0);
   p01* = ROR(SYSTEM.VAL(SYSTEM.INT64, 1), 1);
   p02* = ROR(SYSTEM.VAL(SYSTEM.INT64, 1), 2);
@@ -80,7 +80,7 @@ BEGIN i := 0; j := 0;
 	END
 END WriteReal;
 
-PROCEDURE Ret(): INTEGER
+PROCEDURE Ret(): INTEGER;
 RETURN 1+2 END Ret;
 
 PROCEDURE Ret0(): INTEGER;
@@ -108,5 +108,6 @@ BEGIN
   i := FLOOR(-1.5);
   r := FLT(999999999);
   r := FLT(i);
-	ASSERT(FALSE, 123)
+	ASSERT(FALSE, 123);
+	PACK(r, i); UNPK(r, i);
 END Test7.
