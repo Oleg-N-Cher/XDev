@@ -106,10 +106,10 @@ void SYSTEM_UNPK (SHORTREAL *x, INTEGER *n)
 }
 
 /*----------------------------------------------------------------------------*/
-//#ifndef _WIN32
-//#  include <stdlib.h>
-//   void SYSTEM_ExitOS (int code) { exit(code); }
-//#else
-//#  include "_windows.h"
-//   void SYSTEM_ExitOS (int code) { ExitProcess((UINT)(code)); }
-//#endif
+#ifndef _WIN32
+#  include <stdlib.h>
+   void SYSTEM_ExitOS (int code) { exit(code); }
+#else
+#  include "_windows.h"
+   void SYSTEM_ExitOS (int code) { ExitProcess((UINT)(code)); }
+#endif
