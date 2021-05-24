@@ -89,11 +89,11 @@ void KMouse_SetXY (unsigned char x, unsigned char y) __naked __z88dk_callee
 ;------------------------------
 ;INPUT: L=new X-axis
 ;       H=new Y-axis
-         LD   A, #0xFB
-         IN   A, (0xDF)
+         LD   BC, #0xFBDF
+         IN   A, (C)
          LD   (OLDCO), A
-         LD   A, #0xFF
-         IN   A, (0xDF)
+         LD   B, #0xFF
+         IN   A, (C)
          LD   (OLDCO + 1), A
          LD   (COORD), HL
          RET
