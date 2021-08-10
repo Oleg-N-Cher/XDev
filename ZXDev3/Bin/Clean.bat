@@ -1,2 +1,0 @@
-::@DEL *.bin
-@DEL *.OBJ
