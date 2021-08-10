@@ -1,1 +1,0 @@
-#define GrApp_WaitAtExit
