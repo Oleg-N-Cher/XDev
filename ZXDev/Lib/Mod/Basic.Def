@@ -32,7 +32,7 @@ CONST
 	Off          * = 0;
 
 	WaitAKey* = 0; NoKey* = 0X;
-	
+
 	RomFont* = 3D00H;
 
 TYPE
