@@ -1,4 +1,4 @@
-MODULE [foreign] KMouse; IMPORT SYSTEM;
+MODULE [noinit] KMouse; IMPORT SYSTEM;
 (**
   Short mouse driver (optimized for size - source for Prometheus / AS + manual)
   https://velesoft.speccy.cz/k-mouse_driver.htm

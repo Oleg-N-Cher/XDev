@@ -8,11 +8,11 @@ IMPORT G := Graph, Math;
 VAR
   KD, MD, x0, y0: INT16;
 
-PROCEDURE Flower (x, y, radius, n: INT16; a1, a3, a5: REAL32);
+PROCEDURE Flower (x, y, radius, n: INT16; a1, a3, a5: REAL);
 CONST
   p = Math.Pi / 180;
 VAR
-  b1, b3, b5, q, r, dg, rd, cosRd, sinRd: REAL32;
+  b1, b3, b5, q, r, dg, rd, cosRd, sinRd: REAL;
 BEGIN
   q := a1 + a3 + a5;
   b1 := radius * a1 / q; b3 := radius * a3 / q; b5 := radius * a5 / q;

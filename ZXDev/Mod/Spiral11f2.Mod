@@ -17,7 +17,7 @@ VAR
 
 PROCEDURE PrepareTables;
 VAR
-  i: INT16; q: INT8; yr1, yr2: REAL32;
+  i: INT16; q: INT8; yr1, yr2: REAL;
 BEGIN
   (* Подготовка массива синусов и косинусов *)
   Sina[0] := SHORT(ENTIER(Math.Sin(0) * 256));

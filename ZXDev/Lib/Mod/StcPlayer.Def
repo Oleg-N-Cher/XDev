@@ -1,4 +1,4 @@
-MODULE [foreign] StcPlayer;
+MODULE [noinit] StcPlayer;
 IMPORT SYSTEM;
 
 VAR

@@ -13,13 +13,14 @@ BEGIN
 	(* ѕовторить 1000 раз выбрасывание кубика *)
 	FOR n := 1 TO HowManyTimes DO
 		(* и посчитать сколько раз выпала кажда€ грань. *)
-		number := Basic.RND(1, 6);
-		IF number = 1 THEN one := one + 1 END;
-		IF number = 2 THEN two := two + 1 END;
-		IF number = 3 THEN three := three + 1 END;
-		IF number = 4 THEN four := four + 1 END;
-		IF number = 5 THEN five := five + 1 END;
-		IF number = 6 THEN six := six + 1 END;
+		CASE Basic.RND(1, 6) OF
+		| 1: INC(one)
+		| 2: INC(two)
+		| 3: INC(three)
+		| 4: INC(four)
+		| 5: INC(five)
+		| 6: INC(six)
+		END
 	END;
 
 	(* Ќарисовать цветную таблицу *) (*

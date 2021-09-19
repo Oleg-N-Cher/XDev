@@ -2,9 +2,9 @@
 
 /* runtime system routines */
 extern void SYSTEM_HALT_m1 (BYTE n) __z88dk_fastcall;
-extern int SYSTEM_STRCMP (CHAR *x, CHAR *y);
-extern void SYSTEM_STRAPND (CHAR *from, CHAR *to) __z88dk_callee;
-extern void SYSTEM_STRCOPY (CHAR *to, CHAR *from) __z88dk_callee;
+extern int SYSTEM_STRCMPCC (CHAR *x, CHAR *y);
+extern void SYSTEM_STRAPNDCC (CHAR *from, CHAR *to) __z88dk_callee;
+extern void SYSTEM_STRCOPYCC (CHAR *to, CHAR *from) __z88dk_callee;
 extern SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall;
 extern long SYSTEM_ENTIER (float x);
 extern SHORTINT SYSTEM_ASH (SHORTINT x, BYTE n);
@@ -30,7 +30,7 @@ __endasm;
 int SYSTEM_XCHK (int i, int ub) { return __X(i, ub, "", 0); }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRAPND (CHAR *from, CHAR *to) __naked __z88dk_callee {
+void SYSTEM_STRAPNDCC (CHAR *from, CHAR *to) __naked __z88dk_callee {
     __asm  ; n = 0; while (to[n] != '\0') n++;
            POP  HL
            POP  DE           ; from[]
@@ -47,10 +47,10 @@ APND_STR$: CP   (HL)
            JR   NZ, APND_STR$
            RET
     __endasm;
-} //SYSTEM_STRAPND
+} //SYSTEM_STRAPNDCC
 
 /*--------------------------------- Cut here ---------------------------------*/
-int SYSTEM_STRCMP (CHAR *x, CHAR *y)
+int SYSTEM_STRCMPCC (CHAR *x, CHAR *y)
 {int i = 0; CHAR ch1, ch2;
 	do {ch1 = x[i]; ch2 = y[i]; i++;
 		if (!ch1) return -(int)ch2;
@@ -59,7 +59,7 @@ int SYSTEM_STRCMP (CHAR *x, CHAR *y)
 }
 
 /*--------------------------------- Cut here ---------------------------------*/
-void SYSTEM_STRCOPY (CHAR *to, CHAR *from) __naked __z88dk_callee {
+void SYSTEM_STRCOPYCC (CHAR *to, CHAR *from) __naked __z88dk_callee {
 __asm      ; n = 0; do { to[n] = from[n]; } while (from[n++] != '\0');
            POP  HL
            POP  DE           ; to[]
@@ -70,7 +70,7 @@ COPY_STR$: CP   (HL)
            JR   NZ, COPY_STR$
            RET
 __endasm;
-} //SYSTEM_STRCOPY
+} //SYSTEM_STRCOPYCC
 
 /*--------------------------------- Cut here ---------------------------------*/
 SHORTINT SYSTEM_STRLEN (CHAR *str) __z88dk_fastcall {

@@ -1,4 +1,4 @@
-MODULE TRDOS; IMPORT SYSTEM;
+MODULE [foreign] TRDOS; IMPORT SYSTEM;
 
 (* * * * * * * * * * * * * * * * * * * * * * * *)
 (* Обертка к функциям TR-DOS для SDCC          *)
@@ -34,60 +34,53 @@ TYPE
   END;
 
 (* Прототипы функций: *)
-PROCEDURE IsDisk* (): BOOLEAN; END IsDisk;
+PROCEDURE- IsDisk* (): BOOLEAN;
 
 (* функция #01 TR-DOS: *)
 (*          drive name ('a','b','c','d'), не чувствительна к регистру *)
-PROCEDURE DriveSel* (driveLetter: UCHAR); END DriveSel;
+PROCEDURE- DriveSel* (driveLetter: UCHAR);
 
 (* функция #00 TR-DOS: *)
-PROCEDURE Init* ; END Init;
+PROCEDURE- Init*;
 
 (* функция #18 TR-DOS: *)
-PROCEDURE DiskTune* ; END DiskTune;
+PROCEDURE- DiskTune*;
 
 (* функция #05 TR-DOS: *)
 (*           destptr,     track pos,    sector pos,    len in sectors *)
-PROCEDURE ReadSectors* (
+PROCEDURE- ReadSectors* (
   destPtr: UCHARPTR; trackPos, sectorPos, LenInSectors: UCHAR);
-END ReadSectors;
 
 (* функция #08 TR-DOS: *)
 (*             destptr,          file number *)
-PROCEDURE ReadFileDSP* (destPtr: UCHARPTR; fileNumber: UCHAR);
-END ReadFileDSP; 
+PROCEDURE- ReadFileDSP* (destPtr: UCHARPTR; fileNumber: UCHAR);
 
 (* функция #06 TR-DOS: *)
 (*           srctptr,     track pos,    sector pos,    len in sectors *)
-PROCEDURE WriteSectors* (
+PROCEDURE- WriteSectors* (
   srctPtr: UCHARPTR; trackPos, sectorPos, LenInSectors: UCHAR);
-END WriteSectors;
 
 (* функция #09 TR-DOS: *)
 (*              srctptr,       file number *)
-PROCEDURE WriteFileDSP* (srctPtr: UCHARPTR; fileNumber: UCHAR);
-END WriteFileDSP;
+PROCEDURE- WriteFileDSP* (srctPtr: UCHARPTR; fileNumber: UCHAR);
 
 (* функция #0A TR-DOS: *)
 (*              name ptr  name len *)
-PROCEDURE FindFile* (name: ARRAY OF UCHAR; nameLen: UCHAR): UCHAR;
-END FindFile;
+PROCEDURE- FindFile* (name: ARRAY OF UCHAR; nameLen: UCHAR): UCHAR;
 
 (* функция #0B TR-DOS: *)
 (*          name ptr  data ptr     file data len *)
-PROCEDURE WriteFile* (
+PROCEDURE- WriteFile* (
   name: ARRAY OF UCHAR; dataPtr: UCHARPTR; dataLen: UINT);
-END WriteFile;
 
 (* функция #12 TR-DOS: *)
 (*          FDSP ptr *)
-PROCEDURE EraseFile* (name: ARRAY OF UCHAR); END EraseFile;
+PROCEDURE- EraseFile* (name: ARRAY OF UCHAR);
 
 (* функция #0E TR-DOS, (23801) = 0: *)
 
 (*          name ptr  dest ptr    file data len *)
-PROCEDURE LoadFile* (
+PROCEDURE- LoadFile* (
   name: ARRAY OF UCHAR; destPtr: UCHARPTR; fileDataLen: UINT);
-END LoadFile;
 
 END TRDOS.

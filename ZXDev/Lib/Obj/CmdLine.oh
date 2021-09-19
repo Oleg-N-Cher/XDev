@@ -6,7 +6,7 @@
 #include "SYSTEM.oh"
 
 typedef
-	CHAR CmdLine_String [1];
+	CHAR CmdLine_String[1];
 
 
 

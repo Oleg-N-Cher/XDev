@@ -12,8 +12,8 @@ CONST
   V  = 20; (* Number of turns. Can be changed from 1 to .. *)
 
 VAR
-  i, x, y: INT16; yr1, yr2: REAL32;
-	Sina, Cosa: ARRAY 361 OF REAL32;
+  i, x, y: INT16; yr1, yr2: REAL;
+	Sina, Cosa: ARRAY 361 OF REAL;
 
 PROCEDURE PrepareTables;
 VAR
