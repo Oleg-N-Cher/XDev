@@ -8,12 +8,12 @@
 
 
 
-import SHORTREAL o7Math_cos (SHORTREAL x);
-import SHORTREAL o7Math_exp (SHORTREAL x);
-import SHORTREAL o7Math_ln (SHORTREAL x);
-import SHORTREAL o7Math_sin (SHORTREAL x);
-import SHORTREAL o7Math_sqrt (SHORTREAL x);
-import void *o7Math__init (void);
+import SHORTREAL o7Math_Cos (SHORTREAL x);
+import SHORTREAL o7Math_Exp (SHORTREAL x);
+import SHORTREAL o7Math_Ln (SHORTREAL x);
+import SHORTREAL o7Math_Sin (SHORTREAL x);
+import SHORTREAL o7Math_Sqrt (SHORTREAL x);
+#define o7Math__init()
 
 
 #endif

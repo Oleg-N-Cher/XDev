@@ -68,6 +68,7 @@ void *alloca(SYSTEM_ADR size);
 typedef unsigned char  BOOLEAN;
 typedef signed char    BYTE;
 typedef unsigned char  CHAR;
+typedef unsigned short LONGCHAR;  // 16-bit character
 typedef short          SHORTINT;
 typedef int            INTEGER;   // INTEGER is 32 bit.
 typedef unsigned int   SET;       // SET is 32 bit.
@@ -171,6 +172,14 @@ static inline INTEGER __STRLEN (CHAR *str, INTEGER len, CHAR *mod, INTEGER pos)
 static inline INTEGER __CSTRLEN (CHAR *str) { // LEN(unsafe$)
   INTEGER n = 0; while (str[n]) n++; return n;
 }
+static inline INTEGER __STRLENL (LONGCHAR *str, INTEGER len, CHAR *mod, INTEGER pos)
+{
+  INTEGER n = 0; while (len-- && str[n]) n++; if (str[n]) __HALT(-8, mod, pos);
+  return n;
+}
+static inline INTEGER __CSTRLENL (LONGCHAR *str) { // LEN(Cstr$)
+  INTEGER n = 0; while (str[n]) n++; return n;
+}
 
 
 // Inline string, record and array copy
@@ -215,6 +224,8 @@ static inline LONGINT   __VALL (REAL x)      { return *(LONGINT*)  &x; }
 #define __SHORTF(x, y, mod, pos)  ((int)(__RF((x)+(y), (y)+(y), mod, pos)-(y)))
 #define __CHR(x, mod, pos)        ((CHAR)__R(x, 256, mod, pos))
 #define __CHRF(x, mod, pos)       ((CHAR)__RF(x, 256, mod, pos))
+#define __CHRL(x, mod, pos)       ((LONGCHAR)__R(x, 65536, mod, pos))
+#define __CHRFL(x, mod, pos)      ((LONGCHAR)__RF(x, 65536, mod, pos))
 #define __DIV(x, y)     ((x)>=0?(x)/(y):-(((y)-1-(x))/(y)))
 #define __DIVF(x, y)    SYSTEM_DIV(x, y)
 #define __MOD(x, y)     ((x)>=0?(x)%(y):__MODF(x,y))

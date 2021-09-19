@@ -3,13 +3,13 @@
 #include "Ignore.oh"
 
 typedef
-	CHAR (*CmdLine_ArgPtr) [1024];
+	CHAR (*CmdLine_ArgPtr)[1024];
 
 typedef
-	CmdLine_ArgPtr (*CmdLine_ArgVec) [1024];
+	CmdLine_ArgPtr (*CmdLine_ArgVec)[1024];
 
 typedef
-	CHAR CmdLine_String [1024];
+	CHAR CmdLine_String[1024];
 
 
 export INTEGER CmdLine_ParamCount;
@@ -34,7 +34,7 @@ void CmdLine_GetParam (INTEGER n, CHAR *val, INTEGER val__len)
 /*----------------------------------------------------------------------------*/
 void CmdLine_GetParamInt (INTEGER n, INTEGER *val)
 {
-	CHAR s [64];
+	CHAR s[64];
 	INTEGER k, d, i;
 	s[0] = 0x00;
 	CmdLine_GetParam(n, (void*)s, 64);

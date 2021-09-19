@@ -45,7 +45,7 @@ void ConsoleWinApi_WriteLn (void)
 /*----------------------------------------------------------------------------*/
 void ConsoleWinApi_WriteInt (INTEGER n)
 {
-	CHAR s [11];
+	CHAR s[11];
 	INTEGER i1, k;
 	if (n == (-2147483647-1)) {
 		__MOVE("8463847412", s, 11);
@@ -74,7 +74,7 @@ void ConsoleWinApi_WriteInt (INTEGER n)
 /*----------------------------------------------------------------------------*/
 void ConsoleWinApi_WriteLong (LONGINT n)
 {
-	CHAR s [20];
+	CHAR s[20];
 	LONGINT i1;
 	INTEGER k;
 	if (n == (-9223372036854775807LL-1)) {
@@ -147,7 +147,7 @@ void ConsoleWinApi_WriteReal (REAL x)
 {
 	LONGINT m;
 	INTEGER e, i;
-	CHAR d [16];
+	CHAR d[16];
 	e = __MASK((INTEGER)__ASHR(__VAL(LONGINT, x), 52, LONGINT), -2048);
 	if (e == 0) {
 		ConsoleWinApi_WriteCh('0');

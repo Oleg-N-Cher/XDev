@@ -4,20 +4,20 @@
 
 
 
-export SHORTREAL o7Math_cos (SHORTREAL x);
-export SHORTREAL o7Math_exp (SHORTREAL x);
-export SHORTREAL o7Math_ln (SHORTREAL x);
-export SHORTREAL o7Math_sin (SHORTREAL x);
-export SHORTREAL o7Math_sqrt (SHORTREAL x);
+export SHORTREAL o7Math_Cos (SHORTREAL x);
+export SHORTREAL o7Math_Exp (SHORTREAL x);
+export SHORTREAL o7Math_Ln (SHORTREAL x);
+export SHORTREAL o7Math_Sin (SHORTREAL x);
+export SHORTREAL o7Math_Sqrt (SHORTREAL x);
 
 
 /*============================================================================*/
 
-SHORTREAL o7Math_sqrt (SHORTREAL x)
+SHORTREAL o7Math_Sqrt (SHORTREAL x)
 {
 	SHORTREAL s;
 	INTEGER e;
-	__ASSERT(x >= (SHORTREAL)0, 0, (CHAR*)"o7Math", -248);
+	__ASSERT(x >= (SHORTREAL)0, 0, (CHAR*)"o7Math", -318);
 	if (x > (SHORTREAL)0) {
 		__UNPK(&x, &e);
 		s = 0.5901620388031006 * (x + 0.7071068286895752);
@@ -35,7 +35,7 @@ SHORTREAL o7Math_sqrt (SHORTREAL x)
 }
 
 /*----------------------------------------------------------------------------*/
-SHORTREAL o7Math_exp (SHORTREAL x)
+SHORTREAL o7Math_Exp (SHORTREAL x)
 {
 	INTEGER n;
 	SHORTREAL p, y, yy;
@@ -50,11 +50,11 @@ SHORTREAL o7Math_exp (SHORTREAL x)
 }
 
 /*----------------------------------------------------------------------------*/
-SHORTREAL o7Math_ln (SHORTREAL x)
+SHORTREAL o7Math_Ln (SHORTREAL x)
 {
 	INTEGER e;
 	SHORTREAL xx, y;
-	__ASSERT(x > (SHORTREAL)0, 0, (CHAR*)"o7Math", -1261);
+	__ASSERT(x > (SHORTREAL)0, 0, (CHAR*)"o7Math", -1226);
 	__UNPK(&x, &e);
 	if (x < 0.7071068286895752) {
 		x = x * (SHORTREAL)2;
@@ -67,7 +67,7 @@ SHORTREAL o7Math_ln (SHORTREAL x)
 }
 
 /*----------------------------------------------------------------------------*/
-SHORTREAL o7Math_sin (SHORTREAL x)
+SHORTREAL o7Math_Sin (SHORTREAL x)
 {
 	INTEGER n;
 	SHORTREAL y, yy, f;
@@ -91,7 +91,7 @@ SHORTREAL o7Math_sin (SHORTREAL x)
 }
 
 /*----------------------------------------------------------------------------*/
-SHORTREAL o7Math_cos (SHORTREAL x)
+SHORTREAL o7Math_Cos (SHORTREAL x)
 {
 	INTEGER n;
 	SHORTREAL y, yy, f;
@@ -115,11 +115,3 @@ SHORTREAL o7Math_cos (SHORTREAL x)
 }
 
 /*----------------------------------------------------------------------------*/
-
-export void *o7Math__init (void)
-{
-	__DEFMOD;
-	__REGMOD("o7Math", 0);
-/* BEGIN */
-	__ENDMOD;
-}

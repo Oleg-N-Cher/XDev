@@ -11,6 +11,7 @@
 #define CMath__init()
 
 #include <math.h>
-#define CMath_sin(x)	sin(x)
+#define CMath_cos(x)	cosf(x)
+#define CMath_sin(x)	sinf(x)
 
 #endif
