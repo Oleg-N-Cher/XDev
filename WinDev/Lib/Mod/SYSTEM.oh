@@ -1,5 +1,5 @@
-#ifndef SYSTEM__h
-#define SYSTEM__h
+#ifndef SYSTEM__oh
+#define SYSTEM__oh
 
 
 
@@ -16,20 +16,15 @@
 
 #if (__SIZEOF_POINTER__ == 8) || defined (_LP64) || defined(__LP64__) || defined(_WIN64)
 #  ifdef _WIN64
-     typedef unsigned long long SYSTEM_ADR;
+     typedef unsigned long long __U_ADRINT;
      typedef          long long SYSTEM_ADRINT;
 #  else
-     typedef unsigned long      SYSTEM_ADR;
+     typedef unsigned long      __U_ADRINT;
      typedef          long      SYSTEM_ADRINT;
 #  endif
 #else
-#  ifdef __OpenBSD__
-     typedef unsigned long      SYSTEM_ADR;
-     typedef          long      SYSTEM_ADRINT;
-#  else
-     typedef unsigned int       SYSTEM_ADR;
+     typedef unsigned int       __U_ADRINT;
      typedef          int       SYSTEM_ADRINT;
-#  endif
 #endif
 
 typedef int SYSTEM_ARRLEN; // 32 or 64 bits, see also OPM.IndexSize and MaxIndex
@@ -38,12 +33,16 @@ typedef int SYSTEM_ARRLEN; // 32 or 64 bits, see also OPM.IndexSize and MaxIndex
 // Declare memcpy in a way compatible with C compilers intrinsic
 // built in implementations.
 
-void *memcpy(void *dest, const void *source, SYSTEM_ADR size);
-#ifdef _MSC_VER
-#  define alloca _alloca
+#ifdef __OpenBSD__
+   extern void *memcpy (void *dest, const void *source, unsigned long size);
+   extern void *alloca (unsigned long size);
+#else
+   extern void *memcpy (void *dest, const void *source, __U_ADRINT size);
+#  ifdef _MSC_VER
+#    define alloca _alloca
+#  endif
+   extern void *alloca (__U_ADRINT size);
 #endif
-void *alloca(SYSTEM_ADR size);
-
 
 
 // The compiler uses 'import' and 'export' which translate to 'extern' and
@@ -70,13 +69,13 @@ typedef signed char    BYTE;
 typedef unsigned char  CHAR;
 typedef unsigned short LONGCHAR;  // 16-bit character
 typedef short          SHORTINT;
-typedef int            INTEGER;   // INTEGER is 32 bit.
-typedef unsigned int   SET;       // SET is 32 bit.
+typedef int            INTEGER;   // INTEGER is 32 bit
+typedef unsigned int   SET;       // SET is 32 bit
 typedef float          SHORTREAL;
 typedef double         REAL;
 typedef void*          SYSTEM_PTR;
 
-// Unsigned variants are for use by shift and rotate macros.
+// Unsigned variants are for use by shift and rotate macros
 
 typedef unsigned char  __U_BYTE;
 typedef unsigned char  __U_CHAR;

@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sxt7 -48 */
+/* Ofront+ 1.0 -sxtw7 -48 */
 #include "SYSTEM.oh"
 
 
@@ -17,7 +17,7 @@ SHORTREAL o7Math_Sqrt (SHORTREAL x)
 {
 	SHORTREAL s;
 	INTEGER e;
-	__ASSERT(x >= (SHORTREAL)0, 0, (CHAR*)"o7Math", -318);
+	__ASSERT(x >= (SHORTREAL)0, 0, (CHAR*)"o7Math", 1);
 	if (x > (SHORTREAL)0) {
 		__UNPK(&x, &e);
 		s = 0.5901620388031006 * (x + 0.7071068286895752);
@@ -54,7 +54,7 @@ SHORTREAL o7Math_Ln (SHORTREAL x)
 {
 	INTEGER e;
 	SHORTREAL xx, y;
-	__ASSERT(x > (SHORTREAL)0, 0, (CHAR*)"o7Math", -1226);
+	__ASSERT(x > (SHORTREAL)0, 0, (CHAR*)"o7Math", 1);
 	__UNPK(&x, &e);
 	if (x < 0.7071068286895752) {
 		x = x * (SHORTREAL)2;
