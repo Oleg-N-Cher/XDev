@@ -37,15 +37,18 @@ BEGIN
 END IsAlphaNumeric
 
 PROCEDURE WriteName
-  VAR i, j: INTEGER; name: cmd.String;
+  VAR i, j: INTEGER; ch: CHAR; name: cmd.String;
 BEGIN
-  i := 0; j := 0
-  WHILE i < LEN(fileName) DO
-    name[j] := fileName[i]
+  i := 0; j := 0 ch := fileName[0]
+  REPEAT
+    name[j] := ch
     INC(j)
-    IF (fileName[i] = "\") OR (fileName[i] = "/") THEN j := 0 END
+    IF (ch = '\') OR (ch = '/') THEN j := 0 END
     INC(i)
-  END
+    IF (ch # 0X) & (i < LEN(fileName)) THEN ch := fileName[i]
+    ELSE ch := 0X
+    END
+  UNTIL ch = 0X
   i := 0
   WHILE IsAlphaNumeric(name[i]) DO
     io.WriteCh(name[i])
@@ -122,7 +125,7 @@ BEGIN
     WriteStrLn("Copyright (C) 2021 Oleg N. Cher, VEDAsoft Oberon Club")
     io.WriteLn
     WriteStrLn("Usage: bin2ob filename [filename [...]]")
-    WriteStrLn("  Example: bin2ob mybin")
+    WriteStrLn("  Example: bin2ob mybin1 mybin2 mybin3")
     HALT(1)
   ELSE
     FOR n := 1 TO cmd.ParamCount DO
