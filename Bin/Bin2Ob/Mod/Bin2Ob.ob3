@@ -1,0 +1,133 @@
+MODULE Bin2Ob (*$MAIN*)
+IMPORT
+  SYSTEM, cmd := CmdLine, io := Console, Files
+
+CONST
+  BinMaxSize = 65536 * 4
+  SysByte = FALSE
+  NumsPerLine = 12
+
+VAR
+  fileName: cmd.String; n, fileSize: INTEGER;
+  file: Files.FileToRead;
+  bin: ARRAY BinMaxSize OF SYSTEM.BYTE;
+
+PROCEDURE WriteStrLn (str: ARRAY OF CHAR)
+BEGIN
+  io.WriteStr(str) io.WriteLn
+END WriteStrLn
+
+PROCEDURE IsAlpha (ch: CHAR): BOOLEAN
+BEGIN
+  CASE ch OF
+    "a".."z", "A".."Z": RETURN TRUE
+  ELSE
+  END
+  RETURN FALSE
+END IsAlpha
+
+PROCEDURE IsNumeric (ch: CHAR): BOOLEAN
+BEGIN
+  RETURN ("0" <= ch) & (ch <= "9")
+END IsNumeric
+
+PROCEDURE IsAlphaNumeric (ch: CHAR): BOOLEAN
+BEGIN
+  RETURN IsAlpha(ch) OR IsNumeric(ch)
+END IsAlphaNumeric
+
+PROCEDURE WriteName
+  VAR i, j: INTEGER; name: cmd.String;
+BEGIN
+  i := 0; j := 0
+  WHILE i < LEN(fileName) DO
+    name[j] := fileName[i]
+    INC(j)
+    IF (fileName[i] = "\") OR (fileName[i] = "/") THEN j := 0 END
+    INC(i)
+  END
+  i := 0
+  WHILE IsAlphaNumeric(name[i]) DO
+    io.WriteCh(name[i])
+    INC(i)
+  END
+END WriteName
+
+PROCEDURE ReadFile
+BEGIN
+  file.OpenToRead(fileName)
+  IF file.error OR file.end THEN
+    WriteStrLn("Can't open file.") WriteStrLn(fileName)
+    HALT(1)
+  END
+  fileSize := 0
+  WHILE ~ (file.error OR file.end) DO
+    bin[fileSize] := file.ReadByte()
+    INC(fileSize)
+    IF fileSize >= BinMaxSize THEN
+      file.Close
+      io.WriteStr("File ") io.WriteStr(fileName) WriteStrLn(" too big")
+      HALT(1)
+    END
+  END
+  IF file.error THEN
+    file.Close
+    io.WriteStr("Can't read file ") WriteStrLn(fileName) HALT(1)
+  END
+  file.Close
+END ReadFile
+
+PROCEDURE WriteHex (i: INTEGER)
+  TYPE THex = ARRAY 16 OF CHAR
+  CONST Hex = THex("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
+BEGIN
+  io.WriteCh("0")
+  io.WriteCh(Hex[i DIV 16])
+  io.WriteCh(Hex[i MOD 16])
+  IF SysByte THEN io.WriteCh("H") ELSE io.WriteCh("X") END
+END WriteHex
+
+PROCEDURE WriteData
+  VAR i, nums: INTEGER
+BEGIN
+  i := 0
+  nums := NumsPerLine
+  WHILE i < fileSize DO
+    IF nums = NumsPerLine THEN
+      nums := 0 io.WriteLn io.WriteStr("    ")
+    END
+    WriteHex(bin[i])
+    INC(i)
+    IF i # fileSize THEN io.WriteCh(",") END
+    INC(nums)
+  END
+  io.WriteLn WriteStrLn("  );") io.WriteLn
+END WriteData
+
+PROCEDURE Convert
+BEGIN
+	ReadFile
+  WriteStrLn("TYPE") io.WriteStr("  T") WriteName 
+  io.WriteStr(" = ARRAY ") io.WriteInt(fileSize)
+  io.WriteStr(" OF ")
+  IF SysByte THEN WriteStrLn("SYSTEM.BYTE;") ELSE WriteStrLn("CHAR;") END
+  WriteStrLn("CONST") io.WriteStr("  ") WriteName
+  io.WriteStr("* = T") WriteName
+  io.WriteStr(" (") WriteData
+END Convert
+
+BEGIN
+  IF cmd.ParamCount = 0 THEN
+    WriteStrLn("Bin2Ob v1.0: convert a binary file to Oberon array")
+    WriteStrLn("Copyright (C) 2021 Oleg N. Cher, VEDAsoft Oberon Club")
+    io.WriteLn
+    WriteStrLn("Usage: bin2ob filename [filename [...]]")
+    WriteStrLn("  Example: bin2ob mybin")
+    HALT(1)
+  ELSE
+    FOR n := 1 TO cmd.ParamCount DO
+      cmd.GetParam(n, @fileName)
+      Convert
+    END
+  END
+END Bin2Ob.
