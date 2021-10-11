@@ -1,0 +1,27 @@
+#ifndef SysVar__oh
+#define SysVar__oh
+
+__at(0x5C00) unsigned char SysVar_KSTATE [8];
+__at(0x5C08) unsigned char SysVar_LAST_K;
+__at(0x5C09) unsigned char SysVar_REPDEL;
+__at(0x5C0A) unsigned char SysVar_REPPER;
+__at(0x5C38) unsigned char SysVar_RASP;
+__at(0x5C39) unsigned char SysVar_PIP;
+__at(0x5C3B) unsigned char SysVar_FLAGS;
+__at(0x5C48) unsigned char SysVar_BORDER;
+__at(0x5C76) unsigned int  SysVar_SEED;
+__at(0x5C78) unsigned char SysVar_FRAMES [3];
+__at(0x5C7D) unsigned char SysVar_COORDS [2];
+__at(0x5C8D) unsigned char SysVar_ATTR_P;
+__at(0x5C8F) unsigned char SysVar_ATTR_T;
+__at(0x5C8E) unsigned char SysVar_MASK_P;
+__at(0x5C90) unsigned char SysVar_MASK_T;
+__at(0x5C88) unsigned char SysVar_SPOSN;
+__at(0x5C84) unsigned char SysVar_DF_CC;
+__at(0x5C8A) unsigned char SysVar_SPONSL;
+__at(0x5C86) unsigned char SysVar_DFCCL;
+__at(0x5C91) unsigned char SysVar_P_FLAG;
+
+#define SysVar__init()
+
+#endif

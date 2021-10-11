@@ -1,13 +1,11 @@
 MODULE IM1;
-IMPORT B := Basic;
-CONST
-  LAST_K = 5C08H; FRAMES_CNTR = 5C78H;
+IMPORT B := Basic, SysVar;
 BEGIN (*$MAIN*)
   B.Init;
-  B.POKE(LAST_K, 0); B.AT(0, 0); B.PRSTR("Press SPACE to exit");
+  SysVar.LAST_K := 0; B.AT(0, 0); B.PRSTR("Press SPACE to exit");
   REPEAT
-    B.AT(4, 4); B.PRINT(B.PEEK(LAST_K)); B.PRSTR("   ");
-    B.AT(8, 8); B.PRINT(B.PEEK(FRAMES_CNTR)); B.PRSTR("   ");
-  UNTIL B.PEEK(LAST_K) = 20H;
+    B.AT(4, 4); B.PRINT(SysVar.LAST_K); B.PRSTR("   ");
+    B.AT(8, 8); B.PRINT(SysVar.FRAMES[0]); B.PRSTR("   ");
+  UNTIL SysVar.LAST_K = 20H;
   B.Quit;
 END IM1.

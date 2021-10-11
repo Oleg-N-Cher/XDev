@@ -23,4 +23,4 @@
 
 /* Use ROM calculator or BetaBasic way for generating a RND value: */
 
-//#define RAND_ROM
+#define RAND_ROM
