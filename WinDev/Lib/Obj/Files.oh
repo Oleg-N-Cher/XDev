@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sxt3 -48 */
+/* Ofront+ 1.0 -sxtw3 -48 */
 
 #ifndef Files__oh
 #define Files__oh
@@ -6,11 +6,11 @@
 #include "SYSTEM.oh"
 
 typedef
-	struct Files_File {
-		INTEGER _prvt0;
-		char _prvt1[4];
-		BOOLEAN end, error;
-	} Files_File;
+  struct Files_File {
+    INTEGER _prvt0;
+    char _prvt1[4];
+    BOOLEAN end, error;
+  } Files_File;
 
 import void Files_File_Close (Files_File *file, SYSTEM_ADRINT *file__typ);
 import void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len);
@@ -20,11 +20,11 @@ import void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, 
 #define __Files_File_OpenToWrite(file, file__typ, fname, fname__len) __SEND(file__typ, Files_File_OpenToWrite, 2, void(*)(Files_File*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (file, file__typ, fname, fname__len))
 
 typedef
-	struct Files_FileToRead { /* Files_File */
-		INTEGER _prvt0;
-		char _prvt1[4];
-		BOOLEAN end, error;
-	} Files_FileToRead;
+  struct Files_FileToRead { /* Files_File */
+    INTEGER _prvt0;
+    char _prvt1[4];
+    BOOLEAN end, error;
+  } Files_FileToRead;
 
 import BYTE Files_FileToRead_ReadByte (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfile__typ);
 import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT *fromfile__typ, CHAR *str, INTEGER str__len);
@@ -32,11 +32,11 @@ import void Files_FileToRead_ReadStr (Files_FileToRead *fromfile, SYSTEM_ADRINT 
 #define __Files_FileToRead_ReadStr(fromfile, fromfile__typ, str, str__len) __SEND(fromfile__typ, Files_FileToRead_ReadStr, 4, void(*)(Files_FileToRead*, SYSTEM_ADRINT *, CHAR*, INTEGER ), (fromfile, fromfile__typ, str, str__len))
 
 typedef
-	struct Files_FileToWrite { /* Files_File */
-		INTEGER _prvt0;
-		char _prvt1[4];
-		BOOLEAN end, error;
-	} Files_FileToWrite;
+  struct Files_FileToWrite { /* Files_File */
+    INTEGER _prvt0;
+    char _prvt1[4];
+    BOOLEAN end, error;
+  } Files_FileToWrite;
 
 import void Files_FileToWrite_WriteByte (Files_FileToWrite *tofile, SYSTEM_ADRINT *tofile__typ, BYTE byte);
 import void Files_FileToWrite_WriteStr (Files_FileToWrite *tofile, SYSTEM_ADRINT *tofile__typ, CHAR *str, INTEGER str__len);

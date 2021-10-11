@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sxtC -48 */
+/* Ofront+ 1.0 -sxtwC -48 */
 
 #ifndef WinApi__oh
 #define WinApi__oh
@@ -6,3973 +6,3973 @@
 #include "SYSTEM.oh"
 
 typedef
-	struct WinApi_ABC {
-		INTEGER abcA, abcB, abcC;
-	} WinApi_ABC;
+  struct WinApi_ABC {
+    INTEGER abcA, abcB, abcC;
+  } WinApi_ABC;
 
 typedef
-	struct WinApi_ABCFLOAT {
-		SHORTREAL abcfA, abcfB, abcfC;
-	} WinApi_ABCFLOAT;
+  struct WinApi_ABCFLOAT {
+    SHORTREAL abcfA, abcfB, abcfC;
+  } WinApi_ABCFLOAT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_ABORTPROC)(INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_ABORTPROC)(INTEGER, INTEGER);
 
 typedef
-	struct WinApi_ACCEL {
-		CHAR fVirt;
-		SHORTINT key, cmd;
-	} WinApi_ACCEL;
+  struct WinApi_ACCEL {
+    CHAR fVirt;
+    SHORTINT key, cmd;
+  } WinApi_ACCEL;
 
 typedef
-	struct WinApi_ACCESSTIMEOUT {
-		INTEGER cbSize;
-		SET dwFlags;
-		INTEGER iTimeOutMSec;
-	} WinApi_ACCESSTIMEOUT;
+  struct WinApi_ACCESSTIMEOUT {
+    INTEGER cbSize;
+    SET dwFlags;
+    INTEGER iTimeOutMSec;
+  } WinApi_ACCESSTIMEOUT;
 
 typedef
-	struct WinApi_ACE_HEADER {
-		CHAR AceType, AceFlags;
-		SHORTINT AceSize;
-	} WinApi_ACE_HEADER;
+  struct WinApi_ACE_HEADER {
+    CHAR AceType, AceFlags;
+    SHORTINT AceSize;
+  } WinApi_ACE_HEADER;
 
 typedef
-	struct WinApi_ACCESS_ALLOWED_ACE {
-		WinApi_ACE_HEADER Header;
-		SET Mask;
-		INTEGER SidStart;
-	} WinApi_ACCESS_ALLOWED_ACE;
+  struct WinApi_ACCESS_ALLOWED_ACE {
+    WinApi_ACE_HEADER Header;
+    SET Mask;
+    INTEGER SidStart;
+  } WinApi_ACCESS_ALLOWED_ACE;
 
 typedef
-	struct WinApi_ACCESS_DENIED_ACE {
-		WinApi_ACE_HEADER Header;
-		SET Mask;
-		INTEGER SidStart;
-	} WinApi_ACCESS_DENIED_ACE;
+  struct WinApi_ACCESS_DENIED_ACE {
+    WinApi_ACE_HEADER Header;
+    SET Mask;
+    INTEGER SidStart;
+  } WinApi_ACCESS_DENIED_ACE;
 
 typedef
-	struct WinApi_ACL {
-		CHAR AclRevision, Sbz1;
-		SHORTINT AclSize, AceCount, Sbz2;
-	} WinApi_ACL;
+  struct WinApi_ACL {
+    CHAR AclRevision, Sbz1;
+    SHORTINT AclSize, AceCount, Sbz2;
+  } WinApi_ACL;
 
 typedef
-	struct WinApi_ACL_REVISION_INFORMATION {
-		INTEGER AclRevision;
-	} WinApi_ACL_REVISION_INFORMATION;
+  struct WinApi_ACL_REVISION_INFORMATION {
+    INTEGER AclRevision;
+  } WinApi_ACL_REVISION_INFORMATION;
 
 typedef
-	struct WinApi_ACL_SIZE_INFORMATION {
-		INTEGER AceCount, AclBytesInUse, AclBytesFree;
-	} WinApi_ACL_SIZE_INFORMATION;
+  struct WinApi_ACL_SIZE_INFORMATION {
+    INTEGER AceCount, AclBytesInUse, AclBytesFree;
+  } WinApi_ACL_SIZE_INFORMATION;
 
 typedef
-	CHAR *WinApi_PtrSTR;
+  CHAR *WinApi_PtrSTR;
 
 typedef
-	struct WinApi_ADDJOB_INFO_1A {
-		WinApi_PtrSTR Path;
-		INTEGER JobId;
-	} WinApi_ADDJOB_INFO_1A;
+  struct WinApi_ADDJOB_INFO_1A {
+    WinApi_PtrSTR Path;
+    INTEGER JobId;
+  } WinApi_ADDJOB_INFO_1A;
 
 typedef
-	LONGCHAR *WinApi_PtrWSTR;
+  LONGCHAR *WinApi_PtrWSTR;
 
 typedef
-	struct WinApi_ADDJOB_INFO_1W {
-		WinApi_PtrWSTR Path;
-		INTEGER JobId;
-	} WinApi_ADDJOB_INFO_1W;
+  struct WinApi_ADDJOB_INFO_1W {
+    WinApi_PtrWSTR Path;
+    INTEGER JobId;
+  } WinApi_ADDJOB_INFO_1W;
 
 typedef
-	struct WinApi_ANIMATIONINFO {
-		INTEGER cbSize, iMinAnimate;
-	} WinApi_ANIMATIONINFO;
+  struct WinApi_ANIMATIONINFO {
+    INTEGER cbSize, iMinAnimate;
+  } WinApi_ANIMATIONINFO;
 
 typedef
-	void (__STDCALL *WinApi_APCFUNC)(INTEGER);
+  void (__STDCALL *WinApi_APCFUNC)(INTEGER);
 
 typedef
-	struct WinApi_BITMAP {
-		INTEGER bmType, bmWidth, bmHeight, bmWidthBytes;
-		SHORTINT bmPlanes, bmBitsPixel;
-		INTEGER bmBits;
-	} WinApi_BITMAP;
+  struct WinApi_BITMAP {
+    INTEGER bmType, bmWidth, bmHeight, bmWidthBytes;
+    SHORTINT bmPlanes, bmBitsPixel;
+    INTEGER bmBits;
+  } WinApi_BITMAP;
 
 typedef
-	struct WinApi_BITMAPCOREHEADER {
-		INTEGER bcSize;
-		SHORTINT bcWidth, bcHeight, bcPlanes, bcBitCount;
-	} WinApi_BITMAPCOREHEADER;
+  struct WinApi_BITMAPCOREHEADER {
+    INTEGER bcSize;
+    SHORTINT bcWidth, bcHeight, bcPlanes, bcBitCount;
+  } WinApi_BITMAPCOREHEADER;
 
 typedef
-	struct WinApi_RGBTRIPLE {
-		CHAR rgbtBlue, rgbtGreen, rgbtRed;
-	} WinApi_RGBTRIPLE;
+  struct WinApi_RGBTRIPLE {
+    CHAR rgbtBlue, rgbtGreen, rgbtRed;
+  } WinApi_RGBTRIPLE;
 
 typedef
-	struct WinApi_BITMAPCOREINFO {
-		WinApi_BITMAPCOREHEADER bmciHeader;
-		WinApi_RGBTRIPLE bmciColors[1];
-	} WinApi_BITMAPCOREINFO;
+  struct WinApi_BITMAPCOREINFO {
+    WinApi_BITMAPCOREHEADER bmciHeader;
+    WinApi_RGBTRIPLE bmciColors[1];
+  } WinApi_BITMAPCOREINFO;
 
 typedef
-	struct WinApi_BITMAPINFOHEADER {
-		INTEGER biSize, biWidth, biHeight;
-		SHORTINT biPlanes, biBitCount;
-		INTEGER biCompression, biSizeImage, biXPelsPerMeter, biYPelsPerMeter, biClrUsed, biClrImportant;
-	} WinApi_BITMAPINFOHEADER;
+  struct WinApi_BITMAPINFOHEADER {
+    INTEGER biSize, biWidth, biHeight;
+    SHORTINT biPlanes, biBitCount;
+    INTEGER biCompression, biSizeImage, biXPelsPerMeter, biYPelsPerMeter, biClrUsed, biClrImportant;
+  } WinApi_BITMAPINFOHEADER;
 
 typedef
-	struct WinApi_RGBQUAD {
-		CHAR rgbBlue, rgbGreen, rgbRed, rgbReserved;
-	} WinApi_RGBQUAD;
+  struct WinApi_RGBQUAD {
+    CHAR rgbBlue, rgbGreen, rgbRed, rgbReserved;
+  } WinApi_RGBQUAD;
 
 typedef
-	struct WinApi_BITMAPINFO {
-		WinApi_BITMAPINFOHEADER bmiHeader;
-		WinApi_RGBQUAD bmiColors[1];
-	} WinApi_BITMAPINFO;
+  struct WinApi_BITMAPINFO {
+    WinApi_BITMAPINFOHEADER bmiHeader;
+    WinApi_RGBQUAD bmiColors[1];
+  } WinApi_BITMAPINFO;
 
 typedef
-	struct WinApi_CIEXYZ {
-		INTEGER ciexyzX, ciexyzY, ciexyzZ;
-	} WinApi_CIEXYZ;
+  struct WinApi_CIEXYZ {
+    INTEGER ciexyzX, ciexyzY, ciexyzZ;
+  } WinApi_CIEXYZ;
 
 typedef
-	struct WinApi_CIEXYZTRIPLE {
-		WinApi_CIEXYZ ciexyzRed, ciexyzGreen, ciexyzBlue;
-	} WinApi_CIEXYZTRIPLE;
+  struct WinApi_CIEXYZTRIPLE {
+    WinApi_CIEXYZ ciexyzRed, ciexyzGreen, ciexyzBlue;
+  } WinApi_CIEXYZTRIPLE;
 
 typedef
-	struct WinApi_BITMAPV4HEADER {
-		INTEGER bV4Size, bV4Width, bV4Height;
-		SHORTINT bV4Planes, bV4BitCount;
-		INTEGER bV4V4Compression, bV4SizeImage, bV4XPelsPerMeter, bV4YPelsPerMeter, bV4ClrUsed, bV4ClrImportant, bV4RedMask, bV4GreenMask, bV4BlueMask, bV4AlphaMask, bV4CSType;
-		WinApi_CIEXYZTRIPLE bV4Endpoints;
-		INTEGER bV4GammaRed, bV4GammaGreen, bV4GammaBlue;
-	} WinApi_BITMAPV4HEADER;
+  struct WinApi_BITMAPV4HEADER {
+    INTEGER bV4Size, bV4Width, bV4Height;
+    SHORTINT bV4Planes, bV4BitCount;
+    INTEGER bV4V4Compression, bV4SizeImage, bV4XPelsPerMeter, bV4YPelsPerMeter, bV4ClrUsed, bV4ClrImportant, bV4RedMask, bV4GreenMask, bV4BlueMask, bV4AlphaMask, bV4CSType;
+    WinApi_CIEXYZTRIPLE bV4Endpoints;
+    INTEGER bV4GammaRed, bV4GammaGreen, bV4GammaBlue;
+  } WinApi_BITMAPV4HEADER;
 
 typedef
-	struct WinApi_BROADCASTSYSMSG {
-		INTEGER uiMessage, wParam, lParam;
-	} WinApi_BROADCASTSYSMSG;
+  struct WinApi_BROADCASTSYSMSG {
+    INTEGER uiMessage, wParam, lParam;
+  } WinApi_BROADCASTSYSMSG;
 
 typedef
-	INTEGER (__STDCALL *WinApi_CALINFO_ENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_CALINFO_ENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_CALINFO_ENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_CALINFO_ENUMPROCW)(void);
 
 typedef
-	struct WinApi_CBTACTIVATESTRUCT {
-		INTEGER fMouse, hWndActive;
-	} WinApi_CBTACTIVATESTRUCT;
+  struct WinApi_CBTACTIVATESTRUCT {
+    INTEGER fMouse, hWndActive;
+  } WinApi_CBTACTIVATESTRUCT;
 
 typedef
-	struct WinApi_CREATESTRUCTA *WinApi_PtrCREATESTRUCTA;
+  struct WinApi_CREATESTRUCTA *WinApi_PtrCREATESTRUCTA;
 
 typedef
-	struct WinApi_CBT_CREATEWNDA {
-		WinApi_PtrCREATESTRUCTA lpcs;
-		INTEGER hwndInsertAfter;
-	} WinApi_CBT_CREATEWNDA;
+  struct WinApi_CBT_CREATEWNDA {
+    WinApi_PtrCREATESTRUCTA lpcs;
+    INTEGER hwndInsertAfter;
+  } WinApi_CBT_CREATEWNDA;
 
 typedef
-	struct WinApi_CREATESTRUCTW *WinApi_PtrCREATESTRUCTW;
+  struct WinApi_CREATESTRUCTW *WinApi_PtrCREATESTRUCTW;
 
 typedef
-	struct WinApi_CBT_CREATEWNDW {
-		WinApi_PtrCREATESTRUCTW lpcs;
-		INTEGER hwndInsertAfter;
-	} WinApi_CBT_CREATEWNDW;
+  struct WinApi_CBT_CREATEWNDW {
+    WinApi_PtrCREATESTRUCTW lpcs;
+    INTEGER hwndInsertAfter;
+  } WinApi_CBT_CREATEWNDW;
 
 typedef
-	struct WinApi_FONTSIGNATURE {
-		INTEGER fsUsb[4];
-		INTEGER fsCsb[2];
-	} WinApi_FONTSIGNATURE;
+  struct WinApi_FONTSIGNATURE {
+    INTEGER fsUsb[4];
+    INTEGER fsCsb[2];
+  } WinApi_FONTSIGNATURE;
 
 typedef
-	struct WinApi_CHARSETINFO {
-		INTEGER ciCharset, ciACP;
-		WinApi_FONTSIGNATURE fs;
-	} WinApi_CHARSETINFO;
+  struct WinApi_CHARSETINFO {
+    INTEGER ciCharset, ciACP;
+    WinApi_FONTSIGNATURE fs;
+  } WinApi_CHARSETINFO;
 
 typedef
-	struct WinApi_CLIENTCREATESTRUCT {
-		INTEGER hWindowMenu, idFirstChild;
-	} WinApi_CLIENTCREATESTRUCT;
+  struct WinApi_CLIENTCREATESTRUCT {
+    INTEGER hWindowMenu, idFirstChild;
+  } WinApi_CLIENTCREATESTRUCT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_CODEPAGE_ENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_CODEPAGE_ENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_CODEPAGE_ENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_CODEPAGE_ENUMPROCW)(void);
 
 typedef
-	struct WinApi_COLORADJUSTMENT {
-		SHORTINT caSize, caFlags, caIlluminantIndex, caRedGamma, caGreenGamma, caBlueGamma, caReferenceBlack, caReferenceWhite, caContrast, caBrightness, caColorfulness, caRedGreenTint;
-	} WinApi_COLORADJUSTMENT;
+  struct WinApi_COLORADJUSTMENT {
+    SHORTINT caSize, caFlags, caIlluminantIndex, caRedGamma, caGreenGamma, caBlueGamma, caReferenceBlack, caReferenceWhite, caContrast, caBrightness, caColorfulness, caRedGreenTint;
+  } WinApi_COLORADJUSTMENT;
 
 typedef
-	struct WinApi_DCB {
-		INTEGER DCBlength, BaudRate;
-		SET fBits0;
-		SHORTINT wReserved, XonLim, XoffLim;
-		CHAR ByteSize, Parity, StopBits, XonChar, XoffChar, ErrorChar, EofChar, EvtChar;
-		SHORTINT wReserved1;
-	} WinApi_DCB;
+  struct WinApi_DCB {
+    INTEGER DCBlength, BaudRate;
+    SET fBits0;
+    SHORTINT wReserved, XonLim, XoffLim;
+    CHAR ByteSize, Parity, StopBits, XonChar, XoffChar, ErrorChar, EofChar, EvtChar;
+    SHORTINT wReserved1;
+  } WinApi_DCB;
 
 typedef
-	struct WinApi_COMMCONFIG {
-		INTEGER dwSize;
-		SHORTINT wVersion, wReserved;
-		WinApi_DCB dcb;
-		INTEGER dwProviderSubType, dwProviderOffset, dwProviderSize;
-		LONGCHAR wcProviderData[1];
-	} WinApi_COMMCONFIG;
+  struct WinApi_COMMCONFIG {
+    INTEGER dwSize;
+    SHORTINT wVersion, wReserved;
+    WinApi_DCB dcb;
+    INTEGER dwProviderSubType, dwProviderOffset, dwProviderSize;
+    LONGCHAR wcProviderData[1];
+  } WinApi_COMMCONFIG;
 
 typedef
-	struct WinApi_COMMPROP {
-		SHORTINT wPacketLength, wPacketVersion;
-		INTEGER dwServiceMask, dwReserved1, dwMaxTxQueue, dwMaxRxQueue;
-		SET dwMaxBaud;
-		INTEGER dwProvSubType;
-		SET dwProvCapabilities, dwSettableParams, dwSettableBaud;
-		SHORTINT wSettableData, wSettableStopParity;
-		INTEGER dwCurrentTxQueue, dwCurrentRxQueue, dwProvSpec1, dwProvSpec2;
-		LONGCHAR wcProvChar[1];
-	} WinApi_COMMPROP;
+  struct WinApi_COMMPROP {
+    SHORTINT wPacketLength, wPacketVersion;
+    INTEGER dwServiceMask, dwReserved1, dwMaxTxQueue, dwMaxRxQueue;
+    SET dwMaxBaud;
+    INTEGER dwProvSubType;
+    SET dwProvCapabilities, dwSettableParams, dwSettableBaud;
+    SHORTINT wSettableData, wSettableStopParity;
+    INTEGER dwCurrentTxQueue, dwCurrentRxQueue, dwProvSpec1, dwProvSpec2;
+    LONGCHAR wcProvChar[1];
+  } WinApi_COMMPROP;
 
 typedef
-	struct WinApi_COMMTIMEOUTS {
-		INTEGER ReadIntervalTimeout, ReadTotalTimeoutMultiplier, ReadTotalTimeoutConstant, WriteTotalTimeoutMultiplier, WriteTotalTimeoutConstant;
-	} WinApi_COMMTIMEOUTS;
+  struct WinApi_COMMTIMEOUTS {
+    INTEGER ReadIntervalTimeout, ReadTotalTimeoutMultiplier, ReadTotalTimeoutConstant, WriteTotalTimeoutMultiplier, WriteTotalTimeoutConstant;
+  } WinApi_COMMTIMEOUTS;
 
 typedef
-	struct WinApi_COMPAREITEMSTRUCT {
-		SET CtlType;
-		INTEGER CtlID, hwndItem, itemID1, itemData1, itemID2, itemData2, dwLocaleId;
-	} WinApi_COMPAREITEMSTRUCT;
+  struct WinApi_COMPAREITEMSTRUCT {
+    SET CtlType;
+    INTEGER CtlID, hwndItem, itemID1, itemData1, itemID2, itemData2, dwLocaleId;
+  } WinApi_COMPAREITEMSTRUCT;
 
 typedef
-	struct WinApi_COMPOUND_ACCESS_ALLOWED_ACE {
-		WinApi_ACE_HEADER Header;
-		SET Mask;
-		SHORTINT CompoundAceType, Reserved;
-		INTEGER SidStart;
-	} WinApi_COMPOUND_ACCESS_ALLOWED_ACE;
+  struct WinApi_COMPOUND_ACCESS_ALLOWED_ACE {
+    WinApi_ACE_HEADER Header;
+    SET Mask;
+    SHORTINT CompoundAceType, Reserved;
+    INTEGER SidStart;
+  } WinApi_COMPOUND_ACCESS_ALLOWED_ACE;
 
 typedef
-	struct WinApi_COMSTAT {
-		SET fBits0;
-		INTEGER cbInQue, cbOutQue;
-	} WinApi_COMSTAT;
+  struct WinApi_COMSTAT {
+    SET fBits0;
+    INTEGER cbInQue, cbOutQue;
+  } WinApi_COMSTAT;
 
 typedef
-	struct WinApi_CONSOLE_CURSOR_INFO {
-		INTEGER dwSize, bVisible;
-	} WinApi_CONSOLE_CURSOR_INFO;
+  struct WinApi_CONSOLE_CURSOR_INFO {
+    INTEGER dwSize, bVisible;
+  } WinApi_CONSOLE_CURSOR_INFO;
 
 typedef
-	struct WinApi_COORD {
-		SHORTINT X, Y;
-	} WinApi_COORD;
+  struct WinApi_COORD {
+    SHORTINT X, Y;
+  } WinApi_COORD;
 
 typedef
-	struct WinApi_SMALL_RECT {
-		SHORTINT Left, Top, Right, Bottom;
-	} WinApi_SMALL_RECT;
+  struct WinApi_SMALL_RECT {
+    SHORTINT Left, Top, Right, Bottom;
+  } WinApi_SMALL_RECT;
 
 typedef
-	struct WinApi_CONSOLE_SCREEN_BUFFER_INFO {
-		WinApi_COORD dwSize, dwCursorPosition;
-		SHORTINT wAttributes;
-		WinApi_SMALL_RECT srWindow;
-		WinApi_COORD dwMaximumWindowSize;
-	} WinApi_CONSOLE_SCREEN_BUFFER_INFO;
+  struct WinApi_CONSOLE_SCREEN_BUFFER_INFO {
+    WinApi_COORD dwSize, dwCursorPosition;
+    SHORTINT wAttributes;
+    WinApi_SMALL_RECT srWindow;
+    WinApi_COORD dwMaximumWindowSize;
+  } WinApi_CONSOLE_SCREEN_BUFFER_INFO;
 
 typedef
-	struct WinApi_FLOATING_SAVE_AREA {
-		INTEGER ControlWord, StatusWord, TagWord, ErrorOffset, ErrorSelector, DataOffset, DataSelector;
-		CHAR RegisterArea[80];
-		INTEGER Cr0NpxState;
-	} WinApi_FLOATING_SAVE_AREA;
+  struct WinApi_FLOATING_SAVE_AREA {
+    INTEGER ControlWord, StatusWord, TagWord, ErrorOffset, ErrorSelector, DataOffset, DataSelector;
+    CHAR RegisterArea[80];
+    INTEGER Cr0NpxState;
+  } WinApi_FLOATING_SAVE_AREA;
 
 typedef
-	struct WinApi_CONTEXT {
-		SET ContextFlags;
-		INTEGER Dr0, Dr1, Dr2, Dr3, Dr6, Dr7;
-		WinApi_FLOATING_SAVE_AREA FloatSave;
-		INTEGER SegGs, SegFs, SegEs, SegDs, Edi, Esi, Ebx, Edx, Ecx, Eax, Ebp, Eip, SegCs, EFlags, Esp, SegSs;
-	} WinApi_CONTEXT;
+  struct WinApi_CONTEXT {
+    SET ContextFlags;
+    INTEGER Dr0, Dr1, Dr2, Dr3, Dr6, Dr7;
+    WinApi_FLOATING_SAVE_AREA FloatSave;
+    INTEGER SegGs, SegFs, SegEs, SegDs, Edi, Esi, Ebx, Edx, Ecx, Eax, Ebp, Eip, SegCs, EFlags, Esp, SegSs;
+  } WinApi_CONTEXT;
 
 typedef
-	struct WinApi_SECURITY_QUALITY_OF_SERVICE {
-		INTEGER Length, ImpersonationLevel;
-		BOOLEAN ContextTrackingMode, EffectiveOnly;
-	} WinApi_SECURITY_QUALITY_OF_SERVICE;
+  struct WinApi_SECURITY_QUALITY_OF_SERVICE {
+    INTEGER Length, ImpersonationLevel;
+    BOOLEAN ContextTrackingMode, EffectiveOnly;
+  } WinApi_SECURITY_QUALITY_OF_SERVICE;
 
 typedef
-	struct WinApi_CONVCONTEXT {
-		INTEGER cb, wFlags, wCountryID, iCodePage, dwLangID, dwSecurity;
-		WinApi_SECURITY_QUALITY_OF_SERVICE qos;
-	} WinApi_CONVCONTEXT;
+  struct WinApi_CONVCONTEXT {
+    INTEGER cb, wFlags, wCountryID, iCodePage, dwLangID, dwSecurity;
+    WinApi_SECURITY_QUALITY_OF_SERVICE qos;
+  } WinApi_CONVCONTEXT;
 
 typedef
-	struct WinApi_CONVINFO {
-		INTEGER cb, hUser, hConvPartner, hszSvcPartner, hszServiceReq, hszTopic, hszItem, wFmt, wType;
-		SET wStatus;
-		INTEGER wConvst, wLastError, hConvList;
-		WinApi_CONVCONTEXT ConvCtxt;
-		INTEGER hwnd, hwndPartner;
-	} WinApi_CONVINFO;
+  struct WinApi_CONVINFO {
+    INTEGER cb, hUser, hConvPartner, hszSvcPartner, hszServiceReq, hszTopic, hszItem, wFmt, wType;
+    SET wStatus;
+    INTEGER wConvst, wLastError, hConvList;
+    WinApi_CONVCONTEXT ConvCtxt;
+    INTEGER hwnd, hwndPartner;
+  } WinApi_CONVINFO;
 
 typedef
-	struct WinApi_COPYDATASTRUCT {
-		INTEGER dwData, cbData, lpData;
-	} WinApi_COPYDATASTRUCT;
+  struct WinApi_COPYDATASTRUCT {
+    INTEGER dwData, cbData, lpData;
+  } WinApi_COPYDATASTRUCT;
 
 typedef
-	struct WinApi_CPINFO {
-		INTEGER MaxCharSize;
-		CHAR DefaultChar[2];
-		CHAR LeadByte[12];
-	} WinApi_CPINFO;
+  struct WinApi_CPINFO {
+    INTEGER MaxCharSize;
+    CHAR DefaultChar[2];
+    CHAR LeadByte[12];
+  } WinApi_CPINFO;
 
 typedef
-	struct WinApi_CREATESTRUCTA {
-		INTEGER lpCreateParams, hInstance, hMenu, hwndParent, cy, cx, y, x;
-		SET style;
-		WinApi_PtrSTR lpszName, lpszClass;
-		SET dwExStyle;
-	} WinApi_CREATESTRUCTA;
+  struct WinApi_CREATESTRUCTA {
+    INTEGER lpCreateParams, hInstance, hMenu, hwndParent, cy, cx, y, x;
+    SET style;
+    WinApi_PtrSTR lpszName, lpszClass;
+    SET dwExStyle;
+  } WinApi_CREATESTRUCTA;
 
 typedef
-	struct WinApi_CREATESTRUCTW {
-		INTEGER lpCreateParams, hInstance, hMenu, hwndParent, cy, cx, y, x;
-		SET style;
-		WinApi_PtrWSTR lpszName, lpszClass;
-		SET dwExStyle;
-	} WinApi_CREATESTRUCTW;
+  struct WinApi_CREATESTRUCTW {
+    INTEGER lpCreateParams, hInstance, hMenu, hwndParent, cy, cx, y, x;
+    SET style;
+    WinApi_PtrWSTR lpszName, lpszClass;
+    SET dwExStyle;
+  } WinApi_CREATESTRUCTW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_THREAD_START_ROUTINE)(INTEGER);
+  INTEGER (__STDCALL *WinApi_THREAD_START_ROUTINE)(INTEGER);
 
 typedef
-	struct WinApi_CREATE_PROCESS_DEBUG_INFO {
-		INTEGER hFile, hProcess, hThread, lpBaseOfImage, dwDebugInfoFileOffset, nDebugInfoSize, lpThreadLocalBase;
-		WinApi_THREAD_START_ROUTINE lpStartAddress;
-		INTEGER lpImageName;
-		SHORTINT fUnicode;
-	} WinApi_CREATE_PROCESS_DEBUG_INFO;
+  struct WinApi_CREATE_PROCESS_DEBUG_INFO {
+    INTEGER hFile, hProcess, hThread, lpBaseOfImage, dwDebugInfoFileOffset, nDebugInfoSize, lpThreadLocalBase;
+    WinApi_THREAD_START_ROUTINE lpStartAddress;
+    INTEGER lpImageName;
+    SHORTINT fUnicode;
+  } WinApi_CREATE_PROCESS_DEBUG_INFO;
 
 typedef
-	struct WinApi_CREATE_THREAD_DEBUG_INFO {
-		INTEGER hThread, lpThreadLocalBase;
-		WinApi_THREAD_START_ROUTINE lpStartAddress;
-	} WinApi_CREATE_THREAD_DEBUG_INFO;
+  struct WinApi_CREATE_THREAD_DEBUG_INFO {
+    INTEGER hThread, lpThreadLocalBase;
+    WinApi_THREAD_START_ROUTINE lpStartAddress;
+  } WinApi_CREATE_THREAD_DEBUG_INFO;
 
 typedef
-	struct WinApi_RTL_CRITICAL_SECTION_DEBUG *WinApi_PtrRTL_CRITICAL_SECTION_DEBUG;
+  struct WinApi_RTL_CRITICAL_SECTION_DEBUG *WinApi_PtrRTL_CRITICAL_SECTION_DEBUG;
 
 typedef
-	struct WinApi_RTL_CRITICAL_SECTION {
-		WinApi_PtrRTL_CRITICAL_SECTION_DEBUG DebugInfo;
-		INTEGER LockCount, RecursionCount, OwningThread, LockSemaphore, Reserved;
-	} WinApi_RTL_CRITICAL_SECTION;
+  struct WinApi_RTL_CRITICAL_SECTION {
+    WinApi_PtrRTL_CRITICAL_SECTION_DEBUG DebugInfo;
+    INTEGER LockCount, RecursionCount, OwningThread, LockSemaphore, Reserved;
+  } WinApi_RTL_CRITICAL_SECTION;
 
 typedef
-	WinApi_RTL_CRITICAL_SECTION *WinApi_PtrRTL_CRITICAL_SECTION;
+  WinApi_RTL_CRITICAL_SECTION *WinApi_PtrRTL_CRITICAL_SECTION;
 
 typedef
-	struct WinApi_LIST_ENTRY *WinApi_PtrLIST_ENTRY;
+  struct WinApi_LIST_ENTRY *WinApi_PtrLIST_ENTRY;
 
 typedef
-	struct WinApi_LIST_ENTRY {
-		WinApi_PtrLIST_ENTRY Flink, Blink;
-	} WinApi_LIST_ENTRY;
+  struct WinApi_LIST_ENTRY {
+    WinApi_PtrLIST_ENTRY Flink, Blink;
+  } WinApi_LIST_ENTRY;
 
 typedef
-	struct WinApi_RTL_CRITICAL_SECTION_DEBUG {
-		SHORTINT Type, CreatorBackTraceIndex;
-		WinApi_PtrRTL_CRITICAL_SECTION CriticalSection;
-		WinApi_LIST_ENTRY ProcessLocksList;
-		INTEGER EntryCount, ContentionCount;
-		INTEGER Spare[2];
-	} WinApi_RTL_CRITICAL_SECTION_DEBUG;
+  struct WinApi_RTL_CRITICAL_SECTION_DEBUG {
+    SHORTINT Type, CreatorBackTraceIndex;
+    WinApi_PtrRTL_CRITICAL_SECTION CriticalSection;
+    WinApi_LIST_ENTRY ProcessLocksList;
+    INTEGER EntryCount, ContentionCount;
+    INTEGER Spare[2];
+  } WinApi_RTL_CRITICAL_SECTION_DEBUG;
 
 typedef
-	struct WinApi_CURRENCYFMTA {
-		INTEGER NumDigits, LeadingZero, Grouping;
-		WinApi_PtrSTR lpDecimalSep, lpThousandSep;
-		INTEGER NegativeOrder, PositiveOrder;
-		WinApi_PtrSTR lpCurrencySymbol;
-	} WinApi_CURRENCYFMTA;
+  struct WinApi_CURRENCYFMTA {
+    INTEGER NumDigits, LeadingZero, Grouping;
+    WinApi_PtrSTR lpDecimalSep, lpThousandSep;
+    INTEGER NegativeOrder, PositiveOrder;
+    WinApi_PtrSTR lpCurrencySymbol;
+  } WinApi_CURRENCYFMTA;
 
 typedef
-	struct WinApi_CURRENCYFMTW {
-		INTEGER NumDigits, LeadingZero, Grouping;
-		WinApi_PtrWSTR lpDecimalSep, lpThousandSep;
-		INTEGER NegativeOrder, PositiveOrder;
-		WinApi_PtrWSTR lpCurrencySymbol;
-	} WinApi_CURRENCYFMTW;
+  struct WinApi_CURRENCYFMTW {
+    INTEGER NumDigits, LeadingZero, Grouping;
+    WinApi_PtrWSTR lpDecimalSep, lpThousandSep;
+    INTEGER NegativeOrder, PositiveOrder;
+    WinApi_PtrWSTR lpCurrencySymbol;
+  } WinApi_CURRENCYFMTW;
 
 typedef
-	struct WinApi_CURSORSHAPE {
-		INTEGER xHotSpot, yHotSpot, cx, cy, cbWidth;
-		CHAR Planes, BitsPixel;
-	} WinApi_CURSORSHAPE;
+  struct WinApi_CURSORSHAPE {
+    INTEGER xHotSpot, yHotSpot, cx, cy, cbWidth;
+    CHAR Planes, BitsPixel;
+  } WinApi_CURSORSHAPE;
 
 typedef
-	struct WinApi_CWPRETSTRUCT {
-		INTEGER lResult, lParam, wParam, message, hwnd;
-	} WinApi_CWPRETSTRUCT;
+  struct WinApi_CWPRETSTRUCT {
+    INTEGER lResult, lParam, wParam, message, hwnd;
+  } WinApi_CWPRETSTRUCT;
 
 typedef
-	struct WinApi_CWPSTRUCT {
-		INTEGER lParam, wParam, message, hwnd;
-	} WinApi_CWPSTRUCT;
+  struct WinApi_CWPSTRUCT {
+    INTEGER lParam, wParam, message, hwnd;
+  } WinApi_CWPSTRUCT;
 
 typedef
-	struct WinApi_DATATYPES_INFO_1A {
-		WinApi_PtrSTR pName;
-	} WinApi_DATATYPES_INFO_1A;
+  struct WinApi_DATATYPES_INFO_1A {
+    WinApi_PtrSTR pName;
+  } WinApi_DATATYPES_INFO_1A;
 
 typedef
-	struct WinApi_DATATYPES_INFO_1W {
-		WinApi_PtrWSTR pName;
-	} WinApi_DATATYPES_INFO_1W;
+  struct WinApi_DATATYPES_INFO_1W {
+    WinApi_PtrWSTR pName;
+  } WinApi_DATATYPES_INFO_1W;
 
 typedef
-	INTEGER (__STDCALL *WinApi_DATEFMT_ENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_DATEFMT_ENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_DATEFMT_ENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_DATEFMT_ENUMPROCW)(void);
 
 typedef
-	struct WinApi_DDEACK {
-		SHORTINT fBits0;
-	} WinApi_DDEACK;
+  struct WinApi_DDEACK {
+    SHORTINT fBits0;
+  } WinApi_DDEACK;
 
 typedef
-	struct WinApi_DDEADVISE {
-		SHORTINT fBits0, cfFormat;
-	} WinApi_DDEADVISE;
+  struct WinApi_DDEADVISE {
+    SHORTINT fBits0, cfFormat;
+  } WinApi_DDEADVISE;
 
 typedef
-	struct WinApi_DDEDATA {
-		SHORTINT fBits0, cfFormat;
-		CHAR Value[1];
-	} WinApi_DDEDATA;
+  struct WinApi_DDEDATA {
+    SHORTINT fBits0, cfFormat;
+    CHAR Value[1];
+  } WinApi_DDEDATA;
 
 typedef
-	struct WinApi_DDELN {
-		SHORTINT fBits0, cfFormat;
-	} WinApi_DDELN;
+  struct WinApi_DDELN {
+    SHORTINT fBits0, cfFormat;
+  } WinApi_DDELN;
 
 typedef
-	struct WinApi_DDEML_MSG_HOOK_DATA {
-		INTEGER uiLo, uiHi, cbData;
-		INTEGER Data[8];
-	} WinApi_DDEML_MSG_HOOK_DATA;
+  struct WinApi_DDEML_MSG_HOOK_DATA {
+    INTEGER uiLo, uiHi, cbData;
+    INTEGER Data[8];
+  } WinApi_DDEML_MSG_HOOK_DATA;
 
 typedef
-	struct WinApi_DDEPOKE {
-		SHORTINT fBits0, cfFormat;
-		CHAR Value[1];
-	} WinApi_DDEPOKE;
+  struct WinApi_DDEPOKE {
+    SHORTINT fBits0, cfFormat;
+    CHAR Value[1];
+  } WinApi_DDEPOKE;
 
 typedef
-	struct WinApi_DDEUP {
-		SHORTINT fBits0, cfFormat;
-		CHAR rgb[1];
-	} WinApi_DDEUP;
+  struct WinApi_DDEUP {
+    SHORTINT fBits0, cfFormat;
+    CHAR rgb[1];
+  } WinApi_DDEUP;
 
 typedef
-	struct WinApi_DEBUGHOOKINFO {
-		INTEGER idThread, idThreadInstaller, lParam, wParam, code;
-	} WinApi_DEBUGHOOKINFO;
+  struct WinApi_DEBUGHOOKINFO {
+    INTEGER idThread, idThreadInstaller, lParam, wParam, code;
+  } WinApi_DEBUGHOOKINFO;
 
 typedef
-	struct WinApi_DELETEITEMSTRUCT {
-		SET CtlType;
-		INTEGER CtlID, itemID, hwndItem, itemData;
-	} WinApi_DELETEITEMSTRUCT;
+  struct WinApi_DELETEITEMSTRUCT {
+    SET CtlType;
+    INTEGER CtlID, itemID, hwndItem, itemData;
+  } WinApi_DELETEITEMSTRUCT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_DESKTOPENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_DESKTOPENUMPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_DESKTOPENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_DESKTOPENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_DESKTOPENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_DESKTOPENUMPROCW)(void);
 
 typedef
-	struct WinApi_DEVMODEA {
-		CHAR dmDeviceName[32];
-		SHORTINT dmSpecVersion, dmDriverVersion, dmSize, dmDriverExtra;
-		SET dmFields;
-		SHORTINT dmOrientation, dmPaperSize, dmPaperLength, dmPaperWidth, dmScale, dmCopies, dmDefaultSource, dmPrintQuality, dmColor, dmDuplex, dmYResolution, dmTTOption, dmCollate;
-		CHAR dmFormName[32];
-		SHORTINT dmLogPixels;
-		INTEGER dmBitsPerPel, dmPelsWidth, dmPelsHeight;
-		SET dmDisplayFlags;
-		INTEGER dmDisplayFrequency, dmICMMethod, dmICMIntent, dmMediaType, dmDitherType, dmICCManufacturer, dmICCModel, dmPanningWidth, dmPanningHeight;
-	} WinApi_DEVMODEA;
+  struct WinApi_DEVMODEA {
+    CHAR dmDeviceName[32];
+    SHORTINT dmSpecVersion, dmDriverVersion, dmSize, dmDriverExtra;
+    SET dmFields;
+    SHORTINT dmOrientation, dmPaperSize, dmPaperLength, dmPaperWidth, dmScale, dmCopies, dmDefaultSource, dmPrintQuality, dmColor, dmDuplex, dmYResolution, dmTTOption, dmCollate;
+    CHAR dmFormName[32];
+    SHORTINT dmLogPixels;
+    INTEGER dmBitsPerPel, dmPelsWidth, dmPelsHeight;
+    SET dmDisplayFlags;
+    INTEGER dmDisplayFrequency, dmICMMethod, dmICMIntent, dmMediaType, dmDitherType, dmICCManufacturer, dmICCModel, dmPanningWidth, dmPanningHeight;
+  } WinApi_DEVMODEA;
 
 typedef
-	struct WinApi_DEVMODEW {
-		LONGCHAR dmDeviceName[32];
-		SHORTINT dmSpecVersion, dmDriverVersion, dmSize, dmDriverExtra;
-		SET dmFields;
-		SHORTINT dmOrientation, dmPaperSize, dmPaperLength, dmPaperWidth, dmScale, dmCopies, dmDefaultSource, dmPrintQuality, dmColor, dmDuplex, dmYResolution, dmTTOption, dmCollate;
-		LONGCHAR dmFormName[32];
-		SHORTINT dmLogPixels;
-		INTEGER dmBitsPerPel, dmPelsWidth, dmPelsHeight;
-		SET dmDisplayFlags;
-		INTEGER dmDisplayFrequency, dmICMMethod, dmICMIntent, dmMediaType, dmDitherType, dmICCManufacturer, dmICCModel, dmPanningWidth, dmPanningHeight;
-	} WinApi_DEVMODEW;
+  struct WinApi_DEVMODEW {
+    LONGCHAR dmDeviceName[32];
+    SHORTINT dmSpecVersion, dmDriverVersion, dmSize, dmDriverExtra;
+    SET dmFields;
+    SHORTINT dmOrientation, dmPaperSize, dmPaperLength, dmPaperWidth, dmScale, dmCopies, dmDefaultSource, dmPrintQuality, dmColor, dmDuplex, dmYResolution, dmTTOption, dmCollate;
+    LONGCHAR dmFormName[32];
+    SHORTINT dmLogPixels;
+    INTEGER dmBitsPerPel, dmPelsWidth, dmPelsHeight;
+    SET dmDisplayFlags;
+    INTEGER dmDisplayFrequency, dmICMMethod, dmICMIntent, dmMediaType, dmDitherType, dmICCManufacturer, dmICCModel, dmPanningWidth, dmPanningHeight;
+  } WinApi_DEVMODEW;
 
 typedef
-	struct WinApi_DIBSECTION {
-		WinApi_BITMAP dsBm;
-		WinApi_BITMAPINFOHEADER dsBmih;
-		INTEGER dsBitfields[3];
-		INTEGER dshSection, dsOffset;
-	} WinApi_DIBSECTION;
+  struct WinApi_DIBSECTION {
+    WinApi_BITMAP dsBm;
+    WinApi_BITMAPINFOHEADER dsBmih;
+    INTEGER dsBitfields[3];
+    INTEGER dshSection, dsOffset;
+  } WinApi_DIBSECTION;
 
 typedef
-	INTEGER (__STDCALL *WinApi_DLGPROC)(INTEGER, INTEGER, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_DLGPROC)(INTEGER, INTEGER, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_DOCINFOA {
-		INTEGER cbSize;
-		WinApi_PtrSTR lpszDocName, lpszOutput, lpszDatatype;
-		INTEGER fwType;
-	} WinApi_DOCINFOA;
+  struct WinApi_DOCINFOA {
+    INTEGER cbSize;
+    WinApi_PtrSTR lpszDocName, lpszOutput, lpszDatatype;
+    INTEGER fwType;
+  } WinApi_DOCINFOA;
 
 typedef
-	struct WinApi_DOCINFOW {
-		INTEGER cbSize;
-		WinApi_PtrWSTR lpszDocName, lpszOutput, lpszDatatype;
-		INTEGER fwType;
-	} WinApi_DOCINFOW;
+  struct WinApi_DOCINFOW {
+    INTEGER cbSize;
+    WinApi_PtrWSTR lpszDocName, lpszOutput, lpszDatatype;
+    INTEGER fwType;
+  } WinApi_DOCINFOW;
 
 typedef
-	struct WinApi_DOC_INFO_1A {
-		WinApi_PtrSTR pDocName, pOutputFile, pDatatype;
-	} WinApi_DOC_INFO_1A;
+  struct WinApi_DOC_INFO_1A {
+    WinApi_PtrSTR pDocName, pOutputFile, pDatatype;
+  } WinApi_DOC_INFO_1A;
 
 typedef
-	struct WinApi_DOC_INFO_1W {
-		WinApi_PtrWSTR pDocName, pOutputFile, pDatatype;
-	} WinApi_DOC_INFO_1W;
+  struct WinApi_DOC_INFO_1W {
+    WinApi_PtrWSTR pDocName, pOutputFile, pDatatype;
+  } WinApi_DOC_INFO_1W;
 
 typedef
-	struct WinApi_DOC_INFO_2A {
-		WinApi_PtrSTR pDocName, pOutputFile, pDatatype;
-		SET dwMode;
-		INTEGER JobId;
-	} WinApi_DOC_INFO_2A;
+  struct WinApi_DOC_INFO_2A {
+    WinApi_PtrSTR pDocName, pOutputFile, pDatatype;
+    SET dwMode;
+    INTEGER JobId;
+  } WinApi_DOC_INFO_2A;
 
 typedef
-	struct WinApi_DOC_INFO_2W {
-		WinApi_PtrWSTR pDocName, pOutputFile, pDatatype;
-		SET dwMode;
-		INTEGER JobId;
-	} WinApi_DOC_INFO_2W;
+  struct WinApi_DOC_INFO_2W {
+    WinApi_PtrWSTR pDocName, pOutputFile, pDatatype;
+    SET dwMode;
+    INTEGER JobId;
+  } WinApi_DOC_INFO_2W;
 
 typedef
-	struct WinApi_RECT {
-		INTEGER left, top, right, bottom;
-	} WinApi_RECT;
+  struct WinApi_RECT {
+    INTEGER left, top, right, bottom;
+  } WinApi_RECT;
 
 typedef
-	struct WinApi_DRAWITEMSTRUCT {
-		SET CtlType;
-		INTEGER CtlID, itemID;
-		SET itemAction, itemState;
-		INTEGER hwndItem, hDC;
-		WinApi_RECT rcItem;
-		INTEGER itemData;
-	} WinApi_DRAWITEMSTRUCT;
+  struct WinApi_DRAWITEMSTRUCT {
+    SET CtlType;
+    INTEGER CtlID, itemID;
+    SET itemAction, itemState;
+    INTEGER hwndItem, hDC;
+    WinApi_RECT rcItem;
+    INTEGER itemData;
+  } WinApi_DRAWITEMSTRUCT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_DRAWSTATEPROC)(void);
+  INTEGER (__STDCALL *WinApi_DRAWSTATEPROC)(void);
 
 typedef
-	struct WinApi_DRAWTEXTPARAMS {
-		INTEGER cbSize, iTabLength, iLeftMargin, iRightMargin, uiLengthDrawn;
-	} WinApi_DRAWTEXTPARAMS;
+  struct WinApi_DRAWTEXTPARAMS {
+    INTEGER cbSize, iTabLength, iLeftMargin, iRightMargin, uiLengthDrawn;
+  } WinApi_DRAWTEXTPARAMS;
 
 typedef
-	struct WinApi_DRIVER_INFO_1A {
-		WinApi_PtrSTR pName;
-	} WinApi_DRIVER_INFO_1A;
+  struct WinApi_DRIVER_INFO_1A {
+    WinApi_PtrSTR pName;
+  } WinApi_DRIVER_INFO_1A;
 
 typedef
-	struct WinApi_DRIVER_INFO_1W {
-		WinApi_PtrWSTR pName;
-	} WinApi_DRIVER_INFO_1W;
+  struct WinApi_DRIVER_INFO_1W {
+    WinApi_PtrWSTR pName;
+  } WinApi_DRIVER_INFO_1W;
 
 typedef
-	struct WinApi_DRIVER_INFO_2A {
-		INTEGER cVersion;
-		WinApi_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
-	} WinApi_DRIVER_INFO_2A;
+  struct WinApi_DRIVER_INFO_2A {
+    INTEGER cVersion;
+    WinApi_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
+  } WinApi_DRIVER_INFO_2A;
 
 typedef
-	struct WinApi_DRIVER_INFO_2W {
-		INTEGER cVersion;
-		WinApi_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
-	} WinApi_DRIVER_INFO_2W;
+  struct WinApi_DRIVER_INFO_2W {
+    INTEGER cVersion;
+    WinApi_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile;
+  } WinApi_DRIVER_INFO_2W;
 
 typedef
-	struct WinApi_DRIVER_INFO_3A {
-		INTEGER cVersion;
-		WinApi_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
-	} WinApi_DRIVER_INFO_3A;
+  struct WinApi_DRIVER_INFO_3A {
+    INTEGER cVersion;
+    WinApi_PtrSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
+  } WinApi_DRIVER_INFO_3A;
 
 typedef
-	struct WinApi_DRIVER_INFO_3W {
-		INTEGER cVersion;
-		WinApi_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
-	} WinApi_DRIVER_INFO_3W;
+  struct WinApi_DRIVER_INFO_3W {
+    INTEGER cVersion;
+    WinApi_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
+  } WinApi_DRIVER_INFO_3W;
 
 typedef
-	struct WinApi_POINT {
-		INTEGER x, y;
-	} WinApi_POINT;
+  struct WinApi_POINT {
+    INTEGER x, y;
+  } WinApi_POINT;
 
 typedef
-	struct WinApi_DROPSTRUCT {
-		INTEGER hwndSource, hwndSink, wFmt, dwData;
-		WinApi_POINT ptDrop;
-		INTEGER dwControlData;
-	} WinApi_DROPSTRUCT;
+  struct WinApi_DROPSTRUCT {
+    INTEGER hwndSource, hwndSink, wFmt, dwData;
+    WinApi_POINT ptDrop;
+    INTEGER dwControlData;
+  } WinApi_DROPSTRUCT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROC)(void);
+  INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROCA)(void);
+  INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROCW)(void);
+  INTEGER (__STDCALL *WinApi_EDITWORDBREAKPROCW)(void);
 
 typedef
-	struct WinApi_EMR {
-		INTEGER iType, nSize;
-	} WinApi_EMR;
+  struct WinApi_EMR {
+    INTEGER iType, nSize;
+  } WinApi_EMR;
 
 typedef
-	struct WinApi_EMRABORTPATH {
-		WinApi_EMR emr;
-	} WinApi_EMRABORTPATH;
+  struct WinApi_EMRABORTPATH {
+    WinApi_EMR emr;
+  } WinApi_EMRABORTPATH;
 
 typedef
-	struct WinApi_EMRANGLEARC {
-		WinApi_EMR emr;
-		WinApi_POINT ptlCenter;
-		INTEGER nRadius;
-		SHORTREAL eStartAngle, eSweepAngle;
-	} WinApi_EMRANGLEARC;
+  struct WinApi_EMRANGLEARC {
+    WinApi_EMR emr;
+    WinApi_POINT ptlCenter;
+    INTEGER nRadius;
+    SHORTREAL eStartAngle, eSweepAngle;
+  } WinApi_EMRANGLEARC;
 
 typedef
-	struct WinApi_EMRARC {
-		WinApi_EMR emr;
-		WinApi_RECT rclBox;
-		WinApi_POINT ptlStart, ptlEnd;
-	} WinApi_EMRARC;
+  struct WinApi_EMRARC {
+    WinApi_EMR emr;
+    WinApi_RECT rclBox;
+    WinApi_POINT ptlStart, ptlEnd;
+  } WinApi_EMRARC;
 
 typedef
-	struct WinApi_XFORM {
-		SHORTREAL eM11, eM12, eM21, eM22, eDx, eDy;
-	} WinApi_XFORM;
+  struct WinApi_XFORM {
+    SHORTREAL eM11, eM12, eM21, eM22, eDx, eDy;
+  } WinApi_XFORM;
 
 typedef
-	struct WinApi_EMRBITBLT {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
-		WinApi_XFORM xformSrc;
-		INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc;
-	} WinApi_EMRBITBLT;
+  struct WinApi_EMRBITBLT {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
+    WinApi_XFORM xformSrc;
+    INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc;
+  } WinApi_EMRBITBLT;
 
 typedef
-	struct WinApi_LOGBRUSH {
-		INTEGER lbStyle, lbColor, lbHatch;
-	} WinApi_LOGBRUSH;
+  struct WinApi_LOGBRUSH {
+    INTEGER lbStyle, lbColor, lbHatch;
+  } WinApi_LOGBRUSH;
 
 typedef
-	struct WinApi_EMRCREATEBRUSHINDIRECT {
-		WinApi_EMR emr;
-		INTEGER ihBrush;
-		WinApi_LOGBRUSH lb;
-	} WinApi_EMRCREATEBRUSHINDIRECT;
+  struct WinApi_EMRCREATEBRUSHINDIRECT {
+    WinApi_EMR emr;
+    INTEGER ihBrush;
+    WinApi_LOGBRUSH lb;
+  } WinApi_EMRCREATEBRUSHINDIRECT;
 
 typedef
-	struct WinApi_LOGCOLORSPACEW {
-		INTEGER lcsSignature, lcsVersion, lcsSize, lcsCSType, lcsIntent;
-		WinApi_CIEXYZTRIPLE lcsEndpoints;
-		INTEGER lcsGammaRed, lcsGammaGreen, lcsGammaBlue;
-		LONGCHAR lcsFilename[260];
-	} WinApi_LOGCOLORSPACEW;
+  struct WinApi_LOGCOLORSPACEW {
+    INTEGER lcsSignature, lcsVersion, lcsSize, lcsCSType, lcsIntent;
+    WinApi_CIEXYZTRIPLE lcsEndpoints;
+    INTEGER lcsGammaRed, lcsGammaGreen, lcsGammaBlue;
+    LONGCHAR lcsFilename[260];
+  } WinApi_LOGCOLORSPACEW;
 
 typedef
-	struct WinApi_EMRCREATECOLORSPACE {
-		WinApi_EMR emr;
-		INTEGER ihCS;
-		WinApi_LOGCOLORSPACEW lcs;
-	} WinApi_EMRCREATECOLORSPACE;
+  struct WinApi_EMRCREATECOLORSPACE {
+    WinApi_EMR emr;
+    INTEGER ihCS;
+    WinApi_LOGCOLORSPACEW lcs;
+  } WinApi_EMRCREATECOLORSPACE;
 
 typedef
-	struct WinApi_EMRCREATEDIBPATTERNBRUSHPT {
-		WinApi_EMR emr;
-		INTEGER ihBrush, iUsage, offBmi, cbBmi, offBits, cbBits;
-	} WinApi_EMRCREATEDIBPATTERNBRUSHPT;
+  struct WinApi_EMRCREATEDIBPATTERNBRUSHPT {
+    WinApi_EMR emr;
+    INTEGER ihBrush, iUsage, offBmi, cbBmi, offBits, cbBits;
+  } WinApi_EMRCREATEDIBPATTERNBRUSHPT;
 
 typedef
-	struct WinApi_EMRCREATEMONOBRUSH {
-		WinApi_EMR emr;
-		INTEGER ihBrush, iUsage, offBmi, cbBmi, offBits, cbBits;
-	} WinApi_EMRCREATEMONOBRUSH;
+  struct WinApi_EMRCREATEMONOBRUSH {
+    WinApi_EMR emr;
+    INTEGER ihBrush, iUsage, offBmi, cbBmi, offBits, cbBits;
+  } WinApi_EMRCREATEMONOBRUSH;
 
 typedef
-	struct WinApi_PALETTEENTRY {
-		CHAR peRed, peGreen, peBlue, peFlags;
-	} WinApi_PALETTEENTRY;
+  struct WinApi_PALETTEENTRY {
+    CHAR peRed, peGreen, peBlue, peFlags;
+  } WinApi_PALETTEENTRY;
 
 typedef
-	struct WinApi_LOGPALETTE {
-		SHORTINT palVersion, palNumEntries;
-		WinApi_PALETTEENTRY palPalEntry[1];
-	} WinApi_LOGPALETTE;
+  struct WinApi_LOGPALETTE {
+    SHORTINT palVersion, palNumEntries;
+    WinApi_PALETTEENTRY palPalEntry[1];
+  } WinApi_LOGPALETTE;
 
 typedef
-	struct WinApi_EMRCREATEPALETTE {
-		WinApi_EMR emr;
-		INTEGER ihPal;
-		WinApi_LOGPALETTE lgpl;
-	} WinApi_EMRCREATEPALETTE;
+  struct WinApi_EMRCREATEPALETTE {
+    WinApi_EMR emr;
+    INTEGER ihPal;
+    WinApi_LOGPALETTE lgpl;
+  } WinApi_EMRCREATEPALETTE;
 
 typedef
-	struct WinApi_LOGPEN {
-		INTEGER lopnStyle;
-		WinApi_POINT lopnWidth;
-		INTEGER lopnColor;
-	} WinApi_LOGPEN;
+  struct WinApi_LOGPEN {
+    INTEGER lopnStyle;
+    WinApi_POINT lopnWidth;
+    INTEGER lopnColor;
+  } WinApi_LOGPEN;
 
 typedef
-	struct WinApi_EMRCREATEPEN {
-		WinApi_EMR emr;
-		INTEGER ihPen;
-		WinApi_LOGPEN lopn;
-	} WinApi_EMRCREATEPEN;
+  struct WinApi_EMRCREATEPEN {
+    WinApi_EMR emr;
+    INTEGER ihPen;
+    WinApi_LOGPEN lopn;
+  } WinApi_EMRCREATEPEN;
 
 typedef
-	struct WinApi_EMRSELECTCOLORSPACE {
-		WinApi_EMR emr;
-		INTEGER ihCS;
-	} WinApi_EMRSELECTCOLORSPACE;
+  struct WinApi_EMRSELECTCOLORSPACE {
+    WinApi_EMR emr;
+    INTEGER ihCS;
+  } WinApi_EMRSELECTCOLORSPACE;
 
 typedef
-	struct WinApi_EMRSELECTOBJECT {
-		WinApi_EMR emr;
-		INTEGER ihObject;
-	} WinApi_EMRSELECTOBJECT;
+  struct WinApi_EMRSELECTOBJECT {
+    WinApi_EMR emr;
+    INTEGER ihObject;
+  } WinApi_EMRSELECTOBJECT;
 
 typedef
-	struct WinApi_EMRELLIPSE {
-		WinApi_EMR emr;
-		WinApi_RECT rclBox;
-	} WinApi_EMRELLIPSE;
+  struct WinApi_EMRELLIPSE {
+    WinApi_EMR emr;
+    WinApi_RECT rclBox;
+  } WinApi_EMRELLIPSE;
 
 typedef
-	struct WinApi_EMREOF {
-		WinApi_EMR emr;
-		INTEGER nPalEntries, offPalEntries, nSizeLast;
-	} WinApi_EMREOF;
+  struct WinApi_EMREOF {
+    WinApi_EMR emr;
+    INTEGER nPalEntries, offPalEntries, nSizeLast;
+  } WinApi_EMREOF;
 
 typedef
-	struct WinApi_EMREXCLUDECLIPRECT {
-		WinApi_EMR emr;
-		WinApi_RECT rclClip;
-	} WinApi_EMREXCLUDECLIPRECT;
+  struct WinApi_EMREXCLUDECLIPRECT {
+    WinApi_EMR emr;
+    WinApi_RECT rclClip;
+  } WinApi_EMREXCLUDECLIPRECT;
 
 typedef
-	struct WinApi_LOGFONTW {
-		INTEGER lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
-		CHAR lfItalic, lfUnderline, lfStrikeOut, lfCharSet, lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
-		LONGCHAR lfFaceName[32];
-	} WinApi_LOGFONTW;
+  struct WinApi_LOGFONTW {
+    INTEGER lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
+    CHAR lfItalic, lfUnderline, lfStrikeOut, lfCharSet, lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
+    LONGCHAR lfFaceName[32];
+  } WinApi_LOGFONTW;
 
 typedef
-	struct WinApi_PANOSE {
-		CHAR bFamilyType, bSerifStyle, bWeight, bProportion, bContrast, bStrokeVariation, bArmStyle, bLetterform, bMidline, bXHeight;
-	} WinApi_PANOSE;
+  struct WinApi_PANOSE {
+    CHAR bFamilyType, bSerifStyle, bWeight, bProportion, bContrast, bStrokeVariation, bArmStyle, bLetterform, bMidline, bXHeight;
+  } WinApi_PANOSE;
 
 typedef
-	struct WinApi_EXTLOGFONTW {
-		WinApi_LOGFONTW elfLogFont;
-		LONGCHAR elfFullName[64];
-		LONGCHAR elfStyle[32];
-		INTEGER elfVersion, elfStyleSize, elfMatch, elfReserved;
-		CHAR elfVendorId[4];
-		INTEGER elfCulture;
-		WinApi_PANOSE elfPanose;
-	} WinApi_EXTLOGFONTW;
+  struct WinApi_EXTLOGFONTW {
+    WinApi_LOGFONTW elfLogFont;
+    LONGCHAR elfFullName[64];
+    LONGCHAR elfStyle[32];
+    INTEGER elfVersion, elfStyleSize, elfMatch, elfReserved;
+    CHAR elfVendorId[4];
+    INTEGER elfCulture;
+    WinApi_PANOSE elfPanose;
+  } WinApi_EXTLOGFONTW;
 
 typedef
-	struct WinApi_EMREXTCREATEFONTINDIRECTW {
-		WinApi_EMR emr;
-		INTEGER ihFont;
-		WinApi_EXTLOGFONTW elfw;
-	} WinApi_EMREXTCREATEFONTINDIRECTW;
+  struct WinApi_EMREXTCREATEFONTINDIRECTW {
+    WinApi_EMR emr;
+    INTEGER ihFont;
+    WinApi_EXTLOGFONTW elfw;
+  } WinApi_EMREXTCREATEFONTINDIRECTW;
 
 typedef
-	struct WinApi_EXTLOGPEN {
-		INTEGER elpPenStyle, elpWidth, elpBrushStyle, elpColor, elpHatch, elpNumEntries;
-		INTEGER elpStyleEntry[1];
-	} WinApi_EXTLOGPEN;
+  struct WinApi_EXTLOGPEN {
+    INTEGER elpPenStyle, elpWidth, elpBrushStyle, elpColor, elpHatch, elpNumEntries;
+    INTEGER elpStyleEntry[1];
+  } WinApi_EXTLOGPEN;
 
 typedef
-	struct WinApi_EMREXTCREATEPEN {
-		WinApi_EMR emr;
-		INTEGER ihPen, offBmi, cbBmi, offBits, cbBits;
-		WinApi_EXTLOGPEN elp;
-	} WinApi_EMREXTCREATEPEN;
+  struct WinApi_EMREXTCREATEPEN {
+    WinApi_EMR emr;
+    INTEGER ihPen, offBmi, cbBmi, offBits, cbBits;
+    WinApi_EXTLOGPEN elp;
+  } WinApi_EMREXTCREATEPEN;
 
 typedef
-	struct WinApi_EMREXTFLOODFILL {
-		WinApi_EMR emr;
-		WinApi_POINT ptlStart;
-		INTEGER crColor, iMode;
-	} WinApi_EMREXTFLOODFILL;
+  struct WinApi_EMREXTFLOODFILL {
+    WinApi_EMR emr;
+    WinApi_POINT ptlStart;
+    INTEGER crColor, iMode;
+  } WinApi_EMREXTFLOODFILL;
 
 typedef
-	struct WinApi_EMREXTSELECTCLIPRGN {
-		WinApi_EMR emr;
-		INTEGER cbRgnData, iMode;
-		CHAR RgnData[1];
-	} WinApi_EMREXTSELECTCLIPRGN;
+  struct WinApi_EMREXTSELECTCLIPRGN {
+    WinApi_EMR emr;
+    INTEGER cbRgnData, iMode;
+    CHAR RgnData[1];
+  } WinApi_EMREXTSELECTCLIPRGN;
 
 typedef
-	struct WinApi_EMRTEXT {
-		WinApi_POINT ptlReference;
-		INTEGER nChars, offString, fOptions;
-		WinApi_RECT rcl;
-		INTEGER offDx;
-	} WinApi_EMRTEXT;
+  struct WinApi_EMRTEXT {
+    WinApi_POINT ptlReference;
+    INTEGER nChars, offString, fOptions;
+    WinApi_RECT rcl;
+    INTEGER offDx;
+  } WinApi_EMRTEXT;
 
 typedef
-	struct WinApi_EMREXTTEXTOUTA {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER iGraphicsMode;
-		SHORTREAL exScale, eyScale;
-		WinApi_EMRTEXT emrtext;
-	} WinApi_EMREXTTEXTOUTA;
+  struct WinApi_EMREXTTEXTOUTA {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER iGraphicsMode;
+    SHORTREAL exScale, eyScale;
+    WinApi_EMRTEXT emrtext;
+  } WinApi_EMREXTTEXTOUTA;
 
 typedef
-	struct WinApi_EMRFILLPATH {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-	} WinApi_EMRFILLPATH;
+  struct WinApi_EMRFILLPATH {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+  } WinApi_EMRFILLPATH;
 
 typedef
-	struct WinApi_EMRFILLRGN {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cbRgnData, ihBrush;
-		CHAR RgnData[1];
-	} WinApi_EMRFILLRGN;
+  struct WinApi_EMRFILLRGN {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cbRgnData, ihBrush;
+    CHAR RgnData[1];
+  } WinApi_EMRFILLRGN;
 
 typedef
-	struct WinApi_EMRFORMAT {
-		INTEGER dSignature, nVersion, cbData, offData;
-	} WinApi_EMRFORMAT;
+  struct WinApi_EMRFORMAT {
+    INTEGER dSignature, nVersion, cbData, offData;
+  } WinApi_EMRFORMAT;
 
 typedef
-	struct WinApi_SIZE {
-		INTEGER cx, cy;
-	} WinApi_SIZE;
+  struct WinApi_SIZE {
+    INTEGER cx, cy;
+  } WinApi_SIZE;
 
 typedef
-	struct WinApi_EMRFRAMERGN {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cbRgnData, ihBrush;
-		WinApi_SIZE szlStroke;
-		CHAR RgnData[1];
-	} WinApi_EMRFRAMERGN;
+  struct WinApi_EMRFRAMERGN {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cbRgnData, ihBrush;
+    WinApi_SIZE szlStroke;
+    CHAR RgnData[1];
+  } WinApi_EMRFRAMERGN;
 
 typedef
-	struct WinApi_EMRGDICOMMENT {
-		WinApi_EMR emr;
-		INTEGER cbData;
-		CHAR Data[1];
-	} WinApi_EMRGDICOMMENT;
+  struct WinApi_EMRGDICOMMENT {
+    WinApi_EMR emr;
+    INTEGER cbData;
+    CHAR Data[1];
+  } WinApi_EMRGDICOMMENT;
 
 typedef
-	struct WinApi_EMRGLSBOUNDEDRECORD {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cbData;
-		CHAR Data[1];
-	} WinApi_EMRGLSBOUNDEDRECORD;
+  struct WinApi_EMRGLSBOUNDEDRECORD {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cbData;
+    CHAR Data[1];
+  } WinApi_EMRGLSBOUNDEDRECORD;
 
 typedef
-	struct WinApi_EMRGLSRECORD {
-		WinApi_EMR emr;
-		INTEGER cbData;
-		CHAR Data[1];
-	} WinApi_EMRGLSRECORD;
+  struct WinApi_EMRGLSRECORD {
+    WinApi_EMR emr;
+    INTEGER cbData;
+    CHAR Data[1];
+  } WinApi_EMRGLSRECORD;
 
 typedef
-	struct WinApi_EMRINVERTRGN {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cbRgnData;
-		CHAR RgnData[1];
-	} WinApi_EMRINVERTRGN;
+  struct WinApi_EMRINVERTRGN {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cbRgnData;
+    CHAR RgnData[1];
+  } WinApi_EMRINVERTRGN;
 
 typedef
-	struct WinApi_EMRLINETO {
-		WinApi_EMR emr;
-		WinApi_POINT ptl;
-	} WinApi_EMRLINETO;
+  struct WinApi_EMRLINETO {
+    WinApi_EMR emr;
+    WinApi_POINT ptl;
+  } WinApi_EMRLINETO;
 
 typedef
-	struct WinApi_EMRMASKBLT {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
-		WinApi_XFORM xformSrc;
-		INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, xMask, yMask, iUsageMask, offBmiMask, cbBmiMask, offBitsMask, cbBitsMask;
-	} WinApi_EMRMASKBLT;
+  struct WinApi_EMRMASKBLT {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
+    WinApi_XFORM xformSrc;
+    INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, xMask, yMask, iUsageMask, offBmiMask, cbBmiMask, offBitsMask, cbBitsMask;
+  } WinApi_EMRMASKBLT;
 
 typedef
-	struct WinApi_EMRMODIFYWORLDTRANSFORM {
-		WinApi_EMR emr;
-		WinApi_XFORM xform;
-		INTEGER iMode;
-	} WinApi_EMRMODIFYWORLDTRANSFORM;
+  struct WinApi_EMRMODIFYWORLDTRANSFORM {
+    WinApi_EMR emr;
+    WinApi_XFORM xform;
+    INTEGER iMode;
+  } WinApi_EMRMODIFYWORLDTRANSFORM;
 
 typedef
-	struct WinApi_EMROFFSETCLIPRGN {
-		WinApi_EMR emr;
-		WinApi_POINT ptlOffset;
-	} WinApi_EMROFFSETCLIPRGN;
+  struct WinApi_EMROFFSETCLIPRGN {
+    WinApi_EMR emr;
+    WinApi_POINT ptlOffset;
+  } WinApi_EMROFFSETCLIPRGN;
 
 typedef
-	struct WinApi_PIXELFORMATDESCRIPTOR {
-		SHORTINT nSize, nVersion;
-		SET dwFlags;
-		CHAR iPixelType, cColorBits, cRedBits, cRedShift, cGreenBits, cGreenShift, cBlueBits, cBlueShift, cAlphaBits, cAlphaShift, cAccumBits, cAccumRedBits, cAccumGreenBits, cAccumBlueBits, cAccumAlphaBits, cDepthBits, cStencilBits, cAuxBuffers, iLayerType, bReserved;
-		SET dwLayerMask, dwVisibleMask, dwDamageMask;
-	} WinApi_PIXELFORMATDESCRIPTOR;
+  struct WinApi_PIXELFORMATDESCRIPTOR {
+    SHORTINT nSize, nVersion;
+    SET dwFlags;
+    CHAR iPixelType, cColorBits, cRedBits, cRedShift, cGreenBits, cGreenShift, cBlueBits, cBlueShift, cAlphaBits, cAlphaShift, cAccumBits, cAccumRedBits, cAccumGreenBits, cAccumBlueBits, cAccumAlphaBits, cDepthBits, cStencilBits, cAuxBuffers, iLayerType, bReserved;
+    SET dwLayerMask, dwVisibleMask, dwDamageMask;
+  } WinApi_PIXELFORMATDESCRIPTOR;
 
 typedef
-	struct WinApi_EMRPIXELFORMAT {
-		WinApi_EMR emr;
-		WinApi_PIXELFORMATDESCRIPTOR pfd;
-	} WinApi_EMRPIXELFORMAT;
+  struct WinApi_EMRPIXELFORMAT {
+    WinApi_EMR emr;
+    WinApi_PIXELFORMATDESCRIPTOR pfd;
+  } WinApi_EMRPIXELFORMAT;
 
 typedef
-	struct WinApi_EMRPLGBLT {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		WinApi_POINT aptlDest[3];
-		INTEGER xSrc, ySrc, cxSrc, cySrc;
-		WinApi_XFORM xformSrc;
-		INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, xMask, yMask, iUsageMask, offBmiMask, cbBmiMask, offBitsMask, cbBitsMask;
-	} WinApi_EMRPLGBLT;
+  struct WinApi_EMRPLGBLT {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    WinApi_POINT aptlDest[3];
+    INTEGER xSrc, ySrc, cxSrc, cySrc;
+    WinApi_XFORM xformSrc;
+    INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, xMask, yMask, iUsageMask, offBmiMask, cbBmiMask, offBitsMask, cbBitsMask;
+  } WinApi_EMRPLGBLT;
 
 typedef
-	struct WinApi_EMRPOLYLINE {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cptl;
-		WinApi_POINT aptl[1];
-	} WinApi_EMRPOLYLINE;
+  struct WinApi_EMRPOLYLINE {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cptl;
+    WinApi_POINT aptl[1];
+  } WinApi_EMRPOLYLINE;
 
 typedef
-	struct WinApi_POINTS {
-		SHORTINT x, y;
-	} WinApi_POINTS;
+  struct WinApi_POINTS {
+    SHORTINT x, y;
+  } WinApi_POINTS;
 
 typedef
-	struct WinApi_EMRPOLYLINE16 {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cpts;
-		WinApi_POINTS apts[1];
-	} WinApi_EMRPOLYLINE16;
+  struct WinApi_EMRPOLYLINE16 {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cpts;
+    WinApi_POINTS apts[1];
+  } WinApi_EMRPOLYLINE16;
 
 typedef
-	struct WinApi_EMRPOLYDRAW {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cptl;
-		WinApi_POINT aptl[1];
-		CHAR abTypes[1];
-	} WinApi_EMRPOLYDRAW;
+  struct WinApi_EMRPOLYDRAW {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cptl;
+    WinApi_POINT aptl[1];
+    CHAR abTypes[1];
+  } WinApi_EMRPOLYDRAW;
 
 typedef
-	struct WinApi_EMRPOLYDRAW16 {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER cpts;
-		WinApi_POINTS apts[1];
-		CHAR abTypes[1];
-	} WinApi_EMRPOLYDRAW16;
+  struct WinApi_EMRPOLYDRAW16 {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER cpts;
+    WinApi_POINTS apts[1];
+    CHAR abTypes[1];
+  } WinApi_EMRPOLYDRAW16;
 
 typedef
-	struct WinApi_EMRPOLYPOLYLINE {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER nPolys, cptl;
-		INTEGER aPolyCounts[1];
-		WinApi_POINT aptl[1];
-	} WinApi_EMRPOLYPOLYLINE;
+  struct WinApi_EMRPOLYPOLYLINE {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER nPolys, cptl;
+    INTEGER aPolyCounts[1];
+    WinApi_POINT aptl[1];
+  } WinApi_EMRPOLYPOLYLINE;
 
 typedef
-	struct WinApi_EMRPOLYPOLYLINE16 {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER nPolys, cpts;
-		INTEGER aPolyCounts[1];
-		WinApi_POINTS apts[1];
-	} WinApi_EMRPOLYPOLYLINE16;
+  struct WinApi_EMRPOLYPOLYLINE16 {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER nPolys, cpts;
+    INTEGER aPolyCounts[1];
+    WinApi_POINTS apts[1];
+  } WinApi_EMRPOLYPOLYLINE16;
 
 typedef
-	struct WinApi_EMRPOLYTEXTOUTA {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER iGraphicsMode;
-		SHORTREAL exScale, eyScale;
-		INTEGER cStrings;
-		WinApi_EMRTEXT aemrtext[1];
-	} WinApi_EMRPOLYTEXTOUTA;
+  struct WinApi_EMRPOLYTEXTOUTA {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER iGraphicsMode;
+    SHORTREAL exScale, eyScale;
+    INTEGER cStrings;
+    WinApi_EMRTEXT aemrtext[1];
+  } WinApi_EMRPOLYTEXTOUTA;
 
 typedef
-	struct WinApi_EMRRESIZEPALETTE {
-		WinApi_EMR emr;
-		INTEGER ihPal, cEntries;
-	} WinApi_EMRRESIZEPALETTE;
+  struct WinApi_EMRRESIZEPALETTE {
+    WinApi_EMR emr;
+    INTEGER ihPal, cEntries;
+  } WinApi_EMRRESIZEPALETTE;
 
 typedef
-	struct WinApi_EMRRESTOREDC {
-		WinApi_EMR emr;
-		INTEGER iRelative;
-	} WinApi_EMRRESTOREDC;
+  struct WinApi_EMRRESTOREDC {
+    WinApi_EMR emr;
+    INTEGER iRelative;
+  } WinApi_EMRRESTOREDC;
 
 typedef
-	struct WinApi_EMRROUNDRECT {
-		WinApi_EMR emr;
-		WinApi_RECT rclBox;
-		WinApi_SIZE szlCorner;
-	} WinApi_EMRROUNDRECT;
+  struct WinApi_EMRROUNDRECT {
+    WinApi_EMR emr;
+    WinApi_RECT rclBox;
+    WinApi_SIZE szlCorner;
+  } WinApi_EMRROUNDRECT;
 
 typedef
-	struct WinApi_EMRSCALEVIEWPORTEXTEX {
-		WinApi_EMR emr;
-		INTEGER xNum, xDenom, yNum, yDenom;
-	} WinApi_EMRSCALEVIEWPORTEXTEX;
+  struct WinApi_EMRSCALEVIEWPORTEXTEX {
+    WinApi_EMR emr;
+    INTEGER xNum, xDenom, yNum, yDenom;
+  } WinApi_EMRSCALEVIEWPORTEXTEX;
 
 typedef
-	struct WinApi_EMRSELECTCLIPPATH {
-		WinApi_EMR emr;
-		INTEGER iMode;
-	} WinApi_EMRSELECTCLIPPATH;
+  struct WinApi_EMRSELECTCLIPPATH {
+    WinApi_EMR emr;
+    INTEGER iMode;
+  } WinApi_EMRSELECTCLIPPATH;
 
 typedef
-	struct WinApi_EMRSELECTPALETTE {
-		WinApi_EMR emr;
-		INTEGER ihPal;
-	} WinApi_EMRSELECTPALETTE;
+  struct WinApi_EMRSELECTPALETTE {
+    WinApi_EMR emr;
+    INTEGER ihPal;
+  } WinApi_EMRSELECTPALETTE;
 
 typedef
-	struct WinApi_EMRSETARCDIRECTION {
-		WinApi_EMR emr;
-		INTEGER iArcDirection;
-	} WinApi_EMRSETARCDIRECTION;
+  struct WinApi_EMRSETARCDIRECTION {
+    WinApi_EMR emr;
+    INTEGER iArcDirection;
+  } WinApi_EMRSETARCDIRECTION;
 
 typedef
-	struct WinApi_EMRSETBKCOLOR {
-		WinApi_EMR emr;
-		INTEGER crColor;
-	} WinApi_EMRSETBKCOLOR;
+  struct WinApi_EMRSETBKCOLOR {
+    WinApi_EMR emr;
+    INTEGER crColor;
+  } WinApi_EMRSETBKCOLOR;
 
 typedef
-	struct WinApi_EMRSETVIEWPORTORGEX {
-		WinApi_EMR emr;
-		WinApi_POINT ptlOrigin;
-	} WinApi_EMRSETVIEWPORTORGEX;
+  struct WinApi_EMRSETVIEWPORTORGEX {
+    WinApi_EMR emr;
+    WinApi_POINT ptlOrigin;
+  } WinApi_EMRSETVIEWPORTORGEX;
 
 typedef
-	struct WinApi_EMRSETCOLORADJUSTMENT {
-		WinApi_EMR emr;
-		WinApi_COLORADJUSTMENT ColorAdjustment;
-	} WinApi_EMRSETCOLORADJUSTMENT;
+  struct WinApi_EMRSETCOLORADJUSTMENT {
+    WinApi_EMR emr;
+    WinApi_COLORADJUSTMENT ColorAdjustment;
+  } WinApi_EMRSETCOLORADJUSTMENT;
 
 typedef
-	struct WinApi_EMRSETDIBITSTODEVICE {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER xDest, yDest, xSrc, ySrc, cxSrc, cySrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, iUsageSrc, iStartScan, cScans;
-	} WinApi_EMRSETDIBITSTODEVICE;
+  struct WinApi_EMRSETDIBITSTODEVICE {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER xDest, yDest, xSrc, ySrc, cxSrc, cySrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, iUsageSrc, iStartScan, cScans;
+  } WinApi_EMRSETDIBITSTODEVICE;
 
 typedef
-	struct WinApi_EMRSETMAPPERFLAGS {
-		WinApi_EMR emr;
-		SET dwFlags;
-	} WinApi_EMRSETMAPPERFLAGS;
+  struct WinApi_EMRSETMAPPERFLAGS {
+    WinApi_EMR emr;
+    SET dwFlags;
+  } WinApi_EMRSETMAPPERFLAGS;
 
 typedef
-	struct WinApi_EMRSETMITERLIMIT {
-		WinApi_EMR emr;
-		SHORTREAL eMiterLimit;
-	} WinApi_EMRSETMITERLIMIT;
+  struct WinApi_EMRSETMITERLIMIT {
+    WinApi_EMR emr;
+    SHORTREAL eMiterLimit;
+  } WinApi_EMRSETMITERLIMIT;
 
 typedef
-	struct WinApi_EMRSETPALETTEENTRIES {
-		WinApi_EMR emr;
-		INTEGER ihPal, iStart, cEntries;
-		WinApi_PALETTEENTRY aPalEntries[1];
-	} WinApi_EMRSETPALETTEENTRIES;
+  struct WinApi_EMRSETPALETTEENTRIES {
+    WinApi_EMR emr;
+    INTEGER ihPal, iStart, cEntries;
+    WinApi_PALETTEENTRY aPalEntries[1];
+  } WinApi_EMRSETPALETTEENTRIES;
 
 typedef
-	struct WinApi_EMRSETPIXELV {
-		WinApi_EMR emr;
-		WinApi_POINT ptlPixel;
-		INTEGER crColor;
-	} WinApi_EMRSETPIXELV;
+  struct WinApi_EMRSETPIXELV {
+    WinApi_EMR emr;
+    WinApi_POINT ptlPixel;
+    INTEGER crColor;
+  } WinApi_EMRSETPIXELV;
 
 typedef
-	struct WinApi_EMRSETVIEWPORTEXTEX {
-		WinApi_EMR emr;
-		WinApi_SIZE szlExtent;
-	} WinApi_EMRSETVIEWPORTEXTEX;
+  struct WinApi_EMRSETVIEWPORTEXTEX {
+    WinApi_EMR emr;
+    WinApi_SIZE szlExtent;
+  } WinApi_EMRSETVIEWPORTEXTEX;
 
 typedef
-	struct WinApi_EMRSETWORLDTRANSFORM {
-		WinApi_EMR emr;
-		WinApi_XFORM xform;
-	} WinApi_EMRSETWORLDTRANSFORM;
+  struct WinApi_EMRSETWORLDTRANSFORM {
+    WinApi_EMR emr;
+    WinApi_XFORM xform;
+  } WinApi_EMRSETWORLDTRANSFORM;
 
 typedef
-	struct WinApi_EMRSTRETCHBLT {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
-		WinApi_XFORM xformSrc;
-		INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, cxSrc, cySrc;
-	} WinApi_EMRSTRETCHBLT;
+  struct WinApi_EMRSTRETCHBLT {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER xDest, yDest, cxDest, cyDest, dwRop, xSrc, ySrc;
+    WinApi_XFORM xformSrc;
+    INTEGER crBkColorSrc, iUsageSrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, cxSrc, cySrc;
+  } WinApi_EMRSTRETCHBLT;
 
 typedef
-	struct WinApi_EMRSTRETCHDIBITS {
-		WinApi_EMR emr;
-		WinApi_RECT rclBounds;
-		INTEGER xDest, yDest, xSrc, ySrc, cxSrc, cySrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, iUsageSrc, dwRop, cxDest, cyDest;
-	} WinApi_EMRSTRETCHDIBITS;
+  struct WinApi_EMRSTRETCHDIBITS {
+    WinApi_EMR emr;
+    WinApi_RECT rclBounds;
+    INTEGER xDest, yDest, xSrc, ySrc, cxSrc, cySrc, offBmiSrc, cbBmiSrc, offBitsSrc, cbBitsSrc, iUsageSrc, dwRop, cxDest, cyDest;
+  } WinApi_EMRSTRETCHDIBITS;
 
 typedef
-	struct WinApi_ENHMETAHEADER {
-		INTEGER iType, nSize;
-		WinApi_RECT rclBounds, rclFrame;
-		INTEGER dSignature, nVersion, nBytes, nRecords;
-		SHORTINT nHandles, sReserved;
-		INTEGER nDescription, offDescription, nPalEntries;
-		WinApi_SIZE szlDevice, szlMillimeters;
-		INTEGER cbPixelFormat, offPixelFormat, bOpenGL;
-	} WinApi_ENHMETAHEADER;
+  struct WinApi_ENHMETAHEADER {
+    INTEGER iType, nSize;
+    WinApi_RECT rclBounds, rclFrame;
+    INTEGER dSignature, nVersion, nBytes, nRecords;
+    SHORTINT nHandles, sReserved;
+    INTEGER nDescription, offDescription, nPalEntries;
+    WinApi_SIZE szlDevice, szlMillimeters;
+    INTEGER cbPixelFormat, offPixelFormat, bOpenGL;
+  } WinApi_ENHMETAHEADER;
 
 typedef
-	struct WinApi_ENHMETARECORD {
-		INTEGER iType, nSize;
-		INTEGER dParm[1];
-	} WinApi_ENHMETARECORD;
+  struct WinApi_ENHMETARECORD {
+    INTEGER iType, nSize;
+    INTEGER dParm[1];
+  } WinApi_ENHMETARECORD;
 
 typedef
-	struct WinApi_HANDLETABLE {
-		INTEGER objectHandle[1];
-	} WinApi_HANDLETABLE;
+  struct WinApi_HANDLETABLE {
+    INTEGER objectHandle[1];
+  } WinApi_HANDLETABLE;
 
 typedef
-	INTEGER (__STDCALL *WinApi_ENHMFENUMPROC)(INTEGER, WinApi_HANDLETABLE*, WinApi_ENHMETARECORD*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_ENHMFENUMPROC)(INTEGER, WinApi_HANDLETABLE*, WinApi_ENHMETARECORD*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_LOGFONTA {
-		INTEGER lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
-		CHAR lfItalic, lfUnderline, lfStrikeOut, lfCharSet, lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
-		CHAR lfFaceName[32];
-	} WinApi_LOGFONTA;
+  struct WinApi_LOGFONTA {
+    INTEGER lfHeight, lfWidth, lfEscapement, lfOrientation, lfWeight;
+    CHAR lfItalic, lfUnderline, lfStrikeOut, lfCharSet, lfOutPrecision, lfClipPrecision, lfQuality, lfPitchAndFamily;
+    CHAR lfFaceName[32];
+  } WinApi_LOGFONTA;
 
 typedef
-	struct WinApi_ENUMLOGFONTA {
-		WinApi_LOGFONTA elfLogFont;
-		CHAR elfFullName[64];
-		CHAR elfStyle[32];
-	} WinApi_ENUMLOGFONTA;
+  struct WinApi_ENUMLOGFONTA {
+    WinApi_LOGFONTA elfLogFont;
+    CHAR elfFullName[64];
+    CHAR elfStyle[32];
+  } WinApi_ENUMLOGFONTA;
 
 typedef
-	struct WinApi_ENUMLOGFONTEXA {
-		WinApi_LOGFONTA elfLogFont;
-		CHAR elfFullName[64];
-		CHAR elfStyle[32];
-		CHAR elfScript[32];
-	} WinApi_ENUMLOGFONTEXA;
+  struct WinApi_ENUMLOGFONTEXA {
+    WinApi_LOGFONTA elfLogFont;
+    CHAR elfFullName[64];
+    CHAR elfStyle[32];
+    CHAR elfScript[32];
+  } WinApi_ENUMLOGFONTEXA;
 
 typedef
-	struct WinApi_ENUMLOGFONTEXW {
-		WinApi_LOGFONTW elfLogFont;
-		LONGCHAR elfFullName[64];
-		LONGCHAR elfStyle[32];
-		LONGCHAR elfScript[32];
-	} WinApi_ENUMLOGFONTEXW;
+  struct WinApi_ENUMLOGFONTEXW {
+    WinApi_LOGFONTW elfLogFont;
+    LONGCHAR elfFullName[64];
+    LONGCHAR elfStyle[32];
+    LONGCHAR elfScript[32];
+  } WinApi_ENUMLOGFONTEXW;
 
 typedef
-	struct WinApi_ENUMLOGFONTW {
-		WinApi_LOGFONTW elfLogFont;
-		LONGCHAR elfFullName[64];
-		LONGCHAR elfStyle[32];
-	} WinApi_ENUMLOGFONTW;
+  struct WinApi_ENUMLOGFONTW {
+    WinApi_LOGFONTW elfLogFont;
+    LONGCHAR elfFullName[64];
+    LONGCHAR elfStyle[32];
+  } WinApi_ENUMLOGFONTW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_ENUMRESLANGPROC)(void);
+  INTEGER (__STDCALL *WinApi_ENUMRESLANGPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ENUMRESNAMEPROC)(void);
+  INTEGER (__STDCALL *WinApi_ENUMRESNAMEPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ENUMRESTYPEPROC)(void);
+  INTEGER (__STDCALL *WinApi_ENUMRESTYPEPROC)(void);
 
 typedef
-	struct WinApi_SERVICE_STATUS {
-		SET dwServiceType;
-		INTEGER dwCurrentState, dwControlsAccepted, dwWin32ExitCode, dwServiceSpecificExitCode, dwCheckPoint, dwWaitHint;
-	} WinApi_SERVICE_STATUS;
+  struct WinApi_SERVICE_STATUS {
+    SET dwServiceType;
+    INTEGER dwCurrentState, dwControlsAccepted, dwWin32ExitCode, dwServiceSpecificExitCode, dwCheckPoint, dwWaitHint;
+  } WinApi_SERVICE_STATUS;
 
 typedef
-	struct WinApi_ENUM_SERVICE_STATUSA {
-		WinApi_PtrSTR lpServiceName, lpDisplayName;
-		WinApi_SERVICE_STATUS ServiceStatus;
-	} WinApi_ENUM_SERVICE_STATUSA;
+  struct WinApi_ENUM_SERVICE_STATUSA {
+    WinApi_PtrSTR lpServiceName, lpDisplayName;
+    WinApi_SERVICE_STATUS ServiceStatus;
+  } WinApi_ENUM_SERVICE_STATUSA;
 
 typedef
-	struct WinApi_ENUM_SERVICE_STATUSW {
-		WinApi_PtrWSTR lpServiceName, lpDisplayName;
-		WinApi_SERVICE_STATUS ServiceStatus;
-	} WinApi_ENUM_SERVICE_STATUSW;
+  struct WinApi_ENUM_SERVICE_STATUSW {
+    WinApi_PtrWSTR lpServiceName, lpDisplayName;
+    WinApi_SERVICE_STATUS ServiceStatus;
+  } WinApi_ENUM_SERVICE_STATUSW;
 
 typedef
-	struct WinApi_EVENTLOGRECORD {
-		INTEGER Length, Reserved, RecordNumber, TimeGenerated, TimeWritten, EventID;
-		SHORTINT EventType, NumStrings, EventCategory, ReservedFlags;
-		INTEGER ClosingRecordNumber, StringOffset, UserSidLength, UserSidOffset, DataLength, DataOffset;
-	} WinApi_EVENTLOGRECORD;
+  struct WinApi_EVENTLOGRECORD {
+    INTEGER Length, Reserved, RecordNumber, TimeGenerated, TimeWritten, EventID;
+    SHORTINT EventType, NumStrings, EventCategory, ReservedFlags;
+    INTEGER ClosingRecordNumber, StringOffset, UserSidLength, UserSidOffset, DataLength, DataOffset;
+  } WinApi_EVENTLOGRECORD;
 
 typedef
-	struct WinApi_EVENTMSG {
-		INTEGER message, paramL, paramH, time, hwnd;
-	} WinApi_EVENTMSG;
+  struct WinApi_EVENTMSG {
+    INTEGER message, paramL, paramH, time, hwnd;
+  } WinApi_EVENTMSG;
 
 typedef
-	struct WinApi_EXCEPTION_RECORD *WinApi_PtrEXCEPTION_RECORD;
+  struct WinApi_EXCEPTION_RECORD *WinApi_PtrEXCEPTION_RECORD;
 
 typedef
-	struct WinApi_EXCEPTION_RECORD {
-		INTEGER ExceptionCode;
-		SET ExceptionFlags;
-		WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
-		INTEGER ExceptionAddress, NumberParameters;
-		INTEGER ExceptionInformation[15];
-	} WinApi_EXCEPTION_RECORD;
+  struct WinApi_EXCEPTION_RECORD {
+    INTEGER ExceptionCode;
+    SET ExceptionFlags;
+    WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
+    INTEGER ExceptionAddress, NumberParameters;
+    INTEGER ExceptionInformation[15];
+  } WinApi_EXCEPTION_RECORD;
 
 typedef
-	struct WinApi_EXCEPTION_DEBUG_INFO {
-		WinApi_EXCEPTION_RECORD ExceptionRecord;
-		INTEGER dwFirstChance;
-	} WinApi_EXCEPTION_DEBUG_INFO;
+  struct WinApi_EXCEPTION_DEBUG_INFO {
+    WinApi_EXCEPTION_RECORD ExceptionRecord;
+    INTEGER dwFirstChance;
+  } WinApi_EXCEPTION_DEBUG_INFO;
 
 typedef
-	WinApi_CONTEXT *WinApi_PtrCONTEXT;
+  WinApi_CONTEXT *WinApi_PtrCONTEXT;
 
 typedef
-	struct WinApi_EXCEPTION_POINTERS {
-		WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
-		WinApi_PtrCONTEXT ContextRecord;
-	} WinApi_EXCEPTION_POINTERS;
+  struct WinApi_EXCEPTION_POINTERS {
+    WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
+    WinApi_PtrCONTEXT ContextRecord;
+  } WinApi_EXCEPTION_POINTERS;
 
 typedef
-	struct WinApi_EXIT_PROCESS_DEBUG_INFO {
-		INTEGER dwExitCode;
-	} WinApi_EXIT_PROCESS_DEBUG_INFO;
+  struct WinApi_EXIT_PROCESS_DEBUG_INFO {
+    INTEGER dwExitCode;
+  } WinApi_EXIT_PROCESS_DEBUG_INFO;
 
 typedef
-	struct WinApi_EXIT_THREAD_DEBUG_INFO {
-		INTEGER dwExitCode;
-	} WinApi_EXIT_THREAD_DEBUG_INFO;
+  struct WinApi_EXIT_THREAD_DEBUG_INFO {
+    INTEGER dwExitCode;
+  } WinApi_EXIT_THREAD_DEBUG_INFO;
 
 typedef
-	struct WinApi_EXTLOGFONTA {
-		WinApi_LOGFONTA elfLogFont;
-		CHAR elfFullName[64];
-		CHAR elfStyle[32];
-		INTEGER elfVersion, elfStyleSize, elfMatch, elfReserved;
-		CHAR elfVendorId[4];
-		INTEGER elfCulture;
-		WinApi_PANOSE elfPanose;
-	} WinApi_EXTLOGFONTA;
+  struct WinApi_EXTLOGFONTA {
+    WinApi_LOGFONTA elfLogFont;
+    CHAR elfFullName[64];
+    CHAR elfStyle[32];
+    INTEGER elfVersion, elfStyleSize, elfMatch, elfReserved;
+    CHAR elfVendorId[4];
+    INTEGER elfCulture;
+    WinApi_PANOSE elfPanose;
+  } WinApi_EXTLOGFONTA;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FARPROC)(void);
+  INTEGER (__STDCALL *WinApi_FARPROC)(void);
 
 typedef
-	void (__STDCALL *WinApi_FIBER_START_ROUTINE)(INTEGER);
+  void (__STDCALL *WinApi_FIBER_START_ROUTINE)(INTEGER);
 
 typedef
-	struct WinApi_FILETIME {
-		INTEGER dwLowDateTime, dwHighDateTime;
-	} WinApi_FILETIME;
+  struct WinApi_FILETIME {
+    INTEGER dwLowDateTime, dwHighDateTime;
+  } WinApi_FILETIME;
 
 typedef
-	struct WinApi_FILE_NOTIFY_INFORMATION {
-		INTEGER NextEntryOffset, Action, FileNameLength;
-		LONGCHAR FileName[1];
-	} WinApi_FILE_NOTIFY_INFORMATION;
+  struct WinApi_FILE_NOTIFY_INFORMATION {
+    INTEGER NextEntryOffset, Action, FileNameLength;
+    LONGCHAR FileName[1];
+  } WinApi_FILE_NOTIFY_INFORMATION;
 
 typedef
-	struct WinApi_FILTERKEYS {
-		INTEGER cbSize;
-		SET dwFlags;
-		INTEGER iWaitMSec, iDelayMSec, iRepeatMSec, iBounceMSec;
-	} WinApi_FILTERKEYS;
+  struct WinApi_FILTERKEYS {
+    INTEGER cbSize;
+    SET dwFlags;
+    INTEGER iWaitMSec, iDelayMSec, iRepeatMSec, iBounceMSec;
+  } WinApi_FILTERKEYS;
 
 typedef
-	struct WinApi_FIXED {
-		SHORTINT fract, value;
-	} WinApi_FIXED;
+  struct WinApi_FIXED {
+    SHORTINT fract, value;
+  } WinApi_FIXED;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FNCALLBACK)(INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FNCALLBACK)(INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_FNDEVCAPS)(WinApi_PtrSTR, WinApi_PtrSTR, INTEGER, WinApi_PtrSTR, WinApi_DEVMODEA*);
+  INTEGER (__STDCALL *WinApi_FNDEVCAPS)(WinApi_PtrSTR, WinApi_PtrSTR, INTEGER, WinApi_PtrSTR, WinApi_DEVMODEA*);
 
 typedef
-	INTEGER (__STDCALL *WinApi_FNDEVMODE)(INTEGER, INTEGER, WinApi_DEVMODEA*, WinApi_PtrSTR, WinApi_PtrSTR, WinApi_DEVMODEA*, WinApi_PtrSTR, INTEGER);
+  INTEGER (__STDCALL *WinApi_FNDEVMODE)(INTEGER, INTEGER, WinApi_DEVMODEA*, WinApi_PtrSTR, WinApi_PtrSTR, WinApi_DEVMODEA*, WinApi_PtrSTR, INTEGER);
 
 typedef
-	struct WinApi_FOCUS_EVENT_RECORD {
-		INTEGER bSetFocus;
-	} WinApi_FOCUS_EVENT_RECORD;
+  struct WinApi_FOCUS_EVENT_RECORD {
+    INTEGER bSetFocus;
+  } WinApi_FOCUS_EVENT_RECORD;
 
 typedef
-	struct WinApi_TEXTMETRICA {
-		INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
-		CHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar, tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
-	} WinApi_TEXTMETRICA;
+  struct WinApi_TEXTMETRICA {
+    INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
+    CHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar, tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
+  } WinApi_TEXTMETRICA;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROC)(WinApi_LOGFONTA*, WinApi_TEXTMETRICA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROC)(WinApi_LOGFONTA*, WinApi_TEXTMETRICA*, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROCA)(WinApi_LOGFONTA*, WinApi_TEXTMETRICA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROCA)(WinApi_LOGFONTA*, WinApi_TEXTMETRICA*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_NEWTEXTMETRICA {
-		INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
-		CHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar, tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
-		INTEGER ntmFlags, ntmSizeEM, ntmCellHeight, ntmAvgWidth;
-	} WinApi_NEWTEXTMETRICA;
+  struct WinApi_NEWTEXTMETRICA {
+    INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
+    CHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar, tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
+    INTEGER ntmFlags, ntmSizeEM, ntmCellHeight, ntmAvgWidth;
+  } WinApi_NEWTEXTMETRICA;
 
 typedef
-	struct WinApi_NEWTEXTMETRICEXA {
-		WinApi_NEWTEXTMETRICA ntmTm;
-		WinApi_FONTSIGNATURE ntmFontSig;
-	} WinApi_NEWTEXTMETRICEXA;
+  struct WinApi_NEWTEXTMETRICEXA {
+    WinApi_NEWTEXTMETRICA ntmTm;
+    WinApi_FONTSIGNATURE ntmFontSig;
+  } WinApi_NEWTEXTMETRICEXA;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROCEX)(WinApi_ENUMLOGFONTEXA*, WinApi_NEWTEXTMETRICEXA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROCEX)(WinApi_ENUMLOGFONTEXA*, WinApi_NEWTEXTMETRICEXA*, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROCEXA)(WinApi_ENUMLOGFONTEXA*, WinApi_NEWTEXTMETRICEXA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROCEXA)(WinApi_ENUMLOGFONTEXA*, WinApi_NEWTEXTMETRICEXA*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_NEWTEXTMETRICW {
-		INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
-		LONGCHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar;
-		CHAR tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
-		INTEGER ntmFlags, ntmSizeEM, ntmCellHeight, ntmAvgWidth;
-	} WinApi_NEWTEXTMETRICW;
+  struct WinApi_NEWTEXTMETRICW {
+    INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
+    LONGCHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar;
+    CHAR tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
+    INTEGER ntmFlags, ntmSizeEM, ntmCellHeight, ntmAvgWidth;
+  } WinApi_NEWTEXTMETRICW;
 
 typedef
-	struct WinApi_NEWTEXTMETRICEXW {
-		WinApi_NEWTEXTMETRICW ntmTm;
-		WinApi_FONTSIGNATURE ntmFontSig;
-	} WinApi_NEWTEXTMETRICEXW;
+  struct WinApi_NEWTEXTMETRICEXW {
+    WinApi_NEWTEXTMETRICW ntmTm;
+    WinApi_FONTSIGNATURE ntmFontSig;
+  } WinApi_NEWTEXTMETRICEXW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROCEXW)(WinApi_ENUMLOGFONTEXW*, WinApi_NEWTEXTMETRICEXW*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROCEXW)(WinApi_ENUMLOGFONTEXW*, WinApi_NEWTEXTMETRICEXW*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_TEXTMETRICW {
-		INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
-		LONGCHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar;
-		CHAR tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
-	} WinApi_TEXTMETRICW;
+  struct WinApi_TEXTMETRICW {
+    INTEGER tmHeight, tmAscent, tmDescent, tmInternalLeading, tmExternalLeading, tmAveCharWidth, tmMaxCharWidth, tmWeight, tmOverhang, tmDigitizedAspectX, tmDigitizedAspectY;
+    LONGCHAR tmFirstChar, tmLastChar, tmDefaultChar, tmBreakChar;
+    CHAR tmItalic, tmUnderlined, tmStruckOut, tmPitchAndFamily, tmCharSet;
+  } WinApi_TEXTMETRICW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_FONTENUMPROCW)(WinApi_LOGFONTW*, WinApi_TEXTMETRICW*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_FONTENUMPROCW)(WinApi_LOGFONTW*, WinApi_TEXTMETRICW*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_FORM_INFO_1A {
-		SET Flags;
-		WinApi_PtrSTR pName;
-		WinApi_SIZE Size;
-		WinApi_RECT ImageableArea;
-	} WinApi_FORM_INFO_1A;
+  struct WinApi_FORM_INFO_1A {
+    SET Flags;
+    WinApi_PtrSTR pName;
+    WinApi_SIZE Size;
+    WinApi_RECT ImageableArea;
+  } WinApi_FORM_INFO_1A;
 
 typedef
-	struct WinApi_FORM_INFO_1W {
-		SET Flags;
-		WinApi_PtrWSTR pName;
-		WinApi_SIZE Size;
-		WinApi_RECT ImageableArea;
-	} WinApi_FORM_INFO_1W;
+  struct WinApi_FORM_INFO_1W {
+    SET Flags;
+    WinApi_PtrWSTR pName;
+    WinApi_SIZE Size;
+    WinApi_RECT ImageableArea;
+  } WinApi_FORM_INFO_1W;
 
 typedef
-	struct WinApi_GCP_RESULTSA {
-		INTEGER lStructSize;
-		WinApi_PtrSTR lpOutString;
-		INTEGER *lpOrder;
-		INTEGER *lpDx;
-		INTEGER *lpCaretPos;
-		WinApi_PtrSTR lpClass;
-		WinApi_PtrWSTR lpGlyphs;
-		INTEGER nGlyphs, nMaxFit;
-	} WinApi_GCP_RESULTSA;
+  struct WinApi_GCP_RESULTSA {
+    INTEGER lStructSize;
+    WinApi_PtrSTR lpOutString;
+    INTEGER *lpOrder;
+    INTEGER *lpDx;
+    INTEGER *lpCaretPos;
+    WinApi_PtrSTR lpClass;
+    WinApi_PtrWSTR lpGlyphs;
+    INTEGER nGlyphs, nMaxFit;
+  } WinApi_GCP_RESULTSA;
 
 typedef
-	struct WinApi_GCP_RESULTSW {
-		INTEGER lStructSize;
-		WinApi_PtrWSTR lpOutString;
-		INTEGER *lpOrder;
-		INTEGER *lpDx;
-		INTEGER *lpCaretPos;
-		WinApi_PtrSTR lpClass;
-		WinApi_PtrWSTR lpGlyphs;
-		INTEGER nGlyphs, nMaxFit;
-	} WinApi_GCP_RESULTSW;
+  struct WinApi_GCP_RESULTSW {
+    INTEGER lStructSize;
+    WinApi_PtrWSTR lpOutString;
+    INTEGER *lpOrder;
+    INTEGER *lpDx;
+    INTEGER *lpCaretPos;
+    WinApi_PtrSTR lpClass;
+    WinApi_PtrWSTR lpGlyphs;
+    INTEGER nGlyphs, nMaxFit;
+  } WinApi_GCP_RESULTSW;
 
 typedef
-	struct WinApi_GENERIC_MAPPING {
-		SET GenericRead, GenericWrite, GenericExecute, GenericAll;
-	} WinApi_GENERIC_MAPPING;
+  struct WinApi_GENERIC_MAPPING {
+    SET GenericRead, GenericWrite, GenericExecute, GenericAll;
+  } WinApi_GENERIC_MAPPING;
 
 typedef
-	struct WinApi_GLYPHMETRICS {
-		INTEGER gmBlackBoxX, gmBlackBoxY;
-		WinApi_POINT gmptGlyphOrigin;
-		SHORTINT gmCellIncX, gmCellIncY;
-	} WinApi_GLYPHMETRICS;
+  struct WinApi_GLYPHMETRICS {
+    INTEGER gmBlackBoxX, gmBlackBoxY;
+    WinApi_POINT gmptGlyphOrigin;
+    SHORTINT gmCellIncX, gmCellIncY;
+  } WinApi_GLYPHMETRICS;
 
 typedef
-	struct WinApi_POINTFLOAT {
-		SHORTREAL x, y;
-	} WinApi_POINTFLOAT;
+  struct WinApi_POINTFLOAT {
+    SHORTREAL x, y;
+  } WinApi_POINTFLOAT;
 
 typedef
-	struct WinApi_GLYPHMETRICSFLOAT {
-		SHORTREAL gmfBlackBoxX, gmfBlackBoxY;
-		WinApi_POINTFLOAT gmfptGlyphOrigin;
-		SHORTREAL gmfCellIncX, gmfCellIncY;
-	} WinApi_GLYPHMETRICSFLOAT;
+  struct WinApi_GLYPHMETRICSFLOAT {
+    SHORTREAL gmfBlackBoxX, gmfBlackBoxY;
+    WinApi_POINTFLOAT gmfptGlyphOrigin;
+    SHORTREAL gmfCellIncX, gmfCellIncY;
+  } WinApi_GLYPHMETRICSFLOAT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_GOBJENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_GOBJENUMPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_GRAYSTRINGPROC)(void);
+  INTEGER (__STDCALL *WinApi_GRAYSTRINGPROC)(void);
 
 typedef
-	void (__STDCALL *WinApi_HANDLER_FUNCTION)(INTEGER);
+  void (__STDCALL *WinApi_HANDLER_FUNCTION)(INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_HANDLER_ROUTINE)(INTEGER);
+  INTEGER (__STDCALL *WinApi_HANDLER_ROUTINE)(INTEGER);
 
 typedef
-	struct WinApi_HARDWAREHOOKSTRUCT {
-		INTEGER hwnd, message, wParam, lParam;
-	} WinApi_HARDWAREHOOKSTRUCT;
+  struct WinApi_HARDWAREHOOKSTRUCT {
+    INTEGER hwnd, message, wParam, lParam;
+  } WinApi_HARDWAREHOOKSTRUCT;
 
 typedef
-	struct WinApi_HARDWAREINPUT {
-		INTEGER uMsg;
-		SHORTINT wParamL, wParamH;
-	} WinApi_HARDWAREINPUT;
+  struct WinApi_HARDWAREINPUT {
+    INTEGER uMsg;
+    SHORTINT wParamL, wParamH;
+  } WinApi_HARDWAREINPUT;
 
 typedef
-	struct WinApi_HELPINFO {
-		INTEGER cbSize, iContextType, iCtrlId, hItemHandle, dwContextId;
-		WinApi_POINT MousePos;
-	} WinApi_HELPINFO;
+  struct WinApi_HELPINFO {
+    INTEGER cbSize, iContextType, iCtrlId, hItemHandle, dwContextId;
+    WinApi_POINT MousePos;
+  } WinApi_HELPINFO;
 
 typedef
-	struct WinApi_HELPWININFOA {
-		INTEGER wStructSize, x, y, dx, dy, wMax;
-		CHAR rgchMember[2];
-	} WinApi_HELPWININFOA;
+  struct WinApi_HELPWININFOA {
+    INTEGER wStructSize, x, y, dx, dy, wMax;
+    CHAR rgchMember[2];
+  } WinApi_HELPWININFOA;
 
 typedef
-	struct WinApi_HELPWININFOW {
-		INTEGER wStructSize, x, y, dx, dy, wMax;
-		LONGCHAR rgchMember[2];
-	} WinApi_HELPWININFOW;
+  struct WinApi_HELPWININFOW {
+    INTEGER wStructSize, x, y, dx, dy, wMax;
+    LONGCHAR rgchMember[2];
+  } WinApi_HELPWININFOW;
 
 typedef
-	struct WinApi_HIGHCONTRASTA {
-		INTEGER cbSize;
-		SET dwFlags;
-		WinApi_PtrSTR lpszDefaultScheme;
-	} WinApi_HIGHCONTRASTA;
+  struct WinApi_HIGHCONTRASTA {
+    INTEGER cbSize;
+    SET dwFlags;
+    WinApi_PtrSTR lpszDefaultScheme;
+  } WinApi_HIGHCONTRASTA;
 
 typedef
-	struct WinApi_HIGHCONTRASTW {
-		INTEGER cbSize;
-		SET dwFlags;
-		WinApi_PtrWSTR lpszDefaultScheme;
-	} WinApi_HIGHCONTRASTW;
+  struct WinApi_HIGHCONTRASTW {
+    INTEGER cbSize;
+    SET dwFlags;
+    WinApi_PtrWSTR lpszDefaultScheme;
+  } WinApi_HIGHCONTRASTW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_HOOKPROC)(void);
+  INTEGER (__STDCALL *WinApi_HOOKPROC)(void);
 
 typedef
-	struct WinApi_HSZPAIR {
-		INTEGER hszSvc, hszTopic;
-	} WinApi_HSZPAIR;
+  struct WinApi_HSZPAIR {
+    INTEGER hszSvc, hszTopic;
+  } WinApi_HSZPAIR;
 
 typedef
-	struct WinApi_HW_PROFILE_INFOA {
-		INTEGER dwDockInfo;
-		CHAR szHwProfileGuid[39];
-		CHAR szHwProfileName[80];
-	} WinApi_HW_PROFILE_INFOA;
+  struct WinApi_HW_PROFILE_INFOA {
+    INTEGER dwDockInfo;
+    CHAR szHwProfileGuid[39];
+    CHAR szHwProfileName[80];
+  } WinApi_HW_PROFILE_INFOA;
 
 typedef
-	struct WinApi_HW_PROFILE_INFOW {
-		INTEGER dwDockInfo;
-		LONGCHAR szHwProfileGuid[39];
-		LONGCHAR szHwProfileName[80];
-	} WinApi_HW_PROFILE_INFOW;
+  struct WinApi_HW_PROFILE_INFOW {
+    INTEGER dwDockInfo;
+    LONGCHAR szHwProfileGuid[39];
+    LONGCHAR szHwProfileName[80];
+  } WinApi_HW_PROFILE_INFOW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_ICMENUMPROCA)(WinApi_PtrSTR, INTEGER);
+  INTEGER (__STDCALL *WinApi_ICMENUMPROCA)(WinApi_PtrSTR, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ICMENUMPROCW)(WinApi_PtrWSTR, INTEGER);
+  INTEGER (__STDCALL *WinApi_ICMENUMPROCW)(WinApi_PtrWSTR, INTEGER);
 
 typedef
-	struct WinApi_ICONINFO {
-		INTEGER fIcon, xHotspot, yHotspot, hbmMask, hbmColor;
-	} WinApi_ICONINFO;
+  struct WinApi_ICONINFO {
+    INTEGER fIcon, xHotspot, yHotspot, hbmMask, hbmColor;
+  } WinApi_ICONINFO;
 
 typedef
-	struct WinApi_ICONMETRICSA {
-		INTEGER cbSize, iHorzSpacing, iVertSpacing, iTitleWrap;
-		WinApi_LOGFONTA lfFont;
-	} WinApi_ICONMETRICSA;
+  struct WinApi_ICONMETRICSA {
+    INTEGER cbSize, iHorzSpacing, iVertSpacing, iTitleWrap;
+    WinApi_LOGFONTA lfFont;
+  } WinApi_ICONMETRICSA;
 
 typedef
-	struct WinApi_ICONMETRICSW {
-		INTEGER cbSize, iHorzSpacing, iVertSpacing, iTitleWrap;
-		WinApi_LOGFONTW lfFont;
-	} WinApi_ICONMETRICSW;
+  struct WinApi_ICONMETRICSW {
+    INTEGER cbSize, iHorzSpacing, iVertSpacing, iTitleWrap;
+    WinApi_LOGFONTW lfFont;
+  } WinApi_ICONMETRICSW;
 
 typedef
-	struct WinApi_IMAGE_ARCHIVE_MEMBER_HEADER {
-		CHAR Name[16];
-		CHAR Date[12];
-		CHAR UserID[6];
-		CHAR GroupID[6];
-		CHAR Mode[8];
-		CHAR Size[10];
-		CHAR EndHeader[2];
-	} WinApi_IMAGE_ARCHIVE_MEMBER_HEADER;
+  struct WinApi_IMAGE_ARCHIVE_MEMBER_HEADER {
+    CHAR Name[16];
+    CHAR Date[12];
+    CHAR UserID[6];
+    CHAR GroupID[6];
+    CHAR Mode[8];
+    CHAR Size[10];
+    CHAR EndHeader[2];
+  } WinApi_IMAGE_ARCHIVE_MEMBER_HEADER;
 
 typedef
-	struct WinApi_SYSTEMTIME {
-		SHORTINT wYear, wMonth, wDayOfWeek, wDay, wHour, wMinute, wSecond, wMilliseconds;
-	} WinApi_SYSTEMTIME;
+  struct WinApi_SYSTEMTIME {
+    SHORTINT wYear, wMonth, wDayOfWeek, wDay, wHour, wMinute, wSecond, wMilliseconds;
+  } WinApi_SYSTEMTIME;
 
 typedef
-	struct WinApi_JOB_INFO_1A {
-		INTEGER JobId;
-		WinApi_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
-		SET Status;
-		INTEGER Priority, Position, TotalPages, PagesPrinted;
-		WinApi_SYSTEMTIME Submitted;
-	} WinApi_JOB_INFO_1A;
+  struct WinApi_JOB_INFO_1A {
+    INTEGER JobId;
+    WinApi_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
+    SET Status;
+    INTEGER Priority, Position, TotalPages, PagesPrinted;
+    WinApi_SYSTEMTIME Submitted;
+  } WinApi_JOB_INFO_1A;
 
 typedef
-	struct WinApi_JOB_INFO_1W {
-		INTEGER JobId;
-		WinApi_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
-		SET Status;
-		INTEGER Priority, Position, TotalPages, PagesPrinted;
-		WinApi_SYSTEMTIME Submitted;
-	} WinApi_JOB_INFO_1W;
+  struct WinApi_JOB_INFO_1W {
+    INTEGER JobId;
+    WinApi_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pDatatype, pStatus;
+    SET Status;
+    INTEGER Priority, Position, TotalPages, PagesPrinted;
+    WinApi_SYSTEMTIME Submitted;
+  } WinApi_JOB_INFO_1W;
 
 typedef
-	WinApi_DEVMODEA *WinApi_PtrDEVMODEA;
+  WinApi_DEVMODEA *WinApi_PtrDEVMODEA;
 
 typedef
-	struct WinApi_JOB_INFO_2A {
-		INTEGER JobId;
-		WinApi_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
-		WinApi_PtrDEVMODEA pDevMode;
-		WinApi_PtrSTR pStatus;
-		INTEGER pSecurityDescriptor;
-		SET Status;
-		INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
-		WinApi_SYSTEMTIME Submitted;
-		INTEGER Time, PagesPrinted;
-	} WinApi_JOB_INFO_2A;
+  struct WinApi_JOB_INFO_2A {
+    INTEGER JobId;
+    WinApi_PtrSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
+    WinApi_PtrDEVMODEA pDevMode;
+    WinApi_PtrSTR pStatus;
+    INTEGER pSecurityDescriptor;
+    SET Status;
+    INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
+    WinApi_SYSTEMTIME Submitted;
+    INTEGER Time, PagesPrinted;
+  } WinApi_JOB_INFO_2A;
 
 typedef
-	WinApi_DEVMODEW *WinApi_PtrDEVMODEW;
+  WinApi_DEVMODEW *WinApi_PtrDEVMODEW;
 
 typedef
-	struct WinApi_JOB_INFO_2W {
-		INTEGER JobId;
-		WinApi_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
-		WinApi_PtrDEVMODEW pDevMode;
-		WinApi_PtrWSTR pStatus;
-		INTEGER pSecurityDescriptor;
-		SET Status;
-		INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
-		WinApi_SYSTEMTIME Submitted;
-		INTEGER Time, PagesPrinted;
-	} WinApi_JOB_INFO_2W;
+  struct WinApi_JOB_INFO_2W {
+    INTEGER JobId;
+    WinApi_PtrWSTR pPrinterName, pMachineName, pUserName, pDocument, pNotifyName, pDatatype, pPrintProcessor, pParameters, pDriverName;
+    WinApi_PtrDEVMODEW pDevMode;
+    WinApi_PtrWSTR pStatus;
+    INTEGER pSecurityDescriptor;
+    SET Status;
+    INTEGER Priority, Position, StartTime, UntilTime, TotalPages, Size;
+    WinApi_SYSTEMTIME Submitted;
+    INTEGER Time, PagesPrinted;
+  } WinApi_JOB_INFO_2W;
 
 typedef
-	struct WinApi_KERNINGPAIR {
-		SHORTINT wFirst, wSecond;
-		INTEGER iKernAmount;
-	} WinApi_KERNINGPAIR;
+  struct WinApi_KERNINGPAIR {
+    SHORTINT wFirst, wSecond;
+    INTEGER iKernAmount;
+  } WinApi_KERNINGPAIR;
 
 typedef
-	struct WinApi_KEYBDINPUT {
-		SHORTINT wVk, wScan;
-		SET dwFlags;
-		INTEGER time, dwExtraInfo;
-	} WinApi_KEYBDINPUT;
+  struct WinApi_KEYBDINPUT {
+    SHORTINT wVk, wScan;
+    SET dwFlags;
+    INTEGER time, dwExtraInfo;
+  } WinApi_KEYBDINPUT;
 
 typedef
-	struct WinApi_LAYERPLANEDESCRIPTOR {
-		SHORTINT nSize, nVersion;
-		SET dwFlags;
-		CHAR iPixelType, cColorBits, cRedBits, cRedShift, cGreenBits, cGreenShift, cBlueBits, cBlueShift, cAlphaBits, cAlphaShift, cAccumBits, cAccumRedBits, cAccumGreenBits, cAccumBlueBits, cAccumAlphaBits, cDepthBits, cStencilBits, cAuxBuffers, iLayerPlane, bReserved;
-		INTEGER crTransparent;
-	} WinApi_LAYERPLANEDESCRIPTOR;
+  struct WinApi_LAYERPLANEDESCRIPTOR {
+    SHORTINT nSize, nVersion;
+    SET dwFlags;
+    CHAR iPixelType, cColorBits, cRedBits, cRedShift, cGreenBits, cGreenShift, cBlueBits, cBlueShift, cAlphaBits, cAlphaShift, cAccumBits, cAccumRedBits, cAccumGreenBits, cAccumBlueBits, cAccumAlphaBits, cDepthBits, cStencilBits, cAuxBuffers, iLayerPlane, bReserved;
+    INTEGER crTransparent;
+  } WinApi_LAYERPLANEDESCRIPTOR;
 
 typedef
-	INTEGER (__STDCALL *WinApi_LINEDDAPROC)(void);
+  INTEGER (__STDCALL *WinApi_LINEDDAPROC)(void);
 
 typedef
-	struct WinApi_LOAD_DLL_DEBUG_INFO {
-		INTEGER hFile, lpBaseOfDll, dwDebugInfoFileOffset, nDebugInfoSize, lpImageName;
-		SHORTINT fUnicode;
-	} WinApi_LOAD_DLL_DEBUG_INFO;
+  struct WinApi_LOAD_DLL_DEBUG_INFO {
+    INTEGER hFile, lpBaseOfDll, dwDebugInfoFileOffset, nDebugInfoSize, lpImageName;
+    SHORTINT fUnicode;
+  } WinApi_LOAD_DLL_DEBUG_INFO;
 
 typedef
-	struct WinApi_LOCALESIGNATURE {
-		INTEGER lsUsb[4];
-		INTEGER lsCsbDefault[2];
-		INTEGER lsCsbSupported[2];
-	} WinApi_LOCALESIGNATURE;
+  struct WinApi_LOCALESIGNATURE {
+    INTEGER lsUsb[4];
+    INTEGER lsCsbDefault[2];
+    INTEGER lsCsbSupported[2];
+  } WinApi_LOCALESIGNATURE;
 
 typedef
-	INTEGER (__STDCALL *WinApi_LOCALE_ENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_LOCALE_ENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_LOCALE_ENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_LOCALE_ENUMPROCW)(void);
 
 typedef
-	struct WinApi_LOGCOLORSPACEA {
-		INTEGER lcsSignature, lcsVersion, lcsSize, lcsCSType, lcsIntent;
-		WinApi_CIEXYZTRIPLE lcsEndpoints;
-		INTEGER lcsGammaRed, lcsGammaGreen, lcsGammaBlue;
-		CHAR lcsFilename[260];
-	} WinApi_LOGCOLORSPACEA;
+  struct WinApi_LOGCOLORSPACEA {
+    INTEGER lcsSignature, lcsVersion, lcsSize, lcsCSType, lcsIntent;
+    WinApi_CIEXYZTRIPLE lcsEndpoints;
+    INTEGER lcsGammaRed, lcsGammaGreen, lcsGammaBlue;
+    CHAR lcsFilename[260];
+  } WinApi_LOGCOLORSPACEA;
 
 typedef
-	struct WinApi_LUID_AND_ATTRIBUTES {
-		LONGINT Luid;
-		SET Attributes;
-	} WinApi_LUID_AND_ATTRIBUTES;
+  struct WinApi_LUID_AND_ATTRIBUTES {
+    LONGINT Luid;
+    SET Attributes;
+  } WinApi_LUID_AND_ATTRIBUTES;
 
 typedef
-	WinApi_LUID_AND_ATTRIBUTES WinApi_LUID_AND_ATTRIBUTES_ARRAY[1];
+  WinApi_LUID_AND_ATTRIBUTES WinApi_LUID_AND_ATTRIBUTES_ARRAY[1];
 
 typedef
-	struct WinApi_MAT2 {
-		WinApi_FIXED eM11, eM12, eM21, eM22;
-	} WinApi_MAT2;
+  struct WinApi_MAT2 {
+    WinApi_FIXED eM11, eM12, eM21, eM22;
+  } WinApi_MAT2;
 
 typedef
-	struct WinApi_MDICREATESTRUCTA {
-		WinApi_PtrSTR szClass, szTitle;
-		INTEGER hOwner, x, y, cx, cy;
-		SET style;
-		INTEGER lParam;
-	} WinApi_MDICREATESTRUCTA;
+  struct WinApi_MDICREATESTRUCTA {
+    WinApi_PtrSTR szClass, szTitle;
+    INTEGER hOwner, x, y, cx, cy;
+    SET style;
+    INTEGER lParam;
+  } WinApi_MDICREATESTRUCTA;
 
 typedef
-	struct WinApi_MDICREATESTRUCTW {
-		WinApi_PtrWSTR szClass, szTitle;
-		INTEGER hOwner, x, y, cx, cy;
-		SET style;
-		INTEGER lParam;
-	} WinApi_MDICREATESTRUCTW;
+  struct WinApi_MDICREATESTRUCTW {
+    WinApi_PtrWSTR szClass, szTitle;
+    INTEGER hOwner, x, y, cx, cy;
+    SET style;
+    INTEGER lParam;
+  } WinApi_MDICREATESTRUCTW;
 
 typedef
-	struct WinApi_MDINEXTMENU {
-		INTEGER hmenuIn, hmenuNext, hwndNext;
-	} WinApi_MDINEXTMENU;
+  struct WinApi_MDINEXTMENU {
+    INTEGER hmenuIn, hmenuNext, hwndNext;
+  } WinApi_MDINEXTMENU;
 
 typedef
-	struct WinApi_MEASUREITEMSTRUCT {
-		SET CtlType;
-		INTEGER CtlID, itemID, itemWidth, itemHeight, itemData;
-	} WinApi_MEASUREITEMSTRUCT;
+  struct WinApi_MEASUREITEMSTRUCT {
+    SET CtlType;
+    INTEGER CtlID, itemID, itemWidth, itemHeight, itemData;
+  } WinApi_MEASUREITEMSTRUCT;
 
 typedef
-	struct WinApi_MEMORYSTATUS {
-		INTEGER dwLength, dwMemoryLoad, dwTotalPhys, dwAvailPhys, dwTotalPageFile, dwAvailPageFile, dwTotalVirtual, dwAvailVirtual;
-	} WinApi_MEMORYSTATUS;
+  struct WinApi_MEMORYSTATUS {
+    INTEGER dwLength, dwMemoryLoad, dwTotalPhys, dwAvailPhys, dwTotalPageFile, dwAvailPageFile, dwTotalVirtual, dwAvailVirtual;
+  } WinApi_MEMORYSTATUS;
 
 typedef
-	struct WinApi_MEMORY_BASIC_INFORMATION {
-		INTEGER BaseAddress, AllocationBase, AllocationProtect, RegionSize, State, Protect, Type;
-	} WinApi_MEMORY_BASIC_INFORMATION;
+  struct WinApi_MEMORY_BASIC_INFORMATION {
+    INTEGER BaseAddress, AllocationBase, AllocationProtect, RegionSize, State, Protect, Type;
+  } WinApi_MEMORY_BASIC_INFORMATION;
 
 typedef
-	struct WinApi_MENUITEMINFOA {
-		INTEGER cbSize;
-		SET fMask, fType, fState;
-		INTEGER wID, hSubMenu, hbmpChecked, hbmpUnchecked, dwItemData;
-		WinApi_PtrSTR dwTypeData;
-		INTEGER cch;
-	} WinApi_MENUITEMINFOA;
+  struct WinApi_MENUITEMINFOA {
+    INTEGER cbSize;
+    SET fMask, fType, fState;
+    INTEGER wID, hSubMenu, hbmpChecked, hbmpUnchecked, dwItemData;
+    WinApi_PtrSTR dwTypeData;
+    INTEGER cch;
+  } WinApi_MENUITEMINFOA;
 
 typedef
-	struct WinApi_MENUITEMINFOW {
-		INTEGER cbSize;
-		SET fMask, fType, fState;
-		INTEGER wID, hSubMenu, hbmpChecked, hbmpUnchecked, dwItemData;
-		WinApi_PtrWSTR dwTypeData;
-		INTEGER cch;
-	} WinApi_MENUITEMINFOW;
+  struct WinApi_MENUITEMINFOW {
+    INTEGER cbSize;
+    SET fMask, fType, fState;
+    INTEGER wID, hSubMenu, hbmpChecked, hbmpUnchecked, dwItemData;
+    WinApi_PtrWSTR dwTypeData;
+    INTEGER cch;
+  } WinApi_MENUITEMINFOW;
 
 typedef
-	struct WinApi_MENUITEMTEMPLATE {
-		SHORTINT mtOption, mtID;
-		LONGCHAR mtString[1];
-	} WinApi_MENUITEMTEMPLATE;
+  struct WinApi_MENUITEMTEMPLATE {
+    SHORTINT mtOption, mtID;
+    LONGCHAR mtString[1];
+  } WinApi_MENUITEMTEMPLATE;
 
 typedef
-	struct WinApi_MENUITEMTEMPLATEHEADER {
-		SHORTINT versionNumber, offset;
-	} WinApi_MENUITEMTEMPLATEHEADER;
+  struct WinApi_MENUITEMTEMPLATEHEADER {
+    SHORTINT versionNumber, offset;
+  } WinApi_MENUITEMTEMPLATEHEADER;
 
 typedef
-	struct WinApi_MENUTEMPLATE {
-		char _prvt0[1];
-	} WinApi_MENUTEMPLATE;
+  struct WinApi_MENUTEMPLATE {
+    char _prvt0[1];
+  } WinApi_MENUTEMPLATE;
 
 typedef
-	struct WinApi_MENUTEMPLATEA {
-		char _prvt0[1];
-	} WinApi_MENUTEMPLATEA;
+  struct WinApi_MENUTEMPLATEA {
+    char _prvt0[1];
+  } WinApi_MENUTEMPLATEA;
 
 typedef
-	struct WinApi_MENUTEMPLATEW {
-		char _prvt0[1];
-	} WinApi_MENUTEMPLATEW;
+  struct WinApi_MENUTEMPLATEW {
+    char _prvt0[1];
+  } WinApi_MENUTEMPLATEW;
 
 typedef
-	struct WinApi_MENU_EVENT_RECORD {
-		INTEGER dwCommandId;
-	} WinApi_MENU_EVENT_RECORD;
+  struct WinApi_MENU_EVENT_RECORD {
+    INTEGER dwCommandId;
+  } WinApi_MENU_EVENT_RECORD;
 
 typedef
-	struct WinApi_MESSAGE_RESOURCE_BLOCK {
-		INTEGER LowId, HighId, OffsetToEntries;
-	} WinApi_MESSAGE_RESOURCE_BLOCK;
+  struct WinApi_MESSAGE_RESOURCE_BLOCK {
+    INTEGER LowId, HighId, OffsetToEntries;
+  } WinApi_MESSAGE_RESOURCE_BLOCK;
 
 typedef
-	struct WinApi_MESSAGE_RESOURCE_DATA {
-		INTEGER NumberOfBlocks;
-		WinApi_MESSAGE_RESOURCE_BLOCK Blocks[1];
-	} WinApi_MESSAGE_RESOURCE_DATA;
+  struct WinApi_MESSAGE_RESOURCE_DATA {
+    INTEGER NumberOfBlocks;
+    WinApi_MESSAGE_RESOURCE_BLOCK Blocks[1];
+  } WinApi_MESSAGE_RESOURCE_DATA;
 
 typedef
-	struct WinApi_MESSAGE_RESOURCE_ENTRY {
-		SHORTINT Length, Flags;
-		CHAR Text[1];
-	} WinApi_MESSAGE_RESOURCE_ENTRY;
+  struct WinApi_MESSAGE_RESOURCE_ENTRY {
+    SHORTINT Length, Flags;
+    CHAR Text[1];
+  } WinApi_MESSAGE_RESOURCE_ENTRY;
 
 typedef
-	struct WinApi_METAFILEPICT {
-		INTEGER mm, xExt, yExt, hMF;
-	} WinApi_METAFILEPICT;
+  struct WinApi_METAFILEPICT {
+    INTEGER mm, xExt, yExt, hMF;
+  } WinApi_METAFILEPICT;
 
 typedef
-	struct WinApi_METARECORD {
-		INTEGER rdSize;
-		SHORTINT rdFunction;
-		SHORTINT rdParm[1];
-	} WinApi_METARECORD;
+  struct WinApi_METARECORD {
+    INTEGER rdSize;
+    SHORTINT rdFunction;
+    SHORTINT rdParm[1];
+  } WinApi_METARECORD;
 
 typedef
-	INTEGER (__STDCALL *WinApi_MFENUMPROC)(INTEGER, WinApi_HANDLETABLE*, WinApi_METARECORD*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_MFENUMPROC)(INTEGER, WinApi_HANDLETABLE*, WinApi_METARECORD*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_MINIMIZEDMETRICS {
-		INTEGER cbSize, iWidth, iHorzGap, iVertGap, iArrange;
-	} WinApi_MINIMIZEDMETRICS;
+  struct WinApi_MINIMIZEDMETRICS {
+    INTEGER cbSize, iWidth, iHorzGap, iVertGap, iArrange;
+  } WinApi_MINIMIZEDMETRICS;
 
 typedef
-	struct WinApi_MINMAXINFO {
-		WinApi_POINT ptReserved, ptMaxSize, ptMaxPosition, ptMinTrackSize, ptMaxTrackSize;
-	} WinApi_MINMAXINFO;
+  struct WinApi_MINMAXINFO {
+    WinApi_POINT ptReserved, ptMaxSize, ptMaxPosition, ptMinTrackSize, ptMaxTrackSize;
+  } WinApi_MINMAXINFO;
 
 typedef
-	struct WinApi_MODEMDEVCAPS {
-		INTEGER dwActualSize, dwRequiredSize, dwDevSpecificOffset, dwDevSpecificSize, dwModemProviderVersion, dwModemManufacturerOffset, dwModemManufacturerSize, dwModemModelOffset, dwModemModelSize, dwModemVersionOffset, dwModemVersionSize, dwDialOptions, dwCallSetupFailTimer, dwInactivityTimeout;
-		SET dwSpeakerVolume, dwSpeakerMode, dwModemOptions;
-		INTEGER dwMaxDTERate, dwMaxDCERate;
-		CHAR abVariablePortion[1];
-	} WinApi_MODEMDEVCAPS;
+  struct WinApi_MODEMDEVCAPS {
+    INTEGER dwActualSize, dwRequiredSize, dwDevSpecificOffset, dwDevSpecificSize, dwModemProviderVersion, dwModemManufacturerOffset, dwModemManufacturerSize, dwModemModelOffset, dwModemModelSize, dwModemVersionOffset, dwModemVersionSize, dwDialOptions, dwCallSetupFailTimer, dwInactivityTimeout;
+    SET dwSpeakerVolume, dwSpeakerMode, dwModemOptions;
+    INTEGER dwMaxDTERate, dwMaxDCERate;
+    CHAR abVariablePortion[1];
+  } WinApi_MODEMDEVCAPS;
 
 typedef
-	struct WinApi_MODEMSETTINGS {
-		INTEGER dwActualSize, dwRequiredSize, dwDevSpecificOffset, dwDevSpecificSize, dwCallSetupFailTimer, dwInactivityTimeout;
-		SET dwSpeakerVolume, dwSpeakerMode;
-		INTEGER dwPreferredModemOptions, dwNegotiatedModemOptions, dwNegotiatedDCERate;
-		CHAR abVariablePortion[1];
-	} WinApi_MODEMSETTINGS;
+  struct WinApi_MODEMSETTINGS {
+    INTEGER dwActualSize, dwRequiredSize, dwDevSpecificOffset, dwDevSpecificSize, dwCallSetupFailTimer, dwInactivityTimeout;
+    SET dwSpeakerVolume, dwSpeakerMode;
+    INTEGER dwPreferredModemOptions, dwNegotiatedModemOptions, dwNegotiatedDCERate;
+    CHAR abVariablePortion[1];
+  } WinApi_MODEMSETTINGS;
 
 typedef
-	struct WinApi_MONCBSTRUCT {
-		INTEGER cb, dwTime, hTask, dwRet, wType, wFmt, hConv, hsz1, hsz2, hData, dwData1, dwData2;
-		WinApi_CONVCONTEXT cc;
-		INTEGER cbData;
-		INTEGER Data[8];
-	} WinApi_MONCBSTRUCT;
+  struct WinApi_MONCBSTRUCT {
+    INTEGER cb, dwTime, hTask, dwRet, wType, wFmt, hConv, hsz1, hsz2, hData, dwData1, dwData2;
+    WinApi_CONVCONTEXT cc;
+    INTEGER cbData;
+    INTEGER Data[8];
+  } WinApi_MONCBSTRUCT;
 
 typedef
-	struct WinApi_MONCONVSTRUCT {
-		INTEGER cb, fConnect, dwTime, hTask, hszSvc, hszTopic, hConvClient, hConvServer;
-	} WinApi_MONCONVSTRUCT;
+  struct WinApi_MONCONVSTRUCT {
+    INTEGER cb, fConnect, dwTime, hTask, hszSvc, hszTopic, hConvClient, hConvServer;
+  } WinApi_MONCONVSTRUCT;
 
 typedef
-	struct WinApi_MONERRSTRUCT {
-		INTEGER cb, wLastError, dwTime, hTask;
-	} WinApi_MONERRSTRUCT;
+  struct WinApi_MONERRSTRUCT {
+    INTEGER cb, wLastError, dwTime, hTask;
+  } WinApi_MONERRSTRUCT;
 
 typedef
-	struct WinApi_MONHSZSTRUCTA {
-		INTEGER cb, fsAction, dwTime, hsz, hTask;
-		CHAR str[1];
-	} WinApi_MONHSZSTRUCTA;
+  struct WinApi_MONHSZSTRUCTA {
+    INTEGER cb, fsAction, dwTime, hsz, hTask;
+    CHAR str[1];
+  } WinApi_MONHSZSTRUCTA;
 
 typedef
-	struct WinApi_MONHSZSTRUCTW {
-		INTEGER cb, fsAction, dwTime, hsz, hTask;
-		LONGCHAR str[1];
-	} WinApi_MONHSZSTRUCTW;
+  struct WinApi_MONHSZSTRUCTW {
+    INTEGER cb, fsAction, dwTime, hsz, hTask;
+    LONGCHAR str[1];
+  } WinApi_MONHSZSTRUCTW;
 
 typedef
-	struct WinApi_MONITOR_INFO_1A {
-		WinApi_PtrSTR pName;
-	} WinApi_MONITOR_INFO_1A;
+  struct WinApi_MONITOR_INFO_1A {
+    WinApi_PtrSTR pName;
+  } WinApi_MONITOR_INFO_1A;
 
 typedef
-	struct WinApi_MONITOR_INFO_1W {
-		WinApi_PtrWSTR pName;
-	} WinApi_MONITOR_INFO_1W;
+  struct WinApi_MONITOR_INFO_1W {
+    WinApi_PtrWSTR pName;
+  } WinApi_MONITOR_INFO_1W;
 
 typedef
-	struct WinApi_MONITOR_INFO_2A {
-		WinApi_PtrSTR pName, pEnvironment, pDLLName;
-	} WinApi_MONITOR_INFO_2A;
+  struct WinApi_MONITOR_INFO_2A {
+    WinApi_PtrSTR pName, pEnvironment, pDLLName;
+  } WinApi_MONITOR_INFO_2A;
 
 typedef
-	struct WinApi_MONITOR_INFO_2W {
-		WinApi_PtrWSTR pName, pEnvironment, pDLLName;
-	} WinApi_MONITOR_INFO_2W;
+  struct WinApi_MONITOR_INFO_2W {
+    WinApi_PtrWSTR pName, pEnvironment, pDLLName;
+  } WinApi_MONITOR_INFO_2W;
 
 typedef
-	struct WinApi_MONLINKSTRUCT {
-		INTEGER cb, dwTime, hTask, fEstablished, fNoData, hszSvc, hszTopic, hszItem, wFmt, fServer, hConvServer, hConvClient;
-	} WinApi_MONLINKSTRUCT;
+  struct WinApi_MONLINKSTRUCT {
+    INTEGER cb, dwTime, hTask, fEstablished, fNoData, hszSvc, hszTopic, hszItem, wFmt, fServer, hConvServer, hConvClient;
+  } WinApi_MONLINKSTRUCT;
 
 typedef
-	struct WinApi_MONMSGSTRUCT {
-		INTEGER cb, hwndTo, dwTime, hTask, wMsg, wParam, lParam;
-		WinApi_DDEML_MSG_HOOK_DATA dmhd;
-	} WinApi_MONMSGSTRUCT;
+  struct WinApi_MONMSGSTRUCT {
+    INTEGER cb, hwndTo, dwTime, hTask, wMsg, wParam, lParam;
+    WinApi_DDEML_MSG_HOOK_DATA dmhd;
+  } WinApi_MONMSGSTRUCT;
 
 typedef
-	struct WinApi_MOUSEHOOKSTRUCT {
-		WinApi_POINT pt;
-		INTEGER hwnd, wHitTestCode, dwExtraInfo;
-	} WinApi_MOUSEHOOKSTRUCT;
+  struct WinApi_MOUSEHOOKSTRUCT {
+    WinApi_POINT pt;
+    INTEGER hwnd, wHitTestCode, dwExtraInfo;
+  } WinApi_MOUSEHOOKSTRUCT;
 
 typedef
-	struct WinApi_MOUSEINPUT {
-		INTEGER dx, dy, mouseData;
-		SET dwFlags;
-		INTEGER time, dwExtraInfo;
-	} WinApi_MOUSEINPUT;
+  struct WinApi_MOUSEINPUT {
+    INTEGER dx, dy, mouseData;
+    SET dwFlags;
+    INTEGER time, dwExtraInfo;
+  } WinApi_MOUSEINPUT;
 
 typedef
-	struct WinApi_MOUSEKEYS {
-		INTEGER cbSize;
-		SET dwFlags;
-		INTEGER iMaxSpeed, iTimeToMaxSpeed, iCtrlSpeed, dwReserved1, dwReserved2;
-	} WinApi_MOUSEKEYS;
+  struct WinApi_MOUSEKEYS {
+    INTEGER cbSize;
+    SET dwFlags;
+    INTEGER iMaxSpeed, iTimeToMaxSpeed, iCtrlSpeed, dwReserved1, dwReserved2;
+  } WinApi_MOUSEKEYS;
 
 typedef
-	struct WinApi_MOUSE_EVENT_RECORD {
-		WinApi_COORD dwMousePosition;
-		SET dwButtonState, dwControlKeyState, dwEventFlags;
-	} WinApi_MOUSE_EVENT_RECORD;
+  struct WinApi_MOUSE_EVENT_RECORD {
+    WinApi_COORD dwMousePosition;
+    SET dwButtonState, dwControlKeyState, dwEventFlags;
+  } WinApi_MOUSE_EVENT_RECORD;
 
 typedef
-	struct WinApi_MSG {
-		INTEGER hwnd, message, wParam, lParam, time;
-		WinApi_POINT pt;
-	} WinApi_MSG;
+  struct WinApi_MSG {
+    INTEGER hwnd, message, wParam, lParam, time;
+    WinApi_POINT pt;
+  } WinApi_MSG;
 
 typedef
-	void (__STDCALL *WinApi_MSGBOXCALLBACK)(WinApi_HELPINFO*);
+  void (__STDCALL *WinApi_MSGBOXCALLBACK)(WinApi_HELPINFO*);
 
 typedef
-	struct WinApi_MSGBOXPARAMSA {
-		INTEGER cbSize, hwndOwner, hInstance;
-		WinApi_PtrSTR lpszText, lpszCaption;
-		SET dwStyle;
-		WinApi_PtrSTR lpszIcon;
-		INTEGER dwContextHelpId;
-		WinApi_MSGBOXCALLBACK lpfnMsgBoxCallback;
-		INTEGER dwLanguageId;
-	} WinApi_MSGBOXPARAMSA;
+  struct WinApi_MSGBOXPARAMSA {
+    INTEGER cbSize, hwndOwner, hInstance;
+    WinApi_PtrSTR lpszText, lpszCaption;
+    SET dwStyle;
+    WinApi_PtrSTR lpszIcon;
+    INTEGER dwContextHelpId;
+    WinApi_MSGBOXCALLBACK lpfnMsgBoxCallback;
+    INTEGER dwLanguageId;
+  } WinApi_MSGBOXPARAMSA;
 
 typedef
-	struct WinApi_MSGBOXPARAMSW {
-		INTEGER cbSize, hwndOwner, hInstance;
-		WinApi_PtrWSTR lpszText, lpszCaption;
-		SET dwStyle;
-		WinApi_PtrWSTR lpszIcon;
-		INTEGER dwContextHelpId;
-		WinApi_MSGBOXCALLBACK lpfnMsgBoxCallback;
-		INTEGER dwLanguageId;
-	} WinApi_MSGBOXPARAMSW;
+  struct WinApi_MSGBOXPARAMSW {
+    INTEGER cbSize, hwndOwner, hInstance;
+    WinApi_PtrWSTR lpszText, lpszCaption;
+    SET dwStyle;
+    WinApi_PtrWSTR lpszIcon;
+    INTEGER dwContextHelpId;
+    WinApi_MSGBOXCALLBACK lpfnMsgBoxCallback;
+    INTEGER dwLanguageId;
+  } WinApi_MSGBOXPARAMSW;
 
 typedef
-	struct WinApi_MULTIKEYHELPA {
-		INTEGER mkSize;
-		CHAR mkKeylist;
-		CHAR szKeyphrase[1];
-	} WinApi_MULTIKEYHELPA;
+  struct WinApi_MULTIKEYHELPA {
+    INTEGER mkSize;
+    CHAR mkKeylist;
+    CHAR szKeyphrase[1];
+  } WinApi_MULTIKEYHELPA;
 
 typedef
-	struct WinApi_MULTIKEYHELPW {
-		INTEGER mkSize;
-		LONGCHAR mkKeylist;
-		LONGCHAR szKeyphrase[1];
-	} WinApi_MULTIKEYHELPW;
+  struct WinApi_MULTIKEYHELPW {
+    INTEGER mkSize;
+    LONGCHAR mkKeylist;
+    LONGCHAR szKeyphrase[1];
+  } WinApi_MULTIKEYHELPW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_NAMEENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_NAMEENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_NAMEENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_NAMEENUMPROCW)(void);
 
 typedef
-	struct WinApi_WINDOWPOS *WinApi_PtrWINDOWPOS;
+  struct WinApi_WINDOWPOS *WinApi_PtrWINDOWPOS;
 
 typedef
-	struct WinApi_NCCALCSIZE_PARAMS {
-		WinApi_RECT rgrc[3];
-		WinApi_PtrWINDOWPOS lppos;
-	} WinApi_NCCALCSIZE_PARAMS;
+  struct WinApi_NCCALCSIZE_PARAMS {
+    WinApi_RECT rgrc[3];
+    WinApi_PtrWINDOWPOS lppos;
+  } WinApi_NCCALCSIZE_PARAMS;
 
 typedef
-	INTEGER (__STDCALL *WinApi_NEARPROC)(void);
+  INTEGER (__STDCALL *WinApi_NEARPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_NEWFONTENUMPROC)(WinApi_ENUMLOGFONTA*, WinApi_NEWTEXTMETRICA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_NEWFONTENUMPROC)(WinApi_ENUMLOGFONTA*, WinApi_NEWTEXTMETRICA*, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_NEWFONTENUMPROCA)(WinApi_ENUMLOGFONTA*, WinApi_NEWTEXTMETRICA*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_NEWFONTENUMPROCA)(WinApi_ENUMLOGFONTA*, WinApi_NEWTEXTMETRICA*, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_NEWFONTENUMPROCW)(WinApi_ENUMLOGFONTW*, WinApi_NEWTEXTMETRICW*, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_NEWFONTENUMPROCW)(WinApi_ENUMLOGFONTW*, WinApi_NEWTEXTMETRICW*, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_NMHDR {
-		INTEGER hwndFrom, idFrom, code;
-	} WinApi_NMHDR;
+  struct WinApi_NMHDR {
+    INTEGER hwndFrom, idFrom, code;
+  } WinApi_NMHDR;
 
 typedef
-	struct WinApi_NONCLIENTMETRICSA {
-		INTEGER cbSize, iBorderWidth, iScrollWidth, iScrollHeight, iCaptionWidth, iCaptionHeight;
-		WinApi_LOGFONTA lfCaptionFont;
-		INTEGER iSmCaptionWidth, iSmCaptionHeight;
-		WinApi_LOGFONTA lfSmCaptionFont;
-		INTEGER iMenuWidth, iMenuHeight;
-		WinApi_LOGFONTA lfMenuFont, lfStatusFont, lfMessageFont;
-	} WinApi_NONCLIENTMETRICSA;
+  struct WinApi_NONCLIENTMETRICSA {
+    INTEGER cbSize, iBorderWidth, iScrollWidth, iScrollHeight, iCaptionWidth, iCaptionHeight;
+    WinApi_LOGFONTA lfCaptionFont;
+    INTEGER iSmCaptionWidth, iSmCaptionHeight;
+    WinApi_LOGFONTA lfSmCaptionFont;
+    INTEGER iMenuWidth, iMenuHeight;
+    WinApi_LOGFONTA lfMenuFont, lfStatusFont, lfMessageFont;
+  } WinApi_NONCLIENTMETRICSA;
 
 typedef
-	struct WinApi_NONCLIENTMETRICSW {
-		INTEGER cbSize, iBorderWidth, iScrollWidth, iScrollHeight, iCaptionWidth, iCaptionHeight;
-		WinApi_LOGFONTW lfCaptionFont;
-		INTEGER iSmCaptionWidth, iSmCaptionHeight;
-		WinApi_LOGFONTW lfSmCaptionFont;
-		INTEGER iMenuWidth, iMenuHeight;
-		WinApi_LOGFONTW lfMenuFont, lfStatusFont, lfMessageFont;
-	} WinApi_NONCLIENTMETRICSW;
+  struct WinApi_NONCLIENTMETRICSW {
+    INTEGER cbSize, iBorderWidth, iScrollWidth, iScrollHeight, iCaptionWidth, iCaptionHeight;
+    WinApi_LOGFONTW lfCaptionFont;
+    INTEGER iSmCaptionWidth, iSmCaptionHeight;
+    WinApi_LOGFONTW lfSmCaptionFont;
+    INTEGER iMenuWidth, iMenuHeight;
+    WinApi_LOGFONTW lfMenuFont, lfStatusFont, lfMessageFont;
+  } WinApi_NONCLIENTMETRICSW;
 
 typedef
-	struct WinApi_NUMBERFMTA {
-		INTEGER NumDigits, LeadingZero, Grouping;
-		WinApi_PtrSTR lpDecimalSep, lpThousandSep;
-		INTEGER NegativeOrder;
-	} WinApi_NUMBERFMTA;
+  struct WinApi_NUMBERFMTA {
+    INTEGER NumDigits, LeadingZero, Grouping;
+    WinApi_PtrSTR lpDecimalSep, lpThousandSep;
+    INTEGER NegativeOrder;
+  } WinApi_NUMBERFMTA;
 
 typedef
-	struct WinApi_NUMBERFMTW {
-		INTEGER NumDigits, LeadingZero, Grouping;
-		WinApi_PtrWSTR lpDecimalSep, lpThousandSep;
-		INTEGER NegativeOrder;
-	} WinApi_NUMBERFMTW;
+  struct WinApi_NUMBERFMTW {
+    INTEGER NumDigits, LeadingZero, Grouping;
+    WinApi_PtrWSTR lpDecimalSep, lpThousandSep;
+    INTEGER NegativeOrder;
+  } WinApi_NUMBERFMTW;
 
 typedef
-	struct WinApi_OFSTRUCT {
-		CHAR cBytes, fFixedDisk;
-		SHORTINT nErrCode, Reserved1, Reserved2;
-		CHAR szPathName[128];
-	} WinApi_OFSTRUCT;
+  struct WinApi_OFSTRUCT {
+    CHAR cBytes, fFixedDisk;
+    SHORTINT nErrCode, Reserved1, Reserved2;
+    CHAR szPathName[128];
+  } WinApi_OFSTRUCT;
 
 typedef
-	INTEGER (__STDCALL *WinApi_OLDFONTENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_OLDFONTENUMPROC)(void);
 
 typedef
-	struct WinApi_OSVERSIONINFOA {
-		INTEGER dwOSVersionInfoSize, dwMajorVersion, dwMinorVersion, dwBuildNumber, dwPlatformId;
-		CHAR szCSDVersion[128];
-	} WinApi_OSVERSIONINFOA;
+  struct WinApi_OSVERSIONINFOA {
+    INTEGER dwOSVersionInfoSize, dwMajorVersion, dwMinorVersion, dwBuildNumber, dwPlatformId;
+    CHAR szCSDVersion[128];
+  } WinApi_OSVERSIONINFOA;
 
 typedef
-	struct WinApi_OSVERSIONINFOW {
-		INTEGER dwOSVersionInfoSize, dwMajorVersion, dwMinorVersion, dwBuildNumber, dwPlatformId;
-		LONGCHAR szCSDVersion[128];
-	} WinApi_OSVERSIONINFOW;
+  struct WinApi_OSVERSIONINFOW {
+    INTEGER dwOSVersionInfoSize, dwMajorVersion, dwMinorVersion, dwBuildNumber, dwPlatformId;
+    LONGCHAR szCSDVersion[128];
+  } WinApi_OSVERSIONINFOW;
 
 typedef
-	struct WinApi_OUTLINETEXTMETRICA {
-		INTEGER otmSize;
-		WinApi_TEXTMETRICA otmTextMetrics;
-		CHAR otmFiller;
-		WinApi_PANOSE otmPanoseNumber;
-		INTEGER otmfsSelection, otmfsType, otmsCharSlopeRise, otmsCharSlopeRun, otmItalicAngle, otmEMSquare, otmAscent, otmDescent, otmLineGap, otmsCapEmHeight, otmsXHeight;
-		WinApi_RECT otmrcFontBox;
-		INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
-		WinApi_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
-		INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
-		WinApi_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
-	} WinApi_OUTLINETEXTMETRICA;
+  struct WinApi_OUTLINETEXTMETRICA {
+    INTEGER otmSize;
+    WinApi_TEXTMETRICA otmTextMetrics;
+    CHAR otmFiller;
+    WinApi_PANOSE otmPanoseNumber;
+    INTEGER otmfsSelection, otmfsType, otmsCharSlopeRise, otmsCharSlopeRun, otmItalicAngle, otmEMSquare, otmAscent, otmDescent, otmLineGap, otmsCapEmHeight, otmsXHeight;
+    WinApi_RECT otmrcFontBox;
+    INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
+    WinApi_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
+    INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
+    WinApi_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
+  } WinApi_OUTLINETEXTMETRICA;
 
 typedef
-	struct WinApi_OUTLINETEXTMETRICW {
-		INTEGER otmSize;
-		WinApi_TEXTMETRICW otmTextMetrics;
-		CHAR otmFiller;
-		WinApi_PANOSE otmPanoseNumber;
-		INTEGER otmfsSelection, otmfsType, otmsCharSlopeRise, otmsCharSlopeRun, otmItalicAngle, otmEMSquare, otmAscent, otmDescent, otmLineGap, otmsCapEmHeight, otmsXHeight;
-		WinApi_RECT otmrcFontBox;
-		INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
-		WinApi_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
-		INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
-		WinApi_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
-	} WinApi_OUTLINETEXTMETRICW;
+  struct WinApi_OUTLINETEXTMETRICW {
+    INTEGER otmSize;
+    WinApi_TEXTMETRICW otmTextMetrics;
+    CHAR otmFiller;
+    WinApi_PANOSE otmPanoseNumber;
+    INTEGER otmfsSelection, otmfsType, otmsCharSlopeRise, otmsCharSlopeRun, otmItalicAngle, otmEMSquare, otmAscent, otmDescent, otmLineGap, otmsCapEmHeight, otmsXHeight;
+    WinApi_RECT otmrcFontBox;
+    INTEGER otmMacAscent, otmMacDescent, otmMacLineGap, otmusMinimumPPEM;
+    WinApi_POINT otmptSubscriptSize, otmptSubscriptOffset, otmptSuperscriptSize, otmptSuperscriptOffset;
+    INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
+    WinApi_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
+  } WinApi_OUTLINETEXTMETRICW;
 
 typedef
-	struct WinApi_OUTPUT_DEBUG_STRING_INFO {
-		WinApi_PtrSTR lpDebugStringData;
-		SHORTINT fUnicode, nDebugStringLength;
-	} WinApi_OUTPUT_DEBUG_STRING_INFO;
+  struct WinApi_OUTPUT_DEBUG_STRING_INFO {
+    WinApi_PtrSTR lpDebugStringData;
+    SHORTINT fUnicode, nDebugStringLength;
+  } WinApi_OUTPUT_DEBUG_STRING_INFO;
 
 typedef
-	struct WinApi_OVERLAPPED {
-		INTEGER Internal, InternalHigh, Offset, OffsetHigh, hEvent;
-	} WinApi_OVERLAPPED;
+  struct WinApi_OVERLAPPED {
+    INTEGER Internal, InternalHigh, Offset, OffsetHigh, hEvent;
+  } WinApi_OVERLAPPED;
 
 typedef
-	void (__STDCALL *WinApi_OVERLAPPED_COMPLETION_ROUTINE)(INTEGER, INTEGER, WinApi_OVERLAPPED*);
+  void (__STDCALL *WinApi_OVERLAPPED_COMPLETION_ROUTINE)(INTEGER, INTEGER, WinApi_OVERLAPPED*);
 
 typedef
-	struct WinApi_PAINTSTRUCT {
-		INTEGER hdc, fErase;
-		WinApi_RECT rcPaint;
-		INTEGER fRestore, fIncUpdate;
-		CHAR rgbReserved[32];
-	} WinApi_PAINTSTRUCT;
+  struct WinApi_PAINTSTRUCT {
+    INTEGER hdc, fErase;
+    WinApi_RECT rcPaint;
+    INTEGER fRestore, fIncUpdate;
+    CHAR rgbReserved[32];
+  } WinApi_PAINTSTRUCT;
 
 typedef
-	struct WinApi_PELARRAY {
-		INTEGER paXCount, paYCount, paXExt, paYExt;
-		CHAR paRGBs;
-	} WinApi_PELARRAY;
+  struct WinApi_PELARRAY {
+    INTEGER paXCount, paYCount, paXExt, paYExt;
+    CHAR paRGBs;
+  } WinApi_PELARRAY;
 
 typedef
-	struct WinApi_POINTFX {
-		WinApi_FIXED x, y;
-	} WinApi_POINTFX;
+  struct WinApi_POINTFX {
+    WinApi_FIXED x, y;
+  } WinApi_POINTFX;
 
 typedef
-	struct WinApi_POLYTEXTA {
-		INTEGER x, y, n;
-		WinApi_PtrSTR lpstr;
-		SET uiFlags;
-		WinApi_RECT rcl;
-		INTEGER *pdx;
-	} WinApi_POLYTEXTA;
+  struct WinApi_POLYTEXTA {
+    INTEGER x, y, n;
+    WinApi_PtrSTR lpstr;
+    SET uiFlags;
+    WinApi_RECT rcl;
+    INTEGER *pdx;
+  } WinApi_POLYTEXTA;
 
 typedef
-	struct WinApi_POLYTEXTW {
-		INTEGER x, y, n;
-		WinApi_PtrWSTR lpstr;
-		SET uiFlags;
-		WinApi_RECT rcl;
-		INTEGER *pdx;
-	} WinApi_POLYTEXTW;
+  struct WinApi_POLYTEXTW {
+    INTEGER x, y, n;
+    WinApi_PtrWSTR lpstr;
+    SET uiFlags;
+    WinApi_RECT rcl;
+    INTEGER *pdx;
+  } WinApi_POLYTEXTW;
 
 typedef
-	struct WinApi_PORT_INFO_1A {
-		WinApi_PtrSTR pName;
-	} WinApi_PORT_INFO_1A;
+  struct WinApi_PORT_INFO_1A {
+    WinApi_PtrSTR pName;
+  } WinApi_PORT_INFO_1A;
 
 typedef
-	struct WinApi_PORT_INFO_1W {
-		WinApi_PtrWSTR pName;
-	} WinApi_PORT_INFO_1W;
+  struct WinApi_PORT_INFO_1W {
+    WinApi_PtrWSTR pName;
+  } WinApi_PORT_INFO_1W;
 
 typedef
-	struct WinApi_PORT_INFO_2A {
-		WinApi_PtrSTR pPortName, pMonitorName, pDescription;
-		INTEGER fPortType, Reserved;
-	} WinApi_PORT_INFO_2A;
+  struct WinApi_PORT_INFO_2A {
+    WinApi_PtrSTR pPortName, pMonitorName, pDescription;
+    INTEGER fPortType, Reserved;
+  } WinApi_PORT_INFO_2A;
 
 typedef
-	struct WinApi_PORT_INFO_2W {
-		WinApi_PtrWSTR pPortName, pMonitorName, pDescription;
-		INTEGER fPortType, Reserved;
-	} WinApi_PORT_INFO_2W;
+  struct WinApi_PORT_INFO_2W {
+    WinApi_PtrWSTR pPortName, pMonitorName, pDescription;
+    INTEGER fPortType, Reserved;
+  } WinApi_PORT_INFO_2W;
 
 typedef
-	struct WinApi_PRINTER_DEFAULTSA {
-		WinApi_PtrSTR pDatatype;
-		WinApi_PtrDEVMODEA pDevMode;
-		SET DesiredAccess;
-	} WinApi_PRINTER_DEFAULTSA;
+  struct WinApi_PRINTER_DEFAULTSA {
+    WinApi_PtrSTR pDatatype;
+    WinApi_PtrDEVMODEA pDevMode;
+    SET DesiredAccess;
+  } WinApi_PRINTER_DEFAULTSA;
 
 typedef
-	struct WinApi_PRINTER_DEFAULTSW {
-		WinApi_PtrWSTR pDatatype;
-		WinApi_PtrDEVMODEW pDevMode;
-		SET DesiredAccess;
-	} WinApi_PRINTER_DEFAULTSW;
+  struct WinApi_PRINTER_DEFAULTSW {
+    WinApi_PtrWSTR pDatatype;
+    WinApi_PtrDEVMODEW pDevMode;
+    SET DesiredAccess;
+  } WinApi_PRINTER_DEFAULTSW;
 
 typedef
-	struct WinApi_PRINTER_INFO_1A {
-		SET Flags;
-		WinApi_PtrSTR pDescription, pName, pComment;
-	} WinApi_PRINTER_INFO_1A;
+  struct WinApi_PRINTER_INFO_1A {
+    SET Flags;
+    WinApi_PtrSTR pDescription, pName, pComment;
+  } WinApi_PRINTER_INFO_1A;
 
 typedef
-	struct WinApi_PRINTER_INFO_1W {
-		SET Flags;
-		WinApi_PtrWSTR pDescription, pName, pComment;
-	} WinApi_PRINTER_INFO_1W;
+  struct WinApi_PRINTER_INFO_1W {
+    SET Flags;
+    WinApi_PtrWSTR pDescription, pName, pComment;
+  } WinApi_PRINTER_INFO_1W;
 
 typedef
-	struct WinApi_PRINTER_INFO_2A {
-		WinApi_PtrSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
-		WinApi_PtrDEVMODEA pDevMode;
-		WinApi_PtrSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
-		INTEGER pSecurityDescriptor;
-		SET Attributes;
-		INTEGER Priority, DefaultPriority, StartTime, UntilTime;
-		SET Status;
-		INTEGER cJobs, AveragePPM;
-	} WinApi_PRINTER_INFO_2A;
+  struct WinApi_PRINTER_INFO_2A {
+    WinApi_PtrSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
+    WinApi_PtrDEVMODEA pDevMode;
+    WinApi_PtrSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
+    INTEGER pSecurityDescriptor;
+    SET Attributes;
+    INTEGER Priority, DefaultPriority, StartTime, UntilTime;
+    SET Status;
+    INTEGER cJobs, AveragePPM;
+  } WinApi_PRINTER_INFO_2A;
 
 typedef
-	struct WinApi_PRINTER_INFO_2W {
-		WinApi_PtrWSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
-		WinApi_PtrDEVMODEW pDevMode;
-		WinApi_PtrWSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
-		INTEGER pSecurityDescriptor;
-		SET Attributes;
-		INTEGER Priority, DefaultPriority, StartTime, UntilTime;
-		SET Status;
-		INTEGER cJobs, AveragePPM;
-	} WinApi_PRINTER_INFO_2W;
+  struct WinApi_PRINTER_INFO_2W {
+    WinApi_PtrWSTR pServerName, pPrinterName, pShareName, pPortName, pDriverName, pComment, pLocation;
+    WinApi_PtrDEVMODEW pDevMode;
+    WinApi_PtrWSTR pSepFile, pPrintProcessor, pDatatype, pParameters;
+    INTEGER pSecurityDescriptor;
+    SET Attributes;
+    INTEGER Priority, DefaultPriority, StartTime, UntilTime;
+    SET Status;
+    INTEGER cJobs, AveragePPM;
+  } WinApi_PRINTER_INFO_2W;
 
 typedef
-	struct WinApi_PRINTER_INFO_3 {
-		INTEGER pSecurityDescriptor;
-	} WinApi_PRINTER_INFO_3;
+  struct WinApi_PRINTER_INFO_3 {
+    INTEGER pSecurityDescriptor;
+  } WinApi_PRINTER_INFO_3;
 
 typedef
-	struct WinApi_PRINTER_INFO_4A {
-		WinApi_PtrSTR pPrinterName, pServerName;
-		SET Attributes;
-	} WinApi_PRINTER_INFO_4A;
+  struct WinApi_PRINTER_INFO_4A {
+    WinApi_PtrSTR pPrinterName, pServerName;
+    SET Attributes;
+  } WinApi_PRINTER_INFO_4A;
 
 typedef
-	struct WinApi_PRINTER_INFO_4W {
-		WinApi_PtrWSTR pPrinterName, pServerName;
-		SET Attributes;
-	} WinApi_PRINTER_INFO_4W;
+  struct WinApi_PRINTER_INFO_4W {
+    WinApi_PtrWSTR pPrinterName, pServerName;
+    SET Attributes;
+  } WinApi_PRINTER_INFO_4W;
 
 typedef
-	struct WinApi_PRINTER_INFO_5A {
-		WinApi_PtrSTR pPrinterName, pPortName;
-		SET Attributes;
-		INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
-	} WinApi_PRINTER_INFO_5A;
+  struct WinApi_PRINTER_INFO_5A {
+    WinApi_PtrSTR pPrinterName, pPortName;
+    SET Attributes;
+    INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
+  } WinApi_PRINTER_INFO_5A;
 
 typedef
-	struct WinApi_PRINTER_INFO_5W {
-		WinApi_PtrWSTR pPrinterName, pPortName;
-		SET Attributes;
-		INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
-	} WinApi_PRINTER_INFO_5W;
+  struct WinApi_PRINTER_INFO_5W {
+    WinApi_PtrWSTR pPrinterName, pPortName;
+    SET Attributes;
+    INTEGER DeviceNotSelectedTimeout, TransmissionRetryTimeout;
+  } WinApi_PRINTER_INFO_5W;
 
 typedef
-	struct WinApi_PRINTER_INFO_6 {
-		SET dwStatus;
-	} WinApi_PRINTER_INFO_6;
+  struct WinApi_PRINTER_INFO_6 {
+    SET dwStatus;
+  } WinApi_PRINTER_INFO_6;
 
 typedef
-	struct WinApi_PRINTER_NOTIFY_OPTIONS_TYPE *WinApi_PtrPRINTER_NOTIFY_OPTIONS_TYPE;
+  struct WinApi_PRINTER_NOTIFY_OPTIONS_TYPE *WinApi_PtrPRINTER_NOTIFY_OPTIONS_TYPE;
 
 typedef
-	struct WinApi_PRINTER_NOTIFY_OPTIONS {
-		INTEGER Version;
-		SET Flags;
-		INTEGER Count;
-		WinApi_PtrPRINTER_NOTIFY_OPTIONS_TYPE pTypes;
-	} WinApi_PRINTER_NOTIFY_OPTIONS;
+  struct WinApi_PRINTER_NOTIFY_OPTIONS {
+    INTEGER Version;
+    SET Flags;
+    INTEGER Count;
+    WinApi_PtrPRINTER_NOTIFY_OPTIONS_TYPE pTypes;
+  } WinApi_PRINTER_NOTIFY_OPTIONS;
 
 typedef
-	struct WinApi_PRINTER_NOTIFY_OPTIONS_TYPE {
-		SHORTINT Type, Reserved0;
-		INTEGER Reserved1, Reserved2, Count;
-		SHORTINT *pFields;
-	} WinApi_PRINTER_NOTIFY_OPTIONS_TYPE;
+  struct WinApi_PRINTER_NOTIFY_OPTIONS_TYPE {
+    SHORTINT Type, Reserved0;
+    INTEGER Reserved1, Reserved2, Count;
+    SHORTINT *pFields;
+  } WinApi_PRINTER_NOTIFY_OPTIONS_TYPE;
 
 typedef
-	struct WinApi_PRINTPROCESSOR_INFO_1A {
-		WinApi_PtrSTR pName;
-	} WinApi_PRINTPROCESSOR_INFO_1A;
+  struct WinApi_PRINTPROCESSOR_INFO_1A {
+    WinApi_PtrSTR pName;
+  } WinApi_PRINTPROCESSOR_INFO_1A;
 
 typedef
-	struct WinApi_PRINTPROCESSOR_INFO_1W {
-		WinApi_PtrWSTR pName;
-	} WinApi_PRINTPROCESSOR_INFO_1W;
+  struct WinApi_PRINTPROCESSOR_INFO_1W {
+    WinApi_PtrWSTR pName;
+  } WinApi_PRINTPROCESSOR_INFO_1W;
 
 typedef
-	struct WinApi_PRIVILEGE_SET {
-		INTEGER PrivilegeCount, Control;
-		WinApi_LUID_AND_ATTRIBUTES Privilege[1];
-	} WinApi_PRIVILEGE_SET;
+  struct WinApi_PRIVILEGE_SET {
+    INTEGER PrivilegeCount, Control;
+    WinApi_LUID_AND_ATTRIBUTES Privilege[1];
+  } WinApi_PRIVILEGE_SET;
 
 typedef
-	struct WinApi_PROCESS_INFORMATION {
-		INTEGER hProcess, hThread, dwProcessId, dwThreadId;
-	} WinApi_PROCESS_INFORMATION;
+  struct WinApi_PROCESS_INFORMATION {
+    INTEGER hProcess, hThread, dwProcessId, dwThreadId;
+  } WinApi_PROCESS_INFORMATION;
 
 typedef
-	INTEGER (__STDCALL *WinApi_PROGRESS_ROUTINE)(LONGINT, LONGINT, LONGINT, LONGINT, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_PROGRESS_ROUTINE)(LONGINT, LONGINT, LONGINT, LONGINT, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_PROVIDOR_INFO_1A {
-		WinApi_PtrSTR pName, pEnvironment, pDLLName;
-	} WinApi_PROVIDOR_INFO_1A;
+  struct WinApi_PROVIDOR_INFO_1A {
+    WinApi_PtrSTR pName, pEnvironment, pDLLName;
+  } WinApi_PROVIDOR_INFO_1A;
 
 typedef
-	struct WinApi_PROVIDOR_INFO_1W {
-		WinApi_PtrWSTR pName, pEnvironment, pDLLName;
-	} WinApi_PROVIDOR_INFO_1W;
+  struct WinApi_PROVIDOR_INFO_1W {
+    WinApi_PtrWSTR pName, pEnvironment, pDLLName;
+  } WinApi_PROVIDOR_INFO_1W;
 
 typedef
-	struct WinApi_PSHNOTIFY {
-		WinApi_NMHDR hdr;
-		INTEGER lParam;
-	} WinApi_PSHNOTIFY;
+  struct WinApi_PSHNOTIFY {
+    WinApi_NMHDR hdr;
+    INTEGER lParam;
+  } WinApi_PSHNOTIFY;
 
 typedef
-	struct WinApi_PVALUEA {
-		WinApi_PtrSTR pv_valuename;
-		INTEGER pv_valuelen, pv_value_context, pv_type;
-	} WinApi_PVALUEA;
+  struct WinApi_PVALUEA {
+    WinApi_PtrSTR pv_valuename;
+    INTEGER pv_valuelen, pv_value_context, pv_type;
+  } WinApi_PVALUEA;
 
 typedef
-	struct WinApi_PVALUEW {
-		WinApi_PtrWSTR pv_valuename;
-		INTEGER pv_valuelen, pv_value_context, pv_type;
-	} WinApi_PVALUEW;
+  struct WinApi_PVALUEW {
+    WinApi_PtrWSTR pv_valuename;
+    INTEGER pv_valuelen, pv_value_context, pv_type;
+  } WinApi_PVALUEW;
 
 typedef
-	WinApi_ABC *WinApi_PtrABC;
+  WinApi_ABC *WinApi_PtrABC;
 
 typedef
-	WinApi_ABCFLOAT *WinApi_PtrABCFLOAT;
+  WinApi_ABCFLOAT *WinApi_PtrABCFLOAT;
 
 typedef
-	WinApi_ACCEL *WinApi_PtrACCEL;
+  WinApi_ACCEL *WinApi_PtrACCEL;
 
 typedef
-	WinApi_ACCESSTIMEOUT *WinApi_PtrACCESSTIMEOUT;
+  WinApi_ACCESSTIMEOUT *WinApi_PtrACCESSTIMEOUT;
 
 typedef
-	WinApi_ACCESS_ALLOWED_ACE *WinApi_PtrACCESS_ALLOWED_ACE;
+  WinApi_ACCESS_ALLOWED_ACE *WinApi_PtrACCESS_ALLOWED_ACE;
 
 typedef
-	WinApi_ACCESS_DENIED_ACE *WinApi_PtrACCESS_DENIED_ACE;
+  WinApi_ACCESS_DENIED_ACE *WinApi_PtrACCESS_DENIED_ACE;
 
 typedef
-	WinApi_ACE_HEADER *WinApi_PtrACE_HEADER;
+  WinApi_ACE_HEADER *WinApi_PtrACE_HEADER;
 
 typedef
-	WinApi_ACL *WinApi_PtrACL;
+  WinApi_ACL *WinApi_PtrACL;
 
 typedef
-	WinApi_ACL_REVISION_INFORMATION *WinApi_PtrACL_REVISION_INFORMATION;
+  WinApi_ACL_REVISION_INFORMATION *WinApi_PtrACL_REVISION_INFORMATION;
 
 typedef
-	WinApi_ACL_SIZE_INFORMATION *WinApi_PtrACL_SIZE_INFORMATION;
+  WinApi_ACL_SIZE_INFORMATION *WinApi_PtrACL_SIZE_INFORMATION;
 
 typedef
-	WinApi_ADDJOB_INFO_1A *WinApi_PtrADDJOB_INFO_1A;
+  WinApi_ADDJOB_INFO_1A *WinApi_PtrADDJOB_INFO_1A;
 
 typedef
-	WinApi_ADDJOB_INFO_1W *WinApi_PtrADDJOB_INFO_1W;
+  WinApi_ADDJOB_INFO_1W *WinApi_PtrADDJOB_INFO_1W;
 
 typedef
-	WinApi_ANIMATIONINFO *WinApi_PtrANIMATIONINFO;
+  WinApi_ANIMATIONINFO *WinApi_PtrANIMATIONINFO;
 
 typedef
-	WinApi_BITMAP *WinApi_PtrBITMAP;
+  WinApi_BITMAP *WinApi_PtrBITMAP;
 
 typedef
-	WinApi_BITMAPCOREHEADER *WinApi_PtrBITMAPCOREHEADER;
+  WinApi_BITMAPCOREHEADER *WinApi_PtrBITMAPCOREHEADER;
 
 typedef
-	WinApi_BITMAPCOREINFO *WinApi_PtrBITMAPCOREINFO;
+  WinApi_BITMAPCOREINFO *WinApi_PtrBITMAPCOREINFO;
 
 typedef
-	WinApi_BITMAPINFO *WinApi_PtrBITMAPINFO;
+  WinApi_BITMAPINFO *WinApi_PtrBITMAPINFO;
 
 typedef
-	WinApi_BITMAPINFOHEADER *WinApi_PtrBITMAPINFOHEADER;
+  WinApi_BITMAPINFOHEADER *WinApi_PtrBITMAPINFOHEADER;
 
 typedef
-	WinApi_BITMAPV4HEADER *WinApi_PtrBITMAPV4HEADER;
+  WinApi_BITMAPV4HEADER *WinApi_PtrBITMAPV4HEADER;
 
 typedef
-	WinApi_BROADCASTSYSMSG *WinApi_PtrBROADCASTSYSMSG;
+  WinApi_BROADCASTSYSMSG *WinApi_PtrBROADCASTSYSMSG;
 
 typedef
-	WinApi_CBTACTIVATESTRUCT *WinApi_PtrCBTACTIVATESTRUCT;
+  WinApi_CBTACTIVATESTRUCT *WinApi_PtrCBTACTIVATESTRUCT;
 
 typedef
-	WinApi_CBT_CREATEWNDA *WinApi_PtrCBT_CREATEWNDA;
+  WinApi_CBT_CREATEWNDA *WinApi_PtrCBT_CREATEWNDA;
 
 typedef
-	WinApi_CBT_CREATEWNDW *WinApi_PtrCBT_CREATEWNDW;
+  WinApi_CBT_CREATEWNDW *WinApi_PtrCBT_CREATEWNDW;
 
 typedef
-	WinApi_CHARSETINFO *WinApi_PtrCHARSETINFO;
+  WinApi_CHARSETINFO *WinApi_PtrCHARSETINFO;
 
 typedef
-	WinApi_CIEXYZ *WinApi_PtrCIEXYZ;
+  WinApi_CIEXYZ *WinApi_PtrCIEXYZ;
 
 typedef
-	WinApi_CIEXYZTRIPLE *WinApi_PtrCIEXYZTRIPLE;
+  WinApi_CIEXYZTRIPLE *WinApi_PtrCIEXYZTRIPLE;
 
 typedef
-	WinApi_CLIENTCREATESTRUCT *WinApi_PtrCLIENTCREATESTRUCT;
+  WinApi_CLIENTCREATESTRUCT *WinApi_PtrCLIENTCREATESTRUCT;
 
 typedef
-	WinApi_COLORADJUSTMENT *WinApi_PtrCOLORADJUSTMENT;
+  WinApi_COLORADJUSTMENT *WinApi_PtrCOLORADJUSTMENT;
 
 typedef
-	WinApi_COMMCONFIG *WinApi_PtrCOMMCONFIG;
+  WinApi_COMMCONFIG *WinApi_PtrCOMMCONFIG;
 
 typedef
-	WinApi_COMMPROP *WinApi_PtrCOMMPROP;
+  WinApi_COMMPROP *WinApi_PtrCOMMPROP;
 
 typedef
-	WinApi_COMMTIMEOUTS *WinApi_PtrCOMMTIMEOUTS;
+  WinApi_COMMTIMEOUTS *WinApi_PtrCOMMTIMEOUTS;
 
 typedef
-	WinApi_COMPAREITEMSTRUCT *WinApi_PtrCOMPAREITEMSTRUCT;
+  WinApi_COMPAREITEMSTRUCT *WinApi_PtrCOMPAREITEMSTRUCT;
 
 typedef
-	WinApi_COMPOUND_ACCESS_ALLOWED_ACE *WinApi_PtrCOMPOUND_ACCESS_ALLOWED_ACE;
+  WinApi_COMPOUND_ACCESS_ALLOWED_ACE *WinApi_PtrCOMPOUND_ACCESS_ALLOWED_ACE;
 
 typedef
-	WinApi_COMSTAT *WinApi_PtrCOMSTAT;
+  WinApi_COMSTAT *WinApi_PtrCOMSTAT;
 
 typedef
-	WinApi_CONSOLE_CURSOR_INFO *WinApi_PtrCONSOLE_CURSOR_INFO;
+  WinApi_CONSOLE_CURSOR_INFO *WinApi_PtrCONSOLE_CURSOR_INFO;
 
 typedef
-	WinApi_CONSOLE_SCREEN_BUFFER_INFO *WinApi_PtrCONSOLE_SCREEN_BUFFER_INFO;
+  WinApi_CONSOLE_SCREEN_BUFFER_INFO *WinApi_PtrCONSOLE_SCREEN_BUFFER_INFO;
 
 typedef
-	WinApi_CONVCONTEXT *WinApi_PtrCONVCONTEXT;
+  WinApi_CONVCONTEXT *WinApi_PtrCONVCONTEXT;
 
 typedef
-	WinApi_CONVINFO *WinApi_PtrCONVINFO;
+  WinApi_CONVINFO *WinApi_PtrCONVINFO;
 
 typedef
-	WinApi_COORD *WinApi_PtrCOORD;
+  WinApi_COORD *WinApi_PtrCOORD;
 
 typedef
-	WinApi_COPYDATASTRUCT *WinApi_PtrCOPYDATASTRUCT;
+  WinApi_COPYDATASTRUCT *WinApi_PtrCOPYDATASTRUCT;
 
 typedef
-	WinApi_CPINFO *WinApi_PtrCPINFO;
+  WinApi_CPINFO *WinApi_PtrCPINFO;
 
 typedef
-	WinApi_CREATE_PROCESS_DEBUG_INFO *WinApi_PtrCREATE_PROCESS_DEBUG_INFO;
+  WinApi_CREATE_PROCESS_DEBUG_INFO *WinApi_PtrCREATE_PROCESS_DEBUG_INFO;
 
 typedef
-	WinApi_CREATE_THREAD_DEBUG_INFO *WinApi_PtrCREATE_THREAD_DEBUG_INFO;
+  WinApi_CREATE_THREAD_DEBUG_INFO *WinApi_PtrCREATE_THREAD_DEBUG_INFO;
 
 typedef
-	WinApi_CURRENCYFMTA *WinApi_PtrCURRENCYFMTA;
+  WinApi_CURRENCYFMTA *WinApi_PtrCURRENCYFMTA;
 
 typedef
-	WinApi_CURRENCYFMTW *WinApi_PtrCURRENCYFMTW;
+  WinApi_CURRENCYFMTW *WinApi_PtrCURRENCYFMTW;
 
 typedef
-	WinApi_CURSORSHAPE *WinApi_PtrCURSORSHAPE;
+  WinApi_CURSORSHAPE *WinApi_PtrCURSORSHAPE;
 
 typedef
-	WinApi_CWPRETSTRUCT *WinApi_PtrCWPRETSTRUCT;
+  WinApi_CWPRETSTRUCT *WinApi_PtrCWPRETSTRUCT;
 
 typedef
-	WinApi_CWPSTRUCT *WinApi_PtrCWPSTRUCT;
+  WinApi_CWPSTRUCT *WinApi_PtrCWPSTRUCT;
 
 typedef
-	WinApi_DATATYPES_INFO_1A *WinApi_PtrDATATYPES_INFO_1A;
+  WinApi_DATATYPES_INFO_1A *WinApi_PtrDATATYPES_INFO_1A;
 
 typedef
-	WinApi_DATATYPES_INFO_1W *WinApi_PtrDATATYPES_INFO_1W;
+  WinApi_DATATYPES_INFO_1W *WinApi_PtrDATATYPES_INFO_1W;
 
 typedef
-	WinApi_DCB *WinApi_PtrDCB;
+  WinApi_DCB *WinApi_PtrDCB;
 
 typedef
-	WinApi_DDEML_MSG_HOOK_DATA *WinApi_PtrDDEML_MSG_HOOK_DATA;
+  WinApi_DDEML_MSG_HOOK_DATA *WinApi_PtrDDEML_MSG_HOOK_DATA;
 
 typedef
-	WinApi_DEBUGHOOKINFO *WinApi_PtrDEBUGHOOKINFO;
+  WinApi_DEBUGHOOKINFO *WinApi_PtrDEBUGHOOKINFO;
 
 typedef
-	WinApi_DELETEITEMSTRUCT *WinApi_PtrDELETEITEMSTRUCT;
+  WinApi_DELETEITEMSTRUCT *WinApi_PtrDELETEITEMSTRUCT;
 
 typedef
-	WinApi_DIBSECTION *WinApi_PtrDIBSECTION;
+  WinApi_DIBSECTION *WinApi_PtrDIBSECTION;
 
 typedef
-	WinApi_DOCINFOA *WinApi_PtrDOCINFOA;
+  WinApi_DOCINFOA *WinApi_PtrDOCINFOA;
 
 typedef
-	WinApi_DOCINFOW *WinApi_PtrDOCINFOW;
+  WinApi_DOCINFOW *WinApi_PtrDOCINFOW;
 
 typedef
-	WinApi_DOC_INFO_1A *WinApi_PtrDOC_INFO_1A;
+  WinApi_DOC_INFO_1A *WinApi_PtrDOC_INFO_1A;
 
 typedef
-	WinApi_DOC_INFO_1W *WinApi_PtrDOC_INFO_1W;
+  WinApi_DOC_INFO_1W *WinApi_PtrDOC_INFO_1W;
 
 typedef
-	WinApi_DOC_INFO_2A *WinApi_PtrDOC_INFO_2A;
+  WinApi_DOC_INFO_2A *WinApi_PtrDOC_INFO_2A;
 
 typedef
-	WinApi_DOC_INFO_2W *WinApi_PtrDOC_INFO_2W;
+  WinApi_DOC_INFO_2W *WinApi_PtrDOC_INFO_2W;
 
 typedef
-	WinApi_DRAWITEMSTRUCT *WinApi_PtrDRAWITEMSTRUCT;
+  WinApi_DRAWITEMSTRUCT *WinApi_PtrDRAWITEMSTRUCT;
 
 typedef
-	WinApi_DRAWTEXTPARAMS *WinApi_PtrDRAWTEXTPARAMS;
+  WinApi_DRAWTEXTPARAMS *WinApi_PtrDRAWTEXTPARAMS;
 
 typedef
-	WinApi_DRIVER_INFO_1A *WinApi_PtrDRIVER_INFO_1A;
+  WinApi_DRIVER_INFO_1A *WinApi_PtrDRIVER_INFO_1A;
 
 typedef
-	WinApi_DRIVER_INFO_1W *WinApi_PtrDRIVER_INFO_1W;
+  WinApi_DRIVER_INFO_1W *WinApi_PtrDRIVER_INFO_1W;
 
 typedef
-	WinApi_DRIVER_INFO_2A *WinApi_PtrDRIVER_INFO_2A;
+  WinApi_DRIVER_INFO_2A *WinApi_PtrDRIVER_INFO_2A;
 
 typedef
-	WinApi_DRIVER_INFO_2W *WinApi_PtrDRIVER_INFO_2W;
+  WinApi_DRIVER_INFO_2W *WinApi_PtrDRIVER_INFO_2W;
 
 typedef
-	WinApi_DRIVER_INFO_3A *WinApi_PtrDRIVER_INFO_3A;
+  WinApi_DRIVER_INFO_3A *WinApi_PtrDRIVER_INFO_3A;
 
 typedef
-	WinApi_DRIVER_INFO_3W *WinApi_PtrDRIVER_INFO_3W;
+  WinApi_DRIVER_INFO_3W *WinApi_PtrDRIVER_INFO_3W;
 
 typedef
-	WinApi_DROPSTRUCT *WinApi_PtrDROPSTRUCT;
+  WinApi_DROPSTRUCT *WinApi_PtrDROPSTRUCT;
 
 typedef
-	WinApi_EMR *WinApi_PtrEMR;
+  WinApi_EMR *WinApi_PtrEMR;
 
 typedef
-	WinApi_EMRABORTPATH *WinApi_PtrEMRABORTPATH;
+  WinApi_EMRABORTPATH *WinApi_PtrEMRABORTPATH;
 
 typedef
-	WinApi_EMRANGLEARC *WinApi_PtrEMRANGLEARC;
+  WinApi_EMRANGLEARC *WinApi_PtrEMRANGLEARC;
 
 typedef
-	WinApi_EMRARC *WinApi_PtrEMRARC;
+  WinApi_EMRARC *WinApi_PtrEMRARC;
 
 typedef
-	WinApi_EMRBITBLT *WinApi_PtrEMRBITBLT;
+  WinApi_EMRBITBLT *WinApi_PtrEMRBITBLT;
 
 typedef
-	WinApi_EMRCREATEBRUSHINDIRECT *WinApi_PtrEMRCREATEBRUSHINDIRECT;
+  WinApi_EMRCREATEBRUSHINDIRECT *WinApi_PtrEMRCREATEBRUSHINDIRECT;
 
 typedef
-	WinApi_EMRCREATECOLORSPACE *WinApi_PtrEMRCREATECOLORSPACE;
+  WinApi_EMRCREATECOLORSPACE *WinApi_PtrEMRCREATECOLORSPACE;
 
 typedef
-	WinApi_EMRCREATEDIBPATTERNBRUSHPT *WinApi_PtrEMRCREATEDIBPATTERNBRUSHPT;
+  WinApi_EMRCREATEDIBPATTERNBRUSHPT *WinApi_PtrEMRCREATEDIBPATTERNBRUSHPT;
 
 typedef
-	WinApi_EMRCREATEMONOBRUSH *WinApi_PtrEMRCREATEMONOBRUSH;
+  WinApi_EMRCREATEMONOBRUSH *WinApi_PtrEMRCREATEMONOBRUSH;
 
 typedef
-	WinApi_EMRCREATEPALETTE *WinApi_PtrEMRCREATEPALETTE;
+  WinApi_EMRCREATEPALETTE *WinApi_PtrEMRCREATEPALETTE;
 
 typedef
-	WinApi_EMRCREATEPEN *WinApi_PtrEMRCREATEPEN;
+  WinApi_EMRCREATEPEN *WinApi_PtrEMRCREATEPEN;
 
 typedef
-	WinApi_EMRSELECTCOLORSPACE *WinApi_PtrEMRSELECTCOLORSPACE;
+  WinApi_EMRSELECTCOLORSPACE *WinApi_PtrEMRSELECTCOLORSPACE;
 
 typedef
-	WinApi_EMRSELECTOBJECT *WinApi_PtrEMRSELECTOBJECT;
+  WinApi_EMRSELECTOBJECT *WinApi_PtrEMRSELECTOBJECT;
 
 typedef
-	WinApi_EMRELLIPSE *WinApi_PtrEMRELLIPSE;
+  WinApi_EMRELLIPSE *WinApi_PtrEMRELLIPSE;
 
 typedef
-	WinApi_EMREOF *WinApi_PtrEMREOF;
+  WinApi_EMREOF *WinApi_PtrEMREOF;
 
 typedef
-	WinApi_EMREXCLUDECLIPRECT *WinApi_PtrEMREXCLUDECLIPRECT;
+  WinApi_EMREXCLUDECLIPRECT *WinApi_PtrEMREXCLUDECLIPRECT;
 
 typedef
-	WinApi_EMREXTCREATEFONTINDIRECTW *WinApi_PtrEMREXTCREATEFONTINDIRECTW;
+  WinApi_EMREXTCREATEFONTINDIRECTW *WinApi_PtrEMREXTCREATEFONTINDIRECTW;
 
 typedef
-	WinApi_EMREXTCREATEPEN *WinApi_PtrEMREXTCREATEPEN;
+  WinApi_EMREXTCREATEPEN *WinApi_PtrEMREXTCREATEPEN;
 
 typedef
-	WinApi_EMREXTFLOODFILL *WinApi_PtrEMREXTFLOODFILL;
+  WinApi_EMREXTFLOODFILL *WinApi_PtrEMREXTFLOODFILL;
 
 typedef
-	WinApi_EMREXTSELECTCLIPRGN *WinApi_PtrEMREXTSELECTCLIPRGN;
+  WinApi_EMREXTSELECTCLIPRGN *WinApi_PtrEMREXTSELECTCLIPRGN;
 
 typedef
-	WinApi_EMREXTTEXTOUTA *WinApi_PtrEMREXTTEXTOUTA;
+  WinApi_EMREXTTEXTOUTA *WinApi_PtrEMREXTTEXTOUTA;
 
 typedef
-	WinApi_EMRFILLPATH *WinApi_PtrEMRFILLPATH;
+  WinApi_EMRFILLPATH *WinApi_PtrEMRFILLPATH;
 
 typedef
-	WinApi_EMRFILLRGN *WinApi_PtrEMRFILLRGN;
+  WinApi_EMRFILLRGN *WinApi_PtrEMRFILLRGN;
 
 typedef
-	WinApi_EMRFORMAT *WinApi_PtrEMRFORMAT;
+  WinApi_EMRFORMAT *WinApi_PtrEMRFORMAT;
 
 typedef
-	WinApi_EMRFRAMERGN *WinApi_PtrEMRFRAMERGN;
+  WinApi_EMRFRAMERGN *WinApi_PtrEMRFRAMERGN;
 
 typedef
-	WinApi_EMRGDICOMMENT *WinApi_PtrEMRGDICOMMENT;
+  WinApi_EMRGDICOMMENT *WinApi_PtrEMRGDICOMMENT;
 
 typedef
-	WinApi_EMRGLSBOUNDEDRECORD *WinApi_PtrEMRGLSBOUNDEDRECORD;
+  WinApi_EMRGLSBOUNDEDRECORD *WinApi_PtrEMRGLSBOUNDEDRECORD;
 
 typedef
-	WinApi_EMRGLSRECORD *WinApi_PtrEMRGLSRECORD;
+  WinApi_EMRGLSRECORD *WinApi_PtrEMRGLSRECORD;
 
 typedef
-	WinApi_EMRINVERTRGN *WinApi_PtrEMRINVERTRGN;
+  WinApi_EMRINVERTRGN *WinApi_PtrEMRINVERTRGN;
 
 typedef
-	WinApi_EMRLINETO *WinApi_PtrEMRLINETO;
+  WinApi_EMRLINETO *WinApi_PtrEMRLINETO;
 
 typedef
-	WinApi_EMRMASKBLT *WinApi_PtrEMRMASKBLT;
+  WinApi_EMRMASKBLT *WinApi_PtrEMRMASKBLT;
 
 typedef
-	WinApi_EMRMODIFYWORLDTRANSFORM *WinApi_PtrEMRMODIFYWORLDTRANSFORM;
+  WinApi_EMRMODIFYWORLDTRANSFORM *WinApi_PtrEMRMODIFYWORLDTRANSFORM;
 
 typedef
-	WinApi_EMROFFSETCLIPRGN *WinApi_PtrEMROFFSETCLIPRGN;
+  WinApi_EMROFFSETCLIPRGN *WinApi_PtrEMROFFSETCLIPRGN;
 
 typedef
-	WinApi_EMRPIXELFORMAT *WinApi_PtrEMRPIXELFORMAT;
+  WinApi_EMRPIXELFORMAT *WinApi_PtrEMRPIXELFORMAT;
 
 typedef
-	WinApi_EMRPLGBLT *WinApi_PtrEMRPLGBLT;
+  WinApi_EMRPLGBLT *WinApi_PtrEMRPLGBLT;
 
 typedef
-	WinApi_EMRPOLYLINE *WinApi_PtrEMRPOLYLINE;
+  WinApi_EMRPOLYLINE *WinApi_PtrEMRPOLYLINE;
 
 typedef
-	WinApi_EMRPOLYLINE16 *WinApi_PtrEMRPOLYLINE16;
+  WinApi_EMRPOLYLINE16 *WinApi_PtrEMRPOLYLINE16;
 
 typedef
-	WinApi_EMRPOLYDRAW *WinApi_PtrEMRPOLYDRAW;
+  WinApi_EMRPOLYDRAW *WinApi_PtrEMRPOLYDRAW;
 
 typedef
-	WinApi_EMRPOLYDRAW16 *WinApi_PtrEMRPOLYDRAW16;
+  WinApi_EMRPOLYDRAW16 *WinApi_PtrEMRPOLYDRAW16;
 
 typedef
-	WinApi_EMRPOLYPOLYLINE *WinApi_PtrEMRPOLYPOLYLINE;
+  WinApi_EMRPOLYPOLYLINE *WinApi_PtrEMRPOLYPOLYLINE;
 
 typedef
-	WinApi_EMRPOLYPOLYLINE16 *WinApi_PtrEMRPOLYPOLYLINE16;
+  WinApi_EMRPOLYPOLYLINE16 *WinApi_PtrEMRPOLYPOLYLINE16;
 
 typedef
-	WinApi_EMRPOLYTEXTOUTA *WinApi_PtrEMRPOLYTEXTOUTA;
+  WinApi_EMRPOLYTEXTOUTA *WinApi_PtrEMRPOLYTEXTOUTA;
 
 typedef
-	WinApi_EMRRESIZEPALETTE *WinApi_PtrEMRRESIZEPALETTE;
+  WinApi_EMRRESIZEPALETTE *WinApi_PtrEMRRESIZEPALETTE;
 
 typedef
-	WinApi_EMRRESTOREDC *WinApi_PtrEMRRESTOREDC;
+  WinApi_EMRRESTOREDC *WinApi_PtrEMRRESTOREDC;
 
 typedef
-	WinApi_EMRROUNDRECT *WinApi_PtrEMRROUNDRECT;
+  WinApi_EMRROUNDRECT *WinApi_PtrEMRROUNDRECT;
 
 typedef
-	WinApi_EMRSCALEVIEWPORTEXTEX *WinApi_PtrEMRSCALEVIEWPORTEXTEX;
+  WinApi_EMRSCALEVIEWPORTEXTEX *WinApi_PtrEMRSCALEVIEWPORTEXTEX;
 
 typedef
-	WinApi_EMRSELECTCLIPPATH *WinApi_PtrEMRSELECTCLIPPATH;
+  WinApi_EMRSELECTCLIPPATH *WinApi_PtrEMRSELECTCLIPPATH;
 
 typedef
-	WinApi_EMRSELECTPALETTE *WinApi_PtrEMRSELECTPALETTE;
+  WinApi_EMRSELECTPALETTE *WinApi_PtrEMRSELECTPALETTE;
 
 typedef
-	WinApi_EMRSETARCDIRECTION *WinApi_PtrEMRSETARCDIRECTION;
+  WinApi_EMRSETARCDIRECTION *WinApi_PtrEMRSETARCDIRECTION;
 
 typedef
-	WinApi_EMRSETBKCOLOR *WinApi_PtrEMRSETBKCOLOR;
+  WinApi_EMRSETBKCOLOR *WinApi_PtrEMRSETBKCOLOR;
 
 typedef
-	WinApi_EMRSETVIEWPORTORGEX *WinApi_PtrEMRSETVIEWPORTORGEX;
+  WinApi_EMRSETVIEWPORTORGEX *WinApi_PtrEMRSETVIEWPORTORGEX;
 
 typedef
-	WinApi_EMRSETCOLORADJUSTMENT *WinApi_PtrEMRSETCOLORADJUSTMENT;
+  WinApi_EMRSETCOLORADJUSTMENT *WinApi_PtrEMRSETCOLORADJUSTMENT;
 
 typedef
-	WinApi_EMRSETDIBITSTODEVICE *WinApi_PtrEMRSETDIBITSTODEVICE;
+  WinApi_EMRSETDIBITSTODEVICE *WinApi_PtrEMRSETDIBITSTODEVICE;
 
 typedef
-	WinApi_EMRSETMAPPERFLAGS *WinApi_PtrEMRSETMAPPERFLAGS;
+  WinApi_EMRSETMAPPERFLAGS *WinApi_PtrEMRSETMAPPERFLAGS;
 
 typedef
-	WinApi_EMRSETMITERLIMIT *WinApi_PtrEMRSETMITERLIMIT;
+  WinApi_EMRSETMITERLIMIT *WinApi_PtrEMRSETMITERLIMIT;
 
 typedef
-	WinApi_EMRSETPALETTEENTRIES *WinApi_PtrEMRSETPALETTEENTRIES;
+  WinApi_EMRSETPALETTEENTRIES *WinApi_PtrEMRSETPALETTEENTRIES;
 
 typedef
-	WinApi_EMRSETPIXELV *WinApi_PtrEMRSETPIXELV;
+  WinApi_EMRSETPIXELV *WinApi_PtrEMRSETPIXELV;
 
 typedef
-	WinApi_EMRSETVIEWPORTEXTEX *WinApi_PtrEMRSETVIEWPORTEXTEX;
+  WinApi_EMRSETVIEWPORTEXTEX *WinApi_PtrEMRSETVIEWPORTEXTEX;
 
 typedef
-	WinApi_EMRSETWORLDTRANSFORM *WinApi_PtrEMRSETWORLDTRANSFORM;
+  WinApi_EMRSETWORLDTRANSFORM *WinApi_PtrEMRSETWORLDTRANSFORM;
 
 typedef
-	WinApi_EMRSTRETCHBLT *WinApi_PtrEMRSTRETCHBLT;
+  WinApi_EMRSTRETCHBLT *WinApi_PtrEMRSTRETCHBLT;
 
 typedef
-	WinApi_EMRSTRETCHDIBITS *WinApi_PtrEMRSTRETCHDIBITS;
+  WinApi_EMRSTRETCHDIBITS *WinApi_PtrEMRSTRETCHDIBITS;
 
 typedef
-	WinApi_EMRTEXT *WinApi_PtrEMRTEXT;
+  WinApi_EMRTEXT *WinApi_PtrEMRTEXT;
 
 typedef
-	WinApi_ENHMETAHEADER *WinApi_PtrENHMETAHEADER;
+  WinApi_ENHMETAHEADER *WinApi_PtrENHMETAHEADER;
 
 typedef
-	WinApi_ENHMETARECORD *WinApi_PtrENHMETARECORD;
+  WinApi_ENHMETARECORD *WinApi_PtrENHMETARECORD;
 
 typedef
-	WinApi_ENUMLOGFONTA *WinApi_PtrENUMLOGFONTA;
+  WinApi_ENUMLOGFONTA *WinApi_PtrENUMLOGFONTA;
 
 typedef
-	WinApi_ENUMLOGFONTEXA *WinApi_PtrENUMLOGFONTEXA;
+  WinApi_ENUMLOGFONTEXA *WinApi_PtrENUMLOGFONTEXA;
 
 typedef
-	WinApi_ENUMLOGFONTEXW *WinApi_PtrENUMLOGFONTEXW;
+  WinApi_ENUMLOGFONTEXW *WinApi_PtrENUMLOGFONTEXW;
 
 typedef
-	WinApi_ENUMLOGFONTW *WinApi_PtrENUMLOGFONTW;
+  WinApi_ENUMLOGFONTW *WinApi_PtrENUMLOGFONTW;
 
 typedef
-	WinApi_ENUM_SERVICE_STATUSA *WinApi_PtrENUM_SERVICE_STATUSA;
+  WinApi_ENUM_SERVICE_STATUSA *WinApi_PtrENUM_SERVICE_STATUSA;
 
 typedef
-	WinApi_ENUM_SERVICE_STATUSW *WinApi_PtrENUM_SERVICE_STATUSW;
+  WinApi_ENUM_SERVICE_STATUSW *WinApi_PtrENUM_SERVICE_STATUSW;
 
 typedef
-	WinApi_EVENTLOGRECORD *WinApi_PtrEVENTLOGRECORD;
+  WinApi_EVENTLOGRECORD *WinApi_PtrEVENTLOGRECORD;
 
 typedef
-	WinApi_EVENTMSG *WinApi_PtrEVENTMSG;
+  WinApi_EVENTMSG *WinApi_PtrEVENTMSG;
 
 typedef
-	WinApi_EXCEPTION_DEBUG_INFO *WinApi_PtrEXCEPTION_DEBUG_INFO;
+  WinApi_EXCEPTION_DEBUG_INFO *WinApi_PtrEXCEPTION_DEBUG_INFO;
 
 typedef
-	WinApi_EXCEPTION_POINTERS *WinApi_PtrEXCEPTION_POINTERS;
+  WinApi_EXCEPTION_POINTERS *WinApi_PtrEXCEPTION_POINTERS;
 
 typedef
-	WinApi_EXIT_PROCESS_DEBUG_INFO *WinApi_PtrEXIT_PROCESS_DEBUG_INFO;
+  WinApi_EXIT_PROCESS_DEBUG_INFO *WinApi_PtrEXIT_PROCESS_DEBUG_INFO;
 
 typedef
-	WinApi_EXIT_THREAD_DEBUG_INFO *WinApi_PtrEXIT_THREAD_DEBUG_INFO;
+  WinApi_EXIT_THREAD_DEBUG_INFO *WinApi_PtrEXIT_THREAD_DEBUG_INFO;
 
 typedef
-	WinApi_EXTLOGFONTA *WinApi_PtrEXTLOGFONTA;
+  WinApi_EXTLOGFONTA *WinApi_PtrEXTLOGFONTA;
 
 typedef
-	WinApi_EXTLOGFONTW *WinApi_PtrEXTLOGFONTW;
+  WinApi_EXTLOGFONTW *WinApi_PtrEXTLOGFONTW;
 
 typedef
-	WinApi_EXTLOGPEN *WinApi_PtrEXTLOGPEN;
+  WinApi_EXTLOGPEN *WinApi_PtrEXTLOGPEN;
 
 typedef
-	WinApi_FILETIME *WinApi_PtrFILETIME;
+  WinApi_FILETIME *WinApi_PtrFILETIME;
 
 typedef
-	WinApi_FILE_NOTIFY_INFORMATION *WinApi_PtrFILE_NOTIFY_INFORMATION;
+  WinApi_FILE_NOTIFY_INFORMATION *WinApi_PtrFILE_NOTIFY_INFORMATION;
 
 typedef
-	WinApi_FILTERKEYS *WinApi_PtrFILTERKEYS;
+  WinApi_FILTERKEYS *WinApi_PtrFILTERKEYS;
 
 typedef
-	WinApi_FLOATING_SAVE_AREA *WinApi_PtrFLOATING_SAVE_AREA;
+  WinApi_FLOATING_SAVE_AREA *WinApi_PtrFLOATING_SAVE_AREA;
 
 typedef
-	WinApi_FOCUS_EVENT_RECORD *WinApi_PtrFOCUS_EVENT_RECORD;
+  WinApi_FOCUS_EVENT_RECORD *WinApi_PtrFOCUS_EVENT_RECORD;
 
 typedef
-	WinApi_FONTSIGNATURE *WinApi_PtrFONTSIGNATURE;
+  WinApi_FONTSIGNATURE *WinApi_PtrFONTSIGNATURE;
 
 typedef
-	WinApi_FORM_INFO_1A *WinApi_PtrFORM_INFO_1A;
+  WinApi_FORM_INFO_1A *WinApi_PtrFORM_INFO_1A;
 
 typedef
-	WinApi_FORM_INFO_1W *WinApi_PtrFORM_INFO_1W;
+  WinApi_FORM_INFO_1W *WinApi_PtrFORM_INFO_1W;
 
 typedef
-	WinApi_GCP_RESULTSA *WinApi_PtrGCP_RESULTSA;
+  WinApi_GCP_RESULTSA *WinApi_PtrGCP_RESULTSA;
 
 typedef
-	WinApi_GCP_RESULTSW *WinApi_PtrGCP_RESULTSW;
+  WinApi_GCP_RESULTSW *WinApi_PtrGCP_RESULTSW;
 
 typedef
-	WinApi_GENERIC_MAPPING *WinApi_PtrGENERIC_MAPPING;
+  WinApi_GENERIC_MAPPING *WinApi_PtrGENERIC_MAPPING;
 
 typedef
-	WinApi_GLYPHMETRICS *WinApi_PtrGLYPHMETRICS;
+  WinApi_GLYPHMETRICS *WinApi_PtrGLYPHMETRICS;
 
 typedef
-	WinApi_GLYPHMETRICSFLOAT *WinApi_PtrGLYPHMETRICSFLOAT;
+  WinApi_GLYPHMETRICSFLOAT *WinApi_PtrGLYPHMETRICSFLOAT;
 
 typedef
-	WinApi_HANDLETABLE *WinApi_PtrHANDLETABLE;
+  WinApi_HANDLETABLE *WinApi_PtrHANDLETABLE;
 
 typedef
-	WinApi_HARDWAREHOOKSTRUCT *WinApi_PtrHARDWAREHOOKSTRUCT;
+  WinApi_HARDWAREHOOKSTRUCT *WinApi_PtrHARDWAREHOOKSTRUCT;
 
 typedef
-	WinApi_HARDWAREINPUT *WinApi_PtrHARDWAREINPUT;
+  WinApi_HARDWAREINPUT *WinApi_PtrHARDWAREINPUT;
 
 typedef
-	WinApi_HELPINFO *WinApi_PtrHELPINFO;
+  WinApi_HELPINFO *WinApi_PtrHELPINFO;
 
 typedef
-	WinApi_HELPWININFOA *WinApi_PtrHELPWININFOA;
+  WinApi_HELPWININFOA *WinApi_PtrHELPWININFOA;
 
 typedef
-	WinApi_HELPWININFOW *WinApi_PtrHELPWININFOW;
+  WinApi_HELPWININFOW *WinApi_PtrHELPWININFOW;
 
 typedef
-	WinApi_HIGHCONTRASTA *WinApi_PtrHIGHCONTRASTA;
+  WinApi_HIGHCONTRASTA *WinApi_PtrHIGHCONTRASTA;
 
 typedef
-	WinApi_HIGHCONTRASTW *WinApi_PtrHIGHCONTRASTW;
+  WinApi_HIGHCONTRASTW *WinApi_PtrHIGHCONTRASTW;
 
 typedef
-	WinApi_HSZPAIR *WinApi_PtrHSZPAIR;
+  WinApi_HSZPAIR *WinApi_PtrHSZPAIR;
 
 typedef
-	WinApi_HW_PROFILE_INFOA *WinApi_PtrHW_PROFILE_INFOA;
+  WinApi_HW_PROFILE_INFOA *WinApi_PtrHW_PROFILE_INFOA;
 
 typedef
-	WinApi_HW_PROFILE_INFOW *WinApi_PtrHW_PROFILE_INFOW;
+  WinApi_HW_PROFILE_INFOW *WinApi_PtrHW_PROFILE_INFOW;
 
 typedef
-	WinApi_ICONINFO *WinApi_PtrICONINFO;
+  WinApi_ICONINFO *WinApi_PtrICONINFO;
 
 typedef
-	WinApi_ICONMETRICSA *WinApi_PtrICONMETRICSA;
+  WinApi_ICONMETRICSA *WinApi_PtrICONMETRICSA;
 
 typedef
-	WinApi_ICONMETRICSW *WinApi_PtrICONMETRICSW;
+  WinApi_ICONMETRICSW *WinApi_PtrICONMETRICSW;
 
 typedef
-	WinApi_IMAGE_ARCHIVE_MEMBER_HEADER *WinApi_PtrIMAGE_ARCHIVE_MEMBER_HEADER;
+  WinApi_IMAGE_ARCHIVE_MEMBER_HEADER *WinApi_PtrIMAGE_ARCHIVE_MEMBER_HEADER;
 
 typedef
-	WinApi_JOB_INFO_1A *WinApi_PtrJOB_INFO_1A;
+  WinApi_JOB_INFO_1A *WinApi_PtrJOB_INFO_1A;
 
 typedef
-	WinApi_JOB_INFO_1W *WinApi_PtrJOB_INFO_1W;
+  WinApi_JOB_INFO_1W *WinApi_PtrJOB_INFO_1W;
 
 typedef
-	WinApi_JOB_INFO_2A *WinApi_PtrJOB_INFO_2A;
+  WinApi_JOB_INFO_2A *WinApi_PtrJOB_INFO_2A;
 
 typedef
-	WinApi_JOB_INFO_2W *WinApi_PtrJOB_INFO_2W;
+  WinApi_JOB_INFO_2W *WinApi_PtrJOB_INFO_2W;
 
 typedef
-	WinApi_KERNINGPAIR *WinApi_PtrKERNINGPAIR;
+  WinApi_KERNINGPAIR *WinApi_PtrKERNINGPAIR;
 
 typedef
-	WinApi_KEYBDINPUT *WinApi_PtrKEYBDINPUT;
+  WinApi_KEYBDINPUT *WinApi_PtrKEYBDINPUT;
 
 typedef
-	WinApi_LAYERPLANEDESCRIPTOR *WinApi_PtrLAYERPLANEDESCRIPTOR;
+  WinApi_LAYERPLANEDESCRIPTOR *WinApi_PtrLAYERPLANEDESCRIPTOR;
 
 typedef
-	WinApi_LOAD_DLL_DEBUG_INFO *WinApi_PtrLOAD_DLL_DEBUG_INFO;
+  WinApi_LOAD_DLL_DEBUG_INFO *WinApi_PtrLOAD_DLL_DEBUG_INFO;
 
 typedef
-	WinApi_LOCALESIGNATURE *WinApi_PtrLOCALESIGNATURE;
+  WinApi_LOCALESIGNATURE *WinApi_PtrLOCALESIGNATURE;
 
 typedef
-	WinApi_LOGBRUSH *WinApi_PtrLOGBRUSH;
+  WinApi_LOGBRUSH *WinApi_PtrLOGBRUSH;
 
 typedef
-	WinApi_LOGCOLORSPACEA *WinApi_PtrLOGCOLORSPACEA;
+  WinApi_LOGCOLORSPACEA *WinApi_PtrLOGCOLORSPACEA;
 
 typedef
-	WinApi_LOGCOLORSPACEW *WinApi_PtrLOGCOLORSPACEW;
+  WinApi_LOGCOLORSPACEW *WinApi_PtrLOGCOLORSPACEW;
 
 typedef
-	WinApi_LOGFONTA *WinApi_PtrLOGFONTA;
+  WinApi_LOGFONTA *WinApi_PtrLOGFONTA;
 
 typedef
-	WinApi_LOGFONTW *WinApi_PtrLOGFONTW;
+  WinApi_LOGFONTW *WinApi_PtrLOGFONTW;
 
 typedef
-	WinApi_LOGPALETTE *WinApi_PtrLOGPALETTE;
+  WinApi_LOGPALETTE *WinApi_PtrLOGPALETTE;
 
 typedef
-	WinApi_LOGPEN *WinApi_PtrLOGPEN;
+  WinApi_LOGPEN *WinApi_PtrLOGPEN;
 
 typedef
-	WinApi_LUID_AND_ATTRIBUTES *WinApi_PtrLUID_AND_ATTRIBUTES;
+  WinApi_LUID_AND_ATTRIBUTES *WinApi_PtrLUID_AND_ATTRIBUTES;
 
 typedef
-	WinApi_LUID_AND_ATTRIBUTES_ARRAY *WinApi_PtrLUID_AND_ATTRIBUTES_ARRAY;
+  WinApi_LUID_AND_ATTRIBUTES_ARRAY *WinApi_PtrLUID_AND_ATTRIBUTES_ARRAY;
 
 typedef
-	WinApi_MAT2 *WinApi_PtrMAT2;
+  WinApi_MAT2 *WinApi_PtrMAT2;
 
 typedef
-	WinApi_MDICREATESTRUCTA *WinApi_PtrMDICREATESTRUCTA;
+  WinApi_MDICREATESTRUCTA *WinApi_PtrMDICREATESTRUCTA;
 
 typedef
-	WinApi_MDICREATESTRUCTW *WinApi_PtrMDICREATESTRUCTW;
+  WinApi_MDICREATESTRUCTW *WinApi_PtrMDICREATESTRUCTW;
 
 typedef
-	WinApi_MDINEXTMENU *WinApi_PtrMDINEXTMENU;
+  WinApi_MDINEXTMENU *WinApi_PtrMDINEXTMENU;
 
 typedef
-	WinApi_MEASUREITEMSTRUCT *WinApi_PtrMEASUREITEMSTRUCT;
+  WinApi_MEASUREITEMSTRUCT *WinApi_PtrMEASUREITEMSTRUCT;
 
 typedef
-	WinApi_MEMORYSTATUS *WinApi_PtrMEMORYSTATUS;
+  WinApi_MEMORYSTATUS *WinApi_PtrMEMORYSTATUS;
 
 typedef
-	WinApi_MEMORY_BASIC_INFORMATION *WinApi_PtrMEMORY_BASIC_INFORMATION;
+  WinApi_MEMORY_BASIC_INFORMATION *WinApi_PtrMEMORY_BASIC_INFORMATION;
 
 typedef
-	WinApi_MENUITEMINFOA *WinApi_PtrMENUITEMINFOA;
+  WinApi_MENUITEMINFOA *WinApi_PtrMENUITEMINFOA;
 
 typedef
-	WinApi_MENUITEMINFOW *WinApi_PtrMENUITEMINFOW;
+  WinApi_MENUITEMINFOW *WinApi_PtrMENUITEMINFOW;
 
 typedef
-	WinApi_MENUITEMTEMPLATE *WinApi_PtrMENUITEMTEMPLATE;
+  WinApi_MENUITEMTEMPLATE *WinApi_PtrMENUITEMTEMPLATE;
 
 typedef
-	WinApi_MENUITEMTEMPLATEHEADER *WinApi_PtrMENUITEMTEMPLATEHEADER;
+  WinApi_MENUITEMTEMPLATEHEADER *WinApi_PtrMENUITEMTEMPLATEHEADER;
 
 typedef
-	WinApi_MENUTEMPLATE *WinApi_PtrMENUTEMPLATE;
+  WinApi_MENUTEMPLATE *WinApi_PtrMENUTEMPLATE;
 
 typedef
-	WinApi_MENUTEMPLATEA *WinApi_PtrMENUTEMPLATEA;
+  WinApi_MENUTEMPLATEA *WinApi_PtrMENUTEMPLATEA;
 
 typedef
-	WinApi_MENUTEMPLATEW *WinApi_PtrMENUTEMPLATEW;
+  WinApi_MENUTEMPLATEW *WinApi_PtrMENUTEMPLATEW;
 
 typedef
-	WinApi_MENU_EVENT_RECORD *WinApi_PtrMENU_EVENT_RECORD;
+  WinApi_MENU_EVENT_RECORD *WinApi_PtrMENU_EVENT_RECORD;
 
 typedef
-	WinApi_MESSAGE_RESOURCE_BLOCK *WinApi_PtrMESSAGE_RESOURCE_BLOCK;
+  WinApi_MESSAGE_RESOURCE_BLOCK *WinApi_PtrMESSAGE_RESOURCE_BLOCK;
 
 typedef
-	WinApi_MESSAGE_RESOURCE_DATA *WinApi_PtrMESSAGE_RESOURCE_DATA;
+  WinApi_MESSAGE_RESOURCE_DATA *WinApi_PtrMESSAGE_RESOURCE_DATA;
 
 typedef
-	WinApi_MESSAGE_RESOURCE_ENTRY *WinApi_PtrMESSAGE_RESOURCE_ENTRY;
+  WinApi_MESSAGE_RESOURCE_ENTRY *WinApi_PtrMESSAGE_RESOURCE_ENTRY;
 
 typedef
-	WinApi_METAFILEPICT *WinApi_PtrMETAFILEPICT;
+  WinApi_METAFILEPICT *WinApi_PtrMETAFILEPICT;
 
 typedef
-	WinApi_METARECORD *WinApi_PtrMETARECORD;
+  WinApi_METARECORD *WinApi_PtrMETARECORD;
 
 typedef
-	WinApi_MINIMIZEDMETRICS *WinApi_PtrMINIMIZEDMETRICS;
+  WinApi_MINIMIZEDMETRICS *WinApi_PtrMINIMIZEDMETRICS;
 
 typedef
-	WinApi_MINMAXINFO *WinApi_PtrMINMAXINFO;
+  WinApi_MINMAXINFO *WinApi_PtrMINMAXINFO;
 
 typedef
-	WinApi_MODEMDEVCAPS *WinApi_PtrMODEMDEVCAPS;
+  WinApi_MODEMDEVCAPS *WinApi_PtrMODEMDEVCAPS;
 
 typedef
-	WinApi_MODEMSETTINGS *WinApi_PtrMODEMSETTINGS;
+  WinApi_MODEMSETTINGS *WinApi_PtrMODEMSETTINGS;
 
 typedef
-	WinApi_MONCBSTRUCT *WinApi_PtrMONCBSTRUCT;
+  WinApi_MONCBSTRUCT *WinApi_PtrMONCBSTRUCT;
 
 typedef
-	WinApi_MONCONVSTRUCT *WinApi_PtrMONCONVSTRUCT;
+  WinApi_MONCONVSTRUCT *WinApi_PtrMONCONVSTRUCT;
 
 typedef
-	WinApi_MONERRSTRUCT *WinApi_PtrMONERRSTRUCT;
+  WinApi_MONERRSTRUCT *WinApi_PtrMONERRSTRUCT;
 
 typedef
-	WinApi_MONHSZSTRUCTA *WinApi_PtrMONHSZSTRUCTA;
+  WinApi_MONHSZSTRUCTA *WinApi_PtrMONHSZSTRUCTA;
 
 typedef
-	WinApi_MONHSZSTRUCTW *WinApi_PtrMONHSZSTRUCTW;
+  WinApi_MONHSZSTRUCTW *WinApi_PtrMONHSZSTRUCTW;
 
 typedef
-	WinApi_MONITOR_INFO_1A *WinApi_PtrMONITOR_INFO_1A;
+  WinApi_MONITOR_INFO_1A *WinApi_PtrMONITOR_INFO_1A;
 
 typedef
-	WinApi_MONITOR_INFO_1W *WinApi_PtrMONITOR_INFO_1W;
+  WinApi_MONITOR_INFO_1W *WinApi_PtrMONITOR_INFO_1W;
 
 typedef
-	WinApi_MONITOR_INFO_2A *WinApi_PtrMONITOR_INFO_2A;
+  WinApi_MONITOR_INFO_2A *WinApi_PtrMONITOR_INFO_2A;
 
 typedef
-	WinApi_MONITOR_INFO_2W *WinApi_PtrMONITOR_INFO_2W;
+  WinApi_MONITOR_INFO_2W *WinApi_PtrMONITOR_INFO_2W;
 
 typedef
-	WinApi_MONLINKSTRUCT *WinApi_PtrMONLINKSTRUCT;
+  WinApi_MONLINKSTRUCT *WinApi_PtrMONLINKSTRUCT;
 
 typedef
-	WinApi_MONMSGSTRUCT *WinApi_PtrMONMSGSTRUCT;
+  WinApi_MONMSGSTRUCT *WinApi_PtrMONMSGSTRUCT;
 
 typedef
-	WinApi_MOUSEHOOKSTRUCT *WinApi_PtrMOUSEHOOKSTRUCT;
+  WinApi_MOUSEHOOKSTRUCT *WinApi_PtrMOUSEHOOKSTRUCT;
 
 typedef
-	WinApi_MOUSEINPUT *WinApi_PtrMOUSEINPUT;
+  WinApi_MOUSEINPUT *WinApi_PtrMOUSEINPUT;
 
 typedef
-	WinApi_MOUSEKEYS *WinApi_PtrMOUSEKEYS;
+  WinApi_MOUSEKEYS *WinApi_PtrMOUSEKEYS;
 
 typedef
-	WinApi_MOUSE_EVENT_RECORD *WinApi_PtrMOUSE_EVENT_RECORD;
+  WinApi_MOUSE_EVENT_RECORD *WinApi_PtrMOUSE_EVENT_RECORD;
 
 typedef
-	WinApi_MSG *WinApi_PtrMSG;
+  WinApi_MSG *WinApi_PtrMSG;
 
 typedef
-	WinApi_MSGBOXPARAMSA *WinApi_PtrMSGBOXPARAMSA;
+  WinApi_MSGBOXPARAMSA *WinApi_PtrMSGBOXPARAMSA;
 
 typedef
-	WinApi_MSGBOXPARAMSW *WinApi_PtrMSGBOXPARAMSW;
+  WinApi_MSGBOXPARAMSW *WinApi_PtrMSGBOXPARAMSW;
 
 typedef
-	WinApi_MULTIKEYHELPA *WinApi_PtrMULTIKEYHELPA;
+  WinApi_MULTIKEYHELPA *WinApi_PtrMULTIKEYHELPA;
 
 typedef
-	WinApi_MULTIKEYHELPW *WinApi_PtrMULTIKEYHELPW;
+  WinApi_MULTIKEYHELPW *WinApi_PtrMULTIKEYHELPW;
 
 typedef
-	WinApi_NCCALCSIZE_PARAMS *WinApi_PtrNCCALCSIZE_PARAMS;
+  WinApi_NCCALCSIZE_PARAMS *WinApi_PtrNCCALCSIZE_PARAMS;
 
 typedef
-	WinApi_NEWTEXTMETRICA *WinApi_PtrNEWTEXTMETRICA;
+  WinApi_NEWTEXTMETRICA *WinApi_PtrNEWTEXTMETRICA;
 
 typedef
-	WinApi_NEWTEXTMETRICW *WinApi_PtrNEWTEXTMETRICW;
+  WinApi_NEWTEXTMETRICW *WinApi_PtrNEWTEXTMETRICW;
 
 typedef
-	WinApi_NMHDR *WinApi_PtrNMHDR;
+  WinApi_NMHDR *WinApi_PtrNMHDR;
 
 typedef
-	WinApi_NONCLIENTMETRICSA *WinApi_PtrNONCLIENTMETRICSA;
+  WinApi_NONCLIENTMETRICSA *WinApi_PtrNONCLIENTMETRICSA;
 
 typedef
-	WinApi_NONCLIENTMETRICSW *WinApi_PtrNONCLIENTMETRICSW;
+  WinApi_NONCLIENTMETRICSW *WinApi_PtrNONCLIENTMETRICSW;
 
 typedef
-	WinApi_NUMBERFMTA *WinApi_PtrNUMBERFMTA;
+  WinApi_NUMBERFMTA *WinApi_PtrNUMBERFMTA;
 
 typedef
-	WinApi_NUMBERFMTW *WinApi_PtrNUMBERFMTW;
+  WinApi_NUMBERFMTW *WinApi_PtrNUMBERFMTW;
 
 typedef
-	WinApi_OFSTRUCT *WinApi_PtrOFSTRUCT;
+  WinApi_OFSTRUCT *WinApi_PtrOFSTRUCT;
 
 typedef
-	WinApi_OSVERSIONINFOA *WinApi_PtrOSVERSIONINFOA;
+  WinApi_OSVERSIONINFOA *WinApi_PtrOSVERSIONINFOA;
 
 typedef
-	WinApi_OSVERSIONINFOW *WinApi_PtrOSVERSIONINFOW;
+  WinApi_OSVERSIONINFOW *WinApi_PtrOSVERSIONINFOW;
 
 typedef
-	WinApi_OUTLINETEXTMETRICA *WinApi_PtrOUTLINETEXTMETRICA;
+  WinApi_OUTLINETEXTMETRICA *WinApi_PtrOUTLINETEXTMETRICA;
 
 typedef
-	WinApi_OUTLINETEXTMETRICW *WinApi_PtrOUTLINETEXTMETRICW;
+  WinApi_OUTLINETEXTMETRICW *WinApi_PtrOUTLINETEXTMETRICW;
 
 typedef
-	WinApi_OUTPUT_DEBUG_STRING_INFO *WinApi_PtrOUTPUT_DEBUG_STRING_INFO;
+  WinApi_OUTPUT_DEBUG_STRING_INFO *WinApi_PtrOUTPUT_DEBUG_STRING_INFO;
 
 typedef
-	WinApi_OVERLAPPED *WinApi_PtrOVERLAPPED;
+  WinApi_OVERLAPPED *WinApi_PtrOVERLAPPED;
 
 typedef
-	WinApi_PAINTSTRUCT *WinApi_PtrPAINTSTRUCT;
+  WinApi_PAINTSTRUCT *WinApi_PtrPAINTSTRUCT;
 
 typedef
-	WinApi_PALETTEENTRY *WinApi_PtrPALETTEENTRY;
+  WinApi_PALETTEENTRY *WinApi_PtrPALETTEENTRY;
 
 typedef
-	WinApi_PANOSE *WinApi_PtrPANOSE;
+  WinApi_PANOSE *WinApi_PtrPANOSE;
 
 typedef
-	WinApi_PELARRAY *WinApi_PtrPELARRAY;
+  WinApi_PELARRAY *WinApi_PtrPELARRAY;
 
 typedef
-	WinApi_PIXELFORMATDESCRIPTOR *WinApi_PtrPIXELFORMATDESCRIPTOR;
+  WinApi_PIXELFORMATDESCRIPTOR *WinApi_PtrPIXELFORMATDESCRIPTOR;
 
 typedef
-	WinApi_POINT *WinApi_PtrPOINT;
+  WinApi_POINT *WinApi_PtrPOINT;
 
 typedef
-	WinApi_POINTFLOAT *WinApi_PtrPOINTFLOAT;
+  WinApi_POINTFLOAT *WinApi_PtrPOINTFLOAT;
 
 typedef
-	WinApi_POINTFX *WinApi_PtrPOINTFX;
+  WinApi_POINTFX *WinApi_PtrPOINTFX;
 
 typedef
-	WinApi_POINTS *WinApi_PtrPOINTS;
+  WinApi_POINTS *WinApi_PtrPOINTS;
 
 typedef
-	WinApi_POLYTEXTA *WinApi_PtrPOLYTEXTA;
+  WinApi_POLYTEXTA *WinApi_PtrPOLYTEXTA;
 
 typedef
-	WinApi_POLYTEXTW *WinApi_PtrPOLYTEXTW;
+  WinApi_POLYTEXTW *WinApi_PtrPOLYTEXTW;
 
 typedef
-	WinApi_PORT_INFO_1A *WinApi_PtrPORT_INFO_1A;
+  WinApi_PORT_INFO_1A *WinApi_PtrPORT_INFO_1A;
 
 typedef
-	WinApi_PORT_INFO_1W *WinApi_PtrPORT_INFO_1W;
+  WinApi_PORT_INFO_1W *WinApi_PtrPORT_INFO_1W;
 
 typedef
-	WinApi_PORT_INFO_2A *WinApi_PtrPORT_INFO_2A;
+  WinApi_PORT_INFO_2A *WinApi_PtrPORT_INFO_2A;
 
 typedef
-	WinApi_PORT_INFO_2W *WinApi_PtrPORT_INFO_2W;
+  WinApi_PORT_INFO_2W *WinApi_PtrPORT_INFO_2W;
 
 typedef
-	WinApi_PRINTER_DEFAULTSA *WinApi_PtrPRINTER_DEFAULTSA;
+  WinApi_PRINTER_DEFAULTSA *WinApi_PtrPRINTER_DEFAULTSA;
 
 typedef
-	WinApi_PRINTER_DEFAULTSW *WinApi_PtrPRINTER_DEFAULTSW;
+  WinApi_PRINTER_DEFAULTSW *WinApi_PtrPRINTER_DEFAULTSW;
 
 typedef
-	WinApi_PRINTER_INFO_1A *WinApi_PtrPRINTER_INFO_1A;
+  WinApi_PRINTER_INFO_1A *WinApi_PtrPRINTER_INFO_1A;
 
 typedef
-	WinApi_PRINTER_INFO_1W *WinApi_PtrPRINTER_INFO_1W;
+  WinApi_PRINTER_INFO_1W *WinApi_PtrPRINTER_INFO_1W;
 
 typedef
-	WinApi_PRINTER_INFO_2A *WinApi_PtrPRINTER_INFO_2A;
+  WinApi_PRINTER_INFO_2A *WinApi_PtrPRINTER_INFO_2A;
 
 typedef
-	WinApi_PRINTER_INFO_2W *WinApi_PtrPRINTER_INFO_2W;
+  WinApi_PRINTER_INFO_2W *WinApi_PtrPRINTER_INFO_2W;
 
 typedef
-	WinApi_PRINTER_INFO_3 *WinApi_PtrPRINTER_INFO_3;
+  WinApi_PRINTER_INFO_3 *WinApi_PtrPRINTER_INFO_3;
 
 typedef
-	WinApi_PRINTER_INFO_4A *WinApi_PtrPRINTER_INFO_4A;
+  WinApi_PRINTER_INFO_4A *WinApi_PtrPRINTER_INFO_4A;
 
 typedef
-	WinApi_PRINTER_INFO_4W *WinApi_PtrPRINTER_INFO_4W;
+  WinApi_PRINTER_INFO_4W *WinApi_PtrPRINTER_INFO_4W;
 
 typedef
-	WinApi_PRINTER_INFO_5A *WinApi_PtrPRINTER_INFO_5A;
+  WinApi_PRINTER_INFO_5A *WinApi_PtrPRINTER_INFO_5A;
 
 typedef
-	WinApi_PRINTER_INFO_5W *WinApi_PtrPRINTER_INFO_5W;
+  WinApi_PRINTER_INFO_5W *WinApi_PtrPRINTER_INFO_5W;
 
 typedef
-	WinApi_PRINTER_INFO_6 *WinApi_PtrPRINTER_INFO_6;
+  WinApi_PRINTER_INFO_6 *WinApi_PtrPRINTER_INFO_6;
 
 typedef
-	WinApi_PRINTER_NOTIFY_OPTIONS *WinApi_PtrPRINTER_NOTIFY_OPTIONS;
+  WinApi_PRINTER_NOTIFY_OPTIONS *WinApi_PtrPRINTER_NOTIFY_OPTIONS;
 
 typedef
-	WinApi_PRINTPROCESSOR_INFO_1A *WinApi_PtrPRINTPROCESSOR_INFO_1A;
+  WinApi_PRINTPROCESSOR_INFO_1A *WinApi_PtrPRINTPROCESSOR_INFO_1A;
 
 typedef
-	WinApi_PRINTPROCESSOR_INFO_1W *WinApi_PtrPRINTPROCESSOR_INFO_1W;
+  WinApi_PRINTPROCESSOR_INFO_1W *WinApi_PtrPRINTPROCESSOR_INFO_1W;
 
 typedef
-	WinApi_PRIVILEGE_SET *WinApi_PtrPRIVILEGE_SET;
+  WinApi_PRIVILEGE_SET *WinApi_PtrPRIVILEGE_SET;
 
 typedef
-	WinApi_PROCESS_INFORMATION *WinApi_PtrPROCESS_INFORMATION;
+  WinApi_PROCESS_INFORMATION *WinApi_PtrPROCESS_INFORMATION;
 
 typedef
-	WinApi_PROVIDOR_INFO_1A *WinApi_PtrPROVIDOR_INFO_1A;
+  WinApi_PROVIDOR_INFO_1A *WinApi_PtrPROVIDOR_INFO_1A;
 
 typedef
-	WinApi_PROVIDOR_INFO_1W *WinApi_PtrPROVIDOR_INFO_1W;
+  WinApi_PROVIDOR_INFO_1W *WinApi_PtrPROVIDOR_INFO_1W;
 
 typedef
-	WinApi_PSHNOTIFY *WinApi_PtrPSHNOTIFY;
+  WinApi_PSHNOTIFY *WinApi_PtrPSHNOTIFY;
 
 typedef
-	WinApi_PVALUEA *WinApi_PtrPVALUEA;
+  WinApi_PVALUEA *WinApi_PtrPVALUEA;
 
 typedef
-	WinApi_PVALUEW *WinApi_PtrPVALUEW;
+  WinApi_PVALUEW *WinApi_PtrPVALUEW;
 
 typedef
-	struct WinApi_QUERY_SERVICE_CONFIGA *WinApi_PtrQUERY_SERVICE_CONFIGA;
+  struct WinApi_QUERY_SERVICE_CONFIGA *WinApi_PtrQUERY_SERVICE_CONFIGA;
 
 typedef
-	struct WinApi_QUERY_SERVICE_CONFIGW *WinApi_PtrQUERY_SERVICE_CONFIGW;
+  struct WinApi_QUERY_SERVICE_CONFIGW *WinApi_PtrQUERY_SERVICE_CONFIGW;
 
 typedef
-	struct WinApi_QUERY_SERVICE_LOCK_STATUSA *WinApi_PtrQUERY_SERVICE_LOCK_STATUSA;
+  struct WinApi_QUERY_SERVICE_LOCK_STATUSA *WinApi_PtrQUERY_SERVICE_LOCK_STATUSA;
 
 typedef
-	struct WinApi_QUERY_SERVICE_LOCK_STATUSW *WinApi_PtrQUERY_SERVICE_LOCK_STATUSW;
+  struct WinApi_QUERY_SERVICE_LOCK_STATUSW *WinApi_PtrQUERY_SERVICE_LOCK_STATUSW;
 
 typedef
-	struct WinApi_RASTERIZER_STATUS *WinApi_PtrRASTERIZER_STATUS;
+  struct WinApi_RASTERIZER_STATUS *WinApi_PtrRASTERIZER_STATUS;
 
 typedef
-	WinApi_RECT *WinApi_PtrRECT;
+  WinApi_RECT *WinApi_PtrRECT;
 
 typedef
-	struct WinApi_REG_PROVIDER *WinApi_PtrREG_PROVIDER;
+  struct WinApi_REG_PROVIDER *WinApi_PtrREG_PROVIDER;
 
 typedef
-	WinApi_RGBQUAD *WinApi_PtrRGBQUAD;
+  WinApi_RGBQUAD *WinApi_PtrRGBQUAD;
 
 typedef
-	struct WinApi_RGNDATA *WinApi_PtrRGNDATA;
+  struct WinApi_RGNDATA *WinApi_PtrRGNDATA;
 
 typedef
-	struct WinApi_RGNDATAHEADER *WinApi_PtrRGNDATAHEADER;
+  struct WinApi_RGNDATAHEADER *WinApi_PtrRGNDATAHEADER;
 
 typedef
-	struct WinApi_RIP_INFO *WinApi_PtrRIP_INFO;
+  struct WinApi_RIP_INFO *WinApi_PtrRIP_INFO;
 
 typedef
-	struct WinApi_SCROLLINFO *WinApi_PtrSCROLLINFO;
+  struct WinApi_SCROLLINFO *WinApi_PtrSCROLLINFO;
 
 typedef
-	struct WinApi_SECURITY_ATTRIBUTES *WinApi_PtrSECURITY_ATTRIBUTES;
+  struct WinApi_SECURITY_ATTRIBUTES *WinApi_PtrSECURITY_ATTRIBUTES;
 
 typedef
-	struct WinApi_SECURITY_DESCRIPTOR *WinApi_PtrSECURITY_DESCRIPTOR;
+  struct WinApi_SECURITY_DESCRIPTOR *WinApi_PtrSECURITY_DESCRIPTOR;
 
 typedef
-	WinApi_SECURITY_QUALITY_OF_SERVICE *WinApi_PtrSECURITY_QUALITY_OF_SERVICE;
+  WinApi_SECURITY_QUALITY_OF_SERVICE *WinApi_PtrSECURITY_QUALITY_OF_SERVICE;
 
 typedef
-	struct WinApi_SERIALKEYSA *WinApi_PtrSERIALKEYSA;
+  struct WinApi_SERIALKEYSA *WinApi_PtrSERIALKEYSA;
 
 typedef
-	struct WinApi_SERIALKEYSW *WinApi_PtrSERIALKEYSW;
+  struct WinApi_SERIALKEYSW *WinApi_PtrSERIALKEYSW;
 
 typedef
-	WinApi_SERVICE_STATUS *WinApi_PtrSERVICE_STATUS;
+  WinApi_SERVICE_STATUS *WinApi_PtrSERVICE_STATUS;
 
 typedef
-	struct WinApi_SERVICE_TABLE_ENTRYA *WinApi_PtrSERVICE_TABLE_ENTRYA;
+  struct WinApi_SERVICE_TABLE_ENTRYA *WinApi_PtrSERVICE_TABLE_ENTRYA;
 
 typedef
-	struct WinApi_SERVICE_TABLE_ENTRYW *WinApi_PtrSERVICE_TABLE_ENTRYW;
+  struct WinApi_SERVICE_TABLE_ENTRYW *WinApi_PtrSERVICE_TABLE_ENTRYW;
 
 typedef
-	struct WinApi_SE_IMPERSONATION_STATE *WinApi_PtrSE_IMPERSONATION_STATE;
+  struct WinApi_SE_IMPERSONATION_STATE *WinApi_PtrSE_IMPERSONATION_STATE;
 
 typedef
-	struct WinApi_SID *WinApi_PtrSID;
+  struct WinApi_SID *WinApi_PtrSID;
 
 typedef
-	struct WinApi_SID_AND_ATTRIBUTES *WinApi_PtrSID_AND_ATTRIBUTES;
+  struct WinApi_SID_AND_ATTRIBUTES *WinApi_PtrSID_AND_ATTRIBUTES;
 
 typedef
-	struct WinApi_SID_AND_ATTRIBUTES {
-		INTEGER Sid;
-		SET Attributes;
-	} WinApi_SID_AND_ATTRIBUTES;
+  struct WinApi_SID_AND_ATTRIBUTES {
+    INTEGER Sid;
+    SET Attributes;
+  } WinApi_SID_AND_ATTRIBUTES;
 
 typedef
-	WinApi_SID_AND_ATTRIBUTES WinApi_SID_AND_ATTRIBUTES_ARRAY[1];
+  WinApi_SID_AND_ATTRIBUTES WinApi_SID_AND_ATTRIBUTES_ARRAY[1];
 
 typedef
-	WinApi_SID_AND_ATTRIBUTES_ARRAY *WinApi_PtrSID_AND_ATTRIBUTES_ARRAY;
+  WinApi_SID_AND_ATTRIBUTES_ARRAY *WinApi_PtrSID_AND_ATTRIBUTES_ARRAY;
 
 typedef
-	struct WinApi_SID_IDENTIFIER_AUTHORITY *WinApi_PtrSID_IDENTIFIER_AUTHORITY;
+  struct WinApi_SID_IDENTIFIER_AUTHORITY *WinApi_PtrSID_IDENTIFIER_AUTHORITY;
 
 typedef
-	struct WinApi_SINGLE_LIST_ENTRY *WinApi_PtrSINGLE_LIST_ENTRY;
+  struct WinApi_SINGLE_LIST_ENTRY *WinApi_PtrSINGLE_LIST_ENTRY;
 
 typedef
-	WinApi_SIZE *WinApi_PtrSIZE;
+  WinApi_SIZE *WinApi_PtrSIZE;
 
 typedef
-	WinApi_SMALL_RECT *WinApi_PtrSMALL_RECT;
+  WinApi_SMALL_RECT *WinApi_PtrSMALL_RECT;
 
 typedef
-	struct WinApi_SOUNDSENTRYA *WinApi_PtrSOUNDSENTRYA;
+  struct WinApi_SOUNDSENTRYA *WinApi_PtrSOUNDSENTRYA;
 
 typedef
-	struct WinApi_SOUNDSENTRYW *WinApi_PtrSOUNDSENTRYW;
+  struct WinApi_SOUNDSENTRYW *WinApi_PtrSOUNDSENTRYW;
 
 typedef
-	struct WinApi_STARTUPINFOA *WinApi_PtrSTARTUPINFOA;
+  struct WinApi_STARTUPINFOA *WinApi_PtrSTARTUPINFOA;
 
 typedef
-	struct WinApi_STARTUPINFOW *WinApi_PtrSTARTUPINFOW;
+  struct WinApi_STARTUPINFOW *WinApi_PtrSTARTUPINFOW;
 
 typedef
-	struct WinApi_STICKYKEYS *WinApi_PtrSTICKYKEYS;
+  struct WinApi_STICKYKEYS *WinApi_PtrSTICKYKEYS;
 
 typedef
-	struct WinApi_STYLESTRUCT *WinApi_PtrSTYLESTRUCT;
+  struct WinApi_STYLESTRUCT *WinApi_PtrSTYLESTRUCT;
 
 typedef
-	WinApi_SYSTEMTIME *WinApi_PtrSYSTEMTIME;
+  WinApi_SYSTEMTIME *WinApi_PtrSYSTEMTIME;
 
 typedef
-	struct WinApi_SYSTEM_ALARM_ACE *WinApi_PtrSYSTEM_ALARM_ACE;
+  struct WinApi_SYSTEM_ALARM_ACE *WinApi_PtrSYSTEM_ALARM_ACE;
 
 typedef
-	struct WinApi_SYSTEM_AUDIT_ACE *WinApi_PtrSYSTEM_AUDIT_ACE;
+  struct WinApi_SYSTEM_AUDIT_ACE *WinApi_PtrSYSTEM_AUDIT_ACE;
 
 typedef
-	struct WinApi_SYSTEM_POWER_STATUS *WinApi_PtrSYSTEM_POWER_STATUS;
+  struct WinApi_SYSTEM_POWER_STATUS *WinApi_PtrSYSTEM_POWER_STATUS;
 
 typedef
-	struct WinApi_TAPE_CREATE_PARTITION *WinApi_PtrTAPE_CREATE_PARTITION;
+  struct WinApi_TAPE_CREATE_PARTITION *WinApi_PtrTAPE_CREATE_PARTITION;
 
 typedef
-	struct WinApi_TAPE_ERASE *WinApi_PtrTAPE_ERASE;
+  struct WinApi_TAPE_ERASE *WinApi_PtrTAPE_ERASE;
 
 typedef
-	struct WinApi_TAPE_GET_DRIVE_PARAMETERS *WinApi_PtrTAPE_GET_DRIVE_PARAMETERS;
+  struct WinApi_TAPE_GET_DRIVE_PARAMETERS *WinApi_PtrTAPE_GET_DRIVE_PARAMETERS;
 
 typedef
-	struct WinApi_TAPE_PREPARE *WinApi_PtrTAPE_PREPARE;
+  struct WinApi_TAPE_PREPARE *WinApi_PtrTAPE_PREPARE;
 
 typedef
-	struct WinApi_TAPE_SET_DRIVE_PARAMETERS *WinApi_PtrTAPE_SET_DRIVE_PARAMETERS;
+  struct WinApi_TAPE_SET_DRIVE_PARAMETERS *WinApi_PtrTAPE_SET_DRIVE_PARAMETERS;
 
 typedef
-	struct WinApi_TAPE_SET_MEDIA_PARAMETERS *WinApi_PtrTAPE_SET_MEDIA_PARAMETERS;
+  struct WinApi_TAPE_SET_MEDIA_PARAMETERS *WinApi_PtrTAPE_SET_MEDIA_PARAMETERS;
 
 typedef
-	WinApi_TEXTMETRICA *WinApi_PtrTEXTMETRICA;
+  WinApi_TEXTMETRICA *WinApi_PtrTEXTMETRICA;
 
 typedef
-	WinApi_TEXTMETRICW *WinApi_PtrTEXTMETRICW;
+  WinApi_TEXTMETRICW *WinApi_PtrTEXTMETRICW;
 
 typedef
-	struct WinApi_TIME_ZONE_INFORMATION *WinApi_PtrTIME_ZONE_INFORMATION;
+  struct WinApi_TIME_ZONE_INFORMATION *WinApi_PtrTIME_ZONE_INFORMATION;
 
 typedef
-	struct WinApi_TOGGLEKEYS *WinApi_PtrTOGGLEKEYS;
+  struct WinApi_TOGGLEKEYS *WinApi_PtrTOGGLEKEYS;
 
 typedef
-	struct WinApi_TOKEN_DEFAULT_DACL *WinApi_PtrTOKEN_DEFAULT_DACL;
+  struct WinApi_TOKEN_DEFAULT_DACL *WinApi_PtrTOKEN_DEFAULT_DACL;
 
 typedef
-	struct WinApi_TOKEN_GROUPS *WinApi_PtrTOKEN_GROUPS;
+  struct WinApi_TOKEN_GROUPS *WinApi_PtrTOKEN_GROUPS;
 
 typedef
-	struct WinApi_TOKEN_OWNER *WinApi_PtrTOKEN_OWNER;
+  struct WinApi_TOKEN_OWNER *WinApi_PtrTOKEN_OWNER;
 
 typedef
-	struct WinApi_TOKEN_PRIMARY_GROUP *WinApi_PtrTOKEN_PRIMARY_GROUP;
+  struct WinApi_TOKEN_PRIMARY_GROUP *WinApi_PtrTOKEN_PRIMARY_GROUP;
 
 typedef
-	struct WinApi_TOKEN_PRIVILEGES *WinApi_PtrTOKEN_PRIVILEGES;
+  struct WinApi_TOKEN_PRIVILEGES *WinApi_PtrTOKEN_PRIVILEGES;
 
 typedef
-	struct WinApi_TOKEN_USER *WinApi_PtrTOKEN_USER;
+  struct WinApi_TOKEN_USER *WinApi_PtrTOKEN_USER;
 
 typedef
-	struct WinApi_TPMPARAMS *WinApi_PtrTPMPARAMS;
+  struct WinApi_TPMPARAMS *WinApi_PtrTPMPARAMS;
 
 typedef
-	struct WinApi_TTPOLYCURVE *WinApi_PtrTTPOLYCURVE;
+  struct WinApi_TTPOLYCURVE *WinApi_PtrTTPOLYCURVE;
 
 typedef
-	struct WinApi_TTPOLYGONHEADER *WinApi_PtrTTPOLYGONHEADER;
+  struct WinApi_TTPOLYGONHEADER *WinApi_PtrTTPOLYGONHEADER;
 
 typedef
-	struct WinApi_UNLOAD_DLL_DEBUG_INFO *WinApi_PtrUNLOAD_DLL_DEBUG_INFO;
+  struct WinApi_UNLOAD_DLL_DEBUG_INFO *WinApi_PtrUNLOAD_DLL_DEBUG_INFO;
 
 typedef
-	struct WinApi_USEROBJECTFLAGS *WinApi_PtrUSEROBJECTFLAGS;
+  struct WinApi_USEROBJECTFLAGS *WinApi_PtrUSEROBJECTFLAGS;
 
 typedef
-	struct WinApi_VALENTA *WinApi_PtrVALENTA;
+  struct WinApi_VALENTA *WinApi_PtrVALENTA;
 
 typedef
-	struct WinApi_VALENTW *WinApi_PtrVALENTW;
+  struct WinApi_VALENTW *WinApi_PtrVALENTW;
 
 typedef
-	struct WinApi_WINDOWPLACEMENT *WinApi_PtrWINDOWPLACEMENT;
+  struct WinApi_WINDOWPLACEMENT *WinApi_PtrWINDOWPLACEMENT;
 
 typedef
-	struct WinApi_WINDOW_BUFFER_SIZE_RECORD *WinApi_PtrWINDOW_BUFFER_SIZE_RECORD;
+  struct WinApi_WINDOW_BUFFER_SIZE_RECORD *WinApi_PtrWINDOW_BUFFER_SIZE_RECORD;
 
 typedef
-	struct WinApi_WIN_CERTIFICATE *WinApi_PtrWIN_CERTIFICATE;
+  struct WinApi_WIN_CERTIFICATE *WinApi_PtrWIN_CERTIFICATE;
 
 typedef
-	struct WinApi_WIN_SPUB_TRUSTEDPUB_DATA *WinApi_PtrWIN_SPUB_TRUSTEDPUB_DATA;
+  struct WinApi_WIN_SPUB_TRUSTEDPUB_DATA *WinApi_PtrWIN_SPUB_TRUSTEDPUB_DATA;
 
 typedef
-	struct WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT *WinApi_PtrWIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJE;
+  struct WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT *WinApi_PtrWIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJE;
 
 typedef
-	struct WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY *WinApi_PtrWIN_TRUST_ACTDATA_SUBJECT_ONLY;
+  struct WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY *WinApi_PtrWIN_TRUST_ACTDATA_SUBJECT_ONLY;
 
 typedef
-	struct WinApi_WIN_TRUST_SUBJECT_FILE *WinApi_PtrWIN_TRUST_SUBJECT_FILE;
+  struct WinApi_WIN_TRUST_SUBJECT_FILE *WinApi_PtrWIN_TRUST_SUBJECT_FILE;
 
 typedef
-	struct WinApi_WNDCLASSA *WinApi_PtrWNDCLASSA;
+  struct WinApi_WNDCLASSA *WinApi_PtrWNDCLASSA;
 
 typedef
-	struct WinApi_WNDCLASSEXA *WinApi_PtrWNDCLASSEXA;
+  struct WinApi_WNDCLASSEXA *WinApi_PtrWNDCLASSEXA;
 
 typedef
-	struct WinApi_WNDCLASSEXW *WinApi_PtrWNDCLASSEXW;
+  struct WinApi_WNDCLASSEXW *WinApi_PtrWNDCLASSEXW;
 
 typedef
-	struct WinApi_WNDCLASSW *WinApi_PtrWNDCLASSW;
+  struct WinApi_WNDCLASSW *WinApi_PtrWNDCLASSW;
 
 typedef
-	WinApi_XFORM *WinApi_PtrXFORM;
+  WinApi_XFORM *WinApi_PtrXFORM;
 
 typedef
-	struct WinApi__EXCEPTION_REGISTRATION_RECORD *WinApi_Ptr_EXCEPTION_REGISTRATION_RECORD;
+  struct WinApi__EXCEPTION_REGISTRATION_RECORD *WinApi_Ptr_EXCEPTION_REGISTRATION_RECORD;
 
 typedef
-	struct WinApi_val_context *WinApi_Ptrval_context;
+  struct WinApi_val_context *WinApi_Ptrval_context;
 
 typedef
-	struct WinApi_val_context {
-		INTEGER valuelen, value_context, val_buff_ptr;
-	} WinApi_val_context;
+  struct WinApi_val_context {
+    INTEGER valuelen, value_context, val_buff_ptr;
+  } WinApi_val_context;
 
 typedef
-	INTEGER (*WinApi_QUERYHANDLER)(INTEGER, WinApi_val_context*, INTEGER, INTEGER, INTEGER*, INTEGER);
+  INTEGER (*WinApi_QUERYHANDLER)(INTEGER, WinApi_val_context*, INTEGER, INTEGER, INTEGER*, INTEGER);
 
 typedef
-	struct WinApi_QUERY_SERVICE_CONFIGA {
-		SET dwServiceType;
-		INTEGER dwStartType, dwErrorControl;
-		WinApi_PtrSTR lpBinaryPathName, lpLoadOrderGroup;
-		INTEGER dwTagId;
-		WinApi_PtrSTR lpDependencies, lpServiceStartName, lpDisplayName;
-	} WinApi_QUERY_SERVICE_CONFIGA;
+  struct WinApi_QUERY_SERVICE_CONFIGA {
+    SET dwServiceType;
+    INTEGER dwStartType, dwErrorControl;
+    WinApi_PtrSTR lpBinaryPathName, lpLoadOrderGroup;
+    INTEGER dwTagId;
+    WinApi_PtrSTR lpDependencies, lpServiceStartName, lpDisplayName;
+  } WinApi_QUERY_SERVICE_CONFIGA;
 
 typedef
-	struct WinApi_QUERY_SERVICE_CONFIGW {
-		SET dwServiceType;
-		INTEGER dwStartType, dwErrorControl;
-		WinApi_PtrWSTR lpBinaryPathName, lpLoadOrderGroup;
-		INTEGER dwTagId;
-		WinApi_PtrWSTR lpDependencies, lpServiceStartName, lpDisplayName;
-	} WinApi_QUERY_SERVICE_CONFIGW;
+  struct WinApi_QUERY_SERVICE_CONFIGW {
+    SET dwServiceType;
+    INTEGER dwStartType, dwErrorControl;
+    WinApi_PtrWSTR lpBinaryPathName, lpLoadOrderGroup;
+    INTEGER dwTagId;
+    WinApi_PtrWSTR lpDependencies, lpServiceStartName, lpDisplayName;
+  } WinApi_QUERY_SERVICE_CONFIGW;
 
 typedef
-	struct WinApi_QUERY_SERVICE_LOCK_STATUSA {
-		INTEGER fIsLocked;
-		WinApi_PtrSTR lpLockOwner;
-		INTEGER dwLockDuration;
-	} WinApi_QUERY_SERVICE_LOCK_STATUSA;
+  struct WinApi_QUERY_SERVICE_LOCK_STATUSA {
+    INTEGER fIsLocked;
+    WinApi_PtrSTR lpLockOwner;
+    INTEGER dwLockDuration;
+  } WinApi_QUERY_SERVICE_LOCK_STATUSA;
 
 typedef
-	struct WinApi_QUERY_SERVICE_LOCK_STATUSW {
-		INTEGER fIsLocked;
-		WinApi_PtrWSTR lpLockOwner;
-		INTEGER dwLockDuration;
-	} WinApi_QUERY_SERVICE_LOCK_STATUSW;
+  struct WinApi_QUERY_SERVICE_LOCK_STATUSW {
+    INTEGER fIsLocked;
+    WinApi_PtrWSTR lpLockOwner;
+    INTEGER dwLockDuration;
+  } WinApi_QUERY_SERVICE_LOCK_STATUSW;
 
 typedef
-	struct WinApi_RASTERIZER_STATUS {
-		SHORTINT nSize, wFlags, nLanguageID;
-	} WinApi_RASTERIZER_STATUS;
+  struct WinApi_RASTERIZER_STATUS {
+    SHORTINT nSize, wFlags, nLanguageID;
+  } WinApi_RASTERIZER_STATUS;
 
 typedef
-	struct WinApi_REG_PROVIDER {
-		WinApi_QUERYHANDLER pi_R0_1val, pi_R0_allvals, pi_R3_1val, pi_R3_allvals;
-		INTEGER pi_flags, pi_key_context;
-	} WinApi_REG_PROVIDER;
+  struct WinApi_REG_PROVIDER {
+    WinApi_QUERYHANDLER pi_R0_1val, pi_R0_allvals, pi_R3_1val, pi_R3_allvals;
+    INTEGER pi_flags, pi_key_context;
+  } WinApi_REG_PROVIDER;
 
 typedef
-	struct WinApi_RGNDATAHEADER {
-		INTEGER dwSize, iType, nCount, nRgnSize;
-		WinApi_RECT rcBound;
-	} WinApi_RGNDATAHEADER;
+  struct WinApi_RGNDATAHEADER {
+    INTEGER dwSize, iType, nCount, nRgnSize;
+    WinApi_RECT rcBound;
+  } WinApi_RGNDATAHEADER;
 
 typedef
-	struct WinApi_RGNDATA {
-		WinApi_RGNDATAHEADER rdh;
-		CHAR Buffer[1];
-	} WinApi_RGNDATA;
+  struct WinApi_RGNDATA {
+    WinApi_RGNDATAHEADER rdh;
+    CHAR Buffer[1];
+  } WinApi_RGNDATA;
 
 typedef
-	struct WinApi_RIP_INFO {
-		INTEGER dwError, dwType;
-	} WinApi_RIP_INFO;
+  struct WinApi_RIP_INFO {
+    INTEGER dwError, dwType;
+  } WinApi_RIP_INFO;
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROC)(void);
+  INTEGER (__STDCALL *WinApi_ROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROCEX)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROCEX)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROCEXA)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROCEXA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROCEXW)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROCEXW)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_ROPENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_ROPENUMPROCW)(void);
 
 typedef
-	WinApi_PtrWSTR *WinApi_RetCommandLineToArgvW;
+  WinApi_PtrWSTR *WinApi_RetCommandLineToArgvW;
 
 typedef
-	CHAR *WinApi_RetDdeAccessData;
+  CHAR *WinApi_RetDdeAccessData;
 
 typedef
-	INTEGER *WinApi_RetGetSidSubAuthority;
+  INTEGER *WinApi_RetGetSidSubAuthority;
 
 typedef
-	struct WinApi_SCROLLINFO {
-		INTEGER cbSize;
-		SET fMask;
-		INTEGER nMin, nMax, nPage, nPos, nTrackPos;
-	} WinApi_SCROLLINFO;
+  struct WinApi_SCROLLINFO {
+    INTEGER cbSize;
+    SET fMask;
+    INTEGER nMin, nMax, nPage, nPos, nTrackPos;
+  } WinApi_SCROLLINFO;
 
 typedef
-	struct WinApi_SECURITY_ATTRIBUTES {
-		INTEGER nLength, lpSecurityDescriptor, bInheritHandle;
-	} WinApi_SECURITY_ATTRIBUTES;
+  struct WinApi_SECURITY_ATTRIBUTES {
+    INTEGER nLength, lpSecurityDescriptor, bInheritHandle;
+  } WinApi_SECURITY_ATTRIBUTES;
 
 typedef
-	struct WinApi_SECURITY_DESCRIPTOR {
-		CHAR Revision, Sbz1;
-		SHORTINT Control;
-		INTEGER Owner, Group;
-		WinApi_PtrACL Sacl, Dacl;
-	} WinApi_SECURITY_DESCRIPTOR;
+  struct WinApi_SECURITY_DESCRIPTOR {
+    CHAR Revision, Sbz1;
+    SHORTINT Control;
+    INTEGER Owner, Group;
+    WinApi_PtrACL Sacl, Dacl;
+  } WinApi_SECURITY_DESCRIPTOR;
 
 typedef
-	INTEGER (__STDCALL *WinApi_SENDASYNCPROC)(void);
+  INTEGER (__STDCALL *WinApi_SENDASYNCPROC)(void);
 
 typedef
-	struct WinApi_SERIALKEYSA {
-		INTEGER cbSize;
-		SET dwFlags;
-		WinApi_PtrSTR lpszActivePort, lpszPort;
-		INTEGER iBaudRate, iPortState, iActive;
-	} WinApi_SERIALKEYSA;
+  struct WinApi_SERIALKEYSA {
+    INTEGER cbSize;
+    SET dwFlags;
+    WinApi_PtrSTR lpszActivePort, lpszPort;
+    INTEGER iBaudRate, iPortState, iActive;
+  } WinApi_SERIALKEYSA;
 
 typedef
-	struct WinApi_SERIALKEYSW {
-		INTEGER cbSize;
-		SET dwFlags;
-		WinApi_PtrWSTR lpszActivePort, lpszPort;
-		INTEGER iBaudRate, iPortState, iActive;
-	} WinApi_SERIALKEYSW;
+  struct WinApi_SERIALKEYSW {
+    INTEGER cbSize;
+    SET dwFlags;
+    WinApi_PtrWSTR lpszActivePort, lpszPort;
+    INTEGER iBaudRate, iPortState, iActive;
+  } WinApi_SERIALKEYSW;
 
 typedef
-	void (__STDCALL *WinApi_SERVICE_MAIN_FUNCTIONA)(INTEGER, WinApi_PtrSTR*);
+  void (__STDCALL *WinApi_SERVICE_MAIN_FUNCTIONA)(INTEGER, WinApi_PtrSTR*);
 
 typedef
-	void (__STDCALL *WinApi_SERVICE_MAIN_FUNCTIONW)(INTEGER, WinApi_PtrWSTR*);
+  void (__STDCALL *WinApi_SERVICE_MAIN_FUNCTIONW)(INTEGER, WinApi_PtrWSTR*);
 
 typedef
-	struct WinApi_SERVICE_TABLE_ENTRYA {
-		WinApi_PtrSTR lpServiceName;
-		WinApi_SERVICE_MAIN_FUNCTIONA lpServiceProc;
-	} WinApi_SERVICE_TABLE_ENTRYA;
+  struct WinApi_SERVICE_TABLE_ENTRYA {
+    WinApi_PtrSTR lpServiceName;
+    WinApi_SERVICE_MAIN_FUNCTIONA lpServiceProc;
+  } WinApi_SERVICE_TABLE_ENTRYA;
 
 typedef
-	struct WinApi_SERVICE_TABLE_ENTRYW {
-		WinApi_PtrWSTR lpServiceName;
-		WinApi_SERVICE_MAIN_FUNCTIONW lpServiceProc;
-	} WinApi_SERVICE_TABLE_ENTRYW;
+  struct WinApi_SERVICE_TABLE_ENTRYW {
+    WinApi_PtrWSTR lpServiceName;
+    WinApi_SERVICE_MAIN_FUNCTIONW lpServiceProc;
+  } WinApi_SERVICE_TABLE_ENTRYW;
 
 typedef
-	struct WinApi_SE_IMPERSONATION_STATE {
-		INTEGER Token;
-		BOOLEAN CopyOnOpen, EffectiveOnly;
-		INTEGER Level;
-	} WinApi_SE_IMPERSONATION_STATE;
+  struct WinApi_SE_IMPERSONATION_STATE {
+    INTEGER Token;
+    BOOLEAN CopyOnOpen, EffectiveOnly;
+    INTEGER Level;
+  } WinApi_SE_IMPERSONATION_STATE;
 
 typedef
-	struct WinApi_SID_IDENTIFIER_AUTHORITY {
-		CHAR Value[6];
-	} WinApi_SID_IDENTIFIER_AUTHORITY;
+  struct WinApi_SID_IDENTIFIER_AUTHORITY {
+    CHAR Value[6];
+  } WinApi_SID_IDENTIFIER_AUTHORITY;
 
 typedef
-	struct WinApi_SID {
-		CHAR Revision, SubAuthorityCount;
-		WinApi_SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
-		INTEGER SubAuthority[1];
-	} WinApi_SID;
+  struct WinApi_SID {
+    CHAR Revision, SubAuthorityCount;
+    WinApi_SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
+    INTEGER SubAuthority[1];
+  } WinApi_SID;
 
 typedef
-	struct WinApi_SINGLE_LIST_ENTRY {
-		WinApi_PtrSINGLE_LIST_ENTRY Next;
-	} WinApi_SINGLE_LIST_ENTRY;
+  struct WinApi_SINGLE_LIST_ENTRY {
+    WinApi_PtrSINGLE_LIST_ENTRY Next;
+  } WinApi_SINGLE_LIST_ENTRY;
 
 typedef
-	struct WinApi_SOUNDSENTRYA {
-		INTEGER cbSize;
-		SET dwFlags;
-		INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
-		WinApi_PtrSTR lpszWindowsEffectDLL;
-		INTEGER iWindowsEffectOrdinal;
-	} WinApi_SOUNDSENTRYA;
+  struct WinApi_SOUNDSENTRYA {
+    INTEGER cbSize;
+    SET dwFlags;
+    INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
+    WinApi_PtrSTR lpszWindowsEffectDLL;
+    INTEGER iWindowsEffectOrdinal;
+  } WinApi_SOUNDSENTRYA;
 
 typedef
-	struct WinApi_SOUNDSENTRYW {
-		INTEGER cbSize;
-		SET dwFlags;
-		INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
-		WinApi_PtrWSTR lpszWindowsEffectDLL;
-		INTEGER iWindowsEffectOrdinal;
-	} WinApi_SOUNDSENTRYW;
+  struct WinApi_SOUNDSENTRYW {
+    INTEGER cbSize;
+    SET dwFlags;
+    INTEGER iFSTextEffect, iFSTextEffectMSec, iFSTextEffectColorBits, iFSGrafEffect, iFSGrafEffectMSec, iFSGrafEffectColor, iWindowsEffect, iWindowsEffectMSec;
+    WinApi_PtrWSTR lpszWindowsEffectDLL;
+    INTEGER iWindowsEffectOrdinal;
+  } WinApi_SOUNDSENTRYW;
 
 typedef
-	struct WinApi_STARTUPINFOA {
-		INTEGER cb;
-		WinApi_PtrSTR lpReserved, lpDesktop, lpTitle;
-		INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
-		SET dwFlags;
-		SHORTINT wShowWindow, cbReserved2;
-		CHAR *lpReserved2;
-		INTEGER hStdInput, hStdOutput, hStdError;
-	} WinApi_STARTUPINFOA;
+  struct WinApi_STARTUPINFOA {
+    INTEGER cb;
+    WinApi_PtrSTR lpReserved, lpDesktop, lpTitle;
+    INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
+    SET dwFlags;
+    SHORTINT wShowWindow, cbReserved2;
+    CHAR *lpReserved2;
+    INTEGER hStdInput, hStdOutput, hStdError;
+  } WinApi_STARTUPINFOA;
 
 typedef
-	struct WinApi_STARTUPINFOW {
-		INTEGER cb;
-		WinApi_PtrWSTR lpReserved, lpDesktop, lpTitle;
-		INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
-		SET dwFlags;
-		SHORTINT wShowWindow, cbReserved2;
-		CHAR *lpReserved2;
-		INTEGER hStdInput, hStdOutput, hStdError;
-	} WinApi_STARTUPINFOW;
+  struct WinApi_STARTUPINFOW {
+    INTEGER cb;
+    WinApi_PtrWSTR lpReserved, lpDesktop, lpTitle;
+    INTEGER dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute;
+    SET dwFlags;
+    SHORTINT wShowWindow, cbReserved2;
+    CHAR *lpReserved2;
+    INTEGER hStdInput, hStdOutput, hStdError;
+  } WinApi_STARTUPINFOW;
 
 typedef
-	struct WinApi_STICKYKEYS {
-		INTEGER cbSize;
-		SET dwFlags;
-	} WinApi_STICKYKEYS;
+  struct WinApi_STICKYKEYS {
+    INTEGER cbSize;
+    SET dwFlags;
+  } WinApi_STICKYKEYS;
 
 typedef
-	struct WinApi_STYLESTRUCT {
-		SET styleOld, styleNew;
-	} WinApi_STYLESTRUCT;
+  struct WinApi_STYLESTRUCT {
+    SET styleOld, styleNew;
+  } WinApi_STYLESTRUCT;
 
 typedef
-	struct WinApi_SYSTEM_ALARM_ACE {
-		WinApi_ACE_HEADER Header;
-		SET Mask;
-		INTEGER SidStart;
-	} WinApi_SYSTEM_ALARM_ACE;
+  struct WinApi_SYSTEM_ALARM_ACE {
+    WinApi_ACE_HEADER Header;
+    SET Mask;
+    INTEGER SidStart;
+  } WinApi_SYSTEM_ALARM_ACE;
 
 typedef
-	struct WinApi_SYSTEM_AUDIT_ACE {
-		WinApi_ACE_HEADER Header;
-		SET Mask;
-		INTEGER SidStart;
-	} WinApi_SYSTEM_AUDIT_ACE;
+  struct WinApi_SYSTEM_AUDIT_ACE {
+    WinApi_ACE_HEADER Header;
+    SET Mask;
+    INTEGER SidStart;
+  } WinApi_SYSTEM_AUDIT_ACE;
 
 typedef
-	struct WinApi_SYSTEM_POWER_STATUS {
-		CHAR ACLineStatus, BatteryFlag, BatteryLifePercent, Reserved1;
-		INTEGER BatteryLifeTime, BatteryFullLifeTime;
-	} WinApi_SYSTEM_POWER_STATUS;
+  struct WinApi_SYSTEM_POWER_STATUS {
+    CHAR ACLineStatus, BatteryFlag, BatteryLifePercent, Reserved1;
+    INTEGER BatteryLifeTime, BatteryFullLifeTime;
+  } WinApi_SYSTEM_POWER_STATUS;
 
 typedef
-	struct WinApi_TAPE_CREATE_PARTITION {
-		INTEGER Method, Count, Size;
-	} WinApi_TAPE_CREATE_PARTITION;
+  struct WinApi_TAPE_CREATE_PARTITION {
+    INTEGER Method, Count, Size;
+  } WinApi_TAPE_CREATE_PARTITION;
 
 typedef
-	struct WinApi_TAPE_ERASE {
-		INTEGER Type;
-		BOOLEAN Immediate;
-	} WinApi_TAPE_ERASE;
+  struct WinApi_TAPE_ERASE {
+    INTEGER Type;
+    BOOLEAN Immediate;
+  } WinApi_TAPE_ERASE;
 
 typedef
-	struct WinApi_TAPE_GET_DRIVE_PARAMETERS {
-		BOOLEAN ECC, Compression, DataPadding, ReportSetmarks;
-		INTEGER DefaultBlockSize, MaximumBlockSize, MinimumBlockSize, MaximumPartitionCount;
-		SET FeaturesLow, FeaturesHigh;
-		INTEGER EOTWarningZoneSize;
-	} WinApi_TAPE_GET_DRIVE_PARAMETERS;
+  struct WinApi_TAPE_GET_DRIVE_PARAMETERS {
+    BOOLEAN ECC, Compression, DataPadding, ReportSetmarks;
+    INTEGER DefaultBlockSize, MaximumBlockSize, MinimumBlockSize, MaximumPartitionCount;
+    SET FeaturesLow, FeaturesHigh;
+    INTEGER EOTWarningZoneSize;
+  } WinApi_TAPE_GET_DRIVE_PARAMETERS;
 
 typedef
-	struct WinApi_TAPE_PREPARE {
-		INTEGER Operation;
-		BOOLEAN Immediate;
-	} WinApi_TAPE_PREPARE;
+  struct WinApi_TAPE_PREPARE {
+    INTEGER Operation;
+    BOOLEAN Immediate;
+  } WinApi_TAPE_PREPARE;
 
 typedef
-	struct WinApi_TAPE_SET_DRIVE_PARAMETERS {
-		BOOLEAN ECC, Compression, DataPadding, ReportSetmarks;
-		INTEGER EOTWarningZoneSize;
-	} WinApi_TAPE_SET_DRIVE_PARAMETERS;
+  struct WinApi_TAPE_SET_DRIVE_PARAMETERS {
+    BOOLEAN ECC, Compression, DataPadding, ReportSetmarks;
+    INTEGER EOTWarningZoneSize;
+  } WinApi_TAPE_SET_DRIVE_PARAMETERS;
 
 typedef
-	struct WinApi_TAPE_SET_MEDIA_PARAMETERS {
-		INTEGER BlockSize;
-	} WinApi_TAPE_SET_MEDIA_PARAMETERS;
+  struct WinApi_TAPE_SET_MEDIA_PARAMETERS {
+    INTEGER BlockSize;
+  } WinApi_TAPE_SET_MEDIA_PARAMETERS;
 
 typedef
-	struct WinApi_TAPE_WRITE_MARKS {
-		INTEGER Type, Count;
-		BOOLEAN Immediate;
-	} WinApi_TAPE_WRITE_MARKS;
+  struct WinApi_TAPE_WRITE_MARKS {
+    INTEGER Type, Count;
+    BOOLEAN Immediate;
+  } WinApi_TAPE_WRITE_MARKS;
 
 typedef
-	INTEGER (__STDCALL *WinApi_TIMEFMT_ENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_TIMEFMT_ENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_TIMEFMT_ENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_TIMEFMT_ENUMPROCW)(void);
 
 typedef
-	void (__STDCALL *WinApi_TIMERAPCROUTINE)(INTEGER, INTEGER, INTEGER);
+  void (__STDCALL *WinApi_TIMERAPCROUTINE)(INTEGER, INTEGER, INTEGER);
 
 typedef
-	INTEGER (__STDCALL *WinApi_TIMERPROC)(void);
+  INTEGER (__STDCALL *WinApi_TIMERPROC)(void);
 
 typedef
-	struct WinApi_TIME_ZONE_INFORMATION {
-		INTEGER Bias;
-		LONGCHAR StandardName[32];
-		WinApi_SYSTEMTIME StandardDate;
-		INTEGER StandardBias;
-		LONGCHAR DaylightName[32];
-		WinApi_SYSTEMTIME DaylightDate;
-		INTEGER DaylightBias;
-	} WinApi_TIME_ZONE_INFORMATION;
+  struct WinApi_TIME_ZONE_INFORMATION {
+    INTEGER Bias;
+    LONGCHAR StandardName[32];
+    WinApi_SYSTEMTIME StandardDate;
+    INTEGER StandardBias;
+    LONGCHAR DaylightName[32];
+    WinApi_SYSTEMTIME DaylightDate;
+    INTEGER DaylightBias;
+  } WinApi_TIME_ZONE_INFORMATION;
 
 typedef
-	struct WinApi_TOGGLEKEYS {
-		INTEGER cbSize;
-		SET dwFlags;
-	} WinApi_TOGGLEKEYS;
+  struct WinApi_TOGGLEKEYS {
+    INTEGER cbSize;
+    SET dwFlags;
+  } WinApi_TOGGLEKEYS;
 
 typedef
-	struct WinApi_TOKEN_DEFAULT_DACL {
-		WinApi_PtrACL DefaultDacl;
-	} WinApi_TOKEN_DEFAULT_DACL;
+  struct WinApi_TOKEN_DEFAULT_DACL {
+    WinApi_PtrACL DefaultDacl;
+  } WinApi_TOKEN_DEFAULT_DACL;
 
 typedef
-	struct WinApi_TOKEN_GROUPS {
-		INTEGER GroupCount;
-		WinApi_SID_AND_ATTRIBUTES Groups[1];
-	} WinApi_TOKEN_GROUPS;
+  struct WinApi_TOKEN_GROUPS {
+    INTEGER GroupCount;
+    WinApi_SID_AND_ATTRIBUTES Groups[1];
+  } WinApi_TOKEN_GROUPS;
 
 typedef
-	struct WinApi_TOKEN_OWNER {
-		INTEGER Owner;
-	} WinApi_TOKEN_OWNER;
+  struct WinApi_TOKEN_OWNER {
+    INTEGER Owner;
+  } WinApi_TOKEN_OWNER;
 
 typedef
-	struct WinApi_TOKEN_PRIMARY_GROUP {
-		INTEGER PrimaryGroup;
-	} WinApi_TOKEN_PRIMARY_GROUP;
+  struct WinApi_TOKEN_PRIMARY_GROUP {
+    INTEGER PrimaryGroup;
+  } WinApi_TOKEN_PRIMARY_GROUP;
 
 typedef
-	struct WinApi_TOKEN_PRIVILEGES {
-		INTEGER PrivilegeCount;
-		WinApi_LUID_AND_ATTRIBUTES Privileges[1];
-	} WinApi_TOKEN_PRIVILEGES;
+  struct WinApi_TOKEN_PRIVILEGES {
+    INTEGER PrivilegeCount;
+    WinApi_LUID_AND_ATTRIBUTES Privileges[1];
+  } WinApi_TOKEN_PRIVILEGES;
 
 typedef
-	struct WinApi_TOKEN_USER {
-		WinApi_SID_AND_ATTRIBUTES User;
-	} WinApi_TOKEN_USER;
+  struct WinApi_TOKEN_USER {
+    WinApi_SID_AND_ATTRIBUTES User;
+  } WinApi_TOKEN_USER;
 
 typedef
-	INTEGER (__STDCALL *WinApi_TOP_LEVEL_EXCEPTION_FILTER)(WinApi_EXCEPTION_POINTERS*);
+  INTEGER (__STDCALL *WinApi_TOP_LEVEL_EXCEPTION_FILTER)(WinApi_EXCEPTION_POINTERS*);
 
 typedef
-	struct WinApi_TPMPARAMS {
-		INTEGER cbSize;
-		WinApi_RECT rcExclude;
-	} WinApi_TPMPARAMS;
+  struct WinApi_TPMPARAMS {
+    INTEGER cbSize;
+    WinApi_RECT rcExclude;
+  } WinApi_TPMPARAMS;
 
 typedef
-	struct WinApi_TTPOLYCURVE {
-		SHORTINT wType, cpfx;
-		WinApi_POINTFX apfx[1];
-	} WinApi_TTPOLYCURVE;
+  struct WinApi_TTPOLYCURVE {
+    SHORTINT wType, cpfx;
+    WinApi_POINTFX apfx[1];
+  } WinApi_TTPOLYCURVE;
 
 typedef
-	struct WinApi_TTPOLYGONHEADER {
-		INTEGER cb, dwType;
-		WinApi_POINTFX pfxStart;
-	} WinApi_TTPOLYGONHEADER;
+  struct WinApi_TTPOLYGONHEADER {
+    INTEGER cb, dwType;
+    WinApi_POINTFX pfxStart;
+  } WinApi_TTPOLYGONHEADER;
 
 typedef
-	struct WinApi_UNLOAD_DLL_DEBUG_INFO {
-		INTEGER lpBaseOfDll;
-	} WinApi_UNLOAD_DLL_DEBUG_INFO;
+  struct WinApi_UNLOAD_DLL_DEBUG_INFO {
+    INTEGER lpBaseOfDll;
+  } WinApi_UNLOAD_DLL_DEBUG_INFO;
 
 typedef
-	struct WinApi_USEROBJECTFLAGS {
-		INTEGER fInherit, fReserved;
-		SET dwFlags;
-	} WinApi_USEROBJECTFLAGS;
+  struct WinApi_USEROBJECTFLAGS {
+    INTEGER fInherit, fReserved;
+    SET dwFlags;
+  } WinApi_USEROBJECTFLAGS;
 
 typedef
-	struct WinApi_VALENTA {
-		WinApi_PtrSTR ve_valuename;
-		INTEGER ve_valuelen, ve_valueptr, ve_type;
-	} WinApi_VALENTA;
+  struct WinApi_VALENTA {
+    WinApi_PtrSTR ve_valuename;
+    INTEGER ve_valuelen, ve_valueptr, ve_type;
+  } WinApi_VALENTA;
 
 typedef
-	struct WinApi_VALENTW {
-		WinApi_PtrWSTR ve_valuename;
-		INTEGER ve_valuelen, ve_valueptr, ve_type;
-	} WinApi_VALENTW;
+  struct WinApi_VALENTW {
+    WinApi_PtrWSTR ve_valuename;
+    INTEGER ve_valuelen, ve_valueptr, ve_type;
+  } WinApi_VALENTW;
 
 typedef
-	struct WinApi_VS_FIXEDFILEINFO {
-		INTEGER dwSignature, dwStrucVersion, dwFileVersionMS, dwFileVersionLS, dwProductVersionMS, dwProductVersionLS;
-		SET dwFileFlagsMask, dwFileFlags, dwFileOS;
-		INTEGER dwFileType, dwFileSubtype, dwFileDateMS, dwFileDateLS;
-	} WinApi_VS_FIXEDFILEINFO;
+  struct WinApi_VS_FIXEDFILEINFO {
+    INTEGER dwSignature, dwStrucVersion, dwFileVersionMS, dwFileVersionLS, dwProductVersionMS, dwProductVersionLS;
+    SET dwFileFlagsMask, dwFileFlags, dwFileOS;
+    INTEGER dwFileType, dwFileSubtype, dwFileDateMS, dwFileDateLS;
+  } WinApi_VS_FIXEDFILEINFO;
 
 typedef
-	struct WinApi_WINDOWPLACEMENT {
-		INTEGER length;
-		SET flags;
-		INTEGER showCmd;
-		WinApi_POINT ptMinPosition, ptMaxPosition;
-		WinApi_RECT rcNormalPosition;
-	} WinApi_WINDOWPLACEMENT;
+  struct WinApi_WINDOWPLACEMENT {
+    INTEGER length;
+    SET flags;
+    INTEGER showCmd;
+    WinApi_POINT ptMinPosition, ptMaxPosition;
+    WinApi_RECT rcNormalPosition;
+  } WinApi_WINDOWPLACEMENT;
 
 typedef
-	struct WinApi_WINDOWPOS {
-		INTEGER hwnd, hwndInsertAfter, x, y, cx, cy;
-		SET flags;
-	} WinApi_WINDOWPOS;
+  struct WinApi_WINDOWPOS {
+    INTEGER hwnd, hwndInsertAfter, x, y, cx, cy;
+    SET flags;
+  } WinApi_WINDOWPOS;
 
 typedef
-	struct WinApi_WINDOW_BUFFER_SIZE_RECORD {
-		WinApi_COORD dwSize;
-	} WinApi_WINDOW_BUFFER_SIZE_RECORD;
+  struct WinApi_WINDOW_BUFFER_SIZE_RECORD {
+    WinApi_COORD dwSize;
+  } WinApi_WINDOW_BUFFER_SIZE_RECORD;
 
 typedef
-	INTEGER (__STDCALL *WinApi_WINSTAENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_WINSTAENUMPROC)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_WINSTAENUMPROCA)(void);
+  INTEGER (__STDCALL *WinApi_WINSTAENUMPROCA)(void);
 
 typedef
-	INTEGER (__STDCALL *WinApi_WINSTAENUMPROCW)(void);
+  INTEGER (__STDCALL *WinApi_WINSTAENUMPROCW)(void);
 
 typedef
-	struct WinApi_WIN_CERTIFICATE {
-		INTEGER dwLength;
-		SHORTINT wRevision, wCertificateType;
-		CHAR bCertificate[1];
-	} WinApi_WIN_CERTIFICATE;
+  struct WinApi_WIN_CERTIFICATE {
+    INTEGER dwLength;
+    SHORTINT wRevision, wCertificateType;
+    CHAR bCertificate[1];
+  } WinApi_WIN_CERTIFICATE;
 
 typedef
-	struct WinApi_WIN_SPUB_TRUSTEDPUB_DATA {
-		INTEGER hClientToken;
-		WinApi_PtrWIN_CERTIFICATE lpCertificate;
-	} WinApi_WIN_SPUB_TRUSTEDPUB_DATA;
+  struct WinApi_WIN_SPUB_TRUSTEDPUB_DATA {
+    INTEGER hClientToken;
+    WinApi_PtrWIN_CERTIFICATE lpCertificate;
+  } WinApi_WIN_SPUB_TRUSTEDPUB_DATA;
 
 typedef
-	struct WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT {
-		INTEGER hClientToken, dwSubjectType, Subject;
-	} WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT;
+  struct WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT {
+    INTEGER hClientToken, dwSubjectType, Subject;
+  } WinApi_WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT;
 
 typedef
-	struct WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY {
-		INTEGER dwSubjectType, Subject;
-	} WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY;
+  struct WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY {
+    INTEGER dwSubjectType, Subject;
+  } WinApi_WIN_TRUST_ACTDATA_SUBJECT_ONLY;
 
 typedef
-	struct WinApi_WIN_TRUST_SUBJECT_FILE {
-		INTEGER hFile;
-		WinApi_PtrWSTR lpPath;
-	} WinApi_WIN_TRUST_SUBJECT_FILE;
+  struct WinApi_WIN_TRUST_SUBJECT_FILE {
+    INTEGER hFile;
+    WinApi_PtrWSTR lpPath;
+  } WinApi_WIN_TRUST_SUBJECT_FILE;
 
 typedef
-	INTEGER (__STDCALL *WinApi_WNDPROC)(INTEGER, INTEGER, INTEGER, INTEGER);
+  INTEGER (__STDCALL *WinApi_WNDPROC)(INTEGER, INTEGER, INTEGER, INTEGER);
 
 typedef
-	struct WinApi_WNDCLASSA {
-		SET style;
-		WinApi_WNDPROC lpfnWndProc;
-		INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
-		WinApi_PtrSTR lpszMenuName, lpszClassName;
-	} WinApi_WNDCLASSA;
+  struct WinApi_WNDCLASSA {
+    SET style;
+    WinApi_WNDPROC lpfnWndProc;
+    INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
+    WinApi_PtrSTR lpszMenuName, lpszClassName;
+  } WinApi_WNDCLASSA;
 
 typedef
-	struct WinApi_WNDCLASSEXA {
-		INTEGER cbSize;
-		SET style;
-		WinApi_WNDPROC lpfnWndProc;
-		INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
-		WinApi_PtrSTR lpszMenuName, lpszClassName;
-		INTEGER hIconSm;
-	} WinApi_WNDCLASSEXA;
+  struct WinApi_WNDCLASSEXA {
+    INTEGER cbSize;
+    SET style;
+    WinApi_WNDPROC lpfnWndProc;
+    INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
+    WinApi_PtrSTR lpszMenuName, lpszClassName;
+    INTEGER hIconSm;
+  } WinApi_WNDCLASSEXA;
 
 typedef
-	struct WinApi_WNDCLASSEXW {
-		INTEGER cbSize;
-		SET style;
-		WinApi_WNDPROC lpfnWndProc;
-		INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
-		WinApi_PtrWSTR lpszMenuName, lpszClassName;
-		INTEGER hIconSm;
-	} WinApi_WNDCLASSEXW;
+  struct WinApi_WNDCLASSEXW {
+    INTEGER cbSize;
+    SET style;
+    WinApi_WNDPROC lpfnWndProc;
+    INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
+    WinApi_PtrWSTR lpszMenuName, lpszClassName;
+    INTEGER hIconSm;
+  } WinApi_WNDCLASSEXW;
 
 typedef
-	struct WinApi_WNDCLASSW {
-		SET style;
-		WinApi_WNDPROC lpfnWndProc;
-		INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
-		WinApi_PtrWSTR lpszMenuName, lpszClassName;
-	} WinApi_WNDCLASSW;
+  struct WinApi_WNDCLASSW {
+    SET style;
+    WinApi_WNDPROC lpfnWndProc;
+    INTEGER cbClsExtra, cbWndExtra, hInstance, hIcon, hCursor, hbrBackground;
+    WinApi_PtrWSTR lpszMenuName, lpszClassName;
+  } WinApi_WNDCLASSW;
 
 typedef
-	INTEGER (__STDCALL *WinApi_WNDENUMPROC)(void);
+  INTEGER (__STDCALL *WinApi_WNDENUMPROC)(void);
 
 typedef
-	struct WinApi__EXCEPTION_REGISTRATION_RECORD {
-		char _prvt0[1];
-	} WinApi__EXCEPTION_REGISTRATION_RECORD;
+  struct WinApi__EXCEPTION_REGISTRATION_RECORD {
+    char _prvt0[1];
+  } WinApi__EXCEPTION_REGISTRATION_RECORD;
 
 typedef
-	struct WinApi__POINTL {
-		INTEGER x, y;
-	} WinApi__POINTL;
+  struct WinApi__POINTL {
+    INTEGER x, y;
+  } WinApi__POINTL;
 
 typedef
-	struct WinApi__RECTL {
-		INTEGER left, top, right, bottom;
-	} WinApi__RECTL;
+  struct WinApi__RECTL {
+    INTEGER left, top, right, bottom;
+  } WinApi__RECTL;
 
 
 
@@ -6169,9 +6169,9 @@ __EXTERN INTEGER __STDCALL wvsprintfA (WinApi_PtrSTR p0, WinApi_PtrSTR p1, WinAp
 __EXTERN INTEGER __STDCALL wvsprintfW (WinApi_PtrWSTR p0, WinApi_PtrWSTR p1, WinApi_PtrSTR arglist);
 #define WinApi__init()
 
-#define WinApi_CmdLine()	__lpCmdLine
-#define WinApi_CmdShow()	__nCmdShow
-#define WinApi_Instance()	__hInstance
-#define WinApi_PrevInstance()	__hPrevInstance
+#define WinApi_CmdLine()  __lpCmdLine
+#define WinApi_CmdShow()  __nCmdShow
+#define WinApi_Instance()  __hInstance
+#define WinApi_PrevInstance()  __hPrevInstance
 
 #endif

@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sxt3 -88 */
+/* Ofront+ 1.0 -sxtw3 -88 */
 
 #ifndef CmdLine__oh
 #define CmdLine__oh
@@ -6,13 +6,13 @@
 #include "SYSTEM.oh"
 
 typedef
-	CHAR (*CmdLine_ArgPtr)[1024];
+  CHAR (*CmdLine_ArgPtr)[1024];
 
 typedef
-	CmdLine_ArgPtr (*CmdLine_ArgVec)[1024];
+  CmdLine_ArgPtr (*CmdLine_ArgVec)[1024];
 
 typedef
-	CHAR CmdLine_String[1024];
+  CHAR CmdLine_String[1024];
 
 
 import INTEGER CmdLine_ParamCount;

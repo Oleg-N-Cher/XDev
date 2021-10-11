@@ -1,4 +1,4 @@
-/* Ofront+ 1.0 -sxtwC -88 */
+/* Ofront+ 1.0 -sxtw3 -88 */
 
 #ifndef CMath__oh
 #define CMath__oh
@@ -11,7 +11,7 @@
 #define CMath__init()
 
 #include <math.h>
-#define CMath_cos(x)	cosf(x)
-#define CMath_sin(x)	sinf(x)
+#define CMath_cos(x)  cosf(x)
+#define CMath_sin(x)  sinf(x)
 
 #endif
