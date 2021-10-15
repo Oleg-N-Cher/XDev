@@ -1,0 +1,20 @@
+/* Ofront+ 1.0 -sxtw3 -48 */
+
+#ifndef Ignore__oh
+#define Ignore__oh
+
+#include "SYSTEM.oh"
+
+
+
+
+#define Ignore__init()
+
+#define Ignore_Bool(b)  b
+#define Ignore_Char(ch)  ch
+#define Ignore_Int(i)  i
+#define Ignore_Ptr(ptr)  ptr
+#define Ignore_Real(r)  r
+#define Ignore_Set(s)  s
+
+#endif

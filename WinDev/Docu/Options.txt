@@ -1,0 +1,10 @@
+MainMod		Имя главного модуля
+Modules		Список модулей программы
+Options		Опции компилятора Си
+Include		Пути для подключаемых Си-заголовков -I Путь
+App		Вид приложения, возможные значения: {GUI, GUIcmd, DLL}
+Libraries	Путь к Си-библиотеке(ам) %WinDev%\Lib\XDev.a -lgdi32 -static-libgcc
+Clean		Удалить временные файлы? {TRUE, FALSE}
+Start		Запустить программу? {TRUE, FALSE}
+Pause		TRUE закрывать окно сразу; FALSE подождать
+Rsrc		Подключить ресурсы в формате windres
