@@ -1018,7 +1018,7 @@ PositiveXf$:
 PositiveYf$:
   JP   0x24BA
 __endasm;
-} //Basic_DRAW_callee
+} //Basic_DRAW_fastcall
 
 /*--------------------------------- Cut here ---------------------------------*/
 void Basic_FLASH (unsigned char mode) __naked __z88dk_fastcall {

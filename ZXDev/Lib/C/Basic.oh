@@ -295,7 +295,7 @@ extern void Basic_PLOT_fastcall (unsigned int xy) __z88dk_fastcall;
 #ifndef PLOT_fastcall
 #  define Basic_PLOT Basic_PLOT_callee
 #else
-#  define Basic_PLOT(x,y) Basic_PLOT_fastcall(((y)<<8) + (x))
+#  define Basic_PLOT(x,y) Basic_PLOT_fastcall(((unsigned int)(((y)<<8) + (x))))
 #endif
 
 //----------------------- POINT (x, y: Coords): BOOLEAN ------------------------
