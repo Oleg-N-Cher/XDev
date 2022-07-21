@@ -391,21 +391,21 @@ extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall __preserves_reg
 #define Basic_READ(adr) (*(unsigned char*) (adr++))
 
 //------------------------ RND (min, max: UBYTE): UBYTE ------------------------
-extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
-extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
+extern unsigned char Basic_RND_BB (unsigned char max) __z88dk_fastcall;
+extern unsigned char Basic_RND_ROM (unsigned char max) __z88dk_fastcall;
 #ifdef RAND_ROM
-#  define Basic_RND Basic_RND_ROM
+#  define Basic_RND(min, max) (Basic_RND_ROM((max)-(min)+1) + min)
 #else
-#  define Basic_RND Basic_RND_BB
+#  define Basic_RND(min, max) (Basic_RND_BB((max)-(min)+1) + min)
 #endif
 
 //------------------------- RNDW (min, max: CARDINAL) --------------------------
-extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
-extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
+extern unsigned int Basic_RNDW_BB (unsigned int max) __z88dk_fastcall;
+extern unsigned int Basic_RNDW_ROM (unsigned int max) __z88dk_fastcall;
 #ifdef RAND_ROM
-#  define Basic_RNDW Basic_RNDW_ROM
+#  define Basic_RNDW(min, max) (Basic_RNDW_ROM((max)-(min)+1) + min)
 #else
-#  define Basic_RNDW Basic_RNDW_BB
+#  define Basic_RNDW(min, max) (Basic_RNDW_BB((max)-(min)+1) + min)
 #endif
 
 //------------------------ SGN (x: SHORTINT): SHORTINT -------------------------

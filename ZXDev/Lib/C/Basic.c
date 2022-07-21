@@ -1,7 +1,7 @@
 /*************************/
 /* ZX-BASIC 48k features */
 /* Coded by Oleg N. Cher */
-/*  zx.oberon2.ru/forum  */
+/*  zx.oberon.org/forum  */
 /*************************/
 
 extern void Basic_Init_IM2 (void);
@@ -60,10 +60,10 @@ extern void Basic_PRUDG_FAST (unsigned char udg) __z88dk_fastcall;
 extern void Basic_PRWORD_FAST (unsigned int n) __z88dk_fastcall;
 extern void Basic_PRWORD_ROM (unsigned int n) __z88dk_fastcall;
 extern void Basic_RANDOMIZE (unsigned int seed) __z88dk_fastcall;
-extern unsigned char Basic_RND_BB (unsigned char min, unsigned char max);
-extern unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max);
-extern unsigned char Basic_RND_ROM (unsigned char min, unsigned char max);
-extern unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max);
+extern unsigned char Basic_RND_BB (unsigned char max) __z88dk_fastcall;
+extern unsigned int Basic_RNDW_BB (unsigned int max) __z88dk_fastcall;
+extern unsigned char Basic_RND_ROM (unsigned char max) __z88dk_fastcall;
+extern unsigned int Basic_RNDW_ROM (unsigned int max) __z88dk_fastcall;
 extern signed char Basic_SGN (signed char x) __z88dk_fastcall;
 extern signed char Basic_SGNI (signed int x) __z88dk_fastcall;
 extern unsigned int Basic_USR (unsigned int adr) __z88dk_fastcall;
@@ -1971,13 +1971,13 @@ __endasm;
 } //_Basic_S_RND
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_RND_ROM (unsigned char min, unsigned char max) {
-  return _Basic_S_RND() / ((unsigned int)65535/(max-min+1)) + min;
+unsigned char Basic_RND_ROM (unsigned char max) __z88dk_fastcall {
+  return _Basic_S_RND() / ((unsigned int)65535/max);
 } //Basic_RND_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned int Basic_RNDW_ROM (unsigned int min, unsigned int max) {
-  return _Basic_S_RND() / ((unsigned int)65535/(max-min+1)) + min;
+unsigned int Basic_RNDW_ROM (unsigned int max) __z88dk_fastcall {
+  return _Basic_S_RND() / ((unsigned int)65535/max);
 } //Basic_RNDW_ROM
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -2004,13 +2004,13 @@ __endasm;
 } //__Basic_RandBB
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned char Basic_RND_BB (unsigned char min, unsigned char max) {
-  return _Basic_RandBB()%(max-min+1) + min;
+unsigned char Basic_RND_BB (unsigned char max) __z88dk_fastcall {
+  return _Basic_RandBB() % max;
 } //Basic_RND_BB
 
 /*--------------------------------- Cut here ---------------------------------*/
-unsigned int Basic_RNDW_BB (unsigned int min, unsigned int max) {
-  return _Basic_RandBB()%(max-min+1) + min;
+unsigned int Basic_RNDW_BB (unsigned int max) __z88dk_fastcall {
+  return _Basic_RandBB() % max;
 } //Basic_RNDW_BB
 
 /*--------------------------------- Cut here ---------------------------------*/
