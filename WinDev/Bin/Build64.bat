@@ -1,6 +1,6 @@
 @ECHO OFF
-IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev
+IF "%XDev%"=="" SET WinDev=%CD%\..
 SET PATH=%WinDev%\Bin\MinGW64\bin;%PATH%
 
 IF "%MainMod%"=="" SET MainMod=%1

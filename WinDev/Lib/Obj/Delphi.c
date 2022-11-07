@@ -22,11 +22,3 @@ INTEGER Delphi_LoWord (INTEGER i)
 }
 
 /*----------------------------------------------------------------------------*/
-
-export void *Delphi__init (void)
-{
-  __DEFMOD;
-  __REGMOD("Delphi", 0);
-/* BEGIN */
-  __ENDMOD;
-}

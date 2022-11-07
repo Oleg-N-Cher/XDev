@@ -1,5 +1,5 @@
 @ECHO OFF
-IF "%XDev%"=="" SET XDev=..
+IF "%XDev%"=="" SET XDev=..\..\..
 SET RootBin=%XDev%\Bin
 SET WinDev=%XDev%\WinDev
 SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%

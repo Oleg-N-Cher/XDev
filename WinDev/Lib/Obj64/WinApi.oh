@@ -5,6 +5,395 @@
 
 #include "SYSTEM.oh"
 
+struct WinApi__29 {
+  CHAR BaseMid, Flags1, Flags2, BaseHi;
+};
+
+struct WinApi__30 {
+  SET fBits0;
+};
+
+union WinApi__31 {
+  struct WinApi__29 Bytes;
+  struct WinApi__30 Bits;
+};
+
+union WinApi__32 {
+  LONGINT FiberData;
+  INTEGER Version;
+  char _prvt0[4];
+};
+
+union WinApi__23 {
+  INTEGER PhysicalAddress;
+  INTEGER VirtualSize;
+};
+
+struct WinApi__24 {
+  INTEGER Short, Long;
+};
+
+union WinApi__25 {
+  CHAR ShortName[8];
+  struct WinApi__24 Name;
+  CHAR *LongName[2];
+};
+
+struct WinApi__7 {
+  SHORTINT Linenumber, Size;
+};
+
+union WinApi__8 {
+  struct WinApi__7 LnSz;
+  INTEGER TotalSize;
+};
+
+struct WinApi__9 {
+  INTEGER PointerToLinenumber, PointerToNextFunction;
+};
+
+struct WinApi__10 {
+  SHORTINT Dimension[4];
+};
+
+union WinApi__11 {
+  struct WinApi__9 Function;
+  struct WinApi__10 Array;
+};
+
+struct WinApi__12 {
+  INTEGER TagIndex;
+  union WinApi__8 Misc;
+  union WinApi__11 FcnAry;
+  SHORTINT TvIndex;
+};
+
+struct WinApi__13 {
+  CHAR Name[18];
+};
+
+struct WinApi__14 {
+  INTEGER Length;
+  SHORTINT NumberOfRelocations, NumberOfLinenumbers;
+  INTEGER CheckSum;
+  SHORTINT Number;
+  CHAR Selection;
+};
+
+union WinApi__18 {
+  INTEGER VirtualAddress;
+  INTEGER RelocCount;
+};
+
+union WinApi__17 {
+  INTEGER SymbolTableIndex;
+  INTEGER VirtualAddress;
+};
+
+typedef
+  struct WinApi_IMAGE_IMPORT_BY_NAME *WinApi_PtrIMAGE_IMPORT_BY_NAME;
+
+union WinApi__15 {
+  CHAR *ForwarderString;
+  INTEGER *Function;
+  INTEGER Ordinal;
+  WinApi_PtrIMAGE_IMPORT_BY_NAME AddressOfData;
+};
+
+typedef
+  struct WinApi_IMAGE_THUNK_DATA *WinApi_PtrIMAGE_THUNK_DATA;
+
+union WinApi__16 {
+  INTEGER Characteristics;
+  WinApi_PtrIMAGE_THUNK_DATA OriginalFirstThunk;
+};
+
+struct WinApi__19 {
+  SET fBits0;
+};
+
+union WinApi__20 {
+  struct WinApi__19 r;
+  INTEGER Name;
+  SHORTINT Id;
+  char _prvt0[2];
+};
+
+struct WinApi__21 {
+  SET fBits0;
+};
+
+union WinApi__22 {
+  INTEGER OffsetToData;
+  struct WinApi__21 r;
+};
+
+struct WinApi__44 {
+  SHORTINT wProcessorArchitecture, wReserved;
+};
+
+union WinApi__45 {
+  INTEGER dwOemId;
+  struct WinApi__44 r;
+};
+
+typedef
+  struct WinApi_EXCEPTION_RECORD *WinApi_PtrEXCEPTION_RECORD;
+
+typedef
+  struct WinApi_EXCEPTION_RECORD {
+    INTEGER ExceptionCode;
+    SET ExceptionFlags;
+    WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
+    LONGINT ExceptionAddress;
+    INTEGER NumberParameters;
+    INTEGER ExceptionInformation[15];
+  } WinApi_EXCEPTION_RECORD;
+
+typedef
+  struct WinApi_EXCEPTION_DEBUG_INFO {
+    WinApi_EXCEPTION_RECORD ExceptionRecord;
+    INTEGER dwFirstChance;
+  } WinApi_EXCEPTION_DEBUG_INFO;
+
+typedef
+  INTEGER (__STDCALL *WinApi_THREAD_START_ROUTINE)(LONGINT);
+
+typedef
+  struct WinApi_CREATE_THREAD_DEBUG_INFO {
+    LONGINT hThread, lpThreadLocalBase;
+    WinApi_THREAD_START_ROUTINE lpStartAddress;
+  } WinApi_CREATE_THREAD_DEBUG_INFO;
+
+typedef
+  struct WinApi_CREATE_PROCESS_DEBUG_INFO {
+    LONGINT hFile, hProcess, hThread, lpBaseOfImage;
+    INTEGER dwDebugInfoFileOffset, nDebugInfoSize;
+    LONGINT lpThreadLocalBase;
+    WinApi_THREAD_START_ROUTINE lpStartAddress;
+    LONGINT lpImageName;
+    SHORTINT fUnicode;
+  } WinApi_CREATE_PROCESS_DEBUG_INFO;
+
+typedef
+  struct WinApi_EXIT_THREAD_DEBUG_INFO {
+    INTEGER dwExitCode;
+  } WinApi_EXIT_THREAD_DEBUG_INFO;
+
+typedef
+  struct WinApi_EXIT_PROCESS_DEBUG_INFO {
+    INTEGER dwExitCode;
+  } WinApi_EXIT_PROCESS_DEBUG_INFO;
+
+typedef
+  struct WinApi_LOAD_DLL_DEBUG_INFO {
+    LONGINT hFile, lpBaseOfDll;
+    INTEGER dwDebugInfoFileOffset, nDebugInfoSize;
+    LONGINT lpImageName;
+    SHORTINT fUnicode;
+  } WinApi_LOAD_DLL_DEBUG_INFO;
+
+typedef
+  struct WinApi_UNLOAD_DLL_DEBUG_INFO {
+    LONGINT lpBaseOfDll;
+  } WinApi_UNLOAD_DLL_DEBUG_INFO;
+
+typedef
+  CHAR *WinApi_PtrSTR;
+
+typedef
+  struct WinApi_OUTPUT_DEBUG_STRING_INFO {
+    WinApi_PtrSTR lpDebugStringData;
+    SHORTINT fUnicode, nDebugStringLength;
+  } WinApi_OUTPUT_DEBUG_STRING_INFO;
+
+typedef
+  struct WinApi_RIP_INFO {
+    INTEGER dwError, dwType;
+  } WinApi_RIP_INFO;
+
+union WinApi__2 {
+  WinApi_EXCEPTION_DEBUG_INFO Exception;
+  WinApi_CREATE_THREAD_DEBUG_INFO CreateThread;
+  WinApi_CREATE_PROCESS_DEBUG_INFO CreateProcessInfo;
+  WinApi_EXIT_THREAD_DEBUG_INFO ExitThread;
+  WinApi_EXIT_PROCESS_DEBUG_INFO ExitProcess;
+  WinApi_LOAD_DLL_DEBUG_INFO LoadDll;
+  WinApi_UNLOAD_DLL_DEBUG_INFO UnloadDll;
+  WinApi_OUTPUT_DEBUG_STRING_INFO DebugString;
+  WinApi_RIP_INFO RipInfo;
+  char _prvt0[88];
+};
+
+struct WinApi__35 {
+  LONGINT hMem;
+  INTEGER dwReserved[3];
+};
+
+struct WinApi__36 {
+  INTEGER dwCommittedSize, dwUnCommittedSize;
+  LONGINT lpFirstBlock, lpLastBlock;
+};
+
+union WinApi__37 {
+  struct WinApi__35 Block;
+  struct WinApi__36 Region;
+};
+
+union WinApi__27 {
+  LONGCHAR UnicodeChar;
+  CHAR AsciiChar;
+  char _prvt0[1];
+};
+
+typedef
+  struct WinApi_KEY_EVENT_RECORD {
+    INTEGER bKeyDown;
+    SHORTINT wRepeatCount, wVirtualKeyCode, wVirtualScanCode;
+    union WinApi__27 uChar;
+    SET dwControlKeyState;
+  } WinApi_KEY_EVENT_RECORD;
+
+typedef
+  struct WinApi_COORD {
+    SHORTINT X, Y;
+  } WinApi_COORD;
+
+typedef
+  struct WinApi_MOUSE_EVENT_RECORD {
+    WinApi_COORD dwMousePosition;
+    SET dwButtonState, dwControlKeyState, dwEventFlags;
+  } WinApi_MOUSE_EVENT_RECORD;
+
+typedef
+  struct WinApi_WINDOW_BUFFER_SIZE_RECORD {
+    WinApi_COORD dwSize;
+  } WinApi_WINDOW_BUFFER_SIZE_RECORD;
+
+typedef
+  struct WinApi_MENU_EVENT_RECORD {
+    INTEGER dwCommandId;
+  } WinApi_MENU_EVENT_RECORD;
+
+typedef
+  struct WinApi_FOCUS_EVENT_RECORD {
+    INTEGER bSetFocus;
+  } WinApi_FOCUS_EVENT_RECORD;
+
+union WinApi__28 {
+  WinApi_KEY_EVENT_RECORD KeyEvent;
+  WinApi_MOUSE_EVENT_RECORD MouseEvent;
+  WinApi_WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
+  WinApi_MENU_EVENT_RECORD MenuEvent;
+  WinApi_FOCUS_EVENT_RECORD FocusEvent;
+  char _prvt0[12];
+};
+
+union WinApi__1 {
+  LONGCHAR UnicodeChar;
+  CHAR AsciiChar;
+  char _prvt0[1];
+};
+
+typedef
+  struct WinApi_DLGTEMPLATE *WinApi_PtrDLGTEMPLATE;
+
+union WinApi__3 {
+  WinApi_PtrSTR pszTemplate;
+  WinApi_PtrDLGTEMPLATE pResource;
+};
+
+union WinApi__4 {
+  LONGINT hIcon;
+  WinApi_PtrSTR pszIcon;
+};
+
+typedef
+  LONGCHAR *WinApi_PtrWSTR;
+
+union WinApi__5 {
+  WinApi_PtrWSTR pszTemplate;
+  WinApi_PtrDLGTEMPLATE pResource;
+};
+
+union WinApi__6 {
+  LONGINT hIcon;
+  WinApi_PtrWSTR pszIcon;
+};
+
+union WinApi__38 {
+  LONGINT hIcon;
+  WinApi_PtrSTR pszIcon;
+};
+
+union WinApi__39 {
+  INTEGER nStartPage;
+  WinApi_PtrSTR pStartPage;
+};
+
+typedef
+  struct WinApi_PROPSHEETPAGEA *WinApi_PtrPROPSHEETPAGEA;
+
+union WinApi__40 {
+  WinApi_PtrPROPSHEETPAGEA ppsp;
+  struct WinApi__PSP *phpage;
+};
+
+union WinApi__41 {
+  LONGINT hIcon;
+  WinApi_PtrWSTR pszIcon;
+};
+
+union WinApi__42 {
+  INTEGER nStartPage;
+  WinApi_PtrWSTR pStartPage;
+};
+
+typedef
+  struct WinApi_PROPSHEETPAGEW *WinApi_PtrPROPSHEETPAGEW;
+
+union WinApi__43 {
+  WinApi_PtrPROPSHEETPAGEW ppsp;
+  struct WinApi__PSP *phpage;
+};
+
+struct WinApi__33 {
+  INTEGER cbBuf;
+  LONGINT pBuf;
+};
+
+union WinApi__34 {
+  INTEGER adwData[2];
+  struct WinApi__33 Data;
+};
+
+typedef
+  struct WinApi_MOUSEINPUT {
+    INTEGER dx, dy, mouseData;
+    SET dwFlags;
+    INTEGER time, dwExtraInfo;
+  } WinApi_MOUSEINPUT;
+
+typedef
+  struct WinApi_KEYBDINPUT {
+    SHORTINT wVk, wScan;
+    SET dwFlags;
+    INTEGER time, dwExtraInfo;
+  } WinApi_KEYBDINPUT;
+
+typedef
+  struct WinApi_HARDWAREINPUT {
+    INTEGER uMsg;
+    SHORTINT wParamL, wParamH;
+  } WinApi_HARDWAREINPUT;
+
+union WinApi__26 {
+  WinApi_MOUSEINPUT mi;
+  WinApi_KEYBDINPUT ki;
+  WinApi_HARDWAREINPUT hi;
+  char _prvt0[16];
+};
+
 typedef
   struct WinApi_ABC {
     INTEGER abcA, abcB, abcC;
@@ -68,16 +457,10 @@ typedef
   } WinApi_ACL_SIZE_INFORMATION;
 
 typedef
-  CHAR *WinApi_PtrSTR;
-
-typedef
   struct WinApi_ADDJOB_INFO_1A {
     WinApi_PtrSTR Path;
     INTEGER JobId;
   } WinApi_ADDJOB_INFO_1A;
-
-typedef
-  LONGCHAR *WinApi_PtrWSTR;
 
 typedef
   struct WinApi_ADDJOB_INFO_1W {
@@ -92,6 +475,20 @@ typedef
 
 typedef
   void (__STDCALL *WinApi_APCFUNC)(INTEGER);
+
+typedef
+  struct WinApi_RECT {
+    INTEGER left, top, right, bottom;
+  } WinApi_RECT;
+
+typedef
+  struct WinApi_APPBARDATA {
+    INTEGER cbSize;
+    LONGINT hWnd;
+    INTEGER uCallbackMessage, uEdge;
+    WinApi_RECT rc;
+    LONGINT lParam;
+  } WinApi_APPBARDATA;
 
 typedef
   struct WinApi_BITMAP {
@@ -116,6 +513,14 @@ typedef
     WinApi_BITMAPCOREHEADER bmciHeader;
     WinApi_RGBTRIPLE bmciColors[1];
   } WinApi_BITMAPCOREINFO;
+
+typedef
+  struct WinApi_BITMAPFILEHEADER {
+    SHORTINT bfType;
+    INTEGER bfSize;
+    SHORTINT bfReserved1, bfReserved2;
+    INTEGER bfOffBits;
+  } WinApi_BITMAPFILEHEADER;
 
 typedef
   struct WinApi_BITMAPINFOHEADER {
@@ -161,6 +566,18 @@ typedef
   } WinApi_BROADCASTSYSMSG;
 
 typedef
+  struct WinApi_FILETIME {
+    INTEGER dwLowDateTime, dwHighDateTime;
+  } WinApi_FILETIME;
+
+typedef
+  struct WinApi_BY_HANDLE_FILE_INFORMATION {
+    SET dwFileAttributes;
+    WinApi_FILETIME ftCreationTime, ftLastAccessTime, ftLastWriteTime;
+    INTEGER dwVolumeSerialNumber, nFileSizeHigh, nFileSizeLow, nNumberOfLinks, nFileIndexHigh, nFileIndexLow;
+  } WinApi_BY_HANDLE_FILE_INFORMATION;
+
+typedef
   INTEGER (__STDCALL *WinApi_CALINFO_ENUMPROCA)(void);
 
 typedef
@@ -201,6 +618,12 @@ typedef
     INTEGER ciCharset, ciACP;
     WinApi_FONTSIGNATURE fs;
   } WinApi_CHARSETINFO;
+
+typedef
+  struct WinApi_CHAR_INFO {
+    union WinApi__1 Char;
+    SHORTINT Attributes;
+  } WinApi_CHAR_INFO;
 
 typedef
   struct WinApi_CLIENTCREATESTRUCT {
@@ -280,11 +703,6 @@ typedef
   struct WinApi_CONSOLE_CURSOR_INFO {
     INTEGER dwSize, bVisible;
   } WinApi_CONSOLE_CURSOR_INFO;
-
-typedef
-  struct WinApi_COORD {
-    SHORTINT X, Y;
-  } WinApi_COORD;
 
 typedef
   struct WinApi_SMALL_RECT {
@@ -368,25 +786,6 @@ typedef
     WinApi_PtrWSTR lpszName, lpszClass;
     SET dwExStyle;
   } WinApi_CREATESTRUCTW;
-
-typedef
-  INTEGER (__STDCALL *WinApi_THREAD_START_ROUTINE)(LONGINT);
-
-typedef
-  struct WinApi_CREATE_PROCESS_DEBUG_INFO {
-    LONGINT hFile, hProcess, hThread, lpBaseOfImage;
-    INTEGER dwDebugInfoFileOffset, nDebugInfoSize;
-    LONGINT lpThreadLocalBase;
-    WinApi_THREAD_START_ROUTINE lpStartAddress;
-    LONGINT lpImageName;
-    SHORTINT fUnicode;
-  } WinApi_CREATE_PROCESS_DEBUG_INFO;
-
-typedef
-  struct WinApi_CREATE_THREAD_DEBUG_INFO {
-    LONGINT hThread, lpThreadLocalBase;
-    WinApi_THREAD_START_ROUTINE lpStartAddress;
-  } WinApi_CREATE_THREAD_DEBUG_INFO;
 
 typedef
   struct WinApi_RTL_CRITICAL_SECTION_DEBUG *WinApi_PtrRTL_CRITICAL_SECTION_DEBUG;
@@ -518,6 +917,12 @@ typedef
   } WinApi_DEBUGHOOKINFO;
 
 typedef
+  struct WinApi_DEBUG_EVENT {
+    INTEGER dwDebugEventCode, dwProcessId, dwThreadId;
+    union WinApi__2 u;
+  } WinApi_DEBUG_EVENT;
+
+typedef
   struct WinApi_DELETEITEMSTRUCT {
     SET CtlType;
     INTEGER CtlID, itemID;
@@ -570,7 +975,19 @@ typedef
   } WinApi_DIBSECTION;
 
 typedef
-  LONGINT (__STDCALL *WinApi_DLGPROC)(LONGINT, INTEGER, LONGINT, LONGINT);
+  struct WinApi_DLGITEMTEMPLATE {
+    SET style, dwExtendedStyle;
+    SHORTINT x, y, cx, cy, id;
+  } WinApi_DLGITEMTEMPLATE;
+
+typedef
+  INTEGER (__STDCALL *WinApi_DLGPROC)(void);
+
+typedef
+  struct WinApi_DLGTEMPLATE {
+    SET style, dwExtendedStyle;
+    SHORTINT cdit, x, y, cx, cy;
+  } WinApi_DLGTEMPLATE;
 
 typedef
   struct WinApi_DOCINFOA {
@@ -611,9 +1028,27 @@ typedef
   } WinApi_DOC_INFO_2W;
 
 typedef
-  struct WinApi_RECT {
-    INTEGER left, top, right, bottom;
-  } WinApi_RECT;
+  struct WinApi_POINT {
+    INTEGER x, y;
+  } WinApi_POINT;
+
+typedef
+  struct WinApi_DRAGINFOA {
+    INTEGER uSize;
+    WinApi_POINT pt;
+    INTEGER fNC;
+    WinApi_PtrSTR lpFileList;
+    SET grfKeyState;
+  } WinApi_DRAGINFOA;
+
+typedef
+  struct WinApi_DRAGINFOW {
+    INTEGER uSize;
+    WinApi_POINT pt;
+    INTEGER fNC;
+    WinApi_PtrWSTR lpFileList;
+    SET grfKeyState;
+  } WinApi_DRAGINFOW;
 
 typedef
   struct WinApi_DRAWITEMSTRUCT {
@@ -666,11 +1101,6 @@ typedef
     INTEGER cVersion;
     WinApi_PtrWSTR pName, pEnvironment, pDriverPath, pDataFile, pConfigFile, pHelpFile, pDependentFiles, pMonitorName, pDefaultDataType;
   } WinApi_DRIVER_INFO_3W;
-
-typedef
-  struct WinApi_POINT {
-    INTEGER x, y;
-  } WinApi_POINT;
 
 typedef
   struct WinApi_DROPSTRUCT {
@@ -1310,25 +1740,6 @@ typedef
   } WinApi_EVENTMSG;
 
 typedef
-  struct WinApi_EXCEPTION_RECORD *WinApi_PtrEXCEPTION_RECORD;
-
-typedef
-  struct WinApi_EXCEPTION_RECORD {
-    INTEGER ExceptionCode;
-    SET ExceptionFlags;
-    WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
-    LONGINT ExceptionAddress;
-    INTEGER NumberParameters;
-    INTEGER ExceptionInformation[15];
-  } WinApi_EXCEPTION_RECORD;
-
-typedef
-  struct WinApi_EXCEPTION_DEBUG_INFO {
-    WinApi_EXCEPTION_RECORD ExceptionRecord;
-    INTEGER dwFirstChance;
-  } WinApi_EXCEPTION_DEBUG_INFO;
-
-typedef
   WinApi_CONTEXT *WinApi_PtrCONTEXT;
 
 typedef
@@ -1336,16 +1747,6 @@ typedef
     WinApi_PtrEXCEPTION_RECORD ExceptionRecord;
     WinApi_PtrCONTEXT ContextRecord;
   } WinApi_EXCEPTION_POINTERS;
-
-typedef
-  struct WinApi_EXIT_PROCESS_DEBUG_INFO {
-    INTEGER dwExitCode;
-  } WinApi_EXIT_PROCESS_DEBUG_INFO;
-
-typedef
-  struct WinApi_EXIT_THREAD_DEBUG_INFO {
-    INTEGER dwExitCode;
-  } WinApi_EXIT_THREAD_DEBUG_INFO;
 
 typedef
   struct WinApi_EXTLOGFONTA {
@@ -1363,11 +1764,6 @@ typedef
 
 typedef
   void (__STDCALL *WinApi_FIBER_START_ROUTINE)(LONGINT);
-
-typedef
-  struct WinApi_FILETIME {
-    INTEGER dwLowDateTime, dwHighDateTime;
-  } WinApi_FILETIME;
 
 typedef
   struct WinApi_FILE_NOTIFY_INFORMATION {
@@ -1388,6 +1784,15 @@ typedef
   } WinApi_FIXED;
 
 typedef
+  struct WinApi__PSP *WinApi_Ptr_PSP;
+
+typedef
+  INTEGER (__STDCALL *WinApi_FNADDPROPSHEETPAGE)(WinApi_Ptr_PSP, LONGINT);
+
+typedef
+  INTEGER (__STDCALL *WinApi_FNADDPROPSHEETPAGES)(LONGINT, WinApi_FNADDPROPSHEETPAGE, LONGINT);
+
+typedef
   LONGINT (__STDCALL *WinApi_FNCALLBACK)(INTEGER, INTEGER, LONGINT, LONGINT, LONGINT, LONGINT, INTEGER, INTEGER);
 
 typedef
@@ -1397,9 +1802,13 @@ typedef
   INTEGER (__STDCALL *WinApi_FNDEVMODE)(LONGINT, LONGINT, WinApi_DEVMODEA*, WinApi_PtrSTR, WinApi_PtrSTR, WinApi_DEVMODEA*, WinApi_PtrSTR, INTEGER);
 
 typedef
-  struct WinApi_FOCUS_EVENT_RECORD {
-    INTEGER bSetFocus;
-  } WinApi_FOCUS_EVENT_RECORD;
+  INTEGER (__STDCALL *WinApi_FNPROPSHEETCALLBACK)(LONGINT, INTEGER, LONGINT);
+
+typedef
+  INTEGER (__STDCALL *WinApi_FNPSPCALLBACKA)(LONGINT, INTEGER, WinApi_PtrPROPSHEETPAGEA);
+
+typedef
+  INTEGER (__STDCALL *WinApi_FNPSPCALLBACKW)(LONGINT, INTEGER, WinApi_PtrPROPSHEETPAGEW);
 
 typedef
   struct WinApi_TEXTMETRICA {
@@ -1476,6 +1885,12 @@ typedef
   } WinApi_FORM_INFO_1W;
 
 typedef
+  struct WinApi_FPO_DATA {
+    INTEGER ulOffStart, cbProcSize, cdwLocals;
+    SHORTINT cdwParams, fBits0;
+  } WinApi_FPO_DATA;
+
+typedef
   struct WinApi_GCP_RESULTSA {
     INTEGER lStructSize;
     WinApi_PtrSTR lpOutString;
@@ -1541,12 +1956,6 @@ typedef
     INTEGER message;
     LONGINT wParam, lParam;
   } WinApi_HARDWAREHOOKSTRUCT;
-
-typedef
-  struct WinApi_HARDWAREINPUT {
-    INTEGER uMsg;
-    SHORTINT wParamL, wParamH;
-  } WinApi_HARDWAREINPUT;
 
 typedef
   struct WinApi_HELPINFO {
@@ -1640,6 +2049,272 @@ typedef
   } WinApi_IMAGE_ARCHIVE_MEMBER_HEADER;
 
 typedef
+  union WinApi_IMAGE_AUX_SYMBOL {
+    struct WinApi__12 Sym;
+    struct WinApi__13 File;
+    struct WinApi__14 Section;
+    char _prvt0[4];
+  } WinApi_IMAGE_AUX_SYMBOL;
+
+typedef
+  struct WinApi_IMAGE_BASE_RELOCATION {
+    INTEGER VirtualAddress, SizeOfBlock;
+  } WinApi_IMAGE_BASE_RELOCATION;
+
+typedef
+  struct WinApi_IMAGE_BOUND_FORWARDER_REF {
+    INTEGER TimeDateStamp;
+    SHORTINT OffsetModuleName, Reserved;
+  } WinApi_IMAGE_BOUND_FORWARDER_REF;
+
+typedef
+  struct WinApi_IMAGE_BOUND_IMPORT_DESCRIPTOR {
+    INTEGER TimeDateStamp;
+    SHORTINT OffsetModuleName, NumberOfModuleForwarderRefs;
+  } WinApi_IMAGE_BOUND_IMPORT_DESCRIPTOR;
+
+typedef
+  struct WinApi_IMAGE_COFF_SYMBOLS_HEADER {
+    INTEGER NumberOfSymbols, LvaToFirstSymbol, NumberOfLinenumbers, LvaToFirstLinenumber, RvaToFirstByteOfCode, RvaToLastByteOfCode, RvaToFirstByteOfData, RvaToLastByteOfData;
+  } WinApi_IMAGE_COFF_SYMBOLS_HEADER;
+
+typedef
+  struct WinApi_IMAGE_DATA_DIRECTORY {
+    INTEGER VirtualAddress, Size;
+  } WinApi_IMAGE_DATA_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_DEBUG_DIRECTORY {
+    INTEGER Characteristics, TimeDateStamp;
+    SHORTINT MajorVersion, MinorVersion;
+    INTEGER Type, SizeOfData, AddressOfRawData, PointerToRawData;
+  } WinApi_IMAGE_DEBUG_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_DEBUG_MISC {
+    INTEGER DataType, Length;
+    BOOLEAN Unicode;
+    CHAR Reserved[3];
+    CHAR Data[1];
+  } WinApi_IMAGE_DEBUG_MISC;
+
+typedef
+  struct WinApi_IMAGE_DOS_HEADER {
+    SHORTINT e_magic, e_cblp, e_cp, e_crlc, e_cparhdr, e_minalloc, e_maxalloc, e_ss, e_sp, e_csum, e_ip, e_cs, e_lfarlc, e_ovno;
+    SHORTINT e_res[4];
+    SHORTINT e_oemid, e_oeminfo;
+    SHORTINT e_res2[10];
+    INTEGER e_lfanew;
+  } WinApi_IMAGE_DOS_HEADER;
+
+typedef
+  struct WinApi_IMAGE_EXPORT_DIRECTORY {
+    INTEGER Characteristics, TimeDateStamp;
+    SHORTINT MajorVersion, MinorVersion;
+    INTEGER Name, Base, NumberOfFunctions, NumberOfNames;
+    INTEGER *AddressOfFunctions;
+    INTEGER *AddressOfNames;
+    SHORTINT *AddressOfNameOrdinals;
+  } WinApi_IMAGE_EXPORT_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_FILE_HEADER {
+    SHORTINT Machine, NumberOfSections;
+    INTEGER TimeDateStamp, PointerToSymbolTable, NumberOfSymbols;
+    SHORTINT SizeOfOptionalHeader, Characteristics;
+  } WinApi_IMAGE_FILE_HEADER;
+
+typedef
+  struct WinApi_IMAGE_FUNCTION_ENTRY {
+    INTEGER StartingAddress, EndingAddress, EndOfPrologue;
+  } WinApi_IMAGE_FUNCTION_ENTRY;
+
+typedef
+  struct WinApi_IMAGE_IMPORT_BY_NAME {
+    SHORTINT Hint;
+    CHAR Name[1];
+  } WinApi_IMAGE_IMPORT_BY_NAME;
+
+typedef
+  struct WinApi_IMAGE_IMPORT_DESCRIPTOR {
+    union WinApi__16 u;
+    INTEGER TimeDateStamp, ForwarderChain, Name;
+    WinApi_PtrIMAGE_THUNK_DATA FirstThunk;
+  } WinApi_IMAGE_IMPORT_DESCRIPTOR;
+
+typedef
+  struct WinApi_IMAGE_LINENUMBER {
+    union WinApi__17 Type;
+    SHORTINT Linenumber;
+  } WinApi_IMAGE_LINENUMBER;
+
+typedef
+  struct WinApi_IMAGE_LOAD_CONFIG_DIRECTORY {
+    INTEGER Characteristics, TimeDateStamp;
+    SHORTINT MajorVersion, MinorVersion;
+    INTEGER GlobalFlagsClear, GlobalFlagsSet, CriticalSectionDefaultTimeout, DeCommitFreeBlockThreshold, DeCommitTotalFreeThreshold;
+    LONGINT LockPrefixTable;
+    INTEGER MaximumAllocationSize, VirtualMemoryThreshold, ProcessHeapFlags;
+    INTEGER Reserved[4];
+  } WinApi_IMAGE_LOAD_CONFIG_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_OPTIONAL_HEADER {
+    SHORTINT Magic;
+    CHAR MajorLinkerVersion, MinorLinkerVersion;
+    INTEGER SizeOfCode, SizeOfInitializedData, SizeOfUninitializedData, AddressOfEntryPoint, BaseOfCode, BaseOfData, ImageBase, SectionAlignment, FileAlignment;
+    SHORTINT MajorOperatingSystemVersion, MinorOperatingSystemVersion, MajorImageVersion, MinorImageVersion, MajorSubsystemVersion, MinorSubsystemVersion;
+    INTEGER Reserved1, SizeOfImage, SizeOfHeaders, CheckSum;
+    SHORTINT Subsystem, DllCharacteristics;
+    INTEGER SizeOfStackReserve, SizeOfStackCommit, SizeOfHeapReserve, SizeOfHeapCommit, LoaderFlags, NumberOfRvaAndSizes;
+    WinApi_IMAGE_DATA_DIRECTORY DataDirectory[16];
+  } WinApi_IMAGE_OPTIONAL_HEADER;
+
+typedef
+  struct WinApi_IMAGE_NT_HEADERS {
+    INTEGER Signature;
+    WinApi_IMAGE_FILE_HEADER FileHeader;
+    WinApi_IMAGE_OPTIONAL_HEADER OptionalHeader;
+  } WinApi_IMAGE_NT_HEADERS;
+
+typedef
+  struct WinApi_IMAGE_OS2_HEADER {
+    SHORTINT ne_magic;
+    CHAR ne_ver, ne_rev;
+    SHORTINT ne_enttab, ne_cbenttab;
+    INTEGER ne_crc;
+    SHORTINT ne_flags, ne_autodata, ne_heap, ne_stack;
+    INTEGER ne_csip, ne_sssp;
+    SHORTINT ne_cseg, ne_cmod, ne_cbnrestab, ne_segtab, ne_rsrctab, ne_restab, ne_modtab, ne_imptab;
+    INTEGER ne_nrestab;
+    SHORTINT ne_cmovent, ne_align, ne_cres;
+    CHAR ne_exetyp, ne_flagsothers;
+    SHORTINT ne_pretthunks, ne_psegrefbytes, ne_swaparea, ne_expver;
+  } WinApi_IMAGE_OS2_HEADER;
+
+typedef
+  struct WinApi_IMAGE_RELOCATION {
+    union WinApi__18 u;
+    INTEGER SymbolTableIndex;
+    SHORTINT Type;
+  } WinApi_IMAGE_RELOCATION;
+
+typedef
+  struct WinApi_IMAGE_RESOURCE_DATA_ENTRY {
+    INTEGER OffsetToData, Size, CodePage, Reserved;
+  } WinApi_IMAGE_RESOURCE_DATA_ENTRY;
+
+typedef
+  struct WinApi_IMAGE_RESOURCE_DIRECTORY {
+    INTEGER Characteristics, TimeDateStamp;
+    SHORTINT MajorVersion, MinorVersion, NumberOfNamedEntries, NumberOfIdEntries;
+  } WinApi_IMAGE_RESOURCE_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_RESOURCE_DIRECTORY_ENTRY {
+    union WinApi__20 u;
+    union WinApi__22 u1;
+  } WinApi_IMAGE_RESOURCE_DIRECTORY_ENTRY;
+
+typedef
+  struct WinApi_IMAGE_RESOURCE_DIRECTORY_STRING {
+    SHORTINT Length;
+    CHAR NameString[1];
+  } WinApi_IMAGE_RESOURCE_DIRECTORY_STRING;
+
+typedef
+  struct WinApi_IMAGE_RESOURCE_DIR_STRING_U {
+    SHORTINT Length;
+    LONGCHAR NameString[1];
+  } WinApi_IMAGE_RESOURCE_DIR_STRING_U;
+
+typedef
+  struct WinApi_IMAGE_ROM_OPTIONAL_HEADER {
+    SHORTINT Magic;
+    CHAR MajorLinkerVersion, MinorLinkerVersion;
+    INTEGER SizeOfCode, SizeOfInitializedData, SizeOfUninitializedData, AddressOfEntryPoint, BaseOfCode, BaseOfData, BaseOfBss, GprMask;
+    INTEGER CprMask[4];
+    INTEGER GpValue;
+  } WinApi_IMAGE_ROM_OPTIONAL_HEADER;
+
+typedef
+  struct WinApi_IMAGE_ROM_HEADERS {
+    WinApi_IMAGE_FILE_HEADER FileHeader;
+    WinApi_IMAGE_ROM_OPTIONAL_HEADER OptionalHeader;
+  } WinApi_IMAGE_ROM_HEADERS;
+
+typedef
+  struct WinApi_IMAGE_RUNTIME_FUNCTION_ENTRY {
+    INTEGER BeginAddress, EndAddress;
+    LONGINT ExceptionHandler, HandlerData;
+    INTEGER PrologEndAddress;
+  } WinApi_IMAGE_RUNTIME_FUNCTION_ENTRY;
+
+typedef
+  struct WinApi_IMAGE_SECTION_HEADER {
+    CHAR Name[8];
+    union WinApi__23 Misc;
+    INTEGER VirtualAddress, SizeOfRawData, PointerToRawData, PointerToRelocations, PointerToLinenumbers;
+    SHORTINT NumberOfRelocations, NumberOfLinenumbers;
+    INTEGER Characteristics;
+  } WinApi_IMAGE_SECTION_HEADER;
+
+typedef
+  struct WinApi_IMAGE_SEPARATE_DEBUG_HEADER {
+    SHORTINT Signature, Flags, Machine, Characteristics;
+    INTEGER TimeDateStamp, CheckSum, ImageBase, SizeOfImage, NumberOfSections, ExportedNamesSize, DebugDirectorySize;
+    INTEGER Reserved[3];
+  } WinApi_IMAGE_SEPARATE_DEBUG_HEADER;
+
+typedef
+  struct WinApi_IMAGE_SYMBOL {
+    union WinApi__25 N;
+    INTEGER Value;
+    SHORTINT SectionNumber, Type;
+    CHAR StorageClass, NumberOfAuxSymbols;
+  } WinApi_IMAGE_SYMBOL;
+
+typedef
+  struct WinApi_IMAGE_THUNK_DATA {
+    union WinApi__15 u1;
+  } WinApi_IMAGE_THUNK_DATA;
+
+typedef
+  void (__STDCALL *WinApi_IMAGE_TLS_CALLBACK)(LONGINT, INTEGER, LONGINT);
+
+typedef
+  struct WinApi_IMAGE_TLS_DIRECTORY {
+    INTEGER StartAddressOfRawData, EndAddressOfRawData;
+    INTEGER *AddressOfIndex;
+    WinApi_IMAGE_TLS_CALLBACK *AddressOfCallBacks;
+    INTEGER SizeOfZeroFill, Characteristics;
+  } WinApi_IMAGE_TLS_DIRECTORY;
+
+typedef
+  struct WinApi_IMAGE_VXD_HEADER {
+    SHORTINT e32_magic;
+    CHAR e32_border, e32_worder;
+    INTEGER e32_level;
+    SHORTINT e32_cpu, e32_os;
+    INTEGER e32_ver, e32_mflags, e32_mpages, e32_startobj, e32_eip, e32_stackobj, e32_esp, e32_pagesize, e32_lastpagesize, e32_fixupsize, e32_fixupsum, e32_ldrsize, e32_ldrsum, e32_objtab, e32_objcnt, e32_objmap, e32_itermap, e32_rsrctab, e32_rsrccnt, e32_restab, e32_enttab, e32_dirtab, e32_dircnt, e32_fpagetab, e32_frectab, e32_impmod, e32_impmodcnt, e32_impproc, e32_pagesum, e32_datapage, e32_preload, e32_nrestab, e32_cbnrestab, e32_nressum, e32_autodata, e32_debuginfo, e32_debuglen, e32_instpreload, e32_instdemand, e32_heapsize;
+    CHAR e32_res3[12];
+    INTEGER e32_winresoff, e32_winreslen;
+    SHORTINT e32_devid, e32_ddkver;
+  } WinApi_IMAGE_VXD_HEADER;
+
+typedef
+  struct WinApi_INPUT {
+    INTEGER type;
+    union WinApi__26 u;
+  } WinApi_INPUT;
+
+typedef
+  struct WinApi_INPUT_RECORD {
+    SHORTINT EventType;
+    union WinApi__28 Event;
+  } WinApi_INPUT_RECORD;
+
+typedef
   struct WinApi_SYSTEMTIME {
     SHORTINT wYear, wMonth, wDayOfWeek, wDay, wHour, wMinute, wSecond, wMilliseconds;
   } WinApi_SYSTEMTIME;
@@ -1701,13 +2376,6 @@ typedef
   } WinApi_KERNINGPAIR;
 
 typedef
-  struct WinApi_KEYBDINPUT {
-    SHORTINT wVk, wScan;
-    SET dwFlags;
-    INTEGER time, dwExtraInfo;
-  } WinApi_KEYBDINPUT;
-
-typedef
   struct WinApi_LAYERPLANEDESCRIPTOR {
     SHORTINT nSize, nVersion;
     SET dwFlags;
@@ -1716,15 +2384,13 @@ typedef
   } WinApi_LAYERPLANEDESCRIPTOR;
 
 typedef
-  INTEGER (__STDCALL *WinApi_LINEDDAPROC)(void);
+  struct WinApi_LDT_ENTRY {
+    SHORTINT LimitLow, BaseLow;
+    union WinApi__31 HighWord;
+  } WinApi_LDT_ENTRY;
 
 typedef
-  struct WinApi_LOAD_DLL_DEBUG_INFO {
-    LONGINT hFile, lpBaseOfDll;
-    INTEGER dwDebugInfoFileOffset, nDebugInfoSize;
-    LONGINT lpImageName;
-    SHORTINT fUnicode;
-  } WinApi_LOAD_DLL_DEBUG_INFO;
+  INTEGER (__STDCALL *WinApi_LINEDDAPROC)(void);
 
 typedef
   struct WinApi_LOCALESIGNATURE {
@@ -1850,11 +2516,6 @@ typedef
   } WinApi_MENUTEMPLATEW;
 
 typedef
-  struct WinApi_MENU_EVENT_RECORD {
-    INTEGER dwCommandId;
-  } WinApi_MENU_EVENT_RECORD;
-
-typedef
   struct WinApi_MESSAGE_RESOURCE_BLOCK {
     INTEGER LowId, HighId, OffsetToEntries;
   } WinApi_MESSAGE_RESOURCE_BLOCK;
@@ -1876,6 +2537,15 @@ typedef
     INTEGER mm, xExt, yExt;
     LONGINT hMF;
   } WinApi_METAFILEPICT;
+
+typedef
+  struct WinApi_METAHEADER {
+    SHORTINT mtType, mtHeaderSize, mtVersion;
+    INTEGER mtSize;
+    SHORTINT mtNoObjects;
+    INTEGER mtMaxRecord;
+    SHORTINT mtNoParameters;
+  } WinApi_METAHEADER;
 
 typedef
   struct WinApi_METARECORD {
@@ -2000,24 +2670,11 @@ typedef
   } WinApi_MOUSEHOOKSTRUCT;
 
 typedef
-  struct WinApi_MOUSEINPUT {
-    INTEGER dx, dy, mouseData;
-    SET dwFlags;
-    INTEGER time, dwExtraInfo;
-  } WinApi_MOUSEINPUT;
-
-typedef
   struct WinApi_MOUSEKEYS {
     INTEGER cbSize;
     SET dwFlags;
     INTEGER iMaxSpeed, iTimeToMaxSpeed, iCtrlSpeed, dwReserved1, dwReserved2;
   } WinApi_MOUSEKEYS;
-
-typedef
-  struct WinApi_MOUSE_EVENT_RECORD {
-    WinApi_COORD dwMousePosition;
-    SET dwButtonState, dwControlKeyState, dwEventFlags;
-  } WinApi_MOUSE_EVENT_RECORD;
 
 typedef
   struct WinApi_MSG {
@@ -2123,6 +2780,43 @@ typedef
   } WinApi_NONCLIENTMETRICSW;
 
 typedef
+  struct WinApi_NOTIFYICONDATAA {
+    INTEGER cbSize;
+    LONGINT hWnd;
+    INTEGER uID;
+    SET uFlags;
+    INTEGER uCallbackMessage;
+    LONGINT hIcon;
+    CHAR szTip[64];
+  } WinApi_NOTIFYICONDATAA;
+
+typedef
+  struct WinApi_NOTIFYICONDATAW {
+    INTEGER cbSize;
+    LONGINT hWnd;
+    INTEGER uID;
+    SET uFlags;
+    INTEGER uCallbackMessage;
+    LONGINT hIcon;
+    LONGCHAR szTip[64];
+  } WinApi_NOTIFYICONDATAW;
+
+typedef
+  struct WinApi__EXCEPTION_REGISTRATION_RECORD *WinApi_Ptr_EXCEPTION_REGISTRATION_RECORD;
+
+typedef
+  struct WinApi_NT_TIB *WinApi_PtrNT_TIB;
+
+typedef
+  struct WinApi_NT_TIB {
+    WinApi_Ptr_EXCEPTION_REGISTRATION_RECORD ExceptionList;
+    LONGINT StackBase, StackLimit, SubSystemTib;
+    union WinApi__32 u;
+    LONGINT ArbitraryUserPointer;
+    WinApi_PtrNT_TIB Self;
+  } WinApi_NT_TIB;
+
+typedef
   struct WinApi_NUMBERFMTA {
     INTEGER NumDigits, LeadingZero, Grouping;
     WinApi_PtrSTR lpDecimalSep, lpThousandSep;
@@ -2185,12 +2879,6 @@ typedef
     INTEGER otmsStrikeoutSize, otmsStrikeoutPosition, otmsUnderscoreSize, otmsUnderscorePosition;
     WinApi_PtrSTR otmpFamilyName, otmpFaceName, otmpStyleName, otmpFullName;
   } WinApi_OUTLINETEXTMETRICW;
-
-typedef
-  struct WinApi_OUTPUT_DEBUG_STRING_INFO {
-    WinApi_PtrSTR lpDebugStringData;
-    SHORTINT fUnicode, nDebugStringLength;
-  } WinApi_OUTPUT_DEBUG_STRING_INFO;
 
 typedef
   struct WinApi_OVERLAPPED {
@@ -2348,6 +3036,21 @@ typedef
   } WinApi_PRINTER_INFO_6;
 
 typedef
+  struct WinApi_PRINTER_NOTIFY_INFO_DATA {
+    SHORTINT Type, Field;
+    INTEGER Reserved, Id;
+    union WinApi__34 NotifyData;
+  } WinApi_PRINTER_NOTIFY_INFO_DATA;
+
+typedef
+  struct WinApi_PRINTER_NOTIFY_INFO {
+    INTEGER Version;
+    SET Flags;
+    INTEGER Count;
+    WinApi_PRINTER_NOTIFY_INFO_DATA aData[1];
+  } WinApi_PRINTER_NOTIFY_INFO;
+
+typedef
   struct WinApi_PRINTER_NOTIFY_OPTIONS_TYPE *WinApi_PtrPRINTER_NOTIFY_OPTIONS_TYPE;
 
 typedef
@@ -2382,6 +3085,15 @@ typedef
   } WinApi_PRIVILEGE_SET;
 
 typedef
+  struct WinApi_PROCESS_HEAP_ENTRY {
+    LONGINT lpData;
+    INTEGER cbData;
+    CHAR cbOverhead, iRegionIndex;
+    SHORTINT wFlags;
+    union WinApi__37 u;
+  } WinApi_PROCESS_HEAP_ENTRY;
+
+typedef
   struct WinApi_PROCESS_INFORMATION {
     LONGINT hProcess, hThread;
     INTEGER dwProcessId, dwThreadId;
@@ -2389,6 +3101,60 @@ typedef
 
 typedef
   INTEGER (__STDCALL *WinApi_PROGRESS_ROUTINE)(LONGINT, LONGINT, LONGINT, LONGINT, INTEGER, INTEGER, LONGINT, LONGINT, LONGINT);
+
+typedef
+  struct WinApi_PROPSHEETHEADERA {
+    INTEGER dwSize;
+    SET dwFlags;
+    LONGINT hwndParent, hInstance;
+    union WinApi__38 u;
+    WinApi_PtrSTR pszCaption;
+    INTEGER nPages;
+    union WinApi__39 u1;
+    union WinApi__40 u2;
+    WinApi_FNPROPSHEETCALLBACK pfnCallback;
+  } WinApi_PROPSHEETHEADERA;
+
+typedef
+  struct WinApi_PROPSHEETHEADERW {
+    INTEGER dwSize;
+    SET dwFlags;
+    LONGINT hwndParent, hInstance;
+    union WinApi__41 u;
+    WinApi_PtrWSTR pszCaption;
+    INTEGER nPages;
+    union WinApi__42 u1;
+    union WinApi__43 u2;
+    WinApi_FNPROPSHEETCALLBACK pfnCallback;
+  } WinApi_PROPSHEETHEADERW;
+
+typedef
+  struct WinApi_PROPSHEETPAGEA {
+    INTEGER dwSize;
+    SET dwFlags;
+    LONGINT hInstance;
+    union WinApi__3 u;
+    union WinApi__4 u1;
+    WinApi_PtrSTR pszTitle;
+    WinApi_DLGPROC pfnDlgProc;
+    LONGINT lParam;
+    WinApi_FNPSPCALLBACKA pfnCallback;
+    INTEGER *pcRefParent;
+  } WinApi_PROPSHEETPAGEA;
+
+typedef
+  struct WinApi_PROPSHEETPAGEW {
+    INTEGER dwSize;
+    SET dwFlags;
+    LONGINT hInstance;
+    union WinApi__5 u;
+    union WinApi__6 u1;
+    WinApi_PtrWSTR pszTitle;
+    WinApi_DLGPROC pfnDlgProc;
+    LONGINT lParam;
+    WinApi_FNPSPCALLBACKW pfnCallback;
+    INTEGER *pcRefParent;
+  } WinApi_PROPSHEETPAGEW;
 
 typedef
   struct WinApi_PROVIDOR_INFO_1A {
@@ -2462,6 +3228,9 @@ typedef
   WinApi_ANIMATIONINFO *WinApi_PtrANIMATIONINFO;
 
 typedef
+  WinApi_APPBARDATA *WinApi_PtrAPPBARDATA;
+
+typedef
   WinApi_BITMAP *WinApi_PtrBITMAP;
 
 typedef
@@ -2469,6 +3238,9 @@ typedef
 
 typedef
   WinApi_BITMAPCOREINFO *WinApi_PtrBITMAPCOREINFO;
+
+typedef
+  WinApi_BITMAPFILEHEADER *WinApi_PtrBITMAPFILEHEADER;
 
 typedef
   WinApi_BITMAPINFO *WinApi_PtrBITMAPINFO;
@@ -2483,6 +3255,9 @@ typedef
   WinApi_BROADCASTSYSMSG *WinApi_PtrBROADCASTSYSMSG;
 
 typedef
+  WinApi_BY_HANDLE_FILE_INFORMATION *WinApi_PtrBY_HANDLE_FILE_INFORMATION;
+
+typedef
   WinApi_CBTACTIVATESTRUCT *WinApi_PtrCBTACTIVATESTRUCT;
 
 typedef
@@ -2493,6 +3268,9 @@ typedef
 
 typedef
   WinApi_CHARSETINFO *WinApi_PtrCHARSETINFO;
+
+typedef
+  WinApi_CHAR_INFO *WinApi_PtrCHAR_INFO;
 
 typedef
   WinApi_CIEXYZ *WinApi_PtrCIEXYZ;
@@ -2582,10 +3360,16 @@ typedef
   WinApi_DEBUGHOOKINFO *WinApi_PtrDEBUGHOOKINFO;
 
 typedef
+  WinApi_DEBUG_EVENT *WinApi_PtrDEBUG_EVENT;
+
+typedef
   WinApi_DELETEITEMSTRUCT *WinApi_PtrDELETEITEMSTRUCT;
 
 typedef
   WinApi_DIBSECTION *WinApi_PtrDIBSECTION;
+
+typedef
+  WinApi_DLGITEMTEMPLATE *WinApi_PtrDLGITEMTEMPLATE;
 
 typedef
   WinApi_DOCINFOA *WinApi_PtrDOCINFOA;
@@ -2604,6 +3388,12 @@ typedef
 
 typedef
   WinApi_DOC_INFO_2W *WinApi_PtrDOC_INFO_2W;
+
+typedef
+  WinApi_DRAGINFOA *WinApi_PtrDRAGINFOA;
+
+typedef
+  WinApi_DRAGINFOW *WinApi_PtrDRAGINFOW;
 
 typedef
   WinApi_DRAWITEMSTRUCT *WinApi_PtrDRAWITEMSTRUCT;
@@ -2894,6 +3684,9 @@ typedef
   WinApi_FORM_INFO_1W *WinApi_PtrFORM_INFO_1W;
 
 typedef
+  WinApi_FPO_DATA *WinApi_PtrFPO_DATA;
+
+typedef
   WinApi_GCP_RESULTSA *WinApi_PtrGCP_RESULTSA;
 
 typedef
@@ -2954,6 +3747,108 @@ typedef
   WinApi_IMAGE_ARCHIVE_MEMBER_HEADER *WinApi_PtrIMAGE_ARCHIVE_MEMBER_HEADER;
 
 typedef
+  WinApi_IMAGE_AUX_SYMBOL *WinApi_PtrIMAGE_AUX_SYMBOL;
+
+typedef
+  WinApi_IMAGE_BASE_RELOCATION *WinApi_PtrIMAGE_BASE_RELOCATION;
+
+typedef
+  WinApi_IMAGE_BOUND_FORWARDER_REF *WinApi_PtrIMAGE_BOUND_FORWARDER_REF;
+
+typedef
+  WinApi_IMAGE_BOUND_IMPORT_DESCRIPTOR *WinApi_PtrIMAGE_BOUND_IMPORT_DESCRIPTOR;
+
+typedef
+  WinApi_IMAGE_COFF_SYMBOLS_HEADER *WinApi_PtrIMAGE_COFF_SYMBOLS_HEADER;
+
+typedef
+  WinApi_IMAGE_DATA_DIRECTORY *WinApi_PtrIMAGE_DATA_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_DEBUG_DIRECTORY *WinApi_PtrIMAGE_DEBUG_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_DEBUG_MISC *WinApi_PtrIMAGE_DEBUG_MISC;
+
+typedef
+  WinApi_IMAGE_DOS_HEADER *WinApi_PtrIMAGE_DOS_HEADER;
+
+typedef
+  WinApi_IMAGE_EXPORT_DIRECTORY *WinApi_PtrIMAGE_EXPORT_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_FILE_HEADER *WinApi_PtrIMAGE_FILE_HEADER;
+
+typedef
+  WinApi_IMAGE_FUNCTION_ENTRY *WinApi_PtrIMAGE_FUNCTION_ENTRY;
+
+typedef
+  WinApi_IMAGE_IMPORT_DESCRIPTOR *WinApi_PtrIMAGE_IMPORT_DESCRIPTOR;
+
+typedef
+  WinApi_IMAGE_LINENUMBER *WinApi_PtrIMAGE_LINENUMBER;
+
+typedef
+  WinApi_IMAGE_LOAD_CONFIG_DIRECTORY *WinApi_PtrIMAGE_LOAD_CONFIG_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_NT_HEADERS *WinApi_PtrIMAGE_NT_HEADERS;
+
+typedef
+  WinApi_IMAGE_OPTIONAL_HEADER *WinApi_PtrIMAGE_OPTIONAL_HEADER;
+
+typedef
+  WinApi_IMAGE_OS2_HEADER *WinApi_PtrIMAGE_OS2_HEADER;
+
+typedef
+  WinApi_IMAGE_RELOCATION *WinApi_PtrIMAGE_RELOCATION;
+
+typedef
+  WinApi_IMAGE_RESOURCE_DATA_ENTRY *WinApi_PtrIMAGE_RESOURCE_DATA_ENTRY;
+
+typedef
+  WinApi_IMAGE_RESOURCE_DIRECTORY *WinApi_PtrIMAGE_RESOURCE_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_RESOURCE_DIRECTORY_ENTRY *WinApi_PtrIMAGE_RESOURCE_DIRECTORY_ENTRY;
+
+typedef
+  WinApi_IMAGE_RESOURCE_DIRECTORY_STRING *WinApi_PtrIMAGE_RESOURCE_DIRECTORY_STRING;
+
+typedef
+  WinApi_IMAGE_RESOURCE_DIR_STRING_U *WinApi_PtrIMAGE_RESOURCE_DIR_STRING_U;
+
+typedef
+  WinApi_IMAGE_ROM_HEADERS *WinApi_PtrIMAGE_ROM_HEADERS;
+
+typedef
+  WinApi_IMAGE_ROM_OPTIONAL_HEADER *WinApi_PtrIMAGE_ROM_OPTIONAL_HEADER;
+
+typedef
+  WinApi_IMAGE_RUNTIME_FUNCTION_ENTRY *WinApi_PtrIMAGE_RUNTIME_FUNCTION_ENTRY;
+
+typedef
+  WinApi_IMAGE_SECTION_HEADER *WinApi_PtrIMAGE_SECTION_HEADER;
+
+typedef
+  WinApi_IMAGE_SEPARATE_DEBUG_HEADER *WinApi_PtrIMAGE_SEPARATE_DEBUG_HEADER;
+
+typedef
+  WinApi_IMAGE_SYMBOL *WinApi_PtrIMAGE_SYMBOL;
+
+typedef
+  WinApi_IMAGE_TLS_DIRECTORY *WinApi_PtrIMAGE_TLS_DIRECTORY;
+
+typedef
+  WinApi_IMAGE_VXD_HEADER *WinApi_PtrIMAGE_VXD_HEADER;
+
+typedef
+  WinApi_INPUT *WinApi_PtrINPUT;
+
+typedef
+  WinApi_INPUT_RECORD *WinApi_PtrINPUT_RECORD;
+
+typedef
   WinApi_JOB_INFO_1A *WinApi_PtrJOB_INFO_1A;
 
 typedef
@@ -2972,7 +3867,13 @@ typedef
   WinApi_KEYBDINPUT *WinApi_PtrKEYBDINPUT;
 
 typedef
+  WinApi_KEY_EVENT_RECORD *WinApi_PtrKEY_EVENT_RECORD;
+
+typedef
   WinApi_LAYERPLANEDESCRIPTOR *WinApi_PtrLAYERPLANEDESCRIPTOR;
+
+typedef
+  WinApi_LDT_ENTRY *WinApi_PtrLDT_ENTRY;
 
 typedef
   WinApi_LOAD_DLL_DEBUG_INFO *WinApi_PtrLOAD_DLL_DEBUG_INFO;
@@ -3063,6 +3964,9 @@ typedef
 
 typedef
   WinApi_METAFILEPICT *WinApi_PtrMETAFILEPICT;
+
+typedef
+  WinApi_METAHEADER *WinApi_PtrMETAHEADER;
 
 typedef
   WinApi_METARECORD *WinApi_PtrMETARECORD;
@@ -3156,6 +4060,12 @@ typedef
 
 typedef
   WinApi_NONCLIENTMETRICSW *WinApi_PtrNONCLIENTMETRICSW;
+
+typedef
+  WinApi_NOTIFYICONDATAA *WinApi_PtrNOTIFYICONDATAA;
+
+typedef
+  WinApi_NOTIFYICONDATAW *WinApi_PtrNOTIFYICONDATAW;
 
 typedef
   WinApi_NUMBERFMTA *WinApi_PtrNUMBERFMTA;
@@ -3266,6 +4176,12 @@ typedef
   WinApi_PRINTER_INFO_6 *WinApi_PtrPRINTER_INFO_6;
 
 typedef
+  WinApi_PRINTER_NOTIFY_INFO *WinApi_PtrPRINTER_NOTIFY_INFO;
+
+typedef
+  WinApi_PRINTER_NOTIFY_INFO_DATA *WinApi_PtrPRINTER_NOTIFY_INFO_DATA;
+
+typedef
   WinApi_PRINTER_NOTIFY_OPTIONS *WinApi_PtrPRINTER_NOTIFY_OPTIONS;
 
 typedef
@@ -3278,7 +4194,16 @@ typedef
   WinApi_PRIVILEGE_SET *WinApi_PtrPRIVILEGE_SET;
 
 typedef
+  WinApi_PROCESS_HEAP_ENTRY *WinApi_PtrPROCESS_HEAP_ENTRY;
+
+typedef
   WinApi_PROCESS_INFORMATION *WinApi_PtrPROCESS_INFORMATION;
+
+typedef
+  WinApi_PROPSHEETHEADERA *WinApi_PtrPROPSHEETHEADERA;
+
+typedef
+  WinApi_PROPSHEETHEADERW *WinApi_PtrPROPSHEETHEADERW;
 
 typedef
   WinApi_PROVIDOR_INFO_1A *WinApi_PtrPROVIDOR_INFO_1A;
@@ -3308,6 +4233,9 @@ typedef
   struct WinApi_QUERY_SERVICE_LOCK_STATUSW *WinApi_PtrQUERY_SERVICE_LOCK_STATUSW;
 
 typedef
+  struct WinApi_QUOTA_LIMITS *WinApi_PtrQUOTA_LIMITS;
+
+typedef
   struct WinApi_RASTERIZER_STATUS *WinApi_PtrRASTERIZER_STATUS;
 
 typedef
@@ -3326,7 +4254,7 @@ typedef
   struct WinApi_RGNDATAHEADER *WinApi_PtrRGNDATAHEADER;
 
 typedef
-  struct WinApi_RIP_INFO *WinApi_PtrRIP_INFO;
+  WinApi_RIP_INFO *WinApi_PtrRIP_INFO;
 
 typedef
   struct WinApi_SCROLLINFO *WinApi_PtrSCROLLINFO;
@@ -3357,6 +4285,30 @@ typedef
 
 typedef
   struct WinApi_SE_IMPERSONATION_STATE *WinApi_PtrSE_IMPERSONATION_STATE;
+
+typedef
+  struct WinApi_SHELLEXECUTEINFOA *WinApi_PtrSHELLEXECUTEINFOA;
+
+typedef
+  struct WinApi_SHELLEXECUTEINFOW *WinApi_PtrSHELLEXECUTEINFOW;
+
+typedef
+  struct WinApi_SHFILEINFOA *WinApi_PtrSHFILEINFOA;
+
+typedef
+  struct WinApi_SHFILEINFOW *WinApi_PtrSHFILEINFOW;
+
+typedef
+  struct WinApi_SHFILEOPSTRUCTA *WinApi_PtrSHFILEOPSTRUCTA;
+
+typedef
+  struct WinApi_SHFILEOPSTRUCTW *WinApi_PtrSHFILEOPSTRUCTW;
+
+typedef
+  struct WinApi_SHNAMEMAPPINGA *WinApi_PtrSHNAMEMAPPINGA;
+
+typedef
+  struct WinApi_SHNAMEMAPPINGW *WinApi_PtrSHNAMEMAPPINGW;
 
 typedef
   struct WinApi_SID *WinApi_PtrSID;
@@ -3416,6 +4368,9 @@ typedef
   struct WinApi_SYSTEM_AUDIT_ACE *WinApi_PtrSYSTEM_AUDIT_ACE;
 
 typedef
+  struct WinApi_SYSTEM_INFO *WinApi_PtrSYSTEM_INFO;
+
+typedef
   struct WinApi_SYSTEM_POWER_STATUS *WinApi_PtrSYSTEM_POWER_STATUS;
 
 typedef
@@ -3428,6 +4383,12 @@ typedef
   struct WinApi_TAPE_GET_DRIVE_PARAMETERS *WinApi_PtrTAPE_GET_DRIVE_PARAMETERS;
 
 typedef
+  struct WinApi_TAPE_GET_MEDIA_PARAMETERS *WinApi_PtrTAPE_GET_MEDIA_PARAMETERS;
+
+typedef
+  struct WinApi_TAPE_GET_POSITION *WinApi_PtrTAPE_GET_POSITION;
+
+typedef
   struct WinApi_TAPE_PREPARE *WinApi_PtrTAPE_PREPARE;
 
 typedef
@@ -3435,6 +4396,12 @@ typedef
 
 typedef
   struct WinApi_TAPE_SET_MEDIA_PARAMETERS *WinApi_PtrTAPE_SET_MEDIA_PARAMETERS;
+
+typedef
+  struct WinApi_TAPE_SET_POSITION *WinApi_PtrTAPE_SET_POSITION;
+
+typedef
+  struct WinApi_TAPE_WRITE_MARKS *WinApi_PtrTAPE_WRITE_MARKS;
 
 typedef
   WinApi_TEXTMETRICA *WinApi_PtrTEXTMETRICA;
@@ -3447,6 +4414,9 @@ typedef
 
 typedef
   struct WinApi_TOGGLEKEYS *WinApi_PtrTOGGLEKEYS;
+
+typedef
+  struct WinApi_TOKEN_CONTROL *WinApi_PtrTOKEN_CONTROL;
 
 typedef
   struct WinApi_TOKEN_DEFAULT_DACL *WinApi_PtrTOKEN_DEFAULT_DACL;
@@ -3464,6 +4434,12 @@ typedef
   struct WinApi_TOKEN_PRIVILEGES *WinApi_PtrTOKEN_PRIVILEGES;
 
 typedef
+  struct WinApi_TOKEN_SOURCE *WinApi_PtrTOKEN_SOURCE;
+
+typedef
+  struct WinApi_TOKEN_STATISTICS *WinApi_PtrTOKEN_STATISTICS;
+
+typedef
   struct WinApi_TOKEN_USER *WinApi_PtrTOKEN_USER;
 
 typedef
@@ -3476,7 +4452,7 @@ typedef
   struct WinApi_TTPOLYGONHEADER *WinApi_PtrTTPOLYGONHEADER;
 
 typedef
-  struct WinApi_UNLOAD_DLL_DEBUG_INFO *WinApi_PtrUNLOAD_DLL_DEBUG_INFO;
+  WinApi_UNLOAD_DLL_DEBUG_INFO *WinApi_PtrUNLOAD_DLL_DEBUG_INFO;
 
 typedef
   struct WinApi_USEROBJECTFLAGS *WinApi_PtrUSEROBJECTFLAGS;
@@ -3488,10 +4464,22 @@ typedef
   struct WinApi_VALENTW *WinApi_PtrVALENTW;
 
 typedef
+  struct WinApi_WIN32_FILE_ATTRIBUTE_DATA *WinApi_PtrWIN32_FILE_ATTRIBUTE_DATA;
+
+typedef
+  struct WinApi_WIN32_FIND_DATAA *WinApi_PtrWIN32_FIND_DATAA;
+
+typedef
+  struct WinApi_WIN32_FIND_DATAW *WinApi_PtrWIN32_FIND_DATAW;
+
+typedef
+  struct WinApi_WIN32_STREAM_ID *WinApi_PtrWIN32_STREAM_ID;
+
+typedef
   struct WinApi_WINDOWPLACEMENT *WinApi_PtrWINDOWPLACEMENT;
 
 typedef
-  struct WinApi_WINDOW_BUFFER_SIZE_RECORD *WinApi_PtrWINDOW_BUFFER_SIZE_RECORD;
+  WinApi_WINDOW_BUFFER_SIZE_RECORD *WinApi_PtrWINDOW_BUFFER_SIZE_RECORD;
 
 typedef
   struct WinApi_WIN_CERTIFICATE *WinApi_PtrWIN_CERTIFICATE;
@@ -3522,9 +4510,6 @@ typedef
 
 typedef
   WinApi_XFORM *WinApi_PtrXFORM;
-
-typedef
-  struct WinApi__EXCEPTION_REGISTRATION_RECORD *WinApi_Ptr_EXCEPTION_REGISTRATION_RECORD;
 
 typedef
   struct WinApi_val_context *WinApi_Ptrval_context;
@@ -3571,6 +4556,12 @@ typedef
   } WinApi_QUERY_SERVICE_LOCK_STATUSW;
 
 typedef
+  struct WinApi_QUOTA_LIMITS {
+    INTEGER PagedPoolLimit, NonPagedPoolLimit, MinimumWorkingSetSize, MaximumWorkingSetSize, PagefileLimit;
+    LONGINT TimeLimit;
+  } WinApi_QUOTA_LIMITS;
+
+typedef
   struct WinApi_RASTERIZER_STATUS {
     SHORTINT nSize, wFlags, nLanguageID;
   } WinApi_RASTERIZER_STATUS;
@@ -3593,11 +4584,6 @@ typedef
     WinApi_RGNDATAHEADER rdh;
     CHAR Buffer[1];
   } WinApi_RGNDATA;
-
-typedef
-  struct WinApi_RIP_INFO {
-    INTEGER dwError, dwType;
-  } WinApi_RIP_INFO;
 
 typedef
   INTEGER (__STDCALL *WinApi_ROC)(void);
@@ -3696,6 +4682,86 @@ typedef
   } WinApi_SE_IMPERSONATION_STATE;
 
 typedef
+  struct WinApi_SHELLEXECUTEINFOA {
+    INTEGER cbSize;
+    SET fMask;
+    LONGINT hwnd;
+    WinApi_PtrSTR lpVerb, lpFile, lpParameters, lpDirectory;
+    INTEGER nShow;
+    LONGINT hInstApp, lpIDList;
+    WinApi_PtrSTR lpClass;
+    LONGINT hkeyClass;
+    INTEGER dwHotKey;
+    LONGINT hIcon, hProcess;
+  } WinApi_SHELLEXECUTEINFOA;
+
+typedef
+  struct WinApi_SHELLEXECUTEINFOW {
+    INTEGER cbSize;
+    SET fMask;
+    LONGINT hwnd;
+    WinApi_PtrWSTR lpVerb, lpFile, lpParameters, lpDirectory;
+    INTEGER nShow;
+    LONGINT hInstApp, lpIDList;
+    WinApi_PtrWSTR lpClass;
+    LONGINT hkeyClass;
+    INTEGER dwHotKey;
+    LONGINT hIcon, hProcess;
+  } WinApi_SHELLEXECUTEINFOW;
+
+typedef
+  struct WinApi_SHFILEINFOA {
+    LONGINT hIcon;
+    INTEGER iIcon;
+    SET dwAttributes;
+    CHAR szDisplayName[260];
+    CHAR szTypeName[80];
+  } WinApi_SHFILEINFOA;
+
+typedef
+  struct WinApi_SHFILEINFOW {
+    LONGINT hIcon;
+    INTEGER iIcon;
+    SET dwAttributes;
+    LONGCHAR szDisplayName[260];
+    LONGCHAR szTypeName[80];
+  } WinApi_SHFILEINFOW;
+
+typedef
+  struct WinApi_SHFILEOPSTRUCTA {
+    LONGINT hwnd;
+    INTEGER wFunc;
+    WinApi_PtrSTR pFrom, pTo;
+    SHORTINT fFlags;
+    INTEGER fAnyOperationsAborted;
+    LONGINT hNameMappings;
+    WinApi_PtrSTR lpszProgressTitle;
+  } WinApi_SHFILEOPSTRUCTA;
+
+typedef
+  struct WinApi_SHFILEOPSTRUCTW {
+    LONGINT hwnd;
+    INTEGER wFunc;
+    WinApi_PtrWSTR pFrom, pTo;
+    SHORTINT fFlags;
+    INTEGER fAnyOperationsAborted;
+    LONGINT hNameMappings;
+    WinApi_PtrWSTR lpszProgressTitle;
+  } WinApi_SHFILEOPSTRUCTW;
+
+typedef
+  struct WinApi_SHNAMEMAPPINGA {
+    WinApi_PtrSTR pszOldPath, pszNewPath;
+    INTEGER cchOldPath, cchNewPath;
+  } WinApi_SHNAMEMAPPINGA;
+
+typedef
+  struct WinApi_SHNAMEMAPPINGW {
+    WinApi_PtrWSTR pszOldPath, pszNewPath;
+    INTEGER cchOldPath, cchNewPath;
+  } WinApi_SHNAMEMAPPINGW;
+
+typedef
   struct WinApi_SID_IDENTIFIER_AUTHORITY {
     CHAR Value[6];
   } WinApi_SID_IDENTIFIER_AUTHORITY;
@@ -3778,6 +4844,15 @@ typedef
   } WinApi_SYSTEM_AUDIT_ACE;
 
 typedef
+  struct WinApi_SYSTEM_INFO {
+    union WinApi__45 u;
+    INTEGER dwPageSize;
+    LONGINT lpMinimumApplicationAddress, lpMaximumApplicationAddress;
+    INTEGER dwActiveProcessorMask, dwNumberOfProcessors, dwProcessorType, dwAllocationGranularity;
+    SHORTINT wProcessorLevel, wProcessorRevision;
+  } WinApi_SYSTEM_INFO;
+
+typedef
   struct WinApi_SYSTEM_POWER_STATUS {
     CHAR ACLineStatus, BatteryFlag, BatteryLifePercent, Reserved1;
     INTEGER BatteryLifeTime, BatteryFullLifeTime;
@@ -3803,6 +4878,19 @@ typedef
   } WinApi_TAPE_GET_DRIVE_PARAMETERS;
 
 typedef
+  struct WinApi_TAPE_GET_MEDIA_PARAMETERS {
+    LONGINT Capacity, Remaining;
+    INTEGER BlockSize, PartitionCount;
+    BOOLEAN WriteProtected;
+  } WinApi_TAPE_GET_MEDIA_PARAMETERS;
+
+typedef
+  struct WinApi_TAPE_GET_POSITION {
+    INTEGER Type, Partition;
+    LONGINT Offset;
+  } WinApi_TAPE_GET_POSITION;
+
+typedef
   struct WinApi_TAPE_PREPARE {
     INTEGER Operation;
     BOOLEAN Immediate;
@@ -3818,6 +4906,13 @@ typedef
   struct WinApi_TAPE_SET_MEDIA_PARAMETERS {
     INTEGER BlockSize;
   } WinApi_TAPE_SET_MEDIA_PARAMETERS;
+
+typedef
+  struct WinApi_TAPE_SET_POSITION {
+    INTEGER Method, Partition;
+    LONGINT Offset;
+    BOOLEAN Immediate;
+  } WinApi_TAPE_SET_POSITION;
 
 typedef
   struct WinApi_TAPE_WRITE_MARKS {
@@ -3855,6 +4950,18 @@ typedef
   } WinApi_TOGGLEKEYS;
 
 typedef
+  struct WinApi_TOKEN_SOURCE {
+    CHAR SourceName[8];
+    LONGINT SourceIdentifier;
+  } WinApi_TOKEN_SOURCE;
+
+typedef
+  struct WinApi_TOKEN_CONTROL {
+    LONGINT TokenId, AuthenticationId, ModifiedId;
+    WinApi_TOKEN_SOURCE TokenSource;
+  } WinApi_TOKEN_CONTROL;
+
+typedef
   struct WinApi_TOKEN_DEFAULT_DACL {
     WinApi_PtrACL DefaultDacl;
   } WinApi_TOKEN_DEFAULT_DACL;
@@ -3880,6 +4987,13 @@ typedef
     INTEGER PrivilegeCount;
     WinApi_LUID_AND_ATTRIBUTES Privileges[1];
   } WinApi_TOKEN_PRIVILEGES;
+
+typedef
+  struct WinApi_TOKEN_STATISTICS {
+    LONGINT TokenId, AuthenticationId, ExpirationTime;
+    INTEGER TokenType, ImpersonationLevel, DynamicCharged, DynamicAvailable, GroupCount, PrivilegeCount;
+    LONGINT ModifiedId;
+  } WinApi_TOKEN_STATISTICS;
 
 typedef
   struct WinApi_TOKEN_USER {
@@ -3908,11 +5022,6 @@ typedef
   } WinApi_TTPOLYGONHEADER;
 
 typedef
-  struct WinApi_UNLOAD_DLL_DEBUG_INFO {
-    LONGINT lpBaseOfDll;
-  } WinApi_UNLOAD_DLL_DEBUG_INFO;
-
-typedef
   struct WinApi_USEROBJECTFLAGS {
     INTEGER fInherit, fReserved;
     SET dwFlags;
@@ -3938,6 +5047,40 @@ typedef
   } WinApi_VS_FIXEDFILEINFO;
 
 typedef
+  struct WinApi_WIN32_FILE_ATTRIBUTE_DATA {
+    SET dwFileAttributes;
+    WinApi_FILETIME ftCreationTime, ftLastAccessTime, ftLastWriteTime;
+    INTEGER nFileSizeHigh, nFileSizeLow;
+  } WinApi_WIN32_FILE_ATTRIBUTE_DATA;
+
+typedef
+  struct WinApi_WIN32_FIND_DATAA {
+    SET dwFileAttributes;
+    WinApi_FILETIME ftCreationTime, ftLastAccessTime, ftLastWriteTime;
+    INTEGER nFileSizeHigh, nFileSizeLow, dwReserved0, dwReserved1;
+    CHAR cFileName[260];
+    CHAR cAlternateFileName[14];
+  } WinApi_WIN32_FIND_DATAA;
+
+typedef
+  struct WinApi_WIN32_FIND_DATAW {
+    SET dwFileAttributes;
+    WinApi_FILETIME ftCreationTime, ftLastAccessTime, ftLastWriteTime;
+    INTEGER nFileSizeHigh, nFileSizeLow, dwReserved0, dwReserved1;
+    LONGCHAR cFileName[260];
+    LONGCHAR cAlternateFileName[14];
+  } WinApi_WIN32_FIND_DATAW;
+
+typedef
+  struct WinApi_WIN32_STREAM_ID {
+    INTEGER dwStreamId;
+    SET dwStreamAttributes;
+    LONGINT Size;
+    INTEGER dwStreamNameSize;
+    LONGCHAR cStreamName[1];
+  } WinApi_WIN32_STREAM_ID;
+
+typedef
   struct WinApi_WINDOWPLACEMENT {
     INTEGER length;
     SET flags;
@@ -3952,11 +5095,6 @@ typedef
     INTEGER x, y, cx, cy;
     SET flags;
   } WinApi_WINDOWPOS;
-
-typedef
-  struct WinApi_WINDOW_BUFFER_SIZE_RECORD {
-    WinApi_COORD dwSize;
-  } WinApi_WINDOW_BUFFER_SIZE_RECORD;
 
 typedef
   INTEGER (__STDCALL *WinApi_WINSTAENUMPROC)(void);
@@ -4054,6 +5192,11 @@ typedef
   struct WinApi__POINTL {
     INTEGER x, y;
   } WinApi__POINTL;
+
+typedef
+  struct WinApi__PSP {
+    char _prvt0[1];
+  } WinApi__PSP;
 
 typedef
   struct WinApi__RECTL {
@@ -4308,6 +5451,9 @@ __EXTERN LONGINT __STDCALL CreateDIBitmap (LONGINT p0, WinApi_BITMAPINFOHEADER *
 __EXTERN LONGINT __STDCALL CreateDesktopA (WinApi_PtrSTR lpszDesktop, WinApi_PtrSTR lpszDevice, WinApi_DEVMODEA *pDevmode, SET dwFlags, SET dwDesiredAccess, WinApi_SECURITY_ATTRIBUTES *lpsa);
 __EXTERN LONGINT __STDCALL CreateDesktopA (WinApi_PtrSTR lpszDesktop, WinApi_PtrSTR lpszDevice, WinApi_DEVMODEA *pDevmode, SET dwFlags, SET dwDesiredAccess, WinApi_SECURITY_ATTRIBUTES *lpsa);
 __EXTERN LONGINT __STDCALL CreateDesktopW (WinApi_PtrWSTR lpszDesktop, WinApi_PtrWSTR lpszDevice, WinApi_DEVMODEW *pDevmode, SET dwFlags, SET dwDesiredAccess, WinApi_SECURITY_ATTRIBUTES *lpsa);
+__EXTERN LONGINT __STDCALL CreateDialogIndirectParamA (LONGINT hInstance, WinApi_DLGTEMPLATE *lpTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN LONGINT __STDCALL CreateDialogIndirectParamA (LONGINT hInstance, WinApi_DLGTEMPLATE *lpTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN LONGINT __STDCALL CreateDialogIndirectParamW (LONGINT hInstance, WinApi_DLGTEMPLATE *lpTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 __EXTERN LONGINT __STDCALL CreateDialogParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 __EXTERN LONGINT __STDCALL CreateDialogParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
 __EXTERN LONGINT __STDCALL CreateDialogParamW (LONGINT hInstance, WinApi_PtrWSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
@@ -4381,6 +5527,9 @@ __EXTERN INTEGER __STDCALL CreateProcessAsUserA (LONGINT hToken, WinApi_PtrSTR l
 __EXTERN INTEGER __STDCALL CreateProcessAsUserA (LONGINT hToken, WinApi_PtrSTR lpApplicationName, WinApi_PtrSTR lpCommandLine, WinApi_SECURITY_ATTRIBUTES *lpProcessAttributes, WinApi_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinApi_PtrSTR lpCurrentDirectory, WinApi_STARTUPINFOA *lpStartupInfo, WinApi_PROCESS_INFORMATION *lpProcessInformation);
 __EXTERN INTEGER __STDCALL CreateProcessAsUserW (LONGINT hToken, WinApi_PtrWSTR lpApplicationName, WinApi_PtrWSTR lpCommandLine, WinApi_SECURITY_ATTRIBUTES *lpProcessAttributes, WinApi_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinApi_PtrWSTR lpCurrentDirectory, WinApi_STARTUPINFOW *lpStartupInfo, WinApi_PROCESS_INFORMATION *lpProcessInformation);
 __EXTERN INTEGER __STDCALL CreateProcessW (WinApi_PtrWSTR lpApplicationName, WinApi_PtrWSTR lpCommandLine, WinApi_SECURITY_ATTRIBUTES *lpProcessAttributes, WinApi_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER bInheritHandles, SET dwCreationFlags, LONGINT lpEnvironment, WinApi_PtrWSTR lpCurrentDirectory, WinApi_STARTUPINFOW *lpStartupInfo, WinApi_PROCESS_INFORMATION *lpProcessInformation);
+__EXTERN WinApi_Ptr_PSP __STDCALL CreatePropertySheetPageA (WinApi_PROPSHEETPAGEA *p0);
+__EXTERN WinApi_Ptr_PSP __STDCALL CreatePropertySheetPageA (WinApi_PROPSHEETPAGEA *p0);
+__EXTERN WinApi_Ptr_PSP __STDCALL CreatePropertySheetPageW (WinApi_PROPSHEETPAGEW *p0);
 __EXTERN LONGINT __STDCALL CreateRectRgn (INTEGER p0, INTEGER p1, INTEGER p2, INTEGER p3);
 __EXTERN LONGINT __STDCALL CreateRectRgnIndirect (WinApi_RECT *p0);
 __EXTERN LONGINT __STDCALL CreateRemoteThread (LONGINT hProcess, WinApi_SECURITY_ATTRIBUTES *lpThreadAttributes, INTEGER dwStackSize, WinApi_THREAD_START_ROUTINE lpStartAddress, LONGINT lpParameter, SET dwCreationFlags, INTEGER *lpThreadId);
@@ -4507,14 +5656,18 @@ __EXTERN INTEGER __STDCALL DestroyCursor (LONGINT hCursor);
 __EXTERN INTEGER __STDCALL DestroyIcon (LONGINT hIcon);
 __EXTERN INTEGER __STDCALL DestroyMenu (LONGINT hMenu);
 __EXTERN INTEGER __STDCALL DestroyPrivateObjectSecurity (LONGINT *ObjectDescriptor);
+__EXTERN INTEGER __STDCALL DestroyPropertySheetPage (WinApi_Ptr_PSP p0);
 __EXTERN INTEGER __STDCALL DestroyWindow (LONGINT hWnd);
 __EXTERN INTEGER __STDCALL DeviceCapabilitiesA (WinApi_PtrSTR p0, WinApi_PtrSTR p1, SHORTINT p2, WinApi_PtrSTR p3, WinApi_DEVMODEA *p4);
 __EXTERN INTEGER __STDCALL DeviceCapabilitiesA (WinApi_PtrSTR p0, WinApi_PtrSTR p1, SHORTINT p2, WinApi_PtrSTR p3, WinApi_DEVMODEA *p4);
 __EXTERN INTEGER __STDCALL DeviceCapabilitiesW (WinApi_PtrWSTR p0, WinApi_PtrWSTR p1, SHORTINT p2, WinApi_PtrWSTR p3, WinApi_DEVMODEW *p4);
 __EXTERN INTEGER __STDCALL DeviceIoControl (LONGINT hDevice, INTEGER dwIoControlCode, LONGINT lpInBuffer, INTEGER nInBufferSize, LONGINT lpOutBuffer, INTEGER nOutBufferSize, INTEGER *lpBytesReturned, WinApi_OVERLAPPED *lpOverlapped);
-__EXTERN INTEGER __STDCALL DialogBoxParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
-__EXTERN INTEGER __STDCALL DialogBoxParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
-__EXTERN INTEGER __STDCALL DialogBoxParamW (LONGINT hInstance, WinApi_PtrWSTR lpTemplateName, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxIndirectParamA (LONGINT hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxIndirectParamA (LONGINT hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxIndirectParamW (LONGINT hInstance, WinApi_DLGTEMPLATE *hDialogTemplate, LONGINT hWndParent, WinApi_DLGPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_WNDPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxParamA (LONGINT hInstance, WinApi_PtrSTR lpTemplateName, LONGINT hWndParent, WinApi_WNDPROC lpDialogFunc, LONGINT dwInitParam);
+__EXTERN INTEGER __STDCALL DialogBoxParamW (LONGINT hInstance, WinApi_PtrWSTR lpTemplateName, LONGINT hWndParent, WinApi_WNDPROC lpDialogFunc, LONGINT dwInitParam);
 __EXTERN INTEGER __STDCALL DisableThreadLibraryCalls (LONGINT hLibModule);
 __EXTERN INTEGER __STDCALL DisconnectNamedPipe (LONGINT hNamedPipe);
 __EXTERN INTEGER __STDCALL DispatchMessageA (WinApi_MSG *lpMsg);
@@ -4732,12 +5885,18 @@ __EXTERN LONGINT __STDCALL FindExecutableW (WinApi_PtrWSTR lpFile, WinApi_PtrWST
 __EXTERN LONGINT __STDCALL FindFirstChangeNotificationA (WinApi_PtrSTR lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
 __EXTERN LONGINT __STDCALL FindFirstChangeNotificationA (WinApi_PtrSTR lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
 __EXTERN LONGINT __STDCALL FindFirstChangeNotificationW (WinApi_PtrWSTR lpPathName, INTEGER bWatchSubtree, SET dwNotifyFilter);
+__EXTERN LONGINT __STDCALL FindFirstFileA (WinApi_PtrSTR lpFileName, WinApi_WIN32_FIND_DATAA *lpFindFileData);
+__EXTERN LONGINT __STDCALL FindFirstFileA (WinApi_PtrSTR lpFileName, WinApi_WIN32_FIND_DATAA *lpFindFileData);
 __EXTERN LONGINT __STDCALL FindFirstFileExA (WinApi_PtrSTR lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
 __EXTERN LONGINT __STDCALL FindFirstFileExA (WinApi_PtrSTR lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
 __EXTERN LONGINT __STDCALL FindFirstFileExW (WinApi_PtrWSTR lpFileName, INTEGER fInfoLevelId, LONGINT lpFindFileData, INTEGER fSearchOp, LONGINT lpSearchFilter, INTEGER dwAdditionalFlags);
+__EXTERN LONGINT __STDCALL FindFirstFileW (WinApi_PtrWSTR lpFileName, WinApi_WIN32_FIND_DATAW *lpFindFileData);
 __EXTERN INTEGER __STDCALL FindFirstFreeAce (WinApi_ACL *pAcl, LONGINT *pAce);
 __EXTERN LONGINT __STDCALL FindFirstPrinterChangeNotification (LONGINT hPrinter, SET fdwFlags, INTEGER fdwOptions, LONGINT pPrinterNotifyOptions);
 __EXTERN INTEGER __STDCALL FindNextChangeNotification (LONGINT hChangeHandle);
+__EXTERN INTEGER __STDCALL FindNextFileA (LONGINT hFindFile, WinApi_WIN32_FIND_DATAA *lpFindFileData);
+__EXTERN INTEGER __STDCALL FindNextFileA (LONGINT hFindFile, WinApi_WIN32_FIND_DATAA *lpFindFileData);
+__EXTERN INTEGER __STDCALL FindNextFileW (LONGINT hFindFile, WinApi_WIN32_FIND_DATAW *lpFindFileData);
 __EXTERN INTEGER __STDCALL FindNextPrinterChangeNotification (LONGINT hChange, INTEGER *pdwChange, LONGINT pvReserved, LONGINT *ppPrinterNotifyInfo);
 __EXTERN LONGINT __STDCALL FindResourceA (LONGINT hModule, WinApi_PtrSTR lpName, WinApi_PtrSTR lpType);
 __EXTERN LONGINT __STDCALL FindResourceA (LONGINT hModule, WinApi_PtrSTR lpName, WinApi_PtrSTR lpType);
@@ -4774,6 +5933,7 @@ __EXTERN INTEGER __STDCALL FreeEnvironmentStringsA (WinApi_PtrSTR p0);
 __EXTERN INTEGER __STDCALL FreeEnvironmentStringsW (WinApi_PtrWSTR p0);
 __EXTERN INTEGER __STDCALL FreeLibrary (LONGINT hLibModule);
 __EXTERN void __STDCALL FreeLibraryAndExitThread (LONGINT hLibModule, INTEGER dwExitCode);
+__EXTERN INTEGER __STDCALL FreePrinterNotifyInfo (WinApi_PRINTER_NOTIFY_INFO *pPrinterNotifyInfo);
 __EXTERN INTEGER __STDCALL FreeResource (LONGINT hResData);
 __EXTERN LONGINT __STDCALL FreeSid (LONGINT pSid);
 __EXTERN INTEGER __STDCALL GdiComment (LONGINT p0, INTEGER p1, CHAR *p2);
@@ -4939,6 +6099,7 @@ __EXTERN INTEGER __STDCALL GetExpandedNameW (WinApi_PtrWSTR p0, WinApi_PtrWSTR p
 __EXTERN INTEGER __STDCALL GetFileAttributesA (WinApi_PtrSTR lpFileName);
 __EXTERN INTEGER __STDCALL GetFileAttributesA (WinApi_PtrSTR lpFileName);
 __EXTERN INTEGER __STDCALL GetFileAttributesW (WinApi_PtrWSTR lpFileName);
+__EXTERN INTEGER __STDCALL GetFileInformationByHandle (LONGINT hFile, WinApi_BY_HANDLE_FILE_INFORMATION *lpFileInformation);
 __EXTERN INTEGER __STDCALL GetFileSecurityA (WinApi_PtrSTR lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
 __EXTERN INTEGER __STDCALL GetFileSecurityA (WinApi_PtrSTR lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
 __EXTERN INTEGER __STDCALL GetFileSecurityW (WinApi_PtrWSTR lpFileName, SET RequestedInformation, LONGINT pSecurityDescriptor, INTEGER nLength, INTEGER *lpnLengthNeeded);
@@ -5172,6 +6333,7 @@ __EXTERN SHORTINT __STDCALL GetSystemDefaultLangID (void);
 __EXTERN INTEGER __STDCALL GetSystemDirectoryA (WinApi_PtrSTR lpBuffer, INTEGER uSize);
 __EXTERN INTEGER __STDCALL GetSystemDirectoryA (WinApi_PtrSTR lpBuffer, INTEGER uSize);
 __EXTERN INTEGER __STDCALL GetSystemDirectoryW (WinApi_PtrWSTR lpBuffer, INTEGER uSize);
+__EXTERN void __STDCALL GetSystemInfo (WinApi_SYSTEM_INFO *lpSystemInfo);
 __EXTERN LONGINT __STDCALL GetSystemMenu (LONGINT hWnd, INTEGER bRevert);
 __EXTERN INTEGER __STDCALL GetSystemMetrics (INTEGER nIndex);
 __EXTERN INTEGER __STDCALL GetSystemPaletteEntries (LONGINT p0, INTEGER p1, INTEGER p2, WinApi_PALETTEENTRY *p3);
@@ -5217,6 +6379,7 @@ __EXTERN LONGINT __STDCALL GetThreadDesktop (INTEGER dwThreadId);
 __EXTERN INTEGER __STDCALL GetThreadLocale (void);
 __EXTERN INTEGER __STDCALL GetThreadPriority (LONGINT hThread);
 __EXTERN INTEGER __STDCALL GetThreadPriorityBoost (LONGINT hThread, INTEGER *pDisablePriorityBoost);
+__EXTERN INTEGER __STDCALL GetThreadSelectorEntry (LONGINT hThread, INTEGER dwSelector, WinApi_LDT_ENTRY *lpSelectorEntry);
 __EXTERN INTEGER __STDCALL GetThreadTimes (LONGINT hThread, WinApi_FILETIME *lpCreationTime, WinApi_FILETIME *lpExitTime, WinApi_FILETIME *lpKernelTime, WinApi_FILETIME *lpUserTime);
 __EXTERN INTEGER __STDCALL GetTickCount (void);
 __EXTERN INTEGER __STDCALL GetTimeFormatA (INTEGER Locale, SET dwFlags, WinApi_SYSTEMTIME *lpTime, WinApi_PtrSTR lpFormat, WinApi_PtrSTR lpTimeStr, INTEGER cchTime);
@@ -5306,6 +6469,7 @@ __EXTERN LONGINT __STDCALL HeapReAlloc (LONGINT hHeap, SET dwFlags, LONGINT lpMe
 __EXTERN LONGINT __STDCALL HeapSize (LONGINT hHeap, SET dwFlags, LONGINT lpMem);
 __EXTERN INTEGER __STDCALL HeapUnlock (LONGINT hHeap);
 __EXTERN INTEGER __STDCALL HeapValidate (LONGINT hHeap, SET dwFlags, LONGINT lpMem);
+__EXTERN INTEGER __STDCALL HeapWalk (LONGINT hHeap, WinApi_PROCESS_HEAP_ENTRY *lpEntry);
 __EXTERN INTEGER __STDCALL HideCaret (LONGINT hWnd);
 __EXTERN INTEGER __STDCALL HiliteMenuItem (LONGINT hWnd, LONGINT hMenu, INTEGER uIDHiliteItem, INTEGER uHilite);
 __EXTERN INTEGER __STDCALL ImpersonateDdeClientWindow (LONGINT hWndClient, LONGINT hWndServer);
@@ -5590,7 +6754,11 @@ __EXTERN INTEGER __STDCALL PackDDElParam (INTEGER msg, INTEGER uiLo, INTEGER uiH
 __EXTERN INTEGER __STDCALL PaintDesktop (LONGINT hdc);
 __EXTERN INTEGER __STDCALL PaintRgn (LONGINT p0, LONGINT p1);
 __EXTERN INTEGER __STDCALL PatBlt (LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5);
+__EXTERN INTEGER __STDCALL PathIsDirectoryW (WinApi_PtrWSTR path);
 __EXTERN LONGINT __STDCALL PathToRegion (LONGINT p0);
+__EXTERN INTEGER __STDCALL PeekConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
+__EXTERN INTEGER __STDCALL PeekConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
+__EXTERN INTEGER __STDCALL PeekConsoleInputW (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
 __EXTERN INTEGER __STDCALL PeekMessageA (WinApi_MSG *lpMsg, LONGINT hWnd, INTEGER wMsgFilterMin, INTEGER wMsgFilterMax, INTEGER wRemoveMsg);
 __EXTERN INTEGER __STDCALL PeekMessageA (WinApi_MSG *lpMsg, LONGINT hWnd, INTEGER wMsgFilterMin, INTEGER wMsgFilterMax, INTEGER wRemoveMsg);
 __EXTERN INTEGER __STDCALL PeekMessageW (WinApi_MSG *lpMsg, LONGINT hWnd, INTEGER wMsgFilterMin, INTEGER wMsgFilterMax, INTEGER wRemoveMsg);
@@ -5629,6 +6797,9 @@ __EXTERN INTEGER __STDCALL PrivilegeCheck (LONGINT ClientToken, WinApi_PRIVILEGE
 __EXTERN INTEGER __STDCALL PrivilegedServiceAuditAlarmA (WinApi_PtrSTR SubsystemName, WinApi_PtrSTR ServiceName, LONGINT ClientToken, WinApi_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 __EXTERN INTEGER __STDCALL PrivilegedServiceAuditAlarmA (WinApi_PtrSTR SubsystemName, WinApi_PtrSTR ServiceName, LONGINT ClientToken, WinApi_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
 __EXTERN INTEGER __STDCALL PrivilegedServiceAuditAlarmW (WinApi_PtrWSTR SubsystemName, WinApi_PtrWSTR ServiceName, LONGINT ClientToken, WinApi_PRIVILEGE_SET *Privileges, INTEGER AccessGranted);
+__EXTERN INTEGER __STDCALL PropertySheetA (WinApi_PROPSHEETHEADERA *p0);
+__EXTERN INTEGER __STDCALL PropertySheetA (WinApi_PROPSHEETHEADERA *p0);
+__EXTERN INTEGER __STDCALL PropertySheetW (WinApi_PROPSHEETHEADERW *p0);
 __EXTERN INTEGER __STDCALL PtInRect (WinApi_RECT *lprc, WinApi_POINT pt);
 __EXTERN INTEGER __STDCALL PtInRegion (LONGINT p0, INTEGER p1, INTEGER p2);
 __EXTERN INTEGER __STDCALL PtVisible (LONGINT p0, INTEGER p1, INTEGER p2);
@@ -5651,10 +6822,16 @@ __EXTERN INTEGER __STDCALL QueueUserAPC (WinApi_APCFUNC pfnAPC, LONGINT hThread,
 __EXTERN void __STDCALL RaiseException (INTEGER dwExceptionCode, INTEGER dwExceptionFlags, INTEGER nNumberOfArguments, INTEGER *lpArguments);
 __EXTERN INTEGER __STDCALL ReadConsoleA (LONGINT hConsoleInput, LONGINT lpBuffer, INTEGER nNumberOfCharsToRead, INTEGER *lpNumberOfCharsRead, LONGINT lpReserved);
 __EXTERN INTEGER __STDCALL ReadConsoleA (LONGINT hConsoleInput, LONGINT lpBuffer, INTEGER nNumberOfCharsToRead, INTEGER *lpNumberOfCharsRead, LONGINT lpReserved);
+__EXTERN INTEGER __STDCALL ReadConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleInputW (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputA (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpReadRegion);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputA (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpReadRegion);
 __EXTERN INTEGER __STDCALL ReadConsoleOutputAttribute (LONGINT hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinApi_COORD dwReadCoord, INTEGER *lpNumberOfAttrsRead);
 __EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterA (LONGINT hConsoleOutput, WinApi_PtrSTR lpCharacter, INTEGER nLength, WinApi_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
 __EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterA (LONGINT hConsoleOutput, WinApi_PtrSTR lpCharacter, INTEGER nLength, WinApi_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
 __EXTERN INTEGER __STDCALL ReadConsoleOutputCharacterW (LONGINT hConsoleOutput, WinApi_PtrWSTR lpCharacter, INTEGER nLength, WinApi_COORD dwReadCoord, INTEGER *lpNumberOfCharsRead);
+__EXTERN INTEGER __STDCALL ReadConsoleOutputW (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpReadRegion);
 __EXTERN INTEGER __STDCALL ReadConsoleW (LONGINT hConsoleInput, LONGINT lpBuffer, INTEGER nNumberOfCharsToRead, INTEGER *lpNumberOfCharsRead, LONGINT lpReserved);
 __EXTERN INTEGER __STDCALL ReadDirectoryChangesW (LONGINT hDirectory, LONGINT lpBuffer, INTEGER nBufferLength, INTEGER bWatchSubtree, SET dwNotifyFilter, INTEGER *lpBytesReturned, WinApi_OVERLAPPED *lpOverlapped, WinApi_OVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 __EXTERN INTEGER __STDCALL ReadEventLogA (LONGINT hEventLog, SET dwReadFlags, INTEGER dwRecordOffset, LONGINT lpBuffer, INTEGER nNumberOfBytesToRead, INTEGER *pnBytesRead, INTEGER *pnMinNumberOfBytesNeeded);
@@ -5788,7 +6965,14 @@ __EXTERN INTEGER __STDCALL ReuseDDElParam (INTEGER lParam, INTEGER msgIn, INTEGE
 __EXTERN INTEGER __STDCALL RevertToSelf (void);
 __EXTERN INTEGER __STDCALL RoundRect (LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6);
 __EXTERN void __STDCALL RtlUnwind (LONGINT targetFrame, INTEGER targetIp, WinApi_PtrEXCEPTION_RECORD excpRec, INTEGER retVal);
+__EXTERN INTEGER __STDCALL SHAppBarMessage (INTEGER dwMessage, WinApi_APPBARDATA *pData);
+__EXTERN INTEGER __STDCALL SHFileOperationA (WinApi_SHFILEOPSTRUCTA *lpFileOp);
+__EXTERN INTEGER __STDCALL SHFileOperationA (WinApi_SHFILEOPSTRUCTA *lpFileOp);
+__EXTERN INTEGER __STDCALL SHFileOperationW (WinApi_SHFILEOPSTRUCTW *lpFileOp);
 __EXTERN void __STDCALL SHFreeNameMappings (LONGINT hNameMappings);
+__EXTERN INTEGER __STDCALL SHGetFileInfoA (WinApi_PtrSTR pszPath, SET dwFileAttributes, WinApi_SHFILEINFOA *psfi, INTEGER cbFileInfo, SET uFlags);
+__EXTERN INTEGER __STDCALL SHGetFileInfoA (WinApi_PtrSTR pszPath, SET dwFileAttributes, WinApi_SHFILEINFOA *psfi, INTEGER cbFileInfo, SET uFlags);
+__EXTERN INTEGER __STDCALL SHGetFileInfoW (WinApi_PtrWSTR pszPath, SET dwFileAttributes, WinApi_SHFILEINFOW *psfi, INTEGER cbFileInfo, SET uFlags);
 __EXTERN INTEGER __STDCALL SHGetNewLinkInfoA (WinApi_PtrSTR pszLinkTo, WinApi_PtrSTR pszDir, WinApi_PtrSTR pszName, INTEGER *pfMustCopy, SET uFlags);
 __EXTERN INTEGER __STDCALL SHGetNewLinkInfoA (WinApi_PtrSTR pszLinkTo, WinApi_PtrSTR pszDir, WinApi_PtrSTR pszName, INTEGER *pfMustCopy, SET uFlags);
 __EXTERN INTEGER __STDCALL SHGetNewLinkInfoW (WinApi_PtrWSTR pszLinkTo, WinApi_PtrWSTR pszDir, WinApi_PtrWSTR pszName, INTEGER *pfMustCopy, SET uFlags);
@@ -5797,6 +6981,9 @@ __EXTERN INTEGER __STDCALL ScaleViewportExtEx (LONGINT p0, INTEGER p1, INTEGER p
 __EXTERN INTEGER __STDCALL ScaleWindowExtEx (LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, WinApi_SIZE *p5);
 __EXTERN INTEGER __STDCALL ScheduleJob (LONGINT hPrinter, INTEGER JobId);
 __EXTERN INTEGER __STDCALL ScreenToClient (LONGINT hWnd, WinApi_POINT *lpPoint);
+__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferA (LONGINT hConsoleOutput, WinApi_SMALL_RECT *lpScrollRectangle, WinApi_SMALL_RECT *lpClipRectangle, WinApi_COORD dwDestinationOrigin, WinApi_CHAR_INFO *lpFill);
+__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferA (LONGINT hConsoleOutput, WinApi_SMALL_RECT *lpScrollRectangle, WinApi_SMALL_RECT *lpClipRectangle, WinApi_COORD dwDestinationOrigin, WinApi_CHAR_INFO *lpFill);
+__EXTERN INTEGER __STDCALL ScrollConsoleScreenBufferW (LONGINT hConsoleOutput, WinApi_SMALL_RECT *lpScrollRectangle, WinApi_SMALL_RECT *lpClipRectangle, WinApi_COORD dwDestinationOrigin, WinApi_CHAR_INFO *lpFill);
 __EXTERN INTEGER __STDCALL ScrollDC (LONGINT hDC, INTEGER dx, INTEGER dy, WinApi_RECT *lprcScroll, WinApi_RECT *lprcClip, LONGINT hrgnUpdate, WinApi_RECT *lprcUpdate);
 __EXTERN INTEGER __STDCALL ScrollWindow (LONGINT hWnd, INTEGER XAmount, INTEGER YAmount, WinApi_RECT *lpRect, WinApi_RECT *lpClipRect);
 __EXTERN INTEGER __STDCALL ScrollWindowEx (LONGINT hWnd, INTEGER dx, INTEGER dy, WinApi_RECT *prcScroll, WinApi_RECT *prcClip, LONGINT hrgnUpdate, WinApi_RECT *prcUpdate, SET flags);
@@ -5810,6 +6997,7 @@ __EXTERN LONGINT __STDCALL SelectPalette (LONGINT p0, LONGINT p1, INTEGER p2);
 __EXTERN INTEGER __STDCALL SendDlgItemMessageA (LONGINT hDlg, INTEGER nIDDlgItem, INTEGER Msg, LONGINT wParam, LONGINT lParam);
 __EXTERN INTEGER __STDCALL SendDlgItemMessageA (LONGINT hDlg, INTEGER nIDDlgItem, INTEGER Msg, LONGINT wParam, LONGINT lParam);
 __EXTERN INTEGER __STDCALL SendDlgItemMessageW (LONGINT hDlg, INTEGER nIDDlgItem, INTEGER Msg, LONGINT wParam, LONGINT lParam);
+__EXTERN INTEGER __STDCALL SendInput (INTEGER nInputs, WinApi_INPUT *pInputs, INTEGER cbSize);
 __EXTERN LONGINT __STDCALL SendMessageA (LONGINT hWnd, INTEGER Msg, LONGINT wParam, LONGINT lParam);
 __EXTERN LONGINT __STDCALL SendMessageA (LONGINT hWnd, INTEGER Msg, LONGINT wParam, LONGINT lParam);
 __EXTERN INTEGER __STDCALL SendMessageCallbackA (LONGINT hWnd, INTEGER Msg, LONGINT wParam, LONGINT lParam, WinApi_SENDASYNCPROC lpResultCallBack, INTEGER dwData);
@@ -5869,7 +7057,7 @@ __EXTERN INTEGER __STDCALL SetCurrentDirectoryA (WinApi_PtrSTR lpPathName);
 __EXTERN INTEGER __STDCALL SetCurrentDirectoryW (WinApi_PtrWSTR lpPathName);
 __EXTERN LONGINT __STDCALL SetCursor (LONGINT hCursor);
 __EXTERN INTEGER __STDCALL SetCursorPos (INTEGER X, INTEGER Y);
-__EXTERN INTEGER __STDCALL SetDIBColorTable (LONGINT p0, INTEGER p1, INTEGER p2, WinApi_RGBQUAD *p3, INTEGER p3__len);
+__EXTERN INTEGER __STDCALL SetDIBColorTable (LONGINT p0, INTEGER p1, INTEGER p2, WinApi_RGBQUAD *p3);
 __EXTERN INTEGER __STDCALL SetDIBits (LONGINT p0, LONGINT p1, INTEGER p2, INTEGER p3, LONGINT p4, WinApi_BITMAPINFO *p5, INTEGER p6);
 __EXTERN INTEGER __STDCALL SetDIBitsToDevice (LONGINT p0, INTEGER p1, INTEGER p2, INTEGER p3, INTEGER p4, INTEGER p5, INTEGER p6, INTEGER p7, INTEGER p8, LONGINT p9, WinApi_BITMAPINFO *p10, INTEGER p11);
 __EXTERN void __STDCALL SetDebugErrorLevel (INTEGER dwLevel);
@@ -6036,7 +7224,13 @@ __EXTERN INTEGER __STDCALL ShellAboutA (LONGINT hWnd, WinApi_PtrSTR szApp, WinAp
 __EXTERN INTEGER __STDCALL ShellAboutW (LONGINT hWnd, WinApi_PtrWSTR szApp, WinApi_PtrWSTR szOtherStuff, LONGINT hIcon);
 __EXTERN LONGINT __STDCALL ShellExecuteA (LONGINT hwnd, WinApi_PtrSTR lpOperation, WinApi_PtrSTR lpFile, WinApi_PtrSTR lpParameters, WinApi_PtrSTR lpDirectory, INTEGER nShowCmd);
 __EXTERN LONGINT __STDCALL ShellExecuteA (LONGINT hwnd, WinApi_PtrSTR lpOperation, WinApi_PtrSTR lpFile, WinApi_PtrSTR lpParameters, WinApi_PtrSTR lpDirectory, INTEGER nShowCmd);
+__EXTERN INTEGER __STDCALL ShellExecuteExA (WinApi_SHELLEXECUTEINFOA *lpExecInfo);
+__EXTERN INTEGER __STDCALL ShellExecuteExA (WinApi_SHELLEXECUTEINFOA *lpExecInfo);
+__EXTERN INTEGER __STDCALL ShellExecuteExW (WinApi_SHELLEXECUTEINFOW *lpExecInfo);
 __EXTERN LONGINT __STDCALL ShellExecuteW (LONGINT hwnd, WinApi_PtrWSTR lpOperation, WinApi_PtrWSTR lpFile, WinApi_PtrWSTR lpParameters, WinApi_PtrWSTR lpDirectory, INTEGER nShowCmd);
+__EXTERN INTEGER __STDCALL Shell_NotifyIconA (INTEGER dwMessage, WinApi_NOTIFYICONDATAA *lpData);
+__EXTERN INTEGER __STDCALL Shell_NotifyIconA (INTEGER dwMessage, WinApi_NOTIFYICONDATAA *lpData);
+__EXTERN INTEGER __STDCALL Shell_NotifyIconW (INTEGER dwMessage, WinApi_NOTIFYICONDATAW *lpData);
 __EXTERN INTEGER __STDCALL ShowCaret (LONGINT hWnd);
 __EXTERN INTEGER __STDCALL ShowCursor (INTEGER bShow);
 __EXTERN INTEGER __STDCALL ShowOwnedPopups (LONGINT hWnd, INTEGER fShow);
@@ -6154,6 +7348,7 @@ __EXTERN SHORTINT __STDCALL VkKeyScanExA (CHAR ch, LONGINT dwhkl);
 __EXTERN SHORTINT __STDCALL VkKeyScanExW (LONGCHAR ch, LONGINT dwhkl);
 __EXTERN SHORTINT __STDCALL VkKeyScanW (LONGCHAR ch);
 __EXTERN INTEGER __STDCALL WaitCommEvent (LONGINT hFile, SET *lpEvtMask, WinApi_OVERLAPPED *lpOverlapped);
+__EXTERN INTEGER __STDCALL WaitForDebugEvent (WinApi_DEBUG_EVENT *lpDebugEvent, INTEGER dwMilliseconds);
 __EXTERN INTEGER __STDCALL WaitForInputIdle (LONGINT hProcess, INTEGER dwMilliseconds);
 __EXTERN INTEGER __STDCALL WaitForMultipleObjects (INTEGER nCount, LONGINT *lpHandles, INTEGER bWaitAll, INTEGER dwMilliseconds);
 __EXTERN INTEGER __STDCALL WaitForMultipleObjectsEx (INTEGER nCount, LONGINT *lpHandles, INTEGER bWaitAll, INTEGER dwMilliseconds, INTEGER bAlertable);
@@ -6174,10 +7369,16 @@ __EXTERN LONGINT __STDCALL WindowFromDC (LONGINT hDC);
 __EXTERN LONGINT __STDCALL WindowFromPoint (WinApi_POINT Point);
 __EXTERN INTEGER __STDCALL WriteConsoleA (LONGINT hConsoleOutput, LONGINT lpBuffer, INTEGER nNumberOfCharsToWrite, INTEGER *lpNumberOfCharsWritten, LONGINT lpReserved);
 __EXTERN INTEGER __STDCALL WriteConsoleA (LONGINT hConsoleOutput, LONGINT lpBuffer, INTEGER nNumberOfCharsToWrite, INTEGER *lpNumberOfCharsWritten, LONGINT lpReserved);
+__EXTERN INTEGER __STDCALL WriteConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleInputA (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleInputW (LONGINT hConsoleInput, WinApi_INPUT_RECORD *lpBuffer, INTEGER nLength, INTEGER *lpNumberOfEventsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputA (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpWriteRegion);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputA (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpWriteRegion);
 __EXTERN INTEGER __STDCALL WriteConsoleOutputAttribute (LONGINT hConsoleOutput, SHORTINT *lpAttribute, INTEGER nLength, WinApi_COORD dwWriteCoord, INTEGER *lpNumberOfAttrsWritten);
 __EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterA (LONGINT hConsoleOutput, WinApi_PtrSTR lpCharacter, INTEGER nLength, WinApi_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 __EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterA (LONGINT hConsoleOutput, WinApi_PtrSTR lpCharacter, INTEGER nLength, WinApi_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
 __EXTERN INTEGER __STDCALL WriteConsoleOutputCharacterW (LONGINT hConsoleOutput, WinApi_PtrWSTR lpCharacter, INTEGER nLength, WinApi_COORD dwWriteCoord, INTEGER *lpNumberOfCharsWritten);
+__EXTERN INTEGER __STDCALL WriteConsoleOutputW (LONGINT hConsoleOutput, WinApi_CHAR_INFO *lpBuffer, WinApi_COORD dwBufferSize, WinApi_COORD dwBufferCoord, WinApi_SMALL_RECT *lpWriteRegion);
 __EXTERN INTEGER __STDCALL WriteConsoleW (LONGINT hConsoleOutput, LONGINT lpBuffer, INTEGER nNumberOfCharsToWrite, INTEGER *lpNumberOfCharsWritten, LONGINT lpReserved);
 __EXTERN INTEGER __STDCALL WriteFile (LONGINT hFile, LONGINT lpBuffer, INTEGER nNumberOfBytesToWrite, INTEGER *lpNumberOfBytesWritten, WinApi_OVERLAPPED *lpOverlapped);
 __EXTERN INTEGER __STDCALL WriteFileEx (LONGINT hFile, LONGINT lpBuffer, INTEGER nNumberOfBytesToWrite, WinApi_OVERLAPPED *lpOverlapped, WinApi_OVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
@@ -6253,7 +7454,6 @@ __EXTERN INTEGER wsprintfW (WinApi_PtrWSTR p0, WinApi_PtrWSTR p1);
 __EXTERN INTEGER __STDCALL wvsprintfA (WinApi_PtrSTR p0, WinApi_PtrSTR p1, WinApi_PtrSTR arglist);
 __EXTERN INTEGER __STDCALL wvsprintfA (WinApi_PtrSTR p0, WinApi_PtrSTR p1, WinApi_PtrSTR arglist);
 __EXTERN INTEGER __STDCALL wvsprintfW (WinApi_PtrWSTR p0, WinApi_PtrWSTR p1, WinApi_PtrSTR arglist);
-#define WinApi__init()
 
 #define WinApi_CmdLine()  __lpCmdLine
 #define WinApi_CmdShow()  __nCmdShow

@@ -1,6 +1,6 @@
 @ECHO OFF
-IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev
+IF "%XDev%"=="" SET WinDev=%CD%\..\..
 SET PATH=%WinDev%\Bin\MinGW64\bin;%PATH%
 
 SET Options=-m64 -Os -g0 -fomit-frame-pointer -finline-small-functions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -ffunction-sections

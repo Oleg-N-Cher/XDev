@@ -13,7 +13,6 @@ import SHORTREAL o7Math_Exp (SHORTREAL x);
 import SHORTREAL o7Math_Ln (SHORTREAL x);
 import SHORTREAL o7Math_Sin (SHORTREAL x);
 import SHORTREAL o7Math_Sqrt (SHORTREAL x);
-#define o7Math__init()
 
 
 #endif

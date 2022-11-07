@@ -9,4 +9,20 @@ BEGIN
   RETURN len
 END Length;
 
+PROCEDURE Find* (s, pat: ARRAY OF CHAR; start: INTEGER; VAR pos: INTEGER);
+	VAR j: INTEGER;
+BEGIN
+	ASSERT(start >= 0, 20);
+	IF (start = 0) OR (start <= LEN(s$) - LEN(pat$)) THEN
+		(* start = 0 is optimization: need not call Len *)
+		pos := start;
+		WHILE s[pos] # 0X DO j := 0;
+			WHILE (s[pos+j] = pat[j]) & (pat[j] # 0X) DO INC(j) END;
+			IF pat[j] = 0X THEN RETURN END;
+			INC(pos)
+		END
+	END;
+	pos := -1	(* pattern not found *)
+END Find;
+
 END Strings.

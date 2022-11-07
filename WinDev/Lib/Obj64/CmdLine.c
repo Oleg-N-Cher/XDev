@@ -63,7 +63,6 @@ void CmdLine_GetParamInt (INTEGER n, INTEGER *val)
 export void *CmdLine__init (void)
 {
   __DEFMOD;
-  __IMPORT(Ignore__init);
   __REGMOD("CmdLine", 0);
 /* BEGIN */
   Ignore_Int(__getmainargs(&CmdLine_ParamCount, &CmdLine_argv, &CmdLine_dummy, 0, &CmdLine_dummy));

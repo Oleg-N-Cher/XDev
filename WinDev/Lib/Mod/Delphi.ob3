@@ -1,4 +1,4 @@
-MODULE Delphi;
+MODULE [noinit] Delphi;
 
 IMPORT SYSTEM;
 

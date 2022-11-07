@@ -1,7 +1,8 @@
 @ECHO OFF
-IF "%XDev%"=="" SET XDev=..
 SET WinDev=%XDev%\WinDev
+IF "%XDev%"=="" SET WinDev=%CD%\..
 SET PATH=%WinDev%\Bin\MinGW\bin;%PATH%
+
 IF "%MainMod%"=="" SET MainMod=%1
 IF "%MainMod%"=="%1" GOTO Build
 

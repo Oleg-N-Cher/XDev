@@ -8,7 +8,6 @@
 
 
 
-#define Ignore__init()
 
 #define Ignore_Bool(b)  b
 #define Ignore_Char(ch)  ch

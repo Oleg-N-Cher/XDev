@@ -48,7 +48,7 @@ void ConsoleWinApi_WriteInt (INTEGER n)
   CHAR s[11];
   INTEGER i1, k;
   if (n == (-2147483647-1)) {
-    __MOVE("8463847412", s, 11);
+    __MOVE((CHAR*)"8463847412", s, 11);
     k = 10;
   } else {
     i1 = __ABS(n);
@@ -78,7 +78,7 @@ void ConsoleWinApi_WriteLong (LONGINT n)
   LONGINT i1;
   INTEGER k;
   if (n == (-9223372036854775807LL-1)) {
-    __MOVE("8085774586302733229", s, 20);
+    __MOVE((CHAR*)"8085774586302733229", s, 20);
     k = 19;
   } else {
     i1 = __ABS(n);
@@ -152,7 +152,7 @@ void ConsoleWinApi_WriteReal (REAL x)
   if (e == 0) {
     ConsoleWinApi_WriteCh('0');
   } else if (ConsoleWinApi_IsNaN(x)) {
-    ConsoleWinApi_WriteStr((void*)"NaN", 4);
+    ConsoleWinApi_WriteStr((CHAR*)"NaN", 4);
   } else {
     if (x < (REAL)0) {
       ConsoleWinApi_WriteCh('-');
@@ -226,9 +226,7 @@ void ConsoleWinApi_WriteRealFix (REAL x, INTEGER n)
 export void *ConsoleWinApi__init (void)
 {
   __DEFMOD;
-  __IMPORT(Ignore__init);
   __IMPORT(Strings__init);
-  __IMPORT(WinApi__init);
   __REGMOD("ConsoleWinApi", 0);
   __REGCMD("WriteLn", ConsoleWinApi_WriteLn);
 /* BEGIN */

@@ -8,6 +8,7 @@
 
 
 
+import void Strings_Find (CHAR *s, INTEGER s__len, CHAR *pat, INTEGER pat__len, INTEGER start, INTEGER *pos);
 import INTEGER Strings_Length (CHAR *str, INTEGER str__len);
 import void *Strings__init (void);
 

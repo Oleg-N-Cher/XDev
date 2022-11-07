@@ -64,7 +64,7 @@ export BOOLEAN Files_RenameFile (CHAR *oldname, INTEGER oldname__len, CHAR *newn
 
 void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len)
 {
-  (*file).handle = Files_fopen((void*)fname, fname__len, (void*)"rb", 3);
+  (*file).handle = Files_fopen((void*)fname, fname__len, (CHAR*)"rb", 3);
   if ((*file).handle != Files_NULL()) {
     (*file).prevbyte = Files_fgetc((*file).handle);
     if ((*file).prevbyte != Files_EOF()) {
@@ -87,7 +87,7 @@ void Files_File_OpenToRead (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fn
 void Files_File_OpenToWrite (Files_File *file, SYSTEM_ADRINT *file__typ, CHAR *fname, INTEGER fname__len)
 {
   (*file).error = 0;
-  (*file).handle = Files_fopen((void*)fname, fname__len, (void*)"wb", 3);
+  (*file).handle = Files_fopen((void*)fname, fname__len, (CHAR*)"wb", 3);
   if ((*file).handle == 0) {
     (*file).error = 1;
   }

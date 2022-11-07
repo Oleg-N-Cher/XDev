@@ -8,7 +8,6 @@
 
 
 
-#define CMath__init()
 
 #include <math.h>
 #define CMath_cos(x)  cosf(x)
