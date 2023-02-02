@@ -1,1 +1,1 @@
--sx3 -21 Asm.Def -C Basic.Def -C Laser.Def -C Laser2.Def -C
+-sx -21 Asm.Def -C Basic.Def -C Laser.Def -C Laser2.Def -C
