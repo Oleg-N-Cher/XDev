@@ -104,7 +104,6 @@ extern INTEGER SYSTEM_INFS;
 
 // Run time system routines in SYSTEM.c
 
-extern int     SYSTEM_STRCMP (CHAR *x, CHAR *y);
 extern LONGINT SYSTEM_XCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
 extern LONGINT SYSTEM_RCHK   (LONGINT i, LONGINT ub, CHAR *mod, INTEGER pos);
 extern INTEGER SYSTEM_ASH    (INTEGER x, INTEGER n);
@@ -173,39 +172,63 @@ static inline INTEGER __CSTRLENL (LONGCHAR *str) { // LEN(CstrLong$)
 
 // String comparison
 
-static inline INTEGER __STRCMPCC (CHAR *a, CHAR *b)  // ca = cb
+static inline INTEGER __STRCMPCC (  // ca = cb
+  CHAR *a, CHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while (*a == *b && *b != 0) { a++; b++; }
+  while (*a == *b && *b != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return *a - *b;
 }
 
-static inline INTEGER __STRCMPTC (LONGCHAR *a, CHAR *b)  // SHORT(la) = cb
+static inline INTEGER __STRCMPTC (  // SHORT(la) = cb
+  LONGCHAR *a, CHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while ((*a & 0xff) == *b && *b != 0) { a++; b++; }
+  while ((*a & 0xff) == *b && *b != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return (*a & 0xff) - *b;
 }
 
-static inline INTEGER __STRCMPTT (LONGCHAR *a, LONGCHAR *b)  // SHORT(la) = SHORT(lb)
+static inline INTEGER __STRCMPTT (  // SHORT(la) = SHORT(lb)
+  LONGCHAR *a, LONGCHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while ((*a & 0xff) == (*b & 0xff) && (*b & 0xff) != 0) { a++; b++; }
+  while ((*a & 0xff) == (*b & 0xff) && (*b & 0xff) != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return (*a & 0xff) - (*b & 0xff);
 }
 
-static inline INTEGER __STRCMPLL (LONGCHAR *a, LONGCHAR *b)  // la = lb
+static inline INTEGER __STRCMPLL (  // la = lb
+  LONGCHAR *a, LONGCHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while (*a == *b && *b != 0) { a++; b++; }
+  while (*a == *b && *b != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return *a - *b;
 }
 
-static inline INTEGER __STRCMPCL (CHAR *a, LONGCHAR *b)  // LONG(ca) = lb
+static inline INTEGER __STRCMPCL (  // LONG(ca) = lb
+  CHAR *a, LONGCHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while (*a == *b && *b != 0) { a++; b++; }
+  while (*a == *b && *b != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return *a - *b;
 }
 
-static inline INTEGER __STRCMPTL (CHAR *a, CHAR *b)  // LONG(SHORT(la)) = lb
+static inline INTEGER __STRCMPTL (  // LONG(SHORT(la)) = lb
+  CHAR *a, CHAR *b, INTEGER max_len, CHAR *mod, INTEGER pos)
 {
-  while ((*a & 0xff) == *b && *b != 0) { a++; b++; }
+  while ((*a & 0xff) == *b && *b != 0) {
+    if (--max_len == 0) __HALT(-8, mod, pos);
+    a++; b++;
+  }
   return (*a & 0xff) - *b;
 }
 
@@ -371,8 +394,8 @@ static inline REAL __MAXFD (REAL x, REAL y)                { return x>y?x:y; }
 // Runtime checks
 
 #ifndef SYSTEM_Cfg_NoCheck_X
-#  define __X(i, ub, mod, pos)  (((__U_LONGINT)(i)<(__U_LONGINT)(ub))?i:(__HALT(-2,mod,pos), 0))
-#  define __XF(i, ub, mod, pos) SYSTEM_XCHK((LONGINT)(i), (LONGINT)(ub), mod, pos)
+#  define __X(i, ub, mod, pos)  (((__U_INTEGER)(i)<(__U_INTEGER)(ub))?i:(__HALT(-2,mod,pos), 0))
+#  define __XF(i, ub, mod, pos) SYSTEM_XCHK((INTEGER)(i), (INTEGER)(ub), mod, pos)
 #else
 #  define __X(i, ub, mod, pos)	(i)
 #  define __XF(i, ub, mod, pos)	(i)
@@ -504,7 +527,7 @@ extern void SYSTEM_ENUMR  (void *adr, SYSTEM_ADRINT *typ, SYSTEM_ADRINT size, SY
      memcpy(t##__desc.basep, t0##__typ - __BASEOFF, level*sizeof(SYSTEM_ADRINT));   \
      t##__desc.basep[level] = (SYSTEM_ADRINT)t##__typ;                              \
      t##__desc.module       = (SYSTEM_ADRINT)m;                                     \
-     if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15, "SYSTEM.h", 352);            \
+     if(t##__desc.blksz!=sizeof(struct t)) __HALT(-15, "SYSTEM.oh", 531);           \
      t##__desc.blksz        = (t##__desc.blksz+5*sizeof(SYSTEM_ADRINT)-1)/(4*sizeof(SYSTEM_ADRINT))*(4*sizeof(SYSTEM_ADRINT)); \
      Heap_REGTYP(m, (SYSTEM_ADRINT)&t##__desc.next);                                \
      SYSTEM_INHERIT(t##__typ, t0##__typ)
