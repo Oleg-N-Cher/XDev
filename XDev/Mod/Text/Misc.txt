@@ -1,5 +1,5 @@
-(* Copyright (C) 2012-2013 Oleg N. Cher, VEDAsoft Oberon Club *)
-(* http://zx.oberon2.ru *)
+(* Copyright (C) 2012-2023 Oleg N. Cher, VEDAsoft Oberon Club *)
+(* http://zx.oberon.org *)
 
 MODULE XDevMisc;
 IMPORT
@@ -44,5 +44,12 @@ PROCEDURE SetCurrentDir* (IN curdir: ARRAY OF CHAR): BOOLEAN;
 BEGIN
   RETURN WinApi.SetCurrentDirectoryW(curdir) # 0
 END SetCurrentDir;
+
+PROCEDURE SetEnv* (IN name, val: ARRAY OF CHAR);
+BEGIN
+  SYSTEM.PUTREG(0,
+    WinApi.SetEnvironmentVariableW(name, val)
+  )
+END SetEnv;
 
 END XDevMisc.

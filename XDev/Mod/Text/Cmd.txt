@@ -499,5 +499,6 @@ END ShowDef;
 
 BEGIN
 	rootDir := Files.dir.This("")(HostFiles.Locator).path$;
-	IF XDevMisc.SetCurrentDir(rootDir) THEN END
+	IF XDevMisc.SetCurrentDir(rootDir) THEN END;
+	XDevMisc.SetEnv("XDev", rootDir)
 END XDevCmd.

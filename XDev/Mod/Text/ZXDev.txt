@@ -5,7 +5,7 @@ MODULE XDevZXDev;
 
 IMPORT
 	Dialog, Controllers, Cmd := XDevCmd, Files, HostFiles, StdCmds,
-	Strings, TextModels, TextViews, Windows;
+	Strings, TextModels, TextViews, Windows, XDevMisc;
 
 CONST
 	Config = "Config.pzx"; ConfigExt = "pzx";
@@ -213,4 +213,16 @@ BEGIN
 	Cmd.Close
 END SaveProjectSettings;
 
+BEGIN
+	XDevMisc.SetEnv("MainMod", "");
+	XDevMisc.SetEnv("CodeAdr", "");
+	XDevMisc.SetEnv("DataAdr", "");
+	XDevMisc.SetEnv("Modules", "");
+	XDevMisc.SetEnv("Options", "");
+	XDevMisc.SetEnv("Include", "");
+	XDevMisc.SetEnv("Libraries", "");
+	XDevMisc.SetEnv("Target", "");
+	XDevMisc.SetEnv("Clean", "");
+	XDevMisc.SetEnv("Start", "");
+	XDevMisc.SetEnv("Pause", "")
 END XDevZXDev.
