@@ -8,6 +8,7 @@
 
 
 
+import BOOLEAN Delphi_CompareMem (LONGINT p1, LONGINT p2, INTEGER length);
 import INTEGER Delphi_HiWord (INTEGER i);
 import INTEGER Delphi_LoWord (INTEGER i);
 

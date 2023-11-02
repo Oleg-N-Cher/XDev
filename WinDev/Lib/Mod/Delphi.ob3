@@ -12,4 +12,28 @@ BEGIN
   RETURN ORD( BITS(i) * BITS(0FFFFH) )
 END LoWord;
 
+PROCEDURE CompareMem* (p1, p2: ADRINT; length: INT32): BOOLEAN;
+  VAR byte1, byte2: INT8; word1, word2: ADRINT;
+BEGIN
+  IF (p1 MOD SIZE(ADRINT) = 0) & (p2 MOD SIZE(ADRINT) = 0) THEN
+    WHILE length >= SIZE(ADRINT) DO
+      SYSTEM.GET(p1, @word1);
+      SYSTEM.GET(p2, @word2);
+      IF word1 # word2 THEN RETURN FALSE END;
+      INC(@p1, SIZE(ADRINT));
+      INC(@p2, SIZE(ADRINT));
+      DEC(@length, SIZE(ADRINT));
+    END;
+  END;
+  WHILE length > 0 DO
+    SYSTEM.GET(p1, @byte1);
+    SYSTEM.GET(p2, @byte2);
+    IF byte1 # byte2 THEN RETURN FALSE END;
+    INC(@p1);
+    INC(@p2);
+    DEC(@length);
+  END;
+  RETURN TRUE
+END CompareMem;
+
 END Delphi.
