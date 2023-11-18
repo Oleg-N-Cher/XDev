@@ -15,6 +15,7 @@ END LoWord;
 PROCEDURE CompareMem* (p1, p2: ADRINT; length: INT32): BOOLEAN;
   VAR byte1, byte2: INT8; word1, word2: ADRINT;
 BEGIN
+  ASSERT(length > 0);
   IF (p1 MOD SIZE(ADRINT) = 0) & (p2 MOD SIZE(ADRINT) = 0) THEN
     WHILE length >= SIZE(ADRINT) DO
       SYSTEM.GET(p1, @word1);
