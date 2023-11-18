@@ -6,7 +6,7 @@ VAR
 BEGIN
   B.Init; B.CLS;
   C.font := SYSTEM.ADR(GrFonts.HalfSpaceRus6x8);
-  C.At(0, 23); n := 1; REPEAT C.Ch(CHR(n)); INC(n) UNTIL n = -3;
+  C.At(0, 23); n := 1; REPEAT C.Ch(CHR(n)); INC(@n) UNTIL n = -3;
   FOR n := 0 TO 16 DO C.At(n, n); C.Str("Привет, Савелий !!!") END;
   B.PAUSE(0);
   B.Quit

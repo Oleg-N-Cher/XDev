@@ -1,6 +1,6 @@
-MODULE CirclFilled; IMPORT B := Basic, Best40;
+MODULE CirclFilled; IMPORT SYSTEM, B := Basic, Best40;
 
-VAR r: INT16;
+VAR r: SYSTEM.BYTE;
 
 BEGIN (*$MAIN*)
   B.Init;

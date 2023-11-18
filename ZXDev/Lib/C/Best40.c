@@ -21,15 +21,15 @@ void Best40_PSRL_LF (void);
 void Best40_PSRL_RG (void);
 void Best40_PSRL_UP (void);
 void Best40_PSRL_DN (void);
-void Best40_SCR_MRG (unsigned int scr_addr);
+void Best40_SCR_MRG (unsigned int scr_addr) __z88dk_fastcall;
 void Best40_SCR_INV (void);
-void Best40_SINV_UD (unsigned int char_addr);
-void Best40_SINV_LR (unsigned int char_addr);
-void Best40_SROTATE (unsigned int char_addr);
-void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or);
-void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to);
-void Best40_PAINT (unsigned char x, unsigned char y);
-unsigned char Best40_POINT (unsigned char x, unsigned char y);
+void Best40_SINV_UD (unsigned int char_addr) __z88dk_fastcall;
+void Best40_SINV_LR (unsigned int char_addr) __z88dk_fastcall;
+void Best40_SROTATE (unsigned int char_addr) __z88dk_fastcall;
+void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or) __z88dk_callee;
+void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to) __z88dk_callee;
+void Best40_PAINT (unsigned char x, unsigned char y) __z88dk_callee;
+unsigned char Best40_POINT (unsigned char x, unsigned char y) __z88dk_callee;
 void Best40_PFIGURE (unsigned char x, unsigned char y, unsigned char *pattern);
 void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
   unsigned char x2_old, unsigned char y2_old, unsigned char xscale,
@@ -37,7 +37,7 @@ void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
 void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
   unsigned int adr, unsigned char mode);
-void Best40_SCREEN_APART (unsigned char steps);
+void Best40_SCREEN_APART (unsigned char steps) __z88dk_fastcall;
 void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee;
 void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee;
 
@@ -354,12 +354,8 @@ __endasm;
 
 // Слияние картинок (17<=21)
 
-void Best40_SCR_MRG (unsigned int scr_addr) __naked {
+void Best40_SCR_MRG (unsigned int scr_addr) __naked __z88dk_fastcall {
 __asm
-          POP     DE
-          POP     HL           // взяли адрес картинки из ячейки
-          PUSH    HL
-          PUSH    DE
           LD      DE,#0x4000   // адрес экранной области
 LP_SCRM$: LD      A,(DE)       // байт изображения с экрана
           OR      (HL)         // "слили" с байтом картинки в памяти
@@ -394,12 +390,8 @@ __endasm;
 
 // Инвертирование символа вертикально (20)
 
-void Best40_SINV_UD (unsigned int char_addr) __naked {
+void Best40_SINV_UD (unsigned int char_addr) __naked __z88dk_fastcall {
 __asm
-          POP     DE
-          POP     HL           // взяли из ячейки адрес символа
-          PUSH    HL
-          PUSH    DE
           LD      D,H          // сохранили этот
           LD      E,L          //  адрес в DE
           LD      B,#0x08      // в символе - 8 байт
@@ -420,12 +412,8 @@ __endasm;
 
 // Инвертирование символа горизонтально (17<=19)
 
-void Best40_SINV_LR (unsigned int char_addr) {
+void Best40_SINV_LR (unsigned int char_addr) __naked __z88dk_fastcall {
 __asm
-          POP     DE
-          POP     HL           // берём из ячейки адрес символа
-          PUSH    HL
-          PUSH    DE
           LD      B,#0x08      // модифицируем: 8 байт
 LP_SIL1$: LD      A,#0x01      // устанавливаем нулевой бит A в 1
 LP_SIL2$: RR      (HL)         // вращаем байт символа вправо
@@ -442,12 +430,8 @@ __endasm;
 
 // Вращение символа по часовой стрелке (26<=42)
 
-void Best40_SROTATE (unsigned int char_addr) {
+void Best40_SROTATE (unsigned int char_addr) __naked __z88dk_fastcall {
 __asm
-          POP     DE
-          POP     HL           // адрес вращаемого символа из ячейки
-          PUSH    HL
-          PUSH    DE
           LD      B,#0x08      // 8 вертикальных колонок в символе
 LP_SRO1$: PUSH    HL           // сохранили адрес на стеке
           LD      A,#0x80      // включили 7-ой бит в аккумуляторе
@@ -471,11 +455,10 @@ __endasm;
 
 // Изменение атрибута (16<=21)
 
-void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or) __naked {
+void Best40_ACHANGE (unsigned char attr_and, unsigned char attr_or) __naked __z88dk_callee {
 __asm
-          POP     HL
-          POP     BC           // C - маска битов для операции AND
-          PUSH    BC           // B - маска битов для операции OR
+          POP     HL           // C - маска битов для операции AND
+          POP     BC           // B - маска битов для операции OR
           LD      DE,#0x5AFF   // последний байт области атрибутов
 LP_ACHN$: LD      A,(DE)       // взяли текущее значение атрибута
           AND     C            // отбросили лишние биты
@@ -492,12 +475,11 @@ __endasm;
 
 // Смена атрибута (18<=22)
 
-void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to) __naked {
+void Best40_AREPLC (unsigned char attr_from, unsigned char attr_to) __naked __z88dk_callee {
 __asm
           POP     HL
           POP     DE           // E - что искать
-          PUSH    DE           // D - чем заменять
-          PUSH    HL
+          PUSH    HL           // D - чем заменять
           LD      HL,#0x5AFF   // последний байт области атрибутов
 LP_ARPL$: LD      A,(HL)       // взяли байт из области атрибутов
           CP      E            // не тот ли, что ищем?
@@ -515,12 +497,10 @@ __endasm;
 // Закрашивание контура (123<=263)
 //  123=88+35 - вместе с процедурой POINT
 
-void Best40_PAINT (unsigned char x, unsigned char y) __naked {
+void Best40_PAINT (unsigned char x, unsigned char y) __naked __z88dk_callee {
 __asm
-          POP     DE
           POP     HL           // L = координата X начальной точки
-          PUSH    HL           // координата Y начальной точки
-          PUSH    DE
+          EX      (SP),HL      // H = координата Y начальной точки
           LD      A,H          // проверяем координату Y на выход
           CP      #0xC0        //  за пределы экрана:
           RET     NC           //  если Y>=192, то экстренный выход
@@ -587,14 +567,14 @@ __endasm;
 
 // Проверка состояния точки и вычисление адреса в экране (35<=70)
 
-unsigned char Best40_POINT (unsigned char x, unsigned char y) {
+unsigned char Best40_POINT (unsigned char x, unsigned char y) __naked __z88dk_callee {
 __asm
           POP     HL
-          POP     DE           // E = координата X
-          PUSH    DE           // D = координата Y
+          POP     DE           // E = координата X; D = координата Y
           PUSH    HL
           CALL    __POINT__    // вызов POINT
           LD      L,A          // результат: 0 (FALSE) или не 0 (TRUE)
+          RET
 __endasm;
 } //Best40_POINT
 
@@ -641,13 +621,11 @@ __endasm;
 // Построение шаблонов (98<=196)
 //  98+35=133 - вместе с процедурой POINT
 
-void Best40_PFIGURE_E (unsigned char x, unsigned char y, unsigned char *pattern) __naked {
+void Best40_PFIGURE_E (unsigned char x, unsigned char y, unsigned char *pattern) __naked __z88dk_callee {
 __asm
           POP     BC
           POP     DE           // координаты E=X, D=Y начальной точки
           POP     HL           // адрес шаблона pattern в памяти
-          PUSH    BC
-          PUSH    BC
           PUSH    BC
           DEC     HL           // первый раз адрес остаётся неизменным
 LP_PFG3$: INC     HL           //  потом будем прибавлять, переходя к след.симв.
@@ -869,7 +847,7 @@ Listing 2. Быстрый вывод спрайта
 
 void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode) {
+  unsigned int adr, unsigned char mode) __naked {
 __asm
          PUSH    IX
          LD      IX,#4
@@ -1028,14 +1006,11 @@ __endasm;
 } //Best40_PUTSPR
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Best40_SCREEN_APART (unsigned char steps) {
+void Best40_SCREEN_APART (unsigned char steps) __naked __z88dk_fastcall {
 __asm
 ;  SCREEN-APART
 ;(c) SerzhSoft, 11 july 1997
-
-          LD      HL,#2
-          ADD     HL,SP
-          LD      B,(HL)      ;B=число пар сдвигов экрана в стороны
+          LD      B,L         ;B=число пар сдвигов экрана в стороны
 APART$:                       ;Используется переменная ATTR_P
 LP_APR1$: PUSH    BC          ;сохраняем счетчик сдвигов на стеке
           LD      A,(23693)   ;A=атрибуты для заполн. после сдига
@@ -1063,6 +1038,7 @@ LP_APR2$: LD      H,D         ;скопировали этот адрес
           JR      NZ,LP_APR2$ ; то продолжаем крутить цикл
           POP     BC          ;восстанавливаем счетчик сдвигов
           DJNZ    LP_APR1$    ;крутим цикл положенное число раз
+          RET
 __endasm;
 } //Best40_SCREEN_APART
 

@@ -18,7 +18,7 @@ VAR
 
 BEGIN
   B.Init;
-  NEW(john); NEW(mike); NEW(lisa); NEW(bob); NEW(iren);
+  NEW(@john); NEW(@mike); NEW(@lisa); NEW(@bob); NEW(@iren);
   john.name := "John Smith"   ; john.sex := "M"; john.age := 32;
   john.next := bob;
   mike.name := "Michael Bison"; mike.sex := "M"; mike.age := 12;
@@ -36,7 +36,7 @@ BEGIN
     person := person.next;
   END; IO.WriteLn;
 
-  NEW(list);
+  NEW(@list);
   list[0] := john; list[1] := mike; list[2] := lisa;
   list[3] := bob;  list[4] := iren;
 

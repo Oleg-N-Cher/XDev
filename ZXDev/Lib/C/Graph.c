@@ -3,8 +3,8 @@
 // void Graph_PutPixel (int x, int y);
 void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;
 void Graph_Line (int x1, int y1, int x2, int y2);
-void Graph_SetBkColor (signed char color);
-void Graph_SetColor (signed char color);
+void Graph_SetBkColor (signed char color) __z88dk_fastcall;
+void Graph_SetColor (signed char color) __z88dk_fastcall;
 void Graph__init (void);
 
 void BORDER (signed char color) __z88dk_fastcall;
@@ -143,7 +143,7 @@ void Graph_Line (int x1, int y1, int x2, int y2)
 } //Graph_Line
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Graph_CloseGraph (void)
+void Graph_CloseGraph (void) __naked
 {
 __asm
   LD   IY,#0x5C3A
@@ -218,22 +218,42 @@ __endasm;
 } //BRIGHT
 
 /*--------------------------------- Cut here ---------------------------------*/
-void Graph_SetBkColor (signed char c)
+void Graph_SetBkColor (signed char c) __naked __z88dk_fastcall
 {
-  if(c == color)
-    INVERSE(1);
-  else
-    {INVERSE(0); PAPER(c); BORDER(c);}
-  bkcolor = c;
+__asm
+  LD   A,L        ; bkcolor := c
+  LD   (_bkcolor),A
+  LD   A,(_color)
+  CP   L          ; IF c = color THEN
+  JR   NZ, INV0BK$
+  LD   L,#1       ;   INVERSE(1)
+  JP   _INVERSE
+INV0BK$:          ; ELSE
+  PUSH HL
+  CALL _PAPER     ;   PAPER(c)
+  POP  HL
+  CALL _BORDER    ;   BORDER(c)
+  LD   L,#0
+  JP   _INVERSE   ;   INVERSE(0)
+__endasm;
 } //Graph_SetBkColor
+
 /*--------------------------------- Cut here ---------------------------------*/
-void Graph_SetColor (signed char c)
+void Graph_SetColor (signed char c) __naked __z88dk_fastcall
 {
-  if(c == bkcolor)
-    INVERSE(1);
-  else
-    {INVERSE(0); INK(c);}
-  color = c;
+__asm
+  LD   A,L        ; color := c
+  LD   (_color),A
+  LD   A,(_bkcolor)
+  CP   L          ; IF c = bkcolor THEN
+  JR   NZ, INV0COL$
+  LD   L,#1       ;   INVERSE(1)
+  JP   _INVERSE
+INV0COL$:         ; ELSE
+  CALL _INK       ;   INK(c)
+  LD   L,#0
+  JP   _INVERSE   ;   INVERSE(0);
+__endasm;
 } //Graph_SetColor
 
 /*--------------------------------- Cut here ---------------------------------*/
@@ -258,4 +278,3 @@ __endasm;
   color = -1; bkcolor = -1;
   Graph_SetBkColor(0); Graph_SetColor(7); Graph_ClearDevice();
 } //Graph__init
-

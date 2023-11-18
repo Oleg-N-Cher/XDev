@@ -1,6 +1,6 @@
 MODULE BigCircles; IMPORT B := Basic, SYSTEM;
 
-VAR r: INT16;
+VAR r: SYSTEM.BYTE;
 
 BEGIN (*$MAIN*)
   B.Init;

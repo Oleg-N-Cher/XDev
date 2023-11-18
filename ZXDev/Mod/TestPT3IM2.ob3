@@ -1,7 +1,12 @@
 MODULE TestPT3IM2;
 IMPORT Asm, B := Basic, Pt3Player, B40 := Best40;
 
-TYPE Module = ARRAY 2137 OF CHAR;
+TYPE
+  Module = ARRAY 2137 OF CHAR;
+  TextDesc = ARRAY 32 OF CHAR;
+
+CONST
+  Text = TextDesc("Hello World of the Spectrum !!!");
 
 CONST Ace = Module ( (* http://zxpress.ru/article.php?id=9508 *)
   050X,072X,06FX,054X,072X,061X,063X,06BX,065X,072X,020X,033X,
@@ -185,7 +190,7 @@ CONST Ace = Module ( (* http://zxpress.ru/article.php?id=9508 *)
   000X);
 
 VAR
-  udg: ADRINT;
+  udg: ADRINT; text2ch: ARRAY 2 OF CHAR;
 
   PROCEDURE ProcIM2;
   BEGIN
@@ -210,7 +215,13 @@ VAR
 PROCEDURE Best40Test;
 VAR
 	i: INT8;
+
 BEGIN
+	B.CLS;
+
+	text2ch[1] := 0X;
+	FOR i := 0 TO 31 DO text2ch[0] := Text[i]; B40.PRSTR_AT(i, i, text2ch) END;
+
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_LF(20H); B.PAUSE(5) END;
 	FOR i := 16 TO 1 BY -1 DO B40.ASRL_UP(31H); B.PAUSE(5) END;
 	FOR i := 6 TO 1 BY -1 DO B40.ASRL_RG(29H); B.PAUSE(5) END;
@@ -272,18 +283,15 @@ BEGIN
 
 	B40.PSCALER(0, 0, 63, 47, 3, 3, 32, 48);
 
-	B.BORDER(B.Olive); B.PAUSE(B.WaitAKey); B.Quit;
+	B.BORDER(B.Olive); B.PAUSE(B.WaitAKey);
+	B40.SCREEN_APART(16);
+
 END Best40Test;
 
 BEGIN (*$MAIN*)
   B.Init;
   Pt3Player.Init(Ace);
-
   B.IM2PROC(ProcIM2);
-
-  (*B.OVER(B.On); LOOP B.PLOT(B.RND(0, 255), B.RND(0, 175)) END;*)
-
   Best40Test;
-
-  Pt3Player.Mute; B.Quit;
+  Pt3Player.Mute; B.Quit
 END TestPT3IM2.

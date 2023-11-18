@@ -18,7 +18,7 @@ BEGIN
     B.PAUSE(1);
     keys := KMouse.Read(); B.AT(0,0); B.PRINT(ORD(keys)); B.PRSTR("   ");
     IF (keys # {}) & (keys*{2} = {}) THEN RETURN {KMouse.Fire} END;
-  DEC(n) UNTIL n = 0;
+  DEC(@n) UNTIL n = 0;
   IF KMouse.Y = 191 THEN RETURN {KMouse.Down} END;
   IF KMouse.Y = 0 THEN RETURN {KMouse.Up} END;
   IF KMouse.X < 96 THEN RETURN {KMouse.Left} END;
@@ -33,10 +33,10 @@ BEGIN
   LOOP
     B.PAUSE(5); Cursor.Hide; Cursor.Draw(x, y);
     pressed := ReadMouse();
-    IF Cursor.Left IN pressed THEN DEC(x) END;
-    IF Cursor.Right IN pressed THEN INC(x) END;
-    IF Cursor.Up IN pressed THEN DEC(y) END;
-    IF Cursor.Down IN pressed THEN INC(y) END;
+    IF Cursor.Left IN pressed THEN DEC(@x) END;
+    IF Cursor.Right IN pressed THEN INC(@x) END;
+    IF Cursor.Up IN pressed THEN DEC(@y) END;
+    IF Cursor.Down IN pressed THEN INC(@y) END;
     IF Cursor.Fire IN pressed THEN EXIT END;
 (*
     pressed := KMouse.Mouse();

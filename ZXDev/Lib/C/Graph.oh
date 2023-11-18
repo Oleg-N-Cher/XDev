@@ -10,8 +10,9 @@ extern void Graph_CloseGraph (void);
 extern void Graph_PutPixel_ROM (int x, int y) __z88dk_callee;
 #define Graph_PutPixel Graph_PutPixel_ROM
 extern void Graph_Line (int x1, int y1, int x2, int y2);
-extern void Graph_SetBkColor (signed char color);
-extern void Graph_SetColor (signed char color);
+extern void Graph_SetBkColor (signed char color) __z88dk_fastcall;
+extern void Graph_SetColor (signed char color) __z88dk_fastcall;
+
 extern void Graph__init (void);
 
 

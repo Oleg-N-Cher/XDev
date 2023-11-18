@@ -59,7 +59,7 @@ BEGIN (*$MAIN*)
       cy + r1*Sina[i*10 MOD 360] DIV 256 * Sina[i*5 DIV V] DIV 256
          - r2*Cosa[i*5 DIV V] DIV 256
     );
-  DEC(i);
+  DEC(@i);
   UNTIL i < 0;
 
   G.CloseGraph

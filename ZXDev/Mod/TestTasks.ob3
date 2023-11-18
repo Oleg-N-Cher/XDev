@@ -18,7 +18,7 @@ BEGIN
     IF co.MyId() = co.Id(task2) THEN out.SetColors(out.YellowOnBlack) END;
     IF co.MyId() = co.Id(task3) THEN out.SetColors(out.GreenOnBlack)  END;
     out.WriteCh(str[i]);
-    INC(i);
+    INC(@i);
     co.Yield;
   END;
 END Proc;

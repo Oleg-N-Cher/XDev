@@ -657,7 +657,7 @@ BEGIN
     Spr.DrawSprite(coords[(i+1) MOD 4].x, coords[(i+1) MOD 4].y, spr1);
     Spr.DrawSprite(coords[(i+2) MOD 4].x, coords[(i+2) MOD 4].y, spr2);
     Spr.DrawSprite(coords[(i+3) MOD 4].x, coords[(i+3) MOD 4].y, spr3);
-    INC(i); B.PAUSE(50);
+    INC(@i); B.PAUSE(50);
   END;
 
 END DemoSpr.

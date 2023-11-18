@@ -7,6 +7,7 @@ VAR
 	(* Завести 6 переменных (по количеству граней кубика). *)
 	one, two, three, four, five, six, n, number: INTEGER;
 BEGIN
+	Basic.Init;
 	Basic.RANDOMIZE(0);
 	(* Обнулить наши счётчики граней кубика. *)
 	one := 0; two := 0; three := 0; four := 0; five := 0; six := 0;
@@ -14,12 +15,12 @@ BEGIN
 	FOR n := 1 TO HowManyTimes DO
 		(* и посчитать сколько раз выпала каждая грань. *)
 		CASE Basic.RND(1, 6) OF
-		| 1: INC(one)
-		| 2: INC(two)
-		| 3: INC(three)
-		| 4: INC(four)
-		| 5: INC(five)
-		| 6: INC(six)
+		| 1: INC(@one)
+		| 2: INC(@two)
+		| 3: INC(@three)
+		| 4: INC(@four)
+		| 5: INC(@five)
+		| 6: INC(@six)
 		END
 	END;
 
@@ -66,4 +67,5 @@ BEGIN
 	Basic.AT(7, 10); Basic.INK(Basic.Magenta); Basic.PRINT(four);
 	Basic.AT(9, 10); Basic.INK(Basic.Blue); Basic.PRINT(five);
 	Basic.AT(11, 10); Basic.INK(Basic.White); Basic.PRINT(six);
+	Basic.Quit
 END Kubik.

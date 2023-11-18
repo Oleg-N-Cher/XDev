@@ -1,6 +1,6 @@
-MODULE TestCircle; IMPORT B := Basic;
+MODULE TestCircle; IMPORT SYSTEM, B := Basic;
 VAR
-  r: INT8;
+  r: SYSTEM.BYTE;
 BEGIN (*$MAIN*)
   B.Init; B.CLS;
   FOR r := 1 TO 87 BY 3 DO

@@ -1,1 +1,1 @@
-@IF EXIST Ignore.Oh DEL Ignore.Oh
+@IF EXIST Ignore.oh DEL Ignore.oh

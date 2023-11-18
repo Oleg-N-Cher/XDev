@@ -61,20 +61,20 @@ BEGIN
   IF dx >= dy THEN
     WHILE x < dx DO
       PutPixel(px, py);
-      INC(y, dy);
+      INC(@y, dy);
       IF y >= dx THEN
-        DEC(y, dx); INC(py, sdy)
+        DEC(@y, dx); INC(@py, sdy)
       END;
-      INC(px, sdx); INC(x)
+      INC(@px, sdx); INC(@x)
     END
   ELSE
     WHILE y < dy DO
       PutPixel(px, py);
-      INC(x, dx);
+      INC(@x, dx);
       IF x >= dy THEN
-        DEC(x, dy); INC(px, sdx)
+        DEC(@x, dy); INC(@px, sdx)
       END;
-      INC(py, sdy); INC(y)
+      INC(@py, sdy); INC(@y)
     END
   END
 END Line;

@@ -179,10 +179,10 @@ BEGIN
     oldx := x; oldy := y;
     REPEAT
       pressed := Key.Get();
-      IF Key.Left  IN pressed THEN DEC(x) END;
-      IF Key.Right IN pressed THEN INC(x) END;
-      IF Key.Up    IN pressed THEN DEC(y) END;
-      IF Key.Down  IN pressed THEN INC(y) END;
+      IF Key.Left  IN pressed THEN DEC(@x) END;
+      IF Key.Right IN pressed THEN INC(@x) END;
+      IF Key.Up    IN pressed THEN DEC(@y) END;
+      IF Key.Down  IN pressed THEN INC(@y) END;
     UNTIL (x # oldx) OR (y # oldy);
   END;
 

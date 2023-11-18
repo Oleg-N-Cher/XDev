@@ -351,7 +351,7 @@ BEGIN (*$MAIN*)
   Wham.InitPlayNote(chan1, chan2);
   atr := 5800H;
   REPEAT
-    B.POKE(atr, B.RND(0, 127)); INC(atr);
+    B.POKE(atr, B.RND(0, 127)); INC(@atr);
     IF atr >= 5B00H THEN atr := 5800H END;
     Wham.PlayNote;
   UNTIL Input.Available() # 0;

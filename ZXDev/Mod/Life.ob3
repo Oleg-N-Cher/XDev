@@ -16,16 +16,16 @@ BEGIN
 				B.PAUSE(10);
 				IF ((B.PEEK(23560) = 80) OR (B.PEEK(23560) = 112)) & (x < 32) THEN
 					B.AT(y - 1, x); B.FLASH(1); B.PRCHAR(" ");
-					B.AT(y - 1, x - 1); B.FLASH(0); B.PRCHAR(" "); INC(x);
+					B.AT(y - 1, x - 1); B.FLASH(0); B.PRCHAR(" "); INC(@x);
 				ELSIF ((B.PEEK(23560) = 79) OR (B.PEEK(23560) = 111)) & (x > 1) THEN
-					DEC(x); B.AT(y - 1, x - 1); B.FLASH(1); B.PRCHAR(" ");
+					DEC(@x); B.AT(y - 1, x - 1); B.FLASH(1); B.PRCHAR(" ");
 					B.AT(y - 1, x); B.FLASH(0); B.PRCHAR(" ");
 				ELSIF ((B.PEEK(23560) = 81) OR (B.PEEK(23560) = 113)) & (y > 1) THEN
-					DEC(y); B.AT(y - 1, x - 1); B.FLASH(1); B.PRCHAR(" ");
+					DEC(@y); B.AT(y - 1, x - 1); B.FLASH(1); B.PRCHAR(" ");
 					B.AT(y, x - 1); B.FLASH(0); B.PRCHAR(" ");
 				ELSIF ((B.PEEK(23560) = 65) OR (B.PEEK(23560) = 97)) & (y < 21) THEN
 					B.AT(y, x - 1); B.FLASH(1); B.PRCHAR(" ");
-					B.AT(y - 1, x - 1); B.FLASH(0); B.PRCHAR(" "); INC(y);
+					B.AT(y - 1, x - 1); B.FLASH(0); B.PRCHAR(" "); INC(@y);
 				ELSIF (B.PEEK(23560) = 77) OR (B.PEEK(23560) = 109) THEN
 					T[x, y] := 1 - T[x, y]; B.AT(y - 1, x - 1); B.PRCHAR("X");
 				ELSIF (B.PEEK(23560)=82) OR (B.PEEK(23560)=114) THEN (*рандомайзер*)
@@ -62,7 +62,7 @@ BEGIN
 			END;
 		END;
 
-		INC(S); B.AT(21, 4); B.PRINT(S);
+		INC(@S); B.AT(21, 4); B.PRINT(S);
 
 	UNTIL B.INKEY() = " ";
 	B.Quit

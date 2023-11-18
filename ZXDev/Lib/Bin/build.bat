@@ -1,4 +1,4 @@
-@SET sdcc=..\..\Bin\sdcc -mz80 --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I ".." -I ..\C
+@SET sdcc=..\..\Bin\sdcc -mz80 --reserve-regs-iy --opt-code-size --disable-warning 59 --disable-warning 85 -I "." -I ".." -I ..\C
 @SET smartlib=..\..\..\Bin\smartlib
 
 @IF EXIST ..\%1.lib DEL ..\%1.lib

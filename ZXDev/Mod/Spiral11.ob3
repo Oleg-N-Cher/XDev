@@ -3,7 +3,7 @@
 (* http://azatom.narod.ru, http://zx-pk.ru/forum.php *)
  
 MODULE Spiral11;
-IMPORT Basic, G := GrPixel, Math;
+IMPORT SYSTEM, Basic, G := GrPixel, Math;
  
 CONST
   cx = 128; cy = 88; (* Coords of screen center *)
@@ -17,7 +17,7 @@ VAR
 
 PROCEDURE PrepareTables;
 VAR
-  i, q: INT8;
+  i, q: SYSTEM.BYTE;
 BEGIN
   (* Подготовка массива синусов и косинусов *)
   Sina[0] := Math.Sin(0); Cosa[0] := Math.Cos(0);
@@ -54,7 +54,7 @@ BEGIN (*$MAIN*)
       cy + SHORT(ENTIER(yr1*Sina[i*10 MOD 360] * Sina[i*5 DIV V]
          - yr2*Cosa[i*5 DIV V]))
     );
-  DEC(i);
+  DEC(@i);
   UNTIL i < 0;
 
   Basic.PAUSE(0);
