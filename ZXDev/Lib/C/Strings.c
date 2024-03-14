@@ -144,6 +144,7 @@ S2I_LOOP:
         LD   A, B
         OR   C
         JR   NZ, LenEnough
+        CALL S2I_DONE       ; get a partial result
         LD   L, #2          ; RETURN err 2 (out of length)
         RET
 LenEnough:
@@ -169,6 +170,7 @@ LenEnough:
         DEC  BC
         JR   S2I_LOOP
 NOT_0_9:
+        CALL S2I_DONE       ; get a partial result
         LD   L, #1          ; RETURN err 1 (not a number)
         RET
 S2I_DONE:

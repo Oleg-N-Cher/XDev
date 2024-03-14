@@ -1,16 +1,16 @@
 MODULE TestStrToInt; (*$MAIN*)
 IMPORT b := Basic, io := Console, Strings;
 
-VAR i: INT16;
+VAR i: INT16; s: ARRAY 1 OF CHAR;
 
 BEGIN
   b.Init; b.CLS;
-  CASE Strings.StrToInt("123g", @i) OF
+  CASE Strings.StrToInt("1g", @i) OF
   | 0: io.WriteStr("o.k");
   | 1: io.WriteStr("err 1 (not a number)");
   | 2: io.WriteStr("err 2 (out of length)");
   END;
-  io.WriteStr(' "123g" = '); io.WriteInt(i);
+  io.WriteStr(' "1g" = '); io.WriteInt(i);
   io.WriteLn;
 
   CASE Strings.StrToInt("-12345", @i) OF
@@ -29,12 +29,12 @@ BEGIN
   io.WriteStr(' "54321" = '); io.WriteUInt(i);
   io.WriteLn;
 
-  CASE Strings.StrToInt("65535", @i) OF
+  CASE Strings.StrToInt("+65535", @i) OF
   | 0: io.WriteStr("o.k");
   | 1: io.WriteStr("err 1 (not a number)");
   | 2: io.WriteStr("err 2 (out of length)");
   END;
-  io.WriteStr(' "65535" = '); io.WriteUInt(i);
+  io.WriteStr(' "+65535" = '); io.WriteUInt(i);
   io.WriteLn;
 
   CASE Strings.StrToInt("65536", @i) OF
@@ -59,6 +59,16 @@ BEGIN
   | 2: io.WriteStr("err 2 (out of length)");
   END;
   io.WriteStr(' "" = '); io.WriteInt(i);
+  io.WriteLn;
+
+  s[0] := "1";
+  CASE Strings.StrToInt(s, @i) OF
+  | 0: io.WriteStr("o.k");
+  | 1: io.WriteStr("err 1 (not a number)");
+  | 2: io.WriteStr("err 2 (out of length)");
+  END;
+  io.WriteStr(' "'); io.WriteStr(s);
+  io.WriteStr('" = '); io.WriteInt(i);
   io.WriteLn;
 
   b.Quit
