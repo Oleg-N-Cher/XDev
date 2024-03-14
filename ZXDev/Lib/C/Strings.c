@@ -1,7 +1,7 @@
 unsigned int Strings_LengthEx (unsigned int len, unsigned char *str) __z88dk_callee;
 unsigned char Strings_IntToStr (int n, unsigned char *str, unsigned int len) __z88dk_callee;
 unsigned char Strings_UIntToStr (unsigned int n, unsigned char *str, unsigned int len) __z88dk_callee;
-unsigned char Strings_StrToInt (unsigned char *str, unsigned int len, unsigned int *result);
+unsigned char Strings_StrToInt (unsigned char *str, unsigned int len, int *result) __z88dk_callee;
 /*============================================================================*/
 
 unsigned int Strings_LengthEx (unsigned int len, unsigned char *str) __naked __z88dk_callee {
@@ -116,42 +116,71 @@ RETRN$:
 } //Strings_UIntToStr
 
 /*----------------------------------------------------------------------------*/
-unsigned char Strings_StrToInt (unsigned char *str, unsigned int len, unsigned int *result)
+unsigned char Strings_StrToInt (unsigned char *str, unsigned int len, int *result) __naked __z88dk_callee
 {
-	unsigned char pos, ch;
-	signed char sign;
-	unsigned int prev;
-	*result = 0;
-	pos = 0;
-	sign = 1;
-	while (pos < len) {
-		ch = str[pos];
-		switch (ch) {
-			case '-': 
-				if (pos == 0) {
-					sign = -1;
-				} else {
-					return 0;
-				}
-				break;
-			case '0': case '1': case '2': case '3': case '4': 
-			case '5': case '6': case '7': case '8': case '9': 
-				prev = *result;
-				*result = (*result * 10 + ch) - 48;
-				if (*result < prev) {
-					return 0;
-				}
-				break;
-			case 0x00: 
-				*result = *result * sign;
-				return pos > 0;
-				break;
-			default: 
-				return 0;
-				break;
-		}
-		pos += 1;
-	}
-	*result = *result * sign;
-	return pos > 0;
+    __asm
+        POP  HL
+        POP  DE             ; *str
+        POP  BC             ; len
+        EX   (SP), HL       ; *result
+        LD   (SaveRes$+1), HL
+
+        LD   A, (DE)
+        OR   A
+        JR   Z, NOT_0_9
+        CP   #'-'
+        SCF                 ; set flag C = negative
+        JR   Z, SetSign$
+        CP   #'+'
+        JR   Z, SetSign$    ; flag C is reset now
+        DEC  BC
+        DEC  DE
+        SUB  A              ; reset flag C = positive
+SetSign$:
+        EX   AF, AF
+        INC  BC
+        LD   HL, #0
+S2I_LOOP:
+        LD   A, B
+        OR   C
+        JR   NZ, LenEnough
+        LD   L, #2          ; RETURN err 2 (out of length)
+        RET
+LenEnough:
+        INC  DE             ; next digit
+        LD   A, (DE)
+        OR   A
+        JR   Z, S2I_DONE
+        SUB  #'0'
+        JR   C, NOT_0_9
+        CP   #10
+        JR   NC, NOT_0_9
+        PUSH BC
+        LD   C, L
+        LD   B, H
+        ADD  HL, HL         ; * 2
+        ADD  HL, HL         ; * 4
+        ADD  HL, BC         ; * 5
+        ADD  HL, HL         ; *10
+        LD   B, #0
+        LD   C, A
+        ADD  HL, BC         ; + digit
+        POP  BC
+        DEC  BC
+        JR   S2I_LOOP
+NOT_0_9:
+        LD   L, #1          ; RETURN err 1 (not a number)
+        RET
+S2I_DONE:
+        EX   AF, AF
+        JR   NC,  SaveRes$  ; NZ = positive
+        EX   DE, HL
+        LD   HL, #0
+        AND  A
+        SBC  HL, DE         ; HL := -HL
+SaveRes$:
+        LD   (SaveRes$+1), HL
+        LD   L, #0          ; RETURN ok
+        RET 
+    __endasm;
 } //Strings_StrToInt

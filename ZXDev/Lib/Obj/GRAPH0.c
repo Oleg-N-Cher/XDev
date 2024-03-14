@@ -144,17 +144,3 @@ void GRAPH0_SCRNAD (void)
   Asm_Code((CHAR*)"LD   H, A                   ", 29);
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *GRAPH0__init (void)
-{
-  __DEFMOD;
-  __IMPORT(Asm__init);
-  __REGMOD("GRAPH0", 0);
-  __REGCMD("CLS2", GRAPH0_CLS2);
-  __REGCMD("GCLS", GRAPH0_GCLS);
-  __REGCMD("SCRDOT", GRAPH0_SCRDOT);
-  __REGCMD("SCRNAD", GRAPH0_SCRNAD);
-/* BEGIN */
-  __ENDMOD;
-}

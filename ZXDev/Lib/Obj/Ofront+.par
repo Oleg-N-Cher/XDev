@@ -1,1 +1,1 @@
--3sx -21 Asm.def -C Basic.def -C Laser.def -C Laser2.def -C
+-3sx -21 Basic.def -C Laser.def -C Laser2.def -C

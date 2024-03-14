@@ -78,13 +78,3 @@ SHORTINT CalcZX_PopWordAsInt (void)
   __RETCHK((CHAR*)"CalcZX", -4058);
 }
 
-/*----------------------------------------------------------------------------*/
-
-export void *CalcZX__init (void)
-{
-  __DEFMOD;
-  __IMPORT(Asm__init);
-  __REGMOD("CalcZX", 0);
-/* BEGIN */
-  __ENDMOD;
-}

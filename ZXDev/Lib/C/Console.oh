@@ -186,6 +186,7 @@ extern void Console_WriteUShort_ROM (unsigned int n) __z88dk_fastcall;
 #  ifdef Console_OUTPUT_ROM
 #    define Console_WriteUShort Console_WriteUShort_ROM
 #  endif
+#define Console_WriteUInt Console_WriteUShort
 
 extern BYTE Console_attrib;
 #define Console_SetColors(attr) Console_attrib = attr
