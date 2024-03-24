@@ -34,9 +34,9 @@ void Best40_PFIGURE (unsigned char x, unsigned char y, unsigned char *pattern);
 void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
   unsigned char x2_old, unsigned char y2_old, unsigned char xscale,
   unsigned char yscale, unsigned char x_new, unsigned char y_new);
-void Best40_PUTSPR (
-  unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode) __z88dk_callee;
+void Best40_PUTSPR_E (
+  unsigned char mode, unsigned char x, unsigned char y,
+  unsigned char hgt, unsigned char len, unsigned int adr) __z88dk_callee;
 void Best40_SCREEN_APART (unsigned char steps) __z88dk_fastcall;
 void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee;
 void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee;
@@ -845,23 +845,17 @@ Listing 2. Быстрый вывод спрайта
 
 */
 
-void Best40_PUTSPR (
-  unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode) __naked __z88dk_callee {
+void Best40_PUTSPR_E (
+  unsigned char mode, unsigned char x, unsigned char y,
+  unsigned char hgt, unsigned char len, unsigned int adr) __naked __z88dk_callee {
 __asm
-         POP     HL
-         EXX
+         POP     HL       ;адрес возврата
+         DEC     SP
+         POP     BC
+         LD      A, B     ;режим вывода на экран
          POP     DE       ;XY-координаты спрайта
          POP     BC       ;ширина спрайта в байтах и высота в пикселях
-         LD      A, C
-         LD      C, B     ;меняем местами, чтобы внутр. цикл был DJNZ
-         LD      B, A
-         POP     HL       ;адрес спрайта
-         DEC     SP
-         EXX
-         EX      (SP),HL  ;режим вывода на экран
-         LD      A, H
-         EXX
+         EX      (SP),HL  ;адрес спрайта
          PUSH    IX
 PUTSPR$: ;точка входа из маш. кодов
          ;E: X-координата, D: Y-координата
