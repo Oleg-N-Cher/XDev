@@ -29,7 +29,7 @@ extern void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
   unsigned char yscale, unsigned char x_new, unsigned char y_new) __preserves_regs(iyl,iyh);
 extern void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode) __preserves_regs(iyl,iyh);
+  unsigned int adr, unsigned char mode) __preserves_regs(iyl,iyh) __z88dk_callee;
 extern void Best40_SCREEN_APART (unsigned char steps) __z88dk_fastcall __preserves_regs(iyl,iyh);
 extern void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee __preserves_regs(c,iyl,iyh);
 #define Best40_PRSTR_AT(x,y,str,len) Best40_PRSTR_AT_E(x,y,str)

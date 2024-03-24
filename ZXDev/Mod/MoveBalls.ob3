@@ -2,7 +2,7 @@ MODULE MoveBalls; (*$MAIN*)
 IMPORT b := Basic, g := Best40, t := Tasks, SYSTEM;
 
 TYPE
-  SprBall  = ARRAY 8 OF CHAR;
+  SprBall = ARRAY 8 OF CHAR;
 
 CONST
   Ball = SprBall(3CX, 7EX, 0FFX, 0FFX, 0FFX, 0FFX, 7EX, 3CX);

@@ -36,7 +36,7 @@ void Best40_PSCALER (unsigned char x1_old, unsigned char y1_old,
   unsigned char yscale, unsigned char x_new, unsigned char y_new);
 void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode);
+  unsigned int adr, unsigned char mode) __z88dk_callee;
 void Best40_SCREEN_APART (unsigned char steps) __z88dk_fastcall;
 void Best40_PRSTR_AT_E (unsigned char x, unsigned char y, unsigned char *str) __z88dk_callee;
 void Best40_FILLED_CIRCLE (unsigned char x, unsigned char y, unsigned char radius) __z88dk_callee;
@@ -847,20 +847,24 @@ Listing 2. Быстрый вывод спрайта
 
 void Best40_PUTSPR (
   unsigned char x, unsigned char y, unsigned char len, unsigned char hgt,
-  unsigned int adr, unsigned char mode) __naked {
+  unsigned int adr, unsigned char mode) __naked __z88dk_callee {
 __asm
+         POP     HL
+         EXX
+         POP     DE       ;XY-координаты спрайта
+         POP     BC       ;ширина спрайта в байтах и высота в пикселях
+         LD      A, C
+         LD      C, B     ;меняем местами, чтобы внутр. цикл был DJNZ
+         LD      B, A
+         POP     HL       ;адрес спрайта
+         DEC     SP
+         EXX
+         EX      (SP),HL  ;режим вывода на экран
+         LD      A, H
+         EXX
          PUSH    IX
-         LD      IX,#4
-         ADD     IX,SP
-         LD      D,0(IX)  ;X-координата спрайта
-         LD      E,1(IX)  ;Y-координата спрайта
-         LD      B,2(IX)  ;ширина спрайта в байтах
-         LD      C,3(IX)  ;высота спрайта в пикселях
-         LD      L,4(IX)  ;адрес спрайта
-         LD      H,5(IX)  ; в памяти
-         LD      A,6(IX)  ;режим вывода на экран
 PUTSPR$: ;точка входа из маш. кодов
-         ;D: X-координата, E: Y-координата
+         ;E: X-координата, D: Y-координата
          ;B: ширина, C: высота
          ;HL: адрес спрайта
          ;A: режим вывода (0=OR, 1=XOR, 2=AND)
@@ -883,31 +887,30 @@ GOPS1$:  LD      (#MODE_1$),A    ;исправляем
          LD      (#MODE_5$),A    ; от режима (OR, XOR, AND)
          EX      AF,AF           ;A=маска сдвига
          LD      (#MODE_0$+1),A  ;поместили "куда надо"
-         AND     D               ;операция "и" с X-коорд.
+         AND     E               ;операция "и" с X-коорд.
          AND     #0x7            ;теперь A=0..7: смещение
          LD      (#MODE_4$+2),A  ; в таблице TBL_OR
-         LD      A,D      ;координата X
+         LD      A,E      ;координата X
          AND     #0x7     ;позиция первого бита в байте экрана
          EX      AF,AF    ;запомнили в AF''
          PUSH    HL       ;пихнули адрес спрайта на стек
          LD      A,#0xBF  ;максимальная Y-координата
-         SUB     E        ;отсчет координат
-         LD      E,A      ; снизу-вверх
-         LD      A,E      ;------------------------
+         SUB     D        ;отсчет координат снизу-вверх
+         LD      D,A      ;------------------------
          RRA              ; расчет адреса в экране
          SCF              ;    по координатам:
          RRA              ;
          RRA              ;на входе:
-         AND     #0x5F    ; D=X-координата
-         LD      H,A      ; E=Y-координата
-         XOR     D        ;
+         AND     #0x5F    ; E=X-координата
+         LD      H,A      ; D=Y-координата
+         XOR     E        ;
          AND     #0x7     ;на выходе:
-         XOR     D        ; HL=адрес в экране
+         XOR     E        ; HL=адрес в экране
          RRCA             ;
          RRCA             ;D,E  не меняются
          RRCA             ;
          LD      L,A      ;используется
-         LD      A,E      ; аккумулятор
+         LD      A,D      ; аккумулятор
          XOR     H        ;
          AND     #0x7     ;
          XOR     H        ;
